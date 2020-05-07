@@ -10,14 +10,14 @@ import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 @Data
 public class Meta4ClientFactory implements Serializable {
 
-	private static final long serialVersionUID = 2155509396792510696L;
+    private static final long serialVersionUID = 2155509396792510696L;
 
-	private Meta4ClientCredentials meta4ClientCredentials;
-	
-	private Meta4ClientProperties meta4ClientProperties;
+    private Meta4ClientCredentials meta4ClientCredentials;
 
-	private Meta4ClientAbstract<LoginService> loginServiceFactory;
+    private Meta4ClientProperties meta4ClientProperties;
 
-	private Meta4ClientAbstract<IcmWsCalcIncomeService> icmWsCalcIncomeServiceFactory;
+    private Meta4ClientAbstract<LoginService> loginServiceFactory;
+
+    private Meta4ClientAbstract<IcmWsCalcIncomeService> icmWsCalcIncomeServiceFactory;
 
 }

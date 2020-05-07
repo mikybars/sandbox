@@ -47,11 +47,11 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> totalizarVentaPersonasPorVentaSimplificada(RunTareaDto tarea);
 
-    CompletableFuture<Void> totalizarVentaPersonaSeccion (RunTareaDto tarea);
+    CompletableFuture<Void> totalizarVentaPersonaSeccion(RunTareaDto tarea);
 
     CompletableFuture<Void> totalizarVentaSinDevolucionPersonaSeccion(RunTareaDto tarea);
 
-    CompletableFuture<Void> totalizarDevolucionPersonaSeccion (RunTareaDto tarea);
+    CompletableFuture<Void> totalizarDevolucionPersonaSeccion(RunTareaDto tarea);
 
     CompletableFuture<Void> totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
 

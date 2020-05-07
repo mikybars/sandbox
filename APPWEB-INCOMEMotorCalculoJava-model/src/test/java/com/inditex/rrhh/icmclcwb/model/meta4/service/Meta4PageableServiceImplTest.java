@@ -37,32 +37,36 @@ import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
 @RunWith(MockitoJUnitRunner.class)
 public class Meta4PageableServiceImplTest {
-    
+
     @InjectMocks
     private Meta4IcmWsCalcIncomeServiceImpl meta4IcmWsCalcIncomeService;
 
     @InjectMocks
     private Meta4PageableServiceImpl<?> meta4PageableServiceImpl;
-    
+
     @Mock
     private IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
-    
+
     @Mock
     private Meta4ClientPool meta4ClientPool;
-    
+
     @Test(expected = Meta4IcmclcwbException.class)
-    public void getResultItemException() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public void getResultItemException() throws NoSuchMethodException, SecurityException, IllegalAccessException,
+            IllegalArgumentException, InvocationTargetException {
         PageableDto<Serializable> request = new PageableDto<>();
         Integer maxPageSize = 10;
-        
-        meta4PageableServiceImpl.getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.FLAG_CALCULA, maxPageSize);
-        
-        verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1)).getFlagCalcula(ArgumentMatchers.any(FlagCalculaRequestDto.class));
+
+        meta4PageableServiceImpl.getResultItem(request, meta4IcmWsCalcIncomeService,
+                Meta4PropertiesConstants.FLAG_CALCULA, maxPageSize);
+
+        verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1))
+            .getFlagCalcula(ArgumentMatchers.any(FlagCalculaRequestDto.class));
 
     }
-    
+
     @Test
-    public void getResultItem() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public void getResultItem() throws NoSuchMethodException, SecurityException, IllegalAccessException,
+            IllegalArgumentException, InvocationTargetException {
         FlagCalculaRequestDto request = new FlagCalculaRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
@@ -80,16 +84,22 @@ public class Meta4PageableServiceImplTest {
         output.setIcmParametrospaginacion(block);
         List<GenericTiendaResultItemDto> tienda = new ArrayList<GenericTiendaResultItemDto>();
         tienda.add(new GenericTiendaResultItemDto());
-        when(icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(new IcmParametrosentradaBlock());
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(new IcmParametrospaginacionBlock());
-        when(meta4ClientPool.getflagcalcula(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class))).thenReturn(output);
-        when(icmWsCalcIncomeMapper.asPageDto(any(IcmParametrospaginacionBlock.class))).thenReturn(PageDto.builder().numeroPagina(1).numeroRegistrosPagina(100).numeroTotalPaginas(2).build());
+        when(icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class)))
+            .thenReturn(new IcmParametrosentradaBlock());
+        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class)))
+            .thenReturn(new IcmParametrospaginacionBlock());
+        when(meta4ClientPool.getflagcalcula(any(IcmParametrosentradaBlock.class),
+                any(IcmParametrospaginacionBlock.class))).thenReturn(output);
+        when(icmWsCalcIncomeMapper.asPageDto(any(IcmParametrospaginacionBlock.class)))
+            .thenReturn(PageDto.builder().numeroPagina(1).numeroRegistrosPagina(100).numeroTotalPaginas(2).build());
         when(icmWsCalcIncomeMapper.asGenericTiendaResultItemDtos(any(List.class))).thenReturn(tienda);
 
-        meta4PageableServiceImpl.getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.FLAG_CALCULA, maxPageSize);
+        meta4PageableServiceImpl.getResultItem(request, meta4IcmWsCalcIncomeService,
+                Meta4PropertiesConstants.FLAG_CALCULA, maxPageSize);
 
-        verify(meta4ClientPool, timeout(1000).times(2)).getflagcalcula(any(IcmParametrosentradaBlock.class), any(IcmParametrospaginacionBlock.class));
+        verify(meta4ClientPool, timeout(1000).times(2)).getflagcalcula(any(IcmParametrosentradaBlock.class),
+                any(IcmParametrospaginacionBlock.class));
 
     }
-    
+
 }

@@ -19,8 +19,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPresupuesto>
-    implements TareaLocalizacionPresupuestoRepositoryCustom {
+public class TareaLocalizacionPresupuestoRepositoryCustomImpl
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPresupuesto>
+        implements TareaLocalizacionPresupuestoRepositoryCustom {
 
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.save']}")
     private String sqlSave;
@@ -72,17 +73,16 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
 
         MapSqlParameterSource maps = new MapSqlParameterSource();
         maps.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        return namedParameterJdbcTemplate.query(sqlFindPresupuestos, maps, (rs, rowNum) ->
-            TareaLocalizacionPresupuestoDto
-                .builder()
-                .cclIdOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORIGEN))
-                .cclIdCodOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
-                .fechaFin(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
-                .fechaInicio(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
-                .stdIdLegEnt(rs.getString(SqlPrimaryConstants.SQL_RESULT_EMPRESA).toLowerCase())
-                .cclIdSeccion(rs.getString(SqlPrimaryConstants.SQL_RESULT_SECCION).toLowerCase())
-                .build()
-        );
+        return namedParameterJdbcTemplate.query(sqlFindPresupuestos, maps,
+                (rs, rowNum) -> TareaLocalizacionPresupuestoDto
+                    .builder()
+                    .cclIdOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORIGEN))
+                    .cclIdCodOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
+                    .fechaFin(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
+                    .fechaInicio(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
+                    .stdIdLegEnt(rs.getString(SqlPrimaryConstants.SQL_RESULT_EMPRESA).toLowerCase())
+                    .cclIdSeccion(rs.getString(SqlPrimaryConstants.SQL_RESULT_SECCION).toLowerCase())
+                    .build());
     }
 
     @Override
@@ -91,13 +91,12 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
 
         MapSqlParameterSource maps = new MapSqlParameterSource();
         maps.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        return namedParameterJdbcTemplate.queryForObject(sqlFindPeriodoPresupuestoYTrabajo, maps, (rs, rowNum) ->
-            PeriodoDto
-                .builder()
-                .fechaFinPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
-                .fechaInicioPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
-                .build()
-            );
+        return namedParameterJdbcTemplate.queryForObject(sqlFindPeriodoPresupuestoYTrabajo, maps,
+                (rs, rowNum) -> PeriodoDto
+                    .builder()
+                    .fechaFinPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
+                    .fechaInicioPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
+                    .build());
     }
 
     @Override
@@ -113,7 +112,8 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
     @Override
     public void updateActivoBandasSinExcepcion(TareaDto tarea) {
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_RANGO_REAL_Y_CONGELADA.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+                TipoGrupoDatoEnum.VENTA_RANGO_REAL_Y_CONGELADA.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -121,4 +121,5 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl extends JdbcBatchP
 
         namedParameterJdbcTemplate.update(sqlUpdateActivoBandasSinExcepcion, map);
     }
+
 }

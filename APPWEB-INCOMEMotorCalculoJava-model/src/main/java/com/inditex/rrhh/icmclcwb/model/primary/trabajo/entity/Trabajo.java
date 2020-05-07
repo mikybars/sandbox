@@ -50,10 +50,10 @@ public class Trabajo {
     @NotNull
     @Column(name = "FECHA_FIN_PERIODO", nullable = false)
     private LocalDate fechaFinPeriodo;
-    
+
     @Column(name = "FECHA_HORA_INICIO_TRABAJO", nullable = true)
     private LocalDate fechaHoraInicioTrabajo;
-    
+
     @Column(name = "FECHA_HORA_FIN_TRABAJO", nullable = true)
     private LocalDate fechaHoraFinTrabajo;
 
@@ -65,7 +65,7 @@ public class Trabajo {
     @OneToOne
     @JoinColumn(name = "ID_TIPO_AMBITO", nullable = false)
     private TipoAmbito tipoAmbito;
-    
+
     @ManyToOne
     @JoinColumn(name = "ID_PROGRAMACION")
     private Programacion programacion;

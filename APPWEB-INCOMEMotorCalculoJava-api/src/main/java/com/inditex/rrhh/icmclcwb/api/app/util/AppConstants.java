@@ -13,32 +13,31 @@ public class AppConstants {
     public static final String LOCAL_TIME_JSON = "HH:mm";
 
     public static final Integer SECCION_0 = 0;
-    
+
     public static final Integer SECCION_1 = 1;
-    
+
     public static final Integer SECCION_2 = 2;
-    
+
     public static final Integer SECCION_3 = 3;
-    
+
     public static final Integer SECCION_4 = 4;
-    
+
     public static final String VALOR_DEFAULT = "0";
-    
+
     public static final String ID_TIPO_VENTA_DEFAULT = "01";
-    
+
     public static final Integer TOPE_DEFAULT = 0;
 
     public static final Integer[] SECCIONES = { SECCION_1, SECCION_2, SECCION_3 };
-    
+
     public static final List<String> SECCIONES_STRING = Arrays.asList("1", "2", "3");
-    
+
     public static final List<Integer> PRODUCTOS_COMISIONABLES = Arrays.asList(1, 2, 3, 4, 5);
 
     public static final Float PORCENTAJE_COMISION = 0.01F;
-    
+
     public static final String OPERACION_DEVOLUCION = "D";
 
     public static final String OPERACION_VENTA = "V";
-
 
 }

@@ -26,19 +26,19 @@ public class TareaLocalizacionCalcularServiceImplTest {
 
     @Mock
     private TareaLocalizacionCalcularRepositoryCustom tareaLocalizacionCalcularRepositoryCustom;
-    
+
     @InjectMocks
     private TareaLocalizacionCalcularServiceImpl tareaLocalizacionCalcularServiceImpl;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Mock
     private TipoDatoServiceImpl tipoDatoService;
-    
+
     @Mock
     private TareaLocalizacionCalcularMapper tareaLocalizacionCalcularMapper;
-    
+
     @Test
     public void saveCerradoTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -48,4 +48,5 @@ public class TareaLocalizacionCalcularServiceImplTest {
         tareaLocalizacionCalcularServiceImpl.save(genericTiendaResultItemDto, tarea);
         verify(tareaLocalizacionCalcularRepositoryCustom, times(1)).save(any(List.class));
     }
+
 }

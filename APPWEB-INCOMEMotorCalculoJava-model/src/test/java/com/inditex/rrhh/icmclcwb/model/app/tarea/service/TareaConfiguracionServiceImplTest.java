@@ -25,13 +25,13 @@ public class TareaConfiguracionServiceImplTest {
 
     @Mock
     private TareaConfiguracionRepositoryCustom tareaConfiguracionRepositoryCustom;
-    
+
     @InjectMocks
     private TareaConfiguracionServiceImpl tareaConfiguracionServiceImpl;
-    
+
     @Mock
     private TareaConfiguracionMapper tareaConfiguracionMapper;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -44,4 +44,5 @@ public class TareaConfiguracionServiceImplTest {
 
         verify(tareaConfiguracionRepositoryCustom, times(1)).save(any(List.class));
     }
+
 }

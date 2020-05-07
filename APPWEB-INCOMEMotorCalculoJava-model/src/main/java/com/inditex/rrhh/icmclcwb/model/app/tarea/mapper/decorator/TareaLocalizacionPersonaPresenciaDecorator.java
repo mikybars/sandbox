@@ -28,40 +28,43 @@ public abstract class TareaLocalizacionPersonaPresenciaDecorator
         List<TareaLocalizacionPersonaPresencia> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(item -> {
-                if(AppConstants.SECCIONES_STRING.contains(item.getIdSeccion())) {
+                if (AppConstants.SECCIONES_STRING.contains(item.getIdSeccion())) {
                     result.add(
                             delegate.genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(item, tareaDto));
-                    }                
                 }
-            );
+            });
         }
         return result;
     }
-      
+
     @Override
     public List<TareaLocalizacionPersonaPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
             List<PtrPresenciaDetalleResultItemDto> src, TareaDto tareaDto) {
         List<TareaLocalizacionPersonaPresencia> result = new ArrayList<>();
-        src.forEach(x ->
-        result.addAll(presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(x.getListaSeccion(), x, tareaDto)));
+        src.forEach(x -> result
+            .addAll(presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(x.getListaSeccion(), x, tareaDto)));
         return result;
     }
-    
-    
+
+
     private List<TareaLocalizacionPersonaPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
-        List<PtrSeccionPresenciasGenericType> listaSeccion, PtrPresenciaDetalleResultItemDto presenciaTotalizado, TareaDto tareaDto) {
+            List<PtrSeccionPresenciasGenericType> listaSeccion, PtrPresenciaDetalleResultItemDto presenciaTotalizado,
+            TareaDto tareaDto) {
         List<TareaLocalizacionPersonaPresencia> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(listaSeccion)) {
             listaSeccion.forEach(x -> {
-                TareaLocalizacionPersonaPresencia presencia = delegate.presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(presenciaTotalizado, tareaDto);
+                TareaLocalizacionPersonaPresencia presencia = delegate
+                    .presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(presenciaTotalizado, tareaDto);
                 presencia.setCclIdSeccion(x.getSeccion().toString());
                 presencia.setMinutos(x.getMinutos());
                 presencia.setTipoDato(new TipoDato());
-                presencia.getTipoDato().setId(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+                presencia.getTipoDato()
+                    .setId(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
                 result.add(presencia);
             });
 
         }
         return result;
     }
+
 }

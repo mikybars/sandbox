@@ -31,19 +31,26 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
     private RunAjusteFactory runAjusteFactory;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaAjustarService.run.timer", metricGroupName = "RunTareaAjustarServiceGroup", metricDescription = "RunTareaAjustarService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaAjustarService.run.counter", metricGroupName = "RunTareaAjustarServiceGroup", metricDescription = "RunTareaAjustarService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaAjustarService.run.timer",
+            metricGroupName = "RunTareaAjustarServiceGroup", metricDescription = "RunTareaAjustarService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaAjustarService.run.counter",
+            metricGroupName = "RunTareaAjustarServiceGroup", metricDescription = "RunTareaAjustarService.run.counter")
     @Override
     public void run(@NotNull @Valid RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();
-        algoritmoAjusteService.customFindAjustePesosByTarea(tarea.getId()).stream().forEach(a -> 
-            Flux.fromIterable(algoritmoAjusteService.customFindAjusteIdsByTareaAndPeso(tarea.getId(), a)).parallel()
-            .runOn(ItxSchedulers.elastic()).map(algoritmo -> {
-                AlgoritmoAjusteDto ajuste = algoritmoAjusteService.findById(algoritmo);
-                runAjusteFactory.getRunAjuste(ajuste.getNombre()).execute(runTarea, ajuste);
-                return Flux.empty();
-            }).sequential().collectList().block()
-        );
+        algoritmoAjusteService.customFindAjustePesosByTarea(tarea.getId())
+            .stream()
+            .forEach(a -> Flux.fromIterable(algoritmoAjusteService.customFindAjusteIdsByTareaAndPeso(tarea.getId(), a))
+                .parallel()
+                .runOn(ItxSchedulers.elastic())
+                .map(algoritmo -> {
+                    AlgoritmoAjusteDto ajuste = algoritmoAjusteService.findById(algoritmo);
+                    runAjusteFactory.getRunAjuste(ajuste.getNombre()).execute(runTarea, ajuste);
+                    return Flux.empty();
+                })
+                .sequential()
+                .collectList()
+                .block());
     }
 
 }

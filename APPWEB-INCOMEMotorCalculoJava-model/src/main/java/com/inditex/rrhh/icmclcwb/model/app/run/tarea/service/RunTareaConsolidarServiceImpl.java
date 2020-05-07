@@ -42,8 +42,12 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
     private RunTareaConsolidarByAmbitoPersonaService runTareaConsolidarByAmbitoPersonaService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaConsolidarService.run.timer", metricGroupName = "RunTareaConsolidarServiceGroup", metricDescription = "RunTareaConsolidarService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaConsolidarService.run.counter", metricGroupName = "RunTareaConsolidarServiceGroup", metricDescription = "RunTareaConsolidarService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaConsolidarService.run.timer",
+            metricGroupName = "RunTareaConsolidarServiceGroup",
+            metricDescription = "RunTareaConsolidarService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaConsolidarService.run.counter",
+            metricGroupName = "RunTareaConsolidarServiceGroup",
+            metricDescription = "RunTareaConsolidarService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         final TrabajoDto trabajo = runTarea.getTrabajo();

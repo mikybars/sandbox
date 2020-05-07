@@ -37,19 +37,25 @@ public class ManualV1RunAlgoritmo implements RunAlgoritmo {
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoAlgoritmoManualV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-                runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: ManualV1RunAlgoritmo :: Personas: {}", personas.size());
-                    try {
-                        tareaCalculoAlgoritmoManualV1RepositoryCustom.calcular(algoritmo,
-                                runTarea.getTarea(), personas);
-                    } catch (Exception e) {
-                        log.error("ManualV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                                EstadoTareaCalculoPersonaEnum.KO.getDto());
-                    }
-                    log.info("Fin :: ManualV1RunAlgoritmo :: Personas: {}", personas.size());
-                    return Flux.empty();
-                }).sequential().collectList().block();
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: ManualV1RunAlgoritmo :: Personas: {}", personas.size());
+                try {
+                    tareaCalculoAlgoritmoManualV1RepositoryCustom.calcular(algoritmo,
+                            runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error("ManualV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: ManualV1RunAlgoritmo :: Personas: {}", personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override

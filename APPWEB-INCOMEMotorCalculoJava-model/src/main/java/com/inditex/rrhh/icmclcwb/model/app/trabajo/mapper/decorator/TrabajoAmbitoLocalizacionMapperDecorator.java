@@ -22,7 +22,7 @@ public abstract class TrabajoAmbitoLocalizacionMapperDecorator extends TrabajoAm
         List<TrabajoAmbitoLocalizacion> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(srcTrabajoAmbitoLocalizacion)) {
             srcTrabajoAmbitoLocalizacion.forEach(item -> result.add(delegate
-                    .mergeTrabajoAmbitoLocalizacionDtoAndTrabajoDtoToTrabajoAmbitoLocalizacion(item, srcTrabajo)));
+                .mergeTrabajoAmbitoLocalizacionDtoAndTrabajoDtoToTrabajoAmbitoLocalizacion(item, srcTrabajo)));
         }
         return result;
     }

@@ -31,31 +31,31 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.Programac
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProgramacionAmbitoServiceImplTest {
-    
+
     @Mock
     private ProgramacionAmbitoMapper programacionAmbitoMapper;
-    
+
     @Mock
     private ProgramacionAmbitoRepository programacionAmbitoRepository;
-    
+
     @Mock
     private ProgramacionAmbitoOrigenService programacionAmbitoOrigenService;
-    
+
     @Mock
     private ProgramacionAmbitoEmpresaService programacionAmbitoEmpresaService;
-    
+
     @Mock
     private ProgramacionAmbitoPersonaService programacionAmbitoPersonaService;
-    
+
     @Mock
     private ProgramacionAmbitoLocalizacionService programacionAmbitoLocalizacionService;
 
     @InjectMocks
     private ProgramacionAmbitoServiceImpl programacionAmbitoServiceMock;
-    
+
     @Test
     public void create() {
-        ProgramacionDto programacion = new ProgramacionDto(); 
+        ProgramacionDto programacion = new ProgramacionDto();
         ProgramacionAmbitoDto programacionAmbito = new ProgramacionAmbitoDto();
         ProgramacionAmbitoOrigenDto programacionAmbitoOrigen = new ProgramacionAmbitoOrigenDto();
         ProgramacionAmbitoEmpresaDto programacionAmbitoEmpresa = new ProgramacionAmbitoEmpresaDto();
@@ -73,17 +73,22 @@ public class ProgramacionAmbitoServiceImplTest {
         programacionAmbito.setEmpresa(Arrays.asList(programacionAmbitoEmpresa));
         programacionAmbito.setPersona(Arrays.asList(programacionAmbitoPersona));
 
-        
-        when(programacionAmbitoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(any(ProgramacionAmbitoDto.class), any(ProgramacionDto.class))).thenReturn(new ProgramacionAmbito());
-        when(programacionAmbitoMapper.programacionAmbitoToProgramacionAmbitoDto(any(ProgramacionAmbito.class))).thenReturn(programacionAmbito);
+
+        when(programacionAmbitoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(
+                any(ProgramacionAmbitoDto.class), any(ProgramacionDto.class))).thenReturn(new ProgramacionAmbito());
+        when(programacionAmbitoMapper.programacionAmbitoToProgramacionAmbitoDto(any(ProgramacionAmbito.class)))
+            .thenReturn(programacionAmbito);
         when(programacionAmbitoRepository.save(any(ProgramacionAmbito.class))).thenReturn(new ProgramacionAmbito());
-        
+
         programacionAmbitoServiceMock.create(Arrays.asList(programacionAmbito), programacion);
-        verify(programacionAmbitoOrigenService, times(1)).create(Arrays.asList(programacionAmbitoOrigen), programacionAmbito);
-        verify(programacionAmbitoEmpresaService, times(1)).create(Arrays.asList(programacionAmbitoEmpresa), programacionAmbito);
-        verify(programacionAmbitoPersonaService, times(1)).create(Arrays.asList(programacionAmbitoPersona), programacionAmbito);
+        verify(programacionAmbitoOrigenService, times(1)).create(Arrays.asList(programacionAmbitoOrigen),
+                programacionAmbito);
+        verify(programacionAmbitoEmpresaService, times(1)).create(Arrays.asList(programacionAmbitoEmpresa),
+                programacionAmbito);
+        verify(programacionAmbitoPersonaService, times(1)).create(Arrays.asList(programacionAmbitoPersona),
+                programacionAmbito);
     }
-    
+
     @Test
     public void findByProgramacion() {
         ProgramacionDto programacion = new ProgramacionDto();
@@ -92,15 +97,19 @@ public class ProgramacionAmbitoServiceImplTest {
         ProgramacionAmbitoDto ambito = new ProgramacionAmbitoDto();
         ambito.setIdOrgenization("test");
         programacionAmbito.add(ambito);
-        when(programacionAmbitoRepository.findByProgramacionId(any(Long.class))).thenReturn(Arrays.asList(new ProgramacionAmbito()));
-        when(programacionAmbitoMapper.programacionAmbitoToProgramacionAmbitoDto(any(List.class))).thenReturn(programacionAmbito);
+        when(programacionAmbitoRepository.findByProgramacionId(any(Long.class)))
+            .thenReturn(Arrays.asList(new ProgramacionAmbito()));
+        when(programacionAmbitoMapper.programacionAmbitoToProgramacionAmbitoDto(any(List.class)))
+            .thenReturn(programacionAmbito);
 
         programacionAmbitoServiceMock.findByProgramacion(programacion);
 
         verify(programacionAmbitoOrigenService, times(1)).findByProgramacionAmbito(any(ProgramacionAmbitoDto.class));
         verify(programacionAmbitoEmpresaService, times(1)).findByProgramacionAmbito(any(ProgramacionAmbitoDto.class));
         verify(programacionAmbitoPersonaService, times(1)).findByProgramacionAmbito(any(ProgramacionAmbitoDto.class));
-        verify(programacionAmbitoLocalizacionService, times(1)).findByProgramacionAmbito(any(ProgramacionAmbitoDto.class));
+        verify(programacionAmbitoLocalizacionService, times(1))
+            .findByProgramacionAmbito(any(ProgramacionAmbitoDto.class));
 
     }
+
 }

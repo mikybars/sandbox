@@ -25,21 +25,30 @@ public class RunTareaRegularizarChallengeServiceImpl implements RunTareaRegulari
 
     @Autowired
     private TareaPersonaHistoricoService tareaPersonaHistoricoService;
-    
+
     @Autowired
     private TareaCalculoService tareaCalculoService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaRegularizarChallengeService.run.timer", metricGroupName = "RunTareaRegularizarChallengeServiceGroup", metricDescription = "RunTareaRegularizarChallengeService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaRegularizarChallengeService.run.counter", metricGroupName = "RunTareaRegularizarChallengeServiceGroup", metricDescription = "RunTareaRegularizarChallengeService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaRegularizarChallengeService.run.timer",
+            metricGroupName = "RunTareaRegularizarChallengeServiceGroup",
+            metricDescription = "RunTareaRegularizarChallengeService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRegularizarChallengeService.run.counter",
+            metricGroupName = "RunTareaRegularizarChallengeServiceGroup",
+            metricDescription = "RunTareaRegularizarChallengeService.run.counter")
     @Override
     public void run(@NotNull @Valid RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();
-            Flux.fromIterable(tareaPersonaHistoricoService.findIdPersonaLocalCompensacionChallengeByIdTarea(tarea.getId())).parallel()
-            .runOn(ItxSchedulers.elastic()).map(x -> {
+        Flux.fromIterable(tareaPersonaHistoricoService.findIdPersonaLocalCompensacionChallengeByIdTarea(tarea.getId()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(x -> {
                 tareaCalculoService.regularizarChallenge(runTarea, x);
                 return Flux.empty();
-            }).sequential().collectList().block();
+            })
+            .sequential()
+            .collectList()
+            .block();
 
     }
 

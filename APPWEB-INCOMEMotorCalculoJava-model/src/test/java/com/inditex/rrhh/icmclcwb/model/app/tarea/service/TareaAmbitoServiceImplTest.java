@@ -27,16 +27,16 @@ public class TareaAmbitoServiceImplTest {
 
     @Mock
     private TareaAmbitoRepository tareaAmbitoRepository;
-    
+
     @InjectMocks
     private TareaAmbitoServiceImpl tareaAmbitoServiceImpl;
-    
+
     @Mock
     private TareaAmbitoMapper tareaAmbitoMapper;
-    
+
     @Mock
     private TareaAmbitoMapperDecorator tareaAmbitoMapperDecorator;
-    
+
     @Test
     public void createTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -47,7 +47,7 @@ public class TareaAmbitoServiceImplTest {
 
         verify(tareaAmbitoRepository, times(1)).saveAll(any(List.class));
     }
-    
+
     @Test
     public void findByTarea() {
         TareaDto tarea = mock(TareaDto.class);
@@ -58,5 +58,5 @@ public class TareaAmbitoServiceImplTest {
 
         verify(tareaAmbitoRepository, times(1)).findByTareaId(any(Long.class));
     }
-    
+
 }

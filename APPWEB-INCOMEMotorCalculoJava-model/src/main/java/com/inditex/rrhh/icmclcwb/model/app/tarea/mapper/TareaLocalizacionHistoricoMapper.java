@@ -19,10 +19,12 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHis
 public abstract class TareaLocalizacionHistoricoMapper {
 
     @Mapping(target = "idTarea", source = "tarea.id")
-    public abstract TareaLocalizacionHistoricoDto tareaLocalizacionHistoricoToTareaLocalizacionHistoricoDto(TareaLocalizacionHistorico src);
+    public abstract TareaLocalizacionHistoricoDto tareaLocalizacionHistoricoToTareaLocalizacionHistoricoDto(
+            TareaLocalizacionHistorico src);
 
     @InheritInverseConfiguration
-    public abstract TareaLocalizacionHistorico tareaLocalizacionHistoricoDtoToTareaLocalizacionHistorico(TareaLocalizacionHistoricoDto src);
+    public abstract TareaLocalizacionHistorico tareaLocalizacionHistoricoDtoToTareaLocalizacionHistorico(
+            TareaLocalizacionHistoricoDto src);
 
     public abstract List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistoricoToTareaLocalizacionHistoricoDto(
             List<TareaLocalizacionHistorico> src);

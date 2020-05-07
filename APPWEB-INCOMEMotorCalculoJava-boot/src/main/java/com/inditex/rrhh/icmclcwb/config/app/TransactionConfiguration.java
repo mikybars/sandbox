@@ -5,11 +5,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TransactionConfiguration {
 
-//    @Bean
-//    public PlatformTransactionManagerCustomizer<JtaTransactionManager> myPlatformTransactionManagerCustomizer() {
-//        return (JtaTransactionManager transactionManager) -> {
-//            transactionManager.setAllowCustomIsolationLevels(true);
-//        };
-//    }
+    // @Bean
+    // public PlatformTransactionManagerCustomizer<JtaTransactionManager>
+    // myPlatformTransactionManagerCustomizer() {
+    // return (JtaTransactionManager transactionManager) -> {
+    // transactionManager.setAllowCustomIsolationLevels(true);
+    // };
+    // }
 
 }

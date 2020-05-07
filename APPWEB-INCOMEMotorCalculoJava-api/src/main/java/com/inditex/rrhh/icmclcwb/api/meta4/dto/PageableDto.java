@@ -15,19 +15,18 @@ import lombok.ToString;
 @ToString
 public class PageableDto<T extends Serializable> implements Pageable<T>, Serializable {
 
-	private static final long serialVersionUID = -1674424926992562719L;
+    private static final long serialVersionUID = -1674424926992562719L;
 
-	T data;
+    T data;
 
-	PageDto page;
-	
-	public boolean nextPage(){
-	    if(this.getPage().hasNext()){
-        	this.getPage().next();
-	    	return true;
-	    }
-		return false;
-	}
-	
+    PageDto page;
+
+    public boolean nextPage() {
+        if (this.getPage().hasNext()) {
+            this.getPage().next();
+            return true;
+        }
+        return false;
+    }
 
 }

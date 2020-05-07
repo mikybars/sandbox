@@ -43,9 +43,9 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImplTest {
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaPersonaEstructuraDesplazamientoRepositoryCustom,
-            "sqlSave", SQL_SAVE, true);
+                "sqlSave", SQL_SAVE, true);
         FieldUtils.writeField(tareaPersonaEstructuraDesplazamientoRepositoryCustom,
-            "batchSize", 100, true);
+                "batchSize", 100, true);
     }
 
     @Test
@@ -98,12 +98,14 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImplTest {
         verify(pstmt, times(1)).setString(14, entity.getIcmIdTpReqCom());
 
     }
-    
+
     @Test
     public void saveTest() {
-        List<TareaPersonaEstructuraDesplazamiento> items = Arrays.asList(mock(TareaPersonaEstructuraDesplazamiento.class));
+        List<TareaPersonaEstructuraDesplazamiento> items = Arrays
+            .asList(mock(TareaPersonaEstructuraDesplazamiento.class));
         tareaPersonaEstructuraDesplazamientoRepositoryCustom.save(items);
         verify(jdbcTemplate).batchUpdate(sqlCaptor.capture(), any(BatchPreparedStatementSetter.class));
         assertEquals(SQL_SAVE, sqlCaptor.getValue());
     }
+
 }

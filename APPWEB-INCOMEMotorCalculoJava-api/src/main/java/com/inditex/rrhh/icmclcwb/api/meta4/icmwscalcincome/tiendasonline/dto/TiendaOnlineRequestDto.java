@@ -7,7 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFi
 import java.io.Serializable;
 
 public class TiendaOnlineRequestDto extends PageableDto<GenericFilterDto>
-    implements Pageable<GenericFilterDto>, Serializable {
+        implements Pageable<GenericFilterDto>, Serializable {
 
     private static final long serialVersionUID = -8007728726750677351L;
 

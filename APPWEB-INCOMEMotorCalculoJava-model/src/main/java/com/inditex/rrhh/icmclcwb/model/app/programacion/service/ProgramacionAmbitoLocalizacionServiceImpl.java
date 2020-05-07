@@ -32,8 +32,8 @@ public class ProgramacionAmbitoLocalizacionServiceImpl implements ProgramacionAm
             @NotNull final ProgramacionAmbitoDto programacionAmbito) {
         return programacionAmbitoLocalizacionMapper.programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
                 programacionAmbitoLocalizacionRepository.saveAll(programacionAmbitoLocalizacionMapper
-                        .mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
-                                programacionAmbitoLocalizacion, programacionAmbito)));
+                    .mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
+                            programacionAmbitoLocalizacion, programacionAmbito)));
     }
 
     @Override

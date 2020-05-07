@@ -31,22 +31,22 @@ public class TareaLocalizacionAbierta {
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
-    
+
     @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String cclIdCodOrigen;
-    
+
     @NotNull
     @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    
+
     @NotBlank
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
     private String cclIdSeccion;
-    
+
     @NotNull
     @Column(name = "ES_ABIERTO", nullable = false)
     private Boolean abierto;
-    
+
 }

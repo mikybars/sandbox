@@ -11,5 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganiza
 
 public interface TareaConfiguracionService {
 
-    public void save(@Valid @NotNull @NotEmpty final List<ConfiguracionItemDto> src, @Valid @NotNull final TareaDto tarea);
+    public void save(@Valid @NotNull @NotEmpty final List<ConfiguracionItemDto> src,
+            @Valid @NotNull final TareaDto tarea);
+
 }

@@ -28,7 +28,7 @@ public class TareaAgrupacionConfiguracionChallengeTipoVenta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA")
     private Long id;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
@@ -37,12 +37,12 @@ public class TareaAgrupacionConfiguracionChallengeTipoVenta {
     @NotNull
     @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
     private Long icmIdAgrupacionOnline;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO_CHALLENGE", nullable = false)
     private TipoVentaConceptoChallenge tipoVentaConceptoChallenge;
-    
+
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -52,9 +52,9 @@ public class TareaAgrupacionConfiguracionChallengeTipoVenta {
     @Column(name = "FECHA_FIN", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    
+
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
-    
+
 }

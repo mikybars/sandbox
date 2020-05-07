@@ -27,8 +27,7 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmo implements RunAlgoritmo 
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
     @Autowired
-    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -36,19 +35,27 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmo implements RunAlgoritmo 
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-            log.info("Inicio :: PorVentaIndividualPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
-            try {
-                tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.calcular(algoritmo,
-                    runTarea.getTarea(), personas);
-            } catch (Exception e) {
-                log.error("PorVentaIndividualPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
-            }
-            log.info("Fin :: PorVentaIndividualPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
-            return Flux.empty();
-        }).sequential().collectList().block();
+                tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.ids(algoritmo,
+                        runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: PorVentaIndividualPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
+                try {
+                    tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.calcular(algoritmo,
+                            runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error("PorVentaIndividualPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: PorVentaIndividualPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override

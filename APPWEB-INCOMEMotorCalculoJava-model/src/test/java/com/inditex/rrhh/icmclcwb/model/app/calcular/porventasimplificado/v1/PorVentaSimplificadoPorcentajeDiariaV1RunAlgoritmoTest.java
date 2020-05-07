@@ -26,7 +26,7 @@ public class PorVentaSimplificadoPorcentajeDiariaV1RunAlgoritmoTest {
 
     @Test
     public void getSqlCalcularTest() {
-        //El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+        // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         String result = porVentaSimplificadoPorcentajeDiariaV1RunAlgoritmo.getSqlCalcular(algoritmo);
 
@@ -36,11 +36,12 @@ public class PorVentaSimplificadoPorcentajeDiariaV1RunAlgoritmoTest {
 
     @Test
     public void executeTest() {
-        //El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+        // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         RunTareaDto runTarea = new RunTareaDto();
         porVentaSimplificadoPorcentajeDiariaV1RunAlgoritmo.execute(runTarea, algoritmo);
 
         verify(log, times(1)).warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
     }
+
 }

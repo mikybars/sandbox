@@ -26,7 +26,7 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
     @Autowired
     @Qualifier("runAlgoritmoProperties")
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
-    
+
     @Autowired
     private TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom;
 
@@ -36,25 +36,40 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-                runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
-                    try {
-                        tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom.calcular(algoritmo,
+                tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom
+                    .ids(algoritmo, runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info(
+                        "Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
+                try {
+                    tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom
+                        .calcular(algoritmo,
                                 runTarea.getTarea(), personas);
-                    } catch (Exception e) {
-                        log.error("DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                                EstadoTareaCalculoPersonaEnum.KO.getDto());
-                    }
-                    log.info("Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
-                    return Flux.empty();
-                }).sequential().collectList().block();  
+                } catch (Exception e) {
+                    log.error(
+                            "DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}",
+                            personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info(
+                        "Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom
+            .getSqlCalcular(algoritmo);
     }
 
 }

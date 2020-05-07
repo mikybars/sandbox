@@ -30,4 +30,5 @@ public class TipoPoliticaServiceImpl implements TipoPoliticaService {
     public TipoPoliticaDto findById(Integer id) {
         return tipoPoliticaMapper.tipoPoliticaToTipoPoliticaDto(tipoPoliticaRepository.findById(id).get());
     }
+
 }

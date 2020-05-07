@@ -6,8 +6,9 @@ import lombok.Data;
 public class ValidarPropertiesDto {
 
     boolean enabled;
-    
+
     boolean logging;
-    
+
     boolean exception;
+
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 
 @ApiModel(description = "Modelo TipoOpcionCalculoDto")
 @Data
-public class TipoOpcionCalculoDto implements Serializable{
+public class TipoOpcionCalculoDto implements Serializable {
 
     private static final long serialVersionUID = -3238295465162517018L;
 

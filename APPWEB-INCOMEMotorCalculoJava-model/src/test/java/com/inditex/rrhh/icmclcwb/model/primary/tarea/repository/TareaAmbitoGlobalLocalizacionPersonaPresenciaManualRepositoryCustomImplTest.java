@@ -32,7 +32,8 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom, "sqlSave", "", true);
-        FieldUtils.writeField(tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom, "batchSize", 100, true);
+        FieldUtils.writeField(tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom, "batchSize", 100,
+                true);
     }
 
     @Test
@@ -49,7 +50,8 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom
     @Test
     public void setParametersTest() throws SQLException {
 
-        TareaAmbitoGlobalLocalizacionPersonaPresenciaManual taglppm = mock(TareaAmbitoGlobalLocalizacionPersonaPresenciaManual.class);
+        TareaAmbitoGlobalLocalizacionPersonaPresenciaManual taglppm = mock(
+                TareaAmbitoGlobalLocalizacionPersonaPresenciaManual.class);
         when(taglppm.getCclIdOrigen()).thenReturn("90II9");
         when(taglppm.getCclIdPerson()).thenReturn("dfs98");
         when(taglppm.getStdIdLegEnt()).thenReturn("FDS90");
@@ -69,4 +71,5 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom
         verify(pstmt, times(1)).setLong(5, tarea.getId());
 
     }
+
 }

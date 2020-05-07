@@ -22,7 +22,8 @@ public abstract class TareaLocalizacionLocalizacionPresupuestoDecorator extends 
     private TipoPresupuestoService tipoPresupuestoService;
 
     @Override
-    public List<TareaLocalizacionPresupuesto> presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(List<PresupuestosWlocResultItemDto> src, TareaDto tarea) {
+    public List<TareaLocalizacionPresupuesto> presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(
+            List<PresupuestosWlocResultItemDto> src, TareaDto tarea) {
         ArrayList<TareaLocalizacionPresupuesto> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(item -> result.add(presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(item, tarea)));
@@ -31,11 +32,14 @@ public abstract class TareaLocalizacionLocalizacionPresupuestoDecorator extends 
     }
 
     @Override
-    public TareaLocalizacionPresupuesto presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(PresupuestosWlocResultItemDto src, TareaDto tarea) {
-        TareaLocalizacionPresupuesto result = delegate.presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(src, tarea);
+    public TareaLocalizacionPresupuesto presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(
+            PresupuestosWlocResultItemDto src, TareaDto tarea) {
+        TareaLocalizacionPresupuesto result = delegate.presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(src,
+                tarea);
         TipoPresupuestoDto presupuesto = tipoPresupuestoService.findByIcmIdTpPresupuesto(src.getIdTpPresupuesto());
         result.setTipoPresupuesto(new TipoPresupuesto());
         result.getTipoPresupuesto().setId(presupuesto.getId());
         return result;
     }
+
 }

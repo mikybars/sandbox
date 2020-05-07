@@ -54,7 +54,7 @@ public abstract class TareaPersonaHistoricoMapper {
             GenericEmpleadoResultItemDto src, TareaDto tarea);
 
     public List<TareaPersonaHistoricoDto> genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
-            List<GenericEmpleadoResultItemDto> src, TareaDto tarea){
+            List<GenericEmpleadoResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

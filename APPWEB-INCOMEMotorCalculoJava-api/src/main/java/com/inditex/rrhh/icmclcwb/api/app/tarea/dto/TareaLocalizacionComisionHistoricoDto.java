@@ -20,7 +20,7 @@ public class TareaLocalizacionComisionHistoricoDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Identificador del tarea", required = true)
     private Long idTarea;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id de la localizacion", required = true)
     private String cclIdCodOrigen;
@@ -36,4 +36,5 @@ public class TareaLocalizacionComisionHistoricoDto implements Serializable {
 
     @NotNull
     private Boolean comisionable;
+
 }

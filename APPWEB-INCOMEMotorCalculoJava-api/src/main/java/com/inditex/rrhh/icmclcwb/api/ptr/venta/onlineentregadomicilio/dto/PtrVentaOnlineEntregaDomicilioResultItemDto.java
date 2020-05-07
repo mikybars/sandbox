@@ -14,9 +14,9 @@ import lombok.Data;
 
 @Data
 public class PtrVentaOnlineEntregaDomicilioResultItemDto implements Serializable, CadenaVentaResultItemDto {
-    
+
     private static final long serialVersionUID = -3536933437981318182L;
-    
+
     @NotBlank
     private String fecha;
 
@@ -27,9 +27,9 @@ public class PtrVentaOnlineEntregaDomicilioResultItemDto implements Serializable
     private Integer empresa;
 
     private Integer seccion;
-    
+
     private Integer tienda;
-    
+
     private String ano;
 
     @NotNull
@@ -37,7 +37,7 @@ public class PtrVentaOnlineEntregaDomicilioResultItemDto implements Serializable
 
     @NotNull
     private BigDecimal importeConIVA;
-    
+
     private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
 
 }

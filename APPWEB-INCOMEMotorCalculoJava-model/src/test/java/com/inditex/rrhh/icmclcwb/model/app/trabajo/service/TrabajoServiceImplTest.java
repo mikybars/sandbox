@@ -42,19 +42,19 @@ import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TrabajoServiceImplTest {
-    
+
     @Mock
     private SenderTrabajo senderTrabajo;
 
     @Mock
     private TrabajoMapper trabajoMapper;
-    
+
     @Mock
     private PeriodoMapper periodoMapper;
-    
+
     @Mock
     private TrabajoRepository trabajoRepository;
-    
+
     @Mock
     private TrabajoAmbitoOrigenService trabajoAmbitoOrigenService;
 
@@ -66,13 +66,13 @@ public class TrabajoServiceImplTest {
 
     @Mock
     private TrabajoAmbitoPersonaService trabajoAmbitoPersonaService;
-    
+
     @Mock
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
-    
+
     @Mock
     private Map<String, Meta4PropertiesDto> meta4Properties;
-    
+
     @InjectMocks
     private TrabajoServiceImpl trabajoServiceImpl;
 
@@ -86,7 +86,7 @@ public class TrabajoServiceImplTest {
         verify(trabajoAmbitoLocalizacionService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDto.class));
         verify(trabajoAmbitoPersonaService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDto.class));
     }
-    
+
     @Test
     public void create() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -103,25 +103,27 @@ public class TrabajoServiceImplTest {
         filter.setMaxPersistenceSize(1);
         properties.setFilter(filter);
         properties.setPage(page);
-        
+
         when(trabajoMapper.trabajoDtoToTrabajo(any(TrabajoDto.class))).thenReturn(new Trabajo());
         when(trabajoRepository.save(any(Trabajo.class))).thenReturn(new Trabajo());
         when(trabajoMapper.trabajoToTrabajoDto(any(Trabajo.class))).thenReturn(new TrabajoDto());
         when(trabajoMapper.trabajoDtoToSaveProcesoDto(any(TrabajoDto.class))).thenReturn(new SaveProcesoDto());
         when(meta4Properties.get(Meta4PropertiesConstants.PERIODOS)).thenReturn(properties);
-        when(meta4IcmWsCalcIncomeSessionService.getPeriodos(any(PeriodosRequestDto.class))).thenReturn(Arrays.asList(new PeriodosResultItemDto()));
+        when(meta4IcmWsCalcIncomeSessionService.getPeriodos(any(PeriodosRequestDto.class)))
+            .thenReturn(Arrays.asList(new PeriodosResultItemDto()));
 
         trabajoServiceImpl.create(trabajo);
         verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).saveProceso(any(SaveProcesoDto.class));
     }
-    
+
     @Test
     public void merge() {
         ProgramacionAmbitoDto ambito = new ProgramacionAmbitoDto();
         ProgramacionDto programacion = new ProgramacionDto();
         PeriodoDto periodo = new PeriodoDto();
         when(trabajoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
-                any(ProgramacionAmbitoDto.class), any(ProgramacionDto.class), any(PeriodoDto.class))).thenReturn(new TrabajoDto());
+                any(ProgramacionAmbitoDto.class), any(ProgramacionDto.class), any(PeriodoDto.class)))
+                    .thenReturn(new TrabajoDto());
 
         assertNotNull(trabajoServiceImpl.merge(programacion, ambito, periodo));
     }

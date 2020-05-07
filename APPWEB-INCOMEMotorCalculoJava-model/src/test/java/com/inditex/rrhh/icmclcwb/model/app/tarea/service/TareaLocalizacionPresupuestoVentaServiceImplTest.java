@@ -41,16 +41,17 @@ public class TareaLocalizacionPresupuestoVentaServiceImplTest {
 
     @InjectMocks
     private TareaLocalizacionPresupuestoVentaServiceImpl tareaLocalizacionPresupuestoVentaService;
-    
+
     @Mock
     private TareaLocalizacionPresupuestoVentaMapper tareaLocalizacionPresupuestoVentaMapper;
-    
+
     @Mock
     private TareaLocalizacionPresupuestoVentaDecorator tareaLocalizacionPresupuestoVentaDecorator;
-    
+
     @Test
     public void saveTest() {
-        TareaLocalizacionPresupuestoVentaDto tareaLocalizacionPresupuestoVentaDto = mock(TareaLocalizacionPresupuestoVentaDto.class);
+        TareaLocalizacionPresupuestoVentaDto tareaLocalizacionPresupuestoVentaDto = mock(
+                TareaLocalizacionPresupuestoVentaDto.class);
         List<TareaLocalizacionPresupuestoVentaDto> list = new ArrayList<TareaLocalizacionPresupuestoVentaDto>();
         list.add(tareaLocalizacionPresupuestoVentaDto);
         when(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
@@ -59,7 +60,7 @@ public class TareaLocalizacionPresupuestoVentaServiceImplTest {
 
         verify(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void saveVentaCongeladaResultItemDtoTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -72,7 +73,7 @@ public class TareaLocalizacionPresupuestoVentaServiceImplTest {
 
         verify(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void savePtrVentaTotalizadoResponseTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -85,11 +86,12 @@ public class TareaLocalizacionPresupuestoVentaServiceImplTest {
 
         when(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
 
-        tareaLocalizacionPresupuestoVentaService.savePtrVentaTotalizadoResponse(ptrVentaTotalizadoResponseDto, localizacion, tarea);
+        tareaLocalizacionPresupuestoVentaService.savePtrVentaTotalizadoResponse(ptrVentaTotalizadoResponseDto,
+                localizacion, tarea);
 
         verify(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void savePtrVentaOnlineIpodResponseTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -101,57 +103,64 @@ public class TareaLocalizacionPresupuestoVentaServiceImplTest {
         List<TareaLocalizacionPresupuestoVentaDto> list = mock(List.class);
         when(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
 
-        tareaLocalizacionPresupuestoVentaService.savePtrVentaOnlineIpodResponse(ptrVentaOnlineIpodResponseDto, localizacion, tarea);
+        tareaLocalizacionPresupuestoVentaService.savePtrVentaOnlineIpodResponse(ptrVentaOnlineIpodResponseDto,
+                localizacion, tarea);
 
         verify(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void savePtrVentaOnlinePickingResponseTest() {
         TareaDto tarea = mock(TareaDto.class);
         IdLocalizacionLocalPresupuestoDto localizacion = mock(IdLocalizacionLocalPresupuestoDto.class);
         PtrVentaOnlinePickingResponseDto ptrVentaOnlinePickingResponseDto = new PtrVentaOnlinePickingResponseDto();
         ptrVentaOnlinePickingResponseDto.setVentaOnline(new ArrayList<>());
-        PtrVentaOnlinePickingResultItemDto ptrVentaOnlinePickingResultItemDto = mock(PtrVentaOnlinePickingResultItemDto.class);
+        PtrVentaOnlinePickingResultItemDto ptrVentaOnlinePickingResultItemDto = mock(
+                PtrVentaOnlinePickingResultItemDto.class);
         ptrVentaOnlinePickingResponseDto.getVentaOnline().add(ptrVentaOnlinePickingResultItemDto);
         List<TareaLocalizacionPresupuestoVentaDto> list = mock(List.class);
         when(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
 
-        tareaLocalizacionPresupuestoVentaService.savePtrVentaOnlinePickingResponse(ptrVentaOnlinePickingResponseDto, localizacion, tarea);
+        tareaLocalizacionPresupuestoVentaService.savePtrVentaOnlinePickingResponse(ptrVentaOnlinePickingResponseDto,
+                localizacion, tarea);
 
         verify(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void savePtrVentaOnlineEntregaTiendaResponseTest() {
         TareaDto tarea = mock(TareaDto.class);
         IdLocalizacionLocalPresupuestoDto localizacion = mock(IdLocalizacionLocalPresupuestoDto.class);
         PtrVentaOnlineEntregaTiendaResponseDto ptVentaOnlineEntregaTiendaResponseDto = new PtrVentaOnlineEntregaTiendaResponseDto();
         ptVentaOnlineEntregaTiendaResponseDto.setVentaOnline(new ArrayList<>());
-        PtrVentaOnlineEntregaTiendaResultItemDto ptrVentaOnlineEntregaTiendaResultItemDto = mock(PtrVentaOnlineEntregaTiendaResultItemDto.class);
+        PtrVentaOnlineEntregaTiendaResultItemDto ptrVentaOnlineEntregaTiendaResultItemDto = mock(
+                PtrVentaOnlineEntregaTiendaResultItemDto.class);
         ptVentaOnlineEntregaTiendaResponseDto.getVentaOnline().add(ptrVentaOnlineEntregaTiendaResultItemDto);
         List<TareaLocalizacionPresupuestoVentaDto> list = mock(List.class);
         when(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
 
-        tareaLocalizacionPresupuestoVentaService.savePtrVentaOnlineEntregaTiendaResponse(ptVentaOnlineEntregaTiendaResponseDto, localizacion, tarea);
+        tareaLocalizacionPresupuestoVentaService
+            .savePtrVentaOnlineEntregaTiendaResponse(ptVentaOnlineEntregaTiendaResponseDto, localizacion, tarea);
 
         verify(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void savePtrVentaOnlineEntregaDomicilioResponseTest() {
         TareaDto tarea = mock(TareaDto.class);
         IdLocalizacionLocalPresupuestoDto localizacion = mock(IdLocalizacionLocalPresupuestoDto.class);
         PtrVentaOnlineEntregaDomicilioResponseDto ptVentaOnlineEntregaDomicilioResponseDto = new PtrVentaOnlineEntregaDomicilioResponseDto();
         ptVentaOnlineEntregaDomicilioResponseDto.setVentaOnline(new ArrayList<>());
-        PtrVentaOnlineEntregaDomicilioResultItemDto ptrVentaOnlineEntregaDomicilioResultItemDto = mock(PtrVentaOnlineEntregaDomicilioResultItemDto.class);
+        PtrVentaOnlineEntregaDomicilioResultItemDto ptrVentaOnlineEntregaDomicilioResultItemDto = mock(
+                PtrVentaOnlineEntregaDomicilioResultItemDto.class);
         ptVentaOnlineEntregaDomicilioResponseDto.getVentaOnline().add(ptrVentaOnlineEntregaDomicilioResultItemDto);
         List<TareaLocalizacionPresupuestoVentaDto> list = mock(List.class);
         when(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
 
-        tareaLocalizacionPresupuestoVentaService.savePtrVentaOnlineEntregaDomicilioResponse(ptVentaOnlineEntregaDomicilioResponseDto, localizacion, tarea);
+        tareaLocalizacionPresupuestoVentaService
+            .savePtrVentaOnlineEntregaDomicilioResponse(ptVentaOnlineEntregaDomicilioResponseDto, localizacion, tarea);
 
         verify(tareaLocalizacionPresupuestoVentaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
-    
+
 }

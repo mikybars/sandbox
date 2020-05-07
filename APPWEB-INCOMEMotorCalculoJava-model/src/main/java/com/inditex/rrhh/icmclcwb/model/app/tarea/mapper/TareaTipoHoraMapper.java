@@ -42,4 +42,5 @@ public abstract class TareaTipoHoraMapper {
             List<PtrPresenciaTiposHorasResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
 }

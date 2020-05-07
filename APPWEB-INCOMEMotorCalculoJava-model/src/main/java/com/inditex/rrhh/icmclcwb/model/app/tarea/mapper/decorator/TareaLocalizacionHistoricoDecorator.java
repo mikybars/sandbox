@@ -13,20 +13,18 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionHistori
 
 public abstract class TareaLocalizacionHistoricoDecorator extends TareaLocalizacionHistoricoMapper {
 
-	@Autowired
-	private TareaLocalizacionHistoricoMapper delegate;
+    @Autowired
+    private TareaLocalizacionHistoricoMapper delegate;
 
-	@Override
-	public  List<TareaLocalizacionHistoricoDto> genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
+    @Override
+    public List<TareaLocalizacionHistoricoDto> genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
             List<GenericTiendaResultItemDto> src, TareaDto srcTarea) {
-		List<TareaLocalizacionHistoricoDto> result = new ArrayList<>();
-		if (CollectionUtils.isNotEmpty(src)) {
-		    src.forEach(item -> 
-				result.add(
-						delegate.genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(item, srcTarea))
-			);
-		}
-		return result;
-	}
+        List<TareaLocalizacionHistoricoDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(src)) {
+            src.forEach(item -> result.add(
+                    delegate.genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(item, srcTarea)));
+        }
+        return result;
+    }
 
 }

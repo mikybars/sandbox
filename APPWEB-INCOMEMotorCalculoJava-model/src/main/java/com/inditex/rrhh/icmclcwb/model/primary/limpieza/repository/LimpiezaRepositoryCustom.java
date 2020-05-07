@@ -23,9 +23,11 @@ public interface LimpiezaRepositoryCustom {
 
     void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NotNull @Valid final TareaDto tarea);
 
-    void limpiezaTareaAmbitoLocalizacion(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito);
+    void limpiezaTareaAmbitoLocalizacion(@NotNull @Valid final TareaDto tarea,
+            @NotNull @Valid final TareaAmbitoDto ambito);
 
     void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NotNull @Valid final TareaDto tarea);
 
     void limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid final TareaDto tarea);
+
 }

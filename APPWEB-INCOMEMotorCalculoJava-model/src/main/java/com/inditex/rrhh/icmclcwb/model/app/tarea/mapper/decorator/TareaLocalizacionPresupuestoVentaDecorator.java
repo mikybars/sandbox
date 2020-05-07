@@ -45,51 +45,84 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
         List<TareaLocalizacionPresupuestoVenta> result = new ArrayList<>();
         if (src != null) {
             src.forEach(x -> {
-                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.ventaCongeladaResultItemDtoToTareaLocalizacionPresupuestoVenta(x, tarea);
-                TipoPresupuestoDto presupuesto = tipoPresupuestoService.findByIcmIdTpPresupuesto(x.getIdTpPresupuesto());
-                TipoVentaConceptoChallengeDto concepto = tipoVentaConceptoChallengeService.findByIcmIdConceptoVenta(x.getIdConceptoVenta());
+                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate
+                    .ventaCongeladaResultItemDtoToTareaLocalizacionPresupuestoVenta(x, tarea);
+                TipoPresupuestoDto presupuesto = tipoPresupuestoService
+                    .findByIcmIdTpPresupuesto(x.getIdTpPresupuesto());
+                TipoVentaConceptoChallengeDto concepto = tipoVentaConceptoChallengeService
+                    .findByIcmIdConceptoVenta(x.getIdConceptoVenta());
                 tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
-                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(presupuesto.getId()).build());
-                tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(concepto.getId()).build());
-                if(x.getIdSeccion().equals(AppConstants.SECCION_4.toString())) {
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_FISICA_CAJA_LOCALIZACION.getId()).build());
+                tareaLocalizacionPresupuestoVenta
+                    .setTipoPresupuesto(TipoPresupuesto.builder().id(presupuesto.getId()).build());
+                tareaLocalizacionPresupuestoVenta
+                    .setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(concepto.getId()).build());
+                if (x.getIdSeccion().equals(AppConstants.SECCION_4.toString())) {
+                    if (x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_FISICA_CAJA_LOCALIZACION.getId())
+                            .build());
                     }
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_FISICA_DEVOLUCION_LOCALIZACION.getId()).build());
+                    if (x.getIdConceptoVenta()
+                        .equals(TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_FISICA_DEVOLUCION_LOCALIZACION.getId())
+                            .build());
                     }
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.IPOD.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_IPOD_LOCALIZACION.getId()).build());
+                    if (x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.IPOD.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_IPOD_LOCALIZACION.getId())
+                            .build());
                     }
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.SINT.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_SINT_LOCALIZACION.getId()).build());
+                    if (x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.SINT.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_SINT_LOCALIZACION.getId())
+                            .build());
                     }
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.ENTREGA_TIENDA.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId()).build());
+                    if (x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.ENTREGA_TIENDA.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId())
+                            .build());
                     }
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.ENTREGA_DOMICILIO.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId()).build());
+                    if (x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.ENTREGA_DOMICILIO.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId())
+                            .build());
                     }
-                } 
-                
-                if(x.getIdSeccion().equals(AppConstants.SECCION_1.toString()) || x.getIdSeccion().equals(AppConstants.SECCION_2.toString()) || x.getIdSeccion().equals(AppConstants.SECCION_3.toString())) {
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_FISICA_CAJA_LOCALIZACION_SECCION.getId()).build());
+                }
+
+                if (x.getIdSeccion().equals(AppConstants.SECCION_1.toString())
+                        || x.getIdSeccion().equals(AppConstants.SECCION_2.toString())
+                        || x.getIdSeccion().equals(AppConstants.SECCION_3.toString())) {
+                    if (x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_FISICA_CAJA_LOCALIZACION_SECCION.getId())
+                            .build());
                     }
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_FISICA_DEVOLUCION_LOCALIZACION_SECCION.getId()).build());
+                    if (x.getIdConceptoVenta()
+                        .equals(TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_FISICA_DEVOLUCION_LOCALIZACION_SECCION.getId())
+                            .build());
                     }
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.IPOD.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_IPOD_LOCALIZACION_SECCION.getId()).build());
+                    if (x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.IPOD.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_IPOD_LOCALIZACION_SECCION.getId())
+                            .build());
                     }
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.SINT.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_SINT_LOCALIZACION_SECCION.getId()).build());
+                    if (x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.SINT.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_SINT_LOCALIZACION_SECCION.getId())
+                            .build());
                     }
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.ENTREGA_TIENDA.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId()).build());
+                    if (x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.ENTREGA_TIENDA.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId())
+                            .build());
                     }
-                    if(x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.ENTREGA_DOMICILIO.getIdMeta4())) {
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()).build());
+                    if (x.getIdConceptoVenta().equals(TipoVentaConceptoChallengeEnum.ENTREGA_DOMICILIO.getIdMeta4())) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_CONGELADA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId())
+                            .build());
                     }
                 }
 
@@ -98,7 +131,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
         }
         return result;
     }
-    
+
     @Override
     public List<TareaLocalizacionPresupuestoVenta> ventaTotalizadoResponseItemDtoToTareaLocalizacionPresupuestoVenta(
             List<PtrVentaTotalizadoResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
@@ -108,38 +141,59 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
                 item.getListaSeccion().stream().forEach(venta -> {
-                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
+                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate
+                        .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                     tareaLocalizacionPresupuestoVenta.setCclIdSeccion(String.valueOf(venta.getSeccion()));
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(venta.getImporteSinIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(venta.getImporteConIVA().doubleValue());
-                    tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                    tareaLocalizacionPresupuestoVenta
+                        .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                     tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
-                    if(item.getOperacion().equals(AppConstants.OPERACION_VENTA)) {
-                        tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getId()).build());
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_FISICA_CAJA_LOCALIZACION_SECCION.getId()).build());
+                    if (item.getOperacion().equals(AppConstants.OPERACION_VENTA)) {
+                        tareaLocalizacionPresupuestoVenta
+                            .setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                                .id(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getId())
+                                .build());
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_FISICA_CAJA_LOCALIZACION_SECCION.getId())
+                            .build());
                     }
-                    if(item.getOperacion().equals(AppConstants.OPERACION_DEVOLUCION)) {
-                        tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getId()).build());    
-                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_FISICA_DEVOLUCION_LOCALIZACION_SECCION.getId()).build());
+                    if (item.getOperacion().equals(AppConstants.OPERACION_DEVOLUCION)) {
+                        tareaLocalizacionPresupuestoVenta
+                            .setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                                .id(TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getId())
+                                .build());
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_FISICA_DEVOLUCION_LOCALIZACION_SECCION.getId())
+                            .build());
                     }
                     dtoList.add(tareaLocalizacionPresupuestoVenta);
                     importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
                     importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                 });
-                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
+                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate
+                    .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                 tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
-                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                tareaLocalizacionPresupuestoVenta
+                    .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                 tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
                 tareaLocalizacionPresupuestoVenta.setCclIdSeccion(AppConstants.SECCION_4.toString());
 
-                if(item.getOperacion().equals(AppConstants.OPERACION_VENTA)) {
-                    tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_FISICA_CAJA_LOCALIZACION.getId()).build());
-                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getId()).build());    
+                if (item.getOperacion().equals(AppConstants.OPERACION_VENTA)) {
+                    tareaLocalizacionPresupuestoVenta.setTipoDato(
+                            TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_FISICA_CAJA_LOCALIZACION.getId()).build());
+                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                        .id(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getId())
+                        .build());
                 }
-                if(item.getOperacion().equals(AppConstants.OPERACION_DEVOLUCION)) {
-                    tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_FISICA_DEVOLUCION_LOCALIZACION.getId()).build());
-                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getId()).build());    
+                if (item.getOperacion().equals(AppConstants.OPERACION_DEVOLUCION)) {
+                    tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                        .id(TipoDatoEnum.VENTA_RANGO_FISICA_DEVOLUCION_LOCALIZACION.getId())
+                        .build());
+                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                        .id(TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getId())
+                        .build());
                 }
                 dtoList.add(tareaLocalizacionPresupuestoVenta);
             });
@@ -156,25 +210,35 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
                 item.getListaSeccion().stream().forEach(venta -> {
-                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
+                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate
+                        .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                     tareaLocalizacionPresupuestoVenta.setCclIdSeccion(String.valueOf(venta.getSeccion()));
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(venta.getImporteSinIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(venta.getImporteConIVA().doubleValue());
-                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.IPOD.getId()).build());    
-                    tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_IPOD_LOCALIZACION_SECCION.getId()).build());
-                    tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                        .id(TipoVentaConceptoChallengeEnum.IPOD.getId())
+                        .build());
+                    tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                        .id(TipoDatoEnum.VENTA_RANGO_ONLINE_IPOD_LOCALIZACION_SECCION.getId())
+                        .build());
+                    tareaLocalizacionPresupuestoVenta
+                        .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                     tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
 
                     dtoList.add(tareaLocalizacionPresupuestoVenta);
                     importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
                     importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                 });
-                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
+                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate
+                    .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                 tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
-                tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.IPOD.getId()).build());    
-                tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_IPOD_LOCALIZACION.getId()).build());
-                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(
+                        TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.IPOD.getId()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoDato(
+                        TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_IPOD_LOCALIZACION.getId()).build());
+                tareaLocalizacionPresupuestoVenta
+                    .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                 tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
                 tareaLocalizacionPresupuestoVenta.setCclIdSeccion(AppConstants.SECCION_4.toString());
 
@@ -193,25 +257,35 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
                 item.getListaSeccion().stream().forEach(venta -> {
-                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
+                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate
+                        .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                     tareaLocalizacionPresupuestoVenta.setCclIdSeccion(String.valueOf(venta.getSeccion()));
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(venta.getImporteSinIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(venta.getImporteConIVA().doubleValue());
-                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.SINT.getId()).build());    
-                    tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_SINT_LOCALIZACION_SECCION.getId()).build());
-                    tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                        .id(TipoVentaConceptoChallengeEnum.SINT.getId())
+                        .build());
+                    tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                        .id(TipoDatoEnum.VENTA_RANGO_ONLINE_SINT_LOCALIZACION_SECCION.getId())
+                        .build());
+                    tareaLocalizacionPresupuestoVenta
+                        .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                     tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
 
                     dtoList.add(tareaLocalizacionPresupuestoVenta);
                     importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
                     importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                 });
-                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
+                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate
+                    .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                 tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
-                tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.SINT.getId()).build());    
-                tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_SINT_LOCALIZACION.getId()).build());
-                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(
+                        TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.SINT.getId()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoDato(
+                        TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_SINT_LOCALIZACION.getId()).build());
+                tareaLocalizacionPresupuestoVenta
+                    .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                 tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
                 tareaLocalizacionPresupuestoVenta.setCclIdSeccion(AppConstants.SECCION_4.toString());
 
@@ -220,35 +294,48 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
         }
         return dtoList;
     }
-    
+
     @Override
     public List<TareaLocalizacionPresupuestoVenta> ventaOnlineEntregaTiendaResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaOnlineEntregaTiendaResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
+            List<PtrVentaOnlineEntregaTiendaResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter,
+            TareaDto tarea) {
         List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
         AtomicDouble importeSinIva = new AtomicDouble(0);
         AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
                 item.getListaSeccion().stream().forEach(venta -> {
-                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
+                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate
+                        .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                     tareaLocalizacionPresupuestoVenta.setCclIdSeccion(String.valueOf(venta.getSeccion()));
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(venta.getImporteSinIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(venta.getImporteConIVA().doubleValue());
-                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.ENTREGA_TIENDA.getId()).build());    
-                    tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId()).build());
-                    tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                        .id(TipoVentaConceptoChallengeEnum.ENTREGA_TIENDA.getId())
+                        .build());
+                    tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                        .id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId())
+                        .build());
+                    tareaLocalizacionPresupuestoVenta
+                        .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                     tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
 
                     dtoList.add(tareaLocalizacionPresupuestoVenta);
                     importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
                     importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                 });
-                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
+                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate
+                    .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                 tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
-                tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.ENTREGA_TIENDA.getId()).build());    
-                tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGATIENDA_LOCALIZACION.getId()).build());
-                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                    .id(TipoVentaConceptoChallengeEnum.ENTREGA_TIENDA.getId())
+                    .build());
+                tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                    .id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGATIENDA_LOCALIZACION.getId())
+                    .build());
+                tareaLocalizacionPresupuestoVenta
+                    .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                 tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
                 tareaLocalizacionPresupuestoVenta.setCclIdSeccion(AppConstants.SECCION_4.toString());
 
@@ -260,32 +347,45 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
 
     @Override
     public List<TareaLocalizacionPresupuestoVenta> ventaOnlineEntregaDomicilioResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea) {
+            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, IdLocalizacionLocalPresupuestoDto iter,
+            TareaDto tarea) {
         List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
         AtomicDouble importeSinIva = new AtomicDouble(0);
         AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
                 item.getListaSeccion().stream().forEach(venta -> {
-                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
+                    TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate
+                        .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                     tareaLocalizacionPresupuestoVenta.setCclIdSeccion(String.valueOf(venta.getSeccion()));
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(venta.getImporteSinIVA().doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(venta.getImporteConIVA().doubleValue());
-                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.ENTREGA_DOMICILIO.getId()).build());    
-                    tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()).build());
-                    tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                    tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                        .id(TipoVentaConceptoChallengeEnum.ENTREGA_DOMICILIO.getId())
+                        .build());
+                    tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                        .id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId())
+                        .build());
+                    tareaLocalizacionPresupuestoVenta
+                        .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                     tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
 
                     dtoList.add(tareaLocalizacionPresupuestoVenta);
                     importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
                     importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                 });
-                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate.responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
+                TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = delegate
+                    .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
                 tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                 tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
-                tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(TipoVentaConceptoChallengeEnum.ENTREGA_DOMICILIO.getId()).build());    
-                tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder().id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId()).build());
-                tareaLocalizacionPresupuestoVenta.setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
+                tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                    .id(TipoVentaConceptoChallengeEnum.ENTREGA_DOMICILIO.getId())
+                    .build());
+                tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                    .id(TipoDatoEnum.VENTA_RANGO_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId())
+                    .build());
+                tareaLocalizacionPresupuestoVenta
+                    .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                 tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
                 tareaLocalizacionPresupuestoVenta.setCclIdSeccion(AppConstants.SECCION_4.toString());
 

@@ -17,10 +17,15 @@ public class ConfiguracionVentaOnlineResultItemDto implements Serializable {
     private String inout;
 
     private LocalDateTime fechaInicio;
+
     private LocalDateTime fechaFin;
+
     private String idOrigen;
+
     private String idConcepto;
+
     private String porcentaje;
+
     private String idAgrupacion;
 
 }

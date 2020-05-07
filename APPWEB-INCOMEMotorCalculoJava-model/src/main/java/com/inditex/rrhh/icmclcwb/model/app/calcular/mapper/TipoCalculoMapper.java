@@ -13,4 +13,5 @@ public abstract class TipoCalculoMapper {
 
     @InheritInverseConfiguration
     public abstract TipoCalculo tipoCalculoDtoToTipoCalculo(TipoCalculoDto src);
+
 }

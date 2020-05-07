@@ -29,17 +29,22 @@ public class TareaPersonaEstructuraPoliticaServiceImpl implements TareaPersonaEs
     private TareaPersonaEstructuraPoliticaMapper tareaPersonaEstructuraPoliticaMapper;
 
     @Override
-    public List<TareaPersonaEstructuraPoliticaDto> save(@Valid @NotNull @NotEmpty final List<ComisionEmpleadoResultItemDto> tareaEmpleadoEstructuraPolitica, @Valid @NotNull final TareaDto tarea) {
+    public List<TareaPersonaEstructuraPoliticaDto> save(
+            @Valid @NotNull @NotEmpty final List<ComisionEmpleadoResultItemDto> tareaEmpleadoEstructuraPolitica,
+            @Valid @NotNull final TareaDto tarea) {
         return tareaPersonaEstructuraPoliticaMapper.tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
-            tareaPersonaEstructuraPoliticaRepositoryCustom.save(tareaPersonaEstructuraPoliticaMapper
-                .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(tareaEmpleadoEstructuraPolitica, tarea)));
+                tareaPersonaEstructuraPoliticaRepositoryCustom.save(tareaPersonaEstructuraPoliticaMapper
+                    .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(tareaEmpleadoEstructuraPolitica,
+                            tarea)));
     }
-    
+
     @Override
-    public List<TareaPersonaEstructuraPoliticaDto> saveEstructurasPolResultItemDto(@Valid @NotNull @NotEmpty final List<EstructurasPolResultItemDto> estructurasPolResultItemDto, @Valid @NotNull final TareaDto tarea) {
+    public List<TareaPersonaEstructuraPoliticaDto> saveEstructurasPolResultItemDto(
+            @Valid @NotNull @NotEmpty final List<EstructurasPolResultItemDto> estructurasPolResultItemDto,
+            @Valid @NotNull final TareaDto tarea) {
         return tareaPersonaEstructuraPoliticaMapper.tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
-            tareaPersonaEstructuraPoliticaRepositoryCustom.save(tareaPersonaEstructuraPoliticaMapper
-                .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(estructurasPolResultItemDto, tarea)));
+                tareaPersonaEstructuraPoliticaRepositoryCustom.save(tareaPersonaEstructuraPoliticaMapper
+                    .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(estructurasPolResultItemDto, tarea)));
     }
 
 }

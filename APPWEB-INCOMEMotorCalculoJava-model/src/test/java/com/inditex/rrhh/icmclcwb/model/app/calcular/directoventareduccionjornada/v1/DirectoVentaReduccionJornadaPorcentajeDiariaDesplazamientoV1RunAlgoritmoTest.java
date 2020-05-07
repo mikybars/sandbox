@@ -36,7 +36,7 @@ public class DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgo
 
     @Mock
     private TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom;
-    
+
     @InjectMocks
     private DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo directoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo;
 
@@ -45,12 +45,13 @@ public class DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgo
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-    
+
     @Test
     public void getSqlCalcularTest() {
         when(tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom
-                .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
-            assertEquals(SQL_CALCULAR, directoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
+            .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
+        assertEquals(SQL_CALCULAR, directoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo
+            .getSqlCalcular(new AlgoritmoDto()));
     }
 
     @Test
@@ -77,12 +78,16 @@ public class DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgo
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         directoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
-        verify(tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom, times(1))
-            .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1)).info(
+                "Inicio :: DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                3);
+        verify(tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom,
+                times(1))
+                    .calcular(algoritmo, tarea, personas);
+        verify(log, times(1))
+            .info("Fin :: DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
     }
-    
+
     @Test
     public void calcularExceptionTest() {
 
@@ -98,7 +103,8 @@ public class DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgo
 
         when(runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(2);
         RuntimeException exception = new RuntimeException("EEEE");
-        doThrow(exception).when(tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom)
+        doThrow(exception)
+            .when(tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom)
             .calcular(any(AlgoritmoDto.class), any(TareaDto.class), any(List.class));
 
         RunTareaDto runTarea = new RunTareaDto();
@@ -108,9 +114,10 @@ public class DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgo
         directoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 
         verify(log, times(1))
-            .error("DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
+            .error("DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", 2,
+                    exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
-    
+
 }

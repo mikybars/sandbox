@@ -28,8 +28,12 @@ public class RunTareaConsolidarByAmbitoLocalizacionServiceImpl
     private RunTareaConsolidarPeriodoAsyncService runTareaConsolidarPeriodoAsyncService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaConsolidarByAmbitoLocalizacionService.run.timer", metricGroupName = "RunTareaConsolidarByAmbitoLocalizacionServiceGroup", metricDescription = "RunTareaConsolidarByAmbitoLocalizacionService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaConsolidarByAmbitoLocalizacionService.run.counter", metricGroupName = "RunTareaConsolidarByAmbitoLocalizacionServiceGroup", metricDescription = "RunTareaConsolidarByAmbitoLocalizacionService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaConsolidarByAmbitoLocalizacionService.run.timer",
+            metricGroupName = "RunTareaConsolidarByAmbitoLocalizacionServiceGroup",
+            metricDescription = "RunTareaConsolidarByAmbitoLocalizacionService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaConsolidarByAmbitoLocalizacionService.run.counter",
+            metricGroupName = "RunTareaConsolidarByAmbitoLocalizacionServiceGroup",
+            metricDescription = "RunTareaConsolidarByAmbitoLocalizacionService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
@@ -38,15 +42,15 @@ public class RunTareaConsolidarByAmbitoLocalizacionServiceImpl
             AsyncUtils.exceptionally(cfPeriodo, cf);
 
             CompletableFuture<Void> cfPeriodoCalculoPersona = runTareaConsolidarPeriodoAsyncService
-                    .mergePeriodoCalculoPersona(runTarea);
+                .mergePeriodoCalculoPersona(runTarea);
             AsyncUtils.exceptionally(cfPeriodoCalculoPersona, cf);
-            
+
             CompletableFuture<Void> cfPeriodoLocalizacion = runTareaConsolidarPeriodoAsyncService
-                    .mergePeriodoLocalizacion(runTarea);
+                .mergePeriodoLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfPeriodoLocalizacion, cf);
 
             CompletableFuture<Void> cfPeriodoLocalizacionPersona = runTareaConsolidarPeriodoAsyncService
-                    .mergePeriodoLocalizacionPersona(runTarea);
+                .mergePeriodoLocalizacionPersona(runTarea);
             AsyncUtils.exceptionally(cfPeriodoLocalizacionPersona, cf);
 
             /*-------------------------------------------------------------*/

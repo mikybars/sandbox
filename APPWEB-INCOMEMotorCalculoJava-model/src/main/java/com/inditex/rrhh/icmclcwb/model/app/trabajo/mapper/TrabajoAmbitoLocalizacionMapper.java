@@ -19,10 +19,12 @@ import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoAmbitoLocal
 public abstract class TrabajoAmbitoLocalizacionMapper {
 
     @Mapping(target = "idTrabajo", source = "trabajo.id")
-    public abstract TrabajoAmbitoLocalizacionDto trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(TrabajoAmbitoLocalizacion src);
+    public abstract TrabajoAmbitoLocalizacionDto trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
+            TrabajoAmbitoLocalizacion src);
 
     @InheritInverseConfiguration
-    public abstract TrabajoAmbitoLocalizacion trabajoAmbitoLocalizacionDtoToTrabajoAmbitoLocalizacion(TrabajoAmbitoLocalizacionDto src);
+    public abstract TrabajoAmbitoLocalizacion trabajoAmbitoLocalizacionDtoToTrabajoAmbitoLocalizacion(
+            TrabajoAmbitoLocalizacionDto src);
 
     public abstract List<TrabajoAmbitoLocalizacionDto> trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
             List<TrabajoAmbitoLocalizacion> src);
@@ -43,8 +45,10 @@ public abstract class TrabajoAmbitoLocalizacionMapper {
     @Mapping(target = "idOrigenReg", source = "cclIdOrigen")
     @Mapping(target = "idEmpresa", source = "stdIdLegEnt")
     @Mapping(target = "idLugarTrabajo", source = "stdIdWorkLocat")
-    public abstract SaveProcesoParametersDto trabajoAmbitoLocalizacionDtoToSaveProcesoParametersDto(TrabajoAmbitoLocalizacionDto src);
+    public abstract SaveProcesoParametersDto trabajoAmbitoLocalizacionDtoToSaveProcesoParametersDto(
+            TrabajoAmbitoLocalizacionDto src);
 
     public abstract List<SaveProcesoParametersDto> trabajoAmbitoLocalizacionDtoToSaveProcesoParametersDto(
-        List<TrabajoAmbitoLocalizacionDto> src);
+            List<TrabajoAmbitoLocalizacionDto> src);
+
 }

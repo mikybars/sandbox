@@ -16,7 +16,7 @@ public class TareaPersonaCoeficienteRepositoryCustomImpl extends
 
     @Value("${app.envars.repository.batch-size.tarea-persona-coeficiente:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaPersonaCoeficienteRepositoryCustom.save']}")
     private String sqlSave;
 
@@ -24,7 +24,7 @@ public class TareaPersonaCoeficienteRepositoryCustomImpl extends
     public List<TareaPersonaCoeficiente> save(List<TareaPersonaCoeficiente> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, TareaPersonaCoeficiente entity) throws SQLException {
         pstmt.setObject(1, entity.getCoeficiente());
@@ -35,7 +35,7 @@ public class TareaPersonaCoeficienteRepositoryCustomImpl extends
         pstmt.setObject(6, entity.getFechaFinPar());
         pstmt.setObject(7, entity.getFechaInicioCom());
         pstmt.setObject(8, entity.getFechaFinCom());
-        pstmt.setLong(9, entity.getTarea().getId());        
+        pstmt.setLong(9, entity.getTarea().getId());
     }
 
 }

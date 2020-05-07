@@ -22,13 +22,15 @@ public class TareaLocalizacionCalcularServiceImpl implements TareaLocalizacionCa
 
     @Autowired
     private TareaLocalizacionCalcularRepositoryCustom tareaLocalizacionCalcularRepositoryCustom;
-    
+
     @Autowired
     private TareaLocalizacionCalcularMapper tareaLocalizacionCalcularMapper;
-    
+
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> src, @Valid @NotNull final TareaDto tareaDto) {
+    public void save(@Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto) {
         tareaLocalizacionCalcularRepositoryCustom.save(tareaLocalizacionCalcularMapper
-                .genericTiendaResultItemDtoToTareaLocalizacionCalcular(src, tareaDto));
+            .genericTiendaResultItemDtoToTareaLocalizacionCalcular(src, tareaDto));
     }
+
 }

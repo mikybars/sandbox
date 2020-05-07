@@ -18,7 +18,7 @@ public class LimpiezaServiceImpl implements LimpiezaService {
 
     @Autowired
     private LimpiezaRepositoryCustom limpiezaRepositoryCustom;
-    
+
     @Autowired
     private TrabajoService trabajoService;
 
@@ -55,8 +55,7 @@ public class LimpiezaServiceImpl implements LimpiezaService {
 
     @Override
     public void limpiezaTareaAmbitoLocalizacion(@NotNull @Valid TareaDto tarea) {
-        tarea.getAmbito().forEach(ambito ->
-            limpiezaRepositoryCustom.limpiezaTareaAmbitoLocalizacion(tarea, ambito));
+        tarea.getAmbito().forEach(ambito -> limpiezaRepositoryCustom.limpiezaTareaAmbitoLocalizacion(tarea, ambito));
     }
 
     @Override
@@ -68,4 +67,5 @@ public class LimpiezaServiceImpl implements LimpiezaService {
     public void limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid TareaDto tarea) {
         limpiezaRepositoryCustom.limpiezaTareaAmbitoGlobalPersona(tarea);
     }
+
 }

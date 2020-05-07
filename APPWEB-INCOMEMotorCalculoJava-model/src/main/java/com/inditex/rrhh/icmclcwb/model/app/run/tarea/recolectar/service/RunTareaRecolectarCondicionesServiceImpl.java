@@ -43,8 +43,12 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
     private RunTareaRecolectarPtrVentaEmpleadoAsyncService runTareaRecolectarPtrVentaEmpleadoAsyncService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaRecolectarCondicionesService.run.timer", metricGroupName = "RunTareaRecolectarCondicionesServiceGroup", metricDescription = "RunTareaRecolectarCondicionesService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaRecolectarCondicionesService.run.counter", metricGroupName = "RunTareaRecolectarCondicionesServiceGroup", metricDescription = "RunTareaRecolectarCondicionesService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaRecolectarCondicionesService.run.timer",
+            metricGroupName = "RunTareaRecolectarCondicionesServiceGroup",
+            metricDescription = "RunTareaRecolectarCondicionesService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRecolectarCondicionesService.run.counter",
+            metricGroupName = "RunTareaRecolectarCondicionesServiceGroup",
+            metricDescription = "RunTareaRecolectarCondicionesService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
@@ -52,90 +56,89 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
         try {
             /*-----------------------------------------------------------------*/
             /*
-             * Carga inicial de datos por origen, datos comunes (tienda
-             * comisionable, etc), configuraciones
+             * Carga inicial de datos por origen, datos comunes (tienda comisionable, etc), configuraciones
              */
             /*-----------------------------------------------------------------*/
 
             CompletableFuture<Void> cfAusencias = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .ausenciasByRunTarea(runTarea);
+                .ausenciasByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfAusencias, cf, cfWait);
 
             // Tipos hora para los origenes
             CompletableFuture<Void> cfTiposHoras = runTareaRecolectarPtrPresenciaAsyncService
-                    .tiposHorasByRunTarea(runTarea);
+                .tiposHorasByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfTiposHoras, cf);
 
             // Flag comisionable para las localizaciones del ambito
             CompletableFuture<Void> cfTiendaComisionable = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .tiendasComisionableByRunTarea(runTarea);
+                .tiendasComisionableByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfTiendaComisionable, cf);
 
             // Flag calcula para localizacion del ambito
             CompletableFuture<Void> cfFlagCalcula = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .flagCalculaByRunTarea(runTarea);
+                .flagCalculaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfFlagCalcula, cf);
 
             // Configuracion venta online
             CompletableFuture<Void> cfConfiguracionVentaOnline = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .configuracionVentaOnlineByRunTarea(runTarea);
+                .configuracionVentaOnlineByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfConfiguracionVentaOnline, cf, cfWait);
 
             CompletableFuture<Void> cfConfiguracionesOrganizacion = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .configuracionesByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfConfiguracionesOrganizacion, cf, cfWait);
-            
+
             // Configuracion challenge
             CompletableFuture<Void> cfConfChallengeDiasMinimosByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .confChallengeDiasMinimosByRunTarea(runTarea);
+                .confChallengeDiasMinimosByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfConfChallengeDiasMinimosByRunTarea, cf, cfWait);
-                       
+
             CompletableFuture<Void> cfConfPrecioHoraByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .confPrecioHoraByRunTarea(runTarea);
+                .confPrecioHoraByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfConfPrecioHoraByRunTarea, cf, cfWait);
-            
+
             CompletableFuture<Void> cfConfChallengeTipoVentaByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .confChallengeTipoVentaByRunTarea(runTarea);
+                .confChallengeTipoVentaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfConfChallengeTipoVentaByRunTarea, cf, cfWait);
 
             // Agrupaciones de cadenas
             CompletableFuture<Void> cfAgrupacionesCadena = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .agrupacionesCadenaByRunTarea(runTarea);
+                .agrupacionesCadenaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfAgrupacionesCadena, cf, cfWait);
 
             // Localizaciones online
             CompletableFuture<Void> cfTiendasOnlineByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .localizacionesOnlineByRunTarea(runTarea);
+                .localizacionesOnlineByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfTiendasOnlineByRunTarea, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
-            
+
             // Venta congelada
             CompletableFuture<Void> cfVentaCongelada = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .ventaCongeladaByRunTarea(runTarea);
+                .ventaCongeladaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaCongelada, cf, cfWait);
-            
+
             // Venta real ptr
             CompletableFuture<Void> cfVentaReal = runTareaRecolectarPtrVentaGeneralAsyncService
-                    .ventaRangoFisicaLocalizacionSeccionByRunTarea(runTarea);
+                .ventaRangoFisicaLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaReal, cf, cfWait);
-            
+
             CompletableFuture<Void> cfVentaRangoOnlineIpodLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
+                .ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaRangoOnlineIpodLocalizacionSeccion, cf, cfWait);
-            
+
             CompletableFuture<Void> cfVentaRangoOnlineSintLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .ventaRangoOnlineSintLocalizacionSeccionByRunTarea(runTarea);
+                .ventaRangoOnlineSintLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaRangoOnlineSintLocalizacionSeccion, cf, cfWait);
-            
+
             CompletableFuture<Void> cfVentaRangoOnlineEntregaTiendaLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
+                .ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaRangoOnlineEntregaTiendaLocalizacionSeccion, cf, cfWait);
-            
+
             CompletableFuture<Void> cfVentaRangoOnlineEntregaDomicilioLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
+                .ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaRangoOnlineEntregaDomicilioLocalizacionSeccion, cf, cfWait);
 
             /*-------------------------------------------------------------*/
@@ -144,12 +147,12 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
 
             // Ventas físicas cadenas
             CompletableFuture<Void> cfVentasFisicasByCadena = runTareaRecolectarPtrVentaGeneralAsyncService
-                    .ventaFisicaCadenaByRunTarea(runTarea);
+                .ventaFisicaCadenaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentasFisicasByCadena, cf, cfWait);
 
             // Ventas online entrega domicilio cadenas
             CompletableFuture<Void> cfVentasEntregaDomicilioByCadena = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .ventaOnlineEntregaDomicilioCadenaByRunTarea(runTarea);
+                .ventaOnlineEntregaDomicilioCadenaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentasEntregaDomicilioByCadena, cf, cfWait);
 
             /*-------------------------------------------------------------*/
@@ -158,24 +161,24 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
 
             // Localizacion y seccion
             CompletableFuture<Void> cfVentaFisicaLocalizacionSeccion = runTareaRecolectarPtrVentaGeneralAsyncService
-                    .ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
+                .ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaFisicaLocalizacionSeccion, cf, cfWait);
 
             CompletableFuture<Void> cfOnlineIpodLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .ventaOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
+                .ventaOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfOnlineIpodLocalizacionSeccion, cf, cfWait);
 
             CompletableFuture<Void> cfOnlinePickingLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);
+                .ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfOnlinePickingLocalizacionSeccion, cf, cfWait);
 
             CompletableFuture<Void> cfOnlineEntregaTiendaLocalizacionSeccion = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
+                .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfOnlineEntregaTiendaLocalizacionSeccion, cf, cfWait);
 
             // Ventas individuales, tanto fisicas como iPod
             CompletableFuture<Void> cfVentaOnlineIpodLocalizacionPersona = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .ventaOnlineIpodLocalizacionPersonaByRunTarea(runTarea);
+                .ventaOnlineIpodLocalizacionPersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaOnlineIpodLocalizacionPersona, cf, cfWait);
 
             CompletableFuture<Void> cfVentaFisicaLocalizacionPersona = runTareaRecolectarPtrVentaEmpleadoAsyncService
@@ -184,23 +187,23 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
 
             // Persona
             CompletableFuture<Void> cfPresenciasDetalleComisionablePersona = runTareaRecolectarPtrPresenciaAsyncService
-                    .presenciaDetalleComisionablePersonaByRunTarea(runTarea);
+                .presenciaDetalleComisionablePersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciasDetalleComisionablePersona, cf, cfWait);
 
             // Coeficiente de reduccion de jornada
             CompletableFuture<Void> cfCoefJornada = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .coefJornadaByRunTarea(runTarea);
+                .coefJornadaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfCoefJornada, cf, cfWait);
 
             // Presencia manual
             CompletableFuture<Void> cfPresenciaManual = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                    .presenciaManualByRunTarea(runTarea);
+                .presenciaManualByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciaManual, cf, cfWait);
 
             // Festivos
-//            CompletableFuture<Void> cfFestivos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-//                    .festivosByRunTarea(runTarea);
-//            AsyncUtils.exceptionally(cfFestivos, cf, cfWait);
+            // CompletableFuture<Void> cfFestivos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+            // .festivosByRunTarea(runTarea);
+            // AsyncUtils.exceptionally(cfFestivos, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
@@ -208,19 +211,19 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
 
             // Cocinado de descartes de ventas online por configuracion
             CompletableFuture<Void> cfUpdateActivoIpod = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .updateActivoVentaOnlineIpodByRunTarea(runTarea);
+                .updateActivoVentaOnlineIpodByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfUpdateActivoIpod, cf, cfWait);
 
             CompletableFuture<Void> cfUpdatePicking = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .updateActivoVentaOnlinePickingByRunTarea(runTarea);
+                .updateActivoVentaOnlinePickingByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfUpdatePicking, cf, cfWait);
 
             CompletableFuture<Void> cfUpdateEntregaTienda = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .updateActivoVentaOnlineEntregaTiendaByRunTarea(runTarea);
+                .updateActivoVentaOnlineEntregaTiendaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfUpdateEntregaTienda, cf, cfWait);
 
             CompletableFuture<Void> cfUpdateEntregaDomicilio = runTareaRecolectarPtrVentaEcommerceAsyncService
-                    .updateActivoVentaOnlineEntregaDomicilioByRunTarea(runTarea);
+                .updateActivoVentaOnlineEntregaDomicilioByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfUpdateEntregaDomicilio, cf, cfWait);
 
             /*-------------------------------------------------------------*/
@@ -231,4 +234,5 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             throw e;
         }
     }
+
 }

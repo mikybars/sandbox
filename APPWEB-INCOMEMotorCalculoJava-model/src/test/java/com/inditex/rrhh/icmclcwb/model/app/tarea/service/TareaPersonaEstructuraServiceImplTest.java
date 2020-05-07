@@ -26,16 +26,16 @@ public class TareaPersonaEstructuraServiceImplTest {
 
     @Mock
     private TareaPersonaEstructuraRepositoryCustom tareaPersonaEstructuraRepositoryCustom;
-    
+
     @InjectMocks
     private TareaPersonaEstructuraServiceImpl tareaPersonaEstructuraServiceImpl;
-    
+
     @Mock
     private TareaPersonaEstructuraMapper tareaPersonaEstructuraMapper;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -45,7 +45,7 @@ public class TareaPersonaEstructuraServiceImplTest {
         tareaPersonaEstructuraServiceImpl.save(estructuras, tarea);
         verify(tareaPersonaEstructuraRepositoryCustom, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void mergeEstructurasComResultItemDtoTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -53,9 +53,10 @@ public class TareaPersonaEstructuraServiceImplTest {
         List<EstructurasComResultItemDto> estructuras = new ArrayList<>();
 
         tareaPersonaEstructuraServiceImpl.mergeEstructurasComResultItemDto(estructuras, tarea);
-        verify(tareaPersonaEstructuraMapper, times(1)).estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(any(List.class), any(TareaDto.class));
+        verify(tareaPersonaEstructuraMapper, times(1))
+            .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(any(List.class), any(TareaDto.class));
     }
-    
+
     @Test
     public void findPersonasChallengeTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -64,4 +65,5 @@ public class TareaPersonaEstructuraServiceImplTest {
         tareaPersonaEstructuraServiceImpl.findPersonasChallenge(tarea);
         verify(tareaPersonaEstructuraRepositoryCustom, times(1)).findPersonasChallenge(any(TareaDto.class));
     }
+
 }

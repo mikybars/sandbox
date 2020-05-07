@@ -44,9 +44,10 @@ public abstract class TrabajoAmbitoPersonaMapper {
     @Mapping(target = "idEmpresa", source = "stdIdLegEnt")
     @Mapping(target = "idEmpleado", source = "cclIdPerson")
     @Mapping(target = "orEmpleado", source = "stdOrHrPeriod")
-    public abstract SaveProcesoParametersDto trabajoAmbitoPersonaDtoToSaveProcesoParametersDto(TrabajoAmbitoPersonaDto src);
+    public abstract SaveProcesoParametersDto trabajoAmbitoPersonaDtoToSaveProcesoParametersDto(
+            TrabajoAmbitoPersonaDto src);
 
     public abstract List<SaveProcesoParametersDto> trabajoAmbitoPersonaDtoToSaveProcesoParametersDto(
-        List<TrabajoAmbitoPersonaDto> src);
+            List<TrabajoAmbitoPersonaDto> src);
 
 }

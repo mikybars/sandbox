@@ -17,17 +17,19 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustomImpl
 
     @Value("${app.envars.repository.batch-size.tarea-ambito-global-localizacion-persona-presencia:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Override
-    public List<TareaAmbitoGlobalLocalizacionPersonaPresencia> save(final List<TareaAmbitoGlobalLocalizacionPersonaPresencia> src) {
+    public List<TareaAmbitoGlobalLocalizacionPersonaPresencia> save(
+            final List<TareaAmbitoGlobalLocalizacionPersonaPresencia> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
-    
+
     @Override
-    public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalLocalizacionPersonaPresencia entity) throws SQLException {
+    public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalLocalizacionPersonaPresencia entity)
+            throws SQLException {
         pstmt.setString(1, entity.getCclIdCodOrigen());
         pstmt.setString(2, entity.getCclIdOrigen());
         pstmt.setString(3, entity.getCclIdPerson());

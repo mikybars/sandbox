@@ -26,7 +26,7 @@ import lombok.Getter;
 public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImpl
         extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
         implements TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustom {
-    
+
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.minimos.where']}")
     @Getter
     private String sqlCalcular;
@@ -34,13 +34,13 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.minimos.where']}")
     @Getter
     private String sqlCalcularBase;
-    
+
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-    
+
     @Autowired
     private TipoDatoService tipoDatoService;
-    
+
     @Override
     public List<TareaCalculoPersonaDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
         return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
@@ -61,17 +61,20 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
         map.put(SqlPrimaryConstants.SQL_PARAM_CALCULA, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        
+
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
                 Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId()));
-        
-        map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, algoritmo.getTipoComision().stream().map(TipoComisionDto::getId).collect(Collectors.toList()));
-        map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, algoritmo.getTipoCalculo().stream().map(TipoCalculoDto::getId).collect(Collectors.toList()));
-        map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO, algoritmo.getDesplazamiento() ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, algoritmo.getDesplazamientoBase() ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+
+        map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION,
+                algoritmo.getTipoComision().stream().map(TipoComisionDto::getId).collect(Collectors.toList()));
+        map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO,
+                algoritmo.getTipoCalculo().stream().map(TipoCalculoDto::getId).collect(Collectors.toList()));
+        map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO, algoritmo.getDesplazamiento()
+                ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, algoritmo.getDesplazamientoBase()
+                ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         return map;
     }
-
 
 }

@@ -7,4 +7,5 @@ public interface TipoPresupuestoService {
     TipoPresupuestoDto findByIcmIdTpPresupuesto(String icmIdTpPresupuesto);
 
     TipoPresupuestoDto findById(Integer id);
+
 }

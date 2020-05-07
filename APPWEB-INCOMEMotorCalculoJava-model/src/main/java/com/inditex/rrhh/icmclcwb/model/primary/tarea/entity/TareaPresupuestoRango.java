@@ -42,7 +42,7 @@ public class TareaPresupuestoRango {
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
     private String stdIdLegEnt;
-    
+
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -52,7 +52,7 @@ public class TareaPresupuestoRango {
     @Column(name = "FECHA_FIN", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    
+
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;

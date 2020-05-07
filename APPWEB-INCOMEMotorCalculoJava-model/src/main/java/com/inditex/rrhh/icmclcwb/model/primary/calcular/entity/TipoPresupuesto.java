@@ -22,17 +22,17 @@ public class TipoPresupuesto {
     @Id
     @Column(name = "ID_TIPO_PRESUPUESTO")
     private Integer id;
-    
+
     @NotBlank
     @Column(name = "ICM_ID_TP_PRESUPUESTO", nullable = false, length = 48)
     private String icmIdTpPresupuesto;
-    
+
     @NotBlank
-    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
+    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
     private String nombre;
 
     @NotBlank
-    @Column(name = "DESCRIPCION", length = /*TAMANO_DESC*/ 255, nullable = false)
+    @Column(name = "DESCRIPCION", length = /* TAMANO_DESC */ 255, nullable = false)
     private String descripcion;
-    
+
 }

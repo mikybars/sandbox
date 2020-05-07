@@ -20,8 +20,11 @@ public class RunTareaRecolectarPtrVentaEmpleadoServiceImpl implements RunTareaRe
 
     @Override
     public void ventaFisicaLocalizacionPersonaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaEmpleadoService
-            .ventaFisicaLocalizacionPersonaByRunTareaAndTareaAmbito(runTarea, item));
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> runTareaAmbitoRecolectarPtrVentaEmpleadoService
+                .ventaFisicaLocalizacionPersonaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
 }

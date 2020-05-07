@@ -31,17 +31,24 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
     private AlgoritmoService algoritmoService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaCalcularService.run.timer", metricGroupName = "RunTareaCalcularServiceGroup", metricDescription = "RunTareaCalcularService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaCalcularService.run.counter", metricGroupName = "RunTareaCalcularServiceGroup", metricDescription = "RunTareaCalcularService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaCalcularService.run.timer",
+            metricGroupName = "RunTareaCalcularServiceGroup", metricDescription = "RunTareaCalcularService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaCalcularService.run.counter",
+            metricGroupName = "RunTareaCalcularServiceGroup", metricDescription = "RunTareaCalcularService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         TareaDto tarea = runTarea.getTarea();
-        Flux.fromIterable(algoritmoService.customFindAlgoritmosIdsByTarea(tarea.getId())).parallel()
-                .runOn(ItxSchedulers.elastic()).map(idAlgoritmo -> {
-                    AlgoritmoDto algoritmo = algoritmoService.findById(idAlgoritmo);
-                    runAlgoritmoFactory.getRunAlgoritmo(algoritmo.getNombre()).execute(runTarea, algoritmo);
-                    return Flux.empty();
-                }).sequential().collectList().block();
+        Flux.fromIterable(algoritmoService.customFindAlgoritmosIdsByTarea(tarea.getId()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(idAlgoritmo -> {
+                AlgoritmoDto algoritmo = algoritmoService.findById(idAlgoritmo);
+                runAlgoritmoFactory.getRunAlgoritmo(algoritmo.getNombre()).execute(runTarea, algoritmo);
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
 }

@@ -20,12 +20,13 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustomI
 
     @Value("#{primaryQuery['TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Override
-    public List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> save(final List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> src) {
+    public List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> save(
+            final List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalLocalizacionPersonaDesplazamiento entity)
             throws SQLException {
@@ -33,7 +34,7 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustomI
         pstmt.setString(2, entity.getCclIdOrigen());
         pstmt.setString(3, entity.getCclIdPerson());
         pstmt.setString(4, entity.getStdIdLegEnt());
-        pstmt.setLong(5, entity.getTarea().getId());        
+        pstmt.setLong(5, entity.getTarea().getId());
     }
 
 }

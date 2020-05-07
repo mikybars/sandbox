@@ -26,16 +26,16 @@ public class TareaLocalizacionPersonaVentaServiceImplTest {
 
     @Mock
     private TareaLocalizacionPersonaVentaRepositoryCustom tareaLocalizacionPersonaVentaRepositoryCustom;
-    
+
     @InjectMocks
     private TareaLocalizacionPersonaVentaServiceImpl tareaLocalizacionPersonaVentaServiceImpl;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Mock
     private TareaLocalizacionPersonaVentaMapper tareaLocalizacionPersonaVentaMapper;
-    
+
     @Test
     public void savePtrVentaIndividualDetalleResultItemTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -43,20 +43,26 @@ public class TareaLocalizacionPersonaVentaServiceImplTest {
         List<PtrVentaIndividualDetalleResultItemDto> ventaIndividual = new ArrayList<>();
 
         tareaLocalizacionPersonaVentaServiceImpl.savePtrVentaIndividualDetalleResultItem(ventaIndividual, tarea);
-        
-        verify(tareaLocalizacionPersonaVentaMapper, times(1)).ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(any(List.class), any(TareaDto.class));
+
+        verify(tareaLocalizacionPersonaVentaMapper, times(1))
+            .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(any(List.class),
+                    any(TareaDto.class));
         verify(tareaLocalizacionPersonaVentaRepositoryCustom, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void savePtrVentaOnlineIpodIndividualDetalleResultItemTest() {
         TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
         List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> ventaOnlineIpod = new ArrayList<>();
 
-        tareaLocalizacionPersonaVentaServiceImpl.savePtrVentaOnlineIpodIndividualDetalleResultItem(ventaOnlineIpod, tarea);
-        
-        verify(tareaLocalizacionPersonaVentaMapper, times(1)).ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(any(List.class), any(TareaDto.class));
+        tareaLocalizacionPersonaVentaServiceImpl.savePtrVentaOnlineIpodIndividualDetalleResultItem(ventaOnlineIpod,
+                tarea);
+
+        verify(tareaLocalizacionPersonaVentaMapper, times(1))
+            .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(any(List.class),
+                    any(TareaDto.class));
         verify(tareaLocalizacionPersonaVentaRepositoryCustom, times(1)).save(any(List.class));
     }
+
 }

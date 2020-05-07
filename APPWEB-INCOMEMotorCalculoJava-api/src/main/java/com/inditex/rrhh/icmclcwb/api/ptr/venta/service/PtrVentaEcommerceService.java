@@ -16,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 public interface PtrVentaEcommerceService {
 
     PtrVentaOnlineIpodResponseDto ventaOnlineiPod(@Valid PtrVentaOnlineIpodRequestDto request);
-    
+
     PtrVentaOnlineIpodIndividualDetalleResponseDto ventaOnlineiPodIndividualDetalle(
             @Valid PtrVentaOnlineIpodIndividualDetalleRequestDto request);
 

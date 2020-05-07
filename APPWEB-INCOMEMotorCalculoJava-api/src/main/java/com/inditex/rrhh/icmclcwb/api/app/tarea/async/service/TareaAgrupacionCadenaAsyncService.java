@@ -11,4 +11,5 @@ import java.util.concurrent.CompletableFuture;
 public interface TareaAgrupacionCadenaAsyncService {
 
     CompletableFuture<Void> save(final List<AgrupOnlineResultItemDto> src, final TareaDto tarea);
+
 }

@@ -26,19 +26,23 @@ public class TareaPersonaAusenciaHistoricoServiceImpl implements TareaPersonaAus
 
     @Autowired
     private TareaPersonaAusenciaHistoricoMapper tareaPersonaAusenciaHistoricoMapper;
-    
+
     @Override
     public List<TareaPersonaAusenciaHistoricoDto> save(
             @Valid @NotNull @NotEmpty final List<TareaPersonaAusenciaHistoricoDto> tareaPersonaAusenciaHistorico) {
         return tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoToTareaPersonaAusenciaHistoricoDto(
-                tareaPersonaAusenciaHistoricoRepositoryCustom.save(tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoDtoToTareaPersonaAusenciaHistorico(tareaPersonaAusenciaHistorico)));
+                tareaPersonaAusenciaHistoricoRepositoryCustom.save(tareaPersonaAusenciaHistoricoMapper
+                    .tareaPersonaAusenciaHistoricoDtoToTareaPersonaAusenciaHistorico(tareaPersonaAusenciaHistorico)));
     }
-    
+
     @Override
     public List<TareaPersonaAusenciaHistoricoDto> saveAusenciaResultItemDto(
             @Valid @NotNull @NotEmpty final List<AusenciasResultItemDto> src, @Valid @NotNull final TareaDto tarea) {
         return tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoToTareaPersonaAusenciaHistoricoDto(
-                tareaPersonaAusenciaHistoricoRepositoryCustom.save(tareaPersonaAusenciaHistoricoMapper.tareaPersonaAusenciaHistoricoDtoToTareaPersonaAusenciaHistorico(
-                        tareaPersonaAusenciaHistoricoMapper.ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(src, tarea))));
+                tareaPersonaAusenciaHistoricoRepositoryCustom.save(tareaPersonaAusenciaHistoricoMapper
+                    .tareaPersonaAusenciaHistoricoDtoToTareaPersonaAusenciaHistorico(
+                            tareaPersonaAusenciaHistoricoMapper
+                                .ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(src, tarea))));
     }
+
 }

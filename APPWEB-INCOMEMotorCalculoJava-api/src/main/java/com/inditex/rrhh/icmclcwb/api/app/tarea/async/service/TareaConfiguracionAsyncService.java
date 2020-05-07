@@ -11,4 +11,5 @@ import java.util.concurrent.CompletableFuture;
 public interface TareaConfiguracionAsyncService {
 
     CompletableFuture<Void> saveConfiguracionItemDto(final List<ConfiguracionItemDto> src, final TareaDto tarea);
+
 }

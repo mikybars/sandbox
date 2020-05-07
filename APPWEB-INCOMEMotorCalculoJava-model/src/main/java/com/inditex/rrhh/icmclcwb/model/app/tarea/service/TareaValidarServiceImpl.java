@@ -35,7 +35,7 @@ public class TareaValidarServiceImpl implements TareaValidarService {
     public List<String> checkDuplicatedTiendasHistorico(@NotNull @Positive Long idTarea) {
         return tareaValidarRepositoryCustom.checkDuplicatedTiendasHistorico(idTarea);
     }
-    
+
     @Override
     public List<String> checkDuplicatedTiposHora(@NotNull @Positive Long idTarea) {
         return tareaValidarRepositoryCustom.checkDuplicatedTiposHora(idTarea);

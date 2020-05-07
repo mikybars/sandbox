@@ -34,19 +34,29 @@ public class DirectoVentaPorcentajeDesplazamientoV1RunAlgoritmo implements RunAl
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                log.info("Inicio :: DirectoVentaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
+                tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1RepositoryCustom.ids(algoritmo,
+                        runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: DirectoVentaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
                 try {
                     tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo,
-                        runTarea.getTarea(), personas);
+                            runTarea.getTarea(), personas);
                 } catch (Exception e) {
-                    log.error("DirectoVentaPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
+                    log.error("DirectoVentaPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}",
+                            personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
                 }
                 log.info("Fin :: DirectoVentaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
                 return Flux.empty();
-        }).sequential().collectList().block();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override

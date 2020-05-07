@@ -21,12 +21,19 @@ public class RestUtils {
                 result = responseEntity.getBody();
             } else {
                 throw new IcmclcwbException(new StringBuilder("La llamada a '").append(restClient.getBaseUrl())
-                        .append(url).append("' ha fallado (Código: ").append(responseEntity.getStatusCode().value())
-                        .append(") con la petición: ").append(request.toString()).toString());
+                    .append(url)
+                    .append("' ha fallado (Código: ")
+                    .append(responseEntity.getStatusCode().value())
+                    .append(") con la petición: ")
+                    .append(request.toString())
+                    .toString());
             }
         } else {
-            throw new IcmclcwbException(new StringBuilder("La llamada a '").append(restClient.getBaseUrl()).append(url)
-                    .append("' ha fallado con la petición: ").append(request.toString()).toString());
+            throw new IcmclcwbException(new StringBuilder("La llamada a '").append(restClient.getBaseUrl())
+                .append(url)
+                .append("' ha fallado con la petición: ")
+                .append(request.toString())
+                .toString());
         }
         return result;
     }

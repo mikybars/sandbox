@@ -28,7 +28,7 @@ public abstract class TareaAgrupacionConfiguracionChallengeTipoVentaMapper {
 
     public abstract List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> tareaAgrupacionConfiguracionChallengeTipoVentaToTareaAgrupacionConfiguracionChallengeTipoVentaDto(
             List<TareaAgrupacionConfiguracionChallengeTipoVenta> src);
-    
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "tarea.id")
     @Mapping(target = "icmIdAgrupacionOnline", source = "src.idAgrupacion")
@@ -39,7 +39,8 @@ public abstract class TareaAgrupacionConfiguracionChallengeTipoVentaMapper {
             ConfChTpVentaResultItemDto src, TareaDto tarea);
 
     public List<TareaAgrupacionConfiguracionChallengeTipoVenta> confChTpVentaResultItemDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(
-        List<ConfChTpVentaResultItemDto> src, TareaDto tarea) {
+            List<ConfChTpVentaResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
 }

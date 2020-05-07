@@ -20,7 +20,8 @@ public class ReceiverLimpieza {
 
     @CircuitBreaker(name = "limpieza")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @JmsListener(id = "limpiezaListener", destination = "${amiga.service.jms.limpieza-queue.destination-fqdn}", containerFactory = "limpiezaContainerFactoryListener")
+    @JmsListener(id = "limpiezaListener", destination = "${amiga.service.jms.limpieza-queue.destination-fqdn}",
+            containerFactory = "limpiezaContainerFactoryListener")
     public void onMessageTareaListener(Message<IdTareaDto> message) {
         runService.runLimpieza(message.getPayload().getId());
     }

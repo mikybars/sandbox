@@ -28,8 +28,11 @@ public class TareaConfiguracionServiceImpl implements TareaConfiguracionService 
     private TareaConfiguracionRepositoryCustom tareaConfiguracionRepositoryCustom;
 
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<ConfiguracionItemDto> src, @Valid @NotNull final TareaDto tarea) {
-        List<TareaConfiguracion> configuraciones = tareaConfiguracionMapper.getConfiguracionItemDtoToTareaConfiguracion(src, tarea);
+    public void save(@Valid @NotNull @NotEmpty final List<ConfiguracionItemDto> src,
+            @Valid @NotNull final TareaDto tarea) {
+        List<TareaConfiguracion> configuraciones = tareaConfiguracionMapper
+            .getConfiguracionItemDtoToTareaConfiguracion(src, tarea);
         tareaConfiguracionRepositoryCustom.save(configuraciones);
     }
+
 }

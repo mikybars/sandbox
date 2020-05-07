@@ -17,7 +17,7 @@ public class TareaConfiguracionPrecioHoraRepositoryCustomImpl
 
     @Value("${app.envars.repository.batch-size.tarea-configuracion-precio-hora:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaConfiguracionPrecioHoraRepositoryCustom.save']}")
     private String sqlSave;
 
@@ -25,6 +25,7 @@ public class TareaConfiguracionPrecioHoraRepositoryCustomImpl
     public List<TareaConfiguracionPrecioHora> save(List<TareaConfiguracionPrecioHora> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
+
     @Override
     public void setParameters(PreparedStatement pstmt, TareaConfiguracionPrecioHora entity) throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
@@ -32,7 +33,7 @@ public class TareaConfiguracionPrecioHoraRepositoryCustomImpl
         pstmt.setBoolean(3, entity.getIcmCkTpHoraIncPtpo());
         pstmt.setObject(4, entity.getFechaInicio());
         pstmt.setObject(5, entity.getFechaFin());
-        pstmt.setString(6, entity.getCclIdOrigen());        
+        pstmt.setString(6, entity.getCclIdOrigen());
     }
 
 }

@@ -30,11 +30,12 @@ public class TareaAgrupacionConfiguracionServiceImpl implements TareaAgrupacionC
 
     @Override
     public List<TareaAgrupacionConfiguracionDto> saveConfiguracionVentaOnline(
-            @Valid @NotNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data, @Valid @NotNull final RunTareaDto tarea) {
+            @Valid @NotNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data,
+            @Valid @NotNull final RunTareaDto tarea) {
         List<TareaAgrupacionConfiguracion> configuraciones = tareaAgrupacionConfiguracionMapper
             .getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(data, tarea.getTarea());
         return tareaAgrupacionConfiguracionMapper.getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
-            tareaAgrupacionConfiguracionRepositoryCustom.save(configuraciones));
+                tareaAgrupacionConfiguracionRepositoryCustom.save(configuraciones));
     }
 
 }

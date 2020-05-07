@@ -29,16 +29,17 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
     private TareaLocalizacionPersonaPresenciaMapper tareaLocalizacionPersonaPresenciaMapper;
 
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src, @Valid @NotNull final TareaDto tareaDto) {
+    public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.save(tareaLocalizacionPersonaPresenciaMapper
-                .genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(src, tareaDto));
+            .genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(src, tareaDto));
     }
 
     @Override
     public void savePtrPresenciaDetalle(@Valid @NotNull @NotEmpty final List<PtrPresenciaDetalleResultItemDto> src,
             @Valid @NotNull final TareaDto tareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.save(tareaLocalizacionPersonaPresenciaMapper
-                .presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(src, tareaDto));
+            .presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(src, tareaDto));
     }
 
     @Override
@@ -75,10 +76,12 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
     public void indicadorPresenciaDesplazamientoBase(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBase(runTareaDto);
     }
-    
+
     @Override
-    public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTareaDto);
+    public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(
+            @Valid @NotNull final RunTareaDto runTareaDto) {
+        tareaLocalizacionPersonaPresenciaRepositoryCustom
+            .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTareaDto);
     }
 
     @Override
@@ -100,4 +103,5 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
     public void indicadorPersonaPorVentaSimplificada(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVentaSimplificada(runTareaDto);
     }
+
 }

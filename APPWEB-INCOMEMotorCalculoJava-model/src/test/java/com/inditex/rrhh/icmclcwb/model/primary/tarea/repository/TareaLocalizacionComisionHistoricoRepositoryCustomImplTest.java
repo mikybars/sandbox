@@ -71,10 +71,12 @@ public class TareaLocalizacionComisionHistoricoRepositoryCustomImplTest {
     @Test
     public void saveTest() {
 
-        List<TareaLocalizacionComisionHistorico> entities = Arrays.asList(mock(TareaLocalizacionComisionHistorico.class));
+        List<TareaLocalizacionComisionHistorico> entities = Arrays
+            .asList(mock(TareaLocalizacionComisionHistorico.class));
         tareaLocalizacionComisionHistoricoRepositoryCustom.save(entities);
         verify(template, times(1)).batchUpdate(sql.capture(), any(BatchPreparedStatementSetter.class));
         assertEquals(SQL_SAVE, sql.getValue());
 
     }
+
 }

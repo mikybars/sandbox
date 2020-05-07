@@ -11,6 +11,4 @@ public class EstructurasPolRequestDto extends PageableDto<GenericFilterDto>
 
     private static final long serialVersionUID = 270782868666535470L;
 
-
-
 }

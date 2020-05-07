@@ -26,8 +26,7 @@ public class PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo implemen
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
     @Autowired
-    private TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom;
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -35,25 +34,37 @@ public class PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo implemen
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-            log.info("Inicio :: PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
-            try {
-                tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo,
-                    runTarea.getTarea(), personas);
-            } catch (Exception e) {
-                log.error("PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                    EstadoTareaCalculoPersonaEnum.KO.getDto());
-            }
-            log.info("Fin :: PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
-            return Flux.empty();
-        }).sequential().collectList().block();
+                tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom.ids(algoritmo,
+                        runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
+                try {
+                    tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom.calcular(
+                            algoritmo,
+                            runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error("PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}",
+                            personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: PorVentaSimplificadoPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoV1RepositoryCustom
+            .getSqlCalcular(algoritmo);
     }
 
 }

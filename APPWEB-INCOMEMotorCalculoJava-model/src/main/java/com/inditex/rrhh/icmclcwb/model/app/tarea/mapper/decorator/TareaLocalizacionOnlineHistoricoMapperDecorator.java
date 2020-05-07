@@ -16,7 +16,8 @@ public abstract class TareaLocalizacionOnlineHistoricoMapperDecorator extends Ta
     TareaLocalizacionOnlineHistoricoMapper delegate;
 
     @Override
-    public List<TareaLocalizacionOnlineHistorico> getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(List<TiendaOnlineResultItemDto> src, TareaDto tarea) {
+    public List<TareaLocalizacionOnlineHistorico> getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(
+            List<TiendaOnlineResultItemDto> src, TareaDto tarea) {
         List<TareaLocalizacionOnlineHistorico> result = new ArrayList<>();
         if (src != null) {
             src.forEach(x -> result.add(delegate.getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(x, tarea)));
@@ -25,11 +26,13 @@ public abstract class TareaLocalizacionOnlineHistoricoMapperDecorator extends Ta
     }
 
     @Override
-    public List<LocalizacionOnlineDto> getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(List<TareaLocalizacionOnlineHistorico> src) {
+    public List<LocalizacionOnlineDto> getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(
+            List<TareaLocalizacionOnlineHistorico> src) {
         List<LocalizacionOnlineDto> result = new ArrayList<>();
         if (src != null) {
             src.forEach(x -> result.add(delegate.getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(x)));
         }
         return result;
     }
+
 }

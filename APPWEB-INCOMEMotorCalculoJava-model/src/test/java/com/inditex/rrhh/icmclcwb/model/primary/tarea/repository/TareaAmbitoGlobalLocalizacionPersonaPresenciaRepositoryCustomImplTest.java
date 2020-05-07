@@ -49,7 +49,8 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustomImplTe
     @Test
     public void setParametersTest() throws SQLException {
 
-        TareaAmbitoGlobalLocalizacionPersonaPresencia taglpp = mock(TareaAmbitoGlobalLocalizacionPersonaPresencia.class);
+        TareaAmbitoGlobalLocalizacionPersonaPresencia taglpp = mock(
+                TareaAmbitoGlobalLocalizacionPersonaPresencia.class);
         when(taglpp.getCclIdOrigen()).thenReturn("90II9");
         when(taglpp.getCclIdPerson()).thenReturn("dfs98");
         when(taglpp.getStdIdLegEnt()).thenReturn("FDS90");

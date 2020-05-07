@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-public interface TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustom extends TareaCalculoAlgoritmoBaseRepositoryCustom {
+public interface TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustom
+        extends TareaCalculoAlgoritmoBaseRepositoryCustom {
 
 }

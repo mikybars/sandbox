@@ -22,14 +22,17 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(imports = { com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class, TipoEjecucionCalculoEnum.class})
+@Mapper(imports = { com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class,
+        TipoEjecucionCalculoEnum.class })
 @DecoratedWith(value = TrabajoMapperDecorator.class)
 public abstract class TrabajoMapper {
 
-    @Mapping(target = "idProgramacion", expression = "java(src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null ? src.getProgramacion().getId() : null)")
+    @Mapping(target = "idProgramacion",
+            expression = "java(src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null ? src.getProgramacion().getId() : null)")
     public abstract TrabajoDto trabajoToTrabajoDto(Trabajo src);
 
-    @Mapping(target = "programacion", expression = "java(src != null && src.getIdProgramacion() != null ? Programacion.builder().id(src.getIdProgramacion()).build() : null)")
+    @Mapping(target = "programacion",
+            expression = "java(src != null && src.getIdProgramacion() != null ? Programacion.builder().id(src.getIdProgramacion()).build() : null)")
     @Mapping(target = "estado", ignore = true)
     public abstract Trabajo trabajoDtoToTrabajo(TrabajoDto src);
 
@@ -72,12 +75,14 @@ public abstract class TrabajoMapper {
             ProgramacionAmbitoPersonaDto src);
 
     @Mapping(target = "idAmbito", ignore = true)
-    @Mapping(target = "idTipoEjecucionCalculo", expression = "java( trabajo.getIdProgramacion() != null ? TipoEjecucionCalculoEnum.PROGRAMADO.getId() : TipoEjecucionCalculoEnum.MANUAL.getId())")
+    @Mapping(target = "idTipoEjecucionCalculo",
+            expression = "java( trabajo.getIdProgramacion() != null ? TipoEjecucionCalculoEnum.PROGRAMADO.getId() : TipoEjecucionCalculoEnum.MANUAL.getId())")
     @Mapping(target = "idTrabajo", source = "id")
     @Mapping(target = "nombreUsuario", source = "nombreUsuario")
     @Mapping(target = "idOrganization", ignore = true)
     @Mapping(target = "idPeriodo", source = "icmIdPeriodo")
-    @Mapping(target = "idOrigen", expression = "java(trabajo.getOrigen() != null && !trabajo.getOrigen().isEmpty() ? trabajo.getOrigen().get(0).getCclIdOrigen() : null)")
+    @Mapping(target = "idOrigen",
+            expression = "java(trabajo.getOrigen() != null && !trabajo.getOrigen().isEmpty() ? trabajo.getOrigen().get(0).getCclIdOrigen() : null)")
     @Mapping(target = "item", ignore = true)
     public abstract SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDto trabajo);
 

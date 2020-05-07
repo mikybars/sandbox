@@ -17,7 +17,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLocalizacion;
 
 @Repository
-public class TareaAmbitoGlobalLocalizacionRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaAmbitoGlobalLocalizacion>
+public class TareaAmbitoGlobalLocalizacionRepositoryCustomImpl
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaAmbitoGlobalLocalizacion>
         implements TareaAmbitoGlobalLocalizacionRepositoryCustom {
 
     @Autowired
@@ -33,10 +34,10 @@ public class TareaAmbitoGlobalLocalizacionRepositoryCustomImpl extends JdbcBatch
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         namedParameterJdbcTemplate.update(sqlMergeLocalizacion, params);
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalLocalizacion entity) throws SQLException {
-        pstmt.setLong(1, entity.getTarea().getId());        
+        pstmt.setLong(1, entity.getTarea().getId());
         pstmt.setString(2, entity.getCclIdOrigen());
         pstmt.setString(3, entity.getStdIdWorkLocat());
         pstmt.setString(4, entity.getStdIdLegEnt());

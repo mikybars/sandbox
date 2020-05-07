@@ -30,12 +30,13 @@ public abstract class TareaAgrupacionVentaMapper {
     @Mapping(target = "icmIdAgrupacionOnline", ignore = true)
     @Mapping(target = "cclIdSeccion", expression = "java(AppConstants.SECCION_4.toString())")
     @Mapping(target = "activo", expression = "java(Boolean.TRUE)")
-    @Mapping(target = "tipoDato", expression = "java(TipoDato.builder().id(TipoDatoEnum.VENTA_FISICA_AGRUPACIONONLINE.getId()).build())")
+    @Mapping(target = "tipoDato",
+            expression = "java(TipoDato.builder().id(TipoDatoEnum.VENTA_FISICA_AGRUPACIONONLINE.getId()).build())")
     public abstract TareaAgrupacionVenta ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
-        PtrVentaTotalizadoResultItemDto src, TareaDto tarea);
+            PtrVentaTotalizadoResultItemDto src, TareaDto tarea);
 
     public List<TareaAgrupacionVenta> ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
-        List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea, List<TareaAgrupacionCadenasDto> agrupaciones) {
+            List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea, List<TareaAgrupacionCadenasDto> agrupaciones) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
@@ -48,12 +49,14 @@ public abstract class TareaAgrupacionVentaMapper {
     @Mapping(target = "icmIdAgrupacionOnline", ignore = true)
     @Mapping(target = "cclIdSeccion", expression = "java(AppConstants.SECCION_4.toString())")
     @Mapping(target = "activo", expression = "java(Boolean.TRUE)")
-    @Mapping(target = "tipoDato", expression = "java(TipoDato.builder().id(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId()).build())")
+    @Mapping(target = "tipoDato",
+            expression = "java(TipoDato.builder().id(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId()).build())")
     public abstract TareaAgrupacionVenta ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
-        PtrVentaOnlineEntregaDomicilioResultItemDto src, TareaDto tarea);
+            PtrVentaOnlineEntregaDomicilioResultItemDto src, TareaDto tarea);
 
     public List<TareaAgrupacionVenta> ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
-        List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea, List<TareaAgrupacionCadenasDto> agrupaciones) {
+            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea,
+            List<TareaAgrupacionCadenasDto> agrupaciones) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

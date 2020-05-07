@@ -30,18 +30,19 @@ public class TareaConfiguracionChallengeDiasMinimosServiceImplTest {
 
     @InjectMocks
     private TareaConfiguracionChallengeDiasMinimosServiceImpl tareaConfiguracionChallengeDiasMinimosServiceImpl;
-    
+
     @Mock
     private TareaConfiguracionChallengeDiasMinimosMapper tareaConfiguracionChallengeDiasMinimosMapper;
-    
+
     @Mock
     private TareaConfiguracionChallengeDiasMinimosDecorator tareaConfiguracionChallengeDiasMinimosDecorator;
-    
+
 
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
-        TareaConfiguracionChallengeDiasMinimosDto tareaConfiguracionChallengeDiasMinimosDto = mock(TareaConfiguracionChallengeDiasMinimosDto.class);
+        TareaConfiguracionChallengeDiasMinimosDto tareaConfiguracionChallengeDiasMinimosDto = mock(
+                TareaConfiguracionChallengeDiasMinimosDto.class);
         List<TareaConfiguracionChallengeDiasMinimosDto> list = new ArrayList<TareaConfiguracionChallengeDiasMinimosDto>();
         list.add(tareaConfiguracionChallengeDiasMinimosDto);
         when(tareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
@@ -51,7 +52,7 @@ public class TareaConfiguracionChallengeDiasMinimosServiceImplTest {
         verify(tareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl, times(1)).save(any(List.class));
 
     }
-    
+
     @Test
     public void saveConfChDiasMinimosResultItemDtoTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -65,4 +66,5 @@ public class TareaConfiguracionChallengeDiasMinimosServiceImplTest {
         verify(tareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl, times(1)).save(any(List.class));
 
     }
+
 }

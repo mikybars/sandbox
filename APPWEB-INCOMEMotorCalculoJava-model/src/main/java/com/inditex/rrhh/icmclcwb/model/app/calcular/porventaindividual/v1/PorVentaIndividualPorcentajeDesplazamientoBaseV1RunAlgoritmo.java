@@ -26,8 +26,7 @@ public class PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo implem
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
     @Autowired
-    private TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom;
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -35,24 +34,37 @@ public class PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo implem
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-            log.info("Inicio :: PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
-            try {
-                tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo,
-                    runTarea.getTarea(), personas);
-            } catch (Exception e) {
-                log.error("PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
-            }
-            log.info("Fin :: PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
-            return Flux.empty();
-        }).sequential().collectList().block();
+                tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom.ids(algoritmo,
+                        runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
+                try {
+                    tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular(
+                            algoritmo,
+                            runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error("PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
+                            personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom
+            .getSqlCalcular(algoritmo);
     }
 
 }

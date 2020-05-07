@@ -25,20 +25,20 @@ import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestControllerTest {
-    
+
     private MockMvc mockMvc;
-    
+
     @Mock
     private TestService testServiceMock;
-    
+
     @InjectMocks
     private TestController testController;
-    
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(testController)
-                .build();
+            .build();
     }
 
     @Test
@@ -84,20 +84,20 @@ public class TestControllerTest {
         mockMvc.perform(post("/test/trabajo/test/{limit}", 1)).andReturn();
         verify(testServiceMock, times(1)).testBloqueos(1L);
     }
-    
+
     @Test
     public void testUrl() throws Exception {
         when(testServiceMock.testUrl(any(String.class))).thenReturn(Boolean.TRUE);
         mockMvc.perform(post("/test/test/url/").content("url")).andReturn();
         verify(testServiceMock, times(1)).testUrl(any(String.class));
     }
-    
+
     @Test
     public void trabajoFase1a() throws Exception {
         mockMvc.perform(get("/test/trabajo/fase1a")).andReturn();
         verify(testServiceMock, times(1)).trabajoFase1a();
     }
-    
+
     @Test
     public void sqlformatter() throws Exception {
         mockMvc.perform(post("/test/sql/formatter/").contentType(MediaType.TEXT_PLAIN).content("string")).andReturn();

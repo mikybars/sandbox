@@ -23,8 +23,8 @@ public abstract class ProgramacionAmbitoEmpresaMapperDecorator extends Programac
         List<ProgramacionAmbitoEmpresa> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(srcProgramacionAmbitoEmpresa)) {
             srcProgramacionAmbitoEmpresa.forEach(item -> result
-                    .add(delegate.mergeProgramacionAmbitoEmpresaDtoAndProgramacionDtoToProgramacionAmbitoEmpresa(item,
-                            srcProgramacionAmbito)));
+                .add(delegate.mergeProgramacionAmbitoEmpresaDtoAndProgramacionDtoToProgramacionAmbitoEmpresa(item,
+                        srcProgramacionAmbito)));
         }
         return result;
     }

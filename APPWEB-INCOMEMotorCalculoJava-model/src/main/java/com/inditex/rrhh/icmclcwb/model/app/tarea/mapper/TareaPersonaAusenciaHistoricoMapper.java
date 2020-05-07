@@ -26,17 +26,19 @@ public abstract class TareaPersonaAusenciaHistoricoMapper {
     @Mapping(target = "cclIdPerson", source = "src.cclIdPerson")
     @Mapping(target = "cclIdOrigen", source = "src.cclIdOrigen")
     @Mapping(target = "idTipoAusencia", source = "src.tipoAusencia.id")
-    public abstract TareaPersonaAusenciaHistoricoDto tareaPersonaAusenciaHistoricoToTareaPersonaAusenciaHistoricoDto(TareaPersonaAusenciaHistorico src);
+    public abstract TareaPersonaAusenciaHistoricoDto tareaPersonaAusenciaHistoricoToTareaPersonaAusenciaHistoricoDto(
+            TareaPersonaAusenciaHistorico src);
 
     @InheritInverseConfiguration
-    public abstract TareaPersonaAusenciaHistorico tareaPersonaAusenciaHistoricoDtoToTareaPersonaAusenciaHistorico(TareaPersonaAusenciaHistoricoDto src);
+    public abstract TareaPersonaAusenciaHistorico tareaPersonaAusenciaHistoricoDtoToTareaPersonaAusenciaHistorico(
+            TareaPersonaAusenciaHistoricoDto src);
 
     public abstract List<TareaPersonaAusenciaHistoricoDto> tareaPersonaAusenciaHistoricoToTareaPersonaAusenciaHistoricoDto(
             List<TareaPersonaAusenciaHistorico> src);
-    
+
     public abstract List<TareaPersonaAusenciaHistorico> tareaPersonaAusenciaHistoricoDtoToTareaPersonaAusenciaHistorico(
             List<TareaPersonaAusenciaHistoricoDto> src);
-    
+
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "cclIdPerson", source = "src.idEmpleado")
     @Mapping(target = "stdOrHrPeriod", source = "src.orEmpleado")
@@ -46,9 +48,10 @@ public abstract class TareaPersonaAusenciaHistoricoMapper {
     @Mapping(target = "idTipoAusencia", source = "src.tipo")
     public abstract TareaPersonaAusenciaHistoricoDto ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(
             AusenciasResultItemDto src, TareaDto tarea);
-    
+
     public List<TareaPersonaAusenciaHistoricoDto> ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(
             List<AusenciasResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
 }

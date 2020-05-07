@@ -16,4 +16,5 @@ public class SaveResultErrorDto implements Serializable {
     private String literal;
 
     private String registroAfectado;
+
 }

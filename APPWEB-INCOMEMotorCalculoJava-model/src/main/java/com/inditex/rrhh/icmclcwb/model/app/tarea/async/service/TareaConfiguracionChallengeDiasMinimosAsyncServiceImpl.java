@@ -25,11 +25,12 @@ public class TareaConfiguracionChallengeDiasMinimosAsyncServiceImpl
         tareaConfiguracionChallengeDiasMinimosService.save(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
-    public CompletableFuture<Void> saveConfChDiasMinimosResultItemDto(List<ConfChDiasMinimosResultItemDto> src, TareaDto tarea) {
+    public CompletableFuture<Void> saveConfChDiasMinimosResultItemDto(List<ConfChDiasMinimosResultItemDto> src,
+            TareaDto tarea) {
         tareaConfiguracionChallengeDiasMinimosService.saveConfChDiasMinimosResultItemDto(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
 }

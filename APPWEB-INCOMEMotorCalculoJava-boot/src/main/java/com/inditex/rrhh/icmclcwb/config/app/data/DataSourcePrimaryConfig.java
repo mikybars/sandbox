@@ -50,8 +50,12 @@ public class DataSourcePrimaryConfig {
             final EntityManagerFactoryBuilder entityManagerFactoryBuilder,
             @Qualifier("primaryJpaProperties") final Map<String, String> primaryJpaProperties,
             @Qualifier("primaryDataSource") final DataSource dataSource) {
-        return entityManagerFactoryBuilder.dataSource(dataSource).persistenceUnit("primaryPersistenceUnit")
-                .packages("com.inditex.rrhh.icmclcwb.model.primary").properties(primaryJpaProperties).jta(true).build();
+        return entityManagerFactoryBuilder.dataSource(dataSource)
+            .persistenceUnit("primaryPersistenceUnit")
+            .packages("com.inditex.rrhh.icmclcwb.model.primary")
+            .properties(primaryJpaProperties)
+            .jta(true)
+            .build();
     }
 
     @Bean(name = "primaryJdbcTemplate")

@@ -15,4 +15,5 @@ public interface TareaPersonaEstructuraPoliticaAsyncService {
     CompletableFuture<Void> save(List<ComisionEmpleadoResultItemDto> src, TareaDto tarea);
 
     CompletableFuture<Void> saveEstructurasPolResultItemDto(List<EstructurasPolResultItemDto> src, TareaDto tarea);
+
 }

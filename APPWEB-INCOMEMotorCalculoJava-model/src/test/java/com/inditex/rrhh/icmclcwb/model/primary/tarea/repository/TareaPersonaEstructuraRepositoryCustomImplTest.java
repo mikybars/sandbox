@@ -43,12 +43,14 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructu
 public class TareaPersonaEstructuraRepositoryCustomImplTest {
 
     private static final String SQL_UPDATE_ACTIVO_TOPES = "SQL UPDATE ACTIVO TOPES";
+
     private static final String SQL_FIND_PERSONAS_CHALLENGE = "SQL FIND PERSONAS CHALLENGE";
+
     private static final String SQL_SAVE = "SQL_SAVE";
 
     @Mock
     private JdbcTemplate jdbcTemplate;
-    
+
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -63,8 +65,10 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaPersonaEstructuraRepositoryCustom, "sqlUpdateActivoTopes", SQL_UPDATE_ACTIVO_TOPES, true);
-        FieldUtils.writeField(tareaPersonaEstructuraRepositoryCustom, "sqlFindPersonasChallenge", SQL_FIND_PERSONAS_CHALLENGE, true);
+        FieldUtils.writeField(tareaPersonaEstructuraRepositoryCustom, "sqlUpdateActivoTopes", SQL_UPDATE_ACTIVO_TOPES,
+                true);
+        FieldUtils.writeField(tareaPersonaEstructuraRepositoryCustom, "sqlFindPersonasChallenge",
+                SQL_FIND_PERSONAS_CHALLENGE, true);
         FieldUtils.writeField(tareaPersonaEstructuraRepositoryCustom, "sqlSave", SQL_SAVE, true);
         FieldUtils.writeField(tareaPersonaEstructuraRepositoryCustom, "batchSize", 100, true);
     }
@@ -87,7 +91,8 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
         // fechaInicioPeriodo
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
-        assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()), params.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
+        assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
         // idTarea
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
@@ -104,21 +109,25 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
         when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 12, 1));
 
         tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
-        verify(namedParameterJdbcTemplate, times(1)).query(sqlCaptor.capture(), paramsCaptor.capture(), any(RowMapper.class));
+        verify(namedParameterJdbcTemplate, times(1)).query(sqlCaptor.capture(), paramsCaptor.capture(),
+                any(RowMapper.class));
         assertEquals(SQL_FIND_PERSONAS_CHALLENGE, sqlCaptor.getValue());
         MapSqlParameterSource map = paramsCaptor.getValue();
         // Parámetros de la consulta: fechaInicioPeriodo, idTarea, tiposCalculo
         assertEquals(3, map.getValues().size());
         // fechaInicio
         assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
-        assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()), map.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
+        assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()),
+                map.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
         // idTarea
         assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), map.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         // fechaInicio
         assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
-        assertEquals(Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
-            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()), map.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
+        assertEquals(Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+                TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
+                TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()),
+                map.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
 
     }
 
@@ -162,7 +171,7 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
         when(entity.getIcmIdEstrComisionPadre()).thenReturn("1");
 
         tareaPersonaEstructuraRepositoryCustom.setParameters(pstmt, entity);
-        
+
         verify(pstmt, times(1)).setObject(1, entity.getFechaFin());
         verify(pstmt, times(1)).setObject(2, entity.getFechaInicio());
         verify(pstmt, times(1)).setString(3, entity.getCclIdSeccionEfectiva());
@@ -193,7 +202,7 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
         verify(pstmt, times(1)).setString(28, entity.getIcmIdEstrComisionPadre());
         verify(pstmt, times(1)).setObject(29, pk.getFechaInicioPeriodo());
     }
-    
+
     @Test
     public void saveTest() {
         List<TareaPersonaEstructura> items = Arrays.asList(mock(TareaPersonaEstructura.class));
@@ -201,4 +210,5 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
         verify(jdbcTemplate).batchUpdate(sqlCaptor.capture(), any(BatchPreparedStatementSetter.class));
         assertEquals(SQL_SAVE, sqlCaptor.getValue());
     }
+
 }

@@ -12,7 +12,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionCom
 
 @Repository
 public class TareaLocalizacionComisionHistoricoRepositoryCustomImpl extends
-        JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionComisionHistorico> implements TareaLocalizacionComisionHistoricoRepositoryCustom {
+        JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionComisionHistorico>
+        implements TareaLocalizacionComisionHistoricoRepositoryCustom {
 
     @Value("${app.envars.repository.batch-size.tarea-localizacion-comision-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;

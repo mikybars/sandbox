@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 @Repository
 public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomImpl
-    implements TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom {
+        implements TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom {
 
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom.relacionarEstructuraSinDesplazamiento']}")
     private String sqlRelacionarEstructuraSinDesplazamiento;
@@ -31,13 +31,17 @@ public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomI
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION, Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()));
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_PRECIO_HORA, Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId()));
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO,
+                Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+                        TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION,
+                Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()));
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_PRECIO_HORA,
+                Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+                        TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId()));
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
         namedParameterJdbcTemplate.update(sqlRelacionarEstructuraSinDesplazamiento, map);
@@ -50,14 +54,18 @@ public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomI
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION, Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()));
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO,
+                Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+                        TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION,
+                Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()));
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
         namedParameterJdbcTemplate.update(sqlRelacionarEstructuraDesplazamiento, map);
 
     }
+
 }

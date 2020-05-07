@@ -24,11 +24,12 @@ public class TareaPersonaEstructuraPoliticaAsyncServiceImpl implements TareaPers
         tareaPersonaEstructuraPoliticaService.save(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> saveEstructurasPolResultItemDto(List<EstructurasPolResultItemDto> src,
             TareaDto tarea) {
         tareaPersonaEstructuraPoliticaService.saveEstructurasPolResultItemDto(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

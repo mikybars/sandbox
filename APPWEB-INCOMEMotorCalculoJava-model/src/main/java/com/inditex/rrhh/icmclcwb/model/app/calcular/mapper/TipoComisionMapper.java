@@ -13,4 +13,5 @@ public abstract class TipoComisionMapper {
 
     @InheritInverseConfiguration
     public abstract TipoComision tipoComisionDtoToTipoComision(TipoComisionDto src);
+
 }

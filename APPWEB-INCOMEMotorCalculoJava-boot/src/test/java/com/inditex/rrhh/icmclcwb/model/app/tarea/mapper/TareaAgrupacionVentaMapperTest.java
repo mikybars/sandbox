@@ -34,9 +34,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaTotalizadoVariasFechasTest() {
         List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
         PtrVentaTotalizadoResultItemDto unoEnero = createTotalizadoResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 4);
+                25000, 22300, 38, 4);
         PtrVentaTotalizadoResultItemDto dosFebrero = createTotalizadoResultItem(1, 1, "2015-01-02",
-            15000, 12600, 38, 4);
+                15000, 12600, 38, 4);
         list.add(unoEnero);
         list.add(dosFebrero);
         List<TareaAgrupacionVenta> ventas = tareaAgrupacionVentaMapper
@@ -49,9 +49,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaTotalizadoVariasCadenasMismoGrupoTest() {
         List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
         PtrVentaTotalizadoResultItemDto cadena1 = createTotalizadoResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 4);
+                25000, 22300, 38, 4);
         PtrVentaTotalizadoResultItemDto cadena163 = createTotalizadoResultItem(163, 1, "2015-01-01",
-            15000, 12600, 38, 4);
+                15000, 12600, 38, 4);
         list.add(cadena1);
         list.add(cadena163);
         List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
@@ -66,9 +66,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaTotalizadoVariasCadenasDistintoGrupoTest() {
         List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
         PtrVentaTotalizadoResultItemDto cadena1 = createTotalizadoResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 4);
+                25000, 22300, 38, 4);
         PtrVentaTotalizadoResultItemDto cadena2 = createTotalizadoResultItem(2, 1, "2015-01-01",
-            15000, 12600, 38, 4);
+                15000, 12600, 38, 4);
         list.add(cadena1);
         list.add(cadena2);
         List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
@@ -81,9 +81,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaTotalizadoVariosPaisesTest() {
         List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
         PtrVentaTotalizadoResultItemDto pais38 = createTotalizadoResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 4);
+                25000, 22300, 38, 4);
         PtrVentaTotalizadoResultItemDto pais11 = createTotalizadoResultItem(1, 1, "2015-01-01",
-            15000, 12600, 11, 4);
+                15000, 12600, 11, 4);
         list.add(pais38);
         list.add(pais11);
         List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
@@ -96,9 +96,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaTotalizadoVariasEmpresasTest() {
         List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
         PtrVentaTotalizadoResultItemDto empresa1 = createTotalizadoResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 4);
+                25000, 22300, 38, 4);
         PtrVentaTotalizadoResultItemDto empresa3 = createTotalizadoResultItem(1, 3, "2015-01-01",
-            15000, 12600, 38, 4);
+                15000, 12600, 38, 4);
         list.add(empresa1);
         list.add(empresa3);
         List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
@@ -113,9 +113,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaTotalizadoVariasSeccionesTest() {
         List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
         PtrVentaTotalizadoResultItemDto seccion1 = createTotalizadoResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 1);
+                25000, 22300, 38, 1);
         PtrVentaTotalizadoResultItemDto seccion2 = createTotalizadoResultItem(1, 1, "2015-01-01",
-            15000, 12600, 38, 2);
+                15000, 12600, 38, 2);
         list.add(seccion1);
         list.add(seccion2);
         List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
@@ -129,9 +129,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaEntregaDomicilioVariasFechasTest() {
         List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
         PtrVentaOnlineEntregaDomicilioResultItemDto unoEnero = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 4);
+                25000, 22300, 38, 4);
         PtrVentaOnlineEntregaDomicilioResultItemDto dosFebrero = createEntregaDomicilioResultItem(1, 1, "2015-01-02",
-            15000, 12600, 38, 4);
+                15000, 12600, 38, 4);
         list.add(unoEnero);
         list.add(dosFebrero);
         List<TareaAgrupacionVenta> ventas = tareaAgrupacionVentaMapper
@@ -144,9 +144,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaEntregaDomicilioVariasCadenasMismoGrupoTest() {
         List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
         PtrVentaOnlineEntregaDomicilioResultItemDto cadena1 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 4);
+                25000, 22300, 38, 4);
         PtrVentaOnlineEntregaDomicilioResultItemDto cadena163 = createEntregaDomicilioResultItem(163, 1, "2015-01-01",
-            15000, 12600, 38, 4);
+                15000, 12600, 38, 4);
         list.add(cadena1);
         list.add(cadena163);
         List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
@@ -161,9 +161,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaEntregaDomicilioVariasCadenasDistintoGrupoTest() {
         List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
         PtrVentaOnlineEntregaDomicilioResultItemDto cadena1 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 4);
+                25000, 22300, 38, 4);
         PtrVentaOnlineEntregaDomicilioResultItemDto cadena2 = createEntregaDomicilioResultItem(2, 1, "2015-01-01",
-            15000, 12600, 38, 4);
+                15000, 12600, 38, 4);
         list.add(cadena1);
         list.add(cadena2);
         List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
@@ -176,9 +176,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaEntregaDomicilioVariosPaisesTest() {
         List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
         PtrVentaOnlineEntregaDomicilioResultItemDto pais38 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 4);
+                25000, 22300, 38, 4);
         PtrVentaOnlineEntregaDomicilioResultItemDto pais11 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
-            15000, 12600, 11, 4);
+                15000, 12600, 11, 4);
         list.add(pais38);
         list.add(pais11);
         List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
@@ -191,9 +191,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaEntregaDomicilioVariasEmpresasTest() {
         List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
         PtrVentaOnlineEntregaDomicilioResultItemDto empresa1 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 4);
+                25000, 22300, 38, 4);
         PtrVentaOnlineEntregaDomicilioResultItemDto empresa3 = createEntregaDomicilioResultItem(1, 3, "2015-01-01",
-            15000, 12600, 38, 4);
+                15000, 12600, 38, 4);
         list.add(empresa1);
         list.add(empresa3);
         List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
@@ -208,9 +208,9 @@ public class TareaAgrupacionVentaMapperTest {
     public void ventaEntregaDomicilioVariasSeccionesTest() {
         List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
         PtrVentaOnlineEntregaDomicilioResultItemDto seccion1 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
-            25000, 22300, 38, 1);
+                25000, 22300, 38, 1);
         PtrVentaOnlineEntregaDomicilioResultItemDto seccion2 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
-            15000, 12600, 38, 2);
+                15000, 12600, 38, 2);
         list.add(seccion1);
         list.add(seccion2);
         List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
@@ -218,7 +218,7 @@ public class TareaAgrupacionVentaMapperTest {
         assertNotNull(presencias);
         assertEquals(2, presencias.size());
     }
-    
+
 
     private List<TareaAgrupacionCadenasDto> createAgrupaciones() {
         List<TareaAgrupacionCadenasDto> agrupaciones = new ArrayList<>();
@@ -243,7 +243,7 @@ public class TareaAgrupacionVentaMapperTest {
     }
 
     private PtrVentaOnlineEntregaDomicilioResultItemDto createEntregaDomicilioResultItem(int cadena, int empresa,
-                String fecha, double importeIVA, double importe, int origen, int seccion) {
+            String fecha, double importeIVA, double importe, int origen, int seccion) {
         PtrVentaOnlineEntregaDomicilioResultItemDto item = new PtrVentaOnlineEntregaDomicilioResultItemDto();
         item.setCadena(cadena);
         item.setEmpresa(empresa);
@@ -256,7 +256,7 @@ public class TareaAgrupacionVentaMapperTest {
     }
 
     private PtrVentaTotalizadoResultItemDto createTotalizadoResultItem(int cadena, int empresa,
-                String fecha, double importeIVA, double importe, int origen, int seccion) {
+            String fecha, double importeIVA, double importe, int origen, int seccion) {
         PtrVentaTotalizadoResultItemDto item = new PtrVentaTotalizadoResultItemDto();
         item.setCadena(cadena);
         item.setEmpresa(empresa);
@@ -267,4 +267,5 @@ public class TareaAgrupacionVentaMapperTest {
         item.setPais(origen);
         return item;
     }
+
 }

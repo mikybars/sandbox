@@ -22,14 +22,15 @@ public class TareaLocalizacionFestivoServiceImpl implements TareaLocalizacionFes
 
     @Autowired
     private TareaLocalizacionFestivoRepositoryCustom tareaLocalizacionFestivoRepositoryCustom;
-    
+
     @Autowired
     private TareaLocalizacionFestivoMapper tareaLocalizacionFestivoMapper;
-    
+
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> src, @Valid @NotNull final TareaDto tareaDto) {
+    public void save(@Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto) {
         tareaLocalizacionFestivoRepositoryCustom.save(tareaLocalizacionFestivoMapper
-                .genericTiendaResultItemDtoToTareaLocalizacionFestivo(src, tareaDto));
+            .genericTiendaResultItemDtoToTareaLocalizacionFestivo(src, tareaDto));
     }
-    
+
 }

@@ -37,9 +37,11 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
     private TareaLocalizacionPresupuestoMapper tareaLocalizacionPresupuestoMapper;
 
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<PresupuestosWlocResultItemDto> src, @Valid @NotNull final TareaDto tarea) {
+    public void save(@Valid @NotNull @NotEmpty final List<PresupuestosWlocResultItemDto> src,
+            @Valid @NotNull final TareaDto tarea) {
         tareaLocalizacionPresupuestoRepositoryCustom.save(
-            tareaLocalizacionPresupuestoMapper.presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(src, tarea));
+                tareaLocalizacionPresupuestoMapper.presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(src,
+                        tarea));
     }
 
     @Override
@@ -58,15 +60,19 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
     }
 
     @Override
-    @Cacheable(value = "itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page", key = "{#idTarea, #filterProperties.periodSize, #filterProperties.periodType}")
-    public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea, @NotNull PtrFilterPropertiesDto filterProperties) {
+    @Cacheable(value = "itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page",
+            key = "{#idTarea, #filterProperties.periodSize, #filterProperties.periodType}")
+    public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea,
+            @NotNull PtrFilterPropertiesDto filterProperties) {
         return findListaPeriodosPresupestoYTrabajo(idTarea, filterProperties, 0);
     }
 
     @Override
-    @Cacheable(value = "itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days", key = "{#idTarea, #filterProperties.periodSize, #filterProperties.periodType, #recolectarProperties.daysNumber}")
-    public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea, @NotNull PtrFilterPropertiesDto filterProperties,
-        RecolectarPropertiesDto recolectarProperties) {
+    @Cacheable(value = "itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days",
+            key = "{#idTarea, #filterProperties.periodSize, #filterProperties.periodType, #recolectarProperties.daysNumber}")
+    public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea,
+            @NotNull PtrFilterPropertiesDto filterProperties,
+            RecolectarPropertiesDto recolectarProperties) {
         return findListaPeriodosPresupestoYTrabajo(idTarea, filterProperties, recolectarProperties.getDaysNumber());
     }
 
@@ -75,7 +81,8 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
         LocalDate fecha = periodo.getFechaInicioPeriodo();
         while (fecha.isBefore(periodo.getFechaFinPeriodo())) {
             LocalDate fechaFinPeriodo = fecha.plusMonths(numMonths).minusDays(1);
-            fechaFinPeriodo = fechaFinPeriodo.isBefore(periodo.getFechaFinPeriodo()) ? fechaFinPeriodo : periodo.getFechaFinPeriodo();
+            fechaFinPeriodo = fechaFinPeriodo.isBefore(periodo.getFechaFinPeriodo()) ? fechaFinPeriodo
+                    : periodo.getFechaFinPeriodo();
             periodos.add(PeriodoDto
                 .builder()
                 .fechaInicioPeriodo(fecha)
@@ -91,7 +98,8 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
         LocalDate fecha = periodo.getFechaInicioPeriodo();
         while (fecha.isBefore(periodo.getFechaFinPeriodo())) {
             LocalDate fechaFinPeriodo = fecha.plusDays(numDays - 1);
-            fechaFinPeriodo = fechaFinPeriodo.isBefore(periodo.getFechaFinPeriodo()) ? fechaFinPeriodo : periodo.getFechaFinPeriodo();
+            fechaFinPeriodo = fechaFinPeriodo.isBefore(periodo.getFechaFinPeriodo()) ? fechaFinPeriodo
+                    : periodo.getFechaFinPeriodo();
             periodos.add(PeriodoDto
                 .builder()
                 .fechaInicioPeriodo(fecha)
@@ -102,7 +110,8 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
         return periodos;
     }
 
-    private List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(Long idTarea, @NotNull PtrFilterPropertiesDto filterProperties, Integer daysToAdd) {
+    private List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(Long idTarea,
+            @NotNull PtrFilterPropertiesDto filterProperties, Integer daysToAdd) {
         PeriodoDto periodo = tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(idTarea);
 
         List<PeriodoDto> periodos = Collections.singletonList(periodo);
@@ -118,7 +127,7 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
             }
         }
 
-        //Al último período se le añaden los días extra
+        // Al último período se le añaden los días extra
         if (CollectionUtils.isNotEmpty(periodos)) {
             PeriodoDto ultimoTramo = periodos.get(periodos.size() - 1);
             ultimoTramo.setFechaFinPeriodo(RunUtils.addDays(ultimoTramo.getFechaFinPeriodo(), daysToAdd));
@@ -126,4 +135,5 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
 
         return periodos;
     }
+
 }

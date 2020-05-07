@@ -17,7 +17,7 @@ public class TareaAmbitoGlobalPersonaServiceImpl implements TareaAmbitoGlobalPer
 
     @Autowired
     private TareaAmbitoGlobalPersonaRepositoryCustom tareaAmbitoGlobalPersonaRepositoryCustom;
-    
+
     @Override
     public void mergePersona(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaAmbitoGlobalPersonaRepositoryCustom.mergePersona(runTareaDto);

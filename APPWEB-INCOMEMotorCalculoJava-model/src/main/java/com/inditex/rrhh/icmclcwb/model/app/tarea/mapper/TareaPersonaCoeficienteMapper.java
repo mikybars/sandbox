@@ -49,4 +49,5 @@ public abstract class TareaPersonaCoeficienteMapper {
             List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
 }

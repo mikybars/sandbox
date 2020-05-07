@@ -21,7 +21,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionC
 @Validated
 public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImpl
         implements TareaAgrupacionConfiguracionChallengeTipoVentaService {
-    
+
     @Autowired
     private TareaAgrupacionConfiguracionChallengeTipoVentaMapper tareaAgrupacionConfiguracionChallengeTipoVentaMapper;
 
@@ -29,16 +29,20 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImpl
     private TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom;
 
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> src, @Valid @NotNull final TareaDto tarea) {
+    public void save(@Valid @NotNull @NotEmpty final List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> src,
+            @Valid @NotNull final TareaDto tarea) {
         tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
-                tareaAgrupacionConfiguracionChallengeTipoVentaMapper.tareaAgrupacionConfiguracionChallengeTipoVentaDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(src));
+                tareaAgrupacionConfiguracionChallengeTipoVentaMapper
+                    .tareaAgrupacionConfiguracionChallengeTipoVentaDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(
+                            src));
     }
-    
+
     @Override
-    public void saveConfChTpVentaResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChTpVentaResultItemDto> src, @Valid @NotNull final TareaDto tarea) {
+    public void saveConfChTpVentaResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChTpVentaResultItemDto> src,
+            @Valid @NotNull final TareaDto tarea) {
         tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
-                tareaAgrupacionConfiguracionChallengeTipoVentaMapper.confChTpVentaResultItemDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(src, tarea));
+                tareaAgrupacionConfiguracionChallengeTipoVentaMapper
+                    .confChTpVentaResultItemDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(src, tarea));
     }
-   
-    
+
 }

@@ -13,11 +13,12 @@ import java.util.List;
 
 @Repository
 public class TareaAgrupacionCadenaRepositoryCustomImpl
-    extends JdbcBatchPrimaryRepositoryAbstract<TareaAgrupacionCadena> implements TareaAgrupacionCadenaRepositoryCustom {
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaAgrupacionCadena>
+        implements TareaAgrupacionCadenaRepositoryCustom {
 
     @Value("${app.envars.repository.batch-size.tarea-agrupacion-cadena:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaAgrupacionCadenaRepositoryCustom.save']}")
     private String sqlSave;
 
@@ -34,4 +35,5 @@ public class TareaAgrupacionCadenaRepositoryCustomImpl
         pstmt.setBoolean(4, entity.getMultiple());
         pstmt.setString(5, entity.getCclIdOrigen());
     }
+
 }

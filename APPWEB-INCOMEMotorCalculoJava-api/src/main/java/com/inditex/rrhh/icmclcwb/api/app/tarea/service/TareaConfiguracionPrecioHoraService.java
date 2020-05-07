@@ -12,8 +12,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.Co
 
 public interface TareaConfiguracionPrecioHoraService {
 
-    void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionPrecioHoraDto> src, @Valid @NotNull final TareaDto tarea);
+    void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionPrecioHoraDto> src,
+            @Valid @NotNull final TareaDto tarea);
 
-    void saveConfPrecioHoraResultItemDto(@Valid @NotNull @NotEmpty final List<ConfPrecioHoraResultItemDto> src, @Valid @NotNull final TareaDto tarea);
+    void saveConfPrecioHoraResultItemDto(@Valid @NotNull @NotEmpty final List<ConfPrecioHoraResultItemDto> src,
+            @Valid @NotNull final TareaDto tarea);
 
 }

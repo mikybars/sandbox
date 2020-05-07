@@ -73,19 +73,19 @@ public class TestController {
     public void testConcurrencia(@PathVariable @Valid @NotNull @Positive Long limit) {
         testService.testBloqueos(limit);
     }
-    
+
     @PostMapping(path = "/test/url")
     @ApiOperation("Test urls")
     public Boolean testUrl(@RequestBody @NotBlank String url) {
         return testService.testUrl(url);
     }
-    
+
     @GetMapping("/trabajo/fase1a")
     @ApiOperation("Crea los trabajos para todos los origenes y empresas de la fase 1a")
     public void trabajoFase1a() {
         testService.trabajoFase1a();
     }
-    
+
     @PostMapping(path = "/sql/formatter", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation("Formatea una consulta")
     public String sqlformatter(@RequestBody @NotBlank String sql) {

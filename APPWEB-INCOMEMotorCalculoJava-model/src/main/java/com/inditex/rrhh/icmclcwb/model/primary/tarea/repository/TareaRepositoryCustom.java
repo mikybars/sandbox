@@ -11,13 +11,13 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 public interface TareaRepositoryCustom {
 
     void updateFechaFin(@NotNull final TareaDto tarea);
-    
+
     void updateFechaInicioAndEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado);
 
     void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado);
 
     void updateEstadoFinal(@NotNull final TareaDto tarea);
-    
+
     List<IdTareaDto> findLimpieza();
 
     List<IdTareaDto> findLimpiezaByIdTarea(@NotNull final Long idTarea);

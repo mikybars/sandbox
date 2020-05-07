@@ -38,15 +38,15 @@ public class PtrPresenciaServiceTest {
     @Autowired
     @Qualifier("ptrPresenciaClient")
     private RestClient ptrPresenciaClient;
-  
+
     @Autowired
     @Qualifier("presenciasProperties")
     private Map<String, PtrPropertiesDto> presenciasProperties;
-    
+
     @Autowired
     @Qualifier("presenciasVersion")
     private String version;
-    
+
     @Test
     public void presenciasDetalle() {
         PtrPresenciaDetalleRequestDto req = new PtrPresenciaDetalleRequestDto();
@@ -60,7 +60,8 @@ public class PtrPresenciaServiceTest {
         req.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
         req.setExcluidoCalculo(Boolean.FALSE);
         ResponseEntity<PtrPresenciaDetalleResponseDto> response = ptrPresenciaClient
-                .postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getEndpoint(), req, PtrPresenciaDetalleResponseDto.class);
+            .postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getEndpoint(), req,
+                    PtrPresenciaDetalleResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
@@ -71,17 +72,18 @@ public class PtrPresenciaServiceTest {
         req.setOrigen(PtrTestConstants.PAIS);
         req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-//        req.setCadena(PtrTestConstants.CADENA_LIST);
+        // req.setCadena(PtrTestConstants.CADENA_LIST);
         req.setEmpresa(PtrTestConstants.ID_EMPRESA);
         req.setAgrupacion(PtrTestConstants.AGRUPACION_FECHA_TIENDA);
         req.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
         ResponseEntity<PtrPresenciaTotalizadoResponseDto> ret = ptrPresenciaClient.postForEntity(
-                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getEndpoint(), req, PtrPresenciaTotalizadoResponseDto.class);
+                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getEndpoint(), req,
+                PtrPresenciaTotalizadoResponseDto.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
     }
-    
+
     @Test
-    public void presenciasTiendasEmpleado(){
+    public void presenciasTiendasEmpleado() {
         PtrPresenciaTiendasEmpleadoRequestDto req = new PtrPresenciaTiendasEmpleadoRequestDto();
         req.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         req.setFechaHasta(PtrTestConstants.FECHA_HASTA);
@@ -109,8 +111,8 @@ public class PtrPresenciaServiceTest {
         req.setAgrupacion(PtrTestConstants.AGRUPACION);
         req.setExcluidoCalculo(Boolean.FALSE);
         ResponseEntity<PtrPresenciaTiendasEmpleadoResponseDto> ret = ptrPresenciaClient.postForEntity(
-            presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), req,
-            PtrPresenciaTiendasEmpleadoResponseDto.class);
+                presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), req,
+                PtrPresenciaTiendasEmpleadoResponseDto.class);
         assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
     }
 
@@ -120,7 +122,8 @@ public class PtrPresenciaServiceTest {
         req.setOrigen(PtrTestConstants.PAIS);
         req.setExcluidoCalculo(Boolean.FALSE);
         ResponseEntity<PtrPresenciaTiposHorasResponseDto> ret2 = ptrPresenciaClient
-                .postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), req, PtrPresenciaTiposHorasResponseDto.class);
+            .postForEntity(presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(), req,
+                    PtrPresenciaTiposHorasResponseDto.class);
         assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
     }
 

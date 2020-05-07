@@ -14,8 +14,8 @@ import java.time.format.DateTimeFormatter;
 @Service
 @Validated
 public class RunTareaAmbitoRecolectarPtrPresenciaPresupuestosServiceImpl
-    extends AbstractRunTareaAmbitoRecolectarPtrPresenciaService
-    implements RunTareaAmbitoRecolectarPtrPresenciaPresupuestosService {
+        extends AbstractRunTareaAmbitoRecolectarPtrPresenciaService
+        implements RunTareaAmbitoRecolectarPtrPresenciaPresupuestosService {
 
     @Autowired
     private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
@@ -25,4 +25,5 @@ public class RunTareaAmbitoRecolectarPtrPresenciaPresupuestosServiceImpl
         TareaLocalizacionPresupuestoListDto presupuestos = tareaLocalizacionPresupuestoService.findPresupuestos(tarea);
         return presupuestos.getMinFechaInicioPeriodo().format(DateTimeFormatter.ofPattern(PtrConstants.DATE_FORMAT));
     }
+
 }

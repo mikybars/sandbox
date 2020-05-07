@@ -172,7 +172,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Autowired
     private TareaPersonaEstructuraService tareaPersonaEstructuraService;
-    
+
     @Autowired
     private TareaLocalizacionPresupuestoVentaAsyncService tareaLocalizacionPresupuestoVentaAsyncService;
 
@@ -194,12 +194,12 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             FestivosRequestDto request = new FestivosRequestDto();
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.FESTIVOS).getPage());
             request.setData(tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
-                            trabajo, tarea, tareaAmbito));
+                .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
+                        trabajo, tarea, tareaAmbito));
             boolean hasNext = false;
             do {
                 CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-                        .getFestivos(request);
+                    .getFestivos(request);
                 AsyncUtils.exceptionally(cfData, cf);
                 List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
@@ -226,26 +226,35 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             PeriodoDto periodo = tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(tarea.getId());
             for (List<IdPersonaHistoricoDto> iter : StreamUtils.partition(
-                    tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(tarea.getId(),
-                            tareaAmbito.getCclIdOrigen(), Arrays.asList(TipoDatoEnum.PERSONA_COEFICIENTEREDUCCIONJORNADA.getId())),
+                    tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+                            tarea.getId(),
+                            tareaAmbito.getCclIdOrigen(),
+                            Arrays.asList(TipoDatoEnum.PERSONA_COEFICIENTEREDUCCIONJORNADA.getId())),
                     meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA).getFilter().getMaxPageSize())) {
                 CoefJornadaRequestDto request = new CoefJornadaRequestDto();
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA).getPage());
                 request.setData(tareaMapper
-                        .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(
-                                tarea, tareaAmbito, periodo));
-                request.getData().setItem(
-                        iter.stream().map(e -> GenericFilterParametersDto.builder().idEmpleado(e.getStdIdHr())
-                                .orEmpleado(e.getStdOrHrPeriod()).build()).collect(Collectors.toList()));
+                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(
+                            tarea, tareaAmbito, periodo));
+                request.getData()
+                    .setItem(
+                            iter.stream()
+                                .map(e -> GenericFilterParametersDto.builder()
+                                    .idEmpleado(e.getStdIdHr())
+                                    .orEmpleado(e.getStdOrHrPeriod())
+                                    .build())
+                                .collect(Collectors.toList()));
                 boolean hasNext = false;
                 do {
                     CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-                            .getCoefJornada(request);
+                        .getCoefJornada(request);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
                     if (CollectionUtils.isNotEmpty(data)) {
-                        AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA)
-                                .getFilter().getMaxPersistenceSize());
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA)
+                                    .getFilter()
+                                    .getMaxPersistenceSize());
                         CompletableFuture<Void> cfSave = tareaPersonaCoeficienteAsyncService.save(data, tarea);
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                         hasNext = request.nextPage();
@@ -268,27 +277,31 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             PeriodoDto periodo = tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(tarea.getId());
             for (List<IdLocalizacionDto> iter : StreamUtils.partition(
-                    tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(tarea.getId(),
+                    tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
+                            tarea.getId(),
                             tareaAmbito.getCclIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA).getFilter().getMaxPageSize())) {
                 FlagCalculaRequestDto request = new FlagCalculaRequestDto();
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA).getPage());
                 request.setData(tareaMapper
-                        .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
+                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
                             periodo));
-                request.getData().getItem()
-                        .addAll(iter.stream()
-                                .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
-                                .collect(Collectors.toList()));
+                request.getData()
+                    .getItem()
+                    .addAll(iter.stream()
+                        .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
+                        .collect(Collectors.toList()));
                 boolean hasNext = false;
                 do {
                     CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-                            .getFlagCalcula(request);
+                        .getFlagCalcula(request);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
                     if (CollectionUtils.isNotEmpty(data)) {
-                        AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA)
-                                .getFilter().getMaxPersistenceSize());
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA)
+                                    .getFilter()
+                                    .getMaxPersistenceSize());
                         CompletableFuture<Void> cfSave = tareaLocalizacionCalcularAsyncService.save(data, tarea);
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                         hasNext = request.nextPage();
@@ -317,21 +330,24 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 PresenciaManualRequestDto request = new PresenciaManualRequestDto();
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getPage());
                 request.setData(tareaMapper
-                        .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(
-                                tarea, tareaAmbito, periodo));
-                request.getData().getItem()
-                        .addAll(iter.stream()
-                                .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
-                                .collect(Collectors.toList()));
+                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(
+                            tarea, tareaAmbito, periodo));
+                request.getData()
+                    .getItem()
+                    .addAll(iter.stream()
+                        .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
+                        .collect(Collectors.toList()));
                 boolean hasNext = false;
                 do {
                     CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-                            .getPresenciaManual(request);
+                        .getPresenciaManual(request);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
                     if (CollectionUtils.isNotEmpty(data)) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
-                                .get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getFilter().getMaxPersistenceSize());
+                            .get(Meta4PropertiesConstants.PRESENCIA_MANUAL)
+                            .getFilter()
+                            .getMaxPersistenceSize());
                         CompletableFuture<Void> cfSave = tareaLocalizacionPersonaSeccionPresenciaAsyncService.save(data,
                                 tarea);
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
@@ -361,9 +377,14 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 EstructurasComRequestDto estructurasComRequest = new EstructurasComRequestDto();
                 estructurasComRequest.setData(tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToEstructurasComFilterDto(trabajo, tarea, tareaAmbito));
-                estructurasComRequest.getData().getItem()
-                    .addAll(iter.stream().map(
-                        item -> EstructurasComFilterParametersDto.builder().idEmpleado(item.getStdIdHr()).orEmpleado(item.getStdOrHrPeriod()).build())
+                estructurasComRequest.getData()
+                    .getItem()
+                    .addAll(iter.stream()
+                        .map(
+                                item -> EstructurasComFilterParametersDto.builder()
+                                    .idEmpleado(item.getStdIdHr())
+                                    .orEmpleado(item.getStdOrHrPeriod())
+                                    .build())
                         .collect(Collectors.toList()));
                 CompletableFuture<List<EstructurasComResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                     .getEstructurasCom(estructurasComRequest);
@@ -371,7 +392,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 List<EstructurasComResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
-                        .get(Meta4PropertiesConstants.ESTRUCTURAS_COM).getFilter().getMaxPersistenceSize());
+                        .get(Meta4PropertiesConstants.ESTRUCTURAS_COM)
+                        .getFilter()
+                        .getMaxPersistenceSize());
                     CompletableFuture<Void> cfSave = tareaPersonaEstructuraAsyncService
                         .saveEstructurasComResultItemDto(data, tarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
@@ -398,10 +421,16 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POL).getFilter().getMaxPageSize())) {
                 EstructurasPolRequestDto estructurasPolRequest = new EstructurasPolRequestDto();
                 estructurasPolRequest.setData(tareaMapper
-                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, tareaPersonaHistoricoService.findPeriodoByIdTareaDto(tarea.getId())));
-                estructurasPolRequest.getData().getItem()
-                    .addAll(iter.stream().map(
-                        item -> GenericFilterParametersDto.builder().idEmpleado(item.getStdIdHr()).orEmpleado(item.getStdOrHrPeriod()).build())
+                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
+                            tareaPersonaHistoricoService.findPeriodoByIdTareaDto(tarea.getId())));
+                estructurasPolRequest.getData()
+                    .getItem()
+                    .addAll(iter.stream()
+                        .map(
+                                item -> GenericFilterParametersDto.builder()
+                                    .idEmpleado(item.getStdIdHr())
+                                    .orEmpleado(item.getStdOrHrPeriod())
+                                    .build())
                         .collect(Collectors.toList()));
                 CompletableFuture<List<EstructurasPolResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                     .getEstructurasPol(estructurasPolRequest);
@@ -409,7 +438,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 List<EstructurasPolResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
-                        .get(Meta4PropertiesConstants.ESTRUCTURAS_POL).getFilter().getMaxPersistenceSize());
+                        .get(Meta4PropertiesConstants.ESTRUCTURAS_POL)
+                        .getFilter()
+                        .getMaxPersistenceSize());
                     CompletableFuture<Void> cfSave = tareaPersonaEstructuraPoliticaAsyncService
                         .saveEstructurasPolResultItemDto(data, tarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
@@ -423,18 +454,24 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
-    public void configuracionVentaOnlineByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea, @NotNull @Valid TareaAmbitoDto tareaAmbito) {
+    public void configuracionVentaOnlineByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
             PeriodoDto periodo = tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(tarea.getId());
-            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(),
-                tareaAmbito.getCclIdOrigen());
+            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(
+                    tarea.getId(),
+                    tareaAmbito.getCclIdOrigen());
             ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
             request.setData(tareaMapper
-                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDtoWithDates(tarea, tareaAmbito, periodo, recolectarProperties));
-            request.getData().setItem(cadenas.stream().map(x -> GenericFilterParametersDto.builder().idCadena(x.getId()).build()).collect(Collectors.toList()));
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDtoWithDates(tarea, tareaAmbito, periodo,
+                        recolectarProperties));
+            request.getData()
+                .setItem(cadenas.stream()
+                    .map(x -> GenericFilterParametersDto.builder().idCadena(x.getId()).build())
+                    .collect(Collectors.toList()));
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE).getPage());
 
             boolean hasNext = false;
@@ -445,13 +482,16 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 List<ConfiguracionVentaOnlineResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE).getFilter().getMaxPersistenceSize());
-                    CompletableFuture<Void> cfSave = tareaAgrupacionConfiguracionAsyncService.saveAgrupacionConfiguracionDto(data, runTarea);
+                            meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE)
+                                .getFilter()
+                                .getMaxPersistenceSize());
+                    CompletableFuture<Void> cfSave = tareaAgrupacionConfiguracionAsyncService
+                        .saveAgrupacionConfiguracionDto(data, runTarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                 }
                 hasNext = request.nextPage();
             } while (hasNext);
-            AsyncUtils.waitAllOfIsOk(cf,cf);
+            AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
@@ -467,29 +507,32 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             PeriodoDto periodo = tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(tarea.getId());
             for (List<IdLocalizacionDto> iter : StreamUtils.partition(
-                    tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(tarea.getId(),
+                    tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
+                            tarea.getId(),
                             tareaAmbito.getCclIdOrigen()),
                     meta4Properties.get(Meta4PropertiesConstants.TIENDAS).getFilter().getMaxPageSize())) {
                 TiendasRequestDto tiendasRequest = new TiendasRequestDto();
                 tiendasRequest.setPage(meta4Properties.get(Meta4PropertiesConstants.TIENDAS).getPage());
                 tiendasRequest.setData(tareaMapper
-                        .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
+                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
                             periodo));
-                tiendasRequest.getData().getItem()
-                        .addAll(iter.stream()
-                                .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
-                                .collect(Collectors.toList()));
+                tiendasRequest.getData()
+                    .getItem()
+                    .addAll(iter.stream()
+                        .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
+                        .collect(Collectors.toList()));
                 boolean hasNext = false;
                 do {
                     CompletableFuture<List<GenericTiendaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-                            .getTiendas(tiendasRequest);
+                        .getTiendas(tiendasRequest);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
                     if (CollectionUtils.isNotEmpty(data)) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties.get(Meta4PropertiesConstants.TIENDAS)
-                                .getFilter().getMaxPersistenceSize());
+                            .getFilter()
+                            .getMaxPersistenceSize());
                         CompletableFuture<Void> cfSave = tareaLocalizacionComisionHistoricoAsyncService
-                                .saveGenericTiendaResultItemDto(data, tarea);
+                            .saveGenericTiendaResultItemDto(data, tarea);
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                     }
                     hasNext = tiendasRequest.nextPage();
@@ -503,7 +546,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
-    public void agrupacionesCadenaByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea, @NotNull @Valid TareaAmbitoDto tareaAmbito) {
+    public void agrupacionesCadenaByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
@@ -512,7 +556,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             PeriodoDto periodo = tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(tarea.getId());
             request.setData(tareaMapper
                 .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, periodo));
-            request.getData().getItem().add(GenericFilterParametersDto.builder().idOrigenReg(tareaAmbito.getCclIdOrigen()).build());
+            request.getData()
+                .getItem()
+                .add(GenericFilterParametersDto.builder().idOrigenReg(tareaAmbito.getCclIdOrigen()).build());
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE).getPage());
             boolean hasNext = false;
             do {
@@ -521,7 +567,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 List<AgrupOnlineResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE).getFilter().getMaxPersistenceSize());
+                            meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE)
+                                .getFilter()
+                                .getMaxPersistenceSize());
                     CompletableFuture<Void> cfSave = tareaAgrupacionCadenaAsyncService.save(data, tarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                     hasNext = request.nextPage();
@@ -535,30 +583,36 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
-    public void localizacionesOnlineByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea, @NotNull @Valid TareaAmbitoDto tareaAmbito) {
+    public void localizacionesOnlineByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
+            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
             PeriodoDto periodo = tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(tarea.getId());
             for (List<IdCadenaDto> cadenas : StreamUtils.partition(
-                tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(),
-                    tareaAmbito.getCclIdOrigen()),
-                meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE).getFilter().getMaxPageSize())) {
+                    tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(),
+                            tareaAmbito.getCclIdOrigen()),
+                    meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE).getFilter().getMaxPageSize())) {
 
                 TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
                 request.setData(tareaMapper
                     .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, periodo));
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE).getPage());
-                List<GenericFilterParametersDto> items = cadenas.stream().map(x -> GenericFilterParametersDto.builder().idCadena(x.getId()).build()).collect(Collectors.toList());
+                List<GenericFilterParametersDto> items = cadenas.stream()
+                    .map(x -> GenericFilterParametersDto.builder().idCadena(x.getId()).build())
+                    .collect(Collectors.toList());
                 request.getData().setItem(items);
                 boolean hasNext = false;
                 do {
-                    CompletableFuture<List<TiendaOnlineResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService.getTiendasOnline(request);
+                    CompletableFuture<List<TiendaOnlineResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
+                        .getTiendasOnline(request);
                     List<TiendaOnlineResultItemDto> data = AsyncUtils.get(cfData);
                     if (CollectionUtils.isNotEmpty(data)) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
-                            meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE).getFilter().getMaxPersistenceSize());
+                                meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE)
+                                    .getFilter()
+                                    .getMaxPersistenceSize());
                         CompletableFuture<Void> cfSave = tareaLocalizacionOnlineHistoricoAsyncService.save(data, tarea);
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                         hasNext = request.nextPage();
@@ -584,18 +638,20 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             AusenciasRequestDto request = new AusenciasRequestDto();
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.AUSENCIAS).getPage());
             request.setData(tareaMapper
-                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, periodo));
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, periodo));
             boolean hasNext = false;
             do {
                 CompletableFuture<List<AusenciasResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
-                        .getAusencias(request);
+                    .getAusencias(request);
                 AsyncUtils.exceptionally(cfData, cf);
                 List<AusenciasResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
-                            .get(Meta4PropertiesConstants.AUSENCIAS).getFilter().getMaxPersistenceSize());
+                        .get(Meta4PropertiesConstants.AUSENCIAS)
+                        .getFilter()
+                        .getMaxPersistenceSize());
                     CompletableFuture<Void> cfSave = tareaPersonaAusenciaHistoricoAsyncService
-                            .saveAusenciaResultItemDto(data, tarea);
+                        .saveAusenciaResultItemDto(data, tarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                     hasNext = request.nextPage();
                 }
@@ -610,21 +666,24 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Override
     public void configuracionByRunTareaAndTareaAmbito(@NotNull @Valid RunTareaDto runTarea,
-                                                      @NotNull @Valid TareaAmbitoDto tareaAmbito) {
+            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
             PeriodoDto periodo = tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(tarea.getId());
-            ConfiguracionesRequestDto request = tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfiguracionesRequestDto(
-                tarea, tareaAmbito, periodo);
+            ConfiguracionesRequestDto request = tareaMapper
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfiguracionesRequestDto(
+                        tarea, tareaAmbito, periodo);
             CompletableFuture<List<ConfiguracionItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                 .getConfiguraciones(request);
             AsyncUtils.exceptionally(cfData, cf);
             List<ConfiguracionItemDto> data = AsyncUtils.get(cfData);
             if (CollectionUtils.isNotEmpty(data)) {
                 AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
-                    .get(Meta4PropertiesConstants.CONFIGURACION).getFilter().getMaxPersistenceSize());
+                    .get(Meta4PropertiesConstants.CONFIGURACION)
+                    .getFilter()
+                    .getMaxPersistenceSize());
                 CompletableFuture<Void> cfSave = tareaConfiguracionAsyncService.saveConfiguracionItemDto(data, tarea);
                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);
             }
@@ -646,15 +705,18 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             ConfChDiasMinimosRequestDto request = new ConfChDiasMinimosRequestDto();
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS).getPage());
             request.setData(tareaMapper
-                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfChDiasMinimosFilterDto(tarea, tareaAmbito, periodo));
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfChDiasMinimosFilterDto(tarea, tareaAmbito, periodo));
 
             CompletableFuture<List<ConfChDiasMinimosResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                 .getConfChallengeDiasMinimos(request);
             List<ConfChDiasMinimosResultItemDto> data = AsyncUtils.get(cfData);
             if (CollectionUtils.isNotEmpty(data)) {
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
-                    meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS).getFilter().getMaxPersistenceSize());
-                CompletableFuture<Void> cfSave = tareaConfiguracionChallengeDiasMinimosAsyncService.saveConfChDiasMinimosResultItemDto(data, tarea);
+                        meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS)
+                            .getFilter()
+                            .getMaxPersistenceSize());
+                CompletableFuture<Void> cfSave = tareaConfiguracionChallengeDiasMinimosAsyncService
+                    .saveConfChDiasMinimosResultItemDto(data, tarea);
                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -676,16 +738,20 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             if (CollectionUtils.isNotEmpty(personasChallenge)) {
                 PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getPage());
-                request.setData(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosWlocFilterDto(trabajo, tarea, tareaAmbito));
+                request.setData(tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosWlocFilterDto(
+                        trabajo, tarea, tareaAmbito));
                 request.getData().setItem(Collections.singletonList(new PresupuestosWlocFilterParametersDto()));
                 boolean hasNext;
                 do {
-                    CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService.getPresupuestosWloc(request);
+                    CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
+                        .getPresupuestosWloc(request);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<PresupuestosWlocResultItemDto> data = AsyncUtils.get(cfData);
                     if (CollectionUtils.isNotEmpty(data)) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist, meta4Properties
-                            .get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getFilter().getMaxPersistenceSize());
+                            .get(Meta4PropertiesConstants.PRESUPUESTOSWLOC)
+                            .getFilter()
+                            .getMaxPersistenceSize());
                         CompletableFuture<Void> cfSave = tareaLocalizacionPresupuestoAsyncService.save(data, tarea);
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                     }
@@ -710,15 +776,18 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             ConfPrecioHoraRequestDto request = new ConfPrecioHoraRequestDto();
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.CONFPRECIOHORA).getPage());
             request.setData(tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfPrecioHoraFilterDto(tarea,
-                        tareaAmbito, periodo));
+                    tareaAmbito, periodo));
 
             CompletableFuture<List<ConfPrecioHoraResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                 .getConfPrecioHora(request);
             List<ConfPrecioHoraResultItemDto> data = AsyncUtils.get(cfData);
             if (CollectionUtils.isNotEmpty(data)) {
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
-                    meta4Properties.get(Meta4PropertiesConstants.CONFPRECIOHORA).getFilter().getMaxPersistenceSize());
-                CompletableFuture<Void> cfSave = tareaConfiguracionPrecioHoraAsyncService.saveConfPrecioHoraResultItemDto(data, tarea);
+                        meta4Properties.get(Meta4PropertiesConstants.CONFPRECIOHORA)
+                            .getFilter()
+                            .getMaxPersistenceSize());
+                CompletableFuture<Void> cfSave = tareaConfiguracionPrecioHoraAsyncService
+                    .saveConfPrecioHoraResultItemDto(data, tarea);
                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);
             }
 
@@ -740,15 +809,18 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             ConfChTpVentaRequestDto request = new ConfChTpVentaRequestDto();
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGETPVENTA).getPage());
             request.setData(tareaMapper
-                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfChTpVentaFilterDto(tarea, tareaAmbito, periodo));
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfChTpVentaFilterDto(tarea, tareaAmbito, periodo));
 
             CompletableFuture<List<ConfChTpVentaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
                 .getConfChallengeTpVenta(request);
             List<ConfChTpVentaResultItemDto> data = AsyncUtils.get(cfData);
             if (CollectionUtils.isNotEmpty(data)) {
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
-                    meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGETPVENTA).getFilter().getMaxPersistenceSize());
-                CompletableFuture<Void> cfSave = tareaAgrupacionConfiguracionChallengeTipoVentaAsyncService.saveConfChTpVentaResultItemDto(data, tarea);
+                        meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGETPVENTA)
+                            .getFilter()
+                            .getMaxPersistenceSize());
+                CompletableFuture<Void> cfSave = tareaAgrupacionConfiguracionChallengeTipoVentaAsyncService
+                    .saveConfChTpVentaResultItemDto(data, tarea);
                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);
             }
 
@@ -756,7 +828,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
-                }
+        }
     }
 
     @Override
@@ -770,7 +842,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             PresupuestosRangoRequestDto request = new PresupuestosRangoRequestDto();
             request.setPage(meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSRANGO).getPage());
             request.setData(tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosRangoFilterDto(trabajo, tarea, tareaAmbito));
+                .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosRangoFilterDto(trabajo, tarea, tareaAmbito));
             boolean hasNext = false;
             do {
                 CompletableFuture<List<PresupuestosRangoResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
@@ -778,7 +850,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 List<PresupuestosRangoResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSRANGO).getFilter().getMaxPersistenceSize());
+                            meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSRANGO)
+                                .getFilter()
+                                .getMaxPersistenceSize());
                     hasNext = request.nextPage();
                 }
             } while (hasNext);
@@ -788,8 +862,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             throw e;
         }
     }
-    
-    
+
+
     @Override
     public void ventaCongeladaByRunTareaAndTareaAmbito(@NotNull @Valid RunTareaDto runTarea,
             @NotNull @Valid TareaAmbitoDto tareaAmbito) {
@@ -805,11 +879,13 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
                 request.setPage(meta4Properties.get(Meta4PropertiesConstants.VENTACONGELADA).getPage());
                 request.setData(tareaMapper
-                        .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToVentaCongeladaFilterDto(tarea, tareaAmbito, periodo));
-                request.getData().getItem()
-                .addAll(iter.stream()
+                    .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToVentaCongeladaFilterDto(tarea, tareaAmbito,
+                            periodo));
+                request.getData()
+                    .getItem()
+                    .addAll(iter.stream()
                         .map(e -> VentaCongeladaFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
-                        .collect(Collectors.toList()));    
+                        .collect(Collectors.toList()));
                 boolean hasNext = false;
                 do {
                     CompletableFuture<List<VentaCongeladaResultItemDto>> cfData = meta4IcmWsCalcIncomeSessionAsyncService
@@ -817,8 +893,11 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     List<VentaCongeladaResultItemDto> data = AsyncUtils.get(cfData);
                     if (CollectionUtils.isNotEmpty(data)) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
-                            meta4Properties.get(Meta4PropertiesConstants.VENTACONGELADA).getFilter().getMaxPersistenceSize());
-                        CompletableFuture<Void> cfSave = tareaLocalizacionPresupuestoVentaAsyncService.saveVentaCongeladaResultItemDto(data, runTarea.getTarea());
+                                meta4Properties.get(Meta4PropertiesConstants.VENTACONGELADA)
+                                    .getFilter()
+                                    .getMaxPersistenceSize());
+                        CompletableFuture<Void> cfSave = tareaLocalizacionPresupuestoVentaAsyncService
+                            .saveVentaCongeladaResultItemDto(data, runTarea.getTarea());
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                         hasNext = request.nextPage();
                     }
@@ -830,4 +909,5 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             throw e;
         }
     }
+
 }

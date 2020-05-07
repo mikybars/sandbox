@@ -32,12 +32,13 @@ public class RunTareaRecolectarValidarTiposHoraServiceImpl implements RunTareaRe
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             CompletableFuture<List<String>> cfDuplicatedLocalizacionHistorico = tareaValidarAsyncService
-                    .checkDuplicatedTiposHora(runTarea.getTarea().getId());
+                .checkDuplicatedTiposHora(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfDuplicatedLocalizacionHistorico, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            result.add(RunTareaValidarDto.builder().type(TareaTipoHora.class.getSimpleName())
-                    .duplicated(AsyncUtils.get(cfDuplicatedLocalizacionHistorico).stream().collect(Collectors.toSet()))
-                    .build());
+            result.add(RunTareaValidarDto.builder()
+                .type(TareaTipoHora.class.getSimpleName())
+                .duplicated(AsyncUtils.get(cfDuplicatedLocalizacionHistorico).stream().collect(Collectors.toSet()))
+                .build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

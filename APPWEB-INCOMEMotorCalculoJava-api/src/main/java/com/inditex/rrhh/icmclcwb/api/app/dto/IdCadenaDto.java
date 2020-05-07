@@ -18,4 +18,5 @@ public class IdCadenaDto implements Serializable {
 
     @NotBlank
     private String id;
+
 }

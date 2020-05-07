@@ -13,17 +13,17 @@ import lombok.Data;
 @Data
 public class PeriodoDto implements Serializable {
 
-	private static final long serialVersionUID = -5607507260079003307L;
+    private static final long serialVersionUID = -5607507260079003307L;
 
-	@ApiModelProperty(value = "Identificador del periodo", required = false)
-	private Long id;
-	
-	@NotNull
-	@ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true)
-	private LocalDate fechaInicioPeriodo;
+    @ApiModelProperty(value = "Identificador del periodo", required = false)
+    private Long id;
 
-	@NotNull
-	@ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true)
-	private LocalDate fechaFinPeriodo;
+    @NotNull
+    @ApiModelProperty(value = "Fecha inicio del periodo a procesar", required = true)
+    private LocalDate fechaInicioPeriodo;
+
+    @NotNull
+    @ApiModelProperty(value = "Fecha fin del periodo a procesar", required = true)
+    private LocalDate fechaFinPeriodo;
 
 }

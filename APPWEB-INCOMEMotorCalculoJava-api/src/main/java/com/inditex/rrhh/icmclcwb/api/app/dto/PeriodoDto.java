@@ -23,4 +23,5 @@ public class PeriodoDto implements Serializable {
 
     @NotNull
     private LocalDate fechaFinPeriodo;
+
 }

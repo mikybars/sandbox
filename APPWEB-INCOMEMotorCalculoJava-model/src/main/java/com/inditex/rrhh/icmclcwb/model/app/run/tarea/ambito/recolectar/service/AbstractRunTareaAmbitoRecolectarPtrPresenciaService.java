@@ -54,20 +54,23 @@ public abstract class AbstractRunTareaAmbitoRecolectarPtrPresenciaService {
     protected abstract String getFechaInicioPeriodo(TareaDto tarea);
 
     public void presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-                                                                @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         final TareaDto tarea = runTarea.getTarea();
-        PtrFilterPropertiesDto filter = presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA).getFilter();
+        PtrFilterPropertiesDto filter = presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA)
+            .getFilter();
         for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-            tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(tarea.getId(),
-                tareaAmbito.getCclIdOrigen()), filter.getMaxPageSize())) {
+                tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(tarea.getId(),
+                        tareaAmbito.getCclIdOrigen()),
+                filter.getMaxPageSize())) {
 
-            List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(tarea.getId(), filter);
+            List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService
+                .findListaPeriodosPresupestoYTrabajo(tarea.getId(), filter);
             for (PeriodoDto periodo : periodos) {
                 List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                 PtrPresenciaEmpleadosTiendaRequestDto request = tareaMapper
                     .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciaEmpleadosTiendaRequestDto(tarea,
-                        tareaAmbito, periodo, iter);
+                            tareaAmbito, periodo, iter);
 
                 request.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
                 request.setAgrupacion(PtrGroupTypeEnum.PERSONA_TIENDA.getValue());
@@ -85,4 +88,5 @@ public abstract class AbstractRunTareaAmbitoRecolectarPtrPresenciaService {
         }
         AsyncUtils.waitAllOfIsOk(cf, cf);
     }
+
 }

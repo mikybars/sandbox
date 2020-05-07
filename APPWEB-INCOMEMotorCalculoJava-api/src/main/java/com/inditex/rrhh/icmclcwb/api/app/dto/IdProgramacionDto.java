@@ -13,10 +13,11 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class IdProgramacionDto implements Serializable{
+public class IdProgramacionDto implements Serializable {
 
     private static final long serialVersionUID = -7670148375169828983L;
-    
+
     @NotNull
     private Long id;
+
 }

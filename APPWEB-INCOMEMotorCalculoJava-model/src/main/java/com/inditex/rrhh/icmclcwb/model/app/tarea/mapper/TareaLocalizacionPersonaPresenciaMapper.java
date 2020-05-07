@@ -45,12 +45,13 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     @Mapping(source = "src.minutos", target = "minutos")
     @Mapping(source = "src.idTipoHora", target = "codTipoHora")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
-    @Mapping(target = "tipoDato", expression = "java(TipoDato.builder().id(TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()).build())")
+    @Mapping(target = "tipoDato",
+            expression = "java(TipoDato.builder().id(TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()).build())")
     @Mapping(target = "activo", expression = "java(Boolean.TRUE)")
     @Mapping(target = "pk.id", ignore = true)
     @Mapping(source = "tareaDto.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaLocalizacionPersonaPresencia genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(
-        GenericEmpleadoResultItemDto src, TareaDto tareaDto);
+            GenericEmpleadoResultItemDto src, TareaDto tareaDto);
 
     public List<TareaLocalizacionPersonaPresencia> genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(
             List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {

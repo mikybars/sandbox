@@ -10,14 +10,15 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.Algoritmo;
 
 @Mapper
 public abstract class AlgoritmoMapper {
-    
+
     public abstract AlgoritmoDto algoritmoToAlgoritmoDto(Algoritmo src);
 
     @InheritInverseConfiguration
     public abstract Algoritmo algoritmoDtoToAlgoritmo(AlgoritmoDto src);
-    
+
     public abstract List<AlgoritmoDto> algoritmoToAlgoritmoDto(List<Algoritmo> src);
 
     @InheritInverseConfiguration
     public abstract List<Algoritmo> algoritmoDtoToAlgoritmo(List<AlgoritmoDto> src);
+
 }

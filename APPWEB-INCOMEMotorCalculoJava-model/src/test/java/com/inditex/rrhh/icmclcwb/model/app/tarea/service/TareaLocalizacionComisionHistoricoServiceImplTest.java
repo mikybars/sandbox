@@ -26,16 +26,16 @@ public class TareaLocalizacionComisionHistoricoServiceImplTest {
 
     @Mock
     private TareaLocalizacionComisionHistoricoRepositoryCustom tareaLocalizacionComisionHistoricoRepositoryCustom;
-    
+
     @InjectMocks
     private TareaLocalizacionComisionHistoricoServiceImpl tareaLocalizacionComisionHistoricoServiceImpl;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Mock
     private TareaLocalizacionComisionHistoricoMapper tareaLocalizacionComisionHistoricoMapper;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -45,7 +45,7 @@ public class TareaLocalizacionComisionHistoricoServiceImplTest {
         tareaLocalizacionComisionHistoricoServiceImpl.save(genericTiendaResultItemDto);
         verify(tareaLocalizacionComisionHistoricoRepositoryCustom, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void mergeTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -53,6 +53,9 @@ public class TareaLocalizacionComisionHistoricoServiceImplTest {
         List<GenericTiendaResultItemDto> genericTiendaResultItemDto = new ArrayList<>();
 
         tareaLocalizacionComisionHistoricoServiceImpl.merge(genericTiendaResultItemDto, tarea);
-        verify(tareaLocalizacionComisionHistoricoMapper, times(1)).genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(any(List.class), any(TareaDto.class));
+        verify(tareaLocalizacionComisionHistoricoMapper, times(1))
+            .genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(any(List.class),
+                    any(TareaDto.class));
     }
+
 }

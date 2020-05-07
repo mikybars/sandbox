@@ -21,14 +21,17 @@ public class TareaLocalizacionPersonaVentaAsyncServiceImpl implements TareaLocal
     private TareaLocalizacionPersonaVentaService tareaLocalizacionPersonaVentaService;
 
     @Override
-    public CompletableFuture<Void> savePtrVentaIndividualDetalleResultItem(@NotNull List<PtrVentaIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
+    public CompletableFuture<Void> savePtrVentaIndividualDetalleResultItem(
+            @NotNull List<PtrVentaIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
         tareaLocalizacionPersonaVentaService.savePtrVentaIndividualDetalleResultItem(operaciones, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlineIpodIndividualDetalleResultItem(@NotNull List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
+    public CompletableFuture<Void> savePtrVentaOnlineIpodIndividualDetalleResultItem(
+            @NotNull List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
         tareaLocalizacionPersonaVentaService.savePtrVentaOnlineIpodIndividualDetalleResultItem(operaciones, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

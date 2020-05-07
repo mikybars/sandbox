@@ -23,13 +23,16 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoServiceImpl
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper tareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper;
-    
+
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom tareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom;
-    
+
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src, @Valid @NotNull final TareaDto tareaDto) {
+    public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto) {
         tareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom.save(
-                tareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper.genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(src, tareaDto));
+                tareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper
+                    .genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(src, tareaDto));
     }
+
 }

@@ -44,9 +44,9 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImplTest {
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaPersonaEstructuraPoliticaRepositoryCustom,
-            "sqlSave", SQL_SAVE, true);
+                "sqlSave", SQL_SAVE, true);
         FieldUtils.writeField(tareaPersonaEstructuraPoliticaRepositoryCustom,
-            "batchSize", 100, true);
+                "batchSize", 100, true);
     }
 
     @Test

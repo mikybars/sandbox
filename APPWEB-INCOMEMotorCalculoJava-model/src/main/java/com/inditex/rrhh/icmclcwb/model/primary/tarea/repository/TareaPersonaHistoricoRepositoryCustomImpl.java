@@ -30,25 +30,26 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
 
 @Repository
-public class TareaPersonaHistoricoRepositoryCustomImpl 
-    extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaHistorico> implements TareaPersonaHistoricoRepositoryCustom {
+public class TareaPersonaHistoricoRepositoryCustomImpl
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaHistorico>
+        implements TareaPersonaHistoricoRepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
+
     @Value("${app.envars.repository.batch-size.tarea-persona-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInPeriodoCalculoPersona']}")
     private String sqlFindIdPersonaByIdTareaAndIdOrigen;
 
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito']}")
     private String sqlFindIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito;
-   
+
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoByIdTareaAndIdOrigenInPeriodoCalculoPersona']}")
     private String sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen;
 
@@ -60,10 +61,10 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea']}")
     private String sqlFindIdPersonaHistoricoDtoGrupoFechasByIdTarea;
-    
+
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalCompensacionChallengeByIdTarea']}")
     private String sqlFindIdPersonaLocalCompensacionChallengeByIdTarea;
-    
+
     @Override
     public List<TareaPersonaHistorico> save(final List<TareaPersonaHistorico> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
@@ -89,112 +90,125 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         pstmt.setObject(16, entity.getPk().getFechaInicioPeriodo());
         pstmt.setObject(17, entity.getFechaAntiguedad());
     }
-    
+
     @Override
-    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
+    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea,
+            @NotBlank final String cclIdOrigen) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        return namedParameterJdbcTemplate.query(sqlFindIdPersonaByIdTareaAndIdOrigen, parameters, new RowMapper<IdPersonaDto>() {
-            public IdPersonaDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                IdPersonaDto dto = new IdPersonaDto();
-                dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
-                return dto;
-            }
-        });
+        return namedParameterJdbcTemplate.query(sqlFindIdPersonaByIdTareaAndIdOrigen, parameters,
+                new RowMapper<IdPersonaDto>() {
+                    public IdPersonaDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        IdPersonaDto dto = new IdPersonaDto();
+                        dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
+                        return dto;
+                    }
+                });
     }
 
     @Override
-    public List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona(@NotNull @Positive Long idTarea, @NotNull @Positive String cclIdOrigen) {
+    public List<IdPersonaLocalDto> findIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona(
+            @NotNull @Positive Long idTarea, @NotNull @Positive String cclIdOrigen) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        return namedParameterJdbcTemplate.query(sqlFindIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona, parameters, (rs, rowNum)  ->
-            IdPersonaLocalDto
-                .builder()
-                .idPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL))
-                .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
-                .build());
+        return namedParameterJdbcTemplate.query(sqlFindIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona,
+                parameters, (rs, rowNum) -> IdPersonaLocalDto
+                    .builder()
+                    .idPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL))
+                    .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
+                    .build());
     }
 
     @Override
-    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(
+            @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen, parameters, new RowMapper<IdPersonaHistoricoDto>() {
-            public IdPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                IdPersonaHistoricoDto dto = new IdPersonaHistoricoDto();
-                dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
-                dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
-                return dto;
-            }
-        });
+        return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen, parameters,
+                new RowMapper<IdPersonaHistoricoDto>() {
+                    public IdPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        IdPersonaHistoricoDto dto = new IdPersonaHistoricoDto();
+                        dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
+                        dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
+                        return dto;
+                    }
+                });
     }
-    
+
     @Override
-    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(@NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+            @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
             @NotNull final List<Integer> idsTipoDato) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
 
-        return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito, parameters, new RowMapper<IdPersonaHistoricoDto>() {
-            public IdPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                IdPersonaHistoricoDto dto = new IdPersonaHistoricoDto();
-                dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
-                dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
-                return dto;
-            }
-        });
+        return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito,
+                parameters, new RowMapper<IdPersonaHistoricoDto>() {
+                    public IdPersonaHistoricoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        IdPersonaHistoricoDto dto = new IdPersonaHistoricoDto();
+                        dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
+                        dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
+                        return dto;
+                    }
+                });
     }
-    
+
     @Override
     public PeriodoDto findPeriodoDtoByIdTarea(@NotNull @Positive final Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
 
-        return namedParameterJdbcTemplate.queryForObject(sqlFindPeriodoDtoByIdTarea, parameters, new RowMapper<PeriodoDto>() {
-            public PeriodoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                PeriodoDto dto = new PeriodoDto();
-                dto.setFechaInicioPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO_PERIODO).toLocalDate());
-                dto.setFechaFinPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN_PERIODO).toLocalDate());
-                return dto;
-            }
-        });
+        return namedParameterJdbcTemplate.queryForObject(sqlFindPeriodoDtoByIdTarea, parameters,
+                new RowMapper<PeriodoDto>() {
+                    public PeriodoDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        PeriodoDto dto = new PeriodoDto();
+                        dto.setFechaInicioPeriodo(
+                                rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO_PERIODO).toLocalDate());
+                        dto.setFechaFinPeriodo(
+                                rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN_PERIODO).toLocalDate());
+                        return dto;
+                    }
+                });
     }
-    
+
     @Override
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NotNull @Positive Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoDtoGrupoFechasByIdTarea, parameters, (rs, rowNum)  ->
-        IdPersonaHistoricoDto
-                .builder()
-                .stdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4))
-                .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
-                .build());
+        return namedParameterJdbcTemplate.query(sqlFindIdPersonaHistoricoDtoGrupoFechasByIdTarea, parameters,
+                (rs, rowNum) -> IdPersonaHistoricoDto
+                    .builder()
+                    .stdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4))
+                    .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
+                    .build());
     }
 
     @Override
-    public List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(@NotNull @Positive Long idTarea) {
+    public List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(
+            @NotNull @Positive Long idTarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays.asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
-        
-        return namedParameterJdbcTemplate.query(sqlFindIdPersonaLocalCompensacionChallengeByIdTarea, parameters, (rs, rowNum)  ->
-        IdPersonaLocalChallengeDto
-                .builder()
-                .cclIdPerson(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL))
-                .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
-                .icmIdTpCalculo(rs.getString(SqlPrimaryConstants.SQL_RESULT_ICM_ID_TP_CALCULO))
-                .icmIdTpComision(rs.getString(SqlPrimaryConstants.SQL_RESULT_ICM_ID_TP_COMISION))
-                .esDesplazamiento(rs.getBoolean(SqlPrimaryConstants.SQL_RESULT_ES_DESPLAZAMIENTO))
-                .esDesplazamientoBase(rs.getBoolean(SqlPrimaryConstants.SQL_RESULT_ES_DESPLAZAMIENTO_BASE))
-                .build());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(
+                TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays
+            .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
+
+        return namedParameterJdbcTemplate.query(sqlFindIdPersonaLocalCompensacionChallengeByIdTarea, parameters,
+                (rs, rowNum) -> IdPersonaLocalChallengeDto
+                    .builder()
+                    .cclIdPerson(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL))
+                    .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
+                    .icmIdTpCalculo(rs.getString(SqlPrimaryConstants.SQL_RESULT_ICM_ID_TP_CALCULO))
+                    .icmIdTpComision(rs.getString(SqlPrimaryConstants.SQL_RESULT_ICM_ID_TP_COMISION))
+                    .esDesplazamiento(rs.getBoolean(SqlPrimaryConstants.SQL_RESULT_ES_DESPLAZAMIENTO))
+                    .esDesplazamientoBase(rs.getBoolean(SqlPrimaryConstants.SQL_RESULT_ES_DESPLAZAMIENTO_BASE))
+                    .build());
     }
 
 }

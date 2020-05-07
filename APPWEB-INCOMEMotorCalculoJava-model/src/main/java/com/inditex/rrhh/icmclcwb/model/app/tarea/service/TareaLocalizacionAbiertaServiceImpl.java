@@ -36,7 +36,7 @@ public class TareaLocalizacionAbiertaServiceImpl implements TareaLocalizacionAbi
     @Override
     public void saveCerrado(@Valid @NotNull final TareaDto tareaDto, @Valid @NotNull final TrabajoDto trabajoDto) {
         List<IdTipoDatoDto> ids = tipoDatoService
-                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tareaDto, trabajoDto,
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }

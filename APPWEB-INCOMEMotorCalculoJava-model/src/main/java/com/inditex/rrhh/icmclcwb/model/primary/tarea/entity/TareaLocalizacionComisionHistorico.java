@@ -20,34 +20,34 @@ import lombok.Data;
 @Data
 public class TareaLocalizacionComisionHistorico {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_TAREA_LOCALIZACION_COMISION_HISTORICO")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TAREA_LOCALIZACION_COMISION_HISTORICO")
+    private Long id;
 
-	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TAREA", nullable = false)
-	private Tarea tarea;
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TAREA", nullable = false)
+    private Tarea tarea;
 
-	@NotBlank
-	@Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
-	private String cclIdCodOrigen;
+    @NotBlank
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
+    private String cclIdCodOrigen;
 
-	@NotBlank
-	@Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
-	private String stdIdWorkLocat;
+    @NotBlank
+    @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
+    private String stdIdWorkLocat;
 
-	@NotNull
-	@Column(name = "FECHA_INICIO", nullable = false)
-	private Date fechaInicio;
+    @NotNull
+    @Column(name = "FECHA_INICIO", nullable = false)
+    private Date fechaInicio;
 
-	@NotNull
-	@Column(name = "FECHA_FIN", nullable = false)
-	private Date fechaFin;
+    @NotNull
+    @Column(name = "FECHA_FIN", nullable = false)
+    private Date fechaFin;
 
-	@NotNull
-	@Column(name = "ES_COMISIONABLE", nullable = false)
-	private Boolean comisionable;
+    @NotNull
+    @Column(name = "ES_COMISIONABLE", nullable = false)
+    private Boolean comisionable;
 
 }

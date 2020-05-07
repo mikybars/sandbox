@@ -26,16 +26,16 @@ public class TareaPersonaAusenciaHistoricoServiceImplTest {
 
     @Mock
     private TareaPersonaAusenciaHistoricoRepositoryCustom tareaPersonaAusenciaHistoricoRepositoryCustom;
-    
+
     @InjectMocks
     private TareaPersonaAusenciaHistoricoServiceImpl tareaPersonaAusenciaHistoricoServiceImpl;
-    
+
     @Mock
     private TareaPersonaAusenciaHistoricoMapper tareaPersonaAusenciaHistoricoMapper;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -45,7 +45,7 @@ public class TareaPersonaAusenciaHistoricoServiceImplTest {
         tareaPersonaAusenciaHistoricoServiceImpl.save(tareaPersonaAusencia);
         verify(tareaPersonaAusenciaHistoricoRepositoryCustom, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void saveAusenciaResultItemDtoTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -55,4 +55,5 @@ public class TareaPersonaAusenciaHistoricoServiceImplTest {
         tareaPersonaAusenciaHistoricoServiceImpl.saveAusenciaResultItemDto(ausenciasResultItemDto, tarea);
         verify(tareaPersonaAusenciaHistoricoRepositoryCustom, times(1)).save(any(List.class));
     }
+
 }

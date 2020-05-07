@@ -23,6 +23,7 @@ public class TipoOpcionCalculoServiceImpl implements TipoOpcionCalculoService {
     @Cacheable(value = "itx.icmlcwb.tipo_opcion_calculo_by_id_meta4", key = "#idMeta4")
     public TipoOpcionCalculoDto findByIdMeta4(String idMeta4) {
         return tipoOpcionCalculoMapper.tipoOpcionCalculoToTipoOpcionCalculoDto(
-            tipoOpcionCalculoRepository.findByIdMeta4(idMeta4));
+                tipoOpcionCalculoRepository.findByIdMeta4(idMeta4));
     }
+
 }

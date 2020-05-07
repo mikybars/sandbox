@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-public interface TareaCalculoAlgoritmoChallengeImporteTiendaDesplazamientoV1RepositoryCustom extends TareaCalculoAlgoritmoBaseRepositoryCustom {
+public interface TareaCalculoAlgoritmoChallengeImporteTiendaDesplazamientoV1RepositoryCustom
+        extends TareaCalculoAlgoritmoBaseRepositoryCustom {
 
 }

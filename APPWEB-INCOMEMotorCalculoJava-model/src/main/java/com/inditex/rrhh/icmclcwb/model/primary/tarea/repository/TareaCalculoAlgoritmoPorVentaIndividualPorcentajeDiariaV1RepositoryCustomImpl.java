@@ -15,17 +15,20 @@ import java.util.Map;
 
 @Repository
 public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1RepositoryCustomImpl
-    extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
-    implements TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1RepositoryCustom {
+        extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
+        implements TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1RepositoryCustom {
 
-    //TODO [COMUN] Substituir las consultas de las anotaciones @Value
+    // TODO [COMUN] Substituir las consultas de las anotaciones @Value
 
-    //    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    // @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']}
+    // #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1Repository.calcular']}
+    // #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1Repository.calcular']}")
     @Getter
     private String sqlCalcular;
 
-    //    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    // @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1Repository.calcular']}
+    // #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1Repository.calcular']}")
     @Getter
     private String sqlCalcularBase;
@@ -35,7 +38,8 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1Repository
 
     @Override
     protected Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea, TareaCalculoPersonaDto persona) {
-        //TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVentaIndividualPorcentajeDiaria
+        // TODO [COMUN] Definir los parametros de la consulta para el cálculo
+        // PorVentaIndividualPorcentajeDiaria
         return new HashMap<>();
     }
 
@@ -43,4 +47,5 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1Repository
     public List<TareaCalculoPersonaDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
         return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
     }
+
 }

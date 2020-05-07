@@ -13,8 +13,9 @@ import java.time.LocalDateTime;
 
 @Service
 @Validated
-public class RunTareaAmbitoRecolectarMeta4IcmWsCalIncomePresupuestoServiceImpl extends AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
-    implements RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomePresupuestosService {
+public class RunTareaAmbitoRecolectarMeta4IcmWsCalIncomePresupuestoServiceImpl
+        extends AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+        implements RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomePresupuestosService {
 
     @Autowired
     private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;

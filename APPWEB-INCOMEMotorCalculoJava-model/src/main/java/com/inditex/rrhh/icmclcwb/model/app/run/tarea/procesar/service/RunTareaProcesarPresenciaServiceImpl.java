@@ -94,10 +94,11 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     public void indicadorPresenciaDesplazamientoBase(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPersonaPresenciaService.indicadorPresenciaDesplazamientoBase(runTarea);
     }
-    
+
     @Override
     public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
+        tareaLocalizacionPersonaPresenciaService
+            .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
     }
 
     @Override
@@ -119,4 +120,5 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     public void indicadorPersonaPorVentaSimplificada(@Valid RunTareaDto runTarea) {
         tareaLocalizacionPersonaPresenciaService.indicadorPersonaPorVentaSimplificada(runTarea);
     }
+
 }

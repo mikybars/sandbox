@@ -34,24 +34,33 @@ public class PorVentaDevolucionPorcentajeDiariaV1RunAlgoritmo implements RunAlgo
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-            log.info("Inicio :: PorVentaDevolucionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", personas.size());
-            try {
-                tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom.calcular(algoritmo,
-                    runTarea.getTarea(), personas);
-            } catch (Exception e) {
-                log.error("PorVentaDevolucionPorcentajeDiariaV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
-            }
-            log.info("Fin :: PorVentaDevolucionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", personas.size());
-            return Flux.empty();
-        }).sequential().collectList().block();
+                tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom.ids(algoritmo,
+                        runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: PorVentaDevolucionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", personas.size());
+                try {
+                    tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom.calcular(algoritmo,
+                            runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error("PorVentaDevolucionPorcentajeDiariaV1RunAlgoritmo :: KO :: Personas: {}", personas.size(),
+                            e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: PorVentaDevolucionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
         return tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
-    
+
 }

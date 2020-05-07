@@ -34,24 +34,36 @@ public class DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo implements R
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                log.info("Inicio :: DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
+                tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom.ids(algoritmo,
+                        runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
                 try {
                     tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo,
-                        runTarea.getTarea(), personas);
+                            runTarea.getTarea(), personas);
                 } catch (Exception e) {
-                    log.error("DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
+                    log.error("DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
+                            personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
                 }
-                log.info("Fin :: DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
+                log.info("Fin :: DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
                 return Flux.empty();
-        }).sequential().collectList().block();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom
+            .getSqlCalcular(algoritmo);
     }
 
 }

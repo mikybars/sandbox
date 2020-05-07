@@ -31,10 +31,15 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.*;
 public class TareaCalculoPersonaRepositoryCustomImplTest {
 
     private final static String SQL_FIND_BY_ALGORITMO = "FIND BY ALGORITMO TEST";
+
     private final static String SQL_UPDATE_WITH_ESTADO_AND_ID_PERSONA = "UPDATE WITH ESTADO AND ID PERSONA TEST";
+
     private final static String SQL_UPDATE_WITH_ESTADO = "UPDATE WITH ESTADO TEST";
+
     private final static String SQL_MERGE_BY_AMBITO = "MERGE BY AMBITO TEST";
+
     private final static String SQL_MERGE_BY_AMBITO_LOCALIZACION = "MERGE BY AMBITO LOCALIZACION TEST";
+
     private final static String SQL_MERGE_BY_AMBITO_PERSONA = "MERGE BY AMGITO PERSONA TEST";
 
 
@@ -52,12 +57,17 @@ public class TareaCalculoPersonaRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaCalculoPersonaRepositoryCustom, "sqlMergePersonaCalculoByAmbito", SQL_MERGE_BY_AMBITO, true);
-        FieldUtils.writeField(tareaCalculoPersonaRepositoryCustom, "sqlMergePersonaCalculoByAmbitoLocalizacion", SQL_MERGE_BY_AMBITO_LOCALIZACION, true);
-        FieldUtils.writeField(tareaCalculoPersonaRepositoryCustom, "sqlMergePersonaCalculoByAmbitoPersona", SQL_MERGE_BY_AMBITO_PERSONA, true);
-        FieldUtils.writeField(tareaCalculoPersonaRepositoryCustom, "sqlUpdateWithEstado", SQL_UPDATE_WITH_ESTADO_AND_ID_PERSONA, true);
+        FieldUtils.writeField(tareaCalculoPersonaRepositoryCustom, "sqlMergePersonaCalculoByAmbito",
+                SQL_MERGE_BY_AMBITO, true);
+        FieldUtils.writeField(tareaCalculoPersonaRepositoryCustom, "sqlMergePersonaCalculoByAmbitoLocalizacion",
+                SQL_MERGE_BY_AMBITO_LOCALIZACION, true);
+        FieldUtils.writeField(tareaCalculoPersonaRepositoryCustom, "sqlMergePersonaCalculoByAmbitoPersona",
+                SQL_MERGE_BY_AMBITO_PERSONA, true);
+        FieldUtils.writeField(tareaCalculoPersonaRepositoryCustom, "sqlUpdateWithEstado",
+                SQL_UPDATE_WITH_ESTADO_AND_ID_PERSONA, true);
         FieldUtils.writeField(tareaCalculoPersonaRepositoryCustom, "sqlFindByAlgoritmo", SQL_FIND_BY_ALGORITMO, true);
-        FieldUtils.writeField(tareaCalculoPersonaRepositoryCustom, "sqlUpdateEstadoActualWithEstadoNuevo", SQL_UPDATE_WITH_ESTADO, true);
+        FieldUtils.writeField(tareaCalculoPersonaRepositoryCustom, "sqlUpdateEstadoActualWithEstadoNuevo",
+                SQL_UPDATE_WITH_ESTADO, true);
     }
 
     @Test
@@ -88,7 +98,7 @@ public class TareaCalculoPersonaRepositoryCustomImplTest {
         TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(123L);
         when(runTarea.getTarea()).thenReturn(tarea);
-        List<String> idPerson = Arrays.asList("SK22321","AT2733","CZ92090");
+        List<String> idPerson = Arrays.asList("SK22321", "AT2733", "CZ92090");
         EstadoTareaPersonaDto estado = mock(EstadoTareaPersonaDto.class);
         when(estado.getId()).thenReturn(1);
 
@@ -151,7 +161,8 @@ public class TareaCalculoPersonaRepositoryCustomImplTest {
         assertEquals(2, params.getValue().getValues().size());
         // idEstadoTareaPersona
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
-        assertEquals(EstadoTareaCalculoPersonaEnum.PENDIENTE.getId(), params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
+        assertEquals(EstadoTareaCalculoPersonaEnum.PENDIENTE.getId(),
+                params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
         // idTarea
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue().getValue(SQL_PARAM_ID_TAREA));
@@ -172,7 +183,8 @@ public class TareaCalculoPersonaRepositoryCustomImplTest {
         assertEquals(2, params.getValue().getValues().size());
         // idEstadoTareaPersona
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
-        assertEquals(EstadoTareaCalculoPersonaEnum.PENDIENTE.getId(), params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
+        assertEquals(EstadoTareaCalculoPersonaEnum.PENDIENTE.getId(),
+                params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
         // idTarea
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue().getValue(SQL_PARAM_ID_TAREA));
@@ -194,10 +206,12 @@ public class TareaCalculoPersonaRepositoryCustomImplTest {
         assertEquals(2, params.getValue().getValues().size());
         // idEstadoTareaPersona
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
-        assertEquals(EstadoTareaCalculoPersonaEnum.PENDIENTE.getId(), params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
+        assertEquals(EstadoTareaCalculoPersonaEnum.PENDIENTE.getId(),
+                params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
         // idTarea
         assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue().getValue(SQL_PARAM_ID_TAREA));
 
     }
+
 }

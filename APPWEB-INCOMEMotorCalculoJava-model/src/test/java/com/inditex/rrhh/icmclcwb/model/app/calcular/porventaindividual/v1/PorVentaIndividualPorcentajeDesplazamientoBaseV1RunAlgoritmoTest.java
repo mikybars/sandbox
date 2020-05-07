@@ -31,8 +31,7 @@ public class PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
     private Logger log;
 
     @Mock
-    private TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom;
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -41,8 +40,7 @@ public class PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
     private RunAlgoritmoPropertiesDto runAlgoritmoPropertiesDto;
 
     @InjectMocks
-    private PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo
-        porVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo;
+    private PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo porVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo;
 
     @Test
     public void getSqlCalcularTest() {
@@ -78,10 +76,12 @@ public class PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         porVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Inicio :: PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
         verify(tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoBaseV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Fin :: PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
     }
 
     @Test
@@ -111,6 +111,7 @@ public class PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
+
 }

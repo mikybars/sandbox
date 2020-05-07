@@ -32,23 +32,30 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-    
+
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoAjusteVacacionesRepositoryCustom.ids(runTarea.getTarea()),
-                runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
-                    try {
-                        tareaCalculoAjusteVacacionesRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(), personas);
-                    } catch (Exception e) {
-                        log.error("RunAjusteVacacionesProcesar :: KO :: Personas: {}", personas.size(), e);
-                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                                EstadoTareaCalculoPersonaEnum.KO.getDto());
-                    }
-                    log.info("Fin :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
-                    return Flux.empty();
-                }).sequential().collectList().block();   
+                runAjusteProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
+                try {
+                    tareaCalculoAjusteVacacionesRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(),
+                            personas);
+                } catch (Exception e) {
+                    log.error("RunAjusteVacacionesProcesar :: KO :: Personas: {}", personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override

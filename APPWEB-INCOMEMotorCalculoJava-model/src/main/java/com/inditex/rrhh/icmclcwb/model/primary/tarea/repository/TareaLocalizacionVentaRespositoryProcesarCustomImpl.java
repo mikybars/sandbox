@@ -44,4 +44,5 @@ public class TareaLocalizacionVentaRespositoryProcesarCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         namedParameterJdbcTemplate.update(sqlProcesarEntregaDomicilio, params);
     }
+
 }

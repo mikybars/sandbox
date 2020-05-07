@@ -34,9 +34,12 @@ public class PtrVentaEmpleadoServiceImpl implements PtrVentaEmpleadoService {
             @Valid final PtrVentaIndividualDetalleRequestDto request) {
         return RestUtils.checkResponse(
                 ptrVentaClient.postForEntity(
-                        ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request,
+                        ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(),
+                        request,
                         PtrVentaIndividualDetalleResponseDto.class),
-                ptrVentaClient, ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(),
+                ptrVentaClient,
+                ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(),
                 request);
     }
+
 }

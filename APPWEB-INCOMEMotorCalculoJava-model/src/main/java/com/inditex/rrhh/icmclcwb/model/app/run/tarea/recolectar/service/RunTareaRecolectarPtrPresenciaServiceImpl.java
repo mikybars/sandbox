@@ -19,19 +19,30 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
 
     @Override
     public void tiposHorasByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(
-                item -> runTareaAmbitoRecolectarPtrPresenciaService.tiposHorasByRunTareaAndTareaAmbito(runTarea, item));
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(
+                    item -> runTareaAmbitoRecolectarPtrPresenciaService.tiposHorasByRunTareaAndTareaAmbito(runTarea,
+                            item));
     }
 
     @Override
     public void presenciaDetalleComisionablePersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
                 .presenciaDetallePersonaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
     public void presenciaEmpleadoTiendaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
                 .presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(runTarea, item));
     }
+
 }

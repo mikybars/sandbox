@@ -13,5 +13,5 @@ public class PeriodoPersona {
 
     @EmbeddedId
     private PeriodoPersonaPk pk;
-    
+
 }

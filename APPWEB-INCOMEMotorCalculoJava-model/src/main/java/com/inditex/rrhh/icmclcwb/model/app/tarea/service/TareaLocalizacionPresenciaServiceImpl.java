@@ -17,12 +17,12 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
 
     @Autowired
     private TareaLocalizacionPresenciaRepositoryCustom tareaLocalizacionPresenciaRepositoryCustom;
-    
+
     @Override
     public void updateActivoVacio(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio(runTareaDto);
     }
-    
+
     @Override
     public void compensar(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.compensar(runTareaDto);
@@ -32,7 +32,7 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     public void totalizar(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTareaDto);
     }
-    
+
     @Override
     public void totalizarEcommerce(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerce(runTareaDto);
@@ -47,4 +47,5 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     public void totalizarEmpleadosPorVenta(@Valid @NotNull RunTareaDto runTareaDto) {
         tareaLocalizacionPresenciaRepositoryCustom.totalizarEmpleadosPorVenta(runTareaDto);
     }
+
 }

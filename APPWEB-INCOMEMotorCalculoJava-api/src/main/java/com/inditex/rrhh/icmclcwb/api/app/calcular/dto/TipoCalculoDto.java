@@ -16,4 +16,5 @@ public class TipoCalculoDto implements Serializable {
 
     @ApiModelProperty(value = "Identificador del tipo de calculo", required = true)
     private String id;
+
 }

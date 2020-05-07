@@ -30,7 +30,7 @@ public abstract class TareaCalculoPersonaMapper {
 
     public abstract List<TareaCalculoPersona> tareaCalculoPersonaDtoToTareaCalculoPersona(
             List<TareaCalculoPersonaDto> src);
-    
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "src.idTarea")
     @Mapping(target = "cclIdPerson", source = "src.cclIdPerson")
@@ -41,8 +41,8 @@ public abstract class TareaCalculoPersonaMapper {
             TareaCalculoPersonaDto src, EstadoTareaPersonaDto estado);
 
     public List<TareaCalculoPersona> tareaCalculoPersonaDtoToTareaCalculoPersona(
-            List<TareaCalculoPersonaDto> src, EstadoTareaPersonaDto estado){
+            List<TareaCalculoPersonaDto> src, EstadoTareaPersonaDto estado) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
+
 }

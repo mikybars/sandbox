@@ -16,7 +16,8 @@ public abstract class TareaConfiguracionDecorator extends TareaConfiguracionMapp
     private TareaConfiguracionMapper delegate;
 
     @Override
-    public List<TareaConfiguracion> getConfiguracionItemDtoToTareaConfiguracion(List<ConfiguracionItemDto> src, TareaDto tarea) {
+    public List<TareaConfiguracion> getConfiguracionItemDtoToTareaConfiguracion(List<ConfiguracionItemDto> src,
+            TareaDto tarea) {
         List<TareaConfiguracion> result = new ArrayList<>();
         if (src != null) {
             src.forEach(x -> {
@@ -25,4 +26,5 @@ public abstract class TareaConfiguracionDecorator extends TareaConfiguracionMapp
         }
         return result;
     }
+
 }

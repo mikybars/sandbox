@@ -75,7 +75,8 @@ public interface Meta4IcmWsCalcIncomeSessionAsyncService {
 
     CompletableFuture<List<GenericTiendaResultItemDto>> getFlagCalcula(FlagCalculaRequestDto request);
 
-    CompletableFuture<List<ConfiguracionVentaOnlineResultItemDto>> getConfiguracionVentaOnline(ConfiguracionVentaOnlineRequestDto request);
+    CompletableFuture<List<ConfiguracionVentaOnlineResultItemDto>> getConfiguracionVentaOnline(
+            ConfiguracionVentaOnlineRequestDto request);
 
     CompletableFuture<List<AgrupOnlineResultItemDto>> getAgrupacionesOnline(AgrupOnlineRequestDto request);
 

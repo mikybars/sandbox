@@ -22,10 +22,11 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl
     private String sqlSave;
 
     @Override
-    public List<TareaAgrupacionConfiguracionChallengeTipoVenta> save(List<TareaAgrupacionConfiguracionChallengeTipoVenta> src) {
+    public List<TareaAgrupacionConfiguracionChallengeTipoVenta> save(
+            List<TareaAgrupacionConfiguracionChallengeTipoVenta> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);
     }
-    
+
     @Override
     public void setParameters(PreparedStatement pstmt, TareaAgrupacionConfiguracionChallengeTipoVenta entity)
             throws SQLException {
@@ -34,7 +35,7 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl
         pstmt.setLong(3, entity.getTipoVentaConceptoChallenge().getId());
         pstmt.setObject(4, entity.getFechaInicio());
         pstmt.setObject(5, entity.getFechaFin());
-        pstmt.setString(6, entity.getCclIdOrigen());  
+        pstmt.setString(6, entity.getCclIdOrigen());
     }
 
 }

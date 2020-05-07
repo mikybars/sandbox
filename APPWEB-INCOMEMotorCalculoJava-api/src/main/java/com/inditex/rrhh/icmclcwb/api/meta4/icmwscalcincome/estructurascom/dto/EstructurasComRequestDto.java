@@ -10,5 +10,4 @@ public class EstructurasComRequestDto extends PageableDto<EstructurasComFilterDt
 
     private static final long serialVersionUID = 1026063874540976796L;
 
-
 }

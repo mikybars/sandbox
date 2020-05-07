@@ -18,12 +18,13 @@ public abstract class TareaCalculoPersonaDecorator extends TareaCalculoPersonaMa
 
     @Override
     public List<TareaCalculoPersona> tareaCalculoPersonaDtoToTareaCalculoPersona(
-            List<TareaCalculoPersonaDto> src, EstadoTareaPersonaDto estado){
+            List<TareaCalculoPersonaDto> src, EstadoTareaPersonaDto estado) {
         List<TareaCalculoPersona> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(item -> result
-                    .add(delegate.tareaCalculoPersonaDtoToTareaCalculoPersona(item, estado)));
+                .add(delegate.tareaCalculoPersonaDtoToTareaCalculoPersona(item, estado)));
         }
         return result;
     }
+
 }

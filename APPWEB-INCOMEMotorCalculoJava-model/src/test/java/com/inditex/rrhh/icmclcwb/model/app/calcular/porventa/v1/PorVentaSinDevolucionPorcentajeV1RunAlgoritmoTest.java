@@ -34,8 +34,7 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Mock
-    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
 
     @Mock
     private RunAlgoritmoPropertiesDto runAlgoritmoPropertiesDto;
@@ -48,7 +47,8 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
         when(tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
             .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
 
-        String result = tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.getSqlCalcular(new AlgoritmoDto());
+        String result = tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
+            .getSqlCalcular(new AlgoritmoDto());
 
         assertEquals(SQL_CALCULAR, result);
     }
@@ -71,7 +71,7 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
         when(tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
 
-        //El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+        // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         RunTareaDto runTarea = new RunTareaDto();
         TareaDto tarea = new TareaDto();
@@ -111,6 +111,7 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
+
 }

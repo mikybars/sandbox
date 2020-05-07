@@ -8,44 +8,40 @@ import lombok.RequiredArgsConstructor;
 public enum TipoGrupoDatoEnum {
 
     /* 2000 VENTA */
-    VENTA_LOCALIZACION_SECCION(2001),
-    VENTA_FISICA_LOCALIZACION(2002),
-    VENTA_ONLINE_LOCALIZACION(2003),
-    VENTA_ONLINE_IPOD_LOCALIZACION(2004),
-    VENTA_ONLINE_SINT_LOCALIZACION(2005),
-    VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION(2006),
-    VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA(2007),
-    VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA(2008),
-    VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA(2009),
-    VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA(2010),
-    VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA(2011),
-    VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA(2012),
-    VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA(2013),
-    VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA(2014),
-    VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA(2015),
-    VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA(2016),
-    VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA(2017),
-    VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA(2018),
-    VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_TOTALIZADA(2019),
-    VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_TOTALIZADA(2020),
-    VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_TOTALIZADA(2021),
-    VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_TOTALIZADA(2022),
-    DEVOLUCION_LOCALIZACION_TOTALIZADA(2023),
-    OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION(2024),
-    VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA(2025),
-    VENTA_FISICA_IPOD_LOCALIZACION_SECCION(2026),
-    VENTA_INDIVIDUAL_LOCALIZACION_SECCION(2027),
-    VENTA_RANGO(2028),
-    VENTA_RANGO_CONGELADA(2029),
-    VENTA_RANGO_REAL_Y_CONGELADA(2030),
+    VENTA_LOCALIZACION_SECCION(2001), VENTA_FISICA_LOCALIZACION(2002), VENTA_ONLINE_LOCALIZACION(
+            2003), VENTA_ONLINE_IPOD_LOCALIZACION(2004), VENTA_ONLINE_SINT_LOCALIZACION(
+                    2005), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION(
+                            2006), VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA(
+                                    2007), VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA(
+                                            2008), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA(
+                                                    2009), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA(
+                                                            2010), VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA(
+                                                                    2011), VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA(
+                                                                            2012), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA(
+                                                                                    2013), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA(
+                                                                                            2014), VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA(
+                                                                                                    2015), VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA(
+                                                                                                            2016), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA(
+                                                                                                                    2017), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_TOTALIZADA(
+                                                                                                                            2018), VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_TOTALIZADA(
+                                                                                                                                    2019), VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_TOTALIZADA(
+                                                                                                                                            2020), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_TOTALIZADA(
+                                                                                                                                                    2021), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_TOTALIZADA(
+                                                                                                                                                            2022), DEVOLUCION_LOCALIZACION_TOTALIZADA(
+                                                                                                                                                                    2023), OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION(
+                                                                                                                                                                            2024), VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA(
+                                                                                                                                                                                    2025), VENTA_FISICA_IPOD_LOCALIZACION_SECCION(
+                                                                                                                                                                                            2026), VENTA_INDIVIDUAL_LOCALIZACION_SECCION(
+                                                                                                                                                                                                    2027), VENTA_RANGO(
+                                                                                                                                                                                                            2028), VENTA_RANGO_CONGELADA(
+                                                                                                                                                                                                                    2029), VENTA_RANGO_REAL_Y_CONGELADA(
+                                                                                                                                                                                                                            2030),
 
 
     /* 3000 PRESENCIA */
-    PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA(3001),
-    PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR(3002),
-    PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR(3003),
-    PRESENCIA_INCLUIDODENOMINADOR(3005),
-    PRESENCIA_PERSONA_TIPOHORA(3006);
+    PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA(3001), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR(
+            3002), PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR(
+                    3003), PRESENCIA_INCLUIDODENOMINADOR(3005), PRESENCIA_PERSONA_TIPOHORA(3006);
 
     private final Integer id;
 

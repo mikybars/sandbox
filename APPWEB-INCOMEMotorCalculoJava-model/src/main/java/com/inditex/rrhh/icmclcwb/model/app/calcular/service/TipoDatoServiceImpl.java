@@ -27,4 +27,5 @@ public class TipoDatoServiceImpl implements TipoDatoService {
             .map(tipoDato -> IdTipoDatoDto.builder().id(tipoDato.getId()).build())
             .collect(Collectors.toList());
     }
+
 }

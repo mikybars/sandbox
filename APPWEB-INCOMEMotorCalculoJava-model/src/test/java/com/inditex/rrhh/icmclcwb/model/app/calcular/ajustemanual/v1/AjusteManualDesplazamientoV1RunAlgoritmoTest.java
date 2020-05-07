@@ -82,7 +82,7 @@ public class AjusteManualDesplazamientoV1RunAlgoritmoTest {
             .calcular(algoritmo, tarea, personas);
         verify(log, times(1)).info("Fin :: AjusteManualDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
     }
-    
+
     @Test
     public void calcularExceptionTest() {
 
@@ -110,6 +110,7 @@ public class AjusteManualDesplazamientoV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("AjusteManualDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
+
 }

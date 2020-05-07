@@ -23,22 +23,27 @@ public class TareaLocalizacionComisionHistoricoServiceImpl implements TareaLocal
 
     @Autowired
     private TareaLocalizacionComisionHistoricoMapper mapper;
-    
+
     @Autowired
-    private TareaLocalizacionComisionHistoricoRepositoryCustom tareaLocalizacionComisionHistoricoRepositoryCustom; 
- 
-    
+    private TareaLocalizacionComisionHistoricoRepositoryCustom tareaLocalizacionComisionHistoricoRepositoryCustom;
+
+
     @Override
-    public List<TareaLocalizacionComisionHistoricoDto> save(@Valid @NotNull @NotEmpty final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionHistorico) {
+    public List<TareaLocalizacionComisionHistoricoDto> save(
+            @Valid @NotNull @NotEmpty final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionHistorico) {
         return mapper
-                    .tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(
-                            tareaLocalizacionComisionHistoricoRepositoryCustom.save(mapper.tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(tareaLocalizacionHistorico)));
+            .tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(
+                    tareaLocalizacionComisionHistoricoRepositoryCustom
+                        .save(mapper.tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(
+                                tareaLocalizacionHistorico)));
     }
 
     @Override
     public List<TareaLocalizacionComisionHistoricoDto> merge(
-            @Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid @NotNull final TareaDto tarea) {
+            @Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> genericTiendaResultItemDto,
+            @Valid @NotNull final TareaDto tarea) {
         return mapper
-                .genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(genericTiendaResultItemDto, tarea);
+            .genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(genericTiendaResultItemDto, tarea);
     }
+
 }

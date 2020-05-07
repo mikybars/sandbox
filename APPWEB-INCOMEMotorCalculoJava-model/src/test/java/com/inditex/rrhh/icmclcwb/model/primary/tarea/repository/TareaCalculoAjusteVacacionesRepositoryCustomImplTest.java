@@ -35,11 +35,12 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 public class TareaCalculoAjusteVacacionesRepositoryCustomImplTest {
 
     private final static String SQL_AJUSTAR_BASE = "SQL CALCULAR BASE";
+
     private final static String SQL_AJUSTAR = "SQL CALCULAR";
-    
+
     @Mock
     private TareaCalculoPersonaService tareaCalculoPerosnaService;
-    
+
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -48,16 +49,17 @@ public class TareaCalculoAjusteVacacionesRepositoryCustomImplTest {
 
     @Captor
     private ArgumentCaptor<String> sqlCaptor;
-    
+
     @InjectMocks
     private TareaCalculoAjusteVacacionesRepositoryCustomImpl tareaCalculoAjusteVacacionesRepositoryCustomImpl;
-    
+
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaCalculoAjusteVacacionesRepositoryCustomImpl, "sqlAjustar", SQL_AJUSTAR, true);
-        FieldUtils.writeField(tareaCalculoAjusteVacacionesRepositoryCustomImpl, "sqlAjustarBase", SQL_AJUSTAR_BASE, true);
+        FieldUtils.writeField(tareaCalculoAjusteVacacionesRepositoryCustomImpl, "sqlAjustarBase", SQL_AJUSTAR_BASE,
+                true);
     }
-    
+
     @Test
     public void idsTest() {
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -67,12 +69,11 @@ public class TareaCalculoAjusteVacacionesRepositoryCustomImplTest {
             .thenReturn(personas);
 
         TareaDto tarea = mock(TareaDto.class);
-        List<TareaCalculoPersonaDto> ids =
-                tareaCalculoAjusteVacacionesRepositoryCustomImpl.ids(tarea);
+        List<TareaCalculoPersonaDto> ids = tareaCalculoAjusteVacacionesRepositoryCustomImpl.ids(tarea);
 
         assertEquals(personas, ids);
     }
-    
+
     @Test
     public void getMapValuesTest() {
         AlgoritmoAjusteDto algoritmoAjuste = mock(AlgoritmoAjusteDto.class);
@@ -83,7 +84,8 @@ public class TareaCalculoAjusteVacacionesRepositoryCustomImplTest {
         when(persona1.getCclIdPerson()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
 
-        Map<String, Object> result = tareaCalculoAjusteVacacionesRepositoryCustomImpl.getMapValues(algoritmoAjuste, tarea, persona1);
+        Map<String, Object> result = tareaCalculoAjusteVacacionesRepositoryCustomImpl.getMapValues(algoritmoAjuste,
+                tarea, persona1);
         assertEquals(12, result.size());
 
         // idTarea
@@ -106,23 +108,27 @@ public class TareaCalculoAjusteVacacionesRepositoryCustomImplTest {
         assertEquals(TipoAusenciaEnum.VACACIONES.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_AUSENCIA));
         // idTipoPoliticaAjuste
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
-        assertEquals(Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4(), TipoPoliticaEnum.BAJA_IT.getIdMeta4()), 
+        assertEquals(Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4(), TipoPoliticaEnum.BAJA_IT.getIdMeta4()),
                 result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
         // inactivo
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, result.get(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
         // idTipoUnidadtiempoAnos
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
-        assertEquals(TipoUnidadTiempoEnum.ANOS.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
+        assertEquals(TipoUnidadTiempoEnum.ANOS.getId(),
+                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
         // idTipoUnidadtiempoMeses
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
-        assertEquals(TipoUnidadTiempoEnum.MESES.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
+        assertEquals(TipoUnidadTiempoEnum.MESES.getId(),
+                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
         // idTipoUnidadtiempoSemanas
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
-        assertEquals(TipoUnidadTiempoEnum.SEMANAS.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
+        assertEquals(TipoUnidadTiempoEnum.SEMANAS.getId(),
+                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
         // idTipoUnidadtiempoDias
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
-        assertEquals(TipoUnidadTiempoEnum.DIAS.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+        assertEquals(TipoUnidadTiempoEnum.DIAS.getId(),
+                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
     }
 
 }

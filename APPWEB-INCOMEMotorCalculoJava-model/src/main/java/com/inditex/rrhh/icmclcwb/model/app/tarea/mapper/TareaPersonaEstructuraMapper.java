@@ -18,7 +18,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.Li
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaPersonaEstructuraMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
 
-@Mapper(imports = {org.apache.commons.lang3.StringUtils.class, com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants.class})
+@Mapper(imports = { org.apache.commons.lang3.StringUtils.class,
+        com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants.class })
 @DecoratedWith(value = TareaPersonaEstructuraMapperDecorator.class)
 public abstract class TareaPersonaEstructuraMapper {
 
@@ -34,24 +35,26 @@ public abstract class TareaPersonaEstructuraMapper {
 
     public abstract List<TareaPersonaEstructuraDto> tareaPersonaEstructuraToTareaPersonaEstructuraDto(
             List<TareaPersonaEstructura> src);
-    
+
     public List<TareaPersonaEstructura> tareaPersonaEstructuraDtoToTareaPersonaEstructura(
             List<TareaPersonaEstructuraDto> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-   
+
     public List<TareaPersonaEstructuraDto> estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(
-        final List<EstructurasComResultItemDto> estructurasComResultItem, final TareaDto tarea) {
+            final List<EstructurasComResultItemDto> estructurasComResultItem, final TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "activo", constant = "true")
     @Mapping(target = "fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
     // Desplazamiento
-    @Mapping(target = "desplazamiento", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
-    @Mapping(target = "desplazamientoBase", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
+    @Mapping(target = "desplazamiento",
+            expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
+    @Mapping(target = "desplazamientoBase",
+            expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
     // Datos padre
     @Mapping(target = "cclIdOrigen", source = "estructurasComResultItem.idOrigen")
     @Mapping(target = "stdIdHr", source = "estructurasComResultItem.idEmpleado")
@@ -82,15 +85,18 @@ public abstract class TareaPersonaEstructuraMapper {
     // Datos del desplazamiento
     @Mapping(target = "estructuraDesplazamiento", ignore = true)
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
-            final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, final TareaDto tarea);
-    
+            final EstructurasComResultItemDto estructurasComResultItem,
+            final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, final TareaDto tarea);
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "activo", constant = "true")
     @Mapping(target = "fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
     // Desplazamiento
-    @Mapping(target = "desplazamiento", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
-    @Mapping(target = "desplazamientoBase", expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
+    @Mapping(target = "desplazamiento",
+            expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
+    @Mapping(target = "desplazamientoBase",
+            expression = "java(estructurasComResultItem.getIcmListaCondicionesDestino().isEmpty() ? false : true)")
     // Datos padre
     @Mapping(target = "cclIdOrigen", source = "estructurasComResultItem.idOrigen")
     @Mapping(target = "stdIdHr", source = "estructurasComResultItem.idEmpleado")
@@ -121,9 +127,11 @@ public abstract class TareaPersonaEstructuraMapper {
     // Datos del desplazamiento
     @Mapping(target = "estructuraDesplazamiento", ignore = true)
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaValoresBaseResultItemDtoAndIdSerccionAndTareaToTareaPersonaEstructuraDto(
-            final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem,
-            final ListaValoresBaseResultItemDto listaValoresBaseResultItem, final Integer idSeccion, final TareaDto tarea);
-    
+            final EstructurasComResultItemDto estructurasComResultItem,
+            final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem,
+            final ListaValoresBaseResultItemDto listaValoresBaseResultItem, final Integer idSeccion,
+            final TareaDto tarea);
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "activo", constant = "true")
@@ -144,7 +152,8 @@ public abstract class TareaPersonaEstructuraMapper {
     // Valores
     @Mapping(target = "icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
     @Mapping(target = "icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
-    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo", defaultValue = "000")
+    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo",
+            defaultValue = "000")
     @Mapping(target = "icmIdTpComision", source = "listaCondicionesDestinoResultItem.idTipoComision")
     @Mapping(target = "diaL", source = "listaCondicionesDestinoResultItem.diaL", defaultValue = "true")
     @Mapping(target = "diaM", source = "listaCondicionesDestinoResultItem.diaM", defaultValue = "true")
@@ -168,26 +177,40 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "estructuraDesplazamiento.stdIdHr", source = "estructurasComResultItem.idEmpleado")
     @Mapping(target = "estructuraDesplazamiento.stdOrHrPeriod", source = "estructurasComResultItem.orEmpleado")
     @Mapping(target = "estructuraDesplazamiento.cclIdPerson", source = "estructurasComResultItem.idEmpleadoLocal")
-    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionPadre", source = "estructurasComResultItem.idEstructura")
-    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionPadre",
+            source = "estructurasComResultItem.idEstructura")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionBase",
+            source = "listaCondicionesBaseResultItem.idEstructuraBase")
     @Mapping(target = "estructuraDesplazamiento.idTipoOpcionCalculoEfectiva", source = "idTipoOpcionCalculoEfectiva")
-    @Mapping(target = "estructuraDesplazamiento.idTipoOpcionCalculoEstructura", source = "idTipoOpcionCalculoEstructura")
-    @Mapping(target = "estructuraDesplazamiento.stdIdWorkLocatDestino", source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestino")
-    @Mapping(target = "estructuraDesplazamiento.cclIdCodOrigenDestino", source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestinoMtu")
-    @Mapping(target = "estructuraDesplazamiento.idMotivoDesplazamiento", source = "listaCondicionesDestinoResultItem.idMotivoDesplazamiento")
-    @Mapping(target = "estructuraDesplazamiento.cclIdPuestoDestino", source = "listaCondicionesDestinoResultItem.idPuestoDestino")
-    @Mapping(target = "estructuraDesplazamiento.cclIdSeccionDestino", source = "listaCondicionesDestinoResultItem.idSeccionDestino")
-    @Mapping(target = "estructuraDesplazamiento.icmIdTpReqCom", source = "listaCondicionesDestinoResultItem.idTipoReqComision")
-    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
+    @Mapping(target = "estructuraDesplazamiento.idTipoOpcionCalculoEstructura",
+            source = "idTipoOpcionCalculoEstructura")
+    @Mapping(target = "estructuraDesplazamiento.stdIdWorkLocatDestino",
+            source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestino")
+    @Mapping(target = "estructuraDesplazamiento.cclIdCodOrigenDestino",
+            source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestinoMtu")
+    @Mapping(target = "estructuraDesplazamiento.idMotivoDesplazamiento",
+            source = "listaCondicionesDestinoResultItem.idMotivoDesplazamiento")
+    @Mapping(target = "estructuraDesplazamiento.cclIdPuestoDestino",
+            source = "listaCondicionesDestinoResultItem.idPuestoDestino")
+    @Mapping(target = "estructuraDesplazamiento.cclIdSeccionDestino",
+            source = "listaCondicionesDestinoResultItem.idSeccionDestino")
+    @Mapping(target = "estructuraDesplazamiento.icmIdTpReqCom",
+            source = "listaCondicionesDestinoResultItem.idTipoReqComision")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision",
+            source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
     @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "horasOrigen")
     @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "horasDestino")
-    @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito", source = "listaCondicionesDestinoResultItem.idEstructuraAmbito")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito",
+            source = "listaCondicionesDestinoResultItem.idEstructuraAmbito")
     @Mapping(target = "estructuraDesplazamiento.fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraToTareaPersonaEstructuraDto(
-            final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, 
-            final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, final TareaDto tarea, final Integer ordinalEstructura,
-            final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura, final Boolean horasOrigen, final Boolean horasDestino);
-    
+            final EstructurasComResultItemDto estructurasComResultItem,
+            final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem,
+            final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, final TareaDto tarea,
+            final Integer ordinalEstructura,
+            final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura,
+            final Boolean horasOrigen, final Boolean horasDestino);
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "activo", constant = "true")
@@ -208,7 +231,8 @@ public abstract class TareaPersonaEstructuraMapper {
     // Valores
     @Mapping(target = "icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
     @Mapping(target = "icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
-    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo", defaultValue = "000")
+    @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo",
+            defaultValue = "000")
     @Mapping(target = "icmIdTpComision", source = "listaCondicionesDestinoResultItem.idTipoComision")
     @Mapping(target = "diaL", source = "listaCondicionesDestinoResultItem.diaL", defaultValue = "true")
     @Mapping(target = "diaM", source = "listaCondicionesDestinoResultItem.diaM", defaultValue = "true")
@@ -232,24 +256,39 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "estructuraDesplazamiento.stdIdHr", source = "estructurasComResultItem.idEmpleado")
     @Mapping(target = "estructuraDesplazamiento.stdOrHrPeriod", source = "estructurasComResultItem.orEmpleado")
     @Mapping(target = "estructuraDesplazamiento.cclIdPerson", source = "estructurasComResultItem.idEmpleadoLocal")
-    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionPadre", source = "estructurasComResultItem.idEstructura")
-    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionBase", source = "listaCondicionesBaseResultItem.idEstructuraBase")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionPadre",
+            source = "estructurasComResultItem.idEstructura")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComisionBase",
+            source = "listaCondicionesBaseResultItem.idEstructuraBase")
     @Mapping(target = "estructuraDesplazamiento.idTipoOpcionCalculoEfectiva", source = "idTipoOpcionCalculoEfectiva")
-    @Mapping(target = "estructuraDesplazamiento.idTipoOpcionCalculoEstructura", source = "idTipoOpcionCalculoEstructura")
-    @Mapping(target = "estructuraDesplazamiento.stdIdWorkLocatDestino", source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestino")
-    @Mapping(target = "estructuraDesplazamiento.cclIdCodOrigenDestino", source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestinoMtu")
-    @Mapping(target = "estructuraDesplazamiento.idMotivoDesplazamiento", source = "listaCondicionesDestinoResultItem.idMotivoDesplazamiento")
-    @Mapping(target = "estructuraDesplazamiento.cclIdPuestoDestino", source = "listaCondicionesDestinoResultItem.idPuestoDestino")
-    @Mapping(target = "estructuraDesplazamiento.cclIdSeccionDestino", source = "listaCondicionesDestinoResultItem.idSeccionDestino")
-    @Mapping(target = "estructuraDesplazamiento.icmIdTpReqCom", source = "listaCondicionesDestinoResultItem.idTipoReqComision")
-    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision", source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
+    @Mapping(target = "estructuraDesplazamiento.idTipoOpcionCalculoEstructura",
+            source = "idTipoOpcionCalculoEstructura")
+    @Mapping(target = "estructuraDesplazamiento.stdIdWorkLocatDestino",
+            source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestino")
+    @Mapping(target = "estructuraDesplazamiento.cclIdCodOrigenDestino",
+            source = "listaCondicionesDestinoResultItem.idLugarTrabajoDestinoMtu")
+    @Mapping(target = "estructuraDesplazamiento.idMotivoDesplazamiento",
+            source = "listaCondicionesDestinoResultItem.idMotivoDesplazamiento")
+    @Mapping(target = "estructuraDesplazamiento.cclIdPuestoDestino",
+            source = "listaCondicionesDestinoResultItem.idPuestoDestino")
+    @Mapping(target = "estructuraDesplazamiento.cclIdSeccionDestino",
+            source = "listaCondicionesDestinoResultItem.idSeccionDestino")
+    @Mapping(target = "estructuraDesplazamiento.icmIdTpReqCom",
+            source = "listaCondicionesDestinoResultItem.idTipoReqComision")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision",
+            source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
     @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "horasOrigen")
     @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "horasDestino")
-    @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito", source = "listaCondicionesDestinoResultItem.idEstructuraAmbito")
+    @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito",
+            source = "listaCondicionesDestinoResultItem.idEstructuraAmbito")
     @Mapping(target = "estructuraDesplazamiento.fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDto estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
-            final EstructurasComResultItemDto estructurasComResultItem, final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem, 
-            final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, final ListaValoresDestinoResultItemDto listaValoresDestinoResultItem, 
-            final TareaDto tarea, final Integer ordinalEstructura, final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura, final Integer idSeccion, final Boolean horasOrigen, final Boolean horasDestino);
+            final EstructurasComResultItemDto estructurasComResultItem,
+            final ListaCondicionesBaseResultItemDto listaCondicionesBaseResultItem,
+            final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem,
+            final ListaValoresDestinoResultItemDto listaValoresDestinoResultItem,
+            final TareaDto tarea, final Integer ordinalEstructura, final Integer idTipoOpcionCalculoEfectiva,
+            final Integer idTipoOpcionCalculoEstructura, final Integer idSeccion, final Boolean horasOrigen,
+            final Boolean horasDestino);
 
 }

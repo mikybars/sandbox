@@ -60,4 +60,5 @@ public class TareaAgrupacionConfiguracion {
     @NotNull
     @Column(name = "PORCENTAJE_INCLUSION", nullable = false, precision = 23, scale = 8)
     private BigDecimal porcentajeInclusion;
+
 }

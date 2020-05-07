@@ -23,41 +23,43 @@ public abstract class TareaAgrupacionAgrupacionConfiguracionDecorator extends Ta
 
     @Override
     public TareaAgrupacionConfiguracion getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(
-        ConfiguracionVentaOnlineResultItemDto src, TareaDto tareaDto) {
+            ConfiguracionVentaOnlineResultItemDto src, TareaDto tareaDto) {
         TipoVentaConceptoDto concepto = tipoVentaConceptoService.findByIdMeta4(src.getIdConcepto());
-        TareaAgrupacionConfiguracion result =
-            delegate.getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(src, tareaDto);
+        TareaAgrupacionConfiguracion result = delegate
+            .getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(src, tareaDto);
         result.setTipoVentaConcepto(TipoVentaConcepto.builder().id(concepto.getId()).build());
         return result;
     }
 
     @Override
     public List<TareaAgrupacionConfiguracion> getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(
-        List<ConfiguracionVentaOnlineResultItemDto> src, TareaDto tareaDto) {
+            List<ConfiguracionVentaOnlineResultItemDto> src, TareaDto tareaDto) {
         List<TareaAgrupacionConfiguracion> result = new ArrayList<>();
         if (src != null) {
-            src.forEach(x ->
-                result.add(getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(x, tareaDto)));
+            src.forEach(x -> result
+                .add(getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(x, tareaDto)));
         }
         return result;
     }
 
     @Override
-    public TareaAgrupacionConfiguracionDto getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(TareaAgrupacionConfiguracion src) {
+    public TareaAgrupacionConfiguracionDto getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
+            TareaAgrupacionConfiguracion src) {
         TipoVentaConceptoDto concepto = tipoVentaConceptoService.findById(src.getTipoVentaConcepto().getId());
-        TareaAgrupacionConfiguracionDto result = delegate.getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(src);
+        TareaAgrupacionConfiguracionDto result = delegate
+            .getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(src);
         result.setTipoVentaConcepto(concepto);
         return result;
     }
 
     @Override
     public List<TareaAgrupacionConfiguracionDto> getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
-        List<TareaAgrupacionConfiguracion> src) {
+            List<TareaAgrupacionConfiguracion> src) {
         List<TareaAgrupacionConfiguracionDto> result = new ArrayList<>();
         if (src != null) {
-            src.forEach(x ->
-                result.add(getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(x)));
+            src.forEach(x -> result.add(getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(x)));
         }
         return result;
     }
+
 }

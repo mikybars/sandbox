@@ -19,22 +19,22 @@ public class AlgoritmoAjuste {
     @Id
     @Column(name = "ID_ALGORITMO_AJUSTE")
     private Integer id;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_POLITICA")
     private TipoPolitica tipoPolitica;
 
     @NotBlank
-    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
+    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
     private String nombre;
-    
+
     @NotNull
     @Column(name = "PESO", nullable = false)
     private Long peso;
-    
+
     @NotNull
     @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
-    
+
 }

@@ -23,36 +23,42 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.Programac
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProgramacionAmbitoPersonaServiceImplTest {
-    
+
     @Mock
     private ProgramacionAmbitoPersonaMapper programacionAmbitoPersonaMapper;
-    
+
     @Mock
     private ProgramacionAmbitoPersonaRepository programacionAmbitoPersonaRepository;
-    
+
     @InjectMocks
     private ProgramacionAmbitoPersonaServiceImpl programacionAmbitoPersonaServiceImpl;
-    
+
     @Test
     public void create() {
-        when(programacionAmbitoPersonaMapper.mergeProgramacionAmbitoPersonaDtoAndProgramacionDtoToProgramacionAmbitoPersona(
-                any(List.class), any(ProgramacionAmbitoDto.class))).thenReturn(new ArrayList<ProgramacionAmbitoPersona>());
-        when(programacionAmbitoPersonaRepository.saveAll(any(List.class))).thenReturn(new ArrayList<ProgramacionAmbitoPersona>());
+        when(programacionAmbitoPersonaMapper
+            .mergeProgramacionAmbitoPersonaDtoAndProgramacionDtoToProgramacionAmbitoPersona(
+                    any(List.class), any(ProgramacionAmbitoDto.class)))
+                        .thenReturn(new ArrayList<ProgramacionAmbitoPersona>());
+        when(programacionAmbitoPersonaRepository.saveAll(any(List.class)))
+            .thenReturn(new ArrayList<ProgramacionAmbitoPersona>());
 
-        programacionAmbitoPersonaServiceImpl.create(Arrays.asList(new ProgramacionAmbitoPersonaDto()), new ProgramacionAmbitoDto());
+        programacionAmbitoPersonaServiceImpl.create(Arrays.asList(new ProgramacionAmbitoPersonaDto()),
+                new ProgramacionAmbitoDto());
         verify(programacionAmbitoPersonaRepository, times(1)).saveAll(any(List.class));
     }
-    
+
     @Test
     public void findByProgramacionAmbito() {
         ProgramacionAmbitoDto ambito = new ProgramacionAmbitoDto();
         ambito.setId(1L);
         when(programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
                 any(List.class))).thenReturn(new ArrayList<ProgramacionAmbitoPersona>());
-        when(programacionAmbitoPersonaRepository.findByProgramacionAmbitoId(any(Long.class))).thenReturn(new ArrayList<ProgramacionAmbitoPersona>());
-        
+        when(programacionAmbitoPersonaRepository.findByProgramacionAmbitoId(any(Long.class)))
+            .thenReturn(new ArrayList<ProgramacionAmbitoPersona>());
+
         programacionAmbitoPersonaServiceImpl.findByProgramacionAmbito(ambito);
         verify(programacionAmbitoPersonaRepository, times(1)).findByProgramacionAmbitoId(any(Long.class));
 
     }
+
 }

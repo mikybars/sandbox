@@ -62,9 +62,11 @@ public class LoggingAspect {
 
     @Around(value = "auditoriaPointcut()")
     public Object auditoriaAround(ProceedingJoinPoint pjp) throws Throwable {
-        Auditoria auditoria = Optional.of(pjp.getSignature()).map(signature -> (MethodSignature) signature)
-                .map(MethodSignature::getMethod).map(method -> method.getAnnotation(Auditoria.class))
-                .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación Auditoria"));
+        Auditoria auditoria = Optional.of(pjp.getSignature())
+            .map(signature -> (MethodSignature) signature)
+            .map(MethodSignature::getMethod)
+            .map(method -> method.getAnnotation(Auditoria.class))
+            .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación Auditoria"));
 
         List<Object> args = Arrays.asList(pjp.getArgs());
         if (auditoria.logArgs()) {
@@ -88,30 +90,42 @@ public class LoggingAspect {
             Class<? extends Object> objClass = obj.getClass();
             if (RunProgramacionDto.class.isAssignableFrom(objClass)) {
                 id = new StringBuilder("Programacion[").append(((RunProgramacionDto) obj).getProgramacion().getId())
-                        .append("] :: ").toString();
+                    .append("] :: ")
+                    .toString();
                 break;
             } else if (RunTrabajoDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Trabajo[").append(((RunTrabajoDto) obj).getTrabajo().getId()).append("] :: ")
-                        .toString();
+                id = new StringBuilder("Trabajo[").append(((RunTrabajoDto) obj).getTrabajo().getId())
+                    .append("] :: ")
+                    .toString();
                 break;
             } else if (RunTareaDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Trabajo[").append(((RunTareaDto) obj).getTarea().getIdTrabajo()).append("]")
-                        .append("Tarea[").append(((RunTareaDto) obj).getTarea().getId()).append("] :: ").toString();
+                id = new StringBuilder("Trabajo[").append(((RunTareaDto) obj).getTarea().getIdTrabajo())
+                    .append("]")
+                    .append("Tarea[")
+                    .append(((RunTareaDto) obj).getTarea().getId())
+                    .append("] :: ")
+                    .toString();
                 break;
             } else if (ProgramacionDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Programacion[").append(((ProgramacionDto) obj).getId()).append("] :: ")
-                        .toString();
+                id = new StringBuilder("Programacion[").append(((ProgramacionDto) obj).getId())
+                    .append("] :: ")
+                    .toString();
                 break;
             } else if (TrabajoDto.class.isAssignableFrom(objClass)) {
                 id = new StringBuilder("Trabajo[").append(((TrabajoDto) obj).getId()).append("] :: ").toString();
                 break;
             } else if (TareaDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Trabajo[").append(((TareaDto) obj).getIdTrabajo()).append("]").append("Tarea[")
-                        .append(((TareaDto) obj).getId()).append("] :: ").toString();
+                id = new StringBuilder("Trabajo[").append(((TareaDto) obj).getIdTrabajo())
+                    .append("]")
+                    .append("Tarea[")
+                    .append(((TareaDto) obj).getId())
+                    .append("] :: ")
+                    .toString();
                 break;
             } else if (RunLimpiezaDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Limpieza[]Tarea[").append(((RunLimpiezaDto) obj).getTarea().getId()).append("] :: ")
-                        .toString();
+                id = new StringBuilder("Limpieza[]Tarea[").append(((RunLimpiezaDto) obj).getTarea().getId())
+                    .append("] :: ")
+                    .toString();
                 break;
             }
         }
@@ -137,11 +151,13 @@ public class LoggingAspect {
             if (auditoria.logException() && log.isErrorEnabled()) {
                 Instant end = Instant.now();
                 log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Duration[")
-                        .append(Duration.between(start, end)).append("] :: ").append(pjp.getSignature().toShortString())
-                        .toString(), e);
+                    .append(Duration.between(start, end))
+                    .append("] :: ")
+                    .append(pjp.getSignature().toShortString())
+                    .toString(), e);
                 for (Object o : args) {
                     log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Args :: {} :: {}")
-                            .toString(), pjp.getSignature().toShortString(), o);
+                        .toString(), pjp.getSignature().toShortString(), o);
                 }
             }
             throw e;
@@ -168,8 +184,10 @@ public class LoggingAspect {
             if (log.isErrorEnabled()) {
                 Instant end = Instant.now();
                 String msg = new StringBuilder("GenericAround :: Fin :: Error :: Duration[")
-                        .append(Duration.between(start, end)).append("] :: ").append(pjp.getSignature().toShortString())
-                        .toString();
+                    .append(Duration.between(start, end))
+                    .append("] :: ")
+                    .append(pjp.getSignature().toShortString())
+                    .toString();
                 log.error(msg, e);
             }
             throw e;
@@ -187,13 +205,17 @@ public class LoggingAspect {
         return result;
     }
 
-    @AfterThrowing(pointcut = "auditoriaPointcut() || controllerPointcut() || servicePointcut() || repositoryPointcut()", throwing = "e")
+    @AfterThrowing(
+            pointcut = "auditoriaPointcut() || controllerPointcut() || servicePointcut() || repositoryPointcut()",
+            throwing = "e")
     public void genericAfterThrowing(JoinPoint jp, Exception e) {
         if (log.isErrorEnabled() && !(CompletionException.class.equals(e.getClass())
                 && CancellationException.class.equals(e.getCause().getClass()))) {
             String msg = new StringBuilder("GenericAfterThrowing :: Error :: ")
-                    .append(jp.getSignature().toShortString()).append(" :: ").append(Arrays.asList(jp.getArgs()))
-                    .toString();
+                .append(jp.getSignature().toShortString())
+                .append(" :: ")
+                .append(Arrays.asList(jp.getArgs()))
+                .toString();
             log.error(msg, e);
         }
     }

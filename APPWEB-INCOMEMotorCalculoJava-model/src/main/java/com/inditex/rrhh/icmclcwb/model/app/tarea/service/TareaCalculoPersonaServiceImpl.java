@@ -35,25 +35,29 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     private TareaCalculoPersonaRepositoryCustom tareaCalculoPersonaRepositoryCustom;
 
     @Override
-    public void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<TareaCalculoPersonaDto> personas, @Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estado) {
-        tareaCalculoPersonaRepositoryCustom.updateWithEstadoAndidPersona(personas.stream().map(e->e.getCclIdPerson()).collect(Collectors.toList()), runTareaDto, estado);
+    public void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<TareaCalculoPersonaDto> personas,
+            @Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estado) {
+        tareaCalculoPersonaRepositoryCustom.updateWithEstadoAndidPersona(
+                personas.stream().map(e -> e.getCclIdPerson()).collect(Collectors.toList()), runTareaDto, estado);
     }
-    
+
     @Override
-    public void updateWithEstado(@Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estadoActual, @Valid @NotNull final EstadoTareaPersonaDto estadoNuevo) {
+    public void updateWithEstado(@Valid @NotNull final RunTareaDto runTareaDto,
+            @Valid @NotNull final EstadoTareaPersonaDto estadoActual,
+            @Valid @NotNull final EstadoTareaPersonaDto estadoNuevo) {
         tareaCalculoPersonaRepositoryCustom.updateWithEstado(runTareaDto, estadoActual, estadoNuevo);
     }
-    
+
     @Override
     public void mergePersonaCalculoByAmbito(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbito(runTareaDto);
     }
-    
+
     @Override
     public void mergePersonaCalculoByAmbitoLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoLocalizacion(runTareaDto);
     }
-    
+
     @Override
     public void mergePersonaCalculoByAmbitoPersona(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoPersona(runTareaDto);
@@ -64,16 +68,17 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
         return tareaCalculoPersonaMapper.tareaCalculoPersonaToTareaCalculoPersonaDto(
                 tareaCalculoPersonaRepository.findByTareaId(tarea.getId()));
     }
-    
+
     @Override
-    public List<TareaCalculoPersonaDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final AlgoritmoDto algoritmo) {
+    public List<TareaCalculoPersonaDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea,
+            @Valid @NotNull final AlgoritmoDto algoritmo) {
         return tareaCalculoPersonaMapper.tareaCalculoPersonaToTareaCalculoPersonaDto(
                 tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(tarea, algoritmo));
     }
-    
+
     @Override
     public List<TareaCalculoPersonaDto> findByTareaAndIdEstadoAndIdTipoPolitica(@Valid @NotNull final TareaDto tarea,
-             @Valid @NotNull final String idTipoPolitica) {
+            @Valid @NotNull final String idTipoPolitica) {
         return tareaCalculoPersonaMapper.tareaCalculoPersonaToTareaCalculoPersonaDto(
                 tareaCalculoPersonaRepositoryCustom.findByTareaAndIdEstadoAndIdTipoPolitica(tarea, idTipoPolitica));
     }

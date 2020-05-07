@@ -23,7 +23,7 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
 
     @Autowired
     private TareaAgrupacionVentaMapper delegate;
-    
+
     @Autowired
     private Logger log;
 
@@ -31,7 +31,7 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
     public List<TareaAgrupacionVenta> ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
             List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea, List<TareaAgrupacionCadenasDto> agrupaciones) {
         return crearAgrupaciones(src, tarea, agrupaciones, x -> delegate
-                .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta((PtrVentaTotalizadoResultItemDto) x, tarea));
+            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta((PtrVentaTotalizadoResultItemDto) x, tarea));
     }
 
     @Override
@@ -52,18 +52,24 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
             for (CadenaVentaResultItemDto item : src) {
                 if (!idAgrupaciones.containsKey(item.getCadena())) {
                     Optional<TareaAgrupacionCadenasDto> optionalAgrupacion = agrupaciones.stream()
-                            .filter(x -> x.getCadenas().stream().anyMatch(y -> y.equals(item.getCadena().toString())))
-                            .findFirst();
+                        .filter(x -> x.getCadenas().stream().anyMatch(y -> y.equals(item.getCadena().toString())))
+                        .findFirst();
                     if (!optionalAgrupacion.isPresent()) {
-                        log.warn("No hay agrupacion para la cadena: {}, id de tarea: {}", item.getCadena(), tarea.getId());
-                    }else {
-                        idAgrupaciones.put(item.getCadena(), optionalAgrupacion.get().getId());    
+                        log.warn("No hay agrupacion para la cadena: {}, id de tarea: {}", item.getCadena(),
+                                tarea.getId());
+                    } else {
+                        idAgrupaciones.put(item.getCadena(), optionalAgrupacion.get().getId());
                     }
                 }
                 if (idAgrupaciones.containsKey(item.getCadena())) {
                     Long idAgrupacion = idAgrupaciones.get(item.getCadena());
-                    TareaAgrupacion agrupacion = TareaAgrupacion.builder().fecha(item.getFecha()).idAgrupacion(idAgrupacion)
-                            .idSeccion(item.getSeccion()).idTarea(tarea.getId()).idPais(item.getPais()).build();
+                    TareaAgrupacion agrupacion = TareaAgrupacion.builder()
+                        .fecha(item.getFecha())
+                        .idAgrupacion(idAgrupacion)
+                        .idSeccion(item.getSeccion())
+                        .idTarea(tarea.getId())
+                        .idPais(item.getPais())
+                        .build();
                     if (!ventas.containsKey(agrupacion)) {
                         TareaAgrupacionVenta tareaAgrupacionVenta = transform.transform(item);
                         tareaAgrupacionVenta.setIcmIdAgrupacionOnline(idAgrupacion);
@@ -84,7 +90,9 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
     }
 
     private interface Transform {
+
         TareaAgrupacionVenta transform(CadenaVentaResultItemDto origen);
+
     }
 
 }

@@ -15,4 +15,5 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosAsyncService 
     CompletableFuture<Void> empleadosPresenciaByRunTarea(final RunTareaDto runTarea);
 
     CompletableFuture<Void> empleadosDesplazamientoByRunTarea(final RunTareaDto runTarea);
+
 }

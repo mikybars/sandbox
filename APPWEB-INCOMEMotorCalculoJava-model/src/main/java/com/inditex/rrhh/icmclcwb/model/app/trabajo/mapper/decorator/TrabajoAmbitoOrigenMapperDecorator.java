@@ -22,7 +22,7 @@ public abstract class TrabajoAmbitoOrigenMapperDecorator extends TrabajoAmbitoOr
         List<TrabajoAmbitoOrigen> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(srcTrabajoAmbitoOrigen)) {
             srcTrabajoAmbitoOrigen.forEach(item -> result
-                    .add(delegate.mergeTrabajoAmbitoOrigenDtoAndTrabajoDtoToTrabajoAmbitoOrigen(item, srcTrabajo)));
+                .add(delegate.mergeTrabajoAmbitoOrigenDtoAndTrabajoDtoToTrabajoAmbitoOrigen(item, srcTrabajo)));
         }
         return result;
     }

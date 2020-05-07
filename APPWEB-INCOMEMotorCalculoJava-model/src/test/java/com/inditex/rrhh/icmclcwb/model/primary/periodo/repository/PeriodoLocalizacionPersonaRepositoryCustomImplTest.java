@@ -33,7 +33,8 @@ public class PeriodoLocalizacionPersonaRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(periodoLocalizacionPersonaRepositoryCustom, "sqlMergePeriodoLocalizacionPersona", "", true);
+        FieldUtils.writeField(periodoLocalizacionPersonaRepositoryCustom, "sqlMergePeriodoLocalizacionPersona", "",
+                true);
     }
 
     @Test

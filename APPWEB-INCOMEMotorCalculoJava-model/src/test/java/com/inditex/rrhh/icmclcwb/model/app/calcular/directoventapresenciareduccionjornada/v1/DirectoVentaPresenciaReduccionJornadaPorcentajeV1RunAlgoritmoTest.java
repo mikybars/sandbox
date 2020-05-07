@@ -47,7 +47,8 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeV1RunAlgoritmoTest {
         when(tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeV1RepositoryCustom
             .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
 
-        String result = directoVentaPresenciaReduccionJornadaPorcentajeV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto());
+        String result = directoVentaPresenciaReduccionJornadaPorcentajeV1RunAlgoritmo
+            .getSqlCalcular(new AlgoritmoDto());
 
         assertEquals(SQL_CALCULAR, result);
     }
@@ -76,10 +77,12 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeV1RunAlgoritmoTest {
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         directoVentaPresenciaReduccionJornadaPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
         verify(tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
     }
 
     @Test
@@ -109,7 +112,7 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("DirectoVentaPresenciaReduccionJornadaPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
 
 }

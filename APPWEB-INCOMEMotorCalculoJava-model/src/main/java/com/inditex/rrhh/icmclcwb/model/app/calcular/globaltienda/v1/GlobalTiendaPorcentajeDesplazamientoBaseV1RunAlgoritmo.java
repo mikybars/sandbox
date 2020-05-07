@@ -34,24 +34,36 @@ public class GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo implements R
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                log.info("Inicio :: GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
+                tareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1RepositoryCustom.ids(algoritmo,
+                        runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
                 try {
                     tareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo,
-                        runTarea.getTarea(), personas);
+                            runTarea.getTarea(), personas);
                 } catch (Exception e) {
-                    log.error("GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
+                    log.error("GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
+                            personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
                 }
-                log.info("Fin :: GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
+                log.info("Fin :: GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
                 return Flux.empty();
-        }).sequential().collectList().block();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1RepositoryCustom
+            .getSqlCalcular(algoritmo);
     }
 
 }

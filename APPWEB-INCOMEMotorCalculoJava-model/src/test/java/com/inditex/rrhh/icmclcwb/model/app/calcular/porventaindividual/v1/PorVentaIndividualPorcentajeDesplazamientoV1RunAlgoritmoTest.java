@@ -37,12 +37,10 @@ public class PorVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmoTest {
     private RunAlgoritmoPropertiesDto runAlgoritmoPropertiesDto;
 
     @Mock
-    private TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1RepositoryCustom tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1RepositoryCustom;
 
     @InjectMocks
-    private PorVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmo
-        porVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmo;
+    private PorVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmo porVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmo;
 
     @Test
     public void getSqlCalcularTest() {
@@ -78,10 +76,12 @@ public class PorVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmoTest {
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         porVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: PorVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1)).info("Inicio :: PorVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                3);
         verify(tareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: PorVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1)).info("Fin :: PorVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                3);
     }
 
     @Test
@@ -111,6 +111,7 @@ public class PorVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("PorVentaIndividualPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
+
 }

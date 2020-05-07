@@ -31,8 +31,7 @@ public class PorVentaSimplificadoPorcentajeV1RunAlgoritmoTest {
     private Logger log;
 
     @Mock
-    private TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCustom;
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -110,7 +109,7 @@ public class PorVentaSimplificadoPorcentajeV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("PorVentaSimplificadoPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
-    
+
 }

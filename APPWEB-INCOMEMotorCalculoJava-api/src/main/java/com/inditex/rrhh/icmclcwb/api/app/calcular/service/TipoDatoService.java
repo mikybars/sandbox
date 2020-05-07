@@ -7,4 +7,5 @@ import java.util.List;
 public interface TipoDatoService {
 
     List<IdTipoDatoDto> findTipoDatoByTipoGrupoDato(Integer id);
+
 }

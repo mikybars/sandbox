@@ -13,12 +13,14 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetal
 
 public interface TareaLocalizacionPersonaPresenciaService {
 
-    void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src, @Valid @NotNull final TareaDto tareaDto);
+    void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto);
 
-    void savePtrPresenciaDetalle(@Valid @NotNull @NotEmpty final List<PtrPresenciaDetalleResultItemDto> src, @Valid @NotNull final TareaDto tareaDto);
-    
+    void savePtrPresenciaDetalle(@Valid @NotNull @NotEmpty final List<PtrPresenciaDetalleResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto);
+
     void updateActivo(@Valid @NotNull final RunTareaDto tareaDto);
-    
+
     void updateActivoVacio(@Valid @NotNull final RunTareaDto runTareaDto);
 
     void compensar(@Valid @NotNull final RunTareaDto runTareaDto);
@@ -28,10 +30,11 @@ public interface TareaLocalizacionPersonaPresenciaService {
     void indicadorPresencia(@Valid @NotNull final RunTareaDto runTareaDto);
 
     void indicadorPresenciaDesplazamiento(@Valid @NotNull final RunTareaDto runTareaDto);
-    
+
     void indicadorPresenciaDesplazamientoBase(@Valid @NotNull final RunTareaDto runTareaDto);
-    
-    void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto);
+
+    void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(
+            @Valid @NotNull final RunTareaDto runTareaDto);
 
     void presenciasHorasFijas(@Valid @NotNull final RunTareaDto runTareaDto);
 

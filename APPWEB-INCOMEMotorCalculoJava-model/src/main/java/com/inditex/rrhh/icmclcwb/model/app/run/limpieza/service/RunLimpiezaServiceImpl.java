@@ -20,8 +20,10 @@ public class RunLimpiezaServiceImpl implements RunLimpiezaService {
     private LimpiezaService limpiezaService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunLimpiezaService.run.timer", metricGroupName = "RunLimpiezaServiceGroup", metricDescription = "RunLimpiezaService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunLimpiezaService.run.counter", metricGroupName = "RunLimpiezaServiceGroup", metricDescription = "RunLimpiezaService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunLimpiezaService.run.timer", metricGroupName = "RunLimpiezaServiceGroup",
+            metricDescription = "RunLimpiezaService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunLimpiezaService.run.counter", metricGroupName = "RunLimpiezaServiceGroup",
+            metricDescription = "RunLimpiezaService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunLimpiezaDto runLimpieza) {
         limpiezaService.runTarea(runLimpieza.getTarea());

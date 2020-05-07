@@ -28,9 +28,13 @@ import static org.mockito.Mockito.*;
 public class TareaRepositoryCustomImplTest {
 
     private final static String SQL_UPDATE_FECHA_FIN = "SQL UPDATE FECHA FIN";
+
     private final static String SQL_UPDATE_FECHA_INICIO_AND_ESTADO = "SQL UPDATE FECHA INICIO AND ESTADO";
+
     private final static String SQL_UPDATE_ESTADO = "SQL UPDATE ESTADO";
+
     private final static String SQL_UPDATE_ESTADO_FINAL = "SQL UPDATE ESTADO FINAL";
+
     private final static String SQL_FIND_LIMPIEZA = "SQL FIND LIMPIEZA";
 
     @Mock
@@ -48,15 +52,15 @@ public class TareaRepositoryCustomImplTest {
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaRepositoryCustom,
-            "sqlUpdateFechaFin", SQL_UPDATE_FECHA_FIN, true);
+                "sqlUpdateFechaFin", SQL_UPDATE_FECHA_FIN, true);
         FieldUtils.writeField(tareaRepositoryCustom,
-            "sqlUpdateFechaInicioAndEstado", SQL_UPDATE_FECHA_INICIO_AND_ESTADO, true);
+                "sqlUpdateFechaInicioAndEstado", SQL_UPDATE_FECHA_INICIO_AND_ESTADO, true);
         FieldUtils.writeField(tareaRepositoryCustom,
-            "sqlUpdateEstado", SQL_UPDATE_ESTADO, true);
+                "sqlUpdateEstado", SQL_UPDATE_ESTADO, true);
         FieldUtils.writeField(tareaRepositoryCustom,
-            "sqlUpdateEstadoFinal", SQL_UPDATE_ESTADO_FINAL, true);
+                "sqlUpdateEstadoFinal", SQL_UPDATE_ESTADO_FINAL, true);
         FieldUtils.writeField(tareaRepositoryCustom,
-            "sqlFindLimpieza", SQL_FIND_LIMPIEZA, true);
+                "sqlFindLimpieza", SQL_FIND_LIMPIEZA, true);
     }
 
     @Test
@@ -158,9 +162,11 @@ public class TareaRepositoryCustomImplTest {
     public void findLimpiezaTest() {
 
         List<IdTareaDto> idTareas = Arrays.asList(new IdTareaDto(22L), new IdTareaDto(789L), new IdTareaDto(377L));
-        when(namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class), any(RowMapper.class))).thenReturn(idTareas);
+        when(namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+                any(RowMapper.class))).thenReturn(idTareas);
         List<IdTareaDto> result = tareaRepositoryCustom.findLimpieza();
-        verify(namedParameterJdbcTemplate, times(1)).query(sqlCaptor.capture(), paramsCaptor.capture(),  any(RowMapper.class));
+        verify(namedParameterJdbcTemplate, times(1)).query(sqlCaptor.capture(), paramsCaptor.capture(),
+                any(RowMapper.class));
 
         assertEquals(idTareas, result);
         assertEquals(SQL_FIND_LIMPIEZA, sqlCaptor.getValue());
@@ -170,8 +176,8 @@ public class TareaRepositoryCustomImplTest {
         assertEquals(1, params.getValues().size());
         assertTrue(params.hasValue("idEstado"));
         assertEquals(
-            Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()),
-            params.getValue("idEstado"));
+                Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()),
+                params.getValue("idEstado"));
     }
 
 }

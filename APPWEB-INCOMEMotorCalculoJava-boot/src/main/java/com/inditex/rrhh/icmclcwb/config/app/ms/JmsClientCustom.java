@@ -11,13 +11,13 @@ import com.inditex.rrhh.icmclcwb.config.app.ObjectMapperCustom;
 
 public class JmsClientCustom implements JmsClientCustomizer {
 
-	@Override
-	public void customize(JmsClient jmsClient) throws JMSException {
-		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-		converter.setTargetType(MessageType.TEXT);
-		converter.setTypeIdPropertyName("_type");
-		converter.setObjectMapper(new ObjectMapperCustom());
-		jmsClient.setMessageConverter(converter);
-	}
+    @Override
+    public void customize(JmsClient jmsClient) throws JMSException {
+        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+        converter.setTargetType(MessageType.TEXT);
+        converter.setTypeIdPropertyName("_type");
+        converter.setObjectMapper(new ObjectMapperCustom());
+        jmsClient.setMessageConverter(converter);
+    }
 
 }

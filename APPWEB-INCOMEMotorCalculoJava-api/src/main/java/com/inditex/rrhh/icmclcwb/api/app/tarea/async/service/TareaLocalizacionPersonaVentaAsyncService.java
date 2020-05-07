@@ -13,9 +13,9 @@ import java.util.concurrent.CompletableFuture;
 public interface TareaLocalizacionPersonaVentaAsyncService {
 
     CompletableFuture<Void> savePtrVentaIndividualDetalleResultItem(
-        @NotNull List<PtrVentaIndividualDetalleResultItemDto> operaciones, TareaDto tarea);
+            @NotNull List<PtrVentaIndividualDetalleResultItemDto> operaciones, TareaDto tarea);
 
     CompletableFuture<Void> savePtrVentaOnlineIpodIndividualDetalleResultItem(
-        @NotNull List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones, TareaDto tarea);
+            @NotNull List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones, TareaDto tarea);
 
 }

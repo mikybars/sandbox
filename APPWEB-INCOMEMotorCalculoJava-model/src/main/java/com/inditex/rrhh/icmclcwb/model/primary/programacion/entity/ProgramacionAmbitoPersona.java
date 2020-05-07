@@ -35,11 +35,11 @@ public class ProgramacionAmbitoPersona {
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", length = 48, nullable = false)
     private String stdIdLegEnt;
-    
+
     @NotBlank
     @Column(name = "CCL_ID_PERSON", length = 48, nullable = false)
     private String cclIdPerson;
-    
+
     @NotBlank
     @Column(name = "STD_OR_HR_PERIOD", length = 48, nullable = false)
     private String stdOrHrPeriod;

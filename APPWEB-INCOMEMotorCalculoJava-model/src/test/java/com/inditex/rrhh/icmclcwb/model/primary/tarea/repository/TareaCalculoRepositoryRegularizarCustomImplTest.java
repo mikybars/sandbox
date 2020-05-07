@@ -27,6 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 public class TareaCalculoRepositoryRegularizarCustomImplTest {
 
     private static final String SQL_REGULARIZAR_MEJOR_OPCION = "REGULARIZAR MEJOR OPCION TEST";
+
     private static final String SQL_REGULARIZAR_CHALLENGE = "REGULARIZAR CHALLENGE TEST";
 
     @Mock
@@ -43,7 +44,8 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaCalculoRepositoryCustom, "sqlRegularizarMejorOpcion", SQL_REGULARIZAR_MEJOR_OPCION, true);
+        FieldUtils.writeField(tareaCalculoRepositoryCustom, "sqlRegularizarMejorOpcion", SQL_REGULARIZAR_MEJOR_OPCION,
+                true);
         FieldUtils.writeField(tareaCalculoRepositoryCustom, "sqlRegularizarChallenge", SQL_REGULARIZAR_CHALLENGE, true);
     }
 
@@ -60,7 +62,7 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
         assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
     }
-    
+
     @Test
     public void regularizarChallengeTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -81,4 +83,5 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
         assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
         assertEquals(tarea.getId(), params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
     }
+
 }

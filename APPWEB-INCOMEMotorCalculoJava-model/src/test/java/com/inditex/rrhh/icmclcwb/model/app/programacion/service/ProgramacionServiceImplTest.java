@@ -55,7 +55,7 @@ public class ProgramacionServiceImplTest {
 
     @InjectMocks
     private ProgramacionServiceImpl programacionService;
-    
+
     @Test
     public void createTest() {
 
@@ -66,52 +66,60 @@ public class ProgramacionServiceImplTest {
         programacion.getAmbito().add(new ProgramacionAmbitoDto());
         programacion.setHoraProgramacion(LocalTime.of(0, 0));
 
-        when(programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class))).thenReturn(new Programacion());
+        when(programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class)))
+            .thenReturn(new Programacion());
         when(programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
         when(programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
-        when(programacionAmbitoService.create(any(List.class), any(ProgramacionDto.class))).thenReturn(new ArrayList<>());
+        when(programacionAmbitoService.create(any(List.class), any(ProgramacionDto.class)))
+            .thenReturn(new ArrayList<>());
 
         ProgramacionDto result = programacionService.create(programacion);
         assertNotNull(result);
         assertNotNull(result.getFechaHoraCreacion());
         assertEquals(DateUtils.truncate(TimeUtils.nowDate(), Calendar.SECOND),
-            DateUtils.truncate(Date.from(result.getFechaHoraCreacion().atZone(TimeUtils.ofZone()).toInstant()), Calendar.SECOND));
+                DateUtils.truncate(Date.from(result.getFechaHoraCreacion().atZone(TimeUtils.ofZone()).toInstant()),
+                        Calendar.SECOND));
         assertEquals(programacion.getProgramacionHuso(), result.getProgramacionHuso());
         assertEquals(programacion.getNombreUsuario(), result.getNombreUsuario());
         assertEquals(programacion.getAmbito(), result.getAmbito());
-        // Solo se comprueba si existe fecha, la comprobacion de la fecha correcta se hace en otro test de esta clase
+        // Solo se comprueba si existe fecha, la comprobacion de la fecha correcta se hace en otro test de
+        // esta clase
         assertNotNull(result.getFechaHoraSiguienteEjecucion());
     }
-    
+
     @Test
     public void createTestSso() {
         Authentication authentication = Mockito.mock(Authentication.class);
-        //TODO [MDELRIO] Buscar manera de replicar este test con el nombre en blanco para cubrir test
+        // TODO [MDELRIO] Buscar manera de replicar este test con el nombre en blanco para cubrir test
         Mockito.when(authentication.getPrincipal()).thenReturn(new UserSSO(null, "name", "url", Arrays.asList()));
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
-        
+
         ProgramacionDto programacion = new ProgramacionDto();
         programacion.setProgramacionHuso(TimeUtils.ofZoneId());
         programacion.setAmbito(new ArrayList<>());
         programacion.getAmbito().add(new ProgramacionAmbitoDto());
         programacion.setHoraProgramacion(LocalTime.of(0, 0));
 
-        when(programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class))).thenReturn(new Programacion());
+        when(programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class)))
+            .thenReturn(new Programacion());
         when(programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
         when(programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
-        when(programacionAmbitoService.create(any(List.class), any(ProgramacionDto.class))).thenReturn(new ArrayList<>());
+        when(programacionAmbitoService.create(any(List.class), any(ProgramacionDto.class)))
+            .thenReturn(new ArrayList<>());
 
         ProgramacionDto result = programacionService.create(programacion);
         assertNotNull(result);
         assertNotNull(result.getFechaHoraCreacion());
         assertEquals(DateUtils.truncate(TimeUtils.nowDate(), Calendar.SECOND),
-            DateUtils.truncate(Date.from(result.getFechaHoraCreacion().atZone(TimeUtils.ofZone()).toInstant()), Calendar.SECOND));
+                DateUtils.truncate(Date.from(result.getFechaHoraCreacion().atZone(TimeUtils.ofZone()).toInstant()),
+                        Calendar.SECOND));
         assertEquals(programacion.getProgramacionHuso(), result.getProgramacionHuso());
         assertEquals(programacion.getNombreUsuario(), result.getNombreUsuario());
         assertEquals(programacion.getAmbito(), result.getAmbito());
-        // Solo se comprueba si existe fecha, la comprobacion de la fecha correcta se hace en otro test de esta clase
+        // Solo se comprueba si existe fecha, la comprobacion de la fecha correcta se hace en otro test de
+        // esta clase
         assertNotNull(result.getFechaHoraSiguienteEjecucion());
     }
 
@@ -125,10 +133,12 @@ public class ProgramacionServiceImplTest {
         programacion.getAmbito().add(new ProgramacionAmbitoDto());
         programacion.setHoraProgramacion(LocalTime.of(0, 0));
 
-        when(programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class))).thenReturn(new Programacion());
+        when(programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class)))
+            .thenReturn(new Programacion());
         when(programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
         when(programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
-        when(programacionAmbitoService.create(any(List.class), any(ProgramacionDto.class))).thenReturn(new ArrayList<>());
+        when(programacionAmbitoService.create(any(List.class), any(ProgramacionDto.class)))
+            .thenReturn(new ArrayList<>());
 
         ProgramacionDto result = programacionService.create(programacion);
         assertNotNull(result);
@@ -140,7 +150,8 @@ public class ProgramacionServiceImplTest {
 
         ProgramacionDto programacion = mock(ProgramacionDto.class);
 
-        when(programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class))).thenReturn(new Programacion());
+        when(programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class)))
+            .thenReturn(new Programacion());
         when(programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
         when(programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
         when(programacionAmbitoService.findByProgramacion(any(ProgramacionDto.class))).thenReturn(new ArrayList<>());
@@ -166,14 +177,15 @@ public class ProgramacionServiceImplTest {
     @Test
     public void fechaSiguienteEjecucionDespuesProgramacionTest() {
 
-        // Si el momento actual es posterior a la hora de programación, la fecha resultado debería ser mañana
+        // Si el momento actual es posterior a la hora de programación, la fecha resultado debería ser
+        // mañana
         ProgramacionDto programacion = mock(ProgramacionDto.class);
         when(programacion.getProgramacionHuso()).thenReturn(TimeUtils.ofZoneId());
         when(programacion.getHoraProgramacion()).thenReturn(LocalTime.of(0, 0, 1));
 
         LocalDateTime result = programacionService.fechaSiguienteEjecucion(programacion);
         assertTrue(DateUtils.isSameDay(DateUtils.addDays(new Date(), 1),
-            Date.from(result.atZone(TimeUtils.ofZone()).toInstant())));
+                Date.from(result.atZone(TimeUtils.ofZone()).toInstant())));
 
     }
 
@@ -181,10 +193,12 @@ public class ProgramacionServiceImplTest {
     public void findPendienteTest() {
 
         when(programacionMapper.programacionToProgramacionDto(any(List.class))).thenReturn(new ArrayList<>());
-        when(programacionRepository.findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(any(LocalDateTime.class))).thenReturn(new ArrayList<>());
+        when(programacionRepository.findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(any(LocalDateTime.class)))
+            .thenReturn(new ArrayList<>());
 
         programacionService.findPendiente();
-        verify(programacionRepository, times(1)).findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(any(LocalDateTime.class));
+        verify(programacionRepository, times(1))
+            .findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(any(LocalDateTime.class));
 
     }
 
@@ -192,10 +206,11 @@ public class ProgramacionServiceImplTest {
     public void updateEjecucionTest() {
 
         ProgramacionDto programacion = new ProgramacionDto();
-        programacion.setHoraProgramacion(LocalTime.of(0,0));
+        programacion.setHoraProgramacion(LocalTime.of(0, 0));
         programacion.setProgramacionHuso(TimeUtils.ofZoneId());
 
-        when(programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class))).thenReturn(new Programacion());
+        when(programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class)))
+            .thenReturn(new Programacion());
         when(programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
         when(programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
         when(programacionAmbitoService.findByProgramacion(any(ProgramacionDto.class))).thenReturn(new ArrayList<>());
@@ -203,7 +218,7 @@ public class ProgramacionServiceImplTest {
         programacionService.updateEjecucion(programacion);
 
         assertTrue(DateUtils.isSameDay(new Date(),
-            Date.from(programacion.getFechaHoraUltimaEjecucion().atZone(TimeUtils.ofZone()).toInstant())));
+                Date.from(programacion.getFechaHoraUltimaEjecucion().atZone(TimeUtils.ofZone()).toInstant())));
         assertNotNull(programacion.getFechaHoraSiguienteEjecucion());
 
     }
@@ -219,14 +234,14 @@ public class ProgramacionServiceImplTest {
         programacionService.activa();
         verify(programacionRepositoryCustom, times(1)).activa();
     }
-    
+
     @Test
     public void activaIdTest() {
         Long id = 1L;
         programacionService.activa(id);
         verify(programacionRepositoryCustom, times(1)).activa(id);
     }
-    
+
     @Test
     public void desactivaTest() {
         programacionService.desactiva();
@@ -239,4 +254,5 @@ public class ProgramacionServiceImplTest {
         programacionService.desactiva(id);
         verify(programacionRepositoryCustom, times(1)).desactiva(id);
     }
+
 }

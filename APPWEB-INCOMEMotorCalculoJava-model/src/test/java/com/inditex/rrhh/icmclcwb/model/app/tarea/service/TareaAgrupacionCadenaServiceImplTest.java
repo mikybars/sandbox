@@ -28,19 +28,19 @@ public class TareaAgrupacionCadenaServiceImplTest {
 
     @Mock
     private TareaAgrupacionCadenaRepositoryCustomImpl tareaAgrupacionCadenaRepositoryCustomImpl;
-    
+
     @Mock
     private TareaAgrupacionCadenaRepository tareaAgrupacionCadenaRepository;
 
     @InjectMocks
     private TareaAgrupacionCadenaServiceImpl tareaAgrupacionCadenaServiceImpl;
-    
+
     @Mock
     private TareaAgrupacionCadenaMapper tareaAgrupacionCadenaMapper;
-    
+
     @Mock
     private TareaAgrupacionCadenaMapperDecorator tareaAgrupacionCadenaMapperDecorator;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -53,7 +53,7 @@ public class TareaAgrupacionCadenaServiceImplTest {
 
         verify(tareaAgrupacionCadenaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void findAgrupacionesByTarea() {
         TareaDto tarea = mock(TareaDto.class);
@@ -64,5 +64,5 @@ public class TareaAgrupacionCadenaServiceImplTest {
 
         verify(tareaAgrupacionCadenaRepository, times(1)).findByTareaId(any(Long.class));
     }
-    
+
 }

@@ -44,8 +44,7 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamien
     private ArgumentCaptor<String> sqlCaptor;
 
     @InjectMocks
-    private TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamientoBaseV1RepositoryCustomImpl
-        tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamientoBaseV1RepositoryCustomImpl tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom;
 
     @Before
     public void setup() throws IllegalAccessException {
@@ -65,8 +64,7 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamien
         TareaDto tarea = mock(TareaDto.class);
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
 
-        List<TareaCalculoPersonaDto> ids =
-            tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom.ids(algoritmo, tarea);
+        List<TareaCalculoPersonaDto> ids = tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom.ids(algoritmo, tarea);
 
         assertEquals(2, ids.size());
         assertEquals(personas, ids);
@@ -76,16 +74,17 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamien
     public void getMapValuesTest() {
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
-//        when(algoritmo.getId()).thenReturn(1001);
+        // when(algoritmo.getId()).thenReturn(1001);
         TareaDto tarea = mock(TareaDto.class);
-//        when(tarea.getId()).thenReturn(101L);
+        // when(tarea.getId()).thenReturn(101L);
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
-//        when(persona1.getCclIdPerson()).thenReturn("AT1001");
-//        when(persona1.getStdOrHrPeriod()).thenReturn("01");
+        // when(persona1.getCclIdPerson()).thenReturn("AT1001");
+        // when(persona1.getStdOrHrPeriod()).thenReturn("01");
 
-        Map<String, Object> result = tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
+        Map<String, Object> result = tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom.getMapValues(algoritmo, tarea,
+                persona1);
 
-        //TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVenta
+        // TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVenta
         assertEquals(0, result.size());
 
     }
@@ -94,26 +93,26 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamien
     public void calcularTest() {
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
-//        when(algoritmo.getId()).thenReturn(1001);
+        // when(algoritmo.getId()).thenReturn(1001);
         TareaDto tarea = mock(TareaDto.class);
-//        when(tarea.getId()).thenReturn(101L);
+        // when(tarea.getId()).thenReturn(101L);
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
-//        when(persona1.getCclIdPerson()).thenReturn("AT1001");
-//        when(persona1.getStdOrHrPeriod()).thenReturn("01");
+        // when(persona1.getCclIdPerson()).thenReturn("AT1001");
+        // when(persona1.getStdOrHrPeriod()).thenReturn("01");
         TareaCalculoPersonaDto persona2 = mock(TareaCalculoPersonaDto.class);
-//        when(persona2.getCclIdPerson()).thenReturn("AT1002");
-//        when(persona2.getStdOrHrPeriod()).thenReturn("02");
+        // when(persona2.getCclIdPerson()).thenReturn("AT1002");
+        // when(persona2.getStdOrHrPeriod()).thenReturn("02");
         List<TareaCalculoPersonaDto> personas = Arrays.asList(persona1, persona2);
 
         tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom.calcular(algoritmo, tarea, personas);
 
         verify(namedParameterJdbcTemplate).batchUpdate(sqlCaptor.capture(), paramsCaptor.capture());
-        //TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVenta
+        // TODO [COMUN] Definir los parametros de la consulta para el cálculo PorVenta
         assertEquals(SQL_CALCULAR, sqlCaptor.getValue());
         MapSqlParameterSource[] values = paramsCaptor.getValue();
-        //2 elementos, porque se envían dos personas
+        // 2 elementos, porque se envían dos personas
         assertEquals(2, values.length);
-        for (int i = 0; i<values.length; i++) {
+        for (int i = 0; i < values.length; i++) {
             MapSqlParameterSource value = values[i];
             assertEquals(0, value.getValues().size());
         }
@@ -124,11 +123,12 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamien
     public void getSqlCalcularTest() {
 
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
-//        when(algoritmo.getId()).thenReturn(21);
+        // when(algoritmo.getId()).thenReturn(21);
 
         String result = tareaCalculoAlgoritmoPorVentaBaseV1RepositoryCustom
             .getSqlCalcular(algoritmo);
         assertEquals(SQL_BASE, result);
 
     }
+
 }

@@ -12,8 +12,7 @@ public class ErrorConstants {
     public static final String RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING = "El algoritmo {} no está implementado";
 
     public static final String OPERATION_NOT_VALID = "La operacion {} no es valida";
-    
-    public static final String EMPTY_CCL_ID_PERSON = "El registro {} no tiene vendedor asociado";
 
+    public static final String EMPTY_CCL_ID_PERSON = "El registro {} no tiene vendedor asociado";
 
 }

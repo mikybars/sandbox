@@ -27,7 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaServic
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoManualDesplazamientoBaseV1RepositoryCustom;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ManualDesplazamientoBaseV1RunAlgoritmoTest{
+public class ManualDesplazamientoBaseV1RunAlgoritmoTest {
 
     private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
 
@@ -45,14 +45,14 @@ public class ManualDesplazamientoBaseV1RunAlgoritmoTest{
 
     @InjectMocks
     private ManualDesplazamientoBaseV1RunAlgoritmo manualDesplazamientoBaseV1RunAlgoritmo;
-    
+
     @Test
     public void getSqlCalcularTest() {
         when(tareaCalculoAlgoritmoManualDesplazamientoBaseV1RepositoryCustom
             .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
         assertEquals(SQL_CALCULAR, manualDesplazamientoBaseV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
     }
-    
+
     @Test
     public void calcularTest() {
 
@@ -82,7 +82,7 @@ public class ManualDesplazamientoBaseV1RunAlgoritmoTest{
             .calcular(algoritmo, tarea, personas);
         verify(log, times(1)).info("Fin :: ManualDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
     }
- 
+
     @Test
     public void calcularExceptionTest() {
 
@@ -110,7 +110,7 @@ public class ManualDesplazamientoBaseV1RunAlgoritmoTest{
         verify(log, times(1))
             .error("ManualDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
 
 }

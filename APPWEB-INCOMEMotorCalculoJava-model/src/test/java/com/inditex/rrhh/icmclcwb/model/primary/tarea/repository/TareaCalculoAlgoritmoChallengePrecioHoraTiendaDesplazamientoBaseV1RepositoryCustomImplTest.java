@@ -37,8 +37,9 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustomImplTest {
 
     private final static String SQL_BASE = "SQL CALCULAR BASE";
+
     private final static String SQL_CALCULAR = "SQL CALCULAR";
-    
+
     @Mock
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
@@ -56,10 +57,12 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1R
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustomImpl, "sqlCalcular", SQL_CALCULAR, true);
-        FieldUtils.writeField(tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustomImpl, "sqlCalcularBase", SQL_BASE, true);
+        FieldUtils.writeField(tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustomImpl,
+                "sqlCalcular", SQL_CALCULAR, true);
+        FieldUtils.writeField(tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustomImpl,
+                "sqlCalcularBase", SQL_BASE, true);
     }
-    
+
     @Test
     public void idsTest() {
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -71,34 +74,34 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1R
         TareaDto tarea = mock(TareaDto.class);
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
 
-        List<TareaCalculoPersonaDto> ids =
-                tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustomImpl.ids(algoritmo, tarea);
+        List<TareaCalculoPersonaDto> ids = tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustomImpl
+            .ids(algoritmo, tarea);
 
         assertEquals(2, ids.size());
         assertEquals(personas, ids);
     }
-    
-    
+
+
     @Test
     public void getMapValuesTest() {
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(1001);
         when(algoritmo.getTipoCalculo()).thenReturn(
-            Arrays.asList(
-                TipoCalculoDto
-                    .builder()
-                    .id("010")
-                    .build()));
+                Arrays.asList(
+                        TipoCalculoDto
+                            .builder()
+                            .id("010")
+                            .build()));
         when(algoritmo.getTipoComision()).thenReturn(
-            Arrays.asList(
-                TipoComisionDto
-                    .builder()
-                    .id("011")
-                    .build(),
-                TipoComisionDto
-                    .builder()
-                    .id("012")
-                    .build()));
+                Arrays.asList(
+                        TipoComisionDto
+                            .builder()
+                            .id("011")
+                            .build(),
+                        TipoComisionDto
+                            .builder()
+                            .id("012")
+                            .build()));
         when(algoritmo.getDesplazamiento()).thenReturn(Boolean.FALSE);
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.TRUE);
         TareaDto tarea = mock(TareaDto.class);
@@ -107,9 +110,11 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1R
         when(persona1.getCclIdPerson()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
 
-        Map<String, Object> result = tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustomImpl.getMapValues(algoritmo, tarea, persona1);
+        Map<String, Object> result = tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustomImpl
+            .getMapValues(algoritmo, tarea, persona1);
 
-        // Parámetros de la consulta: activo, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
+        // Parámetros de la consulta: activo, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod,
+        // comisionable, calcula
         assertEquals(14, result.size());
         // idTarea
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
@@ -125,7 +130,8 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1R
         assertEquals(algoritmo.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO));
         // comisionable
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, result.get(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                result.get(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE));
         // calcula
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_CALCULA));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, result.get(SqlPrimaryConstants.SQL_PARAM_CALCULA));
@@ -135,47 +141,55 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1R
         // activo
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, result.get(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-        //tipocomision
+        // tipocomision
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
         assertEquals(Arrays.asList("011", "012"), result.get(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
-        //tipocalculo
+        // tipocalculo
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
         assertEquals(Arrays.asList("010"), result.get(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
-        //esDesplazamiento
+        // esDesplazamiento
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO));
-        //esDesplazamientoBase
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO));
+        // esDesplazamientoBase
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
         // tipoDatoLocalizacionPersonaPresencia
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
-        assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId()), result.get(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
+        assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId()),
+                result.get(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
         // indicadorPresenciaDesplazamientoBase
-        assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION));
-        assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION));
+        assertTrue(result.containsKey(
+                SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION));
+        assertEquals(
+                TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION
+                    .getId(),
+                result.get(
+                        SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION));
     }
-    
-    
+
+
     @Test
     public void calcularTest() {
         AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(1001);
         when(algoritmo.getTipoCalculo()).thenReturn(
-            Arrays.asList(
-                TipoCalculoDto
-                    .builder()
-                    .id("010")
-                    .build()));
+                Arrays.asList(
+                        TipoCalculoDto
+                            .builder()
+                            .id("010")
+                            .build()));
         when(algoritmo.getTipoComision()).thenReturn(
-            Arrays.asList(
-                TipoComisionDto
-                    .builder()
-                    .id("011")
-                    .build(),
-                TipoComisionDto
-                    .builder()
-                    .id("012")
-                    .build()));
+                Arrays.asList(
+                        TipoComisionDto
+                            .builder()
+                            .id("011")
+                            .build(),
+                        TipoComisionDto
+                            .builder()
+                            .id("012")
+                            .build()));
         when(algoritmo.getDesplazamiento()).thenReturn(Boolean.FALSE);
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.TRUE);
         TareaDto tarea = mock(TareaDto.class);
@@ -188,19 +202,21 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1R
         when(persona2.getStdOrHrPeriod()).thenReturn("02");
         List<TareaCalculoPersonaDto> personas = Arrays.asList(persona1, persona2);
 
-        tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustomImpl.calcular(algoritmo, tarea, personas);
+        tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1RepositoryCustomImpl.calcular(algoritmo,
+                tarea, personas);
 
-        //parametros de la consulta: activo, tipoDatoLocalizacionVentaSeccion,
+        // parametros de la consulta: activo, tipoDatoLocalizacionVentaSeccion,
         // idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(namedParameterJdbcTemplate).batchUpdate(any(String.class), params.capture());
         MapSqlParameterSource[] values = params.getValue();
         assertEquals(2, values.length);
-        for (int i = 0; i<values.length; i++) {
+        for (int i = 0; i < values.length; i++) {
             MapSqlParameterSource value = values[i];
             assertEquals(14, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, value.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                    value.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
             // excluidoCalculo
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO));
             assertEquals(algoritmo.getId(), value.getValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO));
@@ -209,51 +225,59 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoBaseV1R
             assertEquals(tarea.getId(), value.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
             // comisionable
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE));
-            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, value.getValue(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE));
+            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                    value.getValue(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE));
             // calcula
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_CALCULA));
-            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, value.getValue(SqlPrimaryConstants.SQL_PARAM_CALCULA));
+            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                    value.getValue(SqlPrimaryConstants.SQL_PARAM_CALCULA));
             // inactivo
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, value.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-            //tipocomision
+            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                    value.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+            // tipocomision
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
             assertEquals(Arrays.asList("011", "012"), value.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
-            //tipocalculo
+            // tipocalculo
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
             assertEquals(Arrays.asList("010"), value.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
-            //esDesplazamiento
+            // esDesplazamiento
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO));
-            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, value.getValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO));
-            //esDesplazamientoBase
+            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                    value.getValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO));
+            // esDesplazamientoBase
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, value.getValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+            assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                    value.getValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
             // cclIdPerson, stdOrHrPeriod - existencia del parámetro
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON));
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD));
             // tipoDatoLocalizacionPersonaPresencia
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
-            assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId()), value.getValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
+            assertEquals(
+                    Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId()),
+                    value.getValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
             // indicadorPresenciaDesplazamientoBase
-            assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION));
+            assertTrue(value.hasValue(
+                    SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION));
         }
 
         // cclIdPerson, stdOrHrPeriod - valores del parámetro
         assertEquals(1,
-            Arrays.stream(values)
-                .filter(value ->
-                    persona1.getCclIdPerson().equals(value.getValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON))
-                        && persona1.getStdOrHrPeriod().equals(value.getValue(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD)))
-                .toArray()
-                .length);
+                Arrays.stream(values)
+                    .filter(value -> persona1.getCclIdPerson()
+                        .equals(value.getValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON))
+                            && persona1.getStdOrHrPeriod()
+                                .equals(value.getValue(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD)))
+                    .toArray().length);
         assertEquals(1,
-            Arrays.stream(values)
-                .filter(value ->
-                    persona2.getCclIdPerson().equals(value.getValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON))
-                        && persona2.getStdOrHrPeriod().equals(value.getValue(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD)))
+                Arrays.stream(values)
+                    .filter(value -> persona2.getCclIdPerson()
+                        .equals(value.getValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON))
+                            && persona2.getStdOrHrPeriod()
+                                .equals(value.getValue(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD)))
 
-                .toArray()
-                .length);
+                    .toArray().length);
     }
 
     @Test

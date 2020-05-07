@@ -69,36 +69,36 @@ public class TareaPersonaEstructuraPolitica {
 
     @Column(name = "ES_EXCLUIDO_DENOMINADOR", nullable = false)
     private Boolean excluidoDenominador;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_UNIDAD_TIEMPO")
     private TipoUnidadTiempo tipoUnidadTiempo;
-       
+
     @NotBlank
     @Column(name = "ICM_NUM_UNIDADES", nullable = false)
     private String numeroUnidades;
-    
+
     @NotNull
-    @Column(name = "ICM_PORCENTAJE", nullable = false, precision = 23,  scale = 8)
+    @Column(name = "ICM_PORCENTAJE", nullable = false, precision = 23, scale = 8)
     private BigDecimal valor;
 
     @NotNull
     @Column(name = "ICM_TRAMO", nullable = false)
     private Integer tramo;
-    
+
     @NotNull
-    @Column(name = "ICM_IMPORTE", nullable = true, precision = 23,  scale = 8)
+    @Column(name = "ICM_IMPORTE", nullable = true, precision = 23, scale = 8)
     private BigDecimal importe;
-    
+
     @NotBlank
     @Column(name = "ICM_NUM_MESES_CALC_MEDIA", nullable = false)
     private String numMesesCalcMedia;
-    
+
     @NotBlank
     @Column(name = "ICM_NUM_HORAS", nullable = false)
     private String numHoras;
-    
+
     @NotBlank
     @Column(name = "ICM_ID_MOTIVO_BAJA", nullable = false)
     private String idMotivoBaja;

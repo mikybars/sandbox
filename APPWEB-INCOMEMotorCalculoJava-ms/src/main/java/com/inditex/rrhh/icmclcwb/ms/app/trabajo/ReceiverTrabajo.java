@@ -20,7 +20,8 @@ public class ReceiverTrabajo {
 
     @CircuitBreaker(name = "trabajo")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @JmsListener(id = "trabajoListener", destination = "${amiga.service.jms.trabajo-queue.destination-fqdn}", containerFactory = "trabajoContainerFactoryListener")
+    @JmsListener(id = "trabajoListener", destination = "${amiga.service.jms.trabajo-queue.destination-fqdn}",
+            containerFactory = "trabajoContainerFactoryListener")
     public void onMessageTrabajoListener(
             Message<TrabajoDto> message /* TrabajoDto message */ /* TrabajoDto message, @Headers Map headers */) {
         runService.runTrabajo(message.getPayload().getId());

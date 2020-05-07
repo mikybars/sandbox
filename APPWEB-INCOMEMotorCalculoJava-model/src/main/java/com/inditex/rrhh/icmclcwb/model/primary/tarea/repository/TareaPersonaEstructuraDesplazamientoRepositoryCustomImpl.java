@@ -11,8 +11,8 @@ import java.util.List;
 
 @Repository
 public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImpl
-    extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaEstructuraDesplazamiento>
-    implements TareaPersonaEstructuraDesplazamientoRepositoryCustom{
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaEstructuraDesplazamiento>
+        implements TareaPersonaEstructuraDesplazamientoRepositoryCustom {
 
     @Value("${app.envars.repository.batch-size.tarea-persona-estructura-desplazamiento:${app.envars.repository.batch-size.default}}")
     private int batchSize;
@@ -26,7 +26,8 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImpl
     }
 
     @Override
-    public void setParameters(PreparedStatement pstmt, TareaPersonaEstructuraDesplazamiento entity) throws SQLException {
+    public void setParameters(PreparedStatement pstmt, TareaPersonaEstructuraDesplazamiento entity)
+            throws SQLException {
         pstmt.setLong(1, entity.getTarea().getId());
         pstmt.setString(2, entity.getIcmIdEstrComision());
         pstmt.setInt(3, entity.getOrdinalEstructura());
@@ -51,4 +52,5 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImpl
         pstmt.setString(22, entity.getIcmIdEstructuraAmbito());
         pstmt.setObject(23, entity.getPk().getFechaInicioPeriodo());
     }
+
 }

@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class PeriodosResponseDto extends PageableListDto<PeriodosResultItemDto>
         implements PageableList<PeriodosResultItemDto>, Serializable {
-    
+
     private static final long serialVersionUID = 7339513104665027990L;
 
 }

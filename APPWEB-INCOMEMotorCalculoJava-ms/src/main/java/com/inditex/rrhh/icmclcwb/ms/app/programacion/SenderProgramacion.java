@@ -20,4 +20,5 @@ public class SenderProgramacion {
     public void send(IdProgramacionDto programacion) {
         programacionJmsClient.convertAndSend(programacion);
     }
+
 }

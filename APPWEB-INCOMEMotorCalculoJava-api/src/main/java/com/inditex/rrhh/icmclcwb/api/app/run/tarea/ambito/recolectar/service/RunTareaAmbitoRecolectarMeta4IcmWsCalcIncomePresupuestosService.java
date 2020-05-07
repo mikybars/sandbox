@@ -9,14 +9,15 @@ import javax.validation.constraints.NotNull;
 public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomePresupuestosService {
 
     void personaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-        @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
     void localizacionByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-        @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
     void empleadosPresenciaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-        @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
     void empleadosDesplazamientoByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-        @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+
 }

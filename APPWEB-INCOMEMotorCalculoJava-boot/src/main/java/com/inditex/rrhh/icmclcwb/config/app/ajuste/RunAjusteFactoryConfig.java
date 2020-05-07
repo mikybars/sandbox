@@ -15,4 +15,5 @@ public class RunAjusteFactoryConfig {
         factoryBean.setServiceLocatorInterface(RunAjusteFactory.class);
         return factoryBean;
     }
+
 }

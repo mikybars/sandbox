@@ -15,7 +15,7 @@ import lombok.Data;
 @Configuration
 @ConfigurationProperties(prefix = "app.envars.meta4.icmwscalcincome")
 public class Meta4IcmWsCalcIncomeClientPropertiesConfig {
-    
+
     private Map<String, Meta4PropertiesDto> service = new HashMap<>();
 
     @Bean(name = "meta4Properties")

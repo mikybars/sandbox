@@ -17,7 +17,8 @@ import java.util.concurrent.CompletableFuture;
 @Async("ptrPresenciaExecutor")
 public interface PtrPresenciaAsyncService {
 
-    CompletableFuture<PtrPresenciaTotalizadoResponseDto> presenciasTotalizado(final PtrPresenciaTotalizadoRequestDto request);
+    CompletableFuture<PtrPresenciaTotalizadoResponseDto> presenciasTotalizado(
+            final PtrPresenciaTotalizadoRequestDto request);
 
     CompletableFuture<PtrPresenciaDetalleResponseDto> presenciasDetalle(
             final PtrPresenciaDetalleRequestDto request);
@@ -26,12 +27,11 @@ public interface PtrPresenciaAsyncService {
 
     CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciasTiendasEmpleado(
             final PtrPresenciaTiendasEmpleadoRequestDto request);
-    
+
     CompletableFuture<PtrPresenciaTiendasEmpleadoResponseDto> presenciaDetalleComisionablePersonaByRunTarea(
             final PtrPresenciaTiendasEmpleadoRequestDto request);
-    
+
     CompletableFuture<PtrPresenciaEmpleadosTiendaResponseDto> presenciasEmpleadosTienda(
             final PtrPresenciaEmpleadosTiendaRequestDto request);
-
 
 }

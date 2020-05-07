@@ -26,33 +26,39 @@ public class ProgramacionAmbitoLocalizacionServiceImplTest {
 
     @Mock
     private ProgramacionAmbitoLocalizacionMapper programacionAmbitoLocalizacionMapper;
-    
+
     @Mock
     private ProgramacionAmbitoLocalizacionRepository programacionAmbitoLocalizacionRepository;
-    
+
     @InjectMocks
     private ProgramacionAmbitoLocalizacionServiceImpl programacionAmbitoLocalizacionServiceImpl;
-    
+
     @Test
     public void create() {
-        when(programacionAmbitoLocalizacionMapper.mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
-                any(List.class), any(ProgramacionAmbitoDto.class))).thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
-        when(programacionAmbitoLocalizacionRepository.saveAll(any(List.class))).thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
+        when(programacionAmbitoLocalizacionMapper
+            .mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
+                    any(List.class), any(ProgramacionAmbitoDto.class)))
+                        .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
+        when(programacionAmbitoLocalizacionRepository.saveAll(any(List.class)))
+            .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
 
-        programacionAmbitoLocalizacionServiceImpl.create(Arrays.asList(new ProgramacionAmbitoLocalizacionDto()), new ProgramacionAmbitoDto());
+        programacionAmbitoLocalizacionServiceImpl.create(Arrays.asList(new ProgramacionAmbitoLocalizacionDto()),
+                new ProgramacionAmbitoDto());
         verify(programacionAmbitoLocalizacionRepository, times(1)).saveAll(any(List.class));
     }
-    
+
     @Test
     public void findByProgramacionAmbito() {
         ProgramacionAmbitoDto ambito = new ProgramacionAmbitoDto();
         ambito.setId(1L);
         when(programacionAmbitoLocalizacionMapper.programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
                 any(List.class))).thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
-        when(programacionAmbitoLocalizacionRepository.findByProgramacionAmbitoId(any(Long.class))).thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
-        
+        when(programacionAmbitoLocalizacionRepository.findByProgramacionAmbitoId(any(Long.class)))
+            .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
+
         programacionAmbitoLocalizacionServiceImpl.findByProgramacionAmbito(ambito);
         verify(programacionAmbitoLocalizacionRepository, times(1)).findByProgramacionAmbitoId(any(Long.class));
 
     }
+
 }

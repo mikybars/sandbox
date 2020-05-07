@@ -32,17 +32,19 @@ public class TareaCalculoAjusteVacacionesRepositoryCustomImpl
     @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.vacaciones']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
     @Getter
     private String sqlAjustarBase;
-    
+
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
     public List<TareaCalculoPersonaDto> ids(TareaDto tarea) {
-        return tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea, TipoPoliticaEnum.VACACIONES.getIdMeta4());
+        return tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
+                TipoPoliticaEnum.VACACIONES.getIdMeta4());
     }
 
     @Override
-    protected Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea, TareaCalculoPersonaDto persona) {
+    protected Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
+            TareaCalculoPersonaDto persona) {
         Map<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
@@ -59,8 +61,9 @@ public class TareaCalculoAjusteVacacionesRepositoryCustomImpl
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_AUSENCIA, TipoAusenciaEnum.VACACIONES.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE, Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4(), 
-                TipoPoliticaEnum.BAJA_IT.getIdMeta4()));
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
+                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4(),
+                        TipoPoliticaEnum.BAJA_IT.getIdMeta4()));
         return map;
     }
 

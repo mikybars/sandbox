@@ -32,8 +32,8 @@ public class TareaAmbitoLocalizacionServiceImpl implements TareaAmbitoLocalizaci
             @Valid @NotNull final TareaDto tarea) {
         return tareaAmbitoLocalizacionMapper.tareaAmbitoLocalizacionToTareaAmbitoLocalizacionDto(
                 tareaAmbitoLocalizacionRepository.saveAll(tareaAmbitoLocalizacionMapper
-                        .mergeTareaAmbitoLocalizacionDtoAndTareaDtoToTareaAmbitoLocalizacion(tareaAmbitoLocalizacion,
-                                tarea)));
+                    .mergeTareaAmbitoLocalizacionDtoAndTareaDtoToTareaAmbitoLocalizacion(tareaAmbitoLocalizacion,
+                            tarea)));
     }
 
     @Override

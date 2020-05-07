@@ -25,25 +25,25 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AlgoritmoControllerTest {
-    
+
     private MockMvc mockMvc;
-    
+
     @Mock
     private AlgoritmoService algoritmoServiceMock;
-    
+
     @InjectMocks
     private AlgoritmoController algoritmoController;
 
-    
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(algoritmoController)
-                .build();
+            .build();
     }
 
     @Test
-    public void findAll() throws Exception{
+    public void findAll() throws Exception {
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         algoritmo.setId(1);
         algoritmo.setActivo(Boolean.TRUE);
@@ -51,21 +51,21 @@ public class AlgoritmoControllerTest {
         algoritmo.setDesplazamientoBase(Boolean.FALSE);
         algoritmo.setNombre("test");
         when(algoritmoServiceMock.findAll()).thenReturn(Arrays.asList(algoritmo));
-        
+
         mockMvc.perform(get("/algoritmo")).andReturn();
-        
+
         verify(algoritmoServiceMock, times(1)).findAll();
     }
-    
+
     @Test
-    public void checkDuplicatedActives() throws Exception{
+    public void checkDuplicatedActives() throws Exception {
         when(algoritmoServiceMock.checkDuplicatedActives()).thenReturn(Boolean.TRUE);
         mockMvc.perform(get("/algoritmo/checkDuplicatedActives")).andReturn();
         verify(algoritmoServiceMock, times(1)).checkDuplicatedActives();
     }
-    
+
     @Test
-    public void findById() throws Exception{
+    public void findById() throws Exception {
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         algoritmo.setId(1);
         algoritmo.setActivo(Boolean.TRUE);
@@ -76,4 +76,5 @@ public class AlgoritmoControllerTest {
         mockMvc.perform(get("/algoritmo/{id}", "1")).andReturn();
         verify(algoritmoServiceMock, times(1)).findById(any(Integer.class));
     }
+
 }

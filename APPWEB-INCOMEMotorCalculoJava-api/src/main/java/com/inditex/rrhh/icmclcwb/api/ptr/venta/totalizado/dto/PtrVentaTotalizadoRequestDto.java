@@ -33,19 +33,19 @@ public class PtrVentaTotalizadoRequestDto implements Serializable {
 
     @ApiModelProperty(value = "Listado de ids de tiendas", required = false, example = "[57, 691]")
     private List<Integer> tienda = new ArrayList<>();
-    
+
     @ApiModelProperty(value = "Listado de ids de seccion", required = false, example = "[1]")
     private List<Integer> seccion;
-    
+
     @ApiModelProperty(value = "Id de temporada", required = false, example = "1")
     private Integer temporada;
-    
+
     @ApiModelProperty(value = "Id de producto", required = false, example = "1")
     private List<Integer> producto;
-    
+
     @ApiModelProperty(value = "Id empresa", required = false, example = "1")
     private Integer empresa;
-    
+
     @ApiModelProperty(value = "Agrupar seccion flag (pivotado)", required = false, example = "1")
     private Integer agruparSeccion;
 

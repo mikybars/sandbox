@@ -26,26 +26,28 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualServiceImplTest 
 
     @Mock
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustomImpl tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustomImpl;
-    
+
     @InjectMocks
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaManualServiceImpl tareaAmbitoGlobalLocalizacionPersonaPresenciaManualServiceImpl;
-    
+
     @Mock
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper tareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper;
-    
+
     @Mock
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaManualDecorator tareaAmbitoGlobalLocalizacionPersonaPresenciaManualDecorator;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
         GenericEmpleadoResultItemDto genericEmpleadoResultItemDto = mock(GenericEmpleadoResultItemDto.class);
         List<GenericEmpleadoResultItemDto> list = new ArrayList<GenericEmpleadoResultItemDto>();
         list.add(genericEmpleadoResultItemDto);
-        when(tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
+        when(tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustomImpl.save(any(List.class)))
+            .thenReturn(list);
 
         tareaAmbitoGlobalLocalizacionPersonaPresenciaManualServiceImpl.save(list, tarea);
 
         verify(tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustomImpl, times(1)).save(any(List.class));
     }
+
 }

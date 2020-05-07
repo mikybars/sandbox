@@ -63,4 +63,5 @@ public class TrabajoRepositoryCustomImplTest {
         assertEquals(estado.getId(), params.getValue("nuevoIdEstado"));
 
     }
+
 }

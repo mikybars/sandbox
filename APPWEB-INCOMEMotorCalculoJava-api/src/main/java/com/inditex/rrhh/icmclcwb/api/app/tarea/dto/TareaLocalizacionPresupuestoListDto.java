@@ -18,20 +18,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TareaLocalizacionPresupuestoListDto implements Serializable{
+public class TareaLocalizacionPresupuestoListDto implements Serializable {
 
     private static final long serialVersionUID = -2620521240704402267L;
-    
+
     @NotNull
     @ApiModelProperty(value = "Presupuestos", required = true)
     private List<TareaLocalizacionPresupuestoDto> presupuestos;
 
     /**
      * Obtiene la menor fecha de inicio entre los presupuestos.
-     *
      * @deprecated Este método quedará en desuso, usar en su lugar
-     * {@link TareaLocalizacionPresupuestoListDto#getMinFechaInicioPeriodo(LocalDate)}
-     *
+     *             {@link TareaLocalizacionPresupuestoListDto#getMinFechaInicioPeriodo(LocalDate)}
      * @return Fecha de inicio mínima.
      */
     @Deprecated
@@ -44,16 +42,15 @@ public class TareaLocalizacionPresupuestoListDto implements Serializable{
     }
 
     /**
-     * Obtiene la menor fecha de inicio entre los presupuestos y la fecha
-     * pasada por parámetro.
-     *
+     * Obtiene la menor fecha de inicio entre los presupuestos y la fecha pasada por parámetro.
      * @param fechaInicioTarea fecha de inicio de la tarea
      * @return fecha de inicio mínima (puede ser la de la tarea o de algún presupuesto)
      */
     public LocalDate getMinFechaInicioPeriodo(LocalDate fechaInicioTarea) {
         LocalDate minDate = fechaInicioTarea;
         if (presupuestos != null) {
-            Optional<TareaLocalizacionPresupuestoDto> optional = presupuestos.stream().min(Comparator.comparing(TareaLocalizacionPresupuestoDto::getFechaInicio));
+            Optional<TareaLocalizacionPresupuestoDto> optional = presupuestos.stream()
+                .min(Comparator.comparing(TareaLocalizacionPresupuestoDto::getFechaInicio));
             if (optional.isPresent()) {
                 minDate = minDate.isBefore(optional.get().getFechaInicio()) ? minDate : optional.get().getFechaInicio();
             }
@@ -63,10 +60,9 @@ public class TareaLocalizacionPresupuestoListDto implements Serializable{
 
     /**
      * Comprueba si algún presupuesto amplía el rango de fechas de la tarea.
-     *
      * @param tarea tarea a comprobar
-     * @return <code>true</code> si hay algún presupuesto anterior al rango de fechas
-     * de la tarea, <code>false</code> en caso contrario.
+     * @return <code>true</code> si hay algún presupuesto anterior al rango de fechas de la tarea,
+     *         <code>false</code> en caso contrario.
      */
     public boolean esAmbitoAmpliado(TareaDto tarea) {
         LocalDate minDate = getMinFechaInicioPeriodo();

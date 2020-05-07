@@ -21,15 +21,17 @@ public abstract class TareaAgrupacionConfiguracionChallengeTipoVentaDecorator
 
     @Autowired
     private TipoVentaConceptoChallengeService tipoVentaConceptoChallengeService;
-    
+
     @Override
     public List<TareaAgrupacionConfiguracionChallengeTipoVenta> confChTpVentaResultItemDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(
             List<ConfChTpVentaResultItemDto> src, TareaDto tarea) {
         List<TareaAgrupacionConfiguracionChallengeTipoVenta> result = new ArrayList<>();
         if (src != null) {
             src.forEach(x -> {
-                TareaAgrupacionConfiguracionChallengeTipoVenta config = delegate.confChTpVentaResultItemDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(x, tarea);
-                TipoVentaConceptoChallengeDto concepto = tipoVentaConceptoChallengeService.findByIcmIdConceptoVenta(x.getIdConceptoVenta());
+                TareaAgrupacionConfiguracionChallengeTipoVenta config = delegate
+                    .confChTpVentaResultItemDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(x, tarea);
+                TipoVentaConceptoChallengeDto concepto = tipoVentaConceptoChallengeService
+                    .findByIcmIdConceptoVenta(x.getIdConceptoVenta());
                 config.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder().id(concepto.getId()).build());
                 result.add(config);
             });

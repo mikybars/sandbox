@@ -55,10 +55,11 @@ public class ProgramacionRepositoryCustomImplTest {
         assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_SIGUIENTE_EJECUCION));
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         assertTrue(DateUtils.isSameDay(sdf.parse("01/01/1800"),
-            (Date) params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_SIGUIENTE_EJECUCION)));
+                (Date) params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_SIGUIENTE_EJECUCION)));
         // activo
         assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
     }
 
     @Test
@@ -72,7 +73,8 @@ public class ProgramacionRepositoryCustomImplTest {
         assertEquals(1, params.getValue().getValues().size());
         // activo
         assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
 
     }
 

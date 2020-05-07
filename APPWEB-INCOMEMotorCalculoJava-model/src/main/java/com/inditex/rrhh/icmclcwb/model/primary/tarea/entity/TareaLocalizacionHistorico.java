@@ -22,48 +22,48 @@ import lombok.Data;
 @Data
 public class TareaLocalizacionHistorico {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_TAREA_LOCALIZACION_HISTORICO")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TAREA_LOCALIZACION_HISTORICO")
+    private Long id;
 
-	@NotNull
-	@OneToOne
-	@JoinColumn(name = "ID_TAREA", nullable = false)
-	private Tarea tarea;
-
-	@NotBlank
-	@Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
-	private String cclIdCodOrigen;
-
-	@NotBlank
-	@Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
-	private String stdIdWorkLocat;
-
-	@NotBlank
-	@Column(name = "STD_ID_COUNTRY", nullable = false, length = 8)
-	private String stdIdCountry;
-
-	@NotBlank
-	@Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-	private String cclIdOrigen;
-
-	@NotBlank
-	@Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
-	private String stdIdLegEnt;
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TAREA", nullable = false)
+    private Tarea tarea;
 
     @NotBlank
-	@Column(name = "CCL_ID_CADENA", nullable = false, length = 24)
-	private String cclIdCadena;
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
+    private String cclIdCodOrigen;
 
-	@NotNull
-	@Column(name = "FECHA_INICIO", nullable = false)
-    @Temporal(TemporalType.DATE)
-	private Date fechaInicio;
+    @NotBlank
+    @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
+    private String stdIdWorkLocat;
 
-	@NotNull
-	@Column(name = "FECHA_FIN", nullable = false)
+    @NotBlank
+    @Column(name = "STD_ID_COUNTRY", nullable = false, length = 8)
+    private String stdIdCountry;
+
+    @NotBlank
+    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
+    private String cclIdOrigen;
+
+    @NotBlank
+    @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
+    private String stdIdLegEnt;
+
+    @NotBlank
+    @Column(name = "CCL_ID_CADENA", nullable = false, length = 24)
+    private String cclIdCadena;
+
+    @NotNull
+    @Column(name = "FECHA_INICIO", nullable = false)
     @Temporal(TemporalType.DATE)
-	private Date fechaFin;
+    private Date fechaInicio;
+
+    @NotNull
+    @Column(name = "FECHA_FIN", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fechaFin;
 
 }

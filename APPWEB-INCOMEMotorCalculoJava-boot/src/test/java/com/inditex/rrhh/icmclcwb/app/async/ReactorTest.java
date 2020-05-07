@@ -111,21 +111,28 @@ public class ReactorTest {
         }).map(algoritmo -> {
             log.info("reactorSequentialCollectListBlockTest :: algoritmos :: Inicio :: map() :: {}", algoritmo);
 
-            Flux.fromIterable(StreamUtils.partition(personas, 100)).log().parallel().runOn(ItxSchedulers.elastic())
-                    .doOnNext(partitionPersonas -> {
-                        log.info(
-                                "reactorSequentialCollectListBlockTestWithChild :: partitionPersonas :: doOnNext() :: {}",
-                                partitionPersonas);
-                    }).map(partitionPersonas -> {
-                        log.info(
-                                "reactorSequentialCollectListBlockTestWithChild :: partitionPersonas :: Inicio :: map() :: {}",
-                                partitionPersonas);
-                        run(partitionPersonas.toArray(new String[partitionPersonas.size()]));
-                        log.info(
-                                "reactorSequentialCollectListBlockTestWithChild :: partitionPersonas :: Fin :: map() :: {}",
-                                partitionPersonas);
-                        return Flux.empty();
-                    }).sequential().collectList().block();
+            Flux.fromIterable(StreamUtils.partition(personas, 100))
+                .log()
+                .parallel()
+                .runOn(ItxSchedulers.elastic())
+                .doOnNext(partitionPersonas -> {
+                    log.info(
+                            "reactorSequentialCollectListBlockTestWithChild :: partitionPersonas :: doOnNext() :: {}",
+                            partitionPersonas);
+                })
+                .map(partitionPersonas -> {
+                    log.info(
+                            "reactorSequentialCollectListBlockTestWithChild :: partitionPersonas :: Inicio :: map() :: {}",
+                            partitionPersonas);
+                    run(partitionPersonas.toArray(new String[partitionPersonas.size()]));
+                    log.info(
+                            "reactorSequentialCollectListBlockTestWithChild :: partitionPersonas :: Fin :: map() :: {}",
+                            partitionPersonas);
+                    return Flux.empty();
+                })
+                .sequential()
+                .collectList()
+                .block();
 
             log.info("reactorSequentialCollectListBlockTest :: algoritmos :: Fin :: map() :: {}", algoritmo);
             return Flux.empty();

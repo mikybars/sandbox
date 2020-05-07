@@ -8,7 +8,7 @@ public class SqlPrimaryConstants {
     // PARAMETROS DE FILTROS
 
     public static final String SQL_PARAM_IDS_TIPOS_DATO = "tiposDato";
-    
+
     public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO = "idTipoGrupoDato";
 
     public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA = "idTipoGrupoDatoVenta";
@@ -18,9 +18,9 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA = "idTipoGrupoDatoVentaCongelada";
 
     public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL = "idTipoGrupoDatoVentaReal";
-    
+
     public static final String SQL_PARAM_IDS_TIPO_GRUPO_DATO_TRASLADADOS = "idsTiposGrupoDatoTrasladados";
-    
+
     public static final String SQL_PARAM_IDS_TIPO_GRUPO_DATO_TRASLADADOS_TOTALIZADOS = "idsTiposGrupoDatoTrasladadosTotalizados";
 
     public static final String SQL_PARAM_INACTIVO = "inactivo";
@@ -60,9 +60,9 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_PROGRAMACION = "idProgramacion";
 
     public static final String SQL_PARAM_CCL_ID_ORIGEN = "cclIdOrigen";
-    
+
     public static final String SQL_PARAM_CCL_ID_COD_ORIGEN = "cclIdCodOrigen";
-    
+
     public static final String SQL_PARAM_STD_ID_WORK_LOCAT = "stdIdWorkLocat";
 
     public static final String SQL_PARAM_ID_ESTADO = "idEstado";
@@ -76,51 +76,51 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_ESTADO_NUEVO = "idEstadoNuevo";
 
     public static final String SQL_PARAM_ID_ESTADO_TAREA_PERSONA = "idEstadoTareaPersona";
-    
+
     public static final String SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO = "idEstadoTareaPersonaKo";
-    
+
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA = "idEstadoPeriodoPersona";
-    
+
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_NO_CALCULADO = "idEstadoPeriodoPersonaNoCalculado";
 
     public static final String SQL_PARAM_ID_ESTADO_PERIODO_PERSONA_CALCULADO_ERROR = "idEstadoPeriodoPersonaCalculadoError";
 
     public static final String SQL_PARAM_ID_ALGORITMO = "idAlgoritmo";
-    
+
     public static final String SQL_PARAM_ID_ALGORITMO_AJUSTE = "idAlgoritmoAjuste";
 
     public static final String SQL_PARAM_ID_TIPO_POLITICA = "idTipoPolitica";
-    
+
     public static final String SQL_PARAM_ID_TIPO_POLITICA_AJUSTE = "idTipoPoliticaAjuste";
-    
+
     public static final String SQL_PARAM_ID_TIPO_AUSENCIA = "idTipoAusencia";
-    
+
     public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS = "idTipoUnidadTiempoAnos";
-    
+
     public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES = "idTipoUnidadTiempoMeses";
-    
+
     public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS = "idTipoUnidadTiempoSemanas";
-    
-    public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS= "idTipoUnidadTiempoDias";
+
+    public static final String SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS = "idTipoUnidadTiempoDias";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA = "idTipoImporteVenta";
 
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION = "idTipoImporteVentaFisicaLocalizacion";
 
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION = "idTipoImporteVentaFisicaLocalizacionSeccion";
-    
+
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_CONGELADA_LOCALIZACION = "idtipoVentaRangoCongeladaLocalizacion";
-    
+
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_CONGELADA_LOCALIZACION_SECCION = "idtipoVentaRangoCongeladaLocalizacionSeccion";
-    
+
     public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION = "idtipoVentaRangoLocalizacion";
-    
-    public static final String  SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION_SECCION = "idtipoVentaRangoLocalizacionSeccion";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION_SECCION = "idtipoVentaRangoLocalizacionSeccion";
 
     public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA = "idTipoDatoIndicadorPresencia";
 
     public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO = "idTipoDatoIndicadorPresenciaDesplazamiento";
-    
+
     public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE = "idTipoDatoIndicadorPresenciaDesplazamientoBase";
 
     public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION = "idTipoDatoIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion";
@@ -176,7 +176,7 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_FECHA_INICIO_PERIODO = "fechaInicioPeriodo";
 
     public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
-    
+
     public static final String SQL_PARAM_FECHA_HORA_LIMPIEZA = "fechaHoraLimpieza";
 
     public static final String SQL_PARAM_ID_CONCEPTO = "idConcepto";
@@ -200,7 +200,7 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_PORCENTAJE_INCLUSION = "porcentajeInclusion";
 
     public static final String SQL_PARAM_BLOQUEADO = "bloqueado";
-    
+
     public static final String SQL_PARAM_DESBLOQUEADO = "desbloqueado";
 
     public static final String SQL_PARAM_COMISIONABLE = "comisionable";
@@ -218,9 +218,9 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_IDS_TIPOS_COMISION = "tiposComision";
 
     public static final String SQL_PARAM_ID_TIPO_CALCULO = "idTipoCalculo";
-    
+
     public static final String SQL_PARAM_ID_TIPO_COMISION = "idTipoComision";
-    
+
     public static final String SQL_PARAM_NOMBRE_USUARIO = "nombreUsuario";
 
     public static final String SQL_PARAM_PESO = "peso";
@@ -294,7 +294,7 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_ID_TAREA = "ID_TAREA";
 
     public static final String SQL_RESULT_PESO = "PESO";
-    
+
     public static final String SQL_RESULT_ID_ALGORITMO_AJUSTE = "ID_ALGORITMO_AJUSTE";
 
     public static final String SQL_RESULT_FECHA_INICIO_PERIODO = "FECHA_INICIO_PERIODO";
@@ -310,15 +310,15 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_SECCION = "CCL_ID_SECCION";
 
     public static final String SQL_RESULT_ID_ORIGEN = "CCL_ID_ORIGEN";
-    
+
     public static final String SQL_RESULT_ID_TIPO_PRESUPUESTO = "ID_TIPO_PRESUPUESTO";
 
     public static final String SQL_RESULT_ICM_ID_TP_CALCULO = "ICM_ID_TP_CALCULO";
-    
+
     public static final String SQL_RESULT_ICM_ID_TP_COMISION = "ICM_ID_TP_COMISION";
-    
+
     public static final String SQL_RESULT_ES_DESPLAZAMIENTO = "ES_DESPLAZAMIENTO";
-    
+
     public static final String SQL_RESULT_ES_DESPLAZAMIENTO_BASE = "ES_DESPLAZAMIENTO_BASE";
 
 }

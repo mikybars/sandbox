@@ -20,4 +20,5 @@ public class PeriodoPersonaServiceImpl implements PeriodoPersonaService {
     public void mergePeriodoPersona(@NotNull RunTareaDto tareaDto) {
         periodoPersonaRepositoryCustom.mergePeriodoPersona(tareaDto);
     }
+
 }

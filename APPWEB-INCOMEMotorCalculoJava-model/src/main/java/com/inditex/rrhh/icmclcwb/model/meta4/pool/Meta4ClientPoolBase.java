@@ -32,7 +32,7 @@ public class Meta4ClientPoolBase {
     private static final String ERROR_MESSAGE_LOG = "Error en la llamada a Meta4 con los parametros {}";
 
     private static final String EXPIRE_SESSION_MESSAGE_EXCEPTION = "Session caducada (Pool) (Exception)";
-    
+
     private static final String ERROR_MESSAGE_EXCEPTION = "Error en la llamada a Meta4 (Exception)";
 
     @Retryable

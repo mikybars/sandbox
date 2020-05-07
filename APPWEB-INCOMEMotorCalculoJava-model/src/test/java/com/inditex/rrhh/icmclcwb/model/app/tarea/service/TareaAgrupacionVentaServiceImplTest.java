@@ -31,16 +31,16 @@ public class TareaAgrupacionVentaServiceImplTest {
 
     @Mock
     private TareaAgrupacionVentaRepositoryCustomImpl tareaAgrupacionVentaRepositoryCustomImpl;
-    
+
     @InjectMocks
     private TareaAgrupacionVentaServiceImpl tareaAgrupacionVentaServiceImpl;
-    
+
     @Mock
     private TareaAgrupacionVentaMapper tareaAgrupacionVentaMapper;
-    
+
     @Mock
     private TareaAgrupacionVentaDecorator tareaAgrupacionVentaDecorator;
-    
+
     @Test
     public void savePtrVentaTotalizadoResponseTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -52,24 +52,28 @@ public class TareaAgrupacionVentaServiceImplTest {
         List<TareaAgrupacionCadenasDto> agrupaciones = new ArrayList<>();
         when(tareaAgrupacionVentaRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
 
-        tareaAgrupacionVentaServiceImpl.savePtrVentaTotalizadoResponse(ptrVentaTotalizadoResponseDto, tarea, agrupaciones);
+        tareaAgrupacionVentaServiceImpl.savePtrVentaTotalizadoResponse(ptrVentaTotalizadoResponseDto, tarea,
+                agrupaciones);
 
         verify(tareaAgrupacionVentaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void savePtrVentaOnlineEntregaDomicilioResponseTest() {
         TareaDto tarea = mock(TareaDto.class);
         PtrVentaOnlineEntregaDomicilioResponseDto ptrVentaOnlineEntregaDomicilioResponseDto = new PtrVentaOnlineEntregaDomicilioResponseDto();
         ptrVentaOnlineEntregaDomicilioResponseDto.setVentaOnline(new ArrayList<>());
-        PtrVentaOnlineEntregaDomicilioResultItemDto ptrVentaTotalizadoResultItemDto = mock(PtrVentaOnlineEntregaDomicilioResultItemDto.class);
+        PtrVentaOnlineEntregaDomicilioResultItemDto ptrVentaTotalizadoResultItemDto = mock(
+                PtrVentaOnlineEntregaDomicilioResultItemDto.class);
         ptrVentaOnlineEntregaDomicilioResponseDto.getVentaOnline().add(ptrVentaTotalizadoResultItemDto);
         List<VentaCongeladaResultItemDto> list = new ArrayList<VentaCongeladaResultItemDto>();
         List<TareaAgrupacionCadenasDto> agrupaciones = new ArrayList<>();
         when(tareaAgrupacionVentaRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
 
-        tareaAgrupacionVentaServiceImpl.savePtrVentaOnlineEntregaDomicilioResponse(ptrVentaOnlineEntregaDomicilioResponseDto, tarea, agrupaciones);
+        tareaAgrupacionVentaServiceImpl
+            .savePtrVentaOnlineEntregaDomicilioResponse(ptrVentaOnlineEntregaDomicilioResponseDto, tarea, agrupaciones);
 
         verify(tareaAgrupacionVentaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
+
 }

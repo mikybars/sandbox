@@ -33,7 +33,8 @@ public class TareaaAmbitoGlobalLocalizacionPersonaRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaaAmbitoGlobalLocalizacionPersonaRepositoryCustom, "sqlMergePersonaLocalizacion", "", true);
+        FieldUtils.writeField(tareaaAmbitoGlobalLocalizacionPersonaRepositoryCustom, "sqlMergePersonaLocalizacion", "",
+                true);
     }
 
     @Test

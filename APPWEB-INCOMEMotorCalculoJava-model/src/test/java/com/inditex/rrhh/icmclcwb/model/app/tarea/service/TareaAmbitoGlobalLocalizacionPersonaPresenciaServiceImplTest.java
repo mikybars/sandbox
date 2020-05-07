@@ -26,26 +26,30 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImplTest {
 
     @Mock
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustomImpl tareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustomImpl;
-    
+
     @InjectMocks
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImpl tareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImpl;
-    
+
     @Mock
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper tareaAmbitoGlobalLocalizacionPersonaPresenciaMapper;
-    
+
     @Mock
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaDecorator tareaAmbitoGlobalLocalizacionPersonaPresenciaDecorator;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
-        PtrPresenciaEmpleadosTiendaResponseDto ptrPresenciaEmpleadosTiendaResponseDto = mock(PtrPresenciaEmpleadosTiendaResponseDto.class);
-        PtrPresenciaEmpleadosTiendaResultItemDto ptrPresenciaEmpleadosTiendaResultItemDto = mock(PtrPresenciaEmpleadosTiendaResultItemDto.class);
+        PtrPresenciaEmpleadosTiendaResponseDto ptrPresenciaEmpleadosTiendaResponseDto = mock(
+                PtrPresenciaEmpleadosTiendaResponseDto.class);
+        PtrPresenciaEmpleadosTiendaResultItemDto ptrPresenciaEmpleadosTiendaResultItemDto = mock(
+                PtrPresenciaEmpleadosTiendaResultItemDto.class);
         ptrPresenciaEmpleadosTiendaResponseDto.setPresenciasTiendasEmpleado(new ArrayList<>());
-        ptrPresenciaEmpleadosTiendaResponseDto.getPresenciasTiendasEmpleado().add(ptrPresenciaEmpleadosTiendaResultItemDto);
+        ptrPresenciaEmpleadosTiendaResponseDto.getPresenciasTiendasEmpleado()
+            .add(ptrPresenciaEmpleadosTiendaResultItemDto);
 
         tareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImpl.save(ptrPresenciaEmpleadosTiendaResponseDto, tarea);
 
         verify(tareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustomImpl, times(1)).save(any(List.class));
     }
+
 }

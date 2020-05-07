@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
-    implements RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
+        implements RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     @Autowired
     private RunTareaRecolectarMeta4IcmWsCalcIncomeService tareaRecolectarMeta4IcmWsCalcIncomeService;
@@ -27,13 +27,13 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         tareaRecolectarMeta4IcmWsCalcIncomeService.localizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> estructurasComByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.estructurasComByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> estructurasPolByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.estructurasPolByRunTarea(runTarea);
@@ -93,13 +93,13 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         tareaRecolectarMeta4IcmWsCalcIncomeService.localizacionesOnlineByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> empleadosDesplazamientoByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.empleadosDesplazamientoByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> ausenciasByRunTarea(final RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.ausenciasByRunTarea(runTarea);
@@ -141,11 +141,12 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         tareaRecolectarMeta4IcmWsCalcIncomeService.presupuestosRangoByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> ventaCongeladaByRunTarea(RunTareaDto runTarea) {
         tareaRecolectarMeta4IcmWsCalcIncomeService.ventaCongeladaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }
 

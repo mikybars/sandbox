@@ -32,5 +32,4 @@ public class TareaAmbito {
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
 
-
 }

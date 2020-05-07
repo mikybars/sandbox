@@ -27,16 +27,16 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
 
     @Mock
     private TareaLocalizacionPersonaPresenciaRepositoryCustom tareaLocalizacionPersonaPresenciaRepositoryCustom;
-    
+
     @InjectMocks
     private TareaLocalizacionPersonaPresenciaServiceImpl tareaLocalizacionPersonaPresenciaServiceImpl;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Mock
     private TareaLocalizacionPersonaPresenciaMapper tareaLocalizacionPersonaPresenciaMapper;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -44,11 +44,12 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
         List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto = new ArrayList<>();
 
         tareaLocalizacionPersonaPresenciaServiceImpl.save(genericEmpleadoResultItemDto, tarea);
-        
-        verify(tareaLocalizacionPersonaPresenciaMapper, times(1)).genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(any(List.class), any(TareaDto.class));
+
+        verify(tareaLocalizacionPersonaPresenciaMapper, times(1))
+            .genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(any(List.class), any(TareaDto.class));
         verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void savePtrPresenciaDetalleTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -56,11 +57,12 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
         List<PtrPresenciaDetalleResultItemDto> ptrPresenciaDetalleDto = new ArrayList<>();
 
         tareaLocalizacionPersonaPresenciaServiceImpl.savePtrPresenciaDetalle(ptrPresenciaDetalleDto, tarea);
-        
-        verify(tareaLocalizacionPersonaPresenciaMapper, times(1)).presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(any(List.class), any(TareaDto.class));
+
+        verify(tareaLocalizacionPersonaPresenciaMapper, times(1))
+            .presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(any(List.class), any(TareaDto.class));
         verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void updateActivoTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -68,7 +70,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
         tareaLocalizacionPersonaPresenciaServiceImpl.updateActivo(runTarea);
         verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).updateActivo(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void updateActivoVacioTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -76,7 +78,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
         tareaLocalizacionPersonaPresenciaServiceImpl.updateActivoVacio(runTarea);
         verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).updateActivoVacio(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void compensarTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -84,15 +86,16 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
         tareaLocalizacionPersonaPresenciaServiceImpl.compensar(runTarea);
         verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).compensar(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void presenciasIncluidoVentaTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
 
         tareaLocalizacionPersonaPresenciaServiceImpl.presenciasIncluidoVenta(runTarea);
-        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).presenciasIncluidoVenta(any(RunTareaDto.class));
+        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .presenciasIncluidoVenta(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void indicadorPresenciaTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -100,60 +103,69 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
         tareaLocalizacionPersonaPresenciaServiceImpl.indicadorPresencia(runTarea);
         verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).indicadorPresencia(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void indicadorPresenciaDesplazamientoTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
 
         tareaLocalizacionPersonaPresenciaServiceImpl.indicadorPresenciaDesplazamiento(runTarea);
-        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).indicadorPresenciaDesplazamiento(any(RunTareaDto.class));
+        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorPresenciaDesplazamiento(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void indicadorPresenciaDesplazamientoBaseTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
 
         tareaLocalizacionPersonaPresenciaServiceImpl.indicadorPresenciaDesplazamientoBase(runTarea);
-        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).indicadorPresenciaDesplazamientoBase(any(RunTareaDto.class));
+        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorPresenciaDesplazamientoBase(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
 
-        tareaLocalizacionPersonaPresenciaServiceImpl.indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
-        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(any(RunTareaDto.class));
+        tareaLocalizacionPersonaPresenciaServiceImpl
+            .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
+        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void presenciasHorasFijasTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
 
         tareaLocalizacionPersonaPresenciaServiceImpl.presenciasHorasFijas(runTarea);
-        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).presenciasHorasFijas(any(RunTareaDto.class));
+        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .presenciasHorasFijas(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void presenciasHorasFijasDesplazamientosTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
 
         tareaLocalizacionPersonaPresenciaServiceImpl.presenciasHorasFijasDesplazamientos(runTarea);
-        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).presenciasHorasFijasDesplazamiento(any(RunTareaDto.class));
+        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .presenciasHorasFijasDesplazamiento(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void indicadorPersonaPorVentaTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
 
         tareaLocalizacionPersonaPresenciaServiceImpl.indicadorPersonaPorVenta(runTarea);
-        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).indicadorPersonaPorVenta(any(RunTareaDto.class));
+        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorPersonaPorVenta(any(RunTareaDto.class));
     }
-    
+
     @Test
     public void indicadorPersonaPorVentaSimplificadaTest() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
 
         tareaLocalizacionPersonaPresenciaServiceImpl.indicadorPersonaPorVentaSimplificada(runTarea);
-        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).indicadorPersonaPorVentaSimplificada(any(RunTareaDto.class));
+        verify(tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorPersonaPorVentaSimplificada(any(RunTareaDto.class));
     }
+
 }

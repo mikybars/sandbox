@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 public class RunTareaRecolectarPtrPresenciaPresupuestosAsyncServiceImpl
-    implements RunTareaRecolectarPtrPresenciaPresupuestosAsyncService {
+        implements RunTareaRecolectarPtrPresenciaPresupuestosAsyncService {
 
     @Autowired
     private RunTareaRecolectarPtrPresenciaPresupuestosService runTareaRecolectarPtrPresenciaPresupuestosService;
@@ -21,4 +21,5 @@ public class RunTareaRecolectarPtrPresenciaPresupuestosAsyncServiceImpl
         runTareaRecolectarPtrPresenciaPresupuestosService.presenciaEmpleadoTiendaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

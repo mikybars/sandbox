@@ -19,33 +19,36 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoAjus
 @Service
 @Validated
 public class AlgoritmoAjusteServiceImpl implements AlgoritmoAjusteService {
-    
+
     @Autowired
     private AlgoritmoAjusteRepositoryCustom algoritmoAjusteRepositoryCustom;
-    
+
     @Autowired
     private AlgoritmoAjusteRepository algoritmoAjusteRepository;
-    
+
     @Autowired
     private AlgoritmoAjusteMapper algoritmoAjusteMapper;
-    
+
     @Override
     public List<Long> customFindAjustePesosByTarea(@NotNull @Positive final Long id) {
         return algoritmoAjusteRepositoryCustom.customFindAjustePesosByTarea(id);
     }
-    
+
     @Override
-    public List<Integer> customFindAjusteIdsByTareaAndPeso(@NotNull @Positive final Long idTarea, @NotNull @Positive final Long peso) {
+    public List<Integer> customFindAjusteIdsByTareaAndPeso(@NotNull @Positive final Long idTarea,
+            @NotNull @Positive final Long peso) {
         return algoritmoAjusteRepositoryCustom.customFindAjusteIdsByTareaAndPeso(idTarea, peso);
     }
-    
+
     @Override
     public AlgoritmoAjusteDto findById(@NotNull @Positive final Integer id) {
         return algoritmoAjusteMapper.algoritmoAjusteToAlgoritmoAjusteDto(algoritmoAjusteRepository.findById(id).get());
     }
-    
+
     @Override
     public List<AlgoritmoAjusteDto> findByPeso(@NotNull @Positive final Long id) {
-        return algoritmoAjusteMapper.algoritmoAjusteToAlgoritmoAjusteDto(algoritmoAjusteRepository.findByPeso(id).get());
+        return algoritmoAjusteMapper
+            .algoritmoAjusteToAlgoritmoAjusteDto(algoritmoAjusteRepository.findByPeso(id).get());
     }
+
 }

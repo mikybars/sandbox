@@ -27,19 +27,19 @@ public class TareaPersonaHistoricoServiceImplTest {
 
     @Mock
     private TareaPersonaHistoricoRepositoryCustom tareaPersonaHistoricoRepositoryCustom;
-    
+
     @Mock
     private TareaPersonaHistoricoRepository tareaPersonaHistoricoRepository;
-    
+
     @InjectMocks
     private TareaPersonaHistoricoServiceImpl tareaPersonaHistoricoServiceImpl;
-    
+
     @Mock
     private TareaPersonaHistoricoMapper tareaPersonaHistoricoMapper;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -49,7 +49,7 @@ public class TareaPersonaHistoricoServiceImplTest {
         tareaPersonaHistoricoServiceImpl.save(personas);
         verify(tareaPersonaHistoricoRepositoryCustom, times(1)).save(any(List.class));
     }
-    
+
     @Test
     public void mergeTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -57,64 +57,73 @@ public class TareaPersonaHistoricoServiceImplTest {
         List<GenericEmpleadoResultItemDto> personas = new ArrayList<>();
 
         tareaPersonaHistoricoServiceImpl.merge(personas, tarea);
-        verify(tareaPersonaHistoricoMapper, times(1)).genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(any(List.class), any(TareaDto.class));
+        verify(tareaPersonaHistoricoMapper, times(1))
+            .genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(any(List.class), any(TareaDto.class));
     }
-    
+
     @Test
     public void findIdPersonaByIdTareaAndIdOrigenInAmbitoTest() {
         String cclIdOrigen = "1";
         Long idTarea = 1L;
 
         tareaPersonaHistoricoServiceImpl.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea, cclIdOrigen);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1)).findIdPersonaByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class));
+        verify(tareaPersonaHistoricoRepositoryCustom, times(1))
+            .findIdPersonaByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class));
     }
-    
+
     @Test
     public void findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbitoTest() {
         String cclIdOrigen = "1";
         Long idTarea = 1L;
 
         tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(idTarea, cclIdOrigen);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1)).findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class));
+        verify(tareaPersonaHistoricoRepositoryCustom, times(1))
+            .findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class));
     }
-    
+
     @Test
     public void findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbitoTest() {
         String cclIdOrigen = "1";
         Long idTarea = 1L;
         List<Integer> idsTipoDato = mock(List.class);
 
-        tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, cclIdOrigen, idsTipoDato);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1)).findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(any(Long.class), any(String.class), any(List.class));
+        tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea,
+                cclIdOrigen, idsTipoDato);
+        verify(tareaPersonaHistoricoRepositoryCustom, times(1))
+            .findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(any(Long.class), any(String.class),
+                    any(List.class));
     }
-    
+
     @Test
     public void findPeriodoByIdTareaDtoTest() {
         Long idTarea = 1L;
         tareaPersonaHistoricoServiceImpl.findPeriodoByIdTareaDto(idTarea);
         verify(tareaPersonaHistoricoRepositoryCustom, times(1)).findPeriodoDtoByIdTarea(any(Long.class));
     }
-    
+
     @Test
     public void findIdPersonaHistoricoDtoGrupoFechasByIdTareaTest() {
         Long idTarea = 1L;
         tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoDtoGrupoFechasByIdTarea(idTarea);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1)).findIdPersonaHistoricoDtoGrupoFechasByIdTarea(any(Long.class));
+        verify(tareaPersonaHistoricoRepositoryCustom, times(1))
+            .findIdPersonaHistoricoDtoGrupoFechasByIdTarea(any(Long.class));
     }
-    
+
     @Test
     public void findIdPersonaLocalCompensacionChallengeByIdTareaTest() {
         Long idTarea = 1L;
         tareaPersonaHistoricoServiceImpl.findIdPersonaLocalCompensacionChallengeByIdTarea(idTarea);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1)).findIdPersonaLocalCompensacionChallengeByIdTarea(any(Long.class));
+        verify(tareaPersonaHistoricoRepositoryCustom, times(1))
+            .findIdPersonaLocalCompensacionChallengeByIdTarea(any(Long.class));
     }
-    
+
     @Test
     public void findIdPersonaHistoricoByIdTareaAndIdOrigenTest() {
         Long idTarea = 1L;
         String cclIdOrigen = "1";
         tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
-        verify(tareaPersonaHistoricoRepository, times(1)).findIdPersonaHistoricoByIdTareaAndIdOrigen(any(Long.class), any(String.class));
+        verify(tareaPersonaHistoricoRepository, times(1)).findIdPersonaHistoricoByIdTareaAndIdOrigen(any(Long.class),
+                any(String.class));
     }
-    
+
 }

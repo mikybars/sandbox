@@ -29,24 +29,32 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 public class TrabajoConstraintValidatorTest {
 
     private static final String CCL_ID_PERSON = "4724";
+
     private static final String STD_ID_WORK_LOCAT = "T3113";
+
     private static final String STD_ID_LEG_ENT = "95";
+
     private static final String ID_ORGANIZATION = "AT";
+
     private static final String CCL_ID_ORIGEN = "38";
 
     @Mock
     private Logger log;
-    
+
     private ConstraintValidatorContext constraintValidatorContext;
-    private ConstraintValidatorContext.ConstraintViolationBuilder constraintViolationBuilder = mock(ConstraintValidatorContext.ConstraintViolationBuilder.class);
+
+    private ConstraintValidatorContext.ConstraintViolationBuilder constraintViolationBuilder = mock(
+            ConstraintValidatorContext.ConstraintViolationBuilder.class);
+
     private TrabajoConstraintValidator trabajoValidator;
-    
+
     @Before
     public void setUp() {
         constraintValidatorContext = mock(ConstraintValidatorContext.class);
         trabajoValidator = new TrabajoConstraintValidator();
         constraintViolationBuilder = mock(ConstraintValidatorContext.ConstraintViolationBuilder.class);
-        when(constraintValidatorContext.buildConstraintViolationWithTemplate(Mockito.anyString())).thenReturn(constraintViolationBuilder);
+        when(constraintValidatorContext.buildConstraintViolationWithTemplate(Mockito.anyString()))
+            .thenReturn(constraintViolationBuilder);
     }
 
     @Test
@@ -56,7 +64,7 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setIdOrganization(ID_ORGANIZATION);
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(true));
     }
-    
+
     @Test
     public void testTrabajoSociedadOrigenNotEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -65,7 +73,7 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setOrigen(Arrays.asList(TrabajoAmbitoOrigenDto.builder().cclIdOrigen(CCL_ID_ORIGEN).build()));
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoSociedadEmpresaNotEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -74,7 +82,7 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setEmpresa(Arrays.asList(TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(STD_ID_LEG_ENT).build()));
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testRunTrabajoSociedad() {
         RunTrabajoDto runTrabajo = new RunTrabajoDto();
@@ -84,7 +92,7 @@ public class TrabajoConstraintValidatorTest {
         runTrabajo.setTrabajo(trabajo);
         assertThat(trabajoValidator.isValid(runTrabajo, constraintValidatorContext), is(true));
     }
-    
+
     @Test
     public void testTrabajoOrigen() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -93,7 +101,7 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setOrigen(Arrays.asList(TrabajoAmbitoOrigenDto.builder().cclIdOrigen(CCL_ID_ORIGEN).build()));
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(true));
     }
-    
+
     @Test
     public void testTrabajoOrigenOrigenEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -102,7 +110,7 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setOrigen(Arrays.asList());
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoOrigenEmpresaNotEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -111,7 +119,7 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setEmpresa(Arrays.asList(TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(STD_ID_LEG_ENT).build()));
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testRunTrabajoOrigen() {
         RunTrabajoDto runTrabajo = new RunTrabajoDto();
@@ -122,7 +130,7 @@ public class TrabajoConstraintValidatorTest {
         runTrabajo.setTrabajo(trabajo);
         assertThat(trabajoValidator.isValid(runTrabajo, constraintValidatorContext), is(true));
     }
-    
+
     @Test
     public void testTrabajoEmpresa() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -132,7 +140,7 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setEmpresa(Arrays.asList(TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(STD_ID_LEG_ENT).build()));
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(true));
     }
-    
+
     @Test
     public void testTrabajoEmpresaOrigenEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -142,7 +150,7 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setEmpresa(Arrays.asList(TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(STD_ID_LEG_ENT).build()));
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoEmpresaOrigenEmpresaEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -152,7 +160,7 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setEmpresa(Arrays.asList());
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoEmpresaLocalizacionNotEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -160,10 +168,11 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setIdOrganization(ID_ORGANIZATION);
         trabajo.setOrigen(Arrays.asList(TrabajoAmbitoOrigenDto.builder().cclIdOrigen(CCL_ID_ORIGEN).build()));
         trabajo.setEmpresa(Arrays.asList(TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(STD_ID_LEG_ENT).build()));
-        trabajo.setLocalizacion(Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
+        trabajo.setLocalizacion(
+                Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoEmpresaPersonaNotEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -174,9 +183,8 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setPersona(Arrays.asList(TrabajoAmbitoPersonaDto.builder().cclIdPerson(CCL_ID_PERSON).build()));
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
-    
-    
+
+
     @Test
     public void testTrabajoLocalizacion() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -184,11 +192,12 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setIdOrganization(ID_ORGANIZATION);
         trabajo.setOrigen(Arrays.asList(TrabajoAmbitoOrigenDto.builder().cclIdOrigen(CCL_ID_ORIGEN).build()));
         trabajo.setEmpresa(Arrays.asList(TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(STD_ID_LEG_ENT).build()));
-        trabajo.setLocalizacion(Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
+        trabajo.setLocalizacion(
+                Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
 
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(true));
     }
-    
+
     @Test
     public void testTrabajoLocalizacionOrigenEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -196,11 +205,12 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setIdOrganization(ID_ORGANIZATION);
         trabajo.setOrigen(Arrays.asList());
         trabajo.setEmpresa(Arrays.asList(TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(STD_ID_LEG_ENT).build()));
-        trabajo.setLocalizacion(Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
+        trabajo.setLocalizacion(
+                Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
 
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoLocalizacionEmpresaEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -208,11 +218,12 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setIdOrganization(ID_ORGANIZATION);
         trabajo.setOrigen(Arrays.asList(TrabajoAmbitoOrigenDto.builder().cclIdOrigen(CCL_ID_ORIGEN).build()));
         trabajo.setEmpresa(Arrays.asList());
-        trabajo.setLocalizacion(Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
+        trabajo.setLocalizacion(
+                Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
 
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoLocalizacionLocalizacionEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -224,7 +235,7 @@ public class TrabajoConstraintValidatorTest {
 
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoLocalizacionExistsPersona() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -232,12 +243,13 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setIdOrganization(ID_ORGANIZATION);
         trabajo.setOrigen(Arrays.asList(TrabajoAmbitoOrigenDto.builder().cclIdOrigen(CCL_ID_ORIGEN).build()));
         trabajo.setEmpresa(Arrays.asList(TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(STD_ID_LEG_ENT).build()));
-        trabajo.setLocalizacion(Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
+        trabajo.setLocalizacion(
+                Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
         trabajo.setPersona(Arrays.asList(TrabajoAmbitoPersonaDto.builder().cclIdPerson(CCL_ID_PERSON).build()));
 
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoPersona() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -249,7 +261,7 @@ public class TrabajoConstraintValidatorTest {
 
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(true));
     }
-    
+
     @Test
     public void testTrabajoPersonaOrigenEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -261,7 +273,7 @@ public class TrabajoConstraintValidatorTest {
 
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoPersonaEmpresaEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -273,7 +285,7 @@ public class TrabajoConstraintValidatorTest {
 
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoPersonaPersonaEmpty() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -285,7 +297,7 @@ public class TrabajoConstraintValidatorTest {
 
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
-    
+
     @Test
     public void testTrabajoPersonaContainsLocalizacion() {
         TrabajoDto trabajo = new TrabajoDto();
@@ -294,8 +306,10 @@ public class TrabajoConstraintValidatorTest {
         trabajo.setOrigen(Arrays.asList(TrabajoAmbitoOrigenDto.builder().cclIdOrigen(CCL_ID_ORIGEN).build()));
         trabajo.setEmpresa(Arrays.asList(TrabajoAmbitoEmpresaDto.builder().stdIdLegEnt(STD_ID_LEG_ENT).build()));
         trabajo.setPersona(Arrays.asList(TrabajoAmbitoPersonaDto.builder().cclIdPerson(CCL_ID_PERSON).build()));
-        trabajo.setLocalizacion(Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
+        trabajo.setLocalizacion(
+                Arrays.asList(TrabajoAmbitoLocalizacionDto.builder().stdIdWorkLocat(STD_ID_WORK_LOCAT).build()));
 
         assertThat(trabajoValidator.isValid(trabajo, constraintValidatorContext), is(false));
     }
+
 }

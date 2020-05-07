@@ -29,4 +29,5 @@ public class TareaAgrupacionCadenaDto implements Serializable {
     @NotBlank
     @ApiModelProperty(value = "Id de la cadena", required = true)
     private String cclIdCadena;
+
 }

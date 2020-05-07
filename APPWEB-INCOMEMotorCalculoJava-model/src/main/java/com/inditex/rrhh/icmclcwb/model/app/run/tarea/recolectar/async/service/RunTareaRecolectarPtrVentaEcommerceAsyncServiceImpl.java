@@ -52,19 +52,19 @@ public class RunTareaRecolectarPtrVentaEcommerceAsyncServiceImpl
         tareaRecolectarPtrVentaEcommerceService.ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> ventaRangoOnlineSintLocalizacionSeccionByRunTarea(RunTareaDto runTarea) {
         tareaRecolectarPtrVentaEcommerceService.ventaRangoOnlineSintLocalizacionSeccionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(RunTareaDto runTarea) {
         tareaRecolectarPtrVentaEcommerceService.ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(RunTareaDto runTarea) {
         tareaRecolectarPtrVentaEcommerceService.ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(runTarea);
@@ -94,4 +94,5 @@ public class RunTareaRecolectarPtrVentaEcommerceAsyncServiceImpl
         tareaRecolectarPtrVentaEcommerceService.updateActivoVentaOnlineEntregaDomicilioByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

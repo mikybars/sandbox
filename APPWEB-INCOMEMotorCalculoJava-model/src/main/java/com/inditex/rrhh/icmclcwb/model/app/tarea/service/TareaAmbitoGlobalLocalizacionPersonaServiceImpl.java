@@ -14,7 +14,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoGloba
 @Service
 @Validated
 public class TareaAmbitoGlobalLocalizacionPersonaServiceImpl implements TareaAmbitoGlobalLocalizacionPersonaService {
-    
+
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom tareaAmbitoGlobalLocalizacionPersonaRepositoryCustom;
 
@@ -22,4 +22,5 @@ public class TareaAmbitoGlobalLocalizacionPersonaServiceImpl implements TareaAmb
     public void mergePersonaLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto) {
         tareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion(runTareaDto);
     }
+
 }

@@ -14,14 +14,15 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepo
 
 @Service
 @Validated
-public class TareaCalculoServiceImpl implements TareaCalculoService{
-    
+public class TareaCalculoServiceImpl implements TareaCalculoService {
+
     @Autowired
     private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
 
     @Override
-    public void regularizarChallenge(@Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto) {
+    public void regularizarChallenge(@Valid @NotNull final RunTareaDto runTareaDto,
+            @Valid @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto) {
         tareaCalculoRepositoryCustom.regularizarChallenge(runTareaDto.getTarea(), idPersonaLocalChallengeDto);
     }
-    
+
 }

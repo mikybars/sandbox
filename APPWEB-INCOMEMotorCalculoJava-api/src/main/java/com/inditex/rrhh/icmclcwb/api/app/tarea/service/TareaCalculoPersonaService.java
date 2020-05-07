@@ -18,9 +18,11 @@ public interface TareaCalculoPersonaService {
 
     List<TareaCalculoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea);
 
-    void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<TareaCalculoPersonaDto> personas, @Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estado);
+    void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<TareaCalculoPersonaDto> personas,
+            @Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estado);
 
-    void updateWithEstado(@Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estadoActual,
+    void updateWithEstado(@Valid @NotNull final RunTareaDto runTareaDto,
+            @Valid @NotNull final EstadoTareaPersonaDto estadoActual,
             @Valid @NotNull final EstadoTareaPersonaDto estadoNuevo);
 
     void mergePersonaCalculoByAmbitoLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto);

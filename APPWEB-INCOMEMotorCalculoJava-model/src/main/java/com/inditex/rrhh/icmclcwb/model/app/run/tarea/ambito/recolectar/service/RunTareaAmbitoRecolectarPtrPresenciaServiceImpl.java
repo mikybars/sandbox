@@ -44,8 +44,8 @@ import java.util.stream.Collectors;
 @Service
 @Validated
 public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
-    extends AbstractRunTareaAmbitoRecolectarPtrPresenciaService
-    implements RunTareaAmbitoRecolectarPtrPresenciaService {
+        extends AbstractRunTareaAmbitoRecolectarPtrPresenciaService
+        implements RunTareaAmbitoRecolectarPtrPresenciaService {
 
     @Autowired
     private Logger log;
@@ -88,15 +88,17 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
         try {
             final TareaDto tarea = runTarea.getTarea();
             CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService
-                    .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
-                            .origen(Integer.parseInt(tareaAmbito.getCclIdOrigen())).build());
+                .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
+                    .origen(Integer.parseInt(tareaAmbito.getCclIdOrigen()))
+                    .build());
             AsyncUtils.exceptionally(cfData, cf);
             PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);
             if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
                 AsyncUtils.exceptionally(tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
             } else {
                 log.warn(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
-                        .append(tareaAmbito.getCclIdOrigen()).toString());
+                    .append(tareaAmbito.getCclIdOrigen())
+                    .toString());
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
@@ -111,18 +113,21 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            PtrFilterPropertiesDto filter = presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getFilter();
+            PtrFilterPropertiesDto filter = presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE)
+                .getFilter();
             for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                     tareaTiendaHistoricoService.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
                             tarea.getId(), tareaAmbito.getCclIdOrigen()),
                     filter.getMaxPageSize())) {
                 for (PeriodoDto periodo : tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(
-                            tarea.getId(), filter, recolectarProperties)) {
+                        tarea.getId(), filter, recolectarProperties)) {
                     List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                     PtrPresenciaDetalleRequestDto paramPresenciasDetalle = tareaMapper
                         .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(tarea,
-                            tareaAmbito, periodo);
-                    paramPresenciasDetalle.setTienda(iter.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf)
+                                tareaAmbito, periodo);
+                    paramPresenciasDetalle.setTienda(iter.stream()
+                        .map(IdLocalizacionLocalDto::getId)
+                        .map(Integer::valueOf)
                         .collect(Collectors.toList()));
                     paramPresenciasDetalle.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                     paramPresenciasDetalle.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_TIPOHORA_SECCION.getValue());

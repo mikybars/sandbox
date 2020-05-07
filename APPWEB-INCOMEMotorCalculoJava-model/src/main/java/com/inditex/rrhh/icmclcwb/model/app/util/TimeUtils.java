@@ -36,7 +36,7 @@ public class TimeUtils {
     public static LocalDate nowLocalDate(ZoneId zone) {
         return ZonedDateTime.now(zone).toLocalDate();
     }
-    
+
     public static LocalDateTime toLocalDateTime(LocalDate localDate) {
         return LocalDateTime.of(localDate, LocalTime.MIDNIGHT);
     }
@@ -80,7 +80,7 @@ public class TimeUtils {
     public static Instant toInstant(LocalDate localDate) {
         return localDate.atStartOfDay(ZoneOffset.UTC).toInstant();
     }
-    
+
     public static Instant toInstant(LocalDateTime localDateTime) {
         return localDateTime.toInstant(ZoneOffset.UTC);
     }
@@ -88,7 +88,7 @@ public class TimeUtils {
     public static Date toDate(LocalDateTime localDateTime) {
         return TimeUtils.toDate(TimeUtils.toInstant(localDateTime));
     }
-    
+
     public static Date toDate(LocalDate localDate) {
         return TimeUtils.toDate(TimeUtils.toInstant(localDate));
     }

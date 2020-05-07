@@ -12,38 +12,38 @@ import lombok.Data;
 @Data
 public class TareaLocalizacionHistoricoDto implements Serializable {
 
-	private static final long serialVersionUID = -5607507260079003307L;
+    private static final long serialVersionUID = -5607507260079003307L;
 
-	@ApiModelProperty(value = "Identificador de la tienda", required = false)
-	private String id;
+    @ApiModelProperty(value = "Identificador de la tienda", required = false)
+    private String id;
 
-	@NotNull
-	@ApiModelProperty(value = "Identificador del tarea", required = true)
-	private Long idTarea;
+    @NotNull
+    @ApiModelProperty(value = "Identificador del tarea", required = true)
+    private Long idTarea;
 
-	@NotBlank
-	@ApiModelProperty(value = "Id de la localizacion", required = true)
-	private String cclIdCodOrigen;
+    @NotBlank
+    @ApiModelProperty(value = "Id de la localizacion", required = true)
+    private String cclIdCodOrigen;
 
-	@NotBlank
-	private String stdIdWorkLocat;
+    @NotBlank
+    private String stdIdWorkLocat;
 
-	@NotBlank
-	private String stdIdCountry;
+    @NotBlank
+    private String stdIdCountry;
 
-	@NotBlank
-	private String cclIdOrigen;
+    @NotBlank
+    private String cclIdOrigen;
 
-	@NotBlank
-	private String stdIdLegEnt;
+    @NotBlank
+    private String stdIdLegEnt;
 
-	@NotBlank
-	private String cclIdCadena;
-	
-	@NotNull
+    @NotBlank
+    private String cclIdCadena;
+
+    @NotNull
     private LocalDateTime fechaInicio;
 
-	@NotNull
+    @NotNull
     private LocalDateTime fechaFin;
 
 }

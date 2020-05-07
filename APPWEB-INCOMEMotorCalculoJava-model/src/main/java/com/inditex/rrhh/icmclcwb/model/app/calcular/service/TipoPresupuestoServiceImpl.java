@@ -23,13 +23,14 @@ public class TipoPresupuestoServiceImpl implements TipoPresupuestoService {
     @Cacheable(value = "itx.icmlcwb.tipo_presupuesto_by_icm_id_tp_presupuesto", key = "#icmIdTpPresupuesto")
     public TipoPresupuestoDto findByIcmIdTpPresupuesto(String icmIdTpPresupuesto) {
         return tipoPresupuestoMapper.tipoPresupuestoToTipoPreupuestoDto(
-            tipoPresupuestoRepository.findByIcmIdTpPresupuesto(icmIdTpPresupuesto));
+                tipoPresupuestoRepository.findByIcmIdTpPresupuesto(icmIdTpPresupuesto));
     }
 
     @Override
     @Cacheable(value = "itx.icmlcwb.tipo_presupuesto_by_id", key = "#id")
     public TipoPresupuestoDto findById(Integer id) {
         return tipoPresupuestoMapper.tipoPresupuestoToTipoPreupuestoDto(
-            tipoPresupuestoRepository.findById(id).get());
+                tipoPresupuestoRepository.findById(id).get());
     }
+
 }

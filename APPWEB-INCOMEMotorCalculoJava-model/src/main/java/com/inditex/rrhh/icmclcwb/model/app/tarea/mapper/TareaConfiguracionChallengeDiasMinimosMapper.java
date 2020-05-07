@@ -28,7 +28,7 @@ public abstract class TareaConfiguracionChallengeDiasMinimosMapper {
 
     public abstract List<TareaConfiguracionChallengeDiasMinimosDto> tareaConfiguracionChallengeDiasMinimosToTareaConfiguracionChallengeDiasMinimosDto(
             List<TareaConfiguracionChallengeDiasMinimos> src);
-    
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "tarea.id")
     @Mapping(target = "icmIdTpCalculo", source = "src.idTipoCalculo")
@@ -38,9 +38,10 @@ public abstract class TareaConfiguracionChallengeDiasMinimosMapper {
     @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
     public abstract TareaConfiguracionChallengeDiasMinimos confChDiasMinimosResultItemDtoToTareaConfiguracionChallengeDiasMinimos(
             ConfChDiasMinimosResultItemDto src, TareaDto tarea);
-    
+
     public List<TareaConfiguracionChallengeDiasMinimos> confChDiasMinimosResultItemDtoToTareaConfiguracionChallengeDiasMinimos(
             List<ConfChDiasMinimosResultItemDto> src, TareaDto tarea) {
-            throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-        }
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+
 }

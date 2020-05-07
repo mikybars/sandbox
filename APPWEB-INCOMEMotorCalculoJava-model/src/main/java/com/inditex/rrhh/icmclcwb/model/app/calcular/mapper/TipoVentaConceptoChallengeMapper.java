@@ -12,5 +12,7 @@ public abstract class TipoVentaConceptoChallengeMapper {
     @Mapping(target = "icmIdConceptoVenta", source = "src.icmIdConceptoVenta")
     @Mapping(target = "nombre", source = "src.nombre")
     @Mapping(target = "descripcion", source = "src.descripcion")
-    public abstract TipoVentaConceptoChallengeDto tipoVentaConceptoChallengeToTipoVentaConceptoChallengeDto(TipoVentaConceptoChallenge src);
+    public abstract TipoVentaConceptoChallengeDto tipoVentaConceptoChallengeToTipoVentaConceptoChallengeDto(
+            TipoVentaConceptoChallenge src);
+
 }

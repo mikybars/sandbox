@@ -22,10 +22,11 @@ public abstract class TareaConfiguracionMapper {
     @Mapping(source = "src.idTipoHora", target = "codTipoHora")
     @Mapping(source = "src.icmCkVentaImpuestos", target = "icmCkVentaImpuestos")
     public abstract TareaConfiguracion getConfiguracionItemDtoToTareaConfiguracion(
-        ConfiguracionItemDto src, TareaDto tarea);
+            ConfiguracionItemDto src, TareaDto tarea);
 
     public List<TareaConfiguracion> getConfiguracionItemDtoToTareaConfiguracion(
-        List<ConfiguracionItemDto> src, TareaDto tarea) {
+            List<ConfiguracionItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
 }

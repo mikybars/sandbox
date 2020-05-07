@@ -10,8 +10,9 @@ public interface TareaCalculoAjusteBaseRepositoryCustom {
 
     List<TareaCalculoPersonaDto> ids(final TareaDto tarea);
 
-    void ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea, final List<TareaCalculoPersonaDto> personas);
-    
+    void ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
+            final List<TareaCalculoPersonaDto> personas);
+
     String getSqlAjustar(final AlgoritmoAjusteDto algoritmoAjuste);
 
 }

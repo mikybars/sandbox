@@ -8,8 +8,8 @@ import lombok.Data;
 @Data
 public class PtrVentaTotalizadoResponseDto implements Serializable {
 
-	private static final long serialVersionUID = -2758503405995399894L;
-	
-	private List<PtrVentaTotalizadoResultItemDto> ventaTotalizado;
+    private static final long serialVersionUID = -2758503405995399894L;
+
+    private List<PtrVentaTotalizadoResultItemDto> ventaTotalizado;
 
 }

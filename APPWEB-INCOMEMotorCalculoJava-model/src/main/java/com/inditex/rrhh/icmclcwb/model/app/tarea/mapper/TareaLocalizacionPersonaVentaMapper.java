@@ -42,10 +42,10 @@ public abstract class TareaLocalizacionPersonaVentaMapper {
     @Mapping(target = "tipoDato", ignore = true)
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     public abstract TareaLocalizacionPersonaVenta ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        PtrVentaIndividualDetalleResultItemDto src, TareaDto tarea);
+            PtrVentaIndividualDetalleResultItemDto src, TareaDto tarea);
 
     public List<TareaLocalizacionPersonaVenta> ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        List<PtrVentaIndividualDetalleResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaIndividualDetalleResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
@@ -61,10 +61,11 @@ public abstract class TareaLocalizacionPersonaVentaMapper {
     @Mapping(target = "tipoDato", ignore = true)
     @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     public abstract TareaLocalizacionPersonaVenta ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        PtrVentaOnlineIpodIndividualDetalleResultItemDto src, TareaDto tarea);
+            PtrVentaOnlineIpodIndividualDetalleResultItemDto src, TareaDto tarea);
 
     public List<TareaLocalizacionPersonaVenta> ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
 }

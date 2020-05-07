@@ -23,13 +23,16 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualServiceImpl
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom;
-    
+
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper tareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper;
-    
+
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src, @Valid @NotNull final TareaDto tareaDto) {
+    public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto) {
         tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom.save(
-                tareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper.genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(src, tareaDto));
+                tareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper
+                    .genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(src, tareaDto));
     }
+
 }

@@ -45,8 +45,11 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPre
 public class TareaLocalizacionPresupuestoVentaRepositoryCustomImplTest {
 
     private final static String SQL_SAVE = "SQL SAVE";
+
     private final static String SQL_UPDATE_ACTIVO_EXCEPCIONADA = "SQL_UPDATE_ACTIVO_EXCEPCIONADA";
+
     private final static String SQL_UPDATE_ACTIVO_CONGELADA = "SQL_UPDATE_ACTIVO_CONGELADA";
+
     private final static String SQL_TOTALIZAR = "SQL_TOTALIZAR";
 
     @Mock
@@ -63,34 +66,37 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImplTest {
 
     @Captor
     private ArgumentCaptor<MapSqlParameterSource> paramsCaptor;
-    
+
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaLocalizacionPresupuestoVentaRepositoryCustom, "sqlSave", SQL_SAVE, true);
-        FieldUtils.writeField(tareaLocalizacionPresupuestoVentaRepositoryCustom, "sqlUpdateActivoExcepcionada", SQL_UPDATE_ACTIVO_EXCEPCIONADA, true);
-        FieldUtils.writeField(tareaLocalizacionPresupuestoVentaRepositoryCustom, "sqlUpdateActivoCongelada", SQL_UPDATE_ACTIVO_CONGELADA, true);
+        FieldUtils.writeField(tareaLocalizacionPresupuestoVentaRepositoryCustom, "sqlUpdateActivoExcepcionada",
+                SQL_UPDATE_ACTIVO_EXCEPCIONADA, true);
+        FieldUtils.writeField(tareaLocalizacionPresupuestoVentaRepositoryCustom, "sqlUpdateActivoCongelada",
+                SQL_UPDATE_ACTIVO_CONGELADA, true);
         FieldUtils.writeField(tareaLocalizacionPresupuestoVentaRepositoryCustom, "sqlTotalizar", SQL_TOTALIZAR, true);
         FieldUtils.writeField(tareaLocalizacionPresupuestoVentaRepositoryCustom, "batchSize", 100, true);
     }
-    
+
     @Test
     public void save() {
-        List<TareaLocalizacionPresupuestoVenta> items = Collections.singletonList(mock(TareaLocalizacionPresupuestoVenta.class));
+        List<TareaLocalizacionPresupuestoVenta> items = Collections
+            .singletonList(mock(TareaLocalizacionPresupuestoVenta.class));
         tareaLocalizacionPresupuestoVentaRepositoryCustom.save(items);
         verify(template).batchUpdate(sqlCaptor.capture(), any(BatchPreparedStatementSetter.class));
         assertEquals(SQL_SAVE, sqlCaptor.getValue());
     }
-    
+
     @Test
     public void setParametersTest() throws SQLException {
-            
+
         Tarea tarea = mock(Tarea.class);
         when(tarea.getId()).thenReturn(809L);
         TipoPresupuesto tipoPresupuesto = mock(TipoPresupuesto.class);
         tipoPresupuesto.setId(1);
         TipoDato tipoDato = mock(TipoDato.class);
         tipoDato.setId(1);
-        TipoVentaConceptoChallenge tipoVentaConceptoChallenge = mock(TipoVentaConceptoChallenge.class); 
+        TipoVentaConceptoChallenge tipoVentaConceptoChallenge = mock(TipoVentaConceptoChallenge.class);
         tipoVentaConceptoChallenge.setId(1L);
         TareaLocalizacionPresupuestoVenta presupuesto = mock(TareaLocalizacionPresupuestoVenta.class);
         when(presupuesto.getTarea()).thenReturn(tarea);
@@ -125,17 +131,17 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImplTest {
         verify(pstmt, times(1)).setObject(13, presupuesto.getFechaFin());
         verify(pstmt, times(1)).setObject(14, presupuesto.getFechaInicio());
     }
-    
+
     @Test
     public void setParametersTestNullFields() throws SQLException {
-            
+
         Tarea tarea = mock(Tarea.class);
         when(tarea.getId()).thenReturn(809L);
         TipoPresupuesto tipoPresupuesto = mock(TipoPresupuesto.class);
         tipoPresupuesto.setId(1);
         TipoDato tipoDato = mock(TipoDato.class);
         tipoDato.setId(1);
-        TipoVentaConceptoChallenge tipoVentaConceptoChallenge = mock(TipoVentaConceptoChallenge.class); 
+        TipoVentaConceptoChallenge tipoVentaConceptoChallenge = mock(TipoVentaConceptoChallenge.class);
         tipoVentaConceptoChallenge.setId(1L);
         TareaLocalizacionPresupuestoVenta presupuesto = mock(TareaLocalizacionPresupuestoVenta.class);
         when(presupuesto.getTarea()).thenReturn(tarea);
@@ -192,9 +198,10 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImplTest {
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
         // inactivo
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
     }
-    
+
     @Test
     public void updateActivoCongelada() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -216,15 +223,18 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImplTest {
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
         // inactivo
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
         // id tipo dato grupo dato venta congelada
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA));
-        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO_CONGELADA.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA));
+        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO_CONGELADA.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA));
         // id tipo grupo dato venta real
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL));
-        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL));
+        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL));
     }
-    
+
     @Test
     public void totalizar() {
         RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -246,25 +256,32 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImplTest {
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
         // id tipo dato grupo dato venta congelada
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA));
-        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO_CONGELADA.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA));
+        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO_CONGELADA.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA));
         // id tipo grupo dato venta real
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL));
-        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL));
+        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL));
         // id seccion
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION));
         assertEquals(AppConstants.SECCION_4, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION));
         // id tipo dato venta rango congelada localizacion
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_CONGELADA_LOCALIZACION));
-        assertEquals(TipoDatoEnum.VENTA_RANGO_CONGELADA_LOCALIZACION.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_CONGELADA_LOCALIZACION));
+        assertEquals(TipoDatoEnum.VENTA_RANGO_CONGELADA_LOCALIZACION.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_CONGELADA_LOCALIZACION));
         // id tipo dato venta rango congelada localizacion seccion
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_CONGELADA_LOCALIZACION_SECCION));
-        assertEquals(TipoDatoEnum.VENTA_RANGO_CONGELADA_LOCALIZACION_SECCION.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_CONGELADA_LOCALIZACION_SECCION));
+        assertTrue(
+                params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_CONGELADA_LOCALIZACION_SECCION));
+        assertEquals(TipoDatoEnum.VENTA_RANGO_CONGELADA_LOCALIZACION_SECCION.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_CONGELADA_LOCALIZACION_SECCION));
         // id tipo dato venta rango localizacion
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION));
-        assertEquals(TipoDatoEnum.VENTA_RANGO_LOCALIZACION.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION));
+        assertEquals(TipoDatoEnum.VENTA_RANGO_LOCALIZACION.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION));
         // id tipo dato venta rango localizacion seccion
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION_SECCION));
-        assertEquals(TipoDatoEnum.VENTA_RANGO_LOCALIZACION_SECCION.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION_SECCION));
+        assertEquals(TipoDatoEnum.VENTA_RANGO_LOCALIZACION_SECCION.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION_SECCION));
     }
-    
+
 }

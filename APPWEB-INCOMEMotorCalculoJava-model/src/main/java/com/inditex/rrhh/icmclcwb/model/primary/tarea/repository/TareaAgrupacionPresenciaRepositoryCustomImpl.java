@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 @Repository
 public class TareaAgrupacionPresenciaRepositoryCustomImpl
-    implements TareaAgrupacionPresenciaRepositoryCustom {
+        implements TareaAgrupacionPresenciaRepositoryCustom {
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
@@ -29,22 +29,23 @@ public class TareaAgrupacionPresenciaRepositoryCustomImpl
     public void calcularPresenciasTotalesAgrupacion(TareaDto tarea) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
 
-        //FILTROS
+        // FILTROS
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO,
-            Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
+                Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS,
-            TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
-            SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
+                SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
 
-        //VALORES ESTABLECIDOS
+        // VALORES ESTABLECIDOS
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
-            TipoDatoEnum.PRESENCIA_AGRUPACIONONLINE_INCLUIDOECOMMERCE.getId());
+                TipoDatoEnum.PRESENCIA_AGRUPACIONONLINE_INCLUIDOECOMMERCE.getId());
 
         namedParameterJdbcTemplate.update(sqlTotalizar, parameters);
     }
+
 }

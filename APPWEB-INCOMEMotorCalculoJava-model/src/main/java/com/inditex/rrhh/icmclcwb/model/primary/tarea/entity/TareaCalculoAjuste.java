@@ -23,14 +23,17 @@ import lombok.Data;
 @Table(name = "TAREA_CALCULO_AJUSTE")
 @Data
 public class TareaCalculoAjuste {
-    
+
     @EmbeddedId
     private TareaCalculoAjustePk pk;
-    
+
     @OneToOne
     @JoinColumns({
-        @JoinColumn(name = "ID_TAREA_PERSONA_ESTRUCTURA_POLITICA", referencedColumnName = "ID_TAREA_PERSONA_ESTRUCTURA_POLITICA", insertable = false, updatable = false),
-        @JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO", insertable = false, updatable = false) })
+            @JoinColumn(name = "ID_TAREA_PERSONA_ESTRUCTURA_POLITICA",
+                    referencedColumnName = "ID_TAREA_PERSONA_ESTRUCTURA_POLITICA", insertable = false,
+                    updatable = false),
+            @JoinColumn(name = "FECHA_INICIO_PERIODO", referencedColumnName = "FECHA_INICIO_PERIODO",
+                    insertable = false, updatable = false) })
     private TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica;
 
     @NotNull
@@ -42,7 +45,7 @@ public class TareaCalculoAjuste {
     @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    
+
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;
@@ -50,11 +53,11 @@ public class TareaCalculoAjuste {
     @NotBlank
     @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
     private String stdOrHrPeriod;
-    
+
     @NotNull
     @Column(name = "IMPORTE", nullable = false, precision = 23, scale = 8)
     private BigDecimal importe;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_ALGORITMO_AJUSTE", nullable = false)

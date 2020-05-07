@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(imports = {org.apache.commons.lang3.math.NumberUtils.class})
+@Mapper(imports = { org.apache.commons.lang3.math.NumberUtils.class })
 @DecoratedWith(value = TareaLocalizacionLocalizacionPresupuestoDecorator.class)
 public abstract class TareaLocalizacionPresupuestoMapper {
 
@@ -24,18 +24,21 @@ public abstract class TareaLocalizacionPresupuestoMapper {
     @Mapping(target = "cclIdSeccion", source = "src.idSeccion")
     @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     @Mapping(target = "fechaFin", source = "src.fechaFin")
-    @Mapping(target = "importeSinImpuestos", expression = "java(NumberUtils.isParsable(src.getImporteSinImpuestos()) ? Double.parseDouble(src.getImporteSinImpuestos()) : 0.0)")
-    @Mapping(target = "importeConImpuestos", expression = "java(NumberUtils.isParsable(src.getImporteConImpuestos()) ? Double.parseDouble(src.getImporteConImpuestos()) : 0.0)")
+    @Mapping(target = "importeSinImpuestos",
+            expression = "java(NumberUtils.isParsable(src.getImporteSinImpuestos()) ? Double.parseDouble(src.getImporteSinImpuestos()) : 0.0)")
+    @Mapping(target = "importeConImpuestos",
+            expression = "java(NumberUtils.isParsable(src.getImporteConImpuestos()) ? Double.parseDouble(src.getImporteConImpuestos()) : 0.0)")
     @Mapping(target = "banda", source = "src.banda")
     @Mapping(target = "ordinal", source = "src.ordinal")
     @Mapping(target = "excepcion", source = "src.excepcion")
     @Mapping(target = "tipoPresupuesto", ignore = true)
     @Mapping(target = "activo", constant = "false")
     public abstract TareaLocalizacionPresupuesto presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(
-        PresupuestosWlocResultItemDto src, TareaDto tarea);
+            PresupuestosWlocResultItemDto src, TareaDto tarea);
 
     public List<TareaLocalizacionPresupuesto> presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(
-        List<PresupuestosWlocResultItemDto> src, TareaDto tarea) {
+            List<PresupuestosWlocResultItemDto> src, TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
 }

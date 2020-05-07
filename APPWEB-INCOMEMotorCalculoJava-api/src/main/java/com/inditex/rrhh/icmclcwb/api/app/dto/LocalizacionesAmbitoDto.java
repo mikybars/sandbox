@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public class LocalizacionesAmbitoDto {
-    
+
     private List<Integer> localizaciones = null;
 
     @NonNull
@@ -25,8 +25,10 @@ public class LocalizacionesAmbitoDto {
 
     public void setLocalizaciones(List<IdLocalizacionLocalDto> ids) {
         if (ids != null) {
-            localizaciones = ids.stream().map(IdLocalizacionLocalDto::getId).map(Integer::valueOf)
-                    .collect(Collectors.toList());
+            localizaciones = ids.stream()
+                .map(IdLocalizacionLocalDto::getId)
+                .map(Integer::valueOf)
+                .collect(Collectors.toList());
         }
     }
 
@@ -38,4 +40,5 @@ public class LocalizacionesAmbitoDto {
     public boolean hasData() {
         return !obtenerLocalizaciones() || !CollectionUtils.isEmpty(localizaciones);
     }
+
 }

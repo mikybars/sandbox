@@ -13,10 +13,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.Es
 
 public interface TareaPersonaEstructuraPoliticaService {
 
-    List<TareaPersonaEstructuraPoliticaDto> save(@Valid @NotNull @NotEmpty final List<ComisionEmpleadoResultItemDto> tareaEmpleadoSeccionEstructuraPolitica,
+    List<TareaPersonaEstructuraPoliticaDto> save(
+            @Valid @NotNull @NotEmpty final List<ComisionEmpleadoResultItemDto> tareaEmpleadoSeccionEstructuraPolitica,
             @Valid @NotNull final TareaDto tarea);
 
     List<TareaPersonaEstructuraPoliticaDto> saveEstructurasPolResultItemDto(
-            @Valid @NotNull @NotEmpty final List<EstructurasPolResultItemDto> estructurasPolResultItemDto, @Valid @NotNull final TareaDto tarea);
+            @Valid @NotNull @NotEmpty final List<EstructurasPolResultItemDto> estructurasPolResultItemDto,
+            @Valid @NotNull final TareaDto tarea);
 
 }

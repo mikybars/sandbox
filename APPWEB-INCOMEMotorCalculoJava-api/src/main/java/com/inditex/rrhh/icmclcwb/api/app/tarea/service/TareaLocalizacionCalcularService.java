@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 
 public interface TareaLocalizacionCalcularService {
 
-    void save(@Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> src, @Valid @NotNull final TareaDto tareaDto);
+    void save(@Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto);
 
 }

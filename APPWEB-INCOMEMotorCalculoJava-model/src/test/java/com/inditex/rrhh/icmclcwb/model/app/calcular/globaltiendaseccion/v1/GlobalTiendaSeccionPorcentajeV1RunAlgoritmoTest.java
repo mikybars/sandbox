@@ -109,7 +109,7 @@ public class GlobalTiendaSeccionPorcentajeV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("GlobalTiendaSeccionPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
 
 }

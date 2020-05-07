@@ -13,9 +13,9 @@ import java.util.concurrent.CompletableFuture;
 public interface TareaAgrupacionVentaAsyncService {
 
     CompletableFuture<Void> savePtrVentaTotalizadoResponse(PtrVentaTotalizadoResponseDto dto, TareaDto tarea,
-        List<TareaAgrupacionCadenasDto> agrupaciones);
+            List<TareaAgrupacionCadenasDto> agrupaciones);
 
     CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(PtrVentaOnlineEntregaDomicilioResponseDto dto,
-        TareaDto tarea, List<TareaAgrupacionCadenasDto> agrupaciones);
+            TareaDto tarea, List<TareaAgrupacionCadenasDto> agrupaciones);
 
 }

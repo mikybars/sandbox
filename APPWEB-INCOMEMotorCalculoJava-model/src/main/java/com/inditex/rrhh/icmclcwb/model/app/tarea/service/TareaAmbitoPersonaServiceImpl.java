@@ -27,17 +27,18 @@ public class TareaAmbitoPersonaServiceImpl implements TareaAmbitoPersonaService 
     private TareaAmbitoPersonaMapper tareaAmbitoPersonaMapper;
 
     @Override
-    public List<TareaAmbitoPersonaDto> create(@Valid @NotNull @NotEmpty final List<TareaAmbitoPersonaDto> tareaAmbitoPersona,
+    public List<TareaAmbitoPersonaDto> create(
+            @Valid @NotNull @NotEmpty final List<TareaAmbitoPersonaDto> tareaAmbitoPersona,
             @Valid @NotNull final TareaDto tarea) {
         return tareaAmbitoPersonaMapper
-                .tareaAmbitoPersonaToTareaAmbitoPersonaDto(tareaAmbitoPersonaRepository.saveAll(tareaAmbitoPersonaMapper
-                        .mergeTareaAmbitoPersonaDtoAndTareaDtoToTareaAmbitoPersona(tareaAmbitoPersona, tarea)));
+            .tareaAmbitoPersonaToTareaAmbitoPersonaDto(tareaAmbitoPersonaRepository.saveAll(tareaAmbitoPersonaMapper
+                .mergeTareaAmbitoPersonaDtoAndTareaDtoToTareaAmbitoPersona(tareaAmbitoPersona, tarea)));
     }
 
     @Override
     public List<TareaAmbitoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea) {
         return tareaAmbitoPersonaMapper
-                .tareaAmbitoPersonaToTareaAmbitoPersonaDto(tareaAmbitoPersonaRepository.findByTareaId(tarea.getId()));
+            .tareaAmbitoPersonaToTareaAmbitoPersonaDto(tareaAmbitoPersonaRepository.findByTareaId(tarea.getId()));
     }
 
 }

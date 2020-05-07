@@ -80,12 +80,13 @@ public class GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         globalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1)).info("Inicio :: GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                3);
         verify(tareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
         verify(log, times(1)).info("Fin :: GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
     }
-    
+
     @Test
     public void calcularExceptionTest() {
 
@@ -113,6 +114,7 @@ public class GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("GlobalTiendaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
+
 }

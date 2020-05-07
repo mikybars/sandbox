@@ -28,21 +28,26 @@ public class TareaAgrupacionVentaServiceImpl implements TareaAgrupacionVentaServ
     private TareaAgrupacionVentaMapper tareaAgrupacionVentaMapper;
 
     @Override
-    public void savePtrVentaTotalizadoResponse(@Valid @NotNull final PtrVentaTotalizadoResponseDto dto, @Valid @NotNull final TareaDto tarea,
+    public void savePtrVentaTotalizadoResponse(@Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
+            @Valid @NotNull final TareaDto tarea,
             @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones) {
         tareaAgrupacionVentaRepositoryCustom.save(
-            tareaAgrupacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(dto.getVentaTotalizado(), tarea, agrupaciones));
+                tareaAgrupacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
+                        dto.getVentaTotalizado(), tarea, agrupaciones));
     }
 
     @Override
-    public void savePtrVentaOnlineEntregaDomicilioResponse(@Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto,
-        @Valid @NotNull final TareaDto tarea, @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones) {
+    public void savePtrVentaOnlineEntregaDomicilioResponse(
+            @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto,
+            @Valid @NotNull final TareaDto tarea, @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones) {
         tareaAgrupacionVentaRepositoryCustom.save(
-            tareaAgrupacionVentaMapper.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(dto.getVentaOnline(), tarea, agrupaciones));
+                tareaAgrupacionVentaMapper.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
+                        dto.getVentaOnline(), tarea, agrupaciones));
     }
 
     @Override
     public void updateActivoVentaOnlineEntregaDomicilio(@Valid @NotNull final TareaDto tarea) {
         tareaAgrupacionVentaRepositoryCustom.updateActivo(tarea);
     }
+
 }

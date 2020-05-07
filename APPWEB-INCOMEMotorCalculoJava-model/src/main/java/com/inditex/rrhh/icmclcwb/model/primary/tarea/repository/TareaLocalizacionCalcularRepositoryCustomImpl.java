@@ -17,10 +17,10 @@ public class TareaLocalizacionCalcularRepositoryCustomImpl
 
     @Value("${app.envars.repository.batch-size.tarea-localizacion-calcular:${app.envars.repository.batch-size.default}}")
     private int batchSize;
-    
+
     @Value("#{primaryQuery['TareaLocalizacionCalcularRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Override
     public List<TareaLocalizacionCalcular> save(final List<TareaLocalizacionCalcular> src) {
         return saveJdbcBatchList(src, sqlSave, batchSize);

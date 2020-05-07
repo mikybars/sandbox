@@ -31,7 +31,7 @@ public class RunTareaRecolectarValidarAmbitoServiceImpl implements RunTareaRecol
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             CompletableFuture<List<String>> cfValidAmbito = tareaValidarAsyncService
-                    .validateAmbito(runTarea.getTarea().getId());
+                .validateAmbito(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfValidAmbito, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
             result.add(RunTareaValidarDto.builder().type(Tarea.class.getSimpleName()).build());

@@ -25,16 +25,16 @@ public class TareaPersonaCoeficienteServiceImplTest {
 
     @Mock
     private TareaPersonaCoeficienteRepositoryCustom tareaPersonaCoeficienteRepositoryCustom;
-    
+
     @InjectMocks
     private TareaPersonaCoeficienteServiceImpl tareaPersonaCoeficienteServiceImpl;
-    
+
     @Mock
     private TareaPersonaCoeficienteMapper tareaPersonaCoeficienteMapper;
-    
+
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
-    
+
     @Test
     public void saveTest() {
         TareaDto tarea = mock(TareaDto.class);
@@ -44,4 +44,5 @@ public class TareaPersonaCoeficienteServiceImplTest {
         tareaPersonaCoeficienteServiceImpl.save(empleados, tarea);
         verify(tareaPersonaCoeficienteRepositoryCustom, times(1)).save(any(List.class));
     }
+
 }

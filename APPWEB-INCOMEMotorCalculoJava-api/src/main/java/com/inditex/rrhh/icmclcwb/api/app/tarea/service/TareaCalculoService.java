@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 public interface TareaCalculoService {
 
-    void regularizarChallenge(@Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto);
+    void regularizarChallenge(@Valid @NotNull final RunTareaDto runTareaDto,
+            @Valid @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto);
 
 }

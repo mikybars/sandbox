@@ -33,11 +33,12 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
 
     private final static String SQL_AJUSTAR_BASE = "SQL CALCULAR BASE";
+
     private final static String SQL_AJUSTAR = "SQL CALCULAR";
-    
+
     @Mock
     private TareaCalculoPersonaService tareaCalculoPerosnaService;
-    
+
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -46,16 +47,17 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
 
     @Captor
     private ArgumentCaptor<String> sqlCaptor;
-    
+
     @InjectMocks
     private TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl;
-    
+
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl, "sqlAjustar", SQL_AJUSTAR, true);
-        FieldUtils.writeField(tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl, "sqlAjustarBase", SQL_AJUSTAR_BASE, true);
+        FieldUtils.writeField(tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl, "sqlAjustarBase",
+                SQL_AJUSTAR_BASE, true);
     }
-    
+
     @Test
     public void idsTest() {
         TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
@@ -65,12 +67,11 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
             .thenReturn(personas);
 
         TareaDto tarea = mock(TareaDto.class);
-        List<TareaCalculoPersonaDto> ids =
-                tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl.ids(tarea);
+        List<TareaCalculoPersonaDto> ids = tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl.ids(tarea);
 
         assertEquals(personas, ids);
     }
-    
+
     @Test
     public void getMapValuesTest() {
         AlgoritmoAjusteDto algoritmoAjuste = mock(AlgoritmoAjusteDto.class);
@@ -81,7 +82,8 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
         when(persona1.getCclIdPerson()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
 
-        Map<String, Object> result = tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl.getMapValues(algoritmoAjuste, tarea, persona1);
+        Map<String, Object> result = tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
+            .getMapValues(algoritmoAjuste, tarea, persona1);
         assertEquals(7, result.size());
 
         // idTarea
@@ -98,10 +100,13 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
         assertEquals(algoritmoAjuste.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE));
         // idTipoPolitica
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
-        assertEquals(TipoPoliticaEnum.MAXIMO_GARANTIZADO.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+        assertEquals(TipoPoliticaEnum.MAXIMO_GARANTIZADO.getId(),
+                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
         // idTipoPoliticaAjuste
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
-        assertEquals(Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4(), TipoPoliticaEnum.VACACIONES.getIdMeta4(), TipoPoliticaEnum.BAJA_IT.getIdMeta4()), 
+        assertEquals(
+                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4(), TipoPoliticaEnum.VACACIONES.getIdMeta4(),
+                        TipoPoliticaEnum.BAJA_IT.getIdMeta4()),
                 result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
         // inactivo
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_INACTIVO));

@@ -16,4 +16,5 @@ public class TipoUnidadTiempoDto implements Serializable {
     private String icmIdUnidadTiempo;
 
     private String nombre;
+
 }

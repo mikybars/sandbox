@@ -55,7 +55,7 @@ public class DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
 
         assertEquals(SQL_CALCULAR, result);
     }
-    
+
     @Test
     public void calcularTest() {
 
@@ -80,7 +80,8 @@ public class DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         directoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1)).info("Inicio :: DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                3);
         verify(tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
         verify(log, times(1)).info("Fin :: DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
@@ -113,7 +114,7 @@ public class DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
-    
+
 }

@@ -36,7 +36,8 @@ public class TareaaAmbitoGlobalLocalizacionPersonaRepositoryCustomImpl
     }
 
     @Override
-    public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalLocalizacionPersona entity) throws SQLException {
+    public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalLocalizacionPersona entity)
+            throws SQLException {
         pstmt.setString(1, entity.getStdIdWorkLocat());
         pstmt.setString(2, entity.getCclIdOrigen());
         pstmt.setString(3, entity.getCclIdPerson());

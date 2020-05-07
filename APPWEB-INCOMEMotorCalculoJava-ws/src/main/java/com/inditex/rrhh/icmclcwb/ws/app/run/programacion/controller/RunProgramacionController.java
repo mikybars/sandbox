@@ -21,14 +21,14 @@ import io.swagger.annotations.Authorization;
 @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
 public class RunProgramacionController {
 
-	@Autowired
-	private RunProgramacionService runProgramacionService;
+    @Autowired
+    private RunProgramacionService runProgramacionService;
 
-	@GetMapping
-	@PreAuthorize("hasAuthority('admin')")
-	@ApiOperation("Revisa si hay programaciones pendientes de lanzar y en caso afirmativo genera las acciones necesarias")
-	public List<RunProgramacionDto> create() {
-		return runProgramacionService.create();
-	}
+    @GetMapping
+    @PreAuthorize("hasAuthority('admin')")
+    @ApiOperation("Revisa si hay programaciones pendientes de lanzar y en caso afirmativo genera las acciones necesarias")
+    public List<RunProgramacionDto> create() {
+        return runProgramacionService.create();
+    }
 
 }

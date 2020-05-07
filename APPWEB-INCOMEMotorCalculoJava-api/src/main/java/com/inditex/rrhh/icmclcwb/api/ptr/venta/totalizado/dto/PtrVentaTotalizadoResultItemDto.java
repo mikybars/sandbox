@@ -12,30 +12,30 @@ import lombok.Data;
 @Data
 public class PtrVentaTotalizadoResultItemDto implements Serializable, CadenaVentaResultItemDto {
 
-	private static final long serialVersionUID = -2758503405995399894L;
+    private static final long serialVersionUID = -2758503405995399894L;
 
-	private String fecha;
+    private String fecha;
 
-	private Integer pais;
+    private Integer pais;
 
-	private Integer cadena;
+    private Integer cadena;
 
-	private Integer tienda;
+    private Integer tienda;
 
-	private Integer seccion;
+    private Integer seccion;
 
-	private Integer temporada;
+    private Integer temporada;
 
-	private Integer producto;
-	
-	private Integer empresa;
-	
-	private String operacion;
+    private Integer producto;
 
-	private BigDecimal importeSinIVA;
+    private Integer empresa;
 
-	private BigDecimal importeConIVA;
-	
-	private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
+    private String operacion;
+
+    private BigDecimal importeSinIVA;
+
+    private BigDecimal importeConIVA;
+
+    private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
 
 }

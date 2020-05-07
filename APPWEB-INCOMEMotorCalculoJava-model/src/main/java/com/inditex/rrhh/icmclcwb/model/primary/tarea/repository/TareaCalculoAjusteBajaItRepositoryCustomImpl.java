@@ -21,10 +21,10 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import lombok.Getter;
 
 @Repository
-public class TareaCalculoAjusteBajaItRepositoryCustomImpl 
-    extends AbstractTareaCalculoAjusteBaseRepositoryCustom
-    implements TareaCalculoAjusteBajaItRepositoryCustom{
-    
+public class TareaCalculoAjusteBajaItRepositoryCustomImpl
+        extends AbstractTareaCalculoAjusteBaseRepositoryCustom
+        implements TareaCalculoAjusteBajaItRepositoryCustom {
+
     @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.bajaIt']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
     @Getter
     private String sqlAjustar;
@@ -32,17 +32,19 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImpl
     @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.bajaIt']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
     @Getter
     private String sqlAjustarBase;
-    
+
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
     public List<TareaCalculoPersonaDto> ids(TareaDto tarea) {
-        return tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea, TipoPoliticaEnum.BAJA_IT.getIdMeta4());
+        return tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
+                TipoPoliticaEnum.BAJA_IT.getIdMeta4());
     }
 
     @Override
-    protected Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea, TareaCalculoPersonaDto persona) {
+    protected Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
+            TareaCalculoPersonaDto persona) {
         Map<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
@@ -59,7 +61,8 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImpl
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_AUSENCIA, TipoAusenciaEnum.BAJA_IT.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE, Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4()));
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
+                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4()));
         return map;
     }
 

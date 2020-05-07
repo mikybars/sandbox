@@ -27,7 +27,7 @@ import java.util.Set;
 @Data
 public class TareaLocalizacionPresupuesto {
 
-    //TODO [JAVIEREV] Introducir campos, si es que procede: cumplida
+    // TODO [JAVIEREV] Introducir campos, si es que procede: cumplida
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,8 +99,9 @@ public class TareaLocalizacionPresupuesto {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA", joinColumns = {
-        @JoinColumn(name = "ID_TAREA_LOCALIZACION_PRESUPUESTO") }, inverseJoinColumns = {
-        @JoinColumn(name = "ID_TAREA_PERSONA_ESTRUCTURA"), @JoinColumn(name = "TAREA_PERSONA_ESTRUCTURA")})
+            @JoinColumn(name = "ID_TAREA_LOCALIZACION_PRESUPUESTO") },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "ID_TAREA_PERSONA_ESTRUCTURA"), @JoinColumn(name = "TAREA_PERSONA_ESTRUCTURA") })
     private Set<TareaPersonaEstructura> estructura;
 
 }

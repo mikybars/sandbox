@@ -19,7 +19,7 @@ public class TipoPolitica {
     private Integer id;
 
     @NotBlank
-    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
+    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
     private String nombre;
 
     @NotBlank
@@ -29,4 +29,5 @@ public class TipoPolitica {
     @NotNull
     @Column(name = "PESO", nullable = false)
     private Integer peso;
+
 }

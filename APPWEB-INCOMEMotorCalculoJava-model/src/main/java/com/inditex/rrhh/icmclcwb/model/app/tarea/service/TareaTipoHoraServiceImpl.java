@@ -23,14 +23,15 @@ public class TareaTipoHoraServiceImpl implements TareaTipoHoraService {
 
     @Autowired
     private TareaTipoHoraMapper mapper;
-    
+
     @Autowired
     private TareaTipoHoraRepositoryCustom tareaTipoHoraRepositoryCustom;
 
     @Override
-    public List<TareaTipoHoraDto> save(@Valid @NotNull @NotEmpty final List<PtrPresenciaTiposHorasResultItemDto> dto, @Valid @NotNull final TareaDto tareaDto) {
+    public List<TareaTipoHoraDto> save(@Valid @NotNull @NotEmpty final List<PtrPresenciaTiposHorasResultItemDto> dto,
+            @Valid @NotNull final TareaDto tareaDto) {
         return mapper.tareaTareaTipoHoraListTotareaTipoHoraDtoList(tareaTipoHoraRepositoryCustom
-                .save(mapper.ptrPresenciaTipoHoraResponsesDtoToTareaTipoHoraDto(dto, tareaDto)));
+            .save(mapper.ptrPresenciaTipoHoraResponsesDtoToTareaTipoHoraDto(dto, tareaDto)));
     }
 
 }

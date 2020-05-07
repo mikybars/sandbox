@@ -22,45 +22,45 @@ public abstract class Meta4ClientAbstract<T> implements Serializable {
 
     protected String server;
 
-	@Value("${app.envars.meta4.config.timeout.connectTimeout}")
-	public long connectTimeout;
+    @Value("${app.envars.meta4.config.timeout.connectTimeout}")
+    public long connectTimeout;
 
-	@Value("${app.envars.meta4.config.timeout.receiveTimeout}")
-	public long receiveTimeout;
+    @Value("${app.envars.meta4.config.timeout.receiveTimeout}")
+    public long receiveTimeout;
 
-	protected abstract void setServer(String server);
+    protected abstract void setServer(String server);
 
-	protected abstract Meta4ClientAbstract<T> factory();
+    protected abstract Meta4ClientAbstract<T> factory();
 
-	public T build(Class<T> classType) {
-		JaxWsProxyFactoryBean pfb = new JaxWsProxyFactoryBean();
-		pfb.setServiceClass(classType);
-		pfb.setAddress(server);
-		LoggingFeature loggingFeature = new LoggingFeature();
+    public T build(Class<T> classType) {
+        JaxWsProxyFactoryBean pfb = new JaxWsProxyFactoryBean();
+        pfb.setServiceClass(classType);
+        pfb.setAddress(server);
+        LoggingFeature loggingFeature = new LoggingFeature();
         loggingFeature.setLimit(-1);
         loggingFeature.setPrettyLogging(true);
         pfb.getFeatures().add(loggingFeature);
-		
-		T result = (T) pfb.create();
 
-		((BindingProvider) result).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
-		((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
+        T result = (T) pfb.create();
 
-		HTTPConduit httpConduit = CxfUtils.getHTTPConduit(result);
+        ((BindingProvider) result).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
+        ((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
 
-		HTTPClientPolicy httpClientPolicy = new HTTPClientPolicy();
-		httpClientPolicy.setContentType(CxfConstants.CONTENT_TYPE);
-		httpClientPolicy.setAllowChunking(false);
-		httpClientPolicy.setConnectionTimeout(connectTimeout);
-		httpClientPolicy.setReceiveTimeout(receiveTimeout);
-		httpClientPolicy.setConnection(ConnectionType.KEEP_ALIVE);
-		httpConduit.setClient(httpClientPolicy);
+        HTTPConduit httpConduit = CxfUtils.getHTTPConduit(result);
 
-		TLSClientParameters tlsClientParameters = new TLSClientParameters();
-		tlsClientParameters.setSSLSocketFactory(HttpsURLConnection.getDefaultSSLSocketFactory());
-		httpConduit.setTlsClientParameters(tlsClientParameters);
+        HTTPClientPolicy httpClientPolicy = new HTTPClientPolicy();
+        httpClientPolicy.setContentType(CxfConstants.CONTENT_TYPE);
+        httpClientPolicy.setAllowChunking(false);
+        httpClientPolicy.setConnectionTimeout(connectTimeout);
+        httpClientPolicy.setReceiveTimeout(receiveTimeout);
+        httpClientPolicy.setConnection(ConnectionType.KEEP_ALIVE);
+        httpConduit.setClient(httpClientPolicy);
 
-		return result;
-	}
+        TLSClientParameters tlsClientParameters = new TLSClientParameters();
+        tlsClientParameters.setSSLSocketFactory(HttpsURLConnection.getDefaultSSLSocketFactory());
+        httpConduit.setTlsClientParameters(tlsClientParameters);
+
+        return result;
+    }
 
 }

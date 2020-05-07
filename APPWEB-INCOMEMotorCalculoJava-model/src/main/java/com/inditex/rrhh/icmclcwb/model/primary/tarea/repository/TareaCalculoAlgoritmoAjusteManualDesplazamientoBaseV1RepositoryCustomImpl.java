@@ -24,7 +24,8 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import lombok.Getter;
 
 @Repository
-public class TareaCalculoAlgoritmoAjusteManualDesplazamientoBaseV1RepositoryCustomImpl extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
+public class TareaCalculoAlgoritmoAjusteManualDesplazamientoBaseV1RepositoryCustomImpl
+        extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
         implements TareaCalculoAlgoritmoAjusteManualDesplazamientoBaseV1RepositoryCustom {
 
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualDesplazamientoBaseV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
@@ -34,13 +35,13 @@ public class TareaCalculoAlgoritmoAjusteManualDesplazamientoBaseV1RepositoryCust
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualDesplazamientoBaseV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
     @Getter
     private String sqlCalcularBase;
-    
+
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Autowired
     private TipoDatoService tipoDatoService;
-    
+
     @Override
     public List<TareaCalculoPersonaDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
         return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
@@ -62,15 +63,21 @@ public class TareaCalculoAlgoritmoAjusteManualDesplazamientoBaseV1RepositoryCust
         map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         map.put(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION, TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION.getId());
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION,
+                TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION
+                    .getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_COMISION, TipoComisionEnum.AJUSTE_MANUAL.getId());
-        map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, algoritmo.getTipoComision().stream().map(TipoComisionDto::getId).collect(Collectors.toList()));
-        map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, algoritmo.getTipoCalculo().stream().map(TipoCalculoDto::getId).collect(Collectors.toList()));
-        map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO, algoritmo.getDesplazamiento() ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, algoritmo.getDesplazamientoBase() ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION,
+                algoritmo.getTipoComision().stream().map(TipoComisionDto::getId).collect(Collectors.toList()));
+        map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO,
+                algoritmo.getTipoCalculo().stream().map(TipoCalculoDto::getId).collect(Collectors.toList()));
+        map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO, algoritmo.getDesplazamiento()
+                ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, algoritmo.getDesplazamientoBase()
+                ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         return map;
- 
+
     }
 
 }

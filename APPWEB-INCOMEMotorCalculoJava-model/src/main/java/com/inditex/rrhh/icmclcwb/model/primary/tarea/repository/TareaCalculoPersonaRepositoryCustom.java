@@ -27,6 +27,7 @@ public interface TareaCalculoPersonaRepositoryCustom {
 
     List<TareaCalculoPersona> findByAlgoritmo(@NotNull final TareaDto tarea, @NotBlank final AlgoritmoDto algoritmo);
 
-    List<TareaCalculoPersona> findByTareaAndIdEstadoAndIdTipoPolitica(@NotNull final TareaDto tarea, @NotNull @Positive String idTipoPolitica);
+    List<TareaCalculoPersona> findByTareaAndIdEstadoAndIdTipoPolitica(@NotNull final TareaDto tarea,
+            @NotNull @Positive String idTipoPolitica);
 
 }

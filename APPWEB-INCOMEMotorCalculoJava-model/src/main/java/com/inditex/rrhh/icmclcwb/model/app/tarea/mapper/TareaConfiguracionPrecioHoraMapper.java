@@ -16,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaConfiguracionPr
 @Mapper
 @DecoratedWith(value = TareaConfiguracionPrecioHoraDecorator.class)
 public abstract class TareaConfiguracionPrecioHoraMapper {
-    
+
     public abstract TareaConfiguracionPrecioHora tareaConfiguracionPrecioHoraDtoToTareaConfiguracionPrecioHora(
             TareaConfiguracionPrecioHoraDto src);
 
@@ -28,7 +28,7 @@ public abstract class TareaConfiguracionPrecioHoraMapper {
 
     public abstract List<TareaConfiguracionPrecioHoraDto> tareaConfiguracionPrecioHoraToTareaConfiguracionPrecioHoraDto(
             List<TareaConfiguracionPrecioHora> src);
-    
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "tarea.id", source = "tarea.id")
     @Mapping(target = "icmCkTpHoraComis", source = "src.idTipoHoraComis")
@@ -38,9 +38,10 @@ public abstract class TareaConfiguracionPrecioHoraMapper {
     @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
     public abstract TareaConfiguracionPrecioHora confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(
             ConfPrecioHoraResultItemDto src, TareaDto tarea);
-    
+
     public List<TareaConfiguracionPrecioHora> confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(
             List<ConfPrecioHoraResultItemDto> src, TareaDto tarea) {
-            throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
+
 }

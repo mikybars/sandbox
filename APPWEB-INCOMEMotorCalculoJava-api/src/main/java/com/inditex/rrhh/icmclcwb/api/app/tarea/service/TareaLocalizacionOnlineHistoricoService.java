@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.Tie
 
 public interface TareaLocalizacionOnlineHistoricoService {
 
-    List<LocalizacionOnlineDto> save(@Valid @NotNull @NotEmpty final List<TiendaOnlineResultItemDto> src, @Valid @NotNull final TareaDto tarea);
+    List<LocalizacionOnlineDto> save(@Valid @NotNull @NotEmpty final List<TiendaOnlineResultItemDto> src,
+            @Valid @NotNull final TareaDto tarea);
 
 }

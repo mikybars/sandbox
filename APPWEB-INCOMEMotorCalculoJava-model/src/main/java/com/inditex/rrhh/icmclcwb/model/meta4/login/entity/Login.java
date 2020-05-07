@@ -24,10 +24,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -41,34 +43,33 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "aiSUser",
-    "aiSPassword",
-    "aiSLanguage"
+        "aiSUser",
+        "aiSPassword",
+        "aiSLanguage"
 })
 @XmlRootElement(name = "login")
-public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "ai_sUser", required = true)
     protected String aiSUser;
+
     @XmlElement(name = "ai_sPassword", required = true)
     protected String aiSPassword;
+
     @XmlElement(name = "ai_sLanguage", required = true)
     protected String aiSLanguage;
 
     /**
      * Obtiene el valor de la propiedad aiSUser.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     *
      */
     public String getAiSUser() {
         return aiSUser;
@@ -76,11 +77,8 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
 
     /**
      * Define el valor de la propiedad aiSUser.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * @param value allowed object is {@link String }
+     *
      */
     public void setAiSUser(String value) {
         this.aiSUser = value;
@@ -88,11 +86,8 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
 
     /**
      * Obtiene el valor de la propiedad aiSPassword.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     *
      */
     public String getAiSPassword() {
         return aiSPassword;
@@ -100,11 +95,8 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
 
     /**
      * Define el valor de la propiedad aiSPassword.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * @param value allowed object is {@link String }
+     *
      */
     public void setAiSPassword(String value) {
         this.aiSPassword = value;
@@ -112,11 +104,8 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
 
     /**
      * Obtiene el valor de la propiedad aiSLanguage.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     *
      */
     public String getAiSLanguage() {
         return aiSLanguage;
@@ -124,18 +113,16 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
 
     /**
      * Define el valor de la propiedad aiSLanguage.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * @param value allowed object is {@link String }
+     *
      */
     public void setAiSLanguage(String value) {
         this.aiSLanguage = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -147,7 +134,9 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
             lhsAiSUser = this.getAiSUser();
             String rhsAiSUser;
             rhsAiSUser = that.getAiSUser();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSUser", lhsAiSUser), LocatorUtils.property(thatLocator, "aiSUser", rhsAiSUser), lhsAiSUser, rhsAiSUser, (this.aiSUser!= null), (that.aiSUser!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSUser", lhsAiSUser),
+                    LocatorUtils.property(thatLocator, "aiSUser", rhsAiSUser), lhsAiSUser, rhsAiSUser,
+                    (this.aiSUser != null), (that.aiSUser != null))) {
                 return false;
             }
         }
@@ -156,7 +145,9 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
             lhsAiSPassword = this.getAiSPassword();
             String rhsAiSPassword;
             rhsAiSPassword = that.getAiSPassword();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSPassword", lhsAiSPassword), LocatorUtils.property(thatLocator, "aiSPassword", rhsAiSPassword), lhsAiSPassword, rhsAiSPassword, (this.aiSPassword!= null), (that.aiSPassword!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSPassword", lhsAiSPassword),
+                    LocatorUtils.property(thatLocator, "aiSPassword", rhsAiSPassword), lhsAiSPassword, rhsAiSPassword,
+                    (this.aiSPassword != null), (that.aiSPassword != null))) {
                 return false;
             }
         }
@@ -165,7 +156,9 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
             lhsAiSLanguage = this.getAiSLanguage();
             String rhsAiSLanguage;
             rhsAiSLanguage = that.getAiSLanguage();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSLanguage", lhsAiSLanguage), LocatorUtils.property(thatLocator, "aiSLanguage", rhsAiSLanguage), lhsAiSLanguage, rhsAiSLanguage, (this.aiSLanguage!= null), (that.aiSLanguage!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSLanguage", lhsAiSLanguage),
+                    LocatorUtils.property(thatLocator, "aiSLanguage", rhsAiSLanguage), lhsAiSLanguage, rhsAiSLanguage,
+                    (this.aiSLanguage != null), (that.aiSLanguage != null))) {
                 return false;
             }
         }
@@ -195,17 +188,17 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
         {
             String theAiSUser;
             theAiSUser = this.getAiSUser();
-            strategy.appendField(locator, this, "aiSUser", buffer, theAiSUser, (this.aiSUser!= null));
+            strategy.appendField(locator, this, "aiSUser", buffer, theAiSUser, (this.aiSUser != null));
         }
         {
             String theAiSPassword;
             theAiSPassword = this.getAiSPassword();
-            strategy.appendField(locator, this, "aiSPassword", buffer, theAiSPassword, (this.aiSPassword!= null));
+            strategy.appendField(locator, this, "aiSPassword", buffer, theAiSPassword, (this.aiSPassword != null));
         }
         {
             String theAiSLanguage;
             theAiSLanguage = this.getAiSLanguage();
-            strategy.appendField(locator, this, "aiSLanguage", buffer, theAiSLanguage, (this.aiSLanguage!= null));
+            strategy.appendField(locator, this, "aiSLanguage", buffer, theAiSLanguage, (this.aiSLanguage != null));
         }
         return buffer;
     }
@@ -215,17 +208,20 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
         {
             String theAiSUser;
             theAiSUser = this.getAiSUser();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSUser", theAiSUser), currentHashCode, theAiSUser, (this.aiSUser!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSUser", theAiSUser), currentHashCode,
+                    theAiSUser, (this.aiSUser != null));
         }
         {
             String theAiSPassword;
             theAiSPassword = this.getAiSPassword();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSPassword", theAiSPassword), currentHashCode, theAiSPassword, (this.aiSPassword!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSPassword", theAiSPassword),
+                    currentHashCode, theAiSPassword, (this.aiSPassword != null));
         }
         {
             String theAiSLanguage;
             theAiSLanguage = this.getAiSLanguage();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSLanguage", theAiSLanguage), currentHashCode, theAiSLanguage, (this.aiSLanguage!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSLanguage", theAiSLanguage),
+                    currentHashCode, theAiSLanguage, (this.aiSLanguage != null));
         }
         return currentHashCode;
     }
@@ -245,15 +241,17 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof Login) {
             final Login copy = ((Login) draftCopy);
             {
-                Boolean aiSUserShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSUser!= null));
+                Boolean aiSUserShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSUser != null));
                 if (aiSUserShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceAiSUser;
                     sourceAiSUser = this.getAiSUser();
-                    String copyAiSUser = ((String) strategy.copy(LocatorUtils.property(locator, "aiSUser", sourceAiSUser), sourceAiSUser, (this.aiSUser!= null)));
+                    String copyAiSUser = ((String) strategy.copy(
+                            LocatorUtils.property(locator, "aiSUser", sourceAiSUser), sourceAiSUser,
+                            (this.aiSUser != null)));
                     copy.setAiSUser(copyAiSUser);
                 } else {
                     if (aiSUserShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -262,11 +260,14 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
                 }
             }
             {
-                Boolean aiSPasswordShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSPassword!= null));
+                Boolean aiSPasswordShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.aiSPassword != null));
                 if (aiSPasswordShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceAiSPassword;
                     sourceAiSPassword = this.getAiSPassword();
-                    String copyAiSPassword = ((String) strategy.copy(LocatorUtils.property(locator, "aiSPassword", sourceAiSPassword), sourceAiSPassword, (this.aiSPassword!= null)));
+                    String copyAiSPassword = ((String) strategy.copy(
+                            LocatorUtils.property(locator, "aiSPassword", sourceAiSPassword), sourceAiSPassword,
+                            (this.aiSPassword != null)));
                     copy.setAiSPassword(copyAiSPassword);
                 } else {
                     if (aiSPasswordShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -275,11 +276,14 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
                 }
             }
             {
-                Boolean aiSLanguageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSLanguage!= null));
+                Boolean aiSLanguageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.aiSLanguage != null));
                 if (aiSLanguageShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceAiSLanguage;
                     sourceAiSLanguage = this.getAiSLanguage();
-                    String copyAiSLanguage = ((String) strategy.copy(LocatorUtils.property(locator, "aiSLanguage", sourceAiSLanguage), sourceAiSLanguage, (this.aiSLanguage!= null)));
+                    String copyAiSLanguage = ((String) strategy.copy(
+                            LocatorUtils.property(locator, "aiSLanguage", sourceAiSLanguage), sourceAiSLanguage,
+                            (this.aiSLanguage != null)));
                     copy.setAiSLanguage(copyAiSLanguage);
                 } else {
                     if (aiSLanguageShouldBeCopiedAndSet == Boolean.FALSE) {

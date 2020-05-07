@@ -47,7 +47,7 @@ public class RunTareaServiceImpl implements RunTareaService {
 
     @Autowired
     private RunTareaRegularizarService runTareaRegularizarService;
-    
+
     @Autowired
     private RunTareaRegularizarChallengeService runTareaRegularizarChallengeService;
 
@@ -55,8 +55,10 @@ public class RunTareaServiceImpl implements RunTareaService {
     private RunTareaAjustarService runTareaAjustarService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaService.run.timer", metricGroupName = "RunTareaServiceGroup", metricDescription = "RunTareaService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaService.run.counter", metricGroupName = "RunTareaServiceGroup", metricDescription = "RunTareaService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaService.run.timer", metricGroupName = "RunTareaServiceGroup",
+            metricDescription = "RunTareaService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaService.run.counter", metricGroupName = "RunTareaServiceGroup",
+            metricDescription = "RunTareaService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         try {

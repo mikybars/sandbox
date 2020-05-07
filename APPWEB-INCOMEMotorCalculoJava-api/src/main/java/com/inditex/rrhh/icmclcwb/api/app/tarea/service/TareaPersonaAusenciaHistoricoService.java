@@ -12,7 +12,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.Ausenci
 
 public interface TareaPersonaAusenciaHistoricoService {
 
-    List<TareaPersonaAusenciaHistoricoDto> saveAusenciaResultItemDto(@Valid @NotNull @NotEmpty final List<AusenciasResultItemDto> src,
+    List<TareaPersonaAusenciaHistoricoDto> saveAusenciaResultItemDto(
+            @Valid @NotNull @NotEmpty final List<AusenciasResultItemDto> src,
             @Valid @NotNull final TareaDto tarea);
 
     List<TareaPersonaAusenciaHistoricoDto> save(

@@ -36,10 +36,10 @@ public class GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
 
     @Mock
     private TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom tareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom;
-    
+
     @InjectMocks
     private GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo globalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo;
-    
+
     @Mock
     private RunAlgoritmoPropertiesDto runAlgoritmoPropertiesDto;
 
@@ -49,8 +49,9 @@ public class GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
     @Test
     public void getSqlCalcularTest() {
         when(tareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
-                .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
-            assertEquals(SQL_CALCULAR, globalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
+            .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
+        assertEquals(SQL_CALCULAR,
+                globalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
     }
 
     @Test
@@ -77,12 +78,14 @@ public class GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         globalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Inicio :: GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
         verify(tareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Fin :: GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
     }
-    
+
     @Test
     public void calcularExceptionTest() {
 
@@ -110,6 +113,7 @@ public class GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
         verify(log, times(1))
             .error("GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
+
 }

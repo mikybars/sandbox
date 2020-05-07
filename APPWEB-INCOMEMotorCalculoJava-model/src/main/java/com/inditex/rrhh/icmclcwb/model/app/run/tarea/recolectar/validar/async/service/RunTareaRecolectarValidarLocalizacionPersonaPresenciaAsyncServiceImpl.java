@@ -22,7 +22,7 @@ public class RunTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncServiceIm
     @Override
     public CompletableFuture<List<RunTareaValidarDto>> run(RunTareaDto runTarea) {
         return CompletableFuture
-                .completedFuture(runTareaRecolectarValidarLocalizacionPersonaPresenciaService.run(runTarea));
+            .completedFuture(runTareaRecolectarValidarLocalizacionPersonaPresenciaService.run(runTarea));
     }
 
 }

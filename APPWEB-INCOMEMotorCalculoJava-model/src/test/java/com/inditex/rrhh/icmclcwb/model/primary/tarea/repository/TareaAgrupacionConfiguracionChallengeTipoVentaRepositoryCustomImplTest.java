@@ -52,33 +52,37 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImplT
 
     @Captor
     private ArgumentCaptor<MapSqlParameterSource> paramsCaptor;
-    
+
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl, "batchSize", 100, true);
-        FieldUtils.writeField(tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl, "sqlSave", SQL_SAVE, true);
+        FieldUtils.writeField(tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl, "batchSize", 100,
+                true);
+        FieldUtils.writeField(tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl, "sqlSave", SQL_SAVE,
+                true);
     }
-    
+
     @Test
     public void save() {
-        List<TareaAgrupacionConfiguracionChallengeTipoVenta> items = Collections.singletonList(mock(TareaAgrupacionConfiguracionChallengeTipoVenta.class));
+        List<TareaAgrupacionConfiguracionChallengeTipoVenta> items = Collections
+            .singletonList(mock(TareaAgrupacionConfiguracionChallengeTipoVenta.class));
         tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl.save(items);
         verify(template).batchUpdate(sqlCaptor.capture(), any(BatchPreparedStatementSetter.class));
         assertEquals(SQL_SAVE, sqlCaptor.getValue());
     }
-    
+
     @Test
     public void setParametersTest() throws SQLException {
-            
+
         Tarea tarea = mock(Tarea.class);
         when(tarea.getId()).thenReturn(809L);
         TipoPresupuesto tipoPresupuesto = mock(TipoPresupuesto.class);
         tipoPresupuesto.setId(1);
         TipoDato tipoDato = mock(TipoDato.class);
         tipoDato.setId(1);
-        TipoVentaConceptoChallenge tipoVentaConceptoChallenge = mock(TipoVentaConceptoChallenge.class); 
+        TipoVentaConceptoChallenge tipoVentaConceptoChallenge = mock(TipoVentaConceptoChallenge.class);
         tipoVentaConceptoChallenge.setId(1L);
-        TareaAgrupacionConfiguracionChallengeTipoVenta presupuesto = mock(TareaAgrupacionConfiguracionChallengeTipoVenta.class);
+        TareaAgrupacionConfiguracionChallengeTipoVenta presupuesto = mock(
+                TareaAgrupacionConfiguracionChallengeTipoVenta.class);
         when(presupuesto.getTarea()).thenReturn(tarea);
         when(presupuesto.getIcmIdAgrupacionOnline()).thenReturn(1L);
         when(presupuesto.getTipoVentaConceptoChallenge()).thenReturn(tipoVentaConceptoChallenge);
@@ -96,5 +100,5 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImplT
         verify(pstmt, times(1)).setObject(5, presupuesto.getFechaFin());
         verify(pstmt, times(1)).setString(6, presupuesto.getCclIdOrigen());
     }
-    
+
 }

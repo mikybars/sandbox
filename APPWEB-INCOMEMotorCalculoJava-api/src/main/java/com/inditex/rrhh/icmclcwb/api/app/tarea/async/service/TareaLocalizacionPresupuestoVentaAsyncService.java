@@ -22,14 +22,19 @@ public interface TareaLocalizacionPresupuestoVentaAsyncService {
 
     CompletableFuture<Void> saveVentaCongeladaResultItemDto(List<VentaCongeladaResultItemDto> src, TareaDto tarea);
 
-    CompletableFuture<Void> savePtrVentaTotalizadoResponse(PtrVentaTotalizadoResponseDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
+    CompletableFuture<Void> savePtrVentaTotalizadoResponse(PtrVentaTotalizadoResponseDto src,
+            IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
 
-    CompletableFuture<Void> savePtrVentaOnlineIpodResponse(PtrVentaOnlineIpodResponseDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
+    CompletableFuture<Void> savePtrVentaOnlineIpodResponse(PtrVentaOnlineIpodResponseDto src,
+            IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
 
-    CompletableFuture<Void> savePtrVentaOnlinePickingResponse(PtrVentaOnlinePickingResponseDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
-    
-    CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(PtrVentaOnlineEntregaTiendaResponseDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
+    CompletableFuture<Void> savePtrVentaOnlinePickingResponse(PtrVentaOnlinePickingResponseDto src,
+            IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
 
-    CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(PtrVentaOnlineEntregaDomicilioResponseDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
+    CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(PtrVentaOnlineEntregaTiendaResponseDto src,
+            IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
+
+    CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(PtrVentaOnlineEntregaDomicilioResponseDto src,
+            IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
 
 }

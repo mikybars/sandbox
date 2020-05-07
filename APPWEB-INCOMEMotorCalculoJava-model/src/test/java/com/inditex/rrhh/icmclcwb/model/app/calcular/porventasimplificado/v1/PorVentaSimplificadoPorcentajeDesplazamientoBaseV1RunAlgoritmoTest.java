@@ -31,8 +31,7 @@ public class PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmoTest 
     private Logger log;
 
     @Mock
-    private TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoBaseV1RepositoryCustom
-        tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoBaseV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoBaseV1RepositoryCustom tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoBaseV1RepositoryCustom;
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -41,15 +40,15 @@ public class PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmoTest 
     private RunAlgoritmoPropertiesDto runAlgoritmoPropertiesDto;
 
     @InjectMocks
-    private PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo
-        porVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo;
+    private PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo porVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo;
 
     @Test
     public void getSqlCalcularTest() {
         when(tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoBaseV1RepositoryCustom
             .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
 
-        String result = porVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto());
+        String result = porVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo
+            .getSqlCalcular(new AlgoritmoDto());
 
         assertEquals(SQL_CALCULAR, result);
     }
@@ -78,10 +77,12 @@ public class PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmoTest 
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         porVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Inicio :: PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
         verify(tareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoBaseV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
+        verify(log, times(1))
+            .info("Fin :: PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", 3);
     }
 
     @Test
@@ -109,9 +110,10 @@ public class PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmoTest 
         porVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
         verify(log, times(1))
-            .error("PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
+            .error("PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", 2,
+                    exception);
         verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
 
 }

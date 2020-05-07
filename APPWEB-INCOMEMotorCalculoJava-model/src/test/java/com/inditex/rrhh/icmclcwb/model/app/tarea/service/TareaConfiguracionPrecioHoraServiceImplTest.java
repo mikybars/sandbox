@@ -30,10 +30,10 @@ public class TareaConfiguracionPrecioHoraServiceImplTest {
 
     @InjectMocks
     private TareaConfiguracionPrecioHoraServiceImpl tareaLocalizacionPresupuestoService;
-    
+
     @Mock
     private TareaConfiguracionPrecioHoraMapper tareaConfiguracionPrecioHoraMapper;
-    
+
     @Mock
     private TareaConfiguracionPrecioHoraDecorator tareaConfiguracionPrecioHoraDecorator;
 
@@ -50,7 +50,7 @@ public class TareaConfiguracionPrecioHoraServiceImplTest {
         verify(tareaConfiguracionPrecioHoraRepositoryCustomImpl, times(1)).save(any(List.class));
 
     }
-    
+
     @Test
     public void saveConfPrecioHoraResultItemDtoTest() {
         TareaDto tarea = mock(TareaDto.class);
