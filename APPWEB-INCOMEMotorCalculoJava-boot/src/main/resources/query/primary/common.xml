@@ -351,7 +351,7 @@
 <entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio"><![CDATA[
 UPDATE TAREA_LOCALIZACION_PRESENCIA
 SET ES_ACTIVO = :activo
-WHERE ID_TAREA = :idTarea 
+WHERE ID_TAREA = :idTarea a
 AND MINUTOS = :minutos
 ]]></entry>
 
@@ -1690,6 +1690,7 @@ GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESE
                         PRESENCIA.CCL_ID_COD_ORIGEN,
                         PRESENCIA.CCL_ID_SECCION,
                         PRESENCIA.CCL_ID_PERSON,
+                        PRESENCIA.COD_TIPO_HORA,                        
                         PRESENCIA.FECHA
                 ORDER BY TIPO_PRESENCIA.PESO DESC) AS ROW,
                  PRESENCIA.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA,
@@ -3315,7 +3316,6 @@ FROM (
     ON T.ID_TAREA = TTH.ID_TAREA
     AND TTH.COD_TIPO_HORA = TLPP.COD_TIPO_HORA
   WHERE T.ID_TAREA = :idTarea
-  AND TPE.ICM_ID_TP_CALCULO IN (:tiposCalculo)
   AND TTH.ES_EXCLUIDO_CALCULO = :excluidoCalculo
   AND TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_GRUPO_DATO IN (:idTipoGrupoDato)
 ) AS INDICADOR

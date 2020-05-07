@@ -129,7 +129,7 @@ public class TareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustomImplTest
 
         Map<String, Object> result = tareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom.getMapValues(algoritmo, tarea, persona1);
 
-        assertEquals(17, result.size());
+        assertEquals(18, result.size());
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -236,7 +236,7 @@ public class TareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustomImplTest
         assertEquals(2, values.length);
         for (int i = 0; i<values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(17, value.getValues().size());
+            assertEquals(18, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
