@@ -133,7 +133,7 @@ public class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImpl
         // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
         verify(tipoDatoService)
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        assertEquals(14, result.size());
+        assertEquals(15, result.size());
         // idTarea
         assertTrue(result.containsKey(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), result.get(SQL_PARAM_ID_TAREA));
@@ -220,7 +220,7 @@ public class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImpl
         assertEquals(2, values.length);
         for (int i = 0; i < values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(14, value.getValues().size());
+            assertEquals(15, value.getValues().size());
             // idTarea
             assertTrue(value.hasValue(SQL_PARAM_ID_TAREA));
             assertEquals(tarea.getId(), value.getValue(SQL_PARAM_ID_TAREA));

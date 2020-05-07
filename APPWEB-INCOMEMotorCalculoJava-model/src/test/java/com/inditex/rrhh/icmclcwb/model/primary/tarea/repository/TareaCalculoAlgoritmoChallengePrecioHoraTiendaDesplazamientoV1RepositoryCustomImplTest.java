@@ -115,7 +115,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoV1Repos
 
         // Parámetros de la consulta: activo, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod,
         // comisionable, calcula
-        assertEquals(13, result.size());
+        assertEquals(14, result.size());
         // idTarea
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
@@ -204,7 +204,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoV1Repos
         assertEquals(2, values.length);
         for (int i = 0; i < values.length; i++) {
             MapSqlParameterSource value = values[i];
-            assertEquals(13, value.getValues().size());
+            assertEquals(14, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
             assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
