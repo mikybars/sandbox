@@ -96,7 +96,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
         return runProgramacion;
     }
 
-    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<RunProgramacionDto> create() {
         List<RunProgramacionDto> result = new ArrayList<>();
