@@ -1,6 +1,6 @@
 app:
   limits:
-    cpu: 2
+    cpu: 1
     memory: 4096Mi
   context_path_builder:
     enabled: true
