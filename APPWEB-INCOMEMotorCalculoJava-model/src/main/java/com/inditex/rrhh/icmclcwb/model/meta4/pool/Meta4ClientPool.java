@@ -68,6 +68,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         this.pool = Pool.from(new Meta4ClientReallocator(meta4ClientFactory))
             .setSize(meta4ClientFactory.getMeta4ClientProperties().getSize())
             .setExpiration(new Meta4ClientExpiration())
+            .setBackgroundExpirationEnabled(false)
             .build();
     }
 
