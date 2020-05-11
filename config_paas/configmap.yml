@@ -143,9 +143,10 @@ amiga:
             connectionTimeout: 300
             commandTimeout: 300
             interruptProcessingMode: 2
-    hibernate:
-      primary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
+    jpa:
+      properties:
+        hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
+        hibernate.default_schema: GESTION_COMISION
 app:
   envars:
     calculo:
