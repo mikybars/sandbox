@@ -31,6 +31,8 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     public RunMantenimientoLimpiezaDto run() {
         List<IdTareaDto> idTarea = tareaService.findLimpieza();
         idTarea.stream().forEach(senderLimpieza::send);
+        //idTarea.stream().parallel().forEach(senderLimpieza::send);
+        //idTarea.parallelStream().forEach(senderLimpieza::send);
         return RunMantenimientoLimpiezaDto.builder().idTarea(idTarea).build();
     }
 
