@@ -109,6 +109,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
         return runProgramacion;
     }
 
+    @Auditoria
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<RunProgramacionDto> create() {
