@@ -29,16 +29,16 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public RunMantenimientoLimpiezaDto run() {
-        List<IdTareaDto> idTarea = tareaService.findLimpieza();
-        idTarea.stream().forEach(senderLimpieza::send);
+        final List<IdTareaDto> idTarea = this.tareaService.findLimpieza();
+        idTarea.parallelStream().forEach(this.senderLimpieza::send);
         return RunMantenimientoLimpiezaDto.builder().idTarea(idTarea).build();
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {
-        List<IdTareaDto> idTarea = tareaService.findLimpiezaByIdTarea(id);
-        idTarea.stream().forEach(senderLimpieza::send);
+        final List<IdTareaDto> idTarea = this.tareaService.findLimpiezaByIdTarea(id);
+        idTarea.parallelStream().forEach(this.senderLimpieza::send);
         return RunMantenimientoLimpiezaDto.builder().idTarea(idTarea).build();
     }
 
