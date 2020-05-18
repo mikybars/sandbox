@@ -5,21 +5,21 @@
 <entry key="TareaLocalizacionPresenciaRepositoryCustom.save">
     <![CDATA[
     INSERT INTO TAREA_LOCALIZACION_PRESENCIA (FECHA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, MINUTOS, ID_TIPO_DATO, ES_ACTIVO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (:fecha, :cclIdCodOrigen, :cclIdSeccion, :minutos, :tipoDato.id, :activo, :tarea.id, :cclIdCadena, :pk.fechaInicioPeriodo)
 ]]>
 </entry>
 
 <entry key="TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_DESPLAZAMIENTO (STD_ID_WORK_LOCAT, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, ID_TAREA)
-        VALUES(?, ?, ?, ?, ?) 
+        VALUES(:stdIdWorkLocat, :cclIdOrigen, :cclIdPerson, :stdIdLegEnt, :tarea.id) 
     ]]>
 </entry>
 
 <entry key="TareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, ID_TAREA)
-        VALUES(?, ?, ?, ?, ?) 
+        VALUES(:cclIdCodOrigen, :cclIdOrigen, :cclIdPerson, :stdIdLegEnt, :tarea.id) 
     ]]>
 </entry>
 
@@ -33,7 +33,7 @@
 <entry key="TareaPersonaAusenciaHistoricoRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_PERSONA_AUSENCIA_HISTORICO (FECHA_FIN, FECHA_INICIO, CCL_ID_PERSON, STD_OR_HR_PERIOD, ID_TIPO_AUSENCIA, CCL_ID_ORIGEN, ID_TAREA)
-        VALUES(?, ?, ?, ?, ?, ?, ?)
+        VALUES(:fechaFin, :fechaInicio, :cclIdPerson, :stdOrHrPeriod, :tipoAusencia.id, :cclIdOrigen, :tarea.id)
     ]]>
 </entry>
 
@@ -1841,21 +1841,21 @@ AND ID_TIPO_DATO IN (
 <entry key="TareaPersonaCoeficienteRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_PERSONA_COEFICIENTE (COEFICIENTE, STD_ID_HR, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA_INICIO_PARCIAL, FECHA_FIN_PARCIAL, FECHA_INICIO_COMPLETA, FECHA_FIN_COMPLETA, ID_TAREA)
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES(:coeficiente, :stdIdHr, :cclIdPerson, :stdOrHrPeriod, :fechaInicioPar, :fechaFinPar, :fechaInicioCom, :fechaFinCom, :tarea.id)
     ]]>
 </entry>
 
 <entry key="TareaLocalizacionFestivoRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_FESTIVO (ID_TAREA, STD_ID_WORK_LOCAT, FECHA )
-        VALUES(?, ?, ?)
+        VALUES(:tarea.id, :stdIdWorkLocat, :fecha)
     ]]>
 </entry>
 
 <entry key="TareaLocalizacionCalcularRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_CALCULAR (ID_TAREA, STD_ID_WORK_LOCAT, CCL_ID_COD_ORIGEN, ES_CALCULA, FECHA_INICIO, FECHA_FIN )
-        VALUES(?, ?, ?, ?, ?, ?)
+        VALUES(:tarea.id, :stdIdWorkLocat, :cclIdCodOrigen, :calcula, :fechaInicio, :fechaFin)
     ]]>
 </entry>
 
@@ -1874,92 +1874,91 @@ AND ID_TIPO_DATO IN (
 <entry key="TareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA_MANUAL (STD_ID_WORK_LOCAT, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, ID_TAREA)
-        VALUES(?, ?, ?, ?, ?)
+        VALUES(:stdIdWorkLocat, :cclIdOrigen, :cclIdPerson, :stdIdLegEnt, :tarea.id)
     ]]>
 </entry>
 
 <entry key="TareaAgrupacionConfiguracionRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_AGRUPACION_CONFIGURACION (ID_TAREA, CCL_ID_ORIGEN, ICM_ID_AGRUPACION_ONLINE, FECHA_INICIO, FECHA_FIN, PORCENTAJE_INCLUSION, ID_TIPO_VENTA_CONCEPTO)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        VALUES (:tarea.id, :cclIdOrigen, :icmIdAgrupacionOnline, :fechaInicio, :fechaFin, :porcentajeInclusion, :tipoVentaConcepto.id)
     ]]>
 </entry>
 
 <entry key="TareaAgrupacionCadenaRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_AGRUPACION_CADENA (ID_TAREA, ICM_ID_AGRUPACION_ONLINE, CCL_ID_CADENA, ES_MULTIPLE, CCL_ID_ORIGEN)
-        VALUES (?, ?, ?, ?, ?)
+        VALUES (:tarea.id, :icmIdAgrupacionOnline, :cclIdCadena, :multiple, :cclIdOrigen)
     ]]>
 </entry>
 
 <entry key="TareaLocalizacionOnlineHistoricoRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_ONLINE_HISTORICO (ID_TAREA, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, CCL_ID_ORIGEN, STD_ID_LEG_ENT, CCL_ID_CADENA, FECHA_INICIO, FECHA_FIN)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (:tarea.id, :cclIdCodOrigen, :stdIdWorkLocat, :cclIdOrigen, :stdIdLegEnt, :cclIdCadena, :fechaInicio, :fechaFin)
     ]]>
 </entry>
 
 <entry key="TareaTipoHoraRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_TIPO_HORA (ES_EXCLUIDO_CALCULO, ES_EXCLUIDO_DENOMINADOR, ES_INCLUIDO_VENTA, ES_INCLUIDO_CHALLENGE, ES_INCLUIDO_ECOMMERCE, COD_TIPO_HORA, ID_TAREA)
-VALUES (?, ?, ?, ?, ?, ?, ?)
+VALUES (:excluidoCalculo, :excluidoDenominador, :incluidoVenta, :incluidoChallenge, :incluidoEcommerce, :idTipoHora, :tarea.id)
     ]]>
 </entry>
-
 
 <entry key="TareaLocalizacionVentaRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TIPO_DATO, ES_ACTIVO, ID_TAREA, FECHA_INICIO_PERIODO)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES (:fecha, :cclIdCadena, :cclIdCodOrigen, :cclIdSeccion, :importeSinImpuestos, :importeConImpuestos, :tipoDato.id, :activo, :tarea.id, :pk.fechaInicioPeriodo)
     ]]>
 </entry>
 
 <entry key="TareaLocalizacionPersonaVentaRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PERSONA_VENTA (FECHA, CCL_ID_COD_ORIGEN, CCL_ID_PERSON, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TIPO_DATO, ID_TAREA, FECHA_INICIO_PERIODO, CCL_ID_SECCION, CCL_ID_CADENA, ES_ACTIVO)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES (:fecha, :cclIdCodOrigen, :cclIdPerson, :importeSinImpuestos, :importeConImpuestos, :tipoDato.id, :tarea.id, :pk.fechaInicioPeriodo, :cclIdSeccion, :cclIdCadena, :activo)
     ]]>
 </entry>
 
 <entry key="TareaLocalizacionHistoricoRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_HISTORICO (FECHA_FIN, FECHA_INICIO, CCL_ID_CADENA, STD_ID_LEG_ENT, STD_ID_COUNTRY, CCL_ID_ORIGEN, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, ID_TAREA)
-VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES(:fechaFin, :fechaInicio, :cclIdCadena, :stdIdLegEnt, :stdIdCountry, :cclIdOrigen, :cclIdCodOrigen, :stdIdWorkLocat, :tarea.id)
     ]]>
 </entry>
 
 <entry key="TareaLocalizacionComisionHistoricoRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_COMISION_HISTORICO (FECHA_FIN, FECHA_INICIO, ES_COMISIONABLE, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, ID_TAREA)
-VALUES (?, ?, ?, ?, ?, ?)
+VALUES (:fechaFin, :fechaInicio, :comisionable, :cclIdCodOrigen, :stdIdWorkLocat, :tarea.id)
     ]]>
 </entry>
 
 <entry key="TareaPersonaHistoricoRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_PERSONA_HISTORICO (FECHA_FIN, FECHA_INICIO, FECHA_FIN_SECCION, FECHA_INICIO_SECCION, FECHA_FIN_LOCALIZACION, FECHA_INICIO_LOCALIZACION, STD_ID_HR, CCL_ID_PERSON, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, STD_OR_HR_PERIOD, STD_ID_LEG_ENT, CCL_ID_ORIGEN, CCL_ID_SECCION, ID_TAREA, FECHA_INICIO_PERIODO, FECHA_ANTIGUEDAD)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES (:fechaFin, :fechaInicio, :fechaFinSeccion, :fechaInicioSeccion, :fechaFinLocalizacion, :fechaInicioLocalizacion, :stdIdHr, :cclIdPerson, :cclIdCodOrigen, :stdIdWorkLocat, :stdOrHrPeriod, :stdIdLegEnt, :cclIdOrigen, :cclIdSeccion, :tarea.id, :pk.fechaInicioPeriodo, :fechaAntiguedad)
     ]]>
 </entry>
 
 <entry key="TareaPersonaEstructuraRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_PERSONA_ESTRUCTURA (FECHA_FIN, FECHA_INICIO, CCL_ID_SECCION_EFECTIVA, CCL_ID_SECCION_ESTRUCTURA, STD_ID_HR, CCL_ID_PERSON, ICM_ID_ESTR_COMISION, ICM_ID_ESTR_COMISION_BASE, ICM_ID_TP_CALCULO, ICM_ID_TP_COMISION, STD_OR_HR_PERIOD, ICM_VALOR, ID_TAREA, ES_ACTIVO, CCL_ID_ORIGEN, ES_DESPLAZAMIENTO, ES_DESPLAZAMIENTO_BASE, ORDINAL_ESTRUCTURA, ICM_ORD_TOPE, ES_DIA_DOMINGO, ES_DIA_JUEVES, ES_DIA_LUNES, ES_DIA_MARTES, ES_DIA_SABADO, ES_DIA_VIERNES, ES_DIA_MIERCOLES, ICM_ID_TP_ESTRUCTURA, ICM_ID_ESTR_COMISION_PADRE, FECHA_INICIO_PERIODO)
-VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES(:fechaFin, :fechaInicio, :cclIdSeccionEfectiva, :cclIdSeccionEstructura, :stdIdHr, :cclIdPerson, :icmIdEstrComision, :icmIdEstrComisionBase, :icmIdTpCalculo, :icmIdTpComision, :stdOrHrPeriod, :valor, :tarea.id, :activo, :cclIdOrigen, :desplazamiento, :desplazamientoBase, :ordinalEstructura, :tope, :diaD, :diaJ, :diaL, :diaM, :diaS, :diaV, :diaX, :icmIdTpEstructura, :icmIdEstrComisionPadre, :pk.fechaInicioPeriodo)
     ]]>
 </entry>
 
 <entry key="TareaPersonaEstructuraDesplazamientoRepositoryCustom.save">
     <![CDATA[
-INSERT INTO TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO (ID_TAREA, ICM_ID_ESTR_COMISION, ORDINAL_ESTRUCTURA, FECHA_INICIO, FECHA_FIN, ID_TIPO_OPCION_CALCULO_ESTRUCTURA, ID_TIPO_OPCION_CALCULO_EFECTIVA, CCL_ID_PUESTO_DESTINO, CCL_ID_SECCION_DESTINO, CCL_ID_COD_ORIGEN_DESTINO,  STD_ID_WORK_LOCAT_DESTINO, ES_HORAS_ORIGEN, ES_HORAS_DESTINO, ICM_ID_TP_REQ_COMISION, ES_ACTIVO, CCL_ID_ORIGEN, CCL_ID_PERSON, ICM_ID_ESTR_COMISION_PADRE, ICM_ID_ESTR_COMISION_BASE, STD_ID_HR, STD_OR_HR_PERIOD, ICM_ID_ESTRUCTURA_AMBITO, FECHA_INICIO_PERIODO)
-VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+INSERT INTO TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO (ID_TAREA, ICM_ID_ESTR_COMISION, ORDINAL_ESTRUCTURA, FECHA_INICIO, FECHA_FIN, ID_TIPO_OPCION_CALCULO_ESTRUCTURA, ID_TIPO_OPCION_CALCULO_EFECTIVA, CCL_ID_PUESTO_DESTINO, CCL_ID_SECCION_DESTINO, CCL_ID_COD_ORIGEN_DESTINO, STD_ID_WORK_LOCAT_DESTINO, ES_HORAS_ORIGEN, ES_HORAS_DESTINO, ICM_ID_TP_REQ_COMISION, ES_ACTIVO, CCL_ID_ORIGEN, CCL_ID_PERSON, ICM_ID_ESTR_COMISION_PADRE, ICM_ID_ESTR_COMISION_BASE, STD_ID_HR, STD_OR_HR_PERIOD, ICM_ID_ESTRUCTURA_AMBITO, FECHA_INICIO_PERIODO)
+VALUES(:tarea.id, :icmIdEstrComision, :ordinalEstructura, :fechaInicio, :fechaFin, :tipoOpcionCalculoEstructura.id, :tipoOpcionCalculoEfectiva.id, :cclIdPuestoDestino, :cclIdSeccionDestino, :cclIdCodOrigenDestino, :stdIdWorkLocatDestino, :horasOrigen, :horasDestino, :icmIdTpReqCom, :activo, :cclIdOrigen, :cclIdPerson, :icmIdEstrComisionPadre, :icmIdEstrComisionBase, :stdIdHr, :stdOrHrPeriod, :icmIdEstructuraAmbito, :pk.fechaInicioPeriodo)
     ]]>
 </entry>
 
 <entry key="TareaPersonaEstructuraPoliticaRepositoryCustom.save">
   <![CDATA[
 INSERT INTO TAREA_PERSONA_ESTRUCTURA_POLITICA (FECHA_FIN, FECHA_INICIO, STD_ID_HR, CCL_ID_PERSON, ICM_ID_ESTR_POLITICAS, ID_TIPO_POLITICA, STD_OR_HR_PERIOD, ID_TAREA, CCL_ID_ORIGEN, ES_EXCLUIDO_DENOMINADOR, ID_TIPO_UNIDAD_TIEMPO, ICM_NUM_UNIDADES, ICM_PORCENTAJE, ICM_TRAMO, FECHA_INICIO_PERIODO, ICM_IMPORTE, ICM_NUM_MESES_CALC_MEDIA, ICM_NUM_HORAS, ICM_ID_MOTIVO_BAJA)
-VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES(:fechaFin, :fechaInicio, :stdIdHr, :cclIdPerson, :idEstructuraPolitica, :tipoPolitica.id, :stdOrHrPeriod, :tarea.id, :cclIdOrigen, :excluidoDenominador, :tipoUnidadTiempo.id, :numeroUnidades, :valor, :tramo, :pk.fechaInicioPeriodo, :importe, :numMesesCalcMedia, :numHoras, :idMotivoBaja)
   ]]>
 </entry>
 
@@ -3134,7 +3133,7 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
 <entry key="TareaAgrupacionVentaRepository.save">
     <![CDATA[
     INSERT INTO TAREA_AGRUPACION_VENTA (ES_ACTIVO, FECHA, ICM_ID_AGRUPACION_ONLINE, CCL_ID_SECCION, CCL_ID_ORIGEN, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TAREA, ID_TIPO_DATO)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (:activo, :fecha, :icmIdAgrupacionOnline, :cclIdSeccion, :cclIdOrigen, :importeSinImpuestos, :importeConImpuestos, :tarea.id, :tipoDato.id)
     ]]>
 </entry>
 
@@ -3913,7 +3912,7 @@ WHEN MATCHED AND POLITICA.ID_TAREA = :idTarea AND POLITICA.ID_TIPO_POLITICA = :i
 <entry key="TareaConfiguracionRepositoryCustom.save">
   <![CDATA[
   INSERT INTO TAREA_CONFIGURACION (ID_TAREA, CCL_ID_ORIGEN, FECHA_INICIO, FECHA_FIN, COD_TIPO_HORA, ICM_CK_VENTA_IMPUESTOS)
-  VALUES (?, ?, ?, ?, ?, ?)
+  VALUES (:tarea.id, :cclIdOrigen, :fechaInicio, :fechaFin, :codTipoHora, :icmCkVentaImpuestos)
   ]]>
 </entry>
 
@@ -4346,7 +4345,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
 <entry key="TareaLocalizacionPresupuestoRepositoryCustom.save">
   <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_PRESUPUESTO (ID_TAREA, CCL_ID_ORIGEN, STD_ID_LEG_ENT, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, CCL_ID_SECCION, FECHA_INICIO, FECHA_FIN, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ICM_BANDA, ICM_ORDINAL, ICM_CK_EXCEPCION, ID_TIPO_PRESUPUESTO, ES_ACTIVO)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  VALUES (:tarea.id, :cclIdOrigen, :stdIdLegEnt, :cclIdCodOrigen, :stdIdWorkLocat, :cclIdSeccion, :fechaInicio, :fechaFin, :importeSinImpuestos, :importeConImpuestos, :banda, :ordinal, :excepcion, :tipoPresupuesto.id, :activo)
   ]]>
 </entry>
 
@@ -4404,28 +4403,28 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
 <entry key="TareaConfiguracionChallengeDiasMinimosRepositoryCustom.save">
   <![CDATA[
   INSERT INTO TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS (ID_TAREA, ICM_ID_TP_CALCULO, ICM_MIN_NUM_DAYS, FECHA_INICIO, FECHA_FIN, CCL_ID_ORIGEN)
-  VALUES (?, ?, ?, ?, ?, ?)
+  VALUES (:tarea.id, :icmIdTpCalculo, :icmMinNumDays, :fechaInicio, :fechaFin, :cclIdOrigen)
   ]]>
 </entry>
 
 <entry key="TareaConfiguracionPrecioHoraRepositoryCustom.save">
   <![CDATA[
   INSERT INTO TAREA_CONFIGURACION_PRECIO_HORA (ID_TAREA, ICM_CK_TP_HORA_COMIS, ICM_CK_TP_HORA_INC_PTPO, FECHA_INICIO, FECHA_FIN, CCL_ID_ORIGEN)
-  VALUES (?, ?, ?, ?, ?, ?)
+  VALUES (:tarea.id, :icmCkTpHoraComis, :icmCkTpHoraIncPtpo, :fechaInicio, :fechaFin, :cclIdOrigen)
   ]]>
 </entry>
 
 <entry key="TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save">
   <![CDATA[
   INSERT INTO TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA (ID_TAREA, ICM_ID_AGRUPACION_ONLINE, ID_TIPO_VENTA_CONCEPTO_CHALLENGE, FECHA_INICIO, FECHA_FIN, CCL_ID_ORIGEN)
-  VALUES (?, ?, ?, ?, ?, ?)
+  VALUES (:tarea.id, :icmIdAgrupacionOnline, :tipoVentaConceptoChallenge.id, :fechaInicio, :fechaFin, :cclIdOrigen)
   ]]>
 </entry>
 
 <entry key="TareaLocalizacionPresupuestoVentaRepositoryCustom.save">
   <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_PRESUPUESTO_VENTA (ID_TAREA, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, ICM_ORDINAL, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TIPO_PRESUPUESTO, ID_TIPO_VENTA_CONCEPTO_CHALLENGE, CCL_ID_ORIGEN, ES_ACTIVO, ID_TIPO_DATO, FECHA_FIN, FECHA_INICIO)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  VALUES (:tarea.id, :cclIdCadena, :cclIdCodOrigen, :cclIdSeccion, :ordinal, :importeSinImpuestos, :importeConImpuestos, :tipoPresupuesto.id, :tipoVentaConceptoChallenge.id, :cclIdOrigen, :activo, :tipoDato.id, :fechaFin, :fechaInicio)
   ]]>
 </entry>
 

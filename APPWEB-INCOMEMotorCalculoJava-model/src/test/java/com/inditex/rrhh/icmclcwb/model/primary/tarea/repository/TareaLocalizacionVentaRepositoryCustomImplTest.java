@@ -1,22 +1,23 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,19 +28,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVentaPk;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaLocalizacionVentaRepositoryCustomImplTest {
@@ -82,88 +78,53 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
                 "sqlSave", SQL_SAVE, true);
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
                 "sqlUpdateActivo", SQL_UPDATE_ACTIVO, true);
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
                 "sqlUpdateActivoTrasladadas", SQL_UPDATE_ACTIVO_TRASLADAR, true);
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
                 "sqlTotalizarOperacionesLocalizacionSeccion", SQL_TOTALIZAR_OPERACIONES, true);
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
                 "sqlTotalizarVentaPersonasPorVenta", SQL_TOTALIZAR_PERSONAS_POR_VENTA, true);
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
                 "sqlCalcularImporteComisionVendedores", SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES, true);
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom, "sqlTotalizarVentasVendedor0",
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlTotalizarVentasVendedor0",
                 SQL_TOTALIZAR_VENTAS_VENDEDOR_0, true);
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom, "sqlRepartoDevolucionVendedor0",
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlRepartoDevolucionVendedor0",
                 SQL_REPARTO_DEVOLUCION_VENDEDOR_0, true);
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom, "sqlCalcularImporteComisionVentaODevolucion",
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlCalcularImporteComisionVentaODevolucion",
                 SQL_CALCULAR_IMPORTE_COMISION_VENTA_DEVOLUCION, true);
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom, "sqlTotalizarVentasVendedor0",
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlTotalizarVentasVendedor0",
                 SQL_TOTALIZAR_VENTAS_VENDEDOR_0, true);
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom, "sqlRepartoDevolucionVendedor0",
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlRepartoDevolucionVendedor0",
                 SQL_REPARTO_DEVOLUCION_VENDEDOR_0, true);
-        FieldUtils.writeField(tareaLocalizacionVentaRepositoryCustom,
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
                 "batchSize", 100, true);
     }
 
     @Test
-    public void setParametersTest() throws SQLException {
-        PreparedStatement pstmt = mock(PreparedStatement.class);
-        TareaLocalizacionVenta entity = mock(TareaLocalizacionVenta.class);
-        TareaLocalizacionVentaPk pk = mock(TareaLocalizacionVentaPk.class);
-        TipoDato td = mock(TipoDato.class);
-        when(td.getId()).thenReturn(911);
-        when(pk.getFechaInicioPeriodo()).thenReturn(TimeUtils.toDate(LocalDate.of(2015, 1, 1)));
-        when(entity.getPk()).thenReturn(pk);
-        when(entity.getCclIdCadena()).thenReturn("ID CADENA");
-        when(entity.getCclIdCodOrigen()).thenReturn("ID LOCALIZACIÓN");
-        when(entity.getCclIdSeccion()).thenReturn("ID SECCIÓN");
-        when(entity.getImporteConImpuestos()).thenReturn(8989.2);
-        when(entity.getImporteSinImpuestos()).thenReturn(87878.12);
-        when(entity.getTipoDato()).thenReturn(td);
-        when(entity.getActivo()).thenReturn(Boolean.TRUE);
-        Tarea tarea = mock(Tarea.class);
-        when(tarea.getId()).thenReturn(888L);
-        when(entity.getTarea()).thenReturn(tarea);
-
-        tareaLocalizacionVentaRepositoryCustom.setParameters(pstmt, entity);
-        // Parámetros de la consulta: fecha, cclIdCadena, cclIdCodOrigen, cclIdSeccion, importeSinImpuestos,
-        // importeConImpuestos,
-        // idTipoDato, activo, idTarea
-        verify(pstmt, times(1)).setObject(1, entity.getFecha());
-        verify(pstmt, times(1)).setString(2, entity.getCclIdCadena());
-        verify(pstmt, times(1)).setString(3, entity.getCclIdCodOrigen());
-        verify(pstmt, times(1)).setString(4, entity.getCclIdSeccion());
-        verify(pstmt, times(1)).setDouble(5, entity.getImporteSinImpuestos());
-        verify(pstmt, times(1)).setDouble(6, entity.getImporteConImpuestos());
-        verify(pstmt, times(1)).setDouble(7, td.getId());
-        verify(pstmt, times(1)).setBoolean(8, entity.getActivo());
-        verify(pstmt, times(1)).setLong(9, tarea.getId());
-        verify(pstmt, times(1)).setObject(10, pk.getFechaInicioPeriodo());
-    }
-
-    @Test
     public void saveTest() {
-        List<TareaLocalizacionVenta> items = Collections.singletonList(mock(TareaLocalizacionVenta.class));
-        tareaLocalizacionVentaRepositoryCustom.save(items);
-        verify(template).batchUpdate(sqlCaptor.capture(), any(BatchPreparedStatementSetter.class));
-        assertEquals(SQL_SAVE, sqlCaptor.getValue());
+        final List<TareaLocalizacionVenta> items = Collections.singletonList(mock(TareaLocalizacionVenta.class));
+        this.tareaLocalizacionVentaRepositoryCustom.save(items);
+        verify(this.namedParameterJdbcTemplate).batchUpdate(this.sqlCaptor.capture(), any(SqlParameterSource[].class));
+        assertEquals(SQL_SAVE, this.sqlCaptor.getValue());
     }
 
     @Test
     public void updateActivoTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(3933L);
-        List<Integer> idsTipoDato = Arrays.asList(21, 39, 29, 22);
+        final List<Integer> idsTipoDato = Arrays.asList(21, 39, 29, 22);
 
-        tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea, TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA,
+        this.tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea,
+                TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA,
                 idsTipoDato);
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_UPDATE_ACTIVO, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_UPDATE_ACTIVO, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: tiposDato, idConcepto, idTarea, porcentajeInclusion, nuevoActivo
         assertEquals(5, params.getValues().size());
@@ -188,13 +149,13 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
     @Test
     public void updateActivoTrasladadasTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(9090L);
-        tareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas(tarea);
+        this.tareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_UPDATE_ACTIVO_TRASLADAR, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_UPDATE_ACTIVO_TRASLADAR, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: idTipoDatoVentaIpodLocalizacion,
         // idTipoDatoVentaIpodLocalizacionSeccion,
@@ -285,13 +246,13 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
     @Test
     public void totalizarDevolucionLocalizacionTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(9090L);
-        tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacionSeccion(tarea);
+        this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacionSeccion(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_TOTALIZAR_OPERACIONES, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_TOTALIZAR_OPERACIONES, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: nuevoIdSeccion, nuevoIdTipoDato, nuevoActivo, idTarea,
         // idTipoGrupoDato, activo
@@ -320,13 +281,13 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
     @Test
     public void totalizarVentaSinDevolucionLocalizacionTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(9090L);
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentasSinDevolucionLocalizacionSeccion(tarea);
+        this.tareaLocalizacionVentaRepositoryCustom.totalizarVentasSinDevolucionLocalizacionSeccion(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_TOTALIZAR_OPERACIONES, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_TOTALIZAR_OPERACIONES, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: nuevoIdSeccion, nuevoIdTipoDato, nuevoActivo, idTarea,
         // idTipoGrupoDato, activo
@@ -355,13 +316,13 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
     @Test
     public void totalizarVentaPersonasPorVentaSimplificada() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(123L);
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificada(tarea);
+        this.tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificada(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_TOTALIZAR_PERSONAS_POR_VENTA, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_TOTALIZAR_PERSONAS_POR_VENTA, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia, idTipoGrupoDato,
         // nuevoIdTipoDato, nuevoActivo
@@ -394,13 +355,13 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
     @Test
     public void totalizarVentaSinDevolucionPersonasPorVenta() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(123L);
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentaSinDevolucionPersonasPorVenta(tarea);
+        this.tareaLocalizacionVentaRepositoryCustom.totalizarVentaSinDevolucionPersonasPorVenta(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_TOTALIZAR_PERSONAS_POR_VENTA, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_TOTALIZAR_PERSONAS_POR_VENTA, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia, idTipoGrupoDato,
         // nuevoIdTipoDato, nuevoActivo
@@ -433,14 +394,14 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
     @Test
     public void calcularImporteComisionVendedoresTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(123L);
 
-        tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea);
+        this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: idTarea, activo, idTipoDatoPresenciaLocalizacionPersonasPorVenta,
         // idTipoGrupo,
@@ -483,14 +444,14 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
     @Test
     public void calcularImporteComisionVentaODevolucionTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(123L);
 
-        tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea);
+        this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_CALCULAR_IMPORTE_COMISION_VENTA_DEVOLUCION, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_CALCULAR_IMPORTE_COMISION_VENTA_DEVOLUCION, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: idTarea, activo, idTipoDatoDevolucionLocalizacionSeccion, idTipoGrupo,
         // idTipoDatoVentaSinDevolucionLocalizacionSeccion, idTipoDatoImporteComisionVenta,
@@ -543,14 +504,14 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
     @Test
     public void totalizarVentasVendedor0Test() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(123L);
 
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentasVendedor0(tarea);
+        this.tareaLocalizacionVentaRepositoryCustom.totalizarVentasVendedor0(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_TOTALIZAR_VENTAS_VENDEDOR_0, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_TOTALIZAR_VENTAS_VENDEDOR_0, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parémetros de la consulta: idTipoCalculo, idTipoDatoIndicadorPresencia, nuevoActivo, activo,
         // idTarea,
@@ -589,14 +550,14 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
     @Test
     public void repartoDevolucionVendedor0Test() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(123L);
 
-        tareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0(tarea);
+        this.tareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_REPARTO_DEVOLUCION_VENDEDOR_0, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_REPARTO_DEVOLUCION_VENDEDOR_0, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: idTipoDatoIndicadorPresencia, activo, idTarea, nuevoIdTipoDato,
         // nuevoActivo, idTipoImporteVenta

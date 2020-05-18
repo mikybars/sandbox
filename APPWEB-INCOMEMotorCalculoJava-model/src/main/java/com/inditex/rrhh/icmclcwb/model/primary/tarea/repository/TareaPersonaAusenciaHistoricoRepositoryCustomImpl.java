@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -23,18 +21,7 @@ public class TareaPersonaAusenciaHistoricoRepositoryCustomImpl
 
     @Override
     public List<TareaPersonaAusenciaHistorico> save(final List<TareaPersonaAusenciaHistorico> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
-
-    @Override
-    public void setParameters(PreparedStatement pstmt, TareaPersonaAusenciaHistorico entity) throws SQLException {
-        pstmt.setObject(1, entity.getFechaFin());
-        pstmt.setObject(2, entity.getFechaInicio());
-        pstmt.setString(3, entity.getCclIdPerson());
-        pstmt.setString(4, entity.getStdOrHrPeriod());
-        pstmt.setLong(5, entity.getTipoAusencia().getId());
-        pstmt.setString(6, entity.getCclIdOrigen());
-        pstmt.setLong(7, entity.getTarea().getId());
+        return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
     }
 
 }

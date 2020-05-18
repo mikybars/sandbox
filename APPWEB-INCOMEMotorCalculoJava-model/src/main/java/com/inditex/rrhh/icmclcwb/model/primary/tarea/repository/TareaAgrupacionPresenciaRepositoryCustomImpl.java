@@ -1,33 +1,30 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.stereotype.Repository;
+
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
-
-import java.util.Arrays;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionPresencia;
 
 @Repository
 public class TareaAgrupacionPresenciaRepositoryCustomImpl
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaAgrupacionPresencia>
         implements TareaAgrupacionPresenciaRepositoryCustom {
-
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Value("#{primaryQuery['TareaAgrupacionPresenciaRepositoryCustom.totalizar']}")
     private String sqlTotalizar;
 
     @Override
-    public void calcularPresenciasTotalesAgrupacion(TareaDto tarea) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void calcularPresenciasTotalesAgrupacion(final TareaDto tarea) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
 
         // FILTROS
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
@@ -45,7 +42,7 @@ public class TareaAgrupacionPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.PRESENCIA_AGRUPACIONONLINE_INCLUIDOECOMMERCE.getId());
 
-        namedParameterJdbcTemplate.update(sqlTotalizar, parameters);
+        this.update(this.sqlTotalizar, parameters);
     }
 
 }
