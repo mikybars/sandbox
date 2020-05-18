@@ -1,8 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -48,18 +45,18 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
     private String sqlTotalizar;
 
     @Override
-    public void updateActivoExcepcionada(@NotNull RunTareaDto runTareaDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void updateActivoExcepcionada(@NotNull final RunTareaDto runTareaDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
-        namedParameterJdbcTemplate.update(sqlUpdateActivoExcepcionada, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlUpdateActivoExcepcionada, parameters);
     }
 
     @Override
-    public void updateActivoCongelada(@NotNull RunTareaDto runTareaDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void updateActivoCongelada(@NotNull final RunTareaDto runTareaDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
@@ -68,12 +65,12 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL,
                 TipoGrupoDatoEnum.VENTA_RANGO.getId());
 
-        namedParameterJdbcTemplate.update(sqlUpdateActivoCongelada, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlUpdateActivoCongelada, parameters);
     }
 
     @Override
-    public void totalizar(@NotNull RunTareaDto runTareaDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void totalizar(@NotNull final RunTareaDto runTareaDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA,
@@ -90,35 +87,12 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION_SECCION,
                 TipoDatoEnum.VENTA_RANGO_LOCALIZACION_SECCION.getId());
 
-        namedParameterJdbcTemplate.update(sqlTotalizar, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlTotalizar, parameters);
     }
 
     @Override
-    public List<TareaLocalizacionPresupuestoVenta> save(List<TareaLocalizacionPresupuestoVenta> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
-
-    @Override
-    public void setParameters(PreparedStatement pstmt, TareaLocalizacionPresupuestoVenta entity) throws SQLException {
-        pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getCclIdCadena());
-        pstmt.setString(3, entity.getCclIdCodOrigen());
-        pstmt.setString(4, entity.getCclIdSeccion());
-        if (entity.getOrdinal() != null) {
-            pstmt.setInt(5, entity.getOrdinal());
-        } else {
-            pstmt.setNull(5, Types.INTEGER);
-        }
-        pstmt.setDouble(6, entity.getImporteSinImpuestos());
-        pstmt.setDouble(7, entity.getImporteConImpuestos());
-        pstmt.setLong(8, entity.getTipoPresupuesto().getId());
-        pstmt.setLong(9, entity.getTipoVentaConceptoChallenge().getId());
-        pstmt.setString(10, entity.getCclIdOrigen());
-        pstmt.setBoolean(11, entity.getActivo());
-        pstmt.setInt(12, entity.getTipoDato().getId());
-        pstmt.setObject(13, entity.getFechaFin());
-        pstmt.setObject(14, entity.getFechaInicio());
-
+    public List<TareaLocalizacionPresupuestoVenta> save(final List<TareaLocalizacionPresupuestoVenta> src) {
+        return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
     }
 
 }

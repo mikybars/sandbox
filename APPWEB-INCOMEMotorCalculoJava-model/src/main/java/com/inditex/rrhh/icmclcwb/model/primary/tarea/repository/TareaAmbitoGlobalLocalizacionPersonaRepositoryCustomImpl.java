@@ -1,8 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +31,6 @@ public class TareaAmbitoGlobalLocalizacionPersonaRepositoryCustomImpl
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         this.namedParameterJdbcTemplate.update(this.sqlMergePersonaLocalizacion, parameters);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setParameters(final PreparedStatement pstmt, final TareaAmbitoGlobalLocalizacionPersona entity)
-            throws SQLException {
-        // TODO Auto-generated method stub
-
     }
 
 }

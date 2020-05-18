@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.periodo.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +29,8 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
     private String sqlMergePeriodoCalculoPersona;
 
     @Override
-    public void mergePeriodoCalculoPersona(@NotNull RunTareaDto tareaDto) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
+    public void mergePeriodoCalculoPersona(@NotNull final RunTareaDto tareaDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_PERIODO_PERSONA,
                 EstadoPeriodoCalculoPersonaEnum.CALCULADO.getId());
@@ -45,21 +43,7 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_DESBLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        namedParameterJdbcTemplate.update(sqlMergePeriodoCalculoPersona, params);
-    }
-
-    @Override
-    public void setParameters(PreparedStatement pstmt, PeriodoCalculoPersona entity) throws SQLException {
-        pstmt.setLong(1, entity.getPk().getIcmIdPeriodo());
-        pstmt.setString(2, entity.getPk().getCclIdOrigen());
-        pstmt.setString(3, entity.getPk().getStdIdLegEnt());
-        pstmt.setString(4, entity.getPk().getCclIdPerson());
-        pstmt.setString(5, entity.getPk().getStdOrHrPeriod());
-        pstmt.setLong(6, entity.getTareaActual().getId());
-        pstmt.setLong(7, entity.getTareaUltima().getId());
-        pstmt.setLong(8, entity.getEstado().getId());
-        pstmt.setObject(9, entity.getFechaHoraCreacion());
-        pstmt.setObject(10, entity.getFechaHoraActualizacion());
+        this.namedParameterJdbcTemplate.update(this.sqlMergePeriodoCalculoPersona, params);
     }
 
 }

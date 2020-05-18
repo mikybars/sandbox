@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -22,19 +20,8 @@ public class TareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl
     private String sqlSave;
 
     @Override
-    public List<TareaConfiguracionChallengeDiasMinimos> save(List<TareaConfiguracionChallengeDiasMinimos> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
-
-    @Override
-    public void setParameters(PreparedStatement pstmt, TareaConfiguracionChallengeDiasMinimos entity)
-            throws SQLException {
-        pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getIcmIdTpCalculo());
-        pstmt.setInt(3, entity.getIcmMinNumDays());
-        pstmt.setObject(4, entity.getFechaInicio());
-        pstmt.setObject(5, entity.getFechaFin());
-        pstmt.setString(6, entity.getCclIdOrigen());
+    public List<TareaConfiguracionChallengeDiasMinimos> save(final List<TareaConfiguracionChallengeDiasMinimos> src) {
+        return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
     }
 
 }

@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +27,10 @@ public class TareaAmbitoGlobalPersonaRepositoryCustomImpl
     private String sqlMergePersona;
 
     @Override
-    public void mergePersona(@NotNull RunTareaDto tareaDto) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
+    public void mergePersona(@NotNull final RunTareaDto tareaDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
-        namedParameterJdbcTemplate.update(sqlMergePersona, params);
-    }
-
-    @Override
-    public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalPersona entity) throws SQLException {
-        pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getCclIdOrigen());
-        pstmt.setString(3, entity.getCclIdPerson());
-        pstmt.setString(4, entity.getStdIdLegEnt());
+        this.namedParameterJdbcTemplate.update(this.sqlMergePersona, params);
     }
 
 }
