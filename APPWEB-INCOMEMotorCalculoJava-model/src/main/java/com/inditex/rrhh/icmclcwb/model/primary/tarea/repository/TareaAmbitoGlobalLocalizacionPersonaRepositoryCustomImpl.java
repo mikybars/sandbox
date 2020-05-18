@@ -2,11 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -19,10 +16,6 @@ public class TareaAmbitoGlobalLocalizacionPersonaRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaAmbitoGlobalLocalizacionPersona>
         implements TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom {
 
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
     @Value("#{primaryQuery['TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion']}")
     private String sqlMergePersonaLocalizacion;
 
@@ -30,7 +23,7 @@ public class TareaAmbitoGlobalLocalizacionPersonaRepositoryCustomImpl
     public void mergePersonaLocalizacion(@NotNull final RunTareaDto tareaDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
-        this.namedParameterJdbcTemplate.update(this.sqlMergePersonaLocalizacion, parameters);
+        this.update(this.sqlMergePersonaLocalizacion, parameters);
     }
 
 }

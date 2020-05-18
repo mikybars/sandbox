@@ -2,11 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -40,9 +38,6 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
     @Value("${app.envars.repository.batch-size.tarea-persona-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
     @Override
     public List<TareaLocalizacionPresupuesto> save(final List<TareaLocalizacionPresupuesto> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -53,7 +48,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
 
         final MapSqlParameterSource maps = new MapSqlParameterSource();
         maps.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        return this.namedParameterJdbcTemplate.query(this.sqlFindPresupuestos, maps,
+        return this.query(this.sqlFindPresupuestos, maps,
                 (rs, rowNum) -> TareaLocalizacionPresupuestoDto
                     .builder()
                     .cclIdOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORIGEN))
@@ -71,7 +66,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
 
         final MapSqlParameterSource maps = new MapSqlParameterSource();
         maps.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        return this.namedParameterJdbcTemplate.queryForObject(this.sqlFindPeriodoPresupuestoYTrabajo, maps,
+        return this.queryForObject(this.sqlFindPeriodoPresupuestoYTrabajo, maps,
                 (rs, rowNum) -> PeriodoDto
                     .builder()
                     .fechaFinPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
@@ -86,7 +81,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
         map.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        this.namedParameterJdbcTemplate.update(this.sqlUpdateActivoBandaExcepcion, map);
+        this.update(this.sqlUpdateActivoBandaExcepcion, map);
     }
 
     @Override
@@ -99,7 +94,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        this.namedParameterJdbcTemplate.update(this.sqlUpdateActivoBandasSinExcepcion, map);
+        this.update(this.sqlUpdateActivoBandasSinExcepcion, map);
     }
 
 }

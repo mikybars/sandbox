@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
@@ -33,10 +31,6 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion']}")
     private String sqlTotalizarVentaPersonaSeccion;
-
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
     private TipoDatoService tipoDatoService;
@@ -120,7 +114,7 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, nuevoTipoDato.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        this.namedParameterJdbcTemplate.update(this.sqlTotalizarVentaPersonaSeccion, parameters);
+        this.update(this.sqlTotalizarVentaPersonaSeccion, parameters);
 
     }
 

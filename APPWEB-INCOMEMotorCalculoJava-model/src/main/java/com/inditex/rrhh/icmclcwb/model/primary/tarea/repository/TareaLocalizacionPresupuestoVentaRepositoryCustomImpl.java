@@ -4,11 +4,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -24,10 +21,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPre
 public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPresupuestoVenta>
         implements TareaLocalizacionPresupuestoVentaRepositoryCustom {
-
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Value("${app.envars.repository.batch-size.tarea-localizacion-presupuesto-venta:${app.envars.repository.batch-size.default}}")
     private int batchSize;
@@ -51,7 +44,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
-        this.namedParameterJdbcTemplate.update(this.sqlUpdateActivoExcepcionada, parameters);
+        this.update(this.sqlUpdateActivoExcepcionada, parameters);
     }
 
     @Override
@@ -65,7 +58,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL,
                 TipoGrupoDatoEnum.VENTA_RANGO.getId());
 
-        this.namedParameterJdbcTemplate.update(this.sqlUpdateActivoCongelada, parameters);
+        this.update(this.sqlUpdateActivoCongelada, parameters);
     }
 
     @Override
@@ -87,7 +80,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION_SECCION,
                 TipoDatoEnum.VENTA_RANGO_LOCALIZACION_SECCION.getId());
 
-        this.namedParameterJdbcTemplate.update(this.sqlTotalizar, parameters);
+        this.update(this.sqlTotalizar, parameters);
     }
 
     @Override

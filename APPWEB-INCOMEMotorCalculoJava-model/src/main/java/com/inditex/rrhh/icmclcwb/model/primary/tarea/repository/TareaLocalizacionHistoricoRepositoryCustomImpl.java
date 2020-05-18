@@ -9,12 +9,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
@@ -30,10 +27,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHis
 public class TareaLocalizacionHistoricoRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionHistorico>
         implements TareaLocalizacionHistoricoRepositoryCustom {
-
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Value("${app.envars.repository.batch-size.tarea-localizacion-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
@@ -88,7 +81,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
 
-        return this.namedParameterJdbcTemplate.query(
+        return this.query(
                 this.sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito,
                 parameters, new RowMapper<IdLocalizacionDto>() {
                     @Override
@@ -106,7 +99,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        return this.namedParameterJdbcTemplate.query(this.sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito,
+        return this.query(this.sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito,
                 parameters,
                 new RowMapper<IdLocalizacionDto>() {
                     @Override
@@ -124,7 +117,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        return this.namedParameterJdbcTemplate.query(
+        return this.query(
                 this.sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenInAmbitoLocalizacion,
                 parameters,
                 new RowMapper<IdLocalizacionDto>() {
@@ -144,7 +137,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
 
-        return this.namedParameterJdbcTemplate.query(this.sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito,
+        return this.query(this.sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito,
                 parameters,
                 new RowMapper<IdLocalizacionLocalDto>() {
                     @Override
@@ -163,7 +156,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
 
-        return this.namedParameterJdbcTemplate.query(
+        return this.query(
                 this.sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbitoLocalizacion,
                 parameters,
                 new RowMapper<IdLocalizacionLocalDto>() {
@@ -186,7 +179,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
 
-        return this.namedParameterJdbcTemplate.query(
+        return this.query(
                 this.sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito,
                 parameters, new RowMapper<IdLocalizacionLocalDto>() {
                     @Override
@@ -207,7 +200,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, idVentaConcepto);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
                 SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
-        return this.namedParameterJdbcTemplate.query(this.sqlCadenasFiltroTipoDato, parameters,
+        return this.query(this.sqlCadenasFiltroTipoDato, parameters,
                 (rs, rowNum) -> IdCadenaDto.builder()
                     .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
                     .build());
@@ -218,7 +211,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        return this.namedParameterJdbcTemplate.query(this.sqlCadenas, parameters, (rs, rowNum) -> IdCadenaDto.builder()
+        return this.query(this.sqlCadenas, parameters, (rs, rowNum) -> IdCadenaDto.builder()
             .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
             .build());
     }
@@ -232,7 +225,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclCodOrigen);
 
-        return this.namedParameterJdbcTemplate.query(this.sqlFindIdLocalizacionByIdTareaAndCclIdPersonInAmbito,
+        return this.query(this.sqlFindIdLocalizacionByIdTareaAndCclIdPersonInAmbito,
                 parameters,
                 (rs, rowNum) -> IdLocalizacionLocalDto.builder()
                     .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
@@ -247,7 +240,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays
             .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
-        return this.namedParameterJdbcTemplate.query(this.sqlFindIdLocalizacionPresupuestosByIdTarea, parameters,
+        return this.query(this.sqlFindIdLocalizacionPresupuestosByIdTarea, parameters,
                 (rs, rowNum) -> IdLocalizacionLocalPresupuestoDto.builder()
                     .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
                     .idTipoPresupuesto(rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_PRESUPUESTO))
@@ -261,7 +254,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        return this.namedParameterJdbcTemplate.query(this.sqlFindIdLocalizacionGrupoFechasByIdTarea, parameters,
+        return this.query(this.sqlFindIdLocalizacionGrupoFechasByIdTarea, parameters,
                 (rs, rowNum) -> IdLocalizacionLocalDto.builder()
                     .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
                     .build());

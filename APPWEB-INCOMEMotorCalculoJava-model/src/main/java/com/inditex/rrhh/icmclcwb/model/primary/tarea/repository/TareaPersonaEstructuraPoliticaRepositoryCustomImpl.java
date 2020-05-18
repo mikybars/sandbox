@@ -4,11 +4,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
@@ -22,10 +19,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructu
 public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaEstructuraPolitica>
         implements TareaPersonaEstructuraPoliticaRepositoryCustom {
-
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Value("${app.envars.repository.batch-size.tarea-persona-estructura-politica:${app.envars.repository.batch-size.default}}")
     private int batchSize;
@@ -48,7 +41,7 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
                 TipoPoliticaEnum.MINIMO_GARANTIZADO.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        this.namedParameterJdbcTemplate.update(this.sqlUpdateImporteEstructuraPoliticas, parameters);
+        this.update(this.sqlUpdateImporteEstructuraPoliticas, parameters);
     }
 
 }

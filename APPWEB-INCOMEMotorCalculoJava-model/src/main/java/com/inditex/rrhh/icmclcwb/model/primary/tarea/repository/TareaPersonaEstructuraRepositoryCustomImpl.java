@@ -3,11 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
@@ -34,10 +31,6 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
 
     @Value("#{primaryQuery['TareaPersonaEstructura.findPersonasChallenge']}")
     private String sqlFindPersonasChallenge;
-
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public List<TareaPersonaEstructura> save(final List<TareaPersonaEstructura> src) {
@@ -70,7 +63,7 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
                 TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
                 TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
 
-        return this.namedParameterJdbcTemplate.query(this.sqlFindPersonasChallenge, map,
+        return this.query(this.sqlFindPersonasChallenge, map,
                 (rs, rowNum) -> IdPersonaLocalDto
                     .builder()
                     .idPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL))

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -44,6 +45,29 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
             this.namedParameterJdbcTemplate.update(sql, parameters);
         } catch (final DataAccessException e) {
             this.log.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error insertando :: Items: {}", parameters,
+                    e);
+            throw e;
+        }
+    }
+
+    public <T> List<T> query(final String sql, final SqlParameterSource paramSource, final RowMapper<T> rowMapper) {
+        try {
+            return this.namedParameterJdbcTemplate.query(sql, paramSource, rowMapper);
+        } catch (final DataAccessException e) {
+            this.log.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error consultando lista :: Items: {}",
+                    paramSource,
+                    e);
+            throw e;
+        }
+    }
+
+    public <T> T queryForObject(final String sql, final SqlParameterSource paramSource, final RowMapper<T> rowMapper)
+            throws DataAccessException {
+        try {
+            return this.namedParameterJdbcTemplate.queryForObject(sql, paramSource, rowMapper);
+        } catch (final DataAccessException e) {
+            this.log.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error consultando objeto :: Items: {}",
+                    paramSource,
                     e);
             throw e;
         }

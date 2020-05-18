@@ -9,12 +9,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
@@ -32,10 +29,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistoric
 public class TareaPersonaHistoricoRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaHistorico>
         implements TareaPersonaHistoricoRepositoryCustom {
-
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Value("${app.envars.repository.batch-size.tarea-persona-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
@@ -75,7 +68,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        return this.namedParameterJdbcTemplate.query(this.sqlFindIdPersonaByIdTareaAndIdOrigen, parameters,
+        return this.query(this.sqlFindIdPersonaByIdTareaAndIdOrigen, parameters,
                 new RowMapper<IdPersonaDto>() {
                     @Override
                     public IdPersonaDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
@@ -92,7 +85,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        return this.namedParameterJdbcTemplate.query(
+        return this.query(
                 this.sqlFindIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona,
                 parameters, (rs, rowNum) -> IdPersonaLocalDto
                     .builder()
@@ -107,7 +100,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        return this.namedParameterJdbcTemplate.query(this.sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen, parameters,
+        return this.query(this.sqlFindIdPersonaHistoricoByIdTareaAndIdOrigen, parameters,
                 new RowMapper<IdPersonaHistoricoDto>() {
                     @Override
                     public IdPersonaHistoricoDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
@@ -128,7 +121,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
 
-        return this.namedParameterJdbcTemplate.query(
+        return this.query(
                 this.sqlFindIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito,
                 parameters, new RowMapper<IdPersonaHistoricoDto>() {
                     @Override
@@ -146,7 +139,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
 
-        return this.namedParameterJdbcTemplate.queryForObject(this.sqlFindPeriodoDtoByIdTarea, parameters,
+        return this.queryForObject(this.sqlFindPeriodoDtoByIdTarea, parameters,
                 new RowMapper<PeriodoDto>() {
                     @Override
                     public PeriodoDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
@@ -166,7 +159,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        return this.namedParameterJdbcTemplate.query(this.sqlFindIdPersonaHistoricoDtoGrupoFechasByIdTarea, parameters,
+        return this.query(this.sqlFindIdPersonaHistoricoDtoGrupoFechasByIdTarea, parameters,
                 (rs, rowNum) -> IdPersonaHistoricoDto
                     .builder()
                     .stdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4))
@@ -184,7 +177,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays
             .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
 
-        return this.namedParameterJdbcTemplate.query(this.sqlFindIdPersonaLocalCompensacionChallengeByIdTarea,
+        return this.query(this.sqlFindIdPersonaLocalCompensacionChallengeByIdTarea,
                 parameters,
                 (rs, rowNum) -> IdPersonaLocalChallengeDto
                     .builder()

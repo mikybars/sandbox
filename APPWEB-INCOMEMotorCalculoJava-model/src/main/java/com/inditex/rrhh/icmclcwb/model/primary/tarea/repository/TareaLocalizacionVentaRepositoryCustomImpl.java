@@ -6,10 +6,8 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
@@ -64,10 +62,6 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     @Autowired
     private Logger log;
 
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
     @Override
     public List<TareaLocalizacionVenta> save(final List<TareaLocalizacionVenta> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -83,7 +77,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         params.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
                 SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        this.namedParameterJdbcTemplate.update(this.sqlUpdateActivo, params);
+        this.update(this.sqlUpdateActivo, params);
     }
 
     @Override
@@ -127,7 +121,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        this.namedParameterJdbcTemplate.update(this.sqlUpdateActivoTrasladadas, parameters);
+        this.update(this.sqlUpdateActivoTrasladadas, parameters);
     }
 
     @Override
@@ -144,7 +138,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
                 TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        this.namedParameterJdbcTemplate.update(this.sqlTotalizarOperacionesLocalizacionSeccion, parameters);
+        this.update(this.sqlTotalizarOperacionesLocalizacionSeccion, parameters);
 
     }
 
@@ -162,7 +156,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
                 TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        this.namedParameterJdbcTemplate.update(this.sqlTotalizarOperacionesLocalizacionSeccion, parameters);
+        this.update(this.sqlTotalizarOperacionesLocalizacionSeccion, parameters);
 
     }
 
@@ -181,7 +175,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA_SIMPLIFICADO.getId());
-        this.namedParameterJdbcTemplate.update(this.sqlTotalizarVentaPersonasPorVenta, parameters);
+        this.update(this.sqlTotalizarVentaPersonasPorVenta, parameters);
 
     }
 
@@ -200,7 +194,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_EMPLEADOS_POR_VENTA.getId());
-        this.namedParameterJdbcTemplate.update(this.sqlTotalizarVentaPersonasPorVenta, parameters);
+        this.update(this.sqlTotalizarVentaPersonasPorVenta, parameters);
 
     }
 
@@ -223,7 +217,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
                 TipoDatoEnum.IMPORTE_COMISION_VENDEDORES_POR_VENTA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        this.namedParameterJdbcTemplate.update(this.sqlCalcularImporteComisionVendedores, parameters);
+        this.update(this.sqlCalcularImporteComisionVendedores, parameters);
     }
 
     @Override
@@ -251,7 +245,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
 
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        this.namedParameterJdbcTemplate.update(this.sqlCalcularImporteComisionVentaODevolucion, parameters);
+        this.update(this.sqlCalcularImporteComisionVentaODevolucion, parameters);
 
     }
 
@@ -264,7 +258,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
                 TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
 
-        this.namedParameterJdbcTemplate.update(this.sqlUpdateActivoNegativoTotalizado, parameters);
+        this.update(this.sqlUpdateActivoNegativoTotalizado, parameters);
     }
 
     @Override
@@ -283,7 +277,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0, PtrConstants.VENDEDOR_0);
 
-        this.namedParameterJdbcTemplate.update(this.sqlTotalizarVentasVendedor0, parameters);
+        this.update(this.sqlTotalizarVentasVendedor0, parameters);
 
     }
 
@@ -301,8 +295,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA,
                 TipoDatoEnum.DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION.getId());
 
-        this.namedParameterJdbcTemplate.update(this.sqlRepartoDevolucionVendedor0, parameters);
-
+        this.update(this.sqlRepartoDevolucionVendedor0, parameters);
     }
 
 }
