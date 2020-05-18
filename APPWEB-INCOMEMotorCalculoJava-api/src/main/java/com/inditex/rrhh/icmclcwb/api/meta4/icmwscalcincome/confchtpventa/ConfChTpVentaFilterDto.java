@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -22,6 +21,6 @@ public class ConfChTpVentaFilterDto implements Serializable {
 
     private String idEmpresa;
 
-    private List<ConfChTpVentaFilterParametersDto> item = new ArrayList<>();
+    private List<ConfChTpVentaFilterParametersDto> item;
 
 }

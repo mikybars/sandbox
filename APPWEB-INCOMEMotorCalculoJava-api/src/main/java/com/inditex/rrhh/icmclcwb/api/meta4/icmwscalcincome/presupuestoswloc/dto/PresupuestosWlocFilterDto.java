@@ -26,6 +26,6 @@ public class PresupuestosWlocFilterDto implements Serializable {
 
     private String ordinal;
 
-    private List<PresupuestosWlocFilterParametersDto> item = new ArrayList<>();
+    private List<PresupuestosWlocFilterParametersDto> item;
 
 }
