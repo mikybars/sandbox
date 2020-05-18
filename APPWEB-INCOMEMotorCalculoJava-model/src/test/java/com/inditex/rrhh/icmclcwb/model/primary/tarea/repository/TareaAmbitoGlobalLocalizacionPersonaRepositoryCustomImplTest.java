@@ -20,13 +20,13 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TareaaAmbitoGlobalLocalizacionPersonaRepositoryCustomImplTest {
+public class TareaAmbitoGlobalLocalizacionPersonaRepositoryCustomImplTest {
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @InjectMocks
-    private TareaaAmbitoGlobalLocalizacionPersonaRepositoryCustomImpl tareaaAmbitoGlobalLocalizacionPersonaRepositoryCustom;
+    private TareaAmbitoGlobalLocalizacionPersonaRepositoryCustomImpl tareaaAmbitoGlobalLocalizacionPersonaRepositoryCustom;
 
     @Captor
     private ArgumentCaptor<MapSqlParameterSource> params;
