@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -18,6 +17,6 @@ public class EstructurasComFilterDto implements Serializable {
 
     private String idOrigen;
 
-    private List<EstructurasComFilterParametersDto> item = new ArrayList<>();
+    private List<EstructurasComFilterParametersDto> item;
 
 }

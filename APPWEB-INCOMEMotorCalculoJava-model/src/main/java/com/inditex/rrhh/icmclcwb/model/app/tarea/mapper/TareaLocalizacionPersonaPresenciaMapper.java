@@ -2,10 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
 
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPersonaPresenciaDto;
@@ -16,16 +12,24 @@ import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizacionPersonaPresenciaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(imports = { TipoDato.class, TipoDatoEnum.class })
 @DecoratedWith(TareaLocalizacionPersonaPresenciaDecorator.class)
 public abstract class TareaLocalizacionPersonaPresenciaMapper {
 
+    @Mapping(target = "id", source = "pk.id")
     @Mapping(target = "idTarea", source = "tarea.id")
+    @Mapping(target = "idTipoHora", source = "codTipoHora")
     public abstract TareaLocalizacionPersonaPresenciaDto tareaLocalizacionPersonaPresenciaToTareaLocalizacionPersonaPresenciaDto(
             TareaLocalizacionPersonaPresencia src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "cclIdCadena", ignore = true)
+    @Mapping(target = "tipoDato", ignore = true)
     public abstract TareaLocalizacionPersonaPresencia tareaLocalizacionPersonaPresenciaDtoToTareaLocalizacionPersonaPresencia(
             TareaLocalizacionPersonaPresenciaDto src);
 
@@ -54,7 +58,7 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
             GenericEmpleadoResultItemDto src, TareaDto tareaDto);
 
     public List<TareaLocalizacionPersonaPresencia> genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(
-            List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {
+            final List<GenericEmpleadoResultItemDto> src, final TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
@@ -75,7 +79,7 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
             PtrPresenciaDetalleResultItemDto src, TareaDto tareaDto);
 
     public List<TareaLocalizacionPersonaPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
-            List<PtrPresenciaDetalleResultItemDto> src, TareaDto tareaDto) {
+            final List<PtrPresenciaDetalleResultItemDto> src, final TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

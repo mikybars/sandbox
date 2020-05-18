@@ -7,7 +7,9 @@ import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
+import lombok.Data;
 
+@Data
 public class TareaTipoHoraDto implements Serializable {
 
     private static final long serialVersionUID = 1164433898866141136L;

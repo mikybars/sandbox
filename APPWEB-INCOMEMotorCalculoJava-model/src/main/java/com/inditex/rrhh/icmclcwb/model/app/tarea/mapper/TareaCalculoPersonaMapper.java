@@ -2,16 +2,15 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
 
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaCalculoPersonaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersona;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper
 @DecoratedWith(TareaCalculoPersonaDecorator.class)
@@ -22,6 +21,8 @@ public abstract class TareaCalculoPersonaMapper {
             TareaCalculoPersona src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "estado.nombre", ignore = true)
+    @Mapping(target = "estado.peso", ignore = true)
     public abstract TareaCalculoPersona tareaCalculoPersonaDtoToTareaCalculoPersona(
             TareaCalculoPersonaDto src);
 
@@ -41,7 +42,7 @@ public abstract class TareaCalculoPersonaMapper {
             TareaCalculoPersonaDto src, EstadoTareaPersonaDto estado);
 
     public List<TareaCalculoPersona> tareaCalculoPersonaDtoToTareaCalculoPersona(
-            List<TareaCalculoPersonaDto> src, EstadoTareaPersonaDto estado) {
+            final List<TareaCalculoPersonaDto> src, final EstadoTareaPersonaDto estado) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

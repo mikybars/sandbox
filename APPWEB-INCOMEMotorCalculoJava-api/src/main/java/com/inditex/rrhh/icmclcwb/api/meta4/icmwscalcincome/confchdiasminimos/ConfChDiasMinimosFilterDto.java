@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -18,6 +17,6 @@ public class ConfChDiasMinimosFilterDto implements Serializable {
 
     private String idOrigen;
 
-    private List<ConfChDiasMinimosFilterParametersDto> item = new ArrayList<>();
+    private List<ConfChDiasMinimosFilterParametersDto> item;
 
 }

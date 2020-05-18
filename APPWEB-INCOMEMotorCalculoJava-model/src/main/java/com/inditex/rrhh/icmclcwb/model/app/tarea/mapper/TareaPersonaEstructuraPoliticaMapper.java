@@ -2,11 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
 
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraPoliticaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
@@ -16,6 +11,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.Li
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.ListaValoresPoliticasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaPersonaEstructuraPoliticaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper
 @DecoratedWith(value = TareaPersonaEstructuraPoliticaDecorator.class)
@@ -45,16 +44,18 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
             TareaPersonaEstructuraPoliticaDto src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "id", source = "pk.id")
+    @Mapping(target = "idTipoPolitica", source = "tipoPolitica.id")
     public abstract TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
             TareaPersonaEstructuraPolitica src);
 
     public List<TareaPersonaEstructuraPolitica> tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(
-            List<TareaPersonaEstructuraPoliticaDto> src) {
+            final List<TareaPersonaEstructuraPoliticaDto> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     public List<TareaPersonaEstructuraPoliticaDto> tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
-            List<TareaPersonaEstructuraPolitica> src) {
+            final List<TareaPersonaEstructuraPolitica> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
@@ -69,12 +70,17 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
     @Mapping(target = "excluidoDenominador", ignore = true)
     @Mapping(target = "tipoPolitica", ignore = true)
     @Mapping(target = "pk.id", ignore = true)
+    @Mapping(target = "tipoUnidadTiempo", ignore = true)
+    @Mapping(target = "numeroUnidades", ignore = true)
+    @Mapping(target = "valor", ignore = true)
+    @Mapping(target = "tramo", ignore = true)
+    @Mapping(target = "numMesesCalcMedia", ignore = true)
     @Mapping(source = "src.fechaInicio", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraPolitica comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(
             ComisionEmpleadoResultItemDto src, TareaDto tarea);
 
     public List<TareaPersonaEstructuraPolitica> comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(
-            List<ComisionEmpleadoResultItemDto> src, TareaDto tarea) {
+            final List<ComisionEmpleadoResultItemDto> src, final TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
@@ -89,18 +95,25 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
     @Mapping(target = "excluidoDenominador", ignore = true)
     @Mapping(target = "tipoPolitica", ignore = true)
     @Mapping(target = "pk.id", ignore = true)
+    @Mapping(target = "tipoUnidadTiempo", ignore = true)
+    @Mapping(target = "numeroUnidades", ignore = true)
+    @Mapping(target = "valor", ignore = true)
+    @Mapping(target = "tramo", ignore = true)
+    @Mapping(target = "numMesesCalcMedia", ignore = true)
+    @Mapping(target = "numHoras", ignore = true)
+    @Mapping(target = "idMotivoBaja", ignore = true)
     @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraPolitica estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(
             EstructurasPolResultItemDto src, TareaDto tarea);
 
     public List<TareaPersonaEstructuraPolitica> estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(
-            List<EstructurasPolResultItemDto> src, TareaDto tarea) {
+            final List<EstructurasPolResultItemDto> src, final TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     public TareaPersonaEstructuraPolitica estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(
-            EstructurasPolResultItemDto src, ListaCondicionesPoliticasResultItemDto condiciones,
-            ListaValoresPoliticasResultItemDto valores, TareaDto tarea) {
+            final EstructurasPolResultItemDto src, final ListaCondicionesPoliticasResultItemDto condiciones,
+            final ListaValoresPoliticasResultItemDto valores, final TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
