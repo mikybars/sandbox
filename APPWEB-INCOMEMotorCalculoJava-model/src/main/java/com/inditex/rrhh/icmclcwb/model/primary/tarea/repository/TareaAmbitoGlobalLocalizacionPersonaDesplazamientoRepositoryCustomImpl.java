@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -24,17 +22,7 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustomI
     @Override
     public List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> save(
             final List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
-
-    @Override
-    public void setParameters(PreparedStatement pstmt, TareaAmbitoGlobalLocalizacionPersonaDesplazamiento entity)
-            throws SQLException {
-        pstmt.setString(1, entity.getStdIdWorkLocat());
-        pstmt.setString(2, entity.getCclIdOrigen());
-        pstmt.setString(3, entity.getCclIdPerson());
-        pstmt.setString(4, entity.getStdIdLegEnt());
-        pstmt.setLong(5, entity.getTarea().getId());
+        return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
     }
 
 }

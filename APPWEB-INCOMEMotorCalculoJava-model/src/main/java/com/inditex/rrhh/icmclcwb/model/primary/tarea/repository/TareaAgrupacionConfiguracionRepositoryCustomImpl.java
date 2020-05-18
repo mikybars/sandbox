@@ -1,13 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionConfiguracion;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionConfiguracion;
 
 @Repository
 public class TareaAgrupacionConfiguracionRepositoryCustomImpl
@@ -21,19 +20,8 @@ public class TareaAgrupacionConfiguracionRepositoryCustomImpl
     private String sqlSave;
 
     @Override
-    public List<TareaAgrupacionConfiguracion> save(List<TareaAgrupacionConfiguracion> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
-
-    @Override
-    public void setParameters(PreparedStatement pstmt, TareaAgrupacionConfiguracion entity) throws SQLException {
-        pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getCclIdOrigen());
-        pstmt.setLong(3, entity.getIcmIdAgrupacionOnline());
-        pstmt.setObject(4, entity.getFechaInicio());
-        pstmt.setObject(5, entity.getFechaFin());
-        pstmt.setBigDecimal(6, entity.getPorcentajeInclusion());
-        pstmt.setLong(7, entity.getTipoVentaConcepto().getId());
+    public List<TareaAgrupacionConfiguracion> save(final List<TareaAgrupacionConfiguracion> src) {
+        return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
     }
 
 }
