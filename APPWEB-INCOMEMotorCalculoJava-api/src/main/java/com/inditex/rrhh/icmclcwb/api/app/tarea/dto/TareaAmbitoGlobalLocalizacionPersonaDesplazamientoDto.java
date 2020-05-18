@@ -22,7 +22,7 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto implements Se
 
     @NotBlank
     @ApiModelProperty(value = "Identificador de la tienda", required = true)
-    private String cclIdCodOrigen;
+    private String stdIdWorkLocat;
 
     @NotBlank
     @ApiModelProperty(value = "Identificador de la persona", required = true)
