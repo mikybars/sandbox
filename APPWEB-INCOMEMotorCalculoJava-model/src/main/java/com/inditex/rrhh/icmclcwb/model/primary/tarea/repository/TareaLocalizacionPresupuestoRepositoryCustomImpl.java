@@ -1,5 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.stereotype.Repository;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -7,16 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoD
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
 
 @Repository
 public class TareaLocalizacionPresupuestoRepositoryCustomImpl
@@ -41,39 +38,17 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
     @Value("${app.envars.repository.batch-size.tarea-persona-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
 
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
     @Override
-    public List<TareaLocalizacionPresupuesto> save(List<TareaLocalizacionPresupuesto> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
+    public List<TareaLocalizacionPresupuesto> save(final List<TareaLocalizacionPresupuesto> src) {
+        return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
     }
 
     @Override
-    public void setParameters(PreparedStatement pstmt, TareaLocalizacionPresupuesto src) throws SQLException {
-        pstmt.setLong(1, src.getTarea().getId());
-        pstmt.setString(2, src.getCclIdOrigen());
-        pstmt.setString(3, src.getStdIdLegEnt());
-        pstmt.setString(4, src.getCclIdCodOrigen());
-        pstmt.setString(5, src.getStdIdWorkLocat());
-        pstmt.setString(6, src.getCclIdSeccion());
-        pstmt.setObject(7, src.getFechaInicio());
-        pstmt.setObject(8, src.getFechaFin());
-        pstmt.setDouble(9, src.getImporteSinImpuestos());
-        pstmt.setDouble(10, src.getImporteConImpuestos());
-        pstmt.setInt(11, src.getBanda());
-        pstmt.setInt(12, src.getOrdinal());
-        pstmt.setBoolean(13, src.getExcepcion());
-        pstmt.setInt(14, src.getTipoPresupuesto().getId());
-        pstmt.setBoolean(15, src.getActivo());
-    }
+    public List<TareaLocalizacionPresupuestoDto> findPresupuestos(final TareaDto tarea) {
 
-    @Override
-    public List<TareaLocalizacionPresupuestoDto> findPresupuestos(TareaDto tarea) {
-
-        MapSqlParameterSource maps = new MapSqlParameterSource();
+        final MapSqlParameterSource maps = new MapSqlParameterSource();
         maps.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        return namedParameterJdbcTemplate.query(sqlFindPresupuestos, maps,
+        return this.query(this.sqlFindPresupuestos, maps,
                 (rs, rowNum) -> TareaLocalizacionPresupuestoDto
                     .builder()
                     .cclIdOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORIGEN))
@@ -87,11 +62,11 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
 
     @Override
     @Cacheable(value = "itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository", key = "{#idTarea}")
-    public PeriodoDto findPeriodoPresupuestoYTrabajo(Long idTarea) {
+    public PeriodoDto findPeriodoPresupuestoYTrabajo(final Long idTarea) {
 
-        MapSqlParameterSource maps = new MapSqlParameterSource();
+        final MapSqlParameterSource maps = new MapSqlParameterSource();
         maps.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        return namedParameterJdbcTemplate.queryForObject(sqlFindPeriodoPresupuestoYTrabajo, maps,
+        return this.queryForObject(this.sqlFindPeriodoPresupuestoYTrabajo, maps,
                 (rs, rowNum) -> PeriodoDto
                     .builder()
                     .fechaFinPeriodo(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
@@ -100,18 +75,18 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
     }
 
     @Override
-    public void updateActivoBandaExcepcion(TareaDto tarea) {
-        MapSqlParameterSource map = new MapSqlParameterSource();
+    public void updateActivoBandaExcepcion(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_CK_EXCEPCION, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        namedParameterJdbcTemplate.update(sqlUpdateActivoBandaExcepcion, map);
+        this.update(this.sqlUpdateActivoBandaExcepcion, map);
     }
 
     @Override
-    public void updateActivoBandasSinExcepcion(TareaDto tarea) {
-        MapSqlParameterSource map = new MapSqlParameterSource();
+    public void updateActivoBandasSinExcepcion(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
                 TipoGrupoDatoEnum.VENTA_RANGO_REAL_Y_CONGELADA.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
@@ -119,7 +94,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        namedParameterJdbcTemplate.update(sqlUpdateActivoBandasSinExcepcion, map);
+        this.update(this.sqlUpdateActivoBandasSinExcepcion, map);
     }
 
 }
