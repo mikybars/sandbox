@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dt
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -20,6 +19,6 @@ public class PresupuestosRangoFilterDto implements Serializable {
 
     private String idEmpresa;
 
-    private List<PresupuestosRangoFilterParametersDto> item = new ArrayList<>();
+    private List<PresupuestosRangoFilterParametersDto> item;
 
 }
