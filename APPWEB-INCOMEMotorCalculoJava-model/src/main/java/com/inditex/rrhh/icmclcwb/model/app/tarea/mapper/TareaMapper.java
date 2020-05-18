@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
+import java.util.List;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
@@ -38,16 +40,20 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.List;
-
 @Mapper(imports = { PtrConstants.class, RunUtils.class, TimeUtils.class })
 @DecoratedWith(value = TareaMapperDecorator.class)
 public abstract class TareaMapper {
 
     @Mapping(target = "idTrabajo", source = "trabajo.id")
+    @Mapping(target = "ambito", ignore = true)
+    @Mapping(target = "persona", ignore = true)
+    @Mapping(target = "localizacion", ignore = true)
     public abstract TareaDto tareaToTareaDto(Tarea src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "estado.id", source = "estado.id")
+    @Mapping(target = "estado.nombre", ignore = true)
+    @Mapping(target = "estado.peso", ignore = true)
     public abstract Tarea tareaDtoToTarea(TareaDto src);
 
     public abstract List<TareaDto> tareaToTareaDto(List<Tarea> src);
@@ -71,11 +77,12 @@ public abstract class TareaMapper {
             TrabajoAmbitoEmpresaDto srcTrabajoAmbitoEmpresa, TrabajoDto srcTrabajo);
 
     public List<TareaDto> mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(
-            List<TrabajoAmbitoEmpresaDto> srcTrabajoAmbitoEmpresa, TrabajoDto srcTrabajo) {
+            final List<TrabajoAmbitoEmpresaDto> srcTrabajoAmbitoEmpresa, final TrabajoDto srcTrabajo) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     @Mapping(target = "item", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")
     @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()))")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
@@ -91,6 +98,9 @@ public abstract class TareaMapper {
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo);
 
     @Mapping(target = "item", ignore = true)
+    @Mapping(target = "idSeccion", ignore = true)
+    @Mapping(target = "banda", ignore = true)
+    @Mapping(target = "ordinal", ignore = true)
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")
     @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()))")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
@@ -106,6 +116,7 @@ public abstract class TareaMapper {
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo);
 
     @Mapping(target = "item", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(periodo.getFechaInicioPeriodo()))")
     @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(periodo.getFechaFinPeriodo()))")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
@@ -134,6 +145,7 @@ public abstract class TareaMapper {
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo);
 
     @Mapping(target = "item", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaInicioPeriodo()))")
     @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaFinPeriodo()))")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
@@ -142,6 +154,7 @@ public abstract class TareaMapper {
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
 
     @Mapping(target = "item", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")
     @Mapping(target = "fechaFin",
             expression = "java(RunUtils.addDays(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()), srcRecolectarProperties.getDaysNumber()))")
@@ -152,6 +165,7 @@ public abstract class TareaMapper {
             RecolectarPropertiesDto srcRecolectarProperties);
 
     @Mapping(target = "item", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(periodo.getFechaInicioPeriodo()))")
     @Mapping(target = "fechaFin",
             expression = "java(RunUtils.addDays(TimeUtils.toLocalDateTime(periodo.getFechaFinPeriodo()), srcRecolectarProperties.getDaysNumber()))")

@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
+import java.util.List;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
@@ -8,8 +10,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPre
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import java.util.List;
 
 @Mapper(imports = { org.apache.commons.lang3.math.NumberUtils.class })
 @DecoratedWith(value = TareaLocalizacionLocalizacionPresupuestoDecorator.class)
@@ -32,12 +32,13 @@ public abstract class TareaLocalizacionPresupuestoMapper {
     @Mapping(target = "ordinal", source = "src.ordinal")
     @Mapping(target = "excepcion", source = "src.excepcion")
     @Mapping(target = "tipoPresupuesto", ignore = true)
+    @Mapping(target = "estructura", ignore = true)
     @Mapping(target = "activo", constant = "false")
     public abstract TareaLocalizacionPresupuesto presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(
             PresupuestosWlocResultItemDto src, TareaDto tarea);
 
     public List<TareaLocalizacionPresupuesto> presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(
-            List<PresupuestosWlocResultItemDto> src, TareaDto tarea) {
+            final List<PresupuestosWlocResultItemDto> src, final TareaDto tarea) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

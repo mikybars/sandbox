@@ -33,7 +33,7 @@ public class TareaLocalizacionAbiertaDto implements Serializable {
     private Date fecha;
 
     @NotNull
-    @ApiModelProperty(value = "Flag comisionable", required = true)
-    private Boolean comisionable;
+    @ApiModelProperty(value = "Flag abierto", required = true)
+    private Boolean abierto;
 
 }

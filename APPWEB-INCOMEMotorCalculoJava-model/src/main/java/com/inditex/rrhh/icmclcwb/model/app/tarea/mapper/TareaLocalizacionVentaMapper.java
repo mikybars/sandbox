@@ -2,10 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
 
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
@@ -19,11 +15,16 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizacionVentaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper
 @DecoratedWith(TareaLocalizacionVentaDecorator.class)
 public abstract class TareaLocalizacionVentaMapper {
 
+    @Mapping(target = "pk", ignore = true)
+    @Mapping(target = "tarea", ignore = true)
     public abstract TareaLocalizacionVenta tareaLocalizacionVentaDtoToTareaLocalizacionVenta(
             TareaLocalizacionVentaDto src);
 
@@ -52,44 +53,50 @@ public abstract class TareaLocalizacionVentaMapper {
             Integer idTipoDato);
 
     public List<TareaLocalizacionVenta> ventaTotalizadoResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaTotalizadoResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion,
-            Integer tipoDatoLocalizacion) {
+            final List<PtrVentaTotalizadoResultItemDto> src, final TareaDto tarea,
+            final Integer tipoDatoLocalizacionSeccion,
+            final Integer tipoDatoLocalizacion) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     public List<TareaLocalizacionVenta> ventaOnlineIpodResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaOnlineIpodResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion,
-            Integer tipoDatoLocalizacion) {
+            final List<PtrVentaOnlineIpodResultItemDto> src, final TareaDto tarea,
+            final Integer tipoDatoLocalizacionSeccion,
+            final Integer tipoDatoLocalizacion) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     public List<TareaLocalizacionVenta> ventaOnlineIpodIndividualDetalleResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, TareaDto tarea,
-            Integer tipoDatoLocalizacionSeccion, Integer tipoDatoLocalizacion) {
+            final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, final TareaDto tarea,
+            final Integer tipoDatoLocalizacionSeccion, final Integer tipoDatoLocalizacion) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     public List<TareaLocalizacionVenta> ventaOnlinePickingResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaOnlinePickingResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion,
-            Integer tipoDatoLocalizacion) {
+            final List<PtrVentaOnlinePickingResultItemDto> src, final TareaDto tarea,
+            final Integer tipoDatoLocalizacionSeccion,
+            final Integer tipoDatoLocalizacion) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     public List<TareaLocalizacionVenta> ventaOnlineEntregaTiendaResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaOnlineEntregaTiendaResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion,
-            Integer tipoDatoLocalizacion) {
+            final List<PtrVentaOnlineEntregaTiendaResultItemDto> src, final TareaDto tarea,
+            final Integer tipoDatoLocalizacionSeccion,
+            final Integer tipoDatoLocalizacion) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     public List<TareaLocalizacionVenta> ventaOnlineEntregaDomicilioResponseItemDtoToTareaLocalizacionVenta(
-            List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion,
-            Integer tipoDatoLocalizacion) {
+            final List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, final TareaDto tarea,
+            final Integer tipoDatoLocalizacionSeccion,
+            final Integer tipoDatoLocalizacion) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
     public List<TareaLocalizacionVenta> ventaIndividualDetalleReponseItemsDtoToTareaLocalizacionVenta(
-            List<PtrVentaIndividualDetalleResultItemDto> src, TareaDto tarea, Integer tipoDatoLocalizacionSeccion,
-            Integer tipoDatoLocalizacion) {
+            final List<PtrVentaIndividualDetalleResultItemDto> src, final TareaDto tarea,
+            final Integer tipoDatoLocalizacionSeccion,
+            final Integer tipoDatoLocalizacion) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

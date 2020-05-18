@@ -2,11 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
 
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
@@ -17,12 +12,18 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.Li
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaValoresDestinoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaPersonaEstructuraMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(imports = { org.apache.commons.lang3.StringUtils.class,
         com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants.class })
 @DecoratedWith(value = TareaPersonaEstructuraMapperDecorator.class)
 public abstract class TareaPersonaEstructuraMapper {
 
+    @Mapping(target = "estructuraDesplazamiento", ignore = true)
+    @Mapping(target = "id", source = "pk.id")
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "fechaInicioPeriodo", source = "pk.fechaInicioPeriodo")
     public abstract TareaPersonaEstructuraDto tareaPersonaEstructuraToTareaPersonaEstructuraDto(
@@ -30,6 +31,7 @@ public abstract class TareaPersonaEstructuraMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "tarea", ignore = true)
+    @Mapping(target = "presupuesto", ignore = true)
     public abstract TareaPersonaEstructura tareaPersonaEstructuraDtoToTareaPersonaEstructura(
             TareaPersonaEstructuraDto src);
 
@@ -37,7 +39,7 @@ public abstract class TareaPersonaEstructuraMapper {
             List<TareaPersonaEstructura> src);
 
     public List<TareaPersonaEstructura> tareaPersonaEstructuraDtoToTareaPersonaEstructura(
-            List<TareaPersonaEstructuraDto> src) {
+            final List<TareaPersonaEstructuraDto> src) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
