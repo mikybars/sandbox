@@ -2,21 +2,24 @@ package com.inditex.rrhh.icmclcwb.model.app.programacion.mapper;
 
 import java.util.List;
 
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.decorator.ProgramacionAmbitoMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionAmbito;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper
 @DecoratedWith(value = ProgramacionAmbitoMapperDecorator.class)
 public abstract class ProgramacionAmbitoMapper {
 
+    @Mapping(target = "origen", ignore = true)
+    @Mapping(target = "empresa", ignore = true)
+    @Mapping(target = "persona", ignore = true)
+    @Mapping(target = "localizacion", ignore = true)
     @Mapping(target = "idProgramacion", source = "programacion.id")
     public abstract ProgramacionAmbitoDto programacionAmbitoToProgramacionAmbitoDto(ProgramacionAmbito src);
 
@@ -33,7 +36,7 @@ public abstract class ProgramacionAmbitoMapper {
             ProgramacionAmbitoDto srcProgramacionAmbito, ProgramacionDto srcProgramacion);
 
     public List<ProgramacionAmbito> mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(
-            List<ProgramacionAmbitoDto> srcProgramacionAmbito, ProgramacionDto srcProgramacion) {
+            final List<ProgramacionAmbitoDto> srcProgramacionAmbito, final ProgramacionDto srcProgramacion) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
