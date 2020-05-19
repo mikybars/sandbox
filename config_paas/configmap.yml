@@ -135,7 +135,7 @@ amiga:
           borrow-connection-timeout: 600
       datasource:
         primary:
-          init-connection-sql: set schema GESTION_COMISION
+          #init-connection-sql: set schema GESTION_COMISION
           xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
           xa-properties:
             clientProgramName: ${metadata.jirakey}
