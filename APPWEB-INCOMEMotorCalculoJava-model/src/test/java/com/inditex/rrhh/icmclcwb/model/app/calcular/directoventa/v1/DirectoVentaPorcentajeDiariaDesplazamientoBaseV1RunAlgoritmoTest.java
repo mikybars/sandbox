@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -103,7 +104,7 @@ public class DirectoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
         when(runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(2);
         RuntimeException exception = new RuntimeException("EEEE");
         doThrow(exception).when(tareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom)
-            .calcular(any(AlgoritmoDto.class), any(TareaDto.class), any(List.class));
+            .calcular(any(AlgoritmoDto.class), any(TareaDto.class), ArgumentMatchers.<List<TareaCalculoPersonaDto>>any());
 
         RunTareaDto runTarea = new RunTareaDto();
         TareaDto tarea = new TareaDto();

@@ -21,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -106,7 +107,7 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
 
         this.tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaPersonaEstructura>>any());
         assertEquals(SQL_FIND_PERSONAS_CHALLENGE, this.sqlCaptor.getValue());
         final MapSqlParameterSource map = this.paramsCaptor.getValue();
         // Parámetros de la consulta: fechaInicioPeriodo, idTarea, tiposCalculo

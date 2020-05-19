@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -20,7 +19,6 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
-import org.slf4j.Logger;
 
 @Repository
 public class TareaLocalizacionVentaRepositoryCustomImpl extends
@@ -58,9 +56,6 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
 
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0']}")
     private String sqlRepartoDevolucionVendedor0;
-
-    @Autowired
-    private Logger log;
 
     @Override
     public List<TareaLocalizacionVenta> save(final List<TareaLocalizacionVenta> src) {

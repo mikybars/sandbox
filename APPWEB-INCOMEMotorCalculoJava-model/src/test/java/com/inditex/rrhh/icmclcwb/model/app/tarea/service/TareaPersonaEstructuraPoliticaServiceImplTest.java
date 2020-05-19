@@ -1,25 +1,25 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraPoliticaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraPoliticaRepositoryCustom;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaPersonaEstructuraPoliticaServiceImplTest {
@@ -38,22 +38,24 @@ public class TareaPersonaEstructuraPoliticaServiceImplTest {
 
     @Test
     public void saveTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<ComisionEmpleadoResultItemDto> comisionEmpleado = new ArrayList<>();
+        final List<ComisionEmpleadoResultItemDto> comisionEmpleado = new ArrayList<>();
 
-        tareaPersonaEstructuraPoliticaServiceImpl.save(comisionEmpleado, tarea);
-        verify(tareaPersonaEstructuraPoliticaRepositoryCustom, times(1)).save(any(List.class));
+        this.tareaPersonaEstructuraPoliticaServiceImpl.save(comisionEmpleado, tarea);
+        verify(this.tareaPersonaEstructuraPoliticaRepositoryCustom, times(1)).save(ArgumentMatchers
+            .<List<TareaPersonaEstructuraPolitica>>any());
     }
 
     @Test
     public void saveEstructurasPolResultItemDtoTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<EstructurasPolResultItemDto> estructurasPol = new ArrayList<>();
+        final List<EstructurasPolResultItemDto> estructurasPol = new ArrayList<>();
 
-        tareaPersonaEstructuraPoliticaServiceImpl.saveEstructurasPolResultItemDto(estructurasPol, tarea);
-        verify(tareaPersonaEstructuraPoliticaRepositoryCustom, times(1)).save(any(List.class));
+        this.tareaPersonaEstructuraPoliticaServiceImpl.saveEstructurasPolResultItemDto(estructurasPol, tarea);
+        verify(this.tareaPersonaEstructuraPoliticaRepositoryCustom, times(1)).save(ArgumentMatchers
+            .<List<TareaPersonaEstructuraPolitica>>any());
     }
 
 }

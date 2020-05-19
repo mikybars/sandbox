@@ -1,26 +1,26 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaConfiguracionChallengeDiasMinimosDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaConfiguracionChallengeDiasMinimosMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaConfiguracionChallengeDiasMinimosDecorator;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaConfiguracionChallengeDiasMinimos;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaConfiguracionChallengeDiasMinimosServiceImplTest {
@@ -40,30 +40,37 @@ public class TareaConfiguracionChallengeDiasMinimosServiceImplTest {
 
     @Test
     public void saveTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        TareaConfiguracionChallengeDiasMinimosDto tareaConfiguracionChallengeDiasMinimosDto = mock(
+        final TareaDto tarea = mock(TareaDto.class);
+        final TareaConfiguracionChallengeDiasMinimosDto tareaConfiguracionChallengeDiasMinimosDto = mock(
                 TareaConfiguracionChallengeDiasMinimosDto.class);
-        List<TareaConfiguracionChallengeDiasMinimosDto> list = new ArrayList<TareaConfiguracionChallengeDiasMinimosDto>();
-        list.add(tareaConfiguracionChallengeDiasMinimosDto);
-        when(tareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
+        final List<TareaConfiguracionChallengeDiasMinimosDto> dtoList = new ArrayList<TareaConfiguracionChallengeDiasMinimosDto>();
+        final List<TareaConfiguracionChallengeDiasMinimos> list = new ArrayList<TareaConfiguracionChallengeDiasMinimos>();
+        dtoList.add(tareaConfiguracionChallengeDiasMinimosDto);
+        when(this.tareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl
+            .save(ArgumentMatchers.<List<TareaConfiguracionChallengeDiasMinimos>>any())).thenReturn(list);
 
-        tareaConfiguracionChallengeDiasMinimosServiceImpl.save(list, tarea);
+        this.tareaConfiguracionChallengeDiasMinimosServiceImpl.save(dtoList, tarea);
 
-        verify(tareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl, times(1)).save(any(List.class));
+        verify(this.tareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl, times(1))
+            .save(ArgumentMatchers.<List<TareaConfiguracionChallengeDiasMinimos>>any());
 
     }
 
     @Test
     public void saveConfChDiasMinimosResultItemDtoTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        ConfChDiasMinimosResultItemDto tareaConfiguracionChDiasMinimos = mock(ConfChDiasMinimosResultItemDto.class);
-        List<ConfChDiasMinimosResultItemDto> list = new ArrayList<ConfChDiasMinimosResultItemDto>();
-        list.add(tareaConfiguracionChDiasMinimos);
-        when(tareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
+        final TareaDto tarea = mock(TareaDto.class);
+        final ConfChDiasMinimosResultItemDto tareaConfiguracionChDiasMinimos = mock(
+                ConfChDiasMinimosResultItemDto.class);
+        final List<ConfChDiasMinimosResultItemDto> dtoList = new ArrayList<ConfChDiasMinimosResultItemDto>();
+        final List<TareaConfiguracionChallengeDiasMinimos> list = new ArrayList<TareaConfiguracionChallengeDiasMinimos>();
+        dtoList.add(tareaConfiguracionChDiasMinimos);
+        when(this.tareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl
+            .save(ArgumentMatchers.<List<TareaConfiguracionChallengeDiasMinimos>>any())).thenReturn(list);
 
-        tareaConfiguracionChallengeDiasMinimosServiceImpl.saveConfChDiasMinimosResultItemDto(list, tarea);
+        this.tareaConfiguracionChallengeDiasMinimosServiceImpl.saveConfChDiasMinimosResultItemDto(dtoList, tarea);
 
-        verify(tareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl, times(1)).save(any(List.class));
+        verify(this.tareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl, times(1))
+            .save(ArgumentMatchers.<List<TareaConfiguracionChallengeDiasMinimos>>any());
 
     }
 

@@ -1,19 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -21,6 +9,18 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoPersonaMapper
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaAmbitoPersonaMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoPersona;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoPersonaRepository;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaAmbitoPersonaServiceImplTest {
@@ -39,24 +39,26 @@ public class TareaAmbitoPersonaServiceImplTest {
 
     @Test
     public void createTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        List<TareaAmbitoPersonaDto> list = new ArrayList<TareaAmbitoPersonaDto>();
-        when(tareaAmbitoPersonaRepository.saveAll(any(List.class))).thenReturn(list);
+        final TareaDto tarea = mock(TareaDto.class);
+        final List<TareaAmbitoPersona> list = new ArrayList<TareaAmbitoPersona>();
+        final List<TareaAmbitoPersonaDto> dtoList = new ArrayList<TareaAmbitoPersonaDto>();
+        when(this.tareaAmbitoPersonaRepository.saveAll(ArgumentMatchers.<List<TareaAmbitoPersona>>any()))
+            .thenReturn(list);
 
-        tareaAmbitoPersonaServiceImpl.create(list, tarea);
+        this.tareaAmbitoPersonaServiceImpl.create(dtoList, tarea);
 
-        verify(tareaAmbitoPersonaRepository, times(1)).saveAll(any(List.class));
+        verify(this.tareaAmbitoPersonaRepository, times(1)).saveAll(ArgumentMatchers.<List<TareaAmbitoPersona>>any());
     }
 
     @Test
     public void findByTarea() {
-        TareaDto tarea = mock(TareaDto.class);
-        List<TareaAmbitoPersona> list = new ArrayList<TareaAmbitoPersona>();
-        when(tareaAmbitoPersonaRepository.findByTareaId(any(Long.class))).thenReturn(list);
+        final TareaDto tarea = mock(TareaDto.class);
+        final List<TareaAmbitoPersona> list = new ArrayList<TareaAmbitoPersona>();
+        when(this.tareaAmbitoPersonaRepository.findByTareaId(any(Long.class))).thenReturn(list);
 
-        tareaAmbitoPersonaServiceImpl.findByTarea(tarea);
+        this.tareaAmbitoPersonaServiceImpl.findByTarea(tarea);
 
-        verify(tareaAmbitoPersonaRepository, times(1)).findByTareaId(any(Long.class));
+        verify(this.tareaAmbitoPersonaRepository, times(1)).findByTareaId(any(Long.class));
     }
 
 }

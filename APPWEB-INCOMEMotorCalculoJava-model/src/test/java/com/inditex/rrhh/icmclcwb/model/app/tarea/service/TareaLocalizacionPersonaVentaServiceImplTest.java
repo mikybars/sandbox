@@ -1,25 +1,26 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersonaVentaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaVenta;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaLocalizacionPersonaVentaServiceImplTest {
@@ -38,31 +39,35 @@ public class TareaLocalizacionPersonaVentaServiceImplTest {
 
     @Test
     public void savePtrVentaIndividualDetalleResultItemTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<PtrVentaIndividualDetalleResultItemDto> ventaIndividual = new ArrayList<>();
+        final List<PtrVentaIndividualDetalleResultItemDto> ventaIndividual = new ArrayList<>();
 
-        tareaLocalizacionPersonaVentaServiceImpl.savePtrVentaIndividualDetalleResultItem(ventaIndividual, tarea);
+        this.tareaLocalizacionPersonaVentaServiceImpl.savePtrVentaIndividualDetalleResultItem(ventaIndividual, tarea);
 
-        verify(tareaLocalizacionPersonaVentaMapper, times(1))
-            .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(any(List.class),
+        verify(this.tareaLocalizacionPersonaVentaMapper, times(1))
+            .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                    ArgumentMatchers.<List<PtrVentaIndividualDetalleResultItemDto>>any(),
                     any(TareaDto.class));
-        verify(tareaLocalizacionPersonaVentaRepositoryCustom, times(1)).save(any(List.class));
+        verify(this.tareaLocalizacionPersonaVentaRepositoryCustom, times(1))
+            .save(ArgumentMatchers.<List<TareaLocalizacionPersonaVenta>>any());
     }
 
     @Test
     public void savePtrVentaOnlineIpodIndividualDetalleResultItemTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> ventaOnlineIpod = new ArrayList<>();
+        final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> ventaOnlineIpod = new ArrayList<>();
 
-        tareaLocalizacionPersonaVentaServiceImpl.savePtrVentaOnlineIpodIndividualDetalleResultItem(ventaOnlineIpod,
+        this.tareaLocalizacionPersonaVentaServiceImpl.savePtrVentaOnlineIpodIndividualDetalleResultItem(ventaOnlineIpod,
                 tarea);
 
-        verify(tareaLocalizacionPersonaVentaMapper, times(1))
-            .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(any(List.class),
+        verify(this.tareaLocalizacionPersonaVentaMapper, times(1))
+            .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                    ArgumentMatchers.<List<PtrVentaOnlineIpodIndividualDetalleResultItemDto>>any(),
                     any(TareaDto.class));
-        verify(tareaLocalizacionPersonaVentaRepositoryCustom, times(1)).save(any(List.class));
+        verify(this.tareaLocalizacionPersonaVentaRepositoryCustom, times(1))
+            .save(ArgumentMatchers.<List<TareaLocalizacionPersonaVenta>>any());
     }
 
 }

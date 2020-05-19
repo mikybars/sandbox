@@ -2,21 +2,21 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
 
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTipoHoraDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTipoHoraDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTipoHora;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper
 @DecoratedWith(TareaTipoHoraDecorator.class)
 public abstract class TareaTipoHoraMapper {
 
+    @Mapping(source = "idTarea", target = "tarea.id")
     public abstract TareaTipoHora tareaTipoHoraDtoToTareaTipoHora(TareaTipoHoraDto src);
 
     public abstract List<TareaTipoHora> tareaTipoHoraDtoListToTareaTareaTipoHoraList(
@@ -25,6 +25,7 @@ public abstract class TareaTipoHoraMapper {
     public abstract List<TareaTipoHoraDto> tareaTareaTipoHoraListTotareaTipoHoraDtoList(
             List<TareaTipoHora> src);
 
+    @Mapping(source = "tarea.id", target = "idTarea")
     public abstract TareaTipoHoraDto tareaTipoHoraToTareaTipoHoraDto(TareaTipoHora src);
 
     @Mapping(source = "src.tipoHora", target = "idTipoHora")
@@ -39,7 +40,7 @@ public abstract class TareaTipoHoraMapper {
             PtrPresenciaTiposHorasResultItemDto src, TareaDto tareaDto);
 
     public List<TareaTipoHora> ptrPresenciaTipoHoraResponsesDtoToTareaTipoHoraDto(
-            List<PtrPresenciaTiposHorasResultItemDto> src, TareaDto tareaDto) {
+            final List<PtrPresenciaTiposHorasResultItemDto> src, final TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

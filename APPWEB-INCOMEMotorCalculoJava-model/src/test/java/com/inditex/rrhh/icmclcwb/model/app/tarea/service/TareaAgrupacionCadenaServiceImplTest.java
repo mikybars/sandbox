@@ -1,19 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
@@ -22,6 +10,18 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaAgrupacio
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepositoryCustomImpl;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaAgrupacionCadenaServiceImplTest {
@@ -43,26 +43,29 @@ public class TareaAgrupacionCadenaServiceImplTest {
 
     @Test
     public void saveTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        AgrupOnlineResultItemDto agrupOnlineResultItemDto = mock(AgrupOnlineResultItemDto.class);
-        List<AgrupOnlineResultItemDto> list = new ArrayList<AgrupOnlineResultItemDto>();
-        list.add(agrupOnlineResultItemDto);
-        when(tareaAgrupacionCadenaRepositoryCustomImpl.save(any(List.class))).thenReturn(list);
+        final TareaDto tarea = mock(TareaDto.class);
+        final AgrupOnlineResultItemDto agrupOnlineResultItemDto = mock(AgrupOnlineResultItemDto.class);
+        final List<AgrupOnlineResultItemDto> dtoList = new ArrayList<AgrupOnlineResultItemDto>();
+        dtoList.add(agrupOnlineResultItemDto);
+        final List<TareaAgrupacionCadena> list = new ArrayList<TareaAgrupacionCadena>();
+        when(this.tareaAgrupacionCadenaRepositoryCustomImpl.save(ArgumentMatchers.<List<TareaAgrupacionCadena>>any()))
+            .thenReturn(list);
 
-        tareaAgrupacionCadenaServiceImpl.save(list, tarea);
+        this.tareaAgrupacionCadenaServiceImpl.save(dtoList, tarea);
 
-        verify(tareaAgrupacionCadenaRepositoryCustomImpl, times(1)).save(any(List.class));
+        verify(this.tareaAgrupacionCadenaRepositoryCustomImpl, times(1))
+            .save(ArgumentMatchers.<List<TareaAgrupacionCadena>>any());
     }
 
     @Test
     public void findAgrupacionesByTarea() {
-        TareaDto tarea = mock(TareaDto.class);
-        List<TareaAgrupacionCadena> agrupaciones = new ArrayList<>();
-        when(tareaAgrupacionCadenaRepository.findByTareaId(any(Long.class))).thenReturn(agrupaciones);
+        final TareaDto tarea = mock(TareaDto.class);
+        final List<TareaAgrupacionCadena> agrupaciones = new ArrayList<>();
+        when(this.tareaAgrupacionCadenaRepository.findByTareaId(any(Long.class))).thenReturn(agrupaciones);
 
-        tareaAgrupacionCadenaServiceImpl.findAgrupacionesByTarea(tarea);
+        this.tareaAgrupacionCadenaServiceImpl.findAgrupacionesByTarea(tarea);
 
-        verify(tareaAgrupacionCadenaRepository, times(1)).findByTareaId(any(Long.class));
+        verify(this.tareaAgrupacionCadenaRepository, times(1)).findByTareaId(any(Long.class));
     }
 
 }
