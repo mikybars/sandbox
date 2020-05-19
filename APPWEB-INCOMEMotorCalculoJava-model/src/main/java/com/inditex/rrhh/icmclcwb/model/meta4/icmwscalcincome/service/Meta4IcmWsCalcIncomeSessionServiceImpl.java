@@ -79,146 +79,152 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
 
     @Override
     public List<GenericTiendaResultItemDto> getFlagCalcula(final FlagCalculaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.FLAG_CALCULA,
-                meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.FLAG_CALCULA,
+                this.meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<GenericTiendaResultItemDto> getFestivos(final FestivosRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.FESTIVOS,
-                meta4Properties.get(Meta4PropertiesConstants.FESTIVOS).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.FESTIVOS,
+                this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<GenericEmpleadoResultItemDto> getCoefJornada(final CoefJornadaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.COEF_JORNADA,
-                meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.COEF_JORNADA,
+                this.meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<GenericEmpleadoResultItemDto> getPresenciaManual(final PresenciaManualRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.PRESENCIA_MANUAL,
-                meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.PRESENCIA_MANUAL,
+                this.meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<GenericEmpleadoResultItemDto> getEmpleadosPresencia(final EmpleadosPresenciaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.EMPLEADOS_PRESENCIA,
-                meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_PRESENCIA).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService,
+                Meta4PropertiesConstants.EMPLEADOS_PRESENCIA,
+                this.meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_PRESENCIA).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<PeriodosResultItemDto> getPeriodos(final PeriodosRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.PERIODOS,
-                meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.PERIODOS,
+                this.meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<GenericTiendaResultItemDto> searchTiendas(final SearchTiendasRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.SEARCH_TIENDAS,
-                meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.SEARCH_TIENDAS,
+                this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<GenericTiendaResultItemDto> getTiendas(final TiendasRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.TIENDAS,
-                meta4Properties.get(Meta4PropertiesConstants.TIENDAS).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.TIENDAS,
+                this.meta4Properties.get(Meta4PropertiesConstants.TIENDAS).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<GenericEmpleadoResultItemDto> searchEmpleados(final SearchEmpleadosRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.SEARCH_EMPLEADOS,
-                meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.SEARCH_EMPLEADOS,
+                this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<EstructurasComResultItemDto> getEstructurasCom(final EstructurasComRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ESTRUCTURAS_COM,
-                meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_COM).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ESTRUCTURAS_COM,
+                this.meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_COM).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<EstructurasPolResultItemDto> getEstructurasPol(final EstructurasPolRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ESTRUCTURAS_POL,
-                meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POL).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ESTRUCTURAS_POL,
+                this.meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POL).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<GenericEmpleadoResultItemDto> getEmpleados(final EmpleadosRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.EMPLEADOS,
-                meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.EMPLEADOS,
+                this.meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<ConfiguracionVentaOnlineResultItemDto> getConfiguracionVentaOnline(
             final ConfiguracionVentaOnlineRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_VENTA_ONLINE,
-                meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_VENTA_ONLINE,
+                this.meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE).getFilter().getMaxPageSize());
     }
 
     @Override
-    public List<AgrupOnlineResultItemDto> getAgrupacionesOnline(AgrupOnlineRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.AGRUPACION_ONLINE,
-                meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE).getFilter().getMaxPageSize());
+    public List<AgrupOnlineResultItemDto> getAgrupacionesOnline(final AgrupOnlineRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.AGRUPACION_ONLINE,
+                this.meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE).getFilter().getMaxPageSize());
     }
 
     @Override
-    public List<TiendaOnlineResultItemDto> tiendaOnline(TiendaOnlineRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.TIENDAS_ONLINE,
-                meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE).getFilter().getMaxPageSize());
+    public List<TiendaOnlineResultItemDto> tiendaOnline(final TiendaOnlineRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.TIENDAS_ONLINE,
+                this.meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE).getFilter().getMaxPageSize());
     }
 
     @Override
-    public List<EmpresaResultItemDto> getEmpresa(EmpresaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.EMPRESA,
-                meta4Properties.get(Meta4PropertiesConstants.EMPRESA).getFilter().getMaxPageSize());
+    public List<EmpresaResultItemDto> getEmpresa(final EmpresaRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.EMPRESA,
+                this.meta4Properties.get(Meta4PropertiesConstants.EMPRESA).getFilter().getMaxPageSize());
     }
 
     @Override
-    public List<OrigenResultItemDto> getOrigen(OrigenRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ORIGEN,
-                meta4Properties.get(Meta4PropertiesConstants.ORIGEN).getFilter().getMaxPageSize());
+    public List<OrigenResultItemDto> getOrigen(final OrigenRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ORIGEN,
+                this.meta4Properties.get(Meta4PropertiesConstants.ORIGEN).getFilter().getMaxPageSize());
     }
 
     @Override
-    public List<AusenciasResultItemDto> getAusencias(AusenciasRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.AUSENCIAS,
-                meta4Properties.get(Meta4PropertiesConstants.AUSENCIAS).getFilter().getMaxPageSize());
+    public List<AusenciasResultItemDto> getAusencias(final AusenciasRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.AUSENCIAS,
+                this.meta4Properties.get(Meta4PropertiesConstants.AUSENCIAS).getFilter().getMaxPageSize());
     }
 
     @Override
     public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(
-            ConfiguracionProductoVentaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
-                meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
+            final ConfiguracionProductoVentaRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService,
+                Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
+                this.meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
     }
 
     @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
     @Override
-    public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea,
-            String cclIdOrigen) {
-        GenericFilterDto filter = new GenericFilterDto();
+    public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(final Long idTarea,
+            final String cclIdOrigen) {
+        final GenericFilterDto filter = new GenericFilterDto();
         filter.setIdOrigen(cclIdOrigen);
-        ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
+        final ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
         productoRequest.setData(filter);
-        productoRequest.setPage(meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getPage());
-        return getResultItem(productoRequest, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
-                meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
+        productoRequest.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getPage());
+        return this.getResultItem(productoRequest, this.meta4IcmWsCalcIncomeService,
+                Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
+                this.meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
 
     }
 
     @Override
     public List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(
             final EmpleadosDesplazamientoRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO,
-                meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO).getFilter().getMaxPageSize());
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService,
+                Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO,
+                this.meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO)
+                    .getFilter()
+                    .getMaxPageSize());
     }
 
     @Override
-    public void saveProceso(SaveProcesoDto request) {
-        SaveResultDto saveResult = meta4IcmWsCalcIncomeService.saveProceso(request);
-        if (saveResult.getResultadoError() || !saveResult.getResultadoOk()) {
-            StringBuilder sb = new StringBuilder("Error al guardar el proceso: \n");
+    public void saveProceso(final SaveProcesoDto request) {
+        final SaveResultDto saveResult = this.meta4IcmWsCalcIncomeService.saveProceso(request);
+        if (Boolean.TRUE.equals(saveResult.getResultadoError()) || !saveResult.getResultadoOk()) {
+            final StringBuilder sb = new StringBuilder("Error al guardar el proceso: \n");
             saveResult.getData()
                 .forEach(x -> sb.append(x.getLiteral()).append(" ").append(x.getRegistroAfectado()).append('\n'));
             throw new IcmclcwbException(sb.toString());
@@ -226,44 +232,48 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     }
 
     @Override
-    public List<ConfiguracionItemDto> getConfiguraciones(ConfiguracionesRequestDto request) {
-        return meta4IcmWsCalcIncomeService.getConfiguracion(request).getItems();
+    public List<ConfiguracionItemDto> getConfiguraciones(final ConfiguracionesRequestDto request) {
+        return this.meta4IcmWsCalcIncomeService.getConfiguracion(request).getItems();
     }
 
     @Override
-    public List<ConfChDiasMinimosResultItemDto> getConfChallengeDiasMinimos(ConfChDiasMinimosRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS,
-                meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS).getFilter().getMaxPageSize());
+    public List<ConfChDiasMinimosResultItemDto> getConfChallengeDiasMinimos(final ConfChDiasMinimosRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService,
+                Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS,
+                this.meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS)
+                    .getFilter()
+                    .getMaxPageSize());
     }
 
     @Override
-    public List<PresupuestosWlocResultItemDto> getPresupuestosWloc(PresupuestosWlocRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.PRESUPUESTOSWLOC,
-                meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getFilter().getMaxPageSize());
+    public List<PresupuestosWlocResultItemDto> getPresupuestosWloc(final PresupuestosWlocRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.PRESUPUESTOSWLOC,
+                this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getFilter().getMaxPageSize());
     }
 
     @Override
-    public List<ConfPrecioHoraResultItemDto> getConfPrecioHora(ConfPrecioHoraRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONFPRECIOHORA,
-                meta4Properties.get(Meta4PropertiesConstants.CONFPRECIOHORA).getFilter().getMaxPageSize());
+    public List<ConfPrecioHoraResultItemDto> getConfPrecioHora(final ConfPrecioHoraRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONFPRECIOHORA,
+                this.meta4Properties.get(Meta4PropertiesConstants.CONFPRECIOHORA).getFilter().getMaxPageSize());
     }
 
     @Override
-    public List<ConfChTpVentaResultItemDto> getConfChallengeTpVenta(ConfChTpVentaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONFCHALLENGETPVENTA,
-                meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGETPVENTA).getFilter().getMaxPageSize());
+    public List<ConfChTpVentaResultItemDto> getConfChallengeTpVenta(final ConfChTpVentaRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService,
+                Meta4PropertiesConstants.CONFCHALLENGETPVENTA,
+                this.meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGETPVENTA).getFilter().getMaxPageSize());
     }
 
     @Override
-    public List<PresupuestosRangoResultItemDto> getPresupuestosRango(PresupuestosRangoRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.PRESUPUESTOSRANGO,
-                meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSRANGO).getFilter().getMaxPageSize());
+    public List<PresupuestosRangoResultItemDto> getPresupuestosRango(final PresupuestosRangoRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.PRESUPUESTOSRANGO,
+                this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSRANGO).getFilter().getMaxPageSize());
     }
 
     @Override
-    public List<VentaCongeladaResultItemDto> getVentaCongelada(VentaCongeladaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.VENTACONGELADA,
-                meta4Properties.get(Meta4PropertiesConstants.VENTACONGELADA).getFilter().getMaxPageSize());
+    public List<VentaCongeladaResultItemDto> getVentaCongelada(final VentaCongeladaRequestDto request) {
+        return this.getResultItem(request, this.meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.VENTACONGELADA,
+                this.meta4Properties.get(Meta4PropertiesConstants.VENTACONGELADA).getFilter().getMaxPageSize());
     }
 
 }

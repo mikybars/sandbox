@@ -19,6 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -117,7 +118,7 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
                 idTarea,
                 idOrigen);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaPersonaHistorico>>any());
         assertEquals(SQL_FIND_ID_PERSONA_BY_ID_TAREA_AND_ID_ORIGEN_IN_PERIODO_CALCULO_PERSONA,
                 this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
@@ -138,7 +139,7 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
         this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
 
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaPersonaHistorico>>any());
         assertEquals(SQL_FIND_ID_PERSONA_BY_ID_TAREA_AND_ID_ORIGEN, this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: idTarea, cclIdOrigen
@@ -161,7 +162,7 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
                 idOrigen, tiposDato);
 
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaPersonaHistorico>>any());
         assertEquals(SQL_FIND_ID_PERSONA_HISTORICO_BY_ID_TAREA_AND_ID_ORIGEN_AND_TIPO_DATO_IN_AMBITO,
                 this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
@@ -186,7 +187,7 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
                 idOrigen);
 
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaPersonaHistorico>>any());
         assertEquals(SQL_FIND_ID_PERSONA_HISTORICO_BY_ID_TAREA_AND_ID_ORIGEN, this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: idTarea, cclIdOrigen
@@ -206,7 +207,7 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
 
         verify(this.namedParameterJdbcTemplate, times(1)).queryForObject(this.sqlCaptor.capture(),
                 this.paramsCaptor.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaPersonaHistorico>>any());
         assertEquals(SQL_FIND_ID_PERSONA_HISTORICO_BY_ID_TAREA_AND_ID_ORIGEN, this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: idTarea, cclIdOrigen
@@ -223,7 +224,7 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
         this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea(idTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaPersonaHistorico>>any());
         assertEquals(SQL_FIND_ID_PERSONA_HISTORICO_GRUPO_FECHAS_BY_ID_TAREA, this.sqlCaptor.getValue());
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
@@ -247,7 +248,7 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
 
         this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalCompensacionChallengeByIdTarea(idTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaPersonaHistorico>>any());
         assertEquals(SQL_FIND_ID_PERSONA_HISTORICO_COMPENSACION_CHALLENGE_BY_ID_TAREA, this.sqlCaptor.getValue());
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();

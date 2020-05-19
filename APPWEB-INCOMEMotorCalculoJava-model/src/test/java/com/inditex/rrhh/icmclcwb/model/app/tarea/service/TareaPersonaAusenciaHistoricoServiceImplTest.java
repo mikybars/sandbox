@@ -1,25 +1,25 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaAusenciaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaAusenciaHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaAusenciaHistorico;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaAusenciaHistoricoRepositoryCustom;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaPersonaAusenciaHistoricoServiceImplTest {
@@ -38,22 +38,24 @@ public class TareaPersonaAusenciaHistoricoServiceImplTest {
 
     @Test
     public void saveTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<TareaPersonaAusenciaHistoricoDto> tareaPersonaAusencia = new ArrayList<>();
+        final List<TareaPersonaAusenciaHistoricoDto> tareaPersonaAusencia = new ArrayList<>();
 
-        tareaPersonaAusenciaHistoricoServiceImpl.save(tareaPersonaAusencia);
-        verify(tareaPersonaAusenciaHistoricoRepositoryCustom, times(1)).save(any(List.class));
+        this.tareaPersonaAusenciaHistoricoServiceImpl.save(tareaPersonaAusencia);
+        verify(this.tareaPersonaAusenciaHistoricoRepositoryCustom, times(1)).save(ArgumentMatchers
+            .<List<TareaPersonaAusenciaHistorico>>any());
     }
 
     @Test
     public void saveAusenciaResultItemDtoTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<AusenciasResultItemDto> ausenciasResultItemDto = new ArrayList<>();
+        final List<AusenciasResultItemDto> ausenciasResultItemDto = new ArrayList<>();
 
-        tareaPersonaAusenciaHistoricoServiceImpl.saveAusenciaResultItemDto(ausenciasResultItemDto, tarea);
-        verify(tareaPersonaAusenciaHistoricoRepositoryCustom, times(1)).save(any(List.class));
+        this.tareaPersonaAusenciaHistoricoServiceImpl.saveAusenciaResultItemDto(ausenciasResultItemDto, tarea);
+        verify(this.tareaPersonaAusenciaHistoricoRepositoryCustom, times(1)).save(ArgumentMatchers
+            .<List<TareaPersonaAusenciaHistorico>>any());
     }
 
 }

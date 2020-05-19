@@ -1,21 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
@@ -34,6 +22,17 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametro
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class Meta4PageableServiceImplTest {
@@ -53,13 +52,13 @@ public class Meta4PageableServiceImplTest {
     @Test(expected = Meta4IcmclcwbException.class)
     public void getResultItemException() throws NoSuchMethodException, SecurityException, IllegalAccessException,
             IllegalArgumentException, InvocationTargetException {
-        PageableDto<Serializable> request = new PageableDto<>();
-        Integer maxPageSize = 10;
+        final PageableDto<Serializable> request = new PageableDto<>();
+        final Integer maxPageSize = 10;
 
-        meta4PageableServiceImpl.getResultItem(request, meta4IcmWsCalcIncomeService,
+        this.meta4PageableServiceImpl.getResultItem(request, this.meta4IcmWsCalcIncomeService,
                 Meta4PropertiesConstants.FLAG_CALCULA, maxPageSize);
 
-        verify(meta4IcmWsCalcIncomeService, timeout(1000).times(1))
+        verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
             .getFlagCalcula(ArgumentMatchers.any(FlagCalculaRequestDto.class));
 
     }
@@ -67,37 +66,38 @@ public class Meta4PageableServiceImplTest {
     @Test
     public void getResultItem() throws NoSuchMethodException, SecurityException, IllegalAccessException,
             IllegalArgumentException, InvocationTargetException {
-        FlagCalculaRequestDto request = new FlagCalculaRequestDto();
+        final FlagCalculaRequestDto request = new FlagCalculaRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        PageableListDto<Serializable> response = new PageableListDto<>();
+        final PageableListDto<Serializable> response = new PageableListDto<>();
         response.setData(new ArrayList<>());
         response.setPage(new PageDto(1, 100));
-        Integer maxPageSize = 10;
-        GetflagcalculaOutput output = new GetflagcalculaOutput();
-        IcmListatiendasBlock tiendas = new IcmListatiendasBlock();
+        final Integer maxPageSize = 10;
+        final GetflagcalculaOutput output = new GetflagcalculaOutput();
+        final IcmListatiendasBlock tiendas = new IcmListatiendasBlock();
         tiendas.getIcmListatiendasRecordSet().add(new IcmListatiendasRecord());
         output.setIcmListatiendas(tiendas);
         output.getIcmListatiendas().getIcmListatiendasRecordSet();
-        IcmParametrospaginacionBlock block = new IcmParametrospaginacionBlock();
+        final IcmParametrospaginacionBlock block = new IcmParametrospaginacionBlock();
         block.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
         output.setIcmParametrospaginacion(block);
-        List<GenericTiendaResultItemDto> tienda = new ArrayList<GenericTiendaResultItemDto>();
+        final List<GenericTiendaResultItemDto> tienda = new ArrayList<GenericTiendaResultItemDto>();
         tienda.add(new GenericTiendaResultItemDto());
-        when(icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class)))
+        when(this.icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class)))
             .thenReturn(new IcmParametrosentradaBlock());
-        when(icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class)))
+        when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class)))
             .thenReturn(new IcmParametrospaginacionBlock());
-        when(meta4ClientPool.getflagcalcula(any(IcmParametrosentradaBlock.class),
+        when(this.meta4ClientPool.getflagcalcula(any(IcmParametrosentradaBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(output);
-        when(icmWsCalcIncomeMapper.asPageDto(any(IcmParametrospaginacionBlock.class)))
+        when(this.icmWsCalcIncomeMapper.asPageDto(any(IcmParametrospaginacionBlock.class)))
             .thenReturn(PageDto.builder().numeroPagina(1).numeroRegistrosPagina(100).numeroTotalPaginas(2).build());
-        when(icmWsCalcIncomeMapper.asGenericTiendaResultItemDtos(any(List.class))).thenReturn(tienda);
+        when(this.icmWsCalcIncomeMapper
+            .asGenericTiendaResultItemDtos(ArgumentMatchers.<List<IcmListatiendasRecord>>any())).thenReturn(tienda);
 
-        meta4PageableServiceImpl.getResultItem(request, meta4IcmWsCalcIncomeService,
+        this.meta4PageableServiceImpl.getResultItem(request, this.meta4IcmWsCalcIncomeService,
                 Meta4PropertiesConstants.FLAG_CALCULA, maxPageSize);
 
-        verify(meta4ClientPool, timeout(1000).times(2)).getflagcalcula(any(IcmParametrosentradaBlock.class),
+        verify(this.meta4ClientPool, timeout(1000).times(2)).getflagcalcula(any(IcmParametrosentradaBlock.class),
                 any(IcmParametrospaginacionBlock.class));
 
     }
