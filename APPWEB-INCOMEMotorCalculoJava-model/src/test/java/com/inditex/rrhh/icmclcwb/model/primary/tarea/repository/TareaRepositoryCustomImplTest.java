@@ -1,5 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
@@ -9,20 +16,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaRepositoryCustomImplTest {
@@ -51,28 +57,28 @@ public class TareaRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaRepositoryCustom,
+        FieldUtils.writeField(this.tareaRepositoryCustom,
                 "sqlUpdateFechaFin", SQL_UPDATE_FECHA_FIN, true);
-        FieldUtils.writeField(tareaRepositoryCustom,
+        FieldUtils.writeField(this.tareaRepositoryCustom,
                 "sqlUpdateFechaInicioAndEstado", SQL_UPDATE_FECHA_INICIO_AND_ESTADO, true);
-        FieldUtils.writeField(tareaRepositoryCustom,
+        FieldUtils.writeField(this.tareaRepositoryCustom,
                 "sqlUpdateEstado", SQL_UPDATE_ESTADO, true);
-        FieldUtils.writeField(tareaRepositoryCustom,
+        FieldUtils.writeField(this.tareaRepositoryCustom,
                 "sqlUpdateEstadoFinal", SQL_UPDATE_ESTADO_FINAL, true);
-        FieldUtils.writeField(tareaRepositoryCustom,
+        FieldUtils.writeField(this.tareaRepositoryCustom,
                 "sqlFindLimpieza", SQL_FIND_LIMPIEZA, true);
     }
 
     @Test
     public void updateFechaFinTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(9090L);
-        tareaRepositoryCustom.updateFechaFin(tarea);
+        this.tareaRepositoryCustom.updateFechaFin(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_UPDATE_FECHA_FIN, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_UPDATE_FECHA_FIN, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: nuevaFecha, idTarea
         assertEquals(2, params.getValues().size());
         // nuevaFecha
@@ -86,15 +92,15 @@ public class TareaRepositoryCustomImplTest {
     @Test
     public void updateFechaInicioAndEstadoTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(9090L);
-        EstadoTareaDto estado = mock(EstadoTareaDto.class);
+        final EstadoTareaDto estado = mock(EstadoTareaDto.class);
         when(estado.getId()).thenReturn(909);
-        tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
+        this.tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_UPDATE_FECHA_INICIO_AND_ESTADO, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_UPDATE_FECHA_INICIO_AND_ESTADO, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: nuevaFecha, nuevoIdEstado, idTarea
         assertEquals(3, params.getValues().size());
         // nuevaFecha
@@ -111,15 +117,15 @@ public class TareaRepositoryCustomImplTest {
     @Test
     public void updateEstadoTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(9090L);
-        EstadoTareaDto estado = mock(EstadoTareaDto.class);
+        final EstadoTareaDto estado = mock(EstadoTareaDto.class);
         when(estado.getId()).thenReturn(909);
-        tareaRepositoryCustom.updateEstado(tarea, estado);
+        this.tareaRepositoryCustom.updateEstado(tarea, estado);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_UPDATE_ESTADO, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_UPDATE_ESTADO, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: nuevoIdEstado, idTarea
         assertEquals(2, params.getValues().size());
         // nuevoIdEstado
@@ -134,13 +140,13 @@ public class TareaRepositoryCustomImplTest {
     @Test
     public void updateEstadoFinalTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(9090L);
-        tareaRepositoryCustom.updateEstadoFinal(tarea);
+        this.tareaRepositoryCustom.updateEstadoFinal(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_UPDATE_ESTADO_FINAL, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_UPDATE_ESTADO_FINAL, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: idEstado, idTarea, idEstadoSinErrores, idEstadoConErrores
         assertEquals(4, params.getValues().size());
         // idEstado
@@ -161,16 +167,17 @@ public class TareaRepositoryCustomImplTest {
     @Test
     public void findLimpiezaTest() {
 
-        List<IdTareaDto> idTareas = Arrays.asList(new IdTareaDto(22L), new IdTareaDto(789L), new IdTareaDto(377L));
-        when(namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
-                any(RowMapper.class))).thenReturn(idTareas);
-        List<IdTareaDto> result = tareaRepositoryCustom.findLimpieza();
-        verify(namedParameterJdbcTemplate, times(1)).query(sqlCaptor.capture(), paramsCaptor.capture(),
-                any(RowMapper.class));
+        final List<IdTareaDto> idTareas = Arrays.asList(new IdTareaDto(22L), new IdTareaDto(789L),
+                new IdTareaDto(377L));
+        when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+                ArgumentMatchers.<RowMapper<IdTareaDto>>any())).thenReturn(idTareas);
+        final List<IdTareaDto> result = this.tareaRepositoryCustom.findLimpieza();
+        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdTareaDto>>any());
 
         assertEquals(idTareas, result);
-        assertEquals(SQL_FIND_LIMPIEZA, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        assertEquals(SQL_FIND_LIMPIEZA, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: idEstado
         assertEquals(1, params.getValues().size());

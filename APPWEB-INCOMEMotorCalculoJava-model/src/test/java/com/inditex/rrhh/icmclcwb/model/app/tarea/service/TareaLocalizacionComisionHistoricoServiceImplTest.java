@@ -1,25 +1,26 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionComisionHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionComisionHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionComisionHistorico;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionComisionHistoricoRepositoryCustom;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaLocalizacionComisionHistoricoServiceImplTest {
@@ -38,23 +39,25 @@ public class TareaLocalizacionComisionHistoricoServiceImplTest {
 
     @Test
     public void saveTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<TareaLocalizacionComisionHistoricoDto> genericTiendaResultItemDto = new ArrayList<>();
+        final List<TareaLocalizacionComisionHistoricoDto> genericTiendaResultItemDto = new ArrayList<>();
 
-        tareaLocalizacionComisionHistoricoServiceImpl.save(genericTiendaResultItemDto);
-        verify(tareaLocalizacionComisionHistoricoRepositoryCustom, times(1)).save(any(List.class));
+        this.tareaLocalizacionComisionHistoricoServiceImpl.save(genericTiendaResultItemDto);
+        verify(this.tareaLocalizacionComisionHistoricoRepositoryCustom, times(1))
+            .save(ArgumentMatchers.<List<TareaLocalizacionComisionHistorico>>any());
     }
 
     @Test
     public void mergeTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<GenericTiendaResultItemDto> genericTiendaResultItemDto = new ArrayList<>();
+        final List<GenericTiendaResultItemDto> genericTiendaResultItemDto = new ArrayList<>();
 
-        tareaLocalizacionComisionHistoricoServiceImpl.merge(genericTiendaResultItemDto, tarea);
-        verify(tareaLocalizacionComisionHistoricoMapper, times(1))
-            .genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(any(List.class),
+        this.tareaLocalizacionComisionHistoricoServiceImpl.merge(genericTiendaResultItemDto, tarea);
+        verify(this.tareaLocalizacionComisionHistoricoMapper, times(1))
+            .genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(
+                    ArgumentMatchers.<List<GenericTiendaResultItemDto>>any(),
                     any(TareaDto.class));
     }
 

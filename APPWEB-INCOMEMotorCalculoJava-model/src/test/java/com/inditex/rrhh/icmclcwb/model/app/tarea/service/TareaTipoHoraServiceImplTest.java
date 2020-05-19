@@ -1,19 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
@@ -22,6 +10,18 @@ import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTipoHora;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTipoHoraRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTipoHoraRepositoryCustom;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaTipoHoraServiceImplTest {
@@ -43,15 +43,17 @@ public class TareaTipoHoraServiceImplTest {
 
     @Test
     public void saveTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<PtrPresenciaTiposHorasResultItemDto> tiposHora = mock(List.class);
-        when(tareaTipoHoraMapper.ptrPresenciaTipoHoraResponsesDtoToTareaTipoHoraDto(any(List.class),
+        final List<PtrPresenciaTiposHorasResultItemDto> tiposHora = new ArrayList<>();
+        when(this.tareaTipoHoraMapper.ptrPresenciaTipoHoraResponsesDtoToTareaTipoHoraDto(
+                ArgumentMatchers.<List<PtrPresenciaTiposHorasResultItemDto>>any(),
                 any(TareaDto.class))).thenReturn(new ArrayList<TareaTipoHora>());
 
-        tareaTipoHoraServiceImpl.save(tiposHora, tarea);
+        this.tareaTipoHoraServiceImpl.save(tiposHora, tarea);
 
-        verify(tareaTipoHoraRepositoryCustom, times(1)).save(any(List.class));
+        verify(this.tareaTipoHoraRepositoryCustom, times(1))
+            .save(ArgumentMatchers.<List<TareaTipoHora>>any());
     }
 
 }

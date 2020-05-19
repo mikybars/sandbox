@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -135,7 +136,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         this.tareaLocalizacionHistoricoRepositoryCustom
             .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, tiposDato);
         verify(this.namedParameterJdbcTemplate, times(1))
-            .query(this.sql.capture(), this.params.capture(), any(RowMapper.class));
+            .query(this.sql.capture(), this.params.capture(),
+                    ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
         assertEquals(SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_ID_ORIGEN_TIPO_DATO_IN_AMBITO, this.sql.getValue());
         // parametros de la consulta: idTarea, cclIdOrigen, tiposDato
         assertEquals(3, this.params.getValue().getValues().size());
@@ -160,7 +162,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         this.tareaLocalizacionHistoricoRepositoryCustom
             .findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(idTarea, idOrigen);
         verify(this.namedParameterJdbcTemplate, times(1))
-            .query(this.sql.capture(), this.params.capture(), any(RowMapper.class));
+            .query(this.sql.capture(), this.params.capture(),
+                    ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
         assertEquals(SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_ID_ORIGEN_IN_AMBITO, this.sql.getValue());
         // parametros de la consulta: idTarea, cclIdOrigen
         assertEquals(2, this.params.getValue().getValues().size());
@@ -182,7 +185,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         this.tareaLocalizacionHistoricoRepositoryCustom
             .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(idTarea, idOrigen);
         verify(this.namedParameterJdbcTemplate, times(1))
-            .query(this.sql.capture(), this.params.capture(), any(RowMapper.class));
+            .query(this.sql.capture(), this.params.capture(),
+                    ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
         assertEquals(SQL_FIND_ID_LOCALIZACION_LOCAL_BY_ID_TAREA_ID_ORIGEN_IN_AMBITO, this.sql.getValue());
         // parametros de la consulta: idTarea, cclIdOrigen
         assertEquals(2, this.params.getValue().getValues().size());
@@ -205,7 +209,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         this.tareaLocalizacionHistoricoRepositoryCustom
             .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, tiposDato);
         verify(this.namedParameterJdbcTemplate, times(1))
-            .query(this.sql.capture(), this.params.capture(), any(RowMapper.class));
+            .query(this.sql.capture(), this.params.capture(),
+                    ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
         assertEquals(SQL_FIND_ID_LOCALIZACION_LOCAL_ID_TAREA_ID_ORIGEN_TIPO_DATO_IN_AMBITO, this.sql.getValue());
         // parametros de la consulta: idTarea, cclIdOrigen, tiposDato
         assertEquals(3, this.params.getValue().getValues().size());
@@ -231,7 +236,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         this.tareaLocalizacionHistoricoRepositoryCustom
             .getCadenasByTareaAndOrigen(idTarea, idOrigen, idVentaConcepto);
         verify(this.namedParameterJdbcTemplate, times(1))
-            .query(this.sql.capture(), this.params.capture(), any(RowMapper.class));
+            .query(this.sql.capture(), this.params.capture(),
+                    ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
         assertEquals(SQL_CADENAS_FILTRO_TIPO_DATO, this.sql.getValue());
         // parametros de la consulta: idTarea, cclIdOrigen, porcentajeInclusion, idConcepto
         assertEquals(4, this.params.getValue().getValues().size());
@@ -259,7 +265,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         this.tareaLocalizacionHistoricoRepositoryCustom
             .getCadenasByTareaAndOrigen(idTarea, idOrigen);
         verify(this.namedParameterJdbcTemplate, times(1))
-            .query(this.sql.capture(), this.params.capture(), any(RowMapper.class));
+            .query(this.sql.capture(), this.params.capture(),
+                    ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
         assertEquals(SQL_CADENAS, this.sql.getValue());
         // parametros de la consulta: idTarea, cclIdOrigen, tiposDato
         assertEquals(2, this.params.getValue().getValues().size());
@@ -283,7 +290,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
             .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(idTarea, idOrigen,
                     Arrays.asList(idTipoCalculo1, idTipoCalculo2));
         verify(this.namedParameterJdbcTemplate, times(1))
-            .query(this.sql.capture(), this.params.capture(), any(RowMapper.class));
+            .query(this.sql.capture(), this.params.capture(),
+                    ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
         assertEquals(SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ID_TIPO_CALCULO, this.sql.getValue());
         // parametros de la consulta: idTarea, cclIdOrigen, idTipoCalculo, activo
         assertEquals(4, this.params.getValue().getValues().size());
@@ -309,7 +317,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         this.tareaLocalizacionHistoricoRepositoryCustom
             .findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacion(idTarea, idOrigen);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
         assertEquals(SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION, this.sql.getValue());
         // parametros de la consulta: idTarea, cclIdOrigen, idTipoCalculo, activo
         assertEquals(2, this.params.getValue().getValues().size());
@@ -328,7 +336,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         this.tareaLocalizacionHistoricoRepositoryCustom
             .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacion(idTarea, idOrigen);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
         assertEquals(SQL_FIND_ID_LOCALIZACION_LOCAL_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION, this.sql.getValue());
         // parametros de la consulta: idTarea, cclIdOrigen
         assertEquals(2, this.params.getValue().getValues().size());
@@ -343,10 +351,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
     @Test
     public void findIdLocalizacionLocalDtoPresupuestosByIdTareaTest() {
         final Long idTarea = 23L;
-        final Integer activo = SQL_VALUE_BOOLEAN_TRUE;
         this.tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoPresupuestosByIdTarea(idTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
         assertEquals(SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA, this.sql.getValue());
         // parametros de la consulta: idTarea
         assertEquals(3, this.params.getValue().getValues().size());
@@ -367,10 +374,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
     @Test
     public void findTiendasGrupoFechasByIdTareaTest() {
         final Long idTarea = 23L;
-        final Integer activo = SQL_VALUE_BOOLEAN_TRUE;
         this.tareaLocalizacionHistoricoRepositoryCustom.findTiendasGrupoFechasByIdTarea(idTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
         assertEquals(SQL_FIND_ID_LOCALIZACION_GRUPO_FECHAS_BY_ID_TAREA, this.sql.getValue());
         // parametros de la consulta: idTarea
         assertEquals(2, this.params.getValue().getValues().size());

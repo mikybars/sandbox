@@ -18,6 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -94,7 +95,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
 
         this.tareaPresupuestoRepositoryCustom.findPresupuestos(tarea);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaLocalizacionPresupuesto>>any());
 
         assertEquals(SQL_FIND_PRESUPUESTOS, this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
@@ -113,7 +114,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImplTest {
         this.tareaPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(tarea.getId());
         verify(this.namedParameterJdbcTemplate, times(1)).queryForObject(this.sqlCaptor.capture(),
                 this.paramsCaptor.capture(),
-                any(RowMapper.class));
+                ArgumentMatchers.<RowMapper<TareaLocalizacionPresupuesto>>any());
 
         assertEquals(SQL_FIND_RANGO_FECHAS_PRESUPUESTOS, this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
