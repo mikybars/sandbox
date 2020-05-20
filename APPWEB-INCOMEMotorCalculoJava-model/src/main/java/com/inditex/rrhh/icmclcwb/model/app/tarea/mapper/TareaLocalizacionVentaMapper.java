@@ -25,12 +25,17 @@ public abstract class TareaLocalizacionVentaMapper {
 
     @Mapping(target = "pk", ignore = true)
     @Mapping(target = "tarea", ignore = true)
+    @Mapping(target = "tipoDato", ignore = true)
+    @Mapping(target = "cclIdCadena", ignore = true)
     public abstract TareaLocalizacionVenta tareaLocalizacionVentaDtoToTareaLocalizacionVenta(
             TareaLocalizacionVentaDto src);
 
     public abstract List<TareaLocalizacionVenta> tareaLocalizacionVentaDtoToTareaLocalizacionVenta(
             List<TareaLocalizacionVentaDto> src);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "idTarea", ignore = true)
+    @Mapping(target = "idTipoImporteVenta", ignore = true)
     public abstract TareaLocalizacionVentaDto tareaLocalizacionVentaToTareaLocalizacionVentaDto(
             TareaLocalizacionVenta src);
 

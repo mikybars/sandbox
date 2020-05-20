@@ -2,11 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 
 import java.util.List;
 
-import org.mapstruct.DecoratedWith;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
@@ -112,6 +107,11 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametro
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoRecord;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper
 @DecoratedWith(IcmWsCalcIncomeMapperDecorator.class)
@@ -130,9 +130,11 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "tipoorden", source = "tipoOrden", defaultValue = "")
     @Mapping(target = "campoorden", source = "campoOrden", defaultValue = "")
     @Mapping(target = "idbusqueda", source = "idBusqueda", defaultValue = "")
+    @Mapping(target = "icmParametrospaginacionRecordSet", ignore = true)
     IcmParametrospaginacionBlock asIcmParametrospaginacionBlock(PageDto src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "ambito", ignore = true)
     IcmParametrosentradaBlock asIcmParametrosentradaBlock(GenericFilterDto src);
 
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
@@ -150,6 +152,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idEmpresa", source = "idempresa")
+    @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "item", source = "icmParamcalempleadoRecordSet")
     GenericFilterDto asGenericFilterDto(IcmParamcalempleadoBlock src);
 
@@ -159,6 +162,8 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
+    @Mapping(target = "idEmpresa", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "item", source = "icmParamcalestructuraRecordSet")
     GenericFilterDto asGenericFilterDto(IcmParamcalestructuraBlock src);
 
@@ -176,6 +181,35 @@ public interface IcmWsCalcIncomeMapper {
 
     @Mapping(target = "idEmpleado", source = "idempleado")
     @Mapping(target = "orEmpleado", source = "orempleado")
+    @Mapping(target = "idLugarTrabajo", ignore = true)
+    @Mapping(target = "activo", ignore = true)
+    @Mapping(target = "ambito", ignore = true)
+    @Mapping(target = "idPais", ignore = true)
+    @Mapping(target = "abierto", ignore = true)
+    @Mapping(target = "vigente", ignore = true)
+    @Mapping(target = "idTipoHora", ignore = true)
+    @Mapping(target = "idEmpleadoLocal", ignore = true)
+    @Mapping(target = "idLugarTrabajoMtu", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "idOrigenReg", ignore = true)
+    @Mapping(target = "idSociedadReg", ignore = true)
+    @Mapping(target = "idEstado", ignore = true)
+    @Mapping(target = "idRegion", ignore = true)
+    @Mapping(target = "idPeriodo", ignore = true)
+    @Mapping(target = "idUsuario", ignore = true)
+    @Mapping(target = "resultado", ignore = true)
+    @Mapping(target = "fechaDesde", ignore = true)
+    @Mapping(target = "fechaHasta", ignore = true)
+    @Mapping(target = "idCadenaReg", ignore = true)
+    @Mapping(target = "idPoblacion", ignore = true)
+    @Mapping(target = "idTipoProceso", ignore = true)
+    @Mapping(target = "nombreEmpleado", ignore = true)
+    @Mapping(target = "fechaFinCalculo", ignore = true)
+    @Mapping(target = "apellidoEmpleado", ignore = true)
+    @Mapping(target = "fechaInicioCalculo", ignore = true)
+    @Mapping(target = "idManualProgramado", ignore = true)
+    @Mapping(target = "fechaFinExportacion", ignore = true)
+    @Mapping(target = "fechaInicioExportacion", ignore = true)
     GenericFilterParametersDto asGenericFilterParametersDto(IcmParamcalestructuraRecord src);
 
     @InheritInverseConfiguration
@@ -183,6 +217,35 @@ public interface IcmWsCalcIncomeMapper {
 
     @Mapping(target = "idEmpleado", source = "idempleado")
     @Mapping(target = "orEmpleado", source = "orempleado")
+    @Mapping(target = "idLugarTrabajo", ignore = true)
+    @Mapping(target = "activo", ignore = true)
+    @Mapping(target = "ambito", ignore = true)
+    @Mapping(target = "idPais", ignore = true)
+    @Mapping(target = "abierto", ignore = true)
+    @Mapping(target = "vigente", ignore = true)
+    @Mapping(target = "idTipoHora", ignore = true)
+    @Mapping(target = "idEmpleadoLocal", ignore = true)
+    @Mapping(target = "idLugarTrabajoMtu", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "idOrigenReg", ignore = true)
+    @Mapping(target = "idSociedadReg", ignore = true)
+    @Mapping(target = "idEstado", ignore = true)
+    @Mapping(target = "idRegion", ignore = true)
+    @Mapping(target = "idPeriodo", ignore = true)
+    @Mapping(target = "idUsuario", ignore = true)
+    @Mapping(target = "resultado", ignore = true)
+    @Mapping(target = "fechaDesde", ignore = true)
+    @Mapping(target = "fechaHasta", ignore = true)
+    @Mapping(target = "idCadenaReg", ignore = true)
+    @Mapping(target = "idPoblacion", ignore = true)
+    @Mapping(target = "idTipoProceso", ignore = true)
+    @Mapping(target = "nombreEmpleado", ignore = true)
+    @Mapping(target = "fechaFinCalculo", ignore = true)
+    @Mapping(target = "apellidoEmpleado", ignore = true)
+    @Mapping(target = "fechaInicioCalculo", ignore = true)
+    @Mapping(target = "idManualProgramado", ignore = true)
+    @Mapping(target = "fechaFinExportacion", ignore = true)
+    @Mapping(target = "fechaInicioExportacion", ignore = true)
     EstructurasComFilterParametersDto asEstructurasComFilterParametersDto(IcmParamcalestructuraRecord src);
 
     @InheritInverseConfiguration
@@ -191,6 +254,34 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idEmpleado", source = "idempleado")
     @Mapping(target = "orEmpleado", source = "orempleado")
     @Mapping(target = "idEmpleadoLocal", source = "idempleadolocal")
+    @Mapping(target = "idLugarTrabajo", ignore = true)
+    @Mapping(target = "activo", ignore = true)
+    @Mapping(target = "ambito", ignore = true)
+    @Mapping(target = "idPais", ignore = true)
+    @Mapping(target = "abierto", ignore = true)
+    @Mapping(target = "vigente", ignore = true)
+    @Mapping(target = "idTipoHora", ignore = true)
+    @Mapping(target = "idLugarTrabajoMtu", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "idOrigenReg", ignore = true)
+    @Mapping(target = "idSociedadReg", ignore = true)
+    @Mapping(target = "idEstado", ignore = true)
+    @Mapping(target = "idRegion", ignore = true)
+    @Mapping(target = "idPeriodo", ignore = true)
+    @Mapping(target = "idUsuario", ignore = true)
+    @Mapping(target = "resultado", ignore = true)
+    @Mapping(target = "fechaDesde", ignore = true)
+    @Mapping(target = "fechaHasta", ignore = true)
+    @Mapping(target = "idCadenaReg", ignore = true)
+    @Mapping(target = "idPoblacion", ignore = true)
+    @Mapping(target = "idTipoProceso", ignore = true)
+    @Mapping(target = "nombreEmpleado", ignore = true)
+    @Mapping(target = "fechaFinCalculo", ignore = true)
+    @Mapping(target = "apellidoEmpleado", ignore = true)
+    @Mapping(target = "fechaInicioCalculo", ignore = true)
+    @Mapping(target = "idManualProgramado", ignore = true)
+    @Mapping(target = "fechaFinExportacion", ignore = true)
+    @Mapping(target = "fechaInicioExportacion", ignore = true)
     GenericFilterParametersDto asEstructurasComFilterParametersDto(IcmParamcalempleadoRecord src);
 
 
@@ -198,40 +289,158 @@ public interface IcmWsCalcIncomeMapper {
     IcmParamcalsociedadBlock asIcmParamcalsociedadBlock(GenericFilterDto src);
 
     @Mapping(target = "item", source = "icmParamcalsociedadRecordSet")
+    @Mapping(target = "fechaInicio", ignore = true)
+    @Mapping(target = "fechaFin", ignore = true)
+    @Mapping(target = "idOrigen", ignore = true)
+    @Mapping(target = "idEmpresa", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
     GenericFilterDto asGenericFilterDto(IcmParamcalsociedadBlock src);
 
     @InheritInverseConfiguration
     IcmParamcalsociedadRecord asIcmParamcalsociedadRecord(GenericFilterParametersDto src);
 
     @Mapping(target = "idSociedadReg", source = "idsociedad")
+    @Mapping(target = "idEmpleado", ignore = true)
+    @Mapping(target = "orEmpleado", ignore = true)
+    @Mapping(target = "idLugarTrabajo", ignore = true)
+    @Mapping(target = "activo", ignore = true)
+    @Mapping(target = "ambito", ignore = true)
+    @Mapping(target = "idPais", ignore = true)
+    @Mapping(target = "abierto", ignore = true)
+    @Mapping(target = "vigente", ignore = true)
+    @Mapping(target = "idTipoHora", ignore = true)
+    @Mapping(target = "idEmpleadoLocal", ignore = true)
+    @Mapping(target = "idLugarTrabajoMtu", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "idOrigenReg", ignore = true)
+    @Mapping(target = "idPeriodo", ignore = true)
+    @Mapping(target = "idEstado", ignore = true)
+    @Mapping(target = "idRegion", ignore = true)
+    @Mapping(target = "idUsuario", ignore = true)
+    @Mapping(target = "resultado", ignore = true)
+    @Mapping(target = "fechaDesde", ignore = true)
+    @Mapping(target = "fechaHasta", ignore = true)
+    @Mapping(target = "idCadenaReg", ignore = true)
+    @Mapping(target = "idPoblacion", ignore = true)
+    @Mapping(target = "idTipoProceso", ignore = true)
+    @Mapping(target = "nombreEmpleado", ignore = true)
+    @Mapping(target = "fechaFinCalculo", ignore = true)
+    @Mapping(target = "apellidoEmpleado", ignore = true)
+    @Mapping(target = "fechaInicioCalculo", ignore = true)
+    @Mapping(target = "idManualProgramado", ignore = true)
+    @Mapping(target = "fechaFinExportacion", ignore = true)
+    @Mapping(target = "fechaInicioExportacion", ignore = true)
     GenericFilterParametersDto asGenericFilterParametersDto(IcmParamcalsociedadRecord src);
 
     @InheritInverseConfiguration
     IcmParamcalorigenBlock asIcmParamcalorigenBlock(GenericFilterDto src);
 
     @Mapping(target = "item", source = "icmParamcalorigenRecordSet")
+    @Mapping(target = "fechaInicio", ignore = true)
+    @Mapping(target = "fechaFin", ignore = true)
+    @Mapping(target = "idOrigen", ignore = true)
+    @Mapping(target = "idEmpresa", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
     GenericFilterDto asGenericFilterDto(IcmParamcalorigenBlock src);
 
     @InheritInverseConfiguration
     IcmParamcalorigenRecord asIcmParamcalorigenRecord(GenericFilterParametersDto src);
 
     @Mapping(target = "idOrigenReg", source = "idorigen")
+    @Mapping(target = "idEmpleado", ignore = true)
+    @Mapping(target = "orEmpleado", ignore = true)
+    @Mapping(target = "idLugarTrabajo", ignore = true)
+    @Mapping(target = "activo", ignore = true)
+    @Mapping(target = "ambito", ignore = true)
+    @Mapping(target = "idPais", ignore = true)
+    @Mapping(target = "abierto", ignore = true)
+    @Mapping(target = "vigente", ignore = true)
+    @Mapping(target = "idTipoHora", ignore = true)
+    @Mapping(target = "idEmpleadoLocal", ignore = true)
+    @Mapping(target = "idLugarTrabajoMtu", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "idSociedadReg", ignore = true)
+    @Mapping(target = "idPeriodo", ignore = true)
+    @Mapping(target = "idEstado", ignore = true)
+    @Mapping(target = "idRegion", ignore = true)
+    @Mapping(target = "idUsuario", ignore = true)
+    @Mapping(target = "resultado", ignore = true)
+    @Mapping(target = "fechaDesde", ignore = true)
+    @Mapping(target = "fechaHasta", ignore = true)
+    @Mapping(target = "idCadenaReg", ignore = true)
+    @Mapping(target = "idPoblacion", ignore = true)
+    @Mapping(target = "idTipoProceso", ignore = true)
+    @Mapping(target = "nombreEmpleado", ignore = true)
+    @Mapping(target = "fechaFinCalculo", ignore = true)
+    @Mapping(target = "apellidoEmpleado", ignore = true)
+    @Mapping(target = "fechaInicioCalculo", ignore = true)
+    @Mapping(target = "idManualProgramado", ignore = true)
+    @Mapping(target = "fechaFinExportacion", ignore = true)
+    @Mapping(target = "fechaInicioExportacion", ignore = true)
     GenericFilterParametersDto asGenericFilterParametersDto(IcmParamcalorigenRecord src);
 
     @InheritInverseConfiguration
     IcmParamcalperiodoBlock asIcmParamcalperiodoBlock(GenericFilterDto src);
 
     @Mapping(target = "item", source = "icmParamcalperiodoRecordSet")
+    @Mapping(target = "fechaInicio", ignore = true)
+    @Mapping(target = "fechaFin", ignore = true)
+    @Mapping(target = "idOrigen", ignore = true)
+    @Mapping(target = "idEmpresa", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
     GenericFilterDto asGenericFilterDto(IcmParamcalperiodoBlock src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "idorigen", ignore = true)
     IcmParamcalperiodoRecord asIcmParamcalperiodoRecord(GenericFilterParametersDto src);
 
     @Mapping(target = "idSociedadReg", source = "idsociedad")
     @Mapping(target = "idPeriodo", source = "idperiodo")
+    @Mapping(target = "idEmpleado", ignore = true)
+    @Mapping(target = "orEmpleado", ignore = true)
+    @Mapping(target = "idLugarTrabajo", ignore = true)
+    @Mapping(target = "ambito", ignore = true)
+    @Mapping(target = "idPais", ignore = true)
+    @Mapping(target = "idTipoHora", ignore = true)
+    @Mapping(target = "idEmpleadoLocal", ignore = true)
+    @Mapping(target = "idLugarTrabajoMtu", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "idOrigenReg", ignore = true)
+    @Mapping(target = "idEstado", ignore = true)
+    @Mapping(target = "idRegion", ignore = true)
+    @Mapping(target = "idUsuario", ignore = true)
+    @Mapping(target = "resultado", ignore = true)
+    @Mapping(target = "fechaDesde", ignore = true)
+    @Mapping(target = "fechaHasta", ignore = true)
+    @Mapping(target = "idCadenaReg", ignore = true)
+    @Mapping(target = "idPoblacion", ignore = true)
+    @Mapping(target = "idTipoProceso", ignore = true)
+    @Mapping(target = "nombreEmpleado", ignore = true)
+    @Mapping(target = "fechaFinCalculo", ignore = true)
+    @Mapping(target = "apellidoEmpleado", ignore = true)
+    @Mapping(target = "fechaInicioCalculo", ignore = true)
+    @Mapping(target = "idManualProgramado", ignore = true)
+    @Mapping(target = "fechaFinExportacion", ignore = true)
+    @Mapping(target = "fechaInicioExportacion", ignore = true)
     GenericFilterParametersDto asGenericFilterParametersDto(IcmParamcalperiodoRecord src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "idpais", ignore = true)
+    @Mapping(target = "idestado", ignore = true)
+    @Mapping(target = "idregion", ignore = true)
+    @Mapping(target = "idperiodo", ignore = true)
+    @Mapping(target = "idusuario", ignore = true)
+    @Mapping(target = "fechadesde", ignore = true)
+    @Mapping(target = "fechahasta", ignore = true)
+    @Mapping(target = "idpoblacion", ignore = true)
+    @Mapping(target = "idtipoproceso", ignore = true)
+    @Mapping(target = "nombreempleado", ignore = true)
+    @Mapping(target = "fechafincalculo", ignore = true)
+    @Mapping(target = "apellidoempleado", ignore = true)
+    @Mapping(target = "fechainiciocalculo", ignore = true)
+    @Mapping(target = "idmanualprogramado", ignore = true)
+    @Mapping(target = "fechafinexportacion", ignore = true)
+    @Mapping(target = "fechainicioexportacion", ignore = true)
     IcmParametrosentradaRecord asIcmParametrosentradaRecord(GenericFilterParametersDto src);
 
     @Mapping(target = "idEmpleado", source = "idempleado")
@@ -245,6 +454,24 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idCadena", source = "idcadenareg")
     @Mapping(target = "idOrigenReg", source = "idorigenreg")
     @Mapping(target = "idSociedadReg", source = "idsociedadreg")
+    @Mapping(target = "ambito", ignore = true)
+    @Mapping(target = "idPais", ignore = true)
+    @Mapping(target = "idEstado", ignore = true)
+    @Mapping(target = "idRegion", ignore = true)
+    @Mapping(target = "idPeriodo", ignore = true)
+    @Mapping(target = "idUsuario", ignore = true)
+    @Mapping(target = "fechaDesde", ignore = true)
+    @Mapping(target = "fechaHasta", ignore = true)
+    @Mapping(target = "idCadenaReg", ignore = true)
+    @Mapping(target = "idPoblacion", ignore = true)
+    @Mapping(target = "idTipoProceso", ignore = true)
+    @Mapping(target = "nombreEmpleado", ignore = true)
+    @Mapping(target = "fechaFinCalculo", ignore = true)
+    @Mapping(target = "apellidoEmpleado", ignore = true)
+    @Mapping(target = "fechaInicioCalculo", ignore = true)
+    @Mapping(target = "idManualProgramado", ignore = true)
+    @Mapping(target = "fechaFinExportacion", ignore = true)
+    @Mapping(target = "fechaInicioExportacion", ignore = true)
     GenericFilterParametersDto asGenericFilterParametersDto(IcmParametrosentradaRecord src);
 
     @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
@@ -259,9 +486,28 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idLugarTrabajoMtu", source = "idlugartrabajomtu")
     @Mapping(target = "esComisionable", source = "escomisionable")
     @Mapping(target = "calcula", source = "calcula")
+    @Mapping(target = "inOut", ignore = true)
+    @Mapping(target = "idTiendaMtu", ignore = true)
+    @Mapping(target = "fechaFestivo", ignore = true)
     GenericTiendaResultItemDto asGenericTiendaResultItemDto(IcmListatiendasRecord src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "inout", ignore = true)
+    @Mapping(target = "importe", ignore = true)
+    @Mapping(target = "fechafin", ignore = true)
+    @Mapping(target = "idestado", ignore = true)
+    @Mapping(target = "idregion", ignore = true)
+    @Mapping(target = "nombrepais", ignore = true)
+    @Mapping(target = "fechainicio", ignore = true)
+    @Mapping(target = "idpoblacion", ignore = true)
+    @Mapping(target = "fechacalculo", ignore = true)
+    @Mapping(target = "fechafestivo", ignore = true)
+    @Mapping(target = "nombreestado", ignore = true)
+    @Mapping(target = "nombreregion", ignore = true)
+    @Mapping(target = "nombreempresa", ignore = true)
+    @Mapping(target = "nombrepoblacion", ignore = true)
+    @Mapping(target = "fechaexportacion", ignore = true)
+    @Mapping(target = "nombrelugartrabajo", ignore = true)
     IcmListatiendasRecord asIcmListatiendasRecord(GenericTiendaResultItemDto src);
 
     List<GenericTiendaResultItemDto> asGenericTiendaResultItemDtos(List<IcmListatiendasRecord> src);
@@ -312,9 +558,29 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "importe", source = "importe")
     @Mapping(target = "minutos", source = "minutos")
     @Mapping(target = "idPuesto", source = "idpuesto")
+    @Mapping(target = "fechaInicioLoc", ignore = true)
+    @Mapping(target = "fechaFinLoc", ignore = true)
+    @Mapping(target = "fechaAntiguedad", ignore = true)
     GenericEmpleadoResultItemDto asGenericEmpleadoResultItemDto(IcmListaempleadosRecord src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "boletaap", ignore = true)
+    @Mapping(target = "fechafin", ignore = true)
+    @Mapping(target = "idestado", ignore = true)
+    @Mapping(target = "fechafincom", ignore = true)
+    @Mapping(target = "fechafinpar", ignore = true)
+    @Mapping(target = "fechafinsec", ignore = true)
+    @Mapping(target = "fechainicio", ignore = true)
+    @Mapping(target = "fechacalculo", ignore = true)
+    @Mapping(target = "nombreestado", ignore = true)
+    @Mapping(target = "nombreempresa", ignore = true)
+    @Mapping(target = "fechainiciocom", ignore = true)
+    @Mapping(target = "fechainiciopar", ignore = true)
+    @Mapping(target = "fechainiciosec", ignore = true)
+    @Mapping(target = "nombreempleado", ignore = true)
+    @Mapping(target = "fechaexportacion", ignore = true)
+    @Mapping(target = "apellidosempleado", ignore = true)
+    @Mapping(target = "icmListasecciones", ignore = true)
     IcmListaempleadosRecord asIcmListatiendasRecord(GenericEmpleadoResultItemDto src);
 
     List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtos(List<IcmListaempleadosRecord> src);
@@ -328,6 +594,8 @@ public interface IcmWsCalcIncomeMapper {
     AusenciasResultItemDto asAusenciasResultItemDto(IcmListaausenciasRecord src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "fechafin", ignore = true)
+    @Mapping(target = "fechainicio", ignore = true)
     IcmListaausenciasRecord asIcmListaausenciasRecord(AusenciasResultItemDto src);
 
     List<AusenciasResultItemDto> asAusenciasResultItemDtos(List<IcmListaausenciasRecord> src);
@@ -354,9 +622,24 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
     @Mapping(target = "idEmpleadoLocal", source = "idempleadolocal")
     @Mapping(target = "inOut", source = "inout")
+    @Mapping(target = "fechaInicioLoc", ignore = true)
+    @Mapping(target = "fechaFinLoc", ignore = true)
+    @Mapping(target = "idPais", ignore = true)
+    @Mapping(target = "idTipoHora", ignore = true)
+    @Mapping(target = "coefJornada", ignore = true)
+    @Mapping(target = "importe", ignore = true)
+    @Mapping(target = "minutos", ignore = true)
+    @Mapping(target = "idPuesto", ignore = true)
     GenericEmpleadoResultItemDto asGenericEmpleadoResultItemDtosSearchEmpleados(IcmListaempleadoRecord src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "fechafin", ignore = true)
+    @Mapping(target = "fechafinloc", ignore = true)
+    @Mapping(target = "fechafinsec", ignore = true)
+    @Mapping(target = "fechainicio", ignore = true)
+    @Mapping(target = "fechainicioloc", ignore = true)
+    @Mapping(target = "fechainiciosec", ignore = true)
+    @Mapping(target = "fechaantiguedad", ignore = true)
     IcmListaempleadoRecord asIcmListaempleadoRecord(GenericEmpleadoResultItemDto src);
 
     List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtosSearchEmpleados(List<IcmListaempleadoRecord> src);
@@ -376,6 +659,7 @@ public interface IcmWsCalcIncomeMapper {
     PeriodosResultItemDto asPeriodosResultItemDto(IcmListaperiodosRecord src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "inout", ignore = true)
     IcmListaperiodosRecord asIcmListatiendasRecord(PeriodosResultItemDto src);
 
     List<PeriodosResultItemDto> asPeriodosResultItemDtos(List<IcmListaperiodosRecord> src);
@@ -427,6 +711,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "tope", source = "tope")
     @Mapping(target = "valor", source = "valor")
     @Mapping(target = "idSeccion", source = "idseccion")
+    @Mapping(target = "idTipoVenta", ignore = true)
     ListaValoresBaseResultItemDto asListaValoresBaseResultItemDto(IcmListavaloresbaseRecord src);
 
     @InheritInverseConfiguration
@@ -470,6 +755,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "tope", source = "tope")
     @Mapping(target = "valor", source = "valor")
     @Mapping(target = "idSeccion", source = "idseccion")
+    @Mapping(target = "idTipoVenta", ignore = true)
     ListaValoresDestinoResultItemDto asListaValoresDestinoResultItemDto(IcmListavaloresdestinoRecord src);
 
     @InheritInverseConfiguration
@@ -489,9 +775,11 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "icmListaCondicionesPolitica",
             source = "icmListacondicionespolitica.icmListacondicionespoliticaRecordSet")
+    @Mapping(target = "importe", ignore = true)
     EstructurasPolResultItemDto asEstructurasPolResultItemDto(IcmListapoliticasRecord src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "idtpestructura", ignore = true)
     IcmListapoliticasRecord asIcmListapoliticasRecord(EstructurasPolResultItemDto src);
 
     List<EstructurasPolResultItemDto> asEstructurasPolResultItemDto(List<IcmListapoliticasRecord> src);
@@ -510,6 +798,8 @@ public interface IcmWsCalcIncomeMapper {
             IcmListacondicionespoliticaRecord src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "nombremotivobaja", ignore = true)
+    @Mapping(target = "nombretipopolitica", ignore = true)
     IcmListacondicionespoliticaRecord asIcmListacondicionespoliticaRecord(ListaCondicionesPoliticasResultItemDto src);
 
     List<ListaCondicionesPoliticasResultItemDto> asListaCondicionesPoliticasResultItemDto(
@@ -607,6 +897,7 @@ public interface IcmWsCalcIncomeMapper {
     SaveProcesoDto asSaveProcesoDto(IcmParamcalprocesoBlock src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "idempleado", ignore = true)
     IcmParamcalprocesoRecord asIcmParamcalprocesoRecord(SaveProcesoParametersDto src);
 
     @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
@@ -615,12 +906,46 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
     @Mapping(target = "idEmpleado", source = "idempleadolocal")
     @Mapping(target = "orEmpleado", source = "orempleado")
+    @Mapping(target = "activo", ignore = true)
+    @Mapping(target = "ambito", ignore = true)
+    @Mapping(target = "idPais", ignore = true)
+    @Mapping(target = "abierto", ignore = true)
+    @Mapping(target = "vigente", ignore = true)
+    @Mapping(target = "idTipoHora", ignore = true)
+    @Mapping(target = "idEmpleadoLocal", ignore = true)
+    @Mapping(target = "idLugarTrabajoMtu", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "idOrigenReg", ignore = true)
+    @Mapping(target = "idSociedadReg", ignore = true)
+    @Mapping(target = "idEstado", ignore = true)
+    @Mapping(target = "idRegion", ignore = true)
+    @Mapping(target = "idPeriodo", ignore = true)
+    @Mapping(target = "idUsuario", ignore = true)
+    @Mapping(target = "resultado", ignore = true)
+    @Mapping(target = "fechaDesde", ignore = true)
+    @Mapping(target = "fechaHasta", ignore = true)
+    @Mapping(target = "idCadenaReg", ignore = true)
+    @Mapping(target = "idPoblacion", ignore = true)
+    @Mapping(target = "idTipoProceso", ignore = true)
+    @Mapping(target = "nombreEmpleado", ignore = true)
+    @Mapping(target = "fechaFinCalculo", ignore = true)
+    @Mapping(target = "apellidoEmpleado", ignore = true)
+    @Mapping(target = "fechaInicioCalculo", ignore = true)
+    @Mapping(target = "idManualProgramado", ignore = true)
+    @Mapping(target = "fechaFinExportacion", ignore = true)
+    @Mapping(target = "fechaInicioExportacion", ignore = true)
     SaveProcesoParametersDto asSaveProcesoParametersDto(IcmParamcalprocesoRecord src);
 
     @Mapping(target = "resultadoOk", ignore = true)
     @Mapping(target = "resultadoError", ignore = true)
     @Mapping(target = "data", source = "icmResultadoguardadoRecordSet")
     SaveResultDto asSaveResultDto(IcmResultadoguardadoBlock src);
+
+    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+    @Mapping(target = "literal", ignore = true)
+    @Mapping(target = "registroAfectado", ignore = true)
+    SaveResultErrorDto asSaveResultErrorDto(IcmResultadoguardadoRecord src);
 
     @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
     @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
@@ -631,6 +956,39 @@ public interface IcmWsCalcIncomeMapper {
     @InheritInverseConfiguration
     IcmParamcalconforigenBlock asIcmParamconfBlock(ConfiguracionesRequestDto src);
 
+    @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+    @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+    @Mapping(target = "idEmpleado", ignore = true)
+    @Mapping(target = "orEmpleado", ignore = true)
+    @Mapping(target = "idLugarTrabajo", ignore = true)
+    @Mapping(target = "activo", ignore = true)
+    @Mapping(target = "ambito", ignore = true)
+    @Mapping(target = "idPais", ignore = true)
+    @Mapping(target = "abierto", ignore = true)
+    @Mapping(target = "vigente", ignore = true)
+    @Mapping(target = "idTipoHora", ignore = true)
+    @Mapping(target = "idEmpleadoLocal", ignore = true)
+    @Mapping(target = "idLugarTrabajoMtu", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "idOrigenReg", ignore = true)
+    @Mapping(target = "idSociedadReg", ignore = true)
+    @Mapping(target = "idEstado", ignore = true)
+    @Mapping(target = "idRegion", ignore = true)
+    @Mapping(target = "idPeriodo", ignore = true)
+    @Mapping(target = "idUsuario", ignore = true)
+    @Mapping(target = "resultado", ignore = true)
+    @Mapping(target = "fechaDesde", ignore = true)
+    @Mapping(target = "fechaHasta", ignore = true)
+    @Mapping(target = "idCadenaReg", ignore = true)
+    @Mapping(target = "idPoblacion", ignore = true)
+    @Mapping(target = "idTipoProceso", ignore = true)
+    @Mapping(target = "nombreEmpleado", ignore = true)
+    @Mapping(target = "fechaFinCalculo", ignore = true)
+    @Mapping(target = "apellidoEmpleado", ignore = true)
+    @Mapping(target = "fechaInicioCalculo", ignore = true)
+    @Mapping(target = "idManualProgramado", ignore = true)
+    @Mapping(target = "fechaFinExportacion", ignore = true)
+    @Mapping(target = "fechaInicioExportacion", ignore = true)
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE)
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE)
@@ -638,6 +996,8 @@ public interface IcmWsCalcIncomeMapper {
     ConfiguracionesRequestDto asConfiguracionesRequestDto(IcmParamcalconforigenBlock src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+    @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
     IcmParamcalconforigenRecord asIcmParamconfRecord(ConfiguracionesRequestItemDto src);
 
     ConfiguracionesRequestItemDto asConfiguracionesRequestItemDto(IcmParamcalconforigenRecord src);
@@ -651,6 +1011,8 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaFin", source = "src.fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idTipoHora", source = "src.idtphorafija")
     @Mapping(target = "idOrigen", source = "idOrigen")
+    @Mapping(target = "idConfiguracion", ignore = true)
+    @Mapping(target = "inOut", ignore = true)
     @Mapping(target = "icmCkVentaImpuestos", source = "src.chkventaimpuestos")
     ConfiguracionItemDto asConfiguracionItemDto(IcmListaconforigenRecord src, String idOrigen);
 
@@ -684,6 +1046,9 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idEmpresa", source = "idempresa")
+    @Mapping(target = "idSeccion", ignore = true)
+    @Mapping(target = "banda", ignore = true)
+    @Mapping(target = "ordinal", ignore = true)
     @Mapping(target = "item", source = "icmParamcalpresupuestoswlocRecordSet")
     PresupuestosWlocFilterDto asPresupuestosWlocFilterDto(IcmParamcalpresupuestoswlocBlock src);
 
