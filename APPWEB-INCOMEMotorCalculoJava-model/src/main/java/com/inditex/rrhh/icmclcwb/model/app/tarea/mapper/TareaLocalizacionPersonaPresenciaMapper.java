@@ -74,6 +74,7 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "activo", expression = "java(Boolean.TRUE)")
     @Mapping(target = "pk.id", ignore = true)
+    @Mapping(target = "tipoDato", ignore = true)
     @Mapping(source = "tareaDto.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaLocalizacionPersonaPresencia presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
             PtrPresenciaDetalleResultItemDto src, TareaDto tareaDto);
