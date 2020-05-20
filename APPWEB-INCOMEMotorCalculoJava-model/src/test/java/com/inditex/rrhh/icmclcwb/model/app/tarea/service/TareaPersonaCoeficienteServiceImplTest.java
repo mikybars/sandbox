@@ -1,24 +1,24 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaCoeficienteMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaCoeficiente;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaCoeficienteRepositoryCustom;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaPersonaCoeficienteServiceImplTest {
@@ -37,12 +37,13 @@ public class TareaPersonaCoeficienteServiceImplTest {
 
     @Test
     public void saveTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<GenericEmpleadoResultItemDto> empleados = new ArrayList<>();
+        final List<GenericEmpleadoResultItemDto> empleados = new ArrayList<>();
 
-        tareaPersonaCoeficienteServiceImpl.save(empleados, tarea);
-        verify(tareaPersonaCoeficienteRepositoryCustom, times(1)).save(any(List.class));
+        this.tareaPersonaCoeficienteServiceImpl.save(empleados, tarea);
+        verify(this.tareaPersonaCoeficienteRepositoryCustom, times(1)).save(ArgumentMatchers
+            .<List<TareaPersonaCoeficiente>>any());
     }
 
 }

@@ -1,26 +1,27 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaHistoricoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaHistoricoRepositoryCustom;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaPersonaHistoricoServiceImplTest {
@@ -42,87 +43,91 @@ public class TareaPersonaHistoricoServiceImplTest {
 
     @Test
     public void saveTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<TareaPersonaHistoricoDto> personas = new ArrayList<>();
+        final List<TareaPersonaHistoricoDto> personas = new ArrayList<>();
 
-        tareaPersonaHistoricoServiceImpl.save(personas);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1)).save(any(List.class));
+        this.tareaPersonaHistoricoServiceImpl.save(personas);
+        verify(this.tareaPersonaHistoricoRepositoryCustom, times(1)).save(ArgumentMatchers
+            .<List<TareaPersonaHistorico>>any());
     }
 
     @Test
     public void mergeTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        List<GenericEmpleadoResultItemDto> personas = new ArrayList<>();
+        final List<GenericEmpleadoResultItemDto> personas = new ArrayList<>();
 
-        tareaPersonaHistoricoServiceImpl.merge(personas, tarea);
-        verify(tareaPersonaHistoricoMapper, times(1))
-            .genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(any(List.class), any(TareaDto.class));
+        this.tareaPersonaHistoricoServiceImpl.merge(personas, tarea);
+        verify(this.tareaPersonaHistoricoMapper, times(1))
+            .genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
+                    ArgumentMatchers.<List<GenericEmpleadoResultItemDto>>any(), any(TareaDto.class));
     }
 
     @Test
     public void findIdPersonaByIdTareaAndIdOrigenInAmbitoTest() {
-        String cclIdOrigen = "1";
-        Long idTarea = 1L;
+        final String cclIdOrigen = "1";
+        final Long idTarea = 1L;
 
-        tareaPersonaHistoricoServiceImpl.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea, cclIdOrigen);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1))
+        this.tareaPersonaHistoricoServiceImpl.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea, cclIdOrigen);
+        verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
             .findIdPersonaByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class));
     }
 
     @Test
     public void findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbitoTest() {
-        String cclIdOrigen = "1";
-        Long idTarea = 1L;
+        final String cclIdOrigen = "1";
+        final Long idTarea = 1L;
 
-        tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(idTarea, cclIdOrigen);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1))
+        this.tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(idTarea,
+                cclIdOrigen);
+        verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
             .findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class));
     }
 
     @Test
     public void findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbitoTest() {
-        String cclIdOrigen = "1";
-        Long idTarea = 1L;
-        List<Integer> idsTipoDato = mock(List.class);
+        final String cclIdOrigen = "1";
+        final Long idTarea = 1L;
+        final List<Integer> idsTipoDato = new ArrayList<>();
 
-        tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea,
+        this.tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea,
                 cclIdOrigen, idsTipoDato);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1))
+        verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
             .findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(any(Long.class), any(String.class),
-                    any(List.class));
+                    ArgumentMatchers.<List<Integer>>any());
     }
 
     @Test
     public void findPeriodoByIdTareaDtoTest() {
-        Long idTarea = 1L;
-        tareaPersonaHistoricoServiceImpl.findPeriodoByIdTareaDto(idTarea);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1)).findPeriodoDtoByIdTarea(any(Long.class));
+        final Long idTarea = 1L;
+        this.tareaPersonaHistoricoServiceImpl.findPeriodoByIdTareaDto(idTarea);
+        verify(this.tareaPersonaHistoricoRepositoryCustom, times(1)).findPeriodoDtoByIdTarea(any(Long.class));
     }
 
     @Test
     public void findIdPersonaHistoricoDtoGrupoFechasByIdTareaTest() {
-        Long idTarea = 1L;
-        tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoDtoGrupoFechasByIdTarea(idTarea);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1))
+        final Long idTarea = 1L;
+        this.tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoDtoGrupoFechasByIdTarea(idTarea);
+        verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
             .findIdPersonaHistoricoDtoGrupoFechasByIdTarea(any(Long.class));
     }
 
     @Test
     public void findIdPersonaLocalCompensacionChallengeByIdTareaTest() {
-        Long idTarea = 1L;
-        tareaPersonaHistoricoServiceImpl.findIdPersonaLocalCompensacionChallengeByIdTarea(idTarea);
-        verify(tareaPersonaHistoricoRepositoryCustom, times(1))
+        final Long idTarea = 1L;
+        this.tareaPersonaHistoricoServiceImpl.findIdPersonaLocalCompensacionChallengeByIdTarea(idTarea);
+        verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
             .findIdPersonaLocalCompensacionChallengeByIdTarea(any(Long.class));
     }
 
     @Test
     public void findIdPersonaHistoricoByIdTareaAndIdOrigenTest() {
-        Long idTarea = 1L;
-        String cclIdOrigen = "1";
-        tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
-        verify(tareaPersonaHistoricoRepository, times(1)).findIdPersonaHistoricoByIdTareaAndIdOrigen(any(Long.class),
+        final Long idTarea = 1L;
+        final String cclIdOrigen = "1";
+        this.tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
+        verify(this.tareaPersonaHistoricoRepository, times(1)).findIdPersonaHistoricoByIdTareaAndIdOrigen(
+                any(Long.class),
                 any(String.class));
     }
 

@@ -1,25 +1,25 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaAmbitoGlobalLocalizacionPersonaPresenciaDecorator;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLocalizacionPersonaPresencia;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustomImpl;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImplTest {
@@ -38,18 +38,20 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImplTest {
 
     @Test
     public void saveTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        PtrPresenciaEmpleadosTiendaResponseDto ptrPresenciaEmpleadosTiendaResponseDto = mock(
+        final TareaDto tarea = mock(TareaDto.class);
+        final PtrPresenciaEmpleadosTiendaResponseDto ptrPresenciaEmpleadosTiendaResponseDto = mock(
                 PtrPresenciaEmpleadosTiendaResponseDto.class);
-        PtrPresenciaEmpleadosTiendaResultItemDto ptrPresenciaEmpleadosTiendaResultItemDto = mock(
+        final PtrPresenciaEmpleadosTiendaResultItemDto ptrPresenciaEmpleadosTiendaResultItemDto = mock(
                 PtrPresenciaEmpleadosTiendaResultItemDto.class);
         ptrPresenciaEmpleadosTiendaResponseDto.setPresenciasTiendasEmpleado(new ArrayList<>());
         ptrPresenciaEmpleadosTiendaResponseDto.getPresenciasTiendasEmpleado()
             .add(ptrPresenciaEmpleadosTiendaResultItemDto);
 
-        tareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImpl.save(ptrPresenciaEmpleadosTiendaResponseDto, tarea);
+        this.tareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImpl.save(ptrPresenciaEmpleadosTiendaResponseDto,
+                tarea);
 
-        verify(tareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustomImpl, times(1)).save(any(List.class));
+        verify(this.tareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustomImpl, times(1))
+            .save(ArgumentMatchers.<List<TareaAmbitoGlobalLocalizacionPersonaPresencia>>any());
     }
 
 }

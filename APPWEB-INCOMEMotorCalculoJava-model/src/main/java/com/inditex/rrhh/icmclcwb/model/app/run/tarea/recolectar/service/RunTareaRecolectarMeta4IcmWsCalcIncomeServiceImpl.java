@@ -1,15 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarMeta4IcmWsCalcIncomeService;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarMeta4IcmWsCalcIncomeService;
 
 @Service
 @Validated
@@ -24,7 +24,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .personaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -33,7 +33,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .localizacionByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -42,7 +42,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .empleadosPresenciaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -51,7 +51,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .festivosByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -60,7 +60,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .coefJornadaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -69,7 +69,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .flagCalculaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -78,7 +78,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .presenciaManualByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -87,7 +87,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .estructurasComByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -96,7 +96,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .estructurasPolByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -105,7 +105,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .tiendasComisionableByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -113,7 +113,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     public void configuracionVentaOnlineByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .configuracionVentaOnlineByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -121,7 +121,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     public void agrupacionesCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .agrupacionesCadenaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -129,7 +129,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     public void localizacionesOnlineByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .localizacionesOnlineByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -138,7 +138,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .empleadosDesplazamientoByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -147,70 +147,70 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .ausenciasByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
-    public void configuraciones(@NotNull @Valid RunTareaDto runTarea) {
+    public void configuraciones(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .configuracionByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
-    public void confChallengeDiasMinimosByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    public void confChallengeDiasMinimosByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .confChallengeDiasMinimosByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
-    public void presupuestosWlocByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    public void presupuestosWlocByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .presupuestosWlocByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
-    public void confPrecioHoraByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    public void confPrecioHoraByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .confPrecioHoraByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
-    public void confChallengeTipoVentaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    public void confChallengeTipoVentaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .confChallengeTipoVentaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
-    public void presupuestosRangoByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    public void presupuestosRangoByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .presupuestosRangoByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
-    public void ventaCongeladaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    public void ventaCongeladaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .ventaCongeladaByRunTareaAndTareaAmbito(runTarea, item));
     }
 

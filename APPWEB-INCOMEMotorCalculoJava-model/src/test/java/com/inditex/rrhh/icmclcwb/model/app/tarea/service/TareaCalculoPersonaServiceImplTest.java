@@ -1,19 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
@@ -26,6 +14,18 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaCalculoPe
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersona;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaRepositoryCustom;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaCalculoPersonaServiceImplTest {
@@ -47,84 +47,85 @@ public class TareaCalculoPersonaServiceImplTest {
 
     @Test
     public void updateWithEstadoAndidPersonaTest() {
-        RunTareaDto runTarea = mock(RunTareaDto.class);
-        EstadoTareaPersonaDto estadoTareaPersonaDto = mock(EstadoTareaPersonaDto.class);
-        List<TareaCalculoPersonaDto> list = new ArrayList<TareaCalculoPersonaDto>();
-        tareaCalculoPersonaServiceImpl.updateWithEstadoAndidPersona(list, runTarea, estadoTareaPersonaDto);
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        final EstadoTareaPersonaDto estadoTareaPersonaDto = mock(EstadoTareaPersonaDto.class);
+        final List<TareaCalculoPersonaDto> list = new ArrayList<TareaCalculoPersonaDto>();
+        this.tareaCalculoPersonaServiceImpl.updateWithEstadoAndidPersona(list, runTarea, estadoTareaPersonaDto);
 
-        verify(tareaCalculoPersonaRepositoryCustom, times(1)).updateWithEstadoAndidPersona(any(List.class),
+        verify(this.tareaCalculoPersonaRepositoryCustom, times(1)).updateWithEstadoAndidPersona(
+                ArgumentMatchers.<List<String>>any(),
                 any(RunTareaDto.class), any(EstadoTareaPersonaDto.class));
     }
 
     @Test
     public void updateWithEstadoTest() {
-        RunTareaDto runTarea = mock(RunTareaDto.class);
-        EstadoTareaPersonaDto estadoTareaPersonaDto = mock(EstadoTareaPersonaDto.class);
-        tareaCalculoPersonaServiceImpl.updateWithEstado(runTarea, estadoTareaPersonaDto, estadoTareaPersonaDto);
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        final EstadoTareaPersonaDto estadoTareaPersonaDto = mock(EstadoTareaPersonaDto.class);
+        this.tareaCalculoPersonaServiceImpl.updateWithEstado(runTarea, estadoTareaPersonaDto, estadoTareaPersonaDto);
 
-        verify(tareaCalculoPersonaRepositoryCustom, times(1)).updateWithEstado(any(RunTareaDto.class),
+        verify(this.tareaCalculoPersonaRepositoryCustom, times(1)).updateWithEstado(any(RunTareaDto.class),
                 any(EstadoTareaPersonaDto.class), any(EstadoTareaPersonaDto.class));
     }
 
     @Test
     public void mergePersonaCalculoByAmbitoTest() {
-        RunTareaDto runTarea = mock(RunTareaDto.class);
-        tareaCalculoPersonaServiceImpl.mergePersonaCalculoByAmbito(runTarea);
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        this.tareaCalculoPersonaServiceImpl.mergePersonaCalculoByAmbito(runTarea);
 
-        verify(tareaCalculoPersonaRepositoryCustom, times(1)).mergePersonaCalculoByAmbito(any(RunTareaDto.class));
+        verify(this.tareaCalculoPersonaRepositoryCustom, times(1)).mergePersonaCalculoByAmbito(any(RunTareaDto.class));
     }
 
     @Test
     public void mergePersonaCalculoByAmbitoLocalizacionTest() {
-        RunTareaDto runTarea = mock(RunTareaDto.class);
-        tareaCalculoPersonaServiceImpl.mergePersonaCalculoByAmbitoLocalizacion(runTarea);
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        this.tareaCalculoPersonaServiceImpl.mergePersonaCalculoByAmbitoLocalizacion(runTarea);
 
-        verify(tareaCalculoPersonaRepositoryCustom, times(1))
+        verify(this.tareaCalculoPersonaRepositoryCustom, times(1))
             .mergePersonaCalculoByAmbitoLocalizacion(any(RunTareaDto.class));
     }
 
     @Test
     public void mergePersonaCalculoByAmbitoPersonaTest() {
-        RunTareaDto runTarea = mock(RunTareaDto.class);
-        tareaCalculoPersonaServiceImpl.mergePersonaCalculoByAmbitoPersona(runTarea);
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        this.tareaCalculoPersonaServiceImpl.mergePersonaCalculoByAmbitoPersona(runTarea);
 
-        verify(tareaCalculoPersonaRepositoryCustom, times(1))
+        verify(this.tareaCalculoPersonaRepositoryCustom, times(1))
             .mergePersonaCalculoByAmbitoPersona(any(RunTareaDto.class));
     }
 
     @Test
     public void findByTareaTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        List<TareaCalculoPersona> list = new ArrayList<TareaCalculoPersona>();
-        when(tareaCalculoPersonaRepository.findByTareaId(any(Long.class))).thenReturn(list);
-        tareaCalculoPersonaServiceImpl.findByTarea(tarea);
+        final TareaDto tarea = mock(TareaDto.class);
+        final List<TareaCalculoPersona> list = new ArrayList<TareaCalculoPersona>();
+        when(this.tareaCalculoPersonaRepository.findByTareaId(any(Long.class))).thenReturn(list);
+        this.tareaCalculoPersonaServiceImpl.findByTarea(tarea);
 
-        verify(tareaCalculoPersonaRepository, times(1)).findByTareaId(any(Long.class));
+        verify(this.tareaCalculoPersonaRepository, times(1)).findByTareaId(any(Long.class));
     }
 
     @Test
     public void findByAlgoritmoTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        AlgoritmoDto algoritmoDto = mock(AlgoritmoDto.class);
-        List<TareaCalculoPersona> list = new ArrayList<TareaCalculoPersona>();
-        when(tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
+        final TareaDto tarea = mock(TareaDto.class);
+        final AlgoritmoDto algoritmoDto = mock(AlgoritmoDto.class);
+        final List<TareaCalculoPersona> list = new ArrayList<TareaCalculoPersona>();
+        when(this.tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
             .thenReturn(list);
-        tareaCalculoPersonaServiceImpl.findByAlgoritmo(tarea, algoritmoDto);
+        this.tareaCalculoPersonaServiceImpl.findByAlgoritmo(tarea, algoritmoDto);
 
-        verify(tareaCalculoPersonaRepositoryCustom, times(1)).findByAlgoritmo(any(TareaDto.class),
+        verify(this.tareaCalculoPersonaRepositoryCustom, times(1)).findByAlgoritmo(any(TareaDto.class),
                 any(AlgoritmoDto.class));
     }
 
     @Test
     public void findByTareaAndIdEstadoAndIdTipoPoliticaTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        String tipoPolitica = TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4();
-        List<TareaCalculoPersona> list = new ArrayList<TareaCalculoPersona>();
-        when(tareaCalculoPersonaRepositoryCustom.findByTareaAndIdEstadoAndIdTipoPolitica(any(TareaDto.class),
+        final TareaDto tarea = mock(TareaDto.class);
+        final String tipoPolitica = TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4();
+        final List<TareaCalculoPersona> list = new ArrayList<TareaCalculoPersona>();
+        when(this.tareaCalculoPersonaRepositoryCustom.findByTareaAndIdEstadoAndIdTipoPolitica(any(TareaDto.class),
                 any(String.class))).thenReturn(list);
-        tareaCalculoPersonaServiceImpl.findByTareaAndIdEstadoAndIdTipoPolitica(tarea, tipoPolitica);
+        this.tareaCalculoPersonaServiceImpl.findByTareaAndIdEstadoAndIdTipoPolitica(tarea, tipoPolitica);
 
-        verify(tareaCalculoPersonaRepositoryCustom, times(1))
+        verify(this.tareaCalculoPersonaRepositoryCustom, times(1))
             .findByTareaAndIdEstadoAndIdTipoPolitica(any(TareaDto.class), any(String.class));
     }
 

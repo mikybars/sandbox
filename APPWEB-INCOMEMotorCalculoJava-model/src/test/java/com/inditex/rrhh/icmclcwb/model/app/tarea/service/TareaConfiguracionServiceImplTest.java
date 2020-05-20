@@ -1,24 +1,24 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaConfiguracionMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaConfiguracion;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaConfiguracionRepositoryCustom;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaConfiguracionServiceImplTest {
@@ -34,15 +34,18 @@ public class TareaConfiguracionServiceImplTest {
 
     @Test
     public void saveTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        ConfiguracionItemDto configuracionItemDto = mock(ConfiguracionItemDto.class);
-        List<ConfiguracionItemDto> list = new ArrayList<ConfiguracionItemDto>();
-        list.add(configuracionItemDto);
-        when(tareaConfiguracionRepositoryCustom.save(any(List.class))).thenReturn(list);
+        final TareaDto tarea = mock(TareaDto.class);
+        final ConfiguracionItemDto configuracionItemDto = mock(ConfiguracionItemDto.class);
+        final List<ConfiguracionItemDto> dtoList = new ArrayList<ConfiguracionItemDto>();
+        final List<TareaConfiguracion> list = new ArrayList<TareaConfiguracion>();
+        dtoList.add(configuracionItemDto);
+        when(this.tareaConfiguracionRepositoryCustom.save(ArgumentMatchers.<List<TareaConfiguracion>>any()))
+            .thenReturn(list);
 
-        tareaConfiguracionServiceImpl.save(list, tarea);
+        this.tareaConfiguracionServiceImpl.save(dtoList, tarea);
 
-        verify(tareaConfiguracionRepositoryCustom, times(1)).save(any(List.class));
+        verify(this.tareaConfiguracionRepositoryCustom, times(1))
+            .save(ArgumentMatchers.<List<TareaConfiguracion>>any());
     }
 
 }

@@ -61,8 +61,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
         }
     }
 
-    public <T> T queryForObject(final String sql, final SqlParameterSource paramSource, final RowMapper<T> rowMapper)
-            throws DataAccessException {
+    public <T> T queryForObject(final String sql, final SqlParameterSource paramSource, final RowMapper<T> rowMapper) {
         try {
             return this.namedParameterJdbcTemplate.queryForObject(sql, paramSource, rowMapper);
         } catch (final DataAccessException e) {

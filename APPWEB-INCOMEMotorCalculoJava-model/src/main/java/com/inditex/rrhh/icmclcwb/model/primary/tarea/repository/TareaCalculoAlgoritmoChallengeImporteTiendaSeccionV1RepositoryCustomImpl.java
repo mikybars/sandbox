@@ -12,12 +12,10 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-
 import lombok.Getter;
 
 @Repository
@@ -35,9 +33,6 @@ public class TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCusto
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-
-    @Autowired
-    private TipoDatoService tipoDatoService;
 
     @Override
     public List<TareaCalculoPersonaDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
