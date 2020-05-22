@@ -53,6 +53,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
@@ -61,8 +62,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.Con
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
@@ -112,6 +113,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Autowired
     private Meta4IcmWsCalcIncomeSessionAsyncService meta4IcmWsCalcIncomeSessionAsyncService;
+
+    @Autowired
+    private Meta4IcmWsCalcIncomeAsyncService meta4IcmWsCalcIncomeAsyncService;
 
     @Autowired
     private TareaMapper tareaMapper;
@@ -692,17 +696,17 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final ConfiguracionesRequestDto request = this.tareaMapper
                 .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfiguracionesRequestDto(
                         tarea, tareaAmbito, periodo);
-            final CompletableFuture<List<ConfiguracionItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
+            final CompletableFuture<ConfiguracionesResponseDto> cfData = this.meta4IcmWsCalcIncomeAsyncService
                 .getConfiguraciones(request);
             AsyncUtils.exceptionally(cfData, cf);
-            final List<ConfiguracionItemDto> data = AsyncUtils.get(cfData);
-            if (CollectionUtils.isNotEmpty(data)) {
+            final ConfiguracionesResponseDto data = AsyncUtils.get(cfData);
+            if (CollectionUtils.isNotEmpty(data.getItems())) {
                 AsyncUtils.checkAsyncAvaliable(cfPersist, this.meta4Properties
                     .get(Meta4PropertiesConstants.CONFIGURACION)
                     .getFilter()
                     .getMaxPersistenceSize());
                 final CompletableFuture<Void> cfSave = this.tareaConfiguracionAsyncService
-                    .saveConfiguracionItemDto(data, tarea);
+                    .saveConfiguracionItemDto(data.getItems(), tarea);
                 AsyncUtils.exceptionally(cfSave, cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
