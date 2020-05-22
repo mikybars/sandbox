@@ -14,8 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.Con
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
@@ -97,8 +95,6 @@ public interface Meta4IcmWsCalcIncomeSessionAsyncService {
     CompletableFuture<List<EstructurasPolResultItemDto>> getEstructurasPol(EstructurasPolRequestDto request);
 
     CompletableFuture<List<AusenciasResultItemDto>> getAusencias(AusenciasRequestDto request);
-
-    CompletableFuture<List<ConfiguracionItemDto>> getConfiguraciones(ConfiguracionesRequestDto request);
 
     CompletableFuture<List<ConfChDiasMinimosResultItemDto>> getConfChallengeDiasMinimos(
             ConfChDiasMinimosRequestDto request);

@@ -11,8 +11,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.Con
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
@@ -41,7 +39,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
@@ -90,15 +87,11 @@ public interface Meta4IcmWsCalcIncomeSessionService {
 
     List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(EmpleadosDesplazamientoRequestDto request);
 
-    void saveProceso(SaveProcesoDto request);
-
     List<EstructurasComResultItemDto> getEstructurasCom(EstructurasComRequestDto request);
 
     List<EstructurasPolResultItemDto> getEstructurasPol(EstructurasPolRequestDto request);
 
     List<AusenciasResultItemDto> getAusencias(AusenciasRequestDto request);
-
-    List<ConfiguracionItemDto> getConfiguraciones(ConfiguracionesRequestDto request);
 
     List<ConfChDiasMinimosResultItemDto> getConfChallengeDiasMinimos(ConfChDiasMinimosRequestDto request);
 
