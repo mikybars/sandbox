@@ -1,9 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
-import java.util.ArrayList;
 import java.util.Map;
 
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4FilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
@@ -34,9 +32,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.Periodos
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultErrorDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
@@ -87,7 +82,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getFlagCalcula(any(FlagCalculaRequestDto.class)))
             .thenReturn(new FlagCalculaResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA)).thenReturn(properties);
 
         final FlagCalculaRequestDto request = new FlagCalculaRequestDto();
         request.setData(new GenericFilterDto());
@@ -106,7 +100,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getFestivos(any(FestivosRequestDto.class)))
             .thenReturn(new FestivosResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS)).thenReturn(properties);
 
         final FestivosRequestDto request = new FestivosRequestDto();
         request.setData(new GenericFilterDto());
@@ -125,7 +118,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getCoefJornada(any(CoefJornadaRequestDto.class)))
             .thenReturn(new CoefJornadaResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA)).thenReturn(properties);
 
         final CoefJornadaRequestDto request = new CoefJornadaRequestDto();
         request.setData(new GenericFilterDto());
@@ -144,7 +136,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getPresenciaManual(any(PresenciaManualRequestDto.class)))
             .thenReturn(new PresenciaManualResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL)).thenReturn(properties);
 
         final PresenciaManualRequestDto request = new PresenciaManualRequestDto();
         request.setData(new GenericFilterDto());
@@ -163,7 +154,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getEmpleadosPresencia(any(EmpleadosPresenciaRequestDto.class)))
             .thenReturn(new EmpleadosPresenciaResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_PRESENCIA)).thenReturn(properties);
 
         final EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
         request.setData(new GenericFilterDto());
@@ -182,7 +172,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getPeriodos(any(PeriodosRequestDto.class)))
             .thenReturn(new PeriodosResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.PERIODOS)).thenReturn(properties);
 
         final PeriodosRequestDto request = new PeriodosRequestDto();
         request.setData(new GenericFilterDto());
@@ -202,7 +191,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.searchTiendas(any(SearchTiendasRequestDto.class)))
             .thenReturn(new SearchTiendasResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS)).thenReturn(properties);
 
         final SearchTiendasRequestDto request = new SearchTiendasRequestDto();
         request.setData(new GenericFilterDto());
@@ -221,7 +209,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getTiendas(any(TiendasRequestDto.class)))
             .thenReturn(new TiendasResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.TIENDAS)).thenReturn(properties);
 
         final TiendasRequestDto request = new TiendasRequestDto();
         request.setData(new GenericFilterDto());
@@ -240,7 +227,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.searchEmpleados(any(SearchEmpleadosRequestDto.class)))
             .thenReturn(new SearchEmpleadosResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS)).thenReturn(properties);
 
         final SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
         request.setData(new GenericFilterDto());
@@ -259,7 +245,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getEmpleados(any(EmpleadosRequestDto.class)))
             .thenReturn(new EmpleadosResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS)).thenReturn(properties);
 
         final EmpleadosRequestDto request = new EmpleadosRequestDto();
         request.setData(new GenericFilterDto());
@@ -278,7 +263,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getConfVentaOnline(any(ConfiguracionVentaOnlineRequestDto.class)))
             .thenReturn(new ConfiguracionVentaOnlineResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE)).thenReturn(properties);
 
         final ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
         request.setData(new GenericFilterDto());
@@ -297,7 +281,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getAgrupOnline(any(AgrupOnlineRequestDto.class)))
             .thenReturn(new AgrupOnlineResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE)).thenReturn(properties);
 
         final AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
         request.setData(new GenericFilterDto());
@@ -316,7 +299,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getTiendasOnline(any(TiendaOnlineRequestDto.class)))
             .thenReturn(new TiendaOnlineResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE)).thenReturn(properties);
 
         final TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
         request.setData(new GenericFilterDto());
@@ -335,7 +317,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getEmpresa(any(EmpresaRequestDto.class)))
             .thenReturn(new EmpresaResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.EMPRESA)).thenReturn(properties);
 
         final EmpresaRequestDto request = new EmpresaRequestDto();
         request.setData(new GenericFilterDto());
@@ -354,7 +335,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getOrigen(any(OrigenRequestDto.class)))
             .thenReturn(new OrigenResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.ORIGEN)).thenReturn(properties);
 
         final OrigenRequestDto request = new OrigenRequestDto();
         request.setData(new GenericFilterDto());
@@ -374,7 +354,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         when(this.meta4IcmWsCalcIncomeService
             .getConfiguracionProductoVenta(any(ConfiguracionProductoVentaRequestDto.class)))
                 .thenReturn(new ConfiguracionProductoVentaResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA)).thenReturn(properties);
 
         final ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
         request.setData(new GenericFilterDto());
@@ -413,7 +392,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         properties.setFilter(filter);
         when(this.meta4IcmWsCalcIncomeService.getEmpleadosDesplazamiento(any(EmpleadosDesplazamientoRequestDto.class)))
             .thenReturn(new EmpleadosDesplazamientoResponseDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO)).thenReturn(properties);
 
         final EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
         request.setData(new GenericFilterDto());
@@ -421,36 +399,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         this.meta4IcmWsCalcIncomeSessionServiceImpl.getEmpleadosDesplazamiento(request);
         verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
             .getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
-    }
-
-    @Test
-    public void saveProceso() {
-        final SaveProcesoDto dto = new SaveProcesoDto();
-        final SaveResultDto result = new SaveResultDto();
-        result.setResultadoOk(Boolean.TRUE);
-        result.setResultadoError(Boolean.FALSE);
-
-        when(this.meta4IcmWsCalcIncomeService.saveProceso(any(SaveProcesoDto.class))).thenReturn(result);
-
-        this.meta4IcmWsCalcIncomeSessionServiceImpl.saveProceso(dto);
-        verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
-            .saveProceso(ArgumentMatchers.any(SaveProcesoDto.class));
-    }
-
-    @Test(expected = IcmclcwbException.class)
-    public void saveProcesoException() {
-        final SaveProcesoDto dto = new SaveProcesoDto();
-        final SaveResultDto result = new SaveResultDto();
-        result.setData(new ArrayList<>());
-        result.getData().add(new SaveResultErrorDto());
-        result.setResultadoOk(Boolean.FALSE);
-        result.setResultadoError(Boolean.TRUE);
-
-        when(this.meta4IcmWsCalcIncomeService.saveProceso(any(SaveProcesoDto.class))).thenReturn(result);
-
-        this.meta4IcmWsCalcIncomeSessionServiceImpl.saveProceso(dto);
-        verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
-            .saveProceso(ArgumentMatchers.any(SaveProcesoDto.class));
     }
 
 }

@@ -16,8 +16,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.Con
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
@@ -62,152 +60,155 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
     @Override
-    public CompletableFuture<List<GenericTiendaResultItemDto>> getFlagCalcula(FlagCalculaRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getFlagCalcula(request));
+    public CompletableFuture<List<GenericTiendaResultItemDto>> getFlagCalcula(final FlagCalculaRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getFlagCalcula(request));
     }
 
     @Override
-    public CompletableFuture<List<GenericEmpleadoResultItemDto>> getCoefJornada(CoefJornadaRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getCoefJornada(request));
+    public CompletableFuture<List<GenericEmpleadoResultItemDto>> getCoefJornada(final CoefJornadaRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getCoefJornada(request));
     }
 
     @Override
-    public CompletableFuture<List<GenericTiendaResultItemDto>> getFestivos(FestivosRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getFestivos(request));
+    public CompletableFuture<List<GenericTiendaResultItemDto>> getFestivos(final FestivosRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getFestivos(request));
     }
 
     @Override
-    public CompletableFuture<List<GenericEmpleadoResultItemDto>> getPresenciaManual(PresenciaManualRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getPresenciaManual(request));
+    public CompletableFuture<List<GenericEmpleadoResultItemDto>> getPresenciaManual(
+            final PresenciaManualRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getPresenciaManual(request));
     }
 
     @Override
     public CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleadosPresencia(
-            EmpleadosPresenciaRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getEmpleadosPresencia(request));
+            final EmpleadosPresenciaRequestDto request) {
+        return CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionService.getEmpleadosPresencia(request));
     }
 
     @Override
-    public CompletableFuture<List<PeriodosResultItemDto>> getPeriodos(PeriodosRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
+    public CompletableFuture<List<PeriodosResultItemDto>> getPeriodos(final PeriodosRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
     }
 
     @Override
-    public CompletableFuture<List<GenericTiendaResultItemDto>> searchTiendas(SearchTiendasRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.searchTiendas(request));
+    public CompletableFuture<List<GenericTiendaResultItemDto>> searchTiendas(final SearchTiendasRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.searchTiendas(request));
     }
 
     @Override
-    public CompletableFuture<List<GenericTiendaResultItemDto>> getTiendas(TiendasRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getTiendas(request));
+    public CompletableFuture<List<GenericTiendaResultItemDto>> getTiendas(final TiendasRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getTiendas(request));
     }
 
     @Override
-    public CompletableFuture<List<GenericEmpleadoResultItemDto>> searchEmpleados(SearchEmpleadosRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.searchEmpleados(request));
+    public CompletableFuture<List<GenericEmpleadoResultItemDto>> searchEmpleados(
+            final SearchEmpleadosRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.searchEmpleados(request));
     }
 
     @Override
     public CompletableFuture<List<EstructurasComResultItemDto>> getEstructurasCom(
-            EstructurasComRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getEstructurasCom(request));
+            final EstructurasComRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getEstructurasCom(request));
     }
 
     @Override
     public CompletableFuture<List<EstructurasPolResultItemDto>> getEstructurasPol(
-            EstructurasPolRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getEstructurasPol(request));
+            final EstructurasPolRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getEstructurasPol(request));
     }
 
     @Override
-    public CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleados(EmpleadosRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getEmpleados(request));
+    public CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleados(final EmpleadosRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getEmpleados(request));
     }
 
     @Override
     public CompletableFuture<List<ConfiguracionVentaOnlineResultItemDto>> getConfiguracionVentaOnline(
-            ConfiguracionVentaOnlineRequestDto request) {
+            final ConfiguracionVentaOnlineRequestDto request) {
         return CompletableFuture
-            .completedFuture(meta4IcmWsCalcIncomeSessionService.getConfiguracionVentaOnline(request));
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionService.getConfiguracionVentaOnline(request));
     }
 
     @Override
-    public CompletableFuture<List<AgrupOnlineResultItemDto>> getAgrupacionesOnline(AgrupOnlineRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getAgrupacionesOnline(request));
+    public CompletableFuture<List<AgrupOnlineResultItemDto>> getAgrupacionesOnline(
+            final AgrupOnlineRequestDto request) {
+        return CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionService.getAgrupacionesOnline(request));
     }
 
     @Override
-    public CompletableFuture<List<TiendaOnlineResultItemDto>> getTiendasOnline(TiendaOnlineRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.tiendaOnline(request));
+    public CompletableFuture<List<TiendaOnlineResultItemDto>> getTiendasOnline(final TiendaOnlineRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.tiendaOnline(request));
     }
 
     @Override
-    public CompletableFuture<List<EmpresaResultItemDto>> getEmpresa(EmpresaRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getEmpresa(request));
+    public CompletableFuture<List<EmpresaResultItemDto>> getEmpresa(final EmpresaRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getEmpresa(request));
     }
 
     @Override
-    public CompletableFuture<List<OrigenResultItemDto>> getOrigen(OrigenRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getOrigen(request));
+    public CompletableFuture<List<OrigenResultItemDto>> getOrigen(final OrigenRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getOrigen(request));
     }
 
     @Override
-    public CompletableFuture<List<AusenciasResultItemDto>> getAusencias(AusenciasRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getAusencias(request));
+    public CompletableFuture<List<AusenciasResultItemDto>> getAusencias(final AusenciasRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getAusencias(request));
     }
 
     @Override
     public CompletableFuture<List<ConfiguracionProductoVentaResultItemDto>> getConfiguracionProductoVenta(
-            ConfiguracionProductoVentaRequestDto request) {
+            final ConfiguracionProductoVentaRequestDto request) {
         return CompletableFuture
-            .completedFuture(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(request));
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(request));
     }
 
     @Override
     public CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleadosDesplazamiento(
-            EmpleadosDesplazamientoRequestDto request) {
+            final EmpleadosDesplazamientoRequestDto request) {
         return CompletableFuture
-            .completedFuture(meta4IcmWsCalcIncomeSessionService.getEmpleadosDesplazamiento(request));
-    }
-
-    @Override
-    public CompletableFuture<List<ConfiguracionItemDto>> getConfiguraciones(ConfiguracionesRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getConfiguraciones(request));
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionService.getEmpleadosDesplazamiento(request));
     }
 
     @Override
     public CompletableFuture<List<ConfChDiasMinimosResultItemDto>> getConfChallengeDiasMinimos(
-            ConfChDiasMinimosRequestDto request) {
+            final ConfChDiasMinimosRequestDto request) {
         return CompletableFuture
-            .completedFuture(meta4IcmWsCalcIncomeSessionService.getConfChallengeDiasMinimos(request));
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionService.getConfChallengeDiasMinimos(request));
     }
 
     @Override
     public CompletableFuture<List<PresupuestosWlocResultItemDto>> getPresupuestosWloc(
-            PresupuestosWlocRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getPresupuestosWloc(request));
+            final PresupuestosWlocRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getPresupuestosWloc(request));
     }
 
     @Override
-    public CompletableFuture<List<ConfPrecioHoraResultItemDto>> getConfPrecioHora(ConfPrecioHoraRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getConfPrecioHora(request));
+    public CompletableFuture<List<ConfPrecioHoraResultItemDto>> getConfPrecioHora(
+            final ConfPrecioHoraRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getConfPrecioHora(request));
     }
 
     @Override
     public CompletableFuture<List<ConfChTpVentaResultItemDto>> getConfChallengeTpVenta(
-            ConfChTpVentaRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getConfChallengeTpVenta(request));
+            final ConfChTpVentaRequestDto request) {
+        return CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionService.getConfChallengeTpVenta(request));
     }
 
     @Override
     public CompletableFuture<List<PresupuestosRangoResultItemDto>> getPresupuestosRango(
-            PresupuestosRangoRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getPresupuestosRango(request));
+            final PresupuestosRangoRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getPresupuestosRango(request));
     }
 
     @Override
-    public CompletableFuture<List<VentaCongeladaResultItemDto>> getVentaCongelada(VentaCongeladaRequestDto request) {
-        return CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionService.getVentaCongelada(request));
+    public CompletableFuture<List<VentaCongeladaResultItemDto>> getVentaCongelada(
+            final VentaCongeladaRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getVentaCongelada(request));
     }
 
 }

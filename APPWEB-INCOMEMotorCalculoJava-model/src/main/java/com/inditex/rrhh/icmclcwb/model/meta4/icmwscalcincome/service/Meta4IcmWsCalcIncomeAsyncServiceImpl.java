@@ -1,0 +1,25 @@
+package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
+
+import java.util.concurrent.CompletableFuture;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+
+@Service
+public class Meta4IcmWsCalcIncomeAsyncServiceImpl implements Meta4IcmWsCalcIncomeAsyncService {
+
+    @Autowired
+    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+
+    @Override
+    public CompletableFuture<ConfiguracionesResponseDto> getConfiguraciones(
+            final ConfiguracionesRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeService.getConfiguracion(request));
+    }
+
+}
