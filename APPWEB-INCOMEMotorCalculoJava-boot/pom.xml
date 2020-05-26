@@ -11,7 +11,7 @@
   <artifactId>APPWEB-INCOMEMotorCalculoJava-boot</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <packaging>jar</packaging>
-  
+
   <dependencies>
     <!-- PROJECT DEPENDENCIES -->
     <dependency>
@@ -31,10 +31,6 @@
     <dependency>
       <groupId>com.inditex.aqsw.framework.data</groupId>
       <artifactId>data-framework-starter-jpa</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.inditex.aqsw.framework.data</groupId>
-      <artifactId>data-framework-starter-jdbc-template</artifactId>
     </dependency>
     <dependency>
       <groupId>com.inditex.aqsw.framework.common</groupId>

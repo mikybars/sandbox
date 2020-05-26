@@ -135,6 +135,7 @@ amiga:
           borrow-connection-timeout: 600
       datasource:
         primary:
+          #init-connection-sql: set schema GESTION_COMISION
           xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
           xa-properties:
             clientProgramName: ${metadata.jirakey}
@@ -143,9 +144,10 @@ amiga:
             connectionTimeout: 300
             commandTimeout: 300
             interruptProcessingMode: 2
-    hibernate:
-      primary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
+    jpa:
+      properties:
+        hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
+        hibernate.default_schema: GESTION_COMISION
 app:
   envars:
     calculo:
