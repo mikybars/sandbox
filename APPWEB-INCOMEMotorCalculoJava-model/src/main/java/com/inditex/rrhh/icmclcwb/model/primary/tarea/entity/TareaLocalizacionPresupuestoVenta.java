@@ -59,7 +59,8 @@ public class TareaLocalizacionPresupuestoVenta {
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
     private String cclIdSeccion;
 
-    @Column(name = "ICM_ORDINAL", nullable = true)
+    @NotNull
+    @Column(name = "ICM_ORDINAL", nullable = false)
     private Integer ordinal;
 
     @NotNull

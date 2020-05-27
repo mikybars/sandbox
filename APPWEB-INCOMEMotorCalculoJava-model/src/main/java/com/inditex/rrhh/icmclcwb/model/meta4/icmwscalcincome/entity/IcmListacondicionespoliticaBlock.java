@@ -25,12 +25,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_ListacondicionespoliticaBlock complex type.
- *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ListacondicionespoliticaBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ListacondicionespoliticaBlock"&gt;
  *   &lt;complexContent&gt;
@@ -43,29 +41,30 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListacondicionespoliticaBlock", propOrder = {
-        "idestructura",
-        "icmListacondicionespoliticaRecordSet"
+    "idestructura",
+    "icmListacondicionespoliticaRecordSet"
 })
-public class IcmListacondicionespoliticaBlock
-        implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmListacondicionespoliticaBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(required = true, nillable = true)
     protected String idestructura;
-
     @XmlElement(name = "Icm_ListacondicionespoliticaRecordSet", nillable = true)
     protected List<IcmListacondicionespoliticaRecord> icmListacondicionespoliticaRecordSet;
 
     /**
      * Obtiene el valor de la propiedad idestructura.
-     * @return possible object is {@link String }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getIdestructura() {
         return idestructura;
@@ -73,8 +72,11 @@ public class IcmListacondicionespoliticaBlock
 
     /**
      * Define el valor de la propiedad idestructura.
-     * @param value allowed object is {@link String }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setIdestructura(String value) {
         this.idestructura = value;
@@ -82,25 +84,25 @@ public class IcmListacondicionespoliticaBlock
 
     /**
      * Gets the value of the icmListacondicionespoliticaRecordSet property.
-     *
+     * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmListacondicionespoliticaRecordSet property.
-     *
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmListacondicionespoliticaRecordSet property.
+     * 
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmListacondicionespoliticaRecordSet().add(newItem);
+     *    getIcmListacondicionespoliticaRecordSet().add(newItem);
      * </pre>
-     *
-     *
+     * 
+     * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmListacondicionespoliticaRecord
-     * }
-     *
-     *
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmListacondicionespoliticaRecord }
+     * 
+     * 
      */
     public List<IcmListacondicionespoliticaRecord> getIcmListacondicionespoliticaRecordSet() {
         if (icmListacondicionespoliticaRecordSet == null) {
@@ -109,9 +111,8 @@ public class IcmListacondicionespoliticaBlock
         return this.icmListacondicionespoliticaRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -123,31 +124,16 @@ public class IcmListacondicionespoliticaBlock
             lhsIdestructura = this.getIdestructura();
             String rhsIdestructura;
             rhsIdestructura = that.getIdestructura();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idestructura", lhsIdestructura),
-                    LocatorUtils.property(thatLocator, "idestructura", rhsIdestructura), lhsIdestructura,
-                    rhsIdestructura, (this.idestructura != null), (that.idestructura != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idestructura", lhsIdestructura), LocatorUtils.property(thatLocator, "idestructura", rhsIdestructura), lhsIdestructura, rhsIdestructura, (this.idestructura!= null), (that.idestructura!= null))) {
                 return false;
             }
         }
         {
             List<IcmListacondicionespoliticaRecord> lhsIcmListacondicionespoliticaRecordSet;
-            lhsIcmListacondicionespoliticaRecordSet = (((this.icmListacondicionespoliticaRecordSet != null)
-                    && (!this.icmListacondicionespoliticaRecordSet.isEmpty()))
-                            ? this.getIcmListacondicionespoliticaRecordSet() : null);
+            lhsIcmListacondicionespoliticaRecordSet = (((this.icmListacondicionespoliticaRecordSet!= null)&&(!this.icmListacondicionespoliticaRecordSet.isEmpty()))?this.getIcmListacondicionespoliticaRecordSet():null);
             List<IcmListacondicionespoliticaRecord> rhsIcmListacondicionespoliticaRecordSet;
-            rhsIcmListacondicionespoliticaRecordSet = (((that.icmListacondicionespoliticaRecordSet != null)
-                    && (!that.icmListacondicionespoliticaRecordSet.isEmpty()))
-                            ? that.getIcmListacondicionespoliticaRecordSet() : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmListacondicionespoliticaRecordSet",
-                            lhsIcmListacondicionespoliticaRecordSet),
-                    LocatorUtils.property(thatLocator, "icmListacondicionespoliticaRecordSet",
-                            rhsIcmListacondicionespoliticaRecordSet),
-                    lhsIcmListacondicionespoliticaRecordSet, rhsIcmListacondicionespoliticaRecordSet,
-                    ((this.icmListacondicionespoliticaRecordSet != null)
-                            && (!this.icmListacondicionespoliticaRecordSet.isEmpty())),
-                    ((that.icmListacondicionespoliticaRecordSet != null)
-                            && (!that.icmListacondicionespoliticaRecordSet.isEmpty())))) {
+            rhsIcmListacondicionespoliticaRecordSet = (((that.icmListacondicionespoliticaRecordSet!= null)&&(!that.icmListacondicionespoliticaRecordSet.isEmpty()))?that.getIcmListacondicionespoliticaRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListacondicionespoliticaRecordSet", lhsIcmListacondicionespoliticaRecordSet), LocatorUtils.property(thatLocator, "icmListacondicionespoliticaRecordSet", rhsIcmListacondicionespoliticaRecordSet), lhsIcmListacondicionespoliticaRecordSet, rhsIcmListacondicionespoliticaRecordSet, ((this.icmListacondicionespoliticaRecordSet!= null)&&(!this.icmListacondicionespoliticaRecordSet.isEmpty())), ((that.icmListacondicionespoliticaRecordSet!= null)&&(!that.icmListacondicionespoliticaRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -177,16 +163,12 @@ public class IcmListacondicionespoliticaBlock
         {
             String theIdestructura;
             theIdestructura = this.getIdestructura();
-            strategy.appendField(locator, this, "idestructura", buffer, theIdestructura, (this.idestructura != null));
+            strategy.appendField(locator, this, "idestructura", buffer, theIdestructura, (this.idestructura!= null));
         }
         {
             List<IcmListacondicionespoliticaRecord> theIcmListacondicionespoliticaRecordSet;
-            theIcmListacondicionespoliticaRecordSet = (((this.icmListacondicionespoliticaRecordSet != null)
-                    && (!this.icmListacondicionespoliticaRecordSet.isEmpty()))
-                            ? this.getIcmListacondicionespoliticaRecordSet() : null);
-            strategy.appendField(locator, this, "icmListacondicionespoliticaRecordSet", buffer,
-                    theIcmListacondicionespoliticaRecordSet, ((this.icmListacondicionespoliticaRecordSet != null)
-                            && (!this.icmListacondicionespoliticaRecordSet.isEmpty())));
+            theIcmListacondicionespoliticaRecordSet = (((this.icmListacondicionespoliticaRecordSet!= null)&&(!this.icmListacondicionespoliticaRecordSet.isEmpty()))?this.getIcmListacondicionespoliticaRecordSet():null);
+            strategy.appendField(locator, this, "icmListacondicionespoliticaRecordSet", buffer, theIcmListacondicionespoliticaRecordSet, ((this.icmListacondicionespoliticaRecordSet!= null)&&(!this.icmListacondicionespoliticaRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -196,20 +178,12 @@ public class IcmListacondicionespoliticaBlock
         {
             String theIdestructura;
             theIdestructura = this.getIdestructura();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idestructura", theIdestructura),
-                    currentHashCode, theIdestructura, (this.idestructura != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idestructura", theIdestructura), currentHashCode, theIdestructura, (this.idestructura!= null));
         }
         {
             List<IcmListacondicionespoliticaRecord> theIcmListacondicionespoliticaRecordSet;
-            theIcmListacondicionespoliticaRecordSet = (((this.icmListacondicionespoliticaRecordSet != null)
-                    && (!this.icmListacondicionespoliticaRecordSet.isEmpty()))
-                            ? this.getIcmListacondicionespoliticaRecordSet() : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmListacondicionespoliticaRecordSet",
-                            theIcmListacondicionespoliticaRecordSet),
-                    currentHashCode, theIcmListacondicionespoliticaRecordSet,
-                    ((this.icmListacondicionespoliticaRecordSet != null)
-                            && (!this.icmListacondicionespoliticaRecordSet.isEmpty())));
+            theIcmListacondicionespoliticaRecordSet = (((this.icmListacondicionespoliticaRecordSet!= null)&&(!this.icmListacondicionespoliticaRecordSet.isEmpty()))?this.getIcmListacondicionespoliticaRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListacondicionespoliticaRecordSet", theIcmListacondicionespoliticaRecordSet), currentHashCode, theIcmListacondicionespoliticaRecordSet, ((this.icmListacondicionespoliticaRecordSet!= null)&&(!this.icmListacondicionespoliticaRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -229,18 +203,15 @@ public class IcmListacondicionespoliticaBlock
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmListacondicionespoliticaBlock) {
             final IcmListacondicionespoliticaBlock copy = ((IcmListacondicionespoliticaBlock) draftCopy);
             {
-                Boolean idestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.idestructura != null));
+                Boolean idestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idestructura!= null));
                 if (idestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdestructura;
                     sourceIdestructura = this.getIdestructura();
-                    String copyIdestructura = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "idestructura", sourceIdestructura), sourceIdestructura,
-                            (this.idestructura != null)));
+                    String copyIdestructura = ((String) strategy.copy(LocatorUtils.property(locator, "idestructura", sourceIdestructura), sourceIdestructura, (this.idestructura!= null)));
                     copy.setIdestructura(copyIdestructura);
                 } else {
                     if (idestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -249,24 +220,15 @@ public class IcmListacondicionespoliticaBlock
                 }
             }
             {
-                Boolean icmListacondicionespoliticaRecordSetShouldBeCopiedAndSet = strategy
-                    .shouldBeCopiedAndSet(locator, ((this.icmListacondicionespoliticaRecordSet != null)
-                            && (!this.icmListacondicionespoliticaRecordSet.isEmpty())));
+                Boolean icmListacondicionespoliticaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListacondicionespoliticaRecordSet!= null)&&(!this.icmListacondicionespoliticaRecordSet.isEmpty())));
                 if (icmListacondicionespoliticaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListacondicionespoliticaRecord> sourceIcmListacondicionespoliticaRecordSet;
-                    sourceIcmListacondicionespoliticaRecordSet = (((this.icmListacondicionespoliticaRecordSet != null)
-                            && (!this.icmListacondicionespoliticaRecordSet.isEmpty()))
-                                    ? this.getIcmListacondicionespoliticaRecordSet() : null);
+                    sourceIcmListacondicionespoliticaRecordSet = (((this.icmListacondicionespoliticaRecordSet!= null)&&(!this.icmListacondicionespoliticaRecordSet.isEmpty()))?this.getIcmListacondicionespoliticaRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListacondicionespoliticaRecord> copyIcmListacondicionespoliticaRecordSet = ((List<IcmListacondicionespoliticaRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmListacondicionespoliticaRecordSet",
-                                sourceIcmListacondicionespoliticaRecordSet), sourceIcmListacondicionespoliticaRecordSet,
-                                ((this.icmListacondicionespoliticaRecordSet != null)
-                                        && (!this.icmListacondicionespoliticaRecordSet.isEmpty()))));
+                    List<IcmListacondicionespoliticaRecord> copyIcmListacondicionespoliticaRecordSet = ((List<IcmListacondicionespoliticaRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListacondicionespoliticaRecordSet", sourceIcmListacondicionespoliticaRecordSet), sourceIcmListacondicionespoliticaRecordSet, ((this.icmListacondicionespoliticaRecordSet!= null)&&(!this.icmListacondicionespoliticaRecordSet.isEmpty()))));
                     copy.icmListacondicionespoliticaRecordSet = null;
-                    if (copyIcmListacondicionespoliticaRecordSet != null) {
-                        List<IcmListacondicionespoliticaRecord> uniqueIcmListacondicionespoliticaRecordSetl = copy
-                            .getIcmListacondicionespoliticaRecordSet();
+                    if (copyIcmListacondicionespoliticaRecordSet!= null) {
+                        List<IcmListacondicionespoliticaRecord> uniqueIcmListacondicionespoliticaRecordSetl = copy.getIcmListacondicionespoliticaRecordSet();
                         uniqueIcmListacondicionespoliticaRecordSetl.addAll(copyIcmListacondicionespoliticaRecordSet);
                     }
                 } else {

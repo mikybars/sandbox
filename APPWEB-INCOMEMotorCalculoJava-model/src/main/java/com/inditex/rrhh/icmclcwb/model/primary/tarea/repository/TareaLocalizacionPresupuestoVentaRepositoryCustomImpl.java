@@ -37,6 +37,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoVentaRepositoryCustom.totalizar']}")
     private String sqlTotalizar;
 
+
     @Override
     public void updateActivoExcepcionada(@NotNull final RunTareaDto runTareaDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();

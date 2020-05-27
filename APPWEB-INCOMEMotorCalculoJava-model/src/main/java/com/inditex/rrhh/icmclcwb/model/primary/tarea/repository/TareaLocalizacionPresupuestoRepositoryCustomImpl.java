@@ -1,9 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
+
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
 
@@ -34,6 +41,9 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.updateActivoBandasSinExcepcion']}")
     private String sqlUpdateActivoBandasSinExcepcion;
+
+    @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.findLocalizacionOrdinalTarea']}")
+    private String sqlFindLocalizacionOrdinalTarea;
 
     @Value("${app.envars.repository.batch-size.tarea-persona-historico:${app.envars.repository.batch-size.default}}")
     private int batchSize;
@@ -95,6 +105,30 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
         map.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
         this.update(this.sqlUpdateActivoBandasSinExcepcion, map);
+    }
+
+    @Override
+    public List<String> findLocalizacionOrdinalTarea(
+            @NotNull final Long idTarea, @NotNull final Integer cclIdCodOrigen, @NotNull final Integer cclIdSeccion,
+            @NotNull final LocalDate fechaInicio, @NotNull final LocalDate fechaFin,
+            @NotNull final Integer idTipoPresupuesto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_COD_ORIGEN, cclIdCodOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, cclIdSeccion);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.toDate(fechaInicio));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.toDate(fechaFin));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESUPUESTO, idTipoPresupuesto);
+
+        return this.query(
+                this.sqlFindLocalizacionOrdinalTarea,
+                parameters, new RowMapper<String>() {
+                    @Override
+                    public String mapRow(final ResultSet rs, final int rowNum)
+                            throws SQLException {
+                        return rs.getString(SqlPrimaryConstants.SQL_RESULT_ICM_ORDINAL);
+                    }
+                });
     }
 
 }

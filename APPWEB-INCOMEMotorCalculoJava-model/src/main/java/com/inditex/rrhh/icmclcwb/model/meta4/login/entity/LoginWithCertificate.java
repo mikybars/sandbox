@@ -24,12 +24,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para anonymous complex type.
- *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -42,29 +40,31 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "aiSCertificate",
-        "aiSSessionContex"
+    "aiSCertificate",
+    "aiSSessionContex"
 })
 @XmlRootElement(name = "loginWithCertificate")
-public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "ai_sCertificate", required = true)
     protected String aiSCertificate;
-
     @XmlElement(name = "ai_sSessionContex", required = true)
     protected String aiSSessionContex;
 
     /**
      * Obtiene el valor de la propiedad aiSCertificate.
-     * @return possible object is {@link String }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getAiSCertificate() {
         return aiSCertificate;
@@ -72,8 +72,11 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
 
     /**
      * Define el valor de la propiedad aiSCertificate.
-     * @param value allowed object is {@link String }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setAiSCertificate(String value) {
         this.aiSCertificate = value;
@@ -81,8 +84,11 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
 
     /**
      * Obtiene el valor de la propiedad aiSSessionContex.
-     * @return possible object is {@link String }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getAiSSessionContex() {
         return aiSSessionContex;
@@ -90,16 +96,18 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
 
     /**
      * Define el valor de la propiedad aiSSessionContex.
-     * @param value allowed object is {@link String }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setAiSSessionContex(String value) {
         this.aiSSessionContex = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -111,9 +119,7 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
             lhsAiSCertificate = this.getAiSCertificate();
             String rhsAiSCertificate;
             rhsAiSCertificate = that.getAiSCertificate();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSCertificate", lhsAiSCertificate),
-                    LocatorUtils.property(thatLocator, "aiSCertificate", rhsAiSCertificate), lhsAiSCertificate,
-                    rhsAiSCertificate, (this.aiSCertificate != null), (that.aiSCertificate != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSCertificate", lhsAiSCertificate), LocatorUtils.property(thatLocator, "aiSCertificate", rhsAiSCertificate), lhsAiSCertificate, rhsAiSCertificate, (this.aiSCertificate!= null), (that.aiSCertificate!= null))) {
                 return false;
             }
         }
@@ -122,9 +128,7 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
             lhsAiSSessionContex = this.getAiSSessionContex();
             String rhsAiSSessionContex;
             rhsAiSSessionContex = that.getAiSSessionContex();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSSessionContex", lhsAiSSessionContex),
-                    LocatorUtils.property(thatLocator, "aiSSessionContex", rhsAiSSessionContex), lhsAiSSessionContex,
-                    rhsAiSSessionContex, (this.aiSSessionContex != null), (that.aiSSessionContex != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSSessionContex", lhsAiSSessionContex), LocatorUtils.property(thatLocator, "aiSSessionContex", rhsAiSSessionContex), lhsAiSSessionContex, rhsAiSSessionContex, (this.aiSSessionContex!= null), (that.aiSSessionContex!= null))) {
                 return false;
             }
         }
@@ -154,14 +158,12 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
         {
             String theAiSCertificate;
             theAiSCertificate = this.getAiSCertificate();
-            strategy.appendField(locator, this, "aiSCertificate", buffer, theAiSCertificate,
-                    (this.aiSCertificate != null));
+            strategy.appendField(locator, this, "aiSCertificate", buffer, theAiSCertificate, (this.aiSCertificate!= null));
         }
         {
             String theAiSSessionContex;
             theAiSSessionContex = this.getAiSSessionContex();
-            strategy.appendField(locator, this, "aiSSessionContex", buffer, theAiSSessionContex,
-                    (this.aiSSessionContex != null));
+            strategy.appendField(locator, this, "aiSSessionContex", buffer, theAiSSessionContex, (this.aiSSessionContex!= null));
         }
         return buffer;
     }
@@ -171,14 +173,12 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
         {
             String theAiSCertificate;
             theAiSCertificate = this.getAiSCertificate();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSCertificate", theAiSCertificate),
-                    currentHashCode, theAiSCertificate, (this.aiSCertificate != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSCertificate", theAiSCertificate), currentHashCode, theAiSCertificate, (this.aiSCertificate!= null));
         }
         {
             String theAiSSessionContex;
             theAiSSessionContex = this.getAiSSessionContex();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSSessionContex", theAiSSessionContex),
-                    currentHashCode, theAiSSessionContex, (this.aiSSessionContex != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSSessionContex", theAiSSessionContex), currentHashCode, theAiSSessionContex, (this.aiSSessionContex!= null));
         }
         return currentHashCode;
     }
@@ -198,18 +198,15 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof LoginWithCertificate) {
             final LoginWithCertificate copy = ((LoginWithCertificate) draftCopy);
             {
-                Boolean aiSCertificateShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.aiSCertificate != null));
+                Boolean aiSCertificateShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSCertificate!= null));
                 if (aiSCertificateShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceAiSCertificate;
                     sourceAiSCertificate = this.getAiSCertificate();
-                    String copyAiSCertificate = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "aiSCertificate", sourceAiSCertificate),
-                            sourceAiSCertificate, (this.aiSCertificate != null)));
+                    String copyAiSCertificate = ((String) strategy.copy(LocatorUtils.property(locator, "aiSCertificate", sourceAiSCertificate), sourceAiSCertificate, (this.aiSCertificate!= null)));
                     copy.setAiSCertificate(copyAiSCertificate);
                 } else {
                     if (aiSCertificateShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -218,14 +215,11 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
                 }
             }
             {
-                Boolean aiSSessionContexShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.aiSSessionContex != null));
+                Boolean aiSSessionContexShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSSessionContex!= null));
                 if (aiSSessionContexShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceAiSSessionContex;
                     sourceAiSSessionContex = this.getAiSSessionContex();
-                    String copyAiSSessionContex = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "aiSSessionContex", sourceAiSSessionContex),
-                            sourceAiSSessionContex, (this.aiSSessionContex != null)));
+                    String copyAiSSessionContex = ((String) strategy.copy(LocatorUtils.property(locator, "aiSSessionContex", sourceAiSSessionContex), sourceAiSSessionContex, (this.aiSSessionContex!= null)));
                     copy.setAiSSessionContex(copyAiSSessionContex);
                 } else {
                     if (aiSSessionContexShouldBeCopiedAndSet == Boolean.FALSE) {
