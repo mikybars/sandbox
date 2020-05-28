@@ -45,7 +45,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoRepositoryCustom.findLocalizacionOrdinalTarea']}")
     private String sqlFindLocalizacionOrdinalTarea;
 
-    @Value("${app.envars.repository.batch-size.tarea-persona-historico:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-persona-historico:0}")
     private int batchSize;
 
     @Override

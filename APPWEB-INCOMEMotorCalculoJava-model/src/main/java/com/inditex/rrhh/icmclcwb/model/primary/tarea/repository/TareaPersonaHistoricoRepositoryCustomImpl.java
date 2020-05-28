@@ -30,7 +30,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaHistorico>
         implements TareaPersonaHistoricoRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-persona-historico:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-persona-historico:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.save']}")

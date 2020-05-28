@@ -84,7 +84,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         log.info("Fin :: Meta4ClientPool :: close()");
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetempleadosdesplazOutput getempleadosdesplaz(final IcmParametrospaginacionBlock param1,
             final IcmParametrosentradaBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -98,7 +98,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetorigenesOutput getorigenes(final IcmParamcalsociedadBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -112,7 +112,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetempresasOutput getempresas(final IcmParamcalorigenBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -127,7 +127,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     }
 
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetcadenaOutput getcadena(final IcmParametrosentradaBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -141,7 +141,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetconfprodventaOutput getconfprodventa(final IcmParametrosentradaBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -155,7 +155,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetconfventaonlineOutput getconfventaonline(final IcmParametrosentradaBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -169,7 +169,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetagruponlineOutput getagruponline(final IcmParamcalorigenBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -183,7 +183,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetflagcalculaOutput getflagcalcula(final IcmParametrosentradaBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -197,7 +197,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetcoefjornadaOutput getcoefjornada(final IcmParametrosentradaBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -211,7 +211,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetfestivosOutput getfestivos(final IcmParametrosentradaBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -225,7 +225,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetpresenciamanualOutput getpresenciamanual(final IcmParametrosentradaBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -239,7 +239,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetempleadospresenciaOutput getempleadospresencia(final IcmParametrosentradaBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -253,7 +253,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetperiodosOutput getperiodos(final IcmParamcalperiodoBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -267,7 +267,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetempleadosOutput getempleados(final IcmParametrosentradaBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -281,7 +281,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetestructurascomOutput getestructurascom(final IcmParamcalestructuraBlock param1) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
@@ -294,7 +294,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetestructuraspolOutput getestructuraspol(final IcmParamcalestructuraBlock param1) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
@@ -308,7 +308,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     }
 
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public SearchtiendasOutput searchtiendas(final IcmParametrosentradaBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -322,7 +322,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GettiendasincomeOutput gettiendasincome(final IcmParametrospaginacionBlock param1,
             final IcmParametrosentradaBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -336,7 +336,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GettiendasonlineOutput gettiendasonline(final IcmParametrospaginacionBlock param1,
             final IcmParametrosentradaBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -350,7 +350,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public SearchempleadosOutput searchempleados(final IcmParametrospaginacionBlock param1,
             final IcmParamcalempleadoBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -364,7 +364,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public SaveprocesoOutput saveproceso(final IcmParamcalprocesoBlock param) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
@@ -377,7 +377,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetausenciasOutput getausencias(final IcmParametrospaginacionBlock param1,
             final IcmParamcalempleadoBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -391,7 +391,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetconfiguracionOutput getconfiguracion(final IcmParamcalconforigenBlock param) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
@@ -404,7 +404,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetconfchdiasminimosOutput getconfchdiasminimos(final IcmParamcalconfchdiasBlock param) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
@@ -417,7 +417,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetpresupuestoswlocOutput getpresupuestoswloc(final IcmParamcalpresupuestoswlocBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -431,7 +431,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetconfpreciohoraOutput getconfpreciohora(final IcmParamcalconfpreciohoraBlock param) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
@@ -444,7 +444,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetconfchtpventaOutput getconfchtpventa(final IcmParamcalconfchventaBlock param) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
@@ -457,7 +457,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetpresupuestosrangoOutput getpresupuestosrango(final IcmParametrospaginacionBlock param1,
             final IcmParamcalpresupuestosrangoBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
@@ -471,7 +471,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.meta4.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetventacongeladaOutput getventacongelada(final IcmParametrospaginacionBlock param1,
             final IcmParamcalventacongeladaBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);

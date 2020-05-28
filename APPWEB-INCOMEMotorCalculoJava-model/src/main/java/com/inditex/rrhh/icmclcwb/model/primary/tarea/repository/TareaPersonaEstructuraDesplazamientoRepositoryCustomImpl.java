@@ -13,7 +13,7 @@ public class TareaPersonaEstructuraDesplazamientoRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaEstructuraDesplazamiento>
         implements TareaPersonaEstructuraDesplazamientoRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-persona-estructura-desplazamiento:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-persona-estructura-desplazamiento:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaPersonaEstructuraDesplazamientoRepositoryCustom.save']}")

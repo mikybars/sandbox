@@ -28,7 +28,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionHistorico>
         implements TareaLocalizacionHistoricoRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-localizacion-historico:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-localizacion-historico: 0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.save']}")

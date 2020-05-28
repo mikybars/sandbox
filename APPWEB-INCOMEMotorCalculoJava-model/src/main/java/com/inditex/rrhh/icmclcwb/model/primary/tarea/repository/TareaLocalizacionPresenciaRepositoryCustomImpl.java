@@ -27,7 +27,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPresencia>
         implements TareaLocalizacionPresenciaRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-localizacion-seccion-presencia:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-localizacion-seccion-presencia:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.save']}")

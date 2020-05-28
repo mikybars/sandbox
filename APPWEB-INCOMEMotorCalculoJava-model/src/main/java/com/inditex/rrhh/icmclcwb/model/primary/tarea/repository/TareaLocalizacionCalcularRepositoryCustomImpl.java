@@ -13,7 +13,7 @@ public class TareaLocalizacionCalcularRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionCalcular>
         implements TareaLocalizacionCalcularRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-localizacion-calcular:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-localizacion-calcular:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionCalcularRepositoryCustom.save']}")

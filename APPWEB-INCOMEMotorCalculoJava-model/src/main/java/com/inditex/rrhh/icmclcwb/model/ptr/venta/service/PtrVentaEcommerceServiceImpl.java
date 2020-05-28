@@ -10,7 +10,6 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioRequestDto;
@@ -26,6 +25,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaEcommerceService;
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
+
 
 @Service
 @Validated
@@ -39,72 +40,77 @@ public class PtrVentaEcommerceServiceImpl implements PtrVentaEcommerceService {
     @Qualifier("ventaEcommerceProperties")
     private Map<String, PtrPropertiesDto> ventaEcommerceProperties;
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.ptr.config.max-attempts}")
     @Override
     public PtrVentaOnlineIpodResponseDto ventaOnlineiPod(
             @Valid final PtrVentaOnlineIpodRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getEndpoint(), request,
+                this.ptrVentaClient.postForEntity(
+                        this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getEndpoint(),
+                        request,
                         PtrVentaOnlineIpodResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getEndpoint(),
+                this.ptrVentaClient,
+                this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getEndpoint(),
                 request);
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.ptr.config.max-attempts}")
     @Override
     public PtrVentaOnlineIpodIndividualDetalleResponseDto ventaOnlineiPodIndividualDetalle(
             @Valid final PtrVentaOnlineIpodIndividualDetalleRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE)
+                this.ptrVentaClient.postForEntity(
+                        this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE)
                             .getEndpoint(),
                         request,
                         PtrVentaOnlineIpodIndividualDetalleResponseDto.class),
-                ptrVentaClient,
-                ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE).getEndpoint(),
+                this.ptrVentaClient,
+                this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE)
+                    .getEndpoint(),
                 request);
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.ptr.config.max-attempts}")
     @Override
     public PtrVentaOnlineEntregaDomicilioResponseDto ventaOnlineEntregaDomicilio(
             @Valid final PtrVentaOnlineEntregaDomicilioRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
+                this.ptrVentaClient.postForEntity(
+                        this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
                             .getEndpoint(),
                         request,
                         PtrVentaOnlineEntregaDomicilioResponseDto.class),
-                ptrVentaClient,
-                ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(),
+                this.ptrVentaClient,
+                this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO).getEndpoint(),
                 request);
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.ptr.config.max-attempts}")
     @Override
     public PtrVentaOnlineEntregaTiendaResponseDto ventaOnlineEntregaTienda(
             @Valid final PtrVentaOnlineEntregaTiendaRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
+                this.ptrVentaClient.postForEntity(
+                        this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA)
+                            .getEndpoint(),
                         request,
                         PtrVentaOnlineEntregaTiendaResponseDto.class),
-                ptrVentaClient,
-                ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
+                this.ptrVentaClient,
+                this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
                 request);
     }
 
-    @Retryable(maxAttemptsExpression = "#{${app.envars.ptr.config.max-attempts}}")
+    @Retryable(maxAttemptsExpression = "${app.envars.ptr.config.max-attempts}")
     @Override
     public PtrVentaOnlinePickingResponseDto ventaOnlinePicking(
             @Valid final PtrVentaOnlinePickingRequestDto request) {
         return RestUtils.checkResponse(
-                ptrVentaClient.postForEntity(
-                        ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
+                this.ptrVentaClient.postForEntity(
+                        this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
                         request,
                         PtrVentaOnlinePickingResponseDto.class),
-                ptrVentaClient, ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
+                this.ptrVentaClient,
+                this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
                 request);
     }
 

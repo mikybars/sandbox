@@ -13,7 +13,7 @@ public class TareaConfiguracionRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaConfiguracion>
         implements TareaConfiguracionRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-configuracion-venta-online:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-configuracion-venta-online:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaConfiguracionRepositoryCustom.save']}")

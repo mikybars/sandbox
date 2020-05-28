@@ -24,7 +24,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVen
 public class TareaLocalizacionVentaRepositoryCustomImpl extends
         JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionVenta> implements TareaLocalizacionVentaRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-localizacion-venta:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-localizacion-venta:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.save']}")

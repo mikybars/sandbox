@@ -13,7 +13,7 @@ public class TareaLocalizacionFestivoRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionFestivo>
         implements TareaLocalizacionFestivoRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-localizacion-festivo:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-localizacion-festivo:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionFestivoRepositoryCustom.save']}")
