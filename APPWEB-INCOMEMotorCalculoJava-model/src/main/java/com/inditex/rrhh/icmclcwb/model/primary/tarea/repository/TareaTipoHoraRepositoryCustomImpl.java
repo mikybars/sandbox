@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTipoHora;
 public class TareaTipoHoraRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaTipoHora>
         implements TareaTipoHoraRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-tipo-hora:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-tipo-hora:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaTipoHoraRepositoryCustom.save']}")

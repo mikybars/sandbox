@@ -5,16 +5,16 @@ import java.io.Serializable;
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.ws.BindingProvider;
 
+import org.springframework.beans.factory.annotation.Value;
+
+import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.CxfUtils;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.ConnectionType;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
-import org.springframework.beans.factory.annotation.Value;
-
-import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
-import com.inditex.rrhh.icmclcwb.model.app.util.CxfUtils;
 
 public abstract class Meta4ClientAbstract<T> implements Serializable {
 
@@ -32,31 +32,31 @@ public abstract class Meta4ClientAbstract<T> implements Serializable {
 
     protected abstract Meta4ClientAbstract<T> factory();
 
-    public T build(Class<T> classType) {
-        JaxWsProxyFactoryBean pfb = new JaxWsProxyFactoryBean();
+    public T build(final Class<T> classType) {
+        final JaxWsProxyFactoryBean pfb = new JaxWsProxyFactoryBean();
         pfb.setServiceClass(classType);
-        pfb.setAddress(server);
-        LoggingFeature loggingFeature = new LoggingFeature();
+        pfb.setAddress(this.server);
+        final LoggingFeature loggingFeature = new LoggingFeature();
         loggingFeature.setLimit(-1);
         loggingFeature.setPrettyLogging(true);
         pfb.getFeatures().add(loggingFeature);
 
-        T result = (T) pfb.create();
+        final T result = classType.cast(pfb.create());
 
         ((BindingProvider) result).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
-        ((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, server);
+        ((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, this.server);
 
-        HTTPConduit httpConduit = CxfUtils.getHTTPConduit(result);
+        final HTTPConduit httpConduit = CxfUtils.getHTTPConduit(result);
 
-        HTTPClientPolicy httpClientPolicy = new HTTPClientPolicy();
+        final HTTPClientPolicy httpClientPolicy = new HTTPClientPolicy();
         httpClientPolicy.setContentType(CxfConstants.CONTENT_TYPE);
         httpClientPolicy.setAllowChunking(false);
-        httpClientPolicy.setConnectionTimeout(connectTimeout);
-        httpClientPolicy.setReceiveTimeout(receiveTimeout);
+        httpClientPolicy.setConnectionTimeout(this.connectTimeout);
+        httpClientPolicy.setReceiveTimeout(this.receiveTimeout);
         httpClientPolicy.setConnection(ConnectionType.KEEP_ALIVE);
         httpConduit.setClient(httpClientPolicy);
 
-        TLSClientParameters tlsClientParameters = new TLSClientParameters();
+        final TLSClientParameters tlsClientParameters = new TLSClientParameters();
         tlsClientParameters.setSSLSocketFactory(HttpsURLConnection.getDefaultSSLSocketFactory());
         httpConduit.setTlsClientParameters(tlsClientParameters);
 

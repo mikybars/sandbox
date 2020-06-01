@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaCoeficie
 public class TareaPersonaCoeficienteRepositoryCustomImpl extends
         JdbcBatchPrimaryRepositoryAbstract<TareaPersonaCoeficiente> implements TareaPersonaCoeficienteRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-persona-coeficiente:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-persona-coeficiente:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaPersonaCoeficienteRepositoryCustom.save']}")

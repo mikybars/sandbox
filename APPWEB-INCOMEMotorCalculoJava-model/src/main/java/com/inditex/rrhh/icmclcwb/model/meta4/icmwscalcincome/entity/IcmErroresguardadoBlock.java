@@ -25,12 +25,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_ErroresguardadoBlock complex type.
- *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ErroresguardadoBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ErroresguardadoBlock"&gt;
  *   &lt;complexContent&gt;
@@ -43,28 +41,30 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ErroresguardadoBlock", propOrder = {
-        "resultado",
-        "icmErroresguardadoRecordSet"
+    "resultado",
+    "icmErroresguardadoRecordSet"
 })
-public class IcmErroresguardadoBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmErroresguardadoBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(required = true, nillable = true)
     protected String resultado;
-
     @XmlElement(name = "Icm_ErroresguardadoRecordSet", nillable = true)
     protected List<IcmErroresguardadoRecord> icmErroresguardadoRecordSet;
 
     /**
      * Obtiene el valor de la propiedad resultado.
-     * @return possible object is {@link String }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getResultado() {
         return resultado;
@@ -72,8 +72,11 @@ public class IcmErroresguardadoBlock implements Serializable, Cloneable, CopyTo2
 
     /**
      * Define el valor de la propiedad resultado.
-     * @param value allowed object is {@link String }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setResultado(String value) {
         this.resultado = value;
@@ -81,24 +84,25 @@ public class IcmErroresguardadoBlock implements Serializable, Cloneable, CopyTo2
 
     /**
      * Gets the value of the icmErroresguardadoRecordSet property.
-     *
+     * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmErroresguardadoRecordSet property.
-     *
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmErroresguardadoRecordSet property.
+     * 
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmErroresguardadoRecordSet().add(newItem);
+     *    getIcmErroresguardadoRecordSet().add(newItem);
      * </pre>
-     *
-     *
+     * 
+     * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmErroresguardadoRecord }
-     *
-     *
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmErroresguardadoRecord }
+     * 
+     * 
      */
     public List<IcmErroresguardadoRecord> getIcmErroresguardadoRecordSet() {
         if (icmErroresguardadoRecordSet == null) {
@@ -107,9 +111,8 @@ public class IcmErroresguardadoBlock implements Serializable, Cloneable, CopyTo2
         return this.icmErroresguardadoRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -121,25 +124,16 @@ public class IcmErroresguardadoBlock implements Serializable, Cloneable, CopyTo2
             lhsResultado = this.getResultado();
             String rhsResultado;
             rhsResultado = that.getResultado();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "resultado", lhsResultado),
-                    LocatorUtils.property(thatLocator, "resultado", rhsResultado), lhsResultado, rhsResultado,
-                    (this.resultado != null), (that.resultado != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "resultado", lhsResultado), LocatorUtils.property(thatLocator, "resultado", rhsResultado), lhsResultado, rhsResultado, (this.resultado!= null), (that.resultado!= null))) {
                 return false;
             }
         }
         {
             List<IcmErroresguardadoRecord> lhsIcmErroresguardadoRecordSet;
-            lhsIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet != null)
-                    && (!this.icmErroresguardadoRecordSet.isEmpty())) ? this.getIcmErroresguardadoRecordSet() : null);
+            lhsIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty()))?this.getIcmErroresguardadoRecordSet():null);
             List<IcmErroresguardadoRecord> rhsIcmErroresguardadoRecordSet;
-            rhsIcmErroresguardadoRecordSet = (((that.icmErroresguardadoRecordSet != null)
-                    && (!that.icmErroresguardadoRecordSet.isEmpty())) ? that.getIcmErroresguardadoRecordSet() : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmErroresguardadoRecordSet", lhsIcmErroresguardadoRecordSet),
-                    LocatorUtils.property(thatLocator, "icmErroresguardadoRecordSet", rhsIcmErroresguardadoRecordSet),
-                    lhsIcmErroresguardadoRecordSet, rhsIcmErroresguardadoRecordSet,
-                    ((this.icmErroresguardadoRecordSet != null) && (!this.icmErroresguardadoRecordSet.isEmpty())),
-                    ((that.icmErroresguardadoRecordSet != null) && (!that.icmErroresguardadoRecordSet.isEmpty())))) {
+            rhsIcmErroresguardadoRecordSet = (((that.icmErroresguardadoRecordSet!= null)&&(!that.icmErroresguardadoRecordSet.isEmpty()))?that.getIcmErroresguardadoRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmErroresguardadoRecordSet", lhsIcmErroresguardadoRecordSet), LocatorUtils.property(thatLocator, "icmErroresguardadoRecordSet", rhsIcmErroresguardadoRecordSet), lhsIcmErroresguardadoRecordSet, rhsIcmErroresguardadoRecordSet, ((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty())), ((that.icmErroresguardadoRecordSet!= null)&&(!that.icmErroresguardadoRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -169,14 +163,12 @@ public class IcmErroresguardadoBlock implements Serializable, Cloneable, CopyTo2
         {
             String theResultado;
             theResultado = this.getResultado();
-            strategy.appendField(locator, this, "resultado", buffer, theResultado, (this.resultado != null));
+            strategy.appendField(locator, this, "resultado", buffer, theResultado, (this.resultado!= null));
         }
         {
             List<IcmErroresguardadoRecord> theIcmErroresguardadoRecordSet;
-            theIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet != null)
-                    && (!this.icmErroresguardadoRecordSet.isEmpty())) ? this.getIcmErroresguardadoRecordSet() : null);
-            strategy.appendField(locator, this, "icmErroresguardadoRecordSet", buffer, theIcmErroresguardadoRecordSet,
-                    ((this.icmErroresguardadoRecordSet != null) && (!this.icmErroresguardadoRecordSet.isEmpty())));
+            theIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty()))?this.getIcmErroresguardadoRecordSet():null);
+            strategy.appendField(locator, this, "icmErroresguardadoRecordSet", buffer, theIcmErroresguardadoRecordSet, ((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -186,17 +178,12 @@ public class IcmErroresguardadoBlock implements Serializable, Cloneable, CopyTo2
         {
             String theResultado;
             theResultado = this.getResultado();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "resultado", theResultado),
-                    currentHashCode, theResultado, (this.resultado != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "resultado", theResultado), currentHashCode, theResultado, (this.resultado!= null));
         }
         {
             List<IcmErroresguardadoRecord> theIcmErroresguardadoRecordSet;
-            theIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet != null)
-                    && (!this.icmErroresguardadoRecordSet.isEmpty())) ? this.getIcmErroresguardadoRecordSet() : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmErroresguardadoRecordSet", theIcmErroresguardadoRecordSet),
-                    currentHashCode, theIcmErroresguardadoRecordSet,
-                    ((this.icmErroresguardadoRecordSet != null) && (!this.icmErroresguardadoRecordSet.isEmpty())));
+            theIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty()))?this.getIcmErroresguardadoRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmErroresguardadoRecordSet", theIcmErroresguardadoRecordSet), currentHashCode, theIcmErroresguardadoRecordSet, ((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -216,18 +203,15 @@ public class IcmErroresguardadoBlock implements Serializable, Cloneable, CopyTo2
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmErroresguardadoBlock) {
             final IcmErroresguardadoBlock copy = ((IcmErroresguardadoBlock) draftCopy);
             {
-                Boolean resultadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.resultado != null));
+                Boolean resultadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.resultado!= null));
                 if (resultadoShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceResultado;
                     sourceResultado = this.getResultado();
-                    String copyResultado = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "resultado", sourceResultado), sourceResultado,
-                            (this.resultado != null)));
+                    String copyResultado = ((String) strategy.copy(LocatorUtils.property(locator, "resultado", sourceResultado), sourceResultado, (this.resultado!= null)));
                     copy.setResultado(copyResultado);
                 } else {
                     if (resultadoShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -236,23 +220,15 @@ public class IcmErroresguardadoBlock implements Serializable, Cloneable, CopyTo2
                 }
             }
             {
-                Boolean icmErroresguardadoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        ((this.icmErroresguardadoRecordSet != null) && (!this.icmErroresguardadoRecordSet.isEmpty())));
+                Boolean icmErroresguardadoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty())));
                 if (icmErroresguardadoRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmErroresguardadoRecord> sourceIcmErroresguardadoRecordSet;
-                    sourceIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet != null)
-                            && (!this.icmErroresguardadoRecordSet.isEmpty())) ? this.getIcmErroresguardadoRecordSet()
-                                    : null);
+                    sourceIcmErroresguardadoRecordSet = (((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty()))?this.getIcmErroresguardadoRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmErroresguardadoRecord> copyIcmErroresguardadoRecordSet = ((List<IcmErroresguardadoRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmErroresguardadoRecordSet",
-                                sourceIcmErroresguardadoRecordSet), sourceIcmErroresguardadoRecordSet,
-                                ((this.icmErroresguardadoRecordSet != null)
-                                        && (!this.icmErroresguardadoRecordSet.isEmpty()))));
+                    List<IcmErroresguardadoRecord> copyIcmErroresguardadoRecordSet = ((List<IcmErroresguardadoRecord> ) strategy.copy(LocatorUtils.property(locator, "icmErroresguardadoRecordSet", sourceIcmErroresguardadoRecordSet), sourceIcmErroresguardadoRecordSet, ((this.icmErroresguardadoRecordSet!= null)&&(!this.icmErroresguardadoRecordSet.isEmpty()))));
                     copy.icmErroresguardadoRecordSet = null;
-                    if (copyIcmErroresguardadoRecordSet != null) {
-                        List<IcmErroresguardadoRecord> uniqueIcmErroresguardadoRecordSetl = copy
-                            .getIcmErroresguardadoRecordSet();
+                    if (copyIcmErroresguardadoRecordSet!= null) {
+                        List<IcmErroresguardadoRecord> uniqueIcmErroresguardadoRecordSetl = copy.getIcmErroresguardadoRecordSet();
                         uniqueIcmErroresguardadoRecordSetl.addAll(copyIcmErroresguardadoRecordSet);
                     }
                 } else {

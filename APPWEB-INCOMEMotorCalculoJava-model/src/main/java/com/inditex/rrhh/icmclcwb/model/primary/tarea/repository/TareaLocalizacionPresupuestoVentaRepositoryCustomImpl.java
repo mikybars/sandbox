@@ -22,7 +22,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPresupuestoVenta>
         implements TareaLocalizacionPresupuestoVentaRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-localizacion-presupuesto-venta:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-localizacion-presupuesto-venta:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoVentaRepositoryCustom.save']}")
@@ -36,6 +36,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoVentaRepositoryCustom.totalizar']}")
     private String sqlTotalizar;
+
 
     @Override
     public void updateActivoExcepcionada(@NotNull final RunTareaDto runTareaDto) {

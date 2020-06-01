@@ -20,7 +20,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructu
 public class TareaPersonaEstructuraRepositoryCustomImpl extends
         JdbcBatchPrimaryRepositoryAbstract<TareaPersonaEstructura> implements TareaPersonaEstructuraRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-persona-estructura:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-persona-estructura:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.save']}")

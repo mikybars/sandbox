@@ -52,4 +52,8 @@ public class TareaConfiguracion {
     @Column(name = "ICM_CK_VENTA_IMPUESTOS", nullable = false)
     private Boolean icmCkVentaImpuestos;
 
+    @NotNull
+    @Column(name = "ICM_CK_INC_IVA_EVAL_PTPO", nullable = false)
+    private Boolean icmCkIncIvaEvalPtpo;
+
 }

@@ -177,6 +177,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
 
+    public static final String SQL_PARAM_FECHA = "fecha";
+
     public static final String SQL_PARAM_FECHA_HORA_LIMPIEZA = "fechaHoraLimpieza";
 
     public static final String SQL_PARAM_ID_CONCEPTO = "idConcepto";
@@ -265,6 +267,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION_TRASLADADA = "idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada";
 
+    public static final String SQL_PARAM_ID_TIPO_PRESUPUESTO = "idTipoPresupuesto";
+
     public static final Integer SQL_VALUE_BOOLEAN_TRUE = 1;
 
     public static final Integer SQL_VALUE_BOOLEAN_FALSE = 0;
@@ -320,5 +324,7 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_ES_DESPLAZAMIENTO = "ES_DESPLAZAMIENTO";
 
     public static final String SQL_RESULT_ES_DESPLAZAMIENTO_BASE = "ES_DESPLAZAMIENTO_BASE";
+
+    public static final String SQL_RESULT_ICM_ORDINAL = "ICM_ORDINAL";
 
 }

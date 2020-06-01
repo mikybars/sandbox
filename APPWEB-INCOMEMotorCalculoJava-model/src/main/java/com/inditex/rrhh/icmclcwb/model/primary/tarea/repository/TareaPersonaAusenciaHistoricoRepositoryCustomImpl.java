@@ -13,7 +13,7 @@ public class TareaPersonaAusenciaHistoricoRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaAusenciaHistorico>
         implements TareaPersonaAusenciaHistoricoRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-persona-ausencia-historico:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-persona-ausencia-historico:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaPersonaAusenciaHistoricoRepositoryCustom.save']}")

@@ -13,7 +13,7 @@ public class TareaConfiguracionChallengeDiasMinimosRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaConfiguracionChallengeDiasMinimos>
         implements TareaConfiguracionChallengeDiasMinimosRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-configuracion-challenge-dias-minimos:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-configuracion-challenge-dias-minimos:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaConfiguracionChallengeDiasMinimosRepositoryCustom.save']}")

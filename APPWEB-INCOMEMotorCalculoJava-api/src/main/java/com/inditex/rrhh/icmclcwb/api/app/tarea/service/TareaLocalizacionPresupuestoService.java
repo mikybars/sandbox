@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -28,5 +29,9 @@ public interface TareaLocalizacionPresupuestoService {
 
     List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea,
             @NotNull PtrFilterPropertiesDto filterProperties);
+
+    List<String> findLocalizacionOrdinalTarea(@NotNull Long idTarea, @NotNull Integer cclIdCodOrigen,
+            @NotNull Integer cclIdSeccion, @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin,
+            @NotNull Integer idTipoPresupuesto);
 
 }

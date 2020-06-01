@@ -23,7 +23,7 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionPersonaVenta>
         implements TareaLocalizacionPersonaVentaRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-localizacion-persona-venta:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-localizacion-persona-venta:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.save']}")

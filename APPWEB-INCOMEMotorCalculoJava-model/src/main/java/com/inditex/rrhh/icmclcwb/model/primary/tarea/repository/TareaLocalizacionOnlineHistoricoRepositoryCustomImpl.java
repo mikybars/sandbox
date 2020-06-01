@@ -20,7 +20,7 @@ public class TareaLocalizacionOnlineHistoricoRepositoryCustomImpl
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("${app.envars.repository.batch-size.tarea-localizacion-online-historico:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-localizacion-online-historico:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionOnlineHistoricoRepositoryCustom.save']}")

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -23,7 +22,7 @@ import io.swagger.annotations.Authorization;
 @Validated
 @RestController
 @RequestMapping(path = "/primary")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
+@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "PrimaryController" })
 public class PrimaryController {
 
     @Autowired
@@ -33,21 +32,21 @@ public class PrimaryController {
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Carga el script DML")
     public @Valid Boolean loadDML(@PathVariable @Valid @NotBlank final String path) {
-        return primaryService.loadDML(path);
+        return this.primaryService.loadDML(path);
     }
 
     @GetMapping(value = "/changelog/dml", produces = MediaType.TEXT_MARKDOWN_VALUE)
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Muestra el registro de cambios del dml", produces = MediaType.TEXT_MARKDOWN_VALUE)
     public @NotNull Resource changelogDML() {
-        return primaryService.changelogDML();
+        return this.primaryService.changelogDML();
     }
 
     @GetMapping(value = "/changelog/ddl", produces = MediaType.TEXT_MARKDOWN_VALUE)
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Muestra el registro de cambios del ddl", produces = MediaType.TEXT_MARKDOWN_VALUE)
     public @NotNull Resource changelogDDL() {
-        return primaryService.changelogDDL();
+        return this.primaryService.changelogDDL();
     }
 
 }

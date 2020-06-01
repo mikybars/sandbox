@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -20,11 +21,14 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    @Value("${app.envars.repository.batch-size.default}")
+    private int defaultBatchSize;
+
     @Autowired
     private Logger log;
 
     public List<Z> saveNamedJdbcBatchList(final List<Z> src, final String sql, final int batchSize) {
-        for (final List<Z> iter : StreamUtils.partition(src, batchSize)) {
+        for (final List<Z> iter : StreamUtils.partition(src, (batchSize != 0 ? batchSize : this.defaultBatchSize))) {
             try {
                 final SqlParameterSource[] itemList = SqlParameterSourceUtils.createBatch(iter.toArray());
                 this.namedParameterJdbcTemplate.batchUpdate(sql, itemList);

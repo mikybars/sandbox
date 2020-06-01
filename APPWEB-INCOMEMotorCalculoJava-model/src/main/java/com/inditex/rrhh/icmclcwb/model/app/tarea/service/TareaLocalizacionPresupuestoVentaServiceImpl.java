@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPresupuestoVentaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoVentaRepositoryCustom;
+import org.apache.commons.collections.CollectionUtils;
 
 @Service
 @Validated
@@ -38,21 +38,23 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
     @Override
     public List<TareaLocalizacionPresupuestoVentaDto> save(
             @Valid @NotNull @NotEmpty final List<TareaLocalizacionPresupuestoVentaDto> tareaLocalizacionPresupuestoVenta) {
-        return tareaLocalizacionPresupuestoVentaMapper
+        return this.tareaLocalizacionPresupuestoVentaMapper
             .tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
-                    tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                        .tareaLocalizacionPresupuestoVentaDtoToTareaLocalizacionPresupuestoVenta(
-                                tareaLocalizacionPresupuestoVenta)));
+                    this.tareaLocalizacionPresupuestoVentaRepositoryCustom
+                        .save(this.tareaLocalizacionPresupuestoVentaMapper
+                            .tareaLocalizacionPresupuestoVentaDtoToTareaLocalizacionPresupuestoVenta(
+                                    tareaLocalizacionPresupuestoVenta)));
     }
 
     @Override
     public List<TareaLocalizacionPresupuestoVentaDto> save(
             @Valid @NotNull @NotEmpty final List<VentaCongeladaResultItemDto> ventaCongelada,
             @Valid @NotNull final TareaDto tarea) {
-        return tareaLocalizacionPresupuestoVentaMapper
+        return this.tareaLocalizacionPresupuestoVentaMapper
             .tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
-                    tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                        .ventaCongeladaResultItemDtoToTareaLocalizacionPresupuestoVenta(ventaCongelada, tarea)));
+                    this.tareaLocalizacionPresupuestoVentaRepositoryCustom
+                        .save(this.tareaLocalizacionPresupuestoVentaMapper
+                            .ventaCongeladaResultItemDtoToTareaLocalizacionPresupuestoVenta(ventaCongelada, tarea)));
     }
 
     @Override
@@ -60,13 +62,15 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
             @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
             @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
             @Valid @NotNull final TareaDto tarea) {
-        List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
-        if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {
-            result.addAll(tareaLocalizacionPresupuestoVentaMapper
+        final List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {
+            result.addAll(this.tareaLocalizacionPresupuestoVentaMapper
                 .tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
-                        tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                            .ventaTotalizadoResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaTotalizado(),
-                                    iter, tarea))));
+                        this.tareaLocalizacionPresupuestoVentaRepositoryCustom
+                            .save(this.tareaLocalizacionPresupuestoVentaMapper
+                                .ventaTotalizadoResponseItemDtoToTareaLocalizacionPresupuestoVenta(
+                                        dto.getVentaTotalizado(),
+                                        iter, tarea))));
         }
         return result;
     }
@@ -76,13 +80,14 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
             @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
             @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
             @Valid @NotNull final TareaDto tarea) {
-        List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
-        if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
-            result.addAll(tareaLocalizacionPresupuestoVentaMapper
+        final List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
+            result.addAll(this.tareaLocalizacionPresupuestoVentaMapper
                 .tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
-                        tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                            .ventaOnlineIpodResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaOnline(),
-                                    iter, tarea))));
+                        this.tareaLocalizacionPresupuestoVentaRepositoryCustom
+                            .save(this.tareaLocalizacionPresupuestoVentaMapper
+                                .ventaOnlineIpodResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaOnline(),
+                                        iter, tarea))));
         }
         return result;
     }
@@ -92,13 +97,15 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
             @Valid @NotNull final PtrVentaOnlinePickingResponseDto dto,
             @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
             @Valid @NotNull final TareaDto tarea) {
-        List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
-        if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
-            result.addAll(tareaLocalizacionPresupuestoVentaMapper
+        final List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
+            result.addAll(this.tareaLocalizacionPresupuestoVentaMapper
                 .tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
-                        tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                            .ventaOnlinePickingResponseItemDtoToTareaLocalizacionPresupuestoVenta(dto.getVentaOnline(),
-                                    iter, tarea))));
+                        this.tareaLocalizacionPresupuestoVentaRepositoryCustom
+                            .save(this.tareaLocalizacionPresupuestoVentaMapper
+                                .ventaOnlinePickingResponseItemDtoToTareaLocalizacionPresupuestoVenta(
+                                        dto.getVentaOnline(),
+                                        iter, tarea))));
         }
         return result;
     }
@@ -108,13 +115,14 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
             @Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto,
             @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
             @Valid @NotNull final TareaDto tarea) {
-        List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
-        if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
-            result.addAll(tareaLocalizacionPresupuestoVentaMapper
+        final List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
+            result.addAll(this.tareaLocalizacionPresupuestoVentaMapper
                 .tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
-                        tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                            .ventaOnlineEntregaTiendaResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-                                    dto.getVentaOnline(), iter, tarea))));
+                        this.tareaLocalizacionPresupuestoVentaRepositoryCustom
+                            .save(this.tareaLocalizacionPresupuestoVentaMapper
+                                .ventaOnlineEntregaTiendaResponseItemDtoToTareaLocalizacionPresupuestoVenta(
+                                        dto.getVentaOnline(), iter, tarea))));
         }
         return result;
     }
@@ -124,13 +132,14 @@ public class TareaLocalizacionPresupuestoVentaServiceImpl implements TareaLocali
             @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto,
             @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
             @Valid @NotNull final TareaDto tarea) {
-        List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
-        if (dto != null && CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
-            result.addAll(tareaLocalizacionPresupuestoVentaMapper
+        final List<TareaLocalizacionPresupuestoVentaDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
+            result.addAll(this.tareaLocalizacionPresupuestoVentaMapper
                 .tareaLocalizacionPresupuestoVentaToTareaLocalizacionPresupuestoVentaDto(
-                        tareaLocalizacionPresupuestoVentaRepositoryCustom.save(tareaLocalizacionPresupuestoVentaMapper
-                            .ventaOnlineEntregaDomicilioResponseItemDtoToTareaLocalizacionPresupuestoVenta(
-                                    dto.getVentaOnline(), iter, tarea))));
+                        this.tareaLocalizacionPresupuestoVentaRepositoryCustom
+                            .save(this.tareaLocalizacionPresupuestoVentaMapper
+                                .ventaOnlineEntregaDomicilioResponseItemDtoToTareaLocalizacionPresupuestoVenta(
+                                        dto.getVentaOnline(), iter, tarea))));
         }
         return result;
     }

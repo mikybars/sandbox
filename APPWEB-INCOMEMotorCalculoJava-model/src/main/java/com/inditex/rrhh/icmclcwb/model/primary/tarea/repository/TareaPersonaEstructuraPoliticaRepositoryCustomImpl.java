@@ -20,7 +20,7 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaEstructuraPolitica>
         implements TareaPersonaEstructuraPoliticaRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-persona-estructura-politica:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-persona-estructura-politica:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaPersonaEstructuraPoliticaRepositoryCustom.save']}")

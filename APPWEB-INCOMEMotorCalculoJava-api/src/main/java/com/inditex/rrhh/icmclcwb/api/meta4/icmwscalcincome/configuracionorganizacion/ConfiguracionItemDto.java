@@ -30,4 +30,6 @@ public class ConfiguracionItemDto implements Serializable {
 
     private Boolean icmCkVentaImpuestos;
 
+    private Boolean icmCkIncIvaEvalPtpo;
+
 }
