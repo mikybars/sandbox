@@ -173,6 +173,9 @@ app:
     repository:
       batch-size:
         default: 100
+    limpieza:
+      batch-size:
+        default: 100        
     ptr:
       config:
         max-attempts: 2
