@@ -16,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionVenta
 public class TareaAgrupacionVentaRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaAgrupacionVenta>
         implements TareaAgrupacionVentaRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-agrupacion-venta:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-agrupacion-venta:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaAgrupacionVentaRepository.save']}")
