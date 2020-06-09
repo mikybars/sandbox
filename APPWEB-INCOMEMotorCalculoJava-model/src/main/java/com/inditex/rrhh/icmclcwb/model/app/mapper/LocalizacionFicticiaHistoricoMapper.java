@@ -11,16 +11,15 @@ import com.inditex.rrhh.icmclcwb.model.primary.entity.LocalizacionFicticiaHistor
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper
 @DecoratedWith(LocalizacionFicticiaHistoricoDecorator.class)
 public abstract class LocalizacionFicticiaHistoricoMapper {
 
-    @Mapping(target = "cclIdOrigen", source = "pk.cclIdOrigen")
-    @Mapping(target = "stdIdLegEnt", source = "pk.stdIdLegEnt")
-    @Mapping(target = "cclIdCodOrigen", source = "pk.cclIdCodOrigen")
-    @Mapping(target = "fechaInicio", source = "pk.fechaInicio")
+    // @Mapping(target = "cclIdOrigen", source = "pk.cclIdOrigen")
+    // @Mapping(target = "stdIdLegEnt", source = "pk.stdIdLegEnt")
+    // @Mapping(target = "cclIdCodOrigen", source = "pk.cclIdCodOrigen")
+    // @Mapping(target = "fechaInicio", source = "pk.fechaInicio")
     public abstract LocalizacionFicticiaHistoricoDto localizacionFicticiaHistoricoToLocalizacionFicticiaHistoricoDto(
             LocalizacionFicticiaHistorico src);
 
@@ -34,16 +33,16 @@ public abstract class LocalizacionFicticiaHistoricoMapper {
     public abstract List<LocalizacionFicticiaHistorico> localizacionFicticiaHistoricoDtoToLocalizacionFicticiaHistorico(
             List<LocalizacionFicticiaHistoricoDto> src);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "stdIdCountry", source = "src.idOrigen")
-    @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
-    @Mapping(target = "stdIdLegEnt", source = "src.idEmpresa")
-    @Mapping(target = "cclIdCadena", source = "src.idCadena")
-    @Mapping(target = "cclIdCodOrigen", source = "src.idLugarTrabajoMtu")
-    @Mapping(target = "stdIdWorkLocat", source = "src.idLugarTrabajo")
-    @Mapping(target = "fechaInicio", source = "src.fechaInicio")
-    @Mapping(target = "fechaFin", source = "src.fechaFin")
-    @Mapping(target = "idTarea", source = "srcTarea.id")
+    // @Mapping(target = "id", ignore = true)
+    // @Mapping(target = "stdIdCountry", source = "src.idOrigen")
+    // @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
+    // @Mapping(target = "stdIdLegEnt", source = "src.idEmpresa")
+    // @Mapping(target = "cclIdCadena", source = "src.idCadena")
+    // @Mapping(target = "cclIdCodOrigen", source = "src.idLugarTrabajoMtu")
+    // @Mapping(target = "stdIdWorkLocat", source = "src.idLugarTrabajo")
+    // @Mapping(target = "fechaInicio", source = "src.fechaInicio")
+    // @Mapping(target = "fechaFin", source = "src.fechaFin")
+    // @Mapping(target = "idTarea", source = "srcTarea.id")
     public abstract TareaLocalizacionHistoricoDto genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
             GenericTiendaResultItemDto src, TareaDto srcTarea);
 
