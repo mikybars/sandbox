@@ -17,9 +17,9 @@ import org.mapstruct.Mapping;
 @DecoratedWith(LocalizacionFicticiaHistoricoDecorator.class)
 public abstract class LocalizacionFicticiaHistoricoMapper {
 
-    @Mapping(target = "cclIdOrigen", source = "pk.idOrigen")
-    @Mapping(target = "stdIdLegEnt", source = "pk.idEmpresa")
-    @Mapping(target = "cclIdCodOrigen", source = "pk.idLugarTrabajoMtu")
+    @Mapping(target = "cclIdOrigen", source = "pk.cclIdOrigen")
+    @Mapping(target = "stdIdLegEnt", source = "pk.stdIdLegEnt")
+    @Mapping(target = "cclIdCodOrigen", source = "pk.cclIdCodOrigen")
     @Mapping(target = "fechaInicio", source = "pk.fechaInicio")
     public abstract LocalizacionFicticiaHistoricoDto localizacionFicticiaHistoricoToLocalizacionFicticiaHistoricoDto(
             LocalizacionFicticiaHistorico src);
