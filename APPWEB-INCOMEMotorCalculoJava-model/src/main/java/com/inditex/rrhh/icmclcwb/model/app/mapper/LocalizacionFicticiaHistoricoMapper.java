@@ -3,10 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.mapper;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.LocalizacionFicticiaHistoricoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionHistoricoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.primary.entity.LocalizacionFicticiaHistorico;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
@@ -43,12 +39,14 @@ public abstract class LocalizacionFicticiaHistoricoMapper {
     // @Mapping(target = "fechaInicio", source = "src.fechaInicio")
     // @Mapping(target = "fechaFin", source = "src.fechaFin")
     // @Mapping(target = "idTarea", source = "srcTarea.id")
-    public abstract TareaLocalizacionHistoricoDto genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
-            GenericTiendaResultItemDto src, TareaDto srcTarea);
-
-    public List<TareaLocalizacionHistoricoDto> genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
-            final List<GenericTiendaResultItemDto> src, final TareaDto srcTarea) {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
+    // public abstract TareaLocalizacionHistoricoDto
+    // genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
+    // GenericTiendaResultItemDto src, TareaDto srcTarea);
+    //
+    // public List<TareaLocalizacionHistoricoDto>
+    // genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(
+    // final List<GenericTiendaResultItemDto> src, final TareaDto srcTarea) {
+    // throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    // }
 
 }
