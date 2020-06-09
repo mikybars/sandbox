@@ -60,6 +60,8 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_PROGRAMACION = "idProgramacion";
 
     public static final String SQL_PARAM_CCL_ID_ORIGEN = "cclIdOrigen";
+    
+    public static final String SQL_PARAM_STD_ID_LEG_ENT = "stdIdLegEnt";
 
     public static final String SQL_PARAM_CCL_ID_COD_ORIGEN = "cclIdCodOrigen";
 
