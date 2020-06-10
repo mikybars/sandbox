@@ -389,8 +389,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-            .thenReturn(new PeriodoDto());
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+                any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
         when(this.meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA)).thenReturn(properties);
         when(this.tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
                 any(Long.class), any(String.class), ArgumentMatchers.<List<Integer>>any()))
@@ -442,8 +443,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-            .thenReturn(new PeriodoDto());
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+                any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
         when(this.meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA)).thenReturn(properties);
         when(this.tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
                 any(Long.class),
@@ -489,9 +491,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         properties.setFilter(filter);
         properties.setPage(page);
 
-        // when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-        // .thenReturn(new PeriodoDto());
-
         final List<IdLocalizacionDto> persona = new ArrayList<>(Arrays.asList(new IdLocalizacionDto("1")));
         final CompletableFuture<List<GenericEmpleadoResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
             return new ArrayList<>();
@@ -500,8 +499,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-            .thenReturn(new PeriodoDto());
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+                any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
 
         when(this.meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL)).thenReturn(properties);
         when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(any(TareaDto.class),
@@ -766,13 +766,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-            .thenReturn(new PeriodoDto());
+
         when(this.meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE)).thenReturn(properties);
-        when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDtoWithDates(
-                any(TareaDto.class),
-                any(TareaAmbitoDto.class),
-                any(PeriodoDto.class), any(RecolectarPropertiesDto.class))).thenReturn(new GenericFilterDto());
+
         when(this.meta4IcmWsCalcIncomeSessionAsyncService
             .getConfiguracionVentaOnline(any(ConfiguracionVentaOnlineRequestDto.class))).thenReturn(cf);
         when(this.tareaAgrupacionConfiguracionAsyncService.saveAgrupacionConfiguracionDto(
@@ -809,13 +805,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-            .thenReturn(new PeriodoDto());
         when(this.meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE)).thenReturn(properties);
-        when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDtoWithDates(
-                any(TareaDto.class),
-                any(TareaAmbitoDto.class), any(PeriodoDto.class), any(RecolectarPropertiesDto.class)))
-                    .thenReturn(new GenericFilterDto());
+
         when(this.meta4IcmWsCalcIncomeSessionAsyncService
             .getConfiguracionVentaOnline(any(ConfiguracionVentaOnlineRequestDto.class))).thenReturn(cf);
 
@@ -870,8 +861,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-            .thenReturn(new PeriodoDto());
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+                any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
         when(this.meta4Properties.get(Meta4PropertiesConstants.TIENDAS)).thenReturn(properties);
         when(this.tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
                 any(Long.class),
@@ -917,8 +909,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-            .thenReturn(new PeriodoDto());
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+                any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
         when(this.meta4Properties.get(Meta4PropertiesConstants.TIENDAS)).thenReturn(properties);
         when(this.tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
                 any(Long.class),
@@ -977,8 +970,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-            .thenReturn(new PeriodoDto());
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+                any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
         when(this.meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE)).thenReturn(properties);
         when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(any(TareaDto.class),
                 any(TareaAmbitoDto.class),
@@ -1019,8 +1013,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-            .thenReturn(new PeriodoDto());
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+                any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
         when(this.meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE)).thenReturn(properties);
         when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(any(TareaDto.class),
                 any(TareaAmbitoDto.class),
@@ -1078,8 +1073,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-            .thenReturn(new PeriodoDto());
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+                any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
         when(this.meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE)).thenReturn(properties);
         when(this.tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(any(Long.class),
                 any(String.class))).thenReturn(new ArrayList<>(Arrays.asList(new IdCadenaDto("1"))));
@@ -1124,8 +1120,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        when(this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(any(Long.class)))
-            .thenReturn(new PeriodoDto());
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+                any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
         when(this.meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE)).thenReturn(properties);
         when(this.tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(any(Long.class),
                 any(String.class))).thenReturn(new ArrayList<>(Arrays.asList(new IdCadenaDto("1"))));
