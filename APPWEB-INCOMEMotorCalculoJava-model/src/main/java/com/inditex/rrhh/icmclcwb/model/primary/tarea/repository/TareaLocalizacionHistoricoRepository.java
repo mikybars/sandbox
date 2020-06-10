@@ -25,6 +25,12 @@ public interface TareaLocalizacionHistoricoRepository extends BaseRepository<Tar
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN) final String cclIdOrigen);
 
+    @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto(tth.cclIdCodOrigen) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.cclIdOrigen=:cclIdOrigen AND tth.stdIdLegEnt=:stdIdLegEnt GROUP BY tth.cclIdCodOrigen")
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN) final String cclIdOrigen,
+            @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT) final String stdIdLegEnt);
+
     @Query("SELECT new com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto(tth.stdIdWorkLocat) FROM TareaLocalizacionHistorico tth WHERE tth.tarea.id=:idTarea AND tth.cclIdOrigen=:cclIdOrigen AND tth.cclIdCadena IN (:idCadena) GROUP BY tth.stdIdWorkLocat")
     List<IdLocalizacionDto> findIdLocalizacionDtoByTareaAndCclIdOrigenAndCadenas(
             @NotNull @Param(SqlPrimaryConstants.SQL_PARAM_ID_TAREA) final Long idTarea,

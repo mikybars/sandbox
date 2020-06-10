@@ -45,6 +45,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstruct
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraPoliticaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
@@ -183,6 +185,12 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     @Autowired
     private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
 
+    @Autowired
+    private TareaAmbitoGlobalFechaService tareaAmbitoGlobalFechaService;
+
+    @Autowired
+    private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+
     @Override
     protected LocalDateTime getFechaInicioPeriodo(final TareaDto tarea) {
         return TimeUtils.toLocalDateTime(tarea.getFechaInicioPeriodo());
@@ -196,27 +204,37 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final FestivosRequestDto request = new FestivosRequestDto();
-            request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS).getPage());
-            request.setData(this.tareaMapper
-                .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
-                        trabajo, tarea, tareaAmbito));
-            boolean hasNext = false;
-            do {
-                final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-                    .getFestivos(request);
-                AsyncUtils.exceptionally(cfData, cf);
-                final List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
-                if (CollectionUtils.isNotEmpty(data)) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist,
-                            this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS)
-                                .getFilter()
-                                .getMaxPersistenceSize());
-                    final CompletableFuture<Void> cfSave = this.tareaLocalizacionFestivoAsyncService.save(data, tarea);
-                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                    hasNext = request.nextPage();
-                }
-            } while (hasNext);
+            this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .forEach(x -> {
+                    final FestivosRequestDto request = new FestivosRequestDto();
+                    request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS).getPage());
+                    request.setData(this.tareaMapper
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
+                                trabajo, tarea, tareaAmbito,
+                                this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                        tarea.getId(),
+                                        TipoDatoEnum.PERIODO_AMPLIADO.getId())));
+                    request.getData().setIdEmpresa(x.getStdIdLegEnt());
+                    boolean hasNext = false;
+                    do {
+                        final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
+                            .getFestivos(request);
+                        AsyncUtils.exceptionally(cfData, cf);
+                        final List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
+                        if (CollectionUtils.isNotEmpty(data)) {
+                            AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                    this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS)
+                                        .getFilter()
+                                        .getMaxPersistenceSize());
+                            final CompletableFuture<Void> cfSave = this.tareaLocalizacionFestivoAsyncService.save(data,
+                                    tarea);
+                            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                            hasNext = request.nextPage();
+                        }
+                    } while (hasNext);
+                });
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);

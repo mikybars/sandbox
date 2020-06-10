@@ -34,6 +34,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -92,6 +93,9 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
 
     @Autowired
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+
+    @Autowired
+    private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
 
     @Autowired
     private TareaMapper tareaMapper;
@@ -363,49 +367,62 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(this.tareaLocalizacionHistoricoService
-                .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(tarea.getId(),
-                        tareaAmbito.getCclIdOrigen(),
-                        Arrays.asList(TipoCalculoEnum.POR_VENTA.getId(), TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(),
-                                TipoCalculoEnum.POR_VENTA_INDIVIDUAL.getId())),
-                    this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE)
-                        .getFilter()
-                        .getMaxPageSize())) {
-
-                final PtrVentaOnlineIpodIndividualDetalleRequestDto paramVentaOnlineIpod = this.tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodIndividualDetalleRequestDto(
-                            trabajo, tarea, tareaAmbito, this.recolectarProperties);
-                paramVentaOnlineIpod.setTienda(iter.stream()
-                    .map(IdLocalizacionLocalDto::getId)
-                    .map(Integer::valueOf)
-                    .collect(Collectors.toList()));
-                paramVentaOnlineIpod.setProducto(this.meta4IcmWsCalcIncomeSessionService
-                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
-                    .stream()
-                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
-                    .collect(Collectors.toList()));
-                paramVentaOnlineIpod.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
-                paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-
-                final CompletableFuture<PtrVentaOnlineIpodIndividualDetalleResponseDto> cfData = this.ptrVentaEcommerceAsyncService
-                    .ventaOnlineiPodIndividualDetalle(paramVentaOnlineIpod);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-
-                final PtrVentaOnlineIpodIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
-
-                if (CollectionUtils.isNotEmpty(data.getVentaOnlineIpodIndividual())) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+            this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .forEach(x -> {
+                    for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
+                            this.tareaLocalizacionHistoricoService
+                                .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
+                                        tarea.getId(),
+                                        tareaAmbito.getCclIdOrigen(),
+                                        x.getStdIdLegEnt(),
+                                        Arrays.asList(TipoCalculoEnum.POR_VENTA.getId(),
+                                                TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(),
+                                                TipoCalculoEnum.POR_VENTA_INDIVIDUAL.getId())),
                             this.ventaEcommerceProperties
                                 .get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE)
                                 .getFilter()
-                                .getMaxPageSize());
-                    AsyncUtils.exceptionally(
-                            this.tareaLocalizacionPersonaVentaAsyncService
-                                .savePtrVentaOnlineIpodIndividualDetalleResultItem(
-                                        data.getVentaOnlineIpodIndividual(), tarea),
-                            cf, cfPersist);
-                }
-            }
+                                .getMaxPageSize())) {
+
+                        final PtrVentaOnlineIpodIndividualDetalleRequestDto paramVentaOnlineIpod = this.tareaMapper
+                            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodIndividualDetalleRequestDto(
+                                    trabajo, tarea, tareaAmbito, this.recolectarProperties);
+                        paramVentaOnlineIpod.setTienda(iter.stream()
+                            .map(IdLocalizacionLocalDto::getId)
+                            .map(Integer::valueOf)
+                            .collect(Collectors.toList()));
+                        paramVentaOnlineIpod.setProducto(this.meta4IcmWsCalcIncomeSessionService
+                            .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
+                            .stream()
+                            .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
+                            .collect(Collectors.toList()));
+                        paramVentaOnlineIpod
+                            .setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
+                        paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                        paramVentaOnlineIpod.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
+
+                        final CompletableFuture<PtrVentaOnlineIpodIndividualDetalleResponseDto> cfData = this.ptrVentaEcommerceAsyncService
+                            .ventaOnlineiPodIndividualDetalle(paramVentaOnlineIpod);
+                        AsyncUtils.exceptionally(cfData, cf, cfPersist);
+
+                        final PtrVentaOnlineIpodIndividualDetalleResponseDto data = AsyncUtils.get(cfData);
+
+                        if (CollectionUtils.isNotEmpty(data.getVentaOnlineIpodIndividual())) {
+                            AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                    this.ventaEcommerceProperties
+                                        .get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE)
+                                        .getFilter()
+                                        .getMaxPageSize());
+                            AsyncUtils.exceptionally(
+                                    this.tareaLocalizacionPersonaVentaAsyncService
+                                        .savePtrVentaOnlineIpodIndividualDetalleResultItem(
+                                                data.getVentaOnlineIpodIndividual(), tarea),
+                                    cf, cfPersist);
+                        }
+                    }
+
+                });
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
@@ -422,37 +439,43 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
-                .findTiendasPresupuestosByIdTarea(tarea.getId())) {
-                final PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod = this.tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(trabajo, tarea,
-                            tareaAmbito, this.recolectarProperties);
+            this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .forEach(x -> {
+                    for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
+                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(x.getStdIdLegEnt(), tarea.getId())) {
+                        final PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod = this.tareaMapper
+                            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(trabajo, tarea,
+                                    tareaAmbito, this.recolectarProperties);
 
-                paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
-                paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlineIpod.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
-                paramVentaOnlineIpod.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
-                paramVentaOnlineIpod.setProducto(this.meta4IcmWsCalcIncomeSessionService
-                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
-                    .stream()
-                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
-                    .collect(Collectors.toList()));
+                        paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
+                        paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                        paramVentaOnlineIpod.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
+                        paramVentaOnlineIpod.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
+                        paramVentaOnlineIpod.setProducto(this.meta4IcmWsCalcIncomeSessionService
+                            .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
+                            .stream()
+                            .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
+                            .collect(Collectors.toList()));
 
-                final CompletableFuture<PtrVentaOnlineIpodResponseDto> cfData = this.ptrVentaEcommerceAsyncService
-                    .ventaOnlineiPod(paramVentaOnlineIpod);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                        final CompletableFuture<PtrVentaOnlineIpodResponseDto> cfData = this.ptrVentaEcommerceAsyncService
+                            .ventaOnlineiPod(paramVentaOnlineIpod);
+                        AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                final PtrVentaOnlineIpodResponseDto data = AsyncUtils.get(cfData);
+                        final PtrVentaOnlineIpodResponseDto data = AsyncUtils.get(cfData);
 
-                AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaEcommerceProperties
-                    .get(PtrPropertiesConstants.VENTA_ONLINE_IPOD)
-                    .getFilter()
-                    .getMaxPersistenceSize());
-                AsyncUtils.exceptionally(
-                        this.tareaLocalizacionPresupuestoVentaAsyncService.savePtrVentaOnlineIpodResponse(data, iter,
-                                tarea),
-                        cf, cfPersist);
-            }
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaEcommerceProperties
+                            .get(PtrPropertiesConstants.VENTA_ONLINE_IPOD)
+                            .getFilter()
+                            .getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(
+                                this.tareaLocalizacionPresupuestoVentaAsyncService.savePtrVentaOnlineIpodResponse(data,
+                                        iter,
+                                        tarea),
+                                cf, cfPersist);
+                    }
+                });
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
@@ -469,37 +492,43 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
-                .findTiendasPresupuestosByIdTarea(tarea.getId())) {
-                final PtrVentaOnlinePickingRequestDto paramVentaOnlinePicking = this.tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlinePickingRequestDto(
-                            trabajo, tarea,
-                            tareaAmbito, iter, this.recolectarProperties);
-                paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
-                paramVentaOnlinePicking.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlinePicking.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
-                paramVentaOnlinePicking.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
-                paramVentaOnlinePicking.setProducto(this.meta4IcmWsCalcIncomeSessionService
-                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
-                    .stream()
-                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
-                    .collect(Collectors.toList()));
+            this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .forEach(x -> {
+                    for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
+                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(x.getStdIdLegEnt(), tarea.getId())) {
+                        final PtrVentaOnlinePickingRequestDto paramVentaOnlinePicking = this.tareaMapper
+                            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlinePickingRequestDto(
+                                    trabajo, tarea,
+                                    tareaAmbito, iter, this.recolectarProperties);
+                        paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
+                        paramVentaOnlinePicking.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                        paramVentaOnlinePicking.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
+                        paramVentaOnlinePicking.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
+                        paramVentaOnlinePicking.setProducto(this.meta4IcmWsCalcIncomeSessionService
+                            .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
+                            .stream()
+                            .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
+                            .collect(Collectors.toList()));
 
-                final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = this.ptrVentaEcommerceAsyncService
-                    .ventaOnlinePicking(paramVentaOnlinePicking);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                        final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = this.ptrVentaEcommerceAsyncService
+                            .ventaOnlinePicking(paramVentaOnlinePicking);
+                        AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                final PtrVentaOnlinePickingResponseDto data = AsyncUtils.get(cfData);
+                        final PtrVentaOnlinePickingResponseDto data = AsyncUtils.get(cfData);
 
-                AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaEcommerceProperties
-                    .get(PtrPropertiesConstants.VENTA_ONLINE_PICKING)
-                    .getFilter()
-                    .getMaxPersistenceSize());
-                AsyncUtils.exceptionally(
-                        this.tareaLocalizacionPresupuestoVentaAsyncService.savePtrVentaOnlinePickingResponse(data, iter,
-                                tarea),
-                        cf, cfPersist);
-            }
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaEcommerceProperties
+                            .get(PtrPropertiesConstants.VENTA_ONLINE_PICKING)
+                            .getFilter()
+                            .getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(
+                                this.tareaLocalizacionPresupuestoVentaAsyncService.savePtrVentaOnlinePickingResponse(
+                                        data, iter,
+                                        tarea),
+                                cf, cfPersist);
+                    }
+                });
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
@@ -516,37 +545,43 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
-                .findTiendasPresupuestosByIdTarea(tarea.getId())) {
-                final PtrVentaOnlineEntregaTiendaRequestDto paramVentaOnlineEntregaTiendaRequest = this.tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineEntregaTiendaRequestDto(
-                            trabajo, tarea,
-                            tareaAmbito, iter, this.recolectarProperties);
-                paramVentaOnlineEntregaTiendaRequest.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
-                paramVentaOnlineEntregaTiendaRequest.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlineEntregaTiendaRequest.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
-                paramVentaOnlineEntregaTiendaRequest.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
-                paramVentaOnlineEntregaTiendaRequest.setProducto(this.meta4IcmWsCalcIncomeSessionService
-                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
-                    .stream()
-                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
-                    .collect(Collectors.toList()));
+            this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .forEach(x -> {
+                    for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
+                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(x.getStdIdLegEnt(), tarea.getId())) {
+                        final PtrVentaOnlineEntregaTiendaRequestDto paramVentaOnlineEntregaTiendaRequest = this.tareaMapper
+                            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineEntregaTiendaRequestDto(
+                                    trabajo, tarea,
+                                    tareaAmbito, iter, this.recolectarProperties);
+                        paramVentaOnlineEntregaTiendaRequest.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
+                        paramVentaOnlineEntregaTiendaRequest.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                        paramVentaOnlineEntregaTiendaRequest.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
+                        paramVentaOnlineEntregaTiendaRequest.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
+                        paramVentaOnlineEntregaTiendaRequest.setProducto(this.meta4IcmWsCalcIncomeSessionService
+                            .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
+                            .stream()
+                            .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
+                            .collect(Collectors.toList()));
 
-                final CompletableFuture<PtrVentaOnlineEntregaTiendaResponseDto> cfData = this.ptrVentaEcommerceAsyncService
-                    .ventaOnlineEntregaTienda(paramVentaOnlineEntregaTiendaRequest);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                        final CompletableFuture<PtrVentaOnlineEntregaTiendaResponseDto> cfData = this.ptrVentaEcommerceAsyncService
+                            .ventaOnlineEntregaTienda(paramVentaOnlineEntregaTiendaRequest);
+                        AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                final PtrVentaOnlineEntregaTiendaResponseDto data = AsyncUtils.get(cfData);
+                        final PtrVentaOnlineEntregaTiendaResponseDto data = AsyncUtils.get(cfData);
 
-                AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaEcommerceProperties
-                    .get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA)
-                    .getFilter()
-                    .getMaxPersistenceSize());
-                AsyncUtils.exceptionally(
-                        this.tareaLocalizacionPresupuestoVentaAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data,
-                                iter, tarea),
-                        cf, cfPersist);
-            }
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaEcommerceProperties
+                            .get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA)
+                            .getFilter()
+                            .getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(
+                                this.tareaLocalizacionPresupuestoVentaAsyncService
+                                    .savePtrVentaOnlineEntregaTiendaResponse(data,
+                                            iter, tarea),
+                                cf, cfPersist);
+                    }
+                });
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
@@ -563,37 +598,43 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
-                .findTiendasPresupuestosByIdTarea(tarea.getId())) {
-                final PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaTiendaRequest = this.tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
-                            trabajo, tarea,
-                            tareaAmbito, iter, this.recolectarProperties);
-                paramVentaOnlineEntregaTiendaRequest.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
-                paramVentaOnlineEntregaTiendaRequest.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlineEntregaTiendaRequest.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
-                paramVentaOnlineEntregaTiendaRequest.setProducto(this.meta4IcmWsCalcIncomeSessionService
-                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
-                    .stream()
-                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
-                    .collect(Collectors.toList()));
+            this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .forEach(x -> {
+                    for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
+                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(x.getStdIdLegEnt(), tarea.getId())) {
+                        final PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaTiendaRequest = this.tareaMapper
+                            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
+                                    trabajo, tarea,
+                                    tareaAmbito, iter, this.recolectarProperties);
+                        paramVentaOnlineEntregaTiendaRequest.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
+                        paramVentaOnlineEntregaTiendaRequest.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                        paramVentaOnlineEntregaTiendaRequest.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
+                        paramVentaOnlineEntregaTiendaRequest.setProducto(this.meta4IcmWsCalcIncomeSessionService
+                            .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
+                            .stream()
+                            .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
+                            .collect(Collectors.toList()));
 
-                final CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = this.ptrVentaEcommerceAsyncService
-                    .ventaOnlineEntregaDomicilio(paramVentaOnlineEntregaTiendaRequest);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                        final CompletableFuture<PtrVentaOnlineEntregaDomicilioResponseDto> cfData = this.ptrVentaEcommerceAsyncService
+                            .ventaOnlineEntregaDomicilio(paramVentaOnlineEntregaTiendaRequest);
+                        AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
-                final PtrVentaOnlineEntregaDomicilioResponseDto data = AsyncUtils.get(cfData);
+                        final PtrVentaOnlineEntregaDomicilioResponseDto data = AsyncUtils.get(cfData);
 
-                AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaEcommerceProperties
-                    .get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
-                    .getFilter()
-                    .getMaxPersistenceSize());
-                AsyncUtils.exceptionally(
-                        this.tareaLocalizacionPresupuestoVentaAsyncService.savePtrVentaOnlineEntregaDomicilioResponse(
-                                data,
-                                iter, tarea),
-                        cf, cfPersist);
-            }
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaEcommerceProperties
+                            .get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
+                            .getFilter()
+                            .getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(
+                                this.tareaLocalizacionPresupuestoVentaAsyncService
+                                    .savePtrVentaOnlineEntregaDomicilioResponse(
+                                            data,
+                                            iter, tarea),
+                                cf, cfPersist);
+                    }
+                });
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);

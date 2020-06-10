@@ -1,5 +1,20 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
@@ -14,6 +29,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -28,19 +44,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizado
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -80,93 +83,108 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
     private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
 
     @Autowired
+    private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+
+    @Autowired
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
     @Override
-    public void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+    public void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            PeriodoDto periodo = tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(tarea.getId());
-            for (List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    tareaLocalizacionHistoricoService
-                        .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(tarea.getId(),
-                                tareaAmbito.getCclIdOrigen()),
-                    ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getFilter().getMaxPageSize())) {
-                PtrVentaTotalizadoRequestDto request = tareaMapper
-                    .mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaTotalizadoRequestDto(tarea,
-                            tareaAmbito, periodo, recolectarProperties);
-                request.setTienda(iter.stream()
-                    .map(IdLocalizacionLocalDto::getId)
-                    .map(Integer::valueOf)
-                    .collect(Collectors.toList()));
-                request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
-                request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
-                request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                request.setProducto(meta4IcmWsCalcIncomeSessionService
-                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
-                    .stream()
-                    .map(e -> e.getIdProducto())
-                    .collect(Collectors.toList()));
+            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
+                .findPeriodoPresupuestoYTrabajo(tarea.getId());
+            this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .forEach(x -> {
+                    for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
+                            this.tareaLocalizacionHistoricoService
+                                .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(tarea.getId(),
+                                        tareaAmbito.getCclIdOrigen(), x.getStdIdLegEnt()),
+                            this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO)
+                                .getFilter()
+                                .getMaxPageSize())) {
+                        final PtrVentaTotalizadoRequestDto request = this.tareaMapper
+                            .mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaTotalizadoRequestDto(tarea,
+                                    tareaAmbito, periodo, this.recolectarProperties);
+                        request.setTienda(iter.stream()
+                            .map(IdLocalizacionLocalDto::getId)
+                            .map(Integer::valueOf)
+                            .collect(Collectors.toList()));
+                        request.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
+                        request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
+                        request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                        request.setProducto(this.meta4IcmWsCalcIncomeSessionService
+                            .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
+                            .stream()
+                            .map(e -> e.getIdProducto())
+                            .collect(Collectors.toList()));
 
-                CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
-                    .ventaTotalizado(request);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-                PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties
-                    .get(PtrPropertiesConstants.VENTA_TOTALIZADO)
-                    .getFilter()
-                    .getMaxPersistenceSize());
-                AsyncUtils.exceptionally(tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea),
-                        cf, cfPersist);
-            }
+                        final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
+                            .ventaTotalizado(request);
+                        AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                        final PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaGeneralProperties
+                            .get(PtrPropertiesConstants.VENTA_TOTALIZADO)
+                            .getFilter()
+                            .getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(
+                                this.tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea),
+                                cf, cfPersist);
+                    }
+                });
+
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
         }
     }
 
     @Override
-    public void ventaFisicaCadenaByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+    public void ventaFisicaCadenaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            PeriodoDto periodo = tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(tarea.getId());
-            List<TareaAgrupacionCadenasDto> agrupaciones = tareaAgrupacionCadenaService.findAgrupacionesByTarea(tarea);
-            List<IdCadenaDto> cadenas = tareaLocalizacionHistoricoService
+            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
+                .findPeriodoPresupuestoYTrabajo(tarea.getId());
+            final List<TareaAgrupacionCadenasDto> agrupaciones = this.tareaAgrupacionCadenaService
+                .findAgrupacionesByTarea(tarea);
+            final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService
                 .findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(), tareaAmbito.getCclIdOrigen());
-            PtrVentaTotalizadoRequestDto request = tareaMapper
+            final PtrVentaTotalizadoRequestDto request = this.tareaMapper
                 .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoIdCadenaDtoToPtrVentaTotalizadoRequestDto(
-                        tarea, tareaAmbito, periodo, recolectarProperties, cadenas);
-            request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
+                        tarea, tareaAmbito, periodo, this.recolectarProperties, cadenas);
             request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
             request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
-            request.setProducto(meta4IcmWsCalcIncomeSessionService
+            request.setProducto(this.meta4IcmWsCalcIncomeSessionService
                 .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                 .stream()
                 .map(e -> e.getIdProducto())
                 .collect(Collectors.toList()));
-
-            CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
+            final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
                 .ventaTotalizado(request);
             AsyncUtils.exceptionally(cfData, cf, cfPersist);
-            PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-            AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties
+            final PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
+            AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaGeneralProperties
                 .get(PtrPropertiesConstants.VENTA_TOTALIZADO)
                 .getFilter()
                 .getMaxPersistenceSize());
             AsyncUtils.exceptionally(
-                    tareaAgrupacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea, agrupaciones), cf,
+                    this.tareaAgrupacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea,
+                            agrupaciones),
+                    cf,
                     cfPersist);
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
         }
@@ -174,44 +192,51 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
 
 
     @Override
-    public void ventaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-            @NotNull @Valid TareaAmbitoDto tareaAmbito) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
-        List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+    public void ventaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            for (IdLocalizacionLocalPresupuestoDto iter : tareaLocalizacionHistoricoService
-                .findTiendasPresupuestosByIdTarea(tarea.getId())) {
-                PtrVentaTotalizadoRequestDto request = tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
-                            trabajo, tarea,
-                            tareaAmbito, iter, recolectarProperties);
-                request.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
-                request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
-                request.setAgrupacion(PtrGroupTypeEnum.OPERACION_TIENDA_SECCION);
-                request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                request.setProducto(meta4IcmWsCalcIncomeSessionService
-                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
-                    .stream()
-                    .map(e -> e.getIdProducto())
-                    .collect(Collectors.toList()));
+            this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .forEach(x -> {
+                    for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
+                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(x.getStdIdLegEnt(), tarea.getId())) {
+                        final PtrVentaTotalizadoRequestDto request = this.tareaMapper
+                            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
+                                    trabajo, tarea,
+                                    tareaAmbito, iter, this.recolectarProperties);
+                        request.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
+                        request.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
+                        request.setAgrupacion(PtrGroupTypeEnum.OPERACION_TIENDA_SECCION);
+                        request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                        request.setProducto(this.meta4IcmWsCalcIncomeSessionService
+                            .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
+                            .stream()
+                            .map(e -> e.getIdProducto())
+                            .collect(Collectors.toList()));
 
-                CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = ptrVentaGeneralAsyncService
-                    .ventaTotalizado(request);
-                AsyncUtils.exceptionally(cfData, cf, cfPersist);
-                PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-                AsyncUtils.checkAsyncAvaliable(cfPersist, ventaGeneralProperties
-                    .get(PtrPropertiesConstants.VENTA_TOTALIZADO)
-                    .getFilter()
-                    .getMaxPersistenceSize());
-                AsyncUtils.exceptionally(
-                        tareaLocalizacionPresupuestoVentaAsyncService.savePtrVentaTotalizadoResponse(data, iter, tarea),
-                        cf, cfPersist);
-            }
+                        final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
+                            .ventaTotalizado(request);
+                        AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                        final PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaGeneralProperties
+                            .get(PtrPropertiesConstants.VENTA_TOTALIZADO)
+                            .getFilter()
+                            .getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(
+                                this.tareaLocalizacionPresupuestoVentaAsyncService.savePtrVentaTotalizadoResponse(data,
+                                        iter,
+                                        tarea),
+                                cf, cfPersist);
+                    }
+                });
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
         }
