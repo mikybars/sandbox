@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaCalculoPersonaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaCalculoPersonaDecorator;
@@ -49,7 +49,7 @@ public class TareaCalculoPersonaServiceImplTest {
     public void updateWithEstadoAndidPersonaTest() {
         final RunTareaDto runTarea = mock(RunTareaDto.class);
         final EstadoTareaPersonaDto estadoTareaPersonaDto = mock(EstadoTareaPersonaDto.class);
-        final List<TareaCalculoPersonaDto> list = new ArrayList<TareaCalculoPersonaDto>();
+        final List<IdPersonaLocalDto> list = new ArrayList<IdPersonaLocalDto>();
         this.tareaCalculoPersonaServiceImpl.updateWithEstadoAndidPersona(list, runTarea, estadoTareaPersonaDto);
 
         verify(this.tareaCalculoPersonaRepositoryCustom, times(1)).updateWithEstadoAndidPersona(
@@ -107,7 +107,7 @@ public class TareaCalculoPersonaServiceImplTest {
     public void findByAlgoritmoTest() {
         final TareaDto tarea = mock(TareaDto.class);
         final AlgoritmoDto algoritmoDto = mock(AlgoritmoDto.class);
-        final List<TareaCalculoPersona> list = new ArrayList<TareaCalculoPersona>();
+        final List<IdPersonaLocalDto> list = new ArrayList<IdPersonaLocalDto>();
         when(this.tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
             .thenReturn(list);
         this.tareaCalculoPersonaServiceImpl.findByAlgoritmo(tarea, algoritmoDto);
@@ -120,7 +120,7 @@ public class TareaCalculoPersonaServiceImplTest {
     public void findByTareaAndIdEstadoAndIdTipoPoliticaTest() {
         final TareaDto tarea = mock(TareaDto.class);
         final String tipoPolitica = TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4();
-        final List<TareaCalculoPersona> list = new ArrayList<TareaCalculoPersona>();
+        final List<IdPersonaLocalDto> list = new ArrayList<IdPersonaLocalDto>();
         when(this.tareaCalculoPersonaRepositoryCustom.findByTareaAndIdEstadoAndIdTipoPolitica(any(TareaDto.class),
                 any(String.class))).thenReturn(list);
         this.tareaCalculoPersonaServiceImpl.findByTareaAndIdEstadoAndIdTipoPolitica(tarea, tipoPolitica);

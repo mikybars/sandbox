@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
@@ -62,15 +62,12 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
 
         when(this.runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(10);
 
-        final List<TareaCalculoPersonaDto> personas = new ArrayList<>();
-        final TareaCalculoPersonaDto p1 = new TareaCalculoPersonaDto();
-        p1.setId("1");
+        final List<IdPersonaLocalDto> personas = new ArrayList<>();
+        final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
         personas.add(p1);
-        final TareaCalculoPersonaDto p2 = new TareaCalculoPersonaDto();
-        p1.setId("2");
+        final IdPersonaLocalDto p2 = new IdPersonaLocalDto();
         personas.add(p2);
-        final TareaCalculoPersonaDto p3 = new TareaCalculoPersonaDto();
-        p1.setId("3");
+        final IdPersonaLocalDto p3 = new IdPersonaLocalDto();
         personas.add(p3);
         when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
@@ -91,12 +88,10 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
     @Test
     public void executeExceptionTest() {
 
-        final List<TareaCalculoPersonaDto> personas = new ArrayList<>();
-        final TareaCalculoPersonaDto p1 = new TareaCalculoPersonaDto();
-        p1.setId("1");
+        final List<IdPersonaLocalDto> personas = new ArrayList<>();
+        final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
         personas.add(p1);
-        final TareaCalculoPersonaDto p2 = new TareaCalculoPersonaDto();
-        p1.setId("2");
+        final IdPersonaLocalDto p2 = new IdPersonaLocalDto();
         personas.add(p2);
         when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
@@ -105,7 +100,7 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
         final RuntimeException exception = new RuntimeException("EEEE");
         doThrow(exception).when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom)
             .calcular(any(AlgoritmoDto.class), any(TareaDto.class),
-                    ArgumentMatchers.<List<TareaCalculoPersonaDto>>any());
+                    ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
         final RunTareaDto runTarea = new RunTareaDto();
         final TareaDto tarea = new TareaDto();

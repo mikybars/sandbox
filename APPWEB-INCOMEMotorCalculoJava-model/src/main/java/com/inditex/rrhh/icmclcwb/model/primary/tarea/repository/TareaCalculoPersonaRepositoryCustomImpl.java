@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
@@ -49,7 +50,7 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
 
 
     @Override
-    public List<TareaCalculoPersona> findByTareaAndIdEstadoAndIdTipoPolitica(@NotNull final TareaDto tarea,
+    public List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@NotNull final TareaDto tarea,
             @NotNull @Positive final String idTipoPolitica) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
@@ -57,11 +58,11 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
                 EstadoTareaCalculoPersonaEnum.KO.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, idTipoPolitica);
         return this.query(this.sqlFindByTareaAndIdEstado, parameters,
-                new RowMapper<TareaCalculoPersona>() {
+                new RowMapper<IdPersonaLocalDto>() {
                     @Override
-                    public TareaCalculoPersona mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-                        final TareaCalculoPersona dto = new TareaCalculoPersona();
-                        dto.setCclIdPerson(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL));
+                    public IdPersonaLocalDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+                        final IdPersonaLocalDto dto = new IdPersonaLocalDto();
+                        dto.setIdPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL));
                         dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
                         return dto;
                     }
@@ -69,17 +70,17 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
     }
 
     @Override
-    public List<TareaCalculoPersona> findByAlgoritmo(@NotNull final TareaDto tarea,
+    public List<IdPersonaLocalDto> findByAlgoritmo(@NotNull final TareaDto tarea,
             @NotBlank final AlgoritmoDto algoritmo) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
         return this.query(this.sqlFindByAlgoritmo, parameters,
-                new RowMapper<TareaCalculoPersona>() {
+                new RowMapper<IdPersonaLocalDto>() {
                     @Override
-                    public TareaCalculoPersona mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-                        final TareaCalculoPersona dto = new TareaCalculoPersona();
-                        dto.setCclIdPerson(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL));
+                    public IdPersonaLocalDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+                        final IdPersonaLocalDto dto = new IdPersonaLocalDto();
+                        dto.setIdPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL));
                         dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
                         return dto;
                     }
