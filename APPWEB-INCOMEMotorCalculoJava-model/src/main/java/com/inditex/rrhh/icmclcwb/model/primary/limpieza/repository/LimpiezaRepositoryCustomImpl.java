@@ -184,7 +184,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaAgrupacionConfiguracionChallengeTipoVenta']}")
     private String sqlLimpiezaTareaAgrupacionConfiguracionChallengeTipoVenta;
 
-    @Value("${app.envars.limpieza.batch-size.default:0}")
+    @Value("${app.envars.limpieza.batch-size.default:1}")
     private int batchSize;
 
     @Override
