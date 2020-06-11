@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
@@ -18,7 +19,7 @@ public interface TareaCalculoPersonaService {
 
     List<TareaCalculoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea);
 
-    void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<TareaCalculoPersonaDto> personas,
+    void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<IdPersonaLocalDto> personas,
             @Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estado);
 
     void updateWithEstado(@Valid @NotNull final RunTareaDto runTareaDto,
@@ -29,10 +30,10 @@ public interface TareaCalculoPersonaService {
 
     void mergePersonaCalculoByAmbitoPersona(@Valid @NotNull final RunTareaDto runTareaDto);
 
-    List<TareaCalculoPersonaDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea,
+    List<IdPersonaLocalDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea,
             @Valid @NotNull final AlgoritmoDto idAlgoritmo);
 
-    List<TareaCalculoPersonaDto> findByTareaAndIdEstadoAndIdTipoPolitica(@Valid @NotNull final TareaDto tarea,
+    List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@Valid @NotNull final TareaDto tarea,
             @Valid @NotNull final String idTipoPolitica);
 
 }
