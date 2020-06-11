@@ -12,10 +12,10 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -83,25 +83,25 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom,
+        FieldUtils.writeField(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom,
                 "sqlCalcular", SQL_CALCULAR, true);
-        FieldUtils.writeField(tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom,
+        FieldUtils.writeField(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom,
                 "sqlCalcularBase", SQL_BASE, true);
     }
 
     @Test
     public void idsTest() {
 
-        TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
-        TareaCalculoPersonaDto persona2 = mock(TareaCalculoPersonaDto.class);
-        List<TareaCalculoPersonaDto> personas = Arrays.asList(persona1, persona2);
-        when(tareaCalculoPerosnaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
+        final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
+        final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
+        final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
+        when(this.tareaCalculoPerosnaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
             .thenReturn(personas);
 
-        TareaDto tarea = mock(TareaDto.class);
-        AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
+        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
 
-        List<TareaCalculoPersonaDto> ids = tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom
+        final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom
             .ids(algoritmo, tarea);
 
         assertEquals(2, ids.size());
@@ -111,7 +111,7 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
     @Test
     public void getMapValuesTest() {
 
-        when(tipoDatoService
+        when(this.tipoDatoService
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
                 .thenReturn(
                         Arrays.asList(
@@ -129,7 +129,7 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
                                         .getId())
                                     .build()));
 
-        AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(8001);
         when(algoritmo.getTipoCalculo()).thenReturn(
                 Arrays.asList(
@@ -157,13 +157,13 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
                             .build()));
         when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
-        TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
-        when(persona1.getCclIdPerson()).thenReturn("AT1001");
+        final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
+        when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
 
-        Map<String, Object> result = tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom
+        final Map<String, Object> result = this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom
             .getMapValues(algoritmo, tarea, persona1);
 
         // Parámetros de la consulta: idAlgoritmo, activo, idTipoDatoIndicadorPresencia,
@@ -216,7 +216,7 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
         assertEquals(tarea.getId(), result.get(SQL_PARAM_ID_TAREA));
         // cclIdPerson
         assertTrue(result.containsKey(SQL_PARAM_CCL_ID_PERSON));
-        assertEquals(persona1.getCclIdPerson(), result.get(SQL_PARAM_CCL_ID_PERSON));
+        assertEquals(persona1.getIdPersonaLocal(), result.get(SQL_PARAM_CCL_ID_PERSON));
         // stdOrHrPeriod
         assertTrue(result.containsKey(SQL_PARAM_STD_OR_HR_PERIOD));
         assertEquals(persona1.getStdOrHrPeriod(), result.get(SQL_PARAM_STD_OR_HR_PERIOD));
@@ -248,7 +248,7 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
     @Test
     public void calcularTest() {
 
-        when(tipoDatoService
+        when(this.tipoDatoService
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
                 .thenReturn(
                         Arrays.asList(
@@ -266,7 +266,7 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
                                         .getId())
                                     .build()));
 
-        AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(1001);
         when(algoritmo.getTipoCalculo()).thenReturn(
                 Arrays.asList(
@@ -294,20 +294,21 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
                             .build()));
         when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
-        TareaCalculoPersonaDto persona1 = mock(TareaCalculoPersonaDto.class);
-        when(persona1.getCclIdPerson()).thenReturn("AT1001");
+        final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
+        when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
-        TareaCalculoPersonaDto persona2 = mock(TareaCalculoPersonaDto.class);
-        when(persona2.getCclIdPerson()).thenReturn("AT1002");
+        final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
+        when(persona2.getIdPersonaLocal()).thenReturn("AT1002");
         when(persona2.getStdOrHrPeriod()).thenReturn("02");
-        List<TareaCalculoPersonaDto> personas = Arrays.asList(persona1, persona2);
+        final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
 
-        tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo, tarea,
+        this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo,
+                tarea,
                 personas);
 
-        verify(namedParameterJdbcTemplate).batchUpdate(sqlCaptor.capture(), paramsCaptor.capture());
+        verify(this.namedParameterJdbcTemplate).batchUpdate(this.sqlCaptor.capture(), this.paramsCaptor.capture());
         // Parámetros de la consulta: idAlgoritmo, activo, idTipoDatoIndicadorPresencia,
         // idTipoDatoVentaLocalizacionPersona, tipoDatoLocalizacionPersonaPresencia,
         // idTipoDatoVentaSinDevolucionLocalizacionSeccion, idTipoDatoVentaLocalizacionPersonasPorVenta,
@@ -315,11 +316,11 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
         // idTipoPresenciaLocalizacion, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo, tiposComision,
         // esDesplazamiento,
         // esDesplazamientoBase, comisionable, calcula, idTipoDatoIndicadorPresenciaDesplazamiento
-        assertEquals(SQL_CALCULAR, sqlCaptor.getValue());
-        MapSqlParameterSource[] values = paramsCaptor.getValue();
+        assertEquals(SQL_CALCULAR, this.sqlCaptor.getValue());
+        final MapSqlParameterSource[] values = this.paramsCaptor.getValue();
         // 2 elementos, porque se envían dos personas
         assertEquals(2, values.length);
-        for (MapSqlParameterSource value : values) {
+        for (final MapSqlParameterSource value : values) {
             assertEquals(19, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
@@ -391,12 +392,12 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
         // cclIdPerson, stdOrHrPeriod - valores del parámetro
         assertEquals(1,
                 Arrays.stream(values)
-                    .filter(value -> persona1.getCclIdPerson().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
+                    .filter(value -> persona1.getIdPersonaLocal().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
                             && persona1.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
                     .toArray().length);
         assertEquals(1,
                 Arrays.stream(values)
-                    .filter(value -> persona2.getCclIdPerson().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
+                    .filter(value -> persona2.getIdPersonaLocal().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
                             && persona2.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
                     .toArray().length);
 
@@ -405,10 +406,10 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
     @Test
     public void getSqlCalcularTest() {
 
-        AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(21);
 
-        String result = tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom
+        final String result = this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1RepositoryCustom
             .getSqlCalcular(algoritmo);
         assertEquals(SQL_BASE, result);
 
