@@ -8,8 +8,8 @@ spring:
   jta:
     atomikos:
       properties:
-        max-timeout: 20m
-        default-jta-timeout: 20m
+        max-timeout: 60m
+        default-jta-timeout: 60m
 app:
   id: ${spring.application.name}
   version: '@project.version@'
