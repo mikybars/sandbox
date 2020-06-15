@@ -25,7 +25,7 @@ import io.swagger.annotations.Authorization;
 @Validated
 @RestController
 @RequestMapping(path = "/test")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "ValidacionController" })
+@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "TestController" })
 public class TestController {
 
     @Autowired
