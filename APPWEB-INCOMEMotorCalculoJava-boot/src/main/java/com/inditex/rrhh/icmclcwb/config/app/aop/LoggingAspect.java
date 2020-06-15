@@ -9,6 +9,19 @@ import java.util.Optional;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletionException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
@@ -19,19 +32,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
 
 @Aspect
 @Component
@@ -61,8 +61,8 @@ public class LoggingAspect {
     }
 
     @Around(value = "auditoriaPointcut()")
-    public Object auditoriaAround(ProceedingJoinPoint pjp) throws Throwable {
-        Auditoria auditoria = Optional.of(pjp.getSignature())
+    public Object auditoriaAround(final ProceedingJoinPoint pjp) throws Throwable {
+        final Auditoria auditoria = Optional.of(pjp.getSignature())
             .map(signature -> (MethodSignature) signature)
             .map(MethodSignature::getMethod)
             .map(method -> method.getAnnotation(Auditoria.class))
@@ -70,11 +70,11 @@ public class LoggingAspect {
 
         List<Object> args = Arrays.asList(pjp.getArgs());
         if (auditoria.logArgs()) {
-            List<Class<?>> argsLogClass = Arrays.asList(auditoria.argsLogClass());
+            final List<Class<?>> argsLogClass = Arrays.asList(auditoria.argsLogClass());
             if (CollectionUtils.isNotEmpty(argsLogClass)) {
-                List<Object> argsLog = new ArrayList<>();
-                for (Object o : args) {
-                    for (Class<?> c : argsLogClass) {
+                final List<Object> argsLog = new ArrayList<>();
+                for (final Object o : args) {
+                    for (final Class<?> c : argsLogClass) {
                         if (c.isAssignableFrom(o.getClass())) {
                             argsLog.add(o);
                             break;
@@ -86,8 +86,8 @@ public class LoggingAspect {
         }
 
         String id = StringUtils.EMPTY;
-        for (Object obj : args) {
-            Class<? extends Object> objClass = obj.getClass();
+        for (final Object obj : args) {
+            final Class<? extends Object> objClass = obj.getClass();
             if (RunProgramacionDto.class.isAssignableFrom(objClass)) {
                 id = new StringBuilder("Programacion[").append(((RunProgramacionDto) obj).getProgramacion().getId())
                     .append("] :: ")
@@ -129,77 +129,84 @@ public class LoggingAspect {
                 break;
             }
         }
-        Instant start = Instant.now();
-        if (auditoria.logStart() && log.isInfoEnabled()) {
-            log.info(new StringBuilder(id).append("AuditoriaAround :: Inicio :: {}").toString(),
+        final Instant start = Instant.now();
+        if (auditoria.logStart() && this.log.isInfoEnabled()) {
+            this.log.info(new StringBuilder(id).append("AuditoriaAround :: Inicio :: {}").toString(),
                     pjp.getSignature().toShortString());
         }
-        if (auditoria.logArgs() && log.isInfoEnabled()) {
-            for (Object o : args) {
-                log.info(new StringBuilder(id).append("AuditoriaAround :: Inicio :: Args :: {} :: {}").toString(),
+        if (auditoria.logArgs() && this.log.isInfoEnabled()) {
+            for (final Object o : args) {
+                this.log.info(new StringBuilder(id).append("AuditoriaAround :: Inicio :: Args :: {} :: {}").toString(),
                         pjp.getSignature().toShortString(), o);
             }
         }
         Object result;
         try {
             result = pjp.proceed();
-            if (auditoria.logResult() && log.isInfoEnabled()) {
-                log.info(new StringBuilder(id).append("AuditoriaAround :: Result[{}] :: {}").toString(), result,
+            if (auditoria.logResult() && this.log.isInfoEnabled()) {
+                this.log.info(new StringBuilder(id).append("AuditoriaAround :: Result[{}] :: {}").toString(), result,
                         pjp.getSignature().toShortString());
             }
-        } catch (Throwable e) {
-            if (auditoria.logException() && log.isErrorEnabled()) {
-                Instant end = Instant.now();
-                log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Duration[")
+        } catch (final Throwable e) {
+            if (auditoria.logException() && this.log.isErrorEnabled()) {
+                final Instant end = Instant.now();
+                this.log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Duration[")
                     .append(Duration.between(start, end))
                     .append("] :: ")
                     .append(pjp.getSignature().toShortString())
                     .toString(), e);
-                for (Object o : args) {
-                    log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Args :: {} :: {}")
+                for (final Object o : args) {
+                    this.log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Args :: {} :: {}")
                         .toString(), pjp.getSignature().toShortString(), o);
                 }
             }
             throw e;
         }
-        if (auditoria.logEnd() && log.isInfoEnabled()) {
-            Instant end = Instant.now();
-            log.info(new StringBuilder(id).append("AuditoriaAround :: Fin :: Ok :: Duration[{}] :: {}").toString(),
+        if (auditoria.logEnd() && this.log.isInfoEnabled()) {
+            final Instant end = Instant.now();
+            this.log.info(new StringBuilder(id).append("AuditoriaAround :: Fin :: Ok :: Duration[{}] :: {}").toString(),
                     Duration.between(start, end), pjp.getSignature().toShortString());
         }
         return result;
     }
 
     @Around(value = "controllerPointcut() || servicePointcut() || repositoryPointcut()")
-    public Object genericAround(ProceedingJoinPoint pjp) throws Throwable {
-        Instant start = Instant.now();
-        if (log.isDebugEnabled()) {
-            log.debug("GenericAround :: Inicio :: {} :: {}", pjp.getSignature().toShortString(),
+    public Object genericAround(final ProceedingJoinPoint pjp) throws Throwable {
+        final Instant start = Instant.now();
+        if (this.log.isDebugEnabled()) {
+            this.log.debug("GenericAround :: Inicio :: {} :: {}", pjp.getSignature().toShortString(),
                     Arrays.asList(pjp.getArgs()));
         }
         Object result;
         try {
             result = pjp.proceed();
-        } catch (Throwable e) {
-            if (log.isErrorEnabled()) {
-                Instant end = Instant.now();
-                String msg = new StringBuilder("GenericAround :: Fin :: Error :: Duration[")
+        } catch (final Throwable e) {
+            if (this.log.isErrorEnabled()) {
+                final Instant end = Instant.now();
+                final String msg = new StringBuilder("GenericAround :: Fin :: Error :: Duration[")
                     .append(Duration.between(start, end))
                     .append("] :: ")
                     .append(pjp.getSignature().toShortString())
                     .toString();
-                log.error(msg, e);
+                this.log.error(msg, e);
             }
             throw e;
         }
-        if (log.isDebugEnabled()) {
-            log.debug("GenericAround :: Fin :: {} :: {}", pjp.getSignature().toShortString(), result);
+        if (this.log.isDebugEnabled()) {
+            this.log.debug("GenericAround :: Fin :: {} :: {}", pjp.getSignature().toShortString(), result);
         }
 
-        Instant end = Instant.now();
-        Duration duration = Duration.between(start, end);
-        if (duration.compareTo(Duration.ofSeconds(15)) > 0) {
-            log.warn("GenericAround :: Lento :: Duration[{}] :: {}", duration, pjp.getSignature().toShortString());
+        final Instant end = Instant.now();
+        final Duration duration = Duration.between(start, end);
+        if (duration.compareTo(Duration.ofSeconds(60)) > 0) {
+            this.log.warn("GenericAround :: Lento :: Lento60 :: Duration[{}] :: {}", duration,
+                    pjp.getSignature().toShortString());
+        } else if (duration.compareTo(Duration.ofSeconds(30)) > 0) {
+            this.log.warn("GenericAround :: Lento :: Lento30 :: Duration[{}] :: {}", duration,
+                    pjp.getSignature().toShortString());
+        } else if (duration.compareTo(Duration.ofSeconds(15)) > 0) {
+            this.log.warn("GenericAround :: Lento :: Lento15 :: Duration[{}] :: {}", duration,
+                    pjp.getSignature().toShortString());
         }
 
         return result;
@@ -208,15 +215,15 @@ public class LoggingAspect {
     @AfterThrowing(
             pointcut = "auditoriaPointcut() || controllerPointcut() || servicePointcut() || repositoryPointcut()",
             throwing = "e")
-    public void genericAfterThrowing(JoinPoint jp, Exception e) {
-        if (log.isErrorEnabled() && !(CompletionException.class.equals(e.getClass())
+    public void genericAfterThrowing(final JoinPoint jp, final Exception e) {
+        if (this.log.isErrorEnabled() && !(CompletionException.class.equals(e.getClass())
                 && CancellationException.class.equals(e.getCause().getClass()))) {
-            String msg = new StringBuilder("GenericAfterThrowing :: Error :: ")
+            final String msg = new StringBuilder("GenericAfterThrowing :: Error :: ")
                 .append(jp.getSignature().toShortString())
                 .append(" :: ")
                 .append(Arrays.asList(jp.getArgs()))
                 .toString();
-            log.error(msg, e);
+            this.log.error(msg, e);
         }
     }
 
