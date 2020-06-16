@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -51,5 +52,9 @@ public interface TareaLocalizacionHistoricoService {
             @NotNull @Positive final Long idTarea, @NotBlank String cclCodOrigen, @NotNull List<String> idTipoCalculo);
 
     List<IdLocalizacionLocalPresupuestoDto> findTiendasPresupuestosByIdTarea(@NotNull @Positive final Long idTarea);
+
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
+            @NotNull @Positive Long idTarea, @NotNull @Positive Integer idTipoPresupuesto,
+            @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin);
 
 }
