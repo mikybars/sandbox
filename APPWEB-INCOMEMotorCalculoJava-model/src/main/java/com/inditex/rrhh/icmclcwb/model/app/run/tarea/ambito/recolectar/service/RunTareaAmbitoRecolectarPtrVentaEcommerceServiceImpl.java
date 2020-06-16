@@ -431,7 +431,14 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                 paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
                 paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 paramVentaOnlineIpod.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
-                paramVentaOnlineIpod.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
+                paramVentaOnlineIpod
+                    .setTienda(this.tareaLocalizacionHistoricoService
+                        .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(tarea.getId(),
+                                iter.getIdTipoPresupuesto(),
+                                iter.getFechaInicio(), iter.getFechaFin())
+                        .stream()
+                        .map(x -> Integer.valueOf(x.getId()))
+                        .collect(Collectors.toList()));
                 paramVentaOnlineIpod.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
@@ -478,7 +485,14 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                 paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
                 paramVentaOnlinePicking.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 paramVentaOnlinePicking.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
-                paramVentaOnlinePicking.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
+                paramVentaOnlinePicking
+                    .setTienda(this.tareaLocalizacionHistoricoService
+                        .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(tarea.getId(),
+                                iter.getIdTipoPresupuesto(),
+                                iter.getFechaInicio(), iter.getFechaFin())
+                        .stream()
+                        .map(x -> Integer.valueOf(x.getId()))
+                        .collect(Collectors.toList()));
                 paramVentaOnlinePicking.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
@@ -525,7 +539,14 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                 paramVentaOnlineEntregaTiendaRequest.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
                 paramVentaOnlineEntregaTiendaRequest.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 paramVentaOnlineEntregaTiendaRequest.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
-                paramVentaOnlineEntregaTiendaRequest.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
+                paramVentaOnlineEntregaTiendaRequest
+                    .setTienda(this.tareaLocalizacionHistoricoService
+                        .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(tarea.getId(),
+                                iter.getIdTipoPresupuesto(),
+                                iter.getFechaInicio(), iter.getFechaFin())
+                        .stream()
+                        .map(x -> Integer.valueOf(x.getId()))
+                        .collect(Collectors.toList()));
                 paramVentaOnlineEntregaTiendaRequest.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
