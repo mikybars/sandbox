@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -177,6 +178,19 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
         return this.tareaLocalizacionHistoricoRepository
             .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(idTarea,
                     cclIdOrigen, stdIdLegEnt);
+    }
+
+    @Override
+    @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_id_tipo_presupuesto_and_fecha_and_tarea",
+            key = "{#idTarea, #idTipoPresupuesto, #fechaInicio, #fechaFin}")
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
+            @NotNull @Positive final Long idTarea,
+            @NotNull @Positive final Integer idTipoPresupuesto,
+            @NotNull final LocalDate fechaInicio,
+            @NotNull final LocalDate fechaFin) {
+        return this.tareaLocalizacionHistoricoRepositoryCustom
+            .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(idTarea, idTipoPresupuesto, fechaInicio,
+                    fechaFin);
     }
 
 }

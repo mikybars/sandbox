@@ -22,8 +22,8 @@ public class ConfPrecioHoraResultItemDto implements Serializable {
 
     private String idOrigen;
 
-    private String idTipoHoraComis;
+    private Boolean idTipoHoraComis;
 
-    private String idTipoHoraIncptpo;
+    private Boolean idTipoHoraIncptpo;
 
 }

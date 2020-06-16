@@ -1138,7 +1138,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idAgrupacion", source = "idagrupacion")
     @Mapping(target = "idConceptoVenta", source = "idconceptoventa")
-    ConfChTpVentaResultItemDto asConfPrecioHoraResultItemDto(IcmListaconfchventaRecord src);
+    ConfChTpVentaResultItemDto asConfChTpVentaResultItemDto(IcmListaconfchventaRecord src);
 
     @InheritInverseConfiguration
     IcmListaconfchventaRecord asIcmListaconfchventaRecord(ConfChTpVentaResultItemDto src);

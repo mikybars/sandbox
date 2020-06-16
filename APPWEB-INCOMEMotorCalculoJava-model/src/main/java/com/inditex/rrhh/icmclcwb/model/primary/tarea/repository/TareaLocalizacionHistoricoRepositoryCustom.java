@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -57,5 +58,9 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
 
     List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(
             @NotBlank final String stdIdLegEnt, @NotNull @Positive final Long idTarea);
+
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
+            @NotNull @Positive Long idTarea, @NotNull @Positive Integer idTipoPresupuesto,
+            @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin);
 
 }

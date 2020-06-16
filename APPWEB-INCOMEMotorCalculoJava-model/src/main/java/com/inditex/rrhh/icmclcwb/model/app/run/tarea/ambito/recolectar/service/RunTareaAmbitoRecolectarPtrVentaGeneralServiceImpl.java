@@ -136,10 +136,8 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                                 this.tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea),
                                 cf, cfPersist);
                     }
+                    AsyncUtils.waitAllOfIsOk(cf, cf);
                 });
-
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
@@ -162,6 +160,8 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
             final PtrVentaTotalizadoRequestDto request = this.tareaMapper
                 .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoIdCadenaDtoToPtrVentaTotalizadoRequestDto(
                         tarea, tareaAmbito, periodo, this.recolectarProperties, cadenas);
+
+            request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
             request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
             request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
             request.setProducto(this.meta4IcmWsCalcIncomeSessionService
@@ -169,6 +169,8 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 .stream()
                 .map(e -> e.getIdProducto())
                 .collect(Collectors.toList()));
+
+
             final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
                 .ventaTotalizado(request);
             AsyncUtils.exceptionally(cfData, cf, cfPersist);
@@ -178,9 +180,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 .getFilter()
                 .getMaxPersistenceSize());
             AsyncUtils.exceptionally(
-                    this.tareaAgrupacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea,
-                            agrupaciones),
-                    cf,
+                    this.tareaAgrupacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea, agrupaciones), cf,
                     cfPersist);
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
@@ -218,7 +218,6 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                             .stream()
                             .map(e -> e.getIdProducto())
                             .collect(Collectors.toList()));
-
                         final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
                             .ventaTotalizado(request);
                         AsyncUtils.exceptionally(cfData, cf, cfPersist);
@@ -234,6 +233,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                                 cf, cfPersist);
                     }
                 });
+
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
         } catch (final Exception e) {

@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
 
@@ -76,6 +78,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionGrupoFechasByIdTarea']}")
     private String sqlFindIdLocalizacionGrupoFechasByIdTarea;
+
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea']}")
+    private String sqlFindIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea;
 
     @Override
     public List<TareaLocalizacionHistorico> save(final List<TareaLocalizacionHistorico> src) {
@@ -294,7 +299,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
             .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
         return this.query(this.sqlFindIdLocalizacionPresupuestosByIdTarea, parameters,
                 (rs, rowNum) -> IdLocalizacionLocalPresupuestoDto.builder()
-                    .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
                     .idTipoPresupuesto(rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_PRESUPUESTO))
                     .fechaInicio(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
                     .fechaFin(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
@@ -325,6 +329,22 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         return this.query(this.sqlFindIdLocalizacionGrupoFechasByIdTarea, parameters,
+                (rs, rowNum) -> IdLocalizacionLocalDto.builder()
+                    .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
+                    .build());
+    }
+
+    @Override
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
+            @NotNull @Positive final Long idTarea, @NotNull @Positive final Integer idTipoPresupuesto,
+            @NotNull final LocalDate fechaInicio, @NotNull final LocalDate fechaFin) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESUPUESTO, idTipoPresupuesto);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.toDate(fechaInicio));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.toDate(fechaFin));
+
+        return this.query(this.sqlFindIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea, parameters,
                 (rs, rowNum) -> IdLocalizacionLocalDto.builder()
                     .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
                     .build());
