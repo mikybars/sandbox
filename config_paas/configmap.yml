@@ -443,7 +443,7 @@ app:
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 50
+              maxPageSize: 25
               maxPersistenceSize: 3
           getEstructurasPol:
             page:
@@ -452,7 +452,7 @@ app:
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 50
+              maxPageSize: 25
               maxPersistenceSize: 3              
           getEmpleados:
             page:
