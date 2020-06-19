@@ -28,6 +28,9 @@ public class PtrPresenciaTotalizadoResultItemDto {
     private Integer minutos;
 
     private Integer cadena;
+    
+    //TODO: Revisar que este campo sea correcto.
+    private Integer gestionLocal;
 
     private List<PtrSeccionPresenciasGenericType> listaSeccion;
 
