@@ -398,7 +398,14 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             final ArrayList<ConfiguracionItemDto> items = new ArrayList<>();
             src.getIcmListaconforigen()
                 .getIcmListaconforigenRecordSet()
-                .forEach(x -> items.add(this.delegate.asConfiguracionItemDto(x, idOrigen)));
+                .forEach(x -> {
+                    final ConfiguracionItemDto mappedEntity = this.delegate.asConfiguracionItemDto(x, idOrigen);
+                    mappedEntity
+                        .setIcmCkIncIvaEvalPtpo(Meta4Constants.TRUE.equalsIgnoreCase(x.getChkevalpres().trim()));
+                    mappedEntity
+                        .setIcmCkVentaImpuestos(Meta4Constants.TRUE.equalsIgnoreCase(x.getChkventaimpuestos().trim()));
+                    items.add(mappedEntity);
+                });
             result.setItems(items);
         }
         return result;

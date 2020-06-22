@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
@@ -19,6 +16,10 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularServi
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoFactory;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
+
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 
 @Service
 @Validated
@@ -37,13 +38,13 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
             metricGroupName = "RunTareaCalcularServiceGroup", metricDescription = "RunTareaCalcularService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
-        TareaDto tarea = runTarea.getTarea();
-        Flux.fromIterable(algoritmoService.customFindAlgoritmosIdsByTarea(tarea.getId()))
+        final TareaDto tarea = runTarea.getTarea();
+        Flux.fromIterable(this.algoritmoService.customFindAlgoritmosIdsByTarea(tarea.getId()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(Schedulers.newElastic("async-reactor-calcular"))
             .map(idAlgoritmo -> {
-                AlgoritmoDto algoritmo = algoritmoService.findById(idAlgoritmo);
-                runAlgoritmoFactory.getRunAlgoritmo(algoritmo.getNombre()).execute(runTarea, algoritmo);
+                final AlgoritmoDto algoritmo = this.algoritmoService.findById(idAlgoritmo);
+                this.runAlgoritmoFactory.getRunAlgoritmo(algoritmo.getNombre()).execute(runTarea, algoritmo);
                 return Flux.empty();
             })
             .sequential()
