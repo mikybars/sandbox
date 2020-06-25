@@ -184,6 +184,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaAgrupacionConfiguracionChallengeTipoVenta']}")
     private String sqlLimpiezaTareaAgrupacionConfiguracionChallengeTipoVenta;
 
+    @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresupuestoTareaPersonaEstructura']}")
+    private String sqlTareaLocalizacionPresupuestoTareaPersonaEstructura;
+
     @Value("${app.envars.limpieza.batch-size.default:1}")
     private int batchSize;
 
@@ -222,6 +225,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
 
         this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaAgrupacionVenta,
+                idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
+
+        this.namedParameterJdbcTemplate.batchUpdate(this.sqlTareaLocalizacionPresupuestoTareaPersonaEstructura,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
 
         this.limpiezaTareaAmbitoLocalizacion(stdIdWorkLocatBatchArgs);
