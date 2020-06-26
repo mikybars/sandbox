@@ -141,10 +141,10 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
             final List<PtrVentaTotalizadoResultItemDto> src, final IdLocalizacionLocalPresupuestoDto iter,
             final TareaDto tarea) {
         final List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
-        final AtomicDouble importeSinIva = new AtomicDouble(0);
-        final AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
+                final AtomicDouble importeSinIva = new AtomicDouble(0);
+                final AtomicDouble importeConIva = new AtomicDouble(0);
                 item.getListaSeccion().stream().forEach(venta -> {
                     final List<String> ordinal = this.tareaLocalizacionPresupuestoService
                         .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), venta.getSeccion(),
@@ -229,10 +229,10 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
             final List<PtrVentaOnlineIpodResultItemDto> src, final IdLocalizacionLocalPresupuestoDto iter,
             final TareaDto tarea) {
         final List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
-        final AtomicDouble importeSinIva = new AtomicDouble(0);
-        final AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
+                final AtomicDouble importeSinIva = new AtomicDouble(0);
+                final AtomicDouble importeConIva = new AtomicDouble(0);
                 item.getListaSeccion().stream().forEach(venta -> {
                     final List<String> ordinal = this.tareaLocalizacionPresupuestoService
                         .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), venta.getSeccion(),
@@ -293,10 +293,10 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
             final List<PtrVentaOnlinePickingResultItemDto> src, final IdLocalizacionLocalPresupuestoDto iter,
             final TareaDto tarea) {
         final List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
-        final AtomicDouble importeSinIva = new AtomicDouble(0);
-        final AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
+                final AtomicDouble importeSinIva = new AtomicDouble(0);
+                final AtomicDouble importeConIva = new AtomicDouble(0);
                 item.getListaSeccion().stream().forEach(venta -> {
                     final List<String> ordinal = this.tareaLocalizacionPresupuestoService
                         .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), venta.getSeccion(),
@@ -358,10 +358,10 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
             final List<PtrVentaOnlineEntregaTiendaResultItemDto> src, final IdLocalizacionLocalPresupuestoDto iter,
             final TareaDto tarea) {
         final List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
-        final AtomicDouble importeSinIva = new AtomicDouble(0);
-        final AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
+                final AtomicDouble importeSinIva = new AtomicDouble(0);
+                final AtomicDouble importeConIva = new AtomicDouble(0);
                 item.getListaSeccion().stream().forEach(venta -> {
                     final List<String> ordinal = this.tareaLocalizacionPresupuestoService
                         .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), venta.getSeccion(),
@@ -423,10 +423,10 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
             final List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, final IdLocalizacionLocalPresupuestoDto iter,
             final TareaDto tarea) {
         final List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
-        final AtomicDouble importeSinIva = new AtomicDouble(0);
-        final AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
+                final AtomicDouble importeSinIva = new AtomicDouble(0);
+                final AtomicDouble importeConIva = new AtomicDouble(0);
                 item.getListaSeccion().stream().forEach(venta -> {
                     final List<String> ordinal = this.tareaLocalizacionPresupuestoService
                         .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), venta.getSeccion(),
