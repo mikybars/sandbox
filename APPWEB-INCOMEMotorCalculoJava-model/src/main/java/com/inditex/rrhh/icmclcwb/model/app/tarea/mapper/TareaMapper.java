@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
@@ -40,7 +41,7 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(imports = { PtrConstants.class, RunUtils.class, TimeUtils.class })
+@Mapper(imports = { PtrConstants.class, RunUtils.class, TimeUtils.class, Arrays.class })
 @DecoratedWith(value = TareaMapperDecorator.class)
 public abstract class TareaMapper {
 
@@ -368,7 +369,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( srcTrabajo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "origen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", expression = "java(Arrays.asList(Integer.valueOf(srcTarea.getStdIdLegEnt())))")
     @Mapping(target = "agruparSeccion", ignore = true, defaultValue = PtrConstants.AGRUPAR_SECCION_TRUE)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "tipo", ignore = true)
@@ -389,7 +390,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( periodo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "origen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", expression = "java(Arrays.asList(Integer.valueOf(srcTarea.getStdIdLegEnt())))")
     @Mapping(target = "agruparSeccion", ignore = true, defaultValue = PtrConstants.AGRUPAR_SECCION_TRUE)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "tipo", ignore = true)
@@ -409,7 +410,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaDesde", source = "periodo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "fechaHasta", source = "periodo.fechaFinPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "origen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", expression = "java(Arrays.asList(Integer.valueOf(srcTarea.getStdIdLegEnt())))")
     @Mapping(target = "agruparSeccion", ignore = true, defaultValue = PtrConstants.AGRUPAR_SECCION_TRUE)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "tipo", ignore = true)
