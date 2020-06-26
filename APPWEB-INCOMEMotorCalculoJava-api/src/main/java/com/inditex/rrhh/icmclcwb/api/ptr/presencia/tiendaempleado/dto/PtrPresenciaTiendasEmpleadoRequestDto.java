@@ -25,7 +25,7 @@ public class PtrPresenciaTiendasEmpleadoRequestDto {
     @ApiModelProperty(value = "Id cadena", required = false, example = "[8]")
     private List<Integer> cadena;
 
-    @ApiModelProperty(value = "Id empresa", required = false, example = "[1000]")
+    @ApiModelProperty(value = "Id empresa", required = false, example = "[1]")
     private List<Integer> empresa;
 
     @ApiModelProperty(value = "Id persona", required = false, example = "[1000]")

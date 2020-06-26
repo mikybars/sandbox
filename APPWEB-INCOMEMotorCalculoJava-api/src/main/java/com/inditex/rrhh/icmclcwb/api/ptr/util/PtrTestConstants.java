@@ -22,6 +22,8 @@ public class PtrTestConstants {
 
     public static final List<Integer> CADENA_LIST = Arrays.asList(1);
 
+    public static final List<Integer> EMPRESA_LIST = Arrays.asList(95);
+
     public static final List<Integer> PERSONA_LIST = Arrays.asList(1645, 1000);
 
     public static final List<Integer> TIPO_LIST = Arrays.asList(1000);
