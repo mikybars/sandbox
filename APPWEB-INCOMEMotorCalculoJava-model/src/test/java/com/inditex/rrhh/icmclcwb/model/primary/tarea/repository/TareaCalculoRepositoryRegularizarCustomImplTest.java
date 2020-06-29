@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.time.LocalDate;
+
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -44,44 +46,47 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaCalculoRepositoryCustom, "sqlRegularizarMejorOpcion", SQL_REGULARIZAR_MEJOR_OPCION,
+        FieldUtils.writeField(this.tareaCalculoRepositoryCustom, "sqlRegularizarMejorOpcion",
+                SQL_REGULARIZAR_MEJOR_OPCION,
                 true);
-        FieldUtils.writeField(tareaCalculoRepositoryCustom, "sqlRegularizarChallenge", SQL_REGULARIZAR_CHALLENGE, true);
+        FieldUtils.writeField(this.tareaCalculoRepositoryCustom, "sqlRegularizarChallenge", SQL_REGULARIZAR_CHALLENGE,
+                true);
     }
 
     @Test
     public void regularizarMejorOpcionTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(12L);
+        when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.now());
 
-        tareaCalculoRepositoryCustom.regularizarMejorOpcion(tarea);
-        verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
-        assertEquals(SQL_REGULARIZAR_MEJOR_OPCION, sql.getValue());
+        this.tareaCalculoRepositoryCustom.regularizarMejorOpcion(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
+        assertEquals(SQL_REGULARIZAR_MEJOR_OPCION, this.sql.getValue());
         // parametros de la consulta: idTarea
-        assertEquals(2, params.getValue().getValues().size());
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        assertEquals(tarea.getId(), params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(3, this.params.getValue().getValues().size());
+        assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), this.params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
     }
 
     @Test
     public void regularizarChallengeTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        IdPersonaLocalChallengeDto idPersonaLocalChallengeDto = mock(IdPersonaLocalChallengeDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
+        final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto = mock(IdPersonaLocalChallengeDto.class);
         when(tarea.getId()).thenReturn(12L);
 
-        tareaCalculoRepositoryCustom.regularizarChallenge(tarea, idPersonaLocalChallengeDto);
-        verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
-        assertEquals(SQL_REGULARIZAR_CHALLENGE, sql.getValue());
+        this.tareaCalculoRepositoryCustom.regularizarChallenge(tarea, idPersonaLocalChallengeDto);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
+        assertEquals(SQL_REGULARIZAR_CHALLENGE, this.sql.getValue());
         // parametros de la consulta: idTarea
-        assertEquals(7, params.getValue().getValues().size());
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON));
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD));
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO));
-        assertTrue(params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-        assertEquals(tarea.getId(), params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(7, this.params.getValue().getValues().size());
+        assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON));
+        assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD));
+        assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
+        assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
+        assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO));
+        assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+        assertEquals(tarea.getId(), this.params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
     }
 
 }
