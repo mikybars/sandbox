@@ -92,7 +92,7 @@ amiga:
           pubSubDomain: false
           receiveTimeout: 1000
         tarea:
-          concurrency: 5
+          concurrency: 3
           sessionTransacted: true
           globalTransacted: true
           pubSubDomain: false
