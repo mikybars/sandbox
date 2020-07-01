@@ -406,7 +406,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                         .setIcmCkVentaImpuestos(Meta4Constants.TRUE.equalsIgnoreCase(x.getChkventaimpuestos().trim()));
                     items.add(mappedEntity);
                 });
-
             result.setItems(items);
         }
         return result;
