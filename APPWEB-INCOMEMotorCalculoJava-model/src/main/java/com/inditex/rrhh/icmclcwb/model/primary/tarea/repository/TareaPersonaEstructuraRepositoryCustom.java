@@ -1,9 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.List;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
-import java.util.List;
 
 public interface TareaPersonaEstructuraRepositoryCustom {
 
@@ -12,5 +13,9 @@ public interface TareaPersonaEstructuraRepositoryCustom {
     void updateActivoTopes(TareaDto tarea);
 
     List<IdPersonaLocalDto> findPersonasChallenge(TareaDto tarea);
+
+    void desactivarChallengeOpcionOrigen(final TareaDto tarea);
+
+    void crearChallengeOpcionOrigen(final TareaDto tarea);
 
 }
