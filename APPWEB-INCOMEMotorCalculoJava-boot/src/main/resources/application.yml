@@ -24,7 +24,7 @@ amiga:
         enabled: false
     reactor:
       scheduler:
-        elastic:
+        elastic: 
           name-format: async-reactor-executor-%d
           core-pool-size: 10
           maximum-pool-size: 100
