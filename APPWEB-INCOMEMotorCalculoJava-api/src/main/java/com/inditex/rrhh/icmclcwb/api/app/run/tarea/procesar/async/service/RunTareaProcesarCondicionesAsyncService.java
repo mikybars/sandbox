@@ -2,10 +2,10 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 @Async
 public interface RunTareaProcesarCondicionesAsyncService {
@@ -21,5 +21,9 @@ public interface RunTareaProcesarCondicionesAsyncService {
     CompletableFuture<Void> relacionarPresupuestosEstructurasSinDesplazamiento(final TareaDto tarea);
 
     CompletableFuture<Void> relacionarPresupuestosEstructurasDesplazamiento(final TareaDto tarea);
+
+    CompletableFuture<Void> desactivarChallengeOpcionOrigen(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> crearChallengeOpcionOrigen(final RunTareaDto runTarea);
 
 }

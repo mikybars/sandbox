@@ -1,16 +1,17 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraRepositoryCustom;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 @Service
 @Validated
@@ -26,28 +27,40 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
     private TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom;
 
     @Override
-    public void updateActivoPresupuestosBandaExcepcion(RunTareaDto runTarea) {
-        tareaLocalizacionPresupuestoService.updateActivoBandaExcepcion(runTarea.getTarea());
+    public void updateActivoPresupuestosBandaExcepcion(final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresupuestoService.updateActivoBandaExcepcion(runTarea.getTarea());
     }
 
     @Override
-    public void updateActivoPresupuestosBandasSinExcepcion(RunTareaDto runTarea) {
-        tareaLocalizacionPresupuestoService.updateActivoBandasSinExcepcion(runTarea.getTarea());
+    public void updateActivoPresupuestosBandasSinExcepcion(final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresupuestoService.updateActivoBandasSinExcepcion(runTarea.getTarea());
     }
 
     @Override
-    public void updateActivoEstructuraTopes(@Valid TareaDto tarea) {
-        tareaPersonaEstructuraRepositoryCustom.updateActivoTopes(tarea);
+    public void updateActivoEstructuraTopes(@Valid final TareaDto tarea) {
+        this.tareaPersonaEstructuraRepositoryCustom.updateActivoTopes(tarea);
     }
 
     @Override
-    public void relacionarPresupuestosEstructurasSinDesplazamiento(@Valid TareaDto tarea) {
-        tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom.relacionarEstructuraSinDesplazamiento(tarea);
+    public void relacionarPresupuestosEstructurasSinDesplazamiento(@Valid final TareaDto tarea) {
+        this.tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom
+            .relacionarEstructuraSinDesplazamiento(tarea);
     }
 
     @Override
-    public void relacionarPresupuestosEstructurasDesplazamiento(@Valid TareaDto tarea) {
-        tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom.relacionarEstructuraDesplazamiento(tarea);
+    public void relacionarPresupuestosEstructurasDesplazamiento(@Valid final TareaDto tarea) {
+        this.tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom
+            .relacionarEstructuraDesplazamiento(tarea);
+    }
+
+    @Override
+    public void desactivarChallengeOpcionOrigen(@Valid final TareaDto tarea) {
+        this.tareaPersonaEstructuraRepositoryCustom.desactivarChallengeOpcionOrigen(tarea);
+    }
+
+    @Override
+    public void crearChallengeOpcionOrigen(@Valid final TareaDto tarea) {
+        this.tareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen(tarea);
     }
 
 }
