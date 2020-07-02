@@ -51,12 +51,12 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
         List<ProgramacionAmbitoDto> result = new ArrayList<>();
         programacionAmbito.forEach(item -> {
             ProgramacionAmbitoDto programacionAmbitoResult = programacionAmbitoMapper
-                    .programacionAmbitoToProgramacionAmbitoDto(programacionAmbitoRepository.save(
-                            programacionAmbitoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(
-                                    item, programacion)));
+                .programacionAmbitoToProgramacionAmbitoDto(programacionAmbitoRepository.save(
+                        programacionAmbitoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(
+                                item, programacion)));
             if (CollectionUtils.isNotEmpty(item.getOrigen())) {
                 programacionAmbitoResult
-                        .setOrigen(programacionAmbitoOrigenService.create(item.getOrigen(), programacionAmbitoResult));
+                    .setOrigen(programacionAmbitoOrigenService.create(item.getOrigen(), programacionAmbitoResult));
             }
             if (CollectionUtils.isNotEmpty(item.getEmpresa())) {
                 programacionAmbitoResult.setEmpresa(
@@ -65,7 +65,7 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
             if (TipoAmbitoEnum.LOCALIZACION.getId().equals(programacion.getTipoAmbito().getId())) {
                 if (CollectionUtils.isNotEmpty(item.getLocalizacion())) {
                     programacionAmbitoResult.setLocalizacion(programacionAmbitoLocalizacionService
-                            .create(item.getLocalizacion(), programacionAmbitoResult));
+                        .create(item.getLocalizacion(), programacionAmbitoResult));
                 } else {
                     throw new IcmclcwbException(
                             "No se puede programar por tipo ambito localizacion y no definir localizaciones");

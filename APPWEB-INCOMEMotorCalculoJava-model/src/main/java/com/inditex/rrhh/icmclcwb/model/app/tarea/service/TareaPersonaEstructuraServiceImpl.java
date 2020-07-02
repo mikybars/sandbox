@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
@@ -34,41 +36,47 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
 
     @Autowired
     private TareaPersonaEstructuraMapper tareaPersonaEstructuraMapper;
-    
+
     @Autowired
     private TareaPersonaEstructuraDesplazamientoMapper tareaPersonaEstructuraDesplazamientoMapper;
 
     @Override
-    public List<TareaPersonaEstructuraDto> save(@Valid List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
-            @Valid TareaDto tarea) {
+    public List<TareaPersonaEstructuraDto> save(
+            @Valid @NotNull @NotEmpty final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
+            @Valid @NotNull final TareaDto tarea) {
         // Guardado de estructuras
-        List<TareaPersonaEstructuraDto> result = tareaPersonaEstructuraMapper.tareaPersonaEstructuraToTareaPersonaEstructuraDto(
-            tareaPersonaEstructuraRepositoryCustom.save(tareaPersonaEstructuraMapper
-                .tareaPersonaEstructuraDtoToTareaPersonaEstructura(tareaPersonaEstructura)));
+        List<TareaPersonaEstructuraDto> result = tareaPersonaEstructuraMapper
+            .tareaPersonaEstructuraToTareaPersonaEstructuraDto(
+                    tareaPersonaEstructuraRepositoryCustom.save(tareaPersonaEstructuraMapper
+                        .tareaPersonaEstructuraDtoToTareaPersonaEstructura(tareaPersonaEstructura)));
         // Guardado de desplazamientos
         List<TareaPersonaEstructuraDesplazamiento> desplazamientos = new ArrayList<TareaPersonaEstructuraDesplazamiento>();
         tareaPersonaEstructura.stream().forEach(item -> {
             if (item.getEstructuraDesplazamiento() != null) {
-                desplazamientos.add(tareaPersonaEstructuraDesplazamientoMapper.tareaPersonaEstructuraDesplazamientoDtoToTareaPersonaEstructuraDesplazamiento(item.getEstructuraDesplazamiento()));
+                desplazamientos.add(tareaPersonaEstructuraDesplazamientoMapper
+                    .tareaPersonaEstructuraDesplazamientoDtoToTareaPersonaEstructuraDesplazamiento(
+                            item.getEstructuraDesplazamiento()));
             }
         });
-        if (CollectionUtils.isNotEmpty(desplazamientos)) { 
+        if (CollectionUtils.isNotEmpty(desplazamientos)) {
             tareaPersonaEstructuraDesplazamientoRepositoryCustom.save(desplazamientos);
         }
         return result;
     }
 
-    
+
     @Override
     public List<TareaPersonaEstructuraDto> mergeEstructurasComResultItemDto(
-            @Valid final List<EstructurasComResultItemDto> estructurasComResultItemDto, @Valid final TareaDto tarea) {
+            @Valid @NotNull @NotEmpty final List<EstructurasComResultItemDto> estructurasComResultItemDto,
+            @Valid @NotNull final TareaDto tarea) {
         return tareaPersonaEstructuraMapper
-                .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(estructurasComResultItemDto, tarea);
+            .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(estructurasComResultItemDto, tarea);
     }
 
     @Override
     @Cacheable(value = "itx.icmlcwb.id_persona_local_challenge_by_tarea", key = "{#tarea}")
-    public List<IdPersonaLocalDto> findPersonasChallenge(@Valid TareaDto tarea) {
+    public List<IdPersonaLocalDto> findPersonasChallenge(@Valid @NotNull final TareaDto tarea) {
         return tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
     }
+
 }

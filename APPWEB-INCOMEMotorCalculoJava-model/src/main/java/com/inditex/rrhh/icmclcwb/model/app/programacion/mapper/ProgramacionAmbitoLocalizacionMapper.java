@@ -18,23 +18,29 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionA
 public abstract class ProgramacionAmbitoLocalizacionMapper {
 
     @Mapping(target = "idProgramacionAmbito", source = "programacionAmbito.id")
-    public abstract ProgramacionAmbitoLocalizacionDto programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(ProgramacionAmbitoLocalizacion src);
+    public abstract ProgramacionAmbitoLocalizacionDto programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
+            ProgramacionAmbitoLocalizacion src);
 
     @InheritInverseConfiguration
-    public abstract ProgramacionAmbitoLocalizacion programacionAmbitoLocalizacionDtoToProgramacionAmbitoLocalizacion(ProgramacionAmbitoLocalizacionDto src);
+    public abstract ProgramacionAmbitoLocalizacion programacionAmbitoLocalizacionDtoToProgramacionAmbitoLocalizacion(
+            ProgramacionAmbitoLocalizacionDto src);
 
-    public abstract List<ProgramacionAmbitoLocalizacionDto> programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(List<ProgramacionAmbitoLocalizacion> src);
+    public abstract List<ProgramacionAmbitoLocalizacionDto> programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
+            List<ProgramacionAmbitoLocalizacion> src);
 
-    public abstract List<ProgramacionAmbitoLocalizacion> programacionAmbitoLocalizacionDtoToProgramacionAmbitoLocalizacion(List<ProgramacionAmbitoLocalizacionDto> src);
+    public abstract List<ProgramacionAmbitoLocalizacion> programacionAmbitoLocalizacionDtoToProgramacionAmbitoLocalizacion(
+            List<ProgramacionAmbitoLocalizacionDto> src);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "programacionAmbito.id", source = "srcProgramacionAmbito.id")
     public abstract ProgramacionAmbitoLocalizacion mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
-            ProgramacionAmbitoLocalizacionDto srcProgramacionAmbitoLocalizacion, ProgramacionAmbitoDto srcProgramacionAmbito);
+            ProgramacionAmbitoLocalizacionDto srcProgramacionAmbitoLocalizacion,
+            ProgramacionAmbitoDto srcProgramacionAmbito);
 
     public List<ProgramacionAmbitoLocalizacion> mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
-            List<ProgramacionAmbitoLocalizacionDto> srcProgramacionAmbitoLocalizacion, ProgramacionAmbitoDto srcProgramacionAmbito) {
+            List<ProgramacionAmbitoLocalizacionDto> srcProgramacionAmbitoLocalizacion,
+            ProgramacionAmbitoDto srcProgramacionAmbito) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
+
 }

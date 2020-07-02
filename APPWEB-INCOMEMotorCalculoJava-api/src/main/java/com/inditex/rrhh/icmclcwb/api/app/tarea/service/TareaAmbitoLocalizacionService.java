@@ -12,9 +12,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 public interface TareaAmbitoLocalizacionService {
 
     List<TareaAmbitoLocalizacionDto> findByTarea(@Valid @NotNull final TareaDto tarea);
-    
+
     List<TareaAmbitoLocalizacionDto> create(
             @Valid @NotNull @NotEmpty final List<TareaAmbitoLocalizacionDto> tareaAmbitoLocalizacion,
-            @NotNull final TareaDto tarea);
+            @Valid @NotNull final TareaDto tarea);
 
 }

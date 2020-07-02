@@ -22,23 +22,24 @@ public class TareaLocalizacionPersonaPresenciaAsyncServiceImpl
 
     @Autowired
     private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
-    
+
     @Override
-    public CompletableFuture<Void> save(@NotNull List<GenericEmpleadoResultItemDto> src, @NotNull TareaDto tareaDto){
+    public CompletableFuture<Void> save(@NotNull List<GenericEmpleadoResultItemDto> src, @NotNull TareaDto tareaDto) {
         tareaLocalizacionPersonaPresenciaService.save(src, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
-    public CompletableFuture<Void> savePtrPresenciaDetalle(@NotNull List<PtrPresenciaDetalleResultItemDto> src, @NotNull TareaDto tareaDto){
+    public CompletableFuture<Void> savePtrPresenciaDetalle(@NotNull List<PtrPresenciaDetalleResultItemDto> src,
+            @NotNull TareaDto tareaDto) {
         tareaLocalizacionPersonaPresenciaService.savePtrPresenciaDetalle(src, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
-    public CompletableFuture<Void> updateActivo(@NotNull RunTareaDto runTareaDto){
+    public CompletableFuture<Void> updateActivo(@NotNull RunTareaDto runTareaDto) {
         tareaLocalizacionPersonaPresenciaService.updateActivo(runTareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
 }

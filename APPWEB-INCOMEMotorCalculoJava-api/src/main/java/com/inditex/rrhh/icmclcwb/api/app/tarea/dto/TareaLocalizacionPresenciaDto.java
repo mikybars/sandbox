@@ -8,14 +8,16 @@ import java.time.LocalDate;
 
 public class TareaLocalizacionPresenciaDto {
 
-    @ApiModelProperty(value = "Identificador de la entidad", required = false, accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "Identificador de la entidad", required = false,
+            accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private Long id;
 
     @NotNull
     @ApiModelProperty(value = "Tarea", required = true)
     private Long idTarea;
 
-    @ApiModelProperty(value = "Fecha en la que se consultó la venta", required = true, accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "Fecha en la que se consultó la venta", required = true,
+            accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private LocalDate fecha;
 
     @NotBlank

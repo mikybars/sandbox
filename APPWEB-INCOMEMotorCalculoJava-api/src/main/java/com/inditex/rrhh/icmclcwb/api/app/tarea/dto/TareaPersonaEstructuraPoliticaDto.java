@@ -55,33 +55,33 @@ public class TareaPersonaEstructuraPoliticaDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Excluido deonminador", required = true)
     private Boolean excluidoDenominador;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id unidad tiempo", required = true)
     private String idTipoUnidadTiempo;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Numero de unidades de tiempo", required = true)
     private String numeroUnidades;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Valor", required = true)
     private String valor;
-    
+
     @NotNull
     @ApiModelProperty(value = "Tramo", required = true)
     private Integer tramo;
-    
+
     @ApiModelProperty(value = "Numero meses que servirá para calcular la media de la comisión", required = false)
     private String numMesesCalcMedia;
-    
+
     @ApiModelProperty(value = "Numero de horas fijas", required = false)
     private String numHoras;
-    
+
     @ApiModelProperty(value = "Id motivo baja", required = false)
     private String idMotivoBaja;
-    
+
     @ApiModelProperty(value = "Importe (minimo o maximo)", required = false)
     private String importe;
-    
+
 }

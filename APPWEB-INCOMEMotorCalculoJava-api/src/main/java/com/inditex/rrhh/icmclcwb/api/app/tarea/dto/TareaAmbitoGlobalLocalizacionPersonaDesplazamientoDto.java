@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -18,20 +19,21 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto implements Se
     @NotNull
     @ApiModelProperty(value = "Identificador del tarea", required = true)
     private Long idTarea;
-    
-    @NotNull
+
+    @NotBlank
     @ApiModelProperty(value = "Identificador de la tienda", required = true)
-    private Long stdIdWorkLocat;
-    
-    @NotNull
+    private String stdIdWorkLocat;
+
+    @NotBlank
     @ApiModelProperty(value = "Identificador de la persona", required = true)
-    private Long cclIdPerson;
-    
-    @NotNull
+    private String cclIdPerson;
+
+    @NotBlank
     @ApiModelProperty(value = "Identificador del origen", required = true)
-    private Long cclIdOrigen;
-    
-    @NotNull
+    private String cclIdOrigen;
+
+    @NotBlank
     @ApiModelProperty(value = "Identificador de la empresa", required = true)
-    private Long stdIdLegEnt;
+    private String stdIdLegEnt;
+
 }

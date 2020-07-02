@@ -19,23 +19,28 @@ public class TareaDto implements Serializable {
 
     private static final long serialVersionUID = -7287619714621366577L;
 
-    @ApiModelProperty(value = "Identificador de la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @ApiModelProperty(value = "Identificador de la tarea", required = false, accessMode = AccessMode.READ_ONLY,
+            hidden = true)
     private Long id;
 
-    @ApiModelProperty(value = "Estado actual de la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @ApiModelProperty(value = "Estado actual de la tarea", required = false, accessMode = AccessMode.READ_ONLY,
+            hidden = true)
     private EstadoTareaDto estado;
 
     @NotNull
     @ApiModelProperty(value = "Trabajo asociado", required = true, accessMode = AccessMode.READ_ONLY, hidden = true)
     private Long idTrabajo;
 
-    @ApiModelProperty(value = "Fecha en la que se creo el tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @ApiModelProperty(value = "Fecha en la que se creo el tarea", required = false, accessMode = AccessMode.READ_ONLY,
+            hidden = true)
     private LocalDateTime fechaHoraCreacion;
 
-    @ApiModelProperty(value = "Fecha en la que se empieza a procesar la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @ApiModelProperty(value = "Fecha en la que se empieza a procesar la tarea", required = false,
+            accessMode = AccessMode.READ_ONLY, hidden = true)
     private LocalDateTime fechaHoraInicioTarea;
 
-    @ApiModelProperty(value = "Fecha en la que se termina de procesar la tarea", required = false, accessMode = AccessMode.READ_ONLY, hidden = true)
+    @ApiModelProperty(value = "Fecha en la que se termina de procesar la tarea", required = false,
+            accessMode = AccessMode.READ_ONLY, hidden = true)
     private LocalDateTime fechaHoraFinTarea;
 
     @NotBlank

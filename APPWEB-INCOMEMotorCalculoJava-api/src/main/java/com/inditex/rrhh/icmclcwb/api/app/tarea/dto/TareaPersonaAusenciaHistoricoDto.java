@@ -29,7 +29,7 @@ public class TareaPersonaAusenciaHistoricoDto implements Serializable {
     @NotBlank
     @ApiModelProperty(value = "Id local de la persona", required = true)
     private String cclIdPerson;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Identificador del origen", required = true)
     private String cclIdOrigen;
@@ -41,10 +41,10 @@ public class TareaPersonaAusenciaHistoricoDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Fecha de fin de la ausencia", required = true)
     private Date fechaFin;
-    
+
     @ApiModelProperty(value = "Id tipo ausencia", required = false)
     private Integer idTipoAusencia;
-    
+
     @NotNull
     @ApiModelProperty(value = "Fecha inicio periodo", required = true)
     private LocalDate fechaInicioPeriodo;

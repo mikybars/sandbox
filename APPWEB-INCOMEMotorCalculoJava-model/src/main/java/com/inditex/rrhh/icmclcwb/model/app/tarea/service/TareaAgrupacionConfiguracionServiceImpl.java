@@ -1,5 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionConfiguracionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionConfiguracionService;
@@ -7,13 +17,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAgrupacionConfiguracionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionConfiguracion;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionConfiguracionRepositoryCustom;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Service
 @Validated
@@ -27,11 +30,12 @@ public class TareaAgrupacionConfiguracionServiceImpl implements TareaAgrupacionC
 
     @Override
     public List<TareaAgrupacionConfiguracionDto> saveConfiguracionVentaOnline(
-            @Valid @NotNull List<ConfiguracionVentaOnlineResultItemDto> data, @Valid @NotNull RunTareaDto tarea) {
+            @Valid @NotNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data,
+            @Valid @NotNull final RunTareaDto tarea) {
         List<TareaAgrupacionConfiguracion> configuraciones = tareaAgrupacionConfiguracionMapper
             .getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(data, tarea.getTarea());
         return tareaAgrupacionConfiguracionMapper.getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
-            tareaAgrupacionConfiguracionRepositoryCustom.save(configuraciones));
+                tareaAgrupacionConfiguracionRepositoryCustom.save(configuraciones));
     }
 
 }

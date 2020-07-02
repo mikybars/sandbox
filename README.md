@@ -32,7 +32,7 @@ Permite calcular y enviar a pagos, la comisión por ciclo de pago de todo el per
 
 ### Ejecución
 
-> -Dspring.profiles.active=default,standalone clean spring-boot:run
+> -Dspring.profiles.active=default,standalone clean spring-boot:run -Dspring-boot.run.fork=false
 
 ### API Quickstart
 
@@ -40,7 +40,7 @@ Permite calcular y enviar a pagos, la comisión por ciclo de pago de todo el per
 
 ## Tecnología
 
-- Java 8
+- Java 11
 - Servicio Web (API REST)
 - Openshift Intranet
 

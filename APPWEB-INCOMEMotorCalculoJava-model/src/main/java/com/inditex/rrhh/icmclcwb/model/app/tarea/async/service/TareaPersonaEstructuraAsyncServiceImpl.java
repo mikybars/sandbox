@@ -14,11 +14,11 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
 
 @Service
-public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstructuraAsyncService{
+public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstructuraAsyncService {
 
     @Autowired
     private TareaPersonaEstructuraService tareaPersonaEstructuraService;
-    
+
     @Override
     public CompletableFuture<Void> save(List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
             TareaDto tareaDto) {
@@ -29,7 +29,9 @@ public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstru
     @Override
     public CompletableFuture<Void> saveEstructurasComResultItemDto(
             List<EstructurasComResultItemDto> estructurasComResultItemDto, TareaDto tareaDto) {
-        tareaPersonaEstructuraService.save(tareaPersonaEstructuraService.mergeEstructurasComResultItemDto(estructurasComResultItemDto, tareaDto), tareaDto);
+        tareaPersonaEstructuraService.save(
+                tareaPersonaEstructuraService.mergeEstructurasComResultItemDto(estructurasComResultItemDto, tareaDto),
+                tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

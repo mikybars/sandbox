@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class CoefJornadaResponseDto extends PageableListDto<GenericEmpleadoResultItemDto>
         implements PageableList<GenericEmpleadoResultItemDto>, Serializable {
-    
+
     private static final long serialVersionUID = 8334457412213157838L;
 
 }

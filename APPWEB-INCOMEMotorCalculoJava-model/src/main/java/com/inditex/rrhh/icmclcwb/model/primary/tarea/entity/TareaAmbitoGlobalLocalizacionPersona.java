@@ -18,7 +18,7 @@ import lombok.Data;
 @Data
 public class TareaAmbitoGlobalLocalizacionPersona {
 
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA")
@@ -28,7 +28,7 @@ public class TareaAmbitoGlobalLocalizacionPersona {
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
-    
+
     @NotBlank
     @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
     private String stdIdWorkLocat;
@@ -40,9 +40,9 @@ public class TareaAmbitoGlobalLocalizacionPersona {
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
-    
+
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
     private String stdIdLegEnt;
-    
+
 }

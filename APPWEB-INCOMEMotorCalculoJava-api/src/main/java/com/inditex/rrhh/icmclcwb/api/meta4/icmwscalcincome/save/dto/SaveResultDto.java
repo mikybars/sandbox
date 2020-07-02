@@ -15,4 +15,5 @@ public class SaveResultDto implements Serializable {
     private Boolean resultadoError;
 
     private List<SaveResultErrorDto> data;
+
 }

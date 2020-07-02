@@ -32,23 +32,30 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-    
+
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ids(runTarea.getTarea()),
-                runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
-                    try {
-                        tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(), personas);
-                    } catch (Exception e) {
-                        log.error("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
-                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                                EstadoTareaCalculoPersonaEnum.KO.getDto());
-                    }
-                    log.info("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
-                    return Flux.empty();
-                }).sequential().collectList().block();   
+                runAjusteProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
+                try {
+                    tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(),
+                            personas);
+                } catch (Exception e) {
+                    log.error("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override

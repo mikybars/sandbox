@@ -16,14 +16,15 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualDecorat
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper delegate;
-    
+
     @Override
     public List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
             List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {
         List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            for(GenericEmpleadoResultItemDto item : src) {
-                result.add(delegate.genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(item, tareaDto));                    
+            for (GenericEmpleadoResultItemDto item : src) {
+                result.add(delegate
+                    .genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(item, tareaDto));
             }
         }
         return result;

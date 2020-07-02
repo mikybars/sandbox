@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,22 +23,27 @@ public class TareaLocalizacionComisionHistoricoServiceImpl implements TareaLocal
 
     @Autowired
     private TareaLocalizacionComisionHistoricoMapper mapper;
-    
+
     @Autowired
-    private TareaLocalizacionComisionHistoricoRepositoryCustom tareaLocalizacionComisionHistoricoRepositoryCustom; 
- 
-    
+    private TareaLocalizacionComisionHistoricoRepositoryCustom tareaLocalizacionComisionHistoricoRepositoryCustom;
+
+
     @Override
-    public List<TareaLocalizacionComisionHistoricoDto> save(@Valid final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionHistorico) {
+    public List<TareaLocalizacionComisionHistoricoDto> save(
+            @Valid @NotNull @NotEmpty final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionHistorico) {
         return mapper
-                    .tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(
-                            tareaLocalizacionComisionHistoricoRepositoryCustom.save(mapper.tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(tareaLocalizacionHistorico)));
+            .tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(
+                    tareaLocalizacionComisionHistoricoRepositoryCustom
+                        .save(mapper.tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(
+                                tareaLocalizacionHistorico)));
     }
 
     @Override
     public List<TareaLocalizacionComisionHistoricoDto> merge(
-            @Valid final List<GenericTiendaResultItemDto> genericTiendaResultItemDto, @Valid final TareaDto tarea) {
+            @Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> genericTiendaResultItemDto,
+            @Valid @NotNull final TareaDto tarea) {
         return mapper
-                .genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(genericTiendaResultItemDto, tarea);
+            .genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(genericTiendaResultItemDto, tarea);
     }
+
 }

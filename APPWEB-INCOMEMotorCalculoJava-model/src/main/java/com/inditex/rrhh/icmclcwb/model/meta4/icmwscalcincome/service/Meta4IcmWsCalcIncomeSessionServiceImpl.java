@@ -1,217 +1,272 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
 
 @Service
-public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableServiceImpl<PageableListDto<Serializable>>
+public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableServiceImpl
         implements Meta4IcmWsCalcIncomeSessionService {
-    
-    @Autowired
-    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
-
-    @Autowired
-    @Qualifier("meta4Properties")
-    private Map<String, Meta4PropertiesDto> meta4Properties;
 
     @Override
     public List<GenericTiendaResultItemDto> getFlagCalcula(final FlagCalculaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.FLAG_CALCULA,
-                meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA).getFilter().getMaxPageSize());
+        return this.getResultItem(request, Meta4PropertiesConstants.FLAG_CALCULA,
+                FlagCalculaResponseDto.class, GenericTiendaResultItemDto.class);
     }
 
     @Override
     public List<GenericTiendaResultItemDto> getFestivos(final FestivosRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.FESTIVOS,
-                meta4Properties.get(Meta4PropertiesConstants.FESTIVOS).getFilter().getMaxPageSize());
+        return this.getResultItem(request, Meta4PropertiesConstants.FESTIVOS,
+                FestivosResponseDto.class, GenericTiendaResultItemDto.class);
     }
 
     @Override
     public List<GenericEmpleadoResultItemDto> getCoefJornada(final CoefJornadaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.COEF_JORNADA,
-                meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA).getFilter().getMaxPageSize());
+        return this.getResultItem(request, Meta4PropertiesConstants.COEF_JORNADA,
+                CoefJornadaResponseDto.class, GenericEmpleadoResultItemDto.class);
     }
 
     @Override
     public List<GenericEmpleadoResultItemDto> getPresenciaManual(final PresenciaManualRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.PRESENCIA_MANUAL,
-                meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getFilter().getMaxPageSize());
+        return this.getResultItem(request, Meta4PropertiesConstants.PRESENCIA_MANUAL,
+                PresenciaManualResponseDto.class, GenericEmpleadoResultItemDto.class);
     }
 
     @Override
     public List<GenericEmpleadoResultItemDto> getEmpleadosPresencia(final EmpleadosPresenciaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.EMPLEADOS_PRESENCIA,
-                meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_PRESENCIA).getFilter().getMaxPageSize());
+        return this.getResultItem(request, Meta4PropertiesConstants.EMPLEADOS_PRESENCIA,
+                EmpleadosPresenciaResponseDto.class, GenericEmpleadoResultItemDto.class);
     }
 
     @Override
     public List<PeriodosResultItemDto> getPeriodos(final PeriodosRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.PERIODOS,
-                meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getFilter().getMaxPageSize());
+        return this.getResultItem(request, Meta4PropertiesConstants.PERIODOS,
+                PeriodosResponseDto.class, PeriodosResultItemDto.class);
     }
 
     @Override
     public List<GenericTiendaResultItemDto> searchTiendas(final SearchTiendasRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.SEARCH_TIENDAS,
-                meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS).getFilter().getMaxPageSize());
+        return this.getResultItem(request, Meta4PropertiesConstants.SEARCH_TIENDAS,
+                SearchTiendasResponseDto.class, GenericTiendaResultItemDto.class);
     }
 
     @Override
     public List<GenericTiendaResultItemDto> getTiendas(final TiendasRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.TIENDAS,
-                meta4Properties.get(Meta4PropertiesConstants.TIENDAS).getFilter().getMaxPageSize());
+        return this.getResultItem(request, Meta4PropertiesConstants.TIENDAS,
+                TiendasResponseDto.class, GenericTiendaResultItemDto.class);
     }
 
     @Override
     public List<GenericEmpleadoResultItemDto> searchEmpleados(final SearchEmpleadosRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.SEARCH_EMPLEADOS,
-                meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS).getFilter().getMaxPageSize());
+        return this.getResultItem(request, Meta4PropertiesConstants.SEARCH_EMPLEADOS,
+                SearchEmpleadosResponseDto.class, GenericEmpleadoResultItemDto.class);
     }
 
     @Override
     public List<EstructurasComResultItemDto> getEstructurasCom(final EstructurasComRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ESTRUCTURAS_COM,
-                meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_COM).getFilter().getMaxPageSize());
+        return this.getResultItem(request, Meta4PropertiesConstants.ESTRUCTURAS_COM,
+                EstructurasComResponseDto.class, EstructurasComResultItemDto.class);
     }
-    
+
     @Override
     public List<EstructurasPolResultItemDto> getEstructurasPol(final EstructurasPolRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ESTRUCTURAS_POL,
-                meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POL).getFilter().getMaxPageSize());
+        return this.getResultItem(request, Meta4PropertiesConstants.ESTRUCTURAS_POL,
+                EstructurasPolResponseDto.class, EstructurasPolResultItemDto.class);
     }
-    
+
     @Override
     public List<GenericEmpleadoResultItemDto> getEmpleados(final EmpleadosRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.EMPLEADOS,
-                meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS).getFilter().getMaxPageSize());
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.EMPLEADOS,
+                EmpleadosResponseDto.class, GenericEmpleadoResultItemDto.class);
     }
 
     @Override
-    public List<ConfiguracionVentaOnlineResultItemDto> getConfiguracionVentaOnline(final ConfiguracionVentaOnlineRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_VENTA_ONLINE,
-            meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE).getFilter().getMaxPageSize());
+    public List<ConfiguracionVentaOnlineResultItemDto> getConfiguracionVentaOnline(
+            final ConfiguracionVentaOnlineRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.CONF_VENTA_ONLINE,
+                ConfiguracionVentaOnlineResponseDto.class, ConfiguracionVentaOnlineResultItemDto.class);
     }
 
     @Override
-    public List<AgrupOnlineResultItemDto> getAgrupacionesOnline(AgrupOnlineRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.AGRUPACION_ONLINE,
-            meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE).getFilter().getMaxPageSize());
+    public List<AgrupOnlineResultItemDto> getAgrupacionesOnline(final AgrupOnlineRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.AGRUPACION_ONLINE,
+                AgrupOnlineResponseDto.class, AgrupOnlineResultItemDto.class);
     }
 
     @Override
-    public List<TiendaOnlineResultItemDto> tiendaOnline(TiendaOnlineRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.TIENDAS_ONLINE,
-            meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE).getFilter().getMaxPageSize());
+    public List<TiendaOnlineResultItemDto> tiendaOnline(final TiendaOnlineRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.TIENDAS_ONLINE,
+                TiendaOnlineResponseDto.class, TiendaOnlineResultItemDto.class);
     }
-    
+
     @Override
-    public List<EmpresaResultItemDto> getEmpresa(EmpresaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.EMPRESA,
-            meta4Properties.get(Meta4PropertiesConstants.EMPRESA).getFilter().getMaxPageSize());
+    public List<EmpresaResultItemDto> getEmpresa(final EmpresaRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.EMPRESA, EmpresaResponseDto.class, EmpresaResultItemDto.class);
     }
-    
+
     @Override
-    public List<OrigenResultItemDto> getOrigen(OrigenRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.ORIGEN,
-            meta4Properties.get(Meta4PropertiesConstants.ORIGEN).getFilter().getMaxPageSize());
+    public List<OrigenResultItemDto> getOrigen(final OrigenRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.ORIGEN, OrigenResponseDto.class, OrigenResultItemDto.class);
     }
-    
+
     @Override
-    public List<AusenciasResultItemDto> getAusencias(AusenciasRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.AUSENCIAS,
-            meta4Properties.get(Meta4PropertiesConstants.AUSENCIAS).getFilter().getMaxPageSize());
+    public List<AusenciasResultItemDto> getAusencias(final AusenciasRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.AUSENCIAS, AusenciasResponseDto.class, AusenciasResultItemDto.class);
     }
-    
+
     @Override
-    public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(ConfiguracionProductoVentaRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
-            meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
+    public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(
+            final ConfiguracionProductoVentaRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.CONF_PRODUCTO_VENTA, ConfiguracionProductoVentaResponseDto.class,
+                ConfiguracionProductoVentaResultItemDto.class);
     }
-    
-    @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
+
     @Override
-    public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea, String cclIdOrigen) {
-        GenericFilterDto filter = new GenericFilterDto();
+    public List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(
+            final EmpleadosDesplazamientoRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO,
+                EmpleadosDesplazamientoResponseDto.class, GenericEmpleadoResultItemDto.class);
+    }
+
+    @Override
+    public List<ConfChDiasMinimosResultItemDto> getConfChallengeDiasMinimos(final ConfChDiasMinimosRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS,
+                ConfChDiasMinimosResponseDto.class, ConfChDiasMinimosResultItemDto.class);
+    }
+
+    @Override
+    public List<PresupuestosWlocResultItemDto> getPresupuestosWloc(final PresupuestosWlocRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.PRESUPUESTOSWLOC,
+                PresupuestosWlocResponseDto.class, PresupuestosWlocResultItemDto.class);
+    }
+
+    @Override
+    public List<ConfPrecioHoraResultItemDto> getConfPrecioHora(final ConfPrecioHoraRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.CONFPRECIOHORA,
+                ConfPrecioHoraResponseDto.class, ConfPrecioHoraResultItemDto.class);
+    }
+
+    @Override
+    public List<ConfChTpVentaResultItemDto> getConfChallengeTpVenta(final ConfChTpVentaRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.CONFCHALLENGETPVENTA,
+                ConfChTpVentaResponseDto.class, ConfChTpVentaResultItemDto.class);
+    }
+
+    @Override
+    public List<PresupuestosRangoResultItemDto> getPresupuestosRango(final PresupuestosRangoRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.PRESUPUESTOSRANGO,
+                PresupuestosRangoResponseDto.class, PresupuestosRangoResultItemDto.class);
+    }
+
+    @Override
+    public List<VentaCongeladaResultItemDto> getVentaCongelada(final VentaCongeladaRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.VENTACONGELADA,
+                VentaCongeladaResponseDto.class, VentaCongeladaResultItemDto.class);
+    }
+
+    @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea,#cclIdOrigen}")
+    @Override
+    public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(final Long idTarea,
+            final String cclIdOrigen) {
+        final GenericFilterDto filter = new GenericFilterDto();
         filter.setIdOrigen(cclIdOrigen);
-        ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
+        final ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
         productoRequest.setData(filter);
-        productoRequest.setPage(meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getPage());
-        return getResultItem(productoRequest, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.CONF_PRODUCTO_VENTA,
-                meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getFilter().getMaxPageSize());
-        
-    }
-       
-    @Override
-    public List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(final EmpleadosDesplazamientoRequestDto request) {
-        return getResultItem(request, meta4IcmWsCalcIncomeService, Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO,
-                meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO).getFilter().getMaxPageSize());
+        productoRequest.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getPage());
+        return this.getResultItem(productoRequest,
+                Meta4PropertiesConstants.CONF_PRODUCTO_VENTA, ConfiguracionProductoVentaResponseDto.class,
+                ConfiguracionProductoVentaResultItemDto.class);
     }
 
-    @Override
-    public void saveProceso(SaveProcesoDto request) {
-        SaveResultDto saveResult = meta4IcmWsCalcIncomeService.saveProceso(request);
-        if (saveResult.getResultadoError() || !saveResult.getResultadoOk()) {
-            StringBuilder sb = new StringBuilder("Error al guardar el proceso: \n");
-            saveResult.getData().forEach(x ->
-                sb.append(x.getLiteral()).append(" ").append(x.getRegistroAfectado()).append('\n'));
-            throw new IcmclcwbException(sb.toString());
-        }
-    }
-
-    @Override
-    public List<ConfiguracionItemDto> getConfiguraciones(ConfiguracionesRequestDto request) {
-        return meta4IcmWsCalcIncomeService.getConfiguracion(request).getItems();
-    }    
-    
 }

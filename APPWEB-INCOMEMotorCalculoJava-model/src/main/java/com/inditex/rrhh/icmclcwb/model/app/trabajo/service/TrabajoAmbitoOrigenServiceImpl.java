@@ -34,7 +34,7 @@ public class TrabajoAmbitoOrigenServiceImpl implements TrabajoAmbitoOrigenServic
             @NotNull final TrabajoDto trabajo) {
         return trabajoAmbitoOrigenMapper.trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(
                 trabajoAmbitoOrigenRepository.saveAll(trabajoAmbitoOrigenMapper
-                        .mergeTrabajoAmbitoOrigenDtoAndTrabajoDtoToTrabajoAmbitoOrigen(trabajoAmbitoOrigen, trabajo)));
+                    .mergeTrabajoAmbitoOrigenDtoAndTrabajoDtoToTrabajoAmbitoOrigen(trabajoAmbitoOrigen, trabajo)));
     }
 
     @Override

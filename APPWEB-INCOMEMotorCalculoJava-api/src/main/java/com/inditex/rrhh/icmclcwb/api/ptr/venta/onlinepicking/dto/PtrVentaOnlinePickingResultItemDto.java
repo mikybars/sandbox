@@ -13,9 +13,9 @@ import lombok.Data;
 
 @Data
 public class PtrVentaOnlinePickingResultItemDto implements Serializable {
-    
+
     private static final long serialVersionUID = 6070689891574921909L;
-    
+
     @NotBlank
     private String fecha;
 
@@ -26,7 +26,7 @@ public class PtrVentaOnlinePickingResultItemDto implements Serializable {
     private Integer empresa;
 
     private Integer seccion;
-    
+
     private Integer tienda;
 
     @NotNull
@@ -34,9 +34,9 @@ public class PtrVentaOnlinePickingResultItemDto implements Serializable {
 
     @NotNull
     private BigDecimal importeConIVA;
-    
+
     private String ano;
-    
+
     private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
 
 }

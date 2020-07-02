@@ -8,7 +8,7 @@ public interface RunService {
     void runTrabajo(@NotNull @Positive final Long id);
 
     void runTarea(@NotNull @Positive final Long id);
-    
+
     void runLimpieza(@NotNull @Positive final Long id);
 
     void runProgramacion(@NotNull @Positive final Long id);

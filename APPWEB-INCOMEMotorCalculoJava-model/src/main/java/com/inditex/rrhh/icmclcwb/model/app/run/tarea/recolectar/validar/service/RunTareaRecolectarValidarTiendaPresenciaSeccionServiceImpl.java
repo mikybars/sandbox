@@ -32,11 +32,13 @@ public class RunTareaRecolectarValidarTiendaPresenciaSeccionServiceImpl
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             CompletableFuture<Integer> cfCountPresenciaSeccion = tareaValidarAsyncService
-                    .countTiendaPresenciaSeccion(runTarea.getTarea().getId());
+                .countTiendaPresenciaSeccion(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountPresenciaSeccion, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            result.add(RunTareaValidarDto.builder().type(TareaLocalizacionPresencia.class.getSimpleName())
-                    .count(AsyncUtils.get(cfCountPresenciaSeccion)).build());
+            result.add(RunTareaValidarDto.builder()
+                .type(TareaLocalizacionPresencia.class.getSimpleName())
+                .count(AsyncUtils.get(cfCountPresenciaSeccion))
+                .build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

@@ -13,9 +13,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 public interface TareaLocalizacionComisionHistoricoAsyncService {
 
     CompletableFuture<Void> save(List<TareaLocalizacionComisionHistoricoDto> tareaTiendaComisionHistoricoDto,
-           TareaDto tarea);
+            TareaDto tarea);
 
     CompletableFuture<Void> saveGenericTiendaResultItemDto(List<GenericTiendaResultItemDto> genericTiendaResultItemDto,
-           TareaDto tarea);
+            TareaDto tarea);
 
 }

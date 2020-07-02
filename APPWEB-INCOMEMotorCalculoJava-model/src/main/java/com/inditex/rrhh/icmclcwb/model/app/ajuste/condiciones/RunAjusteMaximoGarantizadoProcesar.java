@@ -32,23 +32,30 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-    
+
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.ids(runTarea.getTarea()),
-                runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
-                    try {
-                        tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(), personas);
-                    } catch (Exception e) {
-                        log.error("RunAjusteMaximoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
-                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                                EstadoTareaCalculoPersonaEnum.KO.getDto());
-                    }
-                    log.info("Fin :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
-                    return Flux.empty();
-                }).sequential().collectList().block();   
+                runAjusteProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
+                try {
+                    tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(),
+                            personas);
+                } catch (Exception e) {
+                    log.error("RunAjusteMaximoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override

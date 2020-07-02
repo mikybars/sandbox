@@ -27,25 +27,25 @@ import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryService;
 public class PrimaryControllerTest {
 
     private MockMvc mockMvc;
-    
+
     @Mock
     private PrimaryService primaryServiceMock;
-    
+
     @InjectMocks
     private PrimaryController primaryController;
-    
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(primaryController)
-                .build();
+            .build();
     }
 
     @Test
     public void loadDML() throws Exception {
         when(primaryServiceMock.loadDML("1")).thenReturn(Boolean.TRUE);
         mockMvc.perform(get("/primary/load/dml/{path}", "1")).andReturn();
-        verify(primaryServiceMock, times(1)).loadDML(any(String.class));   
+        verify(primaryServiceMock, times(1)).loadDML(any(String.class));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class PrimaryControllerTest {
 
         when(primaryServiceMock.changelogDML()).thenReturn(resource);
         mockMvc.perform(get("/primary/changelog/dml")).andReturn();
-        verify(primaryServiceMock, times(1)).changelogDML();   
+        verify(primaryServiceMock, times(1)).changelogDML();
     }
 
     @Test
@@ -69,7 +69,7 @@ public class PrimaryControllerTest {
 
         when(primaryServiceMock.changelogDDL()).thenReturn(resource);
         mockMvc.perform(get("/primary/changelog/ddl")).andReturn();
-        verify(primaryServiceMock, times(1)).changelogDDL();   
+        verify(primaryServiceMock, times(1)).changelogDDL();
     }
 
 }

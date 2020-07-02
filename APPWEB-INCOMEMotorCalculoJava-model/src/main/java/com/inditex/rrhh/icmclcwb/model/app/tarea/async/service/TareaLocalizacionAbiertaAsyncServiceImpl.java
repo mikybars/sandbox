@@ -20,14 +20,15 @@ public class TareaLocalizacionAbiertaAsyncServiceImpl implements TareaLocalizaci
     private TareaLocalizacionAbiertaService tareaLocalizacionAbiertaService;
 
     @Override
-    public CompletableFuture<Void> saveAbierto(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto){
+    public CompletableFuture<Void> saveAbierto(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
         tareaLocalizacionAbiertaService.saveAbierto(tareaDto, trabajoDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
-    public CompletableFuture<Void> saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto){
+    public CompletableFuture<Void> saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
         tareaLocalizacionAbiertaService.saveCerrado(tareaDto, trabajoDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

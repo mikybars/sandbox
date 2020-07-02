@@ -21,13 +21,13 @@ import lombok.ToString;
 @ToString
 public class EstadoTarea {
 
-	@Id
-	@Column(name = "ID_ESTADO_TAREA")
-	private Integer id;
+    @Id
+    @Column(name = "ID_ESTADO_TAREA")
+    private Integer id;
 
-	@NotBlank
-    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
-	private String nombre;
+    @NotBlank
+    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
+    private String nombre;
 
     @Column(name = "PESO", nullable = true)
     private Integer peso;

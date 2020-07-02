@@ -7,18 +7,18 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class TiendasFilterDto implements Serializable{
+public class TiendasFilterDto implements Serializable {
 
-	private static final long serialVersionUID = 1406333465393030459L;
+    private static final long serialVersionUID = 1406333465393030459L;
 
-	private LocalDateTime fechaFin;
-	
-	private String idOrigen;
-	
-	private String idEmpresa;
+    private LocalDateTime fechaFin;
 
-	private LocalDateTime fechaInicio;
-	
-	private List<TiendasFilterParametersDto> items;
+    private String idOrigen;
+
+    private String idEmpresa;
+
+    private LocalDateTime fechaInicio;
+
+    private List<TiendasFilterParametersDto> items;
 
 }

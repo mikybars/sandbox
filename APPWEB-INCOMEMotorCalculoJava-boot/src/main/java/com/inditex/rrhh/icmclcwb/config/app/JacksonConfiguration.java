@@ -9,10 +9,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class JacksonConfiguration {
 
-	@Bean
-	@Primary
-	public ObjectMapper objectMapper() {
-		return new ObjectMapperCustom();
-	}
+    @Bean
+    @Primary
+    public ObjectMapper objectMapper() {
+        return new ObjectMapperCustom();
+    }
 
 }

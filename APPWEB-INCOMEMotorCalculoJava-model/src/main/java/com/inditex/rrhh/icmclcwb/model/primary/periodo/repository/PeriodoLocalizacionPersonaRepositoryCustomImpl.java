@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.periodo.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +27,10 @@ public class PeriodoLocalizacionPersonaRepositoryCustomImpl
     private String sqlMergePeriodoLocalizacionPersona;
 
     @Override
-    public void mergePeriodoLocalizacionPersona(@NotNull RunTareaDto tareaDto) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
+    public void mergePeriodoLocalizacionPersona(@NotNull final RunTareaDto tareaDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
-        namedParameterJdbcTemplate.update(sqlMergePeriodoLocalizacionPersona, params);
-    }
-    
-    @Override
-    public void setParameters(PreparedStatement pstmt, PeriodoLocalizacionPersona entity) throws SQLException {
-        pstmt.setLong(1, entity.getPk().getIcmIdPeriodo());
-        pstmt.setString(2, entity.getPk().getCclIdOrigen());
-        pstmt.setString(3, entity.getPk().getStdIdLegEnt());
-        pstmt.setString(4, entity.getPk().getStdIdWorkLocat());
-        pstmt.setString(5, entity.getPk().getCclIdPerson());        
+        this.namedParameterJdbcTemplate.update(this.sqlMergePeriodoLocalizacionPersona, params);
     }
 
 }

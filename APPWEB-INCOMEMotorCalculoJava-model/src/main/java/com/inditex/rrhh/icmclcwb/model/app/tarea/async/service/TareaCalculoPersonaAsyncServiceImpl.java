@@ -16,28 +16,30 @@ public class TareaCalculoPersonaAsyncServiceImpl implements TareaCalculoPersonaA
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-    
+
     @Override
     public CompletableFuture<Void> mergePersonaCalculoByAmbito(final RunTareaDto runTareaDto) {
         tareaCalculoPersonaService.mergePersonaCalculoByAmbito(runTareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> mergePersonaCalculoByAmbitoLocalizacion(final RunTareaDto runTareaDto) {
         tareaCalculoPersonaService.mergePersonaCalculoByAmbitoLocalizacion(runTareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
     public CompletableFuture<Void> mergePersonaCalculoByAmbitoPersona(final RunTareaDto runTareaDto) {
         tareaCalculoPersonaService.mergePersonaCalculoByAmbitoPersona(runTareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
-    public CompletableFuture<Void> updateWithEstado(final RunTareaDto runTareaDto, EstadoTareaPersonaDto estadoActual, EstadoTareaPersonaDto estadoNuevo) {
+    public CompletableFuture<Void> updateWithEstado(final RunTareaDto runTareaDto, EstadoTareaPersonaDto estadoActual,
+            EstadoTareaPersonaDto estadoNuevo) {
         tareaCalculoPersonaService.updateWithEstado(runTareaDto, estadoActual, estadoNuevo);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

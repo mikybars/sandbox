@@ -27,14 +27,18 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
     private TareaCalculoPersonaAsyncService tareaCalculoPersonaAsyncService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaRecolectarByAmbitoPersonaService.run.timer", metricGroupName = "RunTareaRecolectarByAmbitoPersonaServiceGroup", metricDescription = "RunTareaRecolectarByAmbitoPersonaService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaRecolectarByAmbitoPersonaService.run.counter", metricGroupName = "RunTareaRecolectarByAmbitoPersonaServiceGroup", metricDescription = "RunTareaRecolectarByAmbitoPersonaService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaRecolectarByAmbitoPersonaService.run.timer",
+            metricGroupName = "RunTareaRecolectarByAmbitoPersonaServiceGroup",
+            metricDescription = "RunTareaRecolectarByAmbitoPersonaService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRecolectarByAmbitoPersonaService.run.counter",
+            metricGroupName = "RunTareaRecolectarByAmbitoPersonaServiceGroup",
+            metricDescription = "RunTareaRecolectarByAmbitoPersonaService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             CompletableFuture<Void> cfMergePersonaCalculo = tareaCalculoPersonaAsyncService
-                    .mergePersonaCalculoByAmbitoPersona(runTarea);
+                .mergePersonaCalculoByAmbitoPersona(runTarea);
             AsyncUtils.exceptionally(cfMergePersonaCalculo, cf);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

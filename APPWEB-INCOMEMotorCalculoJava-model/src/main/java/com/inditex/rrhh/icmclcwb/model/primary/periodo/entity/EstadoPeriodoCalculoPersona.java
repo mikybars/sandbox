@@ -27,11 +27,11 @@ public class EstadoPeriodoCalculoPersona {
     private Integer id;
 
     @NotBlank
-    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
+    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
     private String nombre;
-    
+
     @NotNull
     @Column(name = "PESO", nullable = false)
     private Integer peso;
-    
+
 }

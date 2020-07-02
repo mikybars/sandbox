@@ -13,4 +13,5 @@ public interface RunTareaConsolidarPeriodoService {
     void mergePeriodoLocalizacion(@NotNull final RunTareaDto tareaDto);
 
     void mergePeriodoLocalizacionPersona(@NotNull final RunTareaDto tareaDto);
+
 }

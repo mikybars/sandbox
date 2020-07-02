@@ -17,16 +17,32 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
 
     @Autowired
     private RunTareaAmbitoRecolectarPtrVentaGeneralService runTareaAmbitoRecolectarPtrVentaGeneralService;
-    
+
     @Override
     public void ventaFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaGeneralService
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> runTareaAmbitoRecolectarPtrVentaGeneralService
                 .ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
     public void ventaFisicaCadenaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
-        runTarea.getTarea().getAmbito().stream().forEach(item -> runTareaAmbitoRecolectarPtrVentaGeneralService
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> runTareaAmbitoRecolectarPtrVentaGeneralService
                 .ventaFisicaCadenaByRunTareaAndTareaAmbito(runTarea, item));
     }
+
+    @Override
+    public void ventaRangoFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> runTareaAmbitoRecolectarPtrVentaGeneralService
+                .ventaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
 }

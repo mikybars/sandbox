@@ -1,13 +1,18 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPresupuesto;
 import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,13 +20,14 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-@Table(name = "TAREA_PRESUPUESTO")
+@Table(name = "TAREA_LOCALIZACION_PRESUPUESTO")
 @Data
 public class TareaLocalizacionPresupuesto {
 
-    //TODO [JAVIEREV] Introducir campos, si es que procede: cumplida
+    // TODO [JAVIEREV] Introducir campos, si es que procede: cumplida
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,11 +90,18 @@ public class TareaLocalizacionPresupuesto {
     private Boolean excepcion;
 
     @NotNull
-    @Column(name = "ICM_ID_TP_PRESUPUESTO", nullable = false)
-    private String idTpPresupuesto;
-
-    @NotNull
     @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_TIPO_PRESUPUESTO", nullable = false)
+    private TipoPresupuesto tipoPresupuesto;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA", joinColumns = {
+            @JoinColumn(name = "ID_TAREA_LOCALIZACION_PRESUPUESTO") },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "ID_TAREA_PERSONA_ESTRUCTURA"), @JoinColumn(name = "TAREA_PERSONA_ESTRUCTURA") })
+    private Set<TareaPersonaEstructura> estructura;
 
 }

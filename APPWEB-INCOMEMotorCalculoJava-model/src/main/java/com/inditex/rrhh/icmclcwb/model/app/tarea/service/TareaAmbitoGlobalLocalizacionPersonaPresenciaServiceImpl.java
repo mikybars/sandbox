@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoGloba
 
 @Service
 @Validated
-public class TareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImpl implements TareaAmbitoGlobalLocalizacionPersonaPresenciaService {
+public class TareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImpl
+        implements TareaAmbitoGlobalLocalizacionPersonaPresenciaService {
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustom tareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustom;
@@ -23,8 +25,10 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImpl implements
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper tareaAmbitoGlobalLocalizacionPersonaPresenciaMapper;
 
     @Override
-    public void save(@NotNull final PtrPresenciaEmpleadosTiendaResponseDto src, @NotNull final TareaDto tareaDto) {
-        tareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustom.save(tareaAmbitoGlobalLocalizacionPersonaPresenciaMapper
+    public void save(@Valid @NotNull final PtrPresenciaEmpleadosTiendaResponseDto src,
+            @Valid @NotNull final TareaDto tareaDto) {
+        tareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustom
+            .save(tareaAmbitoGlobalLocalizacionPersonaPresenciaMapper
                 .presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
                         src.getPresenciasTiendasEmpleado(), tareaDto));
     }

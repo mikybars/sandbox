@@ -33,16 +33,17 @@ public class RunTareaRecolectarValidarLocalizacionHistoricoServiceImpl
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             CompletableFuture<Integer> cfCountLocalizacionHistorico = tareaValidarAsyncService
-                    .countTiendasHistorico(runTarea.getTarea().getId());
+                .countTiendasHistorico(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountLocalizacionHistorico, cf);
             CompletableFuture<List<String>> cfDuplicatedLocalizacionHistorico = tareaValidarAsyncService
-                    .checkDuplicatedTiendasHistorico(runTarea.getTarea().getId());
+                .checkDuplicatedTiendasHistorico(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfDuplicatedLocalizacionHistorico, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            result.add(RunTareaValidarDto.builder().type(TareaLocalizacionHistorico.class.getSimpleName())
-                    .count(AsyncUtils.get(cfCountLocalizacionHistorico))
-                    .duplicated(AsyncUtils.get(cfDuplicatedLocalizacionHistorico).stream().collect(Collectors.toSet()))
-                    .build());
+            result.add(RunTareaValidarDto.builder()
+                .type(TareaLocalizacionHistorico.class.getSimpleName())
+                .count(AsyncUtils.get(cfCountLocalizacionHistorico))
+                .duplicated(AsyncUtils.get(cfDuplicatedLocalizacionHistorico).stream().collect(Collectors.toSet()))
+                .build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

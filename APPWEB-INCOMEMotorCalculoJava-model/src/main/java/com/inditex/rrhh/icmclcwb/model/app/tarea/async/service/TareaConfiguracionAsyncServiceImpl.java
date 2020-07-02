@@ -22,4 +22,5 @@ public class TareaConfiguracionAsyncServiceImpl implements TareaConfiguracionAsy
         tareaConfiguracionService.save(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

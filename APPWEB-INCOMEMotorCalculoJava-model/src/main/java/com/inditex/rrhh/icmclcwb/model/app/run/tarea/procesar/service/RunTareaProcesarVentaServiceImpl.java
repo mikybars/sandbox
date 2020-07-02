@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +15,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryProcesarCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRespositoryProcesarCustom;
@@ -36,12 +37,16 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Autowired
     private TareaLocalizacionVentaRepositoryCustom tareaLocalizacionVentaRepositoryCustom;
-    
+
     @Autowired
     private TareaPersonaEstructuraPoliticaRepositoryCustom tareaPersonaEstructuraPoliticaRepositoryCustom;
 
     @Autowired
     private TareaLocalizacionPersonaVentaRepositoryCustom tareaLocalizacionPersonaVentaRepositoryCustom;
+
+    @Autowired
+    private TareaLocalizacionPresupuestoVentaRepositoryCustom tareaLocalizacionPresupuestoVentaRepositoryCustom;
+
 
     @Autowired
     private TipoDatoService tipoDatoService;
@@ -55,22 +60,25 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void saveAbiertoSeccion(@Valid RunTareaDto runTarea) {
         tareaLocalizacionAbiertaRepositoryCustom.saveAbiertoSeccion(runTarea.getTarea(), runTarea.getTrabajo());
     }
-    
+
     @Override
     public void compensarOnlineSeccionCerrada(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.compensarOnlineSeccionCerrada(runTarea.getTarea(), runTarea.getTrabajo());
+        tareaLocalizacionAbiertaRepositoryCustom.compensarOnlineSeccionCerrada(runTarea.getTarea(),
+                runTarea.getTrabajo());
     }
-    
+
     @Override
     public void saveCerrado(@Valid RunTareaDto runTarea) {
-        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
+        List<IdTipoDatoDto> ids = tipoDatoService
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo(),
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
-    
+
     @Override
     public void saveCerradoSeccion(@Valid RunTareaDto runTarea) {
-        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
+        List<IdTipoDatoDto> ids = tipoDatoService
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.saveCerradoSeccion(runTarea.getTarea(), runTarea.getTrabajo(),
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
@@ -78,16 +86,18 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Override
     public void trasladar(@Valid RunTareaDto runTarea) {
-        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
+        List<IdTipoDatoDto> ids = tipoDatoService
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea(),
-            ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+                ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override
     public void compensar(@Valid RunTareaDto runTarea) {
-        List<IdTipoDatoDto> ids = tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
+        List<IdTipoDatoDto> ids = tipoDatoService
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.compensar(runTarea.getTarea(),
-            ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+                ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override
@@ -109,25 +119,43 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void updateActivoTrasladadas(@Valid RunTareaDto runTarea) {
         tareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas(runTarea.getTarea());
     }
-    
+
+    @Override
+    public void updateActivoExcepcionada(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoExcepcionada(runTarea);
+    }
+
+    @Override
+    public void updateActivoCongelada(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoCongelada(runTarea);
+    }
+
+    @Override
+    public void totalizarPresupuesto(@Valid RunTareaDto runTarea) {
+        tareaLocalizacionPresupuestoVentaRepositoryCustom.totalizar(runTarea);
+    }
+
     @Override
     public void updateActivoTrasladadasSeccion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion(runTarea.getTarea(), runTarea.getTrabajo());
+        tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion(runTarea.getTarea(),
+                runTarea.getTrabajo());
     }
-    
+
     @Override
     public void agruparOnlineSeccionDia(@Valid RunTareaDto runTarea) {
         tareaLocalizacionAbiertaRepositoryCustom.agruparOnlineSeccionDia(runTarea.getTarea(), runTarea.getTrabajo());
     }
-    
+
     @Override
     public void updateActivoTrasladadasTotalizado(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasTotalizado(runTarea.getTarea(), runTarea.getTrabajo());
+        tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasTotalizado(runTarea.getTarea(),
+                runTarea.getTrabajo());
     }
-    
+
     @Override
     public void updateImporteEstructuraPoliticas(@Valid RunTareaDto runTarea) {
-        tareaPersonaEstructuraPoliticaRepositoryCustom.updateImporteEstructuraPoliticas(runTarea.getTarea(), runTarea.getTrabajo());
+        tareaPersonaEstructuraPoliticaRepositoryCustom.updateImporteEstructuraPoliticas(runTarea.getTarea(),
+                runTarea.getTrabajo());
     }
 
     @Override
@@ -172,7 +200,8 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
     @Override
     public void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea.getTarea());
+        tareaLocalizacionPersonaVentaRepositoryCustom
+            .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea.getTarea());
     }
 
     @Override
@@ -194,7 +223,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void calcularImporteComisionVentaODevolucion(@Valid RunTareaDto tarea) {
         tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea.getTarea());
     }
-    
+
     @Override
     public void updateActivoNegativoTotalizado(@Valid RunTareaDto tarea) {
         tareaLocalizacionVentaRepositoryCustom.updateActivoNegativoTotalizado(tarea.getTarea());
@@ -209,4 +238,5 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     public void repartoDevolucionVendedor0(@Valid RunTareaDto tarea) {
         tareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0(tarea.getTarea());
     }
+
 }

@@ -21,10 +21,8 @@ public abstract class TareaLocalizacionComisionHistoricoDecorator extends TareaL
             List<GenericTiendaResultItemDto> src, TareaDto srcTarea) {
         List<TareaLocalizacionComisionHistoricoDto> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(item -> 
-                result.add(
-                        delegate.genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(item, srcTarea))
-            );
+            src.forEach(item -> result.add(
+                    delegate.genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(item, srcTarea)));
         }
         return result;
     }

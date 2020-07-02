@@ -20,19 +20,20 @@ public class TareaLocalizacionAbiertaDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Identificador del tarea", required = true)
     private Long idTarea;
-    
+
     @NotNull
     @ApiModelProperty(value = "Identificador de la localizacion", required = true)
     private Long cclIdCodOrigen;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id de la seccion", required = true)
     private String cclIdSeccion;
-    
+
     @NotNull
     private Date fecha;
-    
+
     @NotNull
-    @ApiModelProperty(value = "Flag comisionable", required = true)
-    private Boolean comisionable;
+    @ApiModelProperty(value = "Flag abierto", required = true)
+    private Boolean abierto;
+
 }

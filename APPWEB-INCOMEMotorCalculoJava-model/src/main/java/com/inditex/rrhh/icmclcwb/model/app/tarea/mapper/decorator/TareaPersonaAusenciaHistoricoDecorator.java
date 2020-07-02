@@ -14,14 +14,15 @@ public abstract class TareaPersonaAusenciaHistoricoDecorator extends TareaPerson
 
     @Autowired
     private TareaPersonaAusenciaHistoricoMapper delegate;
-    
+
     @Override
     public List<TareaPersonaAusenciaHistoricoDto> ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(
             List<AusenciasResultItemDto> src, TareaDto tareaDto) {
         List<TareaPersonaAusenciaHistoricoDto> result = new ArrayList<>();
         if (src != null) {
             src.stream().forEach(x -> {
-                TareaPersonaAusenciaHistoricoDto entity = delegate.ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(x, tareaDto);
+                TareaPersonaAusenciaHistoricoDto entity = delegate
+                    .ausenciasResultItemDtoToTareaPersonaAusenciaHistoricoDto(x, tareaDto);
                 result.add(entity);
             });
         }

@@ -22,7 +22,6 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -30,7 +29,7 @@ import io.swagger.annotations.Authorization;
 @Validated
 @RestController
 @RequestMapping(path = "/trabajo")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
+@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "TrabajoController" })
 public class TrabajoController {
 
     @Autowired
@@ -40,13 +39,14 @@ public class TrabajoController {
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Crea un nuevo trabajo", response = TrabajoDto.class)
     public @Valid TrabajoDto create(@Valid @RequestBody final TrabajoDto trabajo) {
-        return trabajoService.create(trabajo);
+        return this.trabajoService.create(trabajo);
     }
-    
+
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
-        List<String> exceptions = new ArrayList<>();
-        for(ConstraintViolation<?> a : ex.getConstraintViolations()) {
+    public ResponseEntity<Object> handleConstraintViolation(final ConstraintViolationException ex,
+            final WebRequest request) {
+        final List<String> exceptions = new ArrayList<>();
+        for (final ConstraintViolation<?> a : ex.getConstraintViolations()) {
             exceptions.add(a.getPropertyPath().toString() + ": " + a.getMessage());
         }
         return new ResponseEntity<Object>(exceptions, new HttpHeaders(), HttpStatus.BAD_REQUEST);

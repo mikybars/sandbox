@@ -25,18 +25,19 @@ public class PtrVentaOnlineIpodResultItemDto implements Serializable {
 
     @NotBlank
     private Integer tienda;
-    
+
     private Integer empresa;
 
     private Integer seccion;
-    
+
     private String ano;
-    
+
     @NotNull
     private BigDecimal importeSinIVA;
 
     @NotNull
     private BigDecimal importeConIVA;
-    
+
     private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
+
 }

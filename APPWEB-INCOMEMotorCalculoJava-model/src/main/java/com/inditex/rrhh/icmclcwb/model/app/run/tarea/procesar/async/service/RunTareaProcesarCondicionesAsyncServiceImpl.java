@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarCondicionesAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
@@ -15,10 +17,56 @@ public class RunTareaProcesarCondicionesAsyncServiceImpl implements RunTareaProc
 
     @Autowired
     private RunTareaProcesarVentaService tareaProcesarVentaService;
-    
+
+    @Autowired
+    private RunTareaProcesarCondicionesService tareaProcesarCondicionesService;
+
     @Override
-    public CompletableFuture<Void> updateImporteEstructuraPoliticas(RunTareaDto runTarea) {
-        tareaProcesarVentaService.updateImporteEstructuraPoliticas(runTarea);
+    public CompletableFuture<Void> updateImporteEstructuraPoliticas(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.updateImporteEstructuraPoliticas(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
+    @Override
+    public CompletableFuture<Void> updateActivoPresupuestosBandaExcepcion(final RunTareaDto runTarea) {
+        this.tareaProcesarCondicionesService.updateActivoPresupuestosBandaExcepcion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> updateActivoPresupuestosBandasSinExcepcion(final RunTareaDto runTarea) {
+        this.tareaProcesarCondicionesService.updateActivoPresupuestosBandasSinExcepcion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> updateActivoEstructurasTopes(final TareaDto tarea) {
+        this.tareaProcesarCondicionesService.updateActivoEstructuraTopes(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> relacionarPresupuestosEstructurasSinDesplazamiento(final TareaDto tarea) {
+        this.tareaProcesarCondicionesService.relacionarPresupuestosEstructurasSinDesplazamiento(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> relacionarPresupuestosEstructurasDesplazamiento(final TareaDto tarea) {
+        this.tareaProcesarCondicionesService.relacionarPresupuestosEstructurasDesplazamiento(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> desactivarChallengeOpcionOrigen(final RunTareaDto runTarea) {
+        this.tareaProcesarCondicionesService.desactivarChallengeOpcionOrigen(runTarea.getTarea());
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> crearChallengeOpcionOrigen(final RunTareaDto runTarea) {
+        this.tareaProcesarCondicionesService.crearChallengeOpcionOrigen(runTarea.getTarea());
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

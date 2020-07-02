@@ -1,5 +1,24 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.manual.v1;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.slf4j.Logger;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -7,28 +26,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.slf4j.Logger;
-
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom;
-
 @RunWith(MockitoJUnitRunner.class)
 public class ManualDesplazamientoV1RunAlgoritmoTest {
-    
+
     private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
 
     @Mock
@@ -48,68 +48,65 @@ public class ManualDesplazamientoV1RunAlgoritmoTest {
 
     @Test
     public void getSqlCalcularTest() {
-        when(tareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom
+        when(this.tareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom
             .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
-        assertEquals(SQL_CALCULAR, manualDesplazamientoV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
+        assertEquals(SQL_CALCULAR, this.manualDesplazamientoV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto()));
     }
-    
+
     @Test
     public void calcularTest() {
 
-        when(runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(10);
+        when(this.runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(10);
 
-        List<TareaCalculoPersonaDto> personas = new ArrayList<>();
-        TareaCalculoPersonaDto p1 = new TareaCalculoPersonaDto();
-        p1.setId("1");
+        final List<IdPersonaLocalDto> personas = new ArrayList<>();
+        final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
         personas.add(p1);
-        TareaCalculoPersonaDto p2 = new TareaCalculoPersonaDto();
-        p1.setId("2");
+        final IdPersonaLocalDto p2 = new IdPersonaLocalDto();
         personas.add(p2);
-        TareaCalculoPersonaDto p3 = new TareaCalculoPersonaDto();
-        p1.setId("3");
+        final IdPersonaLocalDto p3 = new IdPersonaLocalDto();
         personas.add(p3);
-        when(tareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom
+        when(this.tareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
 
-        RunTareaDto runTarea = new RunTareaDto();
-        TareaDto tarea = new TareaDto();
+        final RunTareaDto runTarea = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
         runTarea.setTarea(tarea);
-        AlgoritmoDto algoritmo = new AlgoritmoDto();
-        manualDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
+        final AlgoritmoDto algoritmo = new AlgoritmoDto();
+        this.manualDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).info("Inicio :: ManualDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
-        verify(tareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom, times(1))
+        verify(this.log, times(1)).info("Inicio :: ManualDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
+        verify(this.tareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
-        verify(log, times(1)).info("Fin :: ManualDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
+        verify(this.log, times(1)).info("Fin :: ManualDesplazamientoV1RunAlgoritmo :: Personas: {}", 3);
     }
- 
+
     @Test
     public void calcularExceptionTest() {
 
-        List<TareaCalculoPersonaDto> personas = new ArrayList<>();
-        TareaCalculoPersonaDto p1 = new TareaCalculoPersonaDto();
-        p1.setId("1");
+        final List<IdPersonaLocalDto> personas = new ArrayList<>();
+        final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
         personas.add(p1);
-        TareaCalculoPersonaDto p2 = new TareaCalculoPersonaDto();
-        p1.setId("2");
+        final IdPersonaLocalDto p2 = new IdPersonaLocalDto();
         personas.add(p2);
-        when(tareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom
+        when(this.tareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
 
-        when(runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(2);
-        RuntimeException exception = new RuntimeException("EEEE");
-        doThrow(exception).when(tareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom)
-            .calcular(any(AlgoritmoDto.class), any(TareaDto.class), any(List.class));
+        when(this.runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(2);
+        final RuntimeException exception = new RuntimeException("EEEE");
+        doThrow(exception).when(this.tareaCalculoAlgoritmoManualDesplazamientoV1RepositoryCustom)
+            .calcular(any(AlgoritmoDto.class), any(TareaDto.class),
+                    ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
-        RunTareaDto runTarea = new RunTareaDto();
-        TareaDto tarea = new TareaDto();
+        final RunTareaDto runTarea = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
         runTarea.setTarea(tarea);
-        AlgoritmoDto algoritmo = new AlgoritmoDto();
-        manualDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
+        final AlgoritmoDto algoritmo = new AlgoritmoDto();
+        this.manualDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1))
+        verify(this.log, times(1))
             .error("ManualDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
-        verify(tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-            EstadoTareaCalculoPersonaEnum.KO.getDto());
+        verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
     }
+
 }

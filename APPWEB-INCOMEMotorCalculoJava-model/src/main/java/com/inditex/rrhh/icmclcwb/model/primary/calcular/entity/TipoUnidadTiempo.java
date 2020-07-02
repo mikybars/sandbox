@@ -16,13 +16,13 @@ public class TipoUnidadTiempo {
     @Id
     @Column(name = "ID_TIPO_UNIDAD_TIEMPO")
     private Integer id;
-    
+
     @NotBlank
     @Column(name = "ICM_ID_UNIDAD_TIEMPO", nullable = false, length = 48)
     private String icmIdUnidadTiempo;
-    
+
     @NotBlank
-    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
+    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
     private String nombre;
-    
+
 }

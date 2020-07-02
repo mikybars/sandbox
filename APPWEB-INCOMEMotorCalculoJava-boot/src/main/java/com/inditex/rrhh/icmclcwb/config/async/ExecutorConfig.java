@@ -20,7 +20,7 @@ public class ExecutorConfig {
     public ItxThreadPoolExecutorFactoryBean ptrVentaExecutor(ItxExecutorFactory executorFactory) {
         return executorFactory.newThreadPoolExecutorFactory();
     }
-    
+
     @Bean
     @ConfigurationProperties(prefix = "amiga.common.executor.ptr-presencia-executor")
     public ItxThreadPoolExecutorFactoryBean ptrPresenciaExecutor(ItxExecutorFactory executorFactory) {

@@ -16,13 +16,14 @@ public abstract class TareaConfiguracionChallengeDiasMinimosDecorator
 
     @Autowired
     private TareaConfiguracionChallengeDiasMinimosMapper delegate;
-    
+
     @Override
     public List<TareaConfiguracionChallengeDiasMinimos> confChDiasMinimosResultItemDtoToTareaConfiguracionChallengeDiasMinimos(
             List<ConfChDiasMinimosResultItemDto> src, TareaDto tarea) {
         ArrayList<TareaConfiguracionChallengeDiasMinimos> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(item -> result.add(delegate.confChDiasMinimosResultItemDtoToTareaConfiguracionChallengeDiasMinimos(item, tarea)));
+            src.forEach(item -> result
+                .add(delegate.confChDiasMinimosResultItemDtoToTareaConfiguracionChallengeDiasMinimos(item, tarea)));
         }
         return result;
     }

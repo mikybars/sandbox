@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -13,13 +16,28 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.*;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_SECCION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_AGRUPACION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_AGRUPACIONONLINE;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
@@ -43,9 +61,10 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(tareaLocalizacionVentaRepositoryProcesarCustom,
-            "sqlProcesarEntregaDomicilioAgrupaciones", SQL_PROCESAR_REPARTO_ENTREGA_DOMICILIO_AGRUPACIONES, true);
+                "sqlProcesarEntregaDomicilioAgrupaciones", SQL_PROCESAR_REPARTO_ENTREGA_DOMICILIO_AGRUPACIONES, true);
         FieldUtils.writeField(tareaLocalizacionVentaRepositoryProcesarCustom,
-            "sqlProcesarEntregaDomicilioPresenciaAgrupaciones", SQL_PROCESAR_REPARTO_ETNREGA_DOMICILIO_POR_PRESENCIA_AGRUPACIONES, true);
+                "sqlProcesarEntregaDomicilioPresenciaAgrupaciones",
+                SQL_PROCESAR_REPARTO_ETNREGA_DOMICILIO_POR_PRESENCIA_AGRUPACIONES, true);
     }
 
     @Test
@@ -59,29 +78,32 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
         assertEquals(SQL_PROCESAR_REPARTO_ENTREGA_DOMICILIO_AGRUPACIONES, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
         // Parámetros de la consulta: nuevoIdTipoDato, nuevoActivo, idTipoImporteVentaFisicaAgrupacion,
-        // idTipoImporteVentaEntregaDomicilioAgrupacion,  idTarea, idTipoImporteVentaFisicaLocalizacion, idSeccion,
+        // idTipoImporteVentaEntregaDomicilioAgrupacion, idTarea, idTipoImporteVentaFisicaLocalizacion,
+        // idSeccion,
         // idConcepto, porcentajeInclusion
         assertEquals(9, params.getValues().size());
         // nuevoIdTipoDato,
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(), params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(),
+                params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         // nuevoActivo
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
         // idTipoImporteVentaFisicaAgrupacion
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_AGRUPACION));
         assertEquals(TipoDatoEnum.VENTA_FISICA_AGRUPACIONONLINE.getId(),
-            params.getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_AGRUPACION));
+                params.getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_AGRUPACION));
         // idTipoImporteVentaEntregaDomicilioAgrupacion
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId(),
-            params.getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION));
+                params.getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION));
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
         // idTipoImporteVentaFisicaLocalizacion
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION));
-        assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId(), params.getValue(SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION));
+        assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId(),
+                params.getValue(SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION));
         // idSeccion
         assertTrue(params.hasValue(SQL_PARAM_ID_SECCION));
         assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_ID_SECCION));
@@ -104,41 +126,46 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
         assertEquals(SQL_PROCESAR_REPARTO_ETNREGA_DOMICILIO_POR_PRESENCIA_AGRUPACIONES, sqlCaptor.getValue());
         MapSqlParameterSource params = paramsCaptor.getValue();
         // Parámetros de la consulta: nuevoIdTipoDato, nuevoActivo, idTipoPresenciaLocalizacion, activo,
-        // idTipoPresenciaAgrupacion, idTipoImporteVentaEntregaDomicilioAgrupacion, idTarea, idTipoImporteVentaFisicaLocalizacion, idSeccion,
+        // idTipoPresenciaAgrupacion, idTipoImporteVentaEntregaDomicilioAgrupacion, idTarea,
+        // idTipoImporteVentaFisicaLocalizacion, idSeccion,
         // idConcepto, porcentajeInclusion, nuevoIdSeccion
         assertEquals(12, params.getValues().size());
         // nuevoIdTipoDato,
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(), params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(),
+                params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         // nuevoActivo
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
         // idTipoPresenciaLocalizacion
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
         assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId(),
-            params.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
+                params.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
         // activo
         assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
         // idTipoPresenciaAgrupacion
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_PRESENCIA_AGRUPACIONONLINE));
-        assertEquals(TipoDatoEnum.PRESENCIA_AGRUPACIONONLINE_INCLUIDOECOMMERCE.getId(), params.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_AGRUPACIONONLINE));
+        assertEquals(TipoDatoEnum.PRESENCIA_AGRUPACIONONLINE_INCLUIDOECOMMERCE.getId(),
+                params.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_AGRUPACIONONLINE));
         // idTipoImporteVentaEntregaDomicilioAgrupacion
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId(),
-            params.getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION));
+                params.getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION));
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
         // idTipoImporteVentaFisicaLocalizacion
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION));
-        assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId(), params.getValue(SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION));
+        assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId(),
+                params.getValue(SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION));
         // idSeccion
         assertTrue(params.hasValue(SQL_PARAM_ID_SECCION));
         assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_ID_SECCION));
         // idConcepto
         assertTrue(params.hasValue(SQL_PARAM_ID_CONCEPTO));
-        assertEquals(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId(), params.getValue(SQL_PARAM_ID_CONCEPTO));
+        assertEquals(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId(),
+                params.getValue(SQL_PARAM_ID_CONCEPTO));
         // porcentajeInclusion
         assertTrue(params.hasValue(SQL_PARAM_PORCENTAJE_INCLUSION));
         assertEquals(SQL_VALUE_PORCENTAJE_CERO, params.getValue(SQL_PARAM_PORCENTAJE_INCLUSION));

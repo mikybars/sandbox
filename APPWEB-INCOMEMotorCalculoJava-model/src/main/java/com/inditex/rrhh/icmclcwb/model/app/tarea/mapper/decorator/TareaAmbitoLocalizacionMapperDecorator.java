@@ -22,7 +22,7 @@ public abstract class TareaAmbitoLocalizacionMapperDecorator extends TareaAmbito
         List<TareaAmbitoLocalizacion> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(srcTareaAmbitoLocalizacion)) {
             srcTareaAmbitoLocalizacion.forEach(item -> result
-                    .add(delegate.mergeTareaAmbitoLocalizacionDtoAndTareaDtoToTareaAmbitoLocalizacion(item, srcTarea)));
+                .add(delegate.mergeTareaAmbitoLocalizacionDtoAndTareaDtoToTareaAmbitoLocalizacion(item, srcTarea)));
         }
         return result;
     }

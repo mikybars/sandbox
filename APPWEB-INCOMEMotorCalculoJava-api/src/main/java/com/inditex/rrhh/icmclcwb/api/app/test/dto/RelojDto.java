@@ -12,13 +12,13 @@ import lombok.Data;
 @Data
 public class RelojDto {
 
-	private LocalDate fecha = LocalDate.now();
+    private LocalDate fecha = LocalDate.now();
 
-	private LocalTime hora = LocalTime.now();
+    private LocalTime hora = LocalTime.now();
 
-	private LocalDateTime fechaHora = LocalDateTime.now();
+    private LocalDateTime fechaHora = LocalDateTime.now();
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = AppConstants.LOCAL_TIME_JSON)
-	private LocalTime horaFormat = LocalTime.now();
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = AppConstants.LOCAL_TIME_JSON)
+    private LocalTime horaFormat = LocalTime.now();
 
 }

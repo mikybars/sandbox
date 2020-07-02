@@ -31,8 +31,9 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
 
     @Override
     public TareaLocalizacionPersonaVenta ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        PtrVentaIndividualDetalleResultItemDto src, TareaDto tarea) {
-        TareaLocalizacionPersonaVenta result = delegate.ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea);
+            PtrVentaIndividualDetalleResultItemDto src, TareaDto tarea) {
+        TareaLocalizacionPersonaVenta result = delegate
+            .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea);
         if (PtrConstants.OPERACION_VENTA.equals(src.getOperacion())) {
             result.setTipoDato(new TipoDato());
             result.getTipoDato().setId(TipoDatoEnum.OPERACION_VENTA_FISICA_LOCALIZACION_SECCION.getId());
@@ -52,8 +53,9 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
     }
 
     private TareaLocalizacionPersonaVenta ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        PtrVentaIndividualDetalleResultItemDto src, TareaDto tarea, PtrSeccionVentaOnlineGenericType seccion) {
-        TareaLocalizacionPersonaVenta result = ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea);
+            PtrVentaIndividualDetalleResultItemDto src, TareaDto tarea, PtrSeccionVentaOnlineGenericType seccion) {
+        TareaLocalizacionPersonaVenta result = ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                src, tarea);
         result.setCclIdSeccion(seccion.getSeccion().toString());
         result.setImporteConImpuestos(seccion.getImporteConIVA());
         result.setImporteSinImpuestos(seccion.getImporteSinIVA());
@@ -61,7 +63,7 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
     }
 
     private List<TareaLocalizacionPersonaVenta> ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(
-        PtrVentaIndividualDetalleResultItemDto src, TareaDto tarea) {
+            PtrVentaIndividualDetalleResultItemDto src, TareaDto tarea) {
         List<TareaLocalizacionPersonaVenta> result = new ArrayList<>();
         src.getListaSeccion().forEach(seccion -> {
             if (AppConstants.SECCION_4.equals(seccion.getSeccion())) {
@@ -70,13 +72,15 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
                     s.setImporteConIVA(seccion.getImporteConIVA());
                     s.setImporteSinIVA(seccion.getImporteSinIVA());
                     s.setSeccion(idSeccion);
-                    TareaLocalizacionPersonaVenta item = ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea, s);
+                    TareaLocalizacionPersonaVenta item = ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                            src, tarea, s);
                     if (item.getTipoDato() != null) {
                         result.add(item);
                     }
                 }
             } else {
-                TareaLocalizacionPersonaVenta item = ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea, seccion);
+                TareaLocalizacionPersonaVenta item = ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                        src, tarea, seccion);
                 if (item.getTipoDato() != null) {
                     result.add(item);
                 }
@@ -87,17 +91,20 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
 
     @Override
     public List<TareaLocalizacionPersonaVenta> ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        List<PtrVentaIndividualDetalleResultItemDto> src, TareaDto tarea) {
+            List<PtrVentaIndividualDetalleResultItemDto> src, TareaDto tarea) {
         List<TareaLocalizacionPersonaVenta> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(x -> result.addAll(ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(x, tarea)));
+            src.forEach(x -> result
+                .addAll(ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(x, tarea)));
         }
         return result;
     }
 
     @Override
-    public TareaLocalizacionPersonaVenta ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(PtrVentaOnlineIpodIndividualDetalleResultItemDto src, TareaDto tarea) {
-        TareaLocalizacionPersonaVenta result = delegate.ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea);
+    public TareaLocalizacionPersonaVenta ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+            PtrVentaOnlineIpodIndividualDetalleResultItemDto src, TareaDto tarea) {
+        TareaLocalizacionPersonaVenta result = delegate
+            .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea);
         if (PtrConstants.OPERACION_VENTA.equals(src.getOperacion())) {
             result.setTipoDato(new TipoDato());
             result.getTipoDato().setId(TipoDatoEnum.OPERACION_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId());
@@ -112,17 +119,21 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
     }
 
     @Override
-    public List<TareaLocalizacionPersonaVenta> ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, TareaDto tarea) {
+    public List<TareaLocalizacionPersonaVenta> ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+            List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, TareaDto tarea) {
         List<TareaLocalizacionPersonaVenta> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(x -> result.addAll(ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(x, tarea)));
+            src.forEach(x -> result
+                .addAll(ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(x, tarea)));
         }
         return result;
     }
 
     private TareaLocalizacionPersonaVenta ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        PtrVentaOnlineIpodIndividualDetalleResultItemDto src, TareaDto tarea, PtrSeccionVentaOnlineGenericType seccion) {
-        TareaLocalizacionPersonaVenta result = ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea);
+            PtrVentaOnlineIpodIndividualDetalleResultItemDto src, TareaDto tarea,
+            PtrSeccionVentaOnlineGenericType seccion) {
+        TareaLocalizacionPersonaVenta result = ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                src, tarea);
         result.setCclIdSeccion(seccion.getSeccion().toString());
         result.setImporteConImpuestos(seccion.getImporteConIVA());
         result.setImporteSinImpuestos(seccion.getImporteSinIVA());
@@ -130,7 +141,7 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
     }
 
     private List<TareaLocalizacionPersonaVenta> ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(
-        PtrVentaOnlineIpodIndividualDetalleResultItemDto src, TareaDto tarea) {
+            PtrVentaOnlineIpodIndividualDetalleResultItemDto src, TareaDto tarea) {
         List<TareaLocalizacionPersonaVenta> result = new ArrayList<>();
         src.getListaSeccion().forEach(seccion -> {
             if (AppConstants.SECCION_4.equals(seccion.getSeccion())) {
@@ -139,21 +150,23 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
                     s.setImporteConIVA(seccion.getImporteConIVA());
                     s.setImporteSinIVA(seccion.getImporteSinIVA());
                     s.setSeccion(idSeccion);
-                    TareaLocalizacionPersonaVenta item = ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea, s);
+                    TareaLocalizacionPersonaVenta item = ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                            src, tarea, s);
                     if (item.getTipoDato() != null) {
-                        if(StringUtils.isNotEmpty(item.getCclIdPerson())) {
-                            result.add(item);    
-                        }else {
+                        if (StringUtils.isNotEmpty(item.getCclIdPerson())) {
+                            result.add(item);
+                        } else {
                             log.warn(ErrorConstants.EMPTY_CCL_ID_PERSON, item);
                         }
                     }
                 }
             } else {
-                TareaLocalizacionPersonaVenta item = ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea, seccion);
+                TareaLocalizacionPersonaVenta item = ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                        src, tarea, seccion);
                 if (item.getTipoDato() != null) {
-                    if(StringUtils.isNotEmpty(item.getCclIdPerson())) {
-                        result.add(item);    
-                    }else {
+                    if (StringUtils.isNotEmpty(item.getCclIdPerson())) {
+                        result.add(item);
+                    } else {
                         log.warn(ErrorConstants.EMPTY_CCL_ID_PERSON, item);
                     }
                 }
@@ -161,4 +174,5 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
         });
         return result;
     }
+
 }

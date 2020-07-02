@@ -17,7 +17,7 @@ import lombok.Data;
 @Table(name = "TAREA_AMBITO_GLOBAL_PERSONA")
 @Data
 public class TareaAmbitoGlobalPersona {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_AMBITO_GLOBAL_PERSONA")
@@ -35,9 +35,9 @@ public class TareaAmbitoGlobalPersona {
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
-    
+
     @NotBlank
     @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
     private String stdIdLegEnt;
-    
+
 }

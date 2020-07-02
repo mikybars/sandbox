@@ -27,14 +27,18 @@ public class RunTareaRegularizarServiceImpl implements RunTareaRegularizarServic
     private RunTareaRegularizarCalculoAsyncService runTareaRegularizarAsyncService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaRegularizarService.run.timer", metricGroupName = "RunTareaRegularizarServiceGroup", metricDescription = "RunTareaRegularizarService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaRegularizarService.run.counter", metricGroupName = "RunTareaRegularizarServiceGroup", metricDescription = "RunTareaRegularizarService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaRegularizarService.run.timer",
+            metricGroupName = "RunTareaRegularizarServiceGroup",
+            metricDescription = "RunTareaRegularizarService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRegularizarService.run.counter",
+            metricGroupName = "RunTareaRegularizarServiceGroup",
+            metricDescription = "RunTareaRegularizarService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             CompletableFuture<Void> cfPostProcesarCalculo = runTareaRegularizarAsyncService
-                    .regularizarCalculoMejorOpcion(runTarea);
+                .regularizarCalculoMejorOpcion(runTarea);
             AsyncUtils.exceptionally(cfPostProcesarCalculo, cf);
 
             /*-------------------------------------------------------------*/

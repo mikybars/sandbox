@@ -10,10 +10,10 @@ import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 @Data
 public class Meta4ClientService implements Serializable {
 
-	private static final long serialVersionUID = -3473147313502370674L;
+    private static final long serialVersionUID = -3473147313502370674L;
 
-	private LoginService loginService;
+    private LoginService loginService;
 
-	private IcmWsCalcIncomeService icmWsCalcIncomeService;
+    private IcmWsCalcIncomeService icmWsCalcIncomeService;
 
 }

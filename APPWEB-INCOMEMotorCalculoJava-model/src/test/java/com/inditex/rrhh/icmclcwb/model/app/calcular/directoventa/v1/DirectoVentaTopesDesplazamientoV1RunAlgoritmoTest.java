@@ -25,7 +25,7 @@ public class DirectoVentaTopesDesplazamientoV1RunAlgoritmoTest {
 
     @Test
     public void getSqlCalcularTest() {
-        //El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+        // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         String result = directoVentaTopesDesplazamientoV1RunAlgoritmo.getSqlCalcular(algoritmo);
 
@@ -35,7 +35,7 @@ public class DirectoVentaTopesDesplazamientoV1RunAlgoritmoTest {
 
     @Test
     public void executeTest() {
-        //El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+        // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
         AlgoritmoDto algoritmo = new AlgoritmoDto();
         RunTareaDto runTarea = new RunTareaDto();
         directoVentaTopesDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);

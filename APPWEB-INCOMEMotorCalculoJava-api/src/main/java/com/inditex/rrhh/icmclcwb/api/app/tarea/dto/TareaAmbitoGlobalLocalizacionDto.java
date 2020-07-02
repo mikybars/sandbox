@@ -14,21 +14,22 @@ public class TareaAmbitoGlobalLocalizacionDto implements Serializable {
     private static final long serialVersionUID = 2149047890747327068L;
 
     @ApiModelProperty(value = "Identificador de la entidad", required = false)
-	private String id;
+    private String id;
 
-	@NotNull
-	@ApiModelProperty(value = "Identificador del tarea", required = true)
-	private Long idTarea;
+    @NotNull
+    @ApiModelProperty(value = "Identificador del tarea", required = true)
+    private Long idTarea;
 
-	@NotBlank
+    @NotBlank
     @ApiModelProperty(value = "Identificador de la localizacion", required = true)
-	private String stdIdWorkLocat;
-	
+    private String stdIdWorkLocat;
+
     @NotBlank
     @ApiModelProperty(value = "Identificador del origen", required = true)
     private String cclIdOrigen;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(value = "Identificador de la empresa", required = true)
-    private Long stdIdLegEnt;
+    private String stdIdLegEnt;
+
 }

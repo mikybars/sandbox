@@ -31,7 +31,7 @@ public abstract class TareaLocalizacionCalcularMapper {
 
     public abstract List<TareaLocalizacionCalcular> tareaLocalizacionCalcularDtoToLocalizacionCalcular(
             List<TareaLocalizacionCalcularDto> src);
-    
+
     @Mapping(source = "src.idLugarTrabajoMtu", target = "cclIdCodOrigen")
     @Mapping(source = "src.idLugarTrabajo", target = "stdIdWorkLocat")
     @Mapping(source = "src.fechaInicio", target = "fechaInicio")
@@ -39,12 +39,12 @@ public abstract class TareaLocalizacionCalcularMapper {
     @Mapping(source = "src.calcula", target = "calcula")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "id", ignore = true)
-    public abstract TareaLocalizacionCalcular genericTiendaResultItemDtoToTareaLocalizacionCalcular( 
+    public abstract TareaLocalizacionCalcular genericTiendaResultItemDtoToTareaLocalizacionCalcular(
             GenericTiendaResultItemDto src, TareaDto tareaDto);
 
     public List<TareaLocalizacionCalcular> genericTiendaResultItemDtoToTareaLocalizacionCalcular(
             List<GenericTiendaResultItemDto> src, TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
+
 }

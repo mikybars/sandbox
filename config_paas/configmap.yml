@@ -135,6 +135,7 @@ amiga:
           borrow-connection-timeout: 600
       datasource:
         primary:
+          #init-connection-sql: set schema GESTION_COMISION
           xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
           xa-properties:
             clientProgramName: ${metadata.jirakey}
@@ -143,9 +144,10 @@ amiga:
             connectionTimeout: 300
             commandTimeout: 300
             interruptProcessingMode: 2
-    hibernate:
-      primary:
-        properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
+    jpa:
+      properties:
+        hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
+        hibernate.default_schema: GESTION_COMISION
 app:
   envars:
     calculo:
@@ -171,6 +173,9 @@ app:
     repository:
       batch-size:
         default: 100
+    limpieza:
+      batch-size:
+        default: 100        
     ptr:
       config:
         max-attempts: 2
@@ -182,11 +187,15 @@ app:
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getVentaAcumUTC:
               endpoint: /acumuladoVentaImporte/getVentaAcumUTC
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             test:
               endpoint: /acumuladoVentaImporte/test
             getVersion:
@@ -197,31 +206,43 @@ app:
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getVentaOnlineEntregaDomicilio:
               endpoint: /ventaEcommerce/getVentaOnlineEntregaDomicilio
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getVentaOnlineiPod:
               endpoint: /ventaEcommerce/getVentaOnlineiPod
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getVentaOnlineIpodIndividualDetalle:
               endpoint: /ventaEcommerce/getVentaOnlineIpodIndividualDetalle
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getOrdersByCountrySectionProductHour:
               endpoint: /ventaEcommerce/getOrdersByCountrySectionProductHour
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getVentaOnlinePicking:
               endpoint: /ventaEcommerce/getVentaOnlinePicking
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             test:
               endpoint: /ventaEcommerce/test
             getVersion:
@@ -232,12 +253,16 @@ app:
               filter:
                 maxPageSize: 1000
                 maxPersistenceSize: 3
+                periodSize: 0
+                periodType: MONTHS
           ventaGeneral:
             getVentaTotalizado:
               endpoint: /ventaGeneral/getVentaTotalizado
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
       presencia:
         service:
           presenciasService:
@@ -246,26 +271,36 @@ app:
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getPresenciasDetalle:
               endpoint: /presenciasService/presenciasDetalle
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getPresenciasTiendasEmpleado:
               endpoint: /presenciasService/presenciasTiendasEmpleado
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getPresenciasEmpleadosTienda:
               endpoint: /presenciasService/presenciasEmpleadosTienda
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getTiposHoras:
               endpoint: /presenciasService/tiposHoras
               filter:
                 maxPageSize: 200
                 maxPersistenceSize: 3
+                periodSize: 1
+                periodType: MONTHS
             getVersion:
               endpoint: /presenciasService/getVersion
     meta4:
@@ -408,7 +443,7 @@ app:
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 50
+              maxPageSize: 25
               maxPersistenceSize: 3
           getEstructurasPol:
             page:
@@ -417,7 +452,7 @@ app:
               tipoOrden: DESC
               campoOrden: idempleado
             filter:
-              maxPageSize: 50
+              maxPageSize: 25
               maxPersistenceSize: 3              
           getEmpleados:
             page:
@@ -519,6 +554,15 @@ app:
               maxPageSize: 50
               maxPersistenceSize: 3                                                       
           getPresupuestosRango:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3
+          getVentaCongelada:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50

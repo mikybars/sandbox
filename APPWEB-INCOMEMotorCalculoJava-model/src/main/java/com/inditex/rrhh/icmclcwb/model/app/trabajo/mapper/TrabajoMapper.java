@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 
+import java.util.List;
+
 import com.inditex.rrhh.icmclcwb.api.app.TipoEjecucionCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoEmpresaDto;
@@ -20,17 +22,26 @@ import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.List;
-
-@Mapper(imports = { com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class, TipoEjecucionCalculoEnum.class})
+@Mapper(imports = { com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class,
+        TipoEjecucionCalculoEnum.class })
 @DecoratedWith(value = TrabajoMapperDecorator.class)
 public abstract class TrabajoMapper {
 
-    @Mapping(target = "idProgramacion", expression = "java(src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null ? src.getProgramacion().getId() : null)")
+    @Mapping(target = "idProgramacion",
+            expression = "java(src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null ? src.getProgramacion().getId() : null)")
+    @Mapping(target = "origen", ignore = true)
+    @Mapping(target = "empresa", ignore = true)
+    @Mapping(target = "persona", ignore = true)
+    @Mapping(target = "localizacion", ignore = true)
     public abstract TrabajoDto trabajoToTrabajoDto(Trabajo src);
 
-    @Mapping(target = "programacion", expression = "java(src != null && src.getIdProgramacion() != null ? Programacion.builder().id(src.getIdProgramacion()).build() : null)")
-    @Mapping(target = "estado", ignore = true)
+    @Mapping(target = "programacion",
+            expression = "java(src != null && src.getIdProgramacion() != null ? Programacion.builder().id(src.getIdProgramacion()).build() : null)")
+    @Mapping(target = "estado.id", source = "estado.id")
+    @Mapping(target = "estado.nombre", ignore = true)
+    @Mapping(target = "estado.peso", ignore = true)
+    @Mapping(target = "estado.estadoTarea", ignore = true)
+    @Mapping(target = "tipoAmbito.nombre", ignore = true)
     public abstract Trabajo trabajoDtoToTrabajo(TrabajoDto src);
 
     public abstract List<TrabajoDto> trabajoToTrabajoDto(List<Trabajo> src);
@@ -41,6 +52,7 @@ public abstract class TrabajoMapper {
     @Mapping(target = "fechaHoraCreacion", ignore = true)
     @Mapping(target = "fechaHoraInicioTrabajo", ignore = true)
     @Mapping(target = "fechaHoraFinTrabajo", ignore = true)
+    @Mapping(target = "estado", ignore = true)
     @Mapping(target = "idProgramacion", source = "srcProgramacion.id")
     @Mapping(target = "tipoAmbito", source = "srcProgramacion.tipoAmbito")
     @Mapping(target = "nombreUsuario", source = "srcProgramacion.nombreUsuario")
@@ -72,12 +84,14 @@ public abstract class TrabajoMapper {
             ProgramacionAmbitoPersonaDto src);
 
     @Mapping(target = "idAmbito", ignore = true)
-    @Mapping(target = "idTipoEjecucionCalculo", expression = "java( trabajo.getIdProgramacion() != null ? TipoEjecucionCalculoEnum.PROGRAMADO.getId() : TipoEjecucionCalculoEnum.MANUAL.getId())")
+    @Mapping(target = "idTipoEjecucionCalculo",
+            expression = "java( trabajo.getIdProgramacion() != null ? TipoEjecucionCalculoEnum.PROGRAMADO.getId() : TipoEjecucionCalculoEnum.MANUAL.getId())")
     @Mapping(target = "idTrabajo", source = "id")
     @Mapping(target = "nombreUsuario", source = "nombreUsuario")
     @Mapping(target = "idOrganization", ignore = true)
     @Mapping(target = "idPeriodo", source = "icmIdPeriodo")
-    @Mapping(target = "idOrigen", expression = "java(trabajo.getOrigen() != null && !trabajo.getOrigen().isEmpty() ? trabajo.getOrigen().get(0).getCclIdOrigen() : null)")
+    @Mapping(target = "idOrigen",
+            expression = "java(trabajo.getOrigen() != null && !trabajo.getOrigen().isEmpty() ? trabajo.getOrigen().get(0).getCclIdOrigen() : null)")
     @Mapping(target = "item", ignore = true)
     public abstract SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDto trabajo);
 

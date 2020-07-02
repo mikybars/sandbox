@@ -22,7 +22,7 @@ public class TipoOpcionCalculo {
     private String idMeta4;
 
     @NotBlank
-    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
+    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
     private String nombre;
 
 }

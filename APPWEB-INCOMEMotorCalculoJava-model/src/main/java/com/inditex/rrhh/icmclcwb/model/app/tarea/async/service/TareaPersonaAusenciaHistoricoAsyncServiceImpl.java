@@ -17,10 +17,12 @@ public class TareaPersonaAusenciaHistoricoAsyncServiceImpl implements TareaPerso
 
     @Autowired
     private TareaPersonaAusenciaHistoricoService tareaPersonaAusenciaHistoricoService;
-    
+
     @Override
-    public CompletableFuture<Void> saveAusenciaResultItemDto(final List<AusenciasResultItemDto> src, final TareaDto tarea) {
+    public CompletableFuture<Void> saveAusenciaResultItemDto(final List<AusenciasResultItemDto> src,
+            final TareaDto tarea) {
         tareaPersonaAusenciaHistoricoService.saveAusenciaResultItemDto(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

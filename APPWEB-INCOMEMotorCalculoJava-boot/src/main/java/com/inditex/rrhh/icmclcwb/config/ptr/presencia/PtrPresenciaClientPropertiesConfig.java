@@ -18,7 +18,9 @@ public class PtrPresenciaClientPropertiesConfig {
 
 
     private Map<String, PtrPropertiesDto> presenciasService = new HashMap<>();
+
     private Map<String, PtrPropertiesDto> horasService = new HashMap<>();
+
     private String version;
 
 

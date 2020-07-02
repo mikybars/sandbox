@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -12,9 +10,10 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionCom
 
 @Repository
 public class TareaLocalizacionComisionHistoricoRepositoryCustomImpl extends
-        JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionComisionHistorico> implements TareaLocalizacionComisionHistoricoRepositoryCustom {
+        JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionComisionHistorico>
+        implements TareaLocalizacionComisionHistoricoRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-localizacion-comision-historico:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-localizacion-comision-historico:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionComisionHistoricoRepositoryCustom.save']}")
@@ -22,17 +21,7 @@ public class TareaLocalizacionComisionHistoricoRepositoryCustomImpl extends
 
     @Override
     public List<TareaLocalizacionComisionHistorico> save(final List<TareaLocalizacionComisionHistorico> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
-    }
-
-    @Override
-    public void setParameters(PreparedStatement pstmt, TareaLocalizacionComisionHistorico entity) throws SQLException {
-        pstmt.setObject(1, entity.getFechaFin());
-        pstmt.setObject(2, entity.getFechaInicio());
-        pstmt.setBoolean(3, entity.getComisionable());
-        pstmt.setString(4, entity.getCclIdCodOrigen());
-        pstmt.setString(5, entity.getStdIdWorkLocat());
-        pstmt.setLong(6, entity.getTarea().getId());
+        return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
     }
 
 }

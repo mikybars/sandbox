@@ -21,5 +21,7 @@ public class PtrPresenciaTiendasEmpleadoResultItemDto {
     private Integer empresa;
 
     private Integer cadena;
-    
+
+    private Integer gestionLocal;
+
 }

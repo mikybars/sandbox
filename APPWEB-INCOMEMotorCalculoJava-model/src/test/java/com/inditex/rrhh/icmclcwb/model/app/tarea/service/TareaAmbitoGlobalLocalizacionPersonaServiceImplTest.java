@@ -25,7 +25,8 @@ public class TareaAmbitoGlobalLocalizacionPersonaServiceImplTest {
         RunTareaDto runTareaDto = mock(RunTareaDto.class);
         tareaAmbitoGlobalLocalizacionPersonaService.mergePersonaLocalizacion(runTareaDto);
 
-        verify(tareaAmbitoGlobalLocalizacionPersonaRepositoryCustom, times(1)).mergePersonaLocalizacion(any(RunTareaDto.class));
+        verify(tareaAmbitoGlobalLocalizacionPersonaRepositoryCustom, times(1))
+            .mergePersonaLocalizacion(any(RunTareaDto.class));
 
     }
 

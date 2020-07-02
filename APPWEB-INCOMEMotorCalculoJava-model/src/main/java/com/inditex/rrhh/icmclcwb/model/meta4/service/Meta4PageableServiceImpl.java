@@ -4,34 +4,49 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4PageableService;
+import org.apache.commons.collections.CollectionUtils;
 
 @Service
-public class Meta4PageableServiceImpl<U extends PageableListDto> implements Meta4PageableService {
+public class Meta4PageableServiceImpl implements Meta4PageableService {
+
+    @Autowired
+    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+
+    @Autowired
+    @Qualifier("meta4Properties")
+    protected Map<String, Meta4PropertiesDto> meta4Properties;
 
     @Override
-    public <T extends PageableDto<?>, Z extends Object> List<Z> getResultItem(final T request, Object service,
-            String methodName, Integer maxPageSize) {
-        List<Z> result = new ArrayList<>();
+    public <T extends PageableDto<?>, Z extends Object, U extends PageableListDto<?>> List<Z> getResultItem(
+            final T request,
+            final String methodName, final Class<U> classU, final Class<Z> classZ) {
+        final List<Z> result = new ArrayList<>();
         try {
             boolean hasNext;
             do {
                 hasNext = false;
                 Method method;
-                method = service.getClass().getMethod(methodName, request.getClass());
-                U response = (U) method.invoke(service, request);
+                method = this.meta4IcmWsCalcIncomeService.getClass().getMethod(methodName, request.getClass());
+                final U response = classU.cast(method.invoke(this.meta4IcmWsCalcIncomeService, request));
                 if (response != null) {
                     if (CollectionUtils.isNotEmpty(response.getData())) {
-                        result.addAll(response.getData());
+                        result.addAll(response.getData().stream().map(classZ::cast).collect(Collectors.toList()));
                     }
-                    if (response.getPage() != null && response.getPage().hasNext() && (result.size() < maxPageSize)) {
+                    if ((response.getPage() != null) && response.getPage().hasNext()
+                            && (result.size() < this.meta4Properties.get(methodName).getFilter().getMaxPageSize())) {
                         hasNext = true;
                         request.setPage(response.getPage().next());
                     } else {

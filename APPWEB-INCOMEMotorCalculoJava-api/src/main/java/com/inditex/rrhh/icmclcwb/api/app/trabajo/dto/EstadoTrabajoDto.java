@@ -22,4 +22,5 @@ public class EstadoTrabajoDto implements Serializable {
 
     @ApiModelProperty(value = "Identificador del estado del trabajo", required = true)
     private Integer id;
+
 }

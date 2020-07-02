@@ -29,10 +29,9 @@ public class PeriodoCalculoPersonaPk implements Serializable {
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;
-    
+
     @NotBlank
     @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
     private String stdOrHrPeriod;
-
 
 }

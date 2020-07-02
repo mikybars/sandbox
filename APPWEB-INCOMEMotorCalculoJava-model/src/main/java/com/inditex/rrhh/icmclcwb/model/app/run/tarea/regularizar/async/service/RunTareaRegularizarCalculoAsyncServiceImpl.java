@@ -15,10 +15,11 @@ public class RunTareaRegularizarCalculoAsyncServiceImpl implements RunTareaRegul
 
     @Autowired
     private RunTareaRegularizarCalculoService runTareaRegularizarService;
-    
+
     @Override
     public CompletableFuture<Void> regularizarCalculoMejorOpcion(RunTareaDto runTarea) {
         runTareaRegularizarService.regularizarCalculoMejorOpcion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

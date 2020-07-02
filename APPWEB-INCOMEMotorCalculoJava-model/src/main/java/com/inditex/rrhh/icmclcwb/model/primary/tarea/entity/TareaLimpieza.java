@@ -17,21 +17,21 @@ import lombok.Data;
 public class TareaLimpieza {
 
     @Id
-    @Column(name= "ID_TAREA")
+    @Column(name = "ID_TAREA")
     private Long id;
-    
+
     @NotNull
     @Column(name = "FECHA_HORA_LIMPIEZA", nullable = false)
     private Date fechaHoraLimpieza;
-    
+
     @NotBlank
     @Column(name = "NOMBRE_USUARIO", nullable = false, length = 12)
     private String nombreUsuario;
-    
+
     @NotNull
     @Column(name = "ES_COMPLETA", nullable = false)
     private Boolean esCompleta;
-    
+
     @NotNull
     @Column(name = "ES_PARCIAL", nullable = false)
     private Boolean esParcial;

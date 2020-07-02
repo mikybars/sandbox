@@ -12,11 +12,12 @@ import lombok.Data;
 @Configuration
 @ConfigurationProperties(prefix = "app.envars.tarea")
 public class ValidarPropertiesConfig {
-    
+
     private ValidarPropertiesDto validar;
 
     @Bean(name = "validarProperties")
     public ValidarPropertiesDto validar() {
         return validar;
     }
+
 }

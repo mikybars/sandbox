@@ -24,62 +24,59 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="ICM_PARAMCONF" type="{http://schemas.meta4.com/}Icm_ParamconfBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALCONFORIGEN" type="{http://schemas.meta4.com/}Icm_ParamcalconforigenBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparamconf"
+        "icmparamcalconforigen"
 })
 @XmlRootElement(name = "GETCONFIGURACION")
-public class GETCONFIGURACION implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETCONFIGURACION implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
-    @XmlElement(name = "ICM_PARAMCONF", required = true)
-    protected IcmParamconfBlock icmparamconf;
+
+    @XmlElement(name = "ICM_PARAMCALCONFORIGEN", required = true)
+    protected IcmParamcalconforigenBlock icmparamcalconforigen;
 
     /**
-     * Obtiene el valor de la propiedad icmparamconf.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParamconfBlock }
-     *     
+     * Obtiene el valor de la propiedad icmparamcalconforigen.
+     * @return possible object is {@link IcmParamcalconforigenBlock }
+     *
      */
-    public IcmParamconfBlock getICMPARAMCONF() {
-        return icmparamconf;
+    public IcmParamcalconforigenBlock getICMPARAMCALCONFORIGEN() {
+        return icmparamcalconforigen;
     }
 
     /**
-     * Define el valor de la propiedad icmparamconf.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamconfBlock }
-     *     
+     * Define el valor de la propiedad icmparamcalconforigen.
+     * @param value allowed object is {@link IcmParamcalconforigenBlock }
+     *
      */
-    public void setICMPARAMCONF(IcmParamconfBlock value) {
-        this.icmparamconf = value;
+    public void setICMPARAMCALCONFORIGEN(IcmParamcalconforigenBlock value) {
+        this.icmparamcalconforigen = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -87,11 +84,14 @@ public class GETCONFIGURACION implements Serializable, Cloneable, CopyTo2, Equal
         }
         final GETCONFIGURACION that = ((GETCONFIGURACION) object);
         {
-            IcmParamconfBlock lhsICMPARAMCONF;
-            lhsICMPARAMCONF = this.getICMPARAMCONF();
-            IcmParamconfBlock rhsICMPARAMCONF;
-            rhsICMPARAMCONF = that.getICMPARAMCONF();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamconf", lhsICMPARAMCONF), LocatorUtils.property(thatLocator, "icmparamconf", rhsICMPARAMCONF), lhsICMPARAMCONF, rhsICMPARAMCONF, (this.icmparamconf!= null), (that.icmparamconf!= null))) {
+            IcmParamcalconforigenBlock lhsICMPARAMCALCONFORIGEN;
+            lhsICMPARAMCALCONFORIGEN = this.getICMPARAMCALCONFORIGEN();
+            IcmParamcalconforigenBlock rhsICMPARAMCALCONFORIGEN;
+            rhsICMPARAMCALCONFORIGEN = that.getICMPARAMCALCONFORIGEN();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalconforigen", lhsICMPARAMCALCONFORIGEN),
+                    LocatorUtils.property(thatLocator, "icmparamcalconforigen", rhsICMPARAMCALCONFORIGEN),
+                    lhsICMPARAMCALCONFORIGEN, rhsICMPARAMCALCONFORIGEN, (this.icmparamcalconforigen != null),
+                    (that.icmparamcalconforigen != null))) {
                 return false;
             }
         }
@@ -119,9 +119,10 @@ public class GETCONFIGURACION implements Serializable, Cloneable, CopyTo2, Equal
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            IcmParamconfBlock theICMPARAMCONF;
-            theICMPARAMCONF = this.getICMPARAMCONF();
-            strategy.appendField(locator, this, "icmparamconf", buffer, theICMPARAMCONF, (this.icmparamconf!= null));
+            IcmParamcalconforigenBlock theICMPARAMCALCONFORIGEN;
+            theICMPARAMCALCONFORIGEN = this.getICMPARAMCALCONFORIGEN();
+            strategy.appendField(locator, this, "icmparamcalconforigen", buffer, theICMPARAMCALCONFORIGEN,
+                    (this.icmparamcalconforigen != null));
         }
         return buffer;
     }
@@ -129,9 +130,11 @@ public class GETCONFIGURACION implements Serializable, Cloneable, CopyTo2, Equal
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            IcmParamconfBlock theICMPARAMCONF;
-            theICMPARAMCONF = this.getICMPARAMCONF();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamconf", theICMPARAMCONF), currentHashCode, theICMPARAMCONF, (this.icmparamconf!= null));
+            IcmParamcalconforigenBlock theICMPARAMCALCONFORIGEN;
+            theICMPARAMCALCONFORIGEN = this.getICMPARAMCALCONFORIGEN();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalconforigen", theICMPARAMCALCONFORIGEN), currentHashCode,
+                    theICMPARAMCALCONFORIGEN, (this.icmparamcalconforigen != null));
         }
         return currentHashCode;
     }
@@ -151,19 +154,22 @@ public class GETCONFIGURACION implements Serializable, Cloneable, CopyTo2, Equal
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETCONFIGURACION) {
             final GETCONFIGURACION copy = ((GETCONFIGURACION) draftCopy);
             {
-                Boolean icmparamconfShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamconf!= null));
-                if (icmparamconfShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParamconfBlock sourceICMPARAMCONF;
-                    sourceICMPARAMCONF = this.getICMPARAMCONF();
-                    IcmParamconfBlock copyICMPARAMCONF = ((IcmParamconfBlock) strategy.copy(LocatorUtils.property(locator, "icmparamconf", sourceICMPARAMCONF), sourceICMPARAMCONF, (this.icmparamconf!= null)));
-                    copy.setICMPARAMCONF(copyICMPARAMCONF);
+                Boolean icmparamcalconforigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalconforigen != null));
+                if (icmparamcalconforigenShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalconforigenBlock sourceICMPARAMCALCONFORIGEN;
+                    sourceICMPARAMCALCONFORIGEN = this.getICMPARAMCALCONFORIGEN();
+                    IcmParamcalconforigenBlock copyICMPARAMCALCONFORIGEN = ((IcmParamcalconforigenBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalconforigen", sourceICMPARAMCALCONFORIGEN),
+                            sourceICMPARAMCALCONFORIGEN, (this.icmparamcalconforigen != null)));
+                    copy.setICMPARAMCALCONFORIGEN(copyICMPARAMCALCONFORIGEN);
                 } else {
-                    if (icmparamconfShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparamconf = null;
+                    if (icmparamcalconforigenShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalconforigen = null;
                     }
                 }
             }

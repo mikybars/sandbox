@@ -26,7 +26,7 @@ public class GlobalTiendaSeccionPorcentajeV1RunAlgoritmo implements RunAlgoritmo
     @Autowired
     @Qualifier("runAlgoritmoProperties")
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
-    
+
     @Autowired
     private TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustom;
 
@@ -36,20 +36,27 @@ public class GlobalTiendaSeccionPorcentajeV1RunAlgoritmo implements RunAlgoritmo
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-                runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: GlobalTiendaSeccionPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
-                    try {
-                        tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustom.calcular(algoritmo,
-                                runTarea.getTarea(), personas);
-                    } catch (Exception e) {
-                        log.error("GlobalTiendaSeccionPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                                EstadoTareaCalculoPersonaEnum.KO.getDto());
-                    }
-                    log.info("Fin :: GlobalTiendaSeccionPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
-                    return Flux.empty();
-                }).sequential().collectList().block();    
+                tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustom.ids(algoritmo,
+                        runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: GlobalTiendaSeccionPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
+                try {
+                    tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustom.calcular(algoritmo,
+                            runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error("GlobalTiendaSeccionPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: GlobalTiendaSeccionPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override

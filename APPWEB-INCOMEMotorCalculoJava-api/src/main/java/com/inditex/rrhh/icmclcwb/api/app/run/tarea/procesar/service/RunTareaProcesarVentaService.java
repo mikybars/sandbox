@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-
 import javax.validation.Valid;
+
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 public interface RunTareaProcesarVentaService {
 
@@ -63,6 +63,12 @@ public interface RunTareaProcesarVentaService {
     void calcularImporteComisionVentaODevolucion(@Valid RunTareaDto tarea);
 
     void updateActivoNegativoTotalizado(@Valid RunTareaDto tarea);
+
+    void updateActivoExcepcionada(@Valid RunTareaDto runTarea);
+
+    void updateActivoCongelada(@Valid RunTareaDto runTarea);
+
+    void totalizarPresupuesto(@Valid RunTareaDto runTarea);
 
     void totalizarVentasVendedor0(@Valid RunTareaDto tarea);
 

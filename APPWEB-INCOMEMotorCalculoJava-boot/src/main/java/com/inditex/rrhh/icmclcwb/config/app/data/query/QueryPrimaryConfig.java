@@ -28,12 +28,19 @@ public class QueryPrimaryConfig {
     private String precisionProceso;
 
     private static final String RESOURCE_COMMON = "classpath*:/query/primary/*.xml";
+
     private static final String RESOURCE_CALCULO = "classpath*:/query/primary/calculo/*.xml";
+
     private static final String RESOURCE_LIMPIEZA = "classpath*:/query/primary/limpieza/*.xml";
+
     private static final String CAST_REPLACE_INICIO = "/*(*/";
+
     private static final String CAST_REPLACE_FIN = "/*)*/";
+
     private static final String CAST_RESULT_INICIO = "CAST(";
+
     private static final String CAST_RESULT_FIN = "AS ${precision})";
+
     private static final String CAST_VAR_PRECISION = "${precision}";
 
     @Bean(name = "primaryQuery")

@@ -44,11 +44,12 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
             login = true;
             loginService = meta4ClientFactory.getLoginServiceFactory().build(LoginService.class);
             icmWsCalcIncomeService = meta4ClientFactory.getIcmWsCalcIncomeServiceFactory()
-                    .build(IcmWsCalcIncomeService.class);
+                .build(IcmWsCalcIncomeService.class);
             try {
                 id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
                         meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
-                        meta4ClientFactory.getMeta4ClientCredentials().getLanguage()).getSessionID();
+                        meta4ClientFactory.getMeta4ClientCredentials().getLanguage())
+                    .getSessionID();
                 if (StringUtils.isNotBlank(id)) {
                     // TODO [DAVIDTSO] NO BORRAR
                     // List<String> setCookie =
@@ -66,7 +67,8 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
                     CxfUtils.setCookies(icmWsCalcIncomeService, cookies);
                     icmWsCalcIncomeService.retrieveM4Session(id);
                 } else {
-                    log.error("Error :: Meta4ClientReallocator :: allocate({}) :: No ha sido posible hacer login", effectiveCount);
+                    log.error("Error :: Meta4ClientReallocator :: allocate({}) :: No ha sido posible hacer login",
+                            effectiveCount);
                     throw new Meta4IcmclcwbException("No ha sido posible hacer login");
                 }
             } catch (Exception e) {

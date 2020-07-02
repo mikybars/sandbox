@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +29,14 @@ public class TareaLocalizacionAbiertaServiceImpl implements TareaLocalizacionAbi
     private TipoDatoService tipoDatoService;
 
     @Override
-    public void saveAbierto(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
+    public void saveAbierto(@Valid @NotNull final TareaDto tareaDto, @Valid @NotNull final TrabajoDto trabajoDto) {
         tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(tareaDto, trabajoDto);
     }
 
     @Override
-    public void saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
+    public void saveCerrado(@Valid @NotNull final TareaDto tareaDto, @Valid @NotNull final TrabajoDto trabajoDto) {
         List<IdTipoDatoDto> ids = tipoDatoService
-                .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
         tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tareaDto, trabajoDto,
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }

@@ -23,7 +23,7 @@ public class RunTrabajoDto implements Serializable {
 
     @NotNull
     private TrabajoDto trabajo;
-    
+
     private List<TareaDto> tarea;
 
 }

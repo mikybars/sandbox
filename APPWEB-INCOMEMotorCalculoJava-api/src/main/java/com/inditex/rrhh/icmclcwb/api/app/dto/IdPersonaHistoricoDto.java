@@ -19,7 +19,7 @@ public class IdPersonaHistoricoDto implements Serializable {
 
     @NotBlank
     private String stdIdHr;
-    
+
     @NotBlank
     private String stdOrHrPeriod;
 

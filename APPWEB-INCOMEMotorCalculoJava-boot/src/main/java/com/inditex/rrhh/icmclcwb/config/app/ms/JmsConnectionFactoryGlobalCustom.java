@@ -24,7 +24,7 @@ public class JmsConnectionFactoryGlobalCustom implements JmsConnectionFactoryGlo
             RedeliveryPolicy redeliveryPolicy = new RedeliveryPolicy();
             redeliveryPolicy.setMaximumRedeliveries(0);
             activeMQCF.setRedeliveryPolicy(redeliveryPolicy);
-        }else if (ActiveMQConnectionFactory.class.isInstance(cf)) {
+        } else if (ActiveMQConnectionFactory.class.isInstance(cf)) {
             ActiveMQConnectionFactory activeMQCF = (ActiveMQConnectionFactory) cf;
             activeMQCF.setMessagePrioritySupported(true);
             RedeliveryPolicy redeliveryPolicy = new RedeliveryPolicy();

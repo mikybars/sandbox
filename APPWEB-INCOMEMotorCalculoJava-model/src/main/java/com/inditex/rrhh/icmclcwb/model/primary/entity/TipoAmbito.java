@@ -12,12 +12,12 @@ import lombok.Data;
 @Data
 public class TipoAmbito {
 
-	@Id
-	@Column(name = "ID_TIPO_AMBITO")
-	private Integer id;
+    @Id
+    @Column(name = "ID_TIPO_AMBITO")
+    private Integer id;
 
-	@NotBlank
-	@Column(name = "NOMBRE", length = 32, nullable = false)
-	private String nombre;
+    @NotBlank
+    @Column(name = "NOMBRE", length = 32, nullable = false)
+    private String nombre;
 
 }

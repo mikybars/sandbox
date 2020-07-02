@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>2.0.4</version>
+    <version>2.1.0</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
@@ -45,6 +45,10 @@
     <dependency>
       <groupId>com.inditex.aqsw.framework.common</groupId>
       <artifactId>common-framework-starter-retry</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.common</groupId>
+      <artifactId>common-framework-starter-metrics-annotation</artifactId>
     </dependency>
 
     <!-- OTHER DEPENDENCIES -->
@@ -93,7 +97,7 @@
     <profile>
       <id>generateWSClients</id>
       <properties>
-        <urlServidor>https://pre-icmclcws.axpreocp1.central.inditex.grp/services</urlServidor>
+        <urlServidor>http://develop-icmclcws.axdesocp1.central.inditex.grp/services</urlServidor>
         <bindingDirectory>${basedir}/src/main/resources/bindings</bindingDirectory>
         <sourceDestDir>src/main/java</sourceDestDir>
         <sourceDestDirWsdl>src/main/resources/wsdls</sourceDestDirWsdl>

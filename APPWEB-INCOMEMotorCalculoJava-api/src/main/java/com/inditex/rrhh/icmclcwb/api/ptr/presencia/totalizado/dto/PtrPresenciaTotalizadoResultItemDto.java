@@ -17,17 +17,19 @@ public class PtrPresenciaTotalizadoResultItemDto {
 
     private String fecha;
 
-	private Integer tienda;
-	
+    private Integer tienda;
+
     private Integer seccion;
 
     private Integer origen;
-    
+
     private Integer empresa;
 
-	private Integer minutos;
-	
-	private Integer cadena;
+    private Integer minutos;
+
+    private Integer cadena;
+
+    private Integer gestionLocal;
 
     private List<PtrSeccionPresenciasGenericType> listaSeccion;
 

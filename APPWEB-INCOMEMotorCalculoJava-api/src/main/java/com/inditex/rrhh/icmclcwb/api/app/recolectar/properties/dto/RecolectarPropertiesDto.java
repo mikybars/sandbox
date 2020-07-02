@@ -9,4 +9,5 @@ public class RecolectarPropertiesDto {
 
     @Min(0)
     private Integer daysNumber = 0;
+
 }

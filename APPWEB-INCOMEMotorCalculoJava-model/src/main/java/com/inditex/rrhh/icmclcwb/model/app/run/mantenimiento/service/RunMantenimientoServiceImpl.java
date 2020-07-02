@@ -21,20 +21,27 @@ public class RunMantenimientoServiceImpl implements RunMantenimientoService {
     private RunMantenimientoLimpiezaService runMantenimientoLimpiezaService;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunMantenimientoService.run.timer", metricGroupName = "RunMantenimientoServiceGroup", metricDescription = "RunMantenimientoService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunMantenimientoService.run.counter", metricGroupName = "RunMantenimientoServiceGroup", metricDescription = "RunMantenimientoService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunMantenimientoService.run.timer",
+            metricGroupName = "RunMantenimientoServiceGroup", metricDescription = "RunMantenimientoService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunMantenimientoService.run.counter",
+            metricGroupName = "RunMantenimientoServiceGroup", metricDescription = "RunMantenimientoService.run.counter")
     @Override
     public RunMantenimientoDto run() {
         return RunMantenimientoDto.builder().runMantenimientoLimpieza(runMantenimientoLimpiezaService.run()).build();
     }
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunMantenimientoService.runIdTarea.timer", metricGroupName = "RunMantenimientoServiceGroup", metricDescription = "RunMantenimientoService.runIdTarea.timer")
-    @CounterFunctionalMetric(metricName = "RunMantenimientoService.runIdTarea.counter", metricGroupName = "RunMantenimientoServiceGroup", metricDescription = "RunMantenimientoService.runIdTarea.counter")
+    @TimerFunctionalMetric(metricName = "RunMantenimientoService.runIdTarea.timer",
+            metricGroupName = "RunMantenimientoServiceGroup",
+            metricDescription = "RunMantenimientoService.runIdTarea.timer")
+    @CounterFunctionalMetric(metricName = "RunMantenimientoService.runIdTarea.counter",
+            metricGroupName = "RunMantenimientoServiceGroup",
+            metricDescription = "RunMantenimientoService.runIdTarea.counter")
     @Override
     public RunMantenimientoDto runIdTarea(@NotNull Long id) {
-        return RunMantenimientoDto.builder().runMantenimientoLimpieza(runMantenimientoLimpiezaService.runIdTarea(id))
-                .build();
+        return RunMantenimientoDto.builder()
+            .runMantenimientoLimpieza(runMantenimientoLimpiezaService.runIdTarea(id))
+            .build();
     }
 
 }

@@ -8,49 +8,109 @@ import lombok.RequiredArgsConstructor;
 public enum TipoDatoEnum {
 
     /* 2000 (Venta) */
-    VENTA_FISICA_LOCALIZACION(2001), VENTA_FISICA_LOCALIZACION_SECCION(2002), VENTA_ONLINE_IPOD_LOCALIZACION(2003),
-    VENTA_ONLINE_IPOD_LOCALIZACION_SECCION(2004), VENTA_ONLINE_SINT_LOCALIZACION(2005),
-    VENTA_ONLINE_SINT_LOCALIZACION_SECCION(2006), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION(2007),
-    VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION(2008), VENTA_FISICA_AGRUPACIONONLINE(2009),
-    VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE(2010), OPERACION_VENTA_FISICA_LOCALIZACION_SECCION(2011),
-    OPERACION_DEVOLUCION_FISICA_LOCALIZACION_SECCION(2012), OPERACION_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION(2013),
-    OPERACION_DEVOLUCION_ONLINE_IPOD_LOCALIZACION_SECCION(2014),
+    VENTA_FISICA_LOCALIZACION(2001), VENTA_FISICA_LOCALIZACION_SECCION(2002), VENTA_ONLINE_IPOD_LOCALIZACION(
+            2003), VENTA_ONLINE_IPOD_LOCALIZACION_SECCION(2004), VENTA_ONLINE_SINT_LOCALIZACION(
+                    2005), VENTA_ONLINE_SINT_LOCALIZACION_SECCION(2006), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION(
+                            2007), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION(2008), VENTA_FISICA_AGRUPACIONONLINE(
+                                    2009), VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE(
+                                            2010), OPERACION_VENTA_FISICA_LOCALIZACION_SECCION(
+                                                    2011), OPERACION_DEVOLUCION_FISICA_LOCALIZACION_SECCION(
+                                                            2012), OPERACION_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION(
+                                                                    2013), OPERACION_DEVOLUCION_ONLINE_IPOD_LOCALIZACION_SECCION(
+                                                                            2014), VENTA_RANGO_CONGELADA_FISICA_CAJA_LOCALIZACION(
+                                                                                    2015), VENTA_RANGO_CONGELADA_FISICA_CAJA_LOCALIZACION_SECCION(
+                                                                                            2016), VENTA_RANGO_CONGELADA_FISICA_DEVOLUCION_LOCALIZACION(
+                                                                                                    2017), VENTA_RANGO_CONGELADA_FISICA_DEVOLUCION_LOCALIZACION_SECCION(
+                                                                                                            2018), VENTA_RANGO_CONGELADA_ONLINE_ENTREGADOMICILIO_LOCALIZACION(
+                                                                                                                    2019), VENTA_RANGO_CONGELADA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION(
+                                                                                                                            2020), VENTA_RANGO_CONGELADA_ONLINE_IPOD_LOCALIZACION(
+                                                                                                                                    2021), VENTA_RANGO_CONGELADA_ONLINE_IPOD_LOCALIZACION_SECCION(
+                                                                                                                                            2022), VENTA_RANGO_CONGELADA_ONLINE_SINT_LOCALIZACION(
+                                                                                                                                                    2023), VENTA_RANGO_CONGELADA_ONLINE_SINT_LOCALIZACION_SECCION(
+                                                                                                                                                            2024), VENTA_RANGO_CONGELADA_ONLINE_ENTREGATIENDA_LOCALIZACION(
+                                                                                                                                                                    2025), VENTA_RANGO_CONGELADA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION(
+                                                                                                                                                                            2026), VENTA_RANGO_FISICA_CAJA_LOCALIZACION(
+                                                                                                                                                                                    2027), VENTA_RANGO_FISICA_CAJA_LOCALIZACION_SECCION(
+                                                                                                                                                                                            2028), VENTA_RANGO_FISICA_DEVOLUCION_LOCALIZACION(
+                                                                                                                                                                                                    2029), VENTA_RANGO_FISICA_DEVOLUCION_LOCALIZACION_SECCION(
+                                                                                                                                                                                                            2030), VENTA_RANGO_ONLINE_ENTREGADOMICILIO_LOCALIZACION(
+                                                                                                                                                                                                                    2031), VENTA_RANGO_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                            2032), VENTA_RANGO_ONLINE_IPOD_LOCALIZACION(
+                                                                                                                                                                                                                                    2033), VENTA_RANGO_ONLINE_IPOD_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                            2034), VENTA_RANGO_ONLINE_SINT_LOCALIZACION(
+                                                                                                                                                                                                                                                    2035), VENTA_RANGO_ONLINE_SINT_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                            2036), VENTA_RANGO_ONLINE_ENTREGATIENDA_LOCALIZACION(
+                                                                                                                                                                                                                                                                    2037), VENTA_RANGO_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                            2038), VENTA_RANGO_CONGELADA_LOCALIZACION(
+                                                                                                                                                                                                                                                                                    2039), VENTA_RANGO_CONGELADA_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                            2040), VENTA_RANGO_LOCALIZACION(
+                                                                                                                                                                                                                                                                                                    2041), VENTA_RANGO_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                                            2042),
+
     /* 3000 (Venta Procesado) */
-    VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION(3001), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION(3002),
-    VENTA_ONLINE_TRASLADADA(3003), VENTA_ONLINE_COMPENSADA(3004), VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA(3005),
-    VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA(3006), VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA(3007),
-    VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA(3008), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA(3009),
-    VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA(3010), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA(3011),
-    VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA(3012), VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_DIA(3013),
-    VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA(3014), VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_DIA(3015),
-    VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA(3016), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_DIA(3017),
-    VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA(3018), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_DIA(3019),
-    VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA(3020),VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_SECCION(3021),
-    VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_SECCION(3022), VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_SECCION(3023),
-    VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_SECCION(3024), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_SECCION(3025),
-    VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_SECCION(3026), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_SECCION(3027),
-    VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_SECCION(3028), DEVOLUCION_LOCALIZACION_SECCION(3029),
-    VENTA_INDIVIDUAL_LOCALIZACION_SECCION(3030), IMPORTE_COMISION_VENDEDORES_POR_VENTA(3031), VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA_SIMPLIFICADO(3032),
-    VENTA_SIN_DEVOLUCION_LOCALIZACION_EMPLEADOS_POR_VENTA(3033), VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION(3034),
-    IMPORTE_COMISION_VENTA_LOCALIZACION_POR_VENTA(3035), IMPORTE_COMISION_DEVOLUCIONES_LOCALIZACION_POR_VENTA(3036),
-    DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION(3037), VENTA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION(3038),
-    VENTA_FISICA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION(3039), VENTA_ONLINE_IPOD_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION(3040),
-    DEVOLUCION_FISICA_INDIVIDUAL_LOCALIZACION_SECCION(3041), DEVOLUCION_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_SECCION(3042),
-    VENTA_SIN_DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION(3043), DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION(3044),
-    REPARTO_DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION(3045),
+    VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION(3001), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION(
+            3002), VENTA_ONLINE_TRASLADADA(3003), VENTA_ONLINE_COMPENSADA(
+                    3004), VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA(
+                            3005), VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA(
+                                    3006), VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA(
+                                            3007), VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA(
+                                                    3008), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA(
+                                                            3009), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA(
+                                                                    3010), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA(
+                                                                            3011), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA(
+                                                                                    3012), VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_DIA(
+                                                                                            3013), VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA(
+                                                                                                    3014), VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_DIA(
+                                                                                                            3015), VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA(
+                                                                                                                    3016), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_DIA(
+                                                                                                                            3017), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA(
+                                                                                                                                    3018), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_DIA(
+                                                                                                                                            3019), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA(
+                                                                                                                                                    3020), VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_SECCION(
+                                                                                                                                                            3021), VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_SECCION(
+                                                                                                                                                                    3022), VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_SECCION(
+                                                                                                                                                                            3023), VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_SECCION(
+                                                                                                                                                                                    3024), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_SECCION(
+                                                                                                                                                                                            3025), VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_SECCION(
+                                                                                                                                                                                                    3026), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_SECCION(
+                                                                                                                                                                                                            3027), VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_SECCION(
+                                                                                                                                                                                                                    3028), DEVOLUCION_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                            3029), VENTA_INDIVIDUAL_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                    3030), IMPORTE_COMISION_VENDEDORES_POR_VENTA(
+                                                                                                                                                                                                                                            3031), VENTA_LOCALIZACION_EMPLEADOS_POR_VENTA_SIMPLIFICADO(
+                                                                                                                                                                                                                                                    3032), VENTA_SIN_DEVOLUCION_LOCALIZACION_EMPLEADOS_POR_VENTA(
+                                                                                                                                                                                                                                                            3033), VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                    3034), IMPORTE_COMISION_VENTA_LOCALIZACION_POR_VENTA(
+                                                                                                                                                                                                                                                                            3035), IMPORTE_COMISION_DEVOLUCIONES_LOCALIZACION_POR_VENTA(
+                                                                                                                                                                                                                                                                                    3036), DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                            3037), VENTA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                                    3038), VENTA_FISICA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                                            3039), VENTA_ONLINE_IPOD_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                                                    3040), DEVOLUCION_FISICA_INDIVIDUAL_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                                                            3041), DEVOLUCION_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                                                                    3042), VENTA_SIN_DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                                                                            3043), DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                                                                                    3044), REPARTO_DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                                                                                            3045),
     /* 4000 (Presencia) */
-    PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA(4002),
-    PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA(4003),
+    PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA(4002), PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA(
+            4003),
     /* 5000 (Presencia Procesado) */
-    PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR(5001), PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR(5002),
-    PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR(5003), PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE(5004),
-    PRESENCIA_AGRUPACIONONLINE_INCLUIDOECOMMERCE(5005), INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA(5006),
-    INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO(5007), INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE(5008),
-    INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION(5009),
-    PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA(5010), PRESENCIA_LOCALIZACION_SECCION_EMPLEADOS_POR_VENTA(5011),
-    INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA(5012), INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA_SIMPLIFICADA(5013),
-    PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOVENTA(5014),
-	/* 6000 (Localizacion) */
+    PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR(5001), PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR(
+            5002), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR(
+                    5003), PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE(
+                            5004), PRESENCIA_AGRUPACIONONLINE_INCLUIDOECOMMERCE(
+                                    5005), INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA(
+                                            5006), INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO(
+                                                    5007), INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE(
+                                                            5008), INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION(
+                                                                    5009), PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA(
+                                                                            5010), PRESENCIA_LOCALIZACION_SECCION_EMPLEADOS_POR_VENTA(
+                                                                                    5011), INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA(
+                                                                                            5012), INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA_SIMPLIFICADA(
+                                                                                                    5013), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOVENTA(
+                                                                                                            5014),
+    /* 6000 (Localizacion) */
     LOCALIZACION_FESTIVO(6001),
     /* 7000 (Localizacion Procesado) *//* 8000 (Persona) */
     PERSONA_COEFICIENTEREDUCCIONJORNADA(8001),

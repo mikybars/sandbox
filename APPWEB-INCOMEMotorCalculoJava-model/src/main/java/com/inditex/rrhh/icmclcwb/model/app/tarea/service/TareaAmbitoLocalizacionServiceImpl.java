@@ -1,19 +1,20 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionService;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoLocalizacionMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoLocalizacionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionService;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoLocalizacionMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoLocalizacionRepository;
 
 @Service
 @Validated
@@ -27,12 +28,12 @@ public class TareaAmbitoLocalizacionServiceImpl implements TareaAmbitoLocalizaci
 
     @Override
     public List<TareaAmbitoLocalizacionDto> create(
-            @Valid @NotNull @NotEmpty List<TareaAmbitoLocalizacionDto> tareaAmbitoLocalizacion,
-            @NotNull TareaDto tarea) {
+            @Valid @NotNull @NotEmpty final List<TareaAmbitoLocalizacionDto> tareaAmbitoLocalizacion,
+            @Valid @NotNull final TareaDto tarea) {
         return tareaAmbitoLocalizacionMapper.tareaAmbitoLocalizacionToTareaAmbitoLocalizacionDto(
                 tareaAmbitoLocalizacionRepository.saveAll(tareaAmbitoLocalizacionMapper
-                        .mergeTareaAmbitoLocalizacionDtoAndTareaDtoToTareaAmbitoLocalizacion(tareaAmbitoLocalizacion,
-                                tarea)));
+                    .mergeTareaAmbitoLocalizacionDtoAndTareaDtoToTareaAmbitoLocalizacion(tareaAmbitoLocalizacion,
+                            tarea)));
     }
 
     @Override

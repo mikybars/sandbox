@@ -20,4 +20,5 @@ public class PeriodoLocalizacionPersonaServiceImpl implements PeriodoLocalizacio
     public void mergePeriodoLocalizacionPersona(@NotNull RunTareaDto tareaDto) {
         periodoLocalizacionPersonaRepositoryCustom.mergePeriodoLocalizacionPersona(tareaDto);
     }
+
 }

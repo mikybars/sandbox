@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 public class TareaPersonaCoeficienteDto implements Serializable {
-    
+
     private static final long serialVersionUID = 2150494287535837812L;
 
     @ApiModelProperty(value = "Identificador de la entidad", required = false)
@@ -20,30 +20,31 @@ public class TareaPersonaCoeficienteDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Identificador del tarea", required = true)
     private Long idTarea;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Identificador de la persona local", required = true)
     private String cclIdPerson;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Identificador de la persona", required = true)
     private String stdIdHr;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Ordinal de la persona", required = true)
     private String stdOrHrPeriod;
-    
+
     @NotNull
     private Date fechaInicioPar;
-    
+
     @NotNull
     private Date fechaFinPar;
-    
+
     @NotNull
     private Date fechaInicioCom;
-    
+
     @NotNull
     private Date fechaFinCom;
+
     @NotNull
     @ApiModelProperty(value = "Coeficiente jornada", required = true)
     private Long coeficiente;

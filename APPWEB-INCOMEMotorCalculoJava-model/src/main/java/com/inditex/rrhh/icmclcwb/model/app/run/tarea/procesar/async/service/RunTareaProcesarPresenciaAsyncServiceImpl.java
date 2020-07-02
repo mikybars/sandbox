@@ -99,9 +99,10 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         runTareaProcesarPresenciaService.indicadorPresenciaDesplazamientoBase(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
-    
+
     @Override
-    public CompletableFuture<Void> indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(RunTareaDto runTarea) {
+    public CompletableFuture<Void> indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(
+            RunTareaDto runTarea) {
         runTareaProcesarPresenciaService.indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
@@ -129,4 +130,5 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         runTareaProcesarPresenciaService.indicadorPersonaPorVentaSimplificada(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

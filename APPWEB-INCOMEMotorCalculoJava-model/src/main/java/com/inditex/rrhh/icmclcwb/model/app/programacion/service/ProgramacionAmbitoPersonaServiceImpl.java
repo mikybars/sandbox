@@ -32,8 +32,8 @@ public class ProgramacionAmbitoPersonaServiceImpl implements ProgramacionAmbitoP
             @NotNull final ProgramacionAmbitoDto programacionAmbito) {
         return programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
                 programacionAmbitoPersonaRepository.saveAll(programacionAmbitoPersonaMapper
-                        .mergeProgramacionAmbitoPersonaDtoAndProgramacionDtoToProgramacionAmbitoPersona(
-                                programacionAmbitoPersona, programacionAmbito)));
+                    .mergeProgramacionAmbitoPersonaDtoAndProgramacionDtoToProgramacionAmbitoPersona(
+                            programacionAmbitoPersona, programacionAmbito)));
     }
 
     @Override

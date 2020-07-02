@@ -15,16 +15,14 @@ public abstract class TareaLocalizacionFestivoDecorator extends TareaLocalizacio
 
     @Autowired
     private TareaLocalizacionFestivoMapper delegate;
-    
+
     @Override
     public List<TareaLocalizacionFestivo> genericTiendaResultItemDtoToTareaLocalizacionFestivo(
             List<GenericTiendaResultItemDto> src, TareaDto tareaDto) {
         List<TareaLocalizacionFestivo> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(item -> 
-                result.add(
-                        delegate.genericTiendaResultItemDtoToTareaLocalizacionFestivo(item, tareaDto))
-            );
+            src.forEach(item -> result.add(
+                    delegate.genericTiendaResultItemDtoToTareaLocalizacionFestivo(item, tareaDto)));
         }
         return result;
     }

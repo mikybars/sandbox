@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -30,23 +30,25 @@ public class TareaCalculoAjusteAntiguedadRepositoryCustomImpl
     @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
     @Getter
     private String sqlAjustarBase;
-    
+
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
-    public List<TareaCalculoPersonaDto> ids(TareaDto tarea) {
-        return tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea, TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4());
+    public List<IdPersonaLocalDto> ids(TareaDto tarea) {
+        return tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
+                TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4());
     }
 
     @Override
-    protected Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea, TareaCalculoPersonaDto persona) {
+    protected Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
+            IdPersonaLocalDto persona) {
         Map<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         }
         if (persona != null) {
-            map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getCclIdPerson());
+            map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
             map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
         }
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());

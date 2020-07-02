@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.async.service;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -29,4 +28,11 @@ public class RunTareaRecolectarPtrVentaGeneralAsyncServiceImpl
         tareaRecolectarPtrVentaService.ventaFisicaCadenaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
+    @Override
+    public CompletableFuture<Void> ventaRangoFisicaLocalizacionSeccionByRunTarea(RunTareaDto runTarea) {
+        tareaRecolectarPtrVentaService.ventaRangoFisicaLocalizacionSeccionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

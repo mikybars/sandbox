@@ -23,7 +23,8 @@ import io.swagger.annotations.Authorization;
 @Validated
 @RestController
 @RequestMapping(path = "/programacion")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
+@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), value = "ProgramacionController",
+        tags = { "ProgramacionController" })
 public class ProgramacionController {
 
     @Autowired
@@ -33,42 +34,42 @@ public class ProgramacionController {
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Crea una nueva programación", response = ProgramacionDto.class)
     public @Valid ProgramacionDto create(@Valid @RequestBody final ProgramacionDto programacion) {
-        return programacionService.create(programacion);
+        return this.programacionService.create(programacion);
     }
 
     @GetMapping("/reset")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Resetea la fecha de siguiente ejecución de las programaciones")
     public void reset() {
-        programacionService.reset();
+        this.programacionService.reset();
     }
 
     @GetMapping("/activa")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Activa las programaciones")
     public void activa() {
-        programacionService.activa();
+        this.programacionService.activa();
     }
 
     @GetMapping("/activa/{id}")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Activa la programacion")
     public void activa(@PathVariable @Positive @NotNull final Long id) {
-        programacionService.activa(id);
+        this.programacionService.activa(id);
     }
 
     @GetMapping("/desactiva")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Desactiva las programaciones")
     public void desactiva() {
-        programacionService.desactiva();
+        this.programacionService.desactiva();
     }
 
     @GetMapping("/desactiva/{id}")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "Desactiva la programacion")
     public void desactiva(@PathVariable @Positive @NotNull final Long id) {
-        programacionService.desactiva(id);
+        this.programacionService.desactiva(id);
     }
 
 }

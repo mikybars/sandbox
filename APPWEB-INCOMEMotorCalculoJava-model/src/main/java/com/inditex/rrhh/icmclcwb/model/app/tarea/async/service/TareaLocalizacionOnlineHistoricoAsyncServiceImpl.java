@@ -22,4 +22,5 @@ public class TareaLocalizacionOnlineHistoricoAsyncServiceImpl implements TareaLo
         tareaLocalizacionOnlineHistoricoService.save(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

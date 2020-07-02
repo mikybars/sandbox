@@ -26,12 +26,12 @@ public class TareaLocalizacionPersonaVenta {
 
     @EmbeddedId
     private TareaLocalizacionPersonaVentaPk pk;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
-    
+
     @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String cclIdCodOrigen;
@@ -47,13 +47,13 @@ public class TareaLocalizacionPersonaVenta {
     @NotBlank
     @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
     private String cclIdPerson;
-    
+
     @NotNull
-    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false, precision = 23,  scale = 8)
+    @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false, precision = 23, scale = 8)
     private BigDecimal importeSinImpuestos;
-    
+
     @NotNull
-    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false, precision = 23,  scale = 8)
+    @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false, precision = 23, scale = 8)
     private BigDecimal importeConImpuestos;
 
     @ManyToOne

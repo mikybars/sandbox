@@ -17,11 +17,12 @@ public class TareaPersonaCoeficienteAsyncServiceImpl implements TareaPersonaCoef
 
     @Autowired
     private TareaPersonaCoeficienteService tareaPersonaCoeficienteService;
-    
+
     @Override
     public CompletableFuture<Void> save(final List<GenericEmpleadoResultItemDto> src,
-           final TareaDto tarea) {
+            final TareaDto tarea) {
         tareaPersonaCoeficienteService.save(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

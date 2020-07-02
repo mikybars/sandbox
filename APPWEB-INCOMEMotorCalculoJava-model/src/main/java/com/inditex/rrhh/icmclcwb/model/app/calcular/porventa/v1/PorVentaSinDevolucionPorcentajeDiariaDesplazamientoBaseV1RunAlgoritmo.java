@@ -34,24 +34,39 @@ public class PorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgorit
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-            log.info("Inicio :: PorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
-            try {
-                tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo,
-                    runTarea.getTarea(), personas);
-            } catch (Exception e) {
-                log.error("PorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
-            }
-            log.info("Fin :: PorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
-            return Flux.empty();
-        }).sequential().collectList().block();
+                tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
+                    .ids(algoritmo, runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info(
+                        "Inicio :: PorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
+                try {
+                    tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
+                        .calcular(algoritmo,
+                                runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error(
+                            "PorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
+                            personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: PorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
+            .getSqlCalcular(algoritmo);
     }
 
 }

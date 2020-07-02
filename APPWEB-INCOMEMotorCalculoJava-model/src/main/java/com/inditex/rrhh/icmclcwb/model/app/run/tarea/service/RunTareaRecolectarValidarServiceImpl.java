@@ -23,8 +23,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarAmbitoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarEstructurasAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionHistoricoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiposHoraAsyncService;
@@ -65,39 +65,43 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
     private Logger log;
 
     @Auditoria
-    @TimerFunctionalMetric(metricName = "RunTareaRecolectarValidarService.run.timer", metricGroupName = "RunTareaRecolectarValidarServiceeGroup", metricDescription = "RunTareaRecolectarValidarService.run.timer")
-    @CounterFunctionalMetric(metricName = "RunTareaRecolectarValidarService.run.counter", metricGroupName = "RunTareaRecolectarValidarServiceGroup", metricDescription = "RunTareaRecolectarValidarService.run.counter")
+    @TimerFunctionalMetric(metricName = "RunTareaRecolectarValidarService.run.timer",
+            metricGroupName = "RunTareaRecolectarValidarServiceeGroup",
+            metricDescription = "RunTareaRecolectarValidarService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRecolectarValidarService.run.counter",
+            metricGroupName = "RunTareaRecolectarValidarServiceGroup",
+            metricDescription = "RunTareaRecolectarValidarService.run.counter")
     @Override
     public void run(@NotNull @Valid RunTareaDto runTarea) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             if (validarProperties.isEnabled()) {
                 CompletableFuture<List<RunTareaValidarDto>> cfEstructura = runTareaRecolectarValidarEstructurasAsyncService
-                        .run(runTarea);
+                    .run(runTarea);
                 AsyncUtils.exceptionally(cfEstructura, cf);
 
                 CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionHistorico = runTareaRecolectarValidarLocalizacionHistoricoAsyncService
-                        .run(runTarea);
+                    .run(runTarea);
                 AsyncUtils.exceptionally(cfLocalizacionHistorico, cf);
 
                 CompletableFuture<List<RunTareaValidarDto>> cfTiposHora = runTareaRecolectarValidarTiposHoraAsyncService
-                        .run(runTarea);
+                    .run(runTarea);
                 AsyncUtils.exceptionally(cfTiposHora, cf);
 
                 CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionPersonaPresencia = runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService
-                        .run(runTarea);
+                    .run(runTarea);
                 AsyncUtils.exceptionally(cfLocalizacionPersonaPresencia, cf);
 
                 CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionPresencia = runTareaRecolectarValidarLocalizacionPresenciaAsyncService
-                        .run(runTarea);
+                    .run(runTarea);
                 AsyncUtils.exceptionally(cfLocalizacionPresencia, cf);
 
                 CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionVenta = runTareaRecolectarValidarLocalizacionVentaAsyncService
-                        .run(runTarea);
+                    .run(runTarea);
                 AsyncUtils.exceptionally(cfLocalizacionVenta, cf);
 
                 CompletableFuture<List<RunTareaValidarDto>> cfAmbito = runTareaRecolectarValidarAmbitoAsyncService
-                        .run(runTarea);
+                    .run(runTarea);
                 AsyncUtils.exceptionally(cfAmbito, cf);
 
                 /*-------------------------------------------------------------*/
@@ -113,12 +117,14 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
                 runTareaValidar.addAll(AsyncUtils.get(cfTiposHora));
 
                 List<RunTareaValidarDto> runTareaValidarDuplicated = runTareaValidar.stream()
-                        .filter(item -> CollectionUtils.isNotEmpty(item.getDuplicated())).collect(Collectors.toList());
+                    .filter(item -> CollectionUtils.isNotEmpty(item.getDuplicated()))
+                    .collect(Collectors.toList());
 
                 if (CollectionUtils.isNotEmpty(runTareaValidarDuplicated)) {
                     if (validarProperties.isLogging()) {
-                        log.warn("RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
-                                runTareaValidarDuplicated);
+                        log.warn(
+                                "Trabajo[{}]Tarea[{}] :: RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
+                                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), runTareaValidarDuplicated);
                     }
                     if (validarProperties.isException()) {
                         throw new IcmclcwbException("Valores duplicados");

@@ -1,28 +1,25 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
@@ -43,268 +40,405 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
     @Mock
     private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
-    
+
     @InjectMocks
     private Meta4IcmWsCalcIncomeSessionAsyncServiceImpl meta4IcmWsCalcIncomeSessionAsyncServiceImpl;
-    
+
     @Test
     public void getFlagCalcula() {
-        when(meta4IcmWsCalcIncomeSessionService.getFlagCalcula(any(FlagCalculaRequestDto.class))).thenReturn(new ArrayList<GenericTiendaResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getFlagCalcula(any(FlagCalculaRequestDto.class)))
+            .thenReturn(new ArrayList<GenericTiendaResultItemDto>());
 
-        FlagCalculaRequestDto request = new FlagCalculaRequestDto();
+        final FlagCalculaRequestDto request = new FlagCalculaRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getFlagCalcula(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getFlagCalcula(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getFlagCalcula(ArgumentMatchers.any(FlagCalculaRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getFlagCalcula(ArgumentMatchers.any(FlagCalculaRequestDto.class));
 
     }
-    
+
     @Test
     public void getCoefJornada() {
-        when(meta4IcmWsCalcIncomeSessionService.getCoefJornada(any(CoefJornadaRequestDto.class))).thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getCoefJornada(any(CoefJornadaRequestDto.class)))
+            .thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
 
-        CoefJornadaRequestDto request = new CoefJornadaRequestDto();
+        final CoefJornadaRequestDto request = new CoefJornadaRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getCoefJornada(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getCoefJornada(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getCoefJornada(ArgumentMatchers.any(CoefJornadaRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getCoefJornada(ArgumentMatchers.any(CoefJornadaRequestDto.class));
 
     }
-    
+
     @Test
     public void getFestivos() {
-        when(meta4IcmWsCalcIncomeSessionService.getFestivos(any(FestivosRequestDto.class))).thenReturn(new ArrayList<GenericTiendaResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getFestivos(any(FestivosRequestDto.class)))
+            .thenReturn(new ArrayList<GenericTiendaResultItemDto>());
 
-        FestivosRequestDto request = new FestivosRequestDto();
+        final FestivosRequestDto request = new FestivosRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getFestivos(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getFestivos(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getFestivos(ArgumentMatchers.any(FestivosRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getFestivos(ArgumentMatchers.any(FestivosRequestDto.class));
 
     }
-    
+
     @Test
     public void getPresenciaManual() {
-        when(meta4IcmWsCalcIncomeSessionService.getPresenciaManual(any(PresenciaManualRequestDto.class))).thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getPresenciaManual(any(PresenciaManualRequestDto.class)))
+            .thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
 
-        PresenciaManualRequestDto request = new PresenciaManualRequestDto();
+        final PresenciaManualRequestDto request = new PresenciaManualRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPresenciaManual(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPresenciaManual(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getPresenciaManual(ArgumentMatchers.any(PresenciaManualRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getPresenciaManual(ArgumentMatchers.any(PresenciaManualRequestDto.class));
 
     }
-    
+
     @Test
     public void getEmpleadosPresencia() {
-        when(meta4IcmWsCalcIncomeSessionService.getEmpleadosPresencia(any(EmpleadosPresenciaRequestDto.class))).thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getEmpleadosPresencia(any(EmpleadosPresenciaRequestDto.class)))
+            .thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
 
-        EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
+        final EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpleadosPresencia(request));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpleadosPresencia(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEmpleadosPresencia(ArgumentMatchers.any(EmpleadosPresenciaRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getEmpleadosPresencia(ArgumentMatchers.any(EmpleadosPresenciaRequestDto.class));
 
     }
-    
+
     @Test
     public void getPeriodos() {
-        when(meta4IcmWsCalcIncomeSessionService.getPeriodos(any(PeriodosRequestDto.class))).thenReturn(new ArrayList<PeriodosResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getPeriodos(any(PeriodosRequestDto.class)))
+            .thenReturn(new ArrayList<PeriodosResultItemDto>());
 
-        PeriodosRequestDto request = new PeriodosRequestDto();
+        final PeriodosRequestDto request = new PeriodosRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPeriodos(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPeriodos(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getPeriodos(ArgumentMatchers.any(PeriodosRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getPeriodos(ArgumentMatchers.any(PeriodosRequestDto.class));
 
     }
-       
+
     @Test
     public void searchTiendas() {
-        when(meta4IcmWsCalcIncomeSessionService.searchTiendas(any(SearchTiendasRequestDto.class))).thenReturn(new ArrayList<GenericTiendaResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.searchTiendas(any(SearchTiendasRequestDto.class)))
+            .thenReturn(new ArrayList<GenericTiendaResultItemDto>());
 
-        SearchTiendasRequestDto request = new SearchTiendasRequestDto();
+        final SearchTiendasRequestDto request = new SearchTiendasRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.searchTiendas(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.searchTiendas(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).searchTiendas(ArgumentMatchers.any(SearchTiendasRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .searchTiendas(ArgumentMatchers.any(SearchTiendasRequestDto.class));
 
     }
-    
+
     @Test
     public void getTiendas() {
-        when(meta4IcmWsCalcIncomeSessionService.getTiendas(any(TiendasRequestDto.class))).thenReturn(new ArrayList<GenericTiendaResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getTiendas(any(TiendasRequestDto.class)))
+            .thenReturn(new ArrayList<GenericTiendaResultItemDto>());
 
-        TiendasRequestDto request = new TiendasRequestDto();
+        final TiendasRequestDto request = new TiendasRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getTiendas(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getTiendas(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getTiendas(ArgumentMatchers.any(TiendasRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getTiendas(ArgumentMatchers.any(TiendasRequestDto.class));
 
     }
-    
+
     @Test
     public void searchEmpleados() {
-        when(meta4IcmWsCalcIncomeSessionService.searchEmpleados(any(SearchEmpleadosRequestDto.class))).thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.searchEmpleados(any(SearchEmpleadosRequestDto.class)))
+            .thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
 
-        SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
+        final SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.searchEmpleados(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.searchEmpleados(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
 
     }
-    
+
     @Test
     public void getEstructurasCom() {
-        when(meta4IcmWsCalcIncomeSessionService.getEstructurasCom(any(EstructurasComRequestDto.class))).thenReturn(new ArrayList<EstructurasComResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getEstructurasCom(any(EstructurasComRequestDto.class)))
+            .thenReturn(new ArrayList<EstructurasComResultItemDto>());
 
-        EstructurasComRequestDto request = new EstructurasComRequestDto();
+        final EstructurasComRequestDto request = new EstructurasComRequestDto();
         request.setData(new EstructurasComFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstructurasCom(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstructurasCom(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEstructurasCom(ArgumentMatchers.any(EstructurasComRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getEstructurasCom(ArgumentMatchers.any(EstructurasComRequestDto.class));
 
     }
-    
+
     @Test
     public void getEstructurasPol() {
-        when(meta4IcmWsCalcIncomeSessionService.getEstructurasPol(any(EstructurasPolRequestDto.class))).thenReturn(new ArrayList<EstructurasPolResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getEstructurasPol(any(EstructurasPolRequestDto.class)))
+            .thenReturn(new ArrayList<EstructurasPolResultItemDto>());
 
-        EstructurasPolRequestDto request = new EstructurasPolRequestDto();
+        final EstructurasPolRequestDto request = new EstructurasPolRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstructurasPol(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstructurasPol(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEstructurasPol(ArgumentMatchers.any(EstructurasPolRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getEstructurasPol(ArgumentMatchers.any(EstructurasPolRequestDto.class));
 
     }
-    
+
     @Test
     public void getEmpleados() {
-        when(meta4IcmWsCalcIncomeSessionService.getEmpleados(any(EmpleadosRequestDto.class))).thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getEmpleados(any(EmpleadosRequestDto.class)))
+            .thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
 
-        EmpleadosRequestDto request = new EmpleadosRequestDto();
+        final EmpleadosRequestDto request = new EmpleadosRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpleados(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpleados(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEmpleados(ArgumentMatchers.any(EmpleadosRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getEmpleados(ArgumentMatchers.any(EmpleadosRequestDto.class));
 
     }
-    
+
     @Test
     public void getConfiguracionVentaOnline() {
-        when(meta4IcmWsCalcIncomeSessionService.getConfiguracionVentaOnline(any(ConfiguracionVentaOnlineRequestDto.class))).thenReturn(new ArrayList<ConfiguracionVentaOnlineResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService
+            .getConfiguracionVentaOnline(any(ConfiguracionVentaOnlineRequestDto.class)))
+                .thenReturn(new ArrayList<ConfiguracionVentaOnlineResultItemDto>());
 
-        ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
+        final ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfiguracionVentaOnline(request));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfiguracionVentaOnline(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getConfiguracionVentaOnline(ArgumentMatchers.any(ConfiguracionVentaOnlineRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getConfiguracionVentaOnline(ArgumentMatchers.any(ConfiguracionVentaOnlineRequestDto.class));
 
     }
-    
+
     @Test
     public void getAgrupacionesOnline() {
-        when(meta4IcmWsCalcIncomeSessionService.getAgrupacionesOnline(any(AgrupOnlineRequestDto.class))).thenReturn(new ArrayList<AgrupOnlineResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getAgrupacionesOnline(any(AgrupOnlineRequestDto.class)))
+            .thenReturn(new ArrayList<AgrupOnlineResultItemDto>());
 
-        AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
+        final AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getAgrupacionesOnline(request));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getAgrupacionesOnline(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getAgrupacionesOnline(ArgumentMatchers.any(AgrupOnlineRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getAgrupacionesOnline(ArgumentMatchers.any(AgrupOnlineRequestDto.class));
 
     }
-    
+
     @Test
     public void getTiendasOnline() {
-        when(meta4IcmWsCalcIncomeSessionService.tiendaOnline(any(TiendaOnlineRequestDto.class))).thenReturn(new ArrayList<TiendaOnlineResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.tiendaOnline(any(TiendaOnlineRequestDto.class)))
+            .thenReturn(new ArrayList<TiendaOnlineResultItemDto>());
 
-        TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
+        final TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getTiendasOnline(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getTiendasOnline(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).tiendaOnline(ArgumentMatchers.any(TiendaOnlineRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .tiendaOnline(ArgumentMatchers.any(TiendaOnlineRequestDto.class));
 
     }
-    
+
     @Test
     public void getEmpresa() {
-        when(meta4IcmWsCalcIncomeSessionService.getEmpresa(any(EmpresaRequestDto.class))).thenReturn(new ArrayList<EmpresaResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getEmpresa(any(EmpresaRequestDto.class)))
+            .thenReturn(new ArrayList<EmpresaResultItemDto>());
 
-        EmpresaRequestDto request = new EmpresaRequestDto();
+        final EmpresaRequestDto request = new EmpresaRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpresa(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpresa(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEmpresa(ArgumentMatchers.any(EmpresaRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getEmpresa(ArgumentMatchers.any(EmpresaRequestDto.class));
 
     }
-    
+
     @Test
     public void getOrigen() {
-        when(meta4IcmWsCalcIncomeSessionService.getOrigen(any(OrigenRequestDto.class))).thenReturn(new ArrayList<OrigenResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService.getOrigen(any(OrigenRequestDto.class)))
+            .thenReturn(new ArrayList<OrigenResultItemDto>());
 
-        OrigenRequestDto request = new OrigenRequestDto();
+        final OrigenRequestDto request = new OrigenRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getOrigen(request));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getOrigen(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getOrigen(ArgumentMatchers.any(OrigenRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getOrigen(ArgumentMatchers.any(OrigenRequestDto.class));
 
     }
-    
+
     @Test
     public void getConfiguracionProductoVenta() {
-        when(meta4IcmWsCalcIncomeSessionService.getConfiguracionProductoVenta(any(ConfiguracionProductoVentaRequestDto.class))).thenReturn(new ArrayList<ConfiguracionProductoVentaResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService
+            .getConfiguracionProductoVenta(any(ConfiguracionProductoVentaRequestDto.class)))
+                .thenReturn(new ArrayList<ConfiguracionProductoVentaResultItemDto>());
 
-        ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
+        final ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfiguracionProductoVenta(request));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfiguracionProductoVenta(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getConfiguracionProductoVenta(ArgumentMatchers.any(ConfiguracionProductoVentaRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getConfiguracionProductoVenta(ArgumentMatchers.any(ConfiguracionProductoVentaRequestDto.class));
 
     }
-    
+
     @Test
     public void getEmpleadosDesplazamiento() {
-        when(meta4IcmWsCalcIncomeSessionService.getEmpleadosDesplazamiento(any(EmpleadosDesplazamientoRequestDto.class))).thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
+        when(this.meta4IcmWsCalcIncomeSessionService
+            .getEmpleadosDesplazamiento(any(EmpleadosDesplazamientoRequestDto.class)))
+                .thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
 
-        EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
+        final EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
-        CompletableFuture.completedFuture(meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpleadosDesplazamiento(request));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEmpleadosDesplazamiento(request));
 
-        verify(meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1)).getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
 
     }
- 
-    
+
+    @Test
+    public void getConfChallengeDiasMinimos() {
+        when(this.meta4IcmWsCalcIncomeSessionService
+            .getConfChallengeDiasMinimos(any(ConfChDiasMinimosRequestDto.class)))
+                .thenReturn(new ArrayList<ConfChDiasMinimosResultItemDto>());
+
+        final ConfChDiasMinimosRequestDto request = new ConfChDiasMinimosRequestDto();
+        request.setData(new ConfChDiasMinimosFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfChallengeDiasMinimos(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getConfChallengeDiasMinimos(ArgumentMatchers.any(ConfChDiasMinimosRequestDto.class));
+    }
+
+    @Test
+    public void getPresupuestosWloc() {
+        when(this.meta4IcmWsCalcIncomeSessionService.getPresupuestosWloc(any(PresupuestosWlocRequestDto.class)))
+            .thenReturn(new ArrayList<PresupuestosWlocResultItemDto>());
+
+        final PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
+        request.setData(new PresupuestosWlocFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPresupuestosWloc(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getPresupuestosWloc(ArgumentMatchers.any(PresupuestosWlocRequestDto.class));
+    }
+
+    @Test
+    public void getConfPrecioHora() {
+        when(this.meta4IcmWsCalcIncomeSessionService.getConfPrecioHora(any(ConfPrecioHoraRequestDto.class)))
+            .thenReturn(new ArrayList<ConfPrecioHoraResultItemDto>());
+
+        final ConfPrecioHoraRequestDto request = new ConfPrecioHoraRequestDto();
+        request.setData(new ConfPrecioHoraFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfPrecioHora(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getConfPrecioHora(ArgumentMatchers.any(ConfPrecioHoraRequestDto.class));
+    }
+
+    @Test
+    public void getConfChallengeTpVenta() {
+        when(this.meta4IcmWsCalcIncomeSessionService.getConfChallengeTpVenta(any(ConfChTpVentaRequestDto.class)))
+            .thenReturn(new ArrayList<ConfChTpVentaResultItemDto>());
+
+        final ConfChTpVentaRequestDto request = new ConfChTpVentaRequestDto();
+        request.setData(new ConfChTpVentaFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfChallengeTpVenta(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getConfChallengeTpVenta(ArgumentMatchers.any(ConfChTpVentaRequestDto.class));
+    }
+
+    @Test
+    public void getPresupuestosRango() {
+        when(this.meta4IcmWsCalcIncomeSessionService.getPresupuestosRango(any(PresupuestosRangoRequestDto.class)))
+            .thenReturn(new ArrayList<PresupuestosRangoResultItemDto>());
+
+        final PresupuestosRangoRequestDto request = new PresupuestosRangoRequestDto();
+        request.setData(new PresupuestosRangoFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPresupuestosRango(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getPresupuestosRango(ArgumentMatchers.any(PresupuestosRangoRequestDto.class));
+    }
+
 }

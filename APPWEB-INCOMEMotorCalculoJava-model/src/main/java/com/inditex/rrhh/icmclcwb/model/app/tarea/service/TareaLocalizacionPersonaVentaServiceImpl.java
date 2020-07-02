@@ -1,18 +1,21 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResultItemDto;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersonaVentaMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
+import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaVentaService;
-
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersonaVentaMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
 
 @Service
 @Validated
@@ -26,14 +29,22 @@ public class TareaLocalizacionPersonaVentaServiceImpl implements TareaLocalizaci
 
 
     @Override
-    public void savePtrVentaIndividualDetalleResultItem(@NotNull List<PtrVentaIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
+    public void savePtrVentaIndividualDetalleResultItem(
+            @Valid @NotNull @NotEmpty final List<PtrVentaIndividualDetalleResultItemDto> operaciones,
+            @Valid @NotNull final TareaDto tarea) {
         tareaLocalizacionPersonaVentaRepositoryCustom.save(
-            tareaLocalizacionPersonaVentaMapper.ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones, tarea));
+                tareaLocalizacionPersonaVentaMapper
+                    .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones, tarea));
     }
 
     @Override
-    public void savePtrVentaOnlineIpodIndividualDetalleResultItem(@NotNull List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
+    public void savePtrVentaOnlineIpodIndividualDetalleResultItem(
+            @Valid @NotNull @NotEmpty final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones,
+            @Valid @NotNull final TareaDto tarea) {
         tareaLocalizacionPersonaVentaRepositoryCustom.save(
-            tareaLocalizacionPersonaVentaMapper.ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones, tarea));
+                tareaLocalizacionPersonaVentaMapper
+                    .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones,
+                            tarea));
     }
+
 }

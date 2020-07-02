@@ -39,7 +39,7 @@ public class RunServiceImpl implements RunService {
 
     @Autowired
     private RunLimpiezaService runLimpiezaService;
-    
+
     @Autowired
     private RunProgramacionService runProgramacionService;
 
@@ -54,7 +54,7 @@ public class RunServiceImpl implements RunService {
     public void runTarea(@NotNull @Positive final Long id) {
         TareaDto tarea = tareaService.find(id);
         runTareaService
-                .run(RunTareaDto.builder().trabajo(trabajoService.find(tarea.getIdTrabajo())).tarea(tarea).build());
+            .run(RunTareaDto.builder().trabajo(trabajoService.find(tarea.getIdTrabajo())).tarea(tarea).build());
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -62,7 +62,7 @@ public class RunServiceImpl implements RunService {
     public void runLimpieza(@NotNull @Positive final Long id) {
         runLimpiezaService.run(RunLimpiezaDto.builder().tarea(tareaService.find(id)).build());
     }
-    
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void runProgramacion(@NotNull @Positive final Long id) {

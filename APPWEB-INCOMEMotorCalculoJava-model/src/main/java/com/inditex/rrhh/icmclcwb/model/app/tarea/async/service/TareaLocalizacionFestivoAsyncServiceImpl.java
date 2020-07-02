@@ -19,10 +19,11 @@ public class TareaLocalizacionFestivoAsyncServiceImpl implements TareaLocalizaci
 
     @Autowired
     private TareaLocalizacionFestivoService tareaLocalizacionFestivoService;
-    
+
     @Override
-    public CompletableFuture<Void> save(@NotNull List<GenericTiendaResultItemDto> src, @NotNull TareaDto tareaDto){
+    public CompletableFuture<Void> save(@NotNull List<GenericTiendaResultItemDto> src, @NotNull TareaDto tareaDto) {
         tareaLocalizacionFestivoService.save(src, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

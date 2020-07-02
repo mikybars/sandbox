@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,31 +20,19 @@ public class TareaLocalizacionOnlineHistoricoRepositoryCustomImpl
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("${app.envars.repository.batch-size.tarea-localizacion-online-historico:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-localizacion-online-historico:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaLocalizacionOnlineHistoricoRepositoryCustom.save']}")
     private String sqlSave;
 
-    //TODO [COMUN] No se está usando
+    // TODO [COMUN] No se está usando
     @Value("#{primaryQuery['TareaLocalizacionOnlineHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito']}")
     private String sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito;
 
     @Override
-    public List<TareaLocalizacionOnlineHistorico> save(List<TareaLocalizacionOnlineHistorico> tiendas) {
-        return saveJdbcBatchList(tiendas, sqlSave, batchSize);
-    }
-
-    @Override
-    public void setParameters(PreparedStatement pstmt, TareaLocalizacionOnlineHistorico entity) throws SQLException {
-        pstmt.setLong(1, entity.getTarea().getId());
-        pstmt.setString(2, entity.getCclIdCodOrigen());
-        pstmt.setString(3, entity.getStdIdWorkLocat());
-        pstmt.setString(4, entity.getCclIdOrigen());
-        pstmt.setString(5, entity.getStdIdLegEnt());
-        pstmt.setString(6, entity.getCclIdCadena());
-        pstmt.setObject(7, entity.getFechaInicio());
-        pstmt.setObject(8, entity.getFechaFin());
+    public List<TareaLocalizacionOnlineHistorico> save(final List<TareaLocalizacionOnlineHistorico> tiendas) {
+        return this.saveNamedJdbcBatchList(tiendas, this.sqlSave, this.batchSize);
     }
 
 }

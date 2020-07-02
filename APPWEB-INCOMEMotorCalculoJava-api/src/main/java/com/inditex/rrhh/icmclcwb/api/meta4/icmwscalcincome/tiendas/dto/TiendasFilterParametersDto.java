@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TiendasFilterParametersDto implements Serializable {
-	
-	private static final long serialVersionUID = -1376019181239309304L;
-	
-	private String idEmpleado;
-	
-	private String orEmpleado;
-	
-	private String idLugarTrabajo;
+
+    private static final long serialVersionUID = -1376019181239309304L;
+
+    private String idEmpleado;
+
+    private String orEmpleado;
+
+    private String idLugarTrabajo;
 
 }

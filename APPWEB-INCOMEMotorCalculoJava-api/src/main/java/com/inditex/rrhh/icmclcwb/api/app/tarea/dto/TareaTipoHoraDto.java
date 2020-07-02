@@ -7,40 +7,42 @@ import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
+import lombok.Data;
 
+@Data
 public class TareaTipoHoraDto implements Serializable {
 
-	private static final long serialVersionUID = 1164433898866141136L;
+    private static final long serialVersionUID = 1164433898866141136L;
 
-	@ApiModelProperty(value = "Identificador de la entidad", required = false, accessMode = AccessMode.READ_ONLY)
-	private Long id;
-	
-	@NotBlank
-	@ApiModelProperty(value = "Id de tipo de hora", required = true)
-	private Integer idTipoHora;
+    @ApiModelProperty(value = "Identificador de la entidad", required = false, accessMode = AccessMode.READ_ONLY)
+    private Long id;
 
-	@NotNull
-	@ApiModelProperty(value = "Flag excluido calculo", required = true)
-	private Boolean excluidoCalculo;
-	
+    @NotBlank
+    @ApiModelProperty(value = "Id de tipo de hora", required = true)
+    private Integer idTipoHora;
+
+    @NotNull
+    @ApiModelProperty(value = "Flag excluido calculo", required = true)
+    private Boolean excluidoCalculo;
+
     @NotNull
     @ApiModelProperty(value = "Flag excluido denominador", required = true)
     private Boolean excluidoDenominador;
-    
+
     @NotNull
     @ApiModelProperty(value = "Flag incluido venta", required = true)
-    private Boolean incluidoVenta;    
-    
+    private Boolean incluidoVenta;
+
     @NotNull
     @ApiModelProperty(value = "Flag incluido challenge", required = true)
-    private Boolean incluidoChallenge;      
-    
+    private Boolean incluidoChallenge;
+
     @NotNull
     @ApiModelProperty(value = "Flag incluido ecommerce", required = true)
-    private Boolean incluidoEcommerce; 
+    private Boolean incluidoEcommerce;
 
-	@NotNull
-	@ApiModelProperty(value = "Tarea", required = true)
-	private Long idTarea;
+    @NotNull
+    @ApiModelProperty(value = "Tarea", required = true)
+    private Long idTarea;
 
 }

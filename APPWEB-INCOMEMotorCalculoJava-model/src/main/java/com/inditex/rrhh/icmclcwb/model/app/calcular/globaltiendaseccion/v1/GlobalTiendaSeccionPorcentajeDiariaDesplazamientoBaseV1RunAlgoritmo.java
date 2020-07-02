@@ -33,28 +33,43 @@ public class GlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-    
+
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-                runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: GlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
-                    try {
-                        tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo,
-                            runTarea.getTarea(), personas);
-                    } catch (Exception e) {
-                        log.error("GlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea, EstadoTareaCalculoPersonaEnum.KO.getDto());
-                    }
-                    log.info("Fin :: GlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
-                    return Flux.empty();
-            }).sequential().collectList().block();
+                tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
+                    .ids(algoritmo, runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info(
+                        "Inicio :: GlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
+                try {
+                    tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
+                        .calcular(algoritmo,
+                                runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error(
+                            "GlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
+                            personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: GlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
+            .getSqlCalcular(algoritmo);
     }
 
 }

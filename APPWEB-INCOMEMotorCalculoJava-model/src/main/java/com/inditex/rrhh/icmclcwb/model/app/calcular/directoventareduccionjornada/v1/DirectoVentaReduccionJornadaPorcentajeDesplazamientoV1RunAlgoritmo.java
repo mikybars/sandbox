@@ -34,25 +34,38 @@ public class DirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RunAlgoritmo 
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-            runAlgoritmoProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                log.info("Inicio :: DirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
+                tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom
+                    .ids(algoritmo, runTarea.getTarea()),
+                runAlgoritmoProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: DirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
                 try {
-                    tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo,
-                        runTarea.getTarea(), personas);
+                    tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom
+                        .calcular(algoritmo,
+                                runTarea.getTarea(), personas);
                 } catch (Exception e) {
-                    log.error("DirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                    log.error(
+                            "DirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RunAlgoritmo :: KO :: Personas: {}",
+                            personas.size(), e);
                     tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                        EstadoTareaCalculoPersonaEnum.KO.getDto());
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
                 }
-                log.info("Fin :: DirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
+                log.info("Fin :: DirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
                 return Flux.empty();
-        }).sequential().collectList().block();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override
     public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom.getSqlCalcular(algoritmo);
+        return tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom
+            .getSqlCalcular(algoritmo);
     }
 
 }

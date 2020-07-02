@@ -7,8 +7,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 
 public class EmpleadosResponseDto extends PageableListDto<GenericEmpleadoResultItemDto>
-		implements PageableList<GenericEmpleadoResultItemDto>, Serializable {
+        implements PageableList<GenericEmpleadoResultItemDto>, Serializable {
 
-	private static final long serialVersionUID = 7095948368921075557L;
+    private static final long serialVersionUID = 7095948368921075557L;
 
 }

@@ -16,15 +16,15 @@ import lombok.Data;
 @Table(name = "TIPO_CALCULO")
 @Data
 public class TipoCalculo {
-    
+
     @Id
     @Column(name = "ID_TIPO_CALCULO", length = 24)
     private String id;
 
     @NotBlank
-    @Column(name = "NOMBRE", length = /*TAMANO_NOMBRE*/ 128, nullable = false)
+    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
     private String nombre;
-    
+
     @ManyToMany(mappedBy = "tipoCalculo")
     private List<Algoritmo> algoritmo = new ArrayList<Algoritmo>();
 

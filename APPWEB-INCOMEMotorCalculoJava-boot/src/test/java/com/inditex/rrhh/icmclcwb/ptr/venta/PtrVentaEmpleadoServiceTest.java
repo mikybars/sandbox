@@ -29,16 +29,16 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
-public class PtrVentaEmpleadoServiceTest  {
+public class PtrVentaEmpleadoServiceTest {
 
     @Autowired
     @Qualifier("ptrVentaClient")
     private RestClient ptrVentaClient;
-    
+
     @Autowired
     @Qualifier("ventaEmpleadoProperties")
     protected Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
-    
+
     @Autowired
     @Qualifier("ventaVersion")
     private String version;
@@ -55,8 +55,9 @@ public class PtrVentaEmpleadoServiceTest  {
         request.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
         ResponseEntity<PtrVentaIndividualDetalleResponseDto> response = ptrVentaClient.postForEntity(
-                ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request, PtrVentaIndividualDetalleResponseDto.class);
+                ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request,
+                PtrVentaIndividualDetalleResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
-    
+
 }

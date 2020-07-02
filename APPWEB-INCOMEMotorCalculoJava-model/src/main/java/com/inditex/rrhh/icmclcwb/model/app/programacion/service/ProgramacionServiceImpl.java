@@ -83,7 +83,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     @Override
     public List<ProgramacionDto> findPendiente() {
         List<ProgramacionDto> result = programacionMapper.programacionToProgramacionDto(programacionRepository
-                .findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowLocalDateTime()));
+            .findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowLocalDateTime()));
         result.forEach(item -> item.setAmbito(programacionAmbitoService.findByProgramacion(item)));
         return result;
     }
@@ -119,18 +119,19 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     public void desactiva(@Positive @NotNull Long id) {
         programacionRepositoryCustom.desactiva(id);
     }
-    
+
     @Override
     public ProgramacionDto findById(@Positive @NotNull final Long id) {
-        ProgramacionDto programacionDto = programacionMapper.programacionToProgramacionDto(programacionRepository.findById(id).get());
+        ProgramacionDto programacionDto = programacionMapper
+            .programacionToProgramacionDto(programacionRepository.findById(id).get());
         programacionDto.setAmbito(programacionAmbitoService.findByProgramacion(programacionDto));
         return programacionDto;
     }
-    
+
     @Override
     public ProgramacionDto findPendienteById(@Positive @NotNull final Long id) {
         ProgramacionDto programacionDto = programacionMapper.programacionToProgramacionDto(programacionRepository
-                .findByIdAndFechaHoraSiguienteEjecucionBeforeAndActivoTrue(id, TimeUtils.nowLocalDateTime()));
+            .findByIdAndFechaHoraSiguienteEjecucionBeforeAndActivoTrue(id, TimeUtils.nowLocalDateTime()));
         programacionDto.setAmbito(programacionAmbitoService.findByProgramacion(programacionDto));
         return programacionDto;
     }

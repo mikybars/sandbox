@@ -21,16 +21,17 @@ public class TareaAgrupacionVentaAsyncServiceImpl implements TareaAgrupacionVent
 
     @Override
     public CompletableFuture<Void> savePtrVentaTotalizadoResponse(PtrVentaTotalizadoResponseDto dto, TareaDto tarea,
-        List<TareaAgrupacionCadenasDto> agrupaciones) {
+            List<TareaAgrupacionCadenasDto> agrupaciones) {
         tareaAgrupacionVentaService.savePtrVentaTotalizadoResponse(dto, tarea, agrupaciones);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
     public CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(
-        PtrVentaOnlineEntregaDomicilioResponseDto dto, TareaDto tarea,
-        List<TareaAgrupacionCadenasDto> agrupaciones) {
+            PtrVentaOnlineEntregaDomicilioResponseDto dto, TareaDto tarea,
+            List<TareaAgrupacionCadenasDto> agrupaciones) {
         tareaAgrupacionVentaService.savePtrVentaOnlineEntregaDomicilioResponse(dto, tarea, agrupaciones);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

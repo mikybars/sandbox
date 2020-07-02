@@ -21,11 +21,10 @@ public abstract class TareaLocalizacionCalcularDecorator extends TareaLocalizaci
             List<GenericTiendaResultItemDto> src, TareaDto tareaDto) {
         List<TareaLocalizacionCalcular> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(item -> 
-                result.add(
-                        delegate.genericTiendaResultItemDtoToTareaLocalizacionCalcular(item, tareaDto))
-            );
+            src.forEach(item -> result.add(
+                    delegate.genericTiendaResultItemDtoToTareaLocalizacionCalcular(item, tareaDto)));
         }
         return result;
     }
+
 }

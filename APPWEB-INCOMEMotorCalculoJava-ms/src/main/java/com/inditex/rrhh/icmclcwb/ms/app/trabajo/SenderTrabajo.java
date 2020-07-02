@@ -12,13 +12,13 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 @Component
 public class SenderTrabajo {
 
-	@Autowired
-	@Qualifier("trabajoJmsClient")
-	private JmsClient trabajoJmsClient;
+    @Autowired
+    @Qualifier("trabajoJmsClient")
+    private JmsClient trabajoJmsClient;
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void send(TrabajoDto trabajo) {
-		trabajoJmsClient.convertAndSend(trabajo);
-	}
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void send(TrabajoDto trabajo) {
+        trabajoJmsClient.convertAndSend(trabajo);
+    }
 
 }

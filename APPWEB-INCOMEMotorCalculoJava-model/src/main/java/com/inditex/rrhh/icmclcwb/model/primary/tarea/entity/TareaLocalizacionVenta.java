@@ -25,32 +25,32 @@ public class TareaLocalizacionVenta {
 
     @EmbeddedId
     private TareaLocalizacionVentaPk pk;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
-    
-    @NotNull
+
+    @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
     private String cclIdCodOrigen;
-    
-    @NotNull
+
+    @NotBlank
     @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
     private String cclIdCadena;
-    
+
     @NotBlank
     @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
     private String cclIdSeccion;
-    
+
     @NotNull
     @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)
     private Double importeSinImpuestos;
-    
+
     @NotNull
     @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
     private Double importeConImpuestos;
-    
+
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;
@@ -58,7 +58,7 @@ public class TareaLocalizacionVenta {
     @NotNull
     @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
-    
+
     @NotNull
     @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.DATE)

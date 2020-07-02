@@ -2,11 +2,13 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -69,9 +71,9 @@ public class TareaPersonaEstructura {
     private String icmIdTpComision;
 
     @NotNull
-    @Column(name = "ICM_VALOR", nullable = false, precision = 23,  scale = 8)
+    @Column(name = "ICM_VALOR", nullable = false, precision = 23, scale = 8)
     private BigDecimal valor;
-    
+
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -89,11 +91,11 @@ public class TareaPersonaEstructura {
     @NotNull
     @Column(name = "ES_DESPLAZAMIENTO_BASE", nullable = false)
     private Boolean desplazamientoBase;
-    
+
     @NotNull
     @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
-    
+
     @Column(name = "ES_DIA_LUNES", nullable = false)
     private Boolean diaL;
 
@@ -114,25 +116,24 @@ public class TareaPersonaEstructura {
 
     @Column(name = "ES_DIA_DOMINGO", nullable = false)
     private Boolean diaD;
-    
+
     @NotBlank
     @Column(name = "ICM_ID_ESTR_COMISION_PADRE", nullable = false, length = 48)
     private String icmIdEstrComisionPadre;
-    
+
     @NotBlank
     @Column(name = "ICM_ID_ESTR_COMISION_BASE", nullable = false, length = 48)
     private String icmIdEstrComisionBase;
-    
+
     @NotNull
     @Column(name = "ICM_ORD_TOPE", nullable = false, length = 48)
     private Integer tope;
-    
-    @NotBlank
-    @Column(name = "ICM_ID_TP_VENTA", length = 8, nullable = false)
-    private String idTipoVenta;
-    
+
     @NotBlank
     @Column(name = "ICM_ID_TP_ESTRUCTURA", nullable = false, length = 48)
     private String icmIdTpEstructura;
+
+    @ManyToMany(mappedBy = "estructura")
+    private List<TareaLocalizacionPresupuesto> presupuesto;
 
 }

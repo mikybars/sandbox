@@ -24,7 +24,7 @@ public class TareaAgrupacionCadena {
     @Column(name = "ID_TAREA_AGRUPACION_CADENA")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)

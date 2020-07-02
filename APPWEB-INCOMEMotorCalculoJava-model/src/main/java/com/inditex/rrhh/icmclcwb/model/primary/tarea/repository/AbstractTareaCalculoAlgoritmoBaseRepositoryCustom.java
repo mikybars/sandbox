@@ -1,18 +1,19 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.model.app.util.SqlParamsUtils;
-import org.apache.commons.lang3.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.model.app.util.SqlParamsUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
         implements TareaCalculoAlgoritmoBaseRepositoryCustom {
@@ -26,32 +27,32 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
     protected abstract String getSqlCalcularBase();
 
     protected abstract Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea,
-            TareaCalculoPersonaDto persona);
+            IdPersonaLocalDto persona);
 
-    protected Map<String, Object> getMapValues(AlgoritmoDto algoritmo) {
-        return getMapValues(algoritmo, null, null);
+    protected Map<String, Object> getMapValues(final AlgoritmoDto algoritmo) {
+        return this.getMapValues(algoritmo, null, null);
     }
 
     @Override
-    public void calcular(AlgoritmoDto algoritmo, TareaDto tarea, List<TareaCalculoPersonaDto> personas) {
-        if (getSqlCalcular() != null) {
-            List<MapSqlParameterSource> batchArgs = new ArrayList<>();
+    public void calcular(final AlgoritmoDto algoritmo, final TareaDto tarea, final List<IdPersonaLocalDto> personas) {
+        if (this.getSqlCalcular() != null) {
+            final List<MapSqlParameterSource> batchArgs = new ArrayList<>();
             personas.forEach(persona -> {
-                Map<String, Object> values = getMapValues(algoritmo, tarea, persona);
-                MapSqlParameterSource arg = new MapSqlParameterSource();
+                final Map<String, Object> values = this.getMapValues(algoritmo, tarea, persona);
+                final MapSqlParameterSource arg = new MapSqlParameterSource();
                 values.forEach((paramName, value) -> arg.addValue(paramName, value));
                 batchArgs.add(arg);
             });
-            namedParameterJdbcTemplate.batchUpdate(getSqlCalcular(),
+            this.namedParameterJdbcTemplate.batchUpdate(this.getSqlCalcular(),
                     batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
         }
     }
 
     @Override
-    public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        String sql = getSqlCalcularBase();
+    public String getSqlCalcular(final AlgoritmoDto algoritmo) {
+        String sql = this.getSqlCalcularBase();
         if (sql != null) {
-            sql = SqlParamsUtils.replaceValues(sql, getMapValues(algoritmo));
+            sql = SqlParamsUtils.replaceValues(sql, this.getMapValues(algoritmo));
         }
         return StringUtils.normalizeSpace(sql);
     }

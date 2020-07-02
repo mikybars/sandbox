@@ -31,11 +31,13 @@ public class RunTareaRecolectarValidarEstructurasServiceImpl implements RunTarea
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             CompletableFuture<Integer> cfCountEstructuras = tareaValidarAsyncService
-                    .countEstructuras(runTarea.getTarea().getId());
+                .countEstructuras(runTarea.getTarea().getId());
             AsyncUtils.exceptionally(cfCountEstructuras, cf);
             AsyncUtils.waitAllOfIsOk(cf, cf);
-            result.add(RunTareaValidarDto.builder().type(TareaPersonaEstructura.class.getSimpleName())
-                    .count(AsyncUtils.get(cfCountEstructuras)).build());
+            result.add(RunTareaValidarDto.builder()
+                .type(TareaPersonaEstructura.class.getSimpleName())
+                .count(AsyncUtils.get(cfCountEstructuras))
+                .build());
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

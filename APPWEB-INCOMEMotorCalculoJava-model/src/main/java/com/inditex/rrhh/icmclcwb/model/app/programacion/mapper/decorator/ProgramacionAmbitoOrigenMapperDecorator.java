@@ -23,8 +23,8 @@ public abstract class ProgramacionAmbitoOrigenMapperDecorator extends Programaci
         List<ProgramacionAmbitoOrigen> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(srcProgramacionAmbitoOrigen)) {
             srcProgramacionAmbitoOrigen.forEach(item -> result
-                    .add(delegate.mergeProgramacionAmbitoOrigenDtoAndProgramacionDtoToProgramacionAmbitoOrigen(item,
-                            srcProgramacionAmbito)));
+                .add(delegate.mergeProgramacionAmbitoOrigenDtoAndProgramacionDtoToProgramacionAmbitoOrigen(item,
+                        srcProgramacionAmbito)));
         }
         return result;
     }

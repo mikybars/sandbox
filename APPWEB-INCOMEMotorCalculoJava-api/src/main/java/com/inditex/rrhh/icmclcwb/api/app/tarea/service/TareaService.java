@@ -13,26 +13,26 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 public interface TareaService {
 
-    TareaDto save(@Valid final TareaDto tarea);
+    TareaDto save(@Valid @NotNull final TareaDto tarea);
 
     TareaDto find(@NotNull @Positive final Long id);
 
-    TareaDto create(@Valid final TareaDto tarea);
+    TareaDto create(@Valid @NotNull final TareaDto tarea);
 
     List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo);
 
-    List<TareaDto> findByTrabajoId(@Valid Long id);
+    List<TareaDto> findByTrabajoId(@NotNull @Positive final Long id);
 
-    void updateFechaFin(@NotNull final TareaDto tarea);
-    
-    void updateFechaInicioAndEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado);
+    void updateFechaFin(@Valid @NotNull final TareaDto tarea);
 
-    void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado);
+    void updateFechaInicioAndEstado(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final EstadoTareaDto estado);
 
-    void updateEstadoFinal(@Valid final TareaDto tarea);
-    
+    void updateEstado(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final EstadoTareaDto estado);
+
+    void updateEstadoFinal(@Valid @NotNull final TareaDto tarea);
+
     List<IdTareaDto> findLimpieza();
 
-    List<IdTareaDto> findLimpiezaByIdTarea(@NotNull final Long idTarea);
+    List<IdTareaDto> findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea);
 
 }

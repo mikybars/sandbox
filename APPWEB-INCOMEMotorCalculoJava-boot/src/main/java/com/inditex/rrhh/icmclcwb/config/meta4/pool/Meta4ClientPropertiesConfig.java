@@ -12,10 +12,10 @@ import lombok.Data;
 public class Meta4ClientPropertiesConfig {
 
     private Meta4ClientConfigProperties config;
-    
+
     @Bean(name = "meta4ClientConfigProperties")
     public Meta4ClientConfigProperties meta4ClientConfigProperties() {
         return config;
     }
-    
+
 }

@@ -17,35 +17,39 @@ import lombok.Data;
 public class PtrVentaClientPropertiesConfig {
 
     private Map<String, PtrPropertiesDto> ventaGeneral = new HashMap<>();
+
     private Map<String, PtrPropertiesDto> ventaEmpleado = new HashMap<>();
+
     private Map<String, PtrPropertiesDto> ventaEcommerce = new HashMap<>();
+
     private Map<String, PtrPropertiesDto> acumuladoVentaImporte = new HashMap<>();
+
     private String version;
 
-    
+
     @Bean(name = "ventaGeneralProperties")
     public Map<String, PtrPropertiesDto> ptrVentaGeneralProperties() {
         return ventaGeneral;
     }
-    
+
     @Bean(name = "ventaEmpleadoProperties")
     public Map<String, PtrPropertiesDto> ptrVentaEmpleadoProperties() {
         return ventaEmpleado;
     }
-    
+
     @Bean(name = "ventaEcommerceProperties")
     public Map<String, PtrPropertiesDto> ptrVentaEcommerceProperties() {
         return ventaEcommerce;
     }
-    
+
     @Bean(name = "acumuladoVentaImporteProperties")
     public Map<String, PtrPropertiesDto> ptrAcumuladoVentaImporteProperties() {
         return acumuladoVentaImporte;
     }
-    
+
     @Bean(name = "ventaVersion")
     public String ptrVentaVersion() {
         return version;
     }
-    
+
 }

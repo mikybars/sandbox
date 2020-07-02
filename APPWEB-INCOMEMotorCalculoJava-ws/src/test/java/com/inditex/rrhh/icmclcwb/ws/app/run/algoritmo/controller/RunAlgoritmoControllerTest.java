@@ -26,20 +26,20 @@ import com.inditex.rrhh.icmclcwb.api.app.run.calcular.service.RunAlgoritmoServic
 public class RunAlgoritmoControllerTest {
 
     private MockMvc mockMvc;
-    
+
     @Mock
     private RunAlgoritmoService runAlgoritmoServiceMock;
-    
+
     @InjectMocks
     private RunAlgoritmoController runAlgoritmoController;
-    
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(runAlgoritmoController)
-                .build();
+            .build();
     }
-    
+
     @Test
     public void findById() throws Exception {
         RunAlgoritmoDto runAlgoritmo = new RunAlgoritmoDto();
@@ -51,7 +51,7 @@ public class RunAlgoritmoControllerTest {
         algoritmo.setNombre("test");
         runAlgoritmo.setAlgoritmo(algoritmo);
         runAlgoritmo.setSqlCalcular("SELECT * FROM TEST");
-        
+
         when(runAlgoritmoServiceMock.findById(1)).thenReturn(runAlgoritmo);
         mockMvc.perform(get("/run/algoritmo/{id}", "1")).andReturn();
         verify(runAlgoritmoServiceMock, times(1)).findById(any(Integer.class));
@@ -68,11 +68,12 @@ public class RunAlgoritmoControllerTest {
         algoritmo.setNombre("test");
         runAlgoritmo.setAlgoritmo(algoritmo);
         runAlgoritmo.setSqlCalcular("SELECT * FROM TEST");
-        
+
         when(runAlgoritmoServiceMock.findAll()).thenReturn(Arrays.asList(runAlgoritmo));
-        
+
         mockMvc.perform(get("/run/algoritmo")).andReturn();
-        
+
         verify(runAlgoritmoServiceMock, times(1)).findAll();
     }
+
 }

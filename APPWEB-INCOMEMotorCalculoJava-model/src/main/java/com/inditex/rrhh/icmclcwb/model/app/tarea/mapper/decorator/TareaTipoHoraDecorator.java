@@ -27,4 +27,5 @@ public abstract class TareaTipoHoraDecorator extends TareaTipoHoraMapper {
 
         return dtoList;
     }
+
 }

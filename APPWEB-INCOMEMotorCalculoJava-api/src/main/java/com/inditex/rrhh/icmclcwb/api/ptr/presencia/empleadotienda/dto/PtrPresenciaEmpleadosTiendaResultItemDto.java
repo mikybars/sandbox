@@ -14,15 +14,17 @@ import lombok.ToString;
 @Builder
 @ToString
 public class PtrPresenciaEmpleadosTiendaResultItemDto {
-    
+
     private Integer tienda;
-    
+
     private Integer origen;
-    
+
     private Integer empresa;
-    
+
     private Integer cadena;
-    
+
+    private Integer gestionLocal;
+
     private List<Integer> personas;
 
 }

@@ -20,4 +20,5 @@ public class PeriodoLocalizacionServiceImpl implements PeriodoLocalizacionServic
     public void mergePeriodoLocalizacion(@NotNull RunTareaDto tareaDto) {
         periodoLocalizacionRepositoryCustom.mergePeriodoLocalizacion(tareaDto);
     }
+
 }

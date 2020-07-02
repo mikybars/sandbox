@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,16 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualServiceImpl
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom;
-    
+
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper tareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper;
-    
+
     @Override
-    public void save(@NotNull final List<GenericEmpleadoResultItemDto> src, @NotNull final TareaDto tareaDto) {
+    public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto) {
         tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom.save(
-                tareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper.genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(src, tareaDto));
+                tareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper
+                    .genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(src, tareaDto));
     }
+
 }

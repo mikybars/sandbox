@@ -13,22 +13,4 @@ public enum TipoOpcionCalculoEnum {
 
     private final String idMeta4;
 
-    public static TipoOpcionCalculoEnum fromIdMeta4(String idMeta4) {
-        for (TipoOpcionCalculoEnum tipo : TipoOpcionCalculoEnum.values()) {
-            if (tipo.idMeta4.equals(idMeta4)) {
-                return tipo;
-            }
-        }
-        return null;
-    }
-
-    public static TipoOpcionCalculoEnum fromId(Integer id) {
-        for (TipoOpcionCalculoEnum tipo : TipoOpcionCalculoEnum.values()) {
-            if (tipo.id.equals(id)) {
-                return tipo;
-            }
-        }
-        return null;
-    }
-
 }

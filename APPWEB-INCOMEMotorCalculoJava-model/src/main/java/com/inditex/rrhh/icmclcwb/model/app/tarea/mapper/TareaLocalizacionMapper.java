@@ -13,12 +13,17 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLoc
 public abstract class TareaLocalizacionMapper {
 
     @Mapping(target = "idTarea", source = "tarea.id")
-    public abstract TareaAmbitoGlobalLocalizacionDto tareaLocalizacionToTareaLocalizacionDto(TareaAmbitoGlobalLocalizacion src);
+    public abstract TareaAmbitoGlobalLocalizacionDto tareaLocalizacionToTareaLocalizacionDto(
+            TareaAmbitoGlobalLocalizacion src);
 
     @InheritInverseConfiguration
-    public abstract TareaAmbitoGlobalLocalizacion tareaLocalizacionDtoToTareaLocalizacion(TareaAmbitoGlobalLocalizacionDto src);
+    public abstract TareaAmbitoGlobalLocalizacion tareaLocalizacionDtoToTareaLocalizacion(
+            TareaAmbitoGlobalLocalizacionDto src);
 
-    public abstract List<TareaAmbitoGlobalLocalizacionDto> tareaLocalizacionToTareaLocalizacionDto(List<TareaAmbitoGlobalLocalizacion> src);
+    public abstract List<TareaAmbitoGlobalLocalizacionDto> tareaLocalizacionToTareaLocalizacionDto(
+            List<TareaAmbitoGlobalLocalizacion> src);
 
-    public abstract List<TareaAmbitoGlobalLocalizacion> tareaLocalizacionDtoToTareaLocalizacion(List<TareaAmbitoGlobalLocalizacionDto> src);
+    public abstract List<TareaAmbitoGlobalLocalizacion> tareaLocalizacionDtoToTareaLocalizacion(
+            List<TareaAmbitoGlobalLocalizacionDto> src);
+
 }

@@ -8,7 +8,9 @@ import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
+import lombok.Data;
 
+@Data
 public class TareaLocalizacionPersonaVentaDto implements Serializable {
 
     private static final long serialVersionUID = 2095913202391554577L;
@@ -20,7 +22,8 @@ public class TareaLocalizacionPersonaVentaDto implements Serializable {
     @ApiModelProperty(value = "Tarea", required = true)
     private Long idTarea;
 
-    @ApiModelProperty(value = "Fecha en la que se consultó la venta", required = true, accessMode = AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "Fecha en la que se consultó la venta", required = true,
+            accessMode = AccessMode.READ_ONLY)
     private LocalDate fecha;
 
     @NotBlank
@@ -41,4 +44,5 @@ public class TareaLocalizacionPersonaVentaDto implements Serializable {
 
     @ApiModelProperty(value = "Tipo importe venta", required = true)
     private Long idTipoImporteVenta;
+
 }

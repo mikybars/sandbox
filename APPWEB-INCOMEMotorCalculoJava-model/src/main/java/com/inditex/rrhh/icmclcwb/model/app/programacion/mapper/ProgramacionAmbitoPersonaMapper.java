@@ -18,14 +18,18 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionA
 public abstract class ProgramacionAmbitoPersonaMapper {
 
     @Mapping(target = "idProgramacionAmbito", source = "programacionAmbito.id")
-    public abstract ProgramacionAmbitoPersonaDto programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(ProgramacionAmbitoPersona src);
+    public abstract ProgramacionAmbitoPersonaDto programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
+            ProgramacionAmbitoPersona src);
 
     @InheritInverseConfiguration
-    public abstract ProgramacionAmbitoPersona programacionAmbitoPersonaDtoToProgramacionAmbitoPersona(ProgramacionAmbitoPersonaDto src);
+    public abstract ProgramacionAmbitoPersona programacionAmbitoPersonaDtoToProgramacionAmbitoPersona(
+            ProgramacionAmbitoPersonaDto src);
 
-    public abstract List<ProgramacionAmbitoPersonaDto> programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(List<ProgramacionAmbitoPersona> src);
+    public abstract List<ProgramacionAmbitoPersonaDto> programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
+            List<ProgramacionAmbitoPersona> src);
 
-    public abstract List<ProgramacionAmbitoPersona> programacionAmbitoPersonaDtoToProgramacionAmbitoPersona(List<ProgramacionAmbitoPersonaDto> src);
+    public abstract List<ProgramacionAmbitoPersona> programacionAmbitoPersonaDtoToProgramacionAmbitoPersona(
+            List<ProgramacionAmbitoPersonaDto> src);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "programacionAmbito.id", source = "srcProgramacionAmbito.id")
@@ -33,8 +37,9 @@ public abstract class ProgramacionAmbitoPersonaMapper {
             ProgramacionAmbitoPersonaDto srcProgramacionAmbitoPersona, ProgramacionAmbitoDto srcProgramacionAmbito);
 
     public List<ProgramacionAmbitoPersona> mergeProgramacionAmbitoPersonaDtoAndProgramacionDtoToProgramacionAmbitoPersona(
-            List<ProgramacionAmbitoPersonaDto> srcProgramacionAmbitoPersona, ProgramacionAmbitoDto srcProgramacionAmbito) {
+            List<ProgramacionAmbitoPersonaDto> srcProgramacionAmbitoPersona,
+            ProgramacionAmbitoDto srcProgramacionAmbito) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
-    
+
 }

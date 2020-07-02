@@ -32,23 +32,29 @@ public class RunAjusteCarenciaProcesar implements RunAjuste {
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-    
+
     @Override
     public void execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoAjusteCarenciaRepositoryCustom.ids(runTarea.getTarea()),
-                runAjusteProperties.getBatchSize())).parallel().runOn(ItxSchedulers.elastic()).map(personas -> {
-                    log.info("Inicio :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
-                    try {
-                        tareaCalculoAjusteCarenciaRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(), personas);
-                    } catch (Exception e) {
-                        log.error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), e);
-                        tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                                EstadoTareaCalculoPersonaEnum.KO.getDto());
-                    }
-                    log.info("Fin :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
-                    return Flux.empty();
-                }).sequential().collectList().block();   
+                runAjusteProperties.getBatchSize()))
+            .parallel()
+            .runOn(ItxSchedulers.elastic())
+            .map(personas -> {
+                log.info("Inicio :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
+                try {
+                    tareaCalculoAjusteCarenciaRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(), personas);
+                } catch (Exception e) {
+                    log.error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), e);
+                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                log.info("Fin :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
+                return Flux.empty();
+            })
+            .sequential()
+            .collectList()
+            .block();
     }
 
     @Override

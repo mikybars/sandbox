@@ -10,6 +10,7 @@ import java.util.concurrent.CompletableFuture;
 @Async("repositoryPrimaryExecutor")
 public interface TareaAgrupacionConfiguracionAsyncService {
 
-    CompletableFuture<Void> saveAgrupacionConfiguracionDto(List<ConfiguracionVentaOnlineResultItemDto> data, RunTareaDto tarea);
+    CompletableFuture<Void> saveAgrupacionConfiguracionDto(List<ConfiguracionVentaOnlineResultItemDto> data,
+            RunTareaDto tarea);
 
 }

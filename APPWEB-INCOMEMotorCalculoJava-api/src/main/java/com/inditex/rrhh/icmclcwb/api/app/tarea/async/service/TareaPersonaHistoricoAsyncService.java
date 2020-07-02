@@ -12,8 +12,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 @Async("repositoryPrimaryExecutor")
 public interface TareaPersonaHistoricoAsyncService {
 
-    CompletableFuture<Void> saveGenericEmpleadoResultItemDto(final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto,final TareaDto tarea);
-    
-    CompletableFuture<Void> save(final List<TareaPersonaHistoricoDto> tareaPersonaHistorico,final TareaDto tarea);
+    CompletableFuture<Void> saveGenericEmpleadoResultItemDto(
+            final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, final TareaDto tarea);
+
+    CompletableFuture<Void> save(final List<TareaPersonaHistoricoDto> tareaPersonaHistorico, final TareaDto tarea);
 
 }

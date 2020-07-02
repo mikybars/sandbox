@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.dto.RunMantenimientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimientoService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -22,7 +21,7 @@ import io.swagger.annotations.Authorization;
 @Validated
 @RestController
 @RequestMapping(path = "/run/mantenimiento")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}))
+@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "RunMantenimientoController" })
 public class RunMantenimientoController {
 
     @Autowired
@@ -32,13 +31,14 @@ public class RunMantenimientoController {
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Realiza el mantenimiento")
     public RunMantenimientoDto run() {
-        return runMantenimientoService.run();
+        return this.runMantenimientoService.run();
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Realiza el mantenimiento de una tarea")
     public RunMantenimientoDto runIdTarea(@PathVariable @Valid @NotNull @Positive final Long id) {
-        return runMantenimientoService.runIdTarea(id);
+        return this.runMantenimientoService.runIdTarea(id);
     }
+
 }

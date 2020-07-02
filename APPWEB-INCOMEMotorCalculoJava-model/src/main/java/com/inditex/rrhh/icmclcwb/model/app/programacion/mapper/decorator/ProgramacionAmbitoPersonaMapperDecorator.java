@@ -23,8 +23,8 @@ public abstract class ProgramacionAmbitoPersonaMapperDecorator extends Programac
         List<ProgramacionAmbitoPersona> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(srcProgramacionAmbitoPersona)) {
             srcProgramacionAmbitoPersona.forEach(item -> result
-                    .add(delegate.mergeProgramacionAmbitoPersonaDtoAndProgramacionDtoToProgramacionAmbitoPersona(item,
-                            srcProgramacionAmbito)));
+                .add(delegate.mergeProgramacionAmbitoPersonaDtoAndProgramacionDtoToProgramacionAmbitoPersona(item,
+                        srcProgramacionAmbito)));
         }
         return result;
     }

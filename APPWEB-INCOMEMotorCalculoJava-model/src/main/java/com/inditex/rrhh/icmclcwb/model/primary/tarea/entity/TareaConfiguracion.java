@@ -35,11 +35,6 @@ public class TareaConfiguracion {
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
 
-    //TODO [BBDD] Hay que eliminar este campo en la siguiente version
-    @NotBlank
-    @Column(name = "ICM_ID_CONFIG", nullable = false)
-    private Integer icmIdConfig;
-
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -50,13 +45,15 @@ public class TareaConfiguracion {
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
 
-    //TODO [BBDD] Hay que permitir valores nulos
-    @NotNull
-    @Column(name = "COD_TIPO_HORA", nullable = false)
+    @Column(name = "COD_TIPO_HORA", nullable = true)
     private Integer codTipoHora;
 
     @NotNull
     @Column(name = "ICM_CK_VENTA_IMPUESTOS", nullable = false)
     private Boolean icmCkVentaImpuestos;
+
+    @NotNull
+    @Column(name = "ICM_CK_INC_IVA_EVAL_PTPO", nullable = false)
+    private Boolean icmCkIncIvaEvalPtpo;
 
 }

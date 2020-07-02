@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +22,15 @@ public class TareaLocalizacionCalcularServiceImpl implements TareaLocalizacionCa
 
     @Autowired
     private TareaLocalizacionCalcularRepositoryCustom tareaLocalizacionCalcularRepositoryCustom;
-    
+
     @Autowired
     private TareaLocalizacionCalcularMapper tareaLocalizacionCalcularMapper;
-    
+
     @Override
-    public void save(@NotNull final List<GenericTiendaResultItemDto> src, @NotNull final TareaDto tareaDto) {
+    public void save(@Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto) {
         tareaLocalizacionCalcularRepositoryCustom.save(tareaLocalizacionCalcularMapper
-                .genericTiendaResultItemDtoToTareaLocalizacionCalcular(src, tareaDto));
+            .genericTiendaResultItemDtoToTareaLocalizacionCalcular(src, tareaDto));
     }
+
 }

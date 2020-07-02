@@ -30,7 +30,7 @@ public class TareaPersonaEstructuraDesplazamiento {
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_OPCION_CALCULO_EFECTIVA", nullable = false)
@@ -41,30 +41,30 @@ public class TareaPersonaEstructuraDesplazamiento {
     @JoinColumn(name = "ID_TIPO_OPCION_CALCULO_ESTRUCTURA", nullable = false)
     private TipoOpcionCalculo tipoOpcionCalculoEstructura;
 
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_COD_ORIGEN_DESTINO", nullable = false)
     private String cclIdCodOrigenDestino;
 
-    @NotNull
+    @NotBlank
     @Column(name = "CCL_ID_PUESTO_DESTINO", nullable = false)
     private String cclIdPuestoDestino;
-    
-    @NotNull
+
+    @NotBlank
     @Column(name = "CCL_ID_SECCION_DESTINO", nullable = false)
     private String cclIdSeccionDestino;
-    
-    @NotNull
+
+    @NotBlank
     @Column(name = "ICM_ID_ESTR_COMISION", nullable = false, length = 48)
     private String icmIdEstrComision;
-    
-    @NotNull
+
+    @NotBlank
     @Column(name = "ICM_ID_TP_REQ_COMISION")
     private String icmIdTpReqCom;
 
     @NotBlank
     @Column(name = "STD_ID_WORK_LOCAT_DESTINO", nullable = false, length = 48)
     private String stdIdWorkLocatDestino;
-    
+
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -74,7 +74,7 @@ public class TareaPersonaEstructuraDesplazamiento {
     @Column(name = "FECHA_FIN", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    
+
     @NotNull
     @Column(name = "ES_HORAS_ORIGEN", nullable = false)
     private Boolean horasOrigen;
@@ -82,27 +82,27 @@ public class TareaPersonaEstructuraDesplazamiento {
     @NotNull
     @Column(name = "ES_HORAS_DESTINO", nullable = false)
     private Boolean horasDestino;
-    
+
     @NotNull
     @Column(name = "ORDINAL_ESTRUCTURA", nullable = false)
     private Integer ordinalEstructura;
-   
+
     @NotNull
     @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;
-    
+
     @NotBlank
     @Column(name = "ICM_ID_ESTR_COMISION_PADRE", nullable = false, length = 48)
     private String icmIdEstrComisionPadre;
-    
+
     @NotBlank
     @Column(name = "ICM_ID_ESTR_COMISION_BASE", nullable = false, length = 48)
     private String icmIdEstrComisionBase;
-       
+
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;
-    
+
     @NotBlank
     @Column(name = "STD_ID_HR", nullable = false, length = 18)
     private String stdIdHr;
@@ -118,5 +118,5 @@ public class TareaPersonaEstructuraDesplazamiento {
     @NotBlank
     @Column(name = "ICM_ID_ESTRUCTURA_AMBITO", nullable = false, length = 48)
     private String icmIdEstructuraAmbito;
-    
+
 }

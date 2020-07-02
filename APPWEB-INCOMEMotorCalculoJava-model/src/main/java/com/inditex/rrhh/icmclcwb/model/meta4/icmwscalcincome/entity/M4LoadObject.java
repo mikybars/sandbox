@@ -24,18 +24,18 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="ICM_WS_TOOLS" type="{http://schemas.meta4.com/}Icm_Ws_ToolsBlock"/&gt;
- *         &lt;element name="ICM_LISTACONF" type="{http://schemas.meta4.com/}Icm_ListaconfBlock"/&gt;
- *         &lt;element name="ICM_PARAMCONF" type="{http://schemas.meta4.com/}Icm_ParamconfBlock"/&gt;
  *         &lt;element name="ICM_LISTACADENAS" type="{http://schemas.meta4.com/}Icm_ListacadenasBlock"/&gt;
  *         &lt;element name="ICM_LISTATIENDAS" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/&gt;
  *         &lt;element name="ICM_LISTAEMPLEADO" type="{http://schemas.meta4.com/}Icm_ListaempleadoBlock"/&gt;
@@ -46,113 +46,195 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="ICM_LISTAEMPLEADOS" type="{http://schemas.meta4.com/}Icm_ListaempleadosBlock"/&gt;
  *         &lt;element name="ICM_LISTAPOLITICAS" type="{http://schemas.meta4.com/}Icm_ListapoliticasBlock"/&gt;
  *         &lt;element name="ICM_PARAMCALORIGEN" type="{http://schemas.meta4.com/}Icm_ParamcalorigenBlock"/&gt;
+ *         &lt;element name="ICM_LISTACONFCHDIAS" type="{http://schemas.meta4.com/}Icm_ListaconfchdiasBlock"/&gt;
+ *         &lt;element name="ICM_LISTACONFORIGEN" type="{http://schemas.meta4.com/}Icm_ListaconforigenBlock"/&gt;
  *         &lt;element name="ICM_LISTAESTRUCTURA" type="{http://schemas.meta4.com/}Icm_ListaestructuraBlock"/&gt;
  *         &lt;element name="ICM_PARAMCALPERIODO" type="{http://schemas.meta4.com/}Icm_ParamcalperiodoBlock"/&gt;
  *         &lt;element name="ICM_PARAMCALPROCESO" type="{http://schemas.meta4.com/}Icm_ParamcalprocesoBlock"/&gt;
+ *         &lt;element name="ICM_LISTACONFCHVENTA" type="{http://schemas.meta4.com/}Icm_ListaconfchventaBlock"/&gt;
  *         &lt;element name="ICM_PARAMCALEMPLEADO" type="{http://schemas.meta4.com/}Icm_ParamcalempleadoBlock"/&gt;
  *         &lt;element name="ICM_PARAMCALSOCIEDAD" type="{http://schemas.meta4.com/}Icm_ParamcalsociedadBlock"/&gt;
  *         &lt;element name="ICM_PARAMETROSENTRADA" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/&gt;
  *         &lt;element name="ICM_RESULTADOGUARDADO" type="{http://schemas.meta4.com/}Icm_ResultadoguardadoBlock"/&gt;
  *         &lt;element name="ICM_LISTACONFIGURACION" type="{http://schemas.meta4.com/}Icm_ListaconfiguracionBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALCONFCHDIAS" type="{http://schemas.meta4.com/}Icm_ParamcalconfchdiasBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALCONFORIGEN" type="{http://schemas.meta4.com/}Icm_ParamcalconforigenBlock"/&gt;
  *         &lt;element name="ICM_PARAMCALESTRUCTURA" type="{http://schemas.meta4.com/}Icm_ParamcalestructuraBlock"/&gt;
+ *         &lt;element name="ICM_LISTACONFPRECIOHORA" type="{http://schemas.meta4.com/}Icm_ListaconfpreciohoraBlock"/&gt;
+ *         &lt;element name="ICM_LISTAVENTACONGELADA" type="{http://schemas.meta4.com/}Icm_ListaventacongeladaBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALCONFCHVENTA" type="{http://schemas.meta4.com/}Icm_ParamcalconfchventaBlock"/&gt;
  *         &lt;element name="ICM_WS_CALC_OPERACIONES" type="{http://schemas.meta4.com/}Icm_Ws_Calc_OperacionesBlock"/&gt;
  *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
+ *         &lt;element name="ICM_LISTAPRESUPUESTOSWLOC" type="{http://schemas.meta4.com/}Icm_ListapresupuestoswlocBlock"/&gt;
+ *         &lt;element name="ICM_LISTAPRESUPUESTOSRANGO" type="{http://schemas.meta4.com/}Icm_ListapresupuestosrangoBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALCONFPRECIOHORA" type="{http://schemas.meta4.com/}Icm_ParamcalconfpreciohoraBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALVENTACONGELADA" type="{http://schemas.meta4.com/}Icm_ParamcalventacongeladaBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALPRESUPUESTOSWLOC" type="{http://schemas.meta4.com/}Icm_ParamcalpresupuestoswlocBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALPRESUPUESTOSRANGO" type="{http://schemas.meta4.com/}Icm_ParamcalpresupuestosrangoBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmwstools",
-    "icmlistaconf",
-    "icmparamconf",
-    "icmlistacadenas",
-    "icmlistatiendas",
-    "icmlistaempleado",
-    "icmlistaempresas",
-    "icmlistaorigenes",
-    "icmlistaperiodos",
-    "icmlistaausencias",
-    "icmlistaempleados",
-    "icmlistapoliticas",
-    "icmparamcalorigen",
-    "icmlistaestructura",
-    "icmparamcalperiodo",
-    "icmparamcalproceso",
-    "icmparamcalempleado",
-    "icmparamcalsociedad",
-    "icmparametrosentrada",
-    "icmresultadoguardado",
-    "icmlistaconfiguracion",
-    "icmparamcalestructura",
-    "icmwscalcoperaciones",
-    "icmparametrospaginacion"
+        "icmwstools",
+        "icmlistacadenas",
+        "icmlistatiendas",
+        "icmlistaempleado",
+        "icmlistaempresas",
+        "icmlistaorigenes",
+        "icmlistaperiodos",
+        "icmlistaausencias",
+        "icmlistaempleados",
+        "icmlistapoliticas",
+        "icmparamcalorigen",
+        "icmlistaconfchdias",
+        "icmlistaconforigen",
+        "icmlistaestructura",
+        "icmparamcalperiodo",
+        "icmparamcalproceso",
+        "icmlistaconfchventa",
+        "icmparamcalempleado",
+        "icmparamcalsociedad",
+        "icmparametrosentrada",
+        "icmresultadoguardado",
+        "icmlistaconfiguracion",
+        "icmparamcalconfchdias",
+        "icmparamcalconforigen",
+        "icmparamcalestructura",
+        "icmlistaconfpreciohora",
+        "icmlistaventacongelada",
+        "icmparamcalconfchventa",
+        "icmwscalcoperaciones",
+        "icmparametrospaginacion",
+        "icmlistapresupuestoswloc",
+        "icmlistapresupuestosrango",
+        "icmparamcalconfpreciohora",
+        "icmparamcalventacongelada",
+        "icmparamcalpresupuestoswloc",
+        "icmparamcalpresupuestosrango"
 })
 @XmlRootElement(name = "M4LoadObject")
-public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "ICM_WS_TOOLS", required = true)
     protected IcmWsToolsBlock icmwstools;
-    @XmlElement(name = "ICM_LISTACONF", required = true)
-    protected IcmListaconfBlock icmlistaconf;
-    @XmlElement(name = "ICM_PARAMCONF", required = true)
-    protected IcmParamconfBlock icmparamconf;
+
     @XmlElement(name = "ICM_LISTACADENAS", required = true)
     protected IcmListacadenasBlock icmlistacadenas;
+
     @XmlElement(name = "ICM_LISTATIENDAS", required = true)
     protected IcmListatiendasBlock icmlistatiendas;
+
     @XmlElement(name = "ICM_LISTAEMPLEADO", required = true)
     protected IcmListaempleadoBlock icmlistaempleado;
+
     @XmlElement(name = "ICM_LISTAEMPRESAS", required = true)
     protected IcmListaempresasBlock icmlistaempresas;
+
     @XmlElement(name = "ICM_LISTAORIGENES", required = true)
     protected IcmListaorigenesBlock icmlistaorigenes;
+
     @XmlElement(name = "ICM_LISTAPERIODOS", required = true)
     protected IcmListaperiodosBlock icmlistaperiodos;
+
     @XmlElement(name = "ICM_LISTAAUSENCIAS", required = true)
     protected IcmListaausenciasBlock icmlistaausencias;
+
     @XmlElement(name = "ICM_LISTAEMPLEADOS", required = true)
     protected IcmListaempleadosBlock icmlistaempleados;
+
     @XmlElement(name = "ICM_LISTAPOLITICAS", required = true)
     protected IcmListapoliticasBlock icmlistapoliticas;
+
     @XmlElement(name = "ICM_PARAMCALORIGEN", required = true)
     protected IcmParamcalorigenBlock icmparamcalorigen;
+
+    @XmlElement(name = "ICM_LISTACONFCHDIAS", required = true)
+    protected IcmListaconfchdiasBlock icmlistaconfchdias;
+
+    @XmlElement(name = "ICM_LISTACONFORIGEN", required = true)
+    protected IcmListaconforigenBlock icmlistaconforigen;
+
     @XmlElement(name = "ICM_LISTAESTRUCTURA", required = true)
     protected IcmListaestructuraBlock icmlistaestructura;
+
     @XmlElement(name = "ICM_PARAMCALPERIODO", required = true)
     protected IcmParamcalperiodoBlock icmparamcalperiodo;
+
     @XmlElement(name = "ICM_PARAMCALPROCESO", required = true)
     protected IcmParamcalprocesoBlock icmparamcalproceso;
+
+    @XmlElement(name = "ICM_LISTACONFCHVENTA", required = true)
+    protected IcmListaconfchventaBlock icmlistaconfchventa;
+
     @XmlElement(name = "ICM_PARAMCALEMPLEADO", required = true)
     protected IcmParamcalempleadoBlock icmparamcalempleado;
+
     @XmlElement(name = "ICM_PARAMCALSOCIEDAD", required = true)
     protected IcmParamcalsociedadBlock icmparamcalsociedad;
+
     @XmlElement(name = "ICM_PARAMETROSENTRADA", required = true)
     protected IcmParametrosentradaBlock icmparametrosentrada;
+
     @XmlElement(name = "ICM_RESULTADOGUARDADO", required = true)
     protected IcmResultadoguardadoBlock icmresultadoguardado;
+
     @XmlElement(name = "ICM_LISTACONFIGURACION", required = true)
     protected IcmListaconfiguracionBlock icmlistaconfiguracion;
+
+    @XmlElement(name = "ICM_PARAMCALCONFCHDIAS", required = true)
+    protected IcmParamcalconfchdiasBlock icmparamcalconfchdias;
+
+    @XmlElement(name = "ICM_PARAMCALCONFORIGEN", required = true)
+    protected IcmParamcalconforigenBlock icmparamcalconforigen;
+
     @XmlElement(name = "ICM_PARAMCALESTRUCTURA", required = true)
     protected IcmParamcalestructuraBlock icmparamcalestructura;
+
+    @XmlElement(name = "ICM_LISTACONFPRECIOHORA", required = true)
+    protected IcmListaconfpreciohoraBlock icmlistaconfpreciohora;
+
+    @XmlElement(name = "ICM_LISTAVENTACONGELADA", required = true)
+    protected IcmListaventacongeladaBlock icmlistaventacongelada;
+
+    @XmlElement(name = "ICM_PARAMCALCONFCHVENTA", required = true)
+    protected IcmParamcalconfchventaBlock icmparamcalconfchventa;
+
     @XmlElement(name = "ICM_WS_CALC_OPERACIONES", required = true)
     protected IcmWsCalcOperacionesBlock icmwscalcoperaciones;
+
     @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
     protected IcmParametrospaginacionBlock icmparametrospaginacion;
 
+    @XmlElement(name = "ICM_LISTAPRESUPUESTOSWLOC", required = true)
+    protected IcmListapresupuestoswlocBlock icmlistapresupuestoswloc;
+
+    @XmlElement(name = "ICM_LISTAPRESUPUESTOSRANGO", required = true)
+    protected IcmListapresupuestosrangoBlock icmlistapresupuestosrango;
+
+    @XmlElement(name = "ICM_PARAMCALCONFPRECIOHORA", required = true)
+    protected IcmParamcalconfpreciohoraBlock icmparamcalconfpreciohora;
+
+    @XmlElement(name = "ICM_PARAMCALVENTACONGELADA", required = true)
+    protected IcmParamcalventacongeladaBlock icmparamcalventacongelada;
+
+    @XmlElement(name = "ICM_PARAMCALPRESUPUESTOSWLOC", required = true)
+    protected IcmParamcalpresupuestoswlocBlock icmparamcalpresupuestoswloc;
+
+    @XmlElement(name = "ICM_PARAMCALPRESUPUESTOSRANGO", required = true)
+    protected IcmParamcalpresupuestosrangoBlock icmparamcalpresupuestosrango;
+
     /**
      * Obtiene el valor de la propiedad icmwstools.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmWsToolsBlock }
-     *     
+     * @return possible object is {@link IcmWsToolsBlock }
+     *
      */
     public IcmWsToolsBlock getICMWSTOOLS() {
         return icmwstools;
@@ -160,71 +242,17 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmwstools.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmWsToolsBlock }
-     *     
+     * @param value allowed object is {@link IcmWsToolsBlock }
+     *
      */
     public void setICMWSTOOLS(IcmWsToolsBlock value) {
         this.icmwstools = value;
     }
 
     /**
-     * Obtiene el valor de la propiedad icmlistaconf.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaconfBlock }
-     *     
-     */
-    public IcmListaconfBlock getICMLISTACONF() {
-        return icmlistaconf;
-    }
-
-    /**
-     * Define el valor de la propiedad icmlistaconf.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaconfBlock }
-     *     
-     */
-    public void setICMLISTACONF(IcmListaconfBlock value) {
-        this.icmlistaconf = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad icmparamconf.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParamconfBlock }
-     *     
-     */
-    public IcmParamconfBlock getICMPARAMCONF() {
-        return icmparamconf;
-    }
-
-    /**
-     * Define el valor de la propiedad icmparamconf.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamconfBlock }
-     *     
-     */
-    public void setICMPARAMCONF(IcmParamconfBlock value) {
-        this.icmparamconf = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad icmlistacadenas.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListacadenasBlock }
-     *     
+     * @return possible object is {@link IcmListacadenasBlock }
+     *
      */
     public IcmListacadenasBlock getICMLISTACADENAS() {
         return icmlistacadenas;
@@ -232,11 +260,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmlistacadenas.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListacadenasBlock }
-     *     
+     * @param value allowed object is {@link IcmListacadenasBlock }
+     *
      */
     public void setICMLISTACADENAS(IcmListacadenasBlock value) {
         this.icmlistacadenas = value;
@@ -244,11 +269,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmlistatiendas.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListatiendasBlock }
-     *     
+     * @return possible object is {@link IcmListatiendasBlock }
+     *
      */
     public IcmListatiendasBlock getICMLISTATIENDAS() {
         return icmlistatiendas;
@@ -256,11 +278,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmlistatiendas.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListatiendasBlock }
-     *     
+     * @param value allowed object is {@link IcmListatiendasBlock }
+     *
      */
     public void setICMLISTATIENDAS(IcmListatiendasBlock value) {
         this.icmlistatiendas = value;
@@ -268,11 +287,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmlistaempleado.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaempleadoBlock }
-     *     
+     * @return possible object is {@link IcmListaempleadoBlock }
+     *
      */
     public IcmListaempleadoBlock getICMLISTAEMPLEADO() {
         return icmlistaempleado;
@@ -280,11 +296,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmlistaempleado.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaempleadoBlock }
-     *     
+     * @param value allowed object is {@link IcmListaempleadoBlock }
+     *
      */
     public void setICMLISTAEMPLEADO(IcmListaempleadoBlock value) {
         this.icmlistaempleado = value;
@@ -292,11 +305,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmlistaempresas.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaempresasBlock }
-     *     
+     * @return possible object is {@link IcmListaempresasBlock }
+     *
      */
     public IcmListaempresasBlock getICMLISTAEMPRESAS() {
         return icmlistaempresas;
@@ -304,11 +314,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmlistaempresas.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaempresasBlock }
-     *     
+     * @param value allowed object is {@link IcmListaempresasBlock }
+     *
      */
     public void setICMLISTAEMPRESAS(IcmListaempresasBlock value) {
         this.icmlistaempresas = value;
@@ -316,11 +323,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmlistaorigenes.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaorigenesBlock }
-     *     
+     * @return possible object is {@link IcmListaorigenesBlock }
+     *
      */
     public IcmListaorigenesBlock getICMLISTAORIGENES() {
         return icmlistaorigenes;
@@ -328,11 +332,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmlistaorigenes.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaorigenesBlock }
-     *     
+     * @param value allowed object is {@link IcmListaorigenesBlock }
+     *
      */
     public void setICMLISTAORIGENES(IcmListaorigenesBlock value) {
         this.icmlistaorigenes = value;
@@ -340,11 +341,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmlistaperiodos.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaperiodosBlock }
-     *     
+     * @return possible object is {@link IcmListaperiodosBlock }
+     *
      */
     public IcmListaperiodosBlock getICMLISTAPERIODOS() {
         return icmlistaperiodos;
@@ -352,11 +350,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmlistaperiodos.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaperiodosBlock }
-     *     
+     * @param value allowed object is {@link IcmListaperiodosBlock }
+     *
      */
     public void setICMLISTAPERIODOS(IcmListaperiodosBlock value) {
         this.icmlistaperiodos = value;
@@ -364,11 +359,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmlistaausencias.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaausenciasBlock }
-     *     
+     * @return possible object is {@link IcmListaausenciasBlock }
+     *
      */
     public IcmListaausenciasBlock getICMLISTAAUSENCIAS() {
         return icmlistaausencias;
@@ -376,11 +368,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmlistaausencias.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaausenciasBlock }
-     *     
+     * @param value allowed object is {@link IcmListaausenciasBlock }
+     *
      */
     public void setICMLISTAAUSENCIAS(IcmListaausenciasBlock value) {
         this.icmlistaausencias = value;
@@ -388,11 +377,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmlistaempleados.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaempleadosBlock }
-     *     
+     * @return possible object is {@link IcmListaempleadosBlock }
+     *
      */
     public IcmListaempleadosBlock getICMLISTAEMPLEADOS() {
         return icmlistaempleados;
@@ -400,11 +386,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmlistaempleados.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaempleadosBlock }
-     *     
+     * @param value allowed object is {@link IcmListaempleadosBlock }
+     *
      */
     public void setICMLISTAEMPLEADOS(IcmListaempleadosBlock value) {
         this.icmlistaempleados = value;
@@ -412,11 +395,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmlistapoliticas.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListapoliticasBlock }
-     *     
+     * @return possible object is {@link IcmListapoliticasBlock }
+     *
      */
     public IcmListapoliticasBlock getICMLISTAPOLITICAS() {
         return icmlistapoliticas;
@@ -424,11 +404,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmlistapoliticas.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListapoliticasBlock }
-     *     
+     * @param value allowed object is {@link IcmListapoliticasBlock }
+     *
      */
     public void setICMLISTAPOLITICAS(IcmListapoliticasBlock value) {
         this.icmlistapoliticas = value;
@@ -436,11 +413,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmparamcalorigen.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalorigenBlock }
-     *     
+     * @return possible object is {@link IcmParamcalorigenBlock }
+     *
      */
     public IcmParamcalorigenBlock getICMPARAMCALORIGEN() {
         return icmparamcalorigen;
@@ -448,23 +422,53 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmparamcalorigen.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalorigenBlock }
-     *     
+     * @param value allowed object is {@link IcmParamcalorigenBlock }
+     *
      */
     public void setICMPARAMCALORIGEN(IcmParamcalorigenBlock value) {
         this.icmparamcalorigen = value;
     }
 
     /**
+     * Obtiene el valor de la propiedad icmlistaconfchdias.
+     * @return possible object is {@link IcmListaconfchdiasBlock }
+     *
+     */
+    public IcmListaconfchdiasBlock getICMLISTACONFCHDIAS() {
+        return icmlistaconfchdias;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistaconfchdias.
+     * @param value allowed object is {@link IcmListaconfchdiasBlock }
+     *
+     */
+    public void setICMLISTACONFCHDIAS(IcmListaconfchdiasBlock value) {
+        this.icmlistaconfchdias = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmlistaconforigen.
+     * @return possible object is {@link IcmListaconforigenBlock }
+     *
+     */
+    public IcmListaconforigenBlock getICMLISTACONFORIGEN() {
+        return icmlistaconforigen;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistaconforigen.
+     * @param value allowed object is {@link IcmListaconforigenBlock }
+     *
+     */
+    public void setICMLISTACONFORIGEN(IcmListaconforigenBlock value) {
+        this.icmlistaconforigen = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad icmlistaestructura.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaestructuraBlock }
-     *     
+     * @return possible object is {@link IcmListaestructuraBlock }
+     *
      */
     public IcmListaestructuraBlock getICMLISTAESTRUCTURA() {
         return icmlistaestructura;
@@ -472,11 +476,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmlistaestructura.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaestructuraBlock }
-     *     
+     * @param value allowed object is {@link IcmListaestructuraBlock }
+     *
      */
     public void setICMLISTAESTRUCTURA(IcmListaestructuraBlock value) {
         this.icmlistaestructura = value;
@@ -484,11 +485,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmparamcalperiodo.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalperiodoBlock }
-     *     
+     * @return possible object is {@link IcmParamcalperiodoBlock }
+     *
      */
     public IcmParamcalperiodoBlock getICMPARAMCALPERIODO() {
         return icmparamcalperiodo;
@@ -496,11 +494,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmparamcalperiodo.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalperiodoBlock }
-     *     
+     * @param value allowed object is {@link IcmParamcalperiodoBlock }
+     *
      */
     public void setICMPARAMCALPERIODO(IcmParamcalperiodoBlock value) {
         this.icmparamcalperiodo = value;
@@ -508,11 +503,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmparamcalproceso.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalprocesoBlock }
-     *     
+     * @return possible object is {@link IcmParamcalprocesoBlock }
+     *
      */
     public IcmParamcalprocesoBlock getICMPARAMCALPROCESO() {
         return icmparamcalproceso;
@@ -520,23 +512,35 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmparamcalproceso.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalprocesoBlock }
-     *     
+     * @param value allowed object is {@link IcmParamcalprocesoBlock }
+     *
      */
     public void setICMPARAMCALPROCESO(IcmParamcalprocesoBlock value) {
         this.icmparamcalproceso = value;
     }
 
     /**
+     * Obtiene el valor de la propiedad icmlistaconfchventa.
+     * @return possible object is {@link IcmListaconfchventaBlock }
+     *
+     */
+    public IcmListaconfchventaBlock getICMLISTACONFCHVENTA() {
+        return icmlistaconfchventa;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistaconfchventa.
+     * @param value allowed object is {@link IcmListaconfchventaBlock }
+     *
+     */
+    public void setICMLISTACONFCHVENTA(IcmListaconfchventaBlock value) {
+        this.icmlistaconfchventa = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad icmparamcalempleado.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalempleadoBlock }
-     *     
+     * @return possible object is {@link IcmParamcalempleadoBlock }
+     *
      */
     public IcmParamcalempleadoBlock getICMPARAMCALEMPLEADO() {
         return icmparamcalempleado;
@@ -544,11 +548,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmparamcalempleado.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalempleadoBlock }
-     *     
+     * @param value allowed object is {@link IcmParamcalempleadoBlock }
+     *
      */
     public void setICMPARAMCALEMPLEADO(IcmParamcalempleadoBlock value) {
         this.icmparamcalempleado = value;
@@ -556,11 +557,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmparamcalsociedad.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalsociedadBlock }
-     *     
+     * @return possible object is {@link IcmParamcalsociedadBlock }
+     *
      */
     public IcmParamcalsociedadBlock getICMPARAMCALSOCIEDAD() {
         return icmparamcalsociedad;
@@ -568,11 +566,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmparamcalsociedad.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalsociedadBlock }
-     *     
+     * @param value allowed object is {@link IcmParamcalsociedadBlock }
+     *
      */
     public void setICMPARAMCALSOCIEDAD(IcmParamcalsociedadBlock value) {
         this.icmparamcalsociedad = value;
@@ -580,11 +575,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmparametrosentrada.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParametrosentradaBlock }
-     *     
+     * @return possible object is {@link IcmParametrosentradaBlock }
+     *
      */
     public IcmParametrosentradaBlock getICMPARAMETROSENTRADA() {
         return icmparametrosentrada;
@@ -592,11 +584,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmparametrosentrada.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParametrosentradaBlock }
-     *     
+     * @param value allowed object is {@link IcmParametrosentradaBlock }
+     *
      */
     public void setICMPARAMETROSENTRADA(IcmParametrosentradaBlock value) {
         this.icmparametrosentrada = value;
@@ -604,11 +593,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmresultadoguardado.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmResultadoguardadoBlock }
-     *     
+     * @return possible object is {@link IcmResultadoguardadoBlock }
+     *
      */
     public IcmResultadoguardadoBlock getICMRESULTADOGUARDADO() {
         return icmresultadoguardado;
@@ -616,11 +602,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmresultadoguardado.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmResultadoguardadoBlock }
-     *     
+     * @param value allowed object is {@link IcmResultadoguardadoBlock }
+     *
      */
     public void setICMRESULTADOGUARDADO(IcmResultadoguardadoBlock value) {
         this.icmresultadoguardado = value;
@@ -628,11 +611,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmlistaconfiguracion.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaconfiguracionBlock }
-     *     
+     * @return possible object is {@link IcmListaconfiguracionBlock }
+     *
      */
     public IcmListaconfiguracionBlock getICMLISTACONFIGURACION() {
         return icmlistaconfiguracion;
@@ -640,23 +620,53 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmlistaconfiguracion.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaconfiguracionBlock }
-     *     
+     * @param value allowed object is {@link IcmListaconfiguracionBlock }
+     *
      */
     public void setICMLISTACONFIGURACION(IcmListaconfiguracionBlock value) {
         this.icmlistaconfiguracion = value;
     }
 
     /**
+     * Obtiene el valor de la propiedad icmparamcalconfchdias.
+     * @return possible object is {@link IcmParamcalconfchdiasBlock }
+     *
+     */
+    public IcmParamcalconfchdiasBlock getICMPARAMCALCONFCHDIAS() {
+        return icmparamcalconfchdias;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamcalconfchdias.
+     * @param value allowed object is {@link IcmParamcalconfchdiasBlock }
+     *
+     */
+    public void setICMPARAMCALCONFCHDIAS(IcmParamcalconfchdiasBlock value) {
+        this.icmparamcalconfchdias = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmparamcalconforigen.
+     * @return possible object is {@link IcmParamcalconforigenBlock }
+     *
+     */
+    public IcmParamcalconforigenBlock getICMPARAMCALCONFORIGEN() {
+        return icmparamcalconforigen;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamcalconforigen.
+     * @param value allowed object is {@link IcmParamcalconforigenBlock }
+     *
+     */
+    public void setICMPARAMCALCONFORIGEN(IcmParamcalconforigenBlock value) {
+        this.icmparamcalconforigen = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad icmparamcalestructura.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalestructuraBlock }
-     *     
+     * @return possible object is {@link IcmParamcalestructuraBlock }
+     *
      */
     public IcmParamcalestructuraBlock getICMPARAMCALESTRUCTURA() {
         return icmparamcalestructura;
@@ -664,23 +674,71 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmparamcalestructura.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalestructuraBlock }
-     *     
+     * @param value allowed object is {@link IcmParamcalestructuraBlock }
+     *
      */
     public void setICMPARAMCALESTRUCTURA(IcmParamcalestructuraBlock value) {
         this.icmparamcalestructura = value;
     }
 
     /**
+     * Obtiene el valor de la propiedad icmlistaconfpreciohora.
+     * @return possible object is {@link IcmListaconfpreciohoraBlock }
+     *
+     */
+    public IcmListaconfpreciohoraBlock getICMLISTACONFPRECIOHORA() {
+        return icmlistaconfpreciohora;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistaconfpreciohora.
+     * @param value allowed object is {@link IcmListaconfpreciohoraBlock }
+     *
+     */
+    public void setICMLISTACONFPRECIOHORA(IcmListaconfpreciohoraBlock value) {
+        this.icmlistaconfpreciohora = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmlistaventacongelada.
+     * @return possible object is {@link IcmListaventacongeladaBlock }
+     *
+     */
+    public IcmListaventacongeladaBlock getICMLISTAVENTACONGELADA() {
+        return icmlistaventacongelada;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistaventacongelada.
+     * @param value allowed object is {@link IcmListaventacongeladaBlock }
+     *
+     */
+    public void setICMLISTAVENTACONGELADA(IcmListaventacongeladaBlock value) {
+        this.icmlistaventacongelada = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmparamcalconfchventa.
+     * @return possible object is {@link IcmParamcalconfchventaBlock }
+     *
+     */
+    public IcmParamcalconfchventaBlock getICMPARAMCALCONFCHVENTA() {
+        return icmparamcalconfchventa;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamcalconfchventa.
+     * @param value allowed object is {@link IcmParamcalconfchventaBlock }
+     *
+     */
+    public void setICMPARAMCALCONFCHVENTA(IcmParamcalconfchventaBlock value) {
+        this.icmparamcalconfchventa = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad icmwscalcoperaciones.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmWsCalcOperacionesBlock }
-     *     
+     * @return possible object is {@link IcmWsCalcOperacionesBlock }
+     *
      */
     public IcmWsCalcOperacionesBlock getICMWSCALCOPERACIONES() {
         return icmwscalcoperaciones;
@@ -688,11 +746,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmwscalcoperaciones.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmWsCalcOperacionesBlock }
-     *     
+     * @param value allowed object is {@link IcmWsCalcOperacionesBlock }
+     *
      */
     public void setICMWSCALCOPERACIONES(IcmWsCalcOperacionesBlock value) {
         this.icmwscalcoperaciones = value;
@@ -700,11 +755,8 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Obtiene el valor de la propiedad icmparametrospaginacion.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParametrospaginacionBlock }
-     *     
+     * @return possible object is {@link IcmParametrospaginacionBlock }
+     *
      */
     public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
         return icmparametrospaginacion;
@@ -712,18 +764,124 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
 
     /**
      * Define el valor de la propiedad icmparametrospaginacion.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParametrospaginacionBlock }
-     *     
+     * @param value allowed object is {@link IcmParametrospaginacionBlock }
+     *
      */
     public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
         this.icmparametrospaginacion = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    /**
+     * Obtiene el valor de la propiedad icmlistapresupuestoswloc.
+     * @return possible object is {@link IcmListapresupuestoswlocBlock }
+     *
+     */
+    public IcmListapresupuestoswlocBlock getICMLISTAPRESUPUESTOSWLOC() {
+        return icmlistapresupuestoswloc;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistapresupuestoswloc.
+     * @param value allowed object is {@link IcmListapresupuestoswlocBlock }
+     *
+     */
+    public void setICMLISTAPRESUPUESTOSWLOC(IcmListapresupuestoswlocBlock value) {
+        this.icmlistapresupuestoswloc = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmlistapresupuestosrango.
+     * @return possible object is {@link IcmListapresupuestosrangoBlock }
+     *
+     */
+    public IcmListapresupuestosrangoBlock getICMLISTAPRESUPUESTOSRANGO() {
+        return icmlistapresupuestosrango;
+    }
+
+    /**
+     * Define el valor de la propiedad icmlistapresupuestosrango.
+     * @param value allowed object is {@link IcmListapresupuestosrangoBlock }
+     *
+     */
+    public void setICMLISTAPRESUPUESTOSRANGO(IcmListapresupuestosrangoBlock value) {
+        this.icmlistapresupuestosrango = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmparamcalconfpreciohora.
+     * @return possible object is {@link IcmParamcalconfpreciohoraBlock }
+     *
+     */
+    public IcmParamcalconfpreciohoraBlock getICMPARAMCALCONFPRECIOHORA() {
+        return icmparamcalconfpreciohora;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamcalconfpreciohora.
+     * @param value allowed object is {@link IcmParamcalconfpreciohoraBlock }
+     *
+     */
+    public void setICMPARAMCALCONFPRECIOHORA(IcmParamcalconfpreciohoraBlock value) {
+        this.icmparamcalconfpreciohora = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmparamcalventacongelada.
+     * @return possible object is {@link IcmParamcalventacongeladaBlock }
+     *
+     */
+    public IcmParamcalventacongeladaBlock getICMPARAMCALVENTACONGELADA() {
+        return icmparamcalventacongelada;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamcalventacongelada.
+     * @param value allowed object is {@link IcmParamcalventacongeladaBlock }
+     *
+     */
+    public void setICMPARAMCALVENTACONGELADA(IcmParamcalventacongeladaBlock value) {
+        this.icmparamcalventacongelada = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmparamcalpresupuestoswloc.
+     * @return possible object is {@link IcmParamcalpresupuestoswlocBlock }
+     *
+     */
+    public IcmParamcalpresupuestoswlocBlock getICMPARAMCALPRESUPUESTOSWLOC() {
+        return icmparamcalpresupuestoswloc;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamcalpresupuestoswloc.
+     * @param value allowed object is {@link IcmParamcalpresupuestoswlocBlock }
+     *
+     */
+    public void setICMPARAMCALPRESUPUESTOSWLOC(IcmParamcalpresupuestoswlocBlock value) {
+        this.icmparamcalpresupuestoswloc = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmparamcalpresupuestosrango.
+     * @return possible object is {@link IcmParamcalpresupuestosrangoBlock }
+     *
+     */
+    public IcmParamcalpresupuestosrangoBlock getICMPARAMCALPRESUPUESTOSRANGO() {
+        return icmparamcalpresupuestosrango;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamcalpresupuestosrango.
+     * @param value allowed object is {@link IcmParamcalpresupuestosrangoBlock }
+     *
+     */
+    public void setICMPARAMCALPRESUPUESTOSRANGO(IcmParamcalpresupuestosrangoBlock value) {
+        this.icmparamcalpresupuestosrango = value;
+    }
+
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -735,25 +893,9 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMWSTOOLS = this.getICMWSTOOLS();
             IcmWsToolsBlock rhsICMWSTOOLS;
             rhsICMWSTOOLS = that.getICMWSTOOLS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmwstools", lhsICMWSTOOLS), LocatorUtils.property(thatLocator, "icmwstools", rhsICMWSTOOLS), lhsICMWSTOOLS, rhsICMWSTOOLS, (this.icmwstools!= null), (that.icmwstools!= null))) {
-                return false;
-            }
-        }
-        {
-            IcmListaconfBlock lhsICMLISTACONF;
-            lhsICMLISTACONF = this.getICMLISTACONF();
-            IcmListaconfBlock rhsICMLISTACONF;
-            rhsICMLISTACONF = that.getICMLISTACONF();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaconf", lhsICMLISTACONF), LocatorUtils.property(thatLocator, "icmlistaconf", rhsICMLISTACONF), lhsICMLISTACONF, rhsICMLISTACONF, (this.icmlistaconf!= null), (that.icmlistaconf!= null))) {
-                return false;
-            }
-        }
-        {
-            IcmParamconfBlock lhsICMPARAMCONF;
-            lhsICMPARAMCONF = this.getICMPARAMCONF();
-            IcmParamconfBlock rhsICMPARAMCONF;
-            rhsICMPARAMCONF = that.getICMPARAMCONF();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamconf", lhsICMPARAMCONF), LocatorUtils.property(thatLocator, "icmparamconf", rhsICMPARAMCONF), lhsICMPARAMCONF, rhsICMPARAMCONF, (this.icmparamconf!= null), (that.icmparamconf!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmwstools", lhsICMWSTOOLS),
+                    LocatorUtils.property(thatLocator, "icmwstools", rhsICMWSTOOLS), lhsICMWSTOOLS, rhsICMWSTOOLS,
+                    (this.icmwstools != null), (that.icmwstools != null))) {
                 return false;
             }
         }
@@ -762,7 +904,9 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMLISTACADENAS = this.getICMLISTACADENAS();
             IcmListacadenasBlock rhsICMLISTACADENAS;
             rhsICMLISTACADENAS = that.getICMLISTACADENAS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistacadenas", lhsICMLISTACADENAS), LocatorUtils.property(thatLocator, "icmlistacadenas", rhsICMLISTACADENAS), lhsICMLISTACADENAS, rhsICMLISTACADENAS, (this.icmlistacadenas!= null), (that.icmlistacadenas!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistacadenas", lhsICMLISTACADENAS),
+                    LocatorUtils.property(thatLocator, "icmlistacadenas", rhsICMLISTACADENAS), lhsICMLISTACADENAS,
+                    rhsICMLISTACADENAS, (this.icmlistacadenas != null), (that.icmlistacadenas != null))) {
                 return false;
             }
         }
@@ -771,7 +915,9 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMLISTATIENDAS = this.getICMLISTATIENDAS();
             IcmListatiendasBlock rhsICMLISTATIENDAS;
             rhsICMLISTATIENDAS = that.getICMLISTATIENDAS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistatiendas", lhsICMLISTATIENDAS), LocatorUtils.property(thatLocator, "icmlistatiendas", rhsICMLISTATIENDAS), lhsICMLISTATIENDAS, rhsICMLISTATIENDAS, (this.icmlistatiendas!= null), (that.icmlistatiendas!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistatiendas", lhsICMLISTATIENDAS),
+                    LocatorUtils.property(thatLocator, "icmlistatiendas", rhsICMLISTATIENDAS), lhsICMLISTATIENDAS,
+                    rhsICMLISTATIENDAS, (this.icmlistatiendas != null), (that.icmlistatiendas != null))) {
                 return false;
             }
         }
@@ -780,7 +926,9 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMLISTAEMPLEADO = this.getICMLISTAEMPLEADO();
             IcmListaempleadoBlock rhsICMLISTAEMPLEADO;
             rhsICMLISTAEMPLEADO = that.getICMLISTAEMPLEADO();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaempleado", lhsICMLISTAEMPLEADO), LocatorUtils.property(thatLocator, "icmlistaempleado", rhsICMLISTAEMPLEADO), lhsICMLISTAEMPLEADO, rhsICMLISTAEMPLEADO, (this.icmlistaempleado!= null), (that.icmlistaempleado!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaempleado", lhsICMLISTAEMPLEADO),
+                    LocatorUtils.property(thatLocator, "icmlistaempleado", rhsICMLISTAEMPLEADO), lhsICMLISTAEMPLEADO,
+                    rhsICMLISTAEMPLEADO, (this.icmlistaempleado != null), (that.icmlistaempleado != null))) {
                 return false;
             }
         }
@@ -789,7 +937,9 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMLISTAEMPRESAS = this.getICMLISTAEMPRESAS();
             IcmListaempresasBlock rhsICMLISTAEMPRESAS;
             rhsICMLISTAEMPRESAS = that.getICMLISTAEMPRESAS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaempresas", lhsICMLISTAEMPRESAS), LocatorUtils.property(thatLocator, "icmlistaempresas", rhsICMLISTAEMPRESAS), lhsICMLISTAEMPRESAS, rhsICMLISTAEMPRESAS, (this.icmlistaempresas!= null), (that.icmlistaempresas!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaempresas", lhsICMLISTAEMPRESAS),
+                    LocatorUtils.property(thatLocator, "icmlistaempresas", rhsICMLISTAEMPRESAS), lhsICMLISTAEMPRESAS,
+                    rhsICMLISTAEMPRESAS, (this.icmlistaempresas != null), (that.icmlistaempresas != null))) {
                 return false;
             }
         }
@@ -798,7 +948,9 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMLISTAORIGENES = this.getICMLISTAORIGENES();
             IcmListaorigenesBlock rhsICMLISTAORIGENES;
             rhsICMLISTAORIGENES = that.getICMLISTAORIGENES();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaorigenes", lhsICMLISTAORIGENES), LocatorUtils.property(thatLocator, "icmlistaorigenes", rhsICMLISTAORIGENES), lhsICMLISTAORIGENES, rhsICMLISTAORIGENES, (this.icmlistaorigenes!= null), (that.icmlistaorigenes!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaorigenes", lhsICMLISTAORIGENES),
+                    LocatorUtils.property(thatLocator, "icmlistaorigenes", rhsICMLISTAORIGENES), lhsICMLISTAORIGENES,
+                    rhsICMLISTAORIGENES, (this.icmlistaorigenes != null), (that.icmlistaorigenes != null))) {
                 return false;
             }
         }
@@ -807,7 +959,9 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMLISTAPERIODOS = this.getICMLISTAPERIODOS();
             IcmListaperiodosBlock rhsICMLISTAPERIODOS;
             rhsICMLISTAPERIODOS = that.getICMLISTAPERIODOS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaperiodos", lhsICMLISTAPERIODOS), LocatorUtils.property(thatLocator, "icmlistaperiodos", rhsICMLISTAPERIODOS), lhsICMLISTAPERIODOS, rhsICMLISTAPERIODOS, (this.icmlistaperiodos!= null), (that.icmlistaperiodos!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaperiodos", lhsICMLISTAPERIODOS),
+                    LocatorUtils.property(thatLocator, "icmlistaperiodos", rhsICMLISTAPERIODOS), lhsICMLISTAPERIODOS,
+                    rhsICMLISTAPERIODOS, (this.icmlistaperiodos != null), (that.icmlistaperiodos != null))) {
                 return false;
             }
         }
@@ -816,7 +970,9 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMLISTAAUSENCIAS = this.getICMLISTAAUSENCIAS();
             IcmListaausenciasBlock rhsICMLISTAAUSENCIAS;
             rhsICMLISTAAUSENCIAS = that.getICMLISTAAUSENCIAS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaausencias", lhsICMLISTAAUSENCIAS), LocatorUtils.property(thatLocator, "icmlistaausencias", rhsICMLISTAAUSENCIAS), lhsICMLISTAAUSENCIAS, rhsICMLISTAAUSENCIAS, (this.icmlistaausencias!= null), (that.icmlistaausencias!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaausencias", lhsICMLISTAAUSENCIAS),
+                    LocatorUtils.property(thatLocator, "icmlistaausencias", rhsICMLISTAAUSENCIAS), lhsICMLISTAAUSENCIAS,
+                    rhsICMLISTAAUSENCIAS, (this.icmlistaausencias != null), (that.icmlistaausencias != null))) {
                 return false;
             }
         }
@@ -825,7 +981,9 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMLISTAEMPLEADOS = this.getICMLISTAEMPLEADOS();
             IcmListaempleadosBlock rhsICMLISTAEMPLEADOS;
             rhsICMLISTAEMPLEADOS = that.getICMLISTAEMPLEADOS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaempleados", lhsICMLISTAEMPLEADOS), LocatorUtils.property(thatLocator, "icmlistaempleados", rhsICMLISTAEMPLEADOS), lhsICMLISTAEMPLEADOS, rhsICMLISTAEMPLEADOS, (this.icmlistaempleados!= null), (that.icmlistaempleados!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaempleados", lhsICMLISTAEMPLEADOS),
+                    LocatorUtils.property(thatLocator, "icmlistaempleados", rhsICMLISTAEMPLEADOS), lhsICMLISTAEMPLEADOS,
+                    rhsICMLISTAEMPLEADOS, (this.icmlistaempleados != null), (that.icmlistaempleados != null))) {
                 return false;
             }
         }
@@ -834,7 +992,9 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMLISTAPOLITICAS = this.getICMLISTAPOLITICAS();
             IcmListapoliticasBlock rhsICMLISTAPOLITICAS;
             rhsICMLISTAPOLITICAS = that.getICMLISTAPOLITICAS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistapoliticas", lhsICMLISTAPOLITICAS), LocatorUtils.property(thatLocator, "icmlistapoliticas", rhsICMLISTAPOLITICAS), lhsICMLISTAPOLITICAS, rhsICMLISTAPOLITICAS, (this.icmlistapoliticas!= null), (that.icmlistapoliticas!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistapoliticas", lhsICMLISTAPOLITICAS),
+                    LocatorUtils.property(thatLocator, "icmlistapoliticas", rhsICMLISTAPOLITICAS), lhsICMLISTAPOLITICAS,
+                    rhsICMLISTAPOLITICAS, (this.icmlistapoliticas != null), (that.icmlistapoliticas != null))) {
                 return false;
             }
         }
@@ -843,7 +1003,33 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
             IcmParamcalorigenBlock rhsICMPARAMCALORIGEN;
             rhsICMPARAMCALORIGEN = that.getICMPARAMCALORIGEN();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalorigen", lhsICMPARAMCALORIGEN), LocatorUtils.property(thatLocator, "icmparamcalorigen", rhsICMPARAMCALORIGEN), lhsICMPARAMCALORIGEN, rhsICMPARAMCALORIGEN, (this.icmparamcalorigen!= null), (that.icmparamcalorigen!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalorigen", lhsICMPARAMCALORIGEN),
+                    LocatorUtils.property(thatLocator, "icmparamcalorigen", rhsICMPARAMCALORIGEN), lhsICMPARAMCALORIGEN,
+                    rhsICMPARAMCALORIGEN, (this.icmparamcalorigen != null), (that.icmparamcalorigen != null))) {
+                return false;
+            }
+        }
+        {
+            IcmListaconfchdiasBlock lhsICMLISTACONFCHDIAS;
+            lhsICMLISTACONFCHDIAS = this.getICMLISTACONFCHDIAS();
+            IcmListaconfchdiasBlock rhsICMLISTACONFCHDIAS;
+            rhsICMLISTACONFCHDIAS = that.getICMLISTACONFCHDIAS();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaconfchdias", lhsICMLISTACONFCHDIAS),
+                    LocatorUtils.property(thatLocator, "icmlistaconfchdias", rhsICMLISTACONFCHDIAS),
+                    lhsICMLISTACONFCHDIAS, rhsICMLISTACONFCHDIAS, (this.icmlistaconfchdias != null),
+                    (that.icmlistaconfchdias != null))) {
+                return false;
+            }
+        }
+        {
+            IcmListaconforigenBlock lhsICMLISTACONFORIGEN;
+            lhsICMLISTACONFORIGEN = this.getICMLISTACONFORIGEN();
+            IcmListaconforigenBlock rhsICMLISTACONFORIGEN;
+            rhsICMLISTACONFORIGEN = that.getICMLISTACONFORIGEN();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaconforigen", lhsICMLISTACONFORIGEN),
+                    LocatorUtils.property(thatLocator, "icmlistaconforigen", rhsICMLISTACONFORIGEN),
+                    lhsICMLISTACONFORIGEN, rhsICMLISTACONFORIGEN, (this.icmlistaconforigen != null),
+                    (that.icmlistaconforigen != null))) {
                 return false;
             }
         }
@@ -852,7 +1038,10 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMLISTAESTRUCTURA = this.getICMLISTAESTRUCTURA();
             IcmListaestructuraBlock rhsICMLISTAESTRUCTURA;
             rhsICMLISTAESTRUCTURA = that.getICMLISTAESTRUCTURA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaestructura", lhsICMLISTAESTRUCTURA), LocatorUtils.property(thatLocator, "icmlistaestructura", rhsICMLISTAESTRUCTURA), lhsICMLISTAESTRUCTURA, rhsICMLISTAESTRUCTURA, (this.icmlistaestructura!= null), (that.icmlistaestructura!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaestructura", lhsICMLISTAESTRUCTURA),
+                    LocatorUtils.property(thatLocator, "icmlistaestructura", rhsICMLISTAESTRUCTURA),
+                    lhsICMLISTAESTRUCTURA, rhsICMLISTAESTRUCTURA, (this.icmlistaestructura != null),
+                    (that.icmlistaestructura != null))) {
                 return false;
             }
         }
@@ -861,7 +1050,10 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMPARAMCALPERIODO = this.getICMPARAMCALPERIODO();
             IcmParamcalperiodoBlock rhsICMPARAMCALPERIODO;
             rhsICMPARAMCALPERIODO = that.getICMPARAMCALPERIODO();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalperiodo", lhsICMPARAMCALPERIODO), LocatorUtils.property(thatLocator, "icmparamcalperiodo", rhsICMPARAMCALPERIODO), lhsICMPARAMCALPERIODO, rhsICMPARAMCALPERIODO, (this.icmparamcalperiodo!= null), (that.icmparamcalperiodo!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalperiodo", lhsICMPARAMCALPERIODO),
+                    LocatorUtils.property(thatLocator, "icmparamcalperiodo", rhsICMPARAMCALPERIODO),
+                    lhsICMPARAMCALPERIODO, rhsICMPARAMCALPERIODO, (this.icmparamcalperiodo != null),
+                    (that.icmparamcalperiodo != null))) {
                 return false;
             }
         }
@@ -870,7 +1062,22 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
             IcmParamcalprocesoBlock rhsICMPARAMCALPROCESO;
             rhsICMPARAMCALPROCESO = that.getICMPARAMCALPROCESO();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalproceso", lhsICMPARAMCALPROCESO), LocatorUtils.property(thatLocator, "icmparamcalproceso", rhsICMPARAMCALPROCESO), lhsICMPARAMCALPROCESO, rhsICMPARAMCALPROCESO, (this.icmparamcalproceso!= null), (that.icmparamcalproceso!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalproceso", lhsICMPARAMCALPROCESO),
+                    LocatorUtils.property(thatLocator, "icmparamcalproceso", rhsICMPARAMCALPROCESO),
+                    lhsICMPARAMCALPROCESO, rhsICMPARAMCALPROCESO, (this.icmparamcalproceso != null),
+                    (that.icmparamcalproceso != null))) {
+                return false;
+            }
+        }
+        {
+            IcmListaconfchventaBlock lhsICMLISTACONFCHVENTA;
+            lhsICMLISTACONFCHVENTA = this.getICMLISTACONFCHVENTA();
+            IcmListaconfchventaBlock rhsICMLISTACONFCHVENTA;
+            rhsICMLISTACONFCHVENTA = that.getICMLISTACONFCHVENTA();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaconfchventa", lhsICMLISTACONFCHVENTA),
+                    LocatorUtils.property(thatLocator, "icmlistaconfchventa", rhsICMLISTACONFCHVENTA),
+                    lhsICMLISTACONFCHVENTA, rhsICMLISTACONFCHVENTA, (this.icmlistaconfchventa != null),
+                    (that.icmlistaconfchventa != null))) {
                 return false;
             }
         }
@@ -879,7 +1086,10 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMPARAMCALEMPLEADO = this.getICMPARAMCALEMPLEADO();
             IcmParamcalempleadoBlock rhsICMPARAMCALEMPLEADO;
             rhsICMPARAMCALEMPLEADO = that.getICMPARAMCALEMPLEADO();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalempleado", lhsICMPARAMCALEMPLEADO), LocatorUtils.property(thatLocator, "icmparamcalempleado", rhsICMPARAMCALEMPLEADO), lhsICMPARAMCALEMPLEADO, rhsICMPARAMCALEMPLEADO, (this.icmparamcalempleado!= null), (that.icmparamcalempleado!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalempleado", lhsICMPARAMCALEMPLEADO),
+                    LocatorUtils.property(thatLocator, "icmparamcalempleado", rhsICMPARAMCALEMPLEADO),
+                    lhsICMPARAMCALEMPLEADO, rhsICMPARAMCALEMPLEADO, (this.icmparamcalempleado != null),
+                    (that.icmparamcalempleado != null))) {
                 return false;
             }
         }
@@ -888,7 +1098,10 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMPARAMCALSOCIEDAD = this.getICMPARAMCALSOCIEDAD();
             IcmParamcalsociedadBlock rhsICMPARAMCALSOCIEDAD;
             rhsICMPARAMCALSOCIEDAD = that.getICMPARAMCALSOCIEDAD();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalsociedad", lhsICMPARAMCALSOCIEDAD), LocatorUtils.property(thatLocator, "icmparamcalsociedad", rhsICMPARAMCALSOCIEDAD), lhsICMPARAMCALSOCIEDAD, rhsICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad!= null), (that.icmparamcalsociedad!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalsociedad", lhsICMPARAMCALSOCIEDAD),
+                    LocatorUtils.property(thatLocator, "icmparamcalsociedad", rhsICMPARAMCALSOCIEDAD),
+                    lhsICMPARAMCALSOCIEDAD, rhsICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad != null),
+                    (that.icmparamcalsociedad != null))) {
                 return false;
             }
         }
@@ -897,7 +1110,10 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
             IcmParametrosentradaBlock rhsICMPARAMETROSENTRADA;
             rhsICMPARAMETROSENTRADA = that.getICMPARAMETROSENTRADA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrosentrada", lhsICMPARAMETROSENTRADA), LocatorUtils.property(thatLocator, "icmparametrosentrada", rhsICMPARAMETROSENTRADA), lhsICMPARAMETROSENTRADA, rhsICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null), (that.icmparametrosentrada!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrosentrada", lhsICMPARAMETROSENTRADA),
+                    LocatorUtils.property(thatLocator, "icmparametrosentrada", rhsICMPARAMETROSENTRADA),
+                    lhsICMPARAMETROSENTRADA, rhsICMPARAMETROSENTRADA, (this.icmparametrosentrada != null),
+                    (that.icmparametrosentrada != null))) {
                 return false;
             }
         }
@@ -906,7 +1122,10 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMRESULTADOGUARDADO = this.getICMRESULTADOGUARDADO();
             IcmResultadoguardadoBlock rhsICMRESULTADOGUARDADO;
             rhsICMRESULTADOGUARDADO = that.getICMRESULTADOGUARDADO();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmresultadoguardado", lhsICMRESULTADOGUARDADO), LocatorUtils.property(thatLocator, "icmresultadoguardado", rhsICMRESULTADOGUARDADO), lhsICMRESULTADOGUARDADO, rhsICMRESULTADOGUARDADO, (this.icmresultadoguardado!= null), (that.icmresultadoguardado!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmresultadoguardado", lhsICMRESULTADOGUARDADO),
+                    LocatorUtils.property(thatLocator, "icmresultadoguardado", rhsICMRESULTADOGUARDADO),
+                    lhsICMRESULTADOGUARDADO, rhsICMRESULTADOGUARDADO, (this.icmresultadoguardado != null),
+                    (that.icmresultadoguardado != null))) {
                 return false;
             }
         }
@@ -915,7 +1134,34 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMLISTACONFIGURACION = this.getICMLISTACONFIGURACION();
             IcmListaconfiguracionBlock rhsICMLISTACONFIGURACION;
             rhsICMLISTACONFIGURACION = that.getICMLISTACONFIGURACION();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaconfiguracion", lhsICMLISTACONFIGURACION), LocatorUtils.property(thatLocator, "icmlistaconfiguracion", rhsICMLISTACONFIGURACION), lhsICMLISTACONFIGURACION, rhsICMLISTACONFIGURACION, (this.icmlistaconfiguracion!= null), (that.icmlistaconfiguracion!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmlistaconfiguracion", lhsICMLISTACONFIGURACION),
+                    LocatorUtils.property(thatLocator, "icmlistaconfiguracion", rhsICMLISTACONFIGURACION),
+                    lhsICMLISTACONFIGURACION, rhsICMLISTACONFIGURACION, (this.icmlistaconfiguracion != null),
+                    (that.icmlistaconfiguracion != null))) {
+                return false;
+            }
+        }
+        {
+            IcmParamcalconfchdiasBlock lhsICMPARAMCALCONFCHDIAS;
+            lhsICMPARAMCALCONFCHDIAS = this.getICMPARAMCALCONFCHDIAS();
+            IcmParamcalconfchdiasBlock rhsICMPARAMCALCONFCHDIAS;
+            rhsICMPARAMCALCONFCHDIAS = that.getICMPARAMCALCONFCHDIAS();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalconfchdias", lhsICMPARAMCALCONFCHDIAS),
+                    LocatorUtils.property(thatLocator, "icmparamcalconfchdias", rhsICMPARAMCALCONFCHDIAS),
+                    lhsICMPARAMCALCONFCHDIAS, rhsICMPARAMCALCONFCHDIAS, (this.icmparamcalconfchdias != null),
+                    (that.icmparamcalconfchdias != null))) {
+                return false;
+            }
+        }
+        {
+            IcmParamcalconforigenBlock lhsICMPARAMCALCONFORIGEN;
+            lhsICMPARAMCALCONFORIGEN = this.getICMPARAMCALCONFORIGEN();
+            IcmParamcalconforigenBlock rhsICMPARAMCALCONFORIGEN;
+            rhsICMPARAMCALCONFORIGEN = that.getICMPARAMCALCONFORIGEN();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalconforigen", lhsICMPARAMCALCONFORIGEN),
+                    LocatorUtils.property(thatLocator, "icmparamcalconforigen", rhsICMPARAMCALCONFORIGEN),
+                    lhsICMPARAMCALCONFORIGEN, rhsICMPARAMCALCONFORIGEN, (this.icmparamcalconforigen != null),
+                    (that.icmparamcalconforigen != null))) {
                 return false;
             }
         }
@@ -924,7 +1170,49 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
             IcmParamcalestructuraBlock rhsICMPARAMCALESTRUCTURA;
             rhsICMPARAMCALESTRUCTURA = that.getICMPARAMCALESTRUCTURA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalestructura", lhsICMPARAMCALESTRUCTURA), LocatorUtils.property(thatLocator, "icmparamcalestructura", rhsICMPARAMCALESTRUCTURA), lhsICMPARAMCALESTRUCTURA, rhsICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null), (that.icmparamcalestructura!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalestructura", lhsICMPARAMCALESTRUCTURA),
+                    LocatorUtils.property(thatLocator, "icmparamcalestructura", rhsICMPARAMCALESTRUCTURA),
+                    lhsICMPARAMCALESTRUCTURA, rhsICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null),
+                    (that.icmparamcalestructura != null))) {
+                return false;
+            }
+        }
+        {
+            IcmListaconfpreciohoraBlock lhsICMLISTACONFPRECIOHORA;
+            lhsICMLISTACONFPRECIOHORA = this.getICMLISTACONFPRECIOHORA();
+            IcmListaconfpreciohoraBlock rhsICMLISTACONFPRECIOHORA;
+            rhsICMLISTACONFPRECIOHORA = that.getICMLISTACONFPRECIOHORA();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmlistaconfpreciohora", lhsICMLISTACONFPRECIOHORA),
+                    LocatorUtils.property(thatLocator, "icmlistaconfpreciohora", rhsICMLISTACONFPRECIOHORA),
+                    lhsICMLISTACONFPRECIOHORA, rhsICMLISTACONFPRECIOHORA, (this.icmlistaconfpreciohora != null),
+                    (that.icmlistaconfpreciohora != null))) {
+                return false;
+            }
+        }
+        {
+            IcmListaventacongeladaBlock lhsICMLISTAVENTACONGELADA;
+            lhsICMLISTAVENTACONGELADA = this.getICMLISTAVENTACONGELADA();
+            IcmListaventacongeladaBlock rhsICMLISTAVENTACONGELADA;
+            rhsICMLISTAVENTACONGELADA = that.getICMLISTAVENTACONGELADA();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmlistaventacongelada", lhsICMLISTAVENTACONGELADA),
+                    LocatorUtils.property(thatLocator, "icmlistaventacongelada", rhsICMLISTAVENTACONGELADA),
+                    lhsICMLISTAVENTACONGELADA, rhsICMLISTAVENTACONGELADA, (this.icmlistaventacongelada != null),
+                    (that.icmlistaventacongelada != null))) {
+                return false;
+            }
+        }
+        {
+            IcmParamcalconfchventaBlock lhsICMPARAMCALCONFCHVENTA;
+            lhsICMPARAMCALCONFCHVENTA = this.getICMPARAMCALCONFCHVENTA();
+            IcmParamcalconfchventaBlock rhsICMPARAMCALCONFCHVENTA;
+            rhsICMPARAMCALCONFCHVENTA = that.getICMPARAMCALCONFCHVENTA();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparamcalconfchventa", lhsICMPARAMCALCONFCHVENTA),
+                    LocatorUtils.property(thatLocator, "icmparamcalconfchventa", rhsICMPARAMCALCONFCHVENTA),
+                    lhsICMPARAMCALCONFCHVENTA, rhsICMPARAMCALCONFCHVENTA, (this.icmparamcalconfchventa != null),
+                    (that.icmparamcalconfchventa != null))) {
                 return false;
             }
         }
@@ -933,7 +1221,10 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMWSCALCOPERACIONES = this.getICMWSCALCOPERACIONES();
             IcmWsCalcOperacionesBlock rhsICMWSCALCOPERACIONES;
             rhsICMWSCALCOPERACIONES = that.getICMWSCALCOPERACIONES();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmwscalcoperaciones", lhsICMWSCALCOPERACIONES), LocatorUtils.property(thatLocator, "icmwscalcoperaciones", rhsICMWSCALCOPERACIONES), lhsICMWSCALCOPERACIONES, rhsICMWSCALCOPERACIONES, (this.icmwscalcoperaciones!= null), (that.icmwscalcoperaciones!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmwscalcoperaciones", lhsICMWSCALCOPERACIONES),
+                    LocatorUtils.property(thatLocator, "icmwscalcoperaciones", rhsICMWSCALCOPERACIONES),
+                    lhsICMWSCALCOPERACIONES, rhsICMWSCALCOPERACIONES, (this.icmwscalcoperaciones != null),
+                    (that.icmwscalcoperaciones != null))) {
                 return false;
             }
         }
@@ -942,7 +1233,89 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
             lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
             rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION), LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION), lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null), (that.icmparametrospaginacion!= null))) {
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
+                    LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION),
+                    lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null),
+                    (that.icmparametrospaginacion != null))) {
+                return false;
+            }
+        }
+        {
+            IcmListapresupuestoswlocBlock lhsICMLISTAPRESUPUESTOSWLOC;
+            lhsICMLISTAPRESUPUESTOSWLOC = this.getICMLISTAPRESUPUESTOSWLOC();
+            IcmListapresupuestoswlocBlock rhsICMLISTAPRESUPUESTOSWLOC;
+            rhsICMLISTAPRESUPUESTOSWLOC = that.getICMLISTAPRESUPUESTOSWLOC();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmlistapresupuestoswloc", lhsICMLISTAPRESUPUESTOSWLOC),
+                    LocatorUtils.property(thatLocator, "icmlistapresupuestoswloc", rhsICMLISTAPRESUPUESTOSWLOC),
+                    lhsICMLISTAPRESUPUESTOSWLOC, rhsICMLISTAPRESUPUESTOSWLOC, (this.icmlistapresupuestoswloc != null),
+                    (that.icmlistapresupuestoswloc != null))) {
+                return false;
+            }
+        }
+        {
+            IcmListapresupuestosrangoBlock lhsICMLISTAPRESUPUESTOSRANGO;
+            lhsICMLISTAPRESUPUESTOSRANGO = this.getICMLISTAPRESUPUESTOSRANGO();
+            IcmListapresupuestosrangoBlock rhsICMLISTAPRESUPUESTOSRANGO;
+            rhsICMLISTAPRESUPUESTOSRANGO = that.getICMLISTAPRESUPUESTOSRANGO();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmlistapresupuestosrango", lhsICMLISTAPRESUPUESTOSRANGO),
+                    LocatorUtils.property(thatLocator, "icmlistapresupuestosrango", rhsICMLISTAPRESUPUESTOSRANGO),
+                    lhsICMLISTAPRESUPUESTOSRANGO, rhsICMLISTAPRESUPUESTOSRANGO,
+                    (this.icmlistapresupuestosrango != null), (that.icmlistapresupuestosrango != null))) {
+                return false;
+            }
+        }
+        {
+            IcmParamcalconfpreciohoraBlock lhsICMPARAMCALCONFPRECIOHORA;
+            lhsICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
+            IcmParamcalconfpreciohoraBlock rhsICMPARAMCALCONFPRECIOHORA;
+            rhsICMPARAMCALCONFPRECIOHORA = that.getICMPARAMCALCONFPRECIOHORA();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparamcalconfpreciohora", lhsICMPARAMCALCONFPRECIOHORA),
+                    LocatorUtils.property(thatLocator, "icmparamcalconfpreciohora", rhsICMPARAMCALCONFPRECIOHORA),
+                    lhsICMPARAMCALCONFPRECIOHORA, rhsICMPARAMCALCONFPRECIOHORA,
+                    (this.icmparamcalconfpreciohora != null), (that.icmparamcalconfpreciohora != null))) {
+                return false;
+            }
+        }
+        {
+            IcmParamcalventacongeladaBlock lhsICMPARAMCALVENTACONGELADA;
+            lhsICMPARAMCALVENTACONGELADA = this.getICMPARAMCALVENTACONGELADA();
+            IcmParamcalventacongeladaBlock rhsICMPARAMCALVENTACONGELADA;
+            rhsICMPARAMCALVENTACONGELADA = that.getICMPARAMCALVENTACONGELADA();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparamcalventacongelada", lhsICMPARAMCALVENTACONGELADA),
+                    LocatorUtils.property(thatLocator, "icmparamcalventacongelada", rhsICMPARAMCALVENTACONGELADA),
+                    lhsICMPARAMCALVENTACONGELADA, rhsICMPARAMCALVENTACONGELADA,
+                    (this.icmparamcalventacongelada != null), (that.icmparamcalventacongelada != null))) {
+                return false;
+            }
+        }
+        {
+            IcmParamcalpresupuestoswlocBlock lhsICMPARAMCALPRESUPUESTOSWLOC;
+            lhsICMPARAMCALPRESUPUESTOSWLOC = this.getICMPARAMCALPRESUPUESTOSWLOC();
+            IcmParamcalpresupuestoswlocBlock rhsICMPARAMCALPRESUPUESTOSWLOC;
+            rhsICMPARAMCALPRESUPUESTOSWLOC = that.getICMPARAMCALPRESUPUESTOSWLOC();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparamcalpresupuestoswloc", lhsICMPARAMCALPRESUPUESTOSWLOC),
+                    LocatorUtils.property(thatLocator, "icmparamcalpresupuestoswloc", rhsICMPARAMCALPRESUPUESTOSWLOC),
+                    lhsICMPARAMCALPRESUPUESTOSWLOC, rhsICMPARAMCALPRESUPUESTOSWLOC,
+                    (this.icmparamcalpresupuestoswloc != null), (that.icmparamcalpresupuestoswloc != null))) {
+                return false;
+            }
+        }
+        {
+            IcmParamcalpresupuestosrangoBlock lhsICMPARAMCALPRESUPUESTOSRANGO;
+            lhsICMPARAMCALPRESUPUESTOSRANGO = this.getICMPARAMCALPRESUPUESTOSRANGO();
+            IcmParamcalpresupuestosrangoBlock rhsICMPARAMCALPRESUPUESTOSRANGO;
+            rhsICMPARAMCALPRESUPUESTOSRANGO = that.getICMPARAMCALPRESUPUESTOSRANGO();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparamcalpresupuestosrango", lhsICMPARAMCALPRESUPUESTOSRANGO),
+                    LocatorUtils.property(thatLocator, "icmparamcalpresupuestosrango", rhsICMPARAMCALPRESUPUESTOSRANGO),
+                    lhsICMPARAMCALPRESUPUESTOSRANGO, rhsICMPARAMCALPRESUPUESTOSRANGO,
+                    (this.icmparamcalpresupuestosrango != null), (that.icmparamcalpresupuestosrango != null))) {
                 return false;
             }
         }
@@ -972,122 +1345,217 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
         {
             IcmWsToolsBlock theICMWSTOOLS;
             theICMWSTOOLS = this.getICMWSTOOLS();
-            strategy.appendField(locator, this, "icmwstools", buffer, theICMWSTOOLS, (this.icmwstools!= null));
-        }
-        {
-            IcmListaconfBlock theICMLISTACONF;
-            theICMLISTACONF = this.getICMLISTACONF();
-            strategy.appendField(locator, this, "icmlistaconf", buffer, theICMLISTACONF, (this.icmlistaconf!= null));
-        }
-        {
-            IcmParamconfBlock theICMPARAMCONF;
-            theICMPARAMCONF = this.getICMPARAMCONF();
-            strategy.appendField(locator, this, "icmparamconf", buffer, theICMPARAMCONF, (this.icmparamconf!= null));
+            strategy.appendField(locator, this, "icmwstools", buffer, theICMWSTOOLS, (this.icmwstools != null));
         }
         {
             IcmListacadenasBlock theICMLISTACADENAS;
             theICMLISTACADENAS = this.getICMLISTACADENAS();
-            strategy.appendField(locator, this, "icmlistacadenas", buffer, theICMLISTACADENAS, (this.icmlistacadenas!= null));
+            strategy.appendField(locator, this, "icmlistacadenas", buffer, theICMLISTACADENAS,
+                    (this.icmlistacadenas != null));
         }
         {
             IcmListatiendasBlock theICMLISTATIENDAS;
             theICMLISTATIENDAS = this.getICMLISTATIENDAS();
-            strategy.appendField(locator, this, "icmlistatiendas", buffer, theICMLISTATIENDAS, (this.icmlistatiendas!= null));
+            strategy.appendField(locator, this, "icmlistatiendas", buffer, theICMLISTATIENDAS,
+                    (this.icmlistatiendas != null));
         }
         {
             IcmListaempleadoBlock theICMLISTAEMPLEADO;
             theICMLISTAEMPLEADO = this.getICMLISTAEMPLEADO();
-            strategy.appendField(locator, this, "icmlistaempleado", buffer, theICMLISTAEMPLEADO, (this.icmlistaempleado!= null));
+            strategy.appendField(locator, this, "icmlistaempleado", buffer, theICMLISTAEMPLEADO,
+                    (this.icmlistaempleado != null));
         }
         {
             IcmListaempresasBlock theICMLISTAEMPRESAS;
             theICMLISTAEMPRESAS = this.getICMLISTAEMPRESAS();
-            strategy.appendField(locator, this, "icmlistaempresas", buffer, theICMLISTAEMPRESAS, (this.icmlistaempresas!= null));
+            strategy.appendField(locator, this, "icmlistaempresas", buffer, theICMLISTAEMPRESAS,
+                    (this.icmlistaempresas != null));
         }
         {
             IcmListaorigenesBlock theICMLISTAORIGENES;
             theICMLISTAORIGENES = this.getICMLISTAORIGENES();
-            strategy.appendField(locator, this, "icmlistaorigenes", buffer, theICMLISTAORIGENES, (this.icmlistaorigenes!= null));
+            strategy.appendField(locator, this, "icmlistaorigenes", buffer, theICMLISTAORIGENES,
+                    (this.icmlistaorigenes != null));
         }
         {
             IcmListaperiodosBlock theICMLISTAPERIODOS;
             theICMLISTAPERIODOS = this.getICMLISTAPERIODOS();
-            strategy.appendField(locator, this, "icmlistaperiodos", buffer, theICMLISTAPERIODOS, (this.icmlistaperiodos!= null));
+            strategy.appendField(locator, this, "icmlistaperiodos", buffer, theICMLISTAPERIODOS,
+                    (this.icmlistaperiodos != null));
         }
         {
             IcmListaausenciasBlock theICMLISTAAUSENCIAS;
             theICMLISTAAUSENCIAS = this.getICMLISTAAUSENCIAS();
-            strategy.appendField(locator, this, "icmlistaausencias", buffer, theICMLISTAAUSENCIAS, (this.icmlistaausencias!= null));
+            strategy.appendField(locator, this, "icmlistaausencias", buffer, theICMLISTAAUSENCIAS,
+                    (this.icmlistaausencias != null));
         }
         {
             IcmListaempleadosBlock theICMLISTAEMPLEADOS;
             theICMLISTAEMPLEADOS = this.getICMLISTAEMPLEADOS();
-            strategy.appendField(locator, this, "icmlistaempleados", buffer, theICMLISTAEMPLEADOS, (this.icmlistaempleados!= null));
+            strategy.appendField(locator, this, "icmlistaempleados", buffer, theICMLISTAEMPLEADOS,
+                    (this.icmlistaempleados != null));
         }
         {
             IcmListapoliticasBlock theICMLISTAPOLITICAS;
             theICMLISTAPOLITICAS = this.getICMLISTAPOLITICAS();
-            strategy.appendField(locator, this, "icmlistapoliticas", buffer, theICMLISTAPOLITICAS, (this.icmlistapoliticas!= null));
+            strategy.appendField(locator, this, "icmlistapoliticas", buffer, theICMLISTAPOLITICAS,
+                    (this.icmlistapoliticas != null));
         }
         {
             IcmParamcalorigenBlock theICMPARAMCALORIGEN;
             theICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
-            strategy.appendField(locator, this, "icmparamcalorigen", buffer, theICMPARAMCALORIGEN, (this.icmparamcalorigen!= null));
+            strategy.appendField(locator, this, "icmparamcalorigen", buffer, theICMPARAMCALORIGEN,
+                    (this.icmparamcalorigen != null));
+        }
+        {
+            IcmListaconfchdiasBlock theICMLISTACONFCHDIAS;
+            theICMLISTACONFCHDIAS = this.getICMLISTACONFCHDIAS();
+            strategy.appendField(locator, this, "icmlistaconfchdias", buffer, theICMLISTACONFCHDIAS,
+                    (this.icmlistaconfchdias != null));
+        }
+        {
+            IcmListaconforigenBlock theICMLISTACONFORIGEN;
+            theICMLISTACONFORIGEN = this.getICMLISTACONFORIGEN();
+            strategy.appendField(locator, this, "icmlistaconforigen", buffer, theICMLISTACONFORIGEN,
+                    (this.icmlistaconforigen != null));
         }
         {
             IcmListaestructuraBlock theICMLISTAESTRUCTURA;
             theICMLISTAESTRUCTURA = this.getICMLISTAESTRUCTURA();
-            strategy.appendField(locator, this, "icmlistaestructura", buffer, theICMLISTAESTRUCTURA, (this.icmlistaestructura!= null));
+            strategy.appendField(locator, this, "icmlistaestructura", buffer, theICMLISTAESTRUCTURA,
+                    (this.icmlistaestructura != null));
         }
         {
             IcmParamcalperiodoBlock theICMPARAMCALPERIODO;
             theICMPARAMCALPERIODO = this.getICMPARAMCALPERIODO();
-            strategy.appendField(locator, this, "icmparamcalperiodo", buffer, theICMPARAMCALPERIODO, (this.icmparamcalperiodo!= null));
+            strategy.appendField(locator, this, "icmparamcalperiodo", buffer, theICMPARAMCALPERIODO,
+                    (this.icmparamcalperiodo != null));
         }
         {
             IcmParamcalprocesoBlock theICMPARAMCALPROCESO;
             theICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
-            strategy.appendField(locator, this, "icmparamcalproceso", buffer, theICMPARAMCALPROCESO, (this.icmparamcalproceso!= null));
+            strategy.appendField(locator, this, "icmparamcalproceso", buffer, theICMPARAMCALPROCESO,
+                    (this.icmparamcalproceso != null));
+        }
+        {
+            IcmListaconfchventaBlock theICMLISTACONFCHVENTA;
+            theICMLISTACONFCHVENTA = this.getICMLISTACONFCHVENTA();
+            strategy.appendField(locator, this, "icmlistaconfchventa", buffer, theICMLISTACONFCHVENTA,
+                    (this.icmlistaconfchventa != null));
         }
         {
             IcmParamcalempleadoBlock theICMPARAMCALEMPLEADO;
             theICMPARAMCALEMPLEADO = this.getICMPARAMCALEMPLEADO();
-            strategy.appendField(locator, this, "icmparamcalempleado", buffer, theICMPARAMCALEMPLEADO, (this.icmparamcalempleado!= null));
+            strategy.appendField(locator, this, "icmparamcalempleado", buffer, theICMPARAMCALEMPLEADO,
+                    (this.icmparamcalempleado != null));
         }
         {
             IcmParamcalsociedadBlock theICMPARAMCALSOCIEDAD;
             theICMPARAMCALSOCIEDAD = this.getICMPARAMCALSOCIEDAD();
-            strategy.appendField(locator, this, "icmparamcalsociedad", buffer, theICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad!= null));
+            strategy.appendField(locator, this, "icmparamcalsociedad", buffer, theICMPARAMCALSOCIEDAD,
+                    (this.icmparamcalsociedad != null));
         }
         {
             IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
             theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            strategy.appendField(locator, this, "icmparametrosentrada", buffer, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
+            strategy.appendField(locator, this, "icmparametrosentrada", buffer, theICMPARAMETROSENTRADA,
+                    (this.icmparametrosentrada != null));
         }
         {
             IcmResultadoguardadoBlock theICMRESULTADOGUARDADO;
             theICMRESULTADOGUARDADO = this.getICMRESULTADOGUARDADO();
-            strategy.appendField(locator, this, "icmresultadoguardado", buffer, theICMRESULTADOGUARDADO, (this.icmresultadoguardado!= null));
+            strategy.appendField(locator, this, "icmresultadoguardado", buffer, theICMRESULTADOGUARDADO,
+                    (this.icmresultadoguardado != null));
         }
         {
             IcmListaconfiguracionBlock theICMLISTACONFIGURACION;
             theICMLISTACONFIGURACION = this.getICMLISTACONFIGURACION();
-            strategy.appendField(locator, this, "icmlistaconfiguracion", buffer, theICMLISTACONFIGURACION, (this.icmlistaconfiguracion!= null));
+            strategy.appendField(locator, this, "icmlistaconfiguracion", buffer, theICMLISTACONFIGURACION,
+                    (this.icmlistaconfiguracion != null));
+        }
+        {
+            IcmParamcalconfchdiasBlock theICMPARAMCALCONFCHDIAS;
+            theICMPARAMCALCONFCHDIAS = this.getICMPARAMCALCONFCHDIAS();
+            strategy.appendField(locator, this, "icmparamcalconfchdias", buffer, theICMPARAMCALCONFCHDIAS,
+                    (this.icmparamcalconfchdias != null));
+        }
+        {
+            IcmParamcalconforigenBlock theICMPARAMCALCONFORIGEN;
+            theICMPARAMCALCONFORIGEN = this.getICMPARAMCALCONFORIGEN();
+            strategy.appendField(locator, this, "icmparamcalconforigen", buffer, theICMPARAMCALCONFORIGEN,
+                    (this.icmparamcalconforigen != null));
         }
         {
             IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
             theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-            strategy.appendField(locator, this, "icmparamcalestructura", buffer, theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null));
+            strategy.appendField(locator, this, "icmparamcalestructura", buffer, theICMPARAMCALESTRUCTURA,
+                    (this.icmparamcalestructura != null));
+        }
+        {
+            IcmListaconfpreciohoraBlock theICMLISTACONFPRECIOHORA;
+            theICMLISTACONFPRECIOHORA = this.getICMLISTACONFPRECIOHORA();
+            strategy.appendField(locator, this, "icmlistaconfpreciohora", buffer, theICMLISTACONFPRECIOHORA,
+                    (this.icmlistaconfpreciohora != null));
+        }
+        {
+            IcmListaventacongeladaBlock theICMLISTAVENTACONGELADA;
+            theICMLISTAVENTACONGELADA = this.getICMLISTAVENTACONGELADA();
+            strategy.appendField(locator, this, "icmlistaventacongelada", buffer, theICMLISTAVENTACONGELADA,
+                    (this.icmlistaventacongelada != null));
+        }
+        {
+            IcmParamcalconfchventaBlock theICMPARAMCALCONFCHVENTA;
+            theICMPARAMCALCONFCHVENTA = this.getICMPARAMCALCONFCHVENTA();
+            strategy.appendField(locator, this, "icmparamcalconfchventa", buffer, theICMPARAMCALCONFCHVENTA,
+                    (this.icmparamcalconfchventa != null));
         }
         {
             IcmWsCalcOperacionesBlock theICMWSCALCOPERACIONES;
             theICMWSCALCOPERACIONES = this.getICMWSCALCOPERACIONES();
-            strategy.appendField(locator, this, "icmwscalcoperaciones", buffer, theICMWSCALCOPERACIONES, (this.icmwscalcoperaciones!= null));
+            strategy.appendField(locator, this, "icmwscalcoperaciones", buffer, theICMWSCALCOPERACIONES,
+                    (this.icmwscalcoperaciones != null));
         }
         {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
+            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
+                    (this.icmparametrospaginacion != null));
+        }
+        {
+            IcmListapresupuestoswlocBlock theICMLISTAPRESUPUESTOSWLOC;
+            theICMLISTAPRESUPUESTOSWLOC = this.getICMLISTAPRESUPUESTOSWLOC();
+            strategy.appendField(locator, this, "icmlistapresupuestoswloc", buffer, theICMLISTAPRESUPUESTOSWLOC,
+                    (this.icmlistapresupuestoswloc != null));
+        }
+        {
+            IcmListapresupuestosrangoBlock theICMLISTAPRESUPUESTOSRANGO;
+            theICMLISTAPRESUPUESTOSRANGO = this.getICMLISTAPRESUPUESTOSRANGO();
+            strategy.appendField(locator, this, "icmlistapresupuestosrango", buffer, theICMLISTAPRESUPUESTOSRANGO,
+                    (this.icmlistapresupuestosrango != null));
+        }
+        {
+            IcmParamcalconfpreciohoraBlock theICMPARAMCALCONFPRECIOHORA;
+            theICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
+            strategy.appendField(locator, this, "icmparamcalconfpreciohora", buffer, theICMPARAMCALCONFPRECIOHORA,
+                    (this.icmparamcalconfpreciohora != null));
+        }
+        {
+            IcmParamcalventacongeladaBlock theICMPARAMCALVENTACONGELADA;
+            theICMPARAMCALVENTACONGELADA = this.getICMPARAMCALVENTACONGELADA();
+            strategy.appendField(locator, this, "icmparamcalventacongelada", buffer, theICMPARAMCALVENTACONGELADA,
+                    (this.icmparamcalventacongelada != null));
+        }
+        {
+            IcmParamcalpresupuestoswlocBlock theICMPARAMCALPRESUPUESTOSWLOC;
+            theICMPARAMCALPRESUPUESTOSWLOC = this.getICMPARAMCALPRESUPUESTOSWLOC();
+            strategy.appendField(locator, this, "icmparamcalpresupuestoswloc", buffer, theICMPARAMCALPRESUPUESTOSWLOC,
+                    (this.icmparamcalpresupuestoswloc != null));
+        }
+        {
+            IcmParamcalpresupuestosrangoBlock theICMPARAMCALPRESUPUESTOSRANGO;
+            theICMPARAMCALPRESUPUESTOSRANGO = this.getICMPARAMCALPRESUPUESTOSRANGO();
+            strategy.appendField(locator, this, "icmparamcalpresupuestosrango", buffer, theICMPARAMCALPRESUPUESTOSRANGO,
+                    (this.icmparamcalpresupuestosrango != null));
         }
         return buffer;
     }
@@ -1097,122 +1565,247 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
         {
             IcmWsToolsBlock theICMWSTOOLS;
             theICMWSTOOLS = this.getICMWSTOOLS();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmwstools", theICMWSTOOLS), currentHashCode, theICMWSTOOLS, (this.icmwstools!= null));
-        }
-        {
-            IcmListaconfBlock theICMLISTACONF;
-            theICMLISTACONF = this.getICMLISTACONF();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaconf", theICMLISTACONF), currentHashCode, theICMLISTACONF, (this.icmlistaconf!= null));
-        }
-        {
-            IcmParamconfBlock theICMPARAMCONF;
-            theICMPARAMCONF = this.getICMPARAMCONF();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamconf", theICMPARAMCONF), currentHashCode, theICMPARAMCONF, (this.icmparamconf!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmwstools", theICMWSTOOLS),
+                    currentHashCode, theICMWSTOOLS, (this.icmwstools != null));
         }
         {
             IcmListacadenasBlock theICMLISTACADENAS;
             theICMLISTACADENAS = this.getICMLISTACADENAS();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistacadenas", theICMLISTACADENAS), currentHashCode, theICMLISTACADENAS, (this.icmlistacadenas!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistacadenas", theICMLISTACADENAS),
+                    currentHashCode, theICMLISTACADENAS, (this.icmlistacadenas != null));
         }
         {
             IcmListatiendasBlock theICMLISTATIENDAS;
             theICMLISTATIENDAS = this.getICMLISTATIENDAS();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistatiendas", theICMLISTATIENDAS), currentHashCode, theICMLISTATIENDAS, (this.icmlistatiendas!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistatiendas", theICMLISTATIENDAS),
+                    currentHashCode, theICMLISTATIENDAS, (this.icmlistatiendas != null));
         }
         {
             IcmListaempleadoBlock theICMLISTAEMPLEADO;
             theICMLISTAEMPLEADO = this.getICMLISTAEMPLEADO();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaempleado", theICMLISTAEMPLEADO), currentHashCode, theICMLISTAEMPLEADO, (this.icmlistaempleado!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaempleado", theICMLISTAEMPLEADO),
+                    currentHashCode, theICMLISTAEMPLEADO, (this.icmlistaempleado != null));
         }
         {
             IcmListaempresasBlock theICMLISTAEMPRESAS;
             theICMLISTAEMPRESAS = this.getICMLISTAEMPRESAS();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaempresas", theICMLISTAEMPRESAS), currentHashCode, theICMLISTAEMPRESAS, (this.icmlistaempresas!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaempresas", theICMLISTAEMPRESAS),
+                    currentHashCode, theICMLISTAEMPRESAS, (this.icmlistaempresas != null));
         }
         {
             IcmListaorigenesBlock theICMLISTAORIGENES;
             theICMLISTAORIGENES = this.getICMLISTAORIGENES();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaorigenes", theICMLISTAORIGENES), currentHashCode, theICMLISTAORIGENES, (this.icmlistaorigenes!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaorigenes", theICMLISTAORIGENES),
+                    currentHashCode, theICMLISTAORIGENES, (this.icmlistaorigenes != null));
         }
         {
             IcmListaperiodosBlock theICMLISTAPERIODOS;
             theICMLISTAPERIODOS = this.getICMLISTAPERIODOS();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaperiodos", theICMLISTAPERIODOS), currentHashCode, theICMLISTAPERIODOS, (this.icmlistaperiodos!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaperiodos", theICMLISTAPERIODOS),
+                    currentHashCode, theICMLISTAPERIODOS, (this.icmlistaperiodos != null));
         }
         {
             IcmListaausenciasBlock theICMLISTAAUSENCIAS;
             theICMLISTAAUSENCIAS = this.getICMLISTAAUSENCIAS();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaausencias", theICMLISTAAUSENCIAS), currentHashCode, theICMLISTAAUSENCIAS, (this.icmlistaausencias!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistaausencias", theICMLISTAAUSENCIAS), currentHashCode,
+                    theICMLISTAAUSENCIAS, (this.icmlistaausencias != null));
         }
         {
             IcmListaempleadosBlock theICMLISTAEMPLEADOS;
             theICMLISTAEMPLEADOS = this.getICMLISTAEMPLEADOS();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaempleados", theICMLISTAEMPLEADOS), currentHashCode, theICMLISTAEMPLEADOS, (this.icmlistaempleados!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistaempleados", theICMLISTAEMPLEADOS), currentHashCode,
+                    theICMLISTAEMPLEADOS, (this.icmlistaempleados != null));
         }
         {
             IcmListapoliticasBlock theICMLISTAPOLITICAS;
             theICMLISTAPOLITICAS = this.getICMLISTAPOLITICAS();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistapoliticas", theICMLISTAPOLITICAS), currentHashCode, theICMLISTAPOLITICAS, (this.icmlistapoliticas!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistapoliticas", theICMLISTAPOLITICAS), currentHashCode,
+                    theICMLISTAPOLITICAS, (this.icmlistapoliticas != null));
         }
         {
             IcmParamcalorigenBlock theICMPARAMCALORIGEN;
             theICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalorigen", theICMPARAMCALORIGEN), currentHashCode, theICMPARAMCALORIGEN, (this.icmparamcalorigen!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalorigen", theICMPARAMCALORIGEN), currentHashCode,
+                    theICMPARAMCALORIGEN, (this.icmparamcalorigen != null));
+        }
+        {
+            IcmListaconfchdiasBlock theICMLISTACONFCHDIAS;
+            theICMLISTACONFCHDIAS = this.getICMLISTACONFCHDIAS();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistaconfchdias", theICMLISTACONFCHDIAS), currentHashCode,
+                    theICMLISTACONFCHDIAS, (this.icmlistaconfchdias != null));
+        }
+        {
+            IcmListaconforigenBlock theICMLISTACONFORIGEN;
+            theICMLISTACONFORIGEN = this.getICMLISTACONFORIGEN();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistaconforigen", theICMLISTACONFORIGEN), currentHashCode,
+                    theICMLISTACONFORIGEN, (this.icmlistaconforigen != null));
         }
         {
             IcmListaestructuraBlock theICMLISTAESTRUCTURA;
             theICMLISTAESTRUCTURA = this.getICMLISTAESTRUCTURA();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaestructura", theICMLISTAESTRUCTURA), currentHashCode, theICMLISTAESTRUCTURA, (this.icmlistaestructura!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistaestructura", theICMLISTAESTRUCTURA), currentHashCode,
+                    theICMLISTAESTRUCTURA, (this.icmlistaestructura != null));
         }
         {
             IcmParamcalperiodoBlock theICMPARAMCALPERIODO;
             theICMPARAMCALPERIODO = this.getICMPARAMCALPERIODO();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalperiodo", theICMPARAMCALPERIODO), currentHashCode, theICMPARAMCALPERIODO, (this.icmparamcalperiodo!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalperiodo", theICMPARAMCALPERIODO), currentHashCode,
+                    theICMPARAMCALPERIODO, (this.icmparamcalperiodo != null));
         }
         {
             IcmParamcalprocesoBlock theICMPARAMCALPROCESO;
             theICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalproceso", theICMPARAMCALPROCESO), currentHashCode, theICMPARAMCALPROCESO, (this.icmparamcalproceso!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalproceso", theICMPARAMCALPROCESO), currentHashCode,
+                    theICMPARAMCALPROCESO, (this.icmparamcalproceso != null));
+        }
+        {
+            IcmListaconfchventaBlock theICMLISTACONFCHVENTA;
+            theICMLISTACONFCHVENTA = this.getICMLISTACONFCHVENTA();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistaconfchventa", theICMLISTACONFCHVENTA), currentHashCode,
+                    theICMLISTACONFCHVENTA, (this.icmlistaconfchventa != null));
         }
         {
             IcmParamcalempleadoBlock theICMPARAMCALEMPLEADO;
             theICMPARAMCALEMPLEADO = this.getICMPARAMCALEMPLEADO();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalempleado", theICMPARAMCALEMPLEADO), currentHashCode, theICMPARAMCALEMPLEADO, (this.icmparamcalempleado!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalempleado", theICMPARAMCALEMPLEADO), currentHashCode,
+                    theICMPARAMCALEMPLEADO, (this.icmparamcalempleado != null));
         }
         {
             IcmParamcalsociedadBlock theICMPARAMCALSOCIEDAD;
             theICMPARAMCALSOCIEDAD = this.getICMPARAMCALSOCIEDAD();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalsociedad", theICMPARAMCALSOCIEDAD), currentHashCode, theICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalsociedad", theICMPARAMCALSOCIEDAD), currentHashCode,
+                    theICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad != null));
         }
         {
             IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
             theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrosentrada", theICMPARAMETROSENTRADA), currentHashCode, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparametrosentrada", theICMPARAMETROSENTRADA), currentHashCode,
+                    theICMPARAMETROSENTRADA, (this.icmparametrosentrada != null));
         }
         {
             IcmResultadoguardadoBlock theICMRESULTADOGUARDADO;
             theICMRESULTADOGUARDADO = this.getICMRESULTADOGUARDADO();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmresultadoguardado", theICMRESULTADOGUARDADO), currentHashCode, theICMRESULTADOGUARDADO, (this.icmresultadoguardado!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmresultadoguardado", theICMRESULTADOGUARDADO), currentHashCode,
+                    theICMRESULTADOGUARDADO, (this.icmresultadoguardado != null));
         }
         {
             IcmListaconfiguracionBlock theICMLISTACONFIGURACION;
             theICMLISTACONFIGURACION = this.getICMLISTACONFIGURACION();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmlistaconfiguracion", theICMLISTACONFIGURACION), currentHashCode, theICMLISTACONFIGURACION, (this.icmlistaconfiguracion!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistaconfiguracion", theICMLISTACONFIGURACION), currentHashCode,
+                    theICMLISTACONFIGURACION, (this.icmlistaconfiguracion != null));
+        }
+        {
+            IcmParamcalconfchdiasBlock theICMPARAMCALCONFCHDIAS;
+            theICMPARAMCALCONFCHDIAS = this.getICMPARAMCALCONFCHDIAS();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalconfchdias", theICMPARAMCALCONFCHDIAS), currentHashCode,
+                    theICMPARAMCALCONFCHDIAS, (this.icmparamcalconfchdias != null));
+        }
+        {
+            IcmParamcalconforigenBlock theICMPARAMCALCONFORIGEN;
+            theICMPARAMCALCONFORIGEN = this.getICMPARAMCALCONFORIGEN();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalconforigen", theICMPARAMCALCONFORIGEN), currentHashCode,
+                    theICMPARAMCALCONFORIGEN, (this.icmparamcalconforigen != null));
         }
         {
             IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
             theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalestructura", theICMPARAMCALESTRUCTURA), currentHashCode, theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalestructura", theICMPARAMCALESTRUCTURA), currentHashCode,
+                    theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null));
+        }
+        {
+            IcmListaconfpreciohoraBlock theICMLISTACONFPRECIOHORA;
+            theICMLISTACONFPRECIOHORA = this.getICMLISTACONFPRECIOHORA();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistaconfpreciohora", theICMLISTACONFPRECIOHORA),
+                    currentHashCode, theICMLISTACONFPRECIOHORA, (this.icmlistaconfpreciohora != null));
+        }
+        {
+            IcmListaventacongeladaBlock theICMLISTAVENTACONGELADA;
+            theICMLISTAVENTACONGELADA = this.getICMLISTAVENTACONGELADA();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistaventacongelada", theICMLISTAVENTACONGELADA),
+                    currentHashCode, theICMLISTAVENTACONGELADA, (this.icmlistaventacongelada != null));
+        }
+        {
+            IcmParamcalconfchventaBlock theICMPARAMCALCONFCHVENTA;
+            theICMPARAMCALCONFCHVENTA = this.getICMPARAMCALCONFCHVENTA();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalconfchventa", theICMPARAMCALCONFCHVENTA),
+                    currentHashCode, theICMPARAMCALCONFCHVENTA, (this.icmparamcalconfchventa != null));
         }
         {
             IcmWsCalcOperacionesBlock theICMWSCALCOPERACIONES;
             theICMWSCALCOPERACIONES = this.getICMWSCALCOPERACIONES();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmwscalcoperaciones", theICMWSCALCOPERACIONES), currentHashCode, theICMWSCALCOPERACIONES, (this.icmwscalcoperaciones!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmwscalcoperaciones", theICMWSCALCOPERACIONES), currentHashCode,
+                    theICMWSCALCOPERACIONES, (this.icmwscalcoperaciones != null));
         }
         {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION), currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
+                    currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
+        }
+        {
+            IcmListapresupuestoswlocBlock theICMLISTAPRESUPUESTOSWLOC;
+            theICMLISTAPRESUPUESTOSWLOC = this.getICMLISTAPRESUPUESTOSWLOC();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistapresupuestoswloc", theICMLISTAPRESUPUESTOSWLOC),
+                    currentHashCode, theICMLISTAPRESUPUESTOSWLOC, (this.icmlistapresupuestoswloc != null));
+        }
+        {
+            IcmListapresupuestosrangoBlock theICMLISTAPRESUPUESTOSRANGO;
+            theICMLISTAPRESUPUESTOSRANGO = this.getICMLISTAPRESUPUESTOSRANGO();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmlistapresupuestosrango", theICMLISTAPRESUPUESTOSRANGO),
+                    currentHashCode, theICMLISTAPRESUPUESTOSRANGO, (this.icmlistapresupuestosrango != null));
+        }
+        {
+            IcmParamcalconfpreciohoraBlock theICMPARAMCALCONFPRECIOHORA;
+            theICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalconfpreciohora", theICMPARAMCALCONFPRECIOHORA),
+                    currentHashCode, theICMPARAMCALCONFPRECIOHORA, (this.icmparamcalconfpreciohora != null));
+        }
+        {
+            IcmParamcalventacongeladaBlock theICMPARAMCALVENTACONGELADA;
+            theICMPARAMCALVENTACONGELADA = this.getICMPARAMCALVENTACONGELADA();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalventacongelada", theICMPARAMCALVENTACONGELADA),
+                    currentHashCode, theICMPARAMCALVENTACONGELADA, (this.icmparamcalventacongelada != null));
+        }
+        {
+            IcmParamcalpresupuestoswlocBlock theICMPARAMCALPRESUPUESTOSWLOC;
+            theICMPARAMCALPRESUPUESTOSWLOC = this.getICMPARAMCALPRESUPUESTOSWLOC();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalpresupuestoswloc", theICMPARAMCALPRESUPUESTOSWLOC),
+                    currentHashCode, theICMPARAMCALPRESUPUESTOSWLOC, (this.icmparamcalpresupuestoswloc != null));
+        }
+        {
+            IcmParamcalpresupuestosrangoBlock theICMPARAMCALPRESUPUESTOSRANGO;
+            theICMPARAMCALPRESUPUESTOSRANGO = this.getICMPARAMCALPRESUPUESTOSRANGO();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalpresupuestosrango", theICMPARAMCALPRESUPUESTOSRANGO),
+                    currentHashCode, theICMPARAMCALPRESUPUESTOSRANGO, (this.icmparamcalpresupuestosrango != null));
         }
         return currentHashCode;
     }
@@ -1232,15 +1825,18 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof M4LoadObject) {
             final M4LoadObject copy = ((M4LoadObject) draftCopy);
             {
-                Boolean icmwstoolsShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmwstools!= null));
+                Boolean icmwstoolsShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmwstools != null));
                 if (icmwstoolsShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmWsToolsBlock sourceICMWSTOOLS;
                     sourceICMWSTOOLS = this.getICMWSTOOLS();
-                    IcmWsToolsBlock copyICMWSTOOLS = ((IcmWsToolsBlock) strategy.copy(LocatorUtils.property(locator, "icmwstools", sourceICMWSTOOLS), sourceICMWSTOOLS, (this.icmwstools!= null)));
+                    IcmWsToolsBlock copyICMWSTOOLS = ((IcmWsToolsBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmwstools", sourceICMWSTOOLS), sourceICMWSTOOLS,
+                            (this.icmwstools != null)));
                     copy.setICMWSTOOLS(copyICMWSTOOLS);
                 } else {
                     if (icmwstoolsShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1249,37 +1845,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmlistaconfShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaconf!= null));
-                if (icmlistaconfShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListaconfBlock sourceICMLISTACONF;
-                    sourceICMLISTACONF = this.getICMLISTACONF();
-                    IcmListaconfBlock copyICMLISTACONF = ((IcmListaconfBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaconf", sourceICMLISTACONF), sourceICMLISTACONF, (this.icmlistaconf!= null)));
-                    copy.setICMLISTACONF(copyICMLISTACONF);
-                } else {
-                    if (icmlistaconfShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmlistaconf = null;
-                    }
-                }
-            }
-            {
-                Boolean icmparamconfShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamconf!= null));
-                if (icmparamconfShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParamconfBlock sourceICMPARAMCONF;
-                    sourceICMPARAMCONF = this.getICMPARAMCONF();
-                    IcmParamconfBlock copyICMPARAMCONF = ((IcmParamconfBlock) strategy.copy(LocatorUtils.property(locator, "icmparamconf", sourceICMPARAMCONF), sourceICMPARAMCONF, (this.icmparamconf!= null)));
-                    copy.setICMPARAMCONF(copyICMPARAMCONF);
-                } else {
-                    if (icmparamconfShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparamconf = null;
-                    }
-                }
-            }
-            {
-                Boolean icmlistacadenasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistacadenas!= null));
+                Boolean icmlistacadenasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistacadenas != null));
                 if (icmlistacadenasShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListacadenasBlock sourceICMLISTACADENAS;
                     sourceICMLISTACADENAS = this.getICMLISTACADENAS();
-                    IcmListacadenasBlock copyICMLISTACADENAS = ((IcmListacadenasBlock) strategy.copy(LocatorUtils.property(locator, "icmlistacadenas", sourceICMLISTACADENAS), sourceICMLISTACADENAS, (this.icmlistacadenas!= null)));
+                    IcmListacadenasBlock copyICMLISTACADENAS = ((IcmListacadenasBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistacadenas", sourceICMLISTACADENAS),
+                            sourceICMLISTACADENAS, (this.icmlistacadenas != null)));
                     copy.setICMLISTACADENAS(copyICMLISTACADENAS);
                 } else {
                     if (icmlistacadenasShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1288,11 +1861,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmlistatiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistatiendas!= null));
+                Boolean icmlistatiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistatiendas != null));
                 if (icmlistatiendasShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListatiendasBlock sourceICMLISTATIENDAS;
                     sourceICMLISTATIENDAS = this.getICMLISTATIENDAS();
-                    IcmListatiendasBlock copyICMLISTATIENDAS = ((IcmListatiendasBlock) strategy.copy(LocatorUtils.property(locator, "icmlistatiendas", sourceICMLISTATIENDAS), sourceICMLISTATIENDAS, (this.icmlistatiendas!= null)));
+                    IcmListatiendasBlock copyICMLISTATIENDAS = ((IcmListatiendasBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistatiendas", sourceICMLISTATIENDAS),
+                            sourceICMLISTATIENDAS, (this.icmlistatiendas != null)));
                     copy.setICMLISTATIENDAS(copyICMLISTATIENDAS);
                 } else {
                     if (icmlistatiendasShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1301,11 +1877,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmlistaempleadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaempleado!= null));
+                Boolean icmlistaempleadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaempleado != null));
                 if (icmlistaempleadoShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListaempleadoBlock sourceICMLISTAEMPLEADO;
                     sourceICMLISTAEMPLEADO = this.getICMLISTAEMPLEADO();
-                    IcmListaempleadoBlock copyICMLISTAEMPLEADO = ((IcmListaempleadoBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaempleado", sourceICMLISTAEMPLEADO), sourceICMLISTAEMPLEADO, (this.icmlistaempleado!= null)));
+                    IcmListaempleadoBlock copyICMLISTAEMPLEADO = ((IcmListaempleadoBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistaempleado", sourceICMLISTAEMPLEADO),
+                            sourceICMLISTAEMPLEADO, (this.icmlistaempleado != null)));
                     copy.setICMLISTAEMPLEADO(copyICMLISTAEMPLEADO);
                 } else {
                     if (icmlistaempleadoShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1314,11 +1893,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmlistaempresasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaempresas!= null));
+                Boolean icmlistaempresasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaempresas != null));
                 if (icmlistaempresasShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListaempresasBlock sourceICMLISTAEMPRESAS;
                     sourceICMLISTAEMPRESAS = this.getICMLISTAEMPRESAS();
-                    IcmListaempresasBlock copyICMLISTAEMPRESAS = ((IcmListaempresasBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaempresas", sourceICMLISTAEMPRESAS), sourceICMLISTAEMPRESAS, (this.icmlistaempresas!= null)));
+                    IcmListaempresasBlock copyICMLISTAEMPRESAS = ((IcmListaempresasBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistaempresas", sourceICMLISTAEMPRESAS),
+                            sourceICMLISTAEMPRESAS, (this.icmlistaempresas != null)));
                     copy.setICMLISTAEMPRESAS(copyICMLISTAEMPRESAS);
                 } else {
                     if (icmlistaempresasShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1327,11 +1909,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmlistaorigenesShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaorigenes!= null));
+                Boolean icmlistaorigenesShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaorigenes != null));
                 if (icmlistaorigenesShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListaorigenesBlock sourceICMLISTAORIGENES;
                     sourceICMLISTAORIGENES = this.getICMLISTAORIGENES();
-                    IcmListaorigenesBlock copyICMLISTAORIGENES = ((IcmListaorigenesBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaorigenes", sourceICMLISTAORIGENES), sourceICMLISTAORIGENES, (this.icmlistaorigenes!= null)));
+                    IcmListaorigenesBlock copyICMLISTAORIGENES = ((IcmListaorigenesBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistaorigenes", sourceICMLISTAORIGENES),
+                            sourceICMLISTAORIGENES, (this.icmlistaorigenes != null)));
                     copy.setICMLISTAORIGENES(copyICMLISTAORIGENES);
                 } else {
                     if (icmlistaorigenesShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1340,11 +1925,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmlistaperiodosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaperiodos!= null));
+                Boolean icmlistaperiodosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaperiodos != null));
                 if (icmlistaperiodosShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListaperiodosBlock sourceICMLISTAPERIODOS;
                     sourceICMLISTAPERIODOS = this.getICMLISTAPERIODOS();
-                    IcmListaperiodosBlock copyICMLISTAPERIODOS = ((IcmListaperiodosBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaperiodos", sourceICMLISTAPERIODOS), sourceICMLISTAPERIODOS, (this.icmlistaperiodos!= null)));
+                    IcmListaperiodosBlock copyICMLISTAPERIODOS = ((IcmListaperiodosBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistaperiodos", sourceICMLISTAPERIODOS),
+                            sourceICMLISTAPERIODOS, (this.icmlistaperiodos != null)));
                     copy.setICMLISTAPERIODOS(copyICMLISTAPERIODOS);
                 } else {
                     if (icmlistaperiodosShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1353,11 +1941,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmlistaausenciasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaausencias!= null));
+                Boolean icmlistaausenciasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaausencias != null));
                 if (icmlistaausenciasShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListaausenciasBlock sourceICMLISTAAUSENCIAS;
                     sourceICMLISTAAUSENCIAS = this.getICMLISTAAUSENCIAS();
-                    IcmListaausenciasBlock copyICMLISTAAUSENCIAS = ((IcmListaausenciasBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaausencias", sourceICMLISTAAUSENCIAS), sourceICMLISTAAUSENCIAS, (this.icmlistaausencias!= null)));
+                    IcmListaausenciasBlock copyICMLISTAAUSENCIAS = ((IcmListaausenciasBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistaausencias", sourceICMLISTAAUSENCIAS),
+                            sourceICMLISTAAUSENCIAS, (this.icmlistaausencias != null)));
                     copy.setICMLISTAAUSENCIAS(copyICMLISTAAUSENCIAS);
                 } else {
                     if (icmlistaausenciasShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1366,11 +1957,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmlistaempleadosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaempleados!= null));
+                Boolean icmlistaempleadosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaempleados != null));
                 if (icmlistaempleadosShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListaempleadosBlock sourceICMLISTAEMPLEADOS;
                     sourceICMLISTAEMPLEADOS = this.getICMLISTAEMPLEADOS();
-                    IcmListaempleadosBlock copyICMLISTAEMPLEADOS = ((IcmListaempleadosBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaempleados", sourceICMLISTAEMPLEADOS), sourceICMLISTAEMPLEADOS, (this.icmlistaempleados!= null)));
+                    IcmListaempleadosBlock copyICMLISTAEMPLEADOS = ((IcmListaempleadosBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistaempleados", sourceICMLISTAEMPLEADOS),
+                            sourceICMLISTAEMPLEADOS, (this.icmlistaempleados != null)));
                     copy.setICMLISTAEMPLEADOS(copyICMLISTAEMPLEADOS);
                 } else {
                     if (icmlistaempleadosShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1379,11 +1973,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmlistapoliticasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistapoliticas!= null));
+                Boolean icmlistapoliticasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistapoliticas != null));
                 if (icmlistapoliticasShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListapoliticasBlock sourceICMLISTAPOLITICAS;
                     sourceICMLISTAPOLITICAS = this.getICMLISTAPOLITICAS();
-                    IcmListapoliticasBlock copyICMLISTAPOLITICAS = ((IcmListapoliticasBlock) strategy.copy(LocatorUtils.property(locator, "icmlistapoliticas", sourceICMLISTAPOLITICAS), sourceICMLISTAPOLITICAS, (this.icmlistapoliticas!= null)));
+                    IcmListapoliticasBlock copyICMLISTAPOLITICAS = ((IcmListapoliticasBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistapoliticas", sourceICMLISTAPOLITICAS),
+                            sourceICMLISTAPOLITICAS, (this.icmlistapoliticas != null)));
                     copy.setICMLISTAPOLITICAS(copyICMLISTAPOLITICAS);
                 } else {
                     if (icmlistapoliticasShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1392,11 +1989,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmparamcalorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalorigen!= null));
+                Boolean icmparamcalorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalorigen != null));
                 if (icmparamcalorigenShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalorigenBlock sourceICMPARAMCALORIGEN;
                     sourceICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
-                    IcmParamcalorigenBlock copyICMPARAMCALORIGEN = ((IcmParamcalorigenBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalorigen", sourceICMPARAMCALORIGEN), sourceICMPARAMCALORIGEN, (this.icmparamcalorigen!= null)));
+                    IcmParamcalorigenBlock copyICMPARAMCALORIGEN = ((IcmParamcalorigenBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalorigen", sourceICMPARAMCALORIGEN),
+                            sourceICMPARAMCALORIGEN, (this.icmparamcalorigen != null)));
                     copy.setICMPARAMCALORIGEN(copyICMPARAMCALORIGEN);
                 } else {
                     if (icmparamcalorigenShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1405,11 +2005,46 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmlistaestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaestructura!= null));
+                Boolean icmlistaconfchdiasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaconfchdias != null));
+                if (icmlistaconfchdiasShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaconfchdiasBlock sourceICMLISTACONFCHDIAS;
+                    sourceICMLISTACONFCHDIAS = this.getICMLISTACONFCHDIAS();
+                    IcmListaconfchdiasBlock copyICMLISTACONFCHDIAS = ((IcmListaconfchdiasBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistaconfchdias", sourceICMLISTACONFCHDIAS),
+                            sourceICMLISTACONFCHDIAS, (this.icmlistaconfchdias != null)));
+                    copy.setICMLISTACONFCHDIAS(copyICMLISTACONFCHDIAS);
+                } else {
+                    if (icmlistaconfchdiasShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistaconfchdias = null;
+                    }
+                }
+            }
+            {
+                Boolean icmlistaconforigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaconforigen != null));
+                if (icmlistaconforigenShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaconforigenBlock sourceICMLISTACONFORIGEN;
+                    sourceICMLISTACONFORIGEN = this.getICMLISTACONFORIGEN();
+                    IcmListaconforigenBlock copyICMLISTACONFORIGEN = ((IcmListaconforigenBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistaconforigen", sourceICMLISTACONFORIGEN),
+                            sourceICMLISTACONFORIGEN, (this.icmlistaconforigen != null)));
+                    copy.setICMLISTACONFORIGEN(copyICMLISTACONFORIGEN);
+                } else {
+                    if (icmlistaconforigenShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistaconforigen = null;
+                    }
+                }
+            }
+            {
+                Boolean icmlistaestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaestructura != null));
                 if (icmlistaestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListaestructuraBlock sourceICMLISTAESTRUCTURA;
                     sourceICMLISTAESTRUCTURA = this.getICMLISTAESTRUCTURA();
-                    IcmListaestructuraBlock copyICMLISTAESTRUCTURA = ((IcmListaestructuraBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaestructura", sourceICMLISTAESTRUCTURA), sourceICMLISTAESTRUCTURA, (this.icmlistaestructura!= null)));
+                    IcmListaestructuraBlock copyICMLISTAESTRUCTURA = ((IcmListaestructuraBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistaestructura", sourceICMLISTAESTRUCTURA),
+                            sourceICMLISTAESTRUCTURA, (this.icmlistaestructura != null)));
                     copy.setICMLISTAESTRUCTURA(copyICMLISTAESTRUCTURA);
                 } else {
                     if (icmlistaestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1418,11 +2053,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmparamcalperiodoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalperiodo!= null));
+                Boolean icmparamcalperiodoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalperiodo != null));
                 if (icmparamcalperiodoShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalperiodoBlock sourceICMPARAMCALPERIODO;
                     sourceICMPARAMCALPERIODO = this.getICMPARAMCALPERIODO();
-                    IcmParamcalperiodoBlock copyICMPARAMCALPERIODO = ((IcmParamcalperiodoBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalperiodo", sourceICMPARAMCALPERIODO), sourceICMPARAMCALPERIODO, (this.icmparamcalperiodo!= null)));
+                    IcmParamcalperiodoBlock copyICMPARAMCALPERIODO = ((IcmParamcalperiodoBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalperiodo", sourceICMPARAMCALPERIODO),
+                            sourceICMPARAMCALPERIODO, (this.icmparamcalperiodo != null)));
                     copy.setICMPARAMCALPERIODO(copyICMPARAMCALPERIODO);
                 } else {
                     if (icmparamcalperiodoShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1431,11 +2069,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmparamcalprocesoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalproceso!= null));
+                Boolean icmparamcalprocesoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalproceso != null));
                 if (icmparamcalprocesoShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalprocesoBlock sourceICMPARAMCALPROCESO;
                     sourceICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
-                    IcmParamcalprocesoBlock copyICMPARAMCALPROCESO = ((IcmParamcalprocesoBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalproceso", sourceICMPARAMCALPROCESO), sourceICMPARAMCALPROCESO, (this.icmparamcalproceso!= null)));
+                    IcmParamcalprocesoBlock copyICMPARAMCALPROCESO = ((IcmParamcalprocesoBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalproceso", sourceICMPARAMCALPROCESO),
+                            sourceICMPARAMCALPROCESO, (this.icmparamcalproceso != null)));
                     copy.setICMPARAMCALPROCESO(copyICMPARAMCALPROCESO);
                 } else {
                     if (icmparamcalprocesoShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1444,11 +2085,30 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmparamcalempleadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalempleado!= null));
+                Boolean icmlistaconfchventaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaconfchventa != null));
+                if (icmlistaconfchventaShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaconfchventaBlock sourceICMLISTACONFCHVENTA;
+                    sourceICMLISTACONFCHVENTA = this.getICMLISTACONFCHVENTA();
+                    IcmListaconfchventaBlock copyICMLISTACONFCHVENTA = ((IcmListaconfchventaBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistaconfchventa", sourceICMLISTACONFCHVENTA),
+                            sourceICMLISTACONFCHVENTA, (this.icmlistaconfchventa != null)));
+                    copy.setICMLISTACONFCHVENTA(copyICMLISTACONFCHVENTA);
+                } else {
+                    if (icmlistaconfchventaShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistaconfchventa = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparamcalempleadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalempleado != null));
                 if (icmparamcalempleadoShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalempleadoBlock sourceICMPARAMCALEMPLEADO;
                     sourceICMPARAMCALEMPLEADO = this.getICMPARAMCALEMPLEADO();
-                    IcmParamcalempleadoBlock copyICMPARAMCALEMPLEADO = ((IcmParamcalempleadoBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalempleado", sourceICMPARAMCALEMPLEADO), sourceICMPARAMCALEMPLEADO, (this.icmparamcalempleado!= null)));
+                    IcmParamcalempleadoBlock copyICMPARAMCALEMPLEADO = ((IcmParamcalempleadoBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalempleado", sourceICMPARAMCALEMPLEADO),
+                            sourceICMPARAMCALEMPLEADO, (this.icmparamcalempleado != null)));
                     copy.setICMPARAMCALEMPLEADO(copyICMPARAMCALEMPLEADO);
                 } else {
                     if (icmparamcalempleadoShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1457,11 +2117,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmparamcalsociedadShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalsociedad!= null));
+                Boolean icmparamcalsociedadShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalsociedad != null));
                 if (icmparamcalsociedadShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalsociedadBlock sourceICMPARAMCALSOCIEDAD;
                     sourceICMPARAMCALSOCIEDAD = this.getICMPARAMCALSOCIEDAD();
-                    IcmParamcalsociedadBlock copyICMPARAMCALSOCIEDAD = ((IcmParamcalsociedadBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalsociedad", sourceICMPARAMCALSOCIEDAD), sourceICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad!= null)));
+                    IcmParamcalsociedadBlock copyICMPARAMCALSOCIEDAD = ((IcmParamcalsociedadBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalsociedad", sourceICMPARAMCALSOCIEDAD),
+                            sourceICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad != null)));
                     copy.setICMPARAMCALSOCIEDAD(copyICMPARAMCALSOCIEDAD);
                 } else {
                     if (icmparamcalsociedadShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1470,11 +2133,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmparametrosentradaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrosentrada!= null));
+                Boolean icmparametrosentradaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparametrosentrada != null));
                 if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParametrosentradaBlock sourceICMPARAMETROSENTRADA;
                     sourceICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-                    IcmParametrosentradaBlock copyICMPARAMETROSENTRADA = ((IcmParametrosentradaBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrosentrada", sourceICMPARAMETROSENTRADA), sourceICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null)));
+                    IcmParametrosentradaBlock copyICMPARAMETROSENTRADA = ((IcmParametrosentradaBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparametrosentrada", sourceICMPARAMETROSENTRADA),
+                            sourceICMPARAMETROSENTRADA, (this.icmparametrosentrada != null)));
                     copy.setICMPARAMETROSENTRADA(copyICMPARAMETROSENTRADA);
                 } else {
                     if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1483,11 +2149,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmresultadoguardadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmresultadoguardado!= null));
+                Boolean icmresultadoguardadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmresultadoguardado != null));
                 if (icmresultadoguardadoShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmResultadoguardadoBlock sourceICMRESULTADOGUARDADO;
                     sourceICMRESULTADOGUARDADO = this.getICMRESULTADOGUARDADO();
-                    IcmResultadoguardadoBlock copyICMRESULTADOGUARDADO = ((IcmResultadoguardadoBlock) strategy.copy(LocatorUtils.property(locator, "icmresultadoguardado", sourceICMRESULTADOGUARDADO), sourceICMRESULTADOGUARDADO, (this.icmresultadoguardado!= null)));
+                    IcmResultadoguardadoBlock copyICMRESULTADOGUARDADO = ((IcmResultadoguardadoBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmresultadoguardado", sourceICMRESULTADOGUARDADO),
+                            sourceICMRESULTADOGUARDADO, (this.icmresultadoguardado != null)));
                     copy.setICMRESULTADOGUARDADO(copyICMRESULTADOGUARDADO);
                 } else {
                     if (icmresultadoguardadoShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1496,11 +2165,14 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmlistaconfiguracionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmlistaconfiguracion!= null));
+                Boolean icmlistaconfiguracionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaconfiguracion != null));
                 if (icmlistaconfiguracionShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListaconfiguracionBlock sourceICMLISTACONFIGURACION;
                     sourceICMLISTACONFIGURACION = this.getICMLISTACONFIGURACION();
-                    IcmListaconfiguracionBlock copyICMLISTACONFIGURACION = ((IcmListaconfiguracionBlock) strategy.copy(LocatorUtils.property(locator, "icmlistaconfiguracion", sourceICMLISTACONFIGURACION), sourceICMLISTACONFIGURACION, (this.icmlistaconfiguracion!= null)));
+                    IcmListaconfiguracionBlock copyICMLISTACONFIGURACION = ((IcmListaconfiguracionBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmlistaconfiguracion", sourceICMLISTACONFIGURACION),
+                            sourceICMLISTACONFIGURACION, (this.icmlistaconfiguracion != null)));
                     copy.setICMLISTACONFIGURACION(copyICMLISTACONFIGURACION);
                 } else {
                     if (icmlistaconfiguracionShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1509,11 +2181,46 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmparamcalestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalestructura!= null));
+                Boolean icmparamcalconfchdiasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalconfchdias != null));
+                if (icmparamcalconfchdiasShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalconfchdiasBlock sourceICMPARAMCALCONFCHDIAS;
+                    sourceICMPARAMCALCONFCHDIAS = this.getICMPARAMCALCONFCHDIAS();
+                    IcmParamcalconfchdiasBlock copyICMPARAMCALCONFCHDIAS = ((IcmParamcalconfchdiasBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalconfchdias", sourceICMPARAMCALCONFCHDIAS),
+                            sourceICMPARAMCALCONFCHDIAS, (this.icmparamcalconfchdias != null)));
+                    copy.setICMPARAMCALCONFCHDIAS(copyICMPARAMCALCONFCHDIAS);
+                } else {
+                    if (icmparamcalconfchdiasShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalconfchdias = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparamcalconforigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalconforigen != null));
+                if (icmparamcalconforigenShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalconforigenBlock sourceICMPARAMCALCONFORIGEN;
+                    sourceICMPARAMCALCONFORIGEN = this.getICMPARAMCALCONFORIGEN();
+                    IcmParamcalconforigenBlock copyICMPARAMCALCONFORIGEN = ((IcmParamcalconforigenBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalconforigen", sourceICMPARAMCALCONFORIGEN),
+                            sourceICMPARAMCALCONFORIGEN, (this.icmparamcalconforigen != null)));
+                    copy.setICMPARAMCALCONFORIGEN(copyICMPARAMCALCONFORIGEN);
+                } else {
+                    if (icmparamcalconforigenShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalconforigen = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparamcalestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalestructura != null));
                 if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalestructuraBlock sourceICMPARAMCALESTRUCTURA;
                     sourceICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-                    IcmParamcalestructuraBlock copyICMPARAMCALESTRUCTURA = ((IcmParamcalestructuraBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalestructura", sourceICMPARAMCALESTRUCTURA), sourceICMPARAMCALESTRUCTURA, (this.icmparamcalestructura!= null)));
+                    IcmParamcalestructuraBlock copyICMPARAMCALESTRUCTURA = ((IcmParamcalestructuraBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalestructura", sourceICMPARAMCALESTRUCTURA),
+                            sourceICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null)));
                     copy.setICMPARAMCALESTRUCTURA(copyICMPARAMCALESTRUCTURA);
                 } else {
                     if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1522,11 +2229,62 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmwscalcoperacionesShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmwscalcoperaciones!= null));
+                Boolean icmlistaconfpreciohoraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaconfpreciohora != null));
+                if (icmlistaconfpreciohoraShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaconfpreciohoraBlock sourceICMLISTACONFPRECIOHORA;
+                    sourceICMLISTACONFPRECIOHORA = this.getICMLISTACONFPRECIOHORA();
+                    IcmListaconfpreciohoraBlock copyICMLISTACONFPRECIOHORA = ((IcmListaconfpreciohoraBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmlistaconfpreciohora", sourceICMLISTACONFPRECIOHORA),
+                                sourceICMLISTACONFPRECIOHORA, (this.icmlistaconfpreciohora != null)));
+                    copy.setICMLISTACONFPRECIOHORA(copyICMLISTACONFPRECIOHORA);
+                } else {
+                    if (icmlistaconfpreciohoraShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistaconfpreciohora = null;
+                    }
+                }
+            }
+            {
+                Boolean icmlistaventacongeladaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistaventacongelada != null));
+                if (icmlistaventacongeladaShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaventacongeladaBlock sourceICMLISTAVENTACONGELADA;
+                    sourceICMLISTAVENTACONGELADA = this.getICMLISTAVENTACONGELADA();
+                    IcmListaventacongeladaBlock copyICMLISTAVENTACONGELADA = ((IcmListaventacongeladaBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmlistaventacongelada", sourceICMLISTAVENTACONGELADA),
+                                sourceICMLISTAVENTACONGELADA, (this.icmlistaventacongelada != null)));
+                    copy.setICMLISTAVENTACONGELADA(copyICMLISTAVENTACONGELADA);
+                } else {
+                    if (icmlistaventacongeladaShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistaventacongelada = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparamcalconfchventaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalconfchventa != null));
+                if (icmparamcalconfchventaShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalconfchventaBlock sourceICMPARAMCALCONFCHVENTA;
+                    sourceICMPARAMCALCONFCHVENTA = this.getICMPARAMCALCONFCHVENTA();
+                    IcmParamcalconfchventaBlock copyICMPARAMCALCONFCHVENTA = ((IcmParamcalconfchventaBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparamcalconfchventa", sourceICMPARAMCALCONFCHVENTA),
+                                sourceICMPARAMCALCONFCHVENTA, (this.icmparamcalconfchventa != null)));
+                    copy.setICMPARAMCALCONFCHVENTA(copyICMPARAMCALCONFCHVENTA);
+                } else {
+                    if (icmparamcalconfchventaShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalconfchventa = null;
+                    }
+                }
+            }
+            {
+                Boolean icmwscalcoperacionesShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmwscalcoperaciones != null));
                 if (icmwscalcoperacionesShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmWsCalcOperacionesBlock sourceICMWSCALCOPERACIONES;
                     sourceICMWSCALCOPERACIONES = this.getICMWSCALCOPERACIONES();
-                    IcmWsCalcOperacionesBlock copyICMWSCALCOPERACIONES = ((IcmWsCalcOperacionesBlock) strategy.copy(LocatorUtils.property(locator, "icmwscalcoperaciones", sourceICMWSCALCOPERACIONES), sourceICMWSCALCOPERACIONES, (this.icmwscalcoperaciones!= null)));
+                    IcmWsCalcOperacionesBlock copyICMWSCALCOPERACIONES = ((IcmWsCalcOperacionesBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmwscalcoperaciones", sourceICMWSCALCOPERACIONES),
+                            sourceICMWSCALCOPERACIONES, (this.icmwscalcoperaciones != null)));
                     copy.setICMWSCALCOPERACIONES(copyICMWSCALCOPERACIONES);
                 } else {
                     if (icmwscalcoperacionesShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1535,15 +2293,120 @@ public class M4LoadObject implements Serializable, Cloneable, CopyTo2, Equals2, 
                 }
             }
             {
-                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospaginacion!= null));
+                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparametrospaginacion != null));
                 if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
                     sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION), sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null)));
+                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
+                                sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
                     copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
                 } else {
                     if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmparametrospaginacion = null;
+                    }
+                }
+            }
+            {
+                Boolean icmlistapresupuestoswlocShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistapresupuestoswloc != null));
+                if (icmlistapresupuestoswlocShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListapresupuestoswlocBlock sourceICMLISTAPRESUPUESTOSWLOC;
+                    sourceICMLISTAPRESUPUESTOSWLOC = this.getICMLISTAPRESUPUESTOSWLOC();
+                    IcmListapresupuestoswlocBlock copyICMLISTAPRESUPUESTOSWLOC = ((IcmListapresupuestoswlocBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmlistapresupuestoswloc",
+                                sourceICMLISTAPRESUPUESTOSWLOC), sourceICMLISTAPRESUPUESTOSWLOC,
+                                (this.icmlistapresupuestoswloc != null)));
+                    copy.setICMLISTAPRESUPUESTOSWLOC(copyICMLISTAPRESUPUESTOSWLOC);
+                } else {
+                    if (icmlistapresupuestoswlocShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistapresupuestoswloc = null;
+                    }
+                }
+            }
+            {
+                Boolean icmlistapresupuestosrangoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmlistapresupuestosrango != null));
+                if (icmlistapresupuestosrangoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListapresupuestosrangoBlock sourceICMLISTAPRESUPUESTOSRANGO;
+                    sourceICMLISTAPRESUPUESTOSRANGO = this.getICMLISTAPRESUPUESTOSRANGO();
+                    IcmListapresupuestosrangoBlock copyICMLISTAPRESUPUESTOSRANGO = ((IcmListapresupuestosrangoBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmlistapresupuestosrango",
+                                sourceICMLISTAPRESUPUESTOSRANGO), sourceICMLISTAPRESUPUESTOSRANGO,
+                                (this.icmlistapresupuestosrango != null)));
+                    copy.setICMLISTAPRESUPUESTOSRANGO(copyICMLISTAPRESUPUESTOSRANGO);
+                } else {
+                    if (icmlistapresupuestosrangoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmlistapresupuestosrango = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparamcalconfpreciohoraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalconfpreciohora != null));
+                if (icmparamcalconfpreciohoraShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalconfpreciohoraBlock sourceICMPARAMCALCONFPRECIOHORA;
+                    sourceICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
+                    IcmParamcalconfpreciohoraBlock copyICMPARAMCALCONFPRECIOHORA = ((IcmParamcalconfpreciohoraBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparamcalconfpreciohora",
+                                sourceICMPARAMCALCONFPRECIOHORA), sourceICMPARAMCALCONFPRECIOHORA,
+                                (this.icmparamcalconfpreciohora != null)));
+                    copy.setICMPARAMCALCONFPRECIOHORA(copyICMPARAMCALCONFPRECIOHORA);
+                } else {
+                    if (icmparamcalconfpreciohoraShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalconfpreciohora = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparamcalventacongeladaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalventacongelada != null));
+                if (icmparamcalventacongeladaShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalventacongeladaBlock sourceICMPARAMCALVENTACONGELADA;
+                    sourceICMPARAMCALVENTACONGELADA = this.getICMPARAMCALVENTACONGELADA();
+                    IcmParamcalventacongeladaBlock copyICMPARAMCALVENTACONGELADA = ((IcmParamcalventacongeladaBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparamcalventacongelada",
+                                sourceICMPARAMCALVENTACONGELADA), sourceICMPARAMCALVENTACONGELADA,
+                                (this.icmparamcalventacongelada != null)));
+                    copy.setICMPARAMCALVENTACONGELADA(copyICMPARAMCALVENTACONGELADA);
+                } else {
+                    if (icmparamcalventacongeladaShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalventacongelada = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparamcalpresupuestoswlocShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalpresupuestoswloc != null));
+                if (icmparamcalpresupuestoswlocShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalpresupuestoswlocBlock sourceICMPARAMCALPRESUPUESTOSWLOC;
+                    sourceICMPARAMCALPRESUPUESTOSWLOC = this.getICMPARAMCALPRESUPUESTOSWLOC();
+                    IcmParamcalpresupuestoswlocBlock copyICMPARAMCALPRESUPUESTOSWLOC = ((IcmParamcalpresupuestoswlocBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparamcalpresupuestoswloc",
+                                sourceICMPARAMCALPRESUPUESTOSWLOC), sourceICMPARAMCALPRESUPUESTOSWLOC,
+                                (this.icmparamcalpresupuestoswloc != null)));
+                    copy.setICMPARAMCALPRESUPUESTOSWLOC(copyICMPARAMCALPRESUPUESTOSWLOC);
+                } else {
+                    if (icmparamcalpresupuestoswlocShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalpresupuestoswloc = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparamcalpresupuestosrangoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalpresupuestosrango != null));
+                if (icmparamcalpresupuestosrangoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalpresupuestosrangoBlock sourceICMPARAMCALPRESUPUESTOSRANGO;
+                    sourceICMPARAMCALPRESUPUESTOSRANGO = this.getICMPARAMCALPRESUPUESTOSRANGO();
+                    IcmParamcalpresupuestosrangoBlock copyICMPARAMCALPRESUPUESTOSRANGO = ((IcmParamcalpresupuestosrangoBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparamcalpresupuestosrango",
+                                sourceICMPARAMCALPRESUPUESTOSRANGO), sourceICMPARAMCALPRESUPUESTOSRANGO,
+                                (this.icmparamcalpresupuestosrango != null)));
+                    copy.setICMPARAMCALPRESUPUESTOSRANGO(copyICMPARAMCALPRESUPUESTOSRANGO);
+                } else {
+                    if (icmparamcalpresupuestosrangoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalpresupuestosrango = null;
                     }
                 }
             }

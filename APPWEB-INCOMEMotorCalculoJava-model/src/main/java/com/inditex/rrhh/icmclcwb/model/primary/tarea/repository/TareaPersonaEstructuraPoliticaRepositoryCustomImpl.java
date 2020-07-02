@@ -1,5 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.stereotype.Repository;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -7,72 +15,33 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-
 @Repository
 public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
-    extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaEstructuraPolitica>
-    implements TareaPersonaEstructuraPoliticaRepositoryCustom {
+        extends JdbcBatchPrimaryRepositoryAbstract<TareaPersonaEstructuraPolitica>
+        implements TareaPersonaEstructuraPoliticaRepositoryCustom {
 
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    
-    @Value("${app.envars.repository.batch-size.tarea-persona-estructura-politica:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-persona-estructura-politica:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaPersonaEstructuraPoliticaRepositoryCustom.save']}")
     private String sqlSave;
-    
+
     @Value("#{primaryQuery['TareaPersonaEstructuraPoliticaRepositoryCustom.updateImporteEstructuraPoliticas']}")
     private String sqlUpdateImporteEstructuraPoliticas;
 
     @Override
-    public List<TareaPersonaEstructuraPolitica> save(List<TareaPersonaEstructuraPolitica> src) {
-        return saveJdbcBatchList(src, sqlSave, batchSize);
+    public List<TareaPersonaEstructuraPolitica> save(final List<TareaPersonaEstructuraPolitica> src) {
+        return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
     }
 
     @Override
-    public void setParameters(PreparedStatement pstmt, TareaPersonaEstructuraPolitica entity) throws SQLException {
-        pstmt.setObject(1, entity.getFechaFin());
-        pstmt.setObject(2, entity.getFechaInicio());
-        pstmt.setString(3, entity.getStdIdHr());
-        pstmt.setString(4, entity.getCclIdPerson());
-        pstmt.setString(5, entity.getIdEstructuraPolitica());
-        pstmt.setLong(6, entity.getTipoPolitica().getId());
-        pstmt.setString(7, entity.getStdOrHrPeriod());
-        pstmt.setLong(8, entity.getTarea().getId());
-        pstmt.setString(9, entity.getCclIdOrigen());
-        pstmt.setBoolean(10, entity.getExcluidoDenominador());
-        pstmt.setInt(11, entity.getTipoUnidadTiempo().getId());
-        pstmt.setString(12, entity.getNumeroUnidades());
-        pstmt.setBigDecimal(13, entity.getValor());
-        pstmt.setInt(14, entity.getTramo());
-        pstmt.setObject(15, entity.getPk().getFechaInicioPeriodo());
-        pstmt.setBigDecimal(16, entity.getImporte());
-        pstmt.setString(17, entity.getNumMesesCalcMedia());
-        pstmt.setString(18, entity.getNumHoras());
-        pstmt.setString(19, entity.getIdMotivoBaja());
-    }
-    
-    @Override
-    public void updateImporteEstructuraPoliticas(@NotNull TareaDto tarea, @NotNull TrabajoDto trabajoDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void updateImporteEstructuraPoliticas(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.MINIMO_GARANTIZADO.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
+                TipoPoliticaEnum.MINIMO_GARANTIZADO.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        namedParameterJdbcTemplate.update(sqlUpdateImporteEstructuraPoliticas, parameters);
+        this.update(this.sqlUpdateImporteEstructuraPoliticas, parameters);
     }
 
 }

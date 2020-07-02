@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,14 +23,15 @@ public class TareaTipoHoraServiceImpl implements TareaTipoHoraService {
 
     @Autowired
     private TareaTipoHoraMapper mapper;
-    
+
     @Autowired
     private TareaTipoHoraRepositoryCustom tareaTipoHoraRepositoryCustom;
 
     @Override
-    public List<TareaTipoHoraDto> save(@Valid final List<PtrPresenciaTiposHorasResultItemDto> dto, @Valid final TareaDto tareaDto) {
+    public List<TareaTipoHoraDto> save(@Valid @NotNull @NotEmpty final List<PtrPresenciaTiposHorasResultItemDto> dto,
+            @Valid @NotNull final TareaDto tareaDto) {
         return mapper.tareaTareaTipoHoraListTotareaTipoHoraDtoList(tareaTipoHoraRepositoryCustom
-                .save(mapper.ptrPresenciaTipoHoraResponsesDtoToTareaTipoHoraDto(dto, tareaDto)));
+            .save(mapper.ptrPresenciaTipoHoraResponsesDtoToTareaTipoHoraDto(dto, tareaDto)));
     }
 
 }

@@ -11,14 +11,16 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalLocaliza
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 @Service
-public class TareaAmbitoGlobalLocalizacionPersonaAsyncServiceImpl implements TareaAmbitoGlobalLocalizacionPersonaAsyncService {
+public class TareaAmbitoGlobalLocalizacionPersonaAsyncServiceImpl
+        implements TareaAmbitoGlobalLocalizacionPersonaAsyncService {
 
     @Autowired
     private TareaAmbitoGlobalLocalizacionPersonaService tareaLocalizacionPersonaService;
 
     @Override
-    public CompletableFuture<Void> mergePersonaLocalizacion(final RunTareaDto tarea)  {
+    public CompletableFuture<Void> mergePersonaLocalizacion(final RunTareaDto tarea) {
         tareaLocalizacionPersonaService.mergePersonaLocalizacion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
+
 }

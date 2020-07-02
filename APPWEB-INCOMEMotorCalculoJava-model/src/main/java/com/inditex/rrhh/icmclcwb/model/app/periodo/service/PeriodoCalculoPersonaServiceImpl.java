@@ -16,7 +16,7 @@ public class PeriodoCalculoPersonaServiceImpl implements PeriodoCalculoPersonaSe
     @Autowired
     private PeriodoCalculoPersonaRepositoryCustom periodoCalculoPersonaRepositoryCustom;
 
-    //@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+    // @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
     @Override
     public void mergePeriodoCalculoPersona(@NotNull RunTareaDto tareaDto) {
         periodoCalculoPersonaRepositoryCustom.mergePeriodoCalculoPersona(tareaDto);

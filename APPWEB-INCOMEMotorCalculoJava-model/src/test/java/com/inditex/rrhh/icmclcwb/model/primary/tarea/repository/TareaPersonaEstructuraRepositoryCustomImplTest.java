@@ -1,35 +1,51 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import java.time.LocalDate;
-import java.util.Arrays;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaPersonaEstructuraRepositoryCustomImplTest {
 
     private static final String SQL_UPDATE_ACTIVO_TOPES = "SQL UPDATE ACTIVO TOPES";
+
     private static final String SQL_FIND_PERSONAS_CHALLENGE = "SQL FIND PERSONAS CHALLENGE";
+
+    private static final String SQL_SAVE = "SQL_SAVE";
+
+    @Mock
+    private JdbcTemplate jdbcTemplate;
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -45,21 +61,26 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaPersonaEstructuraRepositoryCustom, "sqlUpdateActivoTopes", SQL_UPDATE_ACTIVO_TOPES, true);
-        FieldUtils.writeField(tareaPersonaEstructuraRepositoryCustom, "sqlFindPersonasChallenge", SQL_FIND_PERSONAS_CHALLENGE, true);
+        FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlUpdateActivoTopes",
+                SQL_UPDATE_ACTIVO_TOPES,
+                true);
+        FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlFindPersonasChallenge",
+                SQL_FIND_PERSONAS_CHALLENGE, true);
+        FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlSave", SQL_SAVE, true);
+        FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "batchSize", 100, true);
     }
 
     @Test
     public void updateActivoTopesTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(890L);
         when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 1, 1));
 
-        tareaPersonaEstructuraRepositoryCustom.updateActivoTopes(tarea);
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_UPDATE_ACTIVO_TOPES, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        this.tareaPersonaEstructuraRepositoryCustom.updateActivoTopes(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_UPDATE_ACTIVO_TOPES, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: activo, fechaInicioPeriodo, idTarea, icmOrdTope
         assertEquals(4, params.getValues().size());
         // activo
@@ -67,7 +88,8 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
         // fechaInicioPeriodo
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
-        assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()), params.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
+        assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
         // idTarea
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
@@ -79,27 +101,40 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
     @Test
     public void findPersonasChallengeTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(8209L);
         when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 12, 1));
 
-        tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
-        verify(namedParameterJdbcTemplate, times(1)).query(sqlCaptor.capture(), paramsCaptor.capture(), any(RowMapper.class));
-        assertEquals(SQL_FIND_PERSONAS_CHALLENGE, sqlCaptor.getValue());
-        MapSqlParameterSource map = paramsCaptor.getValue();
+        this.tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<TareaPersonaEstructura>>any());
+        assertEquals(SQL_FIND_PERSONAS_CHALLENGE, this.sqlCaptor.getValue());
+        final MapSqlParameterSource map = this.paramsCaptor.getValue();
         // Parámetros de la consulta: fechaInicioPeriodo, idTarea, tiposCalculo
         assertEquals(3, map.getValues().size());
         // fechaInicio
         assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
-        assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()), map.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
+        assertEquals(TimeUtils.toDate(tarea.getFechaInicioPeriodo()),
+                map.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
         // idTarea
         assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), map.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         // fechaInicio
         assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
-        assertEquals(Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
-            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()), map.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
+        assertEquals(Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+                TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
+                TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()),
+                map.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
 
+    }
+
+    @Test
+    public void saveTest() {
+        final List<TareaPersonaEstructura> items = Arrays.asList(mock(TareaPersonaEstructura.class));
+        this.tareaPersonaEstructuraRepositoryCustom.save(items);
+        verify(this.namedParameterJdbcTemplate).batchUpdate(this.sqlCaptor.capture(),
+                any(SqlParameterSource[].class));
+        assertEquals(SQL_SAVE, this.sqlCaptor.getValue());
     }
 
 }
