@@ -29,7 +29,6 @@ public class PtrPresenciaTotalizadoResultItemDto {
 
     private Integer cadena;
 
-    // TODO: Revisar que este campo sea correcto.
     private Integer gestionLocal;
 
     private List<PtrSeccionPresenciasGenericType> listaSeccion;

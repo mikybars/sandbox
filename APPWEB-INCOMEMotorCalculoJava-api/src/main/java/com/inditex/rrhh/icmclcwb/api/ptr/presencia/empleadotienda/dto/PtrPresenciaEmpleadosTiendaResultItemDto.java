@@ -23,7 +23,6 @@ public class PtrPresenciaEmpleadosTiendaResultItemDto {
 
     private Integer cadena;
 
-    // TODO: Revisar que este campo sea correcto.
     private Integer gestionLocal;
 
     private List<Integer> personas;

@@ -22,7 +22,6 @@ public class PtrPresenciaTiendasEmpleadoResultItemDto {
 
     private Integer cadena;
 
-    // TODO: Revisar que este campo sea correcto.
     private Integer gestionLocal;
 
 }
