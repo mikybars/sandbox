@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;

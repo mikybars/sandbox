@@ -15,7 +15,7 @@ public class TareaAgrupacionCadenaRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaAgrupacionCadena>
         implements TareaAgrupacionCadenaRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-agrupacion-cadena:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-agrupacion-cadena:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaAgrupacionCadenaRepositoryCustom.save']}")

@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import lombok.Getter;

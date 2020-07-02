@@ -24,10 +24,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,28 +41,25 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "loginWithCertificateReturn"
+        "loginWithCertificateReturn"
 })
 @XmlRootElement(name = "loginWithCertificateResponse")
-public class LoginWithCertificateResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class LoginWithCertificateResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(required = true)
     protected M4LoginOutput loginWithCertificateReturn;
 
     /**
      * Obtiene el valor de la propiedad loginWithCertificateReturn.
-     * 
-     * @return
-     *     possible object is
-     *     {@link M4LoginOutput }
-     *     
+     * @return possible object is {@link M4LoginOutput }
+     *
      */
     public M4LoginOutput getLoginWithCertificateReturn() {
         return loginWithCertificateReturn;
@@ -68,18 +67,16 @@ public class LoginWithCertificateResponse implements Serializable, Cloneable, Co
 
     /**
      * Define el valor de la propiedad loginWithCertificateReturn.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link M4LoginOutput }
-     *     
+     * @param value allowed object is {@link M4LoginOutput }
+     *
      */
     public void setLoginWithCertificateReturn(M4LoginOutput value) {
         this.loginWithCertificateReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,11 @@ public class LoginWithCertificateResponse implements Serializable, Cloneable, Co
             lhsLoginWithCertificateReturn = this.getLoginWithCertificateReturn();
             M4LoginOutput rhsLoginWithCertificateReturn;
             rhsLoginWithCertificateReturn = that.getLoginWithCertificateReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "loginWithCertificateReturn", lhsLoginWithCertificateReturn), LocatorUtils.property(thatLocator, "loginWithCertificateReturn", rhsLoginWithCertificateReturn), lhsLoginWithCertificateReturn, rhsLoginWithCertificateReturn, (this.loginWithCertificateReturn!= null), (that.loginWithCertificateReturn!= null))) {
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "loginWithCertificateReturn", lhsLoginWithCertificateReturn),
+                    LocatorUtils.property(thatLocator, "loginWithCertificateReturn", rhsLoginWithCertificateReturn),
+                    lhsLoginWithCertificateReturn, rhsLoginWithCertificateReturn,
+                    (this.loginWithCertificateReturn != null), (that.loginWithCertificateReturn != null))) {
                 return false;
             }
         }
@@ -121,7 +122,8 @@ public class LoginWithCertificateResponse implements Serializable, Cloneable, Co
         {
             M4LoginOutput theLoginWithCertificateReturn;
             theLoginWithCertificateReturn = this.getLoginWithCertificateReturn();
-            strategy.appendField(locator, this, "loginWithCertificateReturn", buffer, theLoginWithCertificateReturn, (this.loginWithCertificateReturn!= null));
+            strategy.appendField(locator, this, "loginWithCertificateReturn", buffer, theLoginWithCertificateReturn,
+                    (this.loginWithCertificateReturn != null));
         }
         return buffer;
     }
@@ -131,7 +133,9 @@ public class LoginWithCertificateResponse implements Serializable, Cloneable, Co
         {
             M4LoginOutput theLoginWithCertificateReturn;
             theLoginWithCertificateReturn = this.getLoginWithCertificateReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "loginWithCertificateReturn", theLoginWithCertificateReturn), currentHashCode, theLoginWithCertificateReturn, (this.loginWithCertificateReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "loginWithCertificateReturn", theLoginWithCertificateReturn),
+                    currentHashCode, theLoginWithCertificateReturn, (this.loginWithCertificateReturn != null));
         }
         return currentHashCode;
     }
@@ -151,15 +155,19 @@ public class LoginWithCertificateResponse implements Serializable, Cloneable, Co
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof LoginWithCertificateResponse) {
             final LoginWithCertificateResponse copy = ((LoginWithCertificateResponse) draftCopy);
             {
-                Boolean loginWithCertificateReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.loginWithCertificateReturn!= null));
+                Boolean loginWithCertificateReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.loginWithCertificateReturn != null));
                 if (loginWithCertificateReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     M4LoginOutput sourceLoginWithCertificateReturn;
                     sourceLoginWithCertificateReturn = this.getLoginWithCertificateReturn();
-                    M4LoginOutput copyLoginWithCertificateReturn = ((M4LoginOutput) strategy.copy(LocatorUtils.property(locator, "loginWithCertificateReturn", sourceLoginWithCertificateReturn), sourceLoginWithCertificateReturn, (this.loginWithCertificateReturn!= null)));
+                    M4LoginOutput copyLoginWithCertificateReturn = ((M4LoginOutput) strategy.copy(
+                            LocatorUtils.property(locator, "loginWithCertificateReturn",
+                                    sourceLoginWithCertificateReturn),
+                            sourceLoginWithCertificateReturn, (this.loginWithCertificateReturn != null)));
                     copy.setLoginWithCertificateReturn(copyLoginWithCertificateReturn);
                 } else {
                     if (loginWithCertificateReturnShouldBeCopiedAndSet == Boolean.FALSE) {

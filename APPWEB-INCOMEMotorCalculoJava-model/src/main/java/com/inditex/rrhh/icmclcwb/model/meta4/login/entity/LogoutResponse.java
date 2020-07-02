@@ -23,10 +23,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -38,23 +40,23 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "logoutReturn"
+        "logoutReturn"
 })
 @XmlRootElement(name = "logoutResponse")
-public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     protected int logoutReturn;
 
     /**
      * Obtiene el valor de la propiedad logoutReturn.
-     * 
+     *
      */
     public int getLogoutReturn() {
         return logoutReturn;
@@ -62,14 +64,15 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
 
     /**
      * Define el valor de la propiedad logoutReturn.
-     * 
+     *
      */
     public void setLogoutReturn(int value) {
         this.logoutReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -81,7 +84,9 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
             lhsLogoutReturn = this.getLogoutReturn();
             int rhsLogoutReturn;
             rhsLogoutReturn = that.getLogoutReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "logoutReturn", lhsLogoutReturn), LocatorUtils.property(thatLocator, "logoutReturn", rhsLogoutReturn), lhsLogoutReturn, rhsLogoutReturn, true, true)) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "logoutReturn", lhsLogoutReturn),
+                    LocatorUtils.property(thatLocator, "logoutReturn", rhsLogoutReturn), lhsLogoutReturn,
+                    rhsLogoutReturn, true, true)) {
                 return false;
             }
         }
@@ -121,7 +126,8 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
         {
             int theLogoutReturn;
             theLogoutReturn = this.getLogoutReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logoutReturn", theLogoutReturn), currentHashCode, theLogoutReturn, true);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logoutReturn", theLogoutReturn),
+                    currentHashCode, theLogoutReturn, true);
         }
         return currentHashCode;
     }
@@ -141,7 +147,7 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof LogoutResponse) {
             final LogoutResponse copy = ((LogoutResponse) draftCopy);
             {
@@ -149,7 +155,9 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
                 if (logoutReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     int sourceLogoutReturn;
                     sourceLogoutReturn = this.getLogoutReturn();
-                    int copyLogoutReturn = strategy.copy(LocatorUtils.property(locator, "logoutReturn", sourceLogoutReturn), sourceLogoutReturn, true);
+                    int copyLogoutReturn = strategy.copy(
+                            LocatorUtils.property(locator, "logoutReturn", sourceLogoutReturn), sourceLogoutReturn,
+                            true);
                     copy.setLogoutReturn(copyLogoutReturn);
                 } else {
                     if (logoutReturnShouldBeCopiedAndSet == Boolean.FALSE) {

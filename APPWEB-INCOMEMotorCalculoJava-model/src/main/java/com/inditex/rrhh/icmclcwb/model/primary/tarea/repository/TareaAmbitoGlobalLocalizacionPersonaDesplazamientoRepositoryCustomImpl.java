@@ -13,7 +13,7 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustomI
         JdbcBatchPrimaryRepositoryAbstract<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento>
         implements TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-ambito-global-localizacion-persona-desplazamiento:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-ambito-global-localizacion-persona-desplazamiento:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom.save']}")

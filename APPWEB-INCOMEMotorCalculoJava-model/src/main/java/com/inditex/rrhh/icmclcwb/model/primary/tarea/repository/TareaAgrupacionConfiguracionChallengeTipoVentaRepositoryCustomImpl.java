@@ -13,7 +13,7 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaAgrupacionConfiguracionChallengeTipoVenta>
         implements TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom {
 
-    @Value("${app.envars.repository.batch-size.tarea-agrupacion-configuracion-challenge-tipo-venta:${app.envars.repository.batch-size.default}}")
+    @Value("${app.envars.repository.batch-size.tarea-agrupacion-configuracion-challenge-tipo-venta:0}")
     private int batchSize;
 
     @Value("#{primaryQuery['TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save']}")
