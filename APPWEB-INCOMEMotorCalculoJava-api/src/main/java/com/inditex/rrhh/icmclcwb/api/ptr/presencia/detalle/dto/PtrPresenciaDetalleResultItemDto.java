@@ -34,8 +34,8 @@ public class PtrPresenciaDetalleResultItemDto implements Serializable {
     private Integer origen;
 
     private Integer empresa;
-    
-    //TODO: Revisar que este campo sea correcto.
+
+    // TODO: Revisar que este campo sea correcto.
     private Integer gestionLocal;
 
     private List<PtrSeccionPresenciasGenericType> listaSeccion;

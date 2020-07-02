@@ -22,8 +22,8 @@ public class PtrPresenciaEmpleadosTiendaResultItemDto {
     private Integer empresa;
 
     private Integer cadena;
-    
-    //TODO: Revisar que este campo sea correcto.
+
+    // TODO: Revisar que este campo sea correcto.
     private Integer gestionLocal;
 
     private List<Integer> personas;

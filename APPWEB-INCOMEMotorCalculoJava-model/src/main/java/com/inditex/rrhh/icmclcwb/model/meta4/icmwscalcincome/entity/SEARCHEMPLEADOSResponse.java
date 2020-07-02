@@ -24,10 +24,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,28 +41,25 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "searchempleadosReturn"
+        "searchempleadosReturn"
 })
 @XmlRootElement(name = "SEARCHEMPLEADOSResponse")
-public class SEARCHEMPLEADOSResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class SEARCHEMPLEADOSResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "SEARCHEMPLEADOSReturn", required = true)
     protected SearchempleadosOutput searchempleadosReturn;
 
     /**
      * Obtiene el valor de la propiedad searchempleadosReturn.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SearchempleadosOutput }
-     *     
+     * @return possible object is {@link SearchempleadosOutput }
+     *
      */
     public SearchempleadosOutput getSEARCHEMPLEADOSReturn() {
         return searchempleadosReturn;
@@ -68,18 +67,16 @@ public class SEARCHEMPLEADOSResponse implements Serializable, Cloneable, CopyTo2
 
     /**
      * Define el valor de la propiedad searchempleadosReturn.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SearchempleadosOutput }
-     *     
+     * @param value allowed object is {@link SearchempleadosOutput }
+     *
      */
     public void setSEARCHEMPLEADOSReturn(SearchempleadosOutput value) {
         this.searchempleadosReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,10 @@ public class SEARCHEMPLEADOSResponse implements Serializable, Cloneable, CopyTo2
             lhsSEARCHEMPLEADOSReturn = this.getSEARCHEMPLEADOSReturn();
             SearchempleadosOutput rhsSEARCHEMPLEADOSReturn;
             rhsSEARCHEMPLEADOSReturn = that.getSEARCHEMPLEADOSReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "searchempleadosReturn", lhsSEARCHEMPLEADOSReturn), LocatorUtils.property(thatLocator, "searchempleadosReturn", rhsSEARCHEMPLEADOSReturn), lhsSEARCHEMPLEADOSReturn, rhsSEARCHEMPLEADOSReturn, (this.searchempleadosReturn!= null), (that.searchempleadosReturn!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "searchempleadosReturn", lhsSEARCHEMPLEADOSReturn),
+                    LocatorUtils.property(thatLocator, "searchempleadosReturn", rhsSEARCHEMPLEADOSReturn),
+                    lhsSEARCHEMPLEADOSReturn, rhsSEARCHEMPLEADOSReturn, (this.searchempleadosReturn != null),
+                    (that.searchempleadosReturn != null))) {
                 return false;
             }
         }
@@ -121,7 +121,8 @@ public class SEARCHEMPLEADOSResponse implements Serializable, Cloneable, CopyTo2
         {
             SearchempleadosOutput theSEARCHEMPLEADOSReturn;
             theSEARCHEMPLEADOSReturn = this.getSEARCHEMPLEADOSReturn();
-            strategy.appendField(locator, this, "searchempleadosReturn", buffer, theSEARCHEMPLEADOSReturn, (this.searchempleadosReturn!= null));
+            strategy.appendField(locator, this, "searchempleadosReturn", buffer, theSEARCHEMPLEADOSReturn,
+                    (this.searchempleadosReturn != null));
         }
         return buffer;
     }
@@ -131,7 +132,9 @@ public class SEARCHEMPLEADOSResponse implements Serializable, Cloneable, CopyTo2
         {
             SearchempleadosOutput theSEARCHEMPLEADOSReturn;
             theSEARCHEMPLEADOSReturn = this.getSEARCHEMPLEADOSReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "searchempleadosReturn", theSEARCHEMPLEADOSReturn), currentHashCode, theSEARCHEMPLEADOSReturn, (this.searchempleadosReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "searchempleadosReturn", theSEARCHEMPLEADOSReturn), currentHashCode,
+                    theSEARCHEMPLEADOSReturn, (this.searchempleadosReturn != null));
         }
         return currentHashCode;
     }
@@ -151,15 +154,18 @@ public class SEARCHEMPLEADOSResponse implements Serializable, Cloneable, CopyTo2
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof SEARCHEMPLEADOSResponse) {
             final SEARCHEMPLEADOSResponse copy = ((SEARCHEMPLEADOSResponse) draftCopy);
             {
-                Boolean searchempleadosReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.searchempleadosReturn!= null));
+                Boolean searchempleadosReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.searchempleadosReturn != null));
                 if (searchempleadosReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     SearchempleadosOutput sourceSEARCHEMPLEADOSReturn;
                     sourceSEARCHEMPLEADOSReturn = this.getSEARCHEMPLEADOSReturn();
-                    SearchempleadosOutput copySEARCHEMPLEADOSReturn = ((SearchempleadosOutput) strategy.copy(LocatorUtils.property(locator, "searchempleadosReturn", sourceSEARCHEMPLEADOSReturn), sourceSEARCHEMPLEADOSReturn, (this.searchempleadosReturn!= null)));
+                    SearchempleadosOutput copySEARCHEMPLEADOSReturn = ((SearchempleadosOutput) strategy.copy(
+                            LocatorUtils.property(locator, "searchempleadosReturn", sourceSEARCHEMPLEADOSReturn),
+                            sourceSEARCHEMPLEADOSReturn, (this.searchempleadosReturn != null)));
                     copy.setSEARCHEMPLEADOSReturn(copySEARCHEMPLEADOSReturn);
                 } else {
                     if (searchempleadosReturnShouldBeCopiedAndSet == Boolean.FALSE) {
