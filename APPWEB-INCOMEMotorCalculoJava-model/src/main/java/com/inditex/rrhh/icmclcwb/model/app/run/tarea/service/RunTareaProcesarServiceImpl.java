@@ -50,15 +50,17 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 .desactivarChallengeOpcionOrigen(runTarea);
             AsyncUtils.exceptionally(cfDesactivarChallengeOpcionOrigen, cf, cfWait);
 
-            final CompletableFuture<Void> cfCrearChallengeOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
-                .crearChallengeOpcionOrigen(runTarea);
-            AsyncUtils.exceptionally(cfCrearChallengeOpcionOrigen, cf, cfWait);
-
-
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
+            final CompletableFuture<Void> cfCrearChallengeOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
+                .crearChallengeOpcionOrigen(runTarea);
+            AsyncUtils.exceptionally(cfCrearChallengeOpcionOrigen, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
 
             // Actualizar importe de estructuras minimo garantizado
             final CompletableFuture<Void> cfUpdateImporteEstructuraPoliticas = this.runTareaProcesarCondicionesAsyncService
@@ -130,9 +132,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             /*-------------------------------------------------------------*/
 
             // Activar estructuras topes
-            final CompletableFuture<Void> cfActivoTopes = this.runTareaProcesarCondicionesAsyncService
-                .updateActivoEstructurasTopes(runTarea.getTarea());
-            AsyncUtils.exceptionally(cfActivoTopes, cf, cfWait);
+            // final CompletableFuture<Void> cfActivoTopes = this.runTareaProcesarCondicionesAsyncService
+            // .updateActivoEstructurasTopes(runTarea.getTarea());
+            // AsyncUtils.exceptionally(cfActivoTopes, cf, cfWait);
 
             // Calcular localizacion abierta
             final CompletableFuture<Void> cfSaveAbierto = this.runTareaProcesarVentaAsyncService.saveAbierto(runTarea);
