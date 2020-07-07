@@ -150,4 +150,10 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
                     fechaFin);
     }
 
+    @Override
+    public void mergeLocalizacionFicticia(@NotNull final Long idTarea, @NotNull final String cclIdOrigen) {
+        this.tareaLocalizacionHistoricoRepositoryCustom
+            .mergeLocalizacionFicticia(idTarea, cclIdOrigen);
+    }
+
 }

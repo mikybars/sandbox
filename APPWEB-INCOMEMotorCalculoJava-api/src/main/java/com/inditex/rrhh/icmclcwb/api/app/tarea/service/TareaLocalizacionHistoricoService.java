@@ -57,4 +57,6 @@ public interface TareaLocalizacionHistoricoService {
             @NotNull @Positive Long idTarea, @NotNull @Positive Integer idTipoPresupuesto,
             @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin);
 
+    void mergeLocalizacionFicticia(@NotNull Long idTarea, @NotNull String cclIdOrigen);
+
 }
