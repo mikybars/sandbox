@@ -1,10 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service;
 
 
+import javax.validation.Valid;
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-
-import javax.validation.Valid;
 
 public interface RunTareaProcesarCondicionesService {
 
@@ -17,5 +17,9 @@ public interface RunTareaProcesarCondicionesService {
     void relacionarPresupuestosEstructurasSinDesplazamiento(@Valid final TareaDto tarea);
 
     void relacionarPresupuestosEstructurasDesplazamiento(@Valid final TareaDto tarea);
+
+    void desactivarChallengeOpcionOrigen(@Valid TareaDto tarea);
+
+    void crearChallengeOpcionOrigen(@Valid TareaDto tarea);
 
 }

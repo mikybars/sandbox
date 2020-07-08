@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -142,10 +141,10 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
             final List<PtrVentaTotalizadoResultItemDto> src, final IdLocalizacionLocalPresupuestoDto iter,
             final TareaDto tarea) {
         final List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
-        final AtomicDouble importeSinIva = new AtomicDouble(0);
-        final AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
+                final AtomicDouble importeSinIva = new AtomicDouble(0);
+                final AtomicDouble importeConIva = new AtomicDouble(0);
                 item.getListaSeccion().stream().forEach(venta -> {
                     final List<String> ordinal = this.tareaLocalizacionPresupuestoService
                         .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), venta.getSeccion(),
@@ -230,11 +229,10 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
             final List<PtrVentaOnlineIpodResultItemDto> src, final IdLocalizacionLocalPresupuestoDto iter,
             final TareaDto tarea) {
         final List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
-        final AtomicDouble importeSinIva = new AtomicDouble(0);
-        final AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
-                final AtomicInteger counter = new AtomicInteger(0);
+                final AtomicDouble importeSinIva = new AtomicDouble(0);
+                final AtomicDouble importeConIva = new AtomicDouble(0);
                 item.getListaSeccion().stream().forEach(venta -> {
                     final List<String> ordinal = this.tareaLocalizacionPresupuestoService
                         .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), venta.getSeccion(),
@@ -257,7 +255,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                         tareaLocalizacionPresupuestoVenta
                             .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                         tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
-                        tareaLocalizacionPresupuestoVenta.setOrdinal(counter.incrementAndGet());
+                        tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
                         dtoList.add(tareaLocalizacionPresupuestoVenta);
                         importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
                         importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
@@ -269,7 +267,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                 ordinalSeccion4.stream().forEach(a -> {
                     final TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = this.delegate
                         .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
-                    tareaLocalizacionPresupuestoVenta.setOrdinal(counter.incrementAndGet());
+                    tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
                     tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(
@@ -295,11 +293,10 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
             final List<PtrVentaOnlinePickingResultItemDto> src, final IdLocalizacionLocalPresupuestoDto iter,
             final TareaDto tarea) {
         final List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
-        final AtomicDouble importeSinIva = new AtomicDouble(0);
-        final AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
-                final AtomicInteger counter = new AtomicInteger(0);
+                final AtomicDouble importeSinIva = new AtomicDouble(0);
+                final AtomicDouble importeConIva = new AtomicDouble(0);
                 item.getListaSeccion().stream().forEach(venta -> {
                     final List<String> ordinal = this.tareaLocalizacionPresupuestoService
                         .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), venta.getSeccion(),
@@ -322,7 +319,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                         tareaLocalizacionPresupuestoVenta
                             .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                         tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
-                        tareaLocalizacionPresupuestoVenta.setOrdinal(counter.incrementAndGet());
+                        tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
 
                         dtoList.add(tareaLocalizacionPresupuestoVenta);
                         importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
@@ -335,7 +332,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                 ordinalSeccion4.stream().forEach(a -> {
                     final TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = this.delegate
                         .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
-                    tareaLocalizacionPresupuestoVenta.setOrdinal(counter.incrementAndGet());
+                    tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
                     tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(
@@ -361,11 +358,10 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
             final List<PtrVentaOnlineEntregaTiendaResultItemDto> src, final IdLocalizacionLocalPresupuestoDto iter,
             final TareaDto tarea) {
         final List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
-        final AtomicDouble importeSinIva = new AtomicDouble(0);
-        final AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
-                final AtomicInteger counter = new AtomicInteger(0);
+                final AtomicDouble importeSinIva = new AtomicDouble(0);
+                final AtomicDouble importeConIva = new AtomicDouble(0);
                 item.getListaSeccion().stream().forEach(venta -> {
                     final List<String> ordinal = this.tareaLocalizacionPresupuestoService
                         .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), venta.getSeccion(),
@@ -388,7 +384,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                         tareaLocalizacionPresupuestoVenta
                             .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                         tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
-                        tareaLocalizacionPresupuestoVenta.setOrdinal(counter.incrementAndGet());
+                        tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
 
                         dtoList.add(tareaLocalizacionPresupuestoVenta);
                         importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
@@ -401,7 +397,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                 ordinalSeccion4.stream().forEach(a -> {
                     final TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = this.delegate
                         .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
-                    tareaLocalizacionPresupuestoVenta.setOrdinal(counter.incrementAndGet());
+                    tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
                     tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
@@ -427,11 +423,10 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
             final List<PtrVentaOnlineEntregaDomicilioResultItemDto> src, final IdLocalizacionLocalPresupuestoDto iter,
             final TareaDto tarea) {
         final List<TareaLocalizacionPresupuestoVenta> dtoList = new ArrayList<>();
-        final AtomicDouble importeSinIva = new AtomicDouble(0);
-        final AtomicDouble importeConIva = new AtomicDouble(0);
         if (CollectionUtils.isNotEmpty(src)) {
             src.stream().forEach(item -> {
-                final AtomicInteger counter = new AtomicInteger(0);
+                final AtomicDouble importeSinIva = new AtomicDouble(0);
+                final AtomicDouble importeConIva = new AtomicDouble(0);
                 item.getListaSeccion().stream().forEach(venta -> {
                     final List<String> ordinal = this.tareaLocalizacionPresupuestoService
                         .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), venta.getSeccion(),
@@ -454,7 +449,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                         tareaLocalizacionPresupuestoVenta
                             .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                         tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
-                        tareaLocalizacionPresupuestoVenta.setOrdinal(counter.incrementAndGet());
+                        tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
 
                         dtoList.add(tareaLocalizacionPresupuestoVenta);
                         importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
@@ -467,7 +462,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                 ordinalSeccion4.stream().forEach(a -> {
                     final TareaLocalizacionPresupuestoVenta tareaLocalizacionPresupuestoVenta = this.delegate
                         .responseItemDtoToTareaLocalizacionPresupuestoVenta(item, iter, tarea);
-                    tareaLocalizacionPresupuestoVenta.setOrdinal(counter.incrementAndGet());
+                    tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
                     tareaLocalizacionPresupuestoVenta.setImporteConImpuestos(importeConIva.doubleValue());
                     tareaLocalizacionPresupuestoVenta.setImporteSinImpuestos(importeSinIva.doubleValue());
                     tareaLocalizacionPresupuestoVenta.setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()

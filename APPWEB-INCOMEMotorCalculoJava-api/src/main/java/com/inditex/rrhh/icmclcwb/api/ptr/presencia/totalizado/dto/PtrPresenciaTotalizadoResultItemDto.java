@@ -29,6 +29,8 @@ public class PtrPresenciaTotalizadoResultItemDto {
 
     private Integer cadena;
 
+    private Integer gestionLocal;
+
     private List<PtrSeccionPresenciasGenericType> listaSeccion;
 
 }

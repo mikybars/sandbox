@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -138,7 +139,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
                             final PtrPresenciaDetalleRequestDto paramPresenciasDetalle = this.tareaMapper
                                 .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(tarea,
                                         tareaAmbito, periodo);
-                            paramPresenciasDetalle.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
+                            paramPresenciasDetalle.setEmpresa(Arrays.asList(Integer.valueOf(x.getStdIdLegEnt())));
                             paramPresenciasDetalle.setTienda(iter.stream()
                                 .map(IdLocalizacionLocalDto::getId)
                                 .map(Integer::valueOf)

@@ -464,13 +464,10 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                             .stream()
                             .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                             .collect(Collectors.toList()));
-
                         final CompletableFuture<PtrVentaOnlineIpodResponseDto> cfData = this.ptrVentaEcommerceAsyncService
                             .ventaOnlineiPod(paramVentaOnlineIpod);
                         AsyncUtils.exceptionally(cfData, cf, cfPersist);
-
                         final PtrVentaOnlineIpodResponseDto data = AsyncUtils.get(cfData);
-
                         AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaEcommerceProperties
                             .get(PtrPropertiesConstants.VENTA_ONLINE_IPOD)
                             .getFilter()

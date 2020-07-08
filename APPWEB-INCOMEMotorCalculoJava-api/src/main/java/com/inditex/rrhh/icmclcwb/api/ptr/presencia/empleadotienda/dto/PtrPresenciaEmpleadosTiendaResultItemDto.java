@@ -23,6 +23,8 @@ public class PtrPresenciaEmpleadosTiendaResultItemDto {
 
     private Integer cadena;
 
+    private Integer gestionLocal;
+
     private List<Integer> personas;
 
 }

@@ -144,6 +144,9 @@
   <entry key="LimpiezaRepositoryCustom.limpieza.tareaAgrupacionConfiguracionChallengeTipoVenta">
     <![CDATA[DELETE FROM TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA WHERE ID_TAREA = :idTarea]]>
   </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresupuestoTareaPersonaEstructura">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo]]>
+  </entry>
 
 
 </properties>

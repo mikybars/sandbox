@@ -66,7 +66,7 @@ public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomT
         // tiposCalculoChallengeLocalizacion,
         // tiposCalculoChallengePrecioHora, activo
         MapSqlParameterSource params = paramsCaptor.getValue();
-        assertEquals(6, params.getValues().size());
+        assertEquals(5, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
@@ -86,12 +86,6 @@ public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomT
                 Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
                         TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()),
                 params.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION));
-        // tiposCalculoChallengePrecioHora
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_PRECIO_HORA));
-        assertEquals(
-                Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-                        TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId()),
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_PRECIO_HORA));
         // activo
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
