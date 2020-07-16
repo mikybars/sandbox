@@ -48,7 +48,6 @@ public abstract class TrabajoAmbitoPersonaMapper {
     @Mapping(target = "abierto", ignore = true)
     @Mapping(target = "vigente", ignore = true)
     @Mapping(target = "idTipoHora", ignore = true)
-    @Mapping(target = "idEmpleadoLocal", ignore = true)
     @Mapping(target = "idLugarTrabajoMtu", ignore = true)
     @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "idSociedadReg", ignore = true)
@@ -73,6 +72,7 @@ public abstract class TrabajoAmbitoPersonaMapper {
     @Mapping(target = "idEmpresa", source = "stdIdLegEnt")
     @Mapping(target = "idEmpleado", source = "cclIdPerson")
     @Mapping(target = "orEmpleado", source = "stdOrHrPeriod")
+    @Mapping(target = "idEmpleadoLocal", source = "cclIdPerson")
     public abstract SaveProcesoParametersDto trabajoAmbitoPersonaDtoToSaveProcesoParametersDto(
             TrabajoAmbitoPersonaDto src);
 
