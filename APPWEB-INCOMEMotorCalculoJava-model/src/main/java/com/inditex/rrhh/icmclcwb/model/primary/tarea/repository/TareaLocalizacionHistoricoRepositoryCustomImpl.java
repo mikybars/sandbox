@@ -72,6 +72,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea']}")
     private String sqlFindIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea;
 
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.mergeLocalizacionFicticia']}")
+    private String sqlMergeLocalizacionFicticia;
+
     @Override
     public List<TareaLocalizacionHistorico> save(final List<TareaLocalizacionHistorico> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -278,6 +281,16 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                 (rs, rowNum) -> IdLocalizacionLocalDto.builder()
                     .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
                     .build());
+    }
+
+    @Override
+    public void mergeLocalizacionFicticia(@NotNull final Long idTarea,
+            @NotNull final String cclIdOrigen) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+
+        this.update(this.sqlMergeLocalizacionFicticia, params);
     }
 
 }
