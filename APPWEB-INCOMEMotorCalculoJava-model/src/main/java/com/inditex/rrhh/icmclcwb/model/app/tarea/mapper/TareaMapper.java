@@ -84,12 +84,12 @@ public abstract class TareaMapper {
 
     @Mapping(target = "item", ignore = true)
     @Mapping(target = "idCadena", ignore = true)
-    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")
-    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()))")
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(periodo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(periodo.getFechaFinPeriodo()))")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "idEmpresa", ignore = true)
     public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
-            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo);
 
     @Mapping(target = "item", ignore = true)
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(periodo.getFechaInicioPeriodo()))")
@@ -150,7 +150,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaInicioPeriodo()))")
     @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaFinPeriodo()))")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "idEmpresa", ignore = true)
     public abstract GenericFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
 
@@ -204,7 +204,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( periodo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "temporada", ignore = true)
@@ -217,9 +217,10 @@ public abstract class TareaMapper {
 
     @Mapping(target = "tienda", ignore = true)
     @Mapping(target = "fechaDesde", source = "srcPresupuesto.fechaInicio", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(target = "fechaHasta", source = "srcPresupuesto.fechaFin", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "fechaHasta",
+            expression = "java(RunUtils.addDays( srcPresupuesto.getFechaFin(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "temporada", ignore = true)
@@ -232,9 +233,10 @@ public abstract class TareaMapper {
             RecolectarPropertiesDto srcRecolectarProperties);
 
     @Mapping(target = "fechaDesde", source = "srcPresupuesto.fechaInicio", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(target = "fechaHasta", source = "srcPresupuesto.fechaFin", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "fechaHasta",
+            expression = "java(RunUtils.addDays( srcPresupuesto.getFechaFin(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "tiendaOnline", ignore = true)
     @Mapping(target = "seccion", ignore = true)
@@ -248,9 +250,10 @@ public abstract class TareaMapper {
 
     @Mapping(target = "tienda", ignore = true)
     @Mapping(target = "fechaDesde", source = "srcPresupuesto.fechaInicio", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(target = "fechaHasta", source = "srcPresupuesto.fechaFin", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "fechaHasta",
+            expression = "java(RunUtils.addDays( srcPresupuesto.getFechaFin(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "tiendaOnline", ignore = true)
     @Mapping(target = "seccion", ignore = true)
@@ -264,9 +267,10 @@ public abstract class TareaMapper {
 
     @Mapping(target = "tienda", ignore = true)
     @Mapping(target = "fechaDesde", source = "srcPresupuesto.fechaInicio", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(target = "fechaHasta", source = "srcPresupuesto.fechaFin", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "fechaHasta",
+            expression = "java(RunUtils.addDays( srcPresupuesto.getFechaFin(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "tiendaOnline", ignore = true)
     @Mapping(target = "seccion", ignore = true)
@@ -316,7 +320,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( periodo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "temporada", ignore = true)
@@ -343,7 +347,6 @@ public abstract class TareaMapper {
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, RecolectarPropertiesDto srcRecolectarProperties,
             PeriodoDto periodo, List<IdCadenaDto> cadenas);
 
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( srcTrabajo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
@@ -359,6 +362,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaVentaInicial", ignore = true)
     @Mapping(target = "cajero", ignore = true)
     @Mapping(target = "operacion", ignore = true)
+    @Mapping(target = "empresa", ignore = true)
     public abstract PtrVentaIndividualDetalleRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             RecolectarPropertiesDto srcRecolectarProperties);
@@ -369,7 +373,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( srcTrabajo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "origen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", expression = "java(Arrays.asList(Integer.valueOf(srcTarea.getStdIdLegEnt())))")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true, defaultValue = PtrConstants.AGRUPAR_SECCION_TRUE)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "tipo", ignore = true)
@@ -390,7 +394,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( periodo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "origen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", expression = "java(Arrays.asList(Integer.valueOf(srcTarea.getStdIdLegEnt())))")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true, defaultValue = PtrConstants.AGRUPAR_SECCION_TRUE)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "tipo", ignore = true)
@@ -410,7 +414,6 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaDesde", source = "periodo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "fechaHasta", source = "periodo.fechaFinPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "origen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", expression = "java(Arrays.asList(Integer.valueOf(srcTarea.getStdIdLegEnt())))")
     @Mapping(target = "agruparSeccion", ignore = true, defaultValue = PtrConstants.AGRUPAR_SECCION_TRUE)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "tipo", ignore = true)
@@ -421,6 +424,7 @@ public abstract class TareaMapper {
     @Mapping(target = "excluidoDenom", ignore = true)
     @Mapping(target = "excluidoCalculo", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "empresa", ignore = true)
     public abstract PtrPresenciaDetalleRequestDto mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo);
 
@@ -458,9 +462,9 @@ public abstract class TareaMapper {
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo,
             List<IdLocalizacionLocalDto> srcLocalizaciones);
 
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "fechaHasta",
+            expression = "java(RunUtils.addDays( srcTrabajo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "tiendaOnline", ignore = true)
@@ -469,6 +473,7 @@ public abstract class TareaMapper {
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
+    @Mapping(target = "empresa", ignore = true)
     public abstract PtrVentaOnlineIpodRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             RecolectarPropertiesDto srcRecolectarProperties);
@@ -487,7 +492,6 @@ public abstract class TareaMapper {
     public abstract PtrVentaOnlineIpodRequestDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrVentaOnlineIpodRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo);
 
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( srcTrabajo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
@@ -501,6 +505,7 @@ public abstract class TareaMapper {
     @Mapping(target = "operacion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
+    @Mapping(target = "empresa", ignore = true)
     public abstract PtrVentaOnlineIpodIndividualDetalleRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodIndividualDetalleRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             RecolectarPropertiesDto srcRecolectarProperties);

@@ -20,6 +20,15 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     private RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
 
     @Override
+    public void fechaAmbitoAndEmpresaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .fechaAmbitoAndEmpresaByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
     public void personaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()

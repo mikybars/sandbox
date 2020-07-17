@@ -1,0 +1,75 @@
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesBaseService;
+import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
+
+@Service
+@Validated
+public class RunTareaRecolectarCondicionesBaseServiceImpl implements RunTareaRecolectarCondicionesBaseService {
+
+    @Autowired
+    private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+
+
+    @Auditoria
+    @TimerFunctionalMetric(metricName = "RunTareaRecolectarCondicionesBaseService.run.timer",
+            metricGroupName = "RunTareaRecolectarCondicionesBaseService",
+            metricDescription = "RunTareaRecolectarCondicionesBaseService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaRecolectarCondicionesBaseService.run.counter",
+            metricGroupName = "RunTareaRecolectarCondicionesBaseService",
+            metricDescription = "RunTareaRecolectarCondicionesBaseService.run.counter")
+    @Override
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            /*-----------------------------------------------------------------*/
+            /*
+             * Carga inicial de estructuras
+             */
+            /*-----------------------------------------------------------------*/
+
+            // Estructuras (Tramado estructuras (ApV) Detalle comision (Meta4))
+            final CompletableFuture<Void> cfEstructurasCom = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .estructurasComByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfEstructurasCom, cf);
+
+            final CompletableFuture<Void> cfEstructurasPol = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .estructurasPolByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfEstructurasPol, cf);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+            final CompletableFuture<Void> cfPresupuestos = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .presupuestosWlocByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresupuestos, cf);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+
+
+        } catch (final Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
+}

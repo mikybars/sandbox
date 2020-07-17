@@ -209,9 +209,35 @@
 </memory>
 <expiration max-idle="3600000" />
 </replicated-cache>
+<replicated-cache name="itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_tipo_calculo" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.id_localizacion_local_presupuestos_by_id_empresa_and_id_tarea" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa_and_id_tipo_calculo" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
 <replicated-cache name="itx.icmlcwb.id_localizacion_local_by_id_tipo_presupuesto_and_fecha_and_tarea" mode="SYNC" statistics="true">
 <memory>
   <object size="1000" />
 </memory>
 <expiration max-idle="3600000" />
 </replicated-cache>
+
+

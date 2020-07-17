@@ -65,6 +65,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_STD_ID_WORK_LOCAT = "stdIdWorkLocat";
 
+    public static final String SQL_PARAM_STD_ID_LEG_ENT = "stdIdLegEnt";
+
     public static final String SQL_PARAM_ID_ESTADO = "idEstado";
 
     public static final String SQL_PARAM_ID_SECCION = "idSeccion";
