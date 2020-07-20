@@ -180,10 +180,11 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                                 .build());
                         }
                         dtoList.add(tareaLocalizacionPresupuestoVenta);
-                        importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
-                        importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                     });
+                    importeSinIva.getAndAdd(venta.getImporteSinIVA().doubleValue());
+                    importeConIva.getAndAdd(venta.getImporteConIVA().doubleValue());
                 });
+
                 final List<String> ordinalSeccion4 = this.tareaLocalizacionPresupuestoService
                     .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), AppConstants.SECCION_4,
                             iter.getFechaInicio(), iter.getFechaFin(), iter.getIdTipoPresupuesto());
@@ -257,9 +258,10 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                         tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
                         tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
                         dtoList.add(tareaLocalizacionPresupuestoVenta);
-                        importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
-                        importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
+
                     });
+                    importeSinIva.getAndAdd(venta.getImporteSinIVA().doubleValue());
+                    importeConIva.getAndAdd(venta.getImporteConIVA().doubleValue());
                 });
                 final List<String> ordinalSeccion4 = this.tareaLocalizacionPresupuestoService
                     .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), AppConstants.SECCION_4,
@@ -322,9 +324,9 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                         tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
 
                         dtoList.add(tareaLocalizacionPresupuestoVenta);
-                        importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
-                        importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                     });
+                    importeSinIva.getAndAdd(venta.getImporteSinIVA().doubleValue());
+                    importeConIva.getAndAdd(venta.getImporteConIVA().doubleValue());
                 });
                 final List<String> ordinalSeccion4 = this.tareaLocalizacionPresupuestoService
                     .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), AppConstants.SECCION_4,
@@ -387,9 +389,9 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                         tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
 
                         dtoList.add(tareaLocalizacionPresupuestoVenta);
-                        importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
-                        importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                     });
+                    importeSinIva.getAndAdd(venta.getImporteSinIVA().doubleValue());
+                    importeConIva.getAndAdd(venta.getImporteConIVA().doubleValue());
                 });
                 final List<String> ordinalSeccion4 = this.tareaLocalizacionPresupuestoService
                     .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), AppConstants.SECCION_4,
@@ -452,9 +454,9 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                         tareaLocalizacionPresupuestoVenta.setOrdinal(Integer.valueOf(a));
 
                         dtoList.add(tareaLocalizacionPresupuestoVenta);
-                        importeSinIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteSinImpuestos());
-                        importeConIva.getAndAdd(tareaLocalizacionPresupuestoVenta.getImporteConImpuestos());
                     });
+                    importeSinIva.getAndAdd(venta.getImporteSinIVA().doubleValue());
+                    importeConIva.getAndAdd(venta.getImporteConIVA().doubleValue());
                 });
                 final List<String> ordinalSeccion4 = this.tareaLocalizacionPresupuestoService
                     .findLocalizacionOrdinalTarea(tarea.getId(), item.getTienda(), AppConstants.SECCION_4,
