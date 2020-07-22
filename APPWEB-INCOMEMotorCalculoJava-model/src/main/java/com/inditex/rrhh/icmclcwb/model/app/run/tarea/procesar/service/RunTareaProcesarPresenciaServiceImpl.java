@@ -2,13 +2,13 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
 import javax.validation.Valid;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionPresenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
 
@@ -26,99 +26,104 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     private TareaAgrupacionPresenciaService tareaAgrupacionPresenciaService;
 
     @Override
-    public void compensarLocalizacion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresenciaService.compensar(runTarea);
+    public void compensarLocalizacion(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresenciaService.compensar(runTarea);
     }
 
     @Override
-    public void totalizarLocalizacion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresenciaService.totalizar(runTarea);
+    public void totalizarLocalizacion(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresenciaService.totalizar(runTarea);
     }
 
     @Override
-    public void totalizarEcommerceLocalizacion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresenciaService.totalizarEcommerce(runTarea);
+    public void totalizarEcommerceLocalizacion(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresenciaService.totalizarEcommerce(runTarea);
     }
 
     @Override
-    public void totalizarEmpleadosPorVenta(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresenciaService.totalizarEmpleadosPorVenta(runTarea);
+    public void totalizarEmpleadosPorVenta(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresenciaService.totalizarEmpleadosPorVenta(runTarea);
     }
 
     @Override
-    public void compensarLocalizacionEcommerce(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresenciaService.compensarEcommerce(runTarea);
+    public void compensarLocalizacionEcommerce(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresenciaService.compensarEcommerce(runTarea);
     }
 
     @Override
-    public void updateActivoLocalizacionVacio(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresenciaService.updateActivoVacio(runTarea);
+    public void updateActivoLocalizacionVacio(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresenciaService.updateActivoVacio(runTarea);
     }
 
     @Override
-    public void updateActivoLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.updateActivo(runTarea);
+    public void updateActivoLocalizacionPersonaPresencia(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.updateActivo(runTarea);
     }
 
     @Override
-    public void updateActivoLocalizacionPersonaPresenciaVacio(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.updateActivoVacio(runTarea);
+    public void updateActivoLocalizacionPersonaPresenciaVacio(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.updateActivoVacio(runTarea);
     }
 
     @Override
-    public void compensarLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.compensar(runTarea);
+    public void compensarLocalizacionPersonaPresencia(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.compensar(runTarea);
     }
 
     @Override
-    public void presenciasIncluidoVentaPersona(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.presenciasIncluidoVenta(runTarea);
+    public void compensarChallenge(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.compensarChallenge(runTarea);
     }
 
     @Override
-    public void calcularPresenciasTotalesAgrupacion(@Valid RunTareaDto runTarea) {
-        tareaAgrupacionPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea.getTarea());
+    public void presenciasIncluidoVentaPersona(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.presenciasIncluidoVenta(runTarea);
     }
 
     @Override
-    public void indicadorPresencia(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.indicadorPresencia(runTarea);
+    public void calcularPresenciasTotalesAgrupacion(@Valid final RunTareaDto runTarea) {
+        this.tareaAgrupacionPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea.getTarea());
     }
 
     @Override
-    public void indicadorPresenciaDesplazamiento(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.indicadorPresenciaDesplazamiento(runTarea);
+    public void indicadorPresencia(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.indicadorPresencia(runTarea);
     }
 
     @Override
-    public void indicadorPresenciaDesplazamientoBase(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.indicadorPresenciaDesplazamientoBase(runTarea);
+    public void indicadorPresenciaDesplazamiento(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.indicadorPresenciaDesplazamiento(runTarea);
     }
 
     @Override
-    public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService
+    public void indicadorPresenciaDesplazamientoBase(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.indicadorPresenciaDesplazamientoBase(runTarea);
+    }
+
+    @Override
+    public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService
             .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
     }
 
     @Override
-    public void presenciasHorasFijas(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.presenciasHorasFijas(runTarea);
+    public void presenciasHorasFijas(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.presenciasHorasFijas(runTarea);
     }
 
     @Override
-    public void presenciasHorasFijasDesplazamientos(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.presenciasHorasFijasDesplazamientos(runTarea);
+    public void presenciasHorasFijasDesplazamientos(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.presenciasHorasFijasDesplazamientos(runTarea);
     }
 
     @Override
-    public void indicadorPersonaPorVenta(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.indicadorPersonaPorVenta(runTarea);
+    public void indicadorPersonaPorVenta(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.indicadorPersonaPorVenta(runTarea);
     }
 
     @Override
-    public void indicadorPersonaPorVentaSimplificada(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPersonaPresenciaService.indicadorPersonaPorVentaSimplificada(runTarea);
+    public void indicadorPersonaPorVentaSimplificada(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.indicadorPersonaPorVentaSimplificada(runTarea);
     }
 
 }

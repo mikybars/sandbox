@@ -44,4 +44,6 @@ public interface TareaLocalizacionPersonaPresenciaService {
 
     void indicadorPersonaPorVentaSimplificada(@Valid @NotNull final RunTareaDto runTareaDto);
 
+    void compensarChallenge(@Valid @NotNull final RunTareaDto runTareaDto);
+
 }

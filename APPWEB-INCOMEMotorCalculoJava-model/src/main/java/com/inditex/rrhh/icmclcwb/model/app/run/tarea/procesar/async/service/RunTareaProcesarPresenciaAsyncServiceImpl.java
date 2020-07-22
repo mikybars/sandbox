@@ -17,117 +17,124 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
     private RunTareaProcesarPresenciaService runTareaProcesarPresenciaService;
 
     @Override
-    public CompletableFuture<Void> compensarLocalizacion(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.compensarLocalizacion(runTarea);
+    public CompletableFuture<Void> compensarLocalizacion(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.compensarLocalizacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> compensarLocalizacionEcommerce(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.compensarLocalizacionEcommerce(runTarea);
+    public CompletableFuture<Void> compensarLocalizacionEcommerce(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.compensarLocalizacionEcommerce(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarLocalizacion(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.totalizarLocalizacion(runTarea);
+    public CompletableFuture<Void> totalizarLocalizacion(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.totalizarLocalizacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarEcommerceLocalizacion(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.totalizarEcommerceLocalizacion(runTarea);
+    public CompletableFuture<Void> totalizarEcommerceLocalizacion(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.totalizarEcommerceLocalizacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarEmpleadosPorVenta(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.totalizarEmpleadosPorVenta(runTarea);
+    public CompletableFuture<Void> totalizarEmpleadosPorVenta(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.totalizarEmpleadosPorVenta(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> updateActivoLocalizacionPersonaPresencia(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresencia(runTarea);
+    public CompletableFuture<Void> updateActivoLocalizacionPersonaPresencia(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresencia(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> updateActivoLocalizacionPersonaPresenciaVacio(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresenciaVacio(runTarea);
+    public CompletableFuture<Void> updateActivoLocalizacionPersonaPresenciaVacio(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.updateActivoLocalizacionPersonaPresenciaVacio(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> compensarLocalizacionPersonaPresencia(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.compensarLocalizacionPersonaPresencia(runTarea);
+    public CompletableFuture<Void> compensarLocalizacionPersonaPresencia(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.compensarLocalizacionPersonaPresencia(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> presenciasIncluidoVentaPersona(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.presenciasIncluidoVentaPersona(runTarea);
+    public CompletableFuture<Void> compensarChallenge(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.compensarChallenge(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> updateActivoLocalizacionVacio(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.updateActivoLocalizacionVacio(runTarea);
+    public CompletableFuture<Void> presenciasIncluidoVentaPersona(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.presenciasIncluidoVentaPersona(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> calcularPresenciasTotalesAgrupacion(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea);
+    public CompletableFuture<Void> updateActivoLocalizacionVacio(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.updateActivoLocalizacionVacio(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> indicadorPresencia(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.indicadorPresencia(runTarea);
+    public CompletableFuture<Void> calcularPresenciasTotalesAgrupacion(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.calcularPresenciasTotalesAgrupacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> indicadorPresenciaDesplazamiento(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.indicadorPresenciaDesplazamiento(runTarea);
+    public CompletableFuture<Void> indicadorPresencia(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.indicadorPresencia(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> indicadorPresenciaDesplazamientoBase(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.indicadorPresenciaDesplazamientoBase(runTarea);
+    public CompletableFuture<Void> indicadorPresenciaDesplazamiento(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.indicadorPresenciaDesplazamiento(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> indicadorPresenciaDesplazamientoBase(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.indicadorPresenciaDesplazamientoBase(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
     public CompletableFuture<Void> indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(
-            RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
+            final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService
+            .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> presenciasHorasFijas(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.presenciasHorasFijas(runTarea);
+    public CompletableFuture<Void> presenciasHorasFijas(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.presenciasHorasFijas(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> presenciasHorasFijasDesplazamientos(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.presenciasHorasFijasDesplazamientos(runTarea);
+    public CompletableFuture<Void> presenciasHorasFijasDesplazamientos(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.presenciasHorasFijasDesplazamientos(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> indicadorPersonaPorVenta(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.indicadorPersonaPorVenta(runTarea);
+    public CompletableFuture<Void> indicadorPersonaPorVenta(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.indicadorPersonaPorVenta(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> indicadorPersonaPorVentaSimplificada(RunTareaDto runTarea) {
-        runTareaProcesarPresenciaService.indicadorPersonaPorVentaSimplificada(runTarea);
+    public CompletableFuture<Void> indicadorPersonaPorVentaSimplificada(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.indicadorPersonaPorVentaSimplificada(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
