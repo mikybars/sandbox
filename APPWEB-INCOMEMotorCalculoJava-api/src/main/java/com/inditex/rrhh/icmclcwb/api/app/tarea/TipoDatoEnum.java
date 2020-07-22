@@ -109,7 +109,7 @@ public enum TipoDatoEnum {
                                                                                     5011), INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA(
                                                                                             5012), INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA_SIMPLIFICADA(
                                                                                                     5013), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOVENTA(
-                                                                                                            5014),
+                                                                                                            5014), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE(                                                                                                                  5015),
     /* 6000 (Localizacion) */
     LOCALIZACION_FESTIVO(6001),
     /* 7000 (Localizacion Procesado) *//* 8000 (Persona) */

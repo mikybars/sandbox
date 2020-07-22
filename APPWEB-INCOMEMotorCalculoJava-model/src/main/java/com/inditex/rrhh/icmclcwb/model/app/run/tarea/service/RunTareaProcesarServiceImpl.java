@@ -192,6 +192,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 .compensarLocalizacionPersonaPresencia(runTarea);
             AsyncUtils.exceptionally(cfCompensarPresenciaPersonaLocalizacion, cf, cfWait);
 
+            // Compensar presencia total incluido challenge
+            final CompletableFuture<Void> cfCompensarChallenge = this.runTareaProcesarPresenciaAsyncService
+                .compensarChallenge(runTarea);
+            AsyncUtils.exceptionally(cfCompensarChallenge, cf, cfWait);
+
             // Compensar presencia total localizacion con las manuales
             final CompletableFuture<Void> cfCompensarPresenciaLocalizacion = this.runTareaProcesarPresenciaAsyncService
                 .compensarLocalizacion(runTarea);

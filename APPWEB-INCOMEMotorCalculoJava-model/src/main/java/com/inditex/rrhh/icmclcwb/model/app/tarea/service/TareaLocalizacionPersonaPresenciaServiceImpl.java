@@ -31,77 +31,82 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
     @Override
     public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
             @Valid @NotNull final TareaDto tareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.save(tareaLocalizacionPersonaPresenciaMapper
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.save(this.tareaLocalizacionPersonaPresenciaMapper
             .genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(src, tareaDto));
     }
 
     @Override
     public void savePtrPresenciaDetalle(@Valid @NotNull @NotEmpty final List<PtrPresenciaDetalleResultItemDto> src,
             @Valid @NotNull final TareaDto tareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.save(tareaLocalizacionPersonaPresenciaMapper
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.save(this.tareaLocalizacionPersonaPresenciaMapper
             .presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(src, tareaDto));
     }
 
     @Override
     public void updateActivo(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo(runTareaDto);
     }
 
     @Override
     public void updateActivoVacio(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoVacio(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoVacio(runTareaDto);
     }
 
     @Override
     public void compensar(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.compensar(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.compensar(runTareaDto);
+    }
+
+    @Override
+    public void compensarChallenge(@Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.compensarChallenge(runTareaDto);
     }
 
     @Override
     public void presenciasIncluidoVenta(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasIncluidoVenta(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasIncluidoVenta(runTareaDto);
     }
 
     @Override
     public void indicadorPresencia(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresencia(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresencia(runTareaDto);
     }
 
     @Override
     public void indicadorPresenciaDesplazamiento(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamiento(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamiento(runTareaDto);
     }
 
     @Override
     public void indicadorPresenciaDesplazamientoBase(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBase(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBase(runTareaDto);
     }
 
     @Override
     public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(
             @Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom
             .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTareaDto);
     }
 
     @Override
     public void presenciasHorasFijas(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasHorasFijas(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasHorasFijas(runTareaDto);
     }
 
     @Override
     public void presenciasHorasFijasDesplazamientos(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasHorasFijasDesplazamiento(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasHorasFijasDesplazamiento(runTareaDto);
     }
 
     @Override
     public void indicadorPersonaPorVenta(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVenta(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVenta(runTareaDto);
     }
 
     @Override
     public void indicadorPersonaPorVentaSimplificada(@Valid @NotNull final RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVentaSimplificada(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVentaSimplificada(runTareaDto);
     }
 
 }
