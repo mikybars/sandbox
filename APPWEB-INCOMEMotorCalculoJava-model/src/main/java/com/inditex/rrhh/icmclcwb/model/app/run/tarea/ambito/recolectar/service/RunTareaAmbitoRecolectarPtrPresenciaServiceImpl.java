@@ -103,9 +103,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
             if ((data != null) && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
                 AsyncUtils.exceptionally(this.tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
             } else {
-                this.log.warn(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
-                    .append(tareaAmbito.getCclIdOrigen())
-                    .toString());
+                this.log.warn("No hay tipos de hora comisionables para el origen: {}", tareaAmbito.getCclIdOrigen());
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {

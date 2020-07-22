@@ -95,8 +95,8 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
                     runTarea.getTarea());
 
             final TareaAmbitoGlobalFechaDto dtoFecha = new TareaAmbitoGlobalFechaDto();
-            dtoFecha.setFechaInicio(TimeUtils.toDate(runTarea.getTrabajo().getFechaInicioPeriodo().plusMonths(2)));
-            dtoFecha.setFechaFin(TimeUtils.toDate(runTarea.getTrabajo().getFechaFinPeriodo()));
+            dtoFecha.setFechaInicio(TimeUtils.toDate(runTarea.getTrabajo().getFechaInicioPeriodo()));
+            dtoFecha.setFechaFin(TimeUtils.toDate(runTarea.getTrabajo().getFechaFinPeriodo().plusMonths(2)));
             dtoFecha.setIdTarea(runTarea.getTarea().getId());
 
             this.tareaAmbitoGlobalFechaService.save(Arrays.asList(dtoFecha), runTarea.getTarea());
