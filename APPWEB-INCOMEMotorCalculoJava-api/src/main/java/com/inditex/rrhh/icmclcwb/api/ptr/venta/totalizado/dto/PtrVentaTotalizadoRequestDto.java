@@ -44,7 +44,7 @@ public class PtrVentaTotalizadoRequestDto implements Serializable {
     private List<Integer> producto;
 
     @ApiModelProperty(value = "Id empresa", required = false, example = "1")
-    private Integer empresa;
+    private List<Integer> empresa;
 
     @ApiModelProperty(value = "Agrupar seccion flag (pivotado)", required = false, example = "1")
     private Integer agruparSeccion;

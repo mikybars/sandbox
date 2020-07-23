@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -106,7 +107,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                     .map(IdLocalizacionLocalDto::getId)
                     .map(Integer::valueOf)
                     .collect(Collectors.toList()));
-                request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
+                request.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
@@ -151,7 +152,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
             final PtrVentaTotalizadoRequestDto request = this.tareaMapper
                 .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoIdCadenaDtoToPtrVentaTotalizadoRequestDto(
                         tarea, tareaAmbito, periodo, this.recolectarProperties, cadenas);
-            request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
+            request.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
             request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
             request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
             request.setProducto(this.meta4IcmWsCalcIncomeSessionService
@@ -202,7 +203,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                         .stream()
                         .map(x -> Integer.valueOf(x.getId()))
                         .collect(Collectors.toList()));
-                request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
+                request.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
                 request.setAgrupacion(PtrGroupTypeEnum.OPERACION_TIENDA_SECCION);
                 request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
