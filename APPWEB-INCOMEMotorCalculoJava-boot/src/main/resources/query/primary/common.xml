@@ -5134,6 +5134,20 @@ FROM (
                 AND FECHA_CALCULO.STD_OR_HR_PERIOD = TC.STD_OR_HR_PERIOD
                 AND FECHA_CALCULO.ID_TAREA_PERSONA_ESTRUCTURA = TC.ID_TAREA_PERSONA_ESTRUCTURA
        INNER JOIN (
+                SELECT COUNT(ID_TAREA_PERSONA_ESTRUCTURA) AS NUMERO_ESTRUCTURAS_PERIODO
+                FROM (
+                        SELECT ID_TAREA_PERSONA_ESTRUCTURA
+                        FROM TAREA_CALCULO 
+                        WHERE ID_TAREA = :idTarea
+                        AND CCL_ID_PERSON = :cclIdPerson
+                        AND STD_OR_HR_PERIOD = :stdOrHrPeriod
+                        AND ID_TIPO_CALCULO IN (:tiposCalculo)
+                        AND ID_TIPO_COMISION IN (:tiposComision)
+                        GROUP BY ID_TAREA_PERSONA_ESTRUCTURA
+                ) 
+       ) COUNT_CALCULO
+                ON COUNT_CALCULO.NUMERO_ESTRUCTURAS_PERIODO = 1                
+       INNER JOIN (
                 SELECT T.FECHA_INICIO_PERIODO, T.FECHA_FIN_PERIODO, TC.ID_TAREA, TC.CCL_ID_PERSON, TC.STD_OR_HR_PERIOD, TC.ID_TIPO_CALCULO, TC.ID_TIPO_COMISION
                 FROM TAREA T
                 INNER JOIN TAREA_CALCULO TC
