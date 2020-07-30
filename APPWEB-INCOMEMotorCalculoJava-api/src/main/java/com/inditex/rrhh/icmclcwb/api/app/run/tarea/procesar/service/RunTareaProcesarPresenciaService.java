@@ -44,4 +44,6 @@ public interface RunTareaProcesarPresenciaService {
 
     void indicadorPersonaPorVentaSimplificada(@Valid RunTareaDto runTarea);
 
+    void compensarChallenge(@Valid RunTareaDto runTarea);
+
 }

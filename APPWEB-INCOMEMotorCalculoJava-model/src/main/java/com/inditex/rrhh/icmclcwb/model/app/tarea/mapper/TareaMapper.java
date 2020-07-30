@@ -188,7 +188,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( srcTrabajo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "temporada", ignore = true)
@@ -204,7 +204,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( periodo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "temporada", ignore = true)
@@ -219,7 +219,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaDesde", source = "srcPresupuesto.fechaInicio", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "fechaHasta", source = "srcPresupuesto.fechaFin", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "temporada", ignore = true)
@@ -316,7 +316,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( periodo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "temporada", ignore = true)
@@ -332,7 +332,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta",
             expression = "java(RunUtils.addDays( periodo.getFechaFinPeriodo(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "empresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "temporada", ignore = true)

@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionHi
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
@@ -57,6 +58,9 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
 
     @Autowired
     private TareaPersonaHistoricoService tareaPersonaHistoricoService;
+
+    @Autowired
+    private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
     @Autowired
     private Meta4IcmWsCalcIncomeSessionAsyncService meta4IcmWsCalcIncomeSessionAsyncService;
@@ -117,7 +121,10 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             if (request.getData() != null) {
                 request.getData().setFechaInicio(this.getFechaInicioPeriodo(tarea));
             }
+            this.tareaLocalizacionHistoricoService.mergeLocalizacionFicticia(tarea.getId(),
+                    tareaAmbito.getCclIdOrigen());
             boolean hasNext = false;
+
             do {
                 final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
                     .searchTiendas(request);

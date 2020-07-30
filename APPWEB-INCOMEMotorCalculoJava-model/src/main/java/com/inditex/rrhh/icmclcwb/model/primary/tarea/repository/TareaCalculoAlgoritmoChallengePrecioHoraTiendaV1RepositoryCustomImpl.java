@@ -58,7 +58,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
         map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
-                Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId()));
+                Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId()));
 
         map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION,
                 algoritmo.getTipoComision().stream().map(TipoComisionDto::getId).collect(Collectors.toList()));

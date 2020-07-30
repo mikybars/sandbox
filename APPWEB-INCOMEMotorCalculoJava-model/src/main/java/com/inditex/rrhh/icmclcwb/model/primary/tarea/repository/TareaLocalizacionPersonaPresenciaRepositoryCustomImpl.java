@@ -43,6 +43,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.compensar']}")
     private String sqlCompensar;
 
+    @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.compensarChallenge']}")
+    private String sqlCompensarChallenge;
+
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresencia']}")
     private String sqlIndicadorPresencia;
 
@@ -186,6 +189,24 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
                 TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId());
 
         this.update(this.sqlCompensar, parameters);
+    }
+
+    @Override
+    public void compensarChallenge(@NotNull final RunTareaDto runTareaDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        final List<IdTipoDatoDto> tiposDatoPresencia = this.tipoDatoService
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
+                tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+        this.update(this.sqlCompensarChallenge, parameters);
     }
 
     @Override
