@@ -11,7 +11,7 @@
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
-  <version>2.3.2</version>
+  <version>2.4.0</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -30,22 +30,22 @@
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
-        <version>2.3.2</version>
+        <version>2.4.0</version>
       </dependency>
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
-        <version>2.3.2</version>
+        <version>2.4.0</version>
       </dependency>
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>APPWEB-INCOMEMotorCalculoJava-ws</artifactId>
-        <version>2.3.2</version>
+        <version>2.4.0</version>
       </dependency>
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
-        <version>2.3.2</version>
+        <version>2.4.0</version>
       </dependency>
 
     </dependencies>
