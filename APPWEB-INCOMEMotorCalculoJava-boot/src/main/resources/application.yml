@@ -72,7 +72,7 @@ amiga:
       mdc-filter:
         enabled: true
     aaa:
-      classic:
+      user-details:
         sso:
           application-id: AppINCOMEMotorCalculoJava
     rest-swagger:
