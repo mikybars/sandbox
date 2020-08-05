@@ -72,9 +72,9 @@ amiga:
       mdc-filter:
         enabled: true
     aaa:
-      classic:
+      user-details:
         sso:
-          applicationSSO: AppINCOMEMotorCalculoJava
+          application-id: AppINCOMEMotorCalculoJava
     rest-swagger:
       ui:
         title: '@project.name@'

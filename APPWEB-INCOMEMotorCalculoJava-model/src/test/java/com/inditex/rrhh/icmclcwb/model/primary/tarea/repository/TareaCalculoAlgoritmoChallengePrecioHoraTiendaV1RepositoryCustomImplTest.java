@@ -158,7 +158,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
                 result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
         // tipoDatoLocalizacionPersonaPresencia
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
-        assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId()),
+        assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId()),
                 result.get(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
     }
 
@@ -247,7 +247,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
             // tipoDatoLocalizacionPersonaPresencia
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
             assertEquals(
-                    Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId()),
+                    Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId()),
                     value.getValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
 
         }
