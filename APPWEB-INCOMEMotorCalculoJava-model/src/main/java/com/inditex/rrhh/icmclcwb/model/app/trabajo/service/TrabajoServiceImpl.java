@@ -44,8 +44,9 @@ import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
-import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
+
 
 @Service
 @Validated
