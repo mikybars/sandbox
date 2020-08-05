@@ -1,20 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.programacion.service;
 
-import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
-import com.inditex.aqsw.framework.service.aaa.classic.util.SsoUtils;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
-import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepositoryCustom;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -23,6 +8,22 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
+import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepositoryCustom;
+import org.apache.commons.lang3.StringUtils;
+
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
 
 @Service
 @Validated
@@ -47,33 +48,33 @@ public class ProgramacionServiceImpl implements ProgramacionService {
             programacion.setProgramacionHuso(TimeUtils.ofZoneId());
         }
         if (StringUtils.isBlank(programacion.getNombreUsuario())) {
-            UserSSO userSSO = SsoUtils.getUserSSO();
+            final UserSSO userSSO = SsoUtils.getUserSSO();
             if (StringUtils.isNotBlank(userSSO.getUser())) {
                 programacion.setNombreUsuario(userSSO.getUser());
             }
         }
-        programacion.setFechaHoraSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
-        ProgramacionDto result = programacionMapper.programacionToProgramacionDto(
-                programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
-        result.setAmbito(programacionAmbitoService.create(programacion.getAmbito(), result));
+        programacion.setFechaHoraSiguienteEjecucion(this.fechaSiguienteEjecucion(programacion));
+        final ProgramacionDto result = this.programacionMapper.programacionToProgramacionDto(
+                this.programacionRepository.save(this.programacionMapper.programacionDtoToProgramacion(programacion)));
+        result.setAmbito(this.programacionAmbitoService.create(programacion.getAmbito(), result));
         return result;
     }
 
     @Override
     public ProgramacionDto modify(final ProgramacionDto programacion) {
-        ProgramacionDto result = programacionMapper.programacionToProgramacionDto(
-                programacionRepository.save(programacionMapper.programacionDtoToProgramacion(programacion)));
-        result.setAmbito(programacionAmbitoService.findByProgramacion(programacion));
+        final ProgramacionDto result = this.programacionMapper.programacionToProgramacionDto(
+                this.programacionRepository.save(this.programacionMapper.programacionDtoToProgramacion(programacion)));
+        result.setAmbito(this.programacionAmbitoService.findByProgramacion(programacion));
         return result;
     }
 
     @Override
     public LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDto programacion) {
-        ZoneId zoneDefaultHuso = TimeUtils.ofZone();
-        ZoneId zoneProgramacionHuso = TimeUtils.ofZone(programacion.getProgramacionHuso());
+        final ZoneId zoneDefaultHuso = TimeUtils.ofZone();
+        final ZoneId zoneProgramacionHuso = TimeUtils.ofZone(programacion.getProgramacionHuso());
         ZonedDateTime zonedDateTimeProgramacionHuso = TimeUtils.ofZonedDateTime(programacion.getHoraProgramacion(),
                 zoneProgramacionHuso);
-        ZonedDateTime nowZonedDateTimeProgramacionHuso = TimeUtils.nowZonedDateTime(zoneProgramacionHuso);
+        final ZonedDateTime nowZonedDateTimeProgramacionHuso = TimeUtils.nowZonedDateTime(zoneProgramacionHuso);
         if (nowZonedDateTimeProgramacionHuso.isAfter(zonedDateTimeProgramacionHuso)) {
             zonedDateTimeProgramacionHuso = zonedDateTimeProgramacionHuso.plusDays(1);
         }
@@ -82,57 +83,59 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
     @Override
     public List<ProgramacionDto> findPendiente() {
-        List<ProgramacionDto> result = programacionMapper.programacionToProgramacionDto(programacionRepository
-            .findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowLocalDateTime()));
-        result.forEach(item -> item.setAmbito(programacionAmbitoService.findByProgramacion(item)));
+        final List<ProgramacionDto> result = this.programacionMapper
+            .programacionToProgramacionDto(this.programacionRepository
+                .findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowLocalDateTime()));
+        result.forEach(item -> item.setAmbito(this.programacionAmbitoService.findByProgramacion(item)));
         return result;
     }
 
     @Override
-    public ProgramacionDto updateEjecucion(@Valid ProgramacionDto programacion) {
+    public ProgramacionDto updateEjecucion(@Valid final ProgramacionDto programacion) {
         programacion.setFechaHoraUltimaEjecucion(TimeUtils.nowLocalDateTime());
-        programacion.setFechaHoraSiguienteEjecucion(fechaSiguienteEjecucion(programacion));
-        return modify(programacion);
+        programacion.setFechaHoraSiguienteEjecucion(this.fechaSiguienteEjecucion(programacion));
+        return this.modify(programacion);
     }
 
     @Override
     public void reset() {
-        programacionRepositoryCustom.reset();
+        this.programacionRepositoryCustom.reset();
     }
 
     @Override
     public void activa() {
-        programacionRepositoryCustom.activa();
+        this.programacionRepositoryCustom.activa();
     }
 
     @Override
-    public void activa(@Positive @NotNull Long id) {
-        programacionRepositoryCustom.activa(id);
+    public void activa(@Positive @NotNull final Long id) {
+        this.programacionRepositoryCustom.activa(id);
     }
 
     @Override
     public void desactiva() {
-        programacionRepositoryCustom.desactiva();
+        this.programacionRepositoryCustom.desactiva();
     }
 
     @Override
-    public void desactiva(@Positive @NotNull Long id) {
-        programacionRepositoryCustom.desactiva(id);
+    public void desactiva(@Positive @NotNull final Long id) {
+        this.programacionRepositoryCustom.desactiva(id);
     }
 
     @Override
     public ProgramacionDto findById(@Positive @NotNull final Long id) {
-        ProgramacionDto programacionDto = programacionMapper
-            .programacionToProgramacionDto(programacionRepository.findById(id).get());
-        programacionDto.setAmbito(programacionAmbitoService.findByProgramacion(programacionDto));
+        final ProgramacionDto programacionDto = this.programacionMapper
+            .programacionToProgramacionDto(this.programacionRepository.findById(id).get());
+        programacionDto.setAmbito(this.programacionAmbitoService.findByProgramacion(programacionDto));
         return programacionDto;
     }
 
     @Override
     public ProgramacionDto findPendienteById(@Positive @NotNull final Long id) {
-        ProgramacionDto programacionDto = programacionMapper.programacionToProgramacionDto(programacionRepository
-            .findByIdAndFechaHoraSiguienteEjecucionBeforeAndActivoTrue(id, TimeUtils.nowLocalDateTime()));
-        programacionDto.setAmbito(programacionAmbitoService.findByProgramacion(programacionDto));
+        final ProgramacionDto programacionDto = this.programacionMapper
+            .programacionToProgramacionDto(this.programacionRepository
+                .findByIdAndFechaHoraSiguienteEjecucionBeforeAndActivoTrue(id, TimeUtils.nowLocalDateTime()));
+        programacionDto.setAmbito(this.programacionAmbitoService.findByProgramacion(programacionDto));
         return programacionDto;
     }
 

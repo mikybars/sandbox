@@ -74,7 +74,7 @@ amiga:
     aaa:
       classic:
         sso:
-          applicationSSO: AppINCOMEMotorCalculoJava
+          application-id: AppINCOMEMotorCalculoJava
     rest-swagger:
       ui:
         title: '@project.name@'
