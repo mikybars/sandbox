@@ -125,6 +125,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION = "idTipoDatoIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion";
 
+    public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO = "idTipoDatoIndicadorDesplazamiento";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO_BASE = "idTipoDatoIndicadorDesplazamientoBase";
+    
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION = "idTipoDatoVentaEntregaDomicilioLocalizacion";
 
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION = "idTipoDatoVentaEntregaDomicilioLocalizacionSeccion";
@@ -326,5 +330,6 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_ES_DESPLAZAMIENTO_BASE = "ES_DESPLAZAMIENTO_BASE";
 
     public static final String SQL_RESULT_ICM_ORDINAL = "ICM_ORDINAL";
+    
 
 }
