@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -211,4 +213,9 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
         return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getVentaCongelada(request));
     }
 
+    @Override
+    public CompletableFuture<List<DesplazamientosMultiempresaItemDto>> getDesplazamientosMultiempresa(
+            final DesplazamientosMultiempresaRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getDesplazamientoMultiempresa(request));
+    }
 }

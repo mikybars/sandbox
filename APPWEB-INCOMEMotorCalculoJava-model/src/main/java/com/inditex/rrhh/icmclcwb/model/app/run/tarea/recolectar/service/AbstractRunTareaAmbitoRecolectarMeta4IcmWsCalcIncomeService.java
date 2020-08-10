@@ -10,6 +10,8 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -86,20 +88,59 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
-            final TareaAmbitoGlobalEmpresaDto dto = new TareaAmbitoGlobalEmpresaDto();
-            dto.setIdTarea(runTarea.getTarea().getId());
-            dto.setStdIdLegEnt(runTarea.getTarea().getStdIdLegEnt());
-            dto.setCclIdOrigen(tareaAmbito.getCclIdOrigen());
-            this.tareaAmbitoGlobalEmpresaService.save(
-                    Arrays.asList(dto),
-                    runTarea.getTarea());
+            TrabajoDto trabajo = runTarea.getTrabajo();
+            TareaDto tarea = runTarea.getTarea();
+            DesplazamientosMultiempresaRequestDto request = new DesplazamientosMultiempresaRequestDto();
+            this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .forEach(x -> {
+                    request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS).getPage());
+                    request.setData(this.tareaMapper
+                        .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
+                            this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                tarea.getId(),
+                                TipoDatoEnum.PERIODO_AMPLIADO.getId())));
+                    request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA).getPage());
+                    request.setData(this.tareaMapper
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito,
+                            this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                tarea.getId(),
+                                TipoDatoEnum.PERIODO_AMPLIADO.getId())));
+                    request.getData().setIdEmpresa(x.getStdIdLegEnt());
+                    boolean hasNext = false;
+                    do {
+                        CompletableFuture<List<DesplazamientosMultiempresaItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService.getDesplazamientosMultiempresa(request);
+                        AsyncUtils.exceptionally(cfData, cf);
+                        List<DesplazamientosMultiempresaItemDto> data = AsyncUtils.get(cfData);
+                        if (CollectionUtils.isNotEmpty(data)) {
+                            //TODO guardar
+//                            AsyncUtils.checkAsyncAvaliable(cfPersist,
+//                                this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
+//                                    .getFilter()
+//                                    .getMaxPersistenceSize());
 
-            final TareaAmbitoGlobalFechaDto dtoFecha = new TareaAmbitoGlobalFechaDto();
-            dtoFecha.setFechaInicio(TimeUtils.toDate(runTarea.getTrabajo().getFechaInicioPeriodo()));
-            dtoFecha.setFechaFin(TimeUtils.toDate(runTarea.getTrabajo().getFechaFinPeriodo().plusMonths(2)));
-            dtoFecha.setIdTarea(runTarea.getTarea().getId());
-
-            this.tareaAmbitoGlobalFechaService.save(Arrays.asList(dtoFecha), runTarea.getTarea());
+                        }
+                        hasNext = request.nextPage();
+                    } while (hasNext);
+                });
+//            final TareaAmbitoGlobalEmpresaDto dto = new TareaAmbitoGlobalEmpresaDto();
+//            dto.setIdTarea(tarea.getId());
+//            dto.setStdIdLegEnt(tarea.getStdIdLegEnt());
+//            dto.setCclIdOrigen(tareaAmbito.getCclIdOrigen());
+//            this.tareaAmbitoGlobalEmpresaService.save(
+//                    Arrays.asList(dto),
+//                tarea);
+//
+//            final TareaAmbitoGlobalFechaDto dtoFecha = new TareaAmbitoGlobalFechaDto();
+//            dtoFecha.setFechaInicio(TimeUtils.toDate(trabajo.getFechaInicioPeriodo()));
+//            dtoFecha.setFechaFin(TimeUtils.toDate(trabajo.getFechaFinPeriodo().plusMonths(2)));
+//            dtoFecha.setIdTarea(tarea.getId());
+//
+//            this.tareaAmbitoGlobalFechaService.save(Arrays.asList(dtoFecha), tarea);
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

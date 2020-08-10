@@ -2,6 +2,12 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetdesplazmultiempresaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmultiempresaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmultiempresaRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -826,4 +832,27 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         return result;
     }
 
+    @Override
+    public DesplazamientosMultiempresaResponseDto getDesplazamientosMultiempresa(DesplazamientosMultiempresaRequestDto request) {
+
+        DesplazamientosMultiempresaResponseDto result = new DesplazamientosMultiempresaResponseDto();
+        IcmParamcalmultiempresaBlock param1 = new IcmParamcalmultiempresaBlock();
+        param1.getIcmParamcalmultiempresaRecordSet().add(this.icmWsCalcIncomeMapper.asIcmParamcalmultiempresaRecord(request.getData()));
+        final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
+            .asIcmParametrospaginacionBlock(request.getPage());
+        GetdesplazmultiempresaOutput desplazamientoMultiempresaOutput = this.meta4ClientPool.getDesplazamientoMultiempresa(param2, param1);
+        if (desplazamientoMultiempresaOutput != null) {
+            if (desplazamientoMultiempresaOutput.getIcmParametrospaginacion() != null) {
+                final PageDto page = this.icmWsCalcIncomeMapper
+                    .asPageDto(desplazamientoMultiempresaOutput.getIcmParametrospaginacion());
+                result.setPage(page);
+            }
+        }
+        if (desplazamientoMultiempresaOutput.getIcmListamultiempresa() != null
+            &&CollectionUtils.isNotEmpty(desplazamientoMultiempresaOutput.getIcmListamultiempresa().getIcmListamultiempresaRecordSet())) {
+            List<DesplazamientosMultiempresaItemDto> items = this.icmWsCalcIncomeMapper.asDesplazamientosMultiempresaItemDto(desplazamientoMultiempresaOutput.getIcmListamultiempresa().getIcmListamultiempresaRecordSet());
+            result.setData(items);
+        }
+        return result;
+    }
 }

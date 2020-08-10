@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
 import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
@@ -108,5 +110,7 @@ public interface Meta4IcmWsCalcIncomeSessionAsyncService {
     CompletableFuture<List<PresupuestosRangoResultItemDto>> getPresupuestosRango(PresupuestosRangoRequestDto request);
 
     CompletableFuture<List<VentaCongeladaResultItemDto>> getVentaCongelada(VentaCongeladaRequestDto request);
+
+    CompletableFuture<List<DesplazamientosMultiempresaItemDto>> getDesplazamientosMultiempresa(DesplazamientosMultiempresaRequestDto request);
 
 }

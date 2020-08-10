@@ -20,6 +20,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
@@ -118,5 +120,7 @@ public interface Meta4IcmWsCalcIncomeService {
     PresupuestosRangoResponseDto getPresupuestosRango(PresupuestosRangoRequestDto request);
 
     VentaCongeladaResponseDto getVentaCongelada(VentaCongeladaRequestDto request);
+
+    DesplazamientosMultiempresaResponseDto getDesplazamientosMultiempresa(DesplazamientosMultiempresaRequestDto request);
 
 }

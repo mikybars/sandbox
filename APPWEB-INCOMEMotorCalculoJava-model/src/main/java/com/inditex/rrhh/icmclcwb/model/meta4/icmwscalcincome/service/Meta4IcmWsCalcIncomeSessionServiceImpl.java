@@ -2,6 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -253,6 +256,13 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         return this.getResultItem(request,
                 Meta4PropertiesConstants.VENTACONGELADA,
                 VentaCongeladaResponseDto.class, VentaCongeladaResultItemDto.class);
+    }
+
+    @Override
+    public List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(DesplazamientosMultiempresaRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.MULTIEMPRESA,
+            DesplazamientosMultiempresaResponseDto.class, DesplazamientosMultiempresaItemDto.class);
     }
 
     @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea,#cclIdOrigen}")

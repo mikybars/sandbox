@@ -3,6 +3,9 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetdesplazmultiempresaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmultiempresaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.M4SoapException_Exception;
 import org.springframework.retry.annotation.Retryable;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
@@ -478,6 +481,20 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             return client.getIcmWsCalcIncomeService().getventacongelada(param2, param1);
         } catch (final Exception e) {
+            this.catchException(e, client, Arrays.asList(param1, param2));
+            throw new Meta4IcmclcwbException(e.getMessage(), e);
+        } finally {
+            this.release(client);
+        }
+    }
+
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
+    public GetdesplazmultiempresaOutput getDesplazamientoMultiempresa(final IcmParametrospaginacionBlock param1,
+            final IcmParamcalmultiempresaBlock param2) {
+        final Meta4ClientPoolable client = this.claim(this.pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getdesplazmultiempresa(param1, param2);
+        } catch (M4SoapException_Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
         } finally {
