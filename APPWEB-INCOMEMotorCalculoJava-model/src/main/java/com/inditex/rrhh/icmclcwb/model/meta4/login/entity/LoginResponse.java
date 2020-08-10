@@ -24,12 +24,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para anonymous complex type.
- *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -41,25 +39,28 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "loginReturn"
+    "loginReturn"
 })
 @XmlRootElement(name = "loginResponse")
-public class LoginResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class LoginResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(required = true)
     protected M4LoginOutput loginReturn;
 
     /**
      * Obtiene el valor de la propiedad loginReturn.
-     * @return possible object is {@link M4LoginOutput }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link M4LoginOutput }
+     *     
      */
     public M4LoginOutput getLoginReturn() {
         return loginReturn;
@@ -67,16 +68,18 @@ public class LoginResponse implements Serializable, Cloneable, CopyTo2, Equals2,
 
     /**
      * Define el valor de la propiedad loginReturn.
-     * @param value allowed object is {@link M4LoginOutput }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link M4LoginOutput }
+     *     
      */
     public void setLoginReturn(M4LoginOutput value) {
         this.loginReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -88,9 +91,7 @@ public class LoginResponse implements Serializable, Cloneable, CopyTo2, Equals2,
             lhsLoginReturn = this.getLoginReturn();
             M4LoginOutput rhsLoginReturn;
             rhsLoginReturn = that.getLoginReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "loginReturn", lhsLoginReturn),
-                    LocatorUtils.property(thatLocator, "loginReturn", rhsLoginReturn), lhsLoginReturn, rhsLoginReturn,
-                    (this.loginReturn != null), (that.loginReturn != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "loginReturn", lhsLoginReturn), LocatorUtils.property(thatLocator, "loginReturn", rhsLoginReturn), lhsLoginReturn, rhsLoginReturn, (this.loginReturn!= null), (that.loginReturn!= null))) {
                 return false;
             }
         }
@@ -120,7 +121,7 @@ public class LoginResponse implements Serializable, Cloneable, CopyTo2, Equals2,
         {
             M4LoginOutput theLoginReturn;
             theLoginReturn = this.getLoginReturn();
-            strategy.appendField(locator, this, "loginReturn", buffer, theLoginReturn, (this.loginReturn != null));
+            strategy.appendField(locator, this, "loginReturn", buffer, theLoginReturn, (this.loginReturn!= null));
         }
         return buffer;
     }
@@ -130,8 +131,7 @@ public class LoginResponse implements Serializable, Cloneable, CopyTo2, Equals2,
         {
             M4LoginOutput theLoginReturn;
             theLoginReturn = this.getLoginReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "loginReturn", theLoginReturn),
-                    currentHashCode, theLoginReturn, (this.loginReturn != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "loginReturn", theLoginReturn), currentHashCode, theLoginReturn, (this.loginReturn!= null));
         }
         return currentHashCode;
     }
@@ -151,18 +151,15 @@ public class LoginResponse implements Serializable, Cloneable, CopyTo2, Equals2,
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof LoginResponse) {
             final LoginResponse copy = ((LoginResponse) draftCopy);
             {
-                Boolean loginReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.loginReturn != null));
+                Boolean loginReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.loginReturn!= null));
                 if (loginReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     M4LoginOutput sourceLoginReturn;
                     sourceLoginReturn = this.getLoginReturn();
-                    M4LoginOutput copyLoginReturn = ((M4LoginOutput) strategy.copy(
-                            LocatorUtils.property(locator, "loginReturn", sourceLoginReturn), sourceLoginReturn,
-                            (this.loginReturn != null)));
+                    M4LoginOutput copyLoginReturn = ((M4LoginOutput) strategy.copy(LocatorUtils.property(locator, "loginReturn", sourceLoginReturn), sourceLoginReturn, (this.loginReturn!= null)));
                     copy.setLoginReturn(copyLoginReturn);
                 } else {
                     if (loginReturnShouldBeCopiedAndSet == Boolean.FALSE) {

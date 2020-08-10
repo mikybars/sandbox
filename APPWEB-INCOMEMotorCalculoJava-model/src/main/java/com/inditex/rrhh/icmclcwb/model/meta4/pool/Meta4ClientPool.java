@@ -89,7 +89,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             final IcmParametrosentradaBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().getempleadosdesplaz(param2, param1);
+            return client.getIcmWsCalcIncomeService().getempleadosdesplaz(param1, param2);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -146,7 +146,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().getconfprodventa(param1, param2);
+            return client.getIcmWsCalcIncomeService().getconfprodventa(param2, param1);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -160,7 +160,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().getconfventaonline(param1, param2);
+            return client.getIcmWsCalcIncomeService().getconfventaonline(param2, param1);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -188,7 +188,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().getflagcalcula(param2, param1);
+            return client.getIcmWsCalcIncomeService().getflagcalcula(param1, param2);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -202,7 +202,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().getcoefjornada(param2, param1);
+            return client.getIcmWsCalcIncomeService().getcoefjornada(param1, param2);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -216,7 +216,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().getfestivos(param1, param2);
+            return client.getIcmWsCalcIncomeService().getfestivos(param2, param1);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -230,7 +230,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().getpresenciamanual(param1, param2);
+            return client.getIcmWsCalcIncomeService().getpresenciamanual(param2, param1);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -313,7 +313,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().searchtiendas(param2, param1);
+            return client.getIcmWsCalcIncomeService().searchtiendas(param1, param2);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -382,7 +382,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             final IcmParamcalempleadoBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().getausencias(param1, param2);
+            return client.getIcmWsCalcIncomeService().getausencias(param2, param1);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -422,7 +422,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().getpresupuestoswloc(param2, param1);
+            return client.getIcmWsCalcIncomeService().getpresupuestoswloc(param1, param2);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -476,7 +476,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
             final IcmParamcalventacongeladaBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().getventacongelada(param1, param2);
+            return client.getIcmWsCalcIncomeService().getventacongelada(param2, param1);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1, param2));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
