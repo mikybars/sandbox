@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -11,6 +12,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalEmpresaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalFechaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +76,13 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
     private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
     @Autowired
+    private TareaAmbitoGlobalFechaAsyncService tareaAmbitoGlobalFechaAsyncService;
+
+    @Autowired
     private TareaAmbitoGlobalFechaService tareaAmbitoGlobalFechaService;
+
+    @Autowired
+    private TareaAmbitoGlobalEmpresaAsyncService tareaAmbitoGlobalEmpresaAsyncService;
 
     @Autowired
     private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
@@ -92,7 +101,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             TrabajoDto trabajo = runTarea.getTrabajo();
             TareaDto tarea = runTarea.getTarea();
             DesplazamientosMultiempresaRequestDto request = new DesplazamientosMultiempresaRequestDto();
-            trabajo.getEmpresa().forEach(x -> {
+            trabajo.getEmpresa().forEach(empresa -> {
                 request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA).getPage());
                 PeriodoDto periodo = PeriodoDto
                     .builder()
@@ -102,37 +111,58 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
                 request.setData(this.tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito,
                         periodo));
-                request.getData().setIdEmpresa(x.getStdIdLegEnt());
+                request.getData().setIdEmpresa(empresa.getStdIdLegEnt());
                 boolean hasNext = false;
                 do {
                     CompletableFuture<List<DesplazamientosMultiempresaItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService.getDesplazamientosMultiempresa(request);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<DesplazamientosMultiempresaItemDto> data = AsyncUtils.get(cfData);
                     if (CollectionUtils.isNotEmpty(data)) {
-                        //TODO guardar
-    //                            AsyncUtils.checkAsyncAvaliable(cfPersist,
-    //                                this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
-    //                                    .getFilter()
-    //                                    .getMaxPersistenceSize());
+                        // LinkedHashSet para evitar duplicados
+                        LinkedHashSet<TareaAmbitoGlobalEmpresaDto> empresas = new LinkedHashSet<>();
+                        LinkedHashSet<TareaAmbitoGlobalFechaDto> fechas = new LinkedHashSet<>();
+                        data.forEach(x -> {
+                            empresas.add(tareaMapper.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(tarea, x));
+                            fechas.add(tareaMapper.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToTareaAmbitoGlobalFechaDto(tarea, x));
+                        });
 
+                        //Guardado empresas
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
+                                .getFilter()
+                                .getMaxPersistenceSize());
+                        CompletableFuture<Void> cfSaveEmpresa = tareaAmbitoGlobalEmpresaAsyncService.save(new ArrayList<>(empresas), tarea);
+                        AsyncUtils.exceptionally(cfSaveEmpresa, cf, cfPersist);
+
+                        //Guardado fechas
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
+                                .getFilter()
+                                .getMaxPersistenceSize());
+                        CompletableFuture<Void> cfSaveFecha = tareaAmbitoGlobalFechaAsyncService.save(new ArrayList<>(fechas), tarea);
+                        AsyncUtils.exceptionally(cfSaveFecha, cf, cfPersist);
                     }
                     hasNext = request.nextPage();
                 } while (hasNext);
             });
-//            final TareaAmbitoGlobalEmpresaDto dto = new TareaAmbitoGlobalEmpresaDto();
-//            dto.setIdTarea(tarea.getId());
-//            dto.setStdIdLegEnt(tarea.getStdIdLegEnt());
-//            dto.setCclIdOrigen(tareaAmbito.getCclIdOrigen());
-//            this.tareaAmbitoGlobalEmpresaService.save(
-//                    Arrays.asList(dto),
-//                tarea);
-//
-//            final TareaAmbitoGlobalFechaDto dtoFecha = new TareaAmbitoGlobalFechaDto();
-//            dtoFecha.setFechaInicio(TimeUtils.toDate(trabajo.getFechaInicioPeriodo()));
-//            dtoFecha.setFechaFin(TimeUtils.toDate(trabajo.getFechaFinPeriodo().plusMonths(2)));
-//            dtoFecha.setIdTarea(tarea.getId());
-//
-//            this.tareaAmbitoGlobalFechaService.save(Arrays.asList(dtoFecha), tarea);
+
+
+            //TODO [javierev] Mantengo esto porque ahora mismo el servicio M4 no devuelve nada,
+            // pero supongo que habrá que quitarlo
+            final TareaAmbitoGlobalEmpresaDto dto = new TareaAmbitoGlobalEmpresaDto();
+            dto.setIdTarea(tarea.getId());
+            dto.setStdIdLegEnt(tarea.getStdIdLegEnt());
+            dto.setCclIdOrigen(tareaAmbito.getCclIdOrigen());
+            this.tareaAmbitoGlobalEmpresaService.save(
+                    Arrays.asList(dto),
+                tarea);
+
+            final TareaAmbitoGlobalFechaDto dtoFecha = new TareaAmbitoGlobalFechaDto();
+            dtoFecha.setFechaInicio(TimeUtils.toDate(trabajo.getFechaInicioPeriodo()));
+            dtoFecha.setFechaFin(TimeUtils.toDate(trabajo.getFechaFinPeriodo().plusMonths(2)));
+            dtoFecha.setIdTarea(tarea.getId());
+
+            this.tareaAmbitoGlobalFechaService.save(Arrays.asList(dtoFecha), tarea);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/

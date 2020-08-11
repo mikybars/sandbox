@@ -9,6 +9,8 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoGlobalEmpresaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoGlobalFechaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -17,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.Con
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
@@ -653,5 +656,19 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaInicioExportacion", ignore = true)
     public abstract ConfiguracionesRequestDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfiguracionesRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "idTarea", source = "srcTarea.id")
+    @Mapping(target = "cclIdOrigen", source = "srcDesplazamiento.idOrigen")
+    @Mapping(target = "stdIdLegEnt", source = "srcDesplazamiento.idEmpresa")
+    public abstract TareaAmbitoGlobalEmpresaDto mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(
+        TareaDto srcTarea, DesplazamientosMultiempresaItemDto srcDesplazamiento);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "idTarea", source = "srcTarea.id")
+    @Mapping(target = "fechaInicio", source = "srcDesplazamiento.fechaInicio")
+    @Mapping(target = "fechaFin", source = "srcDesplazamiento.fechaFin")
+    public abstract TareaAmbitoGlobalFechaDto mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToTareaAmbitoGlobalFechaDto(
+        TareaDto srcTarea, DesplazamientosMultiempresaItemDto srcDesplazamiento);
 
 }
