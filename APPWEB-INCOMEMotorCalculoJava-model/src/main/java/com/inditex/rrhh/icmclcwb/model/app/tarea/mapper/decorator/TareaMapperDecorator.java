@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoGlobalEmpresaDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
@@ -135,4 +137,12 @@ public abstract class TareaMapperDecorator extends TareaMapper {
         return result;
     }
 
+    @Override
+    public List<TareaAmbitoGlobalEmpresaDto> mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(TareaDto srcTarea, List<DesplazamientosMultiempresaItemDto> srcDesplazamiento) {
+        List<TareaAmbitoGlobalEmpresaDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(srcDesplazamiento)) {
+            srcDesplazamiento.forEach(emp -> result.add(delegate.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(srcTarea, emp)));
+        }
+        return result;
+    }
 }

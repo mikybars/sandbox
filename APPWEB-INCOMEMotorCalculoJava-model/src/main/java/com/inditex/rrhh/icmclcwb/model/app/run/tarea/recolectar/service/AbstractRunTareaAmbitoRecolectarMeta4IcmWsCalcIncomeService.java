@@ -92,7 +92,6 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
 
     protected abstract LocalDateTime getFechaInicioPeriodo(TareaDto tarea);
 
-    // TODO: Enganchar servicio
     public void fechaAmbitoAndEmpresaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         final List<CompletableFuture<?>> cf = new ArrayList<>();
@@ -113,34 +112,34 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
                         periodo));
                 request.getData().setIdEmpresa(empresa.getStdIdLegEnt());
                 boolean hasNext = false;
+                boolean fechasGuardadas = false;
                 do {
                     CompletableFuture<List<DesplazamientosMultiempresaItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService.getDesplazamientosMultiempresa(request);
                     AsyncUtils.exceptionally(cfData, cf);
                     List<DesplazamientosMultiempresaItemDto> data = AsyncUtils.get(cfData);
                     if (CollectionUtils.isNotEmpty(data)) {
-                        // LinkedHashSet para evitar duplicados
-                        LinkedHashSet<TareaAmbitoGlobalEmpresaDto> empresas = new LinkedHashSet<>();
-                        LinkedHashSet<TareaAmbitoGlobalFechaDto> fechas = new LinkedHashSet<>();
-                        data.forEach(x -> {
-                            empresas.add(tareaMapper.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(tarea, x));
-                            fechas.add(tareaMapper.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToTareaAmbitoGlobalFechaDto(tarea, x));
-                        });
+
+                        //Guardado fechas: se guarda la primera (todas las que devuelve el servicio deberían ser la misma) y sólo si no se ha guardado en una página anterior
+                        if (!fechasGuardadas) {
+                            AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
+                                    .getFilter()
+                                    .getMaxPersistenceSize());
+                            TareaAmbitoGlobalFechaDto fecha = tareaMapper.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToTareaAmbitoGlobalFechaDto(tarea, data.get(0));
+                            CompletableFuture<Void> cfSaveFecha = tareaAmbitoGlobalFechaAsyncService.save(Arrays.asList(fecha), tarea);
+                            AsyncUtils.exceptionally(cfSaveFecha, cf, cfPersist);
+                            fechasGuardadas = true;
+                        }
 
                         //Guardado empresas
+                        List<TareaAmbitoGlobalEmpresaDto> empresas = tareaMapper.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(tarea, data);
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
                             this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
                                 .getFilter()
                                 .getMaxPersistenceSize());
-                        CompletableFuture<Void> cfSaveEmpresa = tareaAmbitoGlobalEmpresaAsyncService.save(new ArrayList<>(empresas), tarea);
+                        CompletableFuture<Void> cfSaveEmpresa = tareaAmbitoGlobalEmpresaAsyncService.save(empresas, tarea);
                         AsyncUtils.exceptionally(cfSaveEmpresa, cf, cfPersist);
 
-                        //Guardado fechas
-                        AsyncUtils.checkAsyncAvaliable(cfPersist,
-                            this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
-                                .getFilter()
-                                .getMaxPersistenceSize());
-                        CompletableFuture<Void> cfSaveFecha = tareaAmbitoGlobalFechaAsyncService.save(new ArrayList<>(fechas), tarea);
-                        AsyncUtils.exceptionally(cfSaveFecha, cf, cfPersist);
                     }
                     hasNext = request.nextPage();
                 } while (hasNext);

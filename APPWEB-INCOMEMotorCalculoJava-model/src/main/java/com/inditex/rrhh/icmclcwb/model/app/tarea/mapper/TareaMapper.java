@@ -664,6 +664,11 @@ public abstract class TareaMapper {
     public abstract TareaAmbitoGlobalEmpresaDto mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(
         TareaDto srcTarea, DesplazamientosMultiempresaItemDto srcDesplazamiento);
 
+    public List<TareaAmbitoGlobalEmpresaDto> mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(
+        TareaDto srcTarea, List<DesplazamientosMultiempresaItemDto> srcDesplazamiento) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTarea", source = "srcTarea.id")
     @Mapping(target = "fechaInicio", source = "srcDesplazamiento.fechaInicio")
