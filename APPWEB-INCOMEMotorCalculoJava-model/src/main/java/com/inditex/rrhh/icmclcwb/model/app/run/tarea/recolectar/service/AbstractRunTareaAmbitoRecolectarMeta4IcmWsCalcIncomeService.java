@@ -10,6 +10,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,39 +92,33 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             TrabajoDto trabajo = runTarea.getTrabajo();
             TareaDto tarea = runTarea.getTarea();
             DesplazamientosMultiempresaRequestDto request = new DesplazamientosMultiempresaRequestDto();
-            this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId())
-                .stream()
-                .forEach(x -> {
-                    request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS).getPage());
-                    request.setData(this.tareaMapper
-                        .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
-                            this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
-                                tarea.getId(),
-                                TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-                    request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA).getPage());
-                    request.setData(this.tareaMapper
-                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito,
-                            this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
-                                tarea.getId(),
-                                TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-                    request.getData().setIdEmpresa(x.getStdIdLegEnt());
-                    boolean hasNext = false;
-                    do {
-                        CompletableFuture<List<DesplazamientosMultiempresaItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService.getDesplazamientosMultiempresa(request);
-                        AsyncUtils.exceptionally(cfData, cf);
-                        List<DesplazamientosMultiempresaItemDto> data = AsyncUtils.get(cfData);
-                        if (CollectionUtils.isNotEmpty(data)) {
-                            //TODO guardar
-//                            AsyncUtils.checkAsyncAvaliable(cfPersist,
-//                                this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
-//                                    .getFilter()
-//                                    .getMaxPersistenceSize());
+            trabajo.getEmpresa().forEach(x -> {
+                request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA).getPage());
+                PeriodoDto periodo = PeriodoDto
+                    .builder()
+                    .fechaInicioPeriodo(trabajo.getFechaInicioPeriodo())
+                    .fechaFinPeriodo(trabajo.getFechaFinPeriodo())
+                    .build();
+                request.setData(this.tareaMapper
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito,
+                        periodo));
+                request.getData().setIdEmpresa(x.getStdIdLegEnt());
+                boolean hasNext = false;
+                do {
+                    CompletableFuture<List<DesplazamientosMultiempresaItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService.getDesplazamientosMultiempresa(request);
+                    AsyncUtils.exceptionally(cfData, cf);
+                    List<DesplazamientosMultiempresaItemDto> data = AsyncUtils.get(cfData);
+                    if (CollectionUtils.isNotEmpty(data)) {
+                        //TODO guardar
+    //                            AsyncUtils.checkAsyncAvaliable(cfPersist,
+    //                                this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
+    //                                    .getFilter()
+    //                                    .getMaxPersistenceSize());
 
-                        }
-                        hasNext = request.nextPage();
-                    } while (hasNext);
-                });
+                    }
+                    hasNext = request.nextPage();
+                } while (hasNext);
+            });
 //            final TareaAmbitoGlobalEmpresaDto dto = new TareaAmbitoGlobalEmpresaDto();
 //            dto.setIdTarea(tarea.getId());
 //            dto.setStdIdLegEnt(tarea.getStdIdLegEnt());
