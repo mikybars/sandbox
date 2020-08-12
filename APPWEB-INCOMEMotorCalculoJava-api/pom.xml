@@ -24,10 +24,15 @@
       <groupId>com.inditex.aqsw.framework.common</groupId>
       <artifactId>common-framework-starter-api-validation</artifactId>
     </dependency>
+   <dependency>
+      <groupId>com.inditex.aqsw.framework.service</groupId>
+      <artifactId>service-framework-starter-aaa-oidc-ldap-spnego</artifactId>
+    </dependency>
     <dependency>
       <groupId>com.inditex.aqsw.framework.service</groupId>
-      <artifactId>service-framework-aaa-classic</artifactId>
+      <artifactId>service-framework-starter-aaa-userdetails-sso</artifactId>
     </dependency>
+    
 
     <!-- OTHER DEPENDENCIES -->
     <dependency>

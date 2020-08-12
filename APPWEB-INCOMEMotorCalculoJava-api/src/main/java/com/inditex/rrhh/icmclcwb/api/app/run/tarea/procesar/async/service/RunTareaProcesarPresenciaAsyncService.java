@@ -49,4 +49,8 @@ public interface RunTareaProcesarPresenciaAsyncService {
 
     CompletableFuture<Void> compensarChallenge(RunTareaDto runTarea);
 
+    CompletableFuture<Void> indicadorDesplazamientoBaseDirectoVenta(RunTareaDto runTarea);
+
+    CompletableFuture<Void> indicadorDesplazamientoDirectoVenta(RunTareaDto runTarea);
+
 }

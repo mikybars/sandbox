@@ -115,7 +115,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                             .map(IdLocalizacionLocalDto::getId)
                             .map(Integer::valueOf)
                             .collect(Collectors.toList()));
-                        request.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
+                request.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
                         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                         request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                         request.setProducto(this.meta4IcmWsCalcIncomeSessionService
@@ -162,7 +162,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoIdCadenaDtoToPtrVentaTotalizadoRequestDto(
                         tarea, tareaAmbito, periodo, this.recolectarProperties, cadenas);
 
-            request.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
+            request.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
             request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
             request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
             request.setProducto(this.meta4IcmWsCalcIncomeSessionService
@@ -210,8 +210,15 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                             .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
                                     trabajo, tarea,
                                     tareaAmbito, iter, this.recolectarProperties);
-                        request.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
-                        request.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
+                request
+                    .setTienda(this.tareaLocalizacionHistoricoService
+                        .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(tarea.getId(),
+                                iter.getIdTipoPresupuesto(),
+                                iter.getFechaInicio(), iter.getFechaFin())
+                        .stream()
+                        .map(y -> Integer.valueOf(y.getId()))
+                        .collect(Collectors.toList()));
+                request.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
                         request.setAgrupacion(PtrGroupTypeEnum.OPERACION_TIENDA_SECCION);
                         request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                         request.setProducto(this.meta4IcmWsCalcIncomeSessionService

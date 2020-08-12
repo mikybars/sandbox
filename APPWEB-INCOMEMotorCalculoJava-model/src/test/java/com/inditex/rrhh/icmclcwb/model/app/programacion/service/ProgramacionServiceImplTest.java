@@ -29,7 +29,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.inditex.aqsw.framework.service.aaa.classic.serviciossso.UserSSO;
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
