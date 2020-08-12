@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -34,6 +35,12 @@ public class TareaAmbitoGlobalFechaServiceImpl implements TareaAmbitoGlobalFecha
         this.tareaAmbitoGlobalFechaRepositoryCustom.save(
                 this.tareaAmbitoGlobalFechaMapper
                     .tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(src, tarea));
+    }
+
+    @Override
+    public void save(@Valid @NotNull TareaAmbitoGlobalFechaDto src, @Valid @NotNull TareaDto tarea) {
+        this.tareaAmbitoGlobalFechaRepositoryCustom.save(
+            this.tareaAmbitoGlobalFechaMapper.tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(Arrays.asList(src), tarea));
     }
 
     @Override

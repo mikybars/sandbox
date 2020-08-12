@@ -15,7 +15,11 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 @Async("repositoryPrimaryExecutor")
 public interface TareaAmbitoGlobalFechaAsyncService {
 
+    @Deprecated
     CompletableFuture<Void> save(@Valid @NotNull @NotEmpty List<TareaAmbitoGlobalFechaDto> src,
+            @Valid @NotNull TareaDto tarea);
+
+    CompletableFuture<Void> save(@Valid @NotNull TareaAmbitoGlobalFechaDto src,
             @Valid @NotNull TareaDto tarea);
 
 }

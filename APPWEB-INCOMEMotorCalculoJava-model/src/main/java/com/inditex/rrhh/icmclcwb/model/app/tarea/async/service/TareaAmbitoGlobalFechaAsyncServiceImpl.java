@@ -29,4 +29,9 @@ public class TareaAmbitoGlobalFechaAsyncServiceImpl implements TareaAmbitoGlobal
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> save(@Valid @NotNull TareaAmbitoGlobalFechaDto src, @Valid @NotNull TareaDto tarea) {
+        this.tareaAmbitoGlobalFechaService.save(src, tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
 }

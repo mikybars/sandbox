@@ -26,22 +26,19 @@ public abstract class TareaAmbitoGlobalFechaMapperDecorator extends TareaAmbitoG
         final List<TareaAmbitoGlobalFecha> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             for (final TareaAmbitoGlobalFechaDto item : src) {
-                final TareaAmbitoGlobalFecha fecha = this.delegate
+                // Se guarda lo que venga como período ampliado (independientemente de que sea el mismo que el del cálculo)
+                final TareaAmbitoGlobalFecha periodoAmpliado = this.delegate
                     .tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(item);
-                if (!fecha.getFechaInicio().equals(tarea.getFechaInicioPeriodo())) {
-                    final TareaAmbitoGlobalFecha ampliado = this.delegate
-                        .tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(item);
-                    final TipoDato tipoDato = new TipoDato();
-                    tipoDato.setId(TipoDatoEnum.PERIODO_AMPLIADO.getId());
-                    ampliado.setTipoDato(tipoDato);
-                    result.add(ampliado);
-                }
-                final TipoDato tipoDato = new TipoDato();
-                tipoDato.setId(TipoDatoEnum.PERIODO.getId());
-                fecha.setTipoDato(tipoDato);
-                fecha.setFechaInicio(TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
-                fecha.setFechaFin(TimeUtils.toDate(tarea.getFechaFinPeriodo()));
-                result.add(fecha);
+                periodoAmpliado.setTipoDato(TipoDato.builder().id(TipoDatoEnum.PERIODO_AMPLIADO.getId()).build());
+                result.add(periodoAmpliado);
+
+                // Y también el del cálculo
+                final TareaAmbitoGlobalFecha periodoCalculo = this.delegate
+                    .tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(item);
+                periodoCalculo.setTipoDato(TipoDato.builder().id(TipoDatoEnum.PERIODO.getId()).build());
+                periodoCalculo.setFechaInicio(TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+                periodoCalculo.setFechaFin(TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+                result.add(periodoCalculo);
             }
         }
         return result;

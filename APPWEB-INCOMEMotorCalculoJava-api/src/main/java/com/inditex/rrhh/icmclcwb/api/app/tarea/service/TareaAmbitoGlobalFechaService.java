@@ -12,7 +12,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface TareaAmbitoGlobalFechaService {
 
+    @Deprecated
     void save(@Valid @NotNull @NotEmpty List<TareaAmbitoGlobalFechaDto> src, @Valid @NotNull TareaDto tarea);
+
+    void save(@Valid @NotNull TareaAmbitoGlobalFechaDto src, @Valid @NotNull TareaDto tarea);
 
     PeriodoDto findFechaAmbitoDtoByIdTareaAndIdTipoDato(@Valid @NotNull Long idTarea, @NotNull Integer idTipoDato);
 

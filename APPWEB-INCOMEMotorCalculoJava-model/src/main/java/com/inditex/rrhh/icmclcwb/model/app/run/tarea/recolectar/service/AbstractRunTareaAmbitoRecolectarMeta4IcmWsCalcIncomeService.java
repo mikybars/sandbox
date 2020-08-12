@@ -126,7 +126,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
                                     .getFilter()
                                     .getMaxPersistenceSize());
                             TareaAmbitoGlobalFechaDto fecha = tareaMapper.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToTareaAmbitoGlobalFechaDto(tarea, data.get(0));
-                            CompletableFuture<Void> cfSaveFecha = tareaAmbitoGlobalFechaAsyncService.save(Arrays.asList(fecha), tarea);
+                            CompletableFuture<Void> cfSaveFecha = tareaAmbitoGlobalFechaAsyncService.save(fecha, tarea);
                             AsyncUtils.exceptionally(cfSaveFecha, cf, cfPersist);
                             fechasGuardadas = true;
                         }
@@ -157,11 +157,11 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
                 tarea);
 
             final TareaAmbitoGlobalFechaDto dtoFecha = new TareaAmbitoGlobalFechaDto();
-            dtoFecha.setFechaInicio(TimeUtils.toDate(trabajo.getFechaInicioPeriodo()));
-            dtoFecha.setFechaFin(TimeUtils.toDate(trabajo.getFechaFinPeriodo().plusMonths(2)));
+            dtoFecha.setFechaInicio(TimeUtils.toDate(trabajo.getFechaInicioPeriodo().minusMonths(2)));
+            dtoFecha.setFechaFin(TimeUtils.toDate(trabajo.getFechaFinPeriodo()));
             dtoFecha.setIdTarea(tarea.getId());
 
-            this.tareaAmbitoGlobalFechaService.save(Arrays.asList(dtoFecha), tarea);
+            this.tareaAmbitoGlobalFechaService.save(dtoFecha, tarea);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
