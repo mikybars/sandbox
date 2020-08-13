@@ -181,6 +181,16 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     }
 
     @Override
+    @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_ids_empresa",
+        key = "{#idTarea, #cclIdOrigen, #stdIdLegEnt}")
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
+        @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull @NotEmpty List<String> stdIdLegEnt) {
+        return this.tareaLocalizacionHistoricoRepository
+            .findIdLocalizacionLocalDtoByIdTareaAndCClIdOrigenAndStdIdLegEnt(idTarea,
+                cclIdOrigen, stdIdLegEnt);
+    }
+
+    @Override
     @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_id_tipo_presupuesto_and_fecha_and_tarea",
             key = "{#idTarea, #idTipoPresupuesto, #fechaInicio, #fechaFin}")
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(

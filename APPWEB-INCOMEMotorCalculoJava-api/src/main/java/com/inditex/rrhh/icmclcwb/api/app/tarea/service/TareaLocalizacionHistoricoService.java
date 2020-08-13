@@ -70,6 +70,10 @@ public interface TareaLocalizacionHistoricoService {
             @NotNull @Positive final Long idTarea,
             @NotBlank final String cclIdOrigen, @NotBlank final String stdIdLegEnt);
 
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
+            @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+            @NotNull @NotEmpty final List<String> stdIdLegEnt);
+
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
             @NotNull @Positive Long idTarea, @NotNull @Positive Integer idTipoPresupuesto,
             @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin);
