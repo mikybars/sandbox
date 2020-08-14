@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -151,7 +152,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     @Override
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
             @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-            @NotBlank final String stdIdLegEnt) {
+            @NotNull @NotEmpty final List<String> stdIdLegEnt) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -275,7 +276,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     @Override
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
             @NotNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
-            @NotBlank final String stdIdLegEnt,
+            @NotNull @NotEmpty final List<String> stdIdLegEnt,
             @NotNull final List<String> tiposCalculo) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
@@ -310,7 +311,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
     @Override
     public List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(
-            @NotBlank final String stdIdLegEnt, @NotNull @Positive final Long idTarea) {
+            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

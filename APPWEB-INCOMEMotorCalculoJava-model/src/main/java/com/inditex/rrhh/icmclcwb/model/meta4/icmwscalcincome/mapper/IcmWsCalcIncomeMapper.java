@@ -113,12 +113,13 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametro
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoRecord;
+import org.apache.commons.collections.CollectionUtils;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(imports = CollectionUtils.class)
 @DecoratedWith(IcmWsCalcIncomeMapperDecorator.class)
 public interface IcmWsCalcIncomeMapper {
 
@@ -157,6 +158,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idEmpresa", source = "idempresa")
+    //@Mapping(target = "idsEmpresa", source = "idempresa") TODO [javierev] pendiente multiempresa
     @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "item", source = "icmParamcalempleadoRecordSet")
     GenericFilterDto asGenericFilterDto(IcmParamcalempleadoBlock src);
@@ -1045,12 +1047,15 @@ public interface IcmWsCalcIncomeMapper {
     List<ConfChDiasMinimosResultItemDto> asConfChDiasMinimosResultItemDto(List<IcmListaconfchdiasRecord> src);
 
     @InheritInverseConfiguration
+    //TODO [javierev] eliminar esto cuando el servicio soporte multiempresa (el mapper inverso podrá con esto)
+    @Mapping(target = "idempresa", expression = "java(CollectionUtils.isNotEmpty(src.getIdsEmpresa()) ? src.getIdsEmpresa().get(0) : null)")
     IcmParamcalpresupuestoswlocBlock asIcmParamcalpresupuestoswlocBlock(PresupuestosWlocFilterDto src);
 
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idEmpresa", source = "idempresa")
+    //TODO [javierev] Cambiar cuando el servicio soporte multiempresa
+    @Mapping(target = "idsEmpresa", ignore = true)
     @Mapping(target = "idSeccion", ignore = true)
     @Mapping(target = "banda", ignore = true)
     @Mapping(target = "ordinal", ignore = true)

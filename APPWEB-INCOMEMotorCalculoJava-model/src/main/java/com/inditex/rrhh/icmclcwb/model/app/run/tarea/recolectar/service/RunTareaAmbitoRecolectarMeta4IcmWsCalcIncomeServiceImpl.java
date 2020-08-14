@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -399,6 +400,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     @Override
     public void estructurasComByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        //TODO [javierev] Este servicio está marcado como que debe admitir múltiples empresas, pero ahora no
+        // recibe la empresa por parémetro
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
@@ -446,6 +449,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     @Override
     public void estructurasPolByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        //TODO [javierev] Este servicio está marcado para ser adaptado a multiempresa, pero ahora mismo
+        // no se le está pasando ninguna empresa
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
@@ -783,12 +788,15 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             final List<IdPersonaLocalDto> personasChallenge = this.tareaPersonaEstructuraService
                 .findPersonasChallenge(tarea);
+            List<String> empresasAmbito =
+                tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(tarea.getId()).stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
             if (CollectionUtils.isNotEmpty(personasChallenge)) {
                 final PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
                 request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getPage());
                 request.setData(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosWlocFilterDto(
                         trabajo, tarea, tareaAmbito));
                 request.getData().setItem(Collections.singletonList(new PresupuestosWlocFilterParametersDto()));
+                request.getData().setIdsEmpresa(empresasAmbito);
                 boolean hasNext;
                 do {
                     final CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService

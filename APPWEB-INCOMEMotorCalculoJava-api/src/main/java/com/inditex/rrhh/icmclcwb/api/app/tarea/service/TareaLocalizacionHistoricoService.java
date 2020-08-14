@@ -55,15 +55,15 @@ public interface TareaLocalizacionHistoricoService {
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
             @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-            @NotBlank final String stdIdLegEnt);
+            @NotNull @NotEmpty final List<String> stdIdLegEnt);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
             @NotNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
-            @NotBlank final String stdIdLegEnt,
+            @NotNull @NotEmpty final List<String> stdIdLegEnt,
             @NotNull final List<String> idTipoCalculo);
 
     List<IdLocalizacionLocalPresupuestoDto> findTiendasPresupuestosByStdIdLegEntAndIdTarea(
-            @NotBlank final String stdIdLegEnt,
+            @NotNull @NotEmpty final List<String> stdIdLegEnt,
             @NotNull @Positive final Long idTarea);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(

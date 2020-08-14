@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -50,14 +51,14 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
             @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-            @NotBlank final String stdIdLegEnt);
+            @NotNull @NotEmpty final List<String> stdIdLegEnt);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
             @NotNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
-            @NotBlank final String stdIdLegEnt, @NotNull List<String> tiposCalculo);
+            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull List<String> tiposCalculo);
 
     List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(
-            @NotBlank final String stdIdLegEnt, @NotNull @Positive final Long idTarea);
+            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
             @NotNull @Positive Long idTarea, @NotNull @Positive Integer idTipoPresupuesto,

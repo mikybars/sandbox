@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -367,8 +368,11 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId())
+            //TODO [javierev] Cuando PTR permita multiempresa se retira el bucle, el Arrays.asList(x.getStdIdLegEnt) se cambia por
+            // empresasAmbito y a setEmpresa se le pasa también empresasAmbito
+            List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId());
+            empresasAmbito
                 .stream()
                 .forEach(x -> {
                     for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
@@ -376,7 +380,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                                 .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
                                         tarea.getId(),
                                         tareaAmbito.getCclIdOrigen(),
-                                        x.getStdIdLegEnt(),
+                                        Arrays.asList(x.getStdIdLegEnt()),
                                         Arrays.asList(TipoCalculoEnum.POR_VENTA.getId(),
                                                 TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(),
                                                 TipoCalculoEnum.POR_VENTA_INDIVIDUAL.getId())),
@@ -439,18 +443,21 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId())
+            //TODO [javierev] Cuando PTR permita multiempresa se retira el bucle, el Arrays.asList(x.getStdIdLegEnt) se cambia por
+            // empresasAmbito y a setEmpresa se le pasa también empresasAmbito
+            List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId());
+            empresasAmbito
                 .stream()
                 .forEach(x -> {
                     for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
-                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(x.getStdIdLegEnt(), tarea.getId())) {
+                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(Arrays.asList(x.getStdIdLegEnt()), tarea.getId())) {
                         final PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod = this.tareaMapper
                             .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(trabajo, tarea,
                                     tareaAmbito, this.recolectarProperties);
                         paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
                         paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                        paramVentaOnlineIpod.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
+                        paramVentaOnlineIpod.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
                         paramVentaOnlineIpod
                             .setTienda(this.tareaLocalizacionHistoricoService
                                 .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(tarea.getId(),
@@ -495,19 +502,22 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId())
+            //TODO [javierev] Cuando PTR permita multiempresa se retira el bucle, el Arrays.asList(x.getStdIdLegEnt) se cambia por
+            // empresasAmbito y a setEmpresa se le pasa también empresasAmbito
+            List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId());
+            empresasAmbito
                 .stream()
                 .forEach(x -> {
                     for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
-                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(x.getStdIdLegEnt(), tarea.getId())) {
+                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(Arrays.asList(x.getStdIdLegEnt()), tarea.getId())) {
                         final PtrVentaOnlinePickingRequestDto paramVentaOnlinePicking = this.tareaMapper
                             .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlinePickingRequestDto(
                                     trabajo, tarea,
                                     tareaAmbito, iter, this.recolectarProperties);
                         paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
                         paramVentaOnlinePicking.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                        paramVentaOnlinePicking.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
+                        paramVentaOnlinePicking.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
                         paramVentaOnlinePicking
                             .setTienda(this.tareaLocalizacionHistoricoService
                                 .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(tarea.getId(),
@@ -555,12 +565,15 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId())
+            //TODO [javierev] Cuando PTR permita multiempresa se retira el bucle, el Arrays.asList(x.getStdIdLegEnt) se cambia por
+            // empresasAmbito y a setEmpresa se le pasa también empresasAmbito
+            List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId());
+            empresasAmbito
                 .stream()
                 .forEach(x -> {
                     for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
-                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(x.getStdIdLegEnt(), tarea.getId())) {
+                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(Arrays.asList(x.getStdIdLegEnt()), tarea.getId())) {
 
                         final PtrVentaOnlineEntregaTiendaRequestDto paramVentaOnlineEntregaTiendaRequest = this.tareaMapper
                             .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineEntregaTiendaRequestDto(
@@ -568,7 +581,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                                     tareaAmbito, iter, this.recolectarProperties);
                         paramVentaOnlineEntregaTiendaRequest.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
                         paramVentaOnlineEntregaTiendaRequest.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                        paramVentaOnlineEntregaTiendaRequest.setEmpresa(Integer.valueOf(tarea.getStdIdLegEnt()));
+                        paramVentaOnlineEntregaTiendaRequest.setEmpresa(Integer.valueOf(x.getStdIdLegEnt()));
                         paramVentaOnlineEntregaTiendaRequest
                             .setTienda(this.tareaLocalizacionHistoricoService
                                 .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(tarea.getId(),
@@ -616,12 +629,15 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId())
+            //TODO [javierev] Cuando PTR permita multiempresa se retira el bucle, el Arrays.asList(x.getStdIdLegEnt) se cambia por
+            // empresasAmbito y a setEmpresa se le pasa también empresasAmbito
+            List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId());
+            empresasAmbito
                 .stream()
                 .forEach(x -> {
                     for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
-                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(x.getStdIdLegEnt(), tarea.getId())) {
+                        .findTiendasPresupuestosByStdIdLegEntAndIdTarea(Arrays.asList(x.getStdIdLegEnt()), tarea.getId())) {
                         final PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaTiendaRequest = this.tareaMapper
                             .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
                                     trabajo, tarea,

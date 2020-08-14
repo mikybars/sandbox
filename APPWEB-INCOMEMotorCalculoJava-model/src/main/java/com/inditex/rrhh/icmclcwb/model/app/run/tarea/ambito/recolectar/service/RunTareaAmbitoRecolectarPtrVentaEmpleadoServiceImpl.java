@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -79,8 +80,11 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId())
+            //TODO [javierev] Cuando PTR permita multiempresa se retira el bucle, el Arrays.asList(x.getStdIdLegEnt) se cambia por
+            // empresasAmbito y a setEmpresa se le pasa también empresasAmbito
+            List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId());
+            empresasAmbito
                 .stream()
                 .forEach(x -> {
                     for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
@@ -88,7 +92,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
                                 .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
                                         tarea.getId(),
                                         tareaAmbito.getCclIdOrigen(),
-                                        x.getStdIdLegEnt(),
+                                        Arrays.asList(x.getStdIdLegEnt()),
                                         Arrays.asList(TipoCalculoEnum.POR_VENTA.getId(),
                                                 TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(),
                                                 TipoCalculoEnum.POR_VENTA_INDIVIDUAL.getId())),
