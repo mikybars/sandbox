@@ -86,21 +86,28 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            final TareaDto tarea = runTarea.getTarea();
-            CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService
-                .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
-                    .origen(Integer.parseInt(tareaAmbito.getCclIdOrigen()))
-                    .build());
-            AsyncUtils.exceptionally(cfData, cf);
-            PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);
-            if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
-                AsyncUtils.exceptionally(tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
-            } else {
-                log.warn(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
-                    .append(tareaAmbito.getCclIdOrigen())
-                    .toString());
+//            final TareaDto tarea = runTarea.getTarea();
+//            CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService
+//                .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
+//                    .origen(Integer.parseInt(tareaAmbito.getCclIdOrigen()))
+//                    .build());
+//            AsyncUtils.exceptionally(cfData, cf);
+//            PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);
+//            if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
+//                AsyncUtils.exceptionally(tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
+//            } else {
+//                log.warn(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
+//                    .append(tareaAmbito.getCclIdOrigen())
+//                    .toString());
+//            }
+//            AsyncUtils.waitAllOfIsOk(cf, cf);
+            // Simulacion timeout: 3 minutos = 180000 ms
+            try {
+                Thread.sleep(326000);
+            } catch (InterruptedException e) {
+                log.error("Error al suspender el hilo", e);
             }
-            AsyncUtils.waitAllOfIsOk(cf, cf);
+            throw new RuntimeException("Timeout simulado!");
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
