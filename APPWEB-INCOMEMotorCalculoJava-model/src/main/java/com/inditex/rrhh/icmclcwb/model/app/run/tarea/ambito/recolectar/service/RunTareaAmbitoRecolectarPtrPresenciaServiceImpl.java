@@ -86,6 +86,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
+            //TODO [javierev] deshacer este cambio (incluyendo la eliminación de la interrupción del hilo!)
 //            final TareaDto tarea = runTarea.getTarea();
 //            CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService
 //                .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
