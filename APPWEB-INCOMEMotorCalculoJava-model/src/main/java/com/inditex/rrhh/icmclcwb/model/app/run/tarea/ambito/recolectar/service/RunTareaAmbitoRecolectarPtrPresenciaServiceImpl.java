@@ -86,29 +86,21 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            //TODO [javierev] deshacer este cambio (incluyendo la eliminación de la interrupción del hilo!)
-//            final TareaDto tarea = runTarea.getTarea();
-//            CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService
-//                .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
-//                    .origen(Integer.parseInt(tareaAmbito.getCclIdOrigen()))
-//                    .build());
-//            AsyncUtils.exceptionally(cfData, cf);
-//            PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);
-//            if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
-//                AsyncUtils.exceptionally(tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
-//            } else {
-//                log.warn(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
-//                    .append(tareaAmbito.getCclIdOrigen())
-//                    .toString());
-//            }
-//            AsyncUtils.waitAllOfIsOk(cf, cf);
-            // Simulacion timeout: 3 minutos = 180000 ms
-            try {
-                Thread.sleep(326000);
-            } catch (InterruptedException e) {
-                log.error("Error al suspender el hilo", e);
+            final TareaDto tarea = runTarea.getTarea();
+            CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = ptrPresenciaAsyncService
+                .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
+                    .origen(Integer.parseInt(tareaAmbito.getCclIdOrigen()))
+                    .build());
+            AsyncUtils.exceptionally(cfData, cf);
+            PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);
+            if (data != null && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
+                AsyncUtils.exceptionally(tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
+            } else {
+                log.warn(new StringBuilder("No hay tipos de hora comisionables para el origen: ")
+                    .append(tareaAmbito.getCclIdOrigen())
+                    .toString());
             }
-            throw new RuntimeException("Timeout simulado!");
+            AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
