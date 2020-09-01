@@ -19,7 +19,7 @@ public class ReceiverTarea {
     @Autowired
     private RunService runService;
 
-    @CircuitBreaker(name = "tarea")
+//    @CircuitBreaker(name = "tarea")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @JmsListener(id = "tareaListener", destination = "${amiga.service.jms.tarea-queue.destination-fqdn}",
             containerFactory = "tareaContainerFactoryListener")
