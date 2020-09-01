@@ -131,14 +131,14 @@ amiga:
           minPoolSize: 10
           maxPoolSize: 20
           xaConnectionFactory:
-            brokerURL: failover:(tcp://127.0.0.1:61616)
+            brokerURL: failover:(tcp://10.202.10.178:61616)
             userName: root
             password: V3ct0r1nd1t3x
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
           xaConnectionFactory:
-            brokerURL: failover:(tcp://127.0.0.1:61616)
+            brokerURL: failover:(tcp://10.202.10.178:61616)
             userName: root
             password: V3ct0r1nd1t3x
       listener-container-factory:
