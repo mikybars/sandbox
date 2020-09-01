@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -50,7 +51,7 @@ public class PtrVentaEmpleadoServiceTest {
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setPais(PtrTestConstants.PAIS);
         request.setCadena(PtrTestConstants.CADENA);
-        request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_EMPLEADO);
+        request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA_VENTA_EMPLEADO));
         request.setTienda(PtrTestConstants.ID_TIENDA_VENTA_EMPLEADO);
         request.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);

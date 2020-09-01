@@ -31,7 +31,7 @@ public class PtrVentaOnlineEntregaTiendaRequestDto implements Serializable {
     private List<Integer> cadena;
 
     @ApiModelProperty(value = "Id empresa", required = false, example = "1")
-    private Integer empresa;
+    private List<Integer> empresa;
 
     @ApiModelProperty(value = "Listado de ids de tiendas online", required = false, example = "['4091', '9724']")
     private List<Integer> tiendaOnline = new ArrayList<>();

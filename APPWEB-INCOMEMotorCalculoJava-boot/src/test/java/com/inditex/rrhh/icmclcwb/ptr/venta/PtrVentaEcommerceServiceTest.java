@@ -62,7 +62,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_LIST);
         request.setPais(PtrTestConstants.PAIS);
-        request.setEmpresa(PtrTestConstants.ID_EMPRESA);
+        request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
         ResponseEntity<PtrVentaOnlineIpodResponseDto> response = ptrVentaClient
@@ -77,7 +77,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_LIST);
-        request.setEmpresa(PtrTestConstants.ID_EMPRESA);
+        request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
         request.setPais(PtrTestConstants.PAIS);
         request.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
@@ -95,7 +95,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST2);
         request.setPais(PtrTestConstants.PAIS);
-        request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE);
+        request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
         request.setCadena(PtrTestConstants.CADENA_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
         request.setPais(PtrTestConstants.PAIS);
@@ -115,7 +115,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST2);
         request.setPais(PtrTestConstants.PAIS);
-        request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE);
+        request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         ResponseEntity<PtrVentaOnlineEntregaDomicilioResponseDto> response = ptrVentaClient
@@ -131,7 +131,7 @@ public class PtrVentaEcommerceServiceTest {
         PtrVentaOnlineEntregaTiendaRequestDto request = new PtrVentaOnlineEntregaTiendaRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE);
+        request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
         request.setPais(PtrTestConstants.PAIS);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST2);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
@@ -149,7 +149,7 @@ public class PtrVentaEcommerceServiceTest {
         PtrVentaOnlineEntregaTiendaRequestDto request = new PtrVentaOnlineEntregaTiendaRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        request.setEmpresa(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE);
+        request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
         request.setPais(PtrTestConstants.PAIS);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST2);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
@@ -166,7 +166,7 @@ public class PtrVentaEcommerceServiceTest {
         PtrVentaOnlinePickingRequestDto request = new PtrVentaOnlinePickingRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-        request.setEmpresa(PtrTestConstants.ID_EMPRESA);
+        request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
         request.setPais(PtrTestConstants.PAIS);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
@@ -185,7 +185,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setPais(PtrTestConstants.PAIS);
-        request.setEmpresa(PtrTestConstants.ID_EMPRESA);
+        request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
 
@@ -203,7 +203,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setPais(PtrTestConstants.PAIS);
-        request.setEmpresa(PtrTestConstants.ID_EMPRESA);
+        request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
 
