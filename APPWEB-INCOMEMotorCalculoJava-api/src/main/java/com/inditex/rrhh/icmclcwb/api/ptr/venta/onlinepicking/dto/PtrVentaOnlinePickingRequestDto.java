@@ -42,7 +42,7 @@ public class PtrVentaOnlinePickingRequestDto implements Serializable {
 
     @ApiModelProperty(value = "Id empresa", required = false, example = "1")
     @XmlElement(name = "empresa")
-    private Integer empresa;
+    private List<Integer> empresa;
 
     @ApiModelProperty(value = "Listado de ids de tiendas online", required = false, example = "['4091', '9724']")
     @XmlElement(name = "tiendaOnline")
