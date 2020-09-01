@@ -73,29 +73,29 @@ amiga:
     resilience:
       backends:
         trabajo:
-          waitDurationInOpenState: PT60S
-          failureRateThreshold: 50
-          permittedNumberOfCallsInHalfOpenState: 10
-          slidingWindowSize: 100
-          slidingWindowType: COUNT_BASED
+          wait-duration-in-open-state: PT60S
+          failure-rate-threshold: 50
+          permitted-number-of-calls-in-half-open-state: 10
+          sliding-window-size: 100 
+          sliding-window-type: COUNT_BASED
         tarea:
-          waitDurationInOpenState: PT60S
-          failureRateThreshold: 50
-          permittedNumberOfCallsInHalfOpenState: 10
-          slidingWindowSize: 100
-          slidingWindowType: COUNT_BASED
+          wait-duration-in-open-state: PT60S
+          failure-rate-threshold: 50
+          permitted-number-of-calls-in-half-open-state: 10
+          sliding-window-size: 100 
+          sliding-window-type: COUNT_BASED
         limpieza:
-          waitDurationInOpenState: PT60S
-          failureRateThreshold: 50
-          permittedNumberOfCallsInHalfOpenState: 10
-          slidingWindowSize: 100
-          slidingWindowType: COUNT_BASED
+          wait-duration-in-open-state: PT60S
+          failure-rate-threshold: 50
+          permitted-number-of-calls-in-half-open-state: 10
+          sliding-window-size: 100 
+          sliding-window-type: COUNT_BASED
         programacion:
-          waitDurationInOpenState: PT60S
-          failureRateThreshold: 50
-          permittedNumberOfCallsInHalfOpenState: 10
-          slidingWindowSize: 100
-          slidingWindowType: COUNT_BASED          
+          wait-duration-in-open-state: PT60S
+          failure-rate-threshold: 50
+          permitted-number-of-calls-in-half-open-state: 10
+          sliding-window-size: 100 
+          sliding-window-type: COUNT_BASED       
   service:
     jms:
       listener:
@@ -123,20 +123,22 @@ amiga:
       logging:
         is-production: false
   data:
+    jta:
+      allow-custom-isolation-levels: true
     jms:
       connection-factory:
         broker-escritura:
           minPoolSize: 10
           maxPoolSize: 20
           xaConnectionFactory:
-            brokerURL: failover:(tcp://10.202.10.178:61616)
+            brokerURL: failover:(tcp://127.0.0.1:61616)
             userName: root
             password: V3ct0r1nd1t3x
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
           xaConnectionFactory:
-            brokerURL: failover:(tcp://10.202.10.178:61616)
+            brokerURL: failover:(tcp://127.0.0.1:61616)
             userName: root
             password: V3ct0r1nd1t3x
       listener-container-factory:
