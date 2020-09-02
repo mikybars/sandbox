@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.service.RunService;
-
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @Component
@@ -18,12 +17,12 @@ public class ReceiverProgramacion {
     @Autowired
     private RunService runService;
 
-//    @CircuitBreaker(name = "programacion")
+    @CircuitBreaker(name = "programacion")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @JmsListener(id = "programacionListener", destination = "${amiga.service.jms.programacion-queue.destination-fqdn}",
             containerFactory = "programacionContainerFactoryListener")
-    public void onMessageProgramacionListener(Message<IdProgramacionDto> message) {
-        runService.runProgramacion(message.getPayload().getId());
+    public void onMessageProgramacionListener(final Message<IdProgramacionDto> message) {
+        this.runService.runProgramacion(message.getPayload().getId());
     }
 
 }
