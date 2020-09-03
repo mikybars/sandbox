@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -98,12 +97,12 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
                 .findPeriodoPresupuestoYTrabajo(tarea.getId());
-            List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId());
+            List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId()).stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
             for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                 this.tareaLocalizacionHistoricoService
                     .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(tarea.getId(),
-                        tareaAmbito.getCclIdOrigen(), empresasAmbito.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList())),
+                        tareaAmbito.getCclIdOrigen(), empresasAmbito),
                 this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO)
                     .getFilter()
                     .getMaxPageSize())) {
@@ -114,7 +113,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                     .map(IdLocalizacionLocalDto::getId)
                     .map(Integer::valueOf)
                     .collect(Collectors.toList()));
-                request.setEmpresa(empresasAmbito.stream().map(IdEmpresaDto::getStdIdLegEnt).map(Integer::parseInt).collect(Collectors.toList()));
+                request.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
                 request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
                 request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
@@ -150,8 +149,8 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            List<Integer> empresasAmbito = tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(tarea.getId())
-                .stream().map(IdEmpresaDto::getStdIdLegEnt).map(Integer::valueOf).collect(Collectors.toList());
+            List<String> empresasAmbito = tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(tarea.getId())
+                .stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
             final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
                 .findPeriodoPresupuestoYTrabajo(tarea.getId());
             final List<TareaAgrupacionCadenasDto> agrupaciones = this.tareaAgrupacionCadenaService
@@ -162,7 +161,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoIdCadenaDtoToPtrVentaTotalizadoRequestDto(
                         tarea, tareaAmbito, periodo, this.recolectarProperties, cadenas);
 
-            request.setEmpresa(empresasAmbito);
+            request.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
             request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
             request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
             request.setProducto(this.meta4IcmWsCalcIncomeSessionService
@@ -200,10 +199,10 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId());
+            List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId()).stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
             for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
-                .findTiendasPresupuestosByStdIdLegEntAndIdTarea(empresasAmbito.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList()), tarea.getId())) {
+                .findTiendasPresupuestosByStdIdLegEntAndIdTarea(empresasAmbito, tarea.getId())) {
                 final PtrVentaTotalizadoRequestDto request = this.tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
                         trabajo, tarea,
@@ -216,7 +215,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                         .stream()
                         .map(y -> Integer.valueOf(y.getId()))
                         .collect(Collectors.toList()));
-                request.setEmpresa(empresasAmbito.stream().map(IdEmpresaDto::getStdIdLegEnt).map(Integer::parseInt).collect(Collectors.toList()));
+                request.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
                 request.setAgrupacion(PtrGroupTypeEnum.OPERACION_TIENDA_SECCION);
                 request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
