@@ -68,17 +68,17 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             // Tipos hora para los origenes
             final CompletableFuture<Void> cfTiposHoras = this.runTareaRecolectarPtrPresenciaAsyncService
                 .tiposHorasByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfTiposHoras, cf);
+            AsyncUtils.exceptionally(cfTiposHoras, cf, cfWait);
 
             // Flag comisionable para las localizaciones del ambito
             final CompletableFuture<Void> cfTiendaComisionable = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .tiendasComisionableByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfTiendaComisionable, cf);
+            AsyncUtils.exceptionally(cfTiendaComisionable, cf, cfWait);
 
             // Flag calcula para localizacion del ambito
             final CompletableFuture<Void> cfFlagCalcula = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .flagCalculaByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfFlagCalcula, cf);
+            AsyncUtils.exceptionally(cfFlagCalcula, cf, cfWait);
 
             // Configuracion venta online
             final CompletableFuture<Void> cfConfiguracionVentaOnline = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
