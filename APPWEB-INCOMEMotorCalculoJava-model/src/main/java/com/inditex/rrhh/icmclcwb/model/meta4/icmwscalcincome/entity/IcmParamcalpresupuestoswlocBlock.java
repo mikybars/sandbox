@@ -25,12 +25,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_ParamcalpresupuestoswlocBlock complex type.
- *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ParamcalpresupuestoswlocBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ParamcalpresupuestoswlocBlock"&gt;
  *   &lt;complexContent&gt;
@@ -38,7 +36,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *       &lt;sequence&gt;
  *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="Icm_ParamcalpresupuestoswlocRecordSet" type="{http://schemas.meta4.com/}Icm_ParamcalpresupuestoswlocRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
@@ -46,41 +43,36 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalpresupuestoswlocBlock", propOrder = {
-        "fechafin",
-        "idorigen",
-        "idempresa",
-        "fechainicio",
-        "icmParamcalpresupuestoswlocRecordSet"
+    "fechafin",
+    "idorigen",
+    "fechainicio",
+    "icmParamcalpresupuestoswlocRecordSet"
 })
-public class IcmParamcalpresupuestoswlocBlock
-        implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(required = true, nillable = true)
     protected String fechafin;
-
     @XmlElement(required = true, nillable = true)
     protected String idorigen;
-
-    @XmlElement(required = true, nillable = true)
-    protected String idempresa;
-
     @XmlElement(required = true, nillable = true)
     protected String fechainicio;
-
     @XmlElement(name = "Icm_ParamcalpresupuestoswlocRecordSet", nillable = true)
     protected List<IcmParamcalpresupuestoswlocRecord> icmParamcalpresupuestoswlocRecordSet;
 
     /**
      * Obtiene el valor de la propiedad fechafin.
-     * @return possible object is {@link String }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getFechafin() {
         return fechafin;
@@ -88,8 +80,11 @@ public class IcmParamcalpresupuestoswlocBlock
 
     /**
      * Define el valor de la propiedad fechafin.
-     * @param value allowed object is {@link String }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setFechafin(String value) {
         this.fechafin = value;
@@ -97,8 +92,11 @@ public class IcmParamcalpresupuestoswlocBlock
 
     /**
      * Obtiene el valor de la propiedad idorigen.
-     * @return possible object is {@link String }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getIdorigen() {
         return idorigen;
@@ -106,35 +104,23 @@ public class IcmParamcalpresupuestoswlocBlock
 
     /**
      * Define el valor de la propiedad idorigen.
-     * @param value allowed object is {@link String }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setIdorigen(String value) {
         this.idorigen = value;
     }
 
     /**
-     * Obtiene el valor de la propiedad idempresa.
-     * @return possible object is {@link String }
-     *
-     */
-    public String getIdempresa() {
-        return idempresa;
-    }
-
-    /**
-     * Define el valor de la propiedad idempresa.
-     * @param value allowed object is {@link String }
-     *
-     */
-    public void setIdempresa(String value) {
-        this.idempresa = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad fechainicio.
-     * @return possible object is {@link String }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getFechainicio() {
         return fechainicio;
@@ -142,8 +128,11 @@ public class IcmParamcalpresupuestoswlocBlock
 
     /**
      * Define el valor de la propiedad fechainicio.
-     * @param value allowed object is {@link String }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setFechainicio(String value) {
         this.fechainicio = value;
@@ -151,25 +140,25 @@ public class IcmParamcalpresupuestoswlocBlock
 
     /**
      * Gets the value of the icmParamcalpresupuestoswlocRecordSet property.
-     *
+     * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmParamcalpresupuestoswlocRecordSet property.
-     *
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmParamcalpresupuestoswlocRecordSet property.
+     * 
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmParamcalpresupuestoswlocRecordSet().add(newItem);
+     *    getIcmParamcalpresupuestoswlocRecordSet().add(newItem);
      * </pre>
-     *
-     *
+     * 
+     * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmParamcalpresupuestoswlocRecord
-     * }
-     *
-     *
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmParamcalpresupuestoswlocRecord }
+     * 
+     * 
      */
     public List<IcmParamcalpresupuestoswlocRecord> getIcmParamcalpresupuestoswlocRecordSet() {
         if (icmParamcalpresupuestoswlocRecordSet == null) {
@@ -178,9 +167,8 @@ public class IcmParamcalpresupuestoswlocBlock
         return this.icmParamcalpresupuestoswlocRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -192,9 +180,7 @@ public class IcmParamcalpresupuestoswlocBlock
             lhsFechafin = this.getFechafin();
             String rhsFechafin;
             rhsFechafin = that.getFechafin();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechafin", lhsFechafin),
-                    LocatorUtils.property(thatLocator, "fechafin", rhsFechafin), lhsFechafin, rhsFechafin,
-                    (this.fechafin != null), (that.fechafin != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechafin", lhsFechafin), LocatorUtils.property(thatLocator, "fechafin", rhsFechafin), lhsFechafin, rhsFechafin, (this.fechafin!= null), (that.fechafin!= null))) {
                 return false;
             }
         }
@@ -203,20 +189,7 @@ public class IcmParamcalpresupuestoswlocBlock
             lhsIdorigen = this.getIdorigen();
             String rhsIdorigen;
             rhsIdorigen = that.getIdorigen();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idorigen", lhsIdorigen),
-                    LocatorUtils.property(thatLocator, "idorigen", rhsIdorigen), lhsIdorigen, rhsIdorigen,
-                    (this.idorigen != null), (that.idorigen != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsIdempresa;
-            lhsIdempresa = this.getIdempresa();
-            String rhsIdempresa;
-            rhsIdempresa = that.getIdempresa();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idempresa", lhsIdempresa),
-                    LocatorUtils.property(thatLocator, "idempresa", rhsIdempresa), lhsIdempresa, rhsIdempresa,
-                    (this.idempresa != null), (that.idempresa != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idorigen", lhsIdorigen), LocatorUtils.property(thatLocator, "idorigen", rhsIdorigen), lhsIdorigen, rhsIdorigen, (this.idorigen!= null), (that.idorigen!= null))) {
                 return false;
             }
         }
@@ -225,31 +198,16 @@ public class IcmParamcalpresupuestoswlocBlock
             lhsFechainicio = this.getFechainicio();
             String rhsFechainicio;
             rhsFechainicio = that.getFechainicio();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechainicio", lhsFechainicio),
-                    LocatorUtils.property(thatLocator, "fechainicio", rhsFechainicio), lhsFechainicio, rhsFechainicio,
-                    (this.fechainicio != null), (that.fechainicio != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechainicio", lhsFechainicio), LocatorUtils.property(thatLocator, "fechainicio", rhsFechainicio), lhsFechainicio, rhsFechainicio, (this.fechainicio!= null), (that.fechainicio!= null))) {
                 return false;
             }
         }
         {
             List<IcmParamcalpresupuestoswlocRecord> lhsIcmParamcalpresupuestoswlocRecordSet;
-            lhsIcmParamcalpresupuestoswlocRecordSet = (((this.icmParamcalpresupuestoswlocRecordSet != null)
-                    && (!this.icmParamcalpresupuestoswlocRecordSet.isEmpty()))
-                            ? this.getIcmParamcalpresupuestoswlocRecordSet() : null);
+            lhsIcmParamcalpresupuestoswlocRecordSet = (((this.icmParamcalpresupuestoswlocRecordSet!= null)&&(!this.icmParamcalpresupuestoswlocRecordSet.isEmpty()))?this.getIcmParamcalpresupuestoswlocRecordSet():null);
             List<IcmParamcalpresupuestoswlocRecord> rhsIcmParamcalpresupuestoswlocRecordSet;
-            rhsIcmParamcalpresupuestoswlocRecordSet = (((that.icmParamcalpresupuestoswlocRecordSet != null)
-                    && (!that.icmParamcalpresupuestoswlocRecordSet.isEmpty()))
-                            ? that.getIcmParamcalpresupuestoswlocRecordSet() : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmParamcalpresupuestoswlocRecordSet",
-                            lhsIcmParamcalpresupuestoswlocRecordSet),
-                    LocatorUtils.property(thatLocator, "icmParamcalpresupuestoswlocRecordSet",
-                            rhsIcmParamcalpresupuestoswlocRecordSet),
-                    lhsIcmParamcalpresupuestoswlocRecordSet, rhsIcmParamcalpresupuestoswlocRecordSet,
-                    ((this.icmParamcalpresupuestoswlocRecordSet != null)
-                            && (!this.icmParamcalpresupuestoswlocRecordSet.isEmpty())),
-                    ((that.icmParamcalpresupuestoswlocRecordSet != null)
-                            && (!that.icmParamcalpresupuestoswlocRecordSet.isEmpty())))) {
+            rhsIcmParamcalpresupuestoswlocRecordSet = (((that.icmParamcalpresupuestoswlocRecordSet!= null)&&(!that.icmParamcalpresupuestoswlocRecordSet.isEmpty()))?that.getIcmParamcalpresupuestoswlocRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalpresupuestoswlocRecordSet", lhsIcmParamcalpresupuestoswlocRecordSet), LocatorUtils.property(thatLocator, "icmParamcalpresupuestoswlocRecordSet", rhsIcmParamcalpresupuestoswlocRecordSet), lhsIcmParamcalpresupuestoswlocRecordSet, rhsIcmParamcalpresupuestoswlocRecordSet, ((this.icmParamcalpresupuestoswlocRecordSet!= null)&&(!this.icmParamcalpresupuestoswlocRecordSet.isEmpty())), ((that.icmParamcalpresupuestoswlocRecordSet!= null)&&(!that.icmParamcalpresupuestoswlocRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -279,31 +237,22 @@ public class IcmParamcalpresupuestoswlocBlock
         {
             String theFechafin;
             theFechafin = this.getFechafin();
-            strategy.appendField(locator, this, "fechafin", buffer, theFechafin, (this.fechafin != null));
+            strategy.appendField(locator, this, "fechafin", buffer, theFechafin, (this.fechafin!= null));
         }
         {
             String theIdorigen;
             theIdorigen = this.getIdorigen();
-            strategy.appendField(locator, this, "idorigen", buffer, theIdorigen, (this.idorigen != null));
-        }
-        {
-            String theIdempresa;
-            theIdempresa = this.getIdempresa();
-            strategy.appendField(locator, this, "idempresa", buffer, theIdempresa, (this.idempresa != null));
+            strategy.appendField(locator, this, "idorigen", buffer, theIdorigen, (this.idorigen!= null));
         }
         {
             String theFechainicio;
             theFechainicio = this.getFechainicio();
-            strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio != null));
+            strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio!= null));
         }
         {
             List<IcmParamcalpresupuestoswlocRecord> theIcmParamcalpresupuestoswlocRecordSet;
-            theIcmParamcalpresupuestoswlocRecordSet = (((this.icmParamcalpresupuestoswlocRecordSet != null)
-                    && (!this.icmParamcalpresupuestoswlocRecordSet.isEmpty()))
-                            ? this.getIcmParamcalpresupuestoswlocRecordSet() : null);
-            strategy.appendField(locator, this, "icmParamcalpresupuestoswlocRecordSet", buffer,
-                    theIcmParamcalpresupuestoswlocRecordSet, ((this.icmParamcalpresupuestoswlocRecordSet != null)
-                            && (!this.icmParamcalpresupuestoswlocRecordSet.isEmpty())));
+            theIcmParamcalpresupuestoswlocRecordSet = (((this.icmParamcalpresupuestoswlocRecordSet!= null)&&(!this.icmParamcalpresupuestoswlocRecordSet.isEmpty()))?this.getIcmParamcalpresupuestoswlocRecordSet():null);
+            strategy.appendField(locator, this, "icmParamcalpresupuestoswlocRecordSet", buffer, theIcmParamcalpresupuestoswlocRecordSet, ((this.icmParamcalpresupuestoswlocRecordSet!= null)&&(!this.icmParamcalpresupuestoswlocRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -313,38 +262,22 @@ public class IcmParamcalpresupuestoswlocBlock
         {
             String theFechafin;
             theFechafin = this.getFechafin();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechafin", theFechafin),
-                    currentHashCode, theFechafin, (this.fechafin != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechafin", theFechafin), currentHashCode, theFechafin, (this.fechafin!= null));
         }
         {
             String theIdorigen;
             theIdorigen = this.getIdorigen();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idorigen", theIdorigen),
-                    currentHashCode, theIdorigen, (this.idorigen != null));
-        }
-        {
-            String theIdempresa;
-            theIdempresa = this.getIdempresa();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idempresa", theIdempresa),
-                    currentHashCode, theIdempresa, (this.idempresa != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idorigen", theIdorigen), currentHashCode, theIdorigen, (this.idorigen!= null));
         }
         {
             String theFechainicio;
             theFechainicio = this.getFechainicio();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio),
-                    currentHashCode, theFechainicio, (this.fechainicio != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio), currentHashCode, theFechainicio, (this.fechainicio!= null));
         }
         {
             List<IcmParamcalpresupuestoswlocRecord> theIcmParamcalpresupuestoswlocRecordSet;
-            theIcmParamcalpresupuestoswlocRecordSet = (((this.icmParamcalpresupuestoswlocRecordSet != null)
-                    && (!this.icmParamcalpresupuestoswlocRecordSet.isEmpty()))
-                            ? this.getIcmParamcalpresupuestoswlocRecordSet() : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmParamcalpresupuestoswlocRecordSet",
-                            theIcmParamcalpresupuestoswlocRecordSet),
-                    currentHashCode, theIcmParamcalpresupuestoswlocRecordSet,
-                    ((this.icmParamcalpresupuestoswlocRecordSet != null)
-                            && (!this.icmParamcalpresupuestoswlocRecordSet.isEmpty())));
+            theIcmParamcalpresupuestoswlocRecordSet = (((this.icmParamcalpresupuestoswlocRecordSet!= null)&&(!this.icmParamcalpresupuestoswlocRecordSet.isEmpty()))?this.getIcmParamcalpresupuestoswlocRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalpresupuestoswlocRecordSet", theIcmParamcalpresupuestoswlocRecordSet), currentHashCode, theIcmParamcalpresupuestoswlocRecordSet, ((this.icmParamcalpresupuestoswlocRecordSet!= null)&&(!this.icmParamcalpresupuestoswlocRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -364,17 +297,15 @@ public class IcmParamcalpresupuestoswlocBlock
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmParamcalpresupuestoswlocBlock) {
             final IcmParamcalpresupuestoswlocBlock copy = ((IcmParamcalpresupuestoswlocBlock) draftCopy);
             {
-                Boolean fechafinShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechafin != null));
+                Boolean fechafinShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechafin!= null));
                 if (fechafinShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceFechafin;
                     sourceFechafin = this.getFechafin();
-                    String copyFechafin = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "fechafin", sourceFechafin), sourceFechafin,
-                            (this.fechafin != null)));
+                    String copyFechafin = ((String) strategy.copy(LocatorUtils.property(locator, "fechafin", sourceFechafin), sourceFechafin, (this.fechafin!= null)));
                     copy.setFechafin(copyFechafin);
                 } else {
                     if (fechafinShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -383,13 +314,11 @@ public class IcmParamcalpresupuestoswlocBlock
                 }
             }
             {
-                Boolean idorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idorigen != null));
+                Boolean idorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idorigen!= null));
                 if (idorigenShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdorigen;
                     sourceIdorigen = this.getIdorigen();
-                    String copyIdorigen = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "idorigen", sourceIdorigen), sourceIdorigen,
-                            (this.idorigen != null)));
+                    String copyIdorigen = ((String) strategy.copy(LocatorUtils.property(locator, "idorigen", sourceIdorigen), sourceIdorigen, (this.idorigen!= null)));
                     copy.setIdorigen(copyIdorigen);
                 } else {
                     if (idorigenShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -398,30 +327,11 @@ public class IcmParamcalpresupuestoswlocBlock
                 }
             }
             {
-                Boolean idempresaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.idempresa != null));
-                if (idempresaShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdempresa;
-                    sourceIdempresa = this.getIdempresa();
-                    String copyIdempresa = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "idempresa", sourceIdempresa), sourceIdempresa,
-                            (this.idempresa != null)));
-                    copy.setIdempresa(copyIdempresa);
-                } else {
-                    if (idempresaShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.idempresa = null;
-                    }
-                }
-            }
-            {
-                Boolean fechainicioShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.fechainicio != null));
+                Boolean fechainicioShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechainicio!= null));
                 if (fechainicioShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceFechainicio;
                     sourceFechainicio = this.getFechainicio();
-                    String copyFechainicio = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "fechainicio", sourceFechainicio), sourceFechainicio,
-                            (this.fechainicio != null)));
+                    String copyFechainicio = ((String) strategy.copy(LocatorUtils.property(locator, "fechainicio", sourceFechainicio), sourceFechainicio, (this.fechainicio!= null)));
                     copy.setFechainicio(copyFechainicio);
                 } else {
                     if (fechainicioShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -430,24 +340,15 @@ public class IcmParamcalpresupuestoswlocBlock
                 }
             }
             {
-                Boolean icmParamcalpresupuestoswlocRecordSetShouldBeCopiedAndSet = strategy
-                    .shouldBeCopiedAndSet(locator, ((this.icmParamcalpresupuestoswlocRecordSet != null)
-                            && (!this.icmParamcalpresupuestoswlocRecordSet.isEmpty())));
+                Boolean icmParamcalpresupuestoswlocRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmParamcalpresupuestoswlocRecordSet!= null)&&(!this.icmParamcalpresupuestoswlocRecordSet.isEmpty())));
                 if (icmParamcalpresupuestoswlocRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmParamcalpresupuestoswlocRecord> sourceIcmParamcalpresupuestoswlocRecordSet;
-                    sourceIcmParamcalpresupuestoswlocRecordSet = (((this.icmParamcalpresupuestoswlocRecordSet != null)
-                            && (!this.icmParamcalpresupuestoswlocRecordSet.isEmpty()))
-                                    ? this.getIcmParamcalpresupuestoswlocRecordSet() : null);
+                    sourceIcmParamcalpresupuestoswlocRecordSet = (((this.icmParamcalpresupuestoswlocRecordSet!= null)&&(!this.icmParamcalpresupuestoswlocRecordSet.isEmpty()))?this.getIcmParamcalpresupuestoswlocRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmParamcalpresupuestoswlocRecord> copyIcmParamcalpresupuestoswlocRecordSet = ((List<IcmParamcalpresupuestoswlocRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmParamcalpresupuestoswlocRecordSet",
-                                sourceIcmParamcalpresupuestoswlocRecordSet), sourceIcmParamcalpresupuestoswlocRecordSet,
-                                ((this.icmParamcalpresupuestoswlocRecordSet != null)
-                                        && (!this.icmParamcalpresupuestoswlocRecordSet.isEmpty()))));
+                    List<IcmParamcalpresupuestoswlocRecord> copyIcmParamcalpresupuestoswlocRecordSet = ((List<IcmParamcalpresupuestoswlocRecord> ) strategy.copy(LocatorUtils.property(locator, "icmParamcalpresupuestoswlocRecordSet", sourceIcmParamcalpresupuestoswlocRecordSet), sourceIcmParamcalpresupuestoswlocRecordSet, ((this.icmParamcalpresupuestoswlocRecordSet!= null)&&(!this.icmParamcalpresupuestoswlocRecordSet.isEmpty()))));
                     copy.icmParamcalpresupuestoswlocRecordSet = null;
-                    if (copyIcmParamcalpresupuestoswlocRecordSet != null) {
-                        List<IcmParamcalpresupuestoswlocRecord> uniqueIcmParamcalpresupuestoswlocRecordSetl = copy
-                            .getIcmParamcalpresupuestoswlocRecordSet();
+                    if (copyIcmParamcalpresupuestoswlocRecordSet!= null) {
+                        List<IcmParamcalpresupuestoswlocRecord> uniqueIcmParamcalpresupuestoswlocRecordSetl = copy.getIcmParamcalpresupuestoswlocRecordSet();
                         uniqueIcmParamcalpresupuestoswlocRecordSetl.addAll(copyIcmParamcalpresupuestoswlocRecordSet);
                     }
                 } else {

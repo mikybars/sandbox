@@ -24,12 +24,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para anonymous complex type.
- *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -42,29 +40,31 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "icmparamcalsociedad",
-        "icmparametrospaginacion"
+    "icmparamcalsociedad",
+    "icmparametrospaginacion"
 })
 @XmlRootElement(name = "GETORIGENES")
-public class GETORIGENES implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETORIGENES implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "ICM_PARAMCALSOCIEDAD", required = true)
     protected IcmParamcalsociedadBlock icmparamcalsociedad;
-
     @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
     protected IcmParametrospaginacionBlock icmparametrospaginacion;
 
     /**
      * Obtiene el valor de la propiedad icmparamcalsociedad.
-     * @return possible object is {@link IcmParamcalsociedadBlock }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmParamcalsociedadBlock }
+     *     
      */
     public IcmParamcalsociedadBlock getICMPARAMCALSOCIEDAD() {
         return icmparamcalsociedad;
@@ -72,8 +72,11 @@ public class GETORIGENES implements Serializable, Cloneable, CopyTo2, Equals2, H
 
     /**
      * Define el valor de la propiedad icmparamcalsociedad.
-     * @param value allowed object is {@link IcmParamcalsociedadBlock }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmParamcalsociedadBlock }
+     *     
      */
     public void setICMPARAMCALSOCIEDAD(IcmParamcalsociedadBlock value) {
         this.icmparamcalsociedad = value;
@@ -81,8 +84,11 @@ public class GETORIGENES implements Serializable, Cloneable, CopyTo2, Equals2, H
 
     /**
      * Obtiene el valor de la propiedad icmparametrospaginacion.
-     * @return possible object is {@link IcmParametrospaginacionBlock }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmParametrospaginacionBlock }
+     *     
      */
     public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
         return icmparametrospaginacion;
@@ -90,16 +96,18 @@ public class GETORIGENES implements Serializable, Cloneable, CopyTo2, Equals2, H
 
     /**
      * Define el valor de la propiedad icmparametrospaginacion.
-     * @param value allowed object is {@link IcmParametrospaginacionBlock }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmParametrospaginacionBlock }
+     *     
      */
     public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
         this.icmparametrospaginacion = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -111,10 +119,7 @@ public class GETORIGENES implements Serializable, Cloneable, CopyTo2, Equals2, H
             lhsICMPARAMCALSOCIEDAD = this.getICMPARAMCALSOCIEDAD();
             IcmParamcalsociedadBlock rhsICMPARAMCALSOCIEDAD;
             rhsICMPARAMCALSOCIEDAD = that.getICMPARAMCALSOCIEDAD();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalsociedad", lhsICMPARAMCALSOCIEDAD),
-                    LocatorUtils.property(thatLocator, "icmparamcalsociedad", rhsICMPARAMCALSOCIEDAD),
-                    lhsICMPARAMCALSOCIEDAD, rhsICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad != null),
-                    (that.icmparamcalsociedad != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalsociedad", lhsICMPARAMCALSOCIEDAD), LocatorUtils.property(thatLocator, "icmparamcalsociedad", rhsICMPARAMCALSOCIEDAD), lhsICMPARAMCALSOCIEDAD, rhsICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad!= null), (that.icmparamcalsociedad!= null))) {
                 return false;
             }
         }
@@ -123,11 +128,7 @@ public class GETORIGENES implements Serializable, Cloneable, CopyTo2, Equals2, H
             lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
             rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
-                    LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION),
-                    lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null),
-                    (that.icmparametrospaginacion != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION), LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION), lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null), (that.icmparametrospaginacion!= null))) {
                 return false;
             }
         }
@@ -157,14 +158,12 @@ public class GETORIGENES implements Serializable, Cloneable, CopyTo2, Equals2, H
         {
             IcmParamcalsociedadBlock theICMPARAMCALSOCIEDAD;
             theICMPARAMCALSOCIEDAD = this.getICMPARAMCALSOCIEDAD();
-            strategy.appendField(locator, this, "icmparamcalsociedad", buffer, theICMPARAMCALSOCIEDAD,
-                    (this.icmparamcalsociedad != null));
+            strategy.appendField(locator, this, "icmparamcalsociedad", buffer, theICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad!= null));
         }
         {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
-                    (this.icmparametrospaginacion != null));
+            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
         }
         return buffer;
     }
@@ -174,16 +173,12 @@ public class GETORIGENES implements Serializable, Cloneable, CopyTo2, Equals2, H
         {
             IcmParamcalsociedadBlock theICMPARAMCALSOCIEDAD;
             theICMPARAMCALSOCIEDAD = this.getICMPARAMCALSOCIEDAD();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmparamcalsociedad", theICMPARAMCALSOCIEDAD), currentHashCode,
-                    theICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalsociedad", theICMPARAMCALSOCIEDAD), currentHashCode, theICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad!= null));
         }
         {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
-                    currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION), currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
         }
         return currentHashCode;
     }
@@ -203,18 +198,15 @@ public class GETORIGENES implements Serializable, Cloneable, CopyTo2, Equals2, H
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof GETORIGENES) {
             final GETORIGENES copy = ((GETORIGENES) draftCopy);
             {
-                Boolean icmparamcalsociedadShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmparamcalsociedad != null));
+                Boolean icmparamcalsociedadShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalsociedad!= null));
                 if (icmparamcalsociedadShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalsociedadBlock sourceICMPARAMCALSOCIEDAD;
                     sourceICMPARAMCALSOCIEDAD = this.getICMPARAMCALSOCIEDAD();
-                    IcmParamcalsociedadBlock copyICMPARAMCALSOCIEDAD = ((IcmParamcalsociedadBlock) strategy.copy(
-                            LocatorUtils.property(locator, "icmparamcalsociedad", sourceICMPARAMCALSOCIEDAD),
-                            sourceICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad != null)));
+                    IcmParamcalsociedadBlock copyICMPARAMCALSOCIEDAD = ((IcmParamcalsociedadBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalsociedad", sourceICMPARAMCALSOCIEDAD), sourceICMPARAMCALSOCIEDAD, (this.icmparamcalsociedad!= null)));
                     copy.setICMPARAMCALSOCIEDAD(copyICMPARAMCALSOCIEDAD);
                 } else {
                     if (icmparamcalsociedadShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -223,14 +215,11 @@ public class GETORIGENES implements Serializable, Cloneable, CopyTo2, Equals2, H
                 }
             }
             {
-                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmparametrospaginacion != null));
+                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospaginacion!= null));
                 if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
                     sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
-                        .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
-                                sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
+                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION), sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null)));
                     copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
                 } else {
                     if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
