@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpMethod;
@@ -145,14 +147,14 @@ public class TestServiceImpl implements TestService {
         outputGetempleados = this.meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
         this.log.info("outputGetempleados: {}", outputGetempleados.getReturn());
 
-        final IcmParametrosentradaBlock filterSearchtiendas = new IcmParametrosentradaBlock();
-        filterSearchtiendas.setFechainicio("2017-07-01T00:00:00.000Z");
-        filterSearchtiendas.setFechafin("2017-12-31T00:00:00.000Z");
-        filterSearchtiendas.setIdorigen("11");
-        filterSearchtiendas.setIdempresa("8");
-        final IcmParametrosentradaRecord itemSearchtiendas = new IcmParametrosentradaRecord();
-        itemSearchtiendas.setIdlugartrabajo("T57");
-        filterSearchtiendas.getIcmParametrosentradaRecordSet().add(itemSearchtiendas);
+        final IcmParamcaltiendasBlock filterSearchTiendas = new IcmParamcaltiendasBlock();
+        final IcmParamcaltiendasRecord itemSearchTiendas = new IcmParamcaltiendasRecord();
+        itemSearchTiendas.setFechainicio("2017-07-01T00:00:00.000Z");
+        itemSearchTiendas.setFechafin("2017-12-31T00:00:00.000Z");
+        itemSearchTiendas.setIdorigen("11");
+        itemSearchTiendas.setIdempresa("8");
+        itemSearchTiendas.setIdlugartrabajo("T57");
+        filterSearchTiendas.getIcmParamcaltiendasRecordSet().add(itemSearchTiendas);
 
         final IcmParametrospaginacionBlock pageSearchtiendas = new IcmParametrospaginacionBlock();
         pageSearchtiendas.setCampoorden("idempleado");
@@ -163,11 +165,11 @@ public class TestServiceImpl implements TestService {
         pageSearchtiendas.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
 
         SearchtiendasOutput outputSearchtiendas;
-        outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchtiendas, pageSearchtiendas);
+        outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchTiendas, pageSearchtiendas);
         this.log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
-        outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchtiendas, pageSearchtiendas);
+        outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchTiendas, pageSearchtiendas);
         this.log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
-        outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchtiendas, pageSearchtiendas);
+        outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchTiendas, pageSearchtiendas);
         this.log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
 
         this.log.error("Test sesion()");

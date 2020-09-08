@@ -17,7 +17,7 @@ metadata:
   jiraprojectname: APPWEB-INCOMEMotorCalculoJava
   openshiftproject: icmclcwb
   platform: Openshift-Intranet Arteixo
-  slot: develop
+  slot: develop-javierev
   tenant: global
   version: 2.4.0
 amiga:
@@ -47,28 +47,28 @@ amiga:
         auth:
           method: BASIC
         #[PTR][DES][INICIO]
-        ptr-venta:
-          base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
-          auth-method: BASIC
-          username: srvcicmclcwbdes
-          password: q2ZB)XKFWdeA
-        ptr-presencia:
-          base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
-          auth-method: BASIC
-          username: srvcicmclcwbdes
-          password: q2ZB)XKFWdeA
+#        ptr-venta:
+#          base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
+#          auth-method: BASIC
+#          username: srvcicmclcwbdes
+#          password: q2ZB)XKFWdeA
+#        ptr-presencia:
+#          base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
+#          auth-method: BASIC
+#          username: srvcicmclcwbdes
+#          password: q2ZB)XKFWdeA
         #[PTR][DES][FIN]
         #[PTR][PRE][INICIO]
-#        ptr-venta:
-#          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
-#          auth-method: BASIC
-#          username: srvcicmclcwbpreAX
-#          password: xynEJHKK4bu)
-#        ptr-presencia:
-#          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
-#          auth-method: BASIC
-#          username: srvcicmclcwbpreAX
-#          password: xynEJHKK4bu)
+        ptr-venta:
+          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
+          auth-method: BASIC
+          username: srvcicmclcwbpreAX
+          password: xynEJHKK4bu)
+        ptr-presencia:
+          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
+          auth-method: BASIC
+          username: srvcicmclcwbpreAX
+          password: xynEJHKK4bu)
         #[PTR][PRE][INICIO]
     resilience:
       backends:
@@ -196,20 +196,20 @@ amiga:
           xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
           xa-properties:
             #[BBDD][ITX][DES][GESTION_COMISION][INICIO]
-            serverName: axdesdb22.central.inditex.grp
-            portNumber: 50000
-            databaseName: INDITEX
-            currentSchema: GESTION_COMISION
-            user: uincome
-            password: pzuUKBm1ppMGzzOn
-            #[BBDD][ITX][DES][GESTION_COMISION][FIN]
-            #[BBDD][ITX][DES][DESARROLLO_RRHH][INICIO]
 #            serverName: axdesdb22.central.inditex.grp
 #            portNumber: 50000
 #            databaseName: INDITEX
-#            currentSchema: DESARROLLO_RRHH
-#            user: oincome
-#            password: aMJLp8ahF09w
+#            currentSchema: GESTION_COMISION
+#            user: uincome
+#            password: pzuUKBm1ppMGzzOn
+            #[BBDD][ITX][DES][GESTION_COMISION][FIN]
+            #[BBDD][ITX][DES][DESARROLLO_RRHH][INICIO]
+            serverName: axdesdb22.central.inditex.grp
+            portNumber: 50000
+            databaseName: INDITEX
+            currentSchema: DESARROLLO_RRHH
+            user: oincome
+            password: aMJLp8ahF09w
             #[BBDD][ITX][DES][DESARROLLO_RRHH][FIN]
             #[BBDD][VECTOR][DES][INICIO]
 #            serverName: 10.202.10.178
@@ -243,7 +243,7 @@ amiga:
         #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.isolation'':''1''}'
         #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
         hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
-        hibernate.default_schema: GESTION_COMISION
+        hibernate.default_schema: DESARROLLO_RRHH
 app:
   envars:
     calculo:

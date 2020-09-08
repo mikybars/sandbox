@@ -2,6 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosdesplazBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -275,8 +278,8 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public EmpleadosPresenciaResponseDto getEmpleadosPresencia(final EmpleadosPresenciaRequestDto request) {
         final EmpleadosPresenciaResponseDto result = new EmpleadosPresenciaResponseDto();
-        final IcmParametrosentradaBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParametrosentradaBlock(request.getData());
+        final IcmParamcalempleadospresenciaBlock param1 = this.icmWsCalcIncomeMapper
+            .asIcmParamcalempleadospresenciaBlock(request.getData());
         final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
             .asIcmParametrospaginacionBlock(request.getPage());
         final GetempleadospresenciaOutput getempleadospresenciaOutput = this.meta4ClientPool
@@ -326,10 +329,10 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public SearchTiendasResponseDto searchTiendas(final SearchTiendasRequestDto request) {
         final SearchTiendasResponseDto result = new SearchTiendasResponseDto();
-        final IcmParametrosentradaBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParametrosentradaBlock(request.getData());
         final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
             .asIcmParametrospaginacionBlock(request.getPage());
+        final IcmParamcaltiendasBlock param1 = this.icmWsCalcIncomeMapper
+            .asIcmParamcaltiendasBlock(request.getData());
         final SearchtiendasOutput searchTiendasOutput = this.meta4ClientPool.searchtiendas(param1, param2);
         if ((searchTiendasOutput != null)
                 && (Double.compare(NumberUtils.DOUBLE_ZERO, searchTiendasOutput.getReturn()) == 0)) {
@@ -621,8 +624,8 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     public EmpleadosDesplazamientoResponseDto getEmpleadosDesplazamiento(
             final EmpleadosDesplazamientoRequestDto request) {
         final EmpleadosDesplazamientoResponseDto result = new EmpleadosDesplazamientoResponseDto();
-        final IcmParametrosentradaBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParametrosentradaBlock(request.getData());
+        final IcmParamcalempleadosdesplazBlock param1 = this.icmWsCalcIncomeMapper
+            .asIcmParamcalempleadosdesplazBlock(request.getData());
         final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
             .asIcmParametrospaginacionBlock(request.getPage());
         final GetempleadosdesplazOutput getempldesplaz = this.meta4ClientPool.getempleadosdesplaz(param2, param1);
