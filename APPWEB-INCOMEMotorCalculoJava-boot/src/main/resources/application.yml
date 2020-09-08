@@ -31,6 +31,7 @@ amiga:
         elastic: 
           name-format: async-reactor-executor-%d
           core-pool-size: 10
+          allow-core-thread-timeout: true
           maximum-pool-size: 100
           queue-size: 2000
           rejected-execution-policy: ABORT
