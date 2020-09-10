@@ -390,6 +390,8 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             .asIcmParamcalempleadoBlock(request.getData());
         final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
             .asIcmParametrospaginacionBlock(request.getPage());
+        //TODO [JAVIEREV] fix temporal (en multiempresa se hará mejor)
+        param1.getIcmParamcalempleadoRecordSet().get(0).setIdempresa(request.getData().getIdEmpresa());
         final SearchempleadosOutput searchEmpleadosOutput = this.meta4ClientPool.searchempleados(param2, param1);
         if ((searchEmpleadosOutput != null)
                 && (Double.compare(NumberUtils.DOUBLE_ZERO, searchEmpleadosOutput.getReturn()) == 0)) {
