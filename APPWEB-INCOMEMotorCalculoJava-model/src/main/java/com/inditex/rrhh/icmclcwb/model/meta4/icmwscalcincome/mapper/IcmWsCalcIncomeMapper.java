@@ -90,6 +90,10 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalc
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosdesplazBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosdesplazRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmultiempresaBlock;
@@ -106,6 +110,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
@@ -147,21 +153,9 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idCadena", source = "idcadena")
-    @Mapping(target = "idEmpresa", source = "idempresa")
+    @Mapping(target = "idsEmpresa", ignore = true)
     @Mapping(target = "item", source = "icmParametrosentradaRecordSet")
     GenericFilterDto asGenericFilterDto(IcmParametrosentradaBlock src);
-
-    @InheritInverseConfiguration
-    IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(GenericFilterDto src);
-
-    @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idEmpresa", source = "idempresa")
-    //@Mapping(target = "idsEmpresa", source = "idempresa") TODO [javierev] pendiente multiempresa
-    @Mapping(target = "idCadena", ignore = true)
-    @Mapping(target = "item", source = "icmParamcalempleadoRecordSet")
-    GenericFilterDto asGenericFilterDto(IcmParamcalempleadoBlock src);
 
     @InheritInverseConfiguration
     IcmParamcalestructuraBlock asIcmParamcalestructuraBlock(GenericFilterDto src);
@@ -169,7 +163,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idEmpresa", ignore = true)
+    @Mapping(target = "idsEmpresa", ignore = true)
     @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "item", source = "icmParamcalestructuraRecordSet")
     GenericFilterDto asGenericFilterDto(IcmParamcalestructuraBlock src);
@@ -299,7 +293,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaInicio", ignore = true)
     @Mapping(target = "fechaFin", ignore = true)
     @Mapping(target = "idOrigen", ignore = true)
-    @Mapping(target = "idEmpresa", ignore = true)
+    @Mapping(target = "idsEmpresa", ignore = true)
     @Mapping(target = "idCadena", ignore = true)
     GenericFilterDto asGenericFilterDto(IcmParamcalsociedadBlock src);
 
@@ -346,7 +340,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaInicio", ignore = true)
     @Mapping(target = "fechaFin", ignore = true)
     @Mapping(target = "idOrigen", ignore = true)
-    @Mapping(target = "idEmpresa", ignore = true)
+    @Mapping(target = "idsEmpresa", ignore = true)
     @Mapping(target = "idCadena", ignore = true)
     GenericFilterDto asGenericFilterDto(IcmParamcalorigenBlock src);
 
@@ -393,7 +387,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "fechaInicio", ignore = true)
     @Mapping(target = "fechaFin", ignore = true)
     @Mapping(target = "idOrigen", ignore = true)
-    @Mapping(target = "idEmpresa", ignore = true)
+    @Mapping(target = "idsEmpresa", ignore = true)
     @Mapping(target = "idCadena", ignore = true)
     GenericFilterDto asGenericFilterDto(IcmParamcalperiodoBlock src);
 
@@ -1047,14 +1041,11 @@ public interface IcmWsCalcIncomeMapper {
     List<ConfChDiasMinimosResultItemDto> asConfChDiasMinimosResultItemDto(List<IcmListaconfchdiasRecord> src);
 
     @InheritInverseConfiguration
-    //TODO [javierev] eliminar esto cuando el servicio soporte multiempresa (el mapper inverso podrá con esto)
-    @Mapping(target = "idempresa", expression = "java(CollectionUtils.isNotEmpty(src.getIdsEmpresa()) ? src.getIdsEmpresa().get(0) : null)")
     IcmParamcalpresupuestoswlocBlock asIcmParamcalpresupuestoswlocBlock(PresupuestosWlocFilterDto src);
 
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
-    //TODO [javierev] Cambiar cuando el servicio soporte multiempresa
     @Mapping(target = "idsEmpresa", ignore = true)
     @Mapping(target = "idSeccion", ignore = true)
     @Mapping(target = "banda", ignore = true)
@@ -1228,12 +1219,13 @@ public interface IcmWsCalcIncomeMapper {
     List<VentaCongeladaResultItemDto> asVentaCongeladaResultItemDto(List<IcmListaventacongeladaRecord> src);
 
     @InheritInverseConfiguration
+    @Mapping(target = "idempresa", expression = "java(CollectionUtils.isNotEmpty(src.getIdsEmpresa()) ? src.getIdsEmpresa().get(0) : \"\")")
     IcmParamcalmultiempresaRecord asIcmParamcalmultiempresaRecord(GenericFilterDto src);
 
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
-    @Mapping(target = "idEmpresa", source = "idempresa")
+    @Mapping(target = "idsEmpresa", ignore = true)
     @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "item", ignore = true)
     GenericFilterDto asGenericFilterDto(IcmParamcalmultiempresaRecord src);
@@ -1245,5 +1237,55 @@ public interface IcmWsCalcIncomeMapper {
     DesplazamientosMultiempresaItemDto asDesplazamientosMultiempresaItemDto(IcmListamultiempresaRecord src);
 
     List<DesplazamientosMultiempresaItemDto> asDesplazamientosMultiempresaItemDto(List<IcmListamultiempresaRecord> src);
+
+    IcmParamcalempleadosdesplazBlock asIcmParamcalempleadosdesplazBlock(GenericFilterDto src);
+
+    @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+    @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+    @Mapping(target = "fechafin", source = "fechaFin")
+    @Mapping(target = "fechainicio", source = "fechaInicio")
+    @Mapping(target = "idempresa", ignore = true)
+    @Mapping(target = "idlugartrabajo", ignore = true)
+    @Mapping(target = "idempleado", ignore = true)
+    @Mapping(target = "idorigen", source = "idOrigen")
+    IcmParamcalempleadosdesplazRecord asIcmParamcalempleadosdesplazRecord(GenericFilterDto src);
+
+    IcmParamcalempleadospresenciaBlock asIcmParamcalempleadospresenciaBlock(GenericFilterDto src);
+
+    @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+    @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+    @Mapping(target = "fechafin", source = "fechaFin")
+    @Mapping(target = "fechainicio", source = "fechaInicio")
+    @Mapping(target = "idempresa", ignore = true)
+    @Mapping(target = "idlugartrabajo", ignore = true)
+    @Mapping(target = "idempleado", ignore = true)
+    @Mapping(target = "idorigen", source = "idOrigen")
+    @Mapping(target = "idtipohora", ignore = true)
+    IcmParamcalempleadospresenciaRecord asIcmParamcalempleadospresenciaRecord(GenericFilterDto src);
+
+    IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(GenericFilterDto src);
+
+    @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+    @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+    @Mapping(target = "fechafin", source = "fechaFin")
+    @Mapping(target = "fechainicio", source = "fechaInicio")
+    @Mapping(target = "idempresa", ignore = true)
+    @Mapping(target = "idlugartrabajo", ignore = true)
+    @Mapping(target = "idlugartrabajomtu", ignore = true)
+    @Mapping(target = "idorigen", source = "idOrigen")
+    IcmParamcaltiendasRecord asIcmParamcaltiendasRecord(GenericFilterDto src);
+
+    @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL)
+    @Mapping(target = "fechainicio", source = "fechaInicio", dateFormat = Meta4Constants.META4_DATE_FULL)
+    @Mapping(target = "idorigen", source = "idOrigen")
+    IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(GenericFilterDto src);
+
+    @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+    @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+    @Mapping(target = "idempresa", ignore = true)
+    @Mapping(target = "idempleado", ignore = true)
+    @Mapping(target = "orempleado", ignore = true)
+    @Mapping(target = "idempleadolocal", ignore = true)
+    IcmParamcalempleadoRecord asIcmParamcalempleadoRecord(GenericFilterDto src);
 
 }

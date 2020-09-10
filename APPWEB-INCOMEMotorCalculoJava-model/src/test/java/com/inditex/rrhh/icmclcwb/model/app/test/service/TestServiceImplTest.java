@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.concurrent.CompletableFuture;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -115,12 +116,12 @@ public class TestServiceImplTest {
         outputTiendas.setReturn(0.0);
         when(this.meta4ClientPool.getempleados(any(IcmParametrosentradaBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(outputEmpleados);
-        when(this.meta4ClientPool.searchtiendas(any(IcmParametrosentradaBlock.class),
+        when(this.meta4ClientPool.searchtiendas(any(IcmParamcaltiendasBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(outputTiendas);
         this.testServiceImpl.sesion();
         verify(this.meta4ClientPool, timeout(1000).times(3)).getempleados(any(IcmParametrosentradaBlock.class),
                 any(IcmParametrospaginacionBlock.class));
-        verify(this.meta4ClientPool, timeout(1000).times(3)).searchtiendas(any(IcmParametrosentradaBlock.class),
+        verify(this.meta4ClientPool, timeout(1000).times(3)).searchtiendas(any(IcmParamcaltiendasBlock.class),
                 any(IcmParametrospaginacionBlock.class));
     }
 

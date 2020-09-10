@@ -216,7 +216,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                                 this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                                         tarea.getId(),
                                         TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-                    request.getData().setIdEmpresa(x.getStdIdLegEnt());
+                    request.getData().setIdsEmpresa(Arrays.asList(x.getStdIdLegEnt()));
                     boolean hasNext = false;
                     do {
                         final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
@@ -400,8 +400,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     @Override
     public void estructurasComByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
-        //TODO [javierev] Este servicio está marcado como que debe admitir múltiples empresas, pero ahora no
-        // recibe la empresa por parémetro
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
@@ -449,8 +447,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     @Override
     public void estructurasPolByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
-        //TODO [javierev] Este servicio está marcado para ser adaptado a multiempresa, pero ahora mismo
-        // no se le está pasando ninguna empresa
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {

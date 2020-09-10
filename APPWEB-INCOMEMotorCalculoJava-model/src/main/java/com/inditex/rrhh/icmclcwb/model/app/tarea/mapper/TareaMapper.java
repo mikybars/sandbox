@@ -90,7 +90,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(periodo.getFechaInicioPeriodo()))")
     @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(periodo.getFechaFinPeriodo()))")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "idEmpresa", ignore = true)
+    @Mapping(target = "idsEmpresa", ignore = true)
     public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo);
 
@@ -153,7 +153,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaInicioPeriodo()))")
     @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaFinPeriodo()))")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "idEmpresa", ignore = true)
+    @Mapping(target = "idsEmpresa", expression = "java(Arrays.asList(srcTarea.getStdIdLegEnt()))")
     public abstract GenericFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
 
@@ -163,7 +163,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaFin",
             expression = "java(RunUtils.addDays(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()), srcRecolectarProperties.getDaysNumber()))")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "idsEmpresa", expression = "java(Arrays.asList(srcTarea.getStdIdLegEnt()))")
     public abstract GenericFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDtoWithDates(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             RecolectarPropertiesDto srcRecolectarProperties);
@@ -174,7 +174,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaFin",
             expression = "java(RunUtils.addDays(TimeUtils.toLocalDateTime(periodo.getFechaFinPeriodo()), srcRecolectarProperties.getDaysNumber()))")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
+    @Mapping(target = "idsEmpresa", expression = "java(Arrays.asList(srcTarea.getStdIdLegEnt()))")
     public abstract GenericFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDtoWithDates(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo,
             RecolectarPropertiesDto srcRecolectarProperties);
