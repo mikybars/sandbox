@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.ms.app.limpieza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.Message;
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +21,8 @@ public class ReceiverLimpieza {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @JmsListener(id = "limpiezaListener", destination = "${amiga.service.jms.limpieza-queue.destination-fqdn}",
             containerFactory = "limpiezaContainerFactoryListener")
-    public void onMessageTareaListener(Message<IdTareaDto> message) {
-        runService.runLimpieza(message.getPayload().getId());
+    public void onMessageTareaListener(final Message<IdTareaDto> message) {
+        this.runService.runLimpieza(message.getPayload().getId());
     }
 
 }

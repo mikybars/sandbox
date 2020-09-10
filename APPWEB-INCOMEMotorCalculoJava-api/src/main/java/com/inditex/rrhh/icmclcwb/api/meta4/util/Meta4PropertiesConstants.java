@@ -60,6 +60,8 @@ public class Meta4PropertiesConstants {
 
     public static final String VENTACONGELADA = "getVentaCongelada";
 
+    public static final String DESPLAZAMIENTO_REAL = "getDesplazReal";
+
     public static final String MULTIEMPRESA = "getDesplazamientosMultiempresa";
 
 }

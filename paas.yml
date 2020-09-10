@@ -1,5 +1,5 @@
 dockerfile_template: com.inditex.otec.dockerfile:dockerfile-springboot:1.2.0
-openshift_template: com.inditex.otec.openshift:openshift-springboot:1.26.1
+openshift_template: com.inditex.otec.openshift:openshift-springboot:1.27.0
 environments:
   pre:
     pre:

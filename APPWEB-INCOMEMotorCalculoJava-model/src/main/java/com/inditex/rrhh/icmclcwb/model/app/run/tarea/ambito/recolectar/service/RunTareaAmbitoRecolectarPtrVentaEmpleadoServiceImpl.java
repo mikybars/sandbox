@@ -101,6 +101,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
                         tareaAmbito, this.recolectarProperties);
                 paramVentaFisica.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
                 paramVentaFisica.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                paramVentaFisica.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
                 paramVentaFisica.setTienda(iter.stream()
                     .map(IdLocalizacionLocalDto::getId)
                     .map(Integer::valueOf)
