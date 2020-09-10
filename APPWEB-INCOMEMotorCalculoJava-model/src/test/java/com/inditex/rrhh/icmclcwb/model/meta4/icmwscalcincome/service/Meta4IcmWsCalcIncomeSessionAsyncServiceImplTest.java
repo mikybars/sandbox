@@ -20,6 +20,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
@@ -439,6 +442,21 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
             .getPresupuestosRango(ArgumentMatchers.any(PresupuestosRangoRequestDto.class));
+    }
+
+    @Test
+    public void getDesplazReal() {
+        when(this.meta4IcmWsCalcIncomeSessionService.getDesplazReal(any(DesplazamientoRealRequestDto.class)))
+            .thenReturn(new ArrayList<DesplazamientoRealResultItemDto>());
+
+        final DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
+        request.setData(new DesplazamientoRealFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getDesplazReal(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getDesplazReal(ArgumentMatchers.any(DesplazamientoRealRequestDto.class));
     }
 
 }
