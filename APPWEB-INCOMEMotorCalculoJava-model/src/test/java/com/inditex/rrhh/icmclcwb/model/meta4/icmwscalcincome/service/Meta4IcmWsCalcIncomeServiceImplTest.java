@@ -99,6 +99,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalc
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosdesplazBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
@@ -930,14 +931,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
 
         when(this.icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(this.meta4ClientPool.getempleados(any(IcmParametrosentradaBlock.class),
+        when(this.meta4ClientPool.getempleados(any(IcmParamcalempleadosBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(output);
 
         final EmpleadosRequestDto request = new EmpleadosRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
         this.meta4IcmWsCalcIncomeServiceImpl.getEmpleados(request);
-        verify(this.meta4ClientPool, times(1)).getempleados(any(IcmParametrosentradaBlock.class),
+        verify(this.meta4ClientPool, times(1)).getempleados(any(IcmParamcalempleadosBlock.class),
                 any(IcmParametrospaginacionBlock.class));
     }
 
@@ -948,14 +949,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
 
         when(this.icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(this.meta4ClientPool.getempleados(any(IcmParametrosentradaBlock.class),
+        when(this.meta4ClientPool.getempleados(any(IcmParamcalempleadosBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(null);
 
         final EmpleadosRequestDto request = new EmpleadosRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
         this.meta4IcmWsCalcIncomeServiceImpl.getEmpleados(request);
-        verify(this.meta4ClientPool, times(1)).getempleados(any(IcmParametrosentradaBlock.class),
+        verify(this.meta4ClientPool, times(1)).getempleados(any(IcmParamcalempleadosBlock.class),
                 any(IcmParametrospaginacionBlock.class));
     }
 
@@ -970,14 +971,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
 
         when(this.icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-        when(this.meta4ClientPool.getempleados(any(IcmParametrosentradaBlock.class),
+        when(this.meta4ClientPool.getempleados(any(IcmParamcalempleadosBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(output);
 
         final EmpleadosRequestDto request = new EmpleadosRequestDto();
         request.setData(new GenericFilterDto());
         request.setPage(new PageDto(1, 100));
         this.meta4IcmWsCalcIncomeServiceImpl.getEmpleados(request);
-        verify(this.meta4ClientPool, times(1)).getempleados(any(IcmParametrosentradaBlock.class),
+        verify(this.meta4ClientPool, times(1)).getempleados(any(IcmParamcalempleadosBlock.class),
                 any(IcmParametrospaginacionBlock.class));
     }
 

@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -504,4 +506,29 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         return result;
     }
 
+    @Override
+    public IcmParamcalempleadosBlock asIcmParamcalempleadosBlock(GenericFilterDto src) {
+        final List<IcmParamcalempleadosRecord> list = this.asIcmParamcalempleadosRecordList(src);
+        final IcmParamcalempleadosBlock result = new IcmParamcalempleadosBlock();
+        result.getIcmParamcalempleadosRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcalempleadosRecord> asIcmParamcalempleadosRecordList(GenericFilterDto src) {
+        final List<IcmParamcalempleadosRecord> result = new ArrayList<>();
+        if (src != null) {
+            if (CollectionUtils.isNotEmpty(src.getItem())) {
+                src.getItem().forEach(x -> {
+                    IcmParamcalempleadosRecord record = this.delegate.asIcmParamcalempleadosRecord(src);
+                    record.setIdempleado(x.getIdEmpleado());
+                    record.setIdempleadolocal(x.getIdEmpleadoLocal());
+                    record.setIdlugartrabajo(x.getIdLugarTrabajo());
+                    record.setIdlugartrabajomtu(x.getIdLugarTrabajoMtu());
+                });
+            } else {
+                result.add(this.delegate.asIcmParamcalempleadosRecord(src));
+            }
+        }
+        return result;
+    }
 }

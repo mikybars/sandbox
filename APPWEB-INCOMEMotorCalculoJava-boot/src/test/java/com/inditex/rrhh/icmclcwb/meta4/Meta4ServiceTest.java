@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -507,10 +509,8 @@ public class Meta4ServiceTest {
         final IcmParamcalestructuraBlock paramEstructura = new IcmParamcalestructuraBlock();
         paramEstructura.setFechainicio("2017-01-01");
         paramEstructura.setFechafin("2018-12-31");
+        final IcmParamcalempleadosBlock param1 = new IcmParamcalempleadosBlock();
 
-        final IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
-        param1.setFechainicio("2017-01-01");
-        param1.setFechafin("2018-12-31");
         final IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
         param2.setNumeroregistrospagina("50");
         param2.setNumeropagina(Meta4TestConstants.NUM_PAGINA);
@@ -520,15 +520,17 @@ public class Meta4ServiceTest {
                 "T3511", "T3682", "T3787", "T4330", "T4331", "T4352", "T4481", "T4578", "T8194", "T8195", "T8779",
                 "T9092", "T9263", "T9930", "T9974");
         for (final String tienda : lista) {
-            param1.getIcmParametrosentradaRecordSet().clear();
-            final IcmParametrosentradaRecord record4 = new IcmParametrosentradaRecord();
+            final IcmParamcalempleadosRecord record4 = new IcmParamcalempleadosRecord();
+            record4.setFechainicio("2017-01-01");
+            record4.setFechafin("2018-12-31");
+            param1.getIcmParamcalempleadosRecordSet().clear();
             record4.setIdlugartrabajo(tienda);
-            param1.getIcmParametrosentradaRecordSet().add(record4);
+            param1.getIcmParamcalempleadosRecordSet().add(record4);
             final GetempleadosOutput getEmpleadosOutput = this.meta4ClientPool.getempleados(param1, param2);
             final List<IcmListaempleadosRecord> emprec = new ArrayList<>();
             emprec.addAll(getEmpleadosOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
-            param1.setIdorigen("39");
-            param1.getIcmParametrosentradaRecordSet().clear();
+            record4.setIdorigen("39");
+            param1.getIcmParamcalempleadosRecordSet().clear();
             final List<IcmParamcalestructuraRecord> entradas2 = emprec.stream().map(obj -> {
                 final IcmParamcalestructuraRecord obj2 = new IcmParamcalestructuraRecord();
                 obj2.setIdempleado(obj.getIdempleado());
@@ -552,13 +554,14 @@ public class Meta4ServiceTest {
 
     @Test
     public void getEmpleados() {
-        final IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+
+        final IcmParamcalempleadosRecord record = new IcmParamcalempleadosRecord();
+        record.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        record.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        record.setIdempresa(Meta4TestConstants.ID_EMPRESA);
         record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
-        final IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
-        param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
-        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
-        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
-        param1.getIcmParametrosentradaRecordSet().add(record);
+        final IcmParamcalempleadosBlock param1 = new IcmParamcalempleadosBlock();
+        param1.getIcmParamcalempleadosRecordSet().add(record);
         final IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
         param2.setNumeroregistrospagina(Meta4TestConstants.NUM_REGISTROS_PAGINA);
         param2.setNumeropagina(Meta4TestConstants.NUM_PAGINA);
