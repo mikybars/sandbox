@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChT
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
@@ -675,5 +676,9 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaFin", source = "srcDesplazamiento.fechaFin")
     public abstract TareaAmbitoGlobalFechaDto mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToTareaAmbitoGlobalFechaDto(
         TareaDto srcTarea, DesplazamientosMultiempresaItemDto srcDesplazamiento);
+
+    @Mapping(target = "item", ignore = true)
+    public abstract DesplazamientoRealFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToDesplazamientoRealFilterDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
 }

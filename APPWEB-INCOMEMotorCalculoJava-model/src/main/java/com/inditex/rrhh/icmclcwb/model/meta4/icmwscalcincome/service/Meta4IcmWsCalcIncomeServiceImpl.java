@@ -12,6 +12,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcale
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import org.apache.commons.lang3.StringUtils;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -465,8 +467,8 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public EmpleadosResponseDto getEmpleados(final EmpleadosRequestDto request) {
         final EmpleadosResponseDto result = new EmpleadosResponseDto();
-        final IcmParametrosentradaBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParametrosentradaBlock(request.getData());
+        final IcmParamcalempleadosBlock param1 = this.icmWsCalcIncomeMapper
+            .asIcmParamcalempleadosBlock(request.getData());
         final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
             .asIcmParametrospaginacionBlock(request.getPage());
         final GetempleadosOutput getEmpleadosOutput = this.meta4ClientPool.getempleados(param1, param2);

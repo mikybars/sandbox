@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetdesplazmultiempresaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmultiempresaBlock;
 import org.springframework.retry.annotation.Retryable;
@@ -276,7 +277,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     }
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
-    public GetempleadosOutput getempleados(final IcmParametrosentradaBlock param1,
+    public GetempleadosOutput getempleados(final IcmParamcalempleadosBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {

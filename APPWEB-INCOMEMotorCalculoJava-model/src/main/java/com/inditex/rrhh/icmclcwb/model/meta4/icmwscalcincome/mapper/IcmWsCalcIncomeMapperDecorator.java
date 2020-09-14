@@ -1,5 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosRecord;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
@@ -544,6 +554,32 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                     result.add(record);
                 }
             });
+        }
+        return result;
+    }
+
+    @Override
+    public IcmParamcalempleadosBlock asIcmParamcalempleadosBlock(GenericFilterDto src) {
+        final List<IcmParamcalempleadosRecord> list = this.asIcmParamcalempleadosRecordList(src);
+        final IcmParamcalempleadosBlock result = new IcmParamcalempleadosBlock();
+        result.getIcmParamcalempleadosRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcalempleadosRecord> asIcmParamcalempleadosRecordList(GenericFilterDto src) {
+        final List<IcmParamcalempleadosRecord> result = new ArrayList<>();
+        if (src != null) {
+            if (CollectionUtils.isNotEmpty(src.getItem())) {
+                src.getItem().forEach(x -> {
+                    IcmParamcalempleadosRecord record = this.delegate.asIcmParamcalempleadosRecord(src);
+                    record.setIdempleado(x.getIdEmpleado());
+                    record.setIdempleadolocal(x.getIdEmpleadoLocal());
+                    record.setIdlugartrabajo(x.getIdLugarTrabajo());
+                    record.setIdlugartrabajomtu(x.getIdLugarTrabajoMtu());
+                });
+            } else {
+                result.add(this.delegate.asIcmParamcalempleadosRecord(src));
+            }
         }
         return result;
     }

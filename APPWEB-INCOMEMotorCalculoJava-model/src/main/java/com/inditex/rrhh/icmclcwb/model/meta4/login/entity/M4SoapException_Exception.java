@@ -45,7 +45,7 @@ public class M4SoapException_Exception
     /**
      * 
      * @return
-     *     returns fault bean: com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.M4SoapException
+     *     returns fault bean: com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException
      */
     public M4SoapException getFaultInfo() {
         return faultInfo;

@@ -59,6 +59,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="Icm_Paramcalempleado" type="{http://schemas.meta4.com/}Icm_ParamcalempleadoBlock"/&gt;
  *         &lt;element name="Icm_Paramcalsociedad" type="{http://schemas.meta4.com/}Icm_ParamcalsociedadBlock"/&gt;
  *         &lt;element name="Icm_Listamultiempresa" type="{http://schemas.meta4.com/}Icm_ListamultiempresaBlock"/&gt;
+ *         &lt;element name="Icm_Paramcalempleados" type="{http://schemas.meta4.com/}Icm_ParamcalempleadosBlock"/&gt;
  *         &lt;element name="Icm_Parametrosentrada" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/&gt;
  *         &lt;element name="Icm_Resultadoguardado" type="{http://schemas.meta4.com/}Icm_ResultadoguardadoBlock"/&gt;
  *         &lt;element name="Icm_Listaconfiguracion" type="{http://schemas.meta4.com/}Icm_ListaconfiguracionBlock"/&gt;
@@ -115,6 +116,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmParamcalempleado",
     "icmParamcalsociedad",
     "icmListamultiempresa",
+    "icmParamcalempleados",
     "icmParametrosentrada",
     "icmResultadoguardado",
     "icmListaconfiguracion",
@@ -191,6 +193,8 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
     protected IcmParamcalsociedadBlock icmParamcalsociedad;
     @XmlElement(name = "Icm_Listamultiempresa", required = true, nillable = true)
     protected IcmListamultiempresaBlock icmListamultiempresa;
+    @XmlElement(name = "Icm_Paramcalempleados", required = true, nillable = true)
+    protected IcmParamcalempleadosBlock icmParamcalempleados;
     @XmlElement(name = "Icm_Parametrosentrada", required = true, nillable = true)
     protected IcmParametrosentradaBlock icmParametrosentrada;
     @XmlElement(name = "Icm_Resultadoguardado", required = true, nillable = true)
@@ -829,6 +833,30 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
      */
     public void setIcmListamultiempresa(IcmListamultiempresaBlock value) {
         this.icmListamultiempresa = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmParamcalempleados.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmParamcalempleadosBlock }
+     *     
+     */
+    public IcmParamcalempleadosBlock getIcmParamcalempleados() {
+        return icmParamcalempleados;
+    }
+
+    /**
+     * Define el valor de la propiedad icmParamcalempleados.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmParamcalempleadosBlock }
+     *     
+     */
+    public void setIcmParamcalempleados(IcmParamcalempleadosBlock value) {
+        this.icmParamcalempleados = value;
     }
 
     /**
@@ -1569,6 +1597,15 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
             }
         }
         {
+            IcmParamcalempleadosBlock lhsIcmParamcalempleados;
+            lhsIcmParamcalempleados = this.getIcmParamcalempleados();
+            IcmParamcalempleadosBlock rhsIcmParamcalempleados;
+            rhsIcmParamcalempleados = that.getIcmParamcalempleados();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalempleados", lhsIcmParamcalempleados), LocatorUtils.property(thatLocator, "icmParamcalempleados", rhsIcmParamcalempleados), lhsIcmParamcalempleados, rhsIcmParamcalempleados, (this.icmParamcalempleados!= null), (that.icmParamcalempleados!= null))) {
+                return false;
+            }
+        }
+        {
             IcmParametrosentradaBlock lhsIcmParametrosentrada;
             lhsIcmParametrosentrada = this.getIcmParametrosentrada();
             IcmParametrosentradaBlock rhsIcmParametrosentrada;
@@ -1906,6 +1943,11 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
             strategy.appendField(locator, this, "icmListamultiempresa", buffer, theIcmListamultiempresa, (this.icmListamultiempresa!= null));
         }
         {
+            IcmParamcalempleadosBlock theIcmParamcalempleados;
+            theIcmParamcalempleados = this.getIcmParamcalempleados();
+            strategy.appendField(locator, this, "icmParamcalempleados", buffer, theIcmParamcalempleados, (this.icmParamcalempleados!= null));
+        }
+        {
             IcmParametrosentradaBlock theIcmParametrosentrada;
             theIcmParametrosentrada = this.getIcmParametrosentrada();
             strategy.appendField(locator, this, "icmParametrosentrada", buffer, theIcmParametrosentrada, (this.icmParametrosentrada!= null));
@@ -2139,6 +2181,11 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
             IcmListamultiempresaBlock theIcmListamultiempresa;
             theIcmListamultiempresa = this.getIcmListamultiempresa();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListamultiempresa", theIcmListamultiempresa), currentHashCode, theIcmListamultiempresa, (this.icmListamultiempresa!= null));
+        }
+        {
+            IcmParamcalempleadosBlock theIcmParamcalempleados;
+            theIcmParamcalempleados = this.getIcmParamcalempleados();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalempleados", theIcmParamcalempleados), currentHashCode, theIcmParamcalempleados, (this.icmParamcalempleados!= null));
         }
         {
             IcmParametrosentradaBlock theIcmParametrosentrada;
@@ -2592,6 +2639,19 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
                 } else {
                     if (icmListamultiempresaShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmListamultiempresa = null;
+                    }
+                }
+            }
+            {
+                Boolean icmParamcalempleadosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParamcalempleados!= null));
+                if (icmParamcalempleadosShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalempleadosBlock sourceIcmParamcalempleados;
+                    sourceIcmParamcalempleados = this.getIcmParamcalempleados();
+                    IcmParamcalempleadosBlock copyIcmParamcalempleados = ((IcmParamcalempleadosBlock) strategy.copy(LocatorUtils.property(locator, "icmParamcalempleados", sourceIcmParamcalempleados), sourceIcmParamcalempleados, (this.icmParamcalempleados!= null)));
+                    copy.setIcmParamcalempleados(copyIcmParamcalempleados);
+                } else {
+                    if (icmParamcalempleadosShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmParamcalempleados = null;
                     }
                 }
             }

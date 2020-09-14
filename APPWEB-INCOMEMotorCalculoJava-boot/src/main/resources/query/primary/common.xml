@@ -369,7 +369,7 @@
 <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito">
   <![CDATA[
     WITH PERSONA AS (
-      SELECT P.ID_TAREA, P.CCL_ID_PERSON 
+      SELECT P.ID_TAREA, P.CCL_ID_PERSON
       FROM TAREA_CALCULO_PERSONA TCP
       INNER JOIN TAREA_PERSONA_HISTORICO P
       ON TCP.ID_TAREA = P.ID_TAREA
@@ -5784,4 +5784,11 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
     WHERE CCL_ID_ORIGEN IN (:cclIdOrigen)
     ]]>
 </entry>
+
+<entry key="TareaPersonaEstructuraDesplazamientoRealRepositoryCustom.findDesplazamientoReal">
+    <![CDATA[
+
+    ]]>
+</entry>
+
 </properties>

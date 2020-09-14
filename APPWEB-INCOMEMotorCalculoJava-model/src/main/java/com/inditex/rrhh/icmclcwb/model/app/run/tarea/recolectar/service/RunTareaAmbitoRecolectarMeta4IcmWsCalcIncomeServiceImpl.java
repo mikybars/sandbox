@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.DesplazamientoRealDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
@@ -42,6 +43,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPr
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaAusenciaHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaCoeficienteAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraDesplazamientoRealAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraPoliticaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -49,6 +51,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaS
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraDesplazamientoRealService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -70,6 +73,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
@@ -190,6 +196,12 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Autowired
     private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+
+    @Autowired
+    private TareaPersonaEstructuraDesplazamientoRealService tareaPersonaEstructuraDesplazamientoRealService;
+
+    @Autowired
+    private TareaPersonaEstructuraDesplazamientoRealAsyncService tareaPersonaEstructuraDesplazamientoRealAsyncService;
 
     @Override
     protected LocalDateTime getFechaInicioPeriodo(final TareaDto tarea) {
@@ -956,6 +968,63 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                                     .getMaxPersistenceSize());
                         final CompletableFuture<Void> cfSave = this.tareaLocalizacionPresupuestoVentaAsyncService
                             .saveVentaCongeladaResultItemDto(data, runTarea.getTarea());
+                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                        hasNext = request.nextPage();
+                    }
+                } while (hasNext);
+                AsyncUtils.waitAllOfIsOk(cf, cf);
+            }
+        } catch (final Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
+    @Override
+    public void desplazamientoRealByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {
+            final TareaDto tarea = runTarea.getTarea();
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            for (final List<DesplazamientoRealDto> iter : StreamUtils.partition(
+                    this.tareaPersonaEstructuraDesplazamientoRealService.findDesplazamientoReal(
+                            tarea),
+                    this.meta4Properties.get(Meta4PropertiesConstants.DESPLAZAMIENTO_REAL)
+                        .getFilter()
+                        .getMaxPageSize())) {
+                final DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
+                request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.DESPLAZAMIENTO_REAL).getPage());
+                request.setData(this.tareaMapper
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToDesplazamientoRealFilterDto(trabajo,
+                            tarea,
+                            tareaAmbito));
+                request.getData().setItem(new ArrayList<DesplazamientoRealFilterParametersDto>());
+                request.getData()
+                    .getItem()
+                    .addAll(iter.stream()
+                        .map(e -> DesplazamientoRealFilterParametersDto.builder()
+                            .idEstructura(e.getIdEstructura())
+                            .idOrigen(e.getCclIdOrigen())
+                            .idEstructuraAmbito(e.getIdEstructuraAmbito())
+                            .idEstructura(e.getIdEstructura())
+                            .fechaInicio(TimeUtils.toLocalDateTime(e.getFechaInicio()))
+                            .fechaFin(TimeUtils.toLocalDateTime(e.getFechaFin()))
+                            .build())
+                        .collect(Collectors.toList()));
+                boolean hasNext = false;
+                do {
+                    final CompletableFuture<List<DesplazamientoRealResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
+                        .getDesplazReal(request);
+                    final List<DesplazamientoRealResultItemDto> data = AsyncUtils.get(cfData);
+                    if (CollectionUtils.isNotEmpty(data)) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist,
+                                this.meta4Properties.get(Meta4PropertiesConstants.DESPLAZAMIENTO_REAL)
+                                    .getFilter()
+                                    .getMaxPersistenceSize());
+                        final CompletableFuture<Void> cfSave = this.tareaPersonaEstructuraDesplazamientoRealAsyncService
+                            .saveDesplazamientoRealResultItemDto(data, tarea);
                         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                         hasNext = request.nextPage();
                     }
