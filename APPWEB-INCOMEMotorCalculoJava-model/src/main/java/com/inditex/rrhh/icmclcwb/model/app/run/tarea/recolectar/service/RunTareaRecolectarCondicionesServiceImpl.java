@@ -85,6 +85,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                 .configuracionVentaOnlineByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfConfiguracionVentaOnline, cf, cfWait);
 
+            // Desplazamiento real
+            final CompletableFuture<Void> cfDesplazamientoRealByRunTarea = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .desplazamientoRealByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfDesplazamientoRealByRunTarea, cf, cfWait);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/

@@ -33,7 +33,7 @@ amiga:
           core-pool-size: 10
           allow-core-thread-timeout: true
           maximum-pool-size: 100
-          queue-size: 2000
+          #queue-size: 2000
           rejected-execution-policy: ABORT
           keep-alive-time: 600000
     async:
@@ -41,6 +41,8 @@ amiga:
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
     executor:
       meta4-executor:
         name: async-meta4-executor
@@ -48,24 +50,32 @@ amiga:
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s        
       ptr-venta-executor:
         name: async-ptr-venta-executor
         name-format: async-ptr-venta-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s        
       ptr-presencia-executor:
         name: async-ptr-presencia-executor
         name-format: async-ptr-presencia-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s        
       repository-primary-executor:
         name: async-repository-primary-executor
         name-format: async-repository-primary-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s        
   service:
     session:
       session-type: REMOTE

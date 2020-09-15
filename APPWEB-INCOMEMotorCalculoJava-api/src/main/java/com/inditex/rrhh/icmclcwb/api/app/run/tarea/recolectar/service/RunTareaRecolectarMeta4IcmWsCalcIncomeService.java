@@ -51,4 +51,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void ventaCongeladaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
+    void desplazamientoRealByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
 }

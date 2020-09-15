@@ -976,7 +976,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     .getItem()
                     .addAll(iter.stream()
                         .map(e -> DesplazamientoRealFilterParametersDto.builder()
-                            .idEstructura(e.getIdEstructura())
+                            .idEmpleado(e.getStdIdHr())
+                            .orEmpleado(e.getStdOrHrPeriod())
                             .idOrigen(e.getCclIdOrigen())
                             .idEstructuraAmbito(e.getIdEstructuraAmbito())
                             .idEstructura(e.getIdEstructura())
@@ -984,22 +985,19 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             .fechaFin(TimeUtils.toLocalDateTime(e.getFechaFin()))
                             .build())
                         .collect(Collectors.toList()));
-                boolean hasNext = false;
-                do {
-                    final CompletableFuture<List<DesplazamientoRealResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-                        .getDesplazReal(request);
-                    final List<DesplazamientoRealResultItemDto> data = AsyncUtils.get(cfData);
-                    if (CollectionUtils.isNotEmpty(data)) {
-                        AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                this.meta4Properties.get(Meta4PropertiesConstants.DESPLAZAMIENTO_REAL)
-                                    .getFilter()
-                                    .getMaxPersistenceSize());
-                        final CompletableFuture<Void> cfSave = this.tareaPersonaEstructuraDesplazamientoRealAsyncService
-                            .saveDesplazamientoRealResultItemDto(data, tarea);
-                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                        hasNext = request.nextPage();
-                    }
-                } while (hasNext);
+
+                final CompletableFuture<List<DesplazamientoRealResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
+                    .getDesplazReal(request);
+                final List<DesplazamientoRealResultItemDto> data = AsyncUtils.get(cfData);
+                if (CollectionUtils.isNotEmpty(data)) {
+                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            this.meta4Properties.get(Meta4PropertiesConstants.DESPLAZAMIENTO_REAL)
+                                .getFilter()
+                                .getMaxPersistenceSize());
+                    final CompletableFuture<Void> cfSave = this.tareaPersonaEstructuraDesplazamientoRealAsyncService
+                        .saveDesplazamientoRealResultItemDto(data, tarea);
+                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                }
                 AsyncUtils.waitAllOfIsOk(cf, cf);
             }
         } catch (final Exception e) {
