@@ -776,7 +776,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getPage());
                 request.setData(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosWlocFilterDto(
                         trabajo, tarea, tareaAmbito));
-                request.getData().setItem(Collections.singletonList(new PresupuestosWlocFilterParametersDto()));
+                request.getData()
+                    .setItem(Collections.singletonList(
+                            PresupuestosWlocFilterParametersDto.builder().idEmpresa(tarea.getStdIdLegEnt()).build()));
                 boolean hasNext;
                 do {
                     final CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService

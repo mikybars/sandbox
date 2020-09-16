@@ -112,15 +112,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
 
     @Override
-    public IcmParamcalpresupuestoswlocBlock asIcmParamcalpresupuestoswlocBlock(final PresupuestosWlocFilterDto src) {
-        final IcmParamcalpresupuestoswlocBlock result = this.delegate.asIcmParamcalpresupuestoswlocBlock(src);
-        if (CollectionUtils.isEmpty(result.getIcmParamcalpresupuestoswlocRecordSet())) {
-            result.getIcmParamcalpresupuestoswlocRecordSet().add(new IcmParamcalpresupuestoswlocRecord());
-        }
-        return result;
-    }
-
-    @Override
     public IcmParamcalconfpreciohoraBlock asIcmParamcalconfpreciohoraBlock(final ConfPrecioHoraFilterDto src) {
         final IcmParamcalconfpreciohoraBlock result = this.delegate.asIcmParamcalconfpreciohoraBlock(src);
         if (CollectionUtils.isEmpty(result.getIcmParamcalconfpreciohoraRecordSet())) {
@@ -554,6 +545,31 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                 });
             } else {
                 result.add(new IcmParamcaldesplazrealRecord());
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public IcmParamcalpresupuestoswlocBlock asIcmParamcalpresupuestoswlocBlock(final PresupuestosWlocFilterDto src) {
+        final List<IcmParamcalpresupuestoswlocRecord> list = this.asIcmParamcalpresupuestoswlocRecordList(src);
+        final IcmParamcalpresupuestoswlocBlock result = this.delegate.asIcmParamcalpresupuestoswlocBlock(src);
+        result.getIcmParamcalpresupuestoswlocRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcalpresupuestoswlocRecord> asIcmParamcalpresupuestoswlocRecordList(
+            final PresupuestosWlocFilterDto src) {
+        final List<IcmParamcalpresupuestoswlocRecord> result = new ArrayList<>();
+        if (src != null) {
+            if (CollectionUtils.isNotEmpty(src.getItem())) {
+                src.getItem().forEach(x -> {
+                    final IcmParamcalpresupuestoswlocRecord record = this.delegate
+                        .asIcmParamcalpresupuestoswlocRecord(x);
+                    result.add(record);
+                });
+            } else {
+                result.add(new IcmParamcalpresupuestoswlocRecord());
             }
         }
         return result;
