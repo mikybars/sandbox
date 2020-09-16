@@ -148,7 +148,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfVentaRangoOnlineEntregaTiendaLocalizacionSeccion, cf, cfWait);
 
             final CompletableFuture<Void> cfVentaRangoOnlineEntregaDomicilioLocalizacionSeccion = this.runTareaRecolectarPtrVentaEcommerceAsyncService
-                .ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
+                .ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaRangoOnlineEntregaDomicilioLocalizacionSeccion, cf, cfWait);
 
             /*-------------------------------------------------------------*/
