@@ -155,5 +155,11 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> desplazamientoRealByRunTarea(final RunTareaDto runTarea) {
+        this.tareaRecolectarMeta4IcmWsCalcIncomeService.desplazamientoRealByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }
 

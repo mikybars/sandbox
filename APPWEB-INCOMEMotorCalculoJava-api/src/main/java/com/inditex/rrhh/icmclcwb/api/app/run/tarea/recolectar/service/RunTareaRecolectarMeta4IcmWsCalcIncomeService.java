@@ -53,4 +53,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void fechaAmbitoAndEmpresaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
+    void desplazamientoRealByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
 }

@@ -223,4 +223,13 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 .ventaCongeladaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
+    @Override
+    public void desplazamientoRealByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .desplazamientoRealByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
 }

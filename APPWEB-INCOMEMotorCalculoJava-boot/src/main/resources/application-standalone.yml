@@ -123,6 +123,12 @@ amiga:
       logging:
         is-production: false
   data:
+    binder:
+      jms-activemq:
+        default:
+          consumer:
+            enable-dlq: false          
+            send-original-payload-to-dlq: false  
     jta:
       allow-custom-isolation-levels: true
     jms:

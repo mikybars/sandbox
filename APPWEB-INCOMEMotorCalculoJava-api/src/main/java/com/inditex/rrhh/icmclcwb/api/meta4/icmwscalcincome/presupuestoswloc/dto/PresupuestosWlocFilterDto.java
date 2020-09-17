@@ -17,8 +17,6 @@ public class PresupuestosWlocFilterDto implements Serializable {
 
     private String idOrigen;
 
-    private List<String> idsEmpresa;
-
     private String idSeccion;
 
     private String banda;
