@@ -289,6 +289,13 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
                 any(Integer.class))).thenReturn(new PeriodoDto());
 
         when(this.meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_PRESENCIA)).thenReturn(properties);
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                any(Long.class),
+                any(Integer.class))).thenReturn(new PeriodoDto());
+        when(this.tareaMapper
+            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class),
+                    any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
+
 
         when(this.meta4IcmWsCalcIncomeSessionAsyncService
             .getEmpleadosPresencia(any(EmpleadosPresenciaRequestDto.class)))
@@ -1178,18 +1185,24 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final List<IdEmpresaDto> empresa = new ArrayList<>();
         empresa.add(new IdEmpresaDto());
 
-        // when(this.meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO)).thenReturn(properties);
+        when(this.meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO)).thenReturn(properties);
 
-        // when(this.meta4IcmWsCalcIncomeSessionAsyncService
-        // .getEmpleadosDesplazamiento(any(EmpleadosDesplazamientoRequestDto.class))).thenReturn(cf);
-        // when(this.tareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncService
-        // .saveGenericEmpleadoResultItemDto(ArgumentMatchers.<List<GenericEmpleadoResultItemDto>>any(),
-        // any(TareaDto.class))).thenReturn(cfNull);
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                any(Long.class),
+                any(Integer.class))).thenReturn(new PeriodoDto());
+        when(this.tareaMapper
+            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class),
+                    any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
+        when(this.meta4IcmWsCalcIncomeSessionAsyncService
+            .getEmpleadosDesplazamiento(any(EmpleadosDesplazamientoRequestDto.class))).thenReturn(cf);
+        when(this.tareaAmbitoGlobalLocalizacionPersonaDesplazamientoAsyncService
+            .saveGenericEmpleadoResultItemDto(ArgumentMatchers.<List<GenericEmpleadoResultItemDto>>any(),
+                    any(TareaDto.class))).thenReturn(cfNull);
 
         this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             .empleadosDesplazamientoByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
-        // verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
-        // .getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
+        verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+            .getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
 
     }
 
@@ -1214,19 +1227,22 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
             return new ArrayList<>();
         });
 
-        // when(this.meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO)).thenReturn(properties);
-        //
-        // when(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class),
-        // any(TareaDto.class),
-        // any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
-        //
-        // when(this.meta4IcmWsCalcIncomeSessionAsyncService
-        // .getEmpleadosDesplazamiento(any(EmpleadosDesplazamientoRequestDto.class))).thenReturn(cf);
-        //
-        // this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
-        // .empleadosDesplazamientoByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
-        // verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
-        // .getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
+        when(this.meta4Properties.get(Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO)).thenReturn(properties);
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                any(Long.class),
+                any(Integer.class))).thenReturn(new PeriodoDto());
+
+        when(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class),
+                any(TareaDto.class),
+                any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
+
+        when(this.meta4IcmWsCalcIncomeSessionAsyncService
+            .getEmpleadosDesplazamiento(any(EmpleadosDesplazamientoRequestDto.class))).thenReturn(cf);
+
+        this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
+            .empleadosDesplazamientoByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
+        verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+            .getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
 
     }
 

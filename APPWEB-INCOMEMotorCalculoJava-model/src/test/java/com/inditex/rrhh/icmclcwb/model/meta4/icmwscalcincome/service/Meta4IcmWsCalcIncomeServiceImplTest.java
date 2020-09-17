@@ -920,7 +920,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
 
     @Test
     public void getEmpleados() {
-        final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
+        final IcmParamcalempleadosBlock entrada = new IcmParamcalempleadosBlock();
         final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
         final GetempleadosOutput output = new GetempleadosOutput();
         final IcmListaempleadosBlock block = new IcmListaempleadosBlock();
@@ -929,7 +929,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         output.setIcmParametrospaginacion(paginacion);
         output.setIcmListaempleados(block);
 
-        when(this.icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadosBlock(any(GenericFilterDto.class))).thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(this.meta4ClientPool.getempleados(any(IcmParamcalempleadosBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(output);
@@ -944,10 +944,10 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
 
     @Test
     public void getEmpleadosNullOutput() {
-        final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
+        final IcmParamcalempleadosBlock entrada = new IcmParamcalempleadosBlock();
         final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
-        when(this.icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadosBlock(any(GenericFilterDto.class))).thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(this.meta4ClientPool.getempleados(any(IcmParamcalempleadosBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(null);
@@ -962,14 +962,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
 
     @Test
     public void getEmpleadosNullPageNullData() {
-        final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
+        final IcmParamcalempleadosBlock entrada = new IcmParamcalempleadosBlock();
         final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
         final GetempleadosOutput output = new GetempleadosOutput();
         output.setReturn(NumberUtils.DOUBLE_ZERO);
         output.setIcmParametrospaginacion(null);
         output.setIcmListaempleados(null);
 
-        when(this.icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadosBlock(any(GenericFilterDto.class))).thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(this.meta4ClientPool.getempleados(any(IcmParamcalempleadosBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(output);
