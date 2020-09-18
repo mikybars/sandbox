@@ -796,19 +796,14 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             final List<IdPersonaLocalDto> personasChallenge = this.tareaPersonaEstructuraService
                 .findPersonasChallenge(tarea);
-            List<String> empresasAmbito =
-                tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(tarea.getId()).stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
+            List<IdEmpresaDto> empresasAmbito = tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(tarea.getId());
             if (CollectionUtils.isNotEmpty(personasChallenge)) {
                 final PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
                 request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getPage());
                 request.setData(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosWlocFilterDto(
                         trabajo, tarea, tareaAmbito));
-                request.getData().setItem(Collections.singletonList(new PresupuestosWlocFilterParametersDto()));
-                //TODO [javierev] modificar cómo se genera el listado de items
-                //request.getData().setIdsEmpresa(empresasAmbito);
                 request.getData()
-                    .setItem(Collections.singletonList(
-                            PresupuestosWlocFilterParametersDto.builder().idEmpresa(tarea.getStdIdLegEnt()).build()));
+                    .setItem(tareaMapper.idEmpresaDtoToPresupuestosWlocFilterParametersDto(empresasAmbito));
                 boolean hasNext;
                 do {
                     final CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService

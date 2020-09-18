@@ -148,22 +148,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             });
 
 
-            //TODO [javierev] Mantengo esto porque ahora mismo el servicio M4 no devuelve nada,
-            // pero supongo que habrá que quitarlo
-            final TareaAmbitoGlobalEmpresaDto dto = new TareaAmbitoGlobalEmpresaDto();
-            dto.setIdTarea(tarea.getId());
-            dto.setStdIdLegEnt(tarea.getStdIdLegEnt());
-            dto.setCclIdOrigen(tareaAmbito.getCclIdOrigen());
-            this.tareaAmbitoGlobalEmpresaService.save(
-                    Arrays.asList(dto),
-                tarea);
 
-            final TareaAmbitoGlobalFechaDto dtoFecha = new TareaAmbitoGlobalFechaDto();
-            dtoFecha.setFechaInicio(TimeUtils.toDate(trabajo.getFechaInicioPeriodo().minusMonths(2)));
-            dtoFecha.setFechaFin(TimeUtils.toDate(trabajo.getFechaFinPeriodo()));
-            dtoFecha.setIdTarea(tarea.getId());
-
-            this.tareaAmbitoGlobalFechaService.save(dtoFecha, tarea);
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
