@@ -474,18 +474,9 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         List<IcmParamcalempleadospresenciaRecord> result = new ArrayList<>();
         if (src != null) {
             src.getIdsEmpresa().forEach(empresa -> {
-                if (CollectionUtils.isNotEmpty(src.getItem())) {
-                    src.getItem().forEach(x -> {
-                        IcmParamcalempleadospresenciaRecord record = this.delegate.asIcmParamcalempleadospresenciaRecord(src);
-                        record.setIdtipohora(x.getIdTipoHora());
-                        record.setIdempleado(x.getIdEmpleado());
-                        result.add(record);
-                    });
-                } else {
-                    IcmParamcalempleadospresenciaRecord record = this.delegate.asIcmParamcalempleadospresenciaRecord(src);
-                    record.setIdempresa(empresa);
-                    result.add(record);
-                }
+                IcmParamcalempleadospresenciaRecord record = this.delegate.asIcmParamcalempleadospresenciaRecord(src);
+                record.setIdempresa(empresa);
+                result.add(record);
             });
         }
         return result;
@@ -503,17 +494,9 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         List<IcmParamcaltiendasRecord> result = new ArrayList<>();
         if (src != null) {
             src.getIdsEmpresa().forEach(empresa -> {
-                if (CollectionUtils.isNotEmpty(src.getItem())) {
-                    src.getItem().forEach(x -> {
-                        IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
-                        record.setIdempresa(empresa);
-                        result.add(record);
-                    });
-                } else {
-                    IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
-                    record.setIdempresa(empresa);
-                    result.add(record);
-                }
+                IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+                record.setIdempresa(empresa);
+                result.add(record);
             });
         }
         return result;
@@ -531,17 +514,9 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         List<IcmParamcalempleadoRecord> result = new ArrayList<>();
         if (src != null) {
             src.getIdsEmpresa().forEach(empresa -> {
-                if (CollectionUtils.isNotEmpty(src.getItem())) {
-                    src.getItem().forEach(x -> {
-                        IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
-                        record.setIdempresa(empresa);
-                        result.add(record);
-                    });
-                } else {
-                    IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
-                    record.setIdempresa(empresa);
-                    result.add(record);
-                }
+                IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
+                record.setIdempresa(empresa);
+                result.add(record);
             });
         }
         return result;
