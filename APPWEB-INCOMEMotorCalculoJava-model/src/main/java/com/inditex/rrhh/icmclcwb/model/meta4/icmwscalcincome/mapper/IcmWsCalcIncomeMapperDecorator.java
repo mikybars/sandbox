@@ -590,7 +590,9 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     private List<IcmParamcalflagcalculaRecord> asIcmParamcalflagcalculaRecordList(GenericFilterDto src) {
         final List<IcmParamcalflagcalculaRecord> result = new ArrayList<>();
         if (src != null) {
-            result.add(this.delegate.asIcmParamcalflagcalculaRecord(src));
+            IcmParamcalflagcalculaRecord record = this.delegate.asIcmParamcalflagcalculaRecord(src);
+            src.getItem().forEach(item -> record.setIdlugartrabajo(item.getIdLugarTrabajo()));
+            result.add(record);
         } else {
             result.add(new IcmParamcalflagcalculaRecord());
         }
@@ -608,7 +610,9 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     private List<IcmParamcalpresenciamanualRecord> asIcmParamcalpresenciamanualRecordList(GenericFilterDto src) {
         final List<IcmParamcalpresenciamanualRecord> result = new ArrayList<>();
         if (src != null) {
-            result.add(this.delegate.asIcmParamcalpresenciamanualRecord(src));
+            IcmParamcalpresenciamanualRecord record = this.delegate.asIcmParamcalpresenciamanualRecord(src);
+            src.getItem().forEach(item -> record.setIdlugartrabajo(item.getIdLugarTrabajo()));
+            result.add(record);
         } else {
             result.add(new IcmParamcalpresenciamanualRecord());
         }
