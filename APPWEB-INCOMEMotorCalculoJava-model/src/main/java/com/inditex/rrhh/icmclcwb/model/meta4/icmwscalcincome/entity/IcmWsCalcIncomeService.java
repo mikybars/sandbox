@@ -25,6 +25,26 @@ public interface IcmWsCalcIncomeService {
 
     /**
      * 
+     * @param icmPARAMCALCADENA
+     * @param icmPARAMETROSPAGINACION
+     * @return
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput
+     * @throws M4SoapException_Exception
+     */
+    @WebMethod(operationName = "GETCADENA")
+    @WebResult(name = "GETCADENAReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "GETCADENA", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GETCADENA")
+    @ResponseWrapper(localName = "GETCADENAResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GETCADENAResponse")
+    public GetcadenaOutput getcadena(
+        @WebParam(name = "ICM_PARAMCALCADENA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParamcalcadenaBlock icmPARAMCALCADENA,
+        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
+        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
+        throws M4SoapException_Exception
+    ;
+
+    /**
+     * 
      * @param icmPARAMCALPERIODO
      * @param icmPARAMETROSPAGINACION
      * @return
@@ -179,7 +199,7 @@ public interface IcmWsCalcIncomeService {
 
     /**
      * 
-     * @param icmPARAMETROSENTRADA
+     * @param icmPARAMCALFLAGCALCULA
      * @param icmPARAMETROSPAGINACION
      * @return
      *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput
@@ -192,8 +212,8 @@ public interface IcmWsCalcIncomeService {
     public GetflagcalculaOutput getflagcalcula(
         @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
         IcmParametrospaginacionBlock icmPARAMETROSPAGINACION,
-        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA)
+        @WebParam(name = "ICM_PARAMCALFLAGCALCULA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParamcalflagcalculaBlock icmPARAMCALFLAGCALCULA)
         throws M4SoapException_Exception
     ;
 
@@ -286,26 +306,6 @@ public interface IcmWsCalcIncomeService {
     public GettiendasincomeOutput gettiendasincome(
         @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
         IcmParametrosentradaBlock icmPARAMETROSENTRADA,
-        @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
-        throws M4SoapException_Exception
-    ;
-
-    /**
-     * 
-     * @param icmPARAMCALCADENA
-     * @param icmPARAMETROSPAGINACION
-     * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput
-     * @throws M4SoapException_Exception
-     */
-    @WebMethod(operationName = "GETCADENA")
-    @WebResult(name = "GETCADENAReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "GETCADENA", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GETCADENA")
-    @ResponseWrapper(localName = "GETCADENAResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GETCADENAResponse")
-    public GetcadenaOutput getcadena(
-        @WebParam(name = "ICM_PARAMCALCADENA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParamcalcadenaBlock icmPARAMCALCADENA,
         @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
         IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
         throws M4SoapException_Exception
@@ -424,7 +424,7 @@ public interface IcmWsCalcIncomeService {
 
     /**
      * 
-     * @param icmPARAMETROSENTRADA
+     * @param icmPARAMCALPRESENCIAMANUAL
      * @param icmPARAMETROSPAGINACION
      * @return
      *     returns com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput
@@ -435,8 +435,8 @@ public interface IcmWsCalcIncomeService {
     @RequestWrapper(localName = "GETPRESENCIAMANUAL", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GETPRESENCIAMANUAL")
     @ResponseWrapper(localName = "GETPRESENCIAMANUALResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GETPRESENCIAMANUALResponse")
     public GetpresenciamanualOutput getpresenciamanual(
-        @WebParam(name = "ICM_PARAMETROSENTRADA", targetNamespace = "http://schemas.meta4.com/")
-        IcmParametrosentradaBlock icmPARAMETROSENTRADA,
+        @WebParam(name = "ICM_PARAMCALPRESENCIAMANUAL", targetNamespace = "http://schemas.meta4.com/")
+        IcmParamcalpresenciamanualBlock icmPARAMCALPRESENCIAMANUAL,
         @WebParam(name = "ICM_PARAMETROSPAGINACION", targetNamespace = "http://schemas.meta4.com/")
         IcmParametrospaginacionBlock icmPARAMETROSPAGINACION)
         throws M4SoapException_Exception
@@ -582,12 +582,14 @@ public interface IcmWsCalcIncomeService {
      * @param icmLISTACONFCHDIAS
      * @param icmPARAMCALCADENA
      * @param icmPARAMCALMULTIEMPRESA
+     * @param icmPARAMCALFLAGCALCULA
      * @param icmPARAMCALCONFCHDIAS
      * @param icmPARAMCALCONFORIGEN
      * @param icmPARAMCALEMPLEADOSDESPLAZ
      * @param icmPARAMCALPRESUPUESTOSWLOC
      * @param icmLISTAORIGENES
      * @param icmPARAMETROSENTRADA
+     * @param icmPARAMCALPRESENCIAMANUAL
      * @param icmLISTACADENAS
      * @param icmLISTADESPLAZREAL
      * @param icmPARAMCALEMPLEADOS
@@ -683,6 +685,8 @@ public interface IcmWsCalcIncomeService {
         IcmParamcalconfchventaBlock icmPARAMCALCONFCHVENTA,
         @WebParam(name = "ICM_PARAMCALDESPLAZREAL", targetNamespace = "http://schemas.meta4.com/")
         IcmParamcaldesplazrealBlock icmPARAMCALDESPLAZREAL,
+        @WebParam(name = "ICM_PARAMCALFLAGCALCULA", targetNamespace = "http://schemas.meta4.com/")
+        IcmParamcalflagcalculaBlock icmPARAMCALFLAGCALCULA,
         @WebParam(name = "ICM_WS_CALC_OPERACIONES", targetNamespace = "http://schemas.meta4.com/")
         IcmWsCalcOperacionesBlock icmWSCALCOPERACIONES,
         @WebParam(name = "ICM_PARAMCALMULTIEMPRESA", targetNamespace = "http://schemas.meta4.com/")
@@ -697,6 +701,8 @@ public interface IcmWsCalcIncomeService {
         IcmParamcalconfpreciohoraBlock icmPARAMCALCONFPRECIOHORA,
         @WebParam(name = "ICM_PARAMCALVENTACONGELADA", targetNamespace = "http://schemas.meta4.com/")
         IcmParamcalventacongeladaBlock icmPARAMCALVENTACONGELADA,
+        @WebParam(name = "ICM_PARAMCALPRESENCIAMANUAL", targetNamespace = "http://schemas.meta4.com/")
+        IcmParamcalpresenciamanualBlock icmPARAMCALPRESENCIAMANUAL,
         @WebParam(name = "ICM_PARAMCALEMPLEADOSDESPLAZ", targetNamespace = "http://schemas.meta4.com/")
         IcmParamcalempleadosdesplazBlock icmPARAMCALEMPLEADOSDESPLAZ,
         @WebParam(name = "ICM_PARAMCALPRESUPUESTOSWLOC", targetNamespace = "http://schemas.meta4.com/")

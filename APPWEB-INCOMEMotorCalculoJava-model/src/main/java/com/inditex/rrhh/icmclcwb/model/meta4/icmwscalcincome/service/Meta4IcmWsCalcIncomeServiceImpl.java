@@ -14,6 +14,9 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalt
 import org.apache.commons.lang3.StringUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -192,8 +195,8 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public FlagCalculaResponseDto getFlagCalcula(final FlagCalculaRequestDto request) {
         final FlagCalculaResponseDto result = new FlagCalculaResponseDto();
-        final IcmParametrosentradaBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParametrosentradaBlock(request.getData());
+        final IcmParamcalflagcalculaBlock param1 = this.icmWsCalcIncomeMapper
+            .asIcmParamcalflagcalculaBlock(request.getData());
         final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
             .asIcmParametrospaginacionBlock(request.getPage());
         final GetflagcalculaOutput getFlagCalculaOutput = this.meta4ClientPool.getflagcalcula(param1, param2);
@@ -269,8 +272,8 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public PresenciaManualResponseDto getPresenciaManual(final PresenciaManualRequestDto request) {
         final PresenciaManualResponseDto result = new PresenciaManualResponseDto();
-        final IcmParametrosentradaBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParametrosentradaBlock(request.getData());
+        final IcmParamcalpresenciamanualBlock param1 = this.icmWsCalcIncomeMapper
+            .asIcmParamcalpresenciamanualBlock(request.getData());
         final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
             .asIcmParametrospaginacionBlock(request.getPage());
         final GetpresenciamanualOutput getPresenciaManualOutput = this.meta4ClientPool.getpresenciamanual(param1,

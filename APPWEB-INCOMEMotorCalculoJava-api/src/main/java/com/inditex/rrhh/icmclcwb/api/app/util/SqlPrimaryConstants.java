@@ -337,4 +337,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_RESULT_ICM_ID_ESTRUCTURA_AMBITO = "ICM_ID_ESTRUCTURA_AMBITO";
 
+    public static final String SQL_RESULT_ICM_ID_ESTR_COMISION_PADRE = "ICM_ID_ESTR_COMISION_PADRE";
+
+    public static final String SQL_RESULT_ICM_ID_ESTR_COMISION_BASE = "ICM_ID_ESTR_COMISION_BASE";
+
 }

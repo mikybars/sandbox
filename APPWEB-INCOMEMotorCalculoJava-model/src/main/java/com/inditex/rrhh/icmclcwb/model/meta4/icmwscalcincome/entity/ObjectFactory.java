@@ -34,6 +34,54 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GETCADENA }
+     * 
+     */
+    public GETCADENA createGETCADENA() {
+        return new GETCADENA();
+    }
+
+    /**
+     * Create an instance of {@link IcmParamcalcadenaBlock }
+     * 
+     */
+    public IcmParamcalcadenaBlock createIcmParamcalcadenaBlock() {
+        return new IcmParamcalcadenaBlock();
+    }
+
+    /**
+     * Create an instance of {@link IcmParametrospaginacionBlock }
+     * 
+     */
+    public IcmParametrospaginacionBlock createIcmParametrospaginacionBlock() {
+        return new IcmParametrospaginacionBlock();
+    }
+
+    /**
+     * Create an instance of {@link GETCADENAResponse }
+     * 
+     */
+    public GETCADENAResponse createGETCADENAResponse() {
+        return new GETCADENAResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetcadenaOutput }
+     * 
+     */
+    public GetcadenaOutput createGetcadenaOutput() {
+        return new GetcadenaOutput();
+    }
+
+    /**
+     * Create an instance of {@link M4SoapException }
+     * 
+     */
+    public M4SoapException createM4SoapException() {
+        return new M4SoapException();
+    }
+
+    /**
      * Create an instance of {@link GETPERIODOS }
      * 
      */
@@ -50,14 +98,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IcmParametrospaginacionBlock }
-     * 
-     */
-    public IcmParametrospaginacionBlock createIcmParametrospaginacionBlock() {
-        return new IcmParametrospaginacionBlock();
-    }
-
-    /**
      * Create an instance of {@link GETPERIODOSResponse }
      * 
      */
@@ -71,14 +111,6 @@ public class ObjectFactory {
      */
     public GetperiodosOutput createGetperiodosOutput() {
         return new GetperiodosOutput();
-    }
-
-    /**
-     * Create an instance of {@link M4SoapException }
-     * 
-     */
-    public M4SoapException createM4SoapException() {
-        return new M4SoapException();
     }
 
     /**
@@ -314,6 +346,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IcmParamcalflagcalculaBlock }
+     * 
+     */
+    public IcmParamcalflagcalculaBlock createIcmParamcalflagcalculaBlock() {
+        return new IcmParamcalflagcalculaBlock();
+    }
+
+    /**
      * Create an instance of {@link GETFLAGCALCULAResponse }
      * 
      */
@@ -463,38 +503,6 @@ public class ObjectFactory {
      */
     public GettiendasincomeOutput createGettiendasincomeOutput() {
         return new GettiendasincomeOutput();
-    }
-
-    /**
-     * Create an instance of {@link GETCADENA }
-     * 
-     */
-    public GETCADENA createGETCADENA() {
-        return new GETCADENA();
-    }
-
-    /**
-     * Create an instance of {@link IcmParamcalcadenaBlock }
-     * 
-     */
-    public IcmParamcalcadenaBlock createIcmParamcalcadenaBlock() {
-        return new IcmParamcalcadenaBlock();
-    }
-
-    /**
-     * Create an instance of {@link GETCADENAResponse }
-     * 
-     */
-    public GETCADENAResponse createGETCADENAResponse() {
-        return new GETCADENAResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetcadenaOutput }
-     * 
-     */
-    public GetcadenaOutput createGetcadenaOutput() {
-        return new GetcadenaOutput();
     }
 
     /**
@@ -671,6 +679,14 @@ public class ObjectFactory {
      */
     public GETPRESENCIAMANUAL createGETPRESENCIAMANUAL() {
         return new GETPRESENCIAMANUAL();
+    }
+
+    /**
+     * Create an instance of {@link IcmParamcalpresenciamanualBlock }
+     * 
+     */
+    public IcmParamcalpresenciamanualBlock createIcmParamcalpresenciamanualBlock() {
+        return new IcmParamcalpresenciamanualBlock();
     }
 
     /**
@@ -1186,11 +1202,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IcmParamcalperiodoRecord }
+     * Create an instance of {@link IcmParamcalcadenaRecord }
      * 
      */
-    public IcmParamcalperiodoRecord createIcmParamcalperiodoRecord() {
-        return new IcmParamcalperiodoRecord();
+    public IcmParamcalcadenaRecord createIcmParamcalcadenaRecord() {
+        return new IcmParamcalcadenaRecord();
     }
 
     /**
@@ -1207,6 +1223,22 @@ public class ObjectFactory {
      */
     public LogMessage createLogMessage() {
         return new LogMessage();
+    }
+
+    /**
+     * Create an instance of {@link IcmListacadenasRecord }
+     * 
+     */
+    public IcmListacadenasRecord createIcmListacadenasRecord() {
+        return new IcmListacadenasRecord();
+    }
+
+    /**
+     * Create an instance of {@link IcmParamcalperiodoRecord }
+     * 
+     */
+    public IcmParamcalperiodoRecord createIcmParamcalperiodoRecord() {
+        return new IcmParamcalperiodoRecord();
     }
 
     /**
@@ -1370,6 +1402,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IcmParamcalflagcalculaRecord }
+     * 
+     */
+    public IcmParamcalflagcalculaRecord createIcmParamcalflagcalculaRecord() {
+        return new IcmParamcalflagcalculaRecord();
+    }
+
+    /**
      * Create an instance of {@link IcmListaempleadoRecord }
      * 
      */
@@ -1407,22 +1447,6 @@ public class ObjectFactory {
      */
     public IcmListaconforigenRecord createIcmListaconforigenRecord() {
         return new IcmListaconforigenRecord();
-    }
-
-    /**
-     * Create an instance of {@link IcmParamcalcadenaRecord }
-     * 
-     */
-    public IcmParamcalcadenaRecord createIcmParamcalcadenaRecord() {
-        return new IcmParamcalcadenaRecord();
-    }
-
-    /**
-     * Create an instance of {@link IcmListacadenasRecord }
-     * 
-     */
-    public IcmListacadenasRecord createIcmListacadenasRecord() {
-        return new IcmListacadenasRecord();
     }
 
     /**
@@ -1575,6 +1599,14 @@ public class ObjectFactory {
      */
     public IcmListaventacongeladaRecord createIcmListaventacongeladaRecord() {
         return new IcmListaventacongeladaRecord();
+    }
+
+    /**
+     * Create an instance of {@link IcmParamcalpresenciamanualRecord }
+     * 
+     */
+    public IcmParamcalpresenciamanualRecord createIcmParamcalpresenciamanualRecord() {
+        return new IcmParamcalpresenciamanualRecord();
     }
 
     /**

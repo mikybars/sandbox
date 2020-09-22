@@ -7,6 +7,10 @@ import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -228,13 +232,12 @@ public class Meta4ServiceTest {
 
     @Test
     public void getFlagCalcula() {
-        final IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        final IcmParamcalflagcalculaRecord record = new IcmParamcalflagcalculaRecord();
         record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
-        final IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
-        param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
-        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
-        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
-        param1.getIcmParametrosentradaRecordSet().add(record);
+        record.setIdempresa(Meta4TestConstants.ID_EMPRESA);
+        record.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        final IcmParamcalflagcalculaBlock param1 = new IcmParamcalflagcalculaBlock();
+        param1.getIcmParamcalflagcalculaRecordSet().add(record);
         final IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
         param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
         final GetflagcalculaOutput getflagcalculaOutput = this.meta4ClientPool.getflagcalcula(param1, param2);
@@ -274,13 +277,13 @@ public class Meta4ServiceTest {
 
     @Test
     public void getPresenciaManual() {
-        final IcmParametrosentradaRecord record = new IcmParametrosentradaRecord();
+        final IcmParamcalpresenciamanualRecord record = new IcmParamcalpresenciamanualRecord();
         record.setIdlugartrabajo(Meta4TestConstants.ID_LOCALIZACION);
-        final IcmParametrosentradaBlock param1 = new IcmParametrosentradaBlock();
-        param1.setIdempresa(Meta4TestConstants.ID_EMPRESA);
-        param1.setIdorigen(Meta4TestConstants.ID_ORIGEN);
-        param1.setFechainicio(Meta4TestConstants.FECHA_INICIO);
-        param1.getIcmParametrosentradaRecordSet().add(record);
+        record.setIdempresa(Meta4TestConstants.ID_EMPRESA);
+        record.setIdorigen(Meta4TestConstants.ID_ORIGEN);
+        record.setFechainicio(Meta4TestConstants.FECHA_INICIO);
+        final IcmParamcalpresenciamanualBlock param1 = new IcmParamcalpresenciamanualBlock();
+        param1.getIcmParamcalpresenciamanualRecordSet().add(record);
         final IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
         param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
         final GetpresenciamanualOutput getpresenciamanualOutput = this.meta4ClientPool.getpresenciamanual(param1,

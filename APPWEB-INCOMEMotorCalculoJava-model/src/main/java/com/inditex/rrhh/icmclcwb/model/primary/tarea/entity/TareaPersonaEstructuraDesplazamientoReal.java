@@ -36,6 +36,14 @@ public class TareaPersonaEstructuraDesplazamientoReal {
     @Column(name = "ICM_ID_ESTR_COMISION", nullable = false, length = 48)
     private String icmIdEstrComision;
     
+    @NotBlank
+    @Column(name = "ICM_ID_ESTR_COMISION_PADRE", nullable = false, length = 48)
+    private String icmIdEstrComisionPadre;
+
+    @NotBlank
+    @Column(name = "ICM_ID_ESTR_COMISION_BASE", nullable = false, length = 48)
+    private String icmIdEstrComisionBase;
+    
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
     @Temporal(TemporalType.DATE)

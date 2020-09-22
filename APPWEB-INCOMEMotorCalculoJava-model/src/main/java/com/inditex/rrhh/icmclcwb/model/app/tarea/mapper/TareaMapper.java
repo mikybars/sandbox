@@ -143,7 +143,6 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")
     @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()))")
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "idEmpresa", source = "srcTarea.stdIdLegEnt")
     public abstract PresupuestosRangoFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosRangoFilterDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
