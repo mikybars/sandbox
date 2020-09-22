@@ -5,6 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -575,4 +579,39 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         return result;
     }
 
+    @Override
+    public IcmParamcalflagcalculaBlock asIcmParamcalflagcalculaBlock(GenericFilterDto src) {
+        List<IcmParamcalflagcalculaRecord> list = this.asIcmParamcalflagcalculaRecordList(src);
+        IcmParamcalflagcalculaBlock result = this.delegate.asIcmParamcalflagcalculaBlock(src);
+        result.getIcmParamcalflagcalculaRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcalflagcalculaRecord> asIcmParamcalflagcalculaRecordList(GenericFilterDto src) {
+        final List<IcmParamcalflagcalculaRecord> result = new ArrayList<>();
+        if (src != null) {
+            result.add(this.delegate.asIcmParamcalflagcalculaRecord(src));
+        } else {
+            result.add(new IcmParamcalflagcalculaRecord());
+        }
+        return result;
+    }
+
+    @Override
+    public IcmParamcalpresenciamanualBlock asIcmParamcalpresenciamanualBlock(GenericFilterDto src) {
+        List<IcmParamcalpresenciamanualRecord> list = this.asIcmParamcalpresenciamanualRecordList(src);
+        IcmParamcalpresenciamanualBlock result = this.delegate.asIcmParamcalpresenciamanualBlock(src);
+        result.getIcmParamcalpresenciamanualRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcalpresenciamanualRecord> asIcmParamcalpresenciamanualRecordList(GenericFilterDto src) {
+        final List<IcmParamcalpresenciamanualRecord> result = new ArrayList<>();
+        if (src != null) {
+            result.add(this.delegate.asIcmParamcalpresenciamanualRecord(src));
+        } else {
+            result.add(new IcmParamcalpresenciamanualRecord());
+        }
+        return result;
+    }
 }

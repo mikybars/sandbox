@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
 import org.springframework.retry.annotation.Retryable;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
@@ -191,7 +193,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     }
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
-    public GetflagcalculaOutput getflagcalcula(final IcmParametrosentradaBlock param1,
+    public GetflagcalculaOutput getflagcalcula(final IcmParamcalflagcalculaBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
@@ -233,7 +235,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     }
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
-    public GetpresenciamanualOutput getpresenciamanual(final IcmParametrosentradaBlock param1,
+    public GetpresenciamanualOutput getpresenciamanual(final IcmParamcalpresenciamanualBlock param1,
             final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {

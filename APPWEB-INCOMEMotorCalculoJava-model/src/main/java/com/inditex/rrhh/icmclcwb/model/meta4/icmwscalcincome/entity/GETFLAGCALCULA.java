@@ -34,7 +34,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
- *         &lt;element name="ICM_PARAMETROSENTRADA" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALFLAGCALCULA" type="{http://schemas.meta4.com/}Icm_ParamcalflagcalculaBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -46,7 +46,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "icmparametrospaginacion",
-    "icmparametrosentrada"
+    "icmparamcalflagcalcula"
 })
 @XmlRootElement(name = "GETFLAGCALCULA")
 public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
@@ -55,8 +55,8 @@ public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2
     private final static long serialVersionUID = 1L;
     @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
     protected IcmParametrospaginacionBlock icmparametrospaginacion;
-    @XmlElement(name = "ICM_PARAMETROSENTRADA", required = true)
-    protected IcmParametrosentradaBlock icmparametrosentrada;
+    @XmlElement(name = "ICM_PARAMCALFLAGCALCULA", required = true)
+    protected IcmParamcalflagcalculaBlock icmparamcalflagcalcula;
 
     /**
      * Obtiene el valor de la propiedad icmparametrospaginacion.
@@ -83,27 +83,27 @@ public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2
     }
 
     /**
-     * Obtiene el valor de la propiedad icmparametrosentrada.
+     * Obtiene el valor de la propiedad icmparamcalflagcalcula.
      * 
      * @return
      *     possible object is
-     *     {@link IcmParametrosentradaBlock }
+     *     {@link IcmParamcalflagcalculaBlock }
      *     
      */
-    public IcmParametrosentradaBlock getICMPARAMETROSENTRADA() {
-        return icmparametrosentrada;
+    public IcmParamcalflagcalculaBlock getICMPARAMCALFLAGCALCULA() {
+        return icmparamcalflagcalcula;
     }
 
     /**
-     * Define el valor de la propiedad icmparametrosentrada.
+     * Define el valor de la propiedad icmparamcalflagcalcula.
      * 
      * @param value
      *     allowed object is
-     *     {@link IcmParametrosentradaBlock }
+     *     {@link IcmParamcalflagcalculaBlock }
      *     
      */
-    public void setICMPARAMETROSENTRADA(IcmParametrosentradaBlock value) {
-        this.icmparametrosentrada = value;
+    public void setICMPARAMCALFLAGCALCULA(IcmParamcalflagcalculaBlock value) {
+        this.icmparamcalflagcalcula = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -124,11 +124,11 @@ public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2
             }
         }
         {
-            IcmParametrosentradaBlock lhsICMPARAMETROSENTRADA;
-            lhsICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            IcmParametrosentradaBlock rhsICMPARAMETROSENTRADA;
-            rhsICMPARAMETROSENTRADA = that.getICMPARAMETROSENTRADA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrosentrada", lhsICMPARAMETROSENTRADA), LocatorUtils.property(thatLocator, "icmparametrosentrada", rhsICMPARAMETROSENTRADA), lhsICMPARAMETROSENTRADA, rhsICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null), (that.icmparametrosentrada!= null))) {
+            IcmParamcalflagcalculaBlock lhsICMPARAMCALFLAGCALCULA;
+            lhsICMPARAMCALFLAGCALCULA = this.getICMPARAMCALFLAGCALCULA();
+            IcmParamcalflagcalculaBlock rhsICMPARAMCALFLAGCALCULA;
+            rhsICMPARAMCALFLAGCALCULA = that.getICMPARAMCALFLAGCALCULA();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalflagcalcula", lhsICMPARAMCALFLAGCALCULA), LocatorUtils.property(thatLocator, "icmparamcalflagcalcula", rhsICMPARAMCALFLAGCALCULA), lhsICMPARAMCALFLAGCALCULA, rhsICMPARAMCALFLAGCALCULA, (this.icmparamcalflagcalcula!= null), (that.icmparamcalflagcalcula!= null))) {
                 return false;
             }
         }
@@ -161,9 +161,9 @@ public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2
             strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
         }
         {
-            IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
-            theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            strategy.appendField(locator, this, "icmparametrosentrada", buffer, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
+            IcmParamcalflagcalculaBlock theICMPARAMCALFLAGCALCULA;
+            theICMPARAMCALFLAGCALCULA = this.getICMPARAMCALFLAGCALCULA();
+            strategy.appendField(locator, this, "icmparamcalflagcalcula", buffer, theICMPARAMCALFLAGCALCULA, (this.icmparamcalflagcalcula!= null));
         }
         return buffer;
     }
@@ -176,9 +176,9 @@ public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION), currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
         }
         {
-            IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
-            theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrosentrada", theICMPARAMETROSENTRADA), currentHashCode, theICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null));
+            IcmParamcalflagcalculaBlock theICMPARAMCALFLAGCALCULA;
+            theICMPARAMCALFLAGCALCULA = this.getICMPARAMCALFLAGCALCULA();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalflagcalcula", theICMPARAMCALFLAGCALCULA), currentHashCode, theICMPARAMCALFLAGCALCULA, (this.icmparamcalflagcalcula!= null));
         }
         return currentHashCode;
     }
@@ -215,15 +215,15 @@ public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2
                 }
             }
             {
-                Boolean icmparametrosentradaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrosentrada!= null));
-                if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrosentradaBlock sourceICMPARAMETROSENTRADA;
-                    sourceICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-                    IcmParametrosentradaBlock copyICMPARAMETROSENTRADA = ((IcmParametrosentradaBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrosentrada", sourceICMPARAMETROSENTRADA), sourceICMPARAMETROSENTRADA, (this.icmparametrosentrada!= null)));
-                    copy.setICMPARAMETROSENTRADA(copyICMPARAMETROSENTRADA);
+                Boolean icmparamcalflagcalculaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalflagcalcula!= null));
+                if (icmparamcalflagcalculaShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalflagcalculaBlock sourceICMPARAMCALFLAGCALCULA;
+                    sourceICMPARAMCALFLAGCALCULA = this.getICMPARAMCALFLAGCALCULA();
+                    IcmParamcalflagcalculaBlock copyICMPARAMCALFLAGCALCULA = ((IcmParamcalflagcalculaBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalflagcalcula", sourceICMPARAMCALFLAGCALCULA), sourceICMPARAMCALFLAGCALCULA, (this.icmparamcalflagcalcula!= null)));
+                    copy.setICMPARAMCALFLAGCALCULA(copyICMPARAMCALFLAGCALCULA);
                 } else {
-                    if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparametrosentrada = null;
+                    if (icmparamcalflagcalculaShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalflagcalcula = null;
                     }
                 }
             }

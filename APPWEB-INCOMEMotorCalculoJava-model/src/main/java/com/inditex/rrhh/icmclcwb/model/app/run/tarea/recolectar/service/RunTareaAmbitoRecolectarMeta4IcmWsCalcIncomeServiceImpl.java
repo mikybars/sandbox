@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterParametersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -884,6 +885,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSRANGO).getPage());
             request.setData(this.tareaMapper
                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosRangoFilterDto(trabajo, tarea, tareaAmbito));
+            request.getData().setItem(Collections.singletonList(PresupuestosRangoFilterParametersDto.builder().idEmpresa(tarea.getStdIdLegEnt()).build()));
             boolean hasNext = false;
             do {
                 final CompletableFuture<List<PresupuestosRangoResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
