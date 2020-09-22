@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterParametersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -86,6 +85,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterParametersDto;
@@ -885,7 +885,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSRANGO).getPage());
             request.setData(this.tareaMapper
                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosRangoFilterDto(trabajo, tarea, tareaAmbito));
-            request.getData().setItem(Collections.singletonList(PresupuestosRangoFilterParametersDto.builder().idEmpresa(tarea.getStdIdLegEnt()).build()));
+            request.getData()
+                .setItem(Collections.singletonList(
+                        PresupuestosRangoFilterParametersDto.builder().idEmpresa(tarea.getStdIdLegEnt()).build()));
             boolean hasNext = false;
             do {
                 final CompletableFuture<List<PresupuestosRangoResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
@@ -985,6 +987,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             .idOrigen(e.getCclIdOrigen())
                             .idEstructuraAmbito(e.getIdEstructuraAmbito())
                             .idEstructura(e.getIdEstructura())
+                            .idEstructuraBase(e.getIdEstructuraBase())
+                            .idEstructuraPadre(e.getIdEstructuraPadre())
                             .fechaInicio(TimeUtils.toLocalDateTime(e.getFechaInicio()))
                             .fechaFin(TimeUtils.toLocalDateTime(e.getFechaFin()))
                             .build())

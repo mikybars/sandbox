@@ -50,6 +50,8 @@ public class TareaPersonaEstructuraDesplazamientoRealRepositoryCustomImpl
                     .fechaInicio(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
                     .fechaFin(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
                     .idEstructura(rs.getString(SqlPrimaryConstants.SQL_RESULT_ICM_ID_ESTR_COMISION))
+                    .idEstructuraBase(rs.getString(SqlPrimaryConstants.SQL_RESULT_ICM_ID_ESTR_COMISION_BASE))
+                    .idEstructuraPadre(rs.getString(SqlPrimaryConstants.SQL_RESULT_ICM_ID_ESTR_COMISION_PADRE))
                     .idEstructuraAmbito(rs.getString(SqlPrimaryConstants.SQL_RESULT_ICM_ID_ESTRUCTURA_AMBITO))
                     .build());
     }
