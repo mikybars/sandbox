@@ -41,15 +41,11 @@ public class TareaAmbitoGlobalEmpresaRepositoryCustomImpl
     public List<IdEmpresaDto> findIdEmpresaByIdTarea(@NotNull @Positive final Long idTarea) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        return this.query(this.sqlFindIdEmpresaByIdTarea, parameters,
-                new RowMapper<IdEmpresaDto>() {
-                    @Override
-                    public IdEmpresaDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-                        final IdEmpresaDto dto = new IdEmpresaDto();
-                        dto.setStdIdLegEnt(rs.getString(SqlPrimaryConstants.SQL_RESULT_EMPRESA));
-                        return dto;
-                    }
-                });
+        return this.query(this.sqlFindIdEmpresaByIdTarea, parameters, (rs, rowNum) -> {
+            final IdEmpresaDto dto = new IdEmpresaDto();
+            dto.setStdIdLegEnt(rs.getString(SqlPrimaryConstants.SQL_RESULT_EMPRESA));
+            return dto;
+        });
     }
 
 }

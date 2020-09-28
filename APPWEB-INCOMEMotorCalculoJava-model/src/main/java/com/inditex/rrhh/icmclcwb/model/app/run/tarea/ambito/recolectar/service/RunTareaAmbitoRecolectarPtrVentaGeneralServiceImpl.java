@@ -122,7 +122,6 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                     .map(e -> e.getIdProducto())
                     .collect(Collectors.toList()));
 
-
                 final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
                     .ventaTotalizado(request);
                 AsyncUtils.exceptionally(cfData, cf, cfPersist);
@@ -170,7 +169,6 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 .map(e -> e.getIdProducto())
                 .collect(Collectors.toList()));
 
-
             final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
                 .ventaTotalizado(request);
             AsyncUtils.exceptionally(cfData, cf, cfPersist);
@@ -213,7 +211,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                             iter.getIdTipoPresupuesto(),
                             iter.getFechaInicio(), iter.getFechaFin())
                         .stream()
-                        .map(y -> Integer.valueOf(y.getId()))
+                        .map(x -> Integer.valueOf(x.getId()))
                         .collect(Collectors.toList()));
                 request.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
                 request.setAgrupacion(PtrGroupTypeEnum.OPERACION_TIENDA_SECCION);
@@ -237,7 +235,6 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                         tarea),
                     cf, cfPersist);
             }
-
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
         } catch (final Exception e) {

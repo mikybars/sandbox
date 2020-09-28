@@ -159,15 +159,11 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
 
         return this.query(this.sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito,
-                parameters,
-                new RowMapper<IdLocalizacionLocalDto>() {
-                    @Override
-                    public IdLocalizacionLocalDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-                        final IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
-                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL));
-                        return dto;
-                    }
-                });
+                parameters, (rs, rowNum) -> {
+                    final IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
+                    dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL));
+                    return dto;
+            });
     }
 
     @Override

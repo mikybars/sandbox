@@ -47,7 +47,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.Sea
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.collections.CollectionUtils;
 
 public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {

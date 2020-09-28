@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface LocalizacionFicticiaHistoricoService {
 
-    List<LocalizacionFicticiaHistoricoDto> FindLocalizacionFicticiaHistoricoByIdOrigenAndIdEmpresaAndFecha(
+    List<LocalizacionFicticiaHistoricoDto> findLocalizacionFicticiaHistoricoByIdOrigenAndIdEmpresaAndFecha(
             final TareaDto tarea,
             final TareaAmbitoDto ambito);
 

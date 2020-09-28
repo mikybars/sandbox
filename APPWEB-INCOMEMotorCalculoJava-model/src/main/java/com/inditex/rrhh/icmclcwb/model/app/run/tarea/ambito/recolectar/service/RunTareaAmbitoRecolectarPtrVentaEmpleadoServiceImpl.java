@@ -101,7 +101,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
                         tareaAmbito, this.recolectarProperties);
                 paramVentaFisica.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
                 paramVentaFisica.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaFisica.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
+                paramVentaFisica.setEmpresa(empresasAmbito.stream().map(Integer::parseInt).collect(Collectors.toList()));
                 paramVentaFisica.setTienda(iter.stream()
                     .map(IdLocalizacionLocalDto::getId)
                     .map(Integer::valueOf)
@@ -111,7 +111,6 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
                     .stream()
                     .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
-                paramVentaFisica.setEmpresa(empresasAmbito.stream().map(Integer::parseInt).collect(Collectors.toList()));
 
                 final CompletableFuture<PtrVentaIndividualDetalleResponseDto> cfData = this.ptrVentaEmpleadoAsyncService
                     .ventaIndividualDetalle(paramVentaFisica);

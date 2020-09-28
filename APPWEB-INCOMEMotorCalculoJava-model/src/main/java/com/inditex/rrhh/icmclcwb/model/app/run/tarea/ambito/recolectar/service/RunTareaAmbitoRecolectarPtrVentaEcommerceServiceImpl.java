@@ -390,7 +390,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                 final PtrVentaOnlineIpodIndividualDetalleRequestDto paramVentaOnlineIpod = this.tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodIndividualDetalleRequestDto(
                         trabajo, tarea, tareaAmbito, this.recolectarProperties);
-                paramVentaOnlineIpod.setEmpresa(Arrays.asList(Integer.valueOf(tarea.getStdIdLegEnt())));
+                paramVentaOnlineIpod.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
                 paramVentaOnlineIpod.setTienda(iter.stream()
                     .map(IdLocalizacionLocalDto::getId)
                     .map(Integer::valueOf)
@@ -403,7 +403,6 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                 paramVentaOnlineIpod
                     .setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
                 paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaOnlineIpod.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
 
                 final CompletableFuture<PtrVentaOnlineIpodIndividualDetalleResponseDto> cfData = this.ptrVentaEcommerceAsyncService
                     .ventaOnlineiPodIndividualDetalle(paramVentaOnlineIpod);
@@ -456,7 +455,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                             iter.getIdTipoPresupuesto(),
                             iter.getFechaInicio(), iter.getFechaFin())
                         .stream()
-                        .map(y -> Integer.valueOf(y.getId()))
+                        .map(x -> Integer.valueOf(x.getId()))
                         .collect(Collectors.toList()));
                 paramVentaOnlineIpod.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
@@ -510,7 +509,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                             iter.getIdTipoPresupuesto(),
                             iter.getFechaInicio(), iter.getFechaFin())
                         .stream()
-                        .map(y -> Integer.valueOf(y.getId()))
+                        .map(x -> Integer.valueOf(x.getId()))
                         .collect(Collectors.toList()));
                 paramVentaOnlinePicking.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
@@ -568,7 +567,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                             iter.getIdTipoPresupuesto(),
                             iter.getFechaInicio(), iter.getFechaFin())
                         .stream()
-                        .map(y -> Integer.valueOf(y.getId()))
+                        .map(x -> Integer.valueOf(x.getId()))
                         .collect(Collectors.toList()));
                 paramVentaOnlineEntregaTiendaRequest.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())

@@ -217,37 +217,34 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId())
-                .stream()
-                .forEach(x -> {
-                    final FestivosRequestDto request = new FestivosRequestDto();
-                    request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS).getPage());
-                    request.setData(this.tareaMapper
-                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
-                                trabajo, tarea, tareaAmbito,
-                                this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
-                                        tarea.getId(),
-                                        TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-                    request.getData().setIdsEmpresa(Arrays.asList(x.getStdIdLegEnt()));
-                    boolean hasNext = false;
-                    do {
-                        final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-                            .getFestivos(request);
-                        AsyncUtils.exceptionally(cfData, cf);
-                        final List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
-                        if (CollectionUtils.isNotEmpty(data)) {
-                            AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                    this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS)
-                                        .getFilter()
-                                        .getMaxPersistenceSize());
-                            final CompletableFuture<Void> cfSave = this.tareaLocalizacionFestivoAsyncService.save(data,
-                                    tarea);
-                            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                            hasNext = request.nextPage();
-                        }
-                    } while (hasNext);
-                });
+            List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId());
+            final FestivosRequestDto request = new FestivosRequestDto();
+            request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS).getPage());
+            request.setData(this.tareaMapper
+                .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
+                        trabajo, tarea, tareaAmbito,
+                        this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                tarea.getId(),
+                                TipoDatoEnum.PERIODO_AMPLIADO.getId())));
+            request.getData().setIdsEmpresa(empresasAmbito.stream().map(x -> x.getStdIdLegEnt()).collect(Collectors.toList()));
+            boolean hasNext = false;
+            do {
+                final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
+                    .getFestivos(request);
+                AsyncUtils.exceptionally(cfData, cf);
+                final List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
+                if (CollectionUtils.isNotEmpty(data)) {
+                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS)
+                                .getFilter()
+                                .getMaxPersistenceSize());
+                    final CompletableFuture<Void> cfSave = this.tareaLocalizacionFestivoAsyncService.save(data,
+                            tarea);
+                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    hasNext = request.nextPage();
+                }
+            } while (hasNext);
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
