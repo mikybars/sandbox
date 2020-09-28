@@ -19,6 +19,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL = "idTipoGrupoDatoVentaReal";
 
+    public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_CONGELADA = "idTipoDatoVentaCongelada";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_REAL = "idTipoDatoVentaReal";
+
     public static final String SQL_PARAM_IDS_TIPO_GRUPO_DATO_TRASLADADOS = "idsTiposGrupoDatoTrasladados";
 
     public static final String SQL_PARAM_IDS_TIPO_GRUPO_DATO_TRASLADADOS_TOTALIZADOS = "idsTiposGrupoDatoTrasladadosTotalizados";

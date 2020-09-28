@@ -398,6 +398,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
+            final CompletableFuture<Void> cfUpdateActivoCongeladaSeccion = this.runTareaProcesarVentaAsyncService
+                .updateActivoCongeladaSeccion(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoCongeladaSeccion, cf, cfWait);
+
             final CompletableFuture<Void> cfUpdateActivoCongelada = this.runTareaProcesarVentaAsyncService
                 .updateActivoCongelada(runTarea);
             AsyncUtils.exceptionally(cfUpdateActivoCongelada, cf, cfWait);
