@@ -408,15 +408,6 @@ app:
             filter:
               maxPageSize: 200
               maxPersistenceSize: 3
-          getTiendasEmpleado:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
           searchTiendas:
             page:
               numeroPagina: 1
