@@ -858,10 +858,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         GetdesplazmultiempresaOutput desplazamientoMultiempresaOutput = this.meta4ClientPool.getDesplazamientoMultiempresa(param2, param1);
         if (desplazamientoMultiempresaOutput != null) {
             if (desplazamientoMultiempresaOutput.getIcmParametrospaginacion() != null) {
-                //TODO [javierev] retirar esto que he puesto para evitar un error
-                desplazamientoMultiempresaOutput.getIcmParametrospaginacion().setNumerototalpaginas(StringUtils.isNotBlank(desplazamientoMultiempresaOutput.getIcmParametrospaginacion().getNumerototalpaginas()) ? desplazamientoMultiempresaOutput.getIcmParametrospaginacion().getNumerototalpaginas() : "0");
-                desplazamientoMultiempresaOutput.getIcmParametrospaginacion().setNumerototalresultados(StringUtils.isNotBlank(desplazamientoMultiempresaOutput.getIcmParametrospaginacion().getNumerototalresultados()) ? desplazamientoMultiempresaOutput.getIcmParametrospaginacion().getNumerototalresultados() : "0");
-
                 final PageDto page = this.icmWsCalcIncomeMapper
                     .asPageDto(desplazamientoMultiempresaOutput.getIcmParametrospaginacion());
                 result.setPage(page);
