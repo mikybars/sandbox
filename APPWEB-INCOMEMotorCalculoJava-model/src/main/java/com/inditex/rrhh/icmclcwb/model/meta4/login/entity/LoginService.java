@@ -25,6 +25,26 @@ public interface LoginService {
 
     /**
      * 
+     * @param aiSCertificate
+     * @param aiSSessionContex
+     * @return
+     *     returns com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4LoginOutput
+     * @throws M4SoapException_Exception
+     */
+    @WebMethod
+    @WebResult(name = "loginWithCertificateReturn", targetNamespace = "http://schemas.meta4.com/")
+    @RequestWrapper(localName = "loginWithCertificate", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginWithCertificate")
+    @ResponseWrapper(localName = "loginWithCertificateResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginWithCertificateResponse")
+    public M4LoginOutput loginWithCertificate(
+        @WebParam(name = "ai_sCertificate", targetNamespace = "http://schemas.meta4.com/")
+        String aiSCertificate,
+        @WebParam(name = "ai_sSessionContex", targetNamespace = "http://schemas.meta4.com/")
+        String aiSSessionContex)
+        throws M4SoapException_Exception
+    ;
+
+    /**
+     * 
      * @param aiSRole
      * @param aiSUser
      * @param aiSLanguage
@@ -46,26 +66,6 @@ public interface LoginService {
         String aiSLanguage,
         @WebParam(name = "ai_sRole", targetNamespace = "http://schemas.meta4.com/")
         String aiSRole)
-        throws M4SoapException_Exception
-    ;
-
-    /**
-     * 
-     * @param aiSCertificate
-     * @param aiSSessionContex
-     * @return
-     *     returns com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4LoginOutput
-     * @throws M4SoapException_Exception
-     */
-    @WebMethod
-    @WebResult(name = "loginWithCertificateReturn", targetNamespace = "http://schemas.meta4.com/")
-    @RequestWrapper(localName = "loginWithCertificate", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginWithCertificate")
-    @ResponseWrapper(localName = "loginWithCertificateResponse", targetNamespace = "http://schemas.meta4.com/", className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginWithCertificateResponse")
-    public M4LoginOutput loginWithCertificate(
-        @WebParam(name = "ai_sCertificate", targetNamespace = "http://schemas.meta4.com/")
-        String aiSCertificate,
-        @WebParam(name = "ai_sSessionContex", targetNamespace = "http://schemas.meta4.com/")
-        String aiSSessionContex)
         throws M4SoapException_Exception
     ;
 

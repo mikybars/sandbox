@@ -21,4 +21,6 @@ public class PresupuestosRangoFilterParametersDto implements Serializable {
 
     private String idTpPresupuesto;
 
+    private String idEmpresa;
+
 }

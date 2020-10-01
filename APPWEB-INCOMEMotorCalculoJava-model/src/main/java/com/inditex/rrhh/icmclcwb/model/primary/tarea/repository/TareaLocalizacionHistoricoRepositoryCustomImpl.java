@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -42,6 +43,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito']}")
     private String sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito;
 
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito']}")
+    private String sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito;
+
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbitoLocalizacion']}")
     private String sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenInAmbitoLocalizacion;
 
@@ -63,8 +67,15 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTareaAndCclIdPersonInAmbito']}")
     private String sqlFindIdLocalizacionByIdTareaAndCclIdPersonInAmbito;
 
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito']}")
+    private String sqlFindIdLocalizacionByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito;
+
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionPresupuestosByIdTarea']}")
     private String sqlFindIdLocalizacionPresupuestosByIdTarea;
+
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea']}")
+    private String sqlFindIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea;
+
 
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionGrupoFechasByIdTarea']}")
     private String sqlFindIdLocalizacionGrupoFechasByIdTarea;
@@ -136,6 +147,23 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                         return dto;
                     }
                 });
+    }
+
+    @Override
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
+            @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+            @NotNull @NotEmpty final List<String> stdIdLegEnt) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
+
+        return this.query(this.sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito,
+                parameters, (rs, rowNum) -> {
+                    final IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
+                    dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL));
+                    return dto;
+            });
     }
 
     @Override
@@ -240,6 +268,27 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                     .build());
     }
 
+
+    @Override
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
+            @NotNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
+            @NotNull @NotEmpty final List<String> stdIdLegEnt,
+            @NotNull final List<String> tiposCalculo) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, tiposCalculo);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclCodOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
+
+        return this.query(this.sqlFindIdLocalizacionByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito,
+                parameters,
+                (rs, rowNum) -> IdLocalizacionLocalDto.builder()
+                    .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
+                    .build());
+    }
+
+
     @Override
     public List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionLocalDtoPresupuestosByIdTarea(
             @NotNull @Positive final Long idTarea) {
@@ -250,6 +299,24 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
             .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
         return this.query(this.sqlFindIdLocalizacionPresupuestosByIdTarea, parameters,
                 (rs, rowNum) -> IdLocalizacionLocalPresupuestoDto.builder()
+                    .idTipoPresupuesto(rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_PRESUPUESTO))
+                    .fechaInicio(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
+                    .fechaFin(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
+                    .build());
+    }
+
+    @Override
+    public List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(
+            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays
+            .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
+        return this.query(this.sqlFindIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea, parameters,
+                (rs, rowNum) -> IdLocalizacionLocalPresupuestoDto.builder()
+                    .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
                     .idTipoPresupuesto(rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_PRESUPUESTO))
                     .fechaInicio(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
                     .fechaFin(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())

@@ -123,6 +123,12 @@ amiga:
       logging:
         is-production: false
   data:
+    binder:
+      jms-activemq:
+        default:
+          consumer:
+            enable-dlq: false          
+            send-original-payload-to-dlq: false  
     jta:
       allow-custom-isolation-levels: true
     jms:
@@ -487,15 +493,6 @@ app:
             filter:
               maxPageSize: 200
               maxPersistenceSize: 3
-          getTiendasEmpleado:
-            page:
-              numeroPagina: 1
-              numeroRegistrosPagina: 200
-              tipoOrden: DESC
-              campoOrden: idempleado
-            filter:
-              maxPageSize: 200
-              maxPersistenceSize: 3
           searchTiendas:
             page:
               numeroPagina: 1
@@ -650,6 +647,24 @@ app:
               maxPageSize: 50
               maxPersistenceSize: 3
           getVentaCongelada:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3
+          getDesplazamientosMultiempresa:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idEmpresa
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3
+          getDesplazReal:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50

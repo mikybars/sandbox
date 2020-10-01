@@ -13,6 +13,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproducto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
@@ -399,6 +402,23 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         this.meta4IcmWsCalcIncomeSessionServiceImpl.getEmpleadosDesplazamiento(request);
         verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
             .getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
+    }
+
+    @Test
+    public void getDesplazReal() {
+        final Meta4PropertiesDto properties = new Meta4PropertiesDto();
+        final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
+        filter.setMaxPageSize(1);
+        properties.setFilter(filter);
+        when(this.meta4IcmWsCalcIncomeService.getDesplazReal(any(DesplazamientoRealRequestDto.class)))
+            .thenReturn(new DesplazamientoRealResponseDto());
+
+        final DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
+        request.setData(new DesplazamientoRealFilterDto());
+        request.setPage(new PageDto(1, 100));
+        this.meta4IcmWsCalcIncomeSessionServiceImpl.getDesplazReal(request);
+        verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
+            .getDesplazReal(ArgumentMatchers.any(DesplazamientoRealRequestDto.class));
     }
 
 }

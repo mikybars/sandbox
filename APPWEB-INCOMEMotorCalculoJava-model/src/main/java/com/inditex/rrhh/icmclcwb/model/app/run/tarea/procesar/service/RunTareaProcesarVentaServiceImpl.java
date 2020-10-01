@@ -52,191 +52,200 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     private TipoDatoService tipoDatoService;
 
     @Override
-    public void saveAbierto(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(runTarea.getTarea(), runTarea.getTrabajo());
+    public void saveAbierto(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(runTarea.getTarea(), runTarea.getTrabajo());
     }
 
     @Override
-    public void saveAbiertoSeccion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.saveAbiertoSeccion(runTarea.getTarea(), runTarea.getTrabajo());
+    public void saveAbiertoSeccion(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionAbiertaRepositoryCustom.saveAbiertoSeccion(runTarea.getTarea(), runTarea.getTrabajo());
     }
 
     @Override
-    public void compensarOnlineSeccionCerrada(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.compensarOnlineSeccionCerrada(runTarea.getTarea(),
+    public void compensarOnlineSeccionCerrada(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionAbiertaRepositoryCustom.compensarOnlineSeccionCerrada(runTarea.getTarea(),
                 runTarea.getTrabajo());
     }
 
     @Override
-    public void saveCerrado(@Valid RunTareaDto runTarea) {
-        List<IdTipoDatoDto> ids = tipoDatoService
+    public void saveCerrado(@Valid final RunTareaDto runTarea) {
+        final List<IdTipoDatoDto> ids = this.tipoDatoService
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
-        tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo(),
+        this.tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(runTarea.getTarea(), runTarea.getTrabajo(),
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override
-    public void saveCerradoSeccion(@Valid RunTareaDto runTarea) {
-        List<IdTipoDatoDto> ids = tipoDatoService
+    public void saveCerradoSeccion(@Valid final RunTareaDto runTarea) {
+        final List<IdTipoDatoDto> ids = this.tipoDatoService
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
-        tareaLocalizacionAbiertaRepositoryCustom.saveCerradoSeccion(runTarea.getTarea(), runTarea.getTrabajo(),
+        this.tareaLocalizacionAbiertaRepositoryCustom.saveCerradoSeccion(runTarea.getTarea(), runTarea.getTrabajo(),
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
 
     @Override
-    public void trasladar(@Valid RunTareaDto runTarea) {
-        List<IdTipoDatoDto> ids = tipoDatoService
+    public void trasladar(@Valid final RunTareaDto runTarea) {
+        final List<IdTipoDatoDto> ids = this.tipoDatoService
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
-        tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea(),
+        this.tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea(),
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override
-    public void compensar(@Valid RunTareaDto runTarea) {
-        List<IdTipoDatoDto> ids = tipoDatoService
+    public void compensar(@Valid final RunTareaDto runTarea) {
+        final List<IdTipoDatoDto> ids = this.tipoDatoService
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
-        tareaLocalizacionAbiertaRepositoryCustom.compensar(runTarea.getTarea(),
+        this.tareaLocalizacionAbiertaRepositoryCustom.compensar(runTarea.getTarea(),
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 
     @Override
-    public void repartoVentaEntregaDomicilioAgrupaciones(@Valid RunTareaDto runTarea) {
-        tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioAgrupaciones(runTarea.getTarea());
+    public void repartoVentaEntregaDomicilioAgrupaciones(@Valid final RunTareaDto runTarea) {
+        this.tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioAgrupaciones(runTarea.getTarea());
     }
 
     @Override
-    public void repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(@Valid RunTareaDto runTarea) {
-        tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(runTarea.getTarea());
+    public void repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(@Valid final RunTareaDto runTarea) {
+        this.tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(runTarea.getTarea());
     }
 
     @Override
-    public void repartoVentaEntregaDomicilioSeccion(@Valid RunTareaDto runTarea) {
-        tareaTiendaVentaSeccionRepository.procesarRepartoEntregaDomicilio(runTarea.getTarea());
+    public void repartoVentaEntregaDomicilioSeccion(@Valid final RunTareaDto runTarea) {
+        this.tareaTiendaVentaSeccionRepository.procesarRepartoEntregaDomicilio(runTarea.getTarea());
     }
 
     @Override
-    public void updateActivoTrasladadas(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas(runTarea.getTarea());
+    public void updateActivoTrasladadas(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas(runTarea.getTarea());
     }
 
     @Override
-    public void updateActivoExcepcionada(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoExcepcionada(runTarea);
+    public void updateActivoExcepcionada(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoExcepcionada(runTarea);
     }
 
     @Override
-    public void updateActivoCongelada(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoCongelada(runTarea);
+    public void updateActivoCongelada(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoCongelada(runTarea);
     }
 
     @Override
-    public void totalizarPresupuesto(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionPresupuestoVentaRepositoryCustom.totalizar(runTarea);
+    public void updateActivoCongeladaSeccion(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoCongeladaSeccion(runTarea);
     }
 
     @Override
-    public void updateActivoTrasladadasSeccion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion(runTarea.getTarea(),
+    public void totalizarPresupuesto(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresupuestoVentaRepositoryCustom.totalizar(runTarea);
+    }
+
+    @Override
+    public void updateActivoTrasladadasSeccion(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion(runTarea.getTarea(),
                 runTarea.getTrabajo());
     }
 
     @Override
-    public void agruparOnlineSeccionDia(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.agruparOnlineSeccionDia(runTarea.getTarea(), runTarea.getTrabajo());
-    }
-
-    @Override
-    public void updateActivoTrasladadasTotalizado(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasTotalizado(runTarea.getTarea(),
+    public void agruparOnlineSeccionDia(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionAbiertaRepositoryCustom.agruparOnlineSeccionDia(runTarea.getTarea(),
                 runTarea.getTrabajo());
     }
 
     @Override
-    public void updateImporteEstructuraPoliticas(@Valid RunTareaDto runTarea) {
-        tareaPersonaEstructuraPoliticaRepositoryCustom.updateImporteEstructuraPoliticas(runTarea.getTarea(),
+    public void updateActivoTrasladadasTotalizado(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasTotalizado(runTarea.getTarea(),
                 runTarea.getTrabajo());
     }
 
     @Override
-    public void totalizarDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacionSeccion(runTarea.getTarea());
+    public void updateImporteEstructuraPoliticas(@Valid final RunTareaDto runTarea) {
+        this.tareaPersonaEstructuraPoliticaRepositoryCustom.updateImporteEstructuraPoliticas(runTarea.getTarea(),
+                runTarea.getTrabajo());
     }
 
     @Override
-    public void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentasSinDevolucionLocalizacionSeccion(runTarea.getTarea());
+    public void totalizarDevolucionLocalizacionSeccion(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacionSeccion(runTarea.getTarea());
     }
 
     @Override
-    public void totalizarVentaSinDevolucionPersonasPorVenta(@Valid RunTareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentaSinDevolucionPersonasPorVenta(tarea.getTarea());
+    public void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionVentaRepositoryCustom
+            .totalizarVentasSinDevolucionLocalizacionSeccion(runTarea.getTarea());
     }
 
     @Override
-    public void totalizarVentaPersonasPorVentaSimplificada(@Valid RunTareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificada(tarea.getTarea());
+    public void totalizarVentaSinDevolucionPersonasPorVenta(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionVentaRepositoryCustom.totalizarVentaSinDevolucionPersonasPorVenta(tarea.getTarea());
     }
 
     @Override
-    public void totalizarVentaPersonaSeccion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion(tarea.getTarea());
+    public void totalizarVentaPersonasPorVentaSimplificada(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificada(tarea.getTarea());
     }
 
     @Override
-    public void totalizarVentaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaSinDevolucionPersonaSeccion(tarea.getTarea());
+    public void totalizarVentaPersonaSeccion(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion(tarea.getTarea());
     }
 
     @Override
-    public void totalizarDevolucionPersonaSeccion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionPersonaSeccion(tarea.getTarea());
+    public void totalizarVentaSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaSinDevolucionPersonaSeccion(tarea.getTarea());
     }
 
     @Override
-    public void totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea.getTarea());
+    public void totalizarDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionPersonaSeccion(tarea.getTarea());
     }
 
     @Override
-    public void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionPersonaVentaRepositoryCustom
+    public void totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionPersonaVentaRepositoryCustom
+            .totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea.getTarea());
+    }
+
+    @Override
+    public void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionPersonaVentaRepositoryCustom
             .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea.getTarea());
     }
 
     @Override
-    public void totalizarDevolucionFisicaPersonaSeccion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionFisicaPersonaSeccion(tarea.getTarea());
+    public void totalizarDevolucionFisicaPersonaSeccion(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionFisicaPersonaSeccion(tarea.getTarea());
     }
 
     @Override
-    public void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionOnlineIpodPersonaSeccion(tarea.getTarea());
+    public void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionPersonaVentaRepositoryCustom
+            .totalizarDevolucionOnlineIpodPersonaSeccion(tarea.getTarea());
     }
 
     @Override
-    public void calcularImporteComisionVendedores(@Valid RunTareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea.getTarea());
+    public void calcularImporteComisionVendedores(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea.getTarea());
     }
 
     @Override
-    public void calcularImporteComisionVentaODevolucion(@Valid RunTareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea.getTarea());
+    public void calcularImporteComisionVentaODevolucion(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea.getTarea());
     }
 
     @Override
-    public void updateActivoNegativoTotalizado(@Valid RunTareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.updateActivoNegativoTotalizado(tarea.getTarea());
+    public void updateActivoNegativoTotalizado(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionVentaRepositoryCustom.updateActivoNegativoTotalizado(tarea.getTarea());
     }
 
     @Override
-    public void totalizarVentasVendedor0(@Valid RunTareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.totalizarVentasVendedor0(tarea.getTarea());
+    public void totalizarVentasVendedor0(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionVentaRepositoryCustom.totalizarVentasVendedor0(tarea.getTarea());
     }
 
     @Override
-    public void repartoDevolucionVendedor0(@Valid RunTareaDto tarea) {
-        tareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0(tarea.getTarea());
+    public void repartoDevolucionVendedor0(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0(tarea.getTarea());
     }
 
 }

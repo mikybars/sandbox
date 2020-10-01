@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -31,6 +32,9 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoVacioCongelada']}")
     private String sqlUpdateActivoCongelada;
 
+    @Value("#{primaryQuery['TareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoVacioCongeladaSeccion']}")
+    private String sqlUpdateActivoCongeladaSeccion;
+
     @Value("#{primaryQuery['TareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoVacioExcepcionada']}")
     private String sqlUpdateActivoExcepcionada;
 
@@ -54,12 +58,28 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_CONGELADA,
+                Arrays.asList(TipoDatoEnum.VENTA_RANGO_CONGELADA_LOCALIZACION.getId(),
+                        TipoDatoEnum.VENTA_RANGO_CONGELADA_LOCALIZACION_SECCION.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_REAL,
+                Arrays.asList(TipoDatoEnum.VENTA_RANGO_LOCALIZACION.getId(),
+                        TipoDatoEnum.VENTA_RANGO_LOCALIZACION_SECCION.getId()));
+
+        this.update(this.sqlUpdateActivoCongelada, parameters);
+    }
+
+    @Override
+    public void updateActivoCongeladaSeccion(@NotNull final RunTareaDto runTareaDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA,
                 TipoGrupoDatoEnum.VENTA_RANGO_CONGELADA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL,
                 TipoGrupoDatoEnum.VENTA_RANGO.getId());
 
-        this.update(this.sqlUpdateActivoCongelada, parameters);
+        this.update(this.sqlUpdateActivoCongeladaSeccion, parameters);
     }
 
     @Override

@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,14 +124,14 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void sesion() {
-        final IcmParametrosentradaBlock filterGetempleados = new IcmParametrosentradaBlock();
-        filterGetempleados.setFechainicio("2017-07-01T00:00:00.000Z");
-        filterGetempleados.setFechafin("2017-12-31T00:00:00.000Z");
-        filterGetempleados.setIdorigen("11");
-        filterGetempleados.setIdempresa("8");
-        final IcmParametrosentradaRecord itemGetempleados = new IcmParametrosentradaRecord();
+        final IcmParamcalempleadosRecord itemGetempleados = new IcmParamcalempleadosRecord();
+        itemGetempleados.setFechainicio("2017-07-01T00:00:00.000Z");
+        itemGetempleados.setFechafin("2017-12-31T00:00:00.000Z");
+        itemGetempleados.setIdorigen("11");
+        itemGetempleados.setIdempresa("8");
+        final IcmParamcalempleadosBlock filterGetempleados = new IcmParamcalempleadosBlock();
         // itemGetempleados.setIdlugartrabajo("T57");
-        filterGetempleados.getIcmParametrosentradaRecordSet().add(itemGetempleados);
+        filterGetempleados.getIcmParamcalempleadosRecordSet().add(itemGetempleados);
 
         final IcmParametrospaginacionBlock pageGetempleados = new IcmParametrospaginacionBlock();
         pageGetempleados.setCampoorden("idempleado");

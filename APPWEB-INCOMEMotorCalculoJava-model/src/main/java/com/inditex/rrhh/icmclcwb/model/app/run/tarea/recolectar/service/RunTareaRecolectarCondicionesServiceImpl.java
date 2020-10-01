@@ -85,6 +85,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                 .configuracionVentaOnlineByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfConfiguracionVentaOnline, cf, cfWait);
 
+            // Desplazamiento real
+            final CompletableFuture<Void> cfDesplazamientoRealByRunTarea = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .desplazamientoRealByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfDesplazamientoRealByRunTarea, cf, cfWait);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
@@ -143,7 +148,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfVentaRangoOnlineEntregaTiendaLocalizacionSeccion, cf, cfWait);
 
             final CompletableFuture<Void> cfVentaRangoOnlineEntregaDomicilioLocalizacionSeccion = this.runTareaRecolectarPtrVentaEcommerceAsyncService
-                .ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
+                .ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaRangoOnlineEntregaDomicilioLocalizacionSeccion, cf, cfWait);
 
             /*-------------------------------------------------------------*/

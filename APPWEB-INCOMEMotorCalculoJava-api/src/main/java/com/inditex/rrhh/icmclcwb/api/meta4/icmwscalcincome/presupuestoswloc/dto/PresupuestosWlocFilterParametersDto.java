@@ -22,5 +22,8 @@ public class PresupuestosWlocFilterParametersDto implements Serializable {
     private String idLugarTrabajo;
 
     private String idTpPresupuesto;
+    
+    private String idEmpresa;
+
 
 }
