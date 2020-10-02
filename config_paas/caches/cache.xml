@@ -245,5 +245,15 @@
 </memory>
 <expiration max-idle="3600000" />
 </replicated-cache>
-
-
+<replicated-cache name="itx.icmlcwb.id_empresa_by_tarea" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.fecha_ambito_by_tarea_and_id_tipo_dato" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000" />
+</memory>
+<expiration max-idle="3600000" />
+</replicated-cache>
