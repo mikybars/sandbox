@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -129,13 +130,15 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImplTest {
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
                 params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
         // id tipo dato grupo dato venta congelada
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA));
-        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO_CONGELADA.getId(),
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA));
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_CONGELADA));
+        assertEquals(Arrays.asList(TipoDatoEnum.VENTA_RANGO_CONGELADA_LOCALIZACION.getId(),
+                TipoDatoEnum.VENTA_RANGO_CONGELADA_LOCALIZACION_SECCION.getId()),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_CONGELADA));
         // id tipo grupo dato venta real
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL));
-        assertEquals(TipoGrupoDatoEnum.VENTA_RANGO.getId(),
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL));
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_REAL));
+        assertEquals(Arrays.asList(TipoDatoEnum.VENTA_RANGO_LOCALIZACION.getId(),
+                TipoDatoEnum.VENTA_RANGO_LOCALIZACION_SECCION.getId()),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_REAL));
     }
 
     @Test

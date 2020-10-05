@@ -37,7 +37,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="Icm_Listamultiempresa" type="{http://schemas.meta4.com/}Icm_ListamultiempresaBlock"/&gt;
- *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -50,8 +49,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "GetdesplazmultiempresaOutput", propOrder = {
     "_return",
     "logMessage",
-    "icmListamultiempresa",
-    "icmParametrospaginacion"
+    "icmListamultiempresa"
 })
 public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
@@ -63,8 +61,6 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
     protected List<LogMessage> logMessage;
     @XmlElement(name = "Icm_Listamultiempresa", required = true, nillable = true)
     protected IcmListamultiempresaBlock icmListamultiempresa;
-    @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
-    protected IcmParametrospaginacionBlock icmParametrospaginacion;
 
     /**
      * Obtiene el valor de la propiedad return.
@@ -135,30 +131,6 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
         this.icmListamultiempresa = value;
     }
 
-    /**
-     * Obtiene el valor de la propiedad icmParametrospaginacion.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParametrospaginacionBlock }
-     *     
-     */
-    public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
-        return icmParametrospaginacion;
-    }
-
-    /**
-     * Define el valor de la propiedad icmParametrospaginacion.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParametrospaginacionBlock }
-     *     
-     */
-    public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
-        this.icmParametrospaginacion = value;
-    }
-
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
         if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
@@ -191,15 +163,6 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
             IcmListamultiempresaBlock rhsIcmListamultiempresa;
             rhsIcmListamultiempresa = that.getIcmListamultiempresa();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListamultiempresa", lhsIcmListamultiempresa), LocatorUtils.property(thatLocator, "icmListamultiempresa", rhsIcmListamultiempresa), lhsIcmListamultiempresa, rhsIcmListamultiempresa, (this.icmListamultiempresa!= null), (that.icmListamultiempresa!= null))) {
-                return false;
-            }
-        }
-        {
-            IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
-            lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
-            rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion), LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion!= null), (that.icmParametrospaginacion!= null))) {
                 return false;
             }
         }
@@ -241,11 +204,6 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
             theIcmListamultiempresa = this.getIcmListamultiempresa();
             strategy.appendField(locator, this, "icmListamultiempresa", buffer, theIcmListamultiempresa, (this.icmListamultiempresa!= null));
         }
-        {
-            IcmParametrospaginacionBlock theIcmParametrospaginacion;
-            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
-        }
         return buffer;
     }
 
@@ -265,11 +223,6 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
             IcmListamultiempresaBlock theIcmListamultiempresa;
             theIcmListamultiempresa = this.getIcmListamultiempresa();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListamultiempresa", theIcmListamultiempresa), currentHashCode, theIcmListamultiempresa, (this.icmListamultiempresa!= null));
-        }
-        {
-            IcmParametrospaginacionBlock theIcmParametrospaginacion;
-            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion), currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
         }
         return currentHashCode;
     }
@@ -332,19 +285,6 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
                 } else {
                     if (icmListamultiempresaShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmListamultiempresa = null;
-                    }
-                }
-            }
-            {
-                Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParametrospaginacion!= null));
-                if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
-                    sourceIcmParametrospaginacion = this.getIcmParametrospaginacion();
-                    IcmParametrospaginacionBlock copyIcmParametrospaginacion = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmParametrospaginacion", sourceIcmParametrospaginacion), sourceIcmParametrospaginacion, (this.icmParametrospaginacion!= null)));
-                    copy.setIcmParametrospaginacion(copyIcmParametrospaginacion);
-                } else {
-                    if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmParametrospaginacion = null;
                     }
                 }
             }
