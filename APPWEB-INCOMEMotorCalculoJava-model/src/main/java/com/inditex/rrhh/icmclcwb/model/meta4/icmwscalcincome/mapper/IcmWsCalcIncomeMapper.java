@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
@@ -132,12 +133,13 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametro
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoRecord;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(imports = CollectionUtils.class)
+@Mapper(imports = { CollectionUtils.class, Collections.class, StringUtils.class })
 @DecoratedWith(IcmWsCalcIncomeMapperDecorator.class)
 public interface IcmWsCalcIncomeMapper {
 
@@ -159,14 +161,14 @@ public interface IcmWsCalcIncomeMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "ambito", ignore = true)
-    @Mapping(target = "idempresa", ignore = true)
+    @Mapping(target = "idempresa", expression = "java(CollectionUtils.isNotEmpty(src.getIdsEmpresa()) ? src.getIdsEmpresa().get(0) : null)")
     IcmParametrosentradaBlock asIcmParametrosentradaBlock(GenericFilterDto src);
 
     @Mapping(target = "fechaFin", source = "fechafin", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "fechaInicio", source = "fechainicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idCadena", source = "idcadena")
-    @Mapping(target = "idsEmpresa", ignore = true)
+    @Mapping(target = "idsEmpresa", expression = "java(StringUtils.isNotBlank(src.getIdempresa()) ? Collections.singletonList(src.getIdempresa()) : new ArrayList<>())")
     @Mapping(target = "item", source = "icmParametrosentradaRecordSet")
     GenericFilterDto asGenericFilterDto(IcmParametrosentradaBlock src);
 
