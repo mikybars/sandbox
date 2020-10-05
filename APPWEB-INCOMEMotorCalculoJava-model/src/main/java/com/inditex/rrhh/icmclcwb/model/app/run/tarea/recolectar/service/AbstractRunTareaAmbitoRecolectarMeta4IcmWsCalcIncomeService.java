@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -101,52 +100,49 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             TrabajoDto trabajo = runTarea.getTrabajo();
             TareaDto tarea = runTarea.getTarea();
             DesplazamientosMultiempresaRequestDto request = new DesplazamientosMultiempresaRequestDto();
-            trabajo.getEmpresa().forEach(empresa -> {
-                request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA).getPage());
-                PeriodoDto periodo = PeriodoDto
-                    .builder()
-                    .fechaInicioPeriodo(trabajo.getFechaInicioPeriodo())
-                    .fechaFinPeriodo(trabajo.getFechaFinPeriodo())
-                    .build();
-                request.setData(this.tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito,
-                        periodo));
-                request.getData().setIdsEmpresa(Arrays.asList(empresa.getStdIdLegEnt()));
-                boolean hasNext = false;
-                boolean fechasGuardadas = false;
-                do {
-                    CompletableFuture<List<DesplazamientosMultiempresaItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService.getDesplazamientosMultiempresa(request);
-                    AsyncUtils.exceptionally(cfData, cf);
-                    List<DesplazamientosMultiempresaItemDto> data = AsyncUtils.get(cfData);
-                    if (CollectionUtils.isNotEmpty(data)) {
+            String empresa = tarea.getStdIdLegEnt();
+            request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA).getPage());
+            PeriodoDto periodo = PeriodoDto
+                .builder()
+                .fechaInicioPeriodo(trabajo.getFechaInicioPeriodo())
+                .fechaFinPeriodo(trabajo.getFechaFinPeriodo())
+                .build();
+            request.setData(this.tareaMapper
+                .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(trabajo, tarea, tareaAmbito,
+                    periodo));
+            request.getData().setIdsEmpresa(Arrays.asList(empresa));
+            boolean hasNext = false;
+            boolean fechasGuardadas = false;
+            do {
+                CompletableFuture<List<DesplazamientosMultiempresaItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService.getDesplazamientosMultiempresa(request);
+                AsyncUtils.exceptionally(cfData, cf);
+                List<DesplazamientosMultiempresaItemDto> data = AsyncUtils.get(cfData);
+                if (CollectionUtils.isNotEmpty(data)) {
 
-                        //Guardado fechas: se guarda la primera (todas las que devuelve el servicio deberían ser la misma) y sólo si no se ha guardado en una página anterior
-                        if (!fechasGuardadas) {
-                            AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
-                                    .getFilter()
-                                    .getMaxPersistenceSize());
-                            TareaAmbitoGlobalFechaDto fecha = tareaMapper.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToTareaAmbitoGlobalFechaDto(tarea, data.get(0));
-                            CompletableFuture<Void> cfSaveFecha = tareaAmbitoGlobalFechaAsyncService.save(fecha, tarea);
-                            AsyncUtils.exceptionally(cfSaveFecha, cf, cfPersist);
-                            fechasGuardadas = true;
-                        }
-
-                        //Guardado empresas
-                        List<TareaAmbitoGlobalEmpresaDto> empresas = tareaMapper.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(tarea, data);
+                    //Guardado fechas: se guarda la primera (todas las que devuelve el servicio deberían ser la misma) y sólo si no se ha guardado en una página anterior
+                    if (!fechasGuardadas) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
                             this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
                                 .getFilter()
                                 .getMaxPersistenceSize());
-                        CompletableFuture<Void> cfSaveEmpresa = tareaAmbitoGlobalEmpresaAsyncService.save(empresas, tarea);
-                        AsyncUtils.exceptionally(cfSaveEmpresa, cf, cfPersist);
-
+                        TareaAmbitoGlobalFechaDto fecha = tareaMapper.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToTareaAmbitoGlobalFechaDto(tarea, data.get(0));
+                        CompletableFuture<Void> cfSaveFecha = tareaAmbitoGlobalFechaAsyncService.save(fecha, tarea);
+                        AsyncUtils.exceptionally(cfSaveFecha, cf, cfPersist);
+                        fechasGuardadas = true;
                     }
-                    hasNext = request.nextPage();
-                } while (hasNext);
-            });
 
+                    //Guardado empresas
+                    List<TareaAmbitoGlobalEmpresaDto> empresas = tareaMapper.mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(tarea, data);
+                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+                        this.meta4Properties.get(Meta4PropertiesConstants.MULTIEMPRESA)
+                            .getFilter()
+                            .getMaxPersistenceSize());
+                    CompletableFuture<Void> cfSaveEmpresa = tareaAmbitoGlobalEmpresaAsyncService.save(empresas, tarea);
+                    AsyncUtils.exceptionally(cfSaveEmpresa, cf, cfPersist);
 
+                }
+                hasNext = request.nextPage();
+            } while (hasNext);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
