@@ -2,12 +2,13 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmulti
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Pageable;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
+import lombok.Data;
 
 import java.io.Serializable;
 
-public class DesplazamientosMultiempresaRequestDto extends PageableDto<GenericFilterDto>
-    implements Serializable, Pageable<GenericFilterDto> {
+@Data
+public class DesplazamientosMultiempresaRequestDto extends PageableDto<DesplazamientosMultiempresaRequestItemDto>
+    implements Serializable, Pageable<DesplazamientosMultiempresaRequestItemDto> {
 
     private static final long serialVersionUID = 7354508691091884987L;
 

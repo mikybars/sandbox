@@ -853,16 +853,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         DesplazamientosMultiempresaResponseDto result = new DesplazamientosMultiempresaResponseDto();
         IcmParamcalmultiempresaBlock param1 = new IcmParamcalmultiempresaBlock();
         param1.getIcmParamcalmultiempresaRecordSet().add(this.icmWsCalcIncomeMapper.asIcmParamcalmultiempresaRecord(request.getData()));
-        final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
-            .asIcmParametrospaginacionBlock(request.getPage());
-        GetdesplazmultiempresaOutput desplazamientoMultiempresaOutput = this.meta4ClientPool.getDesplazamientoMultiempresa(param2, param1);
-        if (desplazamientoMultiempresaOutput != null) {
-            if (desplazamientoMultiempresaOutput.getIcmParametrospaginacion() != null) {
-                final PageDto page = this.icmWsCalcIncomeMapper
-                    .asPageDto(desplazamientoMultiempresaOutput.getIcmParametrospaginacion());
-                result.setPage(page);
-            }
-        }
+        GetdesplazmultiempresaOutput desplazamientoMultiempresaOutput = this.meta4ClientPool.getDesplazamientoMultiempresa(param1);
         if (desplazamientoMultiempresaOutput.getIcmListamultiempresa() != null
             &&CollectionUtils.isNotEmpty(desplazamientoMultiempresaOutput.getIcmListamultiempresa().getIcmListamultiempresaRecordSet())) {
             List<DesplazamientosMultiempresaItemDto> items = this.icmWsCalcIncomeMapper.asDesplazamientosMultiempresaItemDto(desplazamientoMultiempresaOutput.getIcmListamultiempresa().getIcmListamultiempresaRecordSet());
