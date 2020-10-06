@@ -111,6 +111,7 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
     public void mergePersonaCalculoByAmbito(@NotNull final RunTareaDto tareaDto) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, tareaDto.getTarea().getStdIdLegEnt());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.PENDIENTE.getId());
         this.update(this.sqlMergePersonaCalculoByAmbito, params);
@@ -120,6 +121,7 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
     public void mergePersonaCalculoByAmbitoLocalizacion(@NotNull final RunTareaDto tareaDto) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, tareaDto.getTarea().getStdIdLegEnt());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.PENDIENTE.getId());
         this.update(this.sqlMergePersonaCalculoByAmbitoLocalizacion, params);
@@ -129,6 +131,7 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
     public void mergePersonaCalculoByAmbitoPersona(@NotNull final RunTareaDto tareaDto) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, tareaDto.getTarea().getStdIdLegEnt());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.PENDIENTE.getId());
         this.update(this.sqlMergePersonaCalculoByAmbitoPersona, params);
