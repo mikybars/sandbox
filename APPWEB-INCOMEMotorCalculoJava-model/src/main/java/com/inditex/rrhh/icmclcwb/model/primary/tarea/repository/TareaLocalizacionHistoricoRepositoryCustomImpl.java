@@ -163,7 +163,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                     final IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
                     dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL));
                     return dto;
-            });
+                });
     }
 
     @Override
@@ -352,10 +352,11 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
     @Override
     public void mergeLocalizacionFicticia(@NotNull final Long idTarea,
-            @NotNull final String cclIdOrigen) {
+            @NotNull final String cclIdOrigen, @NotBlank final String stdIdLegEnt) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
 
         this.update(this.sqlMergeLocalizacionFicticia, params);
     }

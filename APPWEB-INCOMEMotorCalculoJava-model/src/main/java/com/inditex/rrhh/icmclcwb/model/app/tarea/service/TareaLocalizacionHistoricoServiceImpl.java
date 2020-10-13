@@ -182,12 +182,13 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
 
     @Override
     @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_ids_empresa",
-        key = "{#idTarea, #cclIdOrigen, #stdIdLegEnt}")
+            key = "{#idTarea, #cclIdOrigen, #stdIdLegEnt}")
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
-        @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull @NotEmpty List<String> stdIdLegEnt) {
+            @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+            @NotNull @NotEmpty final List<String> stdIdLegEnt) {
         return this.tareaLocalizacionHistoricoRepository
             .findIdLocalizacionLocalDtoByIdTareaAndCClIdOrigenAndStdIdLegEnt(idTarea,
-                cclIdOrigen, stdIdLegEnt);
+                    cclIdOrigen, stdIdLegEnt);
     }
 
     @Override
@@ -204,9 +205,10 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     }
 
     @Override
-    public void mergeLocalizacionFicticia(@NotNull final Long idTarea, @NotNull final String cclIdOrigen) {
+    public void mergeLocalizacionFicticia(@NotNull final Long idTarea, @NotNull final String cclIdOrigen,
+            @NotBlank final String stdIdLegEnt) {
         this.tareaLocalizacionHistoricoRepositoryCustom
-            .mergeLocalizacionFicticia(idTarea, cclIdOrigen);
+            .mergeLocalizacionFicticia(idTarea, cclIdOrigen, stdIdLegEnt);
     }
 
 }
