@@ -32,7 +32,7 @@ public class PtrVentaIndividualDetalleRequestDto implements Serializable {
     private Integer cadena;
 
     @ApiModelProperty(value = "Id empresa", required = false, example = "1")
-    private Integer empresa;
+    private List<Integer> empresa;
 
     @ApiModelProperty(value = "Listado de ids de tiendas", required = false, example = "[57, 691]")
     private List<Integer> tienda = new ArrayList<>();

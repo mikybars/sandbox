@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
+
 @RequiredArgsConstructor
 public enum TipoDatoEnum {
 
@@ -110,12 +111,17 @@ public enum TipoDatoEnum {
                                                                                             5012), INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA_SIMPLIFICADA(
                                                                                                     5013), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOVENTA(
                                                                                                             5014), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE(
-                                                                                                                    5015),
+                                                                                                                    5015), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO(
+                                                                                                                            5016), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE(
+                                                                                                                                    5017),
     /* 6000 (Localizacion) */
     LOCALIZACION_FESTIVO(6001),
     /* 7000 (Localizacion Procesado) *//* 8000 (Persona) */
     PERSONA_COEFICIENTEREDUCCIONJORNADA(8001),
-    /* 9000 (Persona Procesado) */;
+    /* 9000 (Persona Procesado) */
+    /* 10000 (Periodos)*/
+    PERIODO(10001),
+    PERIODO_AMPLIADO(10002);
 
     private final Integer id;
 

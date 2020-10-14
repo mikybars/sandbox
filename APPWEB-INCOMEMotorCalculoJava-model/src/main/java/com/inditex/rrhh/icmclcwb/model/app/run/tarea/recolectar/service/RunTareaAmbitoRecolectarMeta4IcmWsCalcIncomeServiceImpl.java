@@ -12,16 +12,17 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.DesplazamientoRealDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -42,11 +43,15 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPr
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaAusenciaHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaCoeficienteAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraDesplazamientoRealAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraPoliticaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraDesplazamientoRealService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -68,6 +73,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
@@ -79,6 +87,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterParametersDto;
@@ -183,6 +192,18 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     @Autowired
     private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
 
+    @Autowired
+    private TareaAmbitoGlobalFechaService tareaAmbitoGlobalFechaService;
+
+    @Autowired
+    private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+
+    @Autowired
+    private TareaPersonaEstructuraDesplazamientoRealService tareaPersonaEstructuraDesplazamientoRealService;
+
+    @Autowired
+    private TareaPersonaEstructuraDesplazamientoRealAsyncService tareaPersonaEstructuraDesplazamientoRealAsyncService;
+
     @Override
     protected LocalDateTime getFechaInicioPeriodo(final TareaDto tarea) {
         return TimeUtils.toLocalDateTime(tarea.getFechaInicioPeriodo());
@@ -196,11 +217,17 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
+            List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId());
             final FestivosRequestDto request = new FestivosRequestDto();
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS).getPage());
             request.setData(this.tareaMapper
                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(
-                        trabajo, tarea, tareaAmbito));
+                        trabajo, tarea, tareaAmbito,
+                        this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                tarea.getId(),
+                                TipoDatoEnum.PERIODO_AMPLIADO.getId())));
+            request.getData().setIdsEmpresa(empresasAmbito.stream().map(x -> x.getStdIdLegEnt()).collect(Collectors.toList()));
             boolean hasNext = false;
             do {
                 final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
@@ -212,7 +239,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS)
                                 .getFilter()
                                 .getMaxPersistenceSize());
-                    final CompletableFuture<Void> cfSave = this.tareaLocalizacionFestivoAsyncService.save(data, tarea);
+                    final CompletableFuture<Void> cfSave = this.tareaLocalizacionFestivoAsyncService.save(data,
+                            tarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                     hasNext = request.nextPage();
                 }
@@ -231,8 +259,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             for (final List<IdPersonaHistoricoDto> iter : StreamUtils.partition(
                     this.tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
                             tarea.getId(),
@@ -243,7 +269,10 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.COEF_JORNADA).getPage());
                 request.setData(this.tareaMapper
                     .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(
-                            tarea, tareaAmbito, periodo));
+                            tarea, tareaAmbito,
+                            this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                    tarea.getId(),
+                                    TipoDatoEnum.PERIODO_AMPLIADO.getId())));
                 request.getData()
                     .setItem(
                             iter.stream()
@@ -284,8 +313,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             for (final List<IdLocalizacionDto> iter : StreamUtils.partition(
                     this.tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
                             tarea.getId(),
@@ -295,7 +322,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA).getPage());
                 request.setData(this.tareaMapper
                     .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
-                            periodo));
+                            this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                    tarea.getId(),
+                                    TipoDatoEnum.PERIODO_AMPLIADO.getId())));
                 request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
                 request.getData()
                     .getItem()
@@ -334,8 +363,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             for (final List<IdLocalizacionDto> iter : StreamUtils.partition(
                     this.tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
                             tarea.getId(), tareaAmbito.getCclIdOrigen()),
@@ -344,7 +371,10 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getPage());
                 request.setData(this.tareaMapper
                     .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(
-                            tarea, tareaAmbito, periodo));
+                            tarea, tareaAmbito,
+                            this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                    tarea.getId(),
+                                    TipoDatoEnum.PERIODO_AMPLIADO.getId())));
                 request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
                 request.getData()
                     .getItem()
@@ -478,11 +508,12 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             final ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
             request.setData(this.tareaMapper
-                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDtoWithDates(tarea, tareaAmbito, periodo,
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDtoWithDates(tarea, tareaAmbito,
+                        this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                tarea.getId(),
+                                TipoDatoEnum.PERIODO_AMPLIADO.getId()),
                         this.recolectarProperties));
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONF_VENTA_ONLINE).getPage());
 
@@ -517,8 +548,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             for (final List<IdLocalizacionDto> iter : StreamUtils.partition(
                     this.tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
                             tarea.getId(),
@@ -528,7 +557,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 tiendasRequest.setPage(this.meta4Properties.get(Meta4PropertiesConstants.TIENDAS).getPage());
                 tiendasRequest.setData(this.tareaMapper
                     .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
-                            periodo));
+                            this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                    tarea.getId(),
+                                    TipoDatoEnum.PERIODO_AMPLIADO.getId())));
                 tiendasRequest.getData().setItem(new ArrayList<GenericFilterParametersDto>());
                 tiendasRequest.getData()
                     .getItem()
@@ -568,10 +599,11 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         try {
             final AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             request.setData(this.tareaMapper
-                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, periodo));
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
+                        this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                tarea.getId(),
+                                TipoDatoEnum.PERIODO_AMPLIADO.getId())));
             request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
             request.getData()
                 .getItem()
@@ -606,8 +638,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             for (final List<IdCadenaDto> cadenas : StreamUtils.partition(
                     this.tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(),
                             tareaAmbito.getCclIdOrigen()),
@@ -615,7 +645,10 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
                 final TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
                 request.setData(this.tareaMapper
-                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, periodo));
+                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
+                            this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                    tarea.getId(),
+                                    TipoDatoEnum.PERIODO_AMPLIADO.getId())));
                 request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.TIENDAS_ONLINE).getPage());
                 final List<GenericFilterParametersDto> items = cadenas.stream()
                     .map(x -> GenericFilterParametersDto.builder().idCadena(x.getId()).build())
@@ -653,12 +686,13 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             final AusenciasRequestDto request = new AusenciasRequestDto();
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.AUSENCIAS).getPage());
             request.setData(this.tareaMapper
-                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito, periodo));
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
+                        this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                tarea.getId(),
+                                TipoDatoEnum.PERIODO_AMPLIADO.getId())));
             boolean hasNext = false;
             do {
                 final CompletableFuture<List<AusenciasResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
@@ -691,11 +725,11 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             final ConfiguracionesRequestDto request = this.tareaMapper
                 .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfiguracionesRequestDto(
-                        tarea, tareaAmbito, periodo);
+                        tarea, tareaAmbito, this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                tarea.getId(),
+                                TipoDatoEnum.PERIODO_AMPLIADO.getId()));
             final CompletableFuture<ConfiguracionesResponseDto> cfData = this.meta4IcmWsCalcIncomeAsyncService
                 .getConfiguraciones(request);
             AsyncUtils.exceptionally(cfData, cf);
@@ -723,12 +757,13 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             final ConfChDiasMinimosRequestDto request = new ConfChDiasMinimosRequestDto();
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS).getPage());
             request.setData(this.tareaMapper
-                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfChDiasMinimosFilterDto(tarea, tareaAmbito, periodo));
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfChDiasMinimosFilterDto(tarea, tareaAmbito,
+                        this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                tarea.getId(),
+                                TipoDatoEnum.PERIODO_AMPLIADO.getId())));
 
             final CompletableFuture<List<ConfChDiasMinimosResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
                 .getConfChallengeDiasMinimos(request);
@@ -759,12 +794,14 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final TareaDto tarea = runTarea.getTarea();
             final List<IdPersonaLocalDto> personasChallenge = this.tareaPersonaEstructuraService
                 .findPersonasChallenge(tarea);
+            List<IdEmpresaDto> empresasAmbito = tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(tarea.getId());
             if (CollectionUtils.isNotEmpty(personasChallenge)) {
                 final PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
                 request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getPage());
                 request.setData(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosWlocFilterDto(
                         trabajo, tarea, tareaAmbito));
-                request.getData().setItem(Collections.singletonList(new PresupuestosWlocFilterParametersDto()));
+                request.getData()
+                    .setItem(tareaMapper.idEmpresaDtoToPresupuestosWlocFilterParametersDto(empresasAmbito));
                 boolean hasNext;
                 do {
                     final CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
@@ -797,12 +834,12 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             final ConfPrecioHoraRequestDto request = new ConfPrecioHoraRequestDto();
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONFPRECIOHORA).getPage());
             request.setData(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfPrecioHoraFilterDto(tarea,
-                    tareaAmbito, periodo));
+                    tareaAmbito, this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                            tarea.getId(),
+                            TipoDatoEnum.PERIODO_AMPLIADO.getId())));
 
             final CompletableFuture<List<ConfPrecioHoraResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
                 .getConfPrecioHora(request);
@@ -831,12 +868,13 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             final ConfChTpVentaRequestDto request = new ConfChTpVentaRequestDto();
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGETPVENTA).getPage());
             request.setData(this.tareaMapper
-                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfChTpVentaFilterDto(tarea, tareaAmbito, periodo));
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfChTpVentaFilterDto(tarea, tareaAmbito,
+                        this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                tarea.getId(),
+                                TipoDatoEnum.PERIODO_AMPLIADO.getId())));
 
             final CompletableFuture<List<ConfChTpVentaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
                 .getConfChallengeTpVenta(request);
@@ -870,6 +908,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSRANGO).getPage());
             request.setData(this.tareaMapper
                 .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosRangoFilterDto(trabajo, tarea, tareaAmbito));
+            request.getData()
+                .setItem(Collections.singletonList(
+                        PresupuestosRangoFilterParametersDto.builder().idEmpresa(tarea.getStdIdLegEnt()).build()));
             boolean hasNext = false;
             do {
                 final CompletableFuture<List<PresupuestosRangoResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
@@ -898,8 +939,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
-                .findPeriodoPresupuestoYTrabajo(tarea.getId());
             for (final List<IdLocalizacionDto> iter : StreamUtils.partition(
                     this.tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
                             tarea.getId(), tareaAmbito.getCclIdOrigen()),
@@ -908,7 +947,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.VENTACONGELADA).getPage());
                 request.setData(this.tareaMapper
                     .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToVentaCongeladaFilterDto(tarea, tareaAmbito,
-                            periodo));
+                            this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                    tarea.getId(),
+                                    TipoDatoEnum.PERIODO_AMPLIADO.getId())));
                 request.getData().setItem(new ArrayList<VentaCongeladaFilterParametersDto>());
                 request.getData()
                     .getItem()
@@ -931,6 +972,63 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         hasNext = request.nextPage();
                     }
                 } while (hasNext);
+                AsyncUtils.waitAllOfIsOk(cf, cf);
+            }
+        } catch (final Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
+    @Override
+    public void desplazamientoRealByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {
+            final TareaDto tarea = runTarea.getTarea();
+            final TrabajoDto trabajo = runTarea.getTrabajo();
+            for (final List<DesplazamientoRealDto> iter : StreamUtils.partition(
+                    this.tareaPersonaEstructuraDesplazamientoRealService.findDesplazamientoReal(
+                            tarea),
+                    this.meta4Properties.get(Meta4PropertiesConstants.DESPLAZAMIENTO_REAL)
+                        .getFilter()
+                        .getMaxPageSize())) {
+                final DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
+                request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.DESPLAZAMIENTO_REAL).getPage());
+                request.setData(this.tareaMapper
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToDesplazamientoRealFilterDto(trabajo,
+                            tarea,
+                            tareaAmbito));
+                request.getData().setItem(new ArrayList<DesplazamientoRealFilterParametersDto>());
+                request.getData()
+                    .getItem()
+                    .addAll(iter.stream()
+                        .map(e -> DesplazamientoRealFilterParametersDto.builder()
+                            .idEmpleado(e.getStdIdHr())
+                            .orEmpleado(e.getStdOrHrPeriod())
+                            .idOrigen(e.getCclIdOrigen())
+                            .idEstructuraAmbito(e.getIdEstructuraAmbito())
+                            .idEstructura(e.getIdEstructura())
+                            .idEstructuraBase(e.getIdEstructuraBase())
+                            .idEstructuraPadre(e.getIdEstructuraPadre())
+                            .fechaInicio(TimeUtils.toLocalDateTime(e.getFechaInicio()))
+                            .fechaFin(TimeUtils.toLocalDateTime(e.getFechaFin()))
+                            .build())
+                        .collect(Collectors.toList()));
+
+                final CompletableFuture<List<DesplazamientoRealResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
+                    .getDesplazReal(request);
+                final List<DesplazamientoRealResultItemDto> data = AsyncUtils.get(cfData);
+                if (CollectionUtils.isNotEmpty(data)) {
+                    AsyncUtils.checkAsyncAvaliable(cfPersist,
+                            this.meta4Properties.get(Meta4PropertiesConstants.DESPLAZAMIENTO_REAL)
+                                .getFilter()
+                                .getMaxPersistenceSize());
+                    final CompletableFuture<Void> cfSave = this.tareaPersonaEstructuraDesplazamientoRealAsyncService
+                        .saveDesplazamientoRealResultItemDto(data, tarea);
+                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                }
                 AsyncUtils.waitAllOfIsOk(cf, cf);
             }
         } catch (final Exception e) {

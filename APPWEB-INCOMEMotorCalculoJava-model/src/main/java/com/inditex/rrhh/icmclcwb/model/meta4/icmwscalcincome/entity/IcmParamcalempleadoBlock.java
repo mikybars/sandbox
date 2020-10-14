@@ -25,12 +25,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_ParamcalempleadoBlock complex type.
- *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ParamcalempleadoBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ParamcalempleadoBlock"&gt;
  *   &lt;complexContent&gt;
@@ -38,7 +36,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *       &lt;sequence&gt;
  *         &lt;element name="fechafin" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idorigen" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="idempresa" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="fechainicio" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="Icm_ParamcalempleadoRecordSet" type="{http://schemas.meta4.com/}Icm_ParamcalempleadoRecord" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
@@ -46,40 +43,36 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalempleadoBlock", propOrder = {
-        "fechafin",
-        "idorigen",
-        "idempresa",
-        "fechainicio",
-        "icmParamcalempleadoRecordSet"
+    "fechafin",
+    "idorigen",
+    "fechainicio",
+    "icmParamcalempleadoRecordSet"
 })
-public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(required = true, nillable = true)
     protected String fechafin;
-
     @XmlElement(required = true, nillable = true)
     protected String idorigen;
-
-    @XmlElement(required = true, nillable = true)
-    protected String idempresa;
-
     @XmlElement(required = true, nillable = true)
     protected String fechainicio;
-
     @XmlElement(name = "Icm_ParamcalempleadoRecordSet", nillable = true)
     protected List<IcmParamcalempleadoRecord> icmParamcalempleadoRecordSet;
 
     /**
      * Obtiene el valor de la propiedad fechafin.
-     * @return possible object is {@link String }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getFechafin() {
         return fechafin;
@@ -87,8 +80,11 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
 
     /**
      * Define el valor de la propiedad fechafin.
-     * @param value allowed object is {@link String }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setFechafin(String value) {
         this.fechafin = value;
@@ -96,8 +92,11 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
 
     /**
      * Obtiene el valor de la propiedad idorigen.
-     * @return possible object is {@link String }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getIdorigen() {
         return idorigen;
@@ -105,35 +104,23 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
 
     /**
      * Define el valor de la propiedad idorigen.
-     * @param value allowed object is {@link String }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setIdorigen(String value) {
         this.idorigen = value;
     }
 
     /**
-     * Obtiene el valor de la propiedad idempresa.
-     * @return possible object is {@link String }
-     *
-     */
-    public String getIdempresa() {
-        return idempresa;
-    }
-
-    /**
-     * Define el valor de la propiedad idempresa.
-     * @param value allowed object is {@link String }
-     *
-     */
-    public void setIdempresa(String value) {
-        this.idempresa = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad fechainicio.
-     * @return possible object is {@link String }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getFechainicio() {
         return fechainicio;
@@ -141,8 +128,11 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
 
     /**
      * Define el valor de la propiedad fechainicio.
-     * @param value allowed object is {@link String }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setFechainicio(String value) {
         this.fechainicio = value;
@@ -150,24 +140,25 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
 
     /**
      * Gets the value of the icmParamcalempleadoRecordSet property.
-     *
+     * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmParamcalempleadoRecordSet property.
-     *
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmParamcalempleadoRecordSet property.
+     * 
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmParamcalempleadoRecordSet().add(newItem);
+     *    getIcmParamcalempleadoRecordSet().add(newItem);
      * </pre>
-     *
-     *
+     * 
+     * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmParamcalempleadoRecord }
-     *
-     *
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmParamcalempleadoRecord }
+     * 
+     * 
      */
     public List<IcmParamcalempleadoRecord> getIcmParamcalempleadoRecordSet() {
         if (icmParamcalempleadoRecordSet == null) {
@@ -176,9 +167,8 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
         return this.icmParamcalempleadoRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -190,9 +180,7 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
             lhsFechafin = this.getFechafin();
             String rhsFechafin;
             rhsFechafin = that.getFechafin();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechafin", lhsFechafin),
-                    LocatorUtils.property(thatLocator, "fechafin", rhsFechafin), lhsFechafin, rhsFechafin,
-                    (this.fechafin != null), (that.fechafin != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechafin", lhsFechafin), LocatorUtils.property(thatLocator, "fechafin", rhsFechafin), lhsFechafin, rhsFechafin, (this.fechafin!= null), (that.fechafin!= null))) {
                 return false;
             }
         }
@@ -201,20 +189,7 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
             lhsIdorigen = this.getIdorigen();
             String rhsIdorigen;
             rhsIdorigen = that.getIdorigen();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idorigen", lhsIdorigen),
-                    LocatorUtils.property(thatLocator, "idorigen", rhsIdorigen), lhsIdorigen, rhsIdorigen,
-                    (this.idorigen != null), (that.idorigen != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsIdempresa;
-            lhsIdempresa = this.getIdempresa();
-            String rhsIdempresa;
-            rhsIdempresa = that.getIdempresa();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idempresa", lhsIdempresa),
-                    LocatorUtils.property(thatLocator, "idempresa", rhsIdempresa), lhsIdempresa, rhsIdempresa,
-                    (this.idempresa != null), (that.idempresa != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idorigen", lhsIdorigen), LocatorUtils.property(thatLocator, "idorigen", rhsIdorigen), lhsIdorigen, rhsIdorigen, (this.idorigen!= null), (that.idorigen!= null))) {
                 return false;
             }
         }
@@ -223,25 +198,16 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
             lhsFechainicio = this.getFechainicio();
             String rhsFechainicio;
             rhsFechainicio = that.getFechainicio();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechainicio", lhsFechainicio),
-                    LocatorUtils.property(thatLocator, "fechainicio", rhsFechainicio), lhsFechainicio, rhsFechainicio,
-                    (this.fechainicio != null), (that.fechainicio != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fechainicio", lhsFechainicio), LocatorUtils.property(thatLocator, "fechainicio", rhsFechainicio), lhsFechainicio, rhsFechainicio, (this.fechainicio!= null), (that.fechainicio!= null))) {
                 return false;
             }
         }
         {
             List<IcmParamcalempleadoRecord> lhsIcmParamcalempleadoRecordSet;
-            lhsIcmParamcalempleadoRecordSet = (((this.icmParamcalempleadoRecordSet != null)
-                    && (!this.icmParamcalempleadoRecordSet.isEmpty())) ? this.getIcmParamcalempleadoRecordSet() : null);
+            lhsIcmParamcalempleadoRecordSet = (((this.icmParamcalempleadoRecordSet!= null)&&(!this.icmParamcalempleadoRecordSet.isEmpty()))?this.getIcmParamcalempleadoRecordSet():null);
             List<IcmParamcalempleadoRecord> rhsIcmParamcalempleadoRecordSet;
-            rhsIcmParamcalempleadoRecordSet = (((that.icmParamcalempleadoRecordSet != null)
-                    && (!that.icmParamcalempleadoRecordSet.isEmpty())) ? that.getIcmParamcalempleadoRecordSet() : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmParamcalempleadoRecordSet", lhsIcmParamcalempleadoRecordSet),
-                    LocatorUtils.property(thatLocator, "icmParamcalempleadoRecordSet", rhsIcmParamcalempleadoRecordSet),
-                    lhsIcmParamcalempleadoRecordSet, rhsIcmParamcalempleadoRecordSet,
-                    ((this.icmParamcalempleadoRecordSet != null) && (!this.icmParamcalempleadoRecordSet.isEmpty())),
-                    ((that.icmParamcalempleadoRecordSet != null) && (!that.icmParamcalempleadoRecordSet.isEmpty())))) {
+            rhsIcmParamcalempleadoRecordSet = (((that.icmParamcalempleadoRecordSet!= null)&&(!that.icmParamcalempleadoRecordSet.isEmpty()))?that.getIcmParamcalempleadoRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalempleadoRecordSet", lhsIcmParamcalempleadoRecordSet), LocatorUtils.property(thatLocator, "icmParamcalempleadoRecordSet", rhsIcmParamcalempleadoRecordSet), lhsIcmParamcalempleadoRecordSet, rhsIcmParamcalempleadoRecordSet, ((this.icmParamcalempleadoRecordSet!= null)&&(!this.icmParamcalempleadoRecordSet.isEmpty())), ((that.icmParamcalempleadoRecordSet!= null)&&(!that.icmParamcalempleadoRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -271,29 +237,22 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
         {
             String theFechafin;
             theFechafin = this.getFechafin();
-            strategy.appendField(locator, this, "fechafin", buffer, theFechafin, (this.fechafin != null));
+            strategy.appendField(locator, this, "fechafin", buffer, theFechafin, (this.fechafin!= null));
         }
         {
             String theIdorigen;
             theIdorigen = this.getIdorigen();
-            strategy.appendField(locator, this, "idorigen", buffer, theIdorigen, (this.idorigen != null));
-        }
-        {
-            String theIdempresa;
-            theIdempresa = this.getIdempresa();
-            strategy.appendField(locator, this, "idempresa", buffer, theIdempresa, (this.idempresa != null));
+            strategy.appendField(locator, this, "idorigen", buffer, theIdorigen, (this.idorigen!= null));
         }
         {
             String theFechainicio;
             theFechainicio = this.getFechainicio();
-            strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio != null));
+            strategy.appendField(locator, this, "fechainicio", buffer, theFechainicio, (this.fechainicio!= null));
         }
         {
             List<IcmParamcalempleadoRecord> theIcmParamcalempleadoRecordSet;
-            theIcmParamcalempleadoRecordSet = (((this.icmParamcalempleadoRecordSet != null)
-                    && (!this.icmParamcalempleadoRecordSet.isEmpty())) ? this.getIcmParamcalempleadoRecordSet() : null);
-            strategy.appendField(locator, this, "icmParamcalempleadoRecordSet", buffer, theIcmParamcalempleadoRecordSet,
-                    ((this.icmParamcalempleadoRecordSet != null) && (!this.icmParamcalempleadoRecordSet.isEmpty())));
+            theIcmParamcalempleadoRecordSet = (((this.icmParamcalempleadoRecordSet!= null)&&(!this.icmParamcalempleadoRecordSet.isEmpty()))?this.getIcmParamcalempleadoRecordSet():null);
+            strategy.appendField(locator, this, "icmParamcalempleadoRecordSet", buffer, theIcmParamcalempleadoRecordSet, ((this.icmParamcalempleadoRecordSet!= null)&&(!this.icmParamcalempleadoRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -303,35 +262,22 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
         {
             String theFechafin;
             theFechafin = this.getFechafin();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechafin", theFechafin),
-                    currentHashCode, theFechafin, (this.fechafin != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechafin", theFechafin), currentHashCode, theFechafin, (this.fechafin!= null));
         }
         {
             String theIdorigen;
             theIdorigen = this.getIdorigen();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idorigen", theIdorigen),
-                    currentHashCode, theIdorigen, (this.idorigen != null));
-        }
-        {
-            String theIdempresa;
-            theIdempresa = this.getIdempresa();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idempresa", theIdempresa),
-                    currentHashCode, theIdempresa, (this.idempresa != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idorigen", theIdorigen), currentHashCode, theIdorigen, (this.idorigen!= null));
         }
         {
             String theFechainicio;
             theFechainicio = this.getFechainicio();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio),
-                    currentHashCode, theFechainicio, (this.fechainicio != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio), currentHashCode, theFechainicio, (this.fechainicio!= null));
         }
         {
             List<IcmParamcalempleadoRecord> theIcmParamcalempleadoRecordSet;
-            theIcmParamcalempleadoRecordSet = (((this.icmParamcalempleadoRecordSet != null)
-                    && (!this.icmParamcalempleadoRecordSet.isEmpty())) ? this.getIcmParamcalempleadoRecordSet() : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmParamcalempleadoRecordSet", theIcmParamcalempleadoRecordSet),
-                    currentHashCode, theIcmParamcalempleadoRecordSet,
-                    ((this.icmParamcalempleadoRecordSet != null) && (!this.icmParamcalempleadoRecordSet.isEmpty())));
+            theIcmParamcalempleadoRecordSet = (((this.icmParamcalempleadoRecordSet!= null)&&(!this.icmParamcalempleadoRecordSet.isEmpty()))?this.getIcmParamcalempleadoRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalempleadoRecordSet", theIcmParamcalempleadoRecordSet), currentHashCode, theIcmParamcalempleadoRecordSet, ((this.icmParamcalempleadoRecordSet!= null)&&(!this.icmParamcalempleadoRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -351,17 +297,15 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmParamcalempleadoBlock) {
             final IcmParamcalempleadoBlock copy = ((IcmParamcalempleadoBlock) draftCopy);
             {
-                Boolean fechafinShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechafin != null));
+                Boolean fechafinShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechafin!= null));
                 if (fechafinShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceFechafin;
                     sourceFechafin = this.getFechafin();
-                    String copyFechafin = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "fechafin", sourceFechafin), sourceFechafin,
-                            (this.fechafin != null)));
+                    String copyFechafin = ((String) strategy.copy(LocatorUtils.property(locator, "fechafin", sourceFechafin), sourceFechafin, (this.fechafin!= null)));
                     copy.setFechafin(copyFechafin);
                 } else {
                     if (fechafinShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -370,13 +314,11 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
                 }
             }
             {
-                Boolean idorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idorigen != null));
+                Boolean idorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idorigen!= null));
                 if (idorigenShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdorigen;
                     sourceIdorigen = this.getIdorigen();
-                    String copyIdorigen = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "idorigen", sourceIdorigen), sourceIdorigen,
-                            (this.idorigen != null)));
+                    String copyIdorigen = ((String) strategy.copy(LocatorUtils.property(locator, "idorigen", sourceIdorigen), sourceIdorigen, (this.idorigen!= null)));
                     copy.setIdorigen(copyIdorigen);
                 } else {
                     if (idorigenShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -385,30 +327,11 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
                 }
             }
             {
-                Boolean idempresaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.idempresa != null));
-                if (idempresaShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceIdempresa;
-                    sourceIdempresa = this.getIdempresa();
-                    String copyIdempresa = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "idempresa", sourceIdempresa), sourceIdempresa,
-                            (this.idempresa != null)));
-                    copy.setIdempresa(copyIdempresa);
-                } else {
-                    if (idempresaShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.idempresa = null;
-                    }
-                }
-            }
-            {
-                Boolean fechainicioShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.fechainicio != null));
+                Boolean fechainicioShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechainicio!= null));
                 if (fechainicioShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceFechainicio;
                     sourceFechainicio = this.getFechainicio();
-                    String copyFechainicio = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "fechainicio", sourceFechainicio), sourceFechainicio,
-                            (this.fechainicio != null)));
+                    String copyFechainicio = ((String) strategy.copy(LocatorUtils.property(locator, "fechainicio", sourceFechainicio), sourceFechainicio, (this.fechainicio!= null)));
                     copy.setFechainicio(copyFechainicio);
                 } else {
                     if (fechainicioShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -417,24 +340,15 @@ public class IcmParamcalempleadoBlock implements Serializable, Cloneable, CopyTo
                 }
             }
             {
-                Boolean icmParamcalempleadoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        ((this.icmParamcalempleadoRecordSet != null)
-                                && (!this.icmParamcalempleadoRecordSet.isEmpty())));
+                Boolean icmParamcalempleadoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmParamcalempleadoRecordSet!= null)&&(!this.icmParamcalempleadoRecordSet.isEmpty())));
                 if (icmParamcalempleadoRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmParamcalempleadoRecord> sourceIcmParamcalempleadoRecordSet;
-                    sourceIcmParamcalempleadoRecordSet = (((this.icmParamcalempleadoRecordSet != null)
-                            && (!this.icmParamcalempleadoRecordSet.isEmpty())) ? this.getIcmParamcalempleadoRecordSet()
-                                    : null);
+                    sourceIcmParamcalempleadoRecordSet = (((this.icmParamcalempleadoRecordSet!= null)&&(!this.icmParamcalempleadoRecordSet.isEmpty()))?this.getIcmParamcalempleadoRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmParamcalempleadoRecord> copyIcmParamcalempleadoRecordSet = ((List<IcmParamcalempleadoRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmParamcalempleadoRecordSet",
-                                sourceIcmParamcalempleadoRecordSet), sourceIcmParamcalempleadoRecordSet,
-                                ((this.icmParamcalempleadoRecordSet != null)
-                                        && (!this.icmParamcalempleadoRecordSet.isEmpty()))));
+                    List<IcmParamcalempleadoRecord> copyIcmParamcalempleadoRecordSet = ((List<IcmParamcalempleadoRecord> ) strategy.copy(LocatorUtils.property(locator, "icmParamcalempleadoRecordSet", sourceIcmParamcalempleadoRecordSet), sourceIcmParamcalempleadoRecordSet, ((this.icmParamcalempleadoRecordSet!= null)&&(!this.icmParamcalempleadoRecordSet.isEmpty()))));
                     copy.icmParamcalempleadoRecordSet = null;
-                    if (copyIcmParamcalempleadoRecordSet != null) {
-                        List<IcmParamcalempleadoRecord> uniqueIcmParamcalempleadoRecordSetl = copy
-                            .getIcmParamcalempleadoRecordSet();
+                    if (copyIcmParamcalempleadoRecordSet!= null) {
+                        List<IcmParamcalempleadoRecord> uniqueIcmParamcalempleadoRecordSetl = copy.getIcmParamcalempleadoRecordSet();
                         uniqueIcmParamcalempleadoRecordSetl.addAll(copyIcmParamcalempleadoRecordSet);
                     }
                 } else {

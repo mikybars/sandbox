@@ -77,4 +77,6 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> repartoDevolucionVendedor0(@Valid RunTareaDto tarea);
 
+    CompletableFuture<Void> updateActivoCongeladaSeccion(@Valid RunTareaDto runTarea);
+
 }

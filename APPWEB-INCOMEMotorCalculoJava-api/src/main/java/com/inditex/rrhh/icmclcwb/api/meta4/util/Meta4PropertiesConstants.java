@@ -6,8 +6,6 @@ public class Meta4PropertiesConstants {
     }
 
     /* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE META4 */
-    public static final String TIENDAS_EMPLEADO = "getTiendasEmpleado";
-
     public static final String SEARCH_TIENDAS = "searchTiendas";
 
     public static final String TIENDAS = "getTiendas";
@@ -40,8 +38,6 @@ public class Meta4PropertiesConstants {
 
     public static final String ORIGEN = "getOrigen";
 
-    public static final String ESTRUCTURAS_DESPLAZ = "getEstructurasDesplazamiento";
-
     public static final String EMPLEADOS_DESPLAZAMIENTO = "getEmpleadosDesplazamiento";
 
     public static final String ESTRUCTURAS_COM = "getEstructurasCom";
@@ -63,5 +59,9 @@ public class Meta4PropertiesConstants {
     public static final String PRESUPUESTOSRANGO = "getPresupuestosRango";
 
     public static final String VENTACONGELADA = "getVentaCongelada";
+
+    public static final String DESPLAZAMIENTO_REAL = "getDesplazReal";
+
+    public static final String MULTIEMPRESA = "getDesplazamientosMultiempresa";
 
 }

@@ -2,6 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
@@ -255,6 +261,13 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
                 VentaCongeladaResponseDto.class, VentaCongeladaResultItemDto.class);
     }
 
+    @Override
+    public List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(DesplazamientosMultiempresaRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.MULTIEMPRESA,
+            DesplazamientosMultiempresaResponseDto.class, DesplazamientosMultiempresaItemDto.class);
+    }
+
     @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea,#cclIdOrigen}")
     @Override
     public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(final Long idTarea,
@@ -267,6 +280,13 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         return this.getResultItem(productoRequest,
                 Meta4PropertiesConstants.CONF_PRODUCTO_VENTA, ConfiguracionProductoVentaResponseDto.class,
                 ConfiguracionProductoVentaResultItemDto.class);
+    }
+
+    @Override
+    public List<DesplazamientoRealResultItemDto> getDesplazReal(final DesplazamientoRealRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.DESPLAZAMIENTO_REAL,
+                DesplazamientoRealResponseDto.class, DesplazamientoRealResultItemDto.class);
     }
 
 }

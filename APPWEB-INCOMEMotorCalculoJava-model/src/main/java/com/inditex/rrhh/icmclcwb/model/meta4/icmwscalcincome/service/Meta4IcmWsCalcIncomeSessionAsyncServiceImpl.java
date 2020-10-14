@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
@@ -211,4 +215,15 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
         return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getVentaCongelada(request));
     }
 
+    @Override
+    public CompletableFuture<List<DesplazamientoRealResultItemDto>> getDesplazReal(
+            final DesplazamientoRealRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getDesplazReal(request));
+    }
+
+    @Override
+    public CompletableFuture<List<DesplazamientosMultiempresaItemDto>> getDesplazamientosMultiempresa(
+            final DesplazamientosMultiempresaRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionService.getDesplazamientoMultiempresa(request));
+    }
 }

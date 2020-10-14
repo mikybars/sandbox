@@ -17,4 +17,6 @@ public interface TareaLocalizacionPresupuestoVentaRepositoryCustom {
 
     void totalizar(@NotNull RunTareaDto runTareaDto);
 
+    void updateActivoCongeladaSeccion(@NotNull RunTareaDto runTareaDto);
+
 }

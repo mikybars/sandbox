@@ -8,6 +8,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
 
+    void fechaAmbitoAndEmpresaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+
     void personaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
@@ -72,6 +75,9 @@ public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
     void ventaCongeladaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+
+    void desplazamientoRealByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
 }

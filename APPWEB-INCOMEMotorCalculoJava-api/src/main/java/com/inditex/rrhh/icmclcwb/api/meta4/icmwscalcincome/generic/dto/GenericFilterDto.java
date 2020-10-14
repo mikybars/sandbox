@@ -17,7 +17,7 @@ public class GenericFilterDto implements Serializable {
 
     private String idOrigen;
 
-    private String idEmpresa;
+    private List<String> idsEmpresa;
 
     private String idCadena;
 

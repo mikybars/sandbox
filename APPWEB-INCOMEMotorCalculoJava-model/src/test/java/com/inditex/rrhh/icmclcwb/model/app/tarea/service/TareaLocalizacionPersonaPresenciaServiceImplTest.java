@@ -175,4 +175,24 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
             .indicadorPersonaPorVentaSimplificada(any(RunTareaDto.class));
     }
 
+    @Test
+    public void indicadorDesplazamientoBaseTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPersonaPresenciaServiceImpl
+            .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
+        verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(any(RunTareaDto.class));
+    }
+
+    @Test
+    public void indicadorDesplazamientoDirectoVentaTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPersonaPresenciaServiceImpl
+            .indicadorDesplazamientoDirectoVenta(runTarea);
+        verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorDesplazamientoDirectoVenta(any(RunTareaDto.class));
+    }
+
 }

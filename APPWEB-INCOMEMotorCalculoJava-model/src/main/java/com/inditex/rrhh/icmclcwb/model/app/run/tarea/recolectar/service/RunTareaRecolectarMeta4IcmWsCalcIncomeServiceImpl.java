@@ -20,6 +20,15 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     private RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
 
     @Override
+    public void fechaAmbitoAndEmpresaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .fechaAmbitoAndEmpresaByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
     public void personaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
@@ -212,6 +221,15 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             .stream()
             .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .ventaCongeladaByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
+    public void desplazamientoRealByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .desplazamientoRealByRunTareaAndTareaAmbito(runTarea, item));
     }
 
 }

@@ -24,47 +24,71 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para anonymous complex type.
- *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element name="ICM_PARAMCALFLAGCALCULA" type="{http://schemas.meta4.com/}Icm_ParamcalflagcalculaBlock"/&gt;
  *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
- *         &lt;element name="ICM_PARAMETROSENTRADA" type="{http://schemas.meta4.com/}Icm_ParametrosentradaBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "icmparametrospaginacion",
-        "icmparametrosentrada"
+    "icmparamcalflagcalcula",
+    "icmparametrospaginacion"
 })
 @XmlRootElement(name = "GETFLAGCALCULA")
-public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
+    @XmlElement(name = "ICM_PARAMCALFLAGCALCULA", required = true)
+    protected IcmParamcalflagcalculaBlock icmparamcalflagcalcula;
     @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
     protected IcmParametrospaginacionBlock icmparametrospaginacion;
 
-    @XmlElement(name = "ICM_PARAMETROSENTRADA", required = true)
-    protected IcmParametrosentradaBlock icmparametrosentrada;
+    /**
+     * Obtiene el valor de la propiedad icmparamcalflagcalcula.
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmParamcalflagcalculaBlock }
+     *     
+     */
+    public IcmParamcalflagcalculaBlock getICMPARAMCALFLAGCALCULA() {
+        return icmparamcalflagcalcula;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamcalflagcalcula.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmParamcalflagcalculaBlock }
+     *     
+     */
+    public void setICMPARAMCALFLAGCALCULA(IcmParamcalflagcalculaBlock value) {
+        this.icmparamcalflagcalcula = value;
+    }
 
     /**
      * Obtiene el valor de la propiedad icmparametrospaginacion.
-     * @return possible object is {@link IcmParametrospaginacionBlock }
-     *
+     * 
+     * @return
+     *     possible object is
+     *     {@link IcmParametrospaginacionBlock }
+     *     
      */
     public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
         return icmparametrospaginacion;
@@ -72,34 +96,18 @@ public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2
 
     /**
      * Define el valor de la propiedad icmparametrospaginacion.
-     * @param value allowed object is {@link IcmParametrospaginacionBlock }
-     *
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link IcmParametrospaginacionBlock }
+     *     
      */
     public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
         this.icmparametrospaginacion = value;
     }
 
-    /**
-     * Obtiene el valor de la propiedad icmparametrosentrada.
-     * @return possible object is {@link IcmParametrosentradaBlock }
-     *
-     */
-    public IcmParametrosentradaBlock getICMPARAMETROSENTRADA() {
-        return icmparametrosentrada;
-    }
-
-    /**
-     * Define el valor de la propiedad icmparametrosentrada.
-     * @param value allowed object is {@link IcmParametrosentradaBlock }
-     *
-     */
-    public void setICMPARAMETROSENTRADA(IcmParametrosentradaBlock value) {
-        this.icmparametrosentrada = value;
-    }
-
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -107,27 +115,20 @@ public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2
         }
         final GETFLAGCALCULA that = ((GETFLAGCALCULA) object);
         {
-            IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
-            lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
-            rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
-                    LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION),
-                    lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null),
-                    (that.icmparametrospaginacion != null))) {
+            IcmParamcalflagcalculaBlock lhsICMPARAMCALFLAGCALCULA;
+            lhsICMPARAMCALFLAGCALCULA = this.getICMPARAMCALFLAGCALCULA();
+            IcmParamcalflagcalculaBlock rhsICMPARAMCALFLAGCALCULA;
+            rhsICMPARAMCALFLAGCALCULA = that.getICMPARAMCALFLAGCALCULA();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalflagcalcula", lhsICMPARAMCALFLAGCALCULA), LocatorUtils.property(thatLocator, "icmparamcalflagcalcula", rhsICMPARAMCALFLAGCALCULA), lhsICMPARAMCALFLAGCALCULA, rhsICMPARAMCALFLAGCALCULA, (this.icmparamcalflagcalcula!= null), (that.icmparamcalflagcalcula!= null))) {
                 return false;
             }
         }
         {
-            IcmParametrosentradaBlock lhsICMPARAMETROSENTRADA;
-            lhsICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            IcmParametrosentradaBlock rhsICMPARAMETROSENTRADA;
-            rhsICMPARAMETROSENTRADA = that.getICMPARAMETROSENTRADA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrosentrada", lhsICMPARAMETROSENTRADA),
-                    LocatorUtils.property(thatLocator, "icmparametrosentrada", rhsICMPARAMETROSENTRADA),
-                    lhsICMPARAMETROSENTRADA, rhsICMPARAMETROSENTRADA, (this.icmparametrosentrada != null),
-                    (that.icmparametrosentrada != null))) {
+            IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
+            lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
+            rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION), LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION), lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null), (that.icmparametrospaginacion!= null))) {
                 return false;
             }
         }
@@ -155,16 +156,14 @@ public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
-            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
-                    (this.icmparametrospaginacion != null));
+            IcmParamcalflagcalculaBlock theICMPARAMCALFLAGCALCULA;
+            theICMPARAMCALFLAGCALCULA = this.getICMPARAMCALFLAGCALCULA();
+            strategy.appendField(locator, this, "icmparamcalflagcalcula", buffer, theICMPARAMCALFLAGCALCULA, (this.icmparamcalflagcalcula!= null));
         }
         {
-            IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
-            theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            strategy.appendField(locator, this, "icmparametrosentrada", buffer, theICMPARAMETROSENTRADA,
-                    (this.icmparametrosentrada != null));
+            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
         }
         return buffer;
     }
@@ -172,18 +171,14 @@ public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
-            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
-                    currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
+            IcmParamcalflagcalculaBlock theICMPARAMCALFLAGCALCULA;
+            theICMPARAMCALFLAGCALCULA = this.getICMPARAMCALFLAGCALCULA();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalflagcalcula", theICMPARAMCALFLAGCALCULA), currentHashCode, theICMPARAMCALFLAGCALCULA, (this.icmparamcalflagcalcula!= null));
         }
         {
-            IcmParametrosentradaBlock theICMPARAMETROSENTRADA;
-            theICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmparametrosentrada", theICMPARAMETROSENTRADA), currentHashCode,
-                    theICMPARAMETROSENTRADA, (this.icmparametrosentrada != null));
+            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION), currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
         }
         return currentHashCode;
     }
@@ -203,38 +198,32 @@ public class GETFLAGCALCULA implements Serializable, Cloneable, CopyTo2, Equals2
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof GETFLAGCALCULA) {
             final GETFLAGCALCULA copy = ((GETFLAGCALCULA) draftCopy);
             {
-                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmparametrospaginacion != null));
-                if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
-                    sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
-                        .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
-                                sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
-                    copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
+                Boolean icmparamcalflagcalculaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalflagcalcula!= null));
+                if (icmparamcalflagcalculaShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalflagcalculaBlock sourceICMPARAMCALFLAGCALCULA;
+                    sourceICMPARAMCALFLAGCALCULA = this.getICMPARAMCALFLAGCALCULA();
+                    IcmParamcalflagcalculaBlock copyICMPARAMCALFLAGCALCULA = ((IcmParamcalflagcalculaBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalflagcalcula", sourceICMPARAMCALFLAGCALCULA), sourceICMPARAMCALFLAGCALCULA, (this.icmparamcalflagcalcula!= null)));
+                    copy.setICMPARAMCALFLAGCALCULA(copyICMPARAMCALFLAGCALCULA);
                 } else {
-                    if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparametrospaginacion = null;
+                    if (icmparamcalflagcalculaShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalflagcalcula = null;
                     }
                 }
             }
             {
-                Boolean icmparametrosentradaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmparametrosentrada != null));
-                if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrosentradaBlock sourceICMPARAMETROSENTRADA;
-                    sourceICMPARAMETROSENTRADA = this.getICMPARAMETROSENTRADA();
-                    IcmParametrosentradaBlock copyICMPARAMETROSENTRADA = ((IcmParametrosentradaBlock) strategy.copy(
-                            LocatorUtils.property(locator, "icmparametrosentrada", sourceICMPARAMETROSENTRADA),
-                            sourceICMPARAMETROSENTRADA, (this.icmparametrosentrada != null)));
-                    copy.setICMPARAMETROSENTRADA(copyICMPARAMETROSENTRADA);
+                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospaginacion!= null));
+                if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
+                    sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION), sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null)));
+                    copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
                 } else {
-                    if (icmparametrosentradaShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparametrosentrada = null;
+                    if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparametrospaginacion = null;
                     }
                 }
             }

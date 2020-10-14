@@ -138,4 +138,16 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> indicadorDesplazamientoBaseDirectoVenta(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.indicadorDesplazamientoBaseDirectoVenta(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> indicadorDesplazamientoDirectoVenta(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.indicadorDesplazamientoDirectoVenta(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

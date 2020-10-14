@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -48,10 +49,21 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
 
     List<IdLocalizacionLocalDto> findTiendasGrupoFechasByIdTarea(@NotNull @Positive final Long idTarea);
 
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
+            @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+            @NotNull @NotEmpty final List<String> stdIdLegEnt);
+
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
+            @NotNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
+            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull List<String> tiposCalculo);
+
+    List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(
+            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea);
+
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
             @NotNull @Positive Long idTarea, @NotNull @Positive Integer idTipoPresupuesto,
             @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin);
 
-    void mergeLocalizacionFicticia(@NotNull Long idTarea, @NotNull String cclIdOrigen);
+    void mergeLocalizacionFicticia(@NotNull Long idTarea, @NotNull String cclIdOrigen, @NotBlank String stdIdLegEnt);
 
 }

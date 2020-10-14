@@ -17,200 +17,206 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
     private RunTareaProcesarVentaService tareaProcesarVentaService;
 
     @Override
-    public CompletableFuture<Void> saveAbierto(RunTareaDto runTarea) {
-        tareaProcesarVentaService.saveAbierto(runTarea);
+    public CompletableFuture<Void> saveAbierto(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.saveAbierto(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> saveAbiertoSeccion(RunTareaDto runTarea) {
-        tareaProcesarVentaService.saveAbiertoSeccion(runTarea);
+    public CompletableFuture<Void> saveAbiertoSeccion(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.saveAbiertoSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> compensarOnlineSeccionCerrada(RunTareaDto runTarea) {
-        tareaProcesarVentaService.compensarOnlineSeccionCerrada(runTarea);
+    public CompletableFuture<Void> compensarOnlineSeccionCerrada(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.compensarOnlineSeccionCerrada(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> saveCerrado(RunTareaDto runTarea) {
-        tareaProcesarVentaService.saveCerrado(runTarea);
+    public CompletableFuture<Void> saveCerrado(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.saveCerrado(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> saveCerradoSeccion(RunTareaDto runTarea) {
-        tareaProcesarVentaService.saveCerradoSeccion(runTarea);
+    public CompletableFuture<Void> saveCerradoSeccion(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.saveCerradoSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> trasladar(RunTareaDto runTarea) {
-        tareaProcesarVentaService.trasladar(runTarea);
+    public CompletableFuture<Void> trasladar(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.trasladar(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> compensar(RunTareaDto runTarea) {
-        tareaProcesarVentaService.compensar(runTarea);
+    public CompletableFuture<Void> compensar(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.compensar(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> repartoVentaEntregaDomicilioAgrupaciones(RunTareaDto runTarea) {
-        tareaProcesarVentaService.repartoVentaEntregaDomicilioAgrupaciones(runTarea);
+    public CompletableFuture<Void> repartoVentaEntregaDomicilioAgrupaciones(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.repartoVentaEntregaDomicilioAgrupaciones(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(RunTareaDto runTarea) {
-        tareaProcesarVentaService.repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(runTarea);
+    public CompletableFuture<Void> repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> repartoVentaEntregaDomicilioSeccion(RunTareaDto runTarea) {
-        tareaProcesarVentaService.repartoVentaEntregaDomicilioSeccion(runTarea);
+    public CompletableFuture<Void> repartoVentaEntregaDomicilioSeccion(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.repartoVentaEntregaDomicilioSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> updateActivoTrasladadas(RunTareaDto runTarea) {
-        tareaProcesarVentaService.updateActivoTrasladadas(runTarea);
+    public CompletableFuture<Void> updateActivoTrasladadas(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.updateActivoTrasladadas(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> updateActivoExcepcionada(RunTareaDto runTarea) {
-        tareaProcesarVentaService.updateActivoExcepcionada(runTarea);
+    public CompletableFuture<Void> updateActivoExcepcionada(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.updateActivoExcepcionada(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> updateActivoCongelada(RunTareaDto runTarea) {
-        tareaProcesarVentaService.updateActivoCongelada(runTarea);
+    public CompletableFuture<Void> updateActivoCongeladaSeccion(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.updateActivoCongeladaSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarPresupuesto(RunTareaDto runTarea) {
-        tareaProcesarVentaService.totalizarPresupuesto(runTarea);
+    public CompletableFuture<Void> updateActivoCongelada(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.updateActivoCongelada(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> updateActivoTrasladadasSeccion(RunTareaDto runTarea) {
-        tareaProcesarVentaService.updateActivoTrasladadasSeccion(runTarea);
+    public CompletableFuture<Void> totalizarPresupuesto(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.totalizarPresupuesto(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> agruparOnlineSeccionDia(RunTareaDto runTarea) {
-        tareaProcesarVentaService.agruparOnlineSeccionDia(runTarea);
+    public CompletableFuture<Void> updateActivoTrasladadasSeccion(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.updateActivoTrasladadasSeccion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> updateActivoTrasladadasTotalizado(RunTareaDto runTarea) {
-        tareaProcesarVentaService.updateActivoTrasladadasTotalizado(runTarea);
+    public CompletableFuture<Void> agruparOnlineSeccionDia(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.agruparOnlineSeccionDia(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarVentaSinDevolucionPersonasPorVenta(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarVentaSinDevolucionPersonasPorVenta(tarea);
+    public CompletableFuture<Void> updateActivoTrasladadasTotalizado(final RunTareaDto runTarea) {
+        this.tareaProcesarVentaService.updateActivoTrasladadasTotalizado(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarVentaPersonasPorVentaSimplificada(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarVentaPersonasPorVentaSimplificada(tarea);
+    public CompletableFuture<Void> totalizarVentaSinDevolucionPersonasPorVenta(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarVentaSinDevolucionPersonasPorVenta(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarDevolucionLocalizacionSeccion(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarDevolucionLocalizacionSeccion(tarea);
+    public CompletableFuture<Void> totalizarVentaPersonasPorVentaSimplificada(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarVentaPersonasPorVentaSimplificada(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarVentaSinDevolucionLocalizacionSeccion(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarVentasSinDevolucionLocalizacionSeccion(tarea);
+    public CompletableFuture<Void> totalizarDevolucionLocalizacionSeccion(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarDevolucionLocalizacionSeccion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarVentaPersonaSeccion(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarVentaPersonaSeccion(tarea);
+    public CompletableFuture<Void> totalizarVentaSinDevolucionLocalizacionSeccion(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarVentasSinDevolucionLocalizacionSeccion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarVentaSinDevolucionPersonaSeccion(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarVentaSinDevolucionPersonaSeccion(tarea);
+    public CompletableFuture<Void> totalizarVentaPersonaSeccion(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarVentaPersonaSeccion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarDevolucionPersonaSeccion(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarDevolucionPersonaSeccion(tarea);
+    public CompletableFuture<Void> totalizarVentaSinDevolucionPersonaSeccion(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarVentaSinDevolucionPersonaSeccion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarVentaFisicaSinDevolucionPersonaSeccion(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea);
+    public CompletableFuture<Void> totalizarDevolucionPersonaSeccion(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarDevolucionPersonaSeccion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea);
+    public CompletableFuture<Void> totalizarVentaFisicaSinDevolucionPersonaSeccion(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarDevolucionFisicaPersonaSeccion(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarDevolucionFisicaPersonaSeccion(tarea);
+    public CompletableFuture<Void> totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarDevolucionOnlineIpodPersonaSeccion(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarDevolucionOnlineIpodPersonaSeccion(tarea);
+    public CompletableFuture<Void> totalizarDevolucionFisicaPersonaSeccion(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarDevolucionFisicaPersonaSeccion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> calcularImporteComisionVendedores(RunTareaDto tarea) {
-        tareaProcesarVentaService.calcularImporteComisionVendedores(tarea);
+    public CompletableFuture<Void> totalizarDevolucionOnlineIpodPersonaSeccion(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarDevolucionOnlineIpodPersonaSeccion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> calcularImporteComisionVentaODevolucion(RunTareaDto tarea) {
-        tareaProcesarVentaService.calcularImporteComisionVentaODevolucion(tarea);
+    public CompletableFuture<Void> calcularImporteComisionVendedores(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.calcularImporteComisionVendedores(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> updateActivoNegativoTotalizado(RunTareaDto tarea) {
-        tareaProcesarVentaService.updateActivoNegativoTotalizado(tarea);
+    public CompletableFuture<Void> calcularImporteComisionVentaODevolucion(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.calcularImporteComisionVentaODevolucion(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> totalizarVentasVendedor0(RunTareaDto tarea) {
-        tareaProcesarVentaService.totalizarVentasVendedor0(tarea);
+    public CompletableFuture<Void> updateActivoNegativoTotalizado(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.updateActivoNegativoTotalizado(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> repartoDevolucionVendedor0(RunTareaDto tarea) {
-        tareaProcesarVentaService.repartoDevolucionVendedor0(tarea);
+    public CompletableFuture<Void> totalizarVentasVendedor0(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.totalizarVentasVendedor0(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> repartoDevolucionVendedor0(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.repartoDevolucionVendedor0(tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
