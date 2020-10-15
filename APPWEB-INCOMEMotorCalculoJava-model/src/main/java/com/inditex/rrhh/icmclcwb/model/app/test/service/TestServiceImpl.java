@@ -284,8 +284,7 @@ public class TestServiceImpl implements TestService {
             final String localizacion = values[3];
             final String persona = values[4];
             final String orPersona = values[5];
-            final Random rand = new Random();
-            final Integer tipo = rand.nextInt(5) + 1;
+            final Integer tipo = 4;
             final TrabajoDto trabajo = new TrabajoDto();
             switch (tipo) {
                 case 1:
