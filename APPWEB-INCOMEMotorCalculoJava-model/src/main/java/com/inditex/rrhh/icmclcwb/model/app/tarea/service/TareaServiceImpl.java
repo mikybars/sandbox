@@ -68,7 +68,7 @@ public class TareaServiceImpl implements TareaService {
         return tarea;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public TareaDto create(@Valid @NotNull final TareaDto tarea) {
         tarea.setFechaHoraCreacion(LocalDateTime.now());
