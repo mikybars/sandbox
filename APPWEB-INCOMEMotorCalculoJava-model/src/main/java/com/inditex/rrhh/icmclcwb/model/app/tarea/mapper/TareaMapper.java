@@ -119,9 +119,11 @@ public abstract class TareaMapper {
     @Mapping(target = "idLugarTrabajo", ignore = true)
     @Mapping(target = "idTpPresupuesto", ignore = true)
     @Mapping(target = "idEmpresa", source = "stdIdLegEnt")
-    public abstract PresupuestosWlocFilterParametersDto idEmpresaDtoToPresupuestosWlocFilterParametersDto(IdEmpresaDto src);
+    public abstract PresupuestosWlocFilterParametersDto idEmpresaDtoToPresupuestosWlocFilterParametersDto(
+            IdEmpresaDto src);
 
-    public abstract List<PresupuestosWlocFilterParametersDto> idEmpresaDtoToPresupuestosWlocFilterParametersDto(List<IdEmpresaDto> src);
+    public abstract List<PresupuestosWlocFilterParametersDto> idEmpresaDtoToPresupuestosWlocFilterParametersDto(
+            List<IdEmpresaDto> src);
 
     @Mapping(target = "item", ignore = true)
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(periodo.getFechaInicioPeriodo()))")
@@ -290,6 +292,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "ventaPAT", ignore = true)
     public abstract PtrVentaOnlinePickingRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlinePickingRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             IdLocalizacionLocalPresupuestoDto srcPresupuesto,
@@ -535,6 +538,7 @@ public abstract class TareaMapper {
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
+    @Mapping(target = "ventaPAT", ignore = true)
     public abstract PtrVentaOnlinePickingRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlinePickingRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             RecolectarPropertiesDto srcRecolectarProperties);
@@ -550,6 +554,7 @@ public abstract class TareaMapper {
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
+    @Mapping(target = "ventaPAT", ignore = true)
     public abstract PtrVentaOnlinePickingRequestDto mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaOnlinePickingRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo);
 
@@ -672,10 +677,10 @@ public abstract class TareaMapper {
     @Mapping(target = "cclIdOrigen", source = "srcDesplazamiento.idOrigen")
     @Mapping(target = "stdIdLegEnt", source = "srcDesplazamiento.idEmpresa")
     public abstract TareaAmbitoGlobalEmpresaDto mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(
-        TareaDto srcTarea, DesplazamientosMultiempresaItemDto srcDesplazamiento);
+            TareaDto srcTarea, DesplazamientosMultiempresaItemDto srcDesplazamiento);
 
     public List<TareaAmbitoGlobalEmpresaDto> mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToAmbitoGlobalEmpresaDto(
-        TareaDto srcTarea, List<DesplazamientosMultiempresaItemDto> srcDesplazamiento) {
+            final TareaDto srcTarea, final List<DesplazamientosMultiempresaItemDto> srcDesplazamiento) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
@@ -684,7 +689,7 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaInicio", source = "srcDesplazamiento.fechaInicio")
     @Mapping(target = "fechaFin", source = "srcDesplazamiento.fechaFin")
     public abstract TareaAmbitoGlobalFechaDto mergeTareaDtoAndDesplazamientosMultiempresaItemDtoToTareaAmbitoGlobalFechaDto(
-        TareaDto srcTarea, DesplazamientosMultiempresaItemDto srcDesplazamiento);
+            TareaDto srcTarea, DesplazamientosMultiempresaItemDto srcDesplazamiento);
 
     @Mapping(target = "item", ignore = true)
     public abstract DesplazamientoRealFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToDesplazamientoRealFilterDto(

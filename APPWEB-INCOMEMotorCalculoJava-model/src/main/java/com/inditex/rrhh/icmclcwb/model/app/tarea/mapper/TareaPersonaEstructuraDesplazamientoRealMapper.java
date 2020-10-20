@@ -30,6 +30,8 @@ public abstract class TareaPersonaEstructuraDesplazamientoRealMapper {
     @Mapping(target = "stdOrHrPeriod", source = "stdOrHrPeriod")
     @Mapping(target = "icmIdEstrComision", source = "icmIdEstrComision")
     @Mapping(target = "icmIdEstructuraAmbito", source = "icmIdEstructuraAmbito")
+    @Mapping(target = "icmIdEstrComisionPadre", source = "icmIdEstrComisionPadre")
+    @Mapping(target = "icmIdEstrComisionBase", source = "icmIdEstrComisionBase")
     public abstract TareaPersonaEstructuraDesplazamientoRealDto tareaPersonaEstructuraDesplazamientoRealToTareaPersonaEstructuraDesplazamientoRealDto(
             TareaPersonaEstructuraDesplazamientoReal src);
 

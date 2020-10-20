@@ -72,4 +72,6 @@ public class PtrTestConstants {
 
     public static final String AGRUPACION_FECHA_TIENDA = "FECHA_TIENDA";
 
+    public static final Integer INCLUIR_VENTA_PAT = 1;
+
 }

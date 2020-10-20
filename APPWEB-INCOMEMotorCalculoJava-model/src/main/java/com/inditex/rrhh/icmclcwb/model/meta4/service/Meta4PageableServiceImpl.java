@@ -17,7 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4PageableService;
-import org.apache.commons.collections.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 
 @Service
 public class Meta4PageableServiceImpl implements Meta4PageableService {
