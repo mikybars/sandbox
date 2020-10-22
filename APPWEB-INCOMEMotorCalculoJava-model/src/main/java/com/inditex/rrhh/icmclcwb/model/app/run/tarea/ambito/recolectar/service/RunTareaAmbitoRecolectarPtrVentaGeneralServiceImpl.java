@@ -214,7 +214,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 final PtrVentaTotalizadoRequestDto request = this.tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
                             trabajo, tarea,
-                            tareaAmbito, iter, this.recolectarProperties);
+                            tareaAmbito, iter);
                 request.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
                 request.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
                 request.setAgrupacion(PtrGroupTypeEnum.OPERACION_TIENDA_SECCION);

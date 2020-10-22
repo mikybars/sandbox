@@ -452,7 +452,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                 .findTiendasPresupuestosByStdIdLegEntAndIdTarea(empresasAmbito, tarea.getId())) {
                 final PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod = this.tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(trabajo, tarea,
-                            tareaAmbito, this.recolectarProperties);
+                            tareaAmbito);
                 paramVentaOnlineIpod.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
                 paramVentaOnlineIpod.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 paramVentaOnlineIpod
@@ -503,7 +503,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                 final PtrVentaOnlinePickingRequestDto paramVentaOnlinePicking = this.tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlinePickingRequestDto(
                             trabajo, tarea,
-                            tareaAmbito, iter, this.recolectarProperties);
+                            tareaAmbito, iter);
                 paramVentaOnlinePicking.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
                 paramVentaOnlinePicking.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 paramVentaOnlinePicking
@@ -559,7 +559,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                 final PtrVentaOnlineEntregaTiendaRequestDto paramVentaOnlineEntregaTiendaRequest = this.tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineEntregaTiendaRequestDto(
                             trabajo, tarea,
-                            tareaAmbito, iter, this.recolectarProperties);
+                            tareaAmbito, iter);
                 paramVentaOnlineEntregaTiendaRequest.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
                 paramVentaOnlineEntregaTiendaRequest.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 paramVentaOnlineEntregaTiendaRequest
@@ -613,7 +613,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                 final PtrVentaOnlineEntregaDomicilioRequestDto paramVentaOnlineEntregaTiendaRequest = this.tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineEntregaDomicilioRequestDto(
                             trabajo, tarea,
-                            tareaAmbito, iter, this.recolectarProperties);
+                            tareaAmbito, iter);
                 paramVentaOnlineEntregaTiendaRequest.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
                 paramVentaOnlineEntregaTiendaRequest.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
                 paramVentaOnlineEntregaTiendaRequest
