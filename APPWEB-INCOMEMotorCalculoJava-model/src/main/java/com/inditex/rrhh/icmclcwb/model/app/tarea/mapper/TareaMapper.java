@@ -291,8 +291,7 @@ public abstract class TareaMapper {
 
     @Mapping(target = "tienda", ignore = true)
     @Mapping(target = "fechaDesde", source = "srcPresupuesto.fechaInicio", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(target = "fechaHasta",
-            expression = "java(RunUtils.addDays( srcPresupuesto.getFechaFin(), srcRecolectarProperties.getDaysNumber(), PtrConstants.DATE_FORMAT))")
+    @Mapping(target = "fechaHasta", source = "srcPresupuesto.fechaFin", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
     @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "cadena", ignore = true)
@@ -303,8 +302,7 @@ public abstract class TareaMapper {
     @Mapping(target = "agrupacion", ignore = true)
     public abstract PtrVentaOnlineIpodRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlineIpodRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
-            IdLocalizacionLocalPresupuestoDto srcPresupuesto,
-            RecolectarPropertiesDto srcRecolectarProperties);
+            IdLocalizacionLocalPresupuestoDto srcPresupuesto);
 
     @Mapping(target = "tienda", ignore = true)
     @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
@@ -468,20 +466,6 @@ public abstract class TareaMapper {
     public abstract PtrPresenciaEmpleadosTiendaRequestDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciaEmpleadosTiendaRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo,
             List<IdLocalizacionLocalDto> srcLocalizaciones);
-
-    @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(target = "fechaHasta", source = "srcPresupuesto.fechaFin", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(target = "pais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "cadena", ignore = true)
-    @Mapping(target = "tiendaOnline", ignore = true)
-    @Mapping(target = "producto", ignore = true)
-    @Mapping(target = "tienda", ignore = true)
-    @Mapping(target = "seccion", ignore = true)
-    @Mapping(target = "agrupacion", ignore = true)
-    @Mapping(target = "agruparSeccion", ignore = true)
-    @Mapping(target = "empresa", ignore = true)
-    public abstract PtrVentaOnlineIpodRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlineIpodRequestDto(
-            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
     @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "fechaDesde", source = "periodo.fechaInicioPeriodo", dateFormat = PtrConstants.DATE_FORMAT)
