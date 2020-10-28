@@ -23,7 +23,6 @@ public class PtrVentaOnlineEntregaTiendaResultItemDto implements Serializable {
 
     private Integer cadena;
 
-    @NotBlank
     private Integer tienda;
 
     private Integer seccion;

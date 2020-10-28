@@ -23,7 +23,6 @@ public class PtrVentaOnlineIpodResultItemDto implements Serializable {
 
     private Integer cadena;
 
-    @NotBlank
     private Integer tienda;
 
     private Integer empresa;

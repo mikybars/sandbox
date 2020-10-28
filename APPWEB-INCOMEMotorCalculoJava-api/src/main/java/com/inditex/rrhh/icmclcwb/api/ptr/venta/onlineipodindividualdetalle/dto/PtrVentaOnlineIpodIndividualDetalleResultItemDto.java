@@ -24,7 +24,6 @@ public class PtrVentaOnlineIpodIndividualDetalleResultItemDto implements Seriali
 
     private Integer empresa;
 
-    @NotBlank
     private Integer tienda;
 
     private Integer seccion;
