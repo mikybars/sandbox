@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericType;
@@ -22,7 +23,7 @@ public class PtrPresenciaDetalleResultItemDto implements Serializable {
     @NotNull
     private Integer persona;
 
-    @NotNull
+    @NotBlank
     private String fecha;
 
     private Integer minutos;
