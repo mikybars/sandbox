@@ -18,7 +18,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganiza
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
@@ -31,7 +30,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListadesplazrealRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
@@ -151,21 +149,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return mappedEntity;
     }
-
-    @Override
-    public DesplazamientoRealResultItemDto asDesplazamientoRealResultItemDto(final IcmListadesplazrealRecord src) {
-        final DesplazamientoRealResultItemDto mappedEntity = this.delegate.asDesplazamientoRealResultItemDto(src);
-        if (StringUtils.isNotEmpty(src.getFechainicio())) {
-            mappedEntity.setFechaInicio(LocalDateTime.parse(src.getFechainicio(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(src.getFechafin())) {
-            mappedEntity.setFechaFin(LocalDateTime.parse(src.getFechafin(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        return mappedEntity;
-    }
-
 
     @Override
     public List<ConfPrecioHoraResultItemDto> asConfPrecioHoraResultItemDto(
