@@ -307,13 +307,16 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
     @Override
     public List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(
-            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea) {
+            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea,
+            @NotNull @NotEmpty final List<Long> idTipoConceptoVentaChallenge) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays
             .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_CONCEPTO_VENTA_CHALLENGE, idTipoConceptoVentaChallenge);
+
         return this.query(this.sqlFindIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea, parameters,
                 (rs, rowNum) -> IdLocalizacionLocalPresupuestoDto.builder()
                     .idTipoPresupuesto(rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_PRESUPUESTO))
