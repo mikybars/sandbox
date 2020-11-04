@@ -15,7 +15,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <maven.test.skip>false</maven.test.skip>
+    <maven.test.skip>true</maven.test.skip>
     <sonar.exclusions>**/model/meta4/icmwscalcincome/entity/**,**/model/meta4/login/entity/**</sonar.exclusions>
     <app.github.chrisvest.version>3.1</app.github.chrisvest.version>
     <app.org.jvnet.jaxb2_commons.version>0.12.0</app.org.jvnet.jaxb2_commons.version>
