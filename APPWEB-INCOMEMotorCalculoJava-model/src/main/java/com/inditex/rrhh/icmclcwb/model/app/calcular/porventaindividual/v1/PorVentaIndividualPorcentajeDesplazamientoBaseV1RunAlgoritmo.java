@@ -38,7 +38,7 @@ public class PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo implem
                         runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: PorVentaIndividualPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
                         personas.size());

@@ -39,7 +39,7 @@ public class RunAjusteBajaItProcesar implements RunAjuste {
                 tareaCalculoAjusteBajaItRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: RunAjusteBajaItProcesar :: Personas: {}", personas.size());
                 try {

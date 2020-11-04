@@ -39,7 +39,7 @@ public class GlobalTiendaPorcentajeDiariaV1RunAlgoritmo implements RunAlgoritmo 
                 tareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: GlobalTiendaPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", personas.size());
                 try {

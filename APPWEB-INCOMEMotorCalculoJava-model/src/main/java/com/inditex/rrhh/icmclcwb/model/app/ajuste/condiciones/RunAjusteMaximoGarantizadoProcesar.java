@@ -39,7 +39,7 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
                 tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
                 try {

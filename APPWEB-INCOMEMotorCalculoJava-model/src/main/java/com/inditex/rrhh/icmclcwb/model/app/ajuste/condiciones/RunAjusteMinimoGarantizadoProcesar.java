@@ -39,7 +39,7 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
                 tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
                 try {
