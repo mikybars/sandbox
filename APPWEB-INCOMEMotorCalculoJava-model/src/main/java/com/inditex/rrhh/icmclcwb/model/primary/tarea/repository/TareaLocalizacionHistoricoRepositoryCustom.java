@@ -58,7 +58,8 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
             @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull List<String> tiposCalculo);
 
     List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(
-            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea);
+            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea,
+            @NotNull @NotEmpty final List<Long> idTipoConceptoVentaChallenge);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
             @NotNull @Positive Long idTarea, @NotNull @Positive Integer idTipoPresupuesto,

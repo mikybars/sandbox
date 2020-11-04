@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoChallengeEnum;
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
@@ -162,7 +164,8 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
             final List<TareaAgrupacionCadenasDto> agrupaciones = this.tareaAgrupacionCadenaService
                 .findAgrupacionesByTarea(tarea);
             final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService
-                .findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(), tareaAmbito.getCclIdOrigen());
+                .findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(), tareaAmbito.getCclIdOrigen(),
+                        TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
             final PtrVentaTotalizadoRequestDto request = this.tareaMapper
                 .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoIdCadenaDtoToPtrVentaTotalizadoRequestDto(
                         tarea, tareaAmbito, periodo, this.recolectarProperties, cadenas);
@@ -210,12 +213,21 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 .map(IdEmpresaDto::getStdIdLegEnt)
                 .collect(Collectors.toList());
             for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
-                .findTiendasPresupuestosByStdIdLegEntAndIdTarea(empresasAmbito, tarea.getId())) {
+                .findTiendasPresupuestosByStdIdLegEntAndIdTarea(empresasAmbito, tarea.getId(),
+                        Arrays.asList(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getId(),
+                                TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getId()))) {
                 final PtrVentaTotalizadoRequestDto request = this.tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
                             trabajo, tarea,
-                            tareaAmbito, iter, this.recolectarProperties);
-                request.setTienda(Arrays.asList(Integer.valueOf(iter.getId())));
+                            tareaAmbito, iter);
+                request
+                    .setTienda(this.tareaLocalizacionHistoricoService
+                        .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(tarea.getId(),
+                                iter.getIdTipoPresupuesto(),
+                                iter.getFechaInicio(), iter.getFechaFin())
+                        .stream()
+                        .map(x -> Integer.valueOf(x.getId()))
+                        .collect(Collectors.toList()));
                 request.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
                 request.setAgrupacion(PtrGroupTypeEnum.OPERACION_TIENDA_SECCION);
                 request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
