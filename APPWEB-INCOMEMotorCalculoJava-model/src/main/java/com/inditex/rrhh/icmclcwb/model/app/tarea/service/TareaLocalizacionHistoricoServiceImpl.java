@@ -212,4 +212,12 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
             .mergeLocalizacionFicticia(idTarea, cclIdOrigen, stdIdLegEnt);
     }
 
+    @Override
+    public List<IdLocalizacionLocalDto> findLocalizacionFicticiaByIdOrigenAndIdEmpresa(
+            @NotNull final String cclIdOrigen,
+            @NotBlank final String stdIdLegEnt) {
+        return this.tareaLocalizacionHistoricoRepositoryCustom
+            .findLocalizacionFicticiaByIdOrigenAndIdEmpresa(cclIdOrigen, stdIdLegEnt);
+    }
+
 }

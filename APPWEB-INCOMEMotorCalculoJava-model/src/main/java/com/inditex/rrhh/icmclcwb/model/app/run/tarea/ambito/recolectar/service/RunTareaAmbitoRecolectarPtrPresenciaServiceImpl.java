@@ -6,16 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
@@ -41,8 +42,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrAgruparSeccionEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import org.slf4j.Logger;
 
 @Service
@@ -121,21 +122,30 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
             final PtrFilterPropertiesDto filter = this.presenciasProperties
                 .get(PtrPropertiesConstants.PRESENCIA_DETALLE)
                 .getFilter();
-            List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId()).stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
+            final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .map(IdEmpresaDto::getStdIdLegEnt)
+                .collect(Collectors.toList());
+            empresasAmbito.add(PtrConstants.EMPRESA_0);
+            final List<IdLocalizacionLocalDto> ficticias = this.tareaTiendaHistoricoService
+                .findLocalizacionFicticiaByIdOrigenAndIdEmpresa(tareaAmbito.getCclIdOrigen(), PtrConstants.EMPRESA_0);
+            final List<IdLocalizacionLocalDto> localizaciones = this.tareaTiendaHistoricoService
+                .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
+                        tarea.getId(), tareaAmbito.getCclIdOrigen(), empresasAmbito);
             for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                this.tareaTiendaHistoricoService
-                    .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-                        tarea.getId(), tareaAmbito.getCclIdOrigen(), empresasAmbito),
-                filter.getMaxPageSize())) {
+                    Stream.concat(localizaciones.stream(), ficticias.stream())
+                        .collect(Collectors.toList()),
+                    filter.getMaxPageSize())) {
                 for (final PeriodoDto periodo : this.tareaLocalizacionPresupuestoService
                     .findListaPeriodosPresupestoYTrabajo(
-                        tarea.getId(), filter, this.recolectarProperties)) {
+                            tarea.getId(), filter, this.recolectarProperties)) {
                     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
                     final PtrPresenciaDetalleRequestDto paramPresenciasDetalle = this.tareaMapper
                         .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(tarea,
-                            tareaAmbito, periodo);
-                    paramPresenciasDetalle.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
+                                tareaAmbito, periodo);
+                    paramPresenciasDetalle
+                        .setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
                     paramPresenciasDetalle.setTienda(iter.stream()
                         .map(IdLocalizacionLocalDto::getId)
                         .map(Integer::valueOf)

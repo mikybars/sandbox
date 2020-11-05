@@ -22,4 +22,8 @@ public class PtrConstants {
 
     public static final Integer VENDEDOR_0 = 0;
 
+    public static final String EMPRESA_0 = "0";
+
+    public static final String LOCALIZACION_11 = "11";
+
 }

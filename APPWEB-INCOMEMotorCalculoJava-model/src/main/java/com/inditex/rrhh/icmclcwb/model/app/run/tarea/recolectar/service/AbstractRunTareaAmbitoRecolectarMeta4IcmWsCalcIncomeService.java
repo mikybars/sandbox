@@ -31,6 +31,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaSer
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
@@ -197,7 +198,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
             final TareaDto tarea = runTarea.getTarea();
             final SearchTiendasRequestDto request = new SearchTiendasRequestDto();
             this.tareaLocalizacionHistoricoService.mergeLocalizacionFicticia(tarea.getId(),
-                    tareaAmbito.getCclIdOrigen(), tarea.getStdIdLegEnt());
+                    tareaAmbito.getCclIdOrigen(), AppConstants.EMPRESA_0);
             final List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
                 .findIdEmpresaByIdTarea(tarea.getId());
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS).getPage());
