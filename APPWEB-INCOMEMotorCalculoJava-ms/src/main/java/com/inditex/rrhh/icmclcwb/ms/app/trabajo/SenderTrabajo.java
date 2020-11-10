@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import org.apache.activemq.ScheduledMessage;
 
 import com.inditex.aqsw.framework.data.jms.JmsClient;
 
@@ -20,10 +19,7 @@ public class SenderTrabajo {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void send(final TrabajoDto trabajo) {
-        this.trabajoJmsClient.convertAndSend(trabajo, m -> {
-            m.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, 60000);
-            return m;
-        });
+        this.trabajoJmsClient.convertAndSend(trabajo);
     }
 
 }
