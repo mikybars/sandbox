@@ -6,8 +6,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inditex.aqsw.framework.data.jms.JmsClient;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import org.apache.activemq.ScheduledMessage;
+
+import com.inditex.aqsw.framework.data.jms.JmsClient;
 
 @Component
 public class SenderTrabajo {
@@ -17,8 +19,11 @@ public class SenderTrabajo {
     private JmsClient trabajoJmsClient;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void send(TrabajoDto trabajo) {
-        trabajoJmsClient.convertAndSend(trabajo);
+    public void send(final TrabajoDto trabajo) {
+        this.trabajoJmsClient.convertAndSend(trabajo, m -> {
+            m.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, 60000);
+            return m;
+        });
     }
 
 }
