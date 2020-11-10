@@ -48,7 +48,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrAgruparSeccionEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupSellerTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrIncluirVentaPatEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaEcommerceAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
@@ -282,7 +281,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                         .stream()
                         .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                         .collect(Collectors.toList()));
-                    paramVentaOnlinePicking.setVentaPAT(PtrIncluirVentaPatEnum.TRUE.getValue());
+                    // paramVentaOnlinePicking.setVentaPAT(PtrIncluirVentaPatEnum.TRUE.getValue());
 
                     final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = this.ptrVentaEcommerceAsyncService
                         .ventaOnlinePicking(paramVentaOnlinePicking);
@@ -535,7 +534,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                     .stream()
                     .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
-                paramVentaOnlinePicking.setVentaPAT(PtrIncluirVentaPatEnum.FALSE.getValue());
+                // paramVentaOnlinePicking.setVentaPAT(PtrIncluirVentaPatEnum.FALSE.getValue());
 
 
                 final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = this.ptrVentaEcommerceAsyncService
