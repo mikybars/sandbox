@@ -39,7 +39,7 @@ public class DirectoVentaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
                 tareaCalculoAlgoritmoDirectoVentaPorcentajeV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: DirectoVentaPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
                 try {

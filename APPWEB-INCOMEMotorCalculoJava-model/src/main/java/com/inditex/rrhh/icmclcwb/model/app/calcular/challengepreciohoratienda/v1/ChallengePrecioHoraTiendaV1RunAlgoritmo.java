@@ -39,7 +39,7 @@ public class ChallengePrecioHoraTiendaV1RunAlgoritmo implements RunAlgoritmo {
                 tareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: ChallengePrecioHoraTiendaV1RunAlgoritmo :: Personas: {}", personas.size());
                 try {

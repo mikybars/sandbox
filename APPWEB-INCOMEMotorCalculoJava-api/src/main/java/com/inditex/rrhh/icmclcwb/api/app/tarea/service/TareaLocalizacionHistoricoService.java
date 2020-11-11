@@ -64,7 +64,8 @@ public interface TareaLocalizacionHistoricoService {
 
     List<IdLocalizacionLocalPresupuestoDto> findTiendasPresupuestosByStdIdLegEntAndIdTarea(
             @NotNull @NotEmpty final List<String> stdIdLegEnt,
-            @NotNull @Positive final Long idTarea);
+            @NotNull @Positive final Long idTarea,
+            @NotNull @NotEmpty List<Long> idTipoConceptoVentaChallenge);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
             @NotNull @Positive final Long idTarea,
@@ -79,5 +80,8 @@ public interface TareaLocalizacionHistoricoService {
             @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin);
 
     void mergeLocalizacionFicticia(@NotNull Long idTarea, @NotNull String cclIdOrigen, @NotBlank String stdIdLegEnt);
+
+    List<IdLocalizacionLocalDto> findLocalizacionFicticiaByIdOrigenAndIdEmpresa(@NotNull String cclIdOrigen,
+            @NotBlank String stdIdLegEnt);
 
 }

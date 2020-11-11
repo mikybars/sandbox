@@ -43,6 +43,14 @@ public class TareaPersonaEstructuraDesplazamientoRealDto implements Serializable
     @NotBlank
     @ApiModelProperty(value = "Id estructura", required = true)
     private String icmIdEstrComision;
+    
+    @NotBlank
+    @ApiModelProperty(value = "Id estructura padre", required = true)
+    private String icmIdEstrComisionPadre;
+
+    @NotBlank
+    @ApiModelProperty(value = "Id estructura base", required = true)
+    private String icmIdEstrComisionBase;
 
     @NotBlank
     @ApiModelProperty(value = "Id estructura del ambito", required = true)

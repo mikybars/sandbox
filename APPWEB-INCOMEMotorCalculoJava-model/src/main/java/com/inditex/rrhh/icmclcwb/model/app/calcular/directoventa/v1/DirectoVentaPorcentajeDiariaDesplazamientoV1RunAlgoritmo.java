@@ -40,7 +40,7 @@ public class DirectoVentaPorcentajeDiariaDesplazamientoV1RunAlgoritmo implements
                         runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: DirectoVentaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}",
                         personas.size());

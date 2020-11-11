@@ -40,7 +40,7 @@ public class ChallengeImporteTiendaDesplazamientoV1RunAlgoritmo implements RunAl
                         runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: ChallengeImporteTiendaDesplazamientoV1RunAlgoritmo :: Personas: {}",
                         personas.size());

@@ -40,7 +40,7 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
                     .ids(algoritmo, runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info(
                         "Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}",

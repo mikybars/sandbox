@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inditex.aqsw.framework.data.jms.JmsClient;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+
+import com.inditex.aqsw.framework.data.jms.JmsClient;
 
 @Component
 public class SenderTarea {
@@ -17,8 +18,8 @@ public class SenderTarea {
     private JmsClient tareaJmsClient;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void send(TareaDto tarea) {
-        tareaJmsClient.convertAndSend(tarea);
+    public void send(final TareaDto tarea) {
+        this.tareaJmsClient.convertAndSend(tarea);
     }
 
 }

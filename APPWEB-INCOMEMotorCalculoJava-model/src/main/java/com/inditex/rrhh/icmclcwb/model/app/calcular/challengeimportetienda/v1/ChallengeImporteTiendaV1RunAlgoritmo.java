@@ -39,7 +39,7 @@ public class ChallengeImporteTiendaV1RunAlgoritmo implements RunAlgoritmo {
                 tareaCalculoAlgoritmoChallengeImporteTiendaV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: ChallengeImporteV1RunAlgoritmo :: Personas: {}", personas.size());
                 try {

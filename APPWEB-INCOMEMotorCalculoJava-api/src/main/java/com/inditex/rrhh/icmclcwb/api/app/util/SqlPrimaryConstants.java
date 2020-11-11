@@ -243,6 +243,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ICM_CK_EXCEPCION = "icmCkExcepcion";
 
+    public static final String SQL_PARAM_TIPO_CONCEPTO_VENTA_CHALLENGE = "tipoVentaConceptoChallenge";
+
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
     public static final String SQL_PARAM_NUEVO_ID_TIPO_DATO = "nuevoIdTipoDato";

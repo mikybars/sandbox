@@ -39,7 +39,7 @@ public class PrecioHoraDesplazamientoV1RunAlgoritmo implements RunAlgoritmo {
                 tareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: PrecioHoraDesplazamientoV1RunAlgoritmo :: Personas: {}", personas.size());
                 try {

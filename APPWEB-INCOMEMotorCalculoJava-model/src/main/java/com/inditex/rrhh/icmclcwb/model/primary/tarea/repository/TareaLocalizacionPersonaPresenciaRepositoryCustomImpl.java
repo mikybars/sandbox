@@ -76,8 +76,15 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoDirectoVenta']}")
     private String sqlIndicadorDesplazamientoDirectoVenta;
 
+    @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoDirectoVentaFicticias']}")
+    private String sqlIndicadorDesplazamientoDirectoVentaFicticias;
+
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoBaseDirectoVenta']}")
     private String sqlIndicadorDesplazamientoBaseDirectoVenta;
+
+    @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoBaseDirectoVentaFicticias']}")
+    private String sqlIndicadorDesplazamientoBaseDirectoVentaFicticias;
+
 
     @Autowired
     private TipoDatoService tipoDatoService;
@@ -311,6 +318,25 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     }
 
     @Override
+    public void indicadorDesplazamientoDirectoVentaFicticias(@NotNull final RunTareaDto runTareaDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO,
+                Arrays.asList(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId(),
+                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_REDUCCION_DE_JORNADA.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+                TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+
+        this.update(this.sqlIndicadorDesplazamientoDirectoVentaFicticias, parameters);
+    }
+
+    @Override
     public void indicadorDesplazamientoBaseDirectoVenta(@NotNull final RunTareaDto runTareaDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
@@ -326,6 +352,26 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
                 TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId());
 
         this.update(this.sqlIndicadorDesplazamientoBaseDirectoVenta, parameters);
+    }
+
+    @Override
+    public void indicadorDesplazamientoBaseDirectoVentaFicticias(@NotNull final RunTareaDto runTareaDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO,
+                Arrays.asList(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId(),
+                        TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_REDUCCION_DE_JORNADA.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+                TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+
+        this.update(this.sqlIndicadorDesplazamientoBaseDirectoVentaFicticias, parameters);
     }
 
     @Override
