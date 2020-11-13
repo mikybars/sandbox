@@ -106,7 +106,7 @@ public class ReactorTest {
         log.info("Inicio :: reactorSequentialCollectListBlockTestWithChild");
         final Instant start = Instant.now();
 
-        Flux.fromIterable(algoritmos).log().parallel().runOn(ItxSchedulers.elastic()).doOnNext(item -> {
+        Flux.fromIterable(algoritmos).log().parallel().runOn(ItxSchedulers.boundedElastic()).doOnNext(item -> {
             log.info("reactorSequentialCollectListBlockTest :: algoritmos :: doOnNext() :: {}", item);
         }).map(algoritmo -> {
             log.info("reactorSequentialCollectListBlockTest :: algoritmos :: Inicio :: map() :: {}", algoritmo);
@@ -114,7 +114,7 @@ public class ReactorTest {
             Flux.fromIterable(StreamUtils.partition(personas, 100))
                 .log()
                 .parallel()
-                .runOn(ItxSchedulers.elastic())
+                .runOn(ItxSchedulers.boundedElastic())
                 .doOnNext(partitionPersonas -> {
                     log.info(
                             "reactorSequentialCollectListBlockTestWithChild :: partitionPersonas :: doOnNext() :: {}",

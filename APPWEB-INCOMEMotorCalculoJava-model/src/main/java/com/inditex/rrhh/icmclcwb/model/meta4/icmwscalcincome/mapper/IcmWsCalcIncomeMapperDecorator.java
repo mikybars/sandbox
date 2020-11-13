@@ -5,10 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -57,6 +53,10 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcale
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosdesplazRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
@@ -70,7 +70,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametro
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
-import org.apache.commons.collections.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeMapper {
@@ -141,18 +141,18 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
 
         if (StringUtils.isNotEmpty(src.getFechainicio())) {
             mappedEntity.setFechaInicio(LocalDateTime.parse(src.getFechainicio(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFechafin())) {
             mappedEntity.setFechaFin(LocalDateTime.parse(src.getFechafin(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         return mappedEntity;
     }
 
     @Override
     public List<ConfPrecioHoraResultItemDto> asConfPrecioHoraResultItemDto(
-        final List<IcmListaconfpreciohoraRecord> src) {
+            final List<IcmListaconfpreciohoraRecord> src) {
         final List<ConfPrecioHoraResultItemDto> list = new ArrayList<>();
         for (final IcmListaconfpreciohoraRecord item : src) {
             final ConfPrecioHoraResultItemDto mappedEntity = this.delegate.asConfPrecioHoraResultItemDto(item);
@@ -174,11 +174,11 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
 
             if (StringUtils.isNotEmpty(item.getFechainicio())) {
                 mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             if (StringUtils.isNotEmpty(item.getFechafin())) {
                 mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             list.add(mappedEntity);
         }
@@ -190,39 +190,39 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         final GenericEmpleadoResultItemDto mappedEntity = this.delegate.asGenericEmpleadoResultItemDto(src);
         if (StringUtils.isNotEmpty(src.getFechainicio())) {
             mappedEntity.setFechaInicio(LocalDateTime.parse(src.getFechainicio(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFechafin())) {
             mappedEntity.setFechaFin(LocalDateTime.parse(src.getFechafin(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFechainiciosec())) {
             mappedEntity.setFechaInicioSec(LocalDateTime.parse(src.getFechainiciosec(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFechafinsec())) {
             mappedEntity.setFechaFinSec(LocalDateTime.parse(src.getFechafinsec(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFechainiciocom())) {
             mappedEntity.setFechaInicioCom(LocalDateTime.parse(src.getFechainiciocom(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFechafincom())) {
             mappedEntity.setFechaFinCom(LocalDateTime.parse(src.getFechafincom(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFechafinpar())) {
             mappedEntity.setFechaFinPar(LocalDateTime.parse(src.getFechafinpar(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFechainiciopar())) {
             mappedEntity.setFechaInicioPar(LocalDateTime.parse(src.getFechainiciopar(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(src.getFecha())) {
             mappedEntity.setFecha(
-                LocalDateTime.parse(src.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    LocalDateTime.parse(src.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         return mappedEntity;
     }
@@ -256,11 +256,11 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             final AusenciasResultItemDto mappedEntity = this.delegate.asAusenciasResultItemDto(item);
             if (StringUtils.isNotEmpty(item.getFechainicio())) {
                 mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             if (StringUtils.isNotEmpty(item.getFechafin())) {
                 mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             list.add(mappedEntity);
         }
@@ -269,38 +269,38 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
 
     @Override
     public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtosSearchEmpleados(
-        final List<IcmListaempleadoRecord> src) {
+            final List<IcmListaempleadoRecord> src) {
         final List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
         for (final IcmListaempleadoRecord item : src) {
             final GenericEmpleadoResultItemDto presencia = this.delegate
                 .asGenericEmpleadoResultItemDtosSearchEmpleados(item);
             if (StringUtils.isNotEmpty(item.getFechainicio())) {
                 presencia.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             if (StringUtils.isNotEmpty(item.getFechafin())) {
                 presencia.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
                 presencia.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             if (StringUtils.isNotEmpty(item.getFechafinsec())) {
                 presencia.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             if (StringUtils.isNotEmpty(item.getFechainicioloc())) {
                 presencia.setFechaInicioLoc(LocalDateTime.parse(item.getFechainicioloc(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             if (StringUtils.isNotEmpty(item.getFechafinloc())) {
                 presencia.setFechaFinLoc(LocalDateTime.parse(item.getFechafinloc(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             if (StringUtils.isNotEmpty(item.getFechaantiguedad())) {
                 presencia.setFechaAntiguedad(LocalDateTime.parse(item.getFechaantiguedad(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
             }
             list.add(presencia);
         }
@@ -311,39 +311,39 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     private void setDates(final IcmListaempleadosRecord item, final GenericEmpleadoResultItemDto presencia) {
         if (StringUtils.isNotEmpty(item.getFechainicio())) {
             presencia.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(item.getFechafin())) {
             presencia.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
             presencia.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(item.getFechafinsec())) {
             presencia.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(item.getFechainiciocom())) {
             presencia.setFechaInicioCom(LocalDateTime.parse(item.getFechainiciocom(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(item.getFechafincom())) {
             presencia.setFechaFinCom(LocalDateTime.parse(item.getFechafincom(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(item.getFechafinpar())) {
             presencia.setFechaFinPar(LocalDateTime.parse(item.getFechafinpar(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(item.getFechainiciopar())) {
             presencia.setFechaInicioPar(LocalDateTime.parse(item.getFechainiciopar(),
-                DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
         if (StringUtils.isNotEmpty(item.getFecha())) {
             presencia.setFecha(
-                LocalDateTime.parse(item.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+                    LocalDateTime.parse(item.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
         }
     }
 
@@ -369,13 +369,13 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     public SaveResultDto asSaveResultDto(final IcmResultadoguardadoBlock src) {
         final SaveResultDto result = this.delegate.asSaveResultDto(src);
         result.setResultadoOk(
-            !src.getIcmResultadoguardadoRecordSet()
-                .stream()
-                .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmAvisosguardado().getResultado())));
+                !src.getIcmResultadoguardadoRecordSet()
+                    .stream()
+                    .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmAvisosguardado().getResultado())));
         result.setResultadoError(
-            src.getIcmResultadoguardadoRecordSet()
-                .stream()
-                .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmErroresguardado().getResultado())));
+                src.getIcmResultadoguardadoRecordSet()
+                    .stream()
+                    .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmErroresguardado().getResultado())));
         return result;
     }
 
@@ -390,10 +390,10 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
 
     @Override
     public ConfiguracionesResponseDto asConfiguracionesResponseDto(final GetconfiguracionOutput src,
-                                                                   final String idOrigen) {
+            final String idOrigen) {
         final ConfiguracionesResponseDto result = this.delegate.asConfiguracionesResponseDto(src, idOrigen);
         if ((src.getIcmListaconforigen() != null)
-            && CollectionUtils.isNotEmpty(src.getIcmListaconforigen().getIcmListaconforigenRecordSet())) {
+                && CollectionUtils.isNotEmpty(src.getIcmListaconforigen().getIcmListaconforigenRecordSet())) {
             final ArrayList<ConfiguracionItemDto> items = new ArrayList<>();
             src.getIcmListaconforigen()
                 .getIcmListaconforigenRecordSet()
@@ -430,7 +430,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                         result.add(record);
                     });
                 } else {
-                    IcmParamcalcadenaRecord record = this.delegate.asIcmParamcalcadenaRecord(src);
+                    final IcmParamcalcadenaRecord record = this.delegate.asIcmParamcalcadenaRecord(src);
                     record.setIdempresa(empresa);
                     result.add(record);
                 }
@@ -440,18 +440,19 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
 
     @Override
-    public IcmParamcalempleadosdesplazBlock asIcmParamcalempleadosdesplazBlock(GenericFilterDto src) {
-        List<IcmParamcalempleadosdesplazRecord> list = this.asIcmParamcalempleadosdesplazRecordList(src);
-        IcmParamcalempleadosdesplazBlock result = new IcmParamcalempleadosdesplazBlock();
+    public IcmParamcalempleadosdesplazBlock asIcmParamcalempleadosdesplazBlock(final GenericFilterDto src) {
+        final List<IcmParamcalempleadosdesplazRecord> list = this.asIcmParamcalempleadosdesplazRecordList(src);
+        final IcmParamcalempleadosdesplazBlock result = new IcmParamcalempleadosdesplazBlock();
         result.getIcmParamcalempleadosdesplazRecordSet().addAll(list);
         return result;
     }
 
-    private List<IcmParamcalempleadosdesplazRecord> asIcmParamcalempleadosdesplazRecordList(GenericFilterDto src) {
-        List<IcmParamcalempleadosdesplazRecord> result = new ArrayList<>();
+    private List<IcmParamcalempleadosdesplazRecord> asIcmParamcalempleadosdesplazRecordList(
+            final GenericFilterDto src) {
+        final List<IcmParamcalempleadosdesplazRecord> result = new ArrayList<>();
         if (src != null) {
             src.getIdsEmpresa().forEach(empresa -> {
-                IcmParamcalempleadosdesplazRecord record = this.delegate.asIcmParamcalempleadosdesplazRecord(src);
+                final IcmParamcalempleadosdesplazRecord record = this.delegate.asIcmParamcalempleadosdesplazRecord(src);
                 record.setIdempresa(empresa);
                 result.add(record);
             });
@@ -460,18 +461,20 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
 
     @Override
-    public IcmParamcalempleadospresenciaBlock asIcmParamcalempleadospresenciaBlock(GenericFilterDto src) {
-        List<IcmParamcalempleadospresenciaRecord> list = this.asIcmParamcalempleadospresenciaRecordList(src);
-        IcmParamcalempleadospresenciaBlock result = new IcmParamcalempleadospresenciaBlock();
+    public IcmParamcalempleadospresenciaBlock asIcmParamcalempleadospresenciaBlock(final GenericFilterDto src) {
+        final List<IcmParamcalempleadospresenciaRecord> list = this.asIcmParamcalempleadospresenciaRecordList(src);
+        final IcmParamcalempleadospresenciaBlock result = new IcmParamcalempleadospresenciaBlock();
         result.getIcmParamcalempleadospresenciaRecordSet().addAll(list);
         return result;
     }
 
-    private List<IcmParamcalempleadospresenciaRecord> asIcmParamcalempleadospresenciaRecordList(GenericFilterDto src) {
-        List<IcmParamcalempleadospresenciaRecord> result = new ArrayList<>();
+    private List<IcmParamcalempleadospresenciaRecord> asIcmParamcalempleadospresenciaRecordList(
+            final GenericFilterDto src) {
+        final List<IcmParamcalempleadospresenciaRecord> result = new ArrayList<>();
         if (src != null) {
             src.getIdsEmpresa().forEach(empresa -> {
-                IcmParamcalempleadospresenciaRecord record = this.delegate.asIcmParamcalempleadospresenciaRecord(src);
+                final IcmParamcalempleadospresenciaRecord record = this.delegate
+                    .asIcmParamcalempleadospresenciaRecord(src);
                 record.setIdempresa(empresa);
                 result.add(record);
             });
@@ -480,18 +483,18 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
 
     @Override
-    public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(GenericFilterDto src) {
-        List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
-        IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+    public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final GenericFilterDto src) {
+        final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+        final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
         result.getIcmParamcaltiendasRecordSet().addAll(list);
         return result;
     }
 
-    private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(GenericFilterDto src) {
-        List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+    private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final GenericFilterDto src) {
+        final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
         if (src != null) {
             src.getIdsEmpresa().forEach(empresa -> {
-                IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+                final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
                 record.setIdempresa(empresa);
                 result.add(record);
             });
@@ -500,18 +503,18 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
 
     @Override
-    public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(GenericFilterDto src) {
-        List<IcmParamcalempleadoRecord> list = asIcmParamcalempleadoRecordList(src);
-        IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
+    public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(final GenericFilterDto src) {
+        final List<IcmParamcalempleadoRecord> list = this.asIcmParamcalempleadoRecordList(src);
+        final IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
         result.getIcmParamcalempleadoRecordSet().addAll(list);
         return result;
     }
 
-    private List<IcmParamcalempleadoRecord> asIcmParamcalempleadoRecordList(GenericFilterDto src) {
-        List<IcmParamcalempleadoRecord> result = new ArrayList<>();
+    private List<IcmParamcalempleadoRecord> asIcmParamcalempleadoRecordList(final GenericFilterDto src) {
+        final List<IcmParamcalempleadoRecord> result = new ArrayList<>();
         if (src != null) {
             src.getIdsEmpresa().forEach(empresa -> {
-                IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
+                final IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
                 record.setIdempresa(empresa);
                 result.add(record);
             });
@@ -533,7 +536,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             src.getIdsEmpresa().forEach(empresa -> {
                 if (CollectionUtils.isNotEmpty(src.getItem())) {
                     src.getItem().forEach(x -> {
-                    final IcmParamcalempleadosRecord record = this.delegate.asIcmParamcalempleadosRecord(src);
+                        final IcmParamcalempleadosRecord record = this.delegate.asIcmParamcalempleadosRecord(src);
                         record.setIdempleado(x.getIdEmpleado());
                         record.setIdempleadolocal(x.getIdEmpleadoLocal());
                         record.setIdlugartrabajo(x.getIdLugarTrabajo());
@@ -541,7 +544,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                         record.setIdempresa(empresa);
                     });
                 } else {
-                    IcmParamcalempleadosRecord record = this.delegate.asIcmParamcalempleadosRecord(src);
+                    final IcmParamcalempleadosRecord record = this.delegate.asIcmParamcalempleadosRecord(src);
                     record.setIdempresa(empresa);
                     result.add(record);
                 }
@@ -600,18 +603,18 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
 
     @Override
-    public IcmParamcalflagcalculaBlock asIcmParamcalflagcalculaBlock(GenericFilterDto src) {
-        List<IcmParamcalflagcalculaRecord> list = this.asIcmParamcalflagcalculaRecordList(src);
-        IcmParamcalflagcalculaBlock result = this.delegate.asIcmParamcalflagcalculaBlock(src);
+    public IcmParamcalflagcalculaBlock asIcmParamcalflagcalculaBlock(final GenericFilterDto src) {
+        final List<IcmParamcalflagcalculaRecord> list = this.asIcmParamcalflagcalculaRecordList(src);
+        final IcmParamcalflagcalculaBlock result = this.delegate.asIcmParamcalflagcalculaBlock(src);
         result.getIcmParamcalflagcalculaRecordSet().addAll(list);
         return result;
     }
 
-    private List<IcmParamcalflagcalculaRecord> asIcmParamcalflagcalculaRecordList(GenericFilterDto src) {
+    private List<IcmParamcalflagcalculaRecord> asIcmParamcalflagcalculaRecordList(final GenericFilterDto src) {
         final List<IcmParamcalflagcalculaRecord> result = new ArrayList<>();
         if (src != null) {
             src.getItem().forEach(item -> {
-                IcmParamcalflagcalculaRecord record = this.delegate.asIcmParamcalflagcalculaRecord(src);
+                final IcmParamcalflagcalculaRecord record = this.delegate.asIcmParamcalflagcalculaRecord(src);
                 record.setIdlugartrabajo(item.getIdLugarTrabajo());
                 result.add(record);
             });
@@ -622,18 +625,18 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
 
     @Override
-    public IcmParamcalpresenciamanualBlock asIcmParamcalpresenciamanualBlock(GenericFilterDto src) {
-        List<IcmParamcalpresenciamanualRecord> list = this.asIcmParamcalpresenciamanualRecordList(src);
-        IcmParamcalpresenciamanualBlock result = this.delegate.asIcmParamcalpresenciamanualBlock(src);
+    public IcmParamcalpresenciamanualBlock asIcmParamcalpresenciamanualBlock(final GenericFilterDto src) {
+        final List<IcmParamcalpresenciamanualRecord> list = this.asIcmParamcalpresenciamanualRecordList(src);
+        final IcmParamcalpresenciamanualBlock result = this.delegate.asIcmParamcalpresenciamanualBlock(src);
         result.getIcmParamcalpresenciamanualRecordSet().addAll(list);
         return result;
     }
 
-    private List<IcmParamcalpresenciamanualRecord> asIcmParamcalpresenciamanualRecordList(GenericFilterDto src) {
+    private List<IcmParamcalpresenciamanualRecord> asIcmParamcalpresenciamanualRecordList(final GenericFilterDto src) {
         final List<IcmParamcalpresenciamanualRecord> result = new ArrayList<>();
         if (src != null) {
             src.getItem().forEach(item -> {
-                IcmParamcalpresenciamanualRecord record = this.delegate.asIcmParamcalpresenciamanualRecord(src);
+                final IcmParamcalpresenciamanualRecord record = this.delegate.asIcmParamcalpresenciamanualRecord(src);
                 record.setIdlugartrabajo(item.getIdLugarTrabajo());
                 result.add(record);
             });
@@ -642,4 +645,5 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
         return result;
     }
+
 }

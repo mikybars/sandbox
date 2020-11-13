@@ -39,7 +39,7 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
                 tareaCalculoAjusteVacacionesRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
                 try {

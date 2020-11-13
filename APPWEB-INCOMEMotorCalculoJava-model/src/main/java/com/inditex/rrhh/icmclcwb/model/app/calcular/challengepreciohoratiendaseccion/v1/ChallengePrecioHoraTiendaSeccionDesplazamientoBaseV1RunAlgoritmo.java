@@ -40,7 +40,7 @@ public class ChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RunAlgoritmo im
                         runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: ChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
                         personas.size());

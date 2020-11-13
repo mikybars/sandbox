@@ -39,7 +39,7 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
                 tareaCalculoAjusteAntiguedadRepositoryCustom.ids(runTarea.getTarea()),
                 runAjusteProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: RunAjusteAntiguedadProcesar :: Personas: {}", personas.size());
                 try {

@@ -39,7 +39,7 @@ public class AjusteManualV1RunAlgoritmo implements RunAlgoritmo {
                 tareaCalculoAlgoritmoAjusteManualV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: AjusteManualV1RunAlgoritmo :: Personas: {}", personas.size());
                 try {

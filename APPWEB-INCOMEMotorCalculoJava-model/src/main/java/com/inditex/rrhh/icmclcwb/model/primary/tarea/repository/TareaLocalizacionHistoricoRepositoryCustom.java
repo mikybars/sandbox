@@ -58,12 +58,16 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
             @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull List<String> tiposCalculo);
 
     List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(
-            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea);
+            @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea,
+            @NotNull @NotEmpty final List<Long> idTipoConceptoVentaChallenge);
 
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
             @NotNull @Positive Long idTarea, @NotNull @Positive Integer idTipoPresupuesto,
             @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin);
 
     void mergeLocalizacionFicticia(@NotNull Long idTarea, @NotNull String cclIdOrigen, @NotBlank String stdIdLegEnt);
+
+    List<IdLocalizacionLocalDto> findLocalizacionFicticiaByIdOrigenAndIdEmpresa(@NotNull String cclIdOrigen,
+            @NotBlank String stdIdLegEnt);
 
 }

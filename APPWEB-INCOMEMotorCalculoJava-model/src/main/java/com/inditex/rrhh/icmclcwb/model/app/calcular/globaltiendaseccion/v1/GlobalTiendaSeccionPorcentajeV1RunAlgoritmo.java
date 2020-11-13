@@ -40,7 +40,7 @@ public class GlobalTiendaSeccionPorcentajeV1RunAlgoritmo implements RunAlgoritmo
                         runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: GlobalTiendaSeccionPorcentajeV1RunAlgoritmo :: Personas: {}", personas.size());
                 try {

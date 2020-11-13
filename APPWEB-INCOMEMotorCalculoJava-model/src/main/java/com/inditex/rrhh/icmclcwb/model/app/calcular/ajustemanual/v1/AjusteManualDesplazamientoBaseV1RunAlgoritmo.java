@@ -40,7 +40,7 @@ public class AjusteManualDesplazamientoBaseV1RunAlgoritmo implements RunAlgoritm
                         runTarea.getTarea()),
                 runAlgoritmoProperties.getBatchSize()))
             .parallel()
-            .runOn(ItxSchedulers.elastic())
+            .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
                 log.info("Inicio :: AjusteManualDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", personas.size());
                 try {

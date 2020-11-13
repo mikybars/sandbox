@@ -11,8 +11,9 @@ import java.util.stream.Stream;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.MessageContext;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
+import org.springframework.stereotype.Component;
+
+import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.helpers.CastUtils;
@@ -20,9 +21,6 @@ import org.apache.cxf.transport.http.Cookie;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
 
 @Component
 public class CxfUtils {
@@ -34,7 +32,7 @@ public class CxfUtils {
 
     public static Map<String, List<String>> getResponseHeaders(final Object service) {
         Map<String, List<String>> result = new HashMap<>();
-        Map<String, Object> responseContext = ((BindingProvider) service).getResponseContext();
+        final Map<String, Object> responseContext = ((BindingProvider) service).getResponseContext();
         if (MapUtils.isNotEmpty(responseContext)) {
             result = CastUtils.cast((Map<?, ?>) responseContext.get(MessageContext.HTTP_RESPONSE_HEADERS));
         }
@@ -43,7 +41,7 @@ public class CxfUtils {
 
     public static Map<String, List<String>> getRequestHeaders(final Object service) {
         Map<String, List<String>> result = new HashMap<>();
-        Map<String, Object> requestContext = ((BindingProvider) service).getRequestContext();
+        final Map<String, Object> requestContext = ((BindingProvider) service).getRequestContext();
         if (MapUtils.isNotEmpty(requestContext)) {
             result = CastUtils.cast((Map<?, ?>) requestContext.get(MessageContext.HTTP_REQUEST_HEADERS));
         }
@@ -65,7 +63,7 @@ public class CxfUtils {
     public static String getJSessionID(final List<String> list) {
         String jSessionID = null;
         if (CollectionUtils.isNotEmpty(list)) {
-            for (String item : list) {
+            for (final String item : list) {
                 if (item.contains(CxfConstants.JSESSIONID)) {
                     jSessionID = item.substring(CxfConstants.JSESSIONID.length() + 1, item.length());
                     break;
@@ -94,12 +92,12 @@ public class CxfUtils {
     }
 
     public static void putCookies(final Object service, final Map<String, Cookie> cookies) {
-        HTTPConduit http = CxfUtils.getHTTPConduit(service);
+        final HTTPConduit http = CxfUtils.getHTTPConduit(service);
         http.getCookies().putAll(cookies);
     }
 
     public static void putCookie(final Object service, final String jSessionID) {
-        HTTPConduit http = CxfUtils.getHTTPConduit(service);
+        final HTTPConduit http = CxfUtils.getHTTPConduit(service);
         http.getClient()
             .setCookie(new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.SEPARADOR)
                 .append(jSessionID)
@@ -107,19 +105,19 @@ public class CxfUtils {
     }
 
     public static Map<String, Cookie> getCookies(final Object service) {
-        HTTPConduit httpConduit = CxfUtils.getHTTPConduit(service);
+        final HTTPConduit httpConduit = CxfUtils.getHTTPConduit(service);
         return httpConduit.getCookies();
     }
 
-    public static void setCookies(final Object service, Map<String, Cookie> cookies) {
-        HTTPConduit httpConduit = CxfUtils.getHTTPConduit(service);
+    public static void setCookies(final Object service, final Map<String, Cookie> cookies) {
+        final HTTPConduit httpConduit = CxfUtils.getHTTPConduit(service);
         httpConduit.getCookies().clear();
         httpConduit.getCookies().putAll(cookies);
     }
 
     public static void cloneHeaders(final Object serviceLogin, final Object service) {
-        HTTPConduit httpConduitLogin = CxfUtils.getHTTPConduit(serviceLogin);
-        HTTPConduit httpConduitService = CxfUtils.getHTTPConduit(service);
+        final HTTPConduit httpConduitLogin = CxfUtils.getHTTPConduit(serviceLogin);
+        final HTTPConduit httpConduitService = CxfUtils.getHTTPConduit(service);
         httpConduitService.getCookies().clear();
         httpConduitService.getCookies().putAll(httpConduitLogin.getCookies());
     }
@@ -131,10 +129,10 @@ public class CxfUtils {
     public static void close(final Object o) {
         try {
             if (o != null) {
-                Client client = CxfUtils.getClient(o);
+                final Client client = CxfUtils.getClient(o);
                 client.close();
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             log.error("Error cerrando el cliente cxf", e);
         }
     }
