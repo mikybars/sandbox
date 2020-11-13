@@ -46,6 +46,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizado
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 @Service
@@ -166,32 +167,35 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
             final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService
                 .findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(), tareaAmbito.getCclIdOrigen(),
                         TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
-            final PtrVentaTotalizadoRequestDto request = this.tareaMapper
-                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoIdCadenaDtoToPtrVentaTotalizadoRequestDto(
-                        tarea, tareaAmbito, periodo, this.recolectarProperties, cadenas);
+            if (CollectionUtils.isNotEmpty(cadenas)) {
 
-            request.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
-            request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
-            request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
-            request.setProducto(this.meta4IcmWsCalcIncomeSessionService
-                .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
-                .stream()
-                .map(e -> e.getIdProducto())
-                .collect(Collectors.toList()));
+                final PtrVentaTotalizadoRequestDto request = this.tareaMapper
+                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoIdCadenaDtoToPtrVentaTotalizadoRequestDto(
+                            tarea, tareaAmbito, periodo, this.recolectarProperties, cadenas);
 
-            final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
-                .ventaTotalizado(request);
-            AsyncUtils.exceptionally(cfData, cf, cfPersist);
-            final PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
-            AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaGeneralProperties
-                .get(PtrPropertiesConstants.VENTA_TOTALIZADO)
-                .getFilter()
-                .getMaxPersistenceSize());
-            AsyncUtils.exceptionally(
-                    this.tareaAgrupacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea, agrupaciones), cf,
-                    cfPersist);
-            AsyncUtils.waitAllOfIsOk(cf, cf);
+                request.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
+                request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
+                request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
+                request.setProducto(this.meta4IcmWsCalcIncomeSessionService
+                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
+                    .stream()
+                    .map(e -> e.getIdProducto())
+                    .collect(Collectors.toList()));
 
+                final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
+                    .ventaTotalizado(request);
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                final PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaGeneralProperties
+                    .get(PtrPropertiesConstants.VENTA_TOTALIZADO)
+                    .getFilter()
+                    .getMaxPersistenceSize());
+                AsyncUtils.exceptionally(
+                        this.tareaAgrupacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea, agrupaciones),
+                        cf,
+                        cfPersist);
+                AsyncUtils.waitAllOfIsOk(cf, cf);
+            }
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
