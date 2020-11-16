@@ -19,19 +19,26 @@ public class RunTareaRecolectarPtrVentaGeneralAsyncServiceImpl
 
     @Override
     public CompletableFuture<Void> ventaFisicaLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaService.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
+        this.tareaRecolectarPtrVentaService.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> ventaFisicaCadenaByRunTarea(RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaService.ventaFisicaCadenaByRunTarea(runTarea);
+    public CompletableFuture<Void> ventaFisicaCadenaByRunTarea(final RunTareaDto runTarea) {
+        this.tareaRecolectarPtrVentaService.ventaFisicaCadenaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> ventaRangoFisicaLocalizacionSeccionByRunTarea(RunTareaDto runTarea) {
-        tareaRecolectarPtrVentaService.ventaRangoFisicaLocalizacionSeccionByRunTarea(runTarea);
+    public CompletableFuture<Void> ventaRangoFisicaLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {
+        this.tareaRecolectarPtrVentaService.ventaRangoFisicaLocalizacionSeccionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(
+            final RunTareaDto runTarea) {
+        this.tareaRecolectarPtrVentaService.devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
