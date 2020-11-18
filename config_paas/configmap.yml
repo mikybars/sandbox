@@ -83,14 +83,14 @@ amiga:
           maxPoolSize: 20
           xaConnectionFactory:
             #brokerURL: tcp://middleware-amq-tcp:61616
-            brokerURL: failover:(tcp://middleware-amq-tcp:61616)
+            brokerURL: failover:(tcp://middleware-amq-tcp:61616)?schedulerSupport=true
             userName: usr-write
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
           xaConnectionFactory:
             #brokerURL: tcp://middleware-amq-tcp:61616
-            brokerURL: failover:(tcp://middleware-amq-tcp:61616)
+            brokerURL: failover:(tcp://middleware-amq-tcp:61616)?schedulerSupport=true
             userName: usr-read
       listener-container-factory:
         trabajo:
