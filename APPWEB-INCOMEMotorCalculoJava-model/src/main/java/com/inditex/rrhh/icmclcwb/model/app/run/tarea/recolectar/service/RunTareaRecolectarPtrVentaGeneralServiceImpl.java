@@ -23,26 +23,36 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarPtrVentaGeneralService
+            .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaGeneralService
                 .ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
-    public void ventaFisicaCadenaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    public void ventaFisicaCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarPtrVentaGeneralService
+            .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaGeneralService
                 .ventaFisicaCadenaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
-    public void ventaRangoFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    public void ventaRangoFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarPtrVentaGeneralService
+            .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaGeneralService
                 .ventaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
+    public void devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(
+            @NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaGeneralService
+                .devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
     }
 
 }

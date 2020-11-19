@@ -40,6 +40,10 @@ public class AppConstants {
 
     public static final String OPERACION_VENTA = "V";
 
+    public static final String OPERACION_VENTA_CAJA = "VC";
+
+    public static final String OPERACION_DEVOLUCION_OTRAS_TIENDAS = "DO";
+
     public static final String EMPRESA_0 = "0";
 
 }
