@@ -142,7 +142,6 @@ public class PtrVentaEcommerceServiceTest {
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST2);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
         request.setAgruparSeccion(0);
-        // request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
         final ResponseEntity<PtrVentaOnlineEntregaTiendaResponseDto> response = this.ptrVentaClient
             .postForEntity(
                     this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
@@ -161,7 +160,6 @@ public class PtrVentaEcommerceServiceTest {
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST2);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
-        // request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
         final ResponseEntity<PtrVentaOnlineEntregaTiendaResponseDto> response = this.ptrVentaClient
             .postForEntity(
                     this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
@@ -178,7 +176,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setPais(PtrTestConstants.PAIS);
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
-        // request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
+        request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
 
         final ResponseEntity<PtrVentaOnlinePickingResponseDto> response = this.ptrVentaClient
             .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
@@ -197,7 +195,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
-        // request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
+        request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
 
         final ResponseEntity<PtrVentaOnlinePickingResponseDto> response = this.ptrVentaClient
             .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
@@ -216,7 +214,7 @@ public class PtrVentaEcommerceServiceTest {
         request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
         request.setTiendaOnline(PtrTestConstants.ID_TIENDA_ONLINE_LIST);
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
-        // request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
+        request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_XML);
