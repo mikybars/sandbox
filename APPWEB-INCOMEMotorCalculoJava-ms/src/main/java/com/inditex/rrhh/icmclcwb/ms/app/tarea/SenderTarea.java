@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import org.apache.activemq.ScheduledMessage;
 
 import com.inditex.aqsw.framework.data.jms.JmsClient;
 
@@ -19,7 +20,10 @@ public class SenderTarea {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void send(final TareaDto tarea) {
-        this.tareaJmsClient.convertAndSend(tarea);
+        this.tareaJmsClient.convertAndSend(tarea, message -> {
+            message.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, 60000);
+            return message;
+        });
     }
 
 }
