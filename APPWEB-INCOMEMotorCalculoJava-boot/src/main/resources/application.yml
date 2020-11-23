@@ -26,17 +26,6 @@ amiga:
     logging:
       file:
         enabled: false
-#    reactor:
-#      scheduler:
-#        default:
-#          enabled: true
-#        bounded:
-#          factories:
-#            default:
-#              thread-prefix: async-bounded-executor
-#              max-threads: 20
-#              queued-task-cap: 100000
-#              keep-alive-time: 60000
     async:
       default-executor:
         core-pool-size: 10

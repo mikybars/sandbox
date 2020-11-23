@@ -23,11 +23,11 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpod
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPresupuestoVentaMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPresupuesto;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConceptoChallenge;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuestoVenta;
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 
 public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLocalizacionPresupuestoVentaMapper {
 
@@ -161,7 +161,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                         tareaLocalizacionPresupuestoVenta
                             .setTipoPresupuesto(TipoPresupuesto.builder().id(iter.getIdTipoPresupuesto()).build());
                         tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
-                        if (item.getOperacion().equals(AppConstants.OPERACION_VENTA)) {
+                        if (item.getOperacion().equals(AppConstants.OPERACION_VENTA_CAJA)) {
                             tareaLocalizacionPresupuestoVenta
                                 .setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
                                     .id(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getId())
@@ -170,7 +170,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                                 .id(TipoDatoEnum.VENTA_RANGO_FISICA_CAJA_LOCALIZACION_SECCION.getId())
                                 .build());
                         }
-                        if (item.getOperacion().equals(AppConstants.OPERACION_DEVOLUCION)) {
+                        if (item.getOperacion().equals(AppConstants.OPERACION_DEVOLUCION_OTRAS_TIENDAS)) {
                             tareaLocalizacionPresupuestoVenta
                                 .setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
                                     .id(TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getId())
@@ -199,7 +199,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                     tareaLocalizacionPresupuestoVenta.setActivo(Boolean.TRUE);
                     tareaLocalizacionPresupuestoVenta.setCclIdSeccion(AppConstants.SECCION_4.toString());
 
-                    if (item.getOperacion().equals(AppConstants.OPERACION_VENTA)) {
+                    if (item.getOperacion().equals(AppConstants.OPERACION_VENTA_CAJA)) {
                         tareaLocalizacionPresupuestoVenta.setTipoDato(
                                 TipoDato.builder()
                                     .id(TipoDatoEnum.VENTA_RANGO_FISICA_CAJA_LOCALIZACION.getId())
@@ -209,7 +209,7 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                                 .id(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getId())
                                 .build());
                     }
-                    if (item.getOperacion().equals(AppConstants.OPERACION_DEVOLUCION)) {
+                    if (item.getOperacion().equals(AppConstants.OPERACION_DEVOLUCION_OTRAS_TIENDAS)) {
                         tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
                             .id(TipoDatoEnum.VENTA_RANGO_FISICA_DEVOLUCION_LOCALIZACION.getId())
                             .build());

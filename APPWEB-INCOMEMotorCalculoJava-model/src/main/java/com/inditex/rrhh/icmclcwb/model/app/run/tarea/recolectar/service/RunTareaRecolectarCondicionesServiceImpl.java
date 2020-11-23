@@ -135,6 +135,10 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                 .ventaRangoFisicaLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaReal, cf, cfWait);
 
+            final CompletableFuture<Void> cfDevolucionReal = this.runTareaRecolectarPtrVentaGeneralAsyncService
+                .devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea);
+            AsyncUtils.exceptionally(cfDevolucionReal, cf, cfWait);
+
             final CompletableFuture<Void> cfVentaRangoOnlineIpodLocalizacionSeccion = this.runTareaRecolectarPtrVentaEcommerceAsyncService
                 .ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaRangoOnlineIpodLocalizacionSeccion, cf, cfWait);

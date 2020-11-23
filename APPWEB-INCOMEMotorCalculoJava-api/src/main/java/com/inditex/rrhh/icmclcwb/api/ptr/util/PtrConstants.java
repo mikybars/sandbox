@@ -16,7 +16,11 @@ public class PtrConstants {
 
     public static final String OPERACION_VENTA = "V";
 
+    public static final String OPERACION_VENTA_CAJA = "VC";
+
     public static final String OPERACION_DEVOLUCION = "D";
+
+    public static final String OPERACION_DEVOLUCION_OTRAS_TIENDAS = "DO";
 
     public static final List<Integer> VENDEDORES_0 = Arrays.asList(0, -1);
 
