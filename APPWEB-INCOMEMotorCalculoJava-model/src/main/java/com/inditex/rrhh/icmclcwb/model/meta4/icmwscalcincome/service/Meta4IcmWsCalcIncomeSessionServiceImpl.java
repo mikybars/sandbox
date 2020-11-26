@@ -1,13 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.PrioridadValidacionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoAccionValidacionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoEstadoValidacionEnum;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
@@ -31,6 +33,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
@@ -262,10 +267,11 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     }
 
     @Override
-    public List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(DesplazamientosMultiempresaRequestDto request) {
+    public List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(
+            final DesplazamientosMultiempresaRequestDto request) {
         return this.getResultItem(request,
                 Meta4PropertiesConstants.MULTIEMPRESA,
-            DesplazamientosMultiempresaResponseDto.class, DesplazamientosMultiempresaItemDto.class);
+                DesplazamientosMultiempresaResponseDto.class, DesplazamientosMultiempresaItemDto.class);
     }
 
     @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea,#cclIdOrigen}")
@@ -287,6 +293,25 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         return this.getResultItem(request,
                 Meta4PropertiesConstants.DESPLAZAMIENTO_REAL,
                 DesplazamientoRealResponseDto.class, DesplazamientoRealResultItemDto.class);
+    }
+
+    @Override
+    public List<ValidacionDto> configuracionValidacion() {
+        return Arrays.asList(ValidacionDto.builder()
+            .id(1)
+            .delay(Boolean.FALSE)
+            .maxReintentos(3)
+            .delayTime(0L)
+            .idPrioridadValidacion(PrioridadValidacionEnum.HI.getId())
+            .idTipoAccionValidacion(TipoAccionValidacionEnum.NO_REINTENTAR.getId())
+            .idTipoEstadoValidacion(TipoEstadoValidacionEnum.ONLINE.getId())
+            .nombre("TEST")
+            .build());
+    }
+
+    @Override
+    public Integer validacionPresencias() {
+        return 1;
     }
 
 }

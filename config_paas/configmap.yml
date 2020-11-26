@@ -51,6 +51,12 @@ amiga:
           permitted-number-of-calls-in-half-open-state: 10
           sliding-window-size: 100 
           sliding-window-type: COUNT_BASED
+        tarea-prevalidar:
+          wait-duration-in-open-state: PT60S
+          failure-rate-threshold: 50
+          permitted-number-of-calls-in-half-open-state: 10
+          sliding-window-size: 100 
+          sliding-window-type: COUNT_BASED          
   service:
     jms:
       listener:
@@ -67,6 +73,8 @@ amiga:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.limpieza-queue-${metadata.slot}
       programacion-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.programacion-queue-${metadata.slot}
+      tarea-prevalidar-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-prevalidar-queue-${metadata.slot}        
   data:
     binder:
       jms-activemq:
@@ -117,6 +125,12 @@ amiga:
           globalTransacted: true
           pubSubDomain: false
           receiveTimeout: 1000
+        tarea-prevalidar:
+          concurrency: 1
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000          
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
@@ -133,7 +147,11 @@ amiga:
         programacion:
           destinationName: ${amiga.service.jms.programacion-queue.destination-fqdn}
           pubSubDomain: false
-          sessionTransacted: true          
+          sessionTransacted: true   
+        tarea-prevalidar:
+          destinationName: ${amiga.service.jms.tarea-prevalidar-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true                 
     jdbc:
       configuration:
         prop:
@@ -167,6 +185,11 @@ app:
     tarea:
       recolectar:
         days-number: 3
+      prevalidar:
+        online: 
+          enabled: true
+        offline: 
+          enabled: true        
       validar:
         enabled: true
         logging: true

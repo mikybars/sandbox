@@ -210,6 +210,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             RecolectarPropertiesDto srcRecolectarProperties);
@@ -226,6 +227,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaTotalizadoRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo,
             RecolectarPropertiesDto srcRecolectarProperties);
@@ -241,6 +243,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             IdLocalizacionLocalPresupuestoDto srcPresupuesto);
@@ -317,6 +320,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             RecolectarPropertiesDto srcRecolectarProperties, List<IdCadenaDto> cadenas);
@@ -333,6 +337,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoIdCadenaDtoToPtrVentaTotalizadoRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo,
             RecolectarPropertiesDto srcRecolectarProperties, List<IdCadenaDto> cadenas);
@@ -349,6 +354,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, RecolectarPropertiesDto srcRecolectarProperties,
             PeriodoDto periodo, List<IdCadenaDto> cadenas);

@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
@@ -111,6 +112,11 @@ public interface Meta4IcmWsCalcIncomeSessionService {
 
     List<DesplazamientoRealResultItemDto> getDesplazReal(DesplazamientoRealRequestDto request);
 
-    List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(DesplazamientosMultiempresaRequestDto request);
+    List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(
+            DesplazamientosMultiempresaRequestDto request);
+
+    List<ValidacionDto> configuracionValidacion();
+
+    Integer validacionPresencias();
 
 }
