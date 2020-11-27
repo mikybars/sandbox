@@ -46,6 +46,9 @@ public class TareaPrevalidacionRepositoryCustomImpl extends JdbcBatchPrimaryRepo
     @Value("#{primaryQuery['TareaPrevalidacionRepositoryCustom.updateEstado']}")
     private String sqlUpdateEstado;
 
+    @Value("#{primaryQuery['TareaPrevalidacionRepositoryCustom.checkMaxReintentos']}")
+    private String sqlCheckMaxReintentos;
+
     @Override
     public List<TareaPrevalidacion> save(final List<TareaPrevalidacion> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -88,7 +91,7 @@ public class TareaPrevalidacionRepositoryCustomImpl extends JdbcBatchPrimaryRepo
                         return dto;
                     }
                 });
-        if (accion.size() == 1) { // list contains exactly 1 element
+        if (accion.size() == 1) {
             return accion.get(0);
         }
         return null;
@@ -111,6 +114,24 @@ public class TareaPrevalidacionRepositoryCustomImpl extends JdbcBatchPrimaryRepo
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaPrevalidacionDto.getIdTarea());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estado.getId());
         this.update(this.sqlUpdateEstado, params);
+    }
+
+    @Override
+    public Boolean checkMaxReintentos(@NotNull final TareaPrevalidacionDto tareaPrevalidacionDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_PREVALIDACION, tareaPrevalidacionDto.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaPrevalidacionDto.getIdTarea());
+        final List<Integer> value = this.query(this.sqlCheckMaxReintentos, params,
+                new RowMapper<Integer>() {
+                    @Override
+                    public Integer mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+                        return rs.getInt(1);
+                    }
+                });
+        if ((value.size() == 1) && (value.get(0) > 0)) {
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 
 }

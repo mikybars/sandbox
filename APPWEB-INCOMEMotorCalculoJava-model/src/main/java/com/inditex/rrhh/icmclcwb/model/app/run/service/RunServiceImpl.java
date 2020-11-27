@@ -4,11 +4,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PreValidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.service.RunLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
@@ -52,6 +54,10 @@ public class RunServiceImpl implements RunService {
     @Autowired
     private RunTareaPreValidarService runTareaPreValidarService;
 
+    @Autowired
+    @Qualifier("preValidarProperties")
+    private PreValidarPropertiesDto preValidarProperties;
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void runTrabajo(@NotNull @Positive final Long id) {
@@ -82,11 +88,19 @@ public class RunServiceImpl implements RunService {
     @Override
     public void runTareaPreValidar(@NotNull @Positive final Long id) {
         final TareaDto tarea = this.tareaService.find(id);
-        this.runTareaPreValidarService
-            .run(RunTareaPrevalidarDto.builder()
-                .tareaPrevalidacionDto(this.tareaPrevalidacionService.create(tarea))
-                .tarea(tarea)
-                .build());
+        if (this.preValidarProperties.isEnabled()) {
+            this.runTareaPreValidarService
+                .run(RunTareaPrevalidarDto.builder()
+                    .tareaPrevalidacionDto(this.tareaPrevalidacionService.create(tarea))
+                    .tarea(tarea)
+                    .build());
+        } else {
+            this.runTareaService
+                .run(RunTareaDto.builder()
+                    .trabajo(this.trabajoService.find(tarea.getIdTrabajo()))
+                    .tarea(tarea)
+                    .build());
+        }
     }
 
 }

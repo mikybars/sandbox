@@ -24,4 +24,6 @@ public interface TareaPrevalidacionRepositoryCustom {
     void updateEstado(@NotNull TareaPrevalidacionDto tareaPrevalidacionDto,
             @NotNull EstadoTareaPrevalidacionDto estado);
 
+    Boolean checkMaxReintentos(@NotNull TareaPrevalidacionDto tareaPrevalidacionDto);
+
 }

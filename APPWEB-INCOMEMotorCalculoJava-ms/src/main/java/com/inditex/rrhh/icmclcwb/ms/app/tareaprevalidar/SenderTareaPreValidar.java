@@ -31,4 +31,12 @@ public class SenderTareaPreValidar {
         });
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void sendWithPriority(final TareaDto tarea, final int priority) {
+        this.tareaPreValidarJmsClient.convertAndSend(tarea, message -> {
+            message.setJMSPriority(priority);
+            return message;
+        });
+    }
+
 }

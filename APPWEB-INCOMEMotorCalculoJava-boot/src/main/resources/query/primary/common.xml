@@ -6107,30 +6107,30 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
 
 <entry key="TareaPrevalidacionRepositoryCustom.save">
     <![CDATA[
-  INSERT INTO TAREA_PREVALIDACION (ID_TAREA_PREVALIDACION, ID_TAREA, ID_ESTADO_TAREA_PREVALIDACION, FECHA_HORA_CREACION, FECHA_HORA_ACTUALIZACION, FECHA_HORA_INICIO, FECHA_HORA_FIN, ES_ACTIVO)
-  VALUES(:pk.id, :pk.tarea.id, :estado.id, :fechaHoraCreacion, :fechaHoraActualizacion, :fechaHoraInicio, :fechaHoraFin, :activo)
+    INSERT INTO TAREA_PREVALIDACION (ID_TAREA_PREVALIDACION, ID_TAREA, ID_ESTADO_TAREA_PREVALIDACION, FECHA_HORA_CREACION, FECHA_HORA_ACTUALIZACION, FECHA_HORA_INICIO, FECHA_HORA_FIN, ES_ACTIVO)
+    VALUES(:pk.id, :pk.tarea.id, :estado.id, :fechaHoraCreacion, :fechaHoraActualizacion, :fechaHoraInicio, :fechaHoraFin, :activo)
     ]]>
 </entry>
 
 <entry key="TareaPrevalidacionValidacionRepositoryCustom.save">
     <![CDATA[
-  INSERT INTO TAREA_PREVALIDACION_VALIDACION (ID_TIPO_VALIDACION, ID_TAREA_PREVALIDACION, ID_TAREA, ES_DELAY, REINTENTO_MAX, REINTENTO_DELAY, ID_TIPO_ESTADO_VALIDACION, ID_TIPO_ACCION_VALIDACION, ID_PRIORIDAD_VALIDACION, ID_ESTADO_VALIDACION, MENSAJE, FECHA_HORA_CREACION, FECHA_HORA_ACTUALIZACION)
-  VALUES(:pk.tipoValidacion.id, :pk.tareaPrevalidacion.id, :pk.tarea.id, :delay, :reintentoMax, :reintentoDelay, :tipoEstadoValidacion.id, :tipoAccionValidacion.id, :prioridadValidacion.id, :estadoValidacion.id, :mensaje, :fechaHoraCreacion, :fechaHoraActualizacion)
+    INSERT INTO TAREA_PREVALIDACION_VALIDACION (ID_TIPO_VALIDACION, ID_TAREA_PREVALIDACION, ID_TAREA, ES_DELAY, REINTENTO_MAX, REINTENTO_DELAY, ID_TIPO_ESTADO_VALIDACION, ID_TIPO_ACCION_VALIDACION, ID_PRIORIDAD_VALIDACION, ID_ESTADO_VALIDACION, MENSAJE, FECHA_HORA_CREACION, FECHA_HORA_ACTUALIZACION)
+    VALUES(:pk.tipoValidacion.id, :pk.tareaPrevalidacion.id, :pk.tarea.id, :delay, :reintentoMax, :reintentoDelay, :tipoEstadoValidacion.id, :tipoAccionValidacion.id, :prioridadValidacion.id, :estadoValidacion.id, :mensaje, :fechaHoraCreacion, :fechaHoraActualizacion)
      ]]>
 </entry>
 
 <entry key="TareaPrevalidacionRepositoryCustom.findByTareaUltimoIntento">
     <![CDATA[
-  SELECT COALESCE(MAX(ID_TAREA_PREVALIDACION + 1),1) as ID_TAREA_PREVALIDACION FROM TAREA_PREVALIDACION WHERE ID_TAREA = :idTarea
+    SELECT COALESCE(MAX(ID_TAREA_PREVALIDACION + 1),1) as ID_TAREA_PREVALIDACION FROM TAREA_PREVALIDACION WHERE ID_TAREA = :idTarea
      ]]>
 </entry>
 
 <entry key="TareaPrevalidacionValidacionRepositoryCustom.update"><![CDATA[
-  UPDATE TAREA_PREVALIDACION_VALIDACION
-  SET ID_ESTADO_VALIDACION = :idEstadoValidacion, FECHA_HORA_ACTUALIZACION = :fechaHoraActualizacion
-  WHERE ID_TAREA_PREVALIDACION = :idTareaPrevalidacion 
-  AND ID_TAREA = :idTarea
-  AND ID_TIPO_VALIDACION = :idTipoValidacion
+    UPDATE TAREA_PREVALIDACION_VALIDACION
+    SET ID_ESTADO_VALIDACION = :idEstadoValidacion, FECHA_HORA_ACTUALIZACION = :fechaHoraActualizacion
+    WHERE ID_TAREA_PREVALIDACION = :idTareaPrevalidacion 
+    AND ID_TAREA = :idTarea
+    AND ID_TIPO_VALIDACION = :idTipoValidacion
 ]]></entry>
 
 
@@ -6161,23 +6161,35 @@ WHERE ACCION.ROW = 1
 </entry>
 
 <entry key="TareaPrevalidacionRepositoryCustom.updateFecha"><![CDATA[
-  UPDATE TAREA_PREVALIDACION
-  SET FECHA_HORA_FIN = :nuevaFecha
-  WHERE ID_TAREA_PREVALIDACION = :idTareaPrevalidacion 
-  AND ID_TAREA = :idTarea
+    UPDATE TAREA_PREVALIDACION
+    SET FECHA_HORA_FIN = :nuevaFecha
+    WHERE ID_TAREA_PREVALIDACION = :idTareaPrevalidacion 
+    AND ID_TAREA = :idTarea
 ]]></entry>
 
 
 <entry key="TareaPrevalidacionRepositoryCustom.updateEstado"><![CDATA[
-  UPDATE TAREA_PREVALIDACION
-  SET ID_ESTADO_TAREA_PREVALIDACION = :nuevoIdEstado
-  WHERE ID_TAREA_PREVALIDACION = :idTareaPrevalidacion 
-  AND ID_TAREA = :idTarea
+    UPDATE TAREA_PREVALIDACION
+    SET ID_ESTADO_TAREA_PREVALIDACION = :nuevoIdEstado
+    WHERE ID_TAREA_PREVALIDACION = :idTareaPrevalidacion 
+    AND ID_TAREA = :idTarea
 ]]></entry>
 
 <entry key="TareaPrevalidacionValidacionRepositoryCustom.findByIdTareaAndIdTareaPrevalidacionAndTipoValidacion">
     <![CDATA[
     SELECT ID_TIPO_VALIDACION, ID_TAREA_PREVALIDACION, ID_TAREA FROM TAREA_PREVALIDACION_VALIDACION WHERE ID_TAREA = :idTarea AND ID_TAREA_PREVALIDACION = :idTareaPrevalidacion AND ID_TIPO_VALIDACION = :idTipoValidacion
+]]></entry>
+
+<entry key="TareaPrevalidacionRepositoryCustom.checkMaxReintentos">
+    <![CDATA[
+    SELECT COUNT(*)
+    FROM TAREA_PREVALIDACION TP
+    INNER JOIN TAREA_PREVALIDACION_VALIDACION TPV
+    ON TP.ID_TAREA = TPV.ID_TAREA 
+    AND TP.ID_TAREA_PREVALIDACION = TPV.ID_TAREA_PREVALIDACION
+    AND TP.ID_TAREA_PREVALIDACION = TPV.REINTENTO_MAX
+    WHERE TP.ID_TAREA = :idTarea
+    AND TP.ID_TAREA_PREVALIDACION = :idTareaPrevalidacion
 ]]></entry>
 
 </properties>

@@ -20,4 +20,6 @@ public interface TareaPrevalidacionService {
 
     void send(@Valid @NotNull TareaPrevalidacionDto prevalidacionDto);
 
+    Boolean checkMaxReintentos(@Valid @NotNull TareaPrevalidacionDto tareaPrevalidacionDto);
+
 }

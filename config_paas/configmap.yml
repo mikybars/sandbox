@@ -186,10 +186,7 @@ app:
       recolectar:
         days-number: 3
       prevalidar:
-        online: 
-          enabled: true
-        offline: 
-          enabled: true        
+        enabled: true        
       validar:
         enabled: true
         logging: true

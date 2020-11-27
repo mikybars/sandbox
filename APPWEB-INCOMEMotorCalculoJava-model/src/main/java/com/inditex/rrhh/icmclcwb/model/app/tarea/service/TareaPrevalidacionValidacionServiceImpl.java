@@ -57,7 +57,7 @@ public class TareaPrevalidacionValidacionServiceImpl implements TareaPrevalidaci
             @NotNull final TareaPrevalidacionDto tareaPrevalidacionDto) {
         final List<ValidacionDto> validaciones = this.meta4IcmWsCalcIncomeSessionService
             .configuracionValidacion();
-        validaciones.stream().forEach(x -> {
+        validaciones.stream().filter(x -> x.getMaxReintentos() >= tareaPrevalidacionDto.getId()).forEach(x -> {
             final TareaPrevalidacionValidacionDto flujo = new TareaPrevalidacionValidacionDto();
             // TODO: Todas estas operaciones habría que gestionarlas desde los enumerados correspondientes
             // cuando exista el campo de meta4 (y en un mapper por ej:

@@ -8,12 +8,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PreValidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPrevalidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPreValidarOfflineService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPreValidarOnlineService;
@@ -37,10 +35,6 @@ public class RunTareaPreValidarServiceImpl implements RunTareaPreValidarService 
 
     @Autowired
     private RunTareaPreValidarOnlineService runTareaPreValidarOnlineService;
-
-    @Autowired
-    @Qualifier("preValidarProperties")
-    private PreValidarPropertiesDto preValidarProperties;
 
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaPreValidarServiceImpl.run.timer",

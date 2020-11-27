@@ -84,26 +84,35 @@ public class TareaPrevalidacionServiceImpl implements TareaPrevalidacionService 
     }
 
     @Override
+    public Boolean checkMaxReintentos(@Valid @NotNull final TareaPrevalidacionDto tareaPrevalidacionDto) {
+        return this.tareaPrevalidacionRepositoryCustom.checkMaxReintentos(tareaPrevalidacionDto);
+    }
+
+    @Override
     public void send(@Valid @NotNull final TareaPrevalidacionDto prevalidacionDto) {
 
-        final AccionValidacionDto accion = this.tareaPrevalidacionRepositoryCustom.findAccionValidacion(
-                prevalidacionDto.getIdTarea(),
-                prevalidacionDto.getId());
-
-        if (accion != null) {
-            switch (accion.getId()) {
-                case 3:
-                    this.senderTareaPreValidar.sendWithDelay(this.tareaService.find(prevalidacionDto.getIdTarea()),
-                            accion.getDelayTime());
-                    break;
-                case 4:
-                    this.senderTareaPreValidar.send(this.tareaService.find(prevalidacionDto.getIdTarea()));
-                    break;
-                default:
-                    break;
+        if (Boolean.FALSE.equals(this.checkMaxReintentos(prevalidacionDto))) {
+            final AccionValidacionDto accion = this.tareaPrevalidacionRepositoryCustom.findAccionValidacion(
+                    prevalidacionDto.getIdTarea(),
+                    prevalidacionDto.getId());
+            if (accion != null) {
+                switch (accion.getId()) {
+                    case 3:
+                        this.senderTareaPreValidar.sendWithDelay(this.tareaService.find(prevalidacionDto.getIdTarea()),
+                                accion.getDelayTime());
+                        break;
+                    case 4:
+                        this.senderTareaPreValidar.send(this.tareaService.find(prevalidacionDto.getIdTarea()));
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                this.senderTarea.send(this.tareaService.find(prevalidacionDto.getIdTarea()));
             }
         } else {
-            this.senderTarea.send(this.tareaService.find(prevalidacionDto.getIdTarea()));
+            this.updateEstado(prevalidacionDto,
+                    EstadoTareaPrevalidacionEnum.ERROR.getDto());
         }
     }
 
