@@ -64,4 +64,8 @@ public class Meta4PropertiesConstants {
 
     public static final String MULTIEMPRESA = "getDesplazamientosMultiempresa";
 
+    public static final String PRESENCIA_MANUAL_LOCALIZACION = "getPresenciaManualLocalizacion";
+
+    public static final String VENTA_MANUAL_LOCALIZACION = "getVentaManualLocalizacion";
+
 }

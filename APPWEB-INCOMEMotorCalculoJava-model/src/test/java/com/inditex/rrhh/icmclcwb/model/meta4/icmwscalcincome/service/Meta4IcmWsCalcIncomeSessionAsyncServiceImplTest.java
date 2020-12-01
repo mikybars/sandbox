@@ -43,6 +43,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
@@ -55,6 +56,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCal
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionRequestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -457,6 +459,38 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
 
         verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
             .getDesplazReal(ArgumentMatchers.any(DesplazamientoRealRequestDto.class));
+    }
+
+    @Test
+    public void getPresenciaManualLocalizacion() {
+        when(this.meta4IcmWsCalcIncomeSessionService
+            .getPresenciaManualLocalizacion(any(PresenciaManualLocalizacionRequestDto.class)))
+                .thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
+
+        final PresenciaManualLocalizacionRequestDto request = new PresenciaManualLocalizacionRequestDto();
+        request.setData(new GenericFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPresenciaManualLocalizacion(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getPresenciaManualLocalizacion(ArgumentMatchers.any(PresenciaManualLocalizacionRequestDto.class));
+    }
+
+    @Test
+    public void getVentaManualLocalizacion() {
+        when(this.meta4IcmWsCalcIncomeSessionService
+            .getVentaManualLocalizacion(any(VentaManualLocalizacionRequestDto.class)))
+                .thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
+
+        final VentaManualLocalizacionRequestDto request = new VentaManualLocalizacionRequestDto();
+        request.setData(new GenericFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getVentaManualLocalizacion(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getVentaManualLocalizacion(ArgumentMatchers.any(VentaManualLocalizacionRequestDto.class));
     }
 
 }

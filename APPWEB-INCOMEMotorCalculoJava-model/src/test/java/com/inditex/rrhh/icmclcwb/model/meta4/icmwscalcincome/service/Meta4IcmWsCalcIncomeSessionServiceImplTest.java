@@ -35,6 +35,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.Periodos
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
@@ -44,6 +46,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
@@ -419,6 +423,42 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         this.meta4IcmWsCalcIncomeSessionServiceImpl.getDesplazReal(request);
         verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
             .getDesplazReal(ArgumentMatchers.any(DesplazamientoRealRequestDto.class));
+    }
+
+    @Test
+    public void getPresenciaManualLocalizacion() {
+        final Meta4PropertiesDto properties = new Meta4PropertiesDto();
+        final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
+        filter.setMaxPageSize(1);
+        properties.setFilter(filter);
+        when(this.meta4IcmWsCalcIncomeService
+            .getPresenciaManualLocalizacion(any(PresenciaManualLocalizacionRequestDto.class)))
+                .thenReturn(new PresenciaManualLocalizacionResponseDto());
+
+        final PresenciaManualLocalizacionRequestDto request = new PresenciaManualLocalizacionRequestDto();
+        request.setData(new GenericFilterDto());
+        request.setPage(new PageDto(1, 100));
+        this.meta4IcmWsCalcIncomeSessionServiceImpl.getPresenciaManualLocalizacion(request);
+        verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
+            .getPresenciaManualLocalizacion(ArgumentMatchers.any(PresenciaManualLocalizacionRequestDto.class));
+    }
+
+    @Test
+    public void getVentaManualLocalizacion() {
+        final Meta4PropertiesDto properties = new Meta4PropertiesDto();
+        final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
+        filter.setMaxPageSize(1);
+        properties.setFilter(filter);
+        when(this.meta4IcmWsCalcIncomeService
+            .getVentaManualLocalizacion(any(VentaManualLocalizacionRequestDto.class)))
+                .thenReturn(new VentaManualLocalizacionResponseDto());
+
+        final VentaManualLocalizacionRequestDto request = new VentaManualLocalizacionRequestDto();
+        request.setData(new GenericFilterDto());
+        request.setPage(new PageDto(1, 100));
+        this.meta4IcmWsCalcIncomeSessionServiceImpl.getVentaManualLocalizacion(request);
+        verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
+            .getVentaManualLocalizacion(ArgumentMatchers.any(VentaManualLocalizacionRequestDto.class));
     }
 
 }

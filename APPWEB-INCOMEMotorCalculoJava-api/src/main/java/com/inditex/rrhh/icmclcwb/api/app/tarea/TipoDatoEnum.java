@@ -113,7 +113,8 @@ public enum TipoDatoEnum {
                                                                                                             5014), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE(
                                                                                                                     5015), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO(
                                                                                                                             5016), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE(
-                                                                                                                                    5017),
+                                                                                                                                    5017), PRESENCIA_MANUAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR(
+                                                                                                                                            5018),
     /* 6000 (Localizacion) */
     LOCALIZACION_FESTIVO(6001),
     /* 7000 (Localizacion Procesado) *//* 8000 (Persona) */

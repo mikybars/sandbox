@@ -57,4 +57,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<Void> desplazamientoRealByRunTarea(final RunTareaDto runTarea);
 
+    CompletableFuture<Void> presenciaManualLocalizacionByRunTarea(final RunTareaDto runTarea);
+
 }
