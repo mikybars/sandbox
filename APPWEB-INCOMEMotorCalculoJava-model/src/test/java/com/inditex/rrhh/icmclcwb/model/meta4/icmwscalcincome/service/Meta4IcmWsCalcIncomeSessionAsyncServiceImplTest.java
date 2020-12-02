@@ -44,6 +44,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.Periodos
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
@@ -57,6 +58,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -465,7 +467,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
     public void getPresenciaManualLocalizacion() {
         when(this.meta4IcmWsCalcIncomeSessionService
             .getPresenciaManualLocalizacion(any(PresenciaManualLocalizacionRequestDto.class)))
-                .thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
+                .thenReturn(new ArrayList<PresenciaManualLocalizacionResultItemDto>());
 
         final PresenciaManualLocalizacionRequestDto request = new PresenciaManualLocalizacionRequestDto();
         request.setData(new GenericFilterDto());
@@ -481,7 +483,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
     public void getVentaManualLocalizacion() {
         when(this.meta4IcmWsCalcIncomeSessionService
             .getVentaManualLocalizacion(any(VentaManualLocalizacionRequestDto.class)))
-                .thenReturn(new ArrayList<GenericEmpleadoResultItemDto>());
+                .thenReturn(new ArrayList<VentaManualLocalizacionResultItemDto>());
 
         final VentaManualLocalizacionRequestDto request = new VentaManualLocalizacionRequestDto();
         request.setData(new GenericFilterDto());

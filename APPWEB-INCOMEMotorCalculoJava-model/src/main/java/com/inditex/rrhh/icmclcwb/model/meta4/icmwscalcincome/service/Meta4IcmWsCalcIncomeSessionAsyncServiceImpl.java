@@ -45,6 +45,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.Periodos
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
@@ -58,6 +59,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.Tie
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
 
 @Service
 public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCalcIncomeSessionAsyncService {
@@ -236,14 +238,14 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
     }
 
     @Override
-    public CompletableFuture<List<GenericEmpleadoResultItemDto>> getPresenciaManualLocalizacion(
+    public CompletableFuture<List<PresenciaManualLocalizacionResultItemDto>> getPresenciaManualLocalizacion(
             final PresenciaManualLocalizacionRequestDto request) {
         return CompletableFuture
             .completedFuture(this.meta4IcmWsCalcIncomeSessionService.getPresenciaManualLocalizacion(request));
     }
 
     @Override
-    public CompletableFuture<List<GenericEmpleadoResultItemDto>> getVentaManualLocalizacion(
+    public CompletableFuture<List<VentaManualLocalizacionResultItemDto>> getVentaManualLocalizacion(
             final VentaManualLocalizacionRequestDto request) {
         return CompletableFuture
             .completedFuture(this.meta4IcmWsCalcIncomeSessionService.getVentaManualLocalizacion(request));

@@ -289,7 +289,9 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_VALIDACION = "idTipoValidacion";
 
-    public static final String SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_MANUAL = "idTipoDatoManual";
+    public static final String SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_PRESENCIA_MANUAL = "idTipoDatoManual";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_VENTA_MANUAL = "idTipoDatoLocalizacionVentaManual";
 
 
     public static final Integer SQL_VALUE_BOOLEAN_TRUE = 1;

@@ -8,11 +8,12 @@ import javax.validation.constraints.NotNull;
 import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
 
 @Async("repositoryPrimaryExecutor")
 public interface TareaLocalizacionPresenciaAsyncService {
 
-    CompletableFuture<Void> save(@NotNull List<GenericEmpleadoResultItemDto> src, @NotNull TareaDto tareaDto);
+    CompletableFuture<Void> save(@NotNull List<PresenciaManualLocalizacionResultItemDto> src,
+            @NotNull TareaDto tareaDto);
 
 }

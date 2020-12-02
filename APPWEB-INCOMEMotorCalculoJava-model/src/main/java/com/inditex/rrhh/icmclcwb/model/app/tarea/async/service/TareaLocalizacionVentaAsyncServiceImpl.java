@@ -1,6 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVe
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
@@ -22,35 +26,45 @@ public class TareaLocalizacionVentaAsyncServiceImpl implements TareaLocalizacion
     private TareaLocalizacionVentaService tareaLocalizacionVentaService;
 
     @Override
-    public CompletableFuture<Void> savePtrVentaTotalizadoResponse(PtrVentaTotalizadoResponseDto dto, TareaDto tarea) {
-        tareaLocalizacionVentaService.savePtrVentaTotalizadoResponse(dto, tarea);
+    public CompletableFuture<Void> save(@NotNull final List<VentaManualLocalizacionResultItemDto> src,
+            @NotNull final TareaDto tareaDto) {
+        this.tareaLocalizacionVentaService.save(src, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlineIpodResponse(PtrVentaOnlineIpodResponseDto dto, TareaDto tarea) {
-        tareaLocalizacionVentaService.savePtrVentaOnlineIpodResponse(dto, tarea);
+    public CompletableFuture<Void> savePtrVentaTotalizadoResponse(final PtrVentaTotalizadoResponseDto dto,
+            final TareaDto tarea) {
+        this.tareaLocalizacionVentaService.savePtrVentaTotalizadoResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlinePickingResponse(PtrVentaOnlinePickingResponseDto dto,
-            TareaDto tarea) {
-        tareaLocalizacionVentaService.savePtrVentaOnlinePickingResponse(dto, tarea);
+    public CompletableFuture<Void> savePtrVentaOnlineIpodResponse(final PtrVentaOnlineIpodResponseDto dto,
+            final TareaDto tarea) {
+        this.tareaLocalizacionVentaService.savePtrVentaOnlineIpodResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(PtrVentaOnlineEntregaTiendaResponseDto dto,
-            TareaDto tarea) {
-        tareaLocalizacionVentaService.savePtrVentaOnlineEntregaTiendaResponse(dto, tarea);
+    public CompletableFuture<Void> savePtrVentaOnlinePickingResponse(final PtrVentaOnlinePickingResponseDto dto,
+            final TareaDto tarea) {
+        this.tareaLocalizacionVentaService.savePtrVentaOnlinePickingResponse(dto, tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(
+            final PtrVentaOnlineEntregaTiendaResponseDto dto,
+            final TareaDto tarea) {
+        this.tareaLocalizacionVentaService.savePtrVentaOnlineEntregaTiendaResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
     public CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(
-            PtrVentaOnlineEntregaDomicilioResponseDto dto, TareaDto tarea) {
-        tareaLocalizacionVentaService.savePtrVentaOnlineEntregaDomicilioResponse(dto, tarea);
+            final PtrVentaOnlineEntregaDomicilioResponseDto dto, final TareaDto tarea) {
+        this.tareaLocalizacionVentaService.savePtrVentaOnlineEntregaDomicilioResponse(dto, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

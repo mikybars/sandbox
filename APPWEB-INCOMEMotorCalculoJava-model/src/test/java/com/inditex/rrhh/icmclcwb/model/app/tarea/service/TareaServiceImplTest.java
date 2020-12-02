@@ -1,19 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.Optional;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -30,6 +18,18 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
+import com.inditex.rrhh.icmclcwb.ms.app.tareaprevalidar.SenderTareaPreValidar;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaServiceImplTest {
@@ -61,41 +61,44 @@ public class TareaServiceImplTest {
     @Mock
     private SenderTarea senderTarea;
 
+    @Mock
+    private SenderTareaPreValidar senderTareaPreValidar;
+
     @Test
     public void saveTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        when(tareaMapper.tareaDtoToTarea(any(TareaDto.class))).thenReturn(new Tarea());
+        when(this.tareaMapper.tareaDtoToTarea(any(TareaDto.class))).thenReturn(new Tarea());
 
-        tareaServiceImpl.save(tarea);
+        this.tareaServiceImpl.save(tarea);
 
-        verify(tareaRepository, times(1)).save(any(Tarea.class));
+        verify(this.tareaRepository, times(1)).save(any(Tarea.class));
     }
 
     @Test
     public void findTest() {
-        Tarea tarea = mock(Tarea.class);
-        TareaDto tareaDto = mock(TareaDto.class);
-        Long idTarea = 1L;
-        when(tareaRepository.findById(any(Long.class))).thenReturn(Optional.of(tarea));
-        when(tareaAmbitoService.findByTarea(any(TareaDto.class))).thenReturn(new ArrayList<TareaAmbitoDto>());
-        when(tareaAmbitoLocalizacionService.findByTarea(any(TareaDto.class)))
+        final Tarea tarea = mock(Tarea.class);
+        final TareaDto tareaDto = mock(TareaDto.class);
+        final Long idTarea = 1L;
+        when(this.tareaRepository.findById(any(Long.class))).thenReturn(Optional.of(tarea));
+        when(this.tareaAmbitoService.findByTarea(any(TareaDto.class))).thenReturn(new ArrayList<TareaAmbitoDto>());
+        when(this.tareaAmbitoLocalizacionService.findByTarea(any(TareaDto.class)))
             .thenReturn(new ArrayList<TareaAmbitoLocalizacionDto>());
-        when(tareaAmbitoPersonaService.findByTarea(any(TareaDto.class)))
+        when(this.tareaAmbitoPersonaService.findByTarea(any(TareaDto.class)))
             .thenReturn(new ArrayList<TareaAmbitoPersonaDto>());
-        when(tareaMapper.tareaToTareaDto(any(Tarea.class))).thenReturn(tareaDto);
+        when(this.tareaMapper.tareaToTareaDto(any(Tarea.class))).thenReturn(tareaDto);
 
-        tareaServiceImpl.find(idTarea);
+        this.tareaServiceImpl.find(idTarea);
 
-        verify(tareaRepository, times(1)).findById(any(Long.class));
-        verify(tareaAmbitoService, times(1)).findByTarea(any(TareaDto.class));
-        verify(tareaAmbitoLocalizacionService, times(1)).findByTarea(any(TareaDto.class));
-        verify(tareaAmbitoPersonaService, times(1)).findByTarea(any(TareaDto.class));
+        verify(this.tareaRepository, times(1)).findById(any(Long.class));
+        verify(this.tareaAmbitoService, times(1)).findByTarea(any(TareaDto.class));
+        verify(this.tareaAmbitoLocalizacionService, times(1)).findByTarea(any(TareaDto.class));
+        verify(this.tareaAmbitoPersonaService, times(1)).findByTarea(any(TareaDto.class));
     }
 
     @Test
     public void createTest() {
-        TareaDto tareaDto = mock(TareaDto.class);
+        final TareaDto tareaDto = mock(TareaDto.class);
         tareaDto.setAmbito(new ArrayList<>());
         tareaDto.getAmbito().add(new TareaAmbitoDto());
         tareaDto.setLocalizacion(new ArrayList<>());
@@ -103,71 +106,71 @@ public class TareaServiceImplTest {
         tareaDto.setPersona(new ArrayList<>());
         tareaDto.getPersona().add(new TareaAmbitoPersonaDto());
 
-        when(tareaMapper.tareaDtoToTarea(any(TareaDto.class))).thenReturn(new Tarea());
+        when(this.tareaMapper.tareaDtoToTarea(any(TareaDto.class))).thenReturn(new Tarea());
 
-        tareaServiceImpl.create(tareaDto);
+        this.tareaServiceImpl.create(tareaDto);
 
-        verify(tareaRepository, times(1)).save(any(Tarea.class));
+        verify(this.tareaRepository, times(1)).save(any(Tarea.class));
     }
 
     @Test
     public void createTrabajoTest() {
-        TrabajoDto trabajoDto = mock(TrabajoDto.class);
+        final TrabajoDto trabajoDto = mock(TrabajoDto.class);
         trabajoDto.setEmpresa(new ArrayList<>());
-        tareaServiceImpl.create(trabajoDto);
-        verify(tareaMapper, times(1)).mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(trabajoDto.getEmpresa(),
+        this.tareaServiceImpl.create(trabajoDto);
+        verify(this.tareaMapper, times(1)).mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(trabajoDto.getEmpresa(),
                 trabajoDto);
     }
 
     @Test
     public void findByTrabajoIdTest() {
-        Long idTrabajo = 1L;
-        tareaServiceImpl.findByTrabajoId(idTrabajo);
-        verify(tareaRepository, times(1)).findByTrabajoId(any(Long.class));
+        final Long idTrabajo = 1L;
+        this.tareaServiceImpl.findByTrabajoId(idTrabajo);
+        verify(this.tareaRepository, times(1)).findByTrabajoId(any(Long.class));
     }
 
     @Test
     public void updateFechaFinTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        tareaServiceImpl.updateFechaFin(tarea);
-        verify(tareaRepositoryCustom, times(1)).updateFechaFin(any(TareaDto.class));
+        final TareaDto tarea = mock(TareaDto.class);
+        this.tareaServiceImpl.updateFechaFin(tarea);
+        verify(this.tareaRepositoryCustom, times(1)).updateFechaFin(any(TareaDto.class));
     }
 
     @Test
     public void updateFechaInicioAndEstadoTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        EstadoTareaDto estado = mock(EstadoTareaDto.class);
-        tareaServiceImpl.updateFechaInicioAndEstado(tarea, estado);
-        verify(tareaRepositoryCustom, times(1)).updateFechaInicioAndEstado(any(TareaDto.class),
+        final TareaDto tarea = mock(TareaDto.class);
+        final EstadoTareaDto estado = mock(EstadoTareaDto.class);
+        this.tareaServiceImpl.updateFechaInicioAndEstado(tarea, estado);
+        verify(this.tareaRepositoryCustom, times(1)).updateFechaInicioAndEstado(any(TareaDto.class),
                 any(EstadoTareaDto.class));
     }
 
     @Test
     public void updateEstadoTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        EstadoTareaDto estado = mock(EstadoTareaDto.class);
-        tareaServiceImpl.updateEstado(tarea, estado);
-        verify(tareaRepositoryCustom, times(1)).updateEstado(any(TareaDto.class), any(EstadoTareaDto.class));
+        final TareaDto tarea = mock(TareaDto.class);
+        final EstadoTareaDto estado = mock(EstadoTareaDto.class);
+        this.tareaServiceImpl.updateEstado(tarea, estado);
+        verify(this.tareaRepositoryCustom, times(1)).updateEstado(any(TareaDto.class), any(EstadoTareaDto.class));
     }
 
     @Test
     public void updateEstadoFinalTest() {
-        TareaDto tarea = mock(TareaDto.class);
-        tareaServiceImpl.updateEstadoFinal(tarea);
-        verify(tareaRepositoryCustom, times(1)).updateEstadoFinal(any(TareaDto.class));
+        final TareaDto tarea = mock(TareaDto.class);
+        this.tareaServiceImpl.updateEstadoFinal(tarea);
+        verify(this.tareaRepositoryCustom, times(1)).updateEstadoFinal(any(TareaDto.class));
     }
 
     @Test
     public void findLimpiezaTest() {
-        tareaServiceImpl.findLimpieza();
-        verify(tareaRepositoryCustom, times(1)).findLimpieza();
+        this.tareaServiceImpl.findLimpieza();
+        verify(this.tareaRepositoryCustom, times(1)).findLimpieza();
     }
 
     @Test
     public void findLimpiezaByIdTareaTest() {
-        Long idTarea = 1L;
-        tareaServiceImpl.findLimpiezaByIdTarea(idTarea);
-        verify(tareaRepositoryCustom, times(1)).findLimpiezaByIdTarea(any(Long.class));
+        final Long idTarea = 1L;
+        this.tareaServiceImpl.findLimpiezaByIdTarea(idTarea);
+        verify(this.tareaRepositoryCustom, times(1)).findLimpiezaByIdTarea(any(Long.class));
     }
 
 }

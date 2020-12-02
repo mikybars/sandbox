@@ -41,6 +41,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.Periodos
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
@@ -53,6 +54,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.Tie
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
 
 public interface Meta4IcmWsCalcIncomeSessionService {
 
@@ -121,8 +123,9 @@ public interface Meta4IcmWsCalcIncomeSessionService {
 
     Integer validacionPresencias();
 
-    List<GenericEmpleadoResultItemDto> getPresenciaManualLocalizacion(PresenciaManualLocalizacionRequestDto request);
+    List<PresenciaManualLocalizacionResultItemDto> getPresenciaManualLocalizacion(
+            PresenciaManualLocalizacionRequestDto request);
 
-    List<GenericEmpleadoResultItemDto> getVentaManualLocalizacion(VentaManualLocalizacionRequestDto request);
+    List<VentaManualLocalizacionResultItemDto> getVentaManualLocalizacion(VentaManualLocalizacionRequestDto request);
 
 }

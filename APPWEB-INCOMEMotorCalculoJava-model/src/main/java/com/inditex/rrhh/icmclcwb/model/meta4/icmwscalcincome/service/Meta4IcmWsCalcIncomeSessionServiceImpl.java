@@ -71,6 +71,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.P
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
@@ -92,6 +93,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.Ve
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
 
@@ -319,17 +321,17 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     }
 
     @Override
-    public List<GenericEmpleadoResultItemDto> getPresenciaManualLocalizacion(
+    public List<PresenciaManualLocalizacionResultItemDto> getPresenciaManualLocalizacion(
             final PresenciaManualLocalizacionRequestDto request) {
         return this.getResultItem(request, Meta4PropertiesConstants.PRESENCIA_MANUAL_LOCALIZACION,
-                PresenciaManualLocalizacionResponseDto.class, GenericEmpleadoResultItemDto.class);
+                PresenciaManualLocalizacionResponseDto.class, PresenciaManualLocalizacionResultItemDto.class);
     }
 
     @Override
-    public List<GenericEmpleadoResultItemDto> getVentaManualLocalizacion(
+    public List<VentaManualLocalizacionResultItemDto> getVentaManualLocalizacion(
             final VentaManualLocalizacionRequestDto request) {
         return this.getResultItem(request, Meta4PropertiesConstants.VENTA_MANUAL_LOCALIZACION,
-                VentaManualLocalizacionResponseDto.class, GenericEmpleadoResultItemDto.class);
+                VentaManualLocalizacionResponseDto.class, VentaManualLocalizacionResultItemDto.class);
     }
 
 }

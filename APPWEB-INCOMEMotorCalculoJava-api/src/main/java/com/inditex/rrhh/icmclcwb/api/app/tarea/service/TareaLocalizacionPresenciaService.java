@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
 
 public interface TareaLocalizacionPresenciaService {
 
@@ -24,7 +24,7 @@ public interface TareaLocalizacionPresenciaService {
 
     void totalizarEmpleadosPorVenta(@Valid @NotNull final RunTareaDto runTareaDto);
 
-    void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
+    void save(@Valid @NotNull @NotEmpty final List<PresenciaManualLocalizacionResultItemDto> src,
             @Valid @NotNull final TareaDto tareaDto);
 
     void compensarLocalizacionManual(@Valid @NotNull final RunTareaDto runTareaDto);

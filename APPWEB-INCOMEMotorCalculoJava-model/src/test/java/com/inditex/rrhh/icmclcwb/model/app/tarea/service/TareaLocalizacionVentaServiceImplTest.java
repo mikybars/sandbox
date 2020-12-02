@@ -1,11 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
@@ -135,6 +137,17 @@ public class TareaLocalizacionVentaServiceImplTest {
 
         verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).updateActivo(any(TareaDto.class),
                 any(TipoVentaConceptoEnum.class), ArgumentMatchers.<List<Integer>>any());
+    }
+
+    @Test
+    public void saveTest() {
+        final TareaDto tarea = mock(TareaDto.class);
+        tarea.setIdTrabajo(1L);
+        final VentaManualLocalizacionResultItemDto ventaTotalizado = new VentaManualLocalizacionResultItemDto();
+        this.tareaLocalizacionVentaServiceImpl.save(Arrays.asList(ventaTotalizado), tarea);
+
+        verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).save(ArgumentMatchers
+            .<List<TareaLocalizacionVenta>>any());
     }
 
 }

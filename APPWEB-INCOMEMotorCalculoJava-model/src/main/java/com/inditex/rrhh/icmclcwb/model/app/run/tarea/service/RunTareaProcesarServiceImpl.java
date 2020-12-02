@@ -447,6 +447,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
+            // Desactivo venta de tienda por seccion si hay manual
+            final CompletableFuture<Void> cfUpdateActivoManual = this.runTareaProcesarVentaAsyncService
+                .updateActivoManual(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoManual, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

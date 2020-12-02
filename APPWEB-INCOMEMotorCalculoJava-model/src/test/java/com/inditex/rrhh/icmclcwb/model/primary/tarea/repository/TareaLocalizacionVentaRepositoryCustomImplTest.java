@@ -58,6 +58,8 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
 
     private final static String SQL_REPARTO_DEVOLUCION_VENDEDOR_0 = "SQL REPARTO DEVOLUCION VENDEDOR 0";
 
+    private final static String SQL_UPDATE_ACTIVO_MANUAL = "SQL UPDATE ACTIVO MANUAL";
+
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -100,6 +102,8 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
                 SQL_TOTALIZAR_VENTAS_VENDEDOR_0, true);
         FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlRepartoDevolucionVendedor0",
                 SQL_REPARTO_DEVOLUCION_VENDEDOR_0, true);
+        FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlUpdateActivoManual",
+                SQL_UPDATE_ACTIVO_MANUAL, true);
         FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
                 "batchSize", 100, true);
     }
@@ -584,6 +588,39 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         assertEquals(TipoDatoEnum.DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION.getId(),
                 params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
+    }
+
+    @Test
+    public void updateActivoManualTest() {
+
+        final TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getId()).thenReturn(123L);
+
+        this.tareaLocalizacionVentaRepositoryCustom.updateActivoManual(tarea);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_UPDATE_ACTIVO_MANUAL, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+        // Parámetros de la consulta: idTipoDatoIndicadorPresencia, activo, idTarea, nuevoIdTipoDato,
+        // nuevoActivo, idTipoImporteVenta
+        assertEquals(4, params.getValues().size());
+        // idTipoDatoIndicadorPresencia
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertEquals(TipoGrupoDatoEnum.VENTA_REAL_LOCALIZACION_SECCION.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        // activo
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
+        // idTarea
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        // nuevoIdTipoDato
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_VENTA_MANUAL));
+        assertEquals(TipoDatoEnum.VENTA_MANUAL_LOCALIZACION_SECCION.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_VENTA_MANUAL));
+
     }
 
 }

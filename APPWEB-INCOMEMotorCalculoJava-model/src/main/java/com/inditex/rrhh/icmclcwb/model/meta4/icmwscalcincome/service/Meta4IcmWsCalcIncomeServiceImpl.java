@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,6 +74,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.P
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
@@ -98,6 +98,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.Ve
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetausenciasOutput;
@@ -892,8 +893,8 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public PresenciaManualLocalizacionResponseDto getPresenciaManualLocalizacion(
             final PresenciaManualLocalizacionRequestDto request) {
-        final GenericEmpleadoResultItemDto pruebaPresencia = new GenericEmpleadoResultItemDto();
-        pruebaPresencia.setFecha(LocalDateTime.of(2020, 8, 1, 0, 0));
+        final PresenciaManualLocalizacionResultItemDto pruebaPresencia = new PresenciaManualLocalizacionResultItemDto();
+        pruebaPresencia.setFecha("2020-08-01");
         pruebaPresencia.setIdLugarTrabajoMtu("12153");
         pruebaPresencia.setIdCadena("1");
         pruebaPresencia.setIdSeccion("1");
@@ -912,7 +913,16 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public VentaManualLocalizacionResponseDto getVentaManualLocalizacion(
             final VentaManualLocalizacionRequestDto request) {
-        return null;
+        final VentaManualLocalizacionResultItemDto pruebaPresencia = new VentaManualLocalizacionResultItemDto();
+        pruebaPresencia.setFecha("2020-08-01");
+        pruebaPresencia.setIdLugarTrabajoMtu("12153");
+        pruebaPresencia.setIdCadena("1");
+        pruebaPresencia.setIdSeccion("1");
+        pruebaPresencia.setImporte("1102");
+        final VentaManualLocalizacionResponseDto presencia = new VentaManualLocalizacionResponseDto();
+        presencia.setData(Arrays.asList(pruebaPresencia));
+        presencia.setPage(new PageDto());
+        return presencia;
     }
 
 }

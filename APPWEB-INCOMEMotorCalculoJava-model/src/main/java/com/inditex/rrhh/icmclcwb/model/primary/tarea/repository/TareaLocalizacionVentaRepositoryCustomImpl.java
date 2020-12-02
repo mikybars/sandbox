@@ -57,6 +57,9 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0']}")
     private String sqlRepartoDevolucionVendedor0;
 
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.updateActivoManual']}")
+    private String sqlUpdateActivoManual;
+
     @Override
     public List<TareaLocalizacionVenta> save(final List<TareaLocalizacionVenta> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -251,7 +254,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
-                TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+                TipoGrupoDatoEnum.VENTA_REAL_LOCALIZACION_SECCION.getId());
 
         this.update(this.sqlUpdateActivoNegativoTotalizado, parameters);
     }
@@ -291,6 +294,18 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
                 TipoDatoEnum.DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION.getId());
 
         this.update(this.sqlRepartoDevolucionVendedor0, parameters);
+    }
+
+    @Override
+    public void updateActivoManual(@NotNull final TareaDto tarea) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+                TipoGrupoDatoEnum.VENTA_REAL_LOCALIZACION_SECCION.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_VENTA_MANUAL,
+                TipoDatoEnum.VENTA_MANUAL_LOCALIZACION_SECCION.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        this.update(this.sqlUpdateActivoManual, params);
     }
 
 }

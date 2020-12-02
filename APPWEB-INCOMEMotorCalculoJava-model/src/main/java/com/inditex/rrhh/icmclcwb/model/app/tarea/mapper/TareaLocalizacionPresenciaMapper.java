@@ -6,7 +6,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizacionPresenciaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
@@ -41,7 +42,7 @@ public abstract class TareaLocalizacionPresenciaMapper {
     @Mapping(source = "src.idLugarTrabajoMtu", target = "cclIdCodOrigen")
     @Mapping(source = "src.idSeccion", target = "cclIdSeccion")
     @Mapping(source = "src.idCadena", target = "cclIdCadena")
-    @Mapping(source = "src.fecha", target = "fecha")
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
     @Mapping(source = "src.minutos", target = "minutos")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(target = "tipoDato",
@@ -49,11 +50,11 @@ public abstract class TareaLocalizacionPresenciaMapper {
     @Mapping(target = "activo", expression = "java(Boolean.TRUE)")
     @Mapping(target = "pk.id", ignore = true)
     @Mapping(source = "tareaDto.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
-    public abstract TareaLocalizacionPresencia genericEmpleadoResultItemDtoToTareaLocalizacionPresencia(
-            GenericEmpleadoResultItemDto src, TareaDto tareaDto);
+    public abstract TareaLocalizacionPresencia presenciaManualLocalizacionResultItemDtoToTareaLocalizacionPresencia(
+            PresenciaManualLocalizacionResultItemDto src, TareaDto tareaDto);
 
-    public List<TareaLocalizacionPresencia> genericEmpleadoResultItemDtoToTareaLocalizacionPresencia(
-            final List<GenericEmpleadoResultItemDto> src, final TareaDto tareaDto) {
+    public List<TareaLocalizacionPresencia> presenciaManualLocalizacionResultItemDtoToTareaLocalizacionPresencia(
+            final List<PresenciaManualLocalizacionResultItemDto> src, final TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

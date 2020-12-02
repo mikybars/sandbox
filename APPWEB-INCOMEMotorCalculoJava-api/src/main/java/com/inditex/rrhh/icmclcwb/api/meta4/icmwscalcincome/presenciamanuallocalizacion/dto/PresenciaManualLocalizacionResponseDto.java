@@ -11,8 +11,8 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class PresenciaManualLocalizacionResponseDto extends PageableListDto<GenericEmpleadoResultItemDto>
-        implements PageableList<GenericEmpleadoResultItemDto>, Serializable {
+public class PresenciaManualLocalizacionResponseDto extends PageableListDto<PresenciaManualLocalizacionResultItemDto>
+        implements PageableList<PresenciaManualLocalizacionResultItemDto>, Serializable {
 
     private static final long serialVersionUID = -1L;
 
