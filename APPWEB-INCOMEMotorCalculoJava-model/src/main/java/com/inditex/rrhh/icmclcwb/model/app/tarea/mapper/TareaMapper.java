@@ -285,7 +285,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
-    // @Mapping(target = "ventaPAT", ignore = true)
+    @Mapping(target = "ventaPAT", ignore = true)
     public abstract PtrVentaOnlinePickingRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlinePickingRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             IdLocalizacionLocalPresupuestoDto srcPresupuesto);
@@ -512,7 +512,7 @@ public abstract class TareaMapper {
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
-    // @Mapping(target = "ventaPAT", ignore = true)
+    @Mapping(target = "ventaPAT", ignore = true)
     public abstract PtrVentaOnlinePickingRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaOnlinePickingRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             RecolectarPropertiesDto srcRecolectarProperties);
@@ -528,7 +528,7 @@ public abstract class TareaMapper {
     @Mapping(target = "seccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
-    // @Mapping(target = "ventaPAT", ignore = true)
+    @Mapping(target = "ventaPAT", ignore = true)
     public abstract PtrVentaOnlinePickingRequestDto mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaOnlinePickingRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo);
 
