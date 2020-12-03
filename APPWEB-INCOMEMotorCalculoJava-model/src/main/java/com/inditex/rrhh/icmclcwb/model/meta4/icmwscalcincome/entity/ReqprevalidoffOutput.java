@@ -25,19 +25,18 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para GetpresupuestoswlocOutput complex type.
+ * <p>Clase Java para ReqprevalidoffOutput complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="GetpresupuestoswlocOutput"&gt;
+ * &lt;complexType name="ReqprevalidoffOutput"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
- *         &lt;element name="Icm_Listapresupuestoswloc" type="{http://schemas.meta4.com/}Icm_ListapresupuestoswlocBlock"/&gt;
+ *         &lt;element name="Icm_Listaprevalid" type="{http://schemas.meta4.com/}Icm_ListaprevalidBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -47,13 +46,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetpresupuestoswlocOutput", propOrder = {
+@XmlType(name = "ReqprevalidoffOutput", propOrder = {
     "_return",
     "logMessage",
-    "icmParametrospaginacion",
-    "icmListapresupuestoswloc"
+    "icmListaprevalid"
 })
-public class GetpresupuestoswlocOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+public class ReqprevalidoffOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
 {
 
     private final static long serialVersionUID = 1L;
@@ -61,10 +59,8 @@ public class GetpresupuestoswlocOutput implements Serializable, Cloneable, CopyT
     protected double _return;
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
-    @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
-    protected IcmParametrospaginacionBlock icmParametrospaginacion;
-    @XmlElement(name = "Icm_Listapresupuestoswloc", required = true, nillable = true)
-    protected IcmListapresupuestoswlocBlock icmListapresupuestoswloc;
+    @XmlElement(name = "Icm_Listaprevalid", required = true, nillable = true)
+    protected IcmListaprevalidBlock icmListaprevalid;
 
     /**
      * Obtiene el valor de la propiedad return.
@@ -112,51 +108,27 @@ public class GetpresupuestoswlocOutput implements Serializable, Cloneable, CopyT
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrospaginacion.
+     * Obtiene el valor de la propiedad icmListaprevalid.
      * 
      * @return
      *     possible object is
-     *     {@link IcmParametrospaginacionBlock }
+     *     {@link IcmListaprevalidBlock }
      *     
      */
-    public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
-        return icmParametrospaginacion;
+    public IcmListaprevalidBlock getIcmListaprevalid() {
+        return icmListaprevalid;
     }
 
     /**
-     * Define el valor de la propiedad icmParametrospaginacion.
+     * Define el valor de la propiedad icmListaprevalid.
      * 
      * @param value
      *     allowed object is
-     *     {@link IcmParametrospaginacionBlock }
+     *     {@link IcmListaprevalidBlock }
      *     
      */
-    public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
-        this.icmParametrospaginacion = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad icmListapresupuestoswloc.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListapresupuestoswlocBlock }
-     *     
-     */
-    public IcmListapresupuestoswlocBlock getIcmListapresupuestoswloc() {
-        return icmListapresupuestoswloc;
-    }
-
-    /**
-     * Define el valor de la propiedad icmListapresupuestoswloc.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListapresupuestoswlocBlock }
-     *     
-     */
-    public void setIcmListapresupuestoswloc(IcmListapresupuestoswlocBlock value) {
-        this.icmListapresupuestoswloc = value;
+    public void setIcmListaprevalid(IcmListaprevalidBlock value) {
+        this.icmListaprevalid = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -166,7 +138,7 @@ public class GetpresupuestoswlocOutput implements Serializable, Cloneable, CopyT
         if (this == object) {
             return true;
         }
-        final GetpresupuestoswlocOutput that = ((GetpresupuestoswlocOutput) object);
+        final ReqprevalidoffOutput that = ((ReqprevalidoffOutput) object);
         {
             double lhsReturn;
             lhsReturn = this.getReturn();
@@ -186,20 +158,11 @@ public class GetpresupuestoswlocOutput implements Serializable, Cloneable, CopyT
             }
         }
         {
-            IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
-            lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
-            rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion), LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion!= null), (that.icmParametrospaginacion!= null))) {
-                return false;
-            }
-        }
-        {
-            IcmListapresupuestoswlocBlock lhsIcmListapresupuestoswloc;
-            lhsIcmListapresupuestoswloc = this.getIcmListapresupuestoswloc();
-            IcmListapresupuestoswlocBlock rhsIcmListapresupuestoswloc;
-            rhsIcmListapresupuestoswloc = that.getIcmListapresupuestoswloc();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListapresupuestoswloc", lhsIcmListapresupuestoswloc), LocatorUtils.property(thatLocator, "icmListapresupuestoswloc", rhsIcmListapresupuestoswloc), lhsIcmListapresupuestoswloc, rhsIcmListapresupuestoswloc, (this.icmListapresupuestoswloc!= null), (that.icmListapresupuestoswloc!= null))) {
+            IcmListaprevalidBlock lhsIcmListaprevalid;
+            lhsIcmListaprevalid = this.getIcmListaprevalid();
+            IcmListaprevalidBlock rhsIcmListaprevalid;
+            rhsIcmListaprevalid = that.getIcmListaprevalid();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaprevalid", lhsIcmListaprevalid), LocatorUtils.property(thatLocator, "icmListaprevalid", rhsIcmListaprevalid), lhsIcmListaprevalid, rhsIcmListaprevalid, (this.icmListaprevalid!= null), (that.icmListaprevalid!= null))) {
                 return false;
             }
         }
@@ -237,14 +200,9 @@ public class GetpresupuestoswlocOutput implements Serializable, Cloneable, CopyT
             strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
-            IcmParametrospaginacionBlock theIcmParametrospaginacion;
-            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
-        }
-        {
-            IcmListapresupuestoswlocBlock theIcmListapresupuestoswloc;
-            theIcmListapresupuestoswloc = this.getIcmListapresupuestoswloc();
-            strategy.appendField(locator, this, "icmListapresupuestoswloc", buffer, theIcmListapresupuestoswloc, (this.icmListapresupuestoswloc!= null));
+            IcmListaprevalidBlock theIcmListaprevalid;
+            theIcmListaprevalid = this.getIcmListaprevalid();
+            strategy.appendField(locator, this, "icmListaprevalid", buffer, theIcmListaprevalid, (this.icmListaprevalid!= null));
         }
         return buffer;
     }
@@ -262,14 +220,9 @@ public class GetpresupuestoswlocOutput implements Serializable, Cloneable, CopyT
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
         }
         {
-            IcmParametrospaginacionBlock theIcmParametrospaginacion;
-            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion), currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
-        }
-        {
-            IcmListapresupuestoswlocBlock theIcmListapresupuestoswloc;
-            theIcmListapresupuestoswloc = this.getIcmListapresupuestoswloc();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListapresupuestoswloc", theIcmListapresupuestoswloc), currentHashCode, theIcmListapresupuestoswloc, (this.icmListapresupuestoswloc!= null));
+            IcmListaprevalidBlock theIcmListaprevalid;
+            theIcmListaprevalid = this.getIcmListaprevalid();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaprevalid", theIcmListaprevalid), currentHashCode, theIcmListaprevalid, (this.icmListaprevalid!= null));
         }
         return currentHashCode;
     }
@@ -290,8 +243,8 @@ public class GetpresupuestoswlocOutput implements Serializable, Cloneable, CopyT
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GetpresupuestoswlocOutput) {
-            final GetpresupuestoswlocOutput copy = ((GetpresupuestoswlocOutput) draftCopy);
+        if (draftCopy instanceof ReqprevalidoffOutput) {
+            final ReqprevalidoffOutput copy = ((ReqprevalidoffOutput) draftCopy);
             {
                 Boolean _returnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
                 if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -323,28 +276,15 @@ public class GetpresupuestoswlocOutput implements Serializable, Cloneable, CopyT
                 }
             }
             {
-                Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParametrospaginacion!= null));
-                if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
-                    sourceIcmParametrospaginacion = this.getIcmParametrospaginacion();
-                    IcmParametrospaginacionBlock copyIcmParametrospaginacion = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmParametrospaginacion", sourceIcmParametrospaginacion), sourceIcmParametrospaginacion, (this.icmParametrospaginacion!= null)));
-                    copy.setIcmParametrospaginacion(copyIcmParametrospaginacion);
+                Boolean icmListaprevalidShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaprevalid!= null));
+                if (icmListaprevalidShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListaprevalidBlock sourceIcmListaprevalid;
+                    sourceIcmListaprevalid = this.getIcmListaprevalid();
+                    IcmListaprevalidBlock copyIcmListaprevalid = ((IcmListaprevalidBlock) strategy.copy(LocatorUtils.property(locator, "icmListaprevalid", sourceIcmListaprevalid), sourceIcmListaprevalid, (this.icmListaprevalid!= null)));
+                    copy.setIcmListaprevalid(copyIcmListaprevalid);
                 } else {
-                    if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmParametrospaginacion = null;
-                    }
-                }
-            }
-            {
-                Boolean icmListapresupuestoswlocShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListapresupuestoswloc!= null));
-                if (icmListapresupuestoswlocShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListapresupuestoswlocBlock sourceIcmListapresupuestoswloc;
-                    sourceIcmListapresupuestoswloc = this.getIcmListapresupuestoswloc();
-                    IcmListapresupuestoswlocBlock copyIcmListapresupuestoswloc = ((IcmListapresupuestoswlocBlock) strategy.copy(LocatorUtils.property(locator, "icmListapresupuestoswloc", sourceIcmListapresupuestoswloc), sourceIcmListapresupuestoswloc, (this.icmListapresupuestoswloc!= null)));
-                    copy.setIcmListapresupuestoswloc(copyIcmListapresupuestoswloc);
-                } else {
-                    if (icmListapresupuestoswlocShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmListapresupuestoswloc = null;
+                    if (icmListaprevalidShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListaprevalid = null;
                     }
                 }
             }
@@ -353,7 +293,7 @@ public class GetpresupuestoswlocOutput implements Serializable, Cloneable, CopyT
     }
 
     public Object createNewInstance() {
-        return new GetpresupuestoswlocOutput();
+        return new ReqprevalidoffOutput();
     }
 
 }
