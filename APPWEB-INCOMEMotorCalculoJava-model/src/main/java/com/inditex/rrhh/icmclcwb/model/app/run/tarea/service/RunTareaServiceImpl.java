@@ -18,7 +18,9 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarVal
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
@@ -30,6 +32,9 @@ public class RunTareaServiceImpl implements RunTareaService {
 
     @Autowired
     private TareaService tareaService;
+
+    @Autowired
+    private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Autowired
     private RunTareaRecolectarService runTareaRecolectarService;
@@ -71,8 +76,14 @@ public class RunTareaServiceImpl implements RunTareaService {
             this.runTareaRegularizarChallengeService.run(runTarea);
             this.runTareaRegularizarService.run(runTarea);
             this.runTareaAjustarService.run(runTarea);
+            this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
+                    EstadoTareaCalculoPersonaEnum.OK.getDto());
             this.runTareaConsolidarService.run(runTarea);
+            this.tareaService.updateEstadoFinal(runTarea.getTarea());
         } catch (final Exception e) {
+            this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
+                    EstadoTareaCalculoPersonaEnum.KO.getDto());
+            this.runTareaConsolidarService.run(runTarea);
             this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
             throw e;
         } finally {
