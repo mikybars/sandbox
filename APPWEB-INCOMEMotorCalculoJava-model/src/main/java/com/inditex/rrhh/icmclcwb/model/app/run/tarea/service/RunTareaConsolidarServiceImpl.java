@@ -15,8 +15,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaCo
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
@@ -25,12 +23,6 @@ import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.Ti
 @Service
 @Validated
 public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService {
-
-    @Autowired
-    private TareaService tareaService;
-
-    @Autowired
-    private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Autowired
     private RunTareaConsolidarByAmbitoService runTareaConsolidarByAmbitoService;
