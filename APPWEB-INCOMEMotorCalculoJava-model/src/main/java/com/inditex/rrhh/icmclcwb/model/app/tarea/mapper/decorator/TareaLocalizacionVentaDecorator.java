@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.common.util.concurrent.AtomicDouble;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
@@ -139,7 +139,7 @@ public abstract class TareaLocalizacionVentaDecorator extends TareaLocalizacionV
 
     @Override
     public List<TareaLocalizacionVenta> genericTiendaResultItemDtoToTareaLocalizacionVenta(
-            final List<VentaManualLocalizacionResultItemDto> src, final TareaDto tareaDto) {
+            final List<VentaManualWlocResultItemDto> src, final TareaDto tareaDto) {
         final List<TareaLocalizacionVenta> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(item -> {

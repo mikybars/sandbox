@@ -24,10 +24,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultie
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
@@ -167,6 +169,24 @@ public abstract class TareaMapper {
     @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
     @Mapping(target = "idsEmpresa", expression = "java(Arrays.asList(srcTarea.getStdIdLegEnt()))")
     public abstract GenericFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(
+            TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
+
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaFinPeriodo()))")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "idsEmpresa", expression = "java(Arrays.asList(srcTarea.getStdIdLegEnt()))")
+    public abstract VentaManualWlocFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToVentaManualWlocFilterDto(
+            TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
+
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaFinPeriodo()))")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "idsEmpresa", expression = "java(Arrays.asList(srcTarea.getStdIdLegEnt()))")
+    public abstract PresenciaManualWlocFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPresenciaManualWlocFilterDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
 
     @Mapping(target = "item", ignore = true)

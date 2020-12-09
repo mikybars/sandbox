@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
@@ -18,6 +17,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
@@ -40,12 +41,18 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
@@ -53,8 +60,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.Tie
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 
 public interface Meta4IcmWsCalcIncomeSessionService {
 
@@ -119,13 +126,17 @@ public interface Meta4IcmWsCalcIncomeSessionService {
     List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(
             DesplazamientosMultiempresaRequestDto request);
 
-    List<ValidacionDto> configuracionValidacion();
+    List<PresenciaManualWlocResultItemDto> getPresenciaManualWloc(
+            PresenciaManualWlocRequestDto request);
 
-    Integer validacionPresencias();
+    List<VentaManualWlocResultItemDto> getVentaManualWloc(VentaManualWlocRequestDto request);
 
-    List<PresenciaManualLocalizacionResultItemDto> getPresenciaManualLocalizacion(
-            PresenciaManualLocalizacionRequestDto request);
+    List<ConfPreValidResultItemDto> getConfPrevalid(ConfPreValidRequestDto request);
 
-    List<VentaManualLocalizacionResultItemDto> getVentaManualLocalizacion(VentaManualLocalizacionRequestDto request);
+    List<PreValidOnResultItemDto> getPrevalidOn(PreValidOnRequestDto request);
+
+    List<PreValidOffResultItemDto> getPrevalidOff(PreValidOffRequestDto request);
+
+    List<ReqPreValidOffResultItemDto> reqPrevalidOff(ReqPreValidOffRequestDto request);
 
 }

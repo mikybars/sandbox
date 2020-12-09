@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPrevalidarDto;
 
 public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
@@ -58,5 +59,7 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
     void presenciaManualLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void ventaManualLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
+    void getConfPrevalidByRunTareaPrevalidar(@NotNull @Valid final RunTareaPrevalidarDto runTareaPrevalidarDto);
 
 }

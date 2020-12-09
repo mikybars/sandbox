@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto;
+package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto;
 
 import java.io.Serializable;
 
@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class VentaManualLocalizacionResponseDto extends PageableListDto<VentaManualLocalizacionResultItemDto>
-        implements PageableList<VentaManualLocalizacionResultItemDto>, Serializable {
+public class PresenciaManualWlocResponseDto extends PageableListDto<PresenciaManualWlocResultItemDto>
+        implements PageableList<PresenciaManualWlocResultItemDto>, Serializable {
 
     private static final long serialVersionUID = -1L;
 

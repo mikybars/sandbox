@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresenciaRepositoryCustom;
 
@@ -28,7 +28,7 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     private TareaLocalizacionPresenciaMapper tareaLocalizacionPresenciaMapper;
 
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<PresenciaManualLocalizacionResultItemDto> src,
+    public void save(@Valid @NotNull @NotEmpty final List<PresenciaManualWlocResultItemDto> src,
             @Valid @NotNull final TareaDto tareaDto) {
         this.tareaLocalizacionPresenciaRepositoryCustom.save(this.tareaLocalizacionPresenciaMapper
             .presenciaManualLocalizacionResultItemDtoToTareaLocalizacionPresencia(src, tareaDto));

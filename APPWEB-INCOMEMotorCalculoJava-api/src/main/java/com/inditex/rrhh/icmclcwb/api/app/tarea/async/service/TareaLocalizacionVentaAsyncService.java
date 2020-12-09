@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
@@ -30,6 +30,6 @@ public interface TareaLocalizacionVentaAsyncService {
     CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(PtrVentaOnlineEntregaDomicilioResponseDto dto,
             TareaDto tarea);
 
-    CompletableFuture<Void> save(@NotNull List<VentaManualLocalizacionResultItemDto> src, @NotNull TareaDto tareaDto);
+    CompletableFuture<Void> save(@NotNull List<VentaManualWlocResultItemDto> src, @NotNull TareaDto tareaDto);
 
 }

@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
@@ -123,10 +123,10 @@ public abstract class TareaLocalizacionVentaMapper {
     @Mapping(target = "pk.id", ignore = true)
     @Mapping(source = "tareaDto.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaLocalizacionVenta genericTiendaResultItemDtoToTareaLocalizacionVenta(
-            VentaManualLocalizacionResultItemDto src, TareaDto tareaDto);
+            VentaManualWlocResultItemDto src, TareaDto tareaDto);
 
     public List<TareaLocalizacionVenta> genericTiendaResultItemDtoToTareaLocalizacionVenta(
-            final List<VentaManualLocalizacionResultItemDto> src, final TareaDto tareaDto) {
+            final List<VentaManualWlocResultItemDto> src, final TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

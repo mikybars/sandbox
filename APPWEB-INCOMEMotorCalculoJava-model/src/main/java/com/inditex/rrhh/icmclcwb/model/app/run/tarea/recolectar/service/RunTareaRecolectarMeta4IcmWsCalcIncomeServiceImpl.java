@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPrevalidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarMeta4IcmWsCalcIncomeService;
 
 @Service
@@ -97,7 +98,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             .getAmbito()
             .stream()
             .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
-                .presenciaManualLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
+                .presenciaManualWlocByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
@@ -106,7 +107,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             .getAmbito()
             .stream()
             .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
-                .ventaManualLocalizacionByRunTareaAndTareaAmbito(runTarea, item));
+                .ventaManualWlocByRunTareaAndTareaAmbito(runTarea, item));
     }
 
     @Override
@@ -248,6 +249,15 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             .stream()
             .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
                 .desplazamientoRealByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
+    public void getConfPrevalidByRunTareaPrevalidar(@NotNull @Valid final RunTareaPrevalidarDto runTareaPrevalidarDto) {
+        runTareaPrevalidarDto.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .getConfPrevalidByRunTareaPrevalidarAndTareaAmbito(runTareaPrevalidarDto, item));
     }
 
 }

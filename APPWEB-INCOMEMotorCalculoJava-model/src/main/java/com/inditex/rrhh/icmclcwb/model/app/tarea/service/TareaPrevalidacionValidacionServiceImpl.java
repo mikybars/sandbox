@@ -3,24 +3,23 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoValidacionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPrevalidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPrevalidacionValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPrevalidacionValidacionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPrevalidacionValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPrevalidacionValidacion;
@@ -33,6 +32,10 @@ public class TareaPrevalidacionValidacionServiceImpl implements TareaPrevalidaci
 
     @Autowired
     Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+
+    @Autowired
+    @Qualifier("meta4Properties")
+    private Map<String, Meta4PropertiesDto> meta4Properties;
 
     @Autowired
     private TareaPrevalidacionValidacionRepository tareaPrevalidacionValidacionRepository;
@@ -51,32 +54,12 @@ public class TareaPrevalidacionValidacionServiceImpl implements TareaPrevalidaci
         this.tareaPrevalidacionValidacionRepository.save(flujo);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void create(@Valid @NotNull final TareaDto tarea, @NotNull final Integer idTipoEstadoValidacion,
-            @NotNull final TareaPrevalidacionDto tareaPrevalidacionDto) {
-        final List<ValidacionDto> validaciones = this.meta4IcmWsCalcIncomeSessionService
-            .configuracionValidacion();
-        validaciones.stream().filter(x -> x.getMaxReintentos() >= tareaPrevalidacionDto.getId()).forEach(x -> {
-            final TareaPrevalidacionValidacionDto flujo = new TareaPrevalidacionValidacionDto();
-            // TODO: Todas estas operaciones habría que gestionarlas desde los enumerados correspondientes
-            // cuando exista el campo de meta4 (y en un mapper por ej:
-            // validacionDtoAndTareaPrevalidacionDtoToTareaPrevalidacionValidacionDto)
-            flujo.setIdTipoEstadoValidacion(x.getIdTipoEstadoValidacion());
-            flujo.setIdTipoAccionValidacion(x.getIdTipoAccionValidacion());
-            flujo.setIdTipoValidacion(x.getId());
-            flujo.setIdPrioridadValidacion(x.getIdPrioridadValidacion());
-            flujo.setIdEstadoValidacion(EstadoValidacionEnum.OK.getId());
-            flujo.setFechaHoraActualizacion(LocalDateTime.now());
-            flujo.setFechaHoraCreacion(LocalDateTime.now());
-            flujo.setDelay(x.getDelay());
-            flujo.setReintentoDelay(x.getDelayTime());
-            flujo.setReintentoMax(x.getMaxReintentos());
-            flujo.setIdTareaPrevalidacion(tareaPrevalidacionDto.getId());
-            flujo.setId(x.getId());
-            this.tareaPrevalidacionValidacionRepository.save(this.tareaPrevalidacionValidacionMapper
-                .tareaPrevalidacionValidacionDtotoTareaPrevalidacionValidacion(flujo, tarea));
-        });
+    public void saveConfPreValidResultItemDto(@Valid @NotNull final List<ConfPreValidResultItemDto> src,
+            @Valid @NotNull final TareaPrevalidacionDto tareaPrevalidacionDto) {
+        this.tareaPrevalidacionValidacionRepositoryCustom.save(this.tareaPrevalidacionValidacionMapper
+            .tareaPrevalidacionValidacionDtoToTareaPrevalidacionValidacion(this.tareaPrevalidacionValidacionMapper
+                .confPreValidResultItemDtotoTareaPrevalidacionValidacionDto(src, tareaPrevalidacionDto)));
     }
 
     @Override

@@ -20,7 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionVentaService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
@@ -141,7 +141,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
     }
 
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<VentaManualLocalizacionResultItemDto> src,
+    public void save(@Valid @NotNull @NotEmpty final List<VentaManualWlocResultItemDto> src,
             @Valid @NotNull final TareaDto tareaDto) {
         this.tareaLocalizacionVentaRepositoryCustom.save(this.tareaLocalizacionVentaMapper
             .genericTiendaResultItemDtoToTareaLocalizacionVenta(src, tareaDto));

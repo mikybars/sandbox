@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
@@ -20,7 +20,7 @@ public abstract class TareaLocalizacionPresenciaDecorator
 
     @Override
     public List<TareaLocalizacionPresencia> presenciaManualLocalizacionResultItemDtoToTareaLocalizacionPresencia(
-            final List<PresenciaManualLocalizacionResultItemDto> src, final TareaDto tareaDto) {
+            final List<PresenciaManualWlocResultItemDto> src, final TareaDto tareaDto) {
         final List<TareaLocalizacionPresencia> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(item -> {

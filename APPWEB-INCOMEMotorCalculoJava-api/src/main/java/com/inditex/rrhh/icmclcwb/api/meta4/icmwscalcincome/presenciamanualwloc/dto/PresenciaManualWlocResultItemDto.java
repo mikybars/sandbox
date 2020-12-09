@@ -1,11 +1,11 @@
-package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto;
+package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto;
 
 import java.io.Serializable;
 
 import lombok.Data;
 
 @Data
-public class VentaManualLocalizacionResultItemDto implements Serializable {
+public class PresenciaManualWlocResultItemDto implements Serializable {
 
     private static final long serialVersionUID = -1L;
 

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionVentaDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
@@ -40,7 +40,7 @@ public interface TareaLocalizacionVentaService {
 
     void updateActivoVentaOnlineEntregaTienda(@Valid @NotNull final TareaDto tarea);
 
-    void save(@Valid @NotNull @NotEmpty List<VentaManualLocalizacionResultItemDto> src,
+    void save(@Valid @NotNull @NotEmpty List<VentaManualWlocResultItemDto> src,
             @Valid @NotNull TareaDto tareaDto);
 
 }

@@ -693,7 +693,7 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-          getPresenciaManualLocalizacion:
+          getPresenciaManualWloc:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
@@ -702,7 +702,7 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-          getVentaManualLocalizacion:
+          getVentaManualWloc:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
@@ -710,4 +710,40 @@ app:
               campoOrden: idOrigen
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3                       
+              maxPersistenceSize: 3                            
+          getConfPrevalid: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3
+          getPrevalidOn: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3              
+          getPrevalidOff:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3       
+          reqPrevalidOff:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3

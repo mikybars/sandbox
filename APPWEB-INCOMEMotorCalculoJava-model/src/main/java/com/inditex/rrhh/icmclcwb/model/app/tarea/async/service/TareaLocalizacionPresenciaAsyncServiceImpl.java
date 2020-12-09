@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPr
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 
 @Service
 public class TareaLocalizacionPresenciaAsyncServiceImpl
@@ -22,7 +22,7 @@ public class TareaLocalizacionPresenciaAsyncServiceImpl
     private TareaLocalizacionPresenciaService tareaLocalizacionPresenciaService;
 
     @Override
-    public CompletableFuture<Void> save(@NotNull final List<PresenciaManualLocalizacionResultItemDto> src,
+    public CompletableFuture<Void> save(@NotNull final List<PresenciaManualWlocResultItemDto> src,
             @NotNull final TareaDto tareaDto) {
         this.tareaLocalizacionPresenciaService.save(src, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

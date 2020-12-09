@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPrevalidarDto;
 
 @Async
 public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
@@ -60,5 +61,7 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
     CompletableFuture<Void> presenciaManualLocalizacionByRunTarea(final RunTareaDto runTarea);
 
     CompletableFuture<Void> ventaManualLocalizacionByRunTarea(final RunTareaDto runTarea);
+
+    CompletableFuture<Void> getConfPrevalidByRunTareaPrevalidar(final RunTareaPrevalidarDto runTareaPrevalidarDto);
 
 }

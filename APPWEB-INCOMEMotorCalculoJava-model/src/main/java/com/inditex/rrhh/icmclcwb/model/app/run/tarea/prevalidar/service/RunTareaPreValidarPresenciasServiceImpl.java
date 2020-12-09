@@ -17,6 +17,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoValidacionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPrevalidacionValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPrevalidacionValidacionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 @Service
@@ -38,11 +40,14 @@ public class RunTareaPreValidarPresenciasServiceImpl implements RunTareaPreValid
                         runTareaPrevalidarDto.getTareaPrevalidacionDto().getId(),
                         TipoValidacionEnum.PRESENCIAS.getId());
             if (validacion != null) {
-                final CompletableFuture<Integer> cfValidPresencias = this.meta4IcmWsCalcIncomeSessionAsyncService
-                    .validacionPresencias();
+                final PreValidOnRequestDto request = new PreValidOnRequestDto();
+                final CompletableFuture<List<PreValidOnResultItemDto>> cfValidPresencias = this.meta4IcmWsCalcIncomeSessionAsyncService
+                    .getPrevalidOn(request);
+                final List<PreValidOnResultItemDto> result = AsyncUtils.get(cfValidPresencias);
                 AsyncUtils.exceptionally(cfValidPresencias, cf);
+                // TODO: Esto hay que cambiarlo con el maestro
                 this.tareaPrevalidacionValidacionService.update(validacion, runTareaPrevalidarDto.getTarea(),
-                        AsyncUtils.get(cfValidPresencias));
+                        Integer.valueOf(result.get(0).getIdEstado()));
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {

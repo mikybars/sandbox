@@ -14,8 +14,8 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPrevalidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.prevalidar.async.service.RunTareaPreValidarPresenciasAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPreValidarOnlineService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoEstadoValidacionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPrevalidacionValidacionService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
@@ -32,6 +32,9 @@ public class RunTareaPreValidarOnlineServiceImpl implements RunTareaPreValidarOn
     @Autowired
     private RunTareaPreValidarPresenciasAsyncService runTareaPreValidarPresenciasAsyncService;
 
+    @Autowired
+    private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaPreValidarOnlineService.run.timer",
             metricGroupName = "RunTareaPreValidarOnlineServiceGroup",
@@ -44,8 +47,13 @@ public class RunTareaPreValidarOnlineServiceImpl implements RunTareaPreValidarOn
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfWait = new ArrayList<>();
         try {
-            this.tareaPrevalidacionValidacionService.create(runTareaPrevalidarDto.getTarea(),
-                    TipoEstadoValidacionEnum.ONLINE.getId(), runTareaPrevalidarDto.getTareaPrevalidacionDto());
+            final CompletableFuture<Void> cfGetConfPreValid = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .getConfPrevalidByRunTareaPrevalidar(runTareaPrevalidarDto);
+            AsyncUtils.exceptionally(cfGetConfPreValid, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
 
             final CompletableFuture<Void> cfPresencia = this.runTareaPreValidarPresenciasAsyncService
                 .run(runTareaPrevalidarDto);

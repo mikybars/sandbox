@@ -17,22 +17,33 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganiza
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresenciamanwlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaventamanwlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
@@ -43,6 +54,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalc
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconforigenRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfprevalidBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfprevalidRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
@@ -65,12 +78,15 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvaloffBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvaloffRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvalonBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvalonRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeMapper {
@@ -644,6 +660,184 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             result.add(new IcmParamcalpresenciamanualRecord());
         }
         return result;
+    }
+
+    @Override
+    public IcmParamcalvalonBlock asIcmParamcalvalonBlock(final PreValidOnFilterDto src) {
+        final List<IcmParamcalvalonRecord> list = this.asIcmParamcalvalonRecord(src);
+        final IcmParamcalvalonBlock result = this.delegate.asIcmParamcalvalonBlock(src);
+        result.getIcmParamcalvalonRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcalvalonRecord> asIcmParamcalvalonRecord(final PreValidOnFilterDto src) {
+        final List<IcmParamcalvalonRecord> result = new ArrayList<>();
+        if (src != null) {
+            src.getItem().forEach(item -> {
+                final IcmParamcalvalonRecord record = this.delegate.asIcmParamcalvalonRecord(item);
+                result.add(record);
+            });
+        } else {
+            result.add(new IcmParamcalvalonRecord());
+        }
+        return result;
+    }
+
+    @Override
+    public IcmParamcalvaloffBlock asIcmParamcalvaloffBlock(final PreValidOffFilterDto src) {
+        final List<IcmParamcalvaloffRecord> list = this.asIcmParamcalvaloffRecord(src);
+        final IcmParamcalvaloffBlock result = this.delegate.asIcmParamcalvaloffBlock(src);
+        result.getIcmParamcalvaloffRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcalvaloffRecord> asIcmParamcalvaloffRecord(final PreValidOffFilterDto src) {
+        final List<IcmParamcalvaloffRecord> result = new ArrayList<>();
+        if (src != null) {
+            src.getItem().forEach(item -> {
+                final IcmParamcalvaloffRecord record = this.delegate.asIcmParamcalvaloffRecord(item);
+                result.add(record);
+            });
+        } else {
+            result.add(new IcmParamcalvaloffRecord());
+        }
+        return result;
+    }
+
+    @Override
+    public IcmParamcalvaloffBlock asIcmParamcalvaloffBlock(final ReqPreValidOffFilterDto src) {
+        final List<IcmParamcalvaloffRecord> list = this.asIcmParamcalvaloffRecord(src);
+        final IcmParamcalvaloffBlock result = this.delegate.asIcmParamcalvaloffBlock(src);
+        result.getIcmParamcalvaloffRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcalvaloffRecord> asIcmParamcalvaloffRecord(final ReqPreValidOffFilterDto src) {
+        final List<IcmParamcalvaloffRecord> result = new ArrayList<>();
+        if (src != null) {
+            src.getItem().forEach(item -> {
+                final IcmParamcalvaloffRecord record = this.delegate.asIcmParamcalvaloffRecord(item);
+                result.add(record);
+            });
+        } else {
+            result.add(new IcmParamcalvaloffRecord());
+        }
+        return result;
+    }
+
+    @Override
+    public IcmParamcalconfprevalidBlock asIcmParamcalconfprevalidBlock(final ConfPreValidFilterDto src) {
+        final List<IcmParamcalconfprevalidRecord> list = this.asIcmParamcalconfprevalidRecord(src);
+        final IcmParamcalconfprevalidBlock result = this.delegate.asIcmParamcalconfprevalidBlock(src);
+        result.getIcmParamcalconfprevalidRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcalconfprevalidRecord> asIcmParamcalconfprevalidRecord(final ConfPreValidFilterDto src) {
+        final List<IcmParamcalconfprevalidRecord> result = new ArrayList<>();
+        if (src != null) {
+            src.getItem().forEach(item -> {
+                final IcmParamcalconfprevalidRecord record = this.delegate.asIcmParamcalconfprevalidRecord(item);
+                result.add(record);
+            });
+        } else {
+            result.add(new IcmParamcalconfprevalidRecord());
+        }
+        return result;
+    }
+
+    @Override
+    public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final PresenciaManualWlocFilterDto src) {
+        final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+        final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+        result.getIcmParamcaltiendasRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final PresenciaManualWlocFilterDto src) {
+        final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+        if (src != null) {
+            src.getItem().forEach(item -> {
+                final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+                record.setIdempresa(item.getIdEmpresa());
+                record.setIdorigen(item.getIdOrigen());
+                record.setIdlugartrabajo(item.getIdLugarTrabajo());
+                record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
+                result.add(record);
+            });
+        }
+        return result;
+    }
+
+    @Override
+    public List<PresenciaManualWlocResultItemDto> asPresenciaManualWlocResultItemDto(
+            final List<IcmListapresenciamanwlocRecord> src) {
+        final List<PresenciaManualWlocResultItemDto> list = new ArrayList<>();
+        for (final IcmListapresenciamanwlocRecord item : src) {
+
+            if (CollectionUtils
+                .isNotEmpty(item.getIcmListaseccionespresencias().getIcmListaseccionespresenciasRecordSet())) {
+                item.getIcmListaseccionespresencias().getIcmListaseccionespresenciasRecordSet().forEach(x -> {
+                    final PresenciaManualWlocResultItemDto presencia = this.delegate
+                        .asPresenciaManualWlocResultItemDto(item);
+                    presencia.setIdSeccion(x.getIdseccion());
+                    presencia.setMinutos(x.getMinutos());
+                    list.add(presencia);
+                });
+            } else {
+                final PresenciaManualWlocResultItemDto mappedEntity = this.delegate
+                    .asPresenciaManualWlocResultItemDto(item);
+                list.add(mappedEntity);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final VentaManualWlocFilterDto src) {
+        final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+        final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+        result.getIcmParamcaltiendasRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final VentaManualWlocFilterDto src) {
+        final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+        if (src != null) {
+            src.getItem().forEach(item -> {
+                final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+                record.setIdempresa(item.getIdEmpresa());
+                record.setIdorigen(item.getIdOrigen());
+                record.setIdlugartrabajo(item.getIdLugarTrabajo());
+                record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
+                result.add(record);
+            });
+        }
+        return result;
+    }
+
+    @Override
+    public List<VentaManualWlocResultItemDto> asVentaManualWlocResultItemDto(
+            final List<IcmListaventamanwlocRecord> src) {
+        final List<VentaManualWlocResultItemDto> list = new ArrayList<>();
+        for (final IcmListaventamanwlocRecord item : src) {
+
+            if (CollectionUtils
+                .isNotEmpty(item.getIcmListaseccionesventa().getIcmListaseccionesventaRecordSet())) {
+                item.getIcmListaseccionesventa().getIcmListaseccionesventaRecordSet().forEach(x -> {
+                    final VentaManualWlocResultItemDto venta = this.delegate
+                        .asVentaManualWlocResultItemDto(item);
+                    venta.setIdSeccion(x.getIdseccion());
+                    venta.setImporte(x.getImporte());
+                    list.add(venta);
+                });
+            } else {
+                final VentaManualWlocResultItemDto mappedEntity = this.delegate
+                    .asVentaManualWlocResultItemDto(item);
+                list.add(mappedEntity);
+            }
+        }
+        return list;
     }
 
 }

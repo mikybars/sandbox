@@ -20,6 +20,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
@@ -43,22 +46,33 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanuallocalizacion.dto.PresenciaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -464,35 +478,95 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
     }
 
     @Test
-    public void getPresenciaManualLocalizacion() {
-        when(this.meta4IcmWsCalcIncomeSessionService
-            .getPresenciaManualLocalizacion(any(PresenciaManualLocalizacionRequestDto.class)))
-                .thenReturn(new ArrayList<PresenciaManualLocalizacionResultItemDto>());
+    public void getConfPrevalid() {
+        when(this.meta4IcmWsCalcIncomeSessionService.getConfPrevalid(any(ConfPreValidRequestDto.class)))
+            .thenReturn(new ArrayList<ConfPreValidResultItemDto>());
 
-        final PresenciaManualLocalizacionRequestDto request = new PresenciaManualLocalizacionRequestDto();
-        request.setData(new GenericFilterDto());
+        final ConfPreValidRequestDto request = new ConfPreValidRequestDto();
+        request.setData(new ConfPreValidFilterDto());
         request.setPage(new PageDto(1, 100));
         CompletableFuture
-            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPresenciaManualLocalizacion(request));
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getConfPrevalid(request));
 
         verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
-            .getPresenciaManualLocalizacion(ArgumentMatchers.any(PresenciaManualLocalizacionRequestDto.class));
+            .getConfPrevalid(ArgumentMatchers.any(ConfPreValidRequestDto.class));
     }
 
     @Test
-    public void getVentaManualLocalizacion() {
-        when(this.meta4IcmWsCalcIncomeSessionService
-            .getVentaManualLocalizacion(any(VentaManualLocalizacionRequestDto.class)))
-                .thenReturn(new ArrayList<VentaManualLocalizacionResultItemDto>());
+    public void getPrevalidOn() {
+        when(this.meta4IcmWsCalcIncomeSessionService.getPrevalidOn(any(PreValidOnRequestDto.class)))
+            .thenReturn(new ArrayList<PreValidOnResultItemDto>());
 
-        final VentaManualLocalizacionRequestDto request = new VentaManualLocalizacionRequestDto();
-        request.setData(new GenericFilterDto());
+        final PreValidOnRequestDto request = new PreValidOnRequestDto();
+        request.setData(new PreValidOnFilterDto());
         request.setPage(new PageDto(1, 100));
         CompletableFuture
-            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getVentaManualLocalizacion(request));
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPrevalidOn(request));
 
         verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
-            .getVentaManualLocalizacion(ArgumentMatchers.any(VentaManualLocalizacionRequestDto.class));
+            .getPrevalidOn(ArgumentMatchers.any(PreValidOnRequestDto.class));
+    }
+
+    @Test
+    public void getPrevalidOff() {
+        when(this.meta4IcmWsCalcIncomeSessionService.getPrevalidOff(any(PreValidOffRequestDto.class)))
+            .thenReturn(new ArrayList<PreValidOffResultItemDto>());
+
+        final PreValidOffRequestDto request = new PreValidOffRequestDto();
+        request.setData(new PreValidOffFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPrevalidOff(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getPrevalidOff(ArgumentMatchers.any(PreValidOffRequestDto.class));
+    }
+
+    @Test
+    public void reqPrevalidOff() {
+        when(this.meta4IcmWsCalcIncomeSessionService.reqPrevalidOff(any(ReqPreValidOffRequestDto.class)))
+            .thenReturn(new ArrayList<ReqPreValidOffResultItemDto>());
+
+        final ReqPreValidOffRequestDto request = new ReqPreValidOffRequestDto();
+        request.setData(new ReqPreValidOffFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.reqPrevalidOff(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .reqPrevalidOff(ArgumentMatchers.any(ReqPreValidOffRequestDto.class));
+    }
+
+    @Test
+    public void getPresenciaManualWloc() {
+        when(this.meta4IcmWsCalcIncomeSessionService
+            .getPresenciaManualWloc(any(PresenciaManualWlocRequestDto.class)))
+                .thenReturn(new ArrayList<PresenciaManualWlocResultItemDto>());
+
+        final PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
+        request.setData(new PresenciaManualWlocFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getPresenciaManualWloc(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getPresenciaManualWloc(ArgumentMatchers.any(PresenciaManualWlocRequestDto.class));
+    }
+
+    @Test
+    public void getVentaManualWloc() {
+        when(this.meta4IcmWsCalcIncomeSessionService
+            .getVentaManualWloc(any(VentaManualWlocRequestDto.class)))
+                .thenReturn(new ArrayList<VentaManualWlocResultItemDto>());
+
+        final VentaManualWlocRequestDto request = new VentaManualWlocRequestDto();
+        request.setData(new VentaManualWlocFilterDto());
+        request.setPage(new PageDto(1, 100));
+        CompletableFuture
+            .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getVentaManualWloc(request));
+
+        verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+            .getVentaManualWloc(ArgumentMatchers.any(VentaManualWlocRequestDto.class));
     }
 
 }

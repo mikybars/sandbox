@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVe
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanuallocalizacion.dto.VentaManualLocalizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
@@ -26,7 +26,7 @@ public class TareaLocalizacionVentaAsyncServiceImpl implements TareaLocalizacion
     private TareaLocalizacionVentaService tareaLocalizacionVentaService;
 
     @Override
-    public CompletableFuture<Void> save(@NotNull final List<VentaManualLocalizacionResultItemDto> src,
+    public CompletableFuture<Void> save(@NotNull final List<VentaManualWlocResultItemDto> src,
             @NotNull final TareaDto tareaDto) {
         this.tareaLocalizacionVentaService.save(src, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

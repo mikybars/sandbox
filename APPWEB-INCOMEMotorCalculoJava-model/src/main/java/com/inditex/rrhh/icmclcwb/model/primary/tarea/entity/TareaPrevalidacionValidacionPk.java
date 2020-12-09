@@ -22,7 +22,6 @@ public class TareaPrevalidacionValidacionPk implements Serializable {
     
     @NotNull
     @OneToOne
-//    @JoinColumn(name = "ID_TAREA_PREVALIDACION", nullable = false)
     @JoinColumns({
         @JoinColumn(
             name = "ID_TAREA_PREVALIDACION",
@@ -33,9 +32,6 @@ public class TareaPrevalidacionValidacionPk implements Serializable {
     })
     private TareaPrevalidacion tareaPrevalidacion;
     
-//    @NotNull
-//    @OneToOne
-//    @JoinColumn(name = "ID_TAREA", insertable = false, updatable = false)
-//    private Tarea tarea;
+
 
 }
