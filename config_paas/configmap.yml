@@ -186,7 +186,7 @@ app:
       recolectar:
         days-number: 3
       prevalidar:
-        enabled: true        
+        enabled: false
       validar:
         enabled: true
         logging: true
