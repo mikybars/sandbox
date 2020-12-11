@@ -51,6 +51,12 @@ amiga:
           permitted-number-of-calls-in-half-open-state: 10
           sliding-window-size: 100 
           sliding-window-type: COUNT_BASED
+        tarea-prevalidar:
+          wait-duration-in-open-state: PT60S
+          failure-rate-threshold: 50
+          permitted-number-of-calls-in-half-open-state: 10
+          sliding-window-size: 100 
+          sliding-window-type: COUNT_BASED          
   service:
     jms:
       listener:
@@ -67,6 +73,8 @@ amiga:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.limpieza-queue-${metadata.slot}
       programacion-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.programacion-queue-${metadata.slot}
+      tarea-prevalidar-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-prevalidar-queue-${metadata.slot}        
   data:
     binder:
       jms-activemq:
@@ -117,6 +125,12 @@ amiga:
           globalTransacted: true
           pubSubDomain: false
           receiveTimeout: 1000
+        tarea-prevalidar:
+          concurrency: 1
+          sessionTransacted: true
+          globalTransacted: true
+          pubSubDomain: false
+          receiveTimeout: 1000          
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
@@ -133,7 +147,11 @@ amiga:
         programacion:
           destinationName: ${amiga.service.jms.programacion-queue.destination-fqdn}
           pubSubDomain: false
-          sessionTransacted: true          
+          sessionTransacted: true   
+        tarea-prevalidar:
+          destinationName: ${amiga.service.jms.tarea-prevalidar-queue.destination-fqdn}
+          pubSubDomain: false
+          sessionTransacted: true                 
     jdbc:
       configuration:
         prop:
@@ -167,6 +185,8 @@ app:
     tarea:
       recolectar:
         days-number: 3
+      prevalidar:
+        enabled: false
       validar:
         enabled: true
         logging: true
@@ -588,3 +608,57 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
+          getPresenciaManualWloc: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3
+          getVentaManualWloc: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3         
+          getConfPrevalid: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3
+          getPrevalidOn: 
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3              
+          getPrevalidOff:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3       
+          reqPrevalidOff:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3                          

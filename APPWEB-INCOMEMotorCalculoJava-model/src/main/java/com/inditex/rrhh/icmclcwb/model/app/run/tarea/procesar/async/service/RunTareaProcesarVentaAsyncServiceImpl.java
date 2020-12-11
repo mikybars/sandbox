@@ -220,4 +220,10 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> updateActivoManual(final RunTareaDto tarea) {
+        this.tareaProcesarVentaService.updateActivoManual(tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

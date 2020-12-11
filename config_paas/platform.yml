@@ -31,3 +31,5 @@ datagrid:
 amq:
   force: false
   enabled: true
+  scheduler:
+    enabled: true

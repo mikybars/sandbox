@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +28,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
@@ -64,12 +67,24 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.Periodos
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
@@ -83,6 +98,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.Tie
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
 
@@ -262,10 +280,11 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     }
 
     @Override
-    public List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(DesplazamientosMultiempresaRequestDto request) {
+    public List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(
+            final DesplazamientosMultiempresaRequestDto request) {
         return this.getResultItem(request,
                 Meta4PropertiesConstants.MULTIEMPRESA,
-            DesplazamientosMultiempresaResponseDto.class, DesplazamientosMultiempresaItemDto.class);
+                DesplazamientosMultiempresaResponseDto.class, DesplazamientosMultiempresaItemDto.class);
     }
 
     @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea,#cclIdOrigen}")
@@ -287,6 +306,48 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         return this.getResultItem(request,
                 Meta4PropertiesConstants.DESPLAZAMIENTO_REAL,
                 DesplazamientoRealResponseDto.class, DesplazamientoRealResultItemDto.class);
+    }
+
+    @Override
+    public List<ConfPreValidResultItemDto> getConfPrevalid(final ConfPreValidRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.CONF_PREVALID,
+                ConfPreValidResponseDto.class, ConfPreValidResultItemDto.class);
+    }
+
+    @Override
+    public List<PreValidOnResultItemDto> getPrevalidOn(final PreValidOnRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.PREVALID_ON,
+                PreValidOnResponseDto.class, PreValidOnResultItemDto.class);
+    }
+
+    @Override
+    public List<PreValidOffResultItemDto> getPrevalidOff(final PreValidOffRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.PREVALID_OFF,
+                PreValidOffResponseDto.class, PreValidOffResultItemDto.class);
+    }
+
+    @Override
+    public List<ReqPreValidOffResultItemDto> reqPrevalidOff(final ReqPreValidOffRequestDto request) {
+        return this.getResultItem(request,
+                Meta4PropertiesConstants.REQ_PREVALID_OFF,
+                ReqPreValidOffResponseDto.class, ReqPreValidOffResultItemDto.class);
+    }
+
+    @Override
+    public List<PresenciaManualWlocResultItemDto> getPresenciaManualWloc(
+            final PresenciaManualWlocRequestDto request) {
+        return this.getResultItem(request, Meta4PropertiesConstants.PRESENCIA_MANUAL_WLOC,
+                PresenciaManualWlocResponseDto.class, PresenciaManualWlocResultItemDto.class);
+    }
+
+    @Override
+    public List<VentaManualWlocResultItemDto> getVentaManualWloc(
+            final VentaManualWlocRequestDto request) {
+        return this.getResultItem(request, Meta4PropertiesConstants.VENTA_MANUAL_WLOC,
+                VentaManualWlocResponseDto.class, VentaManualWlocResultItemDto.class);
     }
 
 }

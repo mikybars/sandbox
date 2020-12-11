@@ -248,4 +248,9 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
         this.tareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0(tarea.getTarea());
     }
 
+    @Override
+    public void updateActivoManual(@Valid final RunTareaDto tarea) {
+        this.tareaLocalizacionVentaRepositoryCustom.updateActivoManual(tarea.getTarea());
+    }
+
 }

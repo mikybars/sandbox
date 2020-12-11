@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
@@ -20,8 +18,13 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarVal
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
+
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 
 @Service
 @Validated
@@ -29,6 +32,9 @@ public class RunTareaServiceImpl implements RunTareaService {
 
     @Autowired
     private TareaService tareaService;
+
+    @Autowired
+    private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Autowired
     private RunTareaRecolectarService runTareaRecolectarService;
@@ -62,20 +68,26 @@ public class RunTareaServiceImpl implements RunTareaService {
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         try {
-            tareaService.updateFechaInicioAndEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
-            runTareaRecolectarService.run(runTarea);
-            runTareaRecolectarValidarService.run(runTarea);
-            runTareaProcesarService.run(runTarea);
-            runTareaCalcularService.run(runTarea);
-            runTareaRegularizarChallengeService.run(runTarea);
-            runTareaRegularizarService.run(runTarea);
-            runTareaAjustarService.run(runTarea);
-            runTareaConsolidarService.run(runTarea);
-        } catch (Exception e) {
-            tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
+            this.tareaService.updateFechaInicioAndEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
+            this.runTareaRecolectarService.run(runTarea);
+            this.runTareaRecolectarValidarService.run(runTarea);
+            this.runTareaProcesarService.run(runTarea);
+            this.runTareaCalcularService.run(runTarea);
+            this.runTareaRegularizarChallengeService.run(runTarea);
+            this.runTareaRegularizarService.run(runTarea);
+            this.runTareaAjustarService.run(runTarea);
+            this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
+                    EstadoTareaCalculoPersonaEnum.OK.getDto());
+            this.runTareaConsolidarService.run(runTarea);
+            this.tareaService.updateEstadoFinal(runTarea.getTarea());
+        } catch (final Exception e) {
+            this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
+                    EstadoTareaCalculoPersonaEnum.KO.getDto());
+            this.runTareaConsolidarService.run(runTarea);
+            this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
             throw e;
         } finally {
-            tareaService.updateFechaFin(runTarea.getTarea());
+            this.tareaService.updateFechaFin(runTarea.getTarea());
         }
     }
 

@@ -22,9 +22,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupue
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPresupuestoMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoRepositoryCustom;
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 
 @Service
 @Validated
@@ -109,7 +109,7 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
         final List<PeriodoDto> periodos = new ArrayList<>();
         LocalDate fecha = periodo.getFechaInicioPeriodo();
         while (fecha.isBefore(periodo.getFechaFinPeriodo())) {
-            LocalDate fechaFinPeriodo = fecha.plusDays(numDays - 1);
+            LocalDate fechaFinPeriodo = fecha.plusDays(numDays - 1L);
             fechaFinPeriodo = fechaFinPeriodo.isBefore(periodo.getFechaFinPeriodo()) ? fechaFinPeriodo
                     : periodo.getFechaFinPeriodo();
             periodos.add(PeriodoDto

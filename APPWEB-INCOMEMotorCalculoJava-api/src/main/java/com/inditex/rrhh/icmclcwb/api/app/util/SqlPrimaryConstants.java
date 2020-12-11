@@ -281,6 +281,19 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_PRESUPUESTO = "idTipoPresupuesto";
 
+    public static final String SQL_PARAM_FECHA_HORA_ACTUALIZACION = "fechaHoraActualizacion";
+
+    public static final String SQL_PARAM_ID_ESTADO_VALIDACION = "idEstadoValidacion";
+
+    public static final String SQL_PARAM_ID_TAREA_PREVALIDACION = "idTareaPrevalidacion";
+
+    public static final String SQL_PARAM_ID_TIPO_VALIDACION = "idTipoValidacion";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_PRESENCIA_MANUAL = "idTipoDatoManual";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_VENTA_MANUAL = "idTipoDatoLocalizacionVentaManual";
+
+
     public static final Integer SQL_VALUE_BOOLEAN_TRUE = 1;
 
     public static final Integer SQL_VALUE_BOOLEAN_FALSE = 0;
@@ -346,5 +359,13 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_ICM_ID_ESTR_COMISION_PADRE = "ICM_ID_ESTR_COMISION_PADRE";
 
     public static final String SQL_RESULT_ICM_ID_ESTR_COMISION_BASE = "ICM_ID_ESTR_COMISION_BASE";
+
+    public static final String SQL_RESULT_ID_TIPO_ACCION_VALIDACION = "ID_TIPO_ACCION_VALIDACION";
+
+    public static final String SQL_RESULT_REINTENTO_DELAY = "REINTENTO_DELAY";
+
+    public static final String SQL_RESULT_ID_TIPO_VALIDACION = "ID_TIPO_VALIDACION";
+
+    public static final String SQL_RESULT_ID_TAREA_PREVALIDACION = "ID_TAREA_PREVALIDACION";
 
 }

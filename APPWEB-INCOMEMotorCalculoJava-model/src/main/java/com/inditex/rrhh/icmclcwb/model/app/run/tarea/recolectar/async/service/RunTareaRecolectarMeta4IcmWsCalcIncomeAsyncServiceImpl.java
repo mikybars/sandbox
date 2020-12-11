@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPrevalidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
@@ -56,6 +57,18 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     @Override
     public CompletableFuture<Void> presenciaManualByRunTarea(final RunTareaDto runTarea) {
         this.tareaRecolectarMeta4IcmWsCalcIncomeService.presenciaManualByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> presenciaManualLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        this.tareaRecolectarMeta4IcmWsCalcIncomeService.presenciaManualLocalizacionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> ventaManualLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        this.tareaRecolectarMeta4IcmWsCalcIncomeService.ventaManualLocalizacionByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
@@ -158,6 +171,13 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     @Override
     public CompletableFuture<Void> desplazamientoRealByRunTarea(final RunTareaDto runTarea) {
         this.tareaRecolectarMeta4IcmWsCalcIncomeService.desplazamientoRealByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> getConfPrevalidByRunTareaPrevalidar(
+            final RunTareaPrevalidarDto runTareaPrevalidarDto) {
+        this.tareaRecolectarMeta4IcmWsCalcIncomeService.getConfPrevalidByRunTareaPrevalidar(runTareaPrevalidarDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
@@ -32,8 +32,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 public abstract class AbstractRunTareaAmbitoRecolectarPtrPresenciaService {
 
@@ -71,8 +71,11 @@ public abstract class AbstractRunTareaAmbitoRecolectarPtrPresenciaService {
         final PtrFilterPropertiesDto filter = this.presenciasProperties
             .get(PtrPropertiesConstants.PRESENCIA_EMPLEADOS_TIENDA)
             .getFilter();
-        List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
-            .findIdEmpresaByIdTarea(tarea.getId()).stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
+        final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+            .findIdEmpresaByIdTarea(tarea.getId())
+            .stream()
+            .map(IdEmpresaDto::getStdIdLegEnt)
+            .collect(Collectors.toList());
         for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
                 this.tareaTiendaHistoricoService
                     .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
@@ -93,6 +96,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarPtrPresenciaService {
             request.setEmpresa(empresasAmbito.stream().map(Integer::parseInt).collect(Collectors.toList()));
             request.setAgrupacion(PtrGroupTypeEnum.PERSONA_TIENDA.getValue());
             request.setFechaDesde(this.getFechaInicioPeriodo(tarea));
+            request.setTienda(iter.stream().map(x -> Integer.valueOf(x.getId())).collect(Collectors.toList()));
             final CompletableFuture<PtrPresenciaEmpleadosTiendaResponseDto> cfData = this.ptrPresenciaAsyncService
                 .presenciasEmpleadosTienda(request);
             AsyncUtils.exceptionally(cfData, cf, cfPersist);

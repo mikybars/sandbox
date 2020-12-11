@@ -187,6 +187,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
+            // Totalizamos las presencias de la tienda por seccion
+            final CompletableFuture<Void> cfTotalizarPresenciaLocalizacion = this.runTareaProcesarPresenciaAsyncService
+                .totalizarLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarPresenciaLocalizacion, cf, cfWait);
+
             // Compensar presencia total localizacion persona con las manuales
             final CompletableFuture<Void> cfCompensarPresenciaPersonaLocalizacion = this.runTareaProcesarPresenciaAsyncService
                 .compensarLocalizacionPersonaPresencia(runTarea);
@@ -197,19 +202,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 .compensarChallenge(runTarea);
             AsyncUtils.exceptionally(cfCompensarChallenge, cf, cfWait);
 
-            // Compensar presencia total localizacion con las manuales
-            final CompletableFuture<Void> cfCompensarPresenciaLocalizacion = this.runTareaProcesarPresenciaAsyncService
-                .compensarLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacion, cf, cfWait);
-
             // Compensar presencia total localizacion con las manuales para incluido ecommerce
             final CompletableFuture<Void> cfCompensarPresenciaLocalizacionEcommerce = this.runTareaProcesarPresenciaAsyncService
                 .compensarLocalizacionEcommerce(runTarea);
             AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionEcommerce, cf, cfWait);
-
-            final CompletableFuture<Void> cfTotalizarPresenciaLocalizacion = this.runTareaProcesarPresenciaAsyncService
-                .totalizarLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfTotalizarPresenciaLocalizacion, cf, cfWait);
 
             final CompletableFuture<Void> cfTotalizarPresenciaEcommerceLocalizacion = this.runTareaProcesarPresenciaAsyncService
                 .totalizarEcommerceLocalizacion(runTarea);
@@ -224,6 +220,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             final CompletableFuture<Void> cfPresenciasIncluidoVentaPersona = this.runTareaProcesarPresenciaAsyncService
                 .presenciasIncluidoVentaPersona(runTarea);
             AsyncUtils.exceptionally(cfPresenciasIncluidoVentaPersona, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // Compenar presencia total localizacion con las manuales de tienda
+            final CompletableFuture<Void> cfCompensarPresenciaLocalizacionManual = this.runTareaProcesarPresenciaAsyncService
+                .compensarLocalizacionManual(runTarea);
+            AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionManual, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
@@ -437,6 +442,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             final CompletableFuture<Void> cfRelacionarPresupuestosEstructurasDesplazamiento = this.runTareaProcesarCondicionesAsyncService
                 .relacionarPresupuestosEstructurasDesplazamiento(runTarea.getTarea());
             AsyncUtils.exceptionally(cfRelacionarPresupuestosEstructurasDesplazamiento, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // Desactivo venta de tienda por seccion si hay manual
+            final CompletableFuture<Void> cfUpdateActivoManual = this.runTareaProcesarVentaAsyncService
+                .updateActivoManual(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoManual, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);

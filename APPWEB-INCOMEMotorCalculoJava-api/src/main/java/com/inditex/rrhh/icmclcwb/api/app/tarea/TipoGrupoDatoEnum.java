@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
+
 @RequiredArgsConstructor
 public enum TipoGrupoDatoEnum {
 
@@ -35,7 +36,8 @@ public enum TipoGrupoDatoEnum {
                                                                                                                                                                                                     2027), VENTA_RANGO(
                                                                                                                                                                                                             2028), VENTA_RANGO_CONGELADA(
                                                                                                                                                                                                                     2029), VENTA_RANGO_REAL_Y_CONGELADA(
-                                                                                                                                                                                                                            2030),
+                                                                                                                                                                                                                            2030), VENTA_REAL_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                    2031),
 
 
     /* 3000 PRESENCIA */

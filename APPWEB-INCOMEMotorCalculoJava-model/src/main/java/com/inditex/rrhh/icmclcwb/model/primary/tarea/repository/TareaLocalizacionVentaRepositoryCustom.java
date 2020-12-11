@@ -1,12 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
-
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
+
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
 
 public interface TareaLocalizacionVentaRepositoryCustom {
 
@@ -33,5 +33,7 @@ public interface TareaLocalizacionVentaRepositoryCustom {
     void totalizarVentasVendedor0(@NotNull TareaDto tarea);
 
     void repartoDevolucionVendedor0(@NotNull TareaDto tarea);
+
+    void updateActivoManual(@NotNull TareaDto tarea);
 
 }
