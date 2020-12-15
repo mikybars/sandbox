@@ -68,8 +68,8 @@ public class PtrVentaOnlinePickingRequestDto implements Serializable {
     @XmlElement(name = "agruparSeccion")
     private Integer agruparSeccion;
     
-//    @ApiModelProperty(value = "Flag ventaPAT (includo/excluido)", required = false, example = "1")
-//    @XmlElement(name = "ventaPAT")
-//    private Integer ventaPAT;
+    @ApiModelProperty(value = "Flag ventaPAT (includo/excluido)", required = false, example = "1")
+    @XmlElement(name = "ventaPAT")
+    private Integer ventaPAT;
 
 }
