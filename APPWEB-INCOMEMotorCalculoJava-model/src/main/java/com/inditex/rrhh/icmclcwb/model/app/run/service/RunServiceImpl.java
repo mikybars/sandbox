@@ -4,13 +4,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PreValidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.service.RunLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
@@ -44,11 +42,6 @@ public class RunServiceImpl implements RunService {
 
     @Autowired
     private RunProgramacionService runProgramacionService;
-
-
-    @Autowired
-    @Qualifier("preValidarProperties")
-    private PreValidarPropertiesDto preValidarProperties;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
