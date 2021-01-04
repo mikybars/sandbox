@@ -38,6 +38,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idaccion" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idestado" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="delaytiempo" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="idprioridad" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idvalidacion" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="reintentomax" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
@@ -56,6 +57,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idaccion",
     "idestado",
     "delaytiempo",
+    "idprioridad",
     "idvalidacion",
     "reintentomax"
 })
@@ -74,6 +76,8 @@ public class IcmListaconfprevalidRecord implements Serializable, Cloneable, Copy
     protected String idestado;
     @XmlElement(required = true, nillable = true)
     protected String delaytiempo;
+    @XmlElement(required = true, nillable = true)
+    protected String idprioridad;
     @XmlElement(required = true, nillable = true)
     protected String idvalidacion;
     @XmlElement(required = true, nillable = true)
@@ -216,6 +220,30 @@ public class IcmListaconfprevalidRecord implements Serializable, Cloneable, Copy
     }
 
     /**
+     * Obtiene el valor de la propiedad idprioridad.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIdprioridad() {
+        return idprioridad;
+    }
+
+    /**
+     * Define el valor de la propiedad idprioridad.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdprioridad(String value) {
+        this.idprioridad = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad idvalidacion.
      * 
      * @return
@@ -326,6 +354,15 @@ public class IcmListaconfprevalidRecord implements Serializable, Cloneable, Copy
             }
         }
         {
+            String lhsIdprioridad;
+            lhsIdprioridad = this.getIdprioridad();
+            String rhsIdprioridad;
+            rhsIdprioridad = that.getIdprioridad();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idprioridad", lhsIdprioridad), LocatorUtils.property(thatLocator, "idprioridad", rhsIdprioridad), lhsIdprioridad, rhsIdprioridad, (this.idprioridad!= null), (that.idprioridad!= null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdvalidacion;
             lhsIdvalidacion = this.getIdvalidacion();
             String rhsIdvalidacion;
@@ -397,6 +434,11 @@ public class IcmListaconfprevalidRecord implements Serializable, Cloneable, Copy
             strategy.appendField(locator, this, "delaytiempo", buffer, theDelaytiempo, (this.delaytiempo!= null));
         }
         {
+            String theIdprioridad;
+            theIdprioridad = this.getIdprioridad();
+            strategy.appendField(locator, this, "idprioridad", buffer, theIdprioridad, (this.idprioridad!= null));
+        }
+        {
             String theIdvalidacion;
             theIdvalidacion = this.getIdvalidacion();
             strategy.appendField(locator, this, "idvalidacion", buffer, theIdvalidacion, (this.idvalidacion!= null));
@@ -440,6 +482,11 @@ public class IcmListaconfprevalidRecord implements Serializable, Cloneable, Copy
             String theDelaytiempo;
             theDelaytiempo = this.getDelaytiempo();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "delaytiempo", theDelaytiempo), currentHashCode, theDelaytiempo, (this.delaytiempo!= null));
+        }
+        {
+            String theIdprioridad;
+            theIdprioridad = this.getIdprioridad();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idprioridad", theIdprioridad), currentHashCode, theIdprioridad, (this.idprioridad!= null));
         }
         {
             String theIdvalidacion;
@@ -546,6 +593,19 @@ public class IcmListaconfprevalidRecord implements Serializable, Cloneable, Copy
                 } else {
                     if (delaytiempoShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.delaytiempo = null;
+                    }
+                }
+            }
+            {
+                Boolean idprioridadShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idprioridad!= null));
+                if (idprioridadShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceIdprioridad;
+                    sourceIdprioridad = this.getIdprioridad();
+                    String copyIdprioridad = ((String) strategy.copy(LocatorUtils.property(locator, "idprioridad", sourceIdprioridad), sourceIdprioridad, (this.idprioridad!= null)));
+                    copy.setIdprioridad(copyIdprioridad);
+                } else {
+                    if (idprioridadShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.idprioridad = null;
                     }
                 }
             }
