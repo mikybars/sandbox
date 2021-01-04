@@ -1,0 +1,32 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JAVA-COMH2DATABASE-31685:
+    - '* > com.inditex.aqsw.framework.batch:batch-framework-starter@3.3.0 > com.inditex.aqsw.framework.batch:batch-framework-core@3.3.0 > com.h2database:h2@1.4.200':
+        reason: >-
+          No remediation available.
+  SNYK-JAVA-ORGINFINISPAN-540490:
+    - '* > org.infinispan:infinispan-spring5-common@9.4.19.Final-redhat-00001':
+        reason: 'RedHat confirms this version has no issues. More info at https://axinic.central.inditex.grp/jira/browse/AMIGAFWK-1336'
+  SNYK-JAVA-ORGINFINISPAN-540491:
+    - '* > org.infinispan:infinispan-spring5-embedded@9.4.19.Final-redhat-00001':
+        reason: 'RedHat confirms this version has no issues. More info at https://axinic.central.inditex.grp/jira/browse/AMIGAFWK-1336'
+  SNYK-JAVA-ORGINFINISPAN-540492:
+    - '* > org.infinispan:infinispan-spring5-remote@9.4.19.Final-redhat-00001':
+        reason: 'RedHat confirms this version has no issues. More info at https://axinic.central.inditex.grp/jira/browse/AMIGAFWK-1336'
+  SNYK-JAVA-ORGINFINISPAN-535507:
+    - '* > org.infinispan:infinispan-commons@9.4.19.Final-redhat-00001':
+        reason: 'RedHat confirms this version has no issues. More info at https://axinic.central.inditex.grp/jira/browse/AMIGAFWK-1336'
+  SNYK-JAVA-ORGCODEHAUSJACKSON-534878:
+    - '* > com.inditex.aqsw.framework.service:service-framework-starter-stream-pipe@3.7.0 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@3.7.0 > org.springframework.cloud:spring-cloud-schema-registry-client@1.0.9.RELEASE > org.apache.avro:avro@1.8.1 > org.codehaus.jackson:jackson-mapper-asl@1.9.13':
+        reason: >- 
+          No remediation available
+    - '* > com.inditex.aqsw.framework.data:data-framework-starter-test-stream@3.7.0 > com.inditex.aqsw.framework.data:data-framework-test-stream@3.7.0 > io.confluent:kafka-avro-serializer@5.3.1 > org.apache.avro:avro@1.8.1 > org.codehaus.jackson:jackson-mapper-asl@1.9.13':
+        reason: >- 
+          No remediation available
+  SNYK-JAVA-IONETTY-1042268:
+    - '* > com.inditex.aqsw.framework.common:common-framework-starter-cache-datagrid-remote@3.7.0 > org.infinispan:infinispan-spring-boot-starter-remote@2.1.10.Final-redhat-00001 > org.infinispan:infinispan-client-hotrod@9.4.19.Final-redhat-00001 > io.netty:netty-handler@4.1.53.Final':
+        reason: >- 
+          No remediation available
+patch: {}
