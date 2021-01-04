@@ -26,7 +26,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPrevalidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionCadenaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionConfiguracionAsyncService;
@@ -48,10 +47,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaCoefici
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraDesplazamientoRealAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraPoliticaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPrevalidacionValidacionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPrevalidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
@@ -77,10 +74,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
@@ -219,9 +212,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Autowired
     private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
-
-    @Autowired
-    private TareaPrevalidacionValidacionAsyncService tareaPrevalidacionValidacionAsyncService;
 
     @Override
     protected LocalDateTime getFechaInicioPeriodo(final TareaDto tarea) {
@@ -1161,45 +1151,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 } while (hasNext);
                 AsyncUtils.waitAllOfIsOk(cf, cf);
             }
-        } catch (final Exception e) {
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-    }
-
-    @Override
-    public void getConfPrevalidByRunTareaPrevalidarAndTareaAmbito(
-            @NotNull @Valid final RunTareaPrevalidarDto runTareaPrevalidarDto,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
-        final List<CompletableFuture<?>> cf = new ArrayList<>();
-        final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
-        try {
-            final TareaDto tarea = runTareaPrevalidarDto.getTarea();
-            final TareaPrevalidacionDto tareaPrevalidacionDto = runTareaPrevalidarDto.getTareaPrevalidacionDto();
-            final ConfPreValidRequestDto request = new ConfPreValidRequestDto();
-            final ConfPreValidFilterDto filter = new ConfPreValidFilterDto();
-            filter.setItem(Arrays
-                .asList(ConfPreValidFilterParametersDto.builder()
-                    .idEmpresa(tarea.getStdIdLegEnt())
-                    .idOrigen(tareaAmbito.getCclIdOrigen())
-                    .build()));
-            request.setData(filter);
-            request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONF_PREVALID).getPage());
-
-            final CompletableFuture<List<ConfPreValidResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-                .getConfPrevalid(request);
-            final List<ConfPreValidResultItemDto> data = AsyncUtils.get(cfData);
-            if (CollectionUtils.isNotEmpty(data)) {
-                AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        this.meta4Properties.get(Meta4PropertiesConstants.CONF_PREVALID)
-                            .getFilter()
-                            .getMaxPersistenceSize());
-                final CompletableFuture<Void> cfSave = this.tareaPrevalidacionValidacionAsyncService
-                    .save(data, tareaPrevalidacionDto);
-                AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-            }
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

@@ -4,7 +4,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaPrevalidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
@@ -85,10 +84,6 @@ public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
     void ventaManualWlocByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
-
-    void getConfPrevalidByRunTareaPrevalidarAndTareaAmbito(
-            @NotNull @Valid final RunTareaPrevalidarDto runTareaPrevalidarDto,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
 }
