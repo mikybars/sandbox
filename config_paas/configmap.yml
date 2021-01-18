@@ -14,6 +14,12 @@ amiga:
           counter:
             enabled: true
   common:
+    mail:
+      host: mail.inditex.grp
+      port: 25
+      username:
+      protocol: smtp
+      default-encoding: UTF-8  
     rest:
       client:
         http:

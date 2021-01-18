@@ -79,18 +79,22 @@
       <artifactId>db2jcc</artifactId>
       <scope>runtime</scope>
     </dependency>
-    
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+      <scope>runtime</scope>
+    </dependency>    
     <dependency>
       <groupId>com.oracle.jdbc</groupId>
       <artifactId>ojdbc7</artifactId>
       <scope>runtime</scope>
+      <exclusions>
+          <exclusion>
+              <artifactId>xmlparserv2</artifactId>
+              <groupId>com.oracle.jdbc</groupId>
+          </exclusion>
+      </exclusions>
     </dependency>
-    
-    <dependency>
-        <groupId>com.microsoft.sqlserver</groupId>
-        <artifactId>mssql-jdbc</artifactId>
-        <scope>runtime</scope>
-    </dependency>    
 
     <!-- OTHER DEPENDENCIES -->
     <dependency>

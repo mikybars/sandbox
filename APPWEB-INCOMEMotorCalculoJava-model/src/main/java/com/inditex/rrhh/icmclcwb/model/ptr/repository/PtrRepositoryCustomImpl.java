@@ -1,0 +1,38 @@
+package com.inditex.rrhh.icmclcwb.model.ptr.repository;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.stereotype.Repository;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+
+@Repository
+public class PtrRepositoryCustomImpl
+        extends JdbcBatchPtrRepositoryAbstract<Integer>
+        implements PtrRepositoryCustom {
+
+    @Value("#{ptrPrimaryQuery['PtrRepositoryCustom.findPresenciasOrigenAndFecha']}")
+    private String sqlfindPresenciasOrigenAndFechaQuery;
+
+    @Override
+    public PresenciaOrigenDto findPresenciasOrigenAndFecha(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_FIN,
+                TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+
+        return this.queryForObject(this.sqlfindPresenciasOrigenAndFechaQuery, map,
+                (rs, rowNum) -> PresenciaOrigenDto
+                    .builder()
+                    .horasSeccion1(rs.getInt(SqlComisConstants.SQL_RESULT_HORAS_SECCION_1))
+                    .horasSeccion2(rs.getInt(SqlComisConstants.SQL_RESULT_HORAS_SECCION_2))
+                    .horasSeccion3(rs.getInt(SqlComisConstants.SQL_RESULT_HORAS_SECCION_3))
+                    .horasSeccion4(rs.getInt(SqlComisConstants.SQL_RESULT_HORAS_SECCION_4))
+                    .build());
+    }
+
+}

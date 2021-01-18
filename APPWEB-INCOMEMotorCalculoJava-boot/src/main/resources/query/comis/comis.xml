@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+  <entry key="ComisRepositoryCustom.findPresenciasOrigenAndFecha">
+    <![CDATA[
+      SELECT 
+      SUM(IIF(SECCION= 1, HORAS, 0)) AS HORAS_SECCION_1, 
+      SUM(IIF(SECCION= 2, HORAS, 0)) AS HORAS_SECCION_2, 
+      SUM(IIF(SECCION= 3, HORAS, 0)) AS HORAS_SECCION_3, 
+      COALESCE(SUM(HORAS),0) AS HORAS_SECCION_4 
+      FROM ( 
+        SELECT 
+        P.SECCION, 
+        SUM(P.HORAS)  AS HORAS 
+        FROM PRESENCIAS P 
+        INNER JOIN TIPOSHORAS H 
+        ON H.TIPOHORAS = P.TIPO 
+        WHERE 1=1 
+        AND P.FECHA BETWEEN :fechaInicio AND :fechaFin
+        GROUP BY P.SECCION 
+      ) PIVOT1
+    ]]>
+  </entry>
+  
+  <entry key="ComisRepositoryCustom.findMotivosDesplazamiento">
+    <![CDATA[
+      SELECT DISTINCT(A.MOTIVO) AS MOTIVO FROM PERSONASCAMBIOSTEMPORALES A 
+    ]]>
+  </entry>
+  
+  <entry key="ComisRepositoryCustom.findFechasIncidencias">
+    <![CDATA[
+    SELECT 
+      FECHAINICIO, 
+      FECHAFIN, 
+      PERSONA
+    FROM INCIDENCIASSIL 
+    WHERE TIPOINCIDENCIA = 700  
+      AND CODIGOINCIDENCIA >= 7000 AND CODIGOINCIDENCIA <= 7100 
+      AND FECHAINICIO >= :fechaInicio AND FECHAFIN <= :fechaFin
+      AND FECHAINICIO > FECHAFIN      
+      AND (
+        ESTADO NOT IN (
+          SELECT CONVERT(INTEGER,INDICE) 
+          FROM TABLASGENERALES 
+          WHERE TABLA = 9061 AND INDICADOR1 = 'E'
+        ) 
+        AND ORIGEN NOT IN (
+          SELECT CONVERT(INTEGER,INDICE) 
+          FROM TABLASGENERALES 
+          WHERE TABLA = 9061 AND INDICADOR1 = 'O'
+        ) 
+      )
+    UNION
+    SELECT 
+      A.FECHAINICIO,
+      A.FECHAFIN,
+      A.PERSONA
+    FROM INCIDENCIASSIL  AS A
+    INNER JOIN INCIDENCIASSIL  AS B 
+    ON (
+      (A.FECHAINICIO  BETWEEN B.FECHAINICIO AND B.FECHAFIN)
+        OR  (A.FECHAFIN BETWEEN B.FECHAINICIO AND B.FECHAFIN) 
+        OR  (A.FECHAINICIO < B.FECHAINICIO AND A.FECHAFIN > B.FECHAFIN)
+      )
+    AND  (A.INCIDENCIA != B.INCIDENCIA)
+    AND  (A.PERSONA = B.PERSONA)
+    WHERE A.TIPOINCIDENCIA = 700 AND B.TIPOINCIDENCIA = 700
+    AND A.CODIGOINCIDENCIA >= 7000 AND A.CODIGOINCIDENCIA <= 7100 
+    AND B.CODIGOINCIDENCIA >= 7000 AND B.CODIGOINCIDENCIA <= 7100
+    AND (
+        A.ESTADO NOT IN (
+          SELECT CONVERT(INTEGER,INDICE) 
+          FROM TABLASGENERALES 
+          WHERE TABLA = 9061 AND INDICADOR1 = 'E'
+        ) 
+        AND A.ORIGEN NOT IN (
+          SELECT CONVERT(INTEGER,INDICE) 
+          FROM TABLASGENERALES 
+          WHERE TABLA = 9061 AND INDICADOR1 = 'O'
+        ) 
+      )
+    AND (
+        B.ESTADO NOT IN (
+          SELECT CONVERT(INTEGER,INDICE) 
+          FROM TABLASGENERALES 
+          WHERE TABLA = 9061 AND INDICADOR1 = 'E'
+        ) 
+        AND B.ORIGEN NOT IN (
+          SELECT CONVERT(INTEGER,INDICE) 
+          FROM TABLASGENERALES 
+          WHERE TABLA = 9061 AND INDICADOR1 = 'O'
+        ) 
+      )          
+    ]]>
+  </entry>
+  
+    <entry key="ComisRepositoryCustom.findFechasDesplazamiento">
+    <![CDATA[
+      SELECT  
+            FECHADESDE, 
+            FECHAHASTA, 
+            PERSONA
+            FROM PERSONASCAMBIOSTEMPORALES 
+            WHERE FECHADESDE > FECHAHASTA       
+      UNION
+      SELECT 
+            A.FECHADESDE,
+            A.FECHAHASTA,
+            A.PERSONA
+      FROM PERSONASCAMBIOSTEMPORALES  AS A
+      INNER JOIN PERSONASCAMBIOSTEMPORALES  AS B 
+      ON (
+        (A.FECHADESDE  BETWEEN B.FECHADESDE AND B.FECHAHASTA)
+        OR  (A.FECHAHASTA BETWEEN B.FECHADESDE AND B.FECHAHASTA) 
+        OR  (A.FECHADESDE < B.FECHADESDE AND A.FECHAHASTA > B.FECHAHASTA)
+      )
+      AND  (A.FIRMA != B.FIRMA)
+      AND  (A.PERSONA = B.PERSONA)                      
+    ]]>
+  </entry>
+   
+  <entry key="ComisRepositoryCustom.findCondicionesHistorico">
+    <![CDATA[
+      SELECT PH.PERSONA, 
+      PH.FECHADESDE, 
+      PH.FECHAHASTA, 
+      PH.TIENDA AS CCL_ID_COD_ORIGEN, 
+      PH.TIPOCALCULO AS ID_TIPO_CALCULO, 
+      TPC.PORCENTAJE, 
+      TPP.BANDA,
+      TPP.IMPORTE
+        FROM PERSONASHISTORICO PH
+        LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+        ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+        LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+        ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+          WHERE PH.FECHADESDE >= :fechaDesde
+          AND PH.FECHAHASTA <= :fechaHasta
+          AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      GROUP BY 
+      PH.PERSONA, 
+      PH.FECHADESDE, 
+      PH.FECHAHASTA, 
+      PH.TIENDA, 
+      PH.TIPOCALCULO, 
+      TPC.PORCENTAJE, 
+      TPP.TABLAPORCENTAJE, 
+      TPP.BANDA, 
+      TPP.IMPORTE
+    ]]>
+  </entry>
+  
+  <entry key="ComisRepositoryCustom.findCondicionesDesplazamiento">
+    <![CDATA[
+      SELECT PCT.PERSONA, 
+      PCT.FECHADESDE, 
+      PCT.FECHAHASTA, 
+      PCT.TIENDAORIGEN AS CCL_ID_COD_ORIGEN, 
+      PCT.TIENDADESTINO AS CCL_ID_COD_ORIGEN_DESTINO, 
+      PCT.TIPOCALCULO AS ID_TIPO_CALCULO, 
+      PCT.TIPOOPCIONCALCULO AS ID_TIPO_OPCION_CALCULO, 
+      TPC.PORCENTAJE, 
+      TPP.BANDA AS BANDA,
+      TPP.IMPORTE
+        FROM PERSONASCAMBIOSTEMPORALES PCT
+        LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+        ON TPC.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+        LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+        ON TPP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+          WHERE PCT.FECHADESDE >= :fechaDesde
+          AND PCT.FECHAHASTA <= :fechaHasta
+          AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      GROUP BY 
+      PCT.PERSONA,
+      PCT.FECHADESDE, 
+      PCT.FECHAHASTA, 
+      PCT.TIENDAORIGEN, 
+      PCT.TIENDADESTINO, 
+      PCT.TIPOCALCULO, 
+      PCT.TIPOOPCIONCALCULO, 
+      TPC.PORCENTAJE, 
+      TPP.BANDA,
+      TPP.IMPORTE
+    ]]>
+  </entry>
+   
+  <entry key="ComisRepositoryCustom.findCondicionesResalta">
+    <![CDATA[  
+      SELECT PH.PERSONA, 
+      PH.FECHADESDE, 
+      PH.FECHAHASTA, 
+      PH.TIPOCALCULO AS ID_TIPO_CALCULO, 
+      TPC.PORCENTAJE, 
+      TPP.BANDA,
+      TPP.IMPORTE
+        FROM PERSONASRESALTAS PH
+        LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+        ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+        LEFT JOIN TablasPresupuestosComision TPP
+        ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+          WHERE PH.FECHADESDE >= :fechaDesde
+          AND PH.FECHAHASTA <= :fechaHasta
+          AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      GROUP BY 
+      PH.PERSONA, 
+      PH.FECHADESDE, 
+      PH.FECHAHASTA, 
+      PH.TIPOCALCULO, 
+      TPC.PORCENTAJE, 
+      TPP.BANDA,
+      TPP.IMPORTE
+    ]]>
+  </entry> 
+
+  <entry key="ComisRepositoryCustom.findBajasIt">
+    <![CDATA[  
+      SELECT
+      FECHAINICIO, 
+      FECHAFIN,
+      PERSONA,
+      CODIGOINCIDENCIA - 7000 AS PORCENTAJE
+     FROM INCIDENCIASSIL 
+     WHERE TIPOINCIDENCIA = 700  
+      AND CODIGOINCIDENCIA >= 7000 AND CODIGOINCIDENCIA <= 7100 
+      AND FECHAINICIO >= :fechaDesde AND FECHAFIN <= :fechaHasta
+      AND (
+        ESTADO NOT IN (
+              SELECT CONVERT(INTEGER,INDICE) 
+              FROM TABLASGENERALES 
+              WHERE TABLA = 9061 AND INDICADOR1 = 'E') 
+        AND ORIGEN NOT IN (
+              SELECT CONVERT(INTEGER,INDICE) 
+              FROM TABLASGENERALES 
+              WHERE TABLA = 9061 AND INDICADOR1 = 'O') 
+      )
+      ]]>
+  </entry> 
+  
+    <entry key="ComisRepositoryCustom.findCarencia">
+    <![CDATA[  
+        SELECT PERSONA, 
+        FECHAINICIOCALCULO AS FECHA_INICIO_CALCULO,
+        FECHAALTA AS FECHA_ALTA, 
+        TIENDA AS CCL_ID_COD_ORIGEN
+        FROM PERSONAS WHERE FECHAINICIOCALCULO IS NOT NULL
+      ]]>
+  </entry> 
+  
+</properties>

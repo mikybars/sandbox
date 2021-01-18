@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+  <entry key="PtrRepositoryCustom.findPresenciasOrigenAndFecha">
+    <![CDATA[
+    SELECT 
+    SUM(DECODE(SECCION, 1, HORAS, 0)) AS HORAS_SECCION_1, 
+    SUM(DECODE(SECCION, 2, HORAS, 0)) AS HORAS_SECCION_2, 
+    SUM(DECODE(SECCION, 3, HORAS, 0)) AS HORAS_SECCION_3, 
+    COALESCE(SUM(HORAS), 0) AS HORAS_SECCION_4 
+    FROM( 
+      SELECT P.SECCION, SUM(P.HORAS) AS HORAS 
+      FROM FND_PERSONALMUNDIAL.PRESENCIAS P 
+      INNER JOIN FND_PERSONALMUNDIAL.TIPOSHORAS TH 
+      ON TH.IDCATALOGOAPLICACION = P.IDCATALOGOAPLICACION 
+      WHERE 1=1 
+      AND FECHA <= :fechaFin
+      AND FECHA >= :fechaInicio
+      AND P.IDCATALOGOAPLICACION = 6 
+      GROUP BY P.SECCION 
+      ORDER BY P.SECCION 
+    )
+    ]]>
+  </entry>
+
+</properties>

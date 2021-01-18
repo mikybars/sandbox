@@ -50,6 +50,10 @@
       <groupId>com.inditex.aqsw.framework.common</groupId>
       <artifactId>common-framework-starter-metrics-annotation</artifactId>
     </dependency>
+    <dependency>
+        <groupId>com.inditex.aqsw.framework.common</groupId>
+        <artifactId>common-framework-starter-mail</artifactId>
+    </dependency>    
 
     <!-- OTHER DEPENDENCIES -->
     <dependency>

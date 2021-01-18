@@ -1,0 +1,55 @@
+package com.inditex.rrhh.icmclcwb.api.app.util;
+
+public class SqlComisConstants {
+
+    private SqlComisConstants() {
+    }
+
+    // PARAMETROS DE FILTROS
+    public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
+
+    public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
+
+    public static final String SQL_PARAM_ID_ORGANIZATION = "idOrganization";
+
+    // RESULTADOS DE CONSULTAS
+
+    public static final String SQL_RESULT_HORAS_SECCION_1 = "HORAS_SECCION_1";
+
+    public static final String SQL_RESULT_HORAS_SECCION_2 = "HORAS_SECCION_2";
+
+    public static final String SQL_RESULT_HORAS_SECCION_3 = "HORAS_SECCION_3";
+
+    public static final String SQL_RESULT_HORAS_SECCION_4 = "HORAS_SECCION_4";
+
+    public static final String SQL_RESULT_MOTIVO = "MOTIVO";
+
+    public static final String SQL_RESULT_FECHA_INICIO = "FECHA_INICIO";
+
+    public static final String SQL_RESULT_FECHA_FIN = "FECHA_FIN";
+
+    public static final String SQL_RESULT_FECHA_DESDE = "FECHA_DESDE";
+
+    public static final String SQL_RESULT_FECHA_HASTA = "FECHA_HASTA";
+
+    public static final String SQL_RESULT_FECHA_ALTA = "FECHA_ALTA";
+
+    public static final String SQL_RESULT_FECHA_INICIO_CALCULO = "FECHA_INICIO_CALCULO";
+
+    public static final String SQL_RESULT_PERSONA = "PERSONA";
+
+    public static final String SQL_RESULT_CCL_ID_COD_ORIGEN = "CCL_ID_COD_ORIGEN";
+
+    public static final String SQL_RESULT_CCL_ID_COD_ORIGEN_DESTINO = "CCL_ID_COD_ORIGEN_DESTINO";
+
+    public static final String SQL_RESULT_ID_TIPO_CALCULO = "ID_TIPO_CALCULO";
+
+    public static final String SQL_RESULT_ID_TIPO_OPCION_CALCULO = "ID_TIPO_OPCION_CALCULO";
+
+    public static final String SQL_RESULT_PORCENTAJE = "PORCENTAJE";
+
+    public static final String SQL_RESULT_BANDA = "BANDA";
+
+    public static final String SQL_RESULT_IMPORTE = "IMPORTE";
+
+}

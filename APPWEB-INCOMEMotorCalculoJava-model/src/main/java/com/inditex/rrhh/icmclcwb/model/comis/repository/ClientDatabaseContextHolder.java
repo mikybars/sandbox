@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.config.app.data;
+package com.inditex.rrhh.icmclcwb.model.comis.repository;
 
 public class ClientDatabaseContextHolder {
 

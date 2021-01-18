@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
@@ -28,6 +26,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLo
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 
 @Service
 @Validated
@@ -66,16 +67,16 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
             metricDescription = "RunTareaRecolectarAmbitoService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             // Personas asociadas al origen y empresa
-            CompletableFuture<Void> cfPersonaByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+            final CompletableFuture<Void> cfPersonaByRunTarea = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .personaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPersonaByRunTarea, cf);
 
             // Localizaciones asociadas al origen y empresa
-            CompletableFuture<Void> cfLocalizacionByRunTarea = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+            final CompletableFuture<Void> cfLocalizacionByRunTarea = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .localizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfLocalizacionByRunTarea, cf);
 
@@ -85,19 +86,19 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
 
             // Relacion de personas con localizaciones en presencias ptr
             // asociadas al origen y empresa
-            CompletableFuture<Void> cfPresenciaEmpleadoTienda = runTareaRecolectarPtrPresenciaAsyncService
+            final CompletableFuture<Void> cfPresenciaEmpleadoTienda = this.runTareaRecolectarPtrPresenciaAsyncService
                 .presenciaEmpleadoTiendaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciaEmpleadoTienda, cf);
 
             // Relacion de personas con localizaciones en presencias manuales
             // asociadas al origen y empresa
-            CompletableFuture<Void> cfEmpleadosPresencia = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+            final CompletableFuture<Void> cfEmpleadosPresencia = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .empleadosPresenciaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfEmpleadosPresencia, cf);
 
             // Relacion de personas con localizaciones en desplazamientos
             // asociadas al origen y empresa
-            CompletableFuture<Void> cfEmpleadosDesplazamiento = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+            final CompletableFuture<Void> cfEmpleadosDesplazamiento = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .empleadosDesplazamientoByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfEmpleadosDesplazamiento, cf);
 
@@ -105,7 +106,7 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-            CompletableFuture<Void> cfMergePersonaLocalizacion = tareaAmbitoGlobalLocalizacionPersonaAsyncService
+            final CompletableFuture<Void> cfMergePersonaLocalizacion = this.tareaAmbitoGlobalLocalizacionPersonaAsyncService
                 .mergePersonaLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfMergePersonaLocalizacion, cf);
 
@@ -113,10 +114,11 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
 
-            CompletableFuture<Void> cfMergePersona = tareaAmbitoGlobalPersonaAsyncService.mergePersona(runTarea);
+            final CompletableFuture<Void> cfMergePersona = this.tareaAmbitoGlobalPersonaAsyncService
+                .mergePersona(runTarea);
             AsyncUtils.exceptionally(cfMergePersona, cf);
 
-            CompletableFuture<Void> cfMergeLocalizacion = tareaAmbitoGlobalLocalizacionAsyncService
+            final CompletableFuture<Void> cfMergeLocalizacion = this.tareaAmbitoGlobalLocalizacionAsyncService
                 .mergeLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfMergeLocalizacion, cf);
 
@@ -126,15 +128,15 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
             if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
                     || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
                     || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
-                runTareaRecolectarByAmbitoService.run(runTarea);
+                this.runTareaRecolectarByAmbitoService.run(runTarea);
             } else if (TipoAmbitoEnum.LOCALIZACION.getId().equals(trabajo.getTipoAmbito().getId())) {
-                runTareaRecolectarByAmbitoLocalizacionService.run(runTarea);
+                this.runTareaRecolectarByAmbitoLocalizacionService.run(runTarea);
             } else if (TipoAmbitoEnum.PERSONA.getId().equals(trabajo.getTipoAmbito().getId())) {
-                runTareaRecolectarByAmbitoPersonaService.run(runTarea);
+                this.runTareaRecolectarByAmbitoPersonaService.run(runTarea);
             } else {
                 throw new IcmclcwbException("El tipo ambito no esta soportado");
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
         }

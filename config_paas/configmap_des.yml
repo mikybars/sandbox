@@ -31,6 +31,216 @@ amiga:
             user: uincome
 #            currentSchema: DESARROLLO_RRHH
 #            user: oincome
+        ptr:
+          driverClassName: oracle.jdbc.OracleDriver
+          url: jdbc:oracle:thin:@//axine3-scansrv.central.inditex.grp:1521/s_pdbds01rt_gener.central.inditex.grp
+          user: uincome
+          defaultIsolationLevel: 8
+#        ptr:
+#          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
+#          xa-properties:
+#            serverName: axine3-scansrv.central.inditex.grp
+#            serviceName: s_pdbds01rt_gener.central.inditex.grp
+#            portNumber: 1521
+#            user: uincome
+#            password: pzuUKBm1ppMGzzOn
+#            driverType: thin
+        meta4:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL2.CENTRAL.INDITEX.GRP:11433;databaseName=PeopleNet
+          user: People7
+        comis1:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis2:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis3:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis4:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis5:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis6:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis7:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis8:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis9:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis10:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis18:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis28:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis30:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis32:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis38:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis39:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis52:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis60:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis61:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis63:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis64:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis66:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis68:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis72:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis75:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis79:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis92:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis93:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis96:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis97:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis98:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis139:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis388:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis400:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis404:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis412:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis508:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis512:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis524:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis528:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis664:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis720:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis728:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis732:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis736:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis740:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis743:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis800:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis            
 app:
   envars:
     ptr:
