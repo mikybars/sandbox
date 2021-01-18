@@ -144,14 +144,14 @@ amiga:
           minPoolSize: 10
           maxPoolSize: 20
           xaConnectionFactory:
-            brokerURL: failover:(tcp://10.202.10.178:61616)
+            brokerURL: failover:(tcp://127.0.0.1:61616)
             userName: root
             password: V3ct0r1nd1t3x
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
           xaConnectionFactory:
-            brokerURL: failover:(tcp://10.202.10.178:61616)
+            brokerURL: failover:(tcp://127.0.0.1:61616)
             userName: root
             password: V3ct0r1nd1t3x
       listener-container-factory:
@@ -209,20 +209,20 @@ amiga:
           xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
           xa-properties:
             #[BBDD][ITX][DES][GESTION_COMISION][INICIO]
-            serverName: axdesdb22.central.inditex.grp
-            portNumber: 50000
-            databaseName: INDITEX
-            currentSchema: GESTION_COMISION
-            user: uincome
-            password: pzuUKBm1ppMGzzOn
-            #[BBDD][ITX][DES][GESTION_COMISION][FIN]
-            #[BBDD][ITX][DES][DESARROLLO_RRHH][INICIO]
 #            serverName: axdesdb22.central.inditex.grp
 #            portNumber: 50000
 #            databaseName: INDITEX
-#            currentSchema: DESARROLLO_RRHH
-#            user: oincome
-#            password: aMJLp8ahF09w
+#            currentSchema: GESTION_COMISION
+#            user: uincome
+#            password: pzuUKBm1ppMGzzOn
+            #[BBDD][ITX][DES][GESTION_COMISION][FIN]
+            #[BBDD][ITX][DES][DESARROLLO_RRHH][INICIO]
+            serverName: axdesdb22.central.inditex.grp
+            portNumber: 50000
+            databaseName: INDITEX
+            currentSchema: DESARROLLO_RRHH
+            user: oincome
+            password: aMJLp8ahF09w
             #[BBDD][ITX][DES][DESARROLLO_RRHH][FIN]
             #[BBDD][VECTOR][DES][INICIO]
 #            serverName: 10.202.10.178
@@ -275,12 +275,7 @@ amiga:
 #            user: uincome
 #            password: pzuUKBm1ppMGzzOn
 #            driverType: thin
-        #[PTR][ITX][DES][XA][FIN]
-        meta4:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL2.CENTRAL.INDITEX.GRP:11433;databaseName=PeopleNet
-          user: People7
-          password: people7                  
+        #[PTR][ITX][DES][XA][FIN]          
         comis1:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
@@ -528,7 +523,7 @@ amiga:
         #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.isolation'':''1''}'
         #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
         hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
-        hibernate.default_schema: GESTION_COMISION
+        hibernate.default_schema: DESARROLLO_RRHH
 app:
   envars:
     calculo:

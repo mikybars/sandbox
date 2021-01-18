@@ -43,10 +43,6 @@ amiga:
 #            user: uincome
 #            password: pzuUKBm1ppMGzzOn
 #            driverType: thin
-        meta4:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPRESQL2R1:11433;databaseName=PeopleNetPre
-          user: UINCOME
         comis1:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://FRSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalPre
