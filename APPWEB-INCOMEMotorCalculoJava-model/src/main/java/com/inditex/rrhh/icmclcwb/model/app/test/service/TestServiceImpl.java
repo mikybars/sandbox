@@ -18,6 +18,8 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpMethod;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -82,6 +84,9 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private ProgramacionService programacionService;
+    
+    @Autowired
+    private MailSender mailSender;
 
     @Autowired
     @Qualifier("ptrVentaClient")
@@ -359,6 +364,16 @@ public class TestServiceImpl implements TestService {
         trabajoAmbitoPersona.setStdIdLegEnt(empresa);
         trabajoAmbitoPersona.setCclIdOrigen(origen);
         trabajo.setPersona(Arrays.asList(trabajoAmbitoPersona));
+    }
+    
+    @Override
+    public void sendMail() {
+        final SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("noreply@inditex.com");
+        message.setTo("income-java@vectoritcgroup.com");
+        message.setSubject("Lorem ipsum");
+        message.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        mailSender.send(message); 
     }
 
 }

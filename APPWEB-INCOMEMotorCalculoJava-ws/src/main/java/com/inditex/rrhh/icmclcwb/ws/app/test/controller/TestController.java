@@ -90,5 +90,11 @@ public class TestController {
     public String sqlformatter(@RequestBody @NotBlank final String sql) {
         return this.testService.sqlFormatter(sql);
     }
+    
+    @GetMapping("/mail/send")
+    @ApiOperation("Envia un correo de prueba")
+    public void sendMail() {
+        this.testService.sendMail();
+    }
 
 }
