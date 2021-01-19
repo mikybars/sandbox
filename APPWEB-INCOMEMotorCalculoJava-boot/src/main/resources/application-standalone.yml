@@ -42,8 +42,6 @@ amiga:
     mail:
       host: mail.inditex.grp
       port: 25
-      username:
-      password:
       protocol: smtp
       default-encoding: UTF-8
     rest:
