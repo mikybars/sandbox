@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +19,7 @@ import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceBuilder;
 import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceType;
 
 @Configuration
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 public class DataSourceComisConfig {
 
     @Bean(name = "comis1Datasource")
