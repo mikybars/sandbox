@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
 @Repository
 public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
@@ -28,6 +29,9 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    @Value("${app.envars.limpieza.days-number:-7}")
+    private int daysNumber;
+    
     @Value("#{primaryQuery['TareaRepositoryCustom.updateFechaFin']}")
     private String sqlUpdateFechaFin;
 
@@ -89,6 +93,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA, DateUtils.addDays(TimeUtils.nowDate(), daysNumber));
         return namedParameterJdbcTemplate.query(sqlFindLimpieza, parameters, new RowMapper<IdTareaDto>() {
             public IdTareaDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 IdTareaDto dto = new IdTareaDto();

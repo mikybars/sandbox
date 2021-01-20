@@ -548,6 +548,7 @@ app:
       batch-size:
         default: 100
     limpieza:
+      days-number: -7
       batch-size:
         default: 100
     ptr:
