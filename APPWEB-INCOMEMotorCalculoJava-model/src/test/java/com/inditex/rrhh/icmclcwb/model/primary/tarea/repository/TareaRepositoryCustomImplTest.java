@@ -179,9 +179,10 @@ public class TareaRepositoryCustomImplTest {
         assertEquals(SQL_FIND_LIMPIEZA, this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
-        // Parámetros de la consulta: idEstado
-        assertEquals(1, params.getValues().size());
+        // Parámetros de la consulta: idEstado, fecha
+        assertEquals(2, params.getValues().size());
         assertTrue(params.hasValue("idEstado"));
+        assertTrue(params.hasValue("fecha"));
         assertEquals(
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()),
                 params.getValue("idEstado"));
