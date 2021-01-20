@@ -3,8 +3,6 @@ package com.inditex.rrhh.icmclcwb.config.app.data;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -20,7 +18,6 @@ import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceType;
 import com.inditex.aqsw.framework.data.jpa.annotations.AmigaEnableJpaRepositories;
 
 @Configuration
-@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 @AmigaEnableJpaRepositories(entityManagerFactoryRef = "primaryEntityManagerFactory", basePackages = {
         "com.inditex.rrhh.icmclcwb.model.primary" })
 public class DataSourcePrimaryConfig {
