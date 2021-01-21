@@ -1,13 +1,17 @@
 package com.inditex.rrhh.icmclcwb;
 
-import com.inditex.aqsw.framework.amiga.service.AmigaBootServiceApplication;
 import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
+import com.inditex.aqsw.framework.amiga.service.AmigaBootServiceApplication;
 
 @AmigaBootServiceApplication
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 public class Application {
 
     @PostConstruct

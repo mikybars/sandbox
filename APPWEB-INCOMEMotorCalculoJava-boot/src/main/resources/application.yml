@@ -5,8 +5,6 @@ spring:
     name: ICMCLCWB
   profiles:
     active: standalone
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   jta:
     atomikos:
       properties:
