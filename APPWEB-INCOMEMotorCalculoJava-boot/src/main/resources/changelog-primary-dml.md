@@ -69,3 +69,12 @@ UPDATE ESTADO_TAREA_PERSONA SET PESO = 200 WHERE ID_ESTADO_TAREA_PERSONA = 3;
 ```sql
 DELETE FROM TIPO_GRUPO_DATO_TIPO_DATO WHERE ID_TIPO_GRUPO_DATO = 3002 AND ID_TIPO_DATO = 4002;
 ```
+
+## [v22][2021-01-22]
+
+### Added
+- [DTENREIRO] Se añade el grupo de tipo de dato 1001 para tener la presencia totalizada por localización y localización-sección disponible en la web y no se dupliquen registros
+
+### Changed
+
+### Removed
