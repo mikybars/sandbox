@@ -23,6 +23,7 @@ amiga:
     jdbc:
       datasource:
         primary:
+          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
           xa-properties:
             serverName: axdesdb22.central.inditex.grp
             portNumber: 50000
