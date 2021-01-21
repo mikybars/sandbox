@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -311,6 +312,18 @@ public class DataSourceComisConfig {
     }
 
     @Bean(name = "comisDatasource")
+    @DependsOn({ "comis1Datasource", "comis2Datasource", "comis3Datasource", "comis4Datasource", "comis5Datasource",
+            "comis6Datasource", "comis7Datasource", "comis8Datasource", "comis9Datasource", "comis10Datasource",
+            "comis18Datasource", "comis28Datasource", "comis30Datasource", "comis32Datasource", "comis38Datasource",
+            "comis39Datasource", "comis52Datasource", "comis60Datasource", "comis61Datasource", "comis63Datasource",
+            "comis64Datasource", "comis66Datasource", "comis68Datasource", "comis72Datasource", "comis75Datasource",
+            "comis79Datasource", "comis92Datasource", "comis93Datasource", "comis96Datasource", "comis97Datasource",
+            "comis98Datasource", "comis139Datasource", "comis388Datasource", "comis400Datasource", "comis404Datasource",
+            "comis412Datasource", "comis508Datasource", "comis512Datasource", "comis524Datasource",
+            "comis528Datasource",
+            "comis664Datasource", "comis720Datasource", "comis728Datasource", "comis732Datasource",
+            "comis736Datasource",
+            "comis740Datasource", "comis743Datasource", "comis800Datasource" })
     public DataSource dataSourceSql(@Lazy @Qualifier("comis1Datasource") final DataSource comis1Datasource,
             @Lazy @Qualifier("comis2Datasource") final DataSource comis2Datasource,
             @Lazy @Qualifier("comis3Datasource") final DataSource comis3Datasource,
