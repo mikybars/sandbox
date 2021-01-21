@@ -22,10 +22,10 @@ import com.inditex.aqsw.framework.data.jpa.annotations.AmigaEnableJpaRepositorie
         "com.inditex.rrhh.icmclcwb.model.primary" })
 public class DataSourcePrimaryConfig {
 
-    @Bean(name = "primaryDataSource2")
+    @Bean(name = "primaryDataSource")
     @Primary
     @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.primary")
-    public DataSource primaryDataSource2(final DataSourceBuilder dataSourceBuilder) {
+    public DataSource primaryDataSource(final DataSourceBuilder dataSourceBuilder) {
         return dataSourceBuilder.build(DataSourceType.XA);
     }
 
@@ -34,7 +34,7 @@ public class DataSourcePrimaryConfig {
     public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
             final EntityManagerFactoryBuilder entityManagerFactoryBuilder,
             final JpaProperties jpaProperties,
-            @Qualifier("primaryDataSource2") final DataSource dataSource) {
+            @Qualifier("primaryDataSource") final DataSource dataSource) {
         return entityManagerFactoryBuilder.dataSource(dataSource)
             .persistenceUnit("primaryPersistenceUnit")
             .packages("com.inditex.rrhh.icmclcwb.model.primary")
@@ -45,7 +45,7 @@ public class DataSourcePrimaryConfig {
 
     @Bean(name = "primaryJdbcTemplate")
     @Primary
-    public JdbcTemplate primaryJdbcTemplate(@Qualifier("primaryDataSource2") final DataSource dataSource) {
+    public JdbcTemplate primaryJdbcTemplate(@Qualifier("primaryDataSource") final DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
