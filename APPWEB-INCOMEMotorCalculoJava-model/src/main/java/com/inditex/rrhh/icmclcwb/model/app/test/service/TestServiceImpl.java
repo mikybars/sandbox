@@ -25,6 +25,11 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
+import com.inditex.rrhh.icmclcwb.api.app.service.PtrService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
@@ -84,9 +89,16 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private ProgramacionService programacionService;
-    
+
     @Autowired
     private MailSender mailSender;
+
+    @Autowired
+    private ComisService comisService;
+
+    @Autowired
+    private PtrService ptrService;
+
 
     @Autowired
     @Qualifier("ptrVentaClient")
@@ -365,15 +377,42 @@ public class TestServiceImpl implements TestService {
         trabajoAmbitoPersona.setCclIdOrigen(origen);
         trabajo.setPersona(Arrays.asList(trabajoAmbitoPersona));
     }
-    
+
     @Override
     public void sendMail() {
         final SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("noreply@inditex.com");
         message.setTo("income-java@vectoritcgroup.com");
         message.setSubject("Lorem ipsum");
-        message.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-        mailSender.send(message); 
+        message.setText(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        this.mailSender.send(message);
+    }
+
+    @Override
+    public void comisTest() {
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        final TareaDto tareaDto = new TareaDto();
+        runTareaDto.setTarea(tareaDto);
+        final TrabajoDto trabajoDto = new TrabajoDto();
+        runTareaDto.setTrabajo(trabajoDto);
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen("38");
+        this.comisService.findMotivoDesplazamiento(runTareaDto, tareaAmbitoDto);
+    }
+
+    @Override
+    public void ptrTest() {
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        final TareaDto tareaDto = new TareaDto();
+        runTareaDto.setTarea(tareaDto);
+        final TrabajoDto trabajoDto = new TrabajoDto();
+        runTareaDto.setTrabajo(trabajoDto);
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen("38");
+        tareaDto.setFechaInicioPeriodo(LocalDate.of(2015, 3, 1));
+        tareaDto.setFechaFinPeriodo(LocalDate.of(2015, 3, 31));
+        this.ptrService.findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
     }
 
 }
