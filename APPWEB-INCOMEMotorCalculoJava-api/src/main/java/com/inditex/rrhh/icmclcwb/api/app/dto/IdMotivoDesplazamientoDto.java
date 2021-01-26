@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class MotivoDesplazamientoDto implements Serializable {
+public class IdMotivoDesplazamientoDto implements Serializable {
 
-    private Integer motivo;
+    private Integer idMotivoDesplazamiento;
 }

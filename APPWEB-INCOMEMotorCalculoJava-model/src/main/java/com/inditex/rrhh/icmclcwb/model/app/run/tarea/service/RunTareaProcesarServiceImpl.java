@@ -17,6 +17,9 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTar
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
@@ -35,6 +38,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
     @Autowired
     private RunTareaProcesarCondicionesAsyncService runTareaProcesarCondicionesAsyncService;
 
+    @Autowired
+    private TareaFaseService tareaFaseService;
+
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaProcesarService.run.timer",
             metricGroupName = "RunTareaProcesarServiceGroup", metricDescription = "RunTareaProcesarService.run.timer")
@@ -46,6 +52,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         final List<CompletableFuture<?>> cfWait = new ArrayList<>();
 
         try {
+            this.tareaFaseService.updateFechaInicio(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.PROCESAR.getId()));
+
             final CompletableFuture<Void> cfDesactivarChallengeOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
                 .desactivarChallengeOpcionOrigen(runTarea);
             AsyncUtils.exceptionally(cfDesactivarChallengeOpcionOrigen, cf, cfWait);
@@ -456,8 +466,17 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
+            this.tareaFaseService.updateFechaFinAndEstado(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.PROCESAR.getId()),
+                    EstadoTareaFaseEnum.OK.getDto());
+
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
+            this.tareaFaseService.updateFechaFinAndEstado(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.PROCESAR.getId()),
+                    EstadoTareaFaseEnum.KO.getDto());
             throw e;
         }
     }

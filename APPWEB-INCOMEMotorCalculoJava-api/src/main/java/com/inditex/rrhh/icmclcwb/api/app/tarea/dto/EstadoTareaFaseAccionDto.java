@@ -18,5 +18,5 @@ public class EstadoTareaFaseAccionDto {
 
     @ApiModelProperty(value = "Identificador de estado tarea fase accion", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
-    private Long id;
+    private Integer id;
 }

@@ -245,6 +245,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_TIPO_CONCEPTO_VENTA_CHALLENGE = "tipoVentaConceptoChallenge";
 
+    public static final String SQL_PARAM_ID_TAREA_FASE = "idTareaFase";
+
+    public static final String SQL_PARAM_ID_FASE = "idFase";
+
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
     public static final String SQL_PARAM_NUEVO_ID_TIPO_DATO = "nuevoIdTipoDato";
@@ -367,5 +371,9 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_ID_TIPO_VALIDACION = "ID_TIPO_VALIDACION";
 
     public static final String SQL_RESULT_ID_TAREA_PREVALIDACION = "ID_TAREA_PREVALIDACION";
+
+    public static final String SQL_RESULT_ID_TAREA_FASE = "ID_TAREA_FASE";
+
+    public static final String SQL_RESULT_ES_ACTIVO = "ES_ACTIVO";
 
 }

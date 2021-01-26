@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.MotivoDesplazamientoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -26,7 +26,7 @@ public interface ComisService {
      * @param tareaAmbito
      * @return
      */
-    List<MotivoDesplazamientoDto> findMotivoDesplazamiento(@Valid RunTareaDto runTareaDto,
+    List<IdMotivoDesplazamientoDto> findMotivoDesplazamiento(@Valid RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito);
 
     /**

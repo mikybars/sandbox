@@ -22,7 +22,7 @@ public class SqlComisConstants {
 
     public static final String SQL_RESULT_HORAS_SECCION_4 = "HORAS_SECCION_4";
 
-    public static final String SQL_RESULT_MOTIVO = "MOTIVO";
+    public static final String SQL_RESULT_ID_MOTIVO_DESPLAZAMIENTO = "ID_MOTIVO_DESPLAZAMIENTO";
 
     public static final String SQL_RESULT_FECHA_INICIO = "FECHA_INICIO";
 
@@ -36,7 +36,7 @@ public class SqlComisConstants {
 
     public static final String SQL_RESULT_FECHA_INICIO_CALCULO = "FECHA_INICIO_CALCULO";
 
-    public static final String SQL_RESULT_PERSONA = "PERSONA";
+    public static final String SQL_RESULT_CCL_ID_PERSON = "CCL_ID_PERSON";
 
     public static final String SQL_RESULT_CCL_ID_COD_ORIGEN = "CCL_ID_COD_ORIGEN";
 

@@ -51,7 +51,7 @@ public class TareaFase {
     
     @NotNull
     @OneToOne
-    @JoinColumn(name = "ESTADO_TAREA_FASE", nullable = false)
+    @JoinColumn(name = "ID_ESTADO_TAREA_FASE", nullable = false)
     private EstadoTareaFase estadoTareaFase;
 
     @NotNull
@@ -63,5 +63,9 @@ public class TareaFase {
 
     @Column(name = "FECHA_HORA_FIN", nullable = true)
     private Date fechaHoraFin;
+    
+    @NotNull
+    @Column(name = "ES_ACTIVO", nullable = false)
+    private Boolean activo;
 
 }

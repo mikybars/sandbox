@@ -21,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
@@ -50,6 +51,9 @@ public class TareaServiceImpl implements TareaService {
 
     @Autowired
     private TareaAmbitoPersonaService tareaAmbitoPersonaService;
+
+    @Autowired
+    private TareaFaseService tareaFaseService;
 
     @Autowired
     private SenderTarea senderTarea;
@@ -83,6 +87,7 @@ public class TareaServiceImpl implements TareaService {
         if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
             result.setPersona(this.tareaAmbitoPersonaService.create(tarea.getPersona(), result));
         }
+        this.tareaFaseService.create(result);
         this.senderTarea.send(result);
         return null;
     }

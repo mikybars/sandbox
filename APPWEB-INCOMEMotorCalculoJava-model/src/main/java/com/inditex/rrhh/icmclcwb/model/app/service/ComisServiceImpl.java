@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.MotivoDesplazamientoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
@@ -47,9 +47,9 @@ public class ComisServiceImpl implements ComisService {
     }
 
     @Override
-    public List<MotivoDesplazamientoDto> findMotivoDesplazamiento(@Valid final RunTareaDto runTareaDto,
+    public List<IdMotivoDesplazamientoDto> findMotivoDesplazamiento(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
-        List<MotivoDesplazamientoDto> motivos = null;
+        List<IdMotivoDesplazamientoDto> motivos = null;
         try {
             ClientDatabaseContextHolder
                 .set(ClientDatabase.getClient(tareaAmbito.getCclIdOrigen()));

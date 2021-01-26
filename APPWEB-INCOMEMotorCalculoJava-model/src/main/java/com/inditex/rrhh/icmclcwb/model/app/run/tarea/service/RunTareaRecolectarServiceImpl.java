@@ -14,6 +14,9 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCon
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarPreAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
@@ -34,6 +37,9 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     @Autowired
     private RunTareaRecolectarCondicionesBaseService runTareaRecolectarCondicionesBaseService;
 
+    @Autowired
+    private TareaFaseService tareaFaseService;
+
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaRecolectarService.run.timer",
             metricGroupName = "RunTareaRecolectarServiceGroup",
@@ -43,10 +49,18 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
             metricDescription = "RunTareaRecolectarService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
+        this.tareaFaseService.updateFechaInicio(
+                this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                        FaseEnum.RECOLECTAR.getId()));
         this.runTareaRecolectarPreAmbitoService.run(runTarea);
         this.runTareaRecolectarAmbitoService.run(runTarea);
         this.runTareaRecolectarCondicionesBaseService.run(runTarea);
         this.runTareaRecolectarCondicionesService.run(runTarea);
+        this.tareaFaseService.updateFechaFinAndEstado(
+                this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                        FaseEnum.RECOLECTAR.getId()),
+                EstadoTareaFaseEnum.OK.getDto());
+
     }
 
 }

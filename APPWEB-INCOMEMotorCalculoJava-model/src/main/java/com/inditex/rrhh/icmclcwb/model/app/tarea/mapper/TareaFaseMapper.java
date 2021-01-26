@@ -12,6 +12,8 @@ import org.mapstruct.Mapping;
 public abstract class TareaFaseMapper {
 
     @Mapping(target = "idTarea", source = "tarea.id")
+    @Mapping(target = "fase.id", source = "fase.id")
+    @Mapping(target = "estadoTareaFase.id", source = "estadoTareaFase.id")
     public abstract TareaFaseDto tareaFaseToTareaFaseDto(
             TareaFase src);
 

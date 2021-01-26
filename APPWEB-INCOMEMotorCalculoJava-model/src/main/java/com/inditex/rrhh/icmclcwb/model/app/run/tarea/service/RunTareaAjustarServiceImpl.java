@@ -12,7 +12,10 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoAjusteService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjusteFactory;
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
@@ -30,6 +33,9 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
     @Autowired
     private RunAjusteFactory runAjusteFactory;
 
+    @Autowired
+    private TareaFaseService tareaFaseService;
+
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaAjustarService.run.timer",
             metricGroupName = "RunTareaAjustarServiceGroup", metricDescription = "RunTareaAjustarService.run.timer")
@@ -37,6 +43,9 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
             metricGroupName = "RunTareaAjustarServiceGroup", metricDescription = "RunTareaAjustarService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
+        this.tareaFaseService.updateFechaInicio(
+                this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                        FaseEnum.AJUSTAR.getId()));
         final TareaDto tarea = runTarea.getTarea();
         this.algoritmoAjusteService.customFindAjustePesosByTarea(tarea.getId())
             .stream()
@@ -52,6 +61,10 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
                 .sequential()
                 .collectList()
                 .block());
+        this.tareaFaseService.updateFechaFinAndEstado(
+                this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                        FaseEnum.AJUSTAR.getId()),
+                EstadoTareaFaseEnum.OK.getDto());
     }
 
 }

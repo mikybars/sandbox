@@ -10,8 +10,11 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
@@ -29,6 +32,9 @@ public class RunTareaRegularizarChallengeServiceImpl implements RunTareaRegulari
     @Autowired
     private TareaCalculoService tareaCalculoService;
 
+    @Autowired
+    private TareaFaseService tareaFaseService;
+
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaRegularizarChallengeService.run.timer",
             metricGroupName = "RunTareaRegularizarChallengeServiceGroup",
@@ -38,6 +44,9 @@ public class RunTareaRegularizarChallengeServiceImpl implements RunTareaRegulari
             metricDescription = "RunTareaRegularizarChallengeService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
+        this.tareaFaseService.updateFechaInicio(
+                this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                        FaseEnum.REGULARIZAR_CHALLENGE.getId()));
         final TareaDto tarea = runTarea.getTarea();
         Flux.fromIterable(
                 this.tareaPersonaHistoricoService.findIdPersonaLocalCompensacionChallengeByIdTarea(tarea.getId()))
@@ -50,6 +59,11 @@ public class RunTareaRegularizarChallengeServiceImpl implements RunTareaRegulari
             .sequential()
             .collectList()
             .block();
+
+        this.tareaFaseService.updateFechaFinAndEstado(
+                this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                        FaseEnum.REGULARIZAR_CHALLENGE.getId()),
+                EstadoTareaFaseEnum.OK.getDto());
 
     }
 

@@ -25,7 +25,7 @@
   
   <entry key="ComisRepositoryCustom.findMotivosDesplazamiento">
     <![CDATA[
-      SELECT DISTINCT(A.MOTIVO) AS MOTIVO FROM PERSONASCAMBIOSTEMPORALES A 
+      SELECT DISTINCT(A.MOTIVO) AS ID_MOTIVO_DESPLAZAMIENTO FROM PERSONASCAMBIOSTEMPORALES A 
     ]]>
   </entry>
   
@@ -34,7 +34,7 @@
     SELECT 
       FECHAINICIO, 
       FECHAFIN, 
-      PERSONA
+      PERSONA AS CCL_ID_PERSON
     FROM INCIDENCIASSIL 
     WHERE TIPOINCIDENCIA = 700  
       AND CODIGOINCIDENCIA >= 7000 AND CODIGOINCIDENCIA <= 7100 
@@ -56,7 +56,7 @@
     SELECT 
       A.FECHAINICIO,
       A.FECHAFIN,
-      A.PERSONA
+      A.PERSONA AS CCL_ID_PERSON
     FROM INCIDENCIASSIL  AS A
     INNER JOIN INCIDENCIASSIL  AS B 
     ON (
@@ -101,7 +101,7 @@
       SELECT  
             FECHADESDE, 
             FECHAHASTA, 
-            PERSONA
+            PERSONA AS CCL_ID_PERSON
             FROM PERSONASCAMBIOSTEMPORALES 
             WHERE FECHADESDE > FECHAHASTA       
       UNION
@@ -123,7 +123,7 @@
    
   <entry key="ComisRepositoryCustom.findCondicionesHistorico">
     <![CDATA[
-      SELECT PH.PERSONA, 
+      SELECT PH.PERSONA AS CCL_ID_PERSON, 
       PH.FECHADESDE, 
       PH.FECHAHASTA, 
       PH.TIENDA AS CCL_ID_COD_ORIGEN, 
@@ -154,7 +154,7 @@
   
   <entry key="ComisRepositoryCustom.findCondicionesDesplazamiento">
     <![CDATA[
-      SELECT PCT.PERSONA, 
+      SELECT PCT.PERSONA AS CCL_ID_PERSON, 
       PCT.FECHADESDE, 
       PCT.FECHAHASTA, 
       PCT.TIENDAORIGEN AS CCL_ID_COD_ORIGEN, 
@@ -188,7 +188,7 @@
    
   <entry key="ComisRepositoryCustom.findCondicionesResalta">
     <![CDATA[  
-      SELECT PH.PERSONA, 
+      SELECT PH.PERSONA AS CCL_ID_PERSON, 
       PH.FECHADESDE, 
       PH.FECHAHASTA, 
       PH.TIPOCALCULO AS ID_TIPO_CALCULO, 
@@ -219,7 +219,7 @@
       SELECT
       FECHAINICIO, 
       FECHAFIN,
-      PERSONA,
+      PERSONA AS CCL_ID_PERSON,
       CODIGOINCIDENCIA - 7000 AS PORCENTAJE
      FROM INCIDENCIASSIL 
      WHERE TIPOINCIDENCIA = 700  
@@ -240,7 +240,7 @@
   
     <entry key="ComisRepositoryCustom.findCarencia">
     <![CDATA[  
-        SELECT PERSONA, 
+        SELECT PERSONA AS CCL_ID_PERSON, 
         FECHAINICIOCALCULO AS FECHA_INICIO_CALCULO,
         FECHAALTA AS FECHA_ALTA, 
         TIENDA AS CCL_ID_COD_ORIGEN

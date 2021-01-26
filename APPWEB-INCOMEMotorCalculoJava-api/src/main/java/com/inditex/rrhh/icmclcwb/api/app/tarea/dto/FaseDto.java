@@ -8,6 +8,7 @@ import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -16,10 +17,11 @@ import lombok.Data;
  */
 @ApiModel(description = "Modelo FaseDto")
 @Data
+@AllArgsConstructor
 public class FaseDto implements Serializable {
 
     @ApiModelProperty(value = "Identificador de fase", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
-    private Long id;
+    private Integer id;
     
 }

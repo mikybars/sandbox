@@ -11,7 +11,10 @@ import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author mdelrio
@@ -19,6 +22,9 @@ import lombok.Data;
  */
 @ApiModel(description = "Modelo TareaFaseDto")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TareaFaseDto implements Serializable {
 
     @ApiModelProperty(value = "Identificador de tarea fase dto", required = false, accessMode = AccessMode.READ_ONLY,

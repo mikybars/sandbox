@@ -15,7 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.MotivoDesplazamientoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
@@ -32,7 +32,7 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
     private ComisService comisService;
 
     @Override
-    public CompletableFuture<List<MotivoDesplazamientoDto>> findMotivoDesplazamiento(
+    public CompletableFuture<List<IdMotivoDesplazamientoDto>> findMotivoDesplazamiento(
             @Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
         return CompletableFuture.completedFuture(this.comisService.findMotivoDesplazamiento(runTareaDto, tareaAmbito));

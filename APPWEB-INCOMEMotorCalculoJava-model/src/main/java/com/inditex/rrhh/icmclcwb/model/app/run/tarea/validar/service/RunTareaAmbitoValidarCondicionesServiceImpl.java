@@ -21,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
 /**
  * @author mdelrio
@@ -35,6 +36,9 @@ public class RunTareaAmbitoValidarCondicionesServiceImpl implements RunTareaAmbi
 
     @Autowired
     private PtrAsyncService ptrAsyncService;
+
+    @Autowired
+    private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Override
     public Boolean validarCondicionesAmbito(@Valid final RunTareaDto runTareaDto,
@@ -71,7 +75,39 @@ public class RunTareaAmbitoValidarCondicionesServiceImpl implements RunTareaAmbi
             final List<IdPersonaLocalCondicionesDto> bajasIt = AsyncUtils.get(cfBajasIt);
             final List<IdPersonaLocalCarenciaDto> carencia = AsyncUtils.get(cfCarencia);
 
+            this.primaryTemporaryTableRepositoryCustom.createTempComisBajaIt();
+            this.primaryTemporaryTableRepositoryCustom.createTempComisCarencia();
+            this.primaryTemporaryTableRepositoryCustom.createTempComisHistorico();
+            this.primaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento();
+            this.primaryTemporaryTableRepositoryCustom.createTempComisResalta();
 
+            this.primaryTemporaryTableRepositoryCustom.insertTempComisBajaIt(bajasIt);
+            this.primaryTemporaryTableRepositoryCustom.insertTempComisCarencia(carencia);
+            this.primaryTemporaryTableRepositoryCustom.insertTempComisHistorico(condicionesHistorico);
+            this.primaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento(condicionesDesplazamiento);
+            this.primaryTemporaryTableRepositoryCustom.insertTempComisResalta(condicionesResalta);
+
+            final List<IdPersonaLocalCondicionesDto> bajaItValidationResult = this.primaryTemporaryTableRepositoryCustom
+                .validateTempComisBajaIt();
+
+            final List<IdPersonaLocalCarenciaDto> carenciaValidationResult = this.primaryTemporaryTableRepositoryCustom
+                .validateTempComisCarencia();
+
+            final List<IdPersonaLocalCondicionesDto> historicoValidationResult = this.primaryTemporaryTableRepositoryCustom
+                .validateTempComisHistorico();
+
+            final List<IdPersonaLocalCondicionesDto> desplazamientoValidationResult = this.primaryTemporaryTableRepositoryCustom
+                .validateTempComisDesplazamiento();
+
+            final List<IdPersonaLocalCondicionesDto> resaltaValidationResult = this.primaryTemporaryTableRepositoryCustom
+                .validateTempComisResalta();
+
+
+            this.primaryTemporaryTableRepositoryCustom.deleteTempComisBajaIt();
+            this.primaryTemporaryTableRepositoryCustom.deleteTempComisCarencia();
+            this.primaryTemporaryTableRepositoryCustom.deleteTempComisHistorico();
+            this.primaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento();
+            this.primaryTemporaryTableRepositoryCustom.deleteTempComisResalta();
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

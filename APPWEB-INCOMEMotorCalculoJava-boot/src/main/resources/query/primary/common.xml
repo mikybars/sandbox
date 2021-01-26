@@ -6263,4 +6263,37 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
                 UPDATE SET ES_ACTIVO = :nuevoActivo
 ]]></entry>
 
+<entry key="TareaFaseRepositoryCustom.save">
+  <![CDATA[
+    INSERT INTO TAREA_FASE (ID_TAREA_FASE, ID_TAREA, ID_FASE, ID_ESTADO_TAREA_FASE, FECHA_HORA_CREACION, FECHA_HORA_INICIO, FECHA_HORA_FIN, ES_ACTIVO)
+    VALUES(:id, :tarea.id, :fase.id, :estadoTareaFase.id, :fechaHoraCreacion, :fechaHoraInicio, :fechaHoraFin, :activo)
+  ]]>
+</entry>
+
+<entry key="TareaFaseAccionRepositoryCustom.save">
+  <![CDATA[
+    INSERT INTO TAREA_FASE_ACCION (ID_TAREA_FASE_ACCION, ID_TAREA_FASE, ID_ACCION, ID_PUNTO_EJECUCION, ID_ESTADO_TAREA_FASE, ID_VALIDACION, FECHA_HORA_CREACION, FECHA_HORA_INICIO, FECHA_HORA_FIN, ES_ACTIVO)
+    VALUES(:id, :tareaFase.id, :accion.id, :puntoEjecucion.id, :estadoTareaFaseAccion.id, :idValidacion, :fechaHoraCreacion, :fechaHoraInicio, :fechaHoraFin, :activo)
+  ]]>
+</entry>
+
+<entry key="TareaFaseRepositoryCustom.findTareaFaseDtoByIdTareaAndIdFase">
+  <![CDATA[
+  SELECT ID_TAREA_FASE, ID_TAREA, ID_FASE, ID_ESTADO_TAREA_FASE, FECHA_HORA_CREACION, FECHA_HORA_INICIO, FECHA_HORA_FIN, ES_ACTIVO
+  FROM TAREA_FASE WHERE ID_TAREA = :idTarea AND ID_FASE = :idFase
+  ]]>
+</entry>
+
+<entry key="TareaFaseRepositoryCustom.updateFechaInicio">
+    <![CDATA[
+    UPDATE TAREA_FASE SET FECHA_HORA_INICIO = :nuevaFecha WHERE ID_TAREA_FASE = :idTareaFase
+    ]]>
+</entry>
+
+<entry key="TareaFaseRepositoryCustom.updateFechaFinAndEstado">
+    <![CDATA[
+    UPDATE TAREA_FASE SET FECHA_HORA_FIN = :nuevaFecha, ID_ESTADO_TAREA_FASE = :nuevoIdEstado WHERE ID_TAREA_FASE = :idTareaFase
+    ]]>
+</entry>
+
 </properties>

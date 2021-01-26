@@ -8,15 +8,11 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -29,8 +25,16 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.serv
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarTiposHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.validar.properties.dto.ValidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import org.slf4j.Logger;
+
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 
 @Service
 @Validated
@@ -64,6 +68,9 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
     @Autowired
     private Logger log;
 
+    @Autowired
+    private TareaFaseService tareaFaseService;
+
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaRecolectarValidarService.run.timer",
             metricGroupName = "RunTareaRecolectarValidarServiceeGroup",
@@ -72,42 +79,46 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
             metricGroupName = "RunTareaRecolectarValidarServiceGroup",
             metricDescription = "RunTareaRecolectarValidarService.run.counter")
     @Override
-    public void run(@NotNull @Valid RunTareaDto runTarea) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            if (validarProperties.isEnabled()) {
-                CompletableFuture<List<RunTareaValidarDto>> cfEstructura = runTareaRecolectarValidarEstructurasAsyncService
+            this.tareaFaseService.updateFechaInicio(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.VALIDAR_RECOLECCION.getId()));
+
+            if (this.validarProperties.isEnabled()) {
+                final CompletableFuture<List<RunTareaValidarDto>> cfEstructura = this.runTareaRecolectarValidarEstructurasAsyncService
                     .run(runTarea);
                 AsyncUtils.exceptionally(cfEstructura, cf);
 
-                CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionHistorico = runTareaRecolectarValidarLocalizacionHistoricoAsyncService
+                final CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionHistorico = this.runTareaRecolectarValidarLocalizacionHistoricoAsyncService
                     .run(runTarea);
                 AsyncUtils.exceptionally(cfLocalizacionHistorico, cf);
 
-                CompletableFuture<List<RunTareaValidarDto>> cfTiposHora = runTareaRecolectarValidarTiposHoraAsyncService
+                final CompletableFuture<List<RunTareaValidarDto>> cfTiposHora = this.runTareaRecolectarValidarTiposHoraAsyncService
                     .run(runTarea);
                 AsyncUtils.exceptionally(cfTiposHora, cf);
 
-                CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionPersonaPresencia = runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService
+                final CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionPersonaPresencia = this.runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService
                     .run(runTarea);
                 AsyncUtils.exceptionally(cfLocalizacionPersonaPresencia, cf);
 
-                CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionPresencia = runTareaRecolectarValidarLocalizacionPresenciaAsyncService
+                final CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionPresencia = this.runTareaRecolectarValidarLocalizacionPresenciaAsyncService
                     .run(runTarea);
                 AsyncUtils.exceptionally(cfLocalizacionPresencia, cf);
 
-                CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionVenta = runTareaRecolectarValidarLocalizacionVentaAsyncService
+                final CompletableFuture<List<RunTareaValidarDto>> cfLocalizacionVenta = this.runTareaRecolectarValidarLocalizacionVentaAsyncService
                     .run(runTarea);
                 AsyncUtils.exceptionally(cfLocalizacionVenta, cf);
 
-                CompletableFuture<List<RunTareaValidarDto>> cfAmbito = runTareaRecolectarValidarAmbitoAsyncService
+                final CompletableFuture<List<RunTareaValidarDto>> cfAmbito = this.runTareaRecolectarValidarAmbitoAsyncService
                     .run(runTarea);
                 AsyncUtils.exceptionally(cfAmbito, cf);
 
                 /*-------------------------------------------------------------*/
                 AsyncUtils.waitAllOfIsOk(cf, cf);
                 /*-------------------------------------------------------------*/
-                List<RunTareaValidarDto> runTareaValidar = new ArrayList<>();
+                final List<RunTareaValidarDto> runTareaValidar = new ArrayList<>();
                 runTareaValidar.addAll(AsyncUtils.get(cfEstructura));
                 runTareaValidar.addAll(AsyncUtils.get(cfLocalizacionHistorico));
                 runTareaValidar.addAll(AsyncUtils.get(cfLocalizacionPersonaPresencia));
@@ -116,23 +127,33 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
                 runTareaValidar.addAll(AsyncUtils.get(cfAmbito));
                 runTareaValidar.addAll(AsyncUtils.get(cfTiposHora));
 
-                List<RunTareaValidarDto> runTareaValidarDuplicated = runTareaValidar.stream()
+                final List<RunTareaValidarDto> runTareaValidarDuplicated = runTareaValidar.stream()
                     .filter(item -> CollectionUtils.isNotEmpty(item.getDuplicated()))
                     .collect(Collectors.toList());
 
                 if (CollectionUtils.isNotEmpty(runTareaValidarDuplicated)) {
-                    if (validarProperties.isLogging()) {
-                        log.warn(
+                    if (this.validarProperties.isLogging()) {
+                        this.log.warn(
                                 "Trabajo[{}]Tarea[{}] :: RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
                                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), runTareaValidarDuplicated);
                     }
-                    if (validarProperties.isException()) {
+                    if (this.validarProperties.isException()) {
                         throw new IcmclcwbException("Valores duplicados");
                     }
                 }
             }
-        } catch (Exception e) {
+
+            this.tareaFaseService.updateFechaFinAndEstado(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.VALIDAR_RECOLECCION.getId()),
+                    EstadoTareaFaseEnum.OK.getDto());
+
+        } catch (final Exception e) {
             AsyncUtils.cancel(cf);
+            this.tareaFaseService.updateFechaFinAndEstado(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.VALIDAR_RECOLECCION.getId()),
+                    EstadoTareaFaseEnum.KO.getDto());
             throw e;
         }
     }

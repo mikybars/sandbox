@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.MotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
@@ -66,14 +66,14 @@ public class ComisRepositoryCustomImpl
     }
 
     @Override
-    public List<MotivoDesplazamientoDto> findMotivoDesplazamiento(final TareaDto tarea) {
+    public List<IdMotivoDesplazamientoDto> findMotivoDesplazamiento(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_ID_ORGANIZATION,
                 tarea.getIdOrganization());
         return this.query(this.sqlFindMotivosDesplazamiento, map,
-                (rs, rowNum) -> MotivoDesplazamientoDto
+                (rs, rowNum) -> IdMotivoDesplazamientoDto
                     .builder()
-                    .motivo(rs.getInt(SqlComisConstants.SQL_RESULT_MOTIVO))
+                    .idMotivoDesplazamiento(rs.getInt(SqlComisConstants.SQL_RESULT_ID_MOTIVO_DESPLAZAMIENTO))
                     .build());
     }
 
@@ -89,7 +89,7 @@ public class ComisRepositoryCustomImpl
         return this.query(this.sqlFindFechasIncidencias, map,
                 (rs, rowNum) -> IdPersonaLocalFechaIncidenciaDto
                     .builder()
-                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_PERSONA))
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
                     .fechaInicio(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
                     .fechaFin(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
                     .build());
@@ -102,7 +102,7 @@ public class ComisRepositoryCustomImpl
         return this.query(this.sqlFindFechasDesplazamiento, map,
                 (rs, rowNum) -> IdPersonaLocalFechaIncidenciaDto
                     .builder()
-                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_PERSONA))
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
                     .fechaInicio(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
                     .fechaFin(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
                     .build());
@@ -115,7 +115,7 @@ public class ComisRepositoryCustomImpl
         return this.query(this.sqlFindCondicionesHistorico, map,
                 (rs, rowNum) -> IdPersonaLocalCondicionesDto
                     .builder()
-                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_PERSONA))
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
                     .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
                     .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
                     .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
@@ -133,7 +133,7 @@ public class ComisRepositoryCustomImpl
         return this.query(this.sqlFindCondicionesDesplazamiento, map,
                 (rs, rowNum) -> IdPersonaLocalCondicionesDto
                     .builder()
-                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_PERSONA))
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
                     .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
                     .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
                     .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
@@ -153,7 +153,7 @@ public class ComisRepositoryCustomImpl
         return this.query(this.sqlFindCondicionesResalta, map,
                 (rs, rowNum) -> IdPersonaLocalCondicionesDto
                     .builder()
-                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_PERSONA))
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
                     .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
                     .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
                     .idTipoCalculo(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO))
@@ -170,7 +170,7 @@ public class ComisRepositoryCustomImpl
         return this.query(this.sqlFindBajasIt, map,
                 (rs, rowNum) -> IdPersonaLocalCondicionesDto
                     .builder()
-                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_PERSONA))
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
                     .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
                     .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
                     .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
@@ -184,7 +184,7 @@ public class ComisRepositoryCustomImpl
         return this.query(this.sqlFindCarencia, map,
                 (rs, rowNum) -> IdPersonaLocalCarenciaDto
                     .builder()
-                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_PERSONA))
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
                     .fechaAlta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_ALTA).toLocalDate())
                     .fechaInicioCalculo(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO_CALCULO).toLocalDate())
                     .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
