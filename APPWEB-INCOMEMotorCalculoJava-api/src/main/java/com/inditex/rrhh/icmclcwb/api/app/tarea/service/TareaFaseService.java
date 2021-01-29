@@ -57,4 +57,10 @@ public interface TareaFaseService {
     void updateFechaFinAndEstado(@Valid @NotNull TareaFaseDto tareaFaseDto,
             @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
+    /**
+     * @param idTarea
+     * @return
+     */
+    List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NotNull Long idTarea);
+
 }

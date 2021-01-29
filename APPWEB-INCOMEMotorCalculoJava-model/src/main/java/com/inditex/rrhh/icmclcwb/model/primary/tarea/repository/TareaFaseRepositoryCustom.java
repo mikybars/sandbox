@@ -43,4 +43,10 @@ public interface TareaFaseRepositoryCustom {
      */
     void updateFechaFinAndEstado(@NotNull TareaFaseDto tareaFaseDto, @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
+    /**
+     * @param idTarea
+     * @return
+     */
+    List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NotNull @Positive Long idTarea);
+
 }

@@ -60,10 +60,6 @@ public class TareaFaseAccion {
     private EstadoTareaFaseAccion estadoTareaFaseAccion;
     
     @NotNull
-    @Column(name = "ID_VALIDACION", nullable = false)
-    private Integer idValidacion;
-
-    @NotNull
     @Column(name = "FECHA_HORA_CREACION", nullable = false)
     private Date fechaHoraCreacion;
 

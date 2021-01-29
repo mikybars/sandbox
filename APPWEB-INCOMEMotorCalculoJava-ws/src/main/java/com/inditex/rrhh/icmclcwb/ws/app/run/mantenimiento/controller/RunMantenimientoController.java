@@ -31,7 +31,8 @@ public class RunMantenimientoController {
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Realiza el mantenimiento")
     public RunMantenimientoDto run() {
-        return this.runMantenimientoService.run();
+        // return this.runMantenimientoService.run();
+        return null;
     }
 
     @GetMapping("/{id}")

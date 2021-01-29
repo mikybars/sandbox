@@ -18,7 +18,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarVal
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
-import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
@@ -61,9 +60,6 @@ public class RunTareaServiceImpl implements RunTareaService {
     @Autowired
     private RunTareaAjustarService runTareaAjustarService;
 
-    @Autowired
-    private ComisService comisService;
-
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaService.run.timer", metricGroupName = "RunTareaServiceGroup",
             metricDescription = "RunTareaService.run.timer")
@@ -72,7 +68,6 @@ public class RunTareaServiceImpl implements RunTareaService {
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         try {
-            this.comisService.findPresenciasOrigenAndFecha(runTarea, runTarea.getTarea().getAmbito().get(0));
             this.tareaService.updateFechaInicioAndEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
             this.runTareaRecolectarService.run(runTarea);
             this.runTareaRecolectarValidarService.run(runTarea);

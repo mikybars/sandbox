@@ -40,6 +40,9 @@ public class TareaFaseRepositoryCustomImpl
     @Value("#{primaryQuery['TareaFaseRepositoryCustom.findTareaFaseDtoByIdTareaAndIdFase']}")
     private String sqlFindTareaFaseDtoByIdTareaAndIdFase;
 
+    @Value("#{primaryQuery['TareaFaseRepositoryCustom.findTareaFaseDtoByIdTarea']}")
+    private String sqlFindTareaFaseDtoByIdTarea;
+
     @Value("#{primaryQuery['TareaFaseRepositoryCustom.updateFechaInicio']}")
     private String sqlUpdateFechaInicio;
 
@@ -68,6 +71,27 @@ public class TareaFaseRepositoryCustomImpl
                         dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA_FASE));
                         dto.setIdTarea(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
                         dto.setActivo(rs.getBoolean(SqlPrimaryConstants.SQL_RESULT_ES_ACTIVO));
+                        return dto;
+                    }
+                });
+    }
+
+    @Override
+    public List<TareaFaseDto> findTareaFaseDtoByIdTarea(
+            @NotNull @Positive final Long idTarea) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+
+        return this.query(this.sqlFindTareaFaseDtoByIdTarea,
+                parameters,
+                new RowMapper<TareaFaseDto>() {
+                    @Override
+                    public TareaFaseDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+                        final TareaFaseDto dto = new TareaFaseDto();
+                        dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA_FASE));
+                        dto.setIdTarea(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
+                        dto.setActivo(rs.getBoolean(SqlPrimaryConstants.SQL_RESULT_ES_ACTIVO));
+                        dto.setIdFase(rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_FASE));
                         return dto;
                     }
                 });

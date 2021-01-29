@@ -3,7 +3,9 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -13,9 +15,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.PuntoEjecucionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.FaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaFaseAccionMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseAccionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseAccionRepositoryCustom;
 
 /**
@@ -30,7 +41,16 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     private TareaFaseAccionRepositoryCustom tareaFaseAccionRepositoryCustom;
 
     @Autowired
+    private TareaFaseAccionRepository tareaFaseAccionRepository;
+
+    @Autowired
     private TareaFaseAccionMapper tareaFaseAccionMapper;
+
+    @Autowired
+    private FaseAccionService faseAccionService;
+
+    @Autowired
+    private TareaFaseService tareaFaseService;
 
     @Override
     public List<TareaFaseAccionDto> save(
@@ -39,6 +59,32 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
             .tareaFaseAccionToTareaFaseAccionDto(
                     this.tareaFaseAccionRepositoryCustom.save(this.tareaFaseAccionMapper
                         .tareaFaseAccionDtoToTareaFaseAccion(tareaFaseAccion)));
+    }
+
+    @Override
+    public List<TareaFaseAccionDto> saveAll(@Valid @NotNull @NotEmpty final List<TareaFaseAccionDto> tareaFaseAccion) {
+        return this.tareaFaseAccionMapper.tareaFaseAccionToTareaFaseAccionDto(this.tareaFaseAccionRepository
+            .saveAll(this.tareaFaseAccionMapper.tareaFaseAccionDtoToTareaFaseAccion(tareaFaseAccion)));
+    }
+
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void create(@Valid @NotNull final TareaDto tareaDto) {
+        final List<TareaFaseDto> tareaFaseDto = this.tareaFaseService.findTareaFaseDtoByIdTarea(tareaDto.getId());
+        this.save(tareaFaseDto.stream().map(x -> {
+            final List<FaseAccionDto> faseAccion = this.faseAccionService
+                .findByIdFase(x.getIdFase());
+            return faseAccion.stream().map(y -> {
+                return TareaFaseAccionDto.builder()
+                    .accion(AccionDto.builder().id(y.getIdAccion()).build())
+                    .activo(Boolean.TRUE)
+                    .estadoTareaFaseAccion(EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto())
+                    .fechaHoraCreacion(LocalDateTime.now())
+                    .puntoEjecucion(PuntoEjecucionDto.builder().id(y.getIdPuntoEjecucion()).build())
+                    .tareaFase(x)
+                    .build();
+            }).collect(Collectors.toList());
+        }).flatMap(List::stream).collect(Collectors.toList()));
     }
 
 }

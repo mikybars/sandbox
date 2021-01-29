@@ -48,19 +48,20 @@ public class TareaFaseServiceImpl implements TareaFaseService {
         return this.tareaFaseMapper.tareaFaseToTareaFaseDto(this.tareaFaseRepository.findAll());
     }
 
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<TareaFaseDto> create(@Valid @NotNull final TareaDto tareaDto) {
-        return this.tareaFaseMapper
-            .tareaFaseToTareaFaseDto(this.tareaFaseRepository.saveAll(this.faseService.findAll()
-                .stream()
-                .map(x -> this.tareaFaseMapper.tareaFaseDtoToTareaFase(TareaFaseDto.builder()
-                    .fase(x)
-                    .activo(Boolean.TRUE)
-                    .idTarea(tareaDto.getId())
-                    .estadoTareaFase(EstadoTareaFaseEnum.PENDIENTE.getDto())
-                    .fechaHoraCreacion(LocalDateTime.now())
-                    .build()))
-                .collect(Collectors.toList())));
+        return this.save(this.faseService.findAll()
+            .stream()
+            .map(x -> TareaFaseDto.builder()
+                .idFase(x.getId())
+                .activo(Boolean.TRUE)
+                .idTarea(tareaDto.getId())
+                .estadoTareaFase(EstadoTareaFaseEnum.PENDIENTE.getDto())
+                .fechaHoraCreacion(LocalDateTime.now())
+                .build())
+            .collect(Collectors.toList()));
+
     }
 
     @Override
@@ -76,6 +77,11 @@ public class TareaFaseServiceImpl implements TareaFaseService {
     public TareaFaseDto findTareaFaseDtoByIdTareaAndIdFase(@NotNull final Long idTarea,
             @NotNull final Integer idFase) {
         return this.tareaFaseRepositoryCustom.findTareaFaseDtoByIdTareaAndIdFase(idTarea, idFase);
+    }
+
+    @Override
+    public List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NotNull final Long idTarea) {
+        return this.tareaFaseRepositoryCustom.findTareaFaseDtoByIdTarea(idTarea);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

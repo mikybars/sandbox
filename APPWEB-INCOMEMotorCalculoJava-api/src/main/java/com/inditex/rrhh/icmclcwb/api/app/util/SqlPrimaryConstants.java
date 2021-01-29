@@ -376,4 +376,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_RESULT_ES_ACTIVO = "ES_ACTIVO";
 
+    public static final String SQL_RESULT_ID_FASE = "ID_FASE";
+
+    public static final String SQL_RESULT_ID_ACCION = "ID_ACCION";
+
+    public static final String SQL_RESULT_ID_PUNTO_EJECUCION = "ID_PUNTO_EJECUCION";
+
 }

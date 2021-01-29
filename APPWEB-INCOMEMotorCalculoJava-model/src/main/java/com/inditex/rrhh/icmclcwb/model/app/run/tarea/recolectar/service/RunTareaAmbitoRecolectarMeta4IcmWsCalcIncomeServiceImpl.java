@@ -1036,9 +1036,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             this.meta4Properties.get(Meta4PropertiesConstants.DESPLAZAMIENTO_REAL)
                                 .getFilter()
                                 .getMaxPersistenceSize());
-                    final CompletableFuture<Void> cfSave = this.tareaPersonaEstructuraDesplazamientoRealAsyncService
-                        .saveDesplazamientoRealResultItemDto(data, tarea);
-                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    // final CompletableFuture<Void> cfSave = this.tareaPersonaEstructuraDesplazamientoRealAsyncService
+                    // .saveDesplazamientoRealResultItemDto(data, tarea);
+                    // AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                 }
                 AsyncUtils.waitAllOfIsOk(cf, cf);
             }

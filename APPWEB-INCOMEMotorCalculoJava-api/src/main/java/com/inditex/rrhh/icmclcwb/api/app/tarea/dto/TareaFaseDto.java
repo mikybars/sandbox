@@ -37,7 +37,7 @@ public class TareaFaseDto implements Serializable {
     
     @ApiModelProperty(value = "Identificador de fase", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
-    private FaseDto fase;
+    private Integer idFase;
     
     @ApiModelProperty(value = "Identificador de estado tarea fase", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
