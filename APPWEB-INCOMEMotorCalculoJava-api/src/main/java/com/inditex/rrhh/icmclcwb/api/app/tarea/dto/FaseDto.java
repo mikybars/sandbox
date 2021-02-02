@@ -23,5 +23,5 @@ public class FaseDto implements Serializable {
     @ApiModelProperty(value = "Identificador de fase", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private Integer id;
-    
+
 }

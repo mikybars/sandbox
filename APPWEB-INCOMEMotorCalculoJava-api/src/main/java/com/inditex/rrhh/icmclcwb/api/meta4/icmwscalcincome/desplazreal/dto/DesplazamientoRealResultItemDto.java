@@ -24,11 +24,11 @@ public class DesplazamientoRealResultItemDto implements Serializable {
     private String idOrigen;
 
     private String idEstructura;
-    
+
     private String idEstructuraBase;
-    
+
     private String idEstructuraPadre;
-    
+
     private String idEstructuraAmbito;
 
     private String idEmpleado;

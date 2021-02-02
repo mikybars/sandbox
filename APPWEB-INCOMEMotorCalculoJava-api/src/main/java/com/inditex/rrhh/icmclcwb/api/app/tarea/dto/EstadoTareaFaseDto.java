@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
@@ -23,4 +23,5 @@ public class EstadoTareaFaseDto {
     @ApiModelProperty(value = "Identificador de estado tarea fase", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private Integer id;
+
 }

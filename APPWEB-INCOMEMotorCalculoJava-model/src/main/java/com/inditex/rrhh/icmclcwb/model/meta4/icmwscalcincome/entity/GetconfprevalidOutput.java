@@ -25,10 +25,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para GetconfprevalidOutput complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para GetconfprevalidOutput complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType name="GetconfprevalidOutput"&gt;
  *   &lt;complexContent&gt;
@@ -42,29 +44,31 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GetconfprevalidOutput", propOrder = {
-    "_return",
-    "logMessage",
-    "icmListaconfprevalid"
+        "_return",
+        "logMessage",
+        "icmListaconfprevalid"
 })
-public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "return")
     protected double _return;
+
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
+
     @XmlElement(name = "Icm_Listaconfprevalid", required = true, nillable = true)
     protected IcmListaconfprevalidBlock icmListaconfprevalid;
 
     /**
      * Obtiene el valor de la propiedad return.
-     * 
+     *
      */
     public double getReturn() {
         return _return;
@@ -72,7 +76,7 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
 
     /**
      * Define el valor de la propiedad return.
-     * 
+     *
      */
     public void setReturn(double value) {
         this._return = value;
@@ -80,25 +84,24 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
 
     /**
      * Gets the value of the logMessage property.
-     * 
+     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the logMessage property.
-     * 
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the logMessage property.
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getLogMessage().add(newItem);
+     * getLogMessage().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link LogMessage }
-     * 
-     * 
+     * Objects of the following type(s) are allowed in the list {@link LogMessage }
+     *
+     *
      */
     public List<LogMessage> getLogMessage() {
         if (logMessage == null) {
@@ -109,11 +112,8 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
 
     /**
      * Obtiene el valor de la propiedad icmListaconfprevalid.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmListaconfprevalidBlock }
-     *     
+     * @return possible object is {@link IcmListaconfprevalidBlock }
+     *
      */
     public IcmListaconfprevalidBlock getIcmListaconfprevalid() {
         return icmListaconfprevalid;
@@ -121,18 +121,16 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
 
     /**
      * Define el valor de la propiedad icmListaconfprevalid.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaconfprevalidBlock }
-     *     
+     * @param value allowed object is {@link IcmListaconfprevalidBlock }
+     *
      */
     public void setIcmListaconfprevalid(IcmListaconfprevalidBlock value) {
         this.icmListaconfprevalid = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -144,16 +142,20 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
             lhsReturn = this.getReturn();
             double rhsReturn;
             rhsReturn = that.getReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "_return", lhsReturn), LocatorUtils.property(thatLocator, "_return", rhsReturn), lhsReturn, rhsReturn, true, true)) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "_return", lhsReturn),
+                    LocatorUtils.property(thatLocator, "_return", rhsReturn), lhsReturn, rhsReturn, true, true)) {
                 return false;
             }
         }
         {
             List<LogMessage> lhsLogMessage;
-            lhsLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
+            lhsLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
             List<LogMessage> rhsLogMessage;
-            rhsLogMessage = (((that.logMessage!= null)&&(!that.logMessage.isEmpty()))?that.getLogMessage():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "logMessage", lhsLogMessage), LocatorUtils.property(thatLocator, "logMessage", rhsLogMessage), lhsLogMessage, rhsLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())), ((that.logMessage!= null)&&(!that.logMessage.isEmpty())))) {
+            rhsLogMessage = (((that.logMessage != null) && (!that.logMessage.isEmpty())) ? that.getLogMessage() : null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "logMessage", lhsLogMessage),
+                    LocatorUtils.property(thatLocator, "logMessage", rhsLogMessage), lhsLogMessage, rhsLogMessage,
+                    ((this.logMessage != null) && (!this.logMessage.isEmpty())),
+                    ((that.logMessage != null) && (!that.logMessage.isEmpty())))) {
                 return false;
             }
         }
@@ -162,7 +164,10 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
             lhsIcmListaconfprevalid = this.getIcmListaconfprevalid();
             IcmListaconfprevalidBlock rhsIcmListaconfprevalid;
             rhsIcmListaconfprevalid = that.getIcmListaconfprevalid();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaconfprevalid", lhsIcmListaconfprevalid), LocatorUtils.property(thatLocator, "icmListaconfprevalid", rhsIcmListaconfprevalid), lhsIcmListaconfprevalid, rhsIcmListaconfprevalid, (this.icmListaconfprevalid!= null), (that.icmListaconfprevalid!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaconfprevalid", lhsIcmListaconfprevalid),
+                    LocatorUtils.property(thatLocator, "icmListaconfprevalid", rhsIcmListaconfprevalid),
+                    lhsIcmListaconfprevalid, rhsIcmListaconfprevalid, (this.icmListaconfprevalid != null),
+                    (that.icmListaconfprevalid != null))) {
                 return false;
             }
         }
@@ -196,13 +201,15 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
         }
         {
             List<LogMessage> theLogMessage;
-            theLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
-            strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
+            theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
+            strategy.appendField(locator, this, "logMessage", buffer, theLogMessage,
+                    ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
             IcmListaconfprevalidBlock theIcmListaconfprevalid;
             theIcmListaconfprevalid = this.getIcmListaconfprevalid();
-            strategy.appendField(locator, this, "icmListaconfprevalid", buffer, theIcmListaconfprevalid, (this.icmListaconfprevalid!= null));
+            strategy.appendField(locator, this, "icmListaconfprevalid", buffer, theIcmListaconfprevalid,
+                    (this.icmListaconfprevalid != null));
         }
         return buffer;
     }
@@ -212,17 +219,21 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
         {
             double theReturn;
             theReturn = this.getReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode, theReturn, true);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode,
+                    theReturn, true);
         }
         {
             List<LogMessage> theLogMessage;
-            theLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
+            theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage),
+                    currentHashCode, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
             IcmListaconfprevalidBlock theIcmListaconfprevalid;
             theIcmListaconfprevalid = this.getIcmListaconfprevalid();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaconfprevalid", theIcmListaconfprevalid), currentHashCode, theIcmListaconfprevalid, (this.icmListaconfprevalid!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmListaconfprevalid", theIcmListaconfprevalid), currentHashCode,
+                    theIcmListaconfprevalid, (this.icmListaconfprevalid != null));
         }
         return currentHashCode;
     }
@@ -242,7 +253,7 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GetconfprevalidOutput) {
             final GetconfprevalidOutput copy = ((GetconfprevalidOutput) draftCopy);
             {
@@ -250,7 +261,8 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
                 if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
                     double sourceReturn;
                     sourceReturn = this.getReturn();
-                    double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn), sourceReturn, true);
+                    double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn),
+                            sourceReturn, true);
                     copy.setReturn(copyReturn);
                 } else {
                     if (_returnShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -258,14 +270,18 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
                 }
             }
             {
-                Boolean logMessageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
+                Boolean logMessageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.logMessage != null) && (!this.logMessage.isEmpty())));
                 if (logMessageShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<LogMessage> sourceLogMessage;
-                    sourceLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
+                    sourceLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty()))
+                            ? this.getLogMessage() : null);
                     @SuppressWarnings("unchecked")
-                    List<LogMessage> copyLogMessage = ((List<LogMessage> ) strategy.copy(LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty()))));
+                    List<LogMessage> copyLogMessage = ((List<LogMessage>) strategy.copy(
+                            LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage,
+                            ((this.logMessage != null) && (!this.logMessage.isEmpty()))));
                     copy.logMessage = null;
-                    if (copyLogMessage!= null) {
+                    if (copyLogMessage != null) {
                         List<LogMessage> uniqueLogMessagel = copy.getLogMessage();
                         uniqueLogMessagel.addAll(copyLogMessage);
                     }
@@ -276,11 +292,14 @@ public class GetconfprevalidOutput implements Serializable, Cloneable, CopyTo2, 
                 }
             }
             {
-                Boolean icmListaconfprevalidShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaconfprevalid!= null));
+                Boolean icmListaconfprevalidShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmListaconfprevalid != null));
                 if (icmListaconfprevalidShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListaconfprevalidBlock sourceIcmListaconfprevalid;
                     sourceIcmListaconfprevalid = this.getIcmListaconfprevalid();
-                    IcmListaconfprevalidBlock copyIcmListaconfprevalid = ((IcmListaconfprevalidBlock) strategy.copy(LocatorUtils.property(locator, "icmListaconfprevalid", sourceIcmListaconfprevalid), sourceIcmListaconfprevalid, (this.icmListaconfprevalid!= null)));
+                    IcmListaconfprevalidBlock copyIcmListaconfprevalid = ((IcmListaconfprevalidBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmListaconfprevalid", sourceIcmListaconfprevalid),
+                            sourceIcmListaconfprevalid, (this.icmListaconfprevalid != null)));
                     copy.setIcmListaconfprevalid(copyIcmListaconfprevalid);
                 } else {
                     if (icmListaconfprevalidShouldBeCopiedAndSet == Boolean.FALSE) {

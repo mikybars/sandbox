@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
@@ -27,8 +27,9 @@ public class AccionDto implements Serializable {
     @ApiModelProperty(value = "Identificador de accion", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private Integer id;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Nombre", required = true)
     private String nombre;
-} 
+
+}

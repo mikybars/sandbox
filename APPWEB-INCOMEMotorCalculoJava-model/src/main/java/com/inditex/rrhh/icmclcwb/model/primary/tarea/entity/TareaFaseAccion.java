@@ -58,7 +58,7 @@ public class TareaFaseAccion {
     @OneToOne
     @JoinColumn(name = "ID_ESTADO_TAREA_FASE_ACCION", nullable = false)
     private EstadoTareaFaseAccion estadoTareaFaseAccion;
-    
+
     @NotNull
     @Column(name = "FECHA_HORA_CREACION", nullable = false)
     private Date fechaHoraCreacion;

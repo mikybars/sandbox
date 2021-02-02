@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
@@ -30,20 +30,21 @@ public class TareaFaseDto implements Serializable {
     @ApiModelProperty(value = "Identificador de tarea fase dto", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private Long id;
-    
+
     @ApiModelProperty(value = "Identificador de tarea", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private Long idTarea;
-    
+
     @ApiModelProperty(value = "Identificador de fase", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private Integer idFase;
-    
+
     @ApiModelProperty(value = "Identificador de estado tarea fase", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private EstadoTareaFaseDto estadoTareaFase;
-    
-    @ApiModelProperty(value = "Fecha en la que se creo el tarea fase", required = false, accessMode = AccessMode.READ_ONLY,
+
+    @ApiModelProperty(value = "Fecha en la que se creo el tarea fase", required = false,
+            accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private LocalDateTime fechaHoraCreacion;
 
@@ -54,8 +55,9 @@ public class TareaFaseDto implements Serializable {
     @ApiModelProperty(value = "Fecha en la que se termina de procesar la fase", required = false,
             accessMode = AccessMode.READ_ONLY, hidden = true)
     private LocalDateTime fechaHoraFin;
-    
+
     @NotNull
     @ApiModelProperty(value = "Flag activo", required = true)
     private Boolean activo;
+
 }

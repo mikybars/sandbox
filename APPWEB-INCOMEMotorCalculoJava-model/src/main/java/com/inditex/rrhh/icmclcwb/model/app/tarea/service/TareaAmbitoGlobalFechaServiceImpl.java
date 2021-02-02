@@ -40,7 +40,8 @@ public class TareaAmbitoGlobalFechaServiceImpl implements TareaAmbitoGlobalFecha
     @Override
     public void save(@Valid @NotNull TareaAmbitoGlobalFechaDto src, @Valid @NotNull TareaDto tarea) {
         this.tareaAmbitoGlobalFechaRepositoryCustom.save(
-            this.tareaAmbitoGlobalFechaMapper.tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(Arrays.asList(src), tarea));
+                this.tareaAmbitoGlobalFechaMapper.tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(Arrays.asList(src),
+                        tarea));
     }
 
     @Override

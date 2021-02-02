@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.inditex.rrhh.icmclcwb.api.app.tarea;
 
@@ -16,5 +16,6 @@ public enum PuntoEjecucionEnum {
 
     private final Integer id;
 
-    private final PuntoEjecucionDto dto; 
+    private final PuntoEjecucionDto dto;
+
 }

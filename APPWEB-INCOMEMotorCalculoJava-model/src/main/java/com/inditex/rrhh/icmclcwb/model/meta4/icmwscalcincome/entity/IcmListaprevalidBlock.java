@@ -25,10 +25,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ListaprevalidBlock complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para Icm_ListaprevalidBlock complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType name="Icm_ListaprevalidBlock"&gt;
  *   &lt;complexContent&gt;
@@ -40,41 +42,40 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaprevalidBlock", propOrder = {
-    "icmListaprevalidRecordSet"
+        "icmListaprevalidRecordSet"
 })
-public class IcmListaprevalidBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmListaprevalidBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ListaprevalidRecordSet", nillable = true)
     protected List<IcmListaprevalidRecord> icmListaprevalidRecordSet;
 
     /**
      * Gets the value of the icmListaprevalidRecordSet property.
-     * 
+     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmListaprevalidRecordSet property.
-     * 
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmListaprevalidRecordSet property.
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmListaprevalidRecordSet().add(newItem);
+     * getIcmListaprevalidRecordSet().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmListaprevalidRecord }
-     * 
-     * 
+     * Objects of the following type(s) are allowed in the list {@link IcmListaprevalidRecord }
+     *
+     *
      */
     public List<IcmListaprevalidRecord> getIcmListaprevalidRecordSet() {
         if (icmListaprevalidRecordSet == null) {
@@ -83,8 +84,9 @@ public class IcmListaprevalidBlock implements Serializable, Cloneable, CopyTo2, 
         return this.icmListaprevalidRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -93,10 +95,17 @@ public class IcmListaprevalidBlock implements Serializable, Cloneable, CopyTo2, 
         final IcmListaprevalidBlock that = ((IcmListaprevalidBlock) object);
         {
             List<IcmListaprevalidRecord> lhsIcmListaprevalidRecordSet;
-            lhsIcmListaprevalidRecordSet = (((this.icmListaprevalidRecordSet!= null)&&(!this.icmListaprevalidRecordSet.isEmpty()))?this.getIcmListaprevalidRecordSet():null);
+            lhsIcmListaprevalidRecordSet = (((this.icmListaprevalidRecordSet != null)
+                    && (!this.icmListaprevalidRecordSet.isEmpty())) ? this.getIcmListaprevalidRecordSet() : null);
             List<IcmListaprevalidRecord> rhsIcmListaprevalidRecordSet;
-            rhsIcmListaprevalidRecordSet = (((that.icmListaprevalidRecordSet!= null)&&(!that.icmListaprevalidRecordSet.isEmpty()))?that.getIcmListaprevalidRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaprevalidRecordSet", lhsIcmListaprevalidRecordSet), LocatorUtils.property(thatLocator, "icmListaprevalidRecordSet", rhsIcmListaprevalidRecordSet), lhsIcmListaprevalidRecordSet, rhsIcmListaprevalidRecordSet, ((this.icmListaprevalidRecordSet!= null)&&(!this.icmListaprevalidRecordSet.isEmpty())), ((that.icmListaprevalidRecordSet!= null)&&(!that.icmListaprevalidRecordSet.isEmpty())))) {
+            rhsIcmListaprevalidRecordSet = (((that.icmListaprevalidRecordSet != null)
+                    && (!that.icmListaprevalidRecordSet.isEmpty())) ? that.getIcmListaprevalidRecordSet() : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmListaprevalidRecordSet", lhsIcmListaprevalidRecordSet),
+                    LocatorUtils.property(thatLocator, "icmListaprevalidRecordSet", rhsIcmListaprevalidRecordSet),
+                    lhsIcmListaprevalidRecordSet, rhsIcmListaprevalidRecordSet,
+                    ((this.icmListaprevalidRecordSet != null) && (!this.icmListaprevalidRecordSet.isEmpty())),
+                    ((that.icmListaprevalidRecordSet != null) && (!that.icmListaprevalidRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -125,8 +134,10 @@ public class IcmListaprevalidBlock implements Serializable, Cloneable, CopyTo2, 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListaprevalidRecord> theIcmListaprevalidRecordSet;
-            theIcmListaprevalidRecordSet = (((this.icmListaprevalidRecordSet!= null)&&(!this.icmListaprevalidRecordSet.isEmpty()))?this.getIcmListaprevalidRecordSet():null);
-            strategy.appendField(locator, this, "icmListaprevalidRecordSet", buffer, theIcmListaprevalidRecordSet, ((this.icmListaprevalidRecordSet!= null)&&(!this.icmListaprevalidRecordSet.isEmpty())));
+            theIcmListaprevalidRecordSet = (((this.icmListaprevalidRecordSet != null)
+                    && (!this.icmListaprevalidRecordSet.isEmpty())) ? this.getIcmListaprevalidRecordSet() : null);
+            strategy.appendField(locator, this, "icmListaprevalidRecordSet", buffer, theIcmListaprevalidRecordSet,
+                    ((this.icmListaprevalidRecordSet != null) && (!this.icmListaprevalidRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -135,8 +146,12 @@ public class IcmListaprevalidBlock implements Serializable, Cloneable, CopyTo2, 
         int currentHashCode = 1;
         {
             List<IcmListaprevalidRecord> theIcmListaprevalidRecordSet;
-            theIcmListaprevalidRecordSet = (((this.icmListaprevalidRecordSet!= null)&&(!this.icmListaprevalidRecordSet.isEmpty()))?this.getIcmListaprevalidRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaprevalidRecordSet", theIcmListaprevalidRecordSet), currentHashCode, theIcmListaprevalidRecordSet, ((this.icmListaprevalidRecordSet!= null)&&(!this.icmListaprevalidRecordSet.isEmpty())));
+            theIcmListaprevalidRecordSet = (((this.icmListaprevalidRecordSet != null)
+                    && (!this.icmListaprevalidRecordSet.isEmpty())) ? this.getIcmListaprevalidRecordSet() : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmListaprevalidRecordSet", theIcmListaprevalidRecordSet),
+                    currentHashCode, theIcmListaprevalidRecordSet,
+                    ((this.icmListaprevalidRecordSet != null) && (!this.icmListaprevalidRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -156,19 +171,27 @@ public class IcmListaprevalidBlock implements Serializable, Cloneable, CopyTo2, 
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmListaprevalidBlock) {
             final IcmListaprevalidBlock copy = ((IcmListaprevalidBlock) draftCopy);
             {
-                Boolean icmListaprevalidRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListaprevalidRecordSet!= null)&&(!this.icmListaprevalidRecordSet.isEmpty())));
+                Boolean icmListaprevalidRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmListaprevalidRecordSet != null) && (!this.icmListaprevalidRecordSet.isEmpty())));
                 if (icmListaprevalidRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListaprevalidRecord> sourceIcmListaprevalidRecordSet;
-                    sourceIcmListaprevalidRecordSet = (((this.icmListaprevalidRecordSet!= null)&&(!this.icmListaprevalidRecordSet.isEmpty()))?this.getIcmListaprevalidRecordSet():null);
+                    sourceIcmListaprevalidRecordSet = (((this.icmListaprevalidRecordSet != null)
+                            && (!this.icmListaprevalidRecordSet.isEmpty())) ? this.getIcmListaprevalidRecordSet()
+                                    : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListaprevalidRecord> copyIcmListaprevalidRecordSet = ((List<IcmListaprevalidRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListaprevalidRecordSet", sourceIcmListaprevalidRecordSet), sourceIcmListaprevalidRecordSet, ((this.icmListaprevalidRecordSet!= null)&&(!this.icmListaprevalidRecordSet.isEmpty()))));
+                    List<IcmListaprevalidRecord> copyIcmListaprevalidRecordSet = ((List<IcmListaprevalidRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmListaprevalidRecordSet",
+                                sourceIcmListaprevalidRecordSet), sourceIcmListaprevalidRecordSet,
+                                ((this.icmListaprevalidRecordSet != null)
+                                        && (!this.icmListaprevalidRecordSet.isEmpty()))));
                     copy.icmListaprevalidRecordSet = null;
-                    if (copyIcmListaprevalidRecordSet!= null) {
-                        List<IcmListaprevalidRecord> uniqueIcmListaprevalidRecordSetl = copy.getIcmListaprevalidRecordSet();
+                    if (copyIcmListaprevalidRecordSet != null) {
+                        List<IcmListaprevalidRecord> uniqueIcmListaprevalidRecordSetl = copy
+                            .getIcmListaprevalidRecordSet();
                         uniqueIcmListaprevalidRecordSetl.addAll(copyIcmListaprevalidRecordSet);
                     }
                 } else {

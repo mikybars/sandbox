@@ -39,7 +39,7 @@ public class Accion {
 
     @Column(name = "REACCION_PESO", nullable = true)
     private Integer peso;
-    
+
     @NotNull
     @Column(name = "ES_REACCION_ESPERAR", nullable = false)
     private Boolean esReaccionEsperar;
@@ -47,10 +47,10 @@ public class Accion {
     @NotNull
     @Column(name = "ES_REACCION_REINTENTO", nullable = false)
     private Boolean esReaccionReintento;
-    
+
     @Column(name = "REACCION_REINTENTO_MAX", nullable = true)
     private Integer reintentoMax;
-    
+
     @Column(name = "REACCION_REINTENTO_DELAY", nullable = true)
     private Integer reintentoDelay;
 

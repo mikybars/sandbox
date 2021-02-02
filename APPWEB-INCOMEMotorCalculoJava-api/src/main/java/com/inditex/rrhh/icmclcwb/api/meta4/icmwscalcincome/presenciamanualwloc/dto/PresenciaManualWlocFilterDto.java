@@ -20,7 +20,7 @@ public class PresenciaManualWlocFilterDto implements Serializable {
     private List<String> idsEmpresa;
 
     private String idCadena;
-    
+
     private List<PresenciaManualWlocFilterParametersDto> item;
 
 }

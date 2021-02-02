@@ -25,15 +25,15 @@ public class IdPersonaLocalCondicionesDto implements Serializable {
 
     @NotNull
     private LocalDate fechaHasta;
-    
+
     private String cclIdCodOrigen;
-    
+
     private String cclIdCodOrigenDestino;
-    
+
     private String idTipoCalculo;
-    
+
     private String idTipoOpcionCalculo;
-    
+
     private String porcentaje;
 
     private String banda;

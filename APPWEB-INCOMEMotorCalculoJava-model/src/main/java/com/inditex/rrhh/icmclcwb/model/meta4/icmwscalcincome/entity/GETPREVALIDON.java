@@ -24,10 +24,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,28 +41,25 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparamcalvalon"
+        "icmparamcalvalon"
 })
 @XmlRootElement(name = "GETPREVALIDON")
-public class GETPREVALIDON implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETPREVALIDON implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "ICM_PARAMCALVALON", required = true)
     protected IcmParamcalvalonBlock icmparamcalvalon;
 
     /**
      * Obtiene el valor de la propiedad icmparamcalvalon.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalvalonBlock }
-     *     
+     * @return possible object is {@link IcmParamcalvalonBlock }
+     *
      */
     public IcmParamcalvalonBlock getICMPARAMCALVALON() {
         return icmparamcalvalon;
@@ -68,18 +67,16 @@ public class GETPREVALIDON implements Serializable, Cloneable, CopyTo2, Equals2,
 
     /**
      * Define el valor de la propiedad icmparamcalvalon.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalvalonBlock }
-     *     
+     * @param value allowed object is {@link IcmParamcalvalonBlock }
+     *
      */
     public void setICMPARAMCALVALON(IcmParamcalvalonBlock value) {
         this.icmparamcalvalon = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,9 @@ public class GETPREVALIDON implements Serializable, Cloneable, CopyTo2, Equals2,
             lhsICMPARAMCALVALON = this.getICMPARAMCALVALON();
             IcmParamcalvalonBlock rhsICMPARAMCALVALON;
             rhsICMPARAMCALVALON = that.getICMPARAMCALVALON();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalvalon", lhsICMPARAMCALVALON), LocatorUtils.property(thatLocator, "icmparamcalvalon", rhsICMPARAMCALVALON), lhsICMPARAMCALVALON, rhsICMPARAMCALVALON, (this.icmparamcalvalon!= null), (that.icmparamcalvalon!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalvalon", lhsICMPARAMCALVALON),
+                    LocatorUtils.property(thatLocator, "icmparamcalvalon", rhsICMPARAMCALVALON), lhsICMPARAMCALVALON,
+                    rhsICMPARAMCALVALON, (this.icmparamcalvalon != null), (that.icmparamcalvalon != null))) {
                 return false;
             }
         }
@@ -121,7 +120,8 @@ public class GETPREVALIDON implements Serializable, Cloneable, CopyTo2, Equals2,
         {
             IcmParamcalvalonBlock theICMPARAMCALVALON;
             theICMPARAMCALVALON = this.getICMPARAMCALVALON();
-            strategy.appendField(locator, this, "icmparamcalvalon", buffer, theICMPARAMCALVALON, (this.icmparamcalvalon!= null));
+            strategy.appendField(locator, this, "icmparamcalvalon", buffer, theICMPARAMCALVALON,
+                    (this.icmparamcalvalon != null));
         }
         return buffer;
     }
@@ -131,7 +131,8 @@ public class GETPREVALIDON implements Serializable, Cloneable, CopyTo2, Equals2,
         {
             IcmParamcalvalonBlock theICMPARAMCALVALON;
             theICMPARAMCALVALON = this.getICMPARAMCALVALON();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalvalon", theICMPARAMCALVALON), currentHashCode, theICMPARAMCALVALON, (this.icmparamcalvalon!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalvalon", theICMPARAMCALVALON),
+                    currentHashCode, theICMPARAMCALVALON, (this.icmparamcalvalon != null));
         }
         return currentHashCode;
     }
@@ -151,15 +152,18 @@ public class GETPREVALIDON implements Serializable, Cloneable, CopyTo2, Equals2,
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETPREVALIDON) {
             final GETPREVALIDON copy = ((GETPREVALIDON) draftCopy);
             {
-                Boolean icmparamcalvalonShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalvalon!= null));
+                Boolean icmparamcalvalonShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalvalon != null));
                 if (icmparamcalvalonShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalvalonBlock sourceICMPARAMCALVALON;
                     sourceICMPARAMCALVALON = this.getICMPARAMCALVALON();
-                    IcmParamcalvalonBlock copyICMPARAMCALVALON = ((IcmParamcalvalonBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalvalon", sourceICMPARAMCALVALON), sourceICMPARAMCALVALON, (this.icmparamcalvalon!= null)));
+                    IcmParamcalvalonBlock copyICMPARAMCALVALON = ((IcmParamcalvalonBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalvalon", sourceICMPARAMCALVALON),
+                            sourceICMPARAMCALVALON, (this.icmparamcalvalon != null)));
                     copy.setICMPARAMCALVALON(copyICMPARAMCALVALON);
                 } else {
                     if (icmparamcalvalonShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -31,7 +31,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
 
     @Value("${app.envars.limpieza.days-number:-7}")
     private int daysNumber;
-    
+
     @Value("#{primaryQuery['TareaRepositoryCustom.updateFechaFin']}")
     private String sqlUpdateFechaFin;
 

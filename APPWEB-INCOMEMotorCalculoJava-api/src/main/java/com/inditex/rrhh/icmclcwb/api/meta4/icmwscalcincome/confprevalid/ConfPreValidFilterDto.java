@@ -12,5 +12,4 @@ public class ConfPreValidFilterDto implements Serializable {
 
     private List<ConfPreValidFilterParametersDto> item;
 
-
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
@@ -34,5 +34,5 @@ public class EstadoTareaFaseAccion {
 
     @Column(name = "PESO", nullable = true)
     private Integer peso;
-    
+
 }

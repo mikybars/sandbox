@@ -25,10 +25,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ParamcalvalonBlock complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para Icm_ParamcalvalonBlock complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType name="Icm_ParamcalvalonBlock"&gt;
  *   &lt;complexContent&gt;
@@ -40,41 +42,40 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalvalonBlock", propOrder = {
-    "icmParamcalvalonRecordSet"
+        "icmParamcalvalonRecordSet"
 })
-public class IcmParamcalvalonBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmParamcalvalonBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ParamcalvalonRecordSet", nillable = true)
     protected List<IcmParamcalvalonRecord> icmParamcalvalonRecordSet;
 
     /**
      * Gets the value of the icmParamcalvalonRecordSet property.
-     * 
+     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmParamcalvalonRecordSet property.
-     * 
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmParamcalvalonRecordSet property.
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmParamcalvalonRecordSet().add(newItem);
+     * getIcmParamcalvalonRecordSet().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmParamcalvalonRecord }
-     * 
-     * 
+     * Objects of the following type(s) are allowed in the list {@link IcmParamcalvalonRecord }
+     *
+     *
      */
     public List<IcmParamcalvalonRecord> getIcmParamcalvalonRecordSet() {
         if (icmParamcalvalonRecordSet == null) {
@@ -83,8 +84,9 @@ public class IcmParamcalvalonBlock implements Serializable, Cloneable, CopyTo2, 
         return this.icmParamcalvalonRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -93,10 +95,17 @@ public class IcmParamcalvalonBlock implements Serializable, Cloneable, CopyTo2, 
         final IcmParamcalvalonBlock that = ((IcmParamcalvalonBlock) object);
         {
             List<IcmParamcalvalonRecord> lhsIcmParamcalvalonRecordSet;
-            lhsIcmParamcalvalonRecordSet = (((this.icmParamcalvalonRecordSet!= null)&&(!this.icmParamcalvalonRecordSet.isEmpty()))?this.getIcmParamcalvalonRecordSet():null);
+            lhsIcmParamcalvalonRecordSet = (((this.icmParamcalvalonRecordSet != null)
+                    && (!this.icmParamcalvalonRecordSet.isEmpty())) ? this.getIcmParamcalvalonRecordSet() : null);
             List<IcmParamcalvalonRecord> rhsIcmParamcalvalonRecordSet;
-            rhsIcmParamcalvalonRecordSet = (((that.icmParamcalvalonRecordSet!= null)&&(!that.icmParamcalvalonRecordSet.isEmpty()))?that.getIcmParamcalvalonRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalvalonRecordSet", lhsIcmParamcalvalonRecordSet), LocatorUtils.property(thatLocator, "icmParamcalvalonRecordSet", rhsIcmParamcalvalonRecordSet), lhsIcmParamcalvalonRecordSet, rhsIcmParamcalvalonRecordSet, ((this.icmParamcalvalonRecordSet!= null)&&(!this.icmParamcalvalonRecordSet.isEmpty())), ((that.icmParamcalvalonRecordSet!= null)&&(!that.icmParamcalvalonRecordSet.isEmpty())))) {
+            rhsIcmParamcalvalonRecordSet = (((that.icmParamcalvalonRecordSet != null)
+                    && (!that.icmParamcalvalonRecordSet.isEmpty())) ? that.getIcmParamcalvalonRecordSet() : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmParamcalvalonRecordSet", lhsIcmParamcalvalonRecordSet),
+                    LocatorUtils.property(thatLocator, "icmParamcalvalonRecordSet", rhsIcmParamcalvalonRecordSet),
+                    lhsIcmParamcalvalonRecordSet, rhsIcmParamcalvalonRecordSet,
+                    ((this.icmParamcalvalonRecordSet != null) && (!this.icmParamcalvalonRecordSet.isEmpty())),
+                    ((that.icmParamcalvalonRecordSet != null) && (!that.icmParamcalvalonRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -125,8 +134,10 @@ public class IcmParamcalvalonBlock implements Serializable, Cloneable, CopyTo2, 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmParamcalvalonRecord> theIcmParamcalvalonRecordSet;
-            theIcmParamcalvalonRecordSet = (((this.icmParamcalvalonRecordSet!= null)&&(!this.icmParamcalvalonRecordSet.isEmpty()))?this.getIcmParamcalvalonRecordSet():null);
-            strategy.appendField(locator, this, "icmParamcalvalonRecordSet", buffer, theIcmParamcalvalonRecordSet, ((this.icmParamcalvalonRecordSet!= null)&&(!this.icmParamcalvalonRecordSet.isEmpty())));
+            theIcmParamcalvalonRecordSet = (((this.icmParamcalvalonRecordSet != null)
+                    && (!this.icmParamcalvalonRecordSet.isEmpty())) ? this.getIcmParamcalvalonRecordSet() : null);
+            strategy.appendField(locator, this, "icmParamcalvalonRecordSet", buffer, theIcmParamcalvalonRecordSet,
+                    ((this.icmParamcalvalonRecordSet != null) && (!this.icmParamcalvalonRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -135,8 +146,12 @@ public class IcmParamcalvalonBlock implements Serializable, Cloneable, CopyTo2, 
         int currentHashCode = 1;
         {
             List<IcmParamcalvalonRecord> theIcmParamcalvalonRecordSet;
-            theIcmParamcalvalonRecordSet = (((this.icmParamcalvalonRecordSet!= null)&&(!this.icmParamcalvalonRecordSet.isEmpty()))?this.getIcmParamcalvalonRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalvalonRecordSet", theIcmParamcalvalonRecordSet), currentHashCode, theIcmParamcalvalonRecordSet, ((this.icmParamcalvalonRecordSet!= null)&&(!this.icmParamcalvalonRecordSet.isEmpty())));
+            theIcmParamcalvalonRecordSet = (((this.icmParamcalvalonRecordSet != null)
+                    && (!this.icmParamcalvalonRecordSet.isEmpty())) ? this.getIcmParamcalvalonRecordSet() : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmParamcalvalonRecordSet", theIcmParamcalvalonRecordSet),
+                    currentHashCode, theIcmParamcalvalonRecordSet,
+                    ((this.icmParamcalvalonRecordSet != null) && (!this.icmParamcalvalonRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -156,19 +171,27 @@ public class IcmParamcalvalonBlock implements Serializable, Cloneable, CopyTo2, 
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmParamcalvalonBlock) {
             final IcmParamcalvalonBlock copy = ((IcmParamcalvalonBlock) draftCopy);
             {
-                Boolean icmParamcalvalonRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmParamcalvalonRecordSet!= null)&&(!this.icmParamcalvalonRecordSet.isEmpty())));
+                Boolean icmParamcalvalonRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmParamcalvalonRecordSet != null) && (!this.icmParamcalvalonRecordSet.isEmpty())));
                 if (icmParamcalvalonRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmParamcalvalonRecord> sourceIcmParamcalvalonRecordSet;
-                    sourceIcmParamcalvalonRecordSet = (((this.icmParamcalvalonRecordSet!= null)&&(!this.icmParamcalvalonRecordSet.isEmpty()))?this.getIcmParamcalvalonRecordSet():null);
+                    sourceIcmParamcalvalonRecordSet = (((this.icmParamcalvalonRecordSet != null)
+                            && (!this.icmParamcalvalonRecordSet.isEmpty())) ? this.getIcmParamcalvalonRecordSet()
+                                    : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmParamcalvalonRecord> copyIcmParamcalvalonRecordSet = ((List<IcmParamcalvalonRecord> ) strategy.copy(LocatorUtils.property(locator, "icmParamcalvalonRecordSet", sourceIcmParamcalvalonRecordSet), sourceIcmParamcalvalonRecordSet, ((this.icmParamcalvalonRecordSet!= null)&&(!this.icmParamcalvalonRecordSet.isEmpty()))));
+                    List<IcmParamcalvalonRecord> copyIcmParamcalvalonRecordSet = ((List<IcmParamcalvalonRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmParamcalvalonRecordSet",
+                                sourceIcmParamcalvalonRecordSet), sourceIcmParamcalvalonRecordSet,
+                                ((this.icmParamcalvalonRecordSet != null)
+                                        && (!this.icmParamcalvalonRecordSet.isEmpty()))));
                     copy.icmParamcalvalonRecordSet = null;
-                    if (copyIcmParamcalvalonRecordSet!= null) {
-                        List<IcmParamcalvalonRecord> uniqueIcmParamcalvalonRecordSetl = copy.getIcmParamcalvalonRecordSet();
+                    if (copyIcmParamcalvalonRecordSet != null) {
+                        List<IcmParamcalvalonRecord> uniqueIcmParamcalvalonRecordSetl = copy
+                            .getIcmParamcalvalonRecordSet();
                         uniqueIcmParamcalvalonRecordSetl.addAll(copyIcmParamcalvalonRecordSet);
                     }
                 } else {

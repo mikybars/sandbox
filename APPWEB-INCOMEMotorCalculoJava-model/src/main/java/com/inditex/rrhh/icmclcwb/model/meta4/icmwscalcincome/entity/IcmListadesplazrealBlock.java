@@ -25,10 +25,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ListadesplazrealBlock complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para Icm_ListadesplazrealBlock complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType name="Icm_ListadesplazrealBlock"&gt;
  *   &lt;complexContent&gt;
@@ -40,41 +42,40 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListadesplazrealBlock", propOrder = {
-    "icmListadesplazrealRecordSet"
+        "icmListadesplazrealRecordSet"
 })
-public class IcmListadesplazrealBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmListadesplazrealBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ListadesplazrealRecordSet", nillable = true)
     protected List<IcmListadesplazrealRecord> icmListadesplazrealRecordSet;
 
     /**
      * Gets the value of the icmListadesplazrealRecordSet property.
-     * 
+     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmListadesplazrealRecordSet property.
-     * 
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmListadesplazrealRecordSet property.
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmListadesplazrealRecordSet().add(newItem);
+     * getIcmListadesplazrealRecordSet().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmListadesplazrealRecord }
-     * 
-     * 
+     * Objects of the following type(s) are allowed in the list {@link IcmListadesplazrealRecord }
+     *
+     *
      */
     public List<IcmListadesplazrealRecord> getIcmListadesplazrealRecordSet() {
         if (icmListadesplazrealRecordSet == null) {
@@ -83,8 +84,9 @@ public class IcmListadesplazrealBlock implements Serializable, Cloneable, CopyTo
         return this.icmListadesplazrealRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -93,10 +95,17 @@ public class IcmListadesplazrealBlock implements Serializable, Cloneable, CopyTo
         final IcmListadesplazrealBlock that = ((IcmListadesplazrealBlock) object);
         {
             List<IcmListadesplazrealRecord> lhsIcmListadesplazrealRecordSet;
-            lhsIcmListadesplazrealRecordSet = (((this.icmListadesplazrealRecordSet!= null)&&(!this.icmListadesplazrealRecordSet.isEmpty()))?this.getIcmListadesplazrealRecordSet():null);
+            lhsIcmListadesplazrealRecordSet = (((this.icmListadesplazrealRecordSet != null)
+                    && (!this.icmListadesplazrealRecordSet.isEmpty())) ? this.getIcmListadesplazrealRecordSet() : null);
             List<IcmListadesplazrealRecord> rhsIcmListadesplazrealRecordSet;
-            rhsIcmListadesplazrealRecordSet = (((that.icmListadesplazrealRecordSet!= null)&&(!that.icmListadesplazrealRecordSet.isEmpty()))?that.getIcmListadesplazrealRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListadesplazrealRecordSet", lhsIcmListadesplazrealRecordSet), LocatorUtils.property(thatLocator, "icmListadesplazrealRecordSet", rhsIcmListadesplazrealRecordSet), lhsIcmListadesplazrealRecordSet, rhsIcmListadesplazrealRecordSet, ((this.icmListadesplazrealRecordSet!= null)&&(!this.icmListadesplazrealRecordSet.isEmpty())), ((that.icmListadesplazrealRecordSet!= null)&&(!that.icmListadesplazrealRecordSet.isEmpty())))) {
+            rhsIcmListadesplazrealRecordSet = (((that.icmListadesplazrealRecordSet != null)
+                    && (!that.icmListadesplazrealRecordSet.isEmpty())) ? that.getIcmListadesplazrealRecordSet() : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmListadesplazrealRecordSet", lhsIcmListadesplazrealRecordSet),
+                    LocatorUtils.property(thatLocator, "icmListadesplazrealRecordSet", rhsIcmListadesplazrealRecordSet),
+                    lhsIcmListadesplazrealRecordSet, rhsIcmListadesplazrealRecordSet,
+                    ((this.icmListadesplazrealRecordSet != null) && (!this.icmListadesplazrealRecordSet.isEmpty())),
+                    ((that.icmListadesplazrealRecordSet != null) && (!that.icmListadesplazrealRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -125,8 +134,10 @@ public class IcmListadesplazrealBlock implements Serializable, Cloneable, CopyTo
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListadesplazrealRecord> theIcmListadesplazrealRecordSet;
-            theIcmListadesplazrealRecordSet = (((this.icmListadesplazrealRecordSet!= null)&&(!this.icmListadesplazrealRecordSet.isEmpty()))?this.getIcmListadesplazrealRecordSet():null);
-            strategy.appendField(locator, this, "icmListadesplazrealRecordSet", buffer, theIcmListadesplazrealRecordSet, ((this.icmListadesplazrealRecordSet!= null)&&(!this.icmListadesplazrealRecordSet.isEmpty())));
+            theIcmListadesplazrealRecordSet = (((this.icmListadesplazrealRecordSet != null)
+                    && (!this.icmListadesplazrealRecordSet.isEmpty())) ? this.getIcmListadesplazrealRecordSet() : null);
+            strategy.appendField(locator, this, "icmListadesplazrealRecordSet", buffer, theIcmListadesplazrealRecordSet,
+                    ((this.icmListadesplazrealRecordSet != null) && (!this.icmListadesplazrealRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -135,8 +146,12 @@ public class IcmListadesplazrealBlock implements Serializable, Cloneable, CopyTo
         int currentHashCode = 1;
         {
             List<IcmListadesplazrealRecord> theIcmListadesplazrealRecordSet;
-            theIcmListadesplazrealRecordSet = (((this.icmListadesplazrealRecordSet!= null)&&(!this.icmListadesplazrealRecordSet.isEmpty()))?this.getIcmListadesplazrealRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListadesplazrealRecordSet", theIcmListadesplazrealRecordSet), currentHashCode, theIcmListadesplazrealRecordSet, ((this.icmListadesplazrealRecordSet!= null)&&(!this.icmListadesplazrealRecordSet.isEmpty())));
+            theIcmListadesplazrealRecordSet = (((this.icmListadesplazrealRecordSet != null)
+                    && (!this.icmListadesplazrealRecordSet.isEmpty())) ? this.getIcmListadesplazrealRecordSet() : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmListadesplazrealRecordSet", theIcmListadesplazrealRecordSet),
+                    currentHashCode, theIcmListadesplazrealRecordSet,
+                    ((this.icmListadesplazrealRecordSet != null) && (!this.icmListadesplazrealRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -156,19 +171,28 @@ public class IcmListadesplazrealBlock implements Serializable, Cloneable, CopyTo
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmListadesplazrealBlock) {
             final IcmListadesplazrealBlock copy = ((IcmListadesplazrealBlock) draftCopy);
             {
-                Boolean icmListadesplazrealRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListadesplazrealRecordSet!= null)&&(!this.icmListadesplazrealRecordSet.isEmpty())));
+                Boolean icmListadesplazrealRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmListadesplazrealRecordSet != null)
+                                && (!this.icmListadesplazrealRecordSet.isEmpty())));
                 if (icmListadesplazrealRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListadesplazrealRecord> sourceIcmListadesplazrealRecordSet;
-                    sourceIcmListadesplazrealRecordSet = (((this.icmListadesplazrealRecordSet!= null)&&(!this.icmListadesplazrealRecordSet.isEmpty()))?this.getIcmListadesplazrealRecordSet():null);
+                    sourceIcmListadesplazrealRecordSet = (((this.icmListadesplazrealRecordSet != null)
+                            && (!this.icmListadesplazrealRecordSet.isEmpty())) ? this.getIcmListadesplazrealRecordSet()
+                                    : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListadesplazrealRecord> copyIcmListadesplazrealRecordSet = ((List<IcmListadesplazrealRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListadesplazrealRecordSet", sourceIcmListadesplazrealRecordSet), sourceIcmListadesplazrealRecordSet, ((this.icmListadesplazrealRecordSet!= null)&&(!this.icmListadesplazrealRecordSet.isEmpty()))));
+                    List<IcmListadesplazrealRecord> copyIcmListadesplazrealRecordSet = ((List<IcmListadesplazrealRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmListadesplazrealRecordSet",
+                                sourceIcmListadesplazrealRecordSet), sourceIcmListadesplazrealRecordSet,
+                                ((this.icmListadesplazrealRecordSet != null)
+                                        && (!this.icmListadesplazrealRecordSet.isEmpty()))));
                     copy.icmListadesplazrealRecordSet = null;
-                    if (copyIcmListadesplazrealRecordSet!= null) {
-                        List<IcmListadesplazrealRecord> uniqueIcmListadesplazrealRecordSetl = copy.getIcmListadesplazrealRecordSet();
+                    if (copyIcmListadesplazrealRecordSet != null) {
+                        List<IcmListadesplazrealRecord> uniqueIcmListadesplazrealRecordSetl = copy
+                            .getIcmListadesplazrealRecordSet();
                         uniqueIcmListadesplazrealRecordSetl.addAll(copyIcmListadesplazrealRecordSet);
                     }
                 } else {

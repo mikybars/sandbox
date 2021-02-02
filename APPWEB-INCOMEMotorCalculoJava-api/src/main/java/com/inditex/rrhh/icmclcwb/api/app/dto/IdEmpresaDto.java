@@ -17,4 +17,5 @@ public class IdEmpresaDto implements Serializable {
 
     @NotBlank
     private String stdIdLegEnt;
+
 }

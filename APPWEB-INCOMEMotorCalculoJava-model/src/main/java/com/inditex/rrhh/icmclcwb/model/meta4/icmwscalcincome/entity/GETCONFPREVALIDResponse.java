@@ -24,10 +24,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,28 +41,25 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getconfprevalidReturn"
+        "getconfprevalidReturn"
 })
 @XmlRootElement(name = "GETCONFPREVALIDResponse")
-public class GETCONFPREVALIDResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETCONFPREVALIDResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "GETCONFPREVALIDReturn", required = true)
     protected GetconfprevalidOutput getconfprevalidReturn;
 
     /**
      * Obtiene el valor de la propiedad getconfprevalidReturn.
-     * 
-     * @return
-     *     possible object is
-     *     {@link GetconfprevalidOutput }
-     *     
+     * @return possible object is {@link GetconfprevalidOutput }
+     *
      */
     public GetconfprevalidOutput getGETCONFPREVALIDReturn() {
         return getconfprevalidReturn;
@@ -68,18 +67,16 @@ public class GETCONFPREVALIDResponse implements Serializable, Cloneable, CopyTo2
 
     /**
      * Define el valor de la propiedad getconfprevalidReturn.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link GetconfprevalidOutput }
-     *     
+     * @param value allowed object is {@link GetconfprevalidOutput }
+     *
      */
     public void setGETCONFPREVALIDReturn(GetconfprevalidOutput value) {
         this.getconfprevalidReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,10 @@ public class GETCONFPREVALIDResponse implements Serializable, Cloneable, CopyTo2
             lhsGETCONFPREVALIDReturn = this.getGETCONFPREVALIDReturn();
             GetconfprevalidOutput rhsGETCONFPREVALIDReturn;
             rhsGETCONFPREVALIDReturn = that.getGETCONFPREVALIDReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfprevalidReturn", lhsGETCONFPREVALIDReturn), LocatorUtils.property(thatLocator, "getconfprevalidReturn", rhsGETCONFPREVALIDReturn), lhsGETCONFPREVALIDReturn, rhsGETCONFPREVALIDReturn, (this.getconfprevalidReturn!= null), (that.getconfprevalidReturn!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfprevalidReturn", lhsGETCONFPREVALIDReturn),
+                    LocatorUtils.property(thatLocator, "getconfprevalidReturn", rhsGETCONFPREVALIDReturn),
+                    lhsGETCONFPREVALIDReturn, rhsGETCONFPREVALIDReturn, (this.getconfprevalidReturn != null),
+                    (that.getconfprevalidReturn != null))) {
                 return false;
             }
         }
@@ -121,7 +121,8 @@ public class GETCONFPREVALIDResponse implements Serializable, Cloneable, CopyTo2
         {
             GetconfprevalidOutput theGETCONFPREVALIDReturn;
             theGETCONFPREVALIDReturn = this.getGETCONFPREVALIDReturn();
-            strategy.appendField(locator, this, "getconfprevalidReturn", buffer, theGETCONFPREVALIDReturn, (this.getconfprevalidReturn!= null));
+            strategy.appendField(locator, this, "getconfprevalidReturn", buffer, theGETCONFPREVALIDReturn,
+                    (this.getconfprevalidReturn != null));
         }
         return buffer;
     }
@@ -131,7 +132,9 @@ public class GETCONFPREVALIDResponse implements Serializable, Cloneable, CopyTo2
         {
             GetconfprevalidOutput theGETCONFPREVALIDReturn;
             theGETCONFPREVALIDReturn = this.getGETCONFPREVALIDReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfprevalidReturn", theGETCONFPREVALIDReturn), currentHashCode, theGETCONFPREVALIDReturn, (this.getconfprevalidReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "getconfprevalidReturn", theGETCONFPREVALIDReturn), currentHashCode,
+                    theGETCONFPREVALIDReturn, (this.getconfprevalidReturn != null));
         }
         return currentHashCode;
     }
@@ -151,15 +154,18 @@ public class GETCONFPREVALIDResponse implements Serializable, Cloneable, CopyTo2
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETCONFPREVALIDResponse) {
             final GETCONFPREVALIDResponse copy = ((GETCONFPREVALIDResponse) draftCopy);
             {
-                Boolean getconfprevalidReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getconfprevalidReturn!= null));
+                Boolean getconfprevalidReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.getconfprevalidReturn != null));
                 if (getconfprevalidReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetconfprevalidOutput sourceGETCONFPREVALIDReturn;
                     sourceGETCONFPREVALIDReturn = this.getGETCONFPREVALIDReturn();
-                    GetconfprevalidOutput copyGETCONFPREVALIDReturn = ((GetconfprevalidOutput) strategy.copy(LocatorUtils.property(locator, "getconfprevalidReturn", sourceGETCONFPREVALIDReturn), sourceGETCONFPREVALIDReturn, (this.getconfprevalidReturn!= null)));
+                    GetconfprevalidOutput copyGETCONFPREVALIDReturn = ((GetconfprevalidOutput) strategy.copy(
+                            LocatorUtils.property(locator, "getconfprevalidReturn", sourceGETCONFPREVALIDReturn),
+                            sourceGETCONFPREVALIDReturn, (this.getconfprevalidReturn != null)));
                     copy.setGETCONFPREVALIDReturn(copyGETCONFPREVALIDReturn);
                 } else {
                     if (getconfprevalidReturnShouldBeCopiedAndSet == Boolean.FALSE) {

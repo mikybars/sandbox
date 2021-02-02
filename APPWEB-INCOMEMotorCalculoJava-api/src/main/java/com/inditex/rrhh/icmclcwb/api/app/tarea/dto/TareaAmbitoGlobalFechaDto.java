@@ -20,7 +20,7 @@ public class TareaAmbitoGlobalFechaDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Tarea", required = true)
     private Long idTarea;
-    
+
     @NotNull
     @ApiModelProperty(value = "Fecha de inicio", required = true)
     private Date fechaInicio;

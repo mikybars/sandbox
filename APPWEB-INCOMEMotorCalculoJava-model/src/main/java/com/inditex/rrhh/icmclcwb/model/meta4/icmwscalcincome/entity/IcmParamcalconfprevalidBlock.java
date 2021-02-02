@@ -25,10 +25,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ParamcalconfprevalidBlock complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para Icm_ParamcalconfprevalidBlock complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType name="Icm_ParamcalconfprevalidBlock"&gt;
  *   &lt;complexContent&gt;
@@ -40,41 +42,40 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalconfprevalidBlock", propOrder = {
-    "icmParamcalconfprevalidRecordSet"
+        "icmParamcalconfprevalidRecordSet"
 })
-public class IcmParamcalconfprevalidBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmParamcalconfprevalidBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ParamcalconfprevalidRecordSet", nillable = true)
     protected List<IcmParamcalconfprevalidRecord> icmParamcalconfprevalidRecordSet;
 
     /**
      * Gets the value of the icmParamcalconfprevalidRecordSet property.
-     * 
+     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmParamcalconfprevalidRecordSet property.
-     * 
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmParamcalconfprevalidRecordSet property.
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmParamcalconfprevalidRecordSet().add(newItem);
+     * getIcmParamcalconfprevalidRecordSet().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmParamcalconfprevalidRecord }
-     * 
-     * 
+     * Objects of the following type(s) are allowed in the list {@link IcmParamcalconfprevalidRecord }
+     *
+     *
      */
     public List<IcmParamcalconfprevalidRecord> getIcmParamcalconfprevalidRecordSet() {
         if (icmParamcalconfprevalidRecordSet == null) {
@@ -83,8 +84,9 @@ public class IcmParamcalconfprevalidBlock implements Serializable, Cloneable, Co
         return this.icmParamcalconfprevalidRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -93,10 +95,23 @@ public class IcmParamcalconfprevalidBlock implements Serializable, Cloneable, Co
         final IcmParamcalconfprevalidBlock that = ((IcmParamcalconfprevalidBlock) object);
         {
             List<IcmParamcalconfprevalidRecord> lhsIcmParamcalconfprevalidRecordSet;
-            lhsIcmParamcalconfprevalidRecordSet = (((this.icmParamcalconfprevalidRecordSet!= null)&&(!this.icmParamcalconfprevalidRecordSet.isEmpty()))?this.getIcmParamcalconfprevalidRecordSet():null);
+            lhsIcmParamcalconfprevalidRecordSet = (((this.icmParamcalconfprevalidRecordSet != null)
+                    && (!this.icmParamcalconfprevalidRecordSet.isEmpty())) ? this.getIcmParamcalconfprevalidRecordSet()
+                            : null);
             List<IcmParamcalconfprevalidRecord> rhsIcmParamcalconfprevalidRecordSet;
-            rhsIcmParamcalconfprevalidRecordSet = (((that.icmParamcalconfprevalidRecordSet!= null)&&(!that.icmParamcalconfprevalidRecordSet.isEmpty()))?that.getIcmParamcalconfprevalidRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalconfprevalidRecordSet", lhsIcmParamcalconfprevalidRecordSet), LocatorUtils.property(thatLocator, "icmParamcalconfprevalidRecordSet", rhsIcmParamcalconfprevalidRecordSet), lhsIcmParamcalconfprevalidRecordSet, rhsIcmParamcalconfprevalidRecordSet, ((this.icmParamcalconfprevalidRecordSet!= null)&&(!this.icmParamcalconfprevalidRecordSet.isEmpty())), ((that.icmParamcalconfprevalidRecordSet!= null)&&(!that.icmParamcalconfprevalidRecordSet.isEmpty())))) {
+            rhsIcmParamcalconfprevalidRecordSet = (((that.icmParamcalconfprevalidRecordSet != null)
+                    && (!that.icmParamcalconfprevalidRecordSet.isEmpty())) ? that.getIcmParamcalconfprevalidRecordSet()
+                            : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmParamcalconfprevalidRecordSet",
+                            lhsIcmParamcalconfprevalidRecordSet),
+                    LocatorUtils.property(thatLocator, "icmParamcalconfprevalidRecordSet",
+                            rhsIcmParamcalconfprevalidRecordSet),
+                    lhsIcmParamcalconfprevalidRecordSet, rhsIcmParamcalconfprevalidRecordSet,
+                    ((this.icmParamcalconfprevalidRecordSet != null)
+                            && (!this.icmParamcalconfprevalidRecordSet.isEmpty())),
+                    ((that.icmParamcalconfprevalidRecordSet != null)
+                            && (!that.icmParamcalconfprevalidRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -125,8 +140,12 @@ public class IcmParamcalconfprevalidBlock implements Serializable, Cloneable, Co
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmParamcalconfprevalidRecord> theIcmParamcalconfprevalidRecordSet;
-            theIcmParamcalconfprevalidRecordSet = (((this.icmParamcalconfprevalidRecordSet!= null)&&(!this.icmParamcalconfprevalidRecordSet.isEmpty()))?this.getIcmParamcalconfprevalidRecordSet():null);
-            strategy.appendField(locator, this, "icmParamcalconfprevalidRecordSet", buffer, theIcmParamcalconfprevalidRecordSet, ((this.icmParamcalconfprevalidRecordSet!= null)&&(!this.icmParamcalconfprevalidRecordSet.isEmpty())));
+            theIcmParamcalconfprevalidRecordSet = (((this.icmParamcalconfprevalidRecordSet != null)
+                    && (!this.icmParamcalconfprevalidRecordSet.isEmpty())) ? this.getIcmParamcalconfprevalidRecordSet()
+                            : null);
+            strategy.appendField(locator, this, "icmParamcalconfprevalidRecordSet", buffer,
+                    theIcmParamcalconfprevalidRecordSet, ((this.icmParamcalconfprevalidRecordSet != null)
+                            && (!this.icmParamcalconfprevalidRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -135,8 +154,15 @@ public class IcmParamcalconfprevalidBlock implements Serializable, Cloneable, Co
         int currentHashCode = 1;
         {
             List<IcmParamcalconfprevalidRecord> theIcmParamcalconfprevalidRecordSet;
-            theIcmParamcalconfprevalidRecordSet = (((this.icmParamcalconfprevalidRecordSet!= null)&&(!this.icmParamcalconfprevalidRecordSet.isEmpty()))?this.getIcmParamcalconfprevalidRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalconfprevalidRecordSet", theIcmParamcalconfprevalidRecordSet), currentHashCode, theIcmParamcalconfprevalidRecordSet, ((this.icmParamcalconfprevalidRecordSet!= null)&&(!this.icmParamcalconfprevalidRecordSet.isEmpty())));
+            theIcmParamcalconfprevalidRecordSet = (((this.icmParamcalconfprevalidRecordSet != null)
+                    && (!this.icmParamcalconfprevalidRecordSet.isEmpty())) ? this.getIcmParamcalconfprevalidRecordSet()
+                            : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmParamcalconfprevalidRecordSet",
+                            theIcmParamcalconfprevalidRecordSet),
+                    currentHashCode, theIcmParamcalconfprevalidRecordSet,
+                    ((this.icmParamcalconfprevalidRecordSet != null)
+                            && (!this.icmParamcalconfprevalidRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -156,19 +182,28 @@ public class IcmParamcalconfprevalidBlock implements Serializable, Cloneable, Co
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmParamcalconfprevalidBlock) {
             final IcmParamcalconfprevalidBlock copy = ((IcmParamcalconfprevalidBlock) draftCopy);
             {
-                Boolean icmParamcalconfprevalidRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmParamcalconfprevalidRecordSet!= null)&&(!this.icmParamcalconfprevalidRecordSet.isEmpty())));
+                Boolean icmParamcalconfprevalidRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmParamcalconfprevalidRecordSet != null)
+                                && (!this.icmParamcalconfprevalidRecordSet.isEmpty())));
                 if (icmParamcalconfprevalidRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmParamcalconfprevalidRecord> sourceIcmParamcalconfprevalidRecordSet;
-                    sourceIcmParamcalconfprevalidRecordSet = (((this.icmParamcalconfprevalidRecordSet!= null)&&(!this.icmParamcalconfprevalidRecordSet.isEmpty()))?this.getIcmParamcalconfprevalidRecordSet():null);
+                    sourceIcmParamcalconfprevalidRecordSet = (((this.icmParamcalconfprevalidRecordSet != null)
+                            && (!this.icmParamcalconfprevalidRecordSet.isEmpty()))
+                                    ? this.getIcmParamcalconfprevalidRecordSet() : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmParamcalconfprevalidRecord> copyIcmParamcalconfprevalidRecordSet = ((List<IcmParamcalconfprevalidRecord> ) strategy.copy(LocatorUtils.property(locator, "icmParamcalconfprevalidRecordSet", sourceIcmParamcalconfprevalidRecordSet), sourceIcmParamcalconfprevalidRecordSet, ((this.icmParamcalconfprevalidRecordSet!= null)&&(!this.icmParamcalconfprevalidRecordSet.isEmpty()))));
+                    List<IcmParamcalconfprevalidRecord> copyIcmParamcalconfprevalidRecordSet = ((List<IcmParamcalconfprevalidRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmParamcalconfprevalidRecordSet",
+                                sourceIcmParamcalconfprevalidRecordSet), sourceIcmParamcalconfprevalidRecordSet,
+                                ((this.icmParamcalconfprevalidRecordSet != null)
+                                        && (!this.icmParamcalconfprevalidRecordSet.isEmpty()))));
                     copy.icmParamcalconfprevalidRecordSet = null;
-                    if (copyIcmParamcalconfprevalidRecordSet!= null) {
-                        List<IcmParamcalconfprevalidRecord> uniqueIcmParamcalconfprevalidRecordSetl = copy.getIcmParamcalconfprevalidRecordSet();
+                    if (copyIcmParamcalconfprevalidRecordSet != null) {
+                        List<IcmParamcalconfprevalidRecord> uniqueIcmParamcalconfprevalidRecordSetl = copy
+                            .getIcmParamcalconfprevalidRecordSet();
                         uniqueIcmParamcalconfprevalidRecordSetl.addAll(copyIcmParamcalconfprevalidRecordSet);
                     }
                 } else {

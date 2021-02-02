@@ -25,16 +25,17 @@ public class FaseAccionDto implements Serializable {
     @ApiModelProperty(value = "Identificador de fase", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private Integer idFase;
-    
+
     @ApiModelProperty(value = "Identificador de accion", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private Integer idAccion;
-    
+
     @ApiModelProperty(value = "Identificador de punto ejecucion", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private Integer idPuntoEjecucion;
-    
+
     @ApiModelProperty(value = "Peso", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
     private Integer peso;
+
 }

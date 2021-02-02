@@ -14,11 +14,11 @@ import lombok.RequiredArgsConstructor;
 public class PresenciaOrigenDto implements Serializable {
 
     private Integer horasSeccion1;
-    
+
     private Integer horasSeccion2;
-    
+
     private Integer horasSeccion3;
-    
+
     private Integer horasSeccion4;
-    
+
 }

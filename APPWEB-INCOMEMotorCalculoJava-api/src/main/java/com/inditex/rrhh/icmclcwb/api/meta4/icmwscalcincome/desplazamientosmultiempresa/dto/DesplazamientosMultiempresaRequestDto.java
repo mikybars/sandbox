@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 public class DesplazamientosMultiempresaRequestDto extends PageableDto<DesplazamientosMultiempresaRequestItemDto>
-    implements Serializable, Pageable<DesplazamientosMultiempresaRequestItemDto> {
+        implements Serializable, Pageable<DesplazamientosMultiempresaRequestItemDto> {
 
     private static final long serialVersionUID = 7354508691091884987L;
 

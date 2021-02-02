@@ -20,7 +20,7 @@ public class ConfPreValidResultItemDto implements Serializable {
     private String idAccion;
 
     private String idEstado;
-    
+
     private String delayTiempo;
 
     private String idValidacion;

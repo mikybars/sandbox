@@ -24,10 +24,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,28 +41,25 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparamcalconfprevalid"
+        "icmparamcalconfprevalid"
 })
 @XmlRootElement(name = "GETCONFPREVALID")
-public class GETCONFPREVALID implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETCONFPREVALID implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "ICM_PARAMCALCONFPREVALID", required = true)
     protected IcmParamcalconfprevalidBlock icmparamcalconfprevalid;
 
     /**
      * Obtiene el valor de la propiedad icmparamcalconfprevalid.
-     * 
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalconfprevalidBlock }
-     *     
+     * @return possible object is {@link IcmParamcalconfprevalidBlock }
+     *
      */
     public IcmParamcalconfprevalidBlock getICMPARAMCALCONFPREVALID() {
         return icmparamcalconfprevalid;
@@ -68,18 +67,16 @@ public class GETCONFPREVALID implements Serializable, Cloneable, CopyTo2, Equals
 
     /**
      * Define el valor de la propiedad icmparamcalconfprevalid.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalconfprevalidBlock }
-     *     
+     * @param value allowed object is {@link IcmParamcalconfprevalidBlock }
+     *
      */
     public void setICMPARAMCALCONFPREVALID(IcmParamcalconfprevalidBlock value) {
         this.icmparamcalconfprevalid = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,11 @@ public class GETCONFPREVALID implements Serializable, Cloneable, CopyTo2, Equals
             lhsICMPARAMCALCONFPREVALID = this.getICMPARAMCALCONFPREVALID();
             IcmParamcalconfprevalidBlock rhsICMPARAMCALCONFPREVALID;
             rhsICMPARAMCALCONFPREVALID = that.getICMPARAMCALCONFPREVALID();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalconfprevalid", lhsICMPARAMCALCONFPREVALID), LocatorUtils.property(thatLocator, "icmparamcalconfprevalid", rhsICMPARAMCALCONFPREVALID), lhsICMPARAMCALCONFPREVALID, rhsICMPARAMCALCONFPREVALID, (this.icmparamcalconfprevalid!= null), (that.icmparamcalconfprevalid!= null))) {
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparamcalconfprevalid", lhsICMPARAMCALCONFPREVALID),
+                    LocatorUtils.property(thatLocator, "icmparamcalconfprevalid", rhsICMPARAMCALCONFPREVALID),
+                    lhsICMPARAMCALCONFPREVALID, rhsICMPARAMCALCONFPREVALID, (this.icmparamcalconfprevalid != null),
+                    (that.icmparamcalconfprevalid != null))) {
                 return false;
             }
         }
@@ -121,7 +122,8 @@ public class GETCONFPREVALID implements Serializable, Cloneable, CopyTo2, Equals
         {
             IcmParamcalconfprevalidBlock theICMPARAMCALCONFPREVALID;
             theICMPARAMCALCONFPREVALID = this.getICMPARAMCALCONFPREVALID();
-            strategy.appendField(locator, this, "icmparamcalconfprevalid", buffer, theICMPARAMCALCONFPREVALID, (this.icmparamcalconfprevalid!= null));
+            strategy.appendField(locator, this, "icmparamcalconfprevalid", buffer, theICMPARAMCALCONFPREVALID,
+                    (this.icmparamcalconfprevalid != null));
         }
         return buffer;
     }
@@ -131,7 +133,9 @@ public class GETCONFPREVALID implements Serializable, Cloneable, CopyTo2, Equals
         {
             IcmParamcalconfprevalidBlock theICMPARAMCALCONFPREVALID;
             theICMPARAMCALCONFPREVALID = this.getICMPARAMCALCONFPREVALID();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalconfprevalid", theICMPARAMCALCONFPREVALID), currentHashCode, theICMPARAMCALCONFPREVALID, (this.icmparamcalconfprevalid!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalconfprevalid", theICMPARAMCALCONFPREVALID),
+                    currentHashCode, theICMPARAMCALCONFPREVALID, (this.icmparamcalconfprevalid != null));
         }
         return currentHashCode;
     }
@@ -151,15 +155,18 @@ public class GETCONFPREVALID implements Serializable, Cloneable, CopyTo2, Equals
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETCONFPREVALID) {
             final GETCONFPREVALID copy = ((GETCONFPREVALID) draftCopy);
             {
-                Boolean icmparamcalconfprevalidShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalconfprevalid!= null));
+                Boolean icmparamcalconfprevalidShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalconfprevalid != null));
                 if (icmparamcalconfprevalidShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalconfprevalidBlock sourceICMPARAMCALCONFPREVALID;
                     sourceICMPARAMCALCONFPREVALID = this.getICMPARAMCALCONFPREVALID();
-                    IcmParamcalconfprevalidBlock copyICMPARAMCALCONFPREVALID = ((IcmParamcalconfprevalidBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalconfprevalid", sourceICMPARAMCALCONFPREVALID), sourceICMPARAMCALCONFPREVALID, (this.icmparamcalconfprevalid!= null)));
+                    IcmParamcalconfprevalidBlock copyICMPARAMCALCONFPREVALID = ((IcmParamcalconfprevalidBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparamcalconfprevalid", sourceICMPARAMCALCONFPREVALID),
+                                sourceICMPARAMCALCONFPREVALID, (this.icmparamcalconfprevalid != null)));
                     copy.setICMPARAMCALCONFPREVALID(copyICMPARAMCALCONFPREVALID);
                 } else {
                     if (icmparamcalconfprevalidShouldBeCopiedAndSet == Boolean.FALSE) {

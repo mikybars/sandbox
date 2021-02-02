@@ -10,4 +10,5 @@ public enum PtrIncluirVentaPatEnum {
     TRUE(1), FALSE(0);
 
     private Integer value;
+
 }

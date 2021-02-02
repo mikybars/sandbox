@@ -38,17 +38,17 @@ public class TareaFase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREA_FASE")
     private Long id;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
     private Tarea tarea;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_FASE", nullable = false)
     private Fase fase;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_ESTADO_TAREA_FASE", nullable = false)
@@ -63,7 +63,7 @@ public class TareaFase {
 
     @Column(name = "FECHA_HORA_FIN", nullable = true)
     private Date fechaHoraFin;
-    
+
     @NotNull
     @Column(name = "ES_ACTIVO", nullable = false)
     private Boolean activo;

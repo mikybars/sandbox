@@ -24,10 +24,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,28 +41,25 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "reqprevalidoffReturn"
+        "reqprevalidoffReturn"
 })
 @XmlRootElement(name = "REQPREVALIDOFFResponse")
-public class REQPREVALIDOFFResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class REQPREVALIDOFFResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "REQPREVALIDOFFReturn", required = true)
     protected ReqprevalidoffOutput reqprevalidoffReturn;
 
     /**
      * Obtiene el valor de la propiedad reqprevalidoffReturn.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ReqprevalidoffOutput }
-     *     
+     * @return possible object is {@link ReqprevalidoffOutput }
+     *
      */
     public ReqprevalidoffOutput getREQPREVALIDOFFReturn() {
         return reqprevalidoffReturn;
@@ -68,18 +67,16 @@ public class REQPREVALIDOFFResponse implements Serializable, Cloneable, CopyTo2,
 
     /**
      * Define el valor de la propiedad reqprevalidoffReturn.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ReqprevalidoffOutput }
-     *     
+     * @param value allowed object is {@link ReqprevalidoffOutput }
+     *
      */
     public void setREQPREVALIDOFFReturn(ReqprevalidoffOutput value) {
         this.reqprevalidoffReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,10 @@ public class REQPREVALIDOFFResponse implements Serializable, Cloneable, CopyTo2,
             lhsREQPREVALIDOFFReturn = this.getREQPREVALIDOFFReturn();
             ReqprevalidoffOutput rhsREQPREVALIDOFFReturn;
             rhsREQPREVALIDOFFReturn = that.getREQPREVALIDOFFReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "reqprevalidoffReturn", lhsREQPREVALIDOFFReturn), LocatorUtils.property(thatLocator, "reqprevalidoffReturn", rhsREQPREVALIDOFFReturn), lhsREQPREVALIDOFFReturn, rhsREQPREVALIDOFFReturn, (this.reqprevalidoffReturn!= null), (that.reqprevalidoffReturn!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "reqprevalidoffReturn", lhsREQPREVALIDOFFReturn),
+                    LocatorUtils.property(thatLocator, "reqprevalidoffReturn", rhsREQPREVALIDOFFReturn),
+                    lhsREQPREVALIDOFFReturn, rhsREQPREVALIDOFFReturn, (this.reqprevalidoffReturn != null),
+                    (that.reqprevalidoffReturn != null))) {
                 return false;
             }
         }
@@ -121,7 +121,8 @@ public class REQPREVALIDOFFResponse implements Serializable, Cloneable, CopyTo2,
         {
             ReqprevalidoffOutput theREQPREVALIDOFFReturn;
             theREQPREVALIDOFFReturn = this.getREQPREVALIDOFFReturn();
-            strategy.appendField(locator, this, "reqprevalidoffReturn", buffer, theREQPREVALIDOFFReturn, (this.reqprevalidoffReturn!= null));
+            strategy.appendField(locator, this, "reqprevalidoffReturn", buffer, theREQPREVALIDOFFReturn,
+                    (this.reqprevalidoffReturn != null));
         }
         return buffer;
     }
@@ -131,7 +132,9 @@ public class REQPREVALIDOFFResponse implements Serializable, Cloneable, CopyTo2,
         {
             ReqprevalidoffOutput theREQPREVALIDOFFReturn;
             theREQPREVALIDOFFReturn = this.getREQPREVALIDOFFReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "reqprevalidoffReturn", theREQPREVALIDOFFReturn), currentHashCode, theREQPREVALIDOFFReturn, (this.reqprevalidoffReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "reqprevalidoffReturn", theREQPREVALIDOFFReturn), currentHashCode,
+                    theREQPREVALIDOFFReturn, (this.reqprevalidoffReturn != null));
         }
         return currentHashCode;
     }
@@ -151,15 +154,18 @@ public class REQPREVALIDOFFResponse implements Serializable, Cloneable, CopyTo2,
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof REQPREVALIDOFFResponse) {
             final REQPREVALIDOFFResponse copy = ((REQPREVALIDOFFResponse) draftCopy);
             {
-                Boolean reqprevalidoffReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.reqprevalidoffReturn!= null));
+                Boolean reqprevalidoffReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.reqprevalidoffReturn != null));
                 if (reqprevalidoffReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     ReqprevalidoffOutput sourceREQPREVALIDOFFReturn;
                     sourceREQPREVALIDOFFReturn = this.getREQPREVALIDOFFReturn();
-                    ReqprevalidoffOutput copyREQPREVALIDOFFReturn = ((ReqprevalidoffOutput) strategy.copy(LocatorUtils.property(locator, "reqprevalidoffReturn", sourceREQPREVALIDOFFReturn), sourceREQPREVALIDOFFReturn, (this.reqprevalidoffReturn!= null)));
+                    ReqprevalidoffOutput copyREQPREVALIDOFFReturn = ((ReqprevalidoffOutput) strategy.copy(
+                            LocatorUtils.property(locator, "reqprevalidoffReturn", sourceREQPREVALIDOFFReturn),
+                            sourceREQPREVALIDOFFReturn, (this.reqprevalidoffReturn != null)));
                     copy.setREQPREVALIDOFFReturn(copyREQPREVALIDOFFReturn);
                 } else {
                     if (reqprevalidoffReturnShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -20,7 +20,7 @@ public class TareaAmbitoGlobalEmpresaDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Tarea", required = true)
     private Long idTarea;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Identificador del origen", required = true)
     private String cclIdOrigen;

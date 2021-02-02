@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
@@ -18,7 +18,7 @@ import lombok.Data;
 @Embeddable
 @Data
 public class FaseAccionPk implements Serializable {
-    
+
     @OneToOne
     @JoinColumn(name = "ID_FASE", nullable = false)
     private Fase fase;
@@ -26,5 +26,5 @@ public class FaseAccionPk implements Serializable {
     @OneToOne
     @JoinColumn(name = "ID_ACCION", nullable = false)
     private Accion accion;
-    
+
 }
