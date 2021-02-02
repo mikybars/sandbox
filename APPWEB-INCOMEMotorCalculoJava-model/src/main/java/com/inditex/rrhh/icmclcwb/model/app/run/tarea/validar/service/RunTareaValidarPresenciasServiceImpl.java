@@ -7,31 +7,31 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarPresenciasService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaValidarPresenciasService;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 
 /**
  * @author mdelrio
  *
  */
-@Service
+@Component("presenciasV1")
 @Validated
-public class RunTareaValidarPresenciasServiceImpl implements RunTareaValidarPresenciasService {
+public class RunTareaValidarPresenciasServiceImpl implements RunPrevalidar {
 
     @Autowired
     private RunTareaAmbitoValidarPresenciasService runTareaAmbitoValidarPresenciasService;
 
     @Override
-    public void validarPresencias(@NotNull @Valid final RunTareaDto runTarea) {
+    public void execute(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
             .forEach(item -> this.runTareaAmbitoValidarPresenciasService
-                .validarPresenciasAmbito(runTarea, item));
+                .execute(runTarea, item));
     }
 
 }

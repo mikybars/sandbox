@@ -19,6 +19,6 @@ public interface RunTareaAmbitoValidarFechasService {
      * @param tareaAmbito
      * @return
      */
-    Boolean validarFechasAmbito(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
+    Boolean execute(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
 
 }

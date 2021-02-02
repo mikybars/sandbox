@@ -6,10 +6,15 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFaseAccion;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper
 public abstract class TareaFaseAccionMapper {
 
+    @Mapping(target = "idAccion", source = "accion.id")
+    @Mapping(target = "idTareaFase", source = "tareaFase.id")
+    @Mapping(target = "idPuntoEjecucion", source = "puntoEjecucion.id")
+    @Mapping(target = "idEstadoTareaFaseAccion", source = "estadoTareaFaseAccion.id")
     public abstract TareaFaseAccionDto tareaFaseAccionToTareaFaseAccionDto(
             TareaFaseAccion src);
 

@@ -19,6 +19,6 @@ public interface RunTareaAmbitoValidarPresenciasService {
      * @param tareaAmbito
      * @return
      */
-    Boolean validarPresenciasAmbito(@Valid RunTareaDto runTarea, @Valid TareaAmbitoDto tareaAmbito);
+    Boolean execute(@Valid RunTareaDto runTarea, @Valid TareaAmbitoDto tareaAmbito);
 
 }

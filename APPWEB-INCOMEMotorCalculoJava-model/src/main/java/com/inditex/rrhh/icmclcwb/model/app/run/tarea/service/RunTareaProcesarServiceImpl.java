@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarCondicionesAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarPresenciaAsyncService;
@@ -42,6 +43,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
     private TareaFaseService tareaFaseService;
 
     @Auditoria
+    @Validation
     @TimerFunctionalMetric(metricName = "RunTareaProcesarService.run.timer",
             metricGroupName = "RunTareaProcesarServiceGroup", metricDescription = "RunTareaProcesarService.run.timer")
     @CounterFunctionalMetric(metricName = "RunTareaProcesarService.run.counter",

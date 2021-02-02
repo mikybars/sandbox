@@ -35,4 +35,13 @@ public interface TareaFaseAccionService {
      */
     void create(@Valid @NotNull TareaDto tareaDto);
 
+    /**
+     * @param idTarea
+     * @param idFase
+     * @param idPuntoEjecucion
+     * @return
+     */
+    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(@NotNull Long idTarea,
+            @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion);
+
 }

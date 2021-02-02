@@ -36,7 +36,7 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
     private PtrAsyncService ptrAsyncService;
 
     @Override
-    public Boolean validarPresenciasAmbito(@Valid final RunTareaDto runTareaDto,
+    public Boolean execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
         Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();

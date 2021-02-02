@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.regularizar.async.service.RunTareaRegularizarCalculoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
@@ -34,6 +35,7 @@ public class RunTareaRegularizarServiceImpl implements RunTareaRegularizarServic
     private TareaFaseService tareaFaseService;
 
     @Auditoria
+    @Validation
     @TimerFunctionalMetric(metricName = "RunTareaRegularizarService.run.timer",
             metricGroupName = "RunTareaRegularizarServiceGroup",
             metricDescription = "RunTareaRegularizarService.run.timer")

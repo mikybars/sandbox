@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
@@ -36,6 +37,7 @@ public class RunTareaRegularizarChallengeServiceImpl implements RunTareaRegulari
     private TareaFaseService tareaFaseService;
 
     @Auditoria
+    @Validation
     @TimerFunctionalMetric(metricName = "RunTareaRegularizarChallengeService.run.timer",
             metricGroupName = "RunTareaRegularizarChallengeServiceGroup",
             metricDescription = "RunTareaRegularizarChallengeService.run.timer")

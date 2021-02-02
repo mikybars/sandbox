@@ -8,6 +8,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 /**
  * @author mdelrio
@@ -128,26 +129,29 @@ public interface PrimaryTemporaryTableRepositoryCustom {
     /**
      * @return
      */
-    List<IdPersonaLocalCondicionesDto> validateTempComisHistorico();
-
-    /**
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> validateTempComisDesplazamiento();
-
-    /**
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> validateTempComisResalta();
-
-    /**
-     * @return
-     */
     List<IdPersonaLocalCondicionesDto> validateTempComisBajaIt();
 
     /**
      * @return
      */
     List<IdPersonaLocalCarenciaDto> validateTempComisCarencia();
+
+    /**
+     * @param tarea
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> validateTempComisHistorico(TareaDto tarea);
+
+    /**
+     * @param tarea
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> validateTempComisDesplazamiento(TareaDto tarea);
+
+    /**
+     * @param tarea
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> validateTempComisResalta(TareaDto tarea);
 
 }

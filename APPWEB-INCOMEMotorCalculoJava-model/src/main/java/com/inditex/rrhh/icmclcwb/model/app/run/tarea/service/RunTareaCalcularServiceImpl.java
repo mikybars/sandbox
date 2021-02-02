@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -38,6 +39,7 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
     private TareaFaseService tareaFaseService;
 
     @Auditoria
+    @Validation
     @TimerFunctionalMetric(metricName = "RunTareaCalcularService.run.timer",
             metricGroupName = "RunTareaCalcularServiceGroup", metricDescription = "RunTareaCalcularService.run.timer")
     @CounterFunctionalMetric(metricName = "RunTareaCalcularService.run.counter",

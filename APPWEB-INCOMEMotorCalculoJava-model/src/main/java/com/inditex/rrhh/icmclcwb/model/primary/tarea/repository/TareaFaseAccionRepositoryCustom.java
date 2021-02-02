@@ -5,6 +5,11 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFaseAccion;
 
 /**
@@ -18,5 +23,14 @@ public interface TareaFaseAccionRepositoryCustom {
      * @return
      */
     List<TareaFaseAccion> save(List<TareaFaseAccion> src);
+
+    /**
+     * @param idTarea
+     * @param idFase
+     * @param idPuntoEjecucion
+     * @return
+     */
+    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
+            @NotNull @Positive Long idTarea, @NotBlank Integer idFase, @NotNull Integer idPuntoEjecucion);
 
 }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
@@ -230,8 +231,8 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalCondicionesDto> validateTempComisHistorico() {
-        return this.jdbcTemplate.query(this.sqlValidateTempComisHistorico,
+    public List<IdPersonaLocalCondicionesDto> validateTempComisHistorico(final TareaDto tarea) {
+        return this.jdbcTemplate.query(this.sqlValidateTempComisHistorico, new Object[] { tarea.getId() },
                 new RowMapper<IdPersonaLocalCondicionesDto>() {
 
                     @Override
@@ -241,19 +242,19 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         idPersonaLocalCondicionesDto
                             .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
                         idPersonaLocalCondicionesDto
-                            .setFechaDesde((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE)).toLocalDate());
+                            .setFechaDesde((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO)).toLocalDate());
                         idPersonaLocalCondicionesDto
-                            .setFechaHasta((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA)).toLocalDate());
-                        idPersonaLocalCondicionesDto
-                            .setCclIdCodOrigen((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)));
+                            .setFechaHasta((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_FIN)).toLocalDate());
+                        // idPersonaLocalCondicionesDto
+                        // .setCclIdCodOrigen((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)));
                         idPersonaLocalCondicionesDto
                             .setIdTipoCalculo((rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO)));
-                        idPersonaLocalCondicionesDto
-                            .setPorcentaje((rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE)));
-                        idPersonaLocalCondicionesDto
-                            .setBanda((rs.getString(SqlComisConstants.SQL_RESULT_BANDA)));
-                        idPersonaLocalCondicionesDto
-                            .setImporte((rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)));
+                        // idPersonaLocalCondicionesDto
+                        // .setPorcentaje((rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE)));
+                        // idPersonaLocalCondicionesDto
+                        // .setBanda((rs.getString(SqlComisConstants.SQL_RESULT_BANDA)));
+                        // idPersonaLocalCondicionesDto
+                        // .setImporte((rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)));
                         return idPersonaLocalCondicionesDto;
                     }
                 });
@@ -298,8 +299,8 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalCondicionesDto> validateTempComisDesplazamiento() {
-        return this.jdbcTemplate.query(this.sqlValidateTempComisDesplazamiento,
+    public List<IdPersonaLocalCondicionesDto> validateTempComisDesplazamiento(final TareaDto tarea) {
+        return this.jdbcTemplate.query(this.sqlValidateTempComisDesplazamiento, new Object[] { tarea.getId() },
                 new RowMapper<IdPersonaLocalCondicionesDto>() {
 
                     @Override
@@ -363,8 +364,8 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalCondicionesDto> validateTempComisResalta() {
-        return this.jdbcTemplate.query(this.sqlValidateTempComisResalta,
+    public List<IdPersonaLocalCondicionesDto> validateTempComisResalta(final TareaDto tarea) {
+        return this.jdbcTemplate.query(this.sqlValidateTempComisResalta, new Object[] { tarea.getId() },
                 new RowMapper<IdPersonaLocalCondicionesDto>() {
 
                     @Override
@@ -481,9 +482,9 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         final IdPersonaLocalCarenciaDto idPersonaLocalCarenciaDto = new IdPersonaLocalCarenciaDto();
                         idPersonaLocalCarenciaDto
                             .setIdPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON));
-                        idPersonaLocalCarenciaDto
-                            .setFechaInicioCalculo(
-                                    (rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO_CALCULO)).toLocalDate());
+                        // idPersonaLocalCarenciaDto
+                        // .setFechaInicioCalculo(
+                        // (rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO_CALCULO)).toLocalDate());
                         return idPersonaLocalCarenciaDto;
                     }
                 });

@@ -32,7 +32,7 @@ public class RunTareaAmbitoValidarFechasServiceImpl implements RunTareaAmbitoVal
     private ComisAsyncService comisAsyncService;
 
     @Override
-    public Boolean validarFechasAmbito(@Valid final RunTareaDto runTareaDto,
+    public Boolean execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
         Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
@@ -72,6 +73,7 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
     private TareaFaseService tareaFaseService;
 
     @Auditoria
+    @Validation
     @TimerFunctionalMetric(metricName = "RunTareaRecolectarValidarService.run.timer",
             metricGroupName = "RunTareaRecolectarValidarServiceeGroup",
             metricDescription = "RunTareaRecolectarValidarService.run.timer")

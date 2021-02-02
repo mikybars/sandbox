@@ -249,6 +249,9 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_FASE = "idFase";
 
+    public static final String SQL_PARAM_ID_PUNTO_EJECUCION = "idPuntoEjecucion";
+
+
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
     public static final String SQL_PARAM_NUEVO_ID_TIPO_DATO = "nuevoIdTipoDato";
@@ -381,5 +384,15 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_ID_ACCION = "ID_ACCION";
 
     public static final String SQL_RESULT_ID_PUNTO_EJECUCION = "ID_PUNTO_EJECUCION";
+
+    public static final String SQL_RESULT_ID_TAREA_FASE_ACCION = "ID_TAREA_FASE_ACCION";
+
+    public static final String SQL_RESULT_ID_ESTADO_TAREA_FASE_ACCION = "ID_ESTADO_TAREA_FASE_ACCION";
+
+    public static final String SQL_RESULT_FECHA_HORA_INICIO = "FECHA_HORA_INICIO";
+
+    public static final String SQL_RESULT_FECHA_HORA_FIN = "FECHA_HORA_FIN";
+
+    public static final String SQL_RESULT_FECHA_HORA_CREACION = "FECHA_HORA_CREACION";
 
 }

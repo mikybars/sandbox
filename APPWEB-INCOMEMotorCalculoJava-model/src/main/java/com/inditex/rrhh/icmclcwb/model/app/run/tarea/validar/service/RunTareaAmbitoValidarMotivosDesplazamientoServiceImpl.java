@@ -26,8 +26,8 @@ import org.slf4j.Logger;
  * @author mdelrio
  *
  */
-@Service
 @Validated
+@Service
 public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl
         implements RunTareaAmbitoValidarMotivosDesplazamientoService {
 
@@ -41,7 +41,7 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl
     private Logger log;
 
     @Override
-    public Boolean validarMotivosDesplazamiento(@Valid final RunTareaDto runTareaDto,
+    public Boolean execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
         final Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();

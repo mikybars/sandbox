@@ -111,6 +111,10 @@ public class ComisRepositoryCustomImpl
     @Override
     public List<IdPersonaLocalCondicionesDto> findCondicionesHistorico(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
+                TimeUtils.toDate(tarea.getFechaFinPeriodo()));
 
         return this.query(this.sqlFindCondicionesHistorico, map,
                 (rs, rowNum) -> IdPersonaLocalCondicionesDto
@@ -129,6 +133,10 @@ public class ComisRepositoryCustomImpl
     @Override
     public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamiento(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
+                TimeUtils.toDate(tarea.getFechaFinPeriodo()));
 
         return this.query(this.sqlFindCondicionesDesplazamiento, map,
                 (rs, rowNum) -> IdPersonaLocalCondicionesDto
@@ -149,6 +157,10 @@ public class ComisRepositoryCustomImpl
     @Override
     public List<IdPersonaLocalCondicionesDto> findCondicionesResalta(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
+                TimeUtils.toDate(tarea.getFechaFinPeriodo()));
 
         return this.query(this.sqlFindCondicionesResalta, map,
                 (rs, rowNum) -> IdPersonaLocalCondicionesDto
@@ -166,6 +178,10 @@ public class ComisRepositoryCustomImpl
     @Override
     public List<IdPersonaLocalCondicionesDto> findBajasIt(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
+                TimeUtils.toDate(tarea.getFechaFinPeriodo()));
 
         return this.query(this.sqlFindBajasIt, map,
                 (rs, rowNum) -> IdPersonaLocalCondicionesDto

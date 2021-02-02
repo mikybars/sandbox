@@ -12,6 +12,12 @@ public class SqlComisConstants {
 
     public static final String SQL_PARAM_ID_ORGANIZATION = "idOrganization";
 
+    public static final String SQL_PARAM_FECHA_DESDE = "fechaDesde";
+
+    public static final String SQL_PARAM_FECHA_HASTA = "fechaHasta";
+
+    public static final String SQL_PARAM_ID_TAREA = "idTarea";
+
     // RESULTADOS DE CONSULTAS
 
     public static final String SQL_RESULT_HORAS_SECCION_1 = "HORAS_SECCION_1";

@@ -16,9 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.PuntoEjecucionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
@@ -76,15 +74,22 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
                 .findByIdFase(x.getIdFase());
             return faseAccion.stream().map(y -> {
                 return TareaFaseAccionDto.builder()
-                    .accion(AccionDto.builder().id(y.getIdAccion()).build())
+                    .idAccion(y.getIdAccion())
                     .activo(Boolean.TRUE)
-                    .estadoTareaFaseAccion(EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto())
+                    .idEstadoTareaFaseAccion(EstadoTareaFaseAccionEnum.NO_EJECUTADA.getId())
                     .fechaHoraCreacion(LocalDateTime.now())
-                    .puntoEjecucion(PuntoEjecucionDto.builder().id(y.getIdPuntoEjecucion()).build())
-                    .tareaFase(x)
+                    .idPuntoEjecucion(y.getIdPuntoEjecucion())
+                    .idTareaFase(x.getId())
                     .build();
             }).collect(Collectors.toList());
         }).flatMap(List::stream).collect(Collectors.toList()));
+    }
+
+    @Override
+    public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
+            @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idPuntoEjecucion) {
+        return this.tareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(idTarea,
+                idFase, idPuntoEjecucion);
     }
 
 }

@@ -11,8 +11,10 @@ import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author mdelrio
@@ -21,6 +23,8 @@ import lombok.Data;
 @ApiModel(description = "Modelo TareaFaseDto")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TareaFaseAccionDto implements Serializable {
 
     @ApiModelProperty(value = "Identificador de tarea fase accion", required = false, accessMode = AccessMode.READ_ONLY,
@@ -29,19 +33,19 @@ public class TareaFaseAccionDto implements Serializable {
     
     @ApiModelProperty(value = "Identificador de tarea fase", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
-    private TareaFaseDto tareaFase;
+    private Long idTareaFase;
     
     @ApiModelProperty(value = "Identificador de accion", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
-    private AccionDto accion;
+    private Integer idAccion;
     
     @ApiModelProperty(value = "Identificador de punto de ejecucion", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
-    private PuntoEjecucionDto puntoEjecucion;
+    private Integer idPuntoEjecucion;
     
     @ApiModelProperty(value = "Identificador de estado tarea fase", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)
-    private EstadoTareaFaseAccionDto estadoTareaFaseAccion;
+    private Integer idEstadoTareaFaseAccion;
         
     @ApiModelProperty(value = "Fecha en la que se creo el tarea fase", required = false, accessMode = AccessMode.READ_ONLY,
             hidden = true)

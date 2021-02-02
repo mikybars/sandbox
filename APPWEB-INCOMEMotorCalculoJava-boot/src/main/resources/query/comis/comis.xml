@@ -124,8 +124,8 @@
   <entry key="ComisRepositoryCustom.findCondicionesHistorico">
     <![CDATA[
       SELECT PH.PERSONA AS CCL_ID_PERSON, 
-      PH.FECHADESDE, 
-      PH.FECHAHASTA, 
+      PH.FECHADESDE AS FECHA_DESDE, 
+      PH.FECHAHASTA AS FECHA_HASTA, 
       PH.TIENDA AS CCL_ID_COD_ORIGEN, 
       PH.TIPOCALCULO AS ID_TIPO_CALCULO, 
       TPC.PORCENTAJE, 
@@ -155,8 +155,8 @@
   <entry key="ComisRepositoryCustom.findCondicionesDesplazamiento">
     <![CDATA[
       SELECT PCT.PERSONA AS CCL_ID_PERSON, 
-      PCT.FECHADESDE, 
-      PCT.FECHAHASTA, 
+      PCT.FECHADESDE AS FECHA_DESDE, 
+      PCT.FECHAHASTA AS FECHA_HASTA, 
       PCT.TIENDAORIGEN AS CCL_ID_COD_ORIGEN, 
       PCT.TIENDADESTINO AS CCL_ID_COD_ORIGEN_DESTINO, 
       PCT.TIPOCALCULO AS ID_TIPO_CALCULO, 
@@ -189,8 +189,8 @@
   <entry key="ComisRepositoryCustom.findCondicionesResalta">
     <![CDATA[  
       SELECT PH.PERSONA AS CCL_ID_PERSON, 
-      PH.FECHADESDE, 
-      PH.FECHAHASTA, 
+      PH.FECHADESDE AS FECHA_DESDE, 
+      PH.FECHAHASTA AS FECHA_HASTA, 
       PH.TIPOCALCULO AS ID_TIPO_CALCULO, 
       TPC.PORCENTAJE, 
       TPP.BANDA,
@@ -217,8 +217,8 @@
   <entry key="ComisRepositoryCustom.findBajasIt">
     <![CDATA[  
       SELECT
-      FECHAINICIO, 
-      FECHAFIN,
+      FECHAINICIO AS FECHA_DESDE, 
+      FECHAFIN AS FECHA_HASTA,
       PERSONA AS CCL_ID_PERSON,
       CODIGOINCIDENCIA - 7000 AS PORCENTAJE
      FROM INCIDENCIASSIL 

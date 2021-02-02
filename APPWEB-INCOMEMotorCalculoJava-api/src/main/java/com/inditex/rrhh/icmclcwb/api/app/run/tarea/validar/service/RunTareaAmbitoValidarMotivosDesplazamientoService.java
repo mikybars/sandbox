@@ -19,6 +19,6 @@ public interface RunTareaAmbitoValidarMotivosDesplazamientoService {
      * @param tareaAmbito
      * @return
      */
-    Boolean validarMotivosDesplazamiento(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
+    Boolean execute(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
 
 }
