@@ -40,19 +40,23 @@ public class TareaFaseAccionRepositoryCustomImpl
     @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion']}")
     private String sqlFindTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion;
 
+    @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion']}")
+    private String sqlFindValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion;
+
     @Override
     public List<TareaFaseAccion> save(final List<TareaFaseAccion> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
     }
 
     @Override
-    public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
+    public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
             @NotNull @Positive final Long idTarea, @NotBlank final Integer idFase,
-            @NotNull final Integer idPuntoEjecucion) {
+            @NotNull final Integer idPuntoEjecucion, @NotNull final Long peso) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_FASE, idFase);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PUNTO_EJECUCION, idPuntoEjecucion);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PESO, peso);
 
         return this.query(
                 this.sqlFindTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion,
@@ -74,6 +78,25 @@ public class TareaFaseAccionRepositoryCustomImpl
                             .toLocalDateTime(
                                     rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_HORA_CREACION).toLocalDate()));
                         return dto;
+                    }
+                });
+    }
+
+    @Override
+    public List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(
+            @NotNull @Positive final Long idTarea, @NotBlank final Integer idFase,
+            @NotNull final Integer idPuntoEjecucion) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_FASE, idFase);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PUNTO_EJECUCION, idPuntoEjecucion);
+
+        return this.query(
+                this.sqlFindValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion,
+                parameters, new RowMapper<Long>() {
+                    @Override
+                    public Long mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+                        return (rs.getLong(SqlPrimaryConstants.SQL_RESULT_PESO));
                     }
                 });
     }

@@ -24,13 +24,25 @@ public interface TareaFaseAccionRepositoryCustom {
      */
     List<TareaFaseAccion> save(List<TareaFaseAccion> src);
 
+
+    /**
+     * @param idTarea
+     * @param idFase
+     * @param idPuntoEjecucion
+     * @param peso
+     * @return
+     */
+    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
+            @NotNull @Positive Long idTarea, @NotBlank Integer idFase, @NotNull Integer idPuntoEjecucion,
+            @NotNull Long peso);
+
     /**
      * @param idTarea
      * @param idFase
      * @param idPuntoEjecucion
      * @return
      */
-    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
-            @NotNull @Positive Long idTarea, @NotBlank Integer idFase, @NotNull Integer idPuntoEjecucion);
+    List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(@NotNull @Positive Long idTarea,
+            @NotBlank Integer idFase, @NotNull Integer idPuntoEjecucion);
 
 }

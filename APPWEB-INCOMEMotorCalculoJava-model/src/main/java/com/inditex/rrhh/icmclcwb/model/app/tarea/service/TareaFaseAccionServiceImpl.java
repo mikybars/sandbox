@@ -86,9 +86,18 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     }
 
     @Override
-    public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
+    public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
+            @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idPuntoEjecucion,
+            @NotNull final Long peso) {
+        return this.tareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
+                idTarea,
+                idFase, idPuntoEjecucion, peso);
+    }
+
+    @Override
+    public List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(
             @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idPuntoEjecucion) {
-        return this.tareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(idTarea,
+        return this.tareaFaseAccionRepositoryCustom.findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(idTarea,
                 idFase, idPuntoEjecucion);
     }
 

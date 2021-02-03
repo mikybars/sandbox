@@ -41,7 +41,17 @@ public interface TareaFaseAccionService {
      * @param idPuntoEjecucion
      * @return
      */
-    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(@NotNull Long idTarea,
-            @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion);
+    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(@NotNull Long idTarea,
+            @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion,
+            @NotNull Long peso);
+
+    /**
+     * @param idTarea
+     * @param idFase
+     * @param idPuntoEjecucion
+     * @return
+     */
+    List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(@NotNull Long idTarea, @NotNull Integer idFase,
+            @NotNull Integer idPuntoEjecucion);
 
 }
