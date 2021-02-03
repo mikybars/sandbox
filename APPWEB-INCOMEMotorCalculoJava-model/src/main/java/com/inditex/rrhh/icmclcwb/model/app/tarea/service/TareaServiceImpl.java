@@ -27,7 +27,7 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
-import com.inditex.rrhh.icmclcwb.ms.app.tareaprevalidar.SenderTareaPreValidar;
+import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 
 @Service
 @Validated
@@ -52,7 +52,7 @@ public class TareaServiceImpl implements TareaService {
     private TareaAmbitoPersonaService tareaAmbitoPersonaService;
 
     @Autowired
-    private SenderTareaPreValidar senderTareaPreValidar;
+    private SenderTarea senderTarea;
 
     @Override
     public TareaDto save(@Valid @NotNull final TareaDto tarea) {
@@ -83,7 +83,7 @@ public class TareaServiceImpl implements TareaService {
         if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
             result.setPersona(this.tareaAmbitoPersonaService.create(tarea.getPersona(), result));
         }
-        this.senderTareaPreValidar.send(result);
+        this.senderTarea.send(result);
         return null;
     }
 

@@ -13,6 +13,4 @@ public interface RunService {
 
     void runProgramacion(@NotNull @Positive final Long id);
 
-    void runTareaPreValidar(@NotNull @Positive final Long id);
-
 }
