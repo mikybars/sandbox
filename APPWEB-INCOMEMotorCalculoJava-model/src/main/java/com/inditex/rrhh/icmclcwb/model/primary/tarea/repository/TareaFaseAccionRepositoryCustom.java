@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFaseAccion;
 
@@ -44,5 +45,19 @@ public interface TareaFaseAccionRepositoryCustom {
      */
     List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(@NotNull @Positive Long idTarea,
             @NotBlank Integer idFase, @NotNull Integer idPuntoEjecucion);
+
+
+    /**
+     * @param tareaFaseAccionDto
+     */
+    void updateFechaInicio(@NotNull TareaFaseAccionDto tareaFaseAccionDto);
+
+
+    /**
+     * @param tareaFaseAccionDto
+     * @param estadoTareaFaseAccionDto
+     */
+    void updateFechaFinAndEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
+            @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
 }

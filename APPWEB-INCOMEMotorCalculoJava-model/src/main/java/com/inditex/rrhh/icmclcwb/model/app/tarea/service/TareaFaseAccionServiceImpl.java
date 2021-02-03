@@ -13,9 +13,12 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
@@ -99,6 +102,20 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
             @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idPuntoEjecucion) {
         return this.tareaFaseAccionRepositoryCustom.findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(idTarea,
                 idFase, idPuntoEjecucion);
+    }
+
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void updateFechaInicio(@Valid @NotNull final TareaFaseAccionDto tareaFaseAccionDto) {
+        this.tareaFaseAccionRepositoryCustom.updateFechaInicio(tareaFaseAccionDto);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void updateFechaFinAndEstado(@Valid @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
+            @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
+        this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstado(tareaFaseAccionDto, estadoTareaFaseAccionDto);
     }
 
 }

@@ -18,7 +18,10 @@ import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesResaltaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
@@ -38,14 +41,19 @@ public class RunTareaAmbitoValidarCondicionesResaltaServiceImpl
     private PtrAsyncService ptrAsyncService;
 
     @Autowired
+    private TareaFaseAccionService tareaFaseAccionService;
+
+    @Autowired
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Override
     public Boolean execute(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
+            @Valid final TareaAmbitoDto tareaAmbito,
+            @Valid final TareaFaseAccionDto tareaFaseAccion) {
         final Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
+            this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
 
             final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesResalta = this.comisAsyncService
                 .findCondicionesResalta(runTareaDto, tareaAmbito);
@@ -62,6 +70,9 @@ public class RunTareaAmbitoValidarCondicionesResaltaServiceImpl
                 .validateTempComisResalta(runTareaDto.getTarea());
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisResalta();
+
+            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

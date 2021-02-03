@@ -6347,4 +6347,18 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
     ORDER BY FA.PESO
 ]]>
 </entry>
+
+<entry key="TareaFaseAccionRepositoryCustom.updateFechaInicio">
+    <![CDATA[
+    UPDATE TAREA_FASE_ACCION SET FECHA_HORA_INICIO = :nuevaFecha WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion
+    ]]>
+</entry>
+
+<entry key="TareaFaseAccionRepositoryCustom.updateFechaFinAndEstado">
+    <![CDATA[
+    UPDATE TAREA_FASE_ACCION SET FECHA_HORA_FIN = :nuevaFecha, ID_ESTADO_TAREA_FASE_ACCION = :nuevoIdEstado WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion
+    ]]>
+</entry>
+
+
 </properties>

@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
@@ -42,6 +43,12 @@ public class TareaFaseAccionRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion']}")
     private String sqlFindValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion;
+
+    @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.updateFechaInicio']}")
+    private String sqlUpdateFechaInicio;
+
+    @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.updateFechaFinAndEstado']}")
+    private String sqlUpdateFechaFinAndEstado;
 
     @Override
     public List<TareaFaseAccion> save(final List<TareaFaseAccion> src) {
@@ -99,6 +106,25 @@ public class TareaFaseAccionRepositoryCustomImpl
                         return (rs.getLong(SqlPrimaryConstants.SQL_RESULT_PESO));
                     }
                 });
+    }
+
+
+    @Override
+    public void updateFechaInicio(@NotNull final TareaFaseAccionDto tareaFaseAccionDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE_ACCION, tareaFaseAccionDto.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
+        this.update(this.sqlUpdateFechaInicio, params);
+    }
+
+    @Override
+    public void updateFechaFinAndEstado(@NotNull final TareaFaseAccionDto tareaFaseAccionDto,
+            @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE_ACCION, tareaFaseAccionDto.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estadoTareaFaseAccionDto.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
+        this.update(this.sqlUpdateFechaFinAndEstado, params);
     }
 
 }

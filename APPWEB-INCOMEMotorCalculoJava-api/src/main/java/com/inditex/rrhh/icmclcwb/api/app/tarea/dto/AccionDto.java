@@ -5,8 +5,6 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotBlank;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
@@ -28,8 +26,23 @@ public class AccionDto implements Serializable {
             hidden = true)
     private Integer id;
 
-    @NotBlank
-    @ApiModelProperty(value = "Nombre", required = true)
+    @ApiModelProperty(value = "Nombre de la accion", required = true, example = "motivosDesplazamientoV1")
     private String nombre;
+
+    @ApiModelProperty(value = "Peso", required = false, accessMode = AccessMode.READ_ONLY,
+            hidden = true)
+    private Integer peso;
+
+    @ApiModelProperty(value = "Flag que indica si hay que usar delay", required = true)
+    private Boolean esReaccionEsperar;
+
+    @ApiModelProperty(value = "Flag que indica si hay que reintentar", required = true)
+    private Boolean esReaccionReintento;
+
+    @ApiModelProperty(value = "Numero maximo de reintentos", required = true)
+    private Integer reintentoMax;
+
+    @ApiModelProperty(value = "Delay en los reintentos", required = true)
+    private Integer reintentoDelay;
 
 }

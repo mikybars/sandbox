@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 
 /**
  * @author mdelrio
@@ -19,6 +20,7 @@ public interface RunTareaAmbitoValidarMotivosDesplazamientoService {
      * @param tareaAmbito
      * @return
      */
-    Boolean execute(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
+    Boolean execute(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito,
+            @Valid final TareaFaseAccionDto tareaFaseAccion);
 
 }

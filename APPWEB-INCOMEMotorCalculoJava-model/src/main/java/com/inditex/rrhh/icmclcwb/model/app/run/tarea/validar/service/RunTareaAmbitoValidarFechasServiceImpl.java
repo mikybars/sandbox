@@ -17,7 +17,10 @@ import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarFechasService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 /**
@@ -31,12 +34,18 @@ public class RunTareaAmbitoValidarFechasServiceImpl implements RunTareaAmbitoVal
     @Autowired
     private ComisAsyncService comisAsyncService;
 
+    @Autowired
+    private TareaFaseAccionService tareaFaseAccionService;
+
     @Override
     public Boolean execute(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
+            @Valid final TareaAmbitoDto tareaAmbito,
+            @Valid final TareaFaseAccionDto tareaFaseAccion) {
         Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
+            this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
+
             final CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> cfIncidencias = this.comisAsyncService
                 .findFechasIncidencias(runTareaDto, tareaAmbito);
             AsyncUtils.exceptionally(cfIncidencias, cf);
@@ -49,6 +58,9 @@ public class RunTareaAmbitoValidarFechasServiceImpl implements RunTareaAmbitoVal
 
             final List<IdPersonaLocalFechaIncidenciaDto> presenciaComis = AsyncUtils.get(cfIncidencias);
             validacion = presenciaComis.isEmpty();
+
+            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;

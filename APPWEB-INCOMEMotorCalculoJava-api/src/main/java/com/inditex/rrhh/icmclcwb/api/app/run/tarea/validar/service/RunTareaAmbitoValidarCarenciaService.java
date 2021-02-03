@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 
 /**
  * @author mdelrio
@@ -19,6 +20,7 @@ public interface RunTareaAmbitoValidarCarenciaService {
      * @param tareaAmbito
      * @return
      */
-    Boolean execute(@Valid RunTareaDto runTarea, @Valid TareaAmbitoDto tareaAmbito);
+    Boolean execute(@Valid RunTareaDto runTarea, @Valid TareaAmbitoDto tareaAmbito,
+            @Valid final TareaFaseAccionDto tareaFaseAccion);
 
 }

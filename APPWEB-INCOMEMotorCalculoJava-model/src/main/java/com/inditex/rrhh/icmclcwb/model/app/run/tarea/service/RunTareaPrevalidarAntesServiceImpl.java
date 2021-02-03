@@ -58,7 +58,7 @@ public class RunTareaPrevalidarAntesServiceImpl implements RunTareaPrevalidarAnt
                             this.runPrevalidarFactory
                                 .getRunPrevalidar(
                                         this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion()).getNombre())
-                                .execute(runTareaDto);
+                                .execute(runTareaDto, tareaFaseAccion);
                             return Flux.empty();
                         })
                         .sequential()

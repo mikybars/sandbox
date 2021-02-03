@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesDesplazamientoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 
 /**
@@ -26,12 +27,13 @@ public class RunTareaValidarCondicionesDesplazamientoServiceImpl implements RunP
     private RunTareaAmbitoValidarCondicionesDesplazamientoService runTareaAmbitoValidarCondicionesDesplazamientoService;
 
     @Override
-    public void execute(@NotNull @Valid final RunTareaDto runTarea) {
+    public void execute(@NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
             .forEach(item -> this.runTareaAmbitoValidarCondicionesDesplazamientoService
-                .execute(runTarea, item));
+                .execute(runTarea, item, tareaFaseAccion));
     }
 
 }

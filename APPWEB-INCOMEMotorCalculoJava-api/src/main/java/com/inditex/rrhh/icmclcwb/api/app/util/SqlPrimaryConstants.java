@@ -247,6 +247,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TAREA_FASE = "idTareaFase";
 
+    public static final String SQL_PARAM_ID_TAREA_FASE_ACCION = "idTareaFaseAccion";
+
     public static final String SQL_PARAM_ID_FASE = "idFase";
 
     public static final String SQL_PARAM_ID_PUNTO_EJECUCION = "idPuntoEjecucion";
