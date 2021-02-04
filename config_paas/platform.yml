@@ -1,7 +1,7 @@
 app:
   limits:
     cpu: 2
-    memory: 4096Mi
+    memory: 6144Mi
   context_path_builder:
     enabled: true
   readiness_probe:
