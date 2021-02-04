@@ -12,21 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TareaLocalizacionPresenciaDecorator
-    extends TareaLocalizacionPresenciaMapper {
+        extends TareaLocalizacionPresenciaMapper {
 
     @Autowired
     private TareaLocalizacionPresenciaMapper delegate;
 
     @Override
     public List<TareaLocalizacionPresencia> presenciaManualLocalizacionResultItemDtoToTareaLocalizacionPresencia(
-        final List<PresenciaManualWlocResultItemDto> src, final TareaDto tareaDto) {
+            final List<PresenciaManualWlocResultItemDto> src, final TareaDto tareaDto) {
         final List<TareaLocalizacionPresencia> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(item -> {
                 if (AppConstants.getSECCIONES_STRING().contains(item.getIdSeccion())) {
                     result.add(
-                        this.delegate.presenciaManualLocalizacionResultItemDtoToTareaLocalizacionPresencia(item,
-                            tareaDto));
+                            this.delegate.presenciaManualLocalizacionResultItemDtoToTareaLocalizacionPresencia(item,
+                                    tareaDto));
                 }
             });
         }

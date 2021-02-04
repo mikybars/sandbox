@@ -22,7 +22,7 @@ public class AsyncUtils {
     }
 
     public static void exceptionally(final CompletableFuture<?> cf, final List<CompletableFuture<?>> cfList,
-                                     final List<CompletableFuture<?>> cfListOptional) {
+            final List<CompletableFuture<?>> cfListOptional) {
         cfListOptional.add(cf);
         AsyncUtils.exceptionally(cf, cfList);
     }

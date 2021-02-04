@@ -37,8 +37,8 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {Application.class})
-@ActiveProfiles({"standalone", "test"})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
+@ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
 public class PtrVentaEcommerceServiceTest {
 
@@ -67,7 +67,7 @@ public class PtrVentaEcommerceServiceTest {
         // request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
         final ResponseEntity<PtrVentaOnlineIpodResponseDto> response = this.ptrVentaClient
             .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getEndpoint(),
-                request, PtrVentaOnlineIpodResponseDto.class);
+                    request, PtrVentaOnlineIpodResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
@@ -83,9 +83,9 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
         final ResponseEntity<PtrVentaOnlineIpodIndividualDetalleResponseDto> response = this.ptrVentaClient
             .postForEntity(
-                this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE)
-                    .getEndpoint(),
-                request, PtrVentaOnlineIpodIndividualDetalleResponseDto.class);
+                    this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE)
+                        .getEndpoint(),
+                    request, PtrVentaOnlineIpodIndividualDetalleResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
@@ -103,9 +103,9 @@ public class PtrVentaEcommerceServiceTest {
         request.setPais(PtrTestConstants.PAIS);
         final ResponseEntity<PtrVentaOnlineEntregaDomicilioResponseDto> response = this.ptrVentaClient
             .postForEntity(
-                this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
-                    .getEndpoint(),
-                request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
+                    this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
+                        .getEndpoint(),
+                    request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
 
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
@@ -123,9 +123,9 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         final ResponseEntity<PtrVentaOnlineEntregaDomicilioResponseDto> response = this.ptrVentaClient
             .postForEntity(
-                this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
-                    .getEndpoint(),
-                request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
+                    this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_DOMICILIO)
+                        .getEndpoint(),
+                    request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
 
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
@@ -142,8 +142,8 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgruparSeccion(0);
         final ResponseEntity<PtrVentaOnlineEntregaTiendaResponseDto> response = this.ptrVentaClient
             .postForEntity(
-                this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
-                request, PtrVentaOnlineEntregaTiendaResponseDto.class);
+                    this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
+                    request, PtrVentaOnlineEntregaTiendaResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
@@ -160,8 +160,8 @@ public class PtrVentaEcommerceServiceTest {
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
         final ResponseEntity<PtrVentaOnlineEntregaTiendaResponseDto> response = this.ptrVentaClient
             .postForEntity(
-                this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
-                request, PtrVentaOnlineEntregaTiendaResponseDto.class);
+                    this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
+                    request, PtrVentaOnlineEntregaTiendaResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
@@ -178,7 +178,7 @@ public class PtrVentaEcommerceServiceTest {
 
         final ResponseEntity<PtrVentaOnlinePickingResponseDto> response = this.ptrVentaClient
             .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
-                request, PtrVentaOnlinePickingResponseDto.class);
+                    request, PtrVentaOnlinePickingResponseDto.class);
 
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
@@ -197,7 +197,7 @@ public class PtrVentaEcommerceServiceTest {
 
         final ResponseEntity<PtrVentaOnlinePickingResponseDto> response = this.ptrVentaClient
             .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
-                request, PtrVentaOnlinePickingResponseDto.class);
+                    request, PtrVentaOnlinePickingResponseDto.class);
 
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
@@ -219,12 +219,12 @@ public class PtrVentaEcommerceServiceTest {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
 
         final HttpEntity<PtrVentaOnlinePickingRequestDto> request2 = new HttpEntity<PtrVentaOnlinePickingRequestDto>(
-            request,
-            headers);
+                request,
+                headers);
 
         final ResponseEntity<PtrVentaOnlinePickingResponseDto> response = this.ptrVentaClient
             .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
-                request2, PtrVentaOnlinePickingResponseDto.class);
+                    request2, PtrVentaOnlinePickingResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 

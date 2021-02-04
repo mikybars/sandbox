@@ -31,7 +31,7 @@ public class AppConstants {
     public static final Integer TOPE_DEFAULT = 0;
 
     @Getter
-    private static final Integer[] SECCIONES = {SECCION_1, SECCION_2, SECCION_3};
+    private static final Integer[] SECCIONES = { SECCION_1, SECCION_2, SECCION_3 };
 
     @Getter
     private static final List<String> SECCIONES_STRING = Arrays.asList("1", "2", "3");

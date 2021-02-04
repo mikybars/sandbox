@@ -30,7 +30,7 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
 
     @Override
     public TareaLocalizacionPersonaVenta ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        final PtrVentaIndividualDetalleResultItemDto src, final TareaDto tarea) {
+            final PtrVentaIndividualDetalleResultItemDto src, final TareaDto tarea) {
         final TareaLocalizacionPersonaVenta result = this.delegate
             .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea);
         if (PtrConstants.OPERACION_VENTA.equals(src.getOperacion())) {
@@ -52,9 +52,11 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
     }
 
     private TareaLocalizacionPersonaVenta ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        final PtrVentaIndividualDetalleResultItemDto src, final TareaDto tarea, final PtrSeccionVentaOnlineGenericType seccion) {
-        final TareaLocalizacionPersonaVenta result = this.ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-            src, tarea);
+            final PtrVentaIndividualDetalleResultItemDto src, final TareaDto tarea,
+            final PtrSeccionVentaOnlineGenericType seccion) {
+        final TareaLocalizacionPersonaVenta result = this
+            .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                    src, tarea);
         result.setCclIdSeccion(seccion.getSeccion().toString());
         result.setImporteConImpuestos(seccion.getImporteConIVA());
         result.setImporteSinImpuestos(seccion.getImporteSinIVA());
@@ -62,7 +64,7 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
     }
 
     private List<TareaLocalizacionPersonaVenta> ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(
-        final PtrVentaIndividualDetalleResultItemDto src, final TareaDto tarea) {
+            final PtrVentaIndividualDetalleResultItemDto src, final TareaDto tarea) {
         final List<TareaLocalizacionPersonaVenta> result = new ArrayList<>();
         src.getListaSeccion().forEach(seccion -> {
             if (AppConstants.SECCION_4.equals(seccion.getSeccion())) {
@@ -71,15 +73,17 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
                     s.setImporteConIVA(seccion.getImporteConIVA());
                     s.setImporteSinIVA(seccion.getImporteSinIVA());
                     s.setSeccion(idSeccion);
-                    final TareaLocalizacionPersonaVenta item = this.ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-                        src, tarea, s);
+                    final TareaLocalizacionPersonaVenta item = this
+                        .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                                src, tarea, s);
                     if (item.getTipoDato() != null) {
                         result.add(item);
                     }
                 }
             } else {
-                final TareaLocalizacionPersonaVenta item = this.ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-                    src, tarea, seccion);
+                final TareaLocalizacionPersonaVenta item = this
+                    .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                            src, tarea, seccion);
                 if (item.getTipoDato() != null) {
                     result.add(item);
                 }
@@ -90,7 +94,7 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
 
     @Override
     public List<TareaLocalizacionPersonaVenta> ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        final List<PtrVentaIndividualDetalleResultItemDto> src, final TareaDto tarea) {
+            final List<PtrVentaIndividualDetalleResultItemDto> src, final TareaDto tarea) {
         final List<TareaLocalizacionPersonaVenta> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(x -> result
@@ -101,7 +105,7 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
 
     @Override
     public TareaLocalizacionPersonaVenta ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        final PtrVentaOnlineIpodIndividualDetalleResultItemDto src, final TareaDto tarea) {
+            final PtrVentaOnlineIpodIndividualDetalleResultItemDto src, final TareaDto tarea) {
         final TareaLocalizacionPersonaVenta result = this.delegate
             .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(src, tarea);
         if (PtrConstants.OPERACION_VENTA.equals(src.getOperacion())) {
@@ -119,20 +123,22 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
 
     @Override
     public List<TareaLocalizacionPersonaVenta> ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, final TareaDto tarea) {
+            final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> src, final TareaDto tarea) {
         final List<TareaLocalizacionPersonaVenta> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(x -> result
-                .addAll(this.ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(x, tarea)));
+                .addAll(this.ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(x,
+                        tarea)));
         }
         return result;
     }
 
     private TareaLocalizacionPersonaVenta ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-        final PtrVentaOnlineIpodIndividualDetalleResultItemDto src, final TareaDto tarea,
-        final PtrSeccionVentaOnlineGenericType seccion) {
-        final TareaLocalizacionPersonaVenta result = this.ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-            src, tarea);
+            final PtrVentaOnlineIpodIndividualDetalleResultItemDto src, final TareaDto tarea,
+            final PtrSeccionVentaOnlineGenericType seccion) {
+        final TareaLocalizacionPersonaVenta result = this
+            .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                    src, tarea);
         result.setCclIdSeccion(seccion.getSeccion().toString());
         result.setImporteConImpuestos(seccion.getImporteConIVA());
         result.setImporteSinImpuestos(seccion.getImporteSinIVA());
@@ -140,7 +146,7 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
     }
 
     private List<TareaLocalizacionPersonaVenta> ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(
-        final PtrVentaOnlineIpodIndividualDetalleResultItemDto src, final TareaDto tarea) {
+            final PtrVentaOnlineIpodIndividualDetalleResultItemDto src, final TareaDto tarea) {
         final List<TareaLocalizacionPersonaVenta> result = new ArrayList<>();
         src.getListaSeccion().forEach(seccion -> {
             if (AppConstants.SECCION_4.equals(seccion.getSeccion())) {
@@ -149,8 +155,9 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
                     s.setImporteConIVA(seccion.getImporteConIVA());
                     s.setImporteSinIVA(seccion.getImporteSinIVA());
                     s.setSeccion(idSeccion);
-                    final TareaLocalizacionPersonaVenta item = this.ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-                        src, tarea, s);
+                    final TareaLocalizacionPersonaVenta item = this
+                        .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                                src, tarea, s);
                     if (item.getTipoDato() != null) {
                         if (StringUtils.isNotEmpty(item.getCclIdPerson())) {
                             result.add(item);
@@ -160,8 +167,9 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
                     }
                 }
             } else {
-                final TareaLocalizacionPersonaVenta item = this.ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-                    src, tarea, seccion);
+                final TareaLocalizacionPersonaVenta item = this
+                    .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+                            src, tarea, seccion);
                 if (item.getTipoDato() != null) {
                     if (StringUtils.isNotEmpty(item.getCclIdPerson())) {
                         result.add(item);

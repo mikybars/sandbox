@@ -96,7 +96,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         try {
             this.pool.shutdown()
                 .await(new Timeout(this.meta4ClientFactory.getMeta4ClientProperties().getShutdownTimeout(),
-                    TimeUnit.MILLISECONDS));
+                        TimeUnit.MILLISECONDS));
         } catch (final InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -106,7 +106,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetempleadosdesplazOutput getempleadosdesplaz(final IcmParametrospaginacionBlock param1,
-                                                         final IcmParamcalempleadosdesplazBlock param2) {
+            final IcmParamcalempleadosdesplazBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getempleadosdesplaz(param1, param2);
@@ -120,7 +120,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetorigenesOutput getorigenes(final IcmParamcalsociedadBlock param1,
-                                         final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getorigenes(param2, param1);
@@ -134,7 +134,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetempresasOutput getempresas(final IcmParamcalorigenBlock param1,
-                                         final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getempresas(param1, param2);
@@ -149,7 +149,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetcadenaOutput getcadena(final IcmParamcalcadenaBlock param1,
-                                     final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getcadena(param2, param1);
@@ -163,7 +163,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetconfprodventaOutput getconfprodventa(final IcmParametrosentradaBlock param1,
-                                                   final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getconfprodventa(param1, param2);
@@ -177,7 +177,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetconfventaonlineOutput getconfventaonline(final IcmParametrosentradaBlock param1,
-                                                       final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getconfventaonline(param2, param1);
@@ -191,7 +191,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetagruponlineOutput getagruponline(final IcmParamcalorigenBlock param1,
-                                               final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getagruponline(param1, param2);
@@ -205,7 +205,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetflagcalculaOutput getflagcalcula(final IcmParamcalflagcalculaBlock param1,
-                                               final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getflagcalcula(param1, param2);
@@ -219,7 +219,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetcoefjornadaOutput getcoefjornada(final IcmParametrosentradaBlock param1,
-                                               final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getcoefjornada(param2, param1);
@@ -233,7 +233,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetfestivosOutput getfestivos(final IcmParametrosentradaBlock param1,
-                                         final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getfestivos(param1, param2);
@@ -247,7 +247,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetpresenciamanualOutput getpresenciamanual(final IcmParamcalpresenciamanualBlock param1,
-                                                       final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getpresenciamanual(param2, param1);
@@ -261,7 +261,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetempleadospresenciaOutput getempleadospresencia(final IcmParamcalempleadospresenciaBlock param1,
-                                                             final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getempleadospresencia(param1, param2);
@@ -275,7 +275,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetperiodosOutput getperiodos(final IcmParamcalperiodoBlock param1,
-                                         final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getperiodos(param1, param2);
@@ -289,7 +289,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetempleadosOutput getempleados(final IcmParamcalempleadosBlock param1,
-                                           final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getempleados(param2, param1);
@@ -330,7 +330,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public SearchtiendasOutput searchtiendas(final IcmParamcaltiendasBlock param1,
-                                             final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().searchtiendas(param2, param1);
@@ -344,7 +344,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GettiendasincomeOutput gettiendasincome(final IcmParametrospaginacionBlock param1,
-                                                   final IcmParametrosentradaBlock param2) {
+            final IcmParametrosentradaBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().gettiendasincome(param1, param2);
@@ -358,7 +358,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GettiendasonlineOutput gettiendasonline(final IcmParametrospaginacionBlock param1,
-                                                   final IcmParametrosentradaBlock param2) {
+            final IcmParametrosentradaBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().gettiendasonline(param1, param2);
@@ -372,7 +372,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public SearchempleadosOutput searchempleados(final IcmParametrospaginacionBlock param1,
-                                                 final IcmParamcalempleadoBlock param2) {
+            final IcmParamcalempleadoBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().searchempleados(param2, param1);
@@ -399,7 +399,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetausenciasOutput getausencias(final IcmParametrospaginacionBlock param1,
-                                           final IcmParamcalempleadoBlock param2) {
+            final IcmParamcalempleadoBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getausencias(param1, param2);
@@ -439,7 +439,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetpresupuestoswlocOutput getpresupuestoswloc(final IcmParamcalpresupuestoswlocBlock param1,
-                                                         final IcmParametrospaginacionBlock param2) {
+            final IcmParametrospaginacionBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getpresupuestoswloc(param1, param2);
@@ -479,7 +479,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetpresupuestosrangoOutput getpresupuestosrango(final IcmParametrospaginacionBlock param1,
-                                                           final IcmParamcalpresupuestosrangoBlock param2) {
+            final IcmParamcalpresupuestosrangoBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getpresupuestosrango(param1, param2);
@@ -493,7 +493,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetventacongeladaOutput getventacongelada(final IcmParametrospaginacionBlock param1,
-                                                     final IcmParamcalventacongeladaBlock param2) {
+            final IcmParamcalventacongeladaBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getventacongelada(param1, param2);
@@ -585,7 +585,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetpresenciamanualwlocOutput getpresenciamanualwloc(final IcmParametrospaginacionBlock param1,
-                                                               final IcmParamcaltiendasBlock param2) {
+            final IcmParamcaltiendasBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getpresenciamanualwloc(param2, param1);
@@ -599,7 +599,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetventamanualwlocOutput getventamanualwloc(final IcmParametrospaginacionBlock param1,
-                                                       final IcmParamcaltiendasBlock param2) {
+            final IcmParamcaltiendasBlock param2) {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getventamanualwloc(param1, param2);

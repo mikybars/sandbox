@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.app.util;
@@ -18,4 +18,5 @@ public class OptionalUtils {
     public static <T> T get(final Optional<T> optional, final T defaultValue) {
         return optional.isPresent() ? optional.get() : defaultValue;
     }
+
 }

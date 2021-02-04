@@ -24,8 +24,8 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {Application.class})
-@ActiveProfiles({"standalone", "test"})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
+@ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
 public class PtrVentaGeneralServiceTest {
 
@@ -47,8 +47,9 @@ public class PtrVentaGeneralServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
         final ResponseEntity<PtrVentaTotalizadoResponseDto> response = this.ptrVentaClient
-            .postForEntity(this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(), request,
-                PtrVentaTotalizadoResponseDto.class);
+            .postForEntity(this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(),
+                    request,
+                    PtrVentaTotalizadoResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
@@ -61,8 +62,9 @@ public class PtrVentaGeneralServiceTest {
         request.setCadena(PtrTestConstants.getCADENA_LIST());
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
         final ResponseEntity<PtrVentaTotalizadoResponseDto> response = this.ptrVentaClient
-            .postForEntity(this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(), request,
-                PtrVentaTotalizadoResponseDto.class);
+            .postForEntity(this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(),
+                    request,
+                    PtrVentaTotalizadoResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
@@ -76,8 +78,9 @@ public class PtrVentaGeneralServiceTest {
         request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
         final ResponseEntity<PtrVentaTotalizadoResponseDto> response = this.ptrVentaClient
-            .postForEntity(this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(), request,
-                PtrVentaTotalizadoResponseDto.class);
+            .postForEntity(this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(),
+                    request,
+                    PtrVentaTotalizadoResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 

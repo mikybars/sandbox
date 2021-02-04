@@ -27,8 +27,8 @@ import static org.junit.Assert.assertEquals;
 
 @Ignore("Se ignora por que tarda demasiado")
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {Application.class})
-@ActiveProfiles({"standalone", "test"})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
+@ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
 public class PtrVentaEmpleadoServiceTest {
 
@@ -56,8 +56,9 @@ public class PtrVentaEmpleadoServiceTest {
         request.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
         final ResponseEntity<PtrVentaIndividualDetalleResponseDto> response = this.ptrVentaClient.postForEntity(
-            this.ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request,
-            PtrVentaIndividualDetalleResponseDto.class);
+                this.ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(),
+                request,
+                PtrVentaIndividualDetalleResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 

@@ -346,7 +346,7 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testEmpresa(final String sociedad, final String origen, final String empresa,
-                             final TrabajoDto trabajo) {
+            final TrabajoDto trabajo) {
         this.testOrigen(sociedad, origen, trabajo);
         final TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
         trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
@@ -354,8 +354,8 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testLocalizacion(final String sociedad, final String origen, final String empresa,
-                                  final String localizacion,
-                                  final TrabajoDto trabajo) {
+            final String localizacion,
+            final TrabajoDto trabajo) {
         this.testEmpresa(sociedad, origen, empresa, trabajo);
         final TrabajoAmbitoLocalizacionDto trabajoAmbitoLocalizacion = new TrabajoAmbitoLocalizacionDto();
         trabajoAmbitoLocalizacion.setStdIdWorkLocat(localizacion);
@@ -365,7 +365,7 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testPersona(final String sociedad, final String origen, final String empresa, final String persona,
-                             final String orPersona, final TrabajoDto trabajo) {
+            final String orPersona, final TrabajoDto trabajo) {
         this.testEmpresa(sociedad, origen, empresa, trabajo);
         final TrabajoAmbitoPersonaDto trabajoAmbitoPersona = new TrabajoAmbitoPersonaDto();
         trabajoAmbitoPersona.setCclIdPerson(persona);
@@ -382,7 +382,7 @@ public class TestServiceImpl implements TestService {
         message.setTo("income-java@vectoritcgroup.com");
         message.setSubject("Lorem ipsum");
         message.setText(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
         this.mailSender.send(message);
     }
 
