@@ -1,28 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.temporal.ChronoField;
-import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpMethod;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -57,9 +36,27 @@ import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpMethod;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -254,7 +251,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void trabajoFase1a() {
-        AppTestConstants.FASE_1A.stream().forEach(item -> {
+        AppTestConstants.getFASE_1A().stream().forEach(item -> {
             final String[] values = StringUtils.split(item, ",");
             final String sociedad = values[0];
             final String origen = values[1];
@@ -287,7 +284,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void testBloqueos(@NotNull final Long limit) {
-        AppTestConstants.TEST.stream().collect(Collectors.collectingAndThen(Collectors.toList(), collected -> {
+        AppTestConstants.getTEST().stream().collect(Collectors.collectingAndThen(Collectors.toList(), collected -> {
             Collections.shuffle(collected);
             return collected.stream();
         })).limit(limit).collect(Collectors.toList()).forEach(item -> {
@@ -349,7 +346,7 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testEmpresa(final String sociedad, final String origen, final String empresa,
-            final TrabajoDto trabajo) {
+                             final TrabajoDto trabajo) {
         this.testOrigen(sociedad, origen, trabajo);
         final TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
         trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
@@ -357,8 +354,8 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testLocalizacion(final String sociedad, final String origen, final String empresa,
-            final String localizacion,
-            final TrabajoDto trabajo) {
+                                  final String localizacion,
+                                  final TrabajoDto trabajo) {
         this.testEmpresa(sociedad, origen, empresa, trabajo);
         final TrabajoAmbitoLocalizacionDto trabajoAmbitoLocalizacion = new TrabajoAmbitoLocalizacionDto();
         trabajoAmbitoLocalizacion.setStdIdWorkLocat(localizacion);
@@ -368,7 +365,7 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testPersona(final String sociedad, final String origen, final String empresa, final String persona,
-            final String orPersona, final TrabajoDto trabajo) {
+                             final String orPersona, final TrabajoDto trabajo) {
         this.testEmpresa(sociedad, origen, empresa, trabajo);
         final TrabajoAmbitoPersonaDto trabajoAmbitoPersona = new TrabajoAmbitoPersonaDto();
         trabajoAmbitoPersona.setCclIdPerson(persona);
@@ -385,7 +382,7 @@ public class TestServiceImpl implements TestService {
         message.setTo("income-java@vectoritcgroup.com");
         message.setSubject("Lorem ipsum");
         message.setText(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
         this.mailSender.send(message);
     }
 

@@ -1,9 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.util;
 
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTiendaSeccionDto;
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.List;
-
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTiendaSeccionDto;
 
 public class PtrTestConstants {
 
@@ -18,17 +19,22 @@ public class PtrTestConstants {
 
     public static final String FECHA_HORA_HASTA = "2017-12-31 00:00";
 
-    public static final List<Integer> PAIS_LIST = Arrays.asList(11);
+    private static final List<Integer> PAIS_LIST = Arrays.asList(11);
 
-    public static final List<Integer> CADENA_LIST = Arrays.asList(1);
+    @Getter
+    private static final List<Integer> CADENA_LIST = Arrays.asList(1);
 
-    public static final List<Integer> EMPRESA_LIST = Arrays.asList(95);
+    @Getter
+    private static final List<Integer> EMPRESA_LIST = Arrays.asList(95);
 
-    public static final List<Integer> PERSONA_LIST = Arrays.asList(1645, 1000);
+    @Getter
+    private static final List<Integer> PERSONA_LIST = Arrays.asList(1645, 1000);
 
-    public static final List<Integer> TIPO_LIST = Arrays.asList(1000);
+    @Getter
+    private static final List<Integer> TIPO_LIST = Arrays.asList(1000);
 
-    public static final List<Integer> ORIGEN_LIST = Arrays.asList(11);
+    @Getter
+    private static final List<Integer> ORIGEN_LIST = Arrays.asList(11);
 
     public static final Integer ORIGEN = 11;
 
@@ -44,15 +50,20 @@ public class PtrTestConstants {
 
     public static final Integer ID_EMPRESA_VENTA_EMPLEADO = 8;
 
-    public static final List<Integer> ID_TIENDA_LIST = Arrays.asList(57);
+    @Getter
+    private static final List<Integer> ID_TIENDA_LIST = Arrays.asList(57);
 
-    public static final List<Integer> ID_TIENDA_VENTA_EMPLEADO = Arrays.asList(125);
+    @Getter
+    private static final List<Integer> ID_TIENDA_VENTA_EMPLEADO = Arrays.asList(125);
 
-    public static final List<String> ID_TIENDA_ONLINE_LIST = Arrays.asList("9724");
+    @Getter
+    private static final List<String> ID_TIENDA_ONLINE_LIST = Arrays.asList("9724");
 
-    public static final List<Integer> ID_TIENDA_ONLINE_LIST2 = Arrays.asList(4031);
+    @Getter
+    private static final List<Integer> ID_TIENDA_ONLINE_LIST2 = Arrays.asList(4031);
 
-    public static final List<Integer> ID_TIPO_SECCION = Arrays.asList(1);
+    @Getter
+    private static final List<Integer> ID_TIPO_SECCION = Arrays.asList(1);
 
     public static final Integer ID_EJERCICIO = 1;
 

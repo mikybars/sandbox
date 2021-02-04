@@ -27,8 +27,8 @@ import static org.junit.Assert.assertEquals;
 
 @Ignore("Se ignora por que tarda demasiado")
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
-@ActiveProfiles({ "standalone", "test" })
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {Application.class})
+@ActiveProfiles({"standalone", "test"})
 @EnableAutoConfiguration
 public class PtrVentaEmpleadoServiceTest {
 
@@ -46,18 +46,18 @@ public class PtrVentaEmpleadoServiceTest {
 
     @Test
     public void ventaIndividualDetalle() {
-        PtrVentaIndividualDetalleRequestDto request = new PtrVentaIndividualDetalleRequestDto();
+        final PtrVentaIndividualDetalleRequestDto request = new PtrVentaIndividualDetalleRequestDto();
         request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
         request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
         request.setPais(PtrTestConstants.PAIS);
         request.setCadena(PtrTestConstants.CADENA);
         request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA_VENTA_EMPLEADO));
-        request.setTienda(PtrTestConstants.ID_TIENDA_VENTA_EMPLEADO);
+        request.setTienda(PtrTestConstants.getID_TIENDA_VENTA_EMPLEADO());
         request.setAgrupacion(PtrGroupSellerTypeEnum.FECHA_TIENDA);
         request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
-        ResponseEntity<PtrVentaIndividualDetalleResponseDto> response = ptrVentaClient.postForEntity(
-                ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request,
-                PtrVentaIndividualDetalleResponseDto.class);
+        final ResponseEntity<PtrVentaIndividualDetalleResponseDto> response = this.ptrVentaClient.postForEntity(
+            this.ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE).getEndpoint(), request,
+            PtrVentaIndividualDetalleResponseDto.class);
         assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
     }
 
