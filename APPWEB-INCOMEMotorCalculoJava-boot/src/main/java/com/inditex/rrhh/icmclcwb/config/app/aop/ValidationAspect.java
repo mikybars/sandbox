@@ -52,7 +52,9 @@ public class ValidationAspect {
             if (RunTareaDto.class.isAssignableFrom(objClass)) {
                 final RunTareaDto runTareaDto = ((RunTareaDto) obj);
                 final FaseDto faseDto = this.getFaseDto(pjp);
-                this.runTareaPrevalidarAntesService.run(runTareaDto, faseDto);
+                if (faseDto != null) {
+                    this.runTareaPrevalidarAntesService.run(runTareaDto, faseDto);
+                }
             }
         }
         return pjp;
@@ -68,7 +70,9 @@ public class ValidationAspect {
             if (RunTareaDto.class.isAssignableFrom(objClass)) {
                 final RunTareaDto runTareaDto = ((RunTareaDto) obj);
                 final FaseDto faseDto = this.getFaseDto(pjp);
-                this.runTareaPrevalidarDespuesService.run(runTareaDto, faseDto);
+                if (faseDto != null) {
+                    this.runTareaPrevalidarDespuesService.run(runTareaDto, faseDto);
+                }
             }
         }
         return pjp;
