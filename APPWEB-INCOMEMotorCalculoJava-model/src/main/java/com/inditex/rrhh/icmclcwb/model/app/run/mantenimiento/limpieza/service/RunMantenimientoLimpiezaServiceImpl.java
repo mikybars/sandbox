@@ -15,6 +15,9 @@ import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.dto.RunMante
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunMantenimientoLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.ms.app.limpieza.SenderLimpieza;
+import reactor.core.publisher.Flux;
+
+import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 
 @Service
 @Validated
@@ -30,7 +33,10 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Override
     public RunMantenimientoLimpiezaDto run() {
         final List<IdTareaDto> idTarea = this.tareaService.findLimpieza();
-        idTarea.parallelStream().forEach(this.senderLimpieza::send);
+        Flux.fromIterable(idTarea)
+            .parallel()
+            .runOn(ItxSchedulers.single())
+            .subscribe(this.senderLimpieza::send);
         return RunMantenimientoLimpiezaDto.builder().idTarea(idTarea).build();
     }
 
