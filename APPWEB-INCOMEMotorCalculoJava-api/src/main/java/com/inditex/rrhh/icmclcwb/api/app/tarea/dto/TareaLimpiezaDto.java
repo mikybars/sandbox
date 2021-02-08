@@ -17,8 +17,16 @@ public class TareaLimpiezaDto implements Serializable {
     private static final long serialVersionUID = -170294147407207684L;
 
     @NotNull
+    @ApiModelProperty(value = "Identificador de la limpieza", required = true)
+    private Long id;
+
+    @NotNull
     @ApiModelProperty(value = "Identificador del tarea", required = true)
     private Long idTarea;
+
+    @NotNull
+    @ApiModelProperty(value = "Estado de la limpieza", required = true)
+    private EstadoTareaLimpiezaDto estado;
 
     @ApiModelProperty(value = "Fecha en la que se realizó la limpieza", required = false,
             accessMode = AccessMode.READ_ONLY, hidden = true)

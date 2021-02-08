@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.dto.RunMantenimientoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunMantenimientoLimpiezaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.ms.app.limpieza.SenderLimpieza;
 import reactor.core.publisher.Flux;
@@ -27,12 +28,16 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     private TareaService tareaService;
 
     @Autowired
+    private TareaLimpiezaService tareaLimpiezaService;
+
+    @Autowired
     private SenderLimpieza senderLimpieza;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public RunMantenimientoLimpiezaDto run() {
         final List<IdTareaDto> idTarea = this.tareaService.findLimpieza();
+        this.tareaLimpiezaService.create(idTarea);
         Flux.fromIterable(idTarea)
             .parallel()
             .runOn(ItxSchedulers.single())
@@ -44,7 +49,11 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Override
     public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {
         final List<IdTareaDto> idTarea = this.tareaService.findLimpiezaByIdTarea(id);
-        idTarea.parallelStream().forEach(this.senderLimpieza::send);
+        this.tareaLimpiezaService.create(idTarea);
+        Flux.fromIterable(idTarea)
+            .parallel()
+            .runOn(ItxSchedulers.single())
+            .subscribe(this.senderLimpieza::send);
         return RunMantenimientoLimpiezaDto.builder().idTarea(idTarea).build();
     }
 

@@ -31,7 +31,11 @@ public class TareaLimpieza {
     private Tarea tarea;
 
     @NotNull
-    @Column(name = "FECHA_HORA_LIMPIEZA", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "ID_ESTADO_TAREA_LIMPIEZA", nullable = false)
+    private EstadoTareaLimpieza estado;
+
+    @Column(name = "FECHA_HORA_LIMPIEZA", nullable = true)
     private Date fechaHoraLimpieza;
 
     @NotBlank
