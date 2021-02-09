@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.programacion.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -31,9 +32,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCal
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
-import com.inditex.rrhh.icmclcwb.ms.app.programacion.SenderProgramacion;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.ms.app.programacion.SenderProgramacion;
 import org.slf4j.Logger;
+import reactor.core.publisher.Flux;
+
+import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
@@ -113,15 +117,20 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<RunProgramacionDto> create() {
-        final List<RunProgramacionDto> result = new ArrayList<>();
-        this.programacionService.findPendiente().parallelStream().forEach(programacion -> {
-            this.senderProgramacion.send(IdProgramacionDto.builder().id(programacion.getId()).build());
-            final RunProgramacionDto runProgramacion = RunProgramacionDto.builder()
+        final List<ProgramacionDto> pendientes = this.programacionService.findPendiente();
+        // Obtencion del resultado final sin esperar al envio de las programaciones
+        final List<RunProgramacionDto> result = pendientes.stream()
+            .map(programacion -> RunProgramacionDto
+                .builder()
                 .programacion(programacion)
                 .runProgramacionPeriodo(new ArrayList<>())
-                .build();
-            result.add(runProgramacion);
-        });
+                .build())
+            .collect(Collectors.toList());
+        Flux.fromIterable(pendientes)
+            .parallel()
+            .runOn(ItxSchedulers.single())
+            .subscribe(programacion -> this.senderProgramacion
+                .send(IdProgramacionDto.builder().id(programacion.getId()).build()));
         return result;
     }
 
