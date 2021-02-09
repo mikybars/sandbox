@@ -3,9 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
@@ -46,12 +42,7 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
     private TareaLimpiezaMapper tareaLimpiezaMapper;
 
     @Override
-    public void save(@Valid @NotNull final TareaDto tarea) {
-        this.tareaLimpiezaRepositoryCustom.mergeLimpieza(tarea, this.trabajoService.find(tarea.getIdTrabajo()));
-    }
-
-    @Override
-    public TareaLimpiezaDto create(final TareaLimpiezaDto tareaLimpieza) {
+    public TareaLimpiezaDto save(final TareaLimpiezaDto tareaLimpieza) {
         if (StringUtils.isBlank(tareaLimpieza.getNombreUsuario())) {
             final UserSSO userSSO = SsoUtils.getUserSSO();
             if (StringUtils.isNotBlank(userSSO.getUser())) {
@@ -63,17 +54,18 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
         tareaLimpieza.setTipo(TipoLimpiezaEnum.COMPLETA.getDto());
         this.tareaLimpiezaRepositoryCustom
             .save(tareaLimpieza);
-        final TareaLimpieza limpieza = this.tareaLimpiezaRepository.findByTareaId(tareaLimpieza.getIdTarea());
 
+        // Reobtención de la limpieza con su id
+        final TareaLimpieza limpieza = this.tareaLimpiezaRepository.findByTareaId(tareaLimpieza.getIdTarea());
         return this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(limpieza);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public List<TareaLimpiezaDto> create(
+    public List<TareaLimpiezaDto> save(
             final List<IdTareaDto> idTareas) {
         final List<TareaLimpiezaDto> result = new ArrayList<>();
-        this.tareaLimpiezaMapper.idTareaDtoToTareaLimpiezaDto(idTareas).forEach(item -> result.add(this.create(item)));
+        this.tareaLimpiezaMapper.idTareaDtoToTareaLimpiezaDto(idTareas).forEach(item -> result.add(this.save(item)));
         return result;
     }
 

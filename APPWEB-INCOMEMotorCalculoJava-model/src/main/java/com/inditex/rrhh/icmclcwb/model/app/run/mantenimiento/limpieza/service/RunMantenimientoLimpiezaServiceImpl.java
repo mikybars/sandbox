@@ -38,7 +38,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Override
     public RunMantenimientoLimpiezaDto run() {
         final List<IdTareaDto> idTarea = this.tareaService.findLimpieza();
-        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.create(idTarea);
+        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.save(idTarea);
         Flux.fromIterable(limpiezas)
             .parallel()
             .runOn(ItxSchedulers.single())
@@ -50,7 +50,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Override
     public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {
         final List<IdTareaDto> idTarea = this.tareaService.findLimpiezaByIdTarea(id);
-        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.create(idTarea);
+        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.save(idTarea);
         Flux.fromIterable(limpiezas)
             .parallel()
             .runOn(ItxSchedulers.single())
