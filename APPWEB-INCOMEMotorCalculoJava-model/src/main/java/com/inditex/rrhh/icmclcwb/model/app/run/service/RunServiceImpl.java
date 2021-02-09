@@ -60,7 +60,8 @@ public class RunServiceImpl implements RunService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void runLimpieza(@NotNull @Positive final Long id) {
-        this.runLimpiezaService.run(RunLimpiezaDto.builder().tarea(this.tareaService.find(id)).build());
+        this.runLimpiezaService
+            .run(RunLimpiezaDto.builder().id(id).tarea(this.tareaService.findByIdLimpieza(id)).build());
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

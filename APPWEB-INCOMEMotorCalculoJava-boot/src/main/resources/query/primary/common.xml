@@ -1998,7 +1998,7 @@ AND ID_TIPO_DATO IN (
   AND T.FECHA_HORA_CREACION < :fecha
   AND T.FECHA_HORA_INICIO_TAREA IS NOT NULL
   AND T.FECHA_HORA_FIN_TAREA IS NOT NULL
-  AND (TL.ID_TAREA IS NULL OR TL.ES_COMPLETA = 0)
+  AND (TL.ID_TAREA IS NULL OR TL.ID_ESTADO_TAREA_LIMPIEZA NOT IN (:idEstadoLimpieza))
 ]]>
   </entry>
 
@@ -4354,10 +4354,22 @@ WHERE INDICADOR.ROW = 1
         TL.ID_TAREA = S.ID_TAREA
     )
     WHEN MATCHED THEN
-        UPDATE SET ES_COMPLETA = :activo
+        UPDATE SET ID_ESTADO_TAREA_LIMPIEZA = :idEstadoLimpieza
     WHEN NOT MATCHED THEN
-        INSERT (ID_TAREA, ES_COMPLETA, ES_PARCIAL, FECHA_HORA_LIMPIEZA, NOMBRE_USUARIO, ID_ESTADO_TAREA_LIMPIEZA)
-        VALUES (:idTarea, :activo, :inactivo, :fechaHoraLimpieza, :nombreUsuario, :idEstadoLimpieza)
+        INSERT (ID_TAREA, ES_COMPLETA, ES_PARCIAL, NOMBRE_USUARIO, ID_ESTADO_TAREA_LIMPIEZA)
+        VALUES (:idTarea, :activo, :inactivo, :nombreUsuario, :idEstadoLimpieza)
+    ]]>
+  </entry>
+
+  <entry key="TareaLimpiezaRepositoryCustom.updateFechaEjecucion">
+    <![CDATA[
+    UPDATE TAREA_LIMPIEZA SET FECHA_HORA_LIMPIEZA = :fechaHoraLimpieza WHERE ID_TAREA_LIMPIEZA = :idTareaLimpieza
+    ]]>
+  </entry>
+
+  <entry key="TareaLimpiezaRepositoryCustom.updateEstado">
+    <![CDATA[
+    UPDATE TAREA_LIMPIEZA SET ID_ESTADO_TAREA_LIMPIEZA = :idEstadoLimpieza WHERE ID_TAREA_LIMPIEZA = :idTareaLimpieza
     ]]>
   </entry>
 

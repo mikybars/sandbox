@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLimpiezaMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.OptionalUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLimpieza;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
@@ -57,9 +58,11 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
             }
         }
         tareaLimpieza.setEstado(EstadoTareaLimpiezaEnum.PENDIENTE.getDto());
-        final TareaLimpieza limpiezas = this.tareaLimpiezaRepository
-            .save(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(tareaLimpieza));
-        return this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(limpiezas);
+        this.tareaLimpiezaRepositoryCustom
+            .save(tareaLimpieza);
+        final TareaLimpieza limpieza = this.tareaLimpiezaRepository.findByTareaId(tareaLimpieza.getIdTarea());
+
+        return this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(limpieza);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -69,6 +72,12 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
         final List<TareaLimpiezaDto> result = new ArrayList<>();
         this.tareaLimpiezaMapper.idTareaDtoToTareaLimpiezaDto(idTareas).forEach(item -> result.add(this.create(item)));
         return result;
+    }
+
+    @Override
+    public TareaLimpiezaDto find(final Long id) {
+        return this.tareaLimpiezaMapper
+            .tareaLimpiezaToTareaLimpiezaDto(OptionalUtils.get(this.tareaLimpiezaRepository.findById(id)));
     }
 
 }

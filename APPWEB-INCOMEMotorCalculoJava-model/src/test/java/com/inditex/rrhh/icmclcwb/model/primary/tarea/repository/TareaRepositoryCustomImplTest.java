@@ -9,8 +9,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -180,12 +182,16 @@ public class TareaRepositoryCustomImplTest {
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: idEstado, fecha
-        assertEquals(2, params.getValues().size());
+        assertEquals(3, params.getValues().size());
         assertTrue(params.hasValue("idEstado"));
         assertTrue(params.hasValue("fecha"));
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA));
         assertEquals(
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()),
                 params.getValue("idEstado"));
+        assertEquals(
+                Arrays.asList(EstadoTareaLimpiezaEnum.OK.getId()),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA));
     }
 
 }

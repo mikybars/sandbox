@@ -35,4 +35,6 @@ public interface TareaService {
 
     List<IdTareaDto> findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea);
 
+    TareaDto findByIdLimpieza(@NotNull @Positive final Long idLimpieza);
+
 }

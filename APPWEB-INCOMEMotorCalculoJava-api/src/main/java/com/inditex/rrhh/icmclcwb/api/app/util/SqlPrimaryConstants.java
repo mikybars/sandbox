@@ -193,6 +193,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_ESTADO_LIMPIEZA = "idEstadoLimpieza";
 
+    public static final String SQL_PARAM_ID_TAREA_LIMPIEZA = "idTareaLimpieza";
+
     public static final String SQL_PARAM_ID_CONCEPTO = "idConcepto";
 
     public static final String SQL_PARAM_EXCLUIDO_DENOMINADOR = "excluidoDenominador";

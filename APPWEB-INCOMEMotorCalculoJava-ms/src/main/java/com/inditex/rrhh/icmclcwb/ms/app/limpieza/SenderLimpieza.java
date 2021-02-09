@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
+
 import com.inditex.aqsw.framework.data.jms.JmsClient;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 
 @Component
 public class SenderLimpieza {
@@ -17,8 +18,8 @@ public class SenderLimpieza {
     private JmsClient limpiezaJmsClient;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void send(IdTareaDto tarea) {
-        limpiezaJmsClient.convertAndSend(tarea);
+    public void send(final TareaLimpiezaDto limpieza) {
+        this.limpiezaJmsClient.convertAndSend(limpieza);
     }
 
 }

@@ -2,7 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.primary.limpieza.repository;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
@@ -11,7 +13,13 @@ public interface LimpiezaRepositoryCustom {
 
     void limpieza(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito);
 
+    @Deprecated
     void consolidar(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TrabajoDto trabajo);
+
+    void updateEstado(@NotNull @Positive final Long idTareaLimpieza,
+            @NotNull @Valid final EstadoTareaLimpiezaDto estado);
+
+    void updateFecha(@NotNull @Positive final Long idTareaLimpieza);
 
     void limpiezaTareaPersonaHistorico(@NotNull @Valid final TareaDto tarea);
 

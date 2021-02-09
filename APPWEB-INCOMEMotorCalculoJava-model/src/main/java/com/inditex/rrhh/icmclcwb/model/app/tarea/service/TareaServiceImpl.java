@@ -18,11 +18,13 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
@@ -60,6 +62,9 @@ public class TareaServiceImpl implements TareaService {
     private TareaFaseAccionService tareaFaseAccionService;
 
     @Autowired
+    private TareaLimpiezaService tareaLimpiezaService;
+
+    @Autowired
     private SenderTarea senderTarea;
 
     @Override
@@ -74,6 +79,14 @@ public class TareaServiceImpl implements TareaService {
         tarea.setLocalizacion(this.tareaAmbitoLocalizacionService.findByTarea(tarea));
         tarea.setPersona(this.tareaAmbitoPersonaService.findByTarea(tarea));
         return tarea;
+    }
+
+    @Override
+    public TareaDto findByIdLimpieza(
+            @NotNull @Positive final Long idLimpieza) {
+        // TODO [javierev] mejorar esta obtención de tarea
+        final TareaLimpiezaDto tareaLimpiezaDto = this.tareaLimpiezaService.find(idLimpieza);
+        return tareaLimpiezaDto != null ? this.find(tareaLimpiezaDto.getIdTarea()) : null;
     }
 
     // @Transactional(propagation = Propagation.REQUIRES_NEW)

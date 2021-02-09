@@ -17,4 +17,6 @@ public interface TareaLimpiezaService {
 
     List<TareaLimpiezaDto> create(List<IdTareaDto> idTareas);
 
+    TareaLimpiezaDto find(Long id);
+
 }

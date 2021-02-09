@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.dto.RunMantenimientoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunMantenimientoLimpiezaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.ms.app.limpieza.SenderLimpieza;
@@ -37,8 +38,8 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Override
     public RunMantenimientoLimpiezaDto run() {
         final List<IdTareaDto> idTarea = this.tareaService.findLimpieza();
-        this.tareaLimpiezaService.create(idTarea);
-        Flux.fromIterable(idTarea)
+        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.create(idTarea);
+        Flux.fromIterable(limpiezas)
             .parallel()
             .runOn(ItxSchedulers.single())
             .subscribe(this.senderLimpieza::send);
@@ -49,8 +50,8 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Override
     public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {
         final List<IdTareaDto> idTarea = this.tareaService.findLimpiezaByIdTarea(id);
-        this.tareaLimpiezaService.create(idTarea);
-        Flux.fromIterable(idTarea)
+        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.create(idTarea);
+        Flux.fromIterable(limpiezas)
             .parallel()
             .runOn(ItxSchedulers.single())
             .subscribe(this.senderLimpieza::send);
