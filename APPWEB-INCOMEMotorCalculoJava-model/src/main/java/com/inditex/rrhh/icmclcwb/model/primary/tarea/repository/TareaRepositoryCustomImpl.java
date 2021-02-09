@@ -123,7 +123,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
             final IdTareaDto dto = new IdTareaDto();
             dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
             return dto;
-                });
+        });
     }
 
 }
