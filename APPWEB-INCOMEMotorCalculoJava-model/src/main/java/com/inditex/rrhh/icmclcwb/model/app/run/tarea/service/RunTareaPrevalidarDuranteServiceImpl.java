@@ -3,21 +3,30 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.PuntoEjecucionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
+import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
@@ -38,30 +47,59 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
     @Autowired
     private TareaFaseAccionService tareaFaseAccionService;
 
+    @Autowired
+    private SenderTarea senderTarea;
+
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTareaDto,
-            @NotNull @Valid final FaseDto faseDto) {
+            @NotNull @Valid final FaseDto faseDto,
+            @NotNull @Valid final AccionDto accionDto) {
         final TareaDto tareaDto = runTareaDto.getTarea();
-        this.tareaFaseAccionService
+        final List<ValidacionDto> validaciones = this.tareaFaseAccionService
             .findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(tareaDto.getId(), faseDto.getId(),
                     PuntoEjecucionEnum.DURANTE.getId())
             .stream()
-            .forEach(a -> Flux
+            .map(a -> Flux
                 .fromIterable(
-                        this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
-                                tareaDto.getId(), faseDto.getId(), PuntoEjecucionEnum.DURANTE.getId(), a))
+                        this.tareaFaseAccionService
+                            .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucionAndPeso(
+                                    tareaDto.getId(), faseDto.getId(), accionDto.getId(),
+                                    PuntoEjecucionEnum.DURANTE.getId(), a))
                 .parallel()
                 .runOn(Schedulers.newElastic("async-reactor-prevalidar-durante"))
                 .map(tareaFaseAccion -> {
-                    this.runPrevalidarFactory
+                    return this.runPrevalidarFactory
                         .getRunPrevalidar(
                                 this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion()).getNombre())
                         .execute(runTareaDto, tareaFaseAccion);
-                    return Flux.empty();
                 })
                 .sequential()
                 .collectList()
-                .block());
+                .block())
+            .flatMap(List::stream)
+            .flatMap(List::stream)
+            .collect(Collectors.toList());
+
+        validaciones.stream()
+            .filter(e -> Boolean.FALSE.equals(e.getResult()))
+            .forEach(e -> {
+                final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
+                    .findById(e.getIdTareaFaseAccion());
+                this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+                        EstadoTareaFaseAccionEnum.KO.getDto());
+                final AccionDto accion = this.accionService
+                    .findAccionDtoById(tareaFaseAccion.getIdAccion());
+                if (Boolean.TRUE.equals(accion.getEsReaccionReintento())) {
+                    if (Boolean.TRUE.equals(accion.getEsReaccionEsperar())) {
+                        this.senderTarea.sendWithDelay(runTareaDto.getTarea(),
+                                accion.getReintentoDelay());
+                    }
+                    this.senderTarea.send(runTareaDto.getTarea());
+                }
+                this.tareaFaseAccionService.updateFechaFinAndEstadoAndActivo(tareaFaseAccion,
+                        EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
+                throw new ValidationException("Error validando");
+            });
     }
 
 }

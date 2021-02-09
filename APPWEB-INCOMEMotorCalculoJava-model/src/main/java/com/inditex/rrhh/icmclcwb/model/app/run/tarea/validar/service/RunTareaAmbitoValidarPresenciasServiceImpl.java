@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarPresenciasService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
@@ -36,20 +37,18 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
     private ComisAsyncService comisAsyncService;
 
     @Autowired
-    private PtrAsyncService ptrAsyncService;
-
-    @Autowired
     private TareaFaseAccionService tareaFaseAccionService;
 
+    @Autowired
+    private PtrAsyncService ptrAsyncService;
+
     @Override
-    public Boolean execute(@Valid final RunTareaDto runTareaDto,
+    public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
         Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
-
             final CompletableFuture<PresenciaOrigenDto> cfPresenciaComis = this.comisAsyncService
                 .findPresenciasOrigenAndFecha(runTareaDto, tareaAmbito);
             AsyncUtils.exceptionally(cfPresenciaComis, cf);
@@ -65,13 +64,13 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
 
             validacion = presenciaComis.getHorasSeccion4().equals(presenciaPtr.getHorasSeccion4());
 
-            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
-
         } catch (final Exception e) {
+            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+                    EstadoTareaFaseAccionEnum.ERROR.getDto());
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return validacion;
+        return ValidacionDto.builder().result(validacion).idTareaFaseAccion(tareaFaseAccion.getId()).build();
     }
 
 }

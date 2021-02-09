@@ -255,6 +255,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_PUNTO_EJECUCION = "idPuntoEjecucion";
 
+    public static final String SQL_PARAM_ID_ACCION = "idAccion";
+
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 

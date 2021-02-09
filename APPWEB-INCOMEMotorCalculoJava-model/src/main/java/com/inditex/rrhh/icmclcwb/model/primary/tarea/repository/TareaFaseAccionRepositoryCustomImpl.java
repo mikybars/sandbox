@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -16,6 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -41,6 +41,9 @@ public class TareaFaseAccionRepositoryCustomImpl
     @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion']}")
     private String sqlFindTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion;
 
+    @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion']}")
+    private String sqlFindTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion;
+
     @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion']}")
     private String sqlFindValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion;
 
@@ -50,6 +53,9 @@ public class TareaFaseAccionRepositoryCustomImpl
     @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.updateFechaFinAndEstado']}")
     private String sqlUpdateFechaFinAndEstado;
 
+    @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.updateFechaFinAndEstadoAndActivo']}")
+    private String sqlUpdateFechaFinAndEstadoAndActivo;
+
     @Override
     public List<TareaFaseAccion> save(final List<TareaFaseAccion> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -57,13 +63,14 @@ public class TareaFaseAccionRepositoryCustomImpl
 
     @Override
     public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
-            @NotNull @Positive final Long idTarea, @NotBlank final Integer idFase,
+            @NotNull @Positive final Long idTarea, @NotNull final Integer idFase,
             @NotNull final Integer idPuntoEjecucion, @NotNull final Long peso) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_FASE, idFase);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PUNTO_EJECUCION, idPuntoEjecucion);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PESO, peso);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
         return this.query(
                 this.sqlFindTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion,
@@ -90,8 +97,44 @@ public class TareaFaseAccionRepositoryCustomImpl
     }
 
     @Override
+    public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucionAndPeso(
+            @NotNull @Positive final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idAccion,
+            @NotNull final Integer idPuntoEjecucion, @NotNull final Long peso) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_FASE, idFase);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ACCION, idAccion);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PUNTO_EJECUCION, idPuntoEjecucion);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PESO, peso);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+        return this.query(
+                this.sqlFindTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion,
+                parameters, new RowMapper<TareaFaseAccionDto>() {
+                    @Override
+                    public TareaFaseAccionDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+                        final TareaFaseAccionDto dto = new TareaFaseAccionDto();
+                        dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA_FASE_ACCION));
+                        dto.setIdTareaFase(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA_FASE));
+                        dto.setIdAccion(rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_ACCION));
+                        dto.setIdPuntoEjecucion(rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_PUNTO_EJECUCION));
+                        dto.setIdEstadoTareaFaseAccion(
+                                rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_ESTADO_TAREA_FASE_ACCION));
+                        dto.setActivo(rs.getBoolean(SqlPrimaryConstants.SQL_RESULT_ES_ACTIVO));
+                        // dto.setFechaHoraInicio(TimeUtils
+                        // .toLocalDateTime(
+                        // rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_HORA_INICIO).toLocalDate()));
+                        dto.setFechaHoraCreacion(TimeUtils
+                            .toLocalDateTime(
+                                    rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_HORA_CREACION).toLocalDate()));
+                        return dto;
+                    }
+                });
+    }
+
+    @Override
     public List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(
-            @NotNull @Positive final Long idTarea, @NotBlank final Integer idFase,
+            @NotNull @Positive final Long idTarea, @NotNull final Integer idFase,
             @NotNull final Integer idPuntoEjecucion) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
@@ -125,6 +168,18 @@ public class TareaFaseAccionRepositoryCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estadoTareaFaseAccionDto.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
         this.update(this.sqlUpdateFechaFinAndEstado, params);
+    }
+
+    @Override
+    public void updateFechaFinAndEstadoAndActivo(@NotNull final TareaFaseAccionDto tareaFaseAccionDto,
+            @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE, tareaFaseAccionDto.getIdTareaFase());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estadoTareaFaseAccionDto.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, EstadoTareaFaseAccionEnum.NO_EJECUTADA.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
+        this.update(this.sqlUpdateFechaFinAndEstadoAndActivo, params);
     }
 
 }

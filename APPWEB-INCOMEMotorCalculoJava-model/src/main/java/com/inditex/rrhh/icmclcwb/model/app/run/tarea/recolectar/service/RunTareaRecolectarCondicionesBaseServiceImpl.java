@@ -14,7 +14,10 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesBaseService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.AccionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
@@ -27,6 +30,8 @@ public class RunTareaRecolectarCondicionesBaseServiceImpl implements RunTareaRec
     @Autowired
     private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 
+    @Autowired
+    private RunTareaPrevalidarDuranteService runTareaPrevalidarDuranteService;
 
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaRecolectarCondicionesBaseService.run.timer",
@@ -50,9 +55,21 @@ public class RunTareaRecolectarCondicionesBaseServiceImpl implements RunTareaRec
                 .estructurasComByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfEstructurasCom, cf);
 
+            this.runTareaPrevalidarDuranteService.run(runTarea, FaseEnum.RECOLECTAR.getDto(),
+                    AccionEnum.CONDICIONES_HISTORICO.getDto());
+
+            this.runTareaPrevalidarDuranteService.run(runTarea, FaseEnum.RECOLECTAR.getDto(),
+                    AccionEnum.DESPLAZAMIENTO.getDto());
+
+            this.runTareaPrevalidarDuranteService.run(runTarea, FaseEnum.RECOLECTAR.getDto(),
+                    AccionEnum.MOTIVOS.getDto());
+
             final CompletableFuture<Void> cfEstructurasPol = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .estructurasPolByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfEstructurasPol, cf);
+
+            this.runTareaPrevalidarDuranteService.run(runTarea, FaseEnum.RECOLECTAR.getDto(),
+                    AccionEnum.BAJA.getDto());
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);

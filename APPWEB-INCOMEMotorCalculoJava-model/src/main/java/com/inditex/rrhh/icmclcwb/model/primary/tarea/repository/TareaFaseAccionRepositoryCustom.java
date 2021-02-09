@@ -5,7 +5,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -34,7 +33,7 @@ public interface TareaFaseAccionRepositoryCustom {
      * @return
      */
     List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
-            @NotNull @Positive Long idTarea, @NotBlank Integer idFase, @NotNull Integer idPuntoEjecucion,
+            @NotNull @Positive Long idTarea, @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion,
             @NotNull Long peso);
 
     /**
@@ -44,7 +43,7 @@ public interface TareaFaseAccionRepositoryCustom {
      * @return
      */
     List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(@NotNull @Positive Long idTarea,
-            @NotBlank Integer idFase, @NotNull Integer idPuntoEjecucion);
+            @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion);
 
 
     /**
@@ -59,5 +58,26 @@ public interface TareaFaseAccionRepositoryCustom {
      */
     void updateFechaFinAndEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
             @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
+
+
+    /**
+     * @param tareaFaseAccionDto
+     * @param estadoTareaFaseAccionDto
+     */
+    void updateFechaFinAndEstadoAndActivo(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
+            @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
+
+
+    /**
+     * @param idTarea
+     * @param idFase
+     * @param idAccion
+     * @param idPuntoEjecucion
+     * @param peso
+     * @return
+     */
+    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucionAndPeso(
+            @NotNull @Positive Long idTarea, @NotNull Integer idFase, @NotNull Integer idAccion,
+            @NotNull Integer idPuntoEjecucion, @NotNull Long peso);
 
 }

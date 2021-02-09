@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesDesplazamientoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
@@ -38,23 +39,21 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
     private ComisAsyncService comisAsyncService;
 
     @Autowired
-    private PtrAsyncService ptrAsyncService;
+    private TareaFaseAccionService tareaFaseAccionService;
 
     @Autowired
-    private TareaFaseAccionService tareaFaseAccionService;
+    private PtrAsyncService ptrAsyncService;
 
     @Autowired
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Override
-    public Boolean execute(@Valid final RunTareaDto runTareaDto,
+    public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
         final Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
-
             final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesDesplazamiento = this.comisAsyncService
                 .findCondicionesDesplazamiento(runTareaDto, tareaAmbito);
             AsyncUtils.exceptionally(cfCondicionesDesplazamiento, cf);
@@ -72,13 +71,13 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento();
 
-            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
-
         } catch (final Exception e) {
+            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+                    EstadoTareaFaseAccionEnum.ERROR.getDto());
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return validacion;
+        return ValidacionDto.builder().result(validacion).idTareaFaseAccion(tareaFaseAccion.getId()).build();
     }
 
 }

@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
@@ -35,6 +37,7 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     @Autowired
     private TareaCalculoPersonaRepositoryCustom tareaCalculoPersonaRepositoryCustom;
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<IdPersonaLocalDto> personas,
             @Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estado) {
@@ -42,6 +45,7 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
                 personas.stream().map(e -> e.getIdPersonaLocal()).collect(Collectors.toList()), runTareaDto, estado);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateWithEstado(@Valid @NotNull final RunTareaDto runTareaDto,
             @Valid @NotNull final EstadoTareaPersonaDto estadoActual,

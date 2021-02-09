@@ -3,6 +3,9 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarAntesService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.PuntoEjecucionEnum;
@@ -39,14 +43,14 @@ public class RunTareaPrevalidarAntesServiceImpl implements RunTareaPrevalidarAnt
     private TareaFaseAccionService tareaFaseAccionService;
 
     @Override
-    public void run(@NotNull @Valid final RunTareaDto runTareaDto,
+    public List<ValidacionDto> run(@NotNull @Valid final RunTareaDto runTareaDto,
             @NotNull @Valid final FaseDto faseDto) {
         final TareaDto tareaDto = runTareaDto.getTarea();
-        this.tareaFaseAccionService
+        return this.tareaFaseAccionService
             .findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(tareaDto.getId(), faseDto.getId(),
                     PuntoEjecucionEnum.ANTES.getId())
             .stream()
-            .forEach(
+            .map(
                     a -> Flux
                         .fromIterable(
                                 this.tareaFaseAccionService
@@ -55,15 +59,17 @@ public class RunTareaPrevalidarAntesServiceImpl implements RunTareaPrevalidarAnt
                         .parallel()
                         .runOn(Schedulers.newElastic("async-reactor-prevalidar-antes"))
                         .map(tareaFaseAccion -> {
-                            this.runPrevalidarFactory
+                            return this.runPrevalidarFactory
                                 .getRunPrevalidar(
                                         this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion()).getNombre())
                                 .execute(runTareaDto, tareaFaseAccion);
-                            return Flux.empty();
                         })
                         .sequential()
                         .collectList()
-                        .block());
+                        .block())
+            .flatMap(List::stream)
+            .flatMap(List::stream)
+            .collect(Collectors.toList());
     }
 
 }

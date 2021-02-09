@@ -94,7 +94,8 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA, DateUtils.addDays(TimeUtils.nowDate(), this.daysNumber));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA,
+                DateUtils.addDays(TimeUtils.nowDate(), this.daysNumber));
         return this.namedParameterJdbcTemplate.query(this.sqlFindLimpieza, parameters, new RowMapper<IdTareaDto>() {
             @Override
             public IdTareaDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
@@ -109,17 +110,19 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     public List<IdTareaDto> findLimpiezaByIdTarea(@NotNull final Long idTarea) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA, DateUtils.addDays(TimeUtils.nowDate(), this.daysNumber));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA,
+                DateUtils.addDays(TimeUtils.nowDate(), this.daysNumber));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()));
-        return this.namedParameterJdbcTemplate.query(this.sqlFindLimpiezaByIdTarea, parameters, new RowMapper<IdTareaDto>() {
-            @Override
-            public IdTareaDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-                final IdTareaDto dto = new IdTareaDto();
-                dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
-                return dto;
-            }
-        });
+        return this.namedParameterJdbcTemplate.query(this.sqlFindLimpiezaByIdTarea, parameters,
+                new RowMapper<IdTareaDto>() {
+                    @Override
+                    public IdTareaDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+                        final IdTareaDto dto = new IdTareaDto();
+                        dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
+                        return dto;
+                    }
+                });
     }
 
 }

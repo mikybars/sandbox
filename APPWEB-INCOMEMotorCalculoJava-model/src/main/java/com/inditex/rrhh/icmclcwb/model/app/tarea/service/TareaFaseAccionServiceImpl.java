@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.FaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaFaseAccionMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.OptionalUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseAccionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseAccionRepositoryCustom;
 
@@ -60,6 +62,13 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
             .tareaFaseAccionToTareaFaseAccionDto(
                     this.tareaFaseAccionRepositoryCustom.save(this.tareaFaseAccionMapper
                         .tareaFaseAccionDtoToTareaFaseAccion(tareaFaseAccion)));
+    }
+
+    @Override
+    public TareaFaseAccionDto findById(@Valid @NotNull @Positive final Long idTareaFaseAccion) {
+        return this.tareaFaseAccionMapper
+            .tareaFaseAccionToTareaFaseAccionDto(
+                    OptionalUtils.get(this.tareaFaseAccionRepository.findById(idTareaFaseAccion)));
     }
 
     @Override
@@ -98,6 +107,16 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     }
 
     @Override
+    public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucionAndPeso(
+            @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idAccion,
+            @NotNull final Integer idPuntoEjecucion,
+            @NotNull final Long peso) {
+        return this.tareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
+                idTarea,
+                idFase, idPuntoEjecucion, peso);
+    }
+
+    @Override
     public List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(
             @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idPuntoEjecucion) {
         return this.tareaFaseAccionRepositoryCustom.findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(idTarea,
@@ -116,6 +135,14 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     public void updateFechaFinAndEstado(@Valid @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
             @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
         this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstado(tareaFaseAccionDto, estadoTareaFaseAccionDto);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void updateFechaFinAndEstadoAndActivo(@Valid @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
+            @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
+        this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstadoAndActivo(tareaFaseAccionDto,
+                estadoTareaFaseAccionDto);
     }
 
 }

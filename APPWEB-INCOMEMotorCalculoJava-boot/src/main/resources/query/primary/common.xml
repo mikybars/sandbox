@@ -6332,6 +6332,27 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
     AND TF.ID_FASE = :idFase
     AND TFA.ID_PUNTO_EJECUCION = :idPuntoEjecucion
     AND FA.PESO = :peso
+    AND TFA.ES_ACTIVO = :activo 
+  ]]>
+  </entry>
+  
+    <entry key="TareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion">
+    <![CDATA[
+    SELECT TFA.ID_TAREA_FASE_ACCION, TFA.ID_TAREA_FASE, TFA.ID_ACCION, TFA.ID_PUNTO_EJECUCION,
+    TFA.ID_ESTADO_TAREA_FASE_ACCION, TFA.FECHA_HORA_CREACION, TFA.FECHA_HORA_INICIO, TFA.FECHA_HORA_FIN, TFA.ES_ACTIVO
+    FROM TAREA_FASE_ACCION TFA
+    INNER JOIN TAREA_FASE TF
+    ON TF.ID_TAREA_FASE = TFA.ID_TAREA_FASE
+     INNER JOIN FASE_ACCION FA
+    ON FA.ID_ACCION = TFA.ID_ACCION
+    AND FA.ID_FASE = TF.ID_FASE
+    AND FA.ID_PUNTO_EJECUCION = TFA.ID_PUNTO_EJECUCION
+    WHERE TF.ID_TAREA = :idTarea
+    AND TF.ID_FASE = :idFase
+    AND TFA.ID_PUNTO_EJECUCION = :idPuntoEjecucion
+    AND TFA.ID_ACCION = :idAccion
+    AND FA.PESO = :peso
+    AND TFA.ES_ACTIVO = :activo 
   ]]>
   </entry>
 
@@ -6366,6 +6387,23 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
     UPDATE TAREA_FASE_ACCION SET FECHA_HORA_FIN = :nuevaFecha, ID_ESTADO_TAREA_FASE_ACCION = :nuevoIdEstado WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion
     ]]>
   </entry>
+  
+  <entry key="TareaFaseAccionRepositoryCustom.updateFechaFinAndEstadoAndActivo">
+    <![CDATA[
+           MERGE INTO TAREA_FASE_ACCION AS TFA USING
+        (
+                SELECT ID_TAREA_FASE_ACCION
+                FROM TAREA_FASE_ACCION TFA
+                INNER JOIN TAREA_FASE TF
+                ON TF.ID_TAREA_FASE = TFA.ID_TAREA_FASE
+                WHERE TF.ID_TAREA_FASE = :idTareaFase
+                AND TFA.ID_ESTADO_TAREA_FASE_ACCION = :idEstado                
+        )AS S ON (S.ID_TAREA_FASE_ACCION = TFA.ID_TAREA_FASE_ACCION)
+        WHEN MATCHED THEN
+                UPDATE SET ES_ACTIVO = :nuevoActivo, ID_ESTADO_TAREA_FASE_ACCION = :nuevoIdEstado, ES_ACTIVO = :inactivo 
+    ]]>
+  </entry>
+  
 
 
 </properties>

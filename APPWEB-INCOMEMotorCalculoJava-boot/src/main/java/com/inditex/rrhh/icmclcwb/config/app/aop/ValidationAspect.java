@@ -6,22 +6,31 @@ package com.inditex.rrhh.icmclcwb.config.app.aop;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.ValidationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarAntesService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDespuesService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.service.RunTareaCalcularServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.service.RunTareaProcesarServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.service.RunTareaRecolectarServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.service.RunTareaRecolectarValidarServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.service.RunTareaRegularizarServiceImpl;
+import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -38,6 +47,15 @@ public class ValidationAspect {
     @Autowired
     private RunTareaPrevalidarDespuesService runTareaPrevalidarDespuesService;
 
+    @Autowired
+    private TareaFaseAccionService tareaFaseAccionService;
+
+    @Autowired
+    private AccionService accionService;
+
+    @Autowired
+    private SenderTarea senderTarea;
+
     @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation)")
     public void validationPointcut() {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
@@ -53,7 +71,29 @@ public class ValidationAspect {
                 final RunTareaDto runTareaDto = ((RunTareaDto) obj);
                 final FaseDto faseDto = this.getFaseDto(pjp);
                 if (faseDto != null) {
-                    this.runTareaPrevalidarAntesService.run(runTareaDto, faseDto);
+                    final List<ValidacionDto> validaciones = this.runTareaPrevalidarAntesService.run(runTareaDto,
+                            faseDto);
+
+                    validaciones.stream()
+                        .filter(e -> Boolean.FALSE.equals(e.getResult()))
+                        .forEach(e -> {
+                            final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
+                                .findById(e.getIdTareaFaseAccion());
+                            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+                                    EstadoTareaFaseAccionEnum.KO.getDto());
+                            final AccionDto accion = this.accionService
+                                .findAccionDtoById(tareaFaseAccion.getIdAccion());
+                            if (Boolean.TRUE.equals(accion.getEsReaccionReintento())) {
+                                if (Boolean.TRUE.equals(accion.getEsReaccionEsperar())) {
+                                    this.senderTarea.sendWithDelay(runTareaDto.getTarea(),
+                                            accion.getReintentoDelay());
+                                }
+                                this.senderTarea.send(runTareaDto.getTarea());
+                            }
+                            this.tareaFaseAccionService.updateFechaFinAndEstadoAndActivo(tareaFaseAccion,
+                                    EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
+                            throw new ValidationException("Error validando");
+                        });
                 }
             }
         }
@@ -71,7 +111,29 @@ public class ValidationAspect {
                 final RunTareaDto runTareaDto = ((RunTareaDto) obj);
                 final FaseDto faseDto = this.getFaseDto(pjp);
                 if (faseDto != null) {
-                    this.runTareaPrevalidarDespuesService.run(runTareaDto, faseDto);
+                    final List<ValidacionDto> validaciones = this.runTareaPrevalidarDespuesService.run(runTareaDto,
+                            faseDto);
+
+                    validaciones.stream()
+                        .filter(e -> Boolean.FALSE.equals(e.getResult()))
+                        .forEach(e -> {
+                            final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
+                                .findById(e.getIdTareaFaseAccion());
+                            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+                                    EstadoTareaFaseAccionEnum.KO.getDto());
+                            final AccionDto accion = this.accionService
+                                .findAccionDtoById(tareaFaseAccion.getIdAccion());
+                            if (Boolean.TRUE.equals(accion.getEsReaccionReintento())) {
+                                if (Boolean.TRUE.equals(accion.getEsReaccionEsperar())) {
+                                    this.senderTarea.sendWithDelay(runTareaDto.getTarea(),
+                                            accion.getReintentoDelay());
+                                }
+                                this.senderTarea.send(runTareaDto.getTarea());
+                            }
+                            this.tareaFaseAccionService.updateFechaFinAndEstadoAndActivo(tareaFaseAccion,
+                                    EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
+                            throw new ValidationException("Error validando");
+                        });
                 }
             }
         }
