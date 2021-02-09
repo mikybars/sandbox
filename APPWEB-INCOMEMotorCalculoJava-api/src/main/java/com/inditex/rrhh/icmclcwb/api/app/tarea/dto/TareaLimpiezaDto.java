@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoLimpiezaDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
@@ -28,6 +29,10 @@ public class TareaLimpiezaDto implements Serializable {
     @ApiModelProperty(value = "Estado de la limpieza", required = true)
     private EstadoTareaLimpiezaDto estado;
 
+    @NotNull
+    @ApiModelProperty(value = "Tipo de limpieza", required = true)
+    private TipoLimpiezaDto tipo;
+
     @ApiModelProperty(value = "Fecha en la que se realizó la limpieza", required = false,
             accessMode = AccessMode.READ_ONLY, hidden = true)
     private LocalDateTime fechaHoraLimpieza;
@@ -35,13 +40,5 @@ public class TareaLimpiezaDto implements Serializable {
     @ApiModelProperty(value = "Nombre del usuario que solicito la limpieza", required = false,
             accessMode = AccessMode.READ_ONLY, hidden = true, example = "IAGOML")
     private String nombreUsuario;
-
-    @NotNull
-    @ApiModelProperty(value = "Flag que indica si se trata de una limpieza completa", required = true)
-    private Boolean esCompleta;
-
-    @NotNull
-    @ApiModelProperty(value = "Flag que indica si se trata de una limpieza parcial", required = true)
-    private Boolean esParcial;
 
 }

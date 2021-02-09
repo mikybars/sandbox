@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaLimpiezaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
@@ -58,6 +59,8 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
             }
         }
         tareaLimpieza.setEstado(EstadoTareaLimpiezaEnum.PENDIENTE.getDto());
+        // TODO [javierev] cuando se implemente la limpieza parcial esta línea se debe retirar
+        tareaLimpieza.setTipo(TipoLimpiezaEnum.COMPLETA.getDto());
         this.tareaLimpiezaRepositoryCustom
             .save(tareaLimpieza);
         final TareaLimpieza limpieza = this.tareaLimpiezaRepository.findByTareaId(tareaLimpieza.getIdTarea());

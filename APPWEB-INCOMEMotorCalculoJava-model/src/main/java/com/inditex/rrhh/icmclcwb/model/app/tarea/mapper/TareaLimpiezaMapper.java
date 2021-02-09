@@ -14,6 +14,7 @@ public abstract class TareaLimpiezaMapper {
 
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "estado.id", source = "estado.id")
+    @Mapping(target = "tipo.id", source = "tipo.id")
     public abstract TareaLimpiezaDto tareaLimpiezaToTareaLimpiezaDto(TareaLimpieza src);
 
     @InheritInverseConfiguration
@@ -27,8 +28,6 @@ public abstract class TareaLimpiezaMapper {
     @Mapping(target = "nombreUsuario", ignore = true)
     @Mapping(target = "idTarea", source = "id")
     @Mapping(target = "fechaHoraLimpieza", ignore = true)
-    @Mapping(target = "esCompleta", constant = "true")
-    @Mapping(target = "esParcial", constant = "false")
     @Mapping(target = "estado", ignore = true)
     public abstract TareaLimpiezaDto idTareaDtoToTareaLimpiezaDto(IdTareaDto src);
 

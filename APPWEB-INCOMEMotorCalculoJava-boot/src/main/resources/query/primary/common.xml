@@ -4343,7 +4343,7 @@ WHERE INDICADOR.ROW = 1
     <![CDATA[UPDATE PROGRAMACION SET ES_ACTIVO = :activo WHERE ID_PROGRAMACION = :idProgramacion]]>
   </entry>
 
-  <entry key="TareaLimpiezaRepositoryCustom.mergeLimpieza">
+  <entry key="TareaLimpiezaRepositoryCustom.saveLimpieza">
     <![CDATA[
     MERGE INTO TAREA_LIMPIEZA AS TL USING
     (
@@ -4356,8 +4356,8 @@ WHERE INDICADOR.ROW = 1
     WHEN MATCHED THEN
         UPDATE SET ID_ESTADO_TAREA_LIMPIEZA = :idEstadoLimpieza
     WHEN NOT MATCHED THEN
-        INSERT (ID_TAREA, ES_COMPLETA, ES_PARCIAL, NOMBRE_USUARIO, ID_ESTADO_TAREA_LIMPIEZA)
-        VALUES (:idTarea, :activo, :inactivo, :nombreUsuario, :idEstadoLimpieza)
+        INSERT (ID_TAREA, NOMBRE_USUARIO, ID_ESTADO_TAREA_LIMPIEZA, ID_TIPO_LIMPIEZA)
+        VALUES (:idTarea, :nombreUsuario, :idEstadoLimpieza, :idTipoLimpieza)
     ]]>
   </entry>
 

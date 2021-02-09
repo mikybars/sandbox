@@ -30,8 +30,8 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.mergeLimpieza']}")
-    private String sqlMergeLimpieza;
+    @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.saveLimpieza']}")
+    private String sqlSaveLimpieza;
 
     @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.updateFechaEjecucion']}")
     private String sqlUpdateFechaEjecucion;
@@ -55,7 +55,7 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
             params.addValue(SqlPrimaryConstants.SQL_PARAM_NOMBRE_USUARIO, trabajoDto.getNombreUsuario());
         }
 
-        this.namedParameterJdbcTemplate.update(this.sqlMergeLimpieza, params);
+        this.namedParameterJdbcTemplate.update(this.sqlSaveLimpieza, params);
     }
 
     @Override
@@ -63,11 +63,10 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
             @NotNull @Valid final TareaLimpiezaDto limpiezaDto) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, limpiezaDto.getIdTarea());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA, limpiezaDto.getEstado().getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NOMBRE_USUARIO, limpiezaDto.getNombreUsuario());
-        this.namedParameterJdbcTemplate.update(this.sqlMergeLimpieza, params);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_LIMPIEZA, limpiezaDto.getTipo().getId());
+        this.namedParameterJdbcTemplate.update(this.sqlSaveLimpieza, params);
     }
 
     @Override

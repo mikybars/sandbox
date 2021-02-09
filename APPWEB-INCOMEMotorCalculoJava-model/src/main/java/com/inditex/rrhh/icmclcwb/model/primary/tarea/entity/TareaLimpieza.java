@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoLimpieza;
 import lombok.Data;
 
 @Entity
@@ -35,19 +36,16 @@ public class TareaLimpieza {
     @JoinColumn(name = "ID_ESTADO_TAREA_LIMPIEZA", nullable = false)
     private EstadoTareaLimpieza estado;
 
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "ID_TIPO_LIMPIEZA", nullable = false)
+    private TipoLimpieza tipo;
+
     @Column(name = "FECHA_HORA_LIMPIEZA", nullable = true)
     private Date fechaHoraLimpieza;
 
     @NotBlank
     @Column(name = "NOMBRE_USUARIO", nullable = false, length = 12)
     private String nombreUsuario;
-
-    @NotNull
-    @Column(name = "ES_COMPLETA", nullable = false)
-    private Boolean esCompleta;
-
-    @NotNull
-    @Column(name = "ES_PARCIAL", nullable = false)
-    private Boolean esParcial;
 
 }
