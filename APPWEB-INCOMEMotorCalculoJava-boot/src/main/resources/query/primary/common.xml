@@ -4389,6 +4389,11 @@ WHERE INDICADOR.ROW = 1
   </entry>
 
   <entry key="TareaLimpiezaRepositoryCustom.updateFechaFinalizacion">
+  <entry key="ProgramacionRepositoryCustom.updateSiguienteEjecucion">
+    <![CDATA[UPDATE PROGRAMACION SET FECHA_SIGUIENTE_EJECUCION = :fechaSiguienteEjecucion WHERE ID_PROGRAMACION IN (:idProgramacion)]]>
+  </entry>
+
+  <entry key="TareaLimpiezaRepositoryCustom.saveLimpieza">
     <![CDATA[
     UPDATE TAREA_LIMPIEZA SET FECHA_HORA_FIN = :fechaHoraFin WHERE ID_TAREA_LIMPIEZA = :idTareaLimpieza
     ]]>

@@ -126,6 +126,9 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                 .runProgramacionPeriodo(new ArrayList<>())
                 .build())
             .collect(Collectors.toList());
+        // Se establece la fecha de la siguiente ejecución inmediatamente
+        this.programacionService.updateFechaSiguienteEjecucion(pendientes);
+        // Y se envían a la cola
         Flux.fromIterable(pendientes)
             .parallel()
             .runOn(ItxSchedulers.single())
