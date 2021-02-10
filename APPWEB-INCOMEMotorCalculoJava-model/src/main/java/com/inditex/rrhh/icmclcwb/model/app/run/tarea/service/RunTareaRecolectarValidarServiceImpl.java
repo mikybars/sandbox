@@ -73,7 +73,7 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
     private TareaFaseService tareaFaseService;
 
     @Auditoria
-    @Validation
+    @Validation(fase = 2)
     @TimerFunctionalMetric(metricName = "RunTareaRecolectarValidarService.run.timer",
             metricGroupName = "RunTareaRecolectarValidarServiceeGroup",
             metricDescription = "RunTareaRecolectarValidarService.run.timer")

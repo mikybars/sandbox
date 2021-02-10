@@ -35,7 +35,7 @@ public class RunTareaRegularizarServiceImpl implements RunTareaRegularizarServic
     private TareaFaseService tareaFaseService;
 
     @Auditoria
-    @Validation
+    @Validation(fase = 6)
     @TimerFunctionalMetric(metricName = "RunTareaRegularizarService.run.timer",
             metricGroupName = "RunTareaRegularizarServiceGroup",
             metricDescription = "RunTareaRegularizarService.run.timer")

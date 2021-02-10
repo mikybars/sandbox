@@ -1998,7 +1998,7 @@ AND ID_TIPO_DATO IN (
   AND T.FECHA_HORA_CREACION < :fecha
   AND T.FECHA_HORA_INICIO_TAREA IS NOT NULL
   AND T.FECHA_HORA_FIN_TAREA IS NOT NULL
-  AND (TL.ID_TAREA IS NULL OR TL.ID_ESTADO_TAREA_LIMPIEZA NOT IN (:idEstadoLimpieza))
+  AND (TL.ID_TAREA IS NULL OR TL.ES_COMPLETA = 0)
 ]]>
   </entry>
 
@@ -4343,7 +4343,7 @@ WHERE INDICADOR.ROW = 1
     <![CDATA[UPDATE PROGRAMACION SET ES_ACTIVO = :activo WHERE ID_PROGRAMACION = :idProgramacion]]>
   </entry>
 
-  <entry key="TareaLimpiezaRepositoryCustom.saveLimpieza">
+  <entry key="TareaLimpiezaRepositoryCustom.mergeLimpieza">
     <![CDATA[
     MERGE INTO TAREA_LIMPIEZA AS TL USING
     (
@@ -4354,22 +4354,10 @@ WHERE INDICADOR.ROW = 1
         TL.ID_TAREA = S.ID_TAREA
     )
     WHEN MATCHED THEN
-        UPDATE SET ID_ESTADO_TAREA_LIMPIEZA = :idEstadoLimpieza
+        UPDATE SET ES_COMPLETA = :activo
     WHEN NOT MATCHED THEN
-        INSERT (ID_TAREA, NOMBRE_USUARIO, ID_ESTADO_TAREA_LIMPIEZA, ID_TIPO_LIMPIEZA)
-        VALUES (:idTarea, :nombreUsuario, :idEstadoLimpieza, :idTipoLimpieza)
-    ]]>
-  </entry>
-
-  <entry key="TareaLimpiezaRepositoryCustom.updateFechaEjecucion">
-    <![CDATA[
-    UPDATE TAREA_LIMPIEZA SET FECHA_HORA_LIMPIEZA = :fechaHoraLimpieza WHERE ID_TAREA_LIMPIEZA = :idTareaLimpieza
-    ]]>
-  </entry>
-
-  <entry key="TareaLimpiezaRepositoryCustom.updateEstado">
-    <![CDATA[
-    UPDATE TAREA_LIMPIEZA SET ID_ESTADO_TAREA_LIMPIEZA = :idEstadoLimpieza WHERE ID_TAREA_LIMPIEZA = :idTareaLimpieza
+        INSERT (ID_TAREA, ES_COMPLETA, ES_PARCIAL, FECHA_HORA_LIMPIEZA, NOMBRE_USUARIO, ID_ESTADO_TAREA_LIMPIEZA)
+        VALUES (:idTarea, :activo, :inactivo, :fechaHoraLimpieza, :nombreUsuario, :idEstadoLimpieza)
     ]]>
   </entry>
 
@@ -6412,10 +6400,14 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
                 AND TFA.ID_ESTADO_TAREA_FASE_ACCION = :idEstado                
         )AS S ON (S.ID_TAREA_FASE_ACCION = TFA.ID_TAREA_FASE_ACCION)
         WHEN MATCHED THEN
-                UPDATE SET ES_ACTIVO = :nuevoActivo, ID_ESTADO_TAREA_FASE_ACCION = :nuevoIdEstado, ES_ACTIVO = :inactivo 
+                UPDATE SET ID_ESTADO_TAREA_FASE_ACCION = :nuevoIdEstado, ES_ACTIVO = :nuevoActivo 
     ]]>
   </entry>
   
-
-
+  <entry key="AccionRepositoryCustom.findByIdAccionAndIdOrigenAndStdIdLegEnt">
+    <![CDATA[
+        SELECT ID_ACCION FROM ACCION_AMBITO WHERE ID_ACCION = :idAccion AND CCL_ID_ORIGEN = :cclIdOrigen AND STD_ID_LEG_ENT = :stdIdLegEnt
+    ]]>
+  </entry>
+  
 </properties>

@@ -17,4 +17,14 @@ public enum FaseEnum {
 
     private final FaseDto dto;
 
+    public static FaseEnum fromId(Integer id) {
+        FaseEnum result = null;
+        for (FaseEnum value : FaseEnum.values()) {
+            if (value.id.equals(id)) {
+                result = value;
+            }
+        }
+        return result;
+    }
+
 }

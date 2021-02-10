@@ -70,7 +70,6 @@ public class RunTareaAmbitoValidarBajaItServiceImpl
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisBajaIt();
 
-
         } catch (final Exception e) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
                     EstadoTareaFaseAccionEnum.ERROR.getDto());

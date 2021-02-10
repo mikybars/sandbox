@@ -43,7 +43,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
     private TareaFaseService tareaFaseService;
 
     @Auditoria
-    @Validation
+    @Validation(fase = 3)
     @TimerFunctionalMetric(metricName = "RunTareaProcesarService.run.timer",
             metricGroupName = "RunTareaProcesarServiceGroup", metricDescription = "RunTareaProcesarService.run.timer")
     @CounterFunctionalMetric(metricName = "RunTareaProcesarService.run.counter",

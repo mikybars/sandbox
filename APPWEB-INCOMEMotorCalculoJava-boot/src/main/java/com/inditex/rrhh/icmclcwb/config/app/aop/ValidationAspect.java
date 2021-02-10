@@ -5,18 +5,19 @@ package com.inditex.rrhh.icmclcwb.config.app.aop;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarAntesService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDespuesService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
@@ -25,17 +26,13 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.model.app.run.tarea.service.RunTareaCalcularServiceImpl;
-import com.inditex.rrhh.icmclcwb.model.app.run.tarea.service.RunTareaProcesarServiceImpl;
-import com.inditex.rrhh.icmclcwb.model.app.run.tarea.service.RunTareaRecolectarServiceImpl;
-import com.inditex.rrhh.icmclcwb.model.app.run.tarea.service.RunTareaRecolectarValidarServiceImpl;
-import com.inditex.rrhh.icmclcwb.model.app.run.tarea.service.RunTareaRegularizarServiceImpl;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 
 @Aspect
 @Component
@@ -62,14 +59,19 @@ public class ValidationAspect {
     }
 
     @Before(value = "validationPointcut()")
-    public Object validationBefore(final JoinPoint pjp) throws Throwable {
+    public Object validationBefore(final JoinPoint pjp) {
+        final Validation validation = Optional.of(pjp.getSignature())
+            .map(signature -> (MethodSignature) signature)
+            .map(MethodSignature::getMethod)
+            .map(method -> method.getAnnotation(Validation.class))
+            .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación Validation"));
 
         final List<Object> args = Arrays.asList(pjp.getArgs());
         for (final Object obj : args) {
             final Class<? extends Object> objClass = obj.getClass();
             if (RunTareaDto.class.isAssignableFrom(objClass)) {
                 final RunTareaDto runTareaDto = ((RunTareaDto) obj);
-                final FaseDto faseDto = this.getFaseDto(pjp);
+                final FaseDto faseDto = FaseEnum.fromId(validation.fase()).getDto();
                 if (faseDto != null) {
                     final List<ValidacionDto> validaciones = this.runTareaPrevalidarAntesService.run(runTareaDto,
                             faseDto);
@@ -87,8 +89,10 @@ public class ValidationAspect {
                                 if (Boolean.TRUE.equals(accion.getEsReaccionEsperar())) {
                                     this.senderTarea.sendWithDelay(runTareaDto.getTarea(),
                                             accion.getReintentoDelay());
+                                } else {
+                                    this.senderTarea.send(runTareaDto.getTarea());
                                 }
-                                this.senderTarea.send(runTareaDto.getTarea());
+
                             }
                             this.tareaFaseAccionService.updateFechaFinAndEstadoAndActivo(tareaFaseAccion,
                                     EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
@@ -102,14 +106,19 @@ public class ValidationAspect {
 
 
     @After(value = "validationPointcut()")
-    public Object validationAfter(final JoinPoint pjp) throws Throwable {
+    public Object validationAfter(final JoinPoint pjp) {
+        final Validation validation = Optional.of(pjp.getSignature())
+            .map(signature -> (MethodSignature) signature)
+            .map(MethodSignature::getMethod)
+            .map(method -> method.getAnnotation(Validation.class))
+            .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación Validation"));
 
         final List<Object> args = Arrays.asList(pjp.getArgs());
         for (final Object obj : args) {
             final Class<? extends Object> objClass = obj.getClass();
             if (RunTareaDto.class.isAssignableFrom(objClass)) {
                 final RunTareaDto runTareaDto = ((RunTareaDto) obj);
-                final FaseDto faseDto = this.getFaseDto(pjp);
+                final FaseDto faseDto = FaseEnum.fromId(validation.fase()).getDto();
                 if (faseDto != null) {
                     final List<ValidacionDto> validaciones = this.runTareaPrevalidarDespuesService.run(runTareaDto,
                             faseDto);
@@ -138,28 +147,6 @@ public class ValidationAspect {
             }
         }
         return pjp;
-    }
-
-    /**
-     * @param pjp
-     */
-    private FaseDto getFaseDto(final JoinPoint pjp) {
-        if (RunTareaRegularizarServiceImpl.class.isAssignableFrom(pjp.getTarget().getClass())) {
-            return FaseEnum.REGULARIZAR.getDto();
-        } else if (RunTareaCalcularServiceImpl.class.isAssignableFrom(pjp.getTarget().getClass())) {
-            return FaseEnum.CALCULAR.getDto();
-        } else if (RunTareaProcesarServiceImpl.class.isAssignableFrom(pjp.getTarget().getClass())) {
-            return FaseEnum.PROCESAR.getDto();
-        } else if (RunTareaRecolectarServiceImpl.class.isAssignableFrom(pjp.getTarget().getClass())) {
-            return FaseEnum.RECOLECTAR.getDto();
-        } else if (RunTareaRecolectarValidarServiceImpl.class.isAssignableFrom(pjp.getTarget().getClass())) {
-            return FaseEnum.VALIDAR_RECOLECCION.getDto();
-        } else if (RunTareaRegularizarChallengeService.class.isAssignableFrom(pjp.getTarget().getClass())) {
-            return FaseEnum.REGULARIZAR_CHALLENGE.getDto();
-        } else if (RunTareaAjustarService.class.isAssignableFrom(pjp.getTarget().getClass())) {
-            return FaseEnum.AJUSTAR.getDto();
-        }
-        return null;
     }
 
 }

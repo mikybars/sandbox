@@ -38,7 +38,7 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
     private TareaFaseService tareaFaseService;
 
     @Auditoria
-    @Validation
+    @Validation(fase = 7)
     @TimerFunctionalMetric(metricName = "RunTareaAjustarService.run.timer",
             metricGroupName = "RunTareaAjustarServiceGroup", metricDescription = "RunTareaAjustarService.run.timer")
     @CounterFunctionalMetric(metricName = "RunTareaAjustarService.run.counter",

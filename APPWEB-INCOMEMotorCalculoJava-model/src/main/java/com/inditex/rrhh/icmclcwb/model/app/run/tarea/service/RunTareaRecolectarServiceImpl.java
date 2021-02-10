@@ -42,7 +42,7 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     private TareaFaseService tareaFaseService;
 
     @Auditoria
-    @Validation
+    @Validation(fase = 1)
     @TimerFunctionalMetric(metricName = "RunTareaRecolectarService.run.timer",
             metricGroupName = "RunTareaRecolectarServiceGroup",
             metricDescription = "RunTareaRecolectarService.run.timer")
