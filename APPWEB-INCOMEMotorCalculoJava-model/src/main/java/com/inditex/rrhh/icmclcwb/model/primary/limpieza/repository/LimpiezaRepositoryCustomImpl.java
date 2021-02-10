@@ -460,9 +460,15 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     }
 
     @Override
-    public void updateFecha(
+    public void updateFechaFinalizacion(
             @NotNull @Positive final Long idTareaLimpieza) {
-        this.tareaLimpiezaRepositoryCustom.updateFechaEjecucion(idTareaLimpieza);
+        this.tareaLimpiezaRepositoryCustom.updateFechaFinalizacion(idTareaLimpieza);
+    }
+
+    @Override
+    public void inicioLimpieza(
+            @NotNull @Positive final Long idTareaLimpieza) {
+        this.tareaLimpiezaRepositoryCustom.inicioLimpieza(idTareaLimpieza);
     }
 
     private List<MapSqlParameterSource> getParametersLocal(final TareaDto tarea, final TareaAmbitoDto ambito) {

@@ -597,6 +597,7 @@ app:
         default: 100
     limpieza:
       days-number: -7
+      days-numer-creation: -3
       batch-size:
         default: 100
     ptr:

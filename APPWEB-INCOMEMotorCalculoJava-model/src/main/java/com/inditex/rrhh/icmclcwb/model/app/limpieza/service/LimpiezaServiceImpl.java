@@ -28,12 +28,13 @@ public class LimpiezaServiceImpl implements LimpiezaService {
     public void runTarea(@NotNull @Valid final RunLimpiezaDto limpieza) {
         final TareaDto tarea = limpieza.getTarea();
         try {
+            this.limpiezaRepositoryCustom.inicioLimpieza(limpieza.getId());
             tarea.getAmbito().forEach(item -> this.limpiezaRepositoryCustom.limpieza(tarea, item));
             this.limpiezaRepositoryCustom.updateEstado(limpieza.getId(), EstadoLimpiezaEnum.OK.getDto());
         } catch (final Exception e) {
             this.limpiezaRepositoryCustom.updateEstado(limpieza.getId(), EstadoLimpiezaEnum.KO.getDto());
         } finally {
-            this.limpiezaRepositoryCustom.updateFecha(limpieza.getId());
+            this.limpiezaRepositoryCustom.updateFechaFinalizacion(limpieza.getId());
         }
     }
 

@@ -54,12 +54,10 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
         tareaLimpieza.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
         // TODO [javierev] cuando se implemente la limpieza parcial esta línea se debe retirar
         tareaLimpieza.setTipo(TipoLimpiezaEnum.COMPLETA.getDto());
-        this.tareaLimpiezaRepositoryCustom
-            .save(tareaLimpieza);
+        final TareaLimpieza result = this.tareaLimpiezaRepository
+            .save(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(tareaLimpieza));
+        return this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(result);
 
-        // Reobtención de la limpieza con su id
-        final TareaLimpieza limpieza = this.tareaLimpiezaRepository.findByTareaId(tareaLimpieza.getIdTarea());
-        return this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(limpieza);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

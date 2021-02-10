@@ -50,7 +50,7 @@ public class TareaLimpiezaRepositoryCustomImplTest {
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(this.tareaLimpiezaRepositoryCustom, "sqlSaveLimpieza", SQL_SAVE_LIMPIEZA, true);
-        FieldUtils.writeField(this.tareaLimpiezaRepositoryCustom, "sqlUpdateFechaEjecucion", SQL_UPDATE_FECHA, true);
+        FieldUtils.writeField(this.tareaLimpiezaRepositoryCustom, "sqlUpdateFechaFinalizacion", SQL_UPDATE_FECHA, true);
         FieldUtils.writeField(this.tareaLimpiezaRepositoryCustom, "sqlUpdateEstado", SQL_UPDATE_ESTADO, true);
         // FieldUtils.writeField(this.tareaLimpiezaRepositoryCustom, "batchSize", 100, true);
     }
@@ -70,9 +70,9 @@ public class TareaLimpiezaRepositoryCustomImplTest {
     }
 
     @Test
-    public void updateFechaEjecucionTest() {
+    public void updateFechaFinalizacionTest() {
 
-        this.tareaLimpiezaRepositoryCustom.updateFechaEjecucion(12L);
+        this.tareaLimpiezaRepositoryCustom.updateFechaFinalizacion(12L);
         verify(this.namedParameterJdbcTemplate).update(this.sqlCaptor.capture(), any(MapSqlParameterSource.class));
         assertEquals(SQL_UPDATE_FECHA, this.sqlCaptor.getValue());
 

@@ -15,7 +15,9 @@ public interface LimpiezaRepositoryCustom {
     void updateEstado(@NotNull @Positive final Long idTareaLimpieza,
             @NotNull @Valid final EstadoLimpiezaDto estado);
 
-    void updateFecha(@NotNull @Positive final Long idTareaLimpieza);
+    void updateFechaFinalizacion(@NotNull @Positive final Long idTareaLimpieza);
+
+    void inicioLimpieza(@NotNull @Positive final Long idTareaLimpieza);
 
     void limpiezaTareaPersonaHistorico(@NotNull @Valid final TareaDto tarea);
 

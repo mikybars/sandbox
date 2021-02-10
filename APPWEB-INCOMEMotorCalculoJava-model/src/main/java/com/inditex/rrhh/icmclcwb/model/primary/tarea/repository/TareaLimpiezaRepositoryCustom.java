@@ -11,7 +11,9 @@ public interface TareaLimpiezaRepositoryCustom {
 
     void save(@NotNull @Valid TareaLimpiezaDto limpiezaDto);
 
-    void updateFechaEjecucion(@NotNull @Positive Long idTareaLimpieza);
+    void updateFechaFinalizacion(@NotNull @Positive Long idTareaLimpieza);
+
+    void inicioLimpieza(@NotNull @Positive Long idTareaLimpieza);
 
     void updateEstado(@NotNull @Positive Long idTareaLimpieza, @NotNull @Valid EstadoLimpiezaDto estado);
 

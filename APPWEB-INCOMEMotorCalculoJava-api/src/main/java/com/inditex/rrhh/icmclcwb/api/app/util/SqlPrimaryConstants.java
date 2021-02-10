@@ -189,7 +189,11 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_FECHA = "fecha";
 
-    public static final String SQL_PARAM_FECHA_HORA_LIMPIEZA = "fechaHoraLimpieza";
+    public static final String SQL_PARAM_FECHA_HORA_FIN = "fechaHoraFin";
+
+    public static final String SQL_PARAM_FECHA_HORA_INICIO = "fechaHoraInicio";
+
+    public static final String SQL_PARAM_FECHA_HORA_CREACION = "fechaHoraCreacion";
 
     public static final String SQL_PARAM_ID_ESTADO_LIMPIEZA = "idEstadoLimpieza";
 

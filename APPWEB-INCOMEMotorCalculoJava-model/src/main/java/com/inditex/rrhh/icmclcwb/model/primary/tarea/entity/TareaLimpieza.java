@@ -33,7 +33,7 @@ public class TareaLimpieza {
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "ID_ESTADO_TAREA_LIMPIEZA", nullable = false)
+    @JoinColumn(name = "ID_ESTADO_LIMPIEZA", nullable = false)
     private EstadoLimpieza estado;
 
     @NotNull

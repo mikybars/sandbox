@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -26,11 +27,14 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
     @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.saveLimpieza']}")
     private String sqlSaveLimpieza;
 
-    @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.updateFechaEjecucion']}")
-    private String sqlUpdateFechaEjecucion;
+    @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.updateFechaFinalizacion']}")
+    private String sqlUpdateFechaFinalizacion;
 
     @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.updateEstado']}")
     private String sqlUpdateEstado;
+
+    @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.inicioLimpieza']}")
+    private String sqlInicioLimpieza;
 
     @Override
     public void save(
@@ -44,12 +48,22 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
     }
 
     @Override
-    public void updateFechaEjecucion(
+    public void updateFechaFinalizacion(
             @NotNull @Positive final Long idTareaLimpieza) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_HORA_LIMPIEZA, TimeUtils.nowDate());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_HORA_FIN, TimeUtils.nowDate());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_LIMPIEZA, idTareaLimpieza);
-        this.namedParameterJdbcTemplate.update(this.sqlUpdateFechaEjecucion, params);
+        this.namedParameterJdbcTemplate.update(this.sqlUpdateFechaFinalizacion, params);
+    }
+
+    @Override
+    public void inicioLimpieza(
+            @NotNull @Positive final Long idTareaLimpieza) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_HORA_INICIO, TimeUtils.nowDate());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_LIMPIEZA, idTareaLimpieza);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA, EstadoLimpiezaEnum.EN_CURSO.getId());
+        this.namedParameterJdbcTemplate.update(this.sqlInicioLimpieza, params);
     }
 
     @Override

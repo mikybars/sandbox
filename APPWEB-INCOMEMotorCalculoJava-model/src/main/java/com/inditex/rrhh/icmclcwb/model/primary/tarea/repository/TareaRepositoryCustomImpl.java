@@ -34,6 +34,9 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     @Value("${app.envars.limpieza.days-number:-7}")
     private int daysNumber;
 
+    @Value("${app.envars.limpieza.days-number-creation:-3}")
+    private int daysNumberFechaCreacion;
+
     @Value("#{primaryQuery['TareaRepositoryCustom.updateFechaFin']}")
     private String sqlUpdateFechaFin;
 
@@ -97,8 +100,10 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA,
                 DateUtils.addDays(TimeUtils.nowDate(), this.daysNumber));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_HORA_CREACION,
+                DateUtils.addDays(TimeUtils.nowDate(), this.daysNumberFechaCreacion));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA,
-                Arrays.asList(EstadoLimpiezaEnum.OK.getId()));
+                Arrays.asList(EstadoLimpiezaEnum.PENDIENTE.getId(), EstadoLimpiezaEnum.KO.getId()));
         return this.namedParameterJdbcTemplate.query(this.sqlFindLimpieza, parameters, new RowMapper<IdTareaDto>() {
             @Override
             public IdTareaDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
@@ -115,6 +120,8 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA,
                 DateUtils.addDays(TimeUtils.nowDate(), this.daysNumber));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_HORA_CREACION,
+                DateUtils.addDays(TimeUtils.nowDate(), this.daysNumberFechaCreacion));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA,
