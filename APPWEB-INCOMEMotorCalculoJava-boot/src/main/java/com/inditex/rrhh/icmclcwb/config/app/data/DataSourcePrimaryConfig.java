@@ -19,22 +19,22 @@ import com.inditex.aqsw.framework.data.jpa.annotations.AmigaEnableJpaRepositorie
 
 @Configuration
 @AmigaEnableJpaRepositories(entityManagerFactoryRef = "primaryEntityManagerFactory", basePackages = {
-        "com.inditex.rrhh.icmclcwb.model.primary" })
+    "com.inditex.rrhh.icmclcwb.model.primary"})
 public class DataSourcePrimaryConfig {
 
     @Bean(name = "primaryDataSource")
     @Primary
     @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.primary")
     public DataSource primaryDataSource(final DataSourceBuilder dataSourceBuilder) {
-        return dataSourceBuilder.build(DataSourceType.XA);
+        return dataSourceBuilder.build(DataSourceType.NONXA);
     }
 
     @Bean(name = "primaryEntityManagerFactory")
     @Primary
     public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
-            final EntityManagerFactoryBuilder entityManagerFactoryBuilder,
-            final JpaProperties jpaProperties,
-            @Qualifier("primaryDataSource") final DataSource dataSource) {
+        final EntityManagerFactoryBuilder entityManagerFactoryBuilder,
+        final JpaProperties jpaProperties,
+        @Qualifier("primaryDataSource") final DataSource dataSource) {
         return entityManagerFactoryBuilder.dataSource(dataSource)
             .persistenceUnit("primaryPersistenceUnit")
             .packages("com.inditex.rrhh.icmclcwb.model.primary")
@@ -52,7 +52,7 @@ public class DataSourcePrimaryConfig {
     @Bean(name = "primaryNamedParameterJdbcTemplate")
     @Primary
     public NamedParameterJdbcTemplate primaryNamedParameterJdbcTemplate(
-            @Qualifier("primaryJdbcTemplate") final JdbcTemplate jdbcTemplate) {
+        @Qualifier("primaryJdbcTemplate") final JdbcTemplate jdbcTemplate) {
         return new NamedParameterJdbcTemplate(jdbcTemplate);
     }
 

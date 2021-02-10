@@ -22,26 +22,28 @@ amiga:
   data:
     jdbc:
       datasource:
-        primary:
-          xa-properties:
-            serverName: axindb22v1.central.inditex.grp
-            portNumber: 50000
-            databaseName: INDITEX
-            currentSchema: GESTION_COMISION
-            user: uincome
+        user: uincome
+        url: jdbc:db2://axindb22v1.central.inditex.grp:50000/INDITEX
+#        primary:
+#          xa-properties:
+#            serverName: axindb22v1.central.inditex.grp
+#            portNumber: 50000
+#            databaseName: INDITEX
+#            currentSchema: GESTION_COMISION
+#            user: uincome
         ptr:
           driverClassName: oracle.jdbc.OracleDriver
-          url: 
+          url:
           user: uincome
           defaultIsolationLevel: 8
 #        ptr:
 #          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
 #          xa-properties:
-#            serverName: 
-#            serviceName: 
+#            serverName:
+#            serviceName:
 #            portNumber:
 #            user: uincome
-#            password: 
+#            password:
 #            driverType: thin
         meta4:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -238,7 +240,7 @@ amiga:
         comis800:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis            
+          user: ncomis
 app:
   envars:
     ptr:

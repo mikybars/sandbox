@@ -18,7 +18,7 @@ amiga:
       host: mail.inditex.grp
       port: 25
       protocol: smtp
-      default-encoding: UTF-8  
+      default-encoding: UTF-8
     rest:
       client:
         http:
@@ -55,13 +55,13 @@ amiga:
           failure-rate-threshold: 50
           permitted-number-of-calls-in-half-open-state: 10
           sliding-window-size: 100 
-          sliding-window-type: COUNT_BASED     
+          sliding-window-type: COUNT_BASED
   service:
     jms:
       listener:
         default:
-          sessionTransacted: true
-          globalTransacted: true
+          sessionTransacted: false
+          globalTransacted: false
           pubSubDomain: false
           receiveTimeout: 1000
       trabajo-queue:
@@ -86,59 +86,57 @@ amiga:
         broker-escritura:
           minPoolSize: 10
           maxPoolSize: 20
-          xaConnectionFactory:
-            #brokerURL: tcp://middleware-amq-tcp:61616
-            brokerURL: failover:(tcp://middleware-amq-tcp:61616)
-            userName: usr-write
+          #brokerURL: tcp://middleware-amq-tcp:61616
+          brokerURL: failover:(tcp://middleware-amq-tcp:61616)
+          userName: usr-write
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
-          xaConnectionFactory:
-            #brokerURL: tcp://middleware-amq-tcp:61616
-            brokerURL: failover:(tcp://middleware-amq-tcp:61616)
-            userName: usr-read
+          #brokerURL: tcp://middleware-amq-tcp:61616
+          brokerURL: failover:(tcp://middleware-amq-tcp:61616)
+          userName: usr-read
       listener-container-factory:
         trabajo:
           concurrency: 1
-          sessionTransacted: true
-          globalTransacted: true
+          sessionTransacted: false
+          globalTransacted: false
           pubSubDomain: false
           receiveTimeout: 1000
         tarea:
           concurrency: 1
-          sessionTransacted: true
-          globalTransacted: true
+          sessionTransacted: false
+          globalTransacted: false
           pubSubDomain: false
           receiveTimeout: 1000
         limpieza:
           concurrency: 1
-          sessionTransacted: true
-          globalTransacted: true
+          sessionTransacted: false
+          globalTransacted: false
           pubSubDomain: false
           receiveTimeout: 1000
         programacion:
           concurrency: 1
-          sessionTransacted: true
-          globalTransacted: true
+          sessionTransacted: false
+          globalTransacted: false
           pubSubDomain: false
           receiveTimeout: 1000     
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
           pubSubDomain: false
-          sessionTransacted: true
+          sessionTransacted: false
         tarea:
           destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
           pubSubDomain: false
-          sessionTransacted: true
+          sessionTransacted: false
         limpieza:
           destinationName: ${amiga.service.jms.limpieza-queue.destination-fqdn}
           pubSubDomain: false
-          sessionTransacted: true
+          sessionTransacted: false
         programacion:
           destinationName: ${amiga.service.jms.programacion-queue.destination-fqdn}
           pubSubDomain: false
-          sessionTransacted: true                
+          sessionTransacted: false
     jdbc:
       configuration:
         prop:
@@ -149,14 +147,22 @@ amiga:
       datasource:
         primary:
           #init-connection-sql: set schema GESTION_COMISION
-          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
-          xa-properties:
-            clientProgramName: ${metadata.jirakey}
-            driverType: 4
+          driverClassName: com.ibm.db2.jcc.DB2Driver
+          driver-properties:
+            clientProgramName: ${metadata.jirakey}-${metadata.slot}
             loginTimeout: 300
             connectionTimeout: 300
             commandTimeout: 300
             interruptProcessingMode: 2
+            currentSchema: GESTION_COMISION
+#          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
+#          xa-properties:
+#            clientProgramName: ${metadata.jirakey}
+#            driverType: 4
+#            loginTimeout: 300
+#            connectionTimeout: 300
+#            commandTimeout: 300
+#            interruptProcessingMode: 2
     jpa:
       properties:
         hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
@@ -613,4 +619,4 @@ app:
               campoOrden: idOrigen
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3                   
+              maxPersistenceSize: 3

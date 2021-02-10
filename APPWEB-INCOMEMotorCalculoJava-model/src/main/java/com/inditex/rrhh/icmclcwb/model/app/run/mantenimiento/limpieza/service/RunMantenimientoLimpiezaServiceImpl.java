@@ -7,8 +7,6 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.dto.RunMantenimientoLimpiezaDto;
@@ -35,7 +33,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Autowired
     private SenderLimpieza senderLimpieza;
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    //@Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public RunMantenimientoLimpiezaDto run() {
         final RunMantenimientoLimpiezaDto result = this.tareaService.findLimpieza();
@@ -50,7 +48,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
         return result;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    //@Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {
         final RunMantenimientoLimpiezaDto result = this.tareaService.findLimpiezaByIdTarea(id);

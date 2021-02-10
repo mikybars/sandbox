@@ -23,12 +23,14 @@ amiga:
     jdbc:
       datasource:
         primary:
-          xa-properties:
-            serverName: axpredb22.central.inditex.grp
-            portNumber: 50000
-            databaseName: INDITEX
-            currentSchema: GESTION_COMISION
-            user: uincome
+          user: uincome
+          url: jdbc:db2://axpredb22.central.inditex.grp:50000/INDITEX
+#          xa-properties:
+#            serverName: axpredb22.central.inditex.grp
+#            portNumber: 50000
+#            databaseName: INDITEX
+#            currentSchema: GESTION_COMISION
+#            user: uincome
         ptr:
           driverClassName: oracle.jdbc.OracleDriver
           url: jdbc:oracle:thin:@//axine5-scansrv.central.inditex.grp:11521/s_pdbpr01rt_gener.central.inditex.grp
@@ -281,8 +283,8 @@ amiga:
         comis800:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalPre
-          user: ncomis    
-          readOnly: true        
+          user: ncomis
+          readOnly: true
 app:
   envars:
     ptr:
