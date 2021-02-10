@@ -27,7 +27,9 @@ public abstract class TareaLimpiezaMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "nombreUsuario", ignore = true)
     @Mapping(target = "idTarea", source = "id")
-    @Mapping(target = "fechaHoraLimpieza", ignore = true)
+    @Mapping(target = "fechaHoraCreacion", ignore = true)
+    @Mapping(target = "fechaHoraInicio", ignore = true)
+    @Mapping(target = "fechaHoraFin", ignore = true)
     @Mapping(target = "estado", ignore = true)
     public abstract TareaLimpiezaDto idTareaDtoToTareaLimpiezaDto(IdTareaDto src);
 

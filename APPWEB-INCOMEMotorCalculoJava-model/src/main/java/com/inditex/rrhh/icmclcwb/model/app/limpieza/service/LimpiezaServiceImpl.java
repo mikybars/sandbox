@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaLimpiezaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.model.primary.limpieza.repository.LimpiezaRepositoryCustom;
@@ -29,9 +29,9 @@ public class LimpiezaServiceImpl implements LimpiezaService {
         final TareaDto tarea = limpieza.getTarea();
         try {
             tarea.getAmbito().forEach(item -> this.limpiezaRepositoryCustom.limpieza(tarea, item));
-            this.limpiezaRepositoryCustom.updateEstado(limpieza.getId(), EstadoTareaLimpiezaEnum.OK.getDto());
+            this.limpiezaRepositoryCustom.updateEstado(limpieza.getId(), EstadoLimpiezaEnum.OK.getDto());
         } catch (final Exception e) {
-            this.limpiezaRepositoryCustom.updateEstado(limpieza.getId(), EstadoTareaLimpiezaEnum.KO.getDto());
+            this.limpiezaRepositoryCustom.updateEstado(limpieza.getId(), EstadoLimpiezaEnum.KO.getDto());
         } finally {
             this.limpiezaRepositoryCustom.updateFecha(limpieza.getId());
         }

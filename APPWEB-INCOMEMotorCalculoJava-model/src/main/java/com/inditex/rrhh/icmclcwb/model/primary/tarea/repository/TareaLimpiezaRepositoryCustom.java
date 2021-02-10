@@ -4,7 +4,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 
 public interface TareaLimpiezaRepositoryCustom {
@@ -13,6 +13,6 @@ public interface TareaLimpiezaRepositoryCustom {
 
     void updateFechaEjecucion(@NotNull @Positive Long idTareaLimpieza);
 
-    void updateEstado(@NotNull @Positive Long idTareaLimpieza, @NotNull @Valid EstadoTareaLimpiezaDto estado);
+    void updateEstado(@NotNull @Positive Long idTareaLimpieza, @NotNull @Valid EstadoLimpiezaDto estado);
 
 }

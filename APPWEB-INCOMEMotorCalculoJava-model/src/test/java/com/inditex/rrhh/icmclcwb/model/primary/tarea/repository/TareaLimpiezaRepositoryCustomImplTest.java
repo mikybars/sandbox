@@ -7,7 +7,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaLimpiezaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -62,7 +62,7 @@ public class TareaLimpiezaRepositoryCustomImplTest {
         when(limpieza.getTipo()).thenReturn(TipoLimpiezaEnum.COMPLETA.getDto());
         when(limpieza.getIdTarea()).thenReturn(12L);
         when(limpieza.getNombreUsuario()).thenReturn("usuario");
-        when(limpieza.getEstado()).thenReturn(EstadoTareaLimpiezaEnum.PENDIENTE.getDto());
+        when(limpieza.getEstado()).thenReturn(EstadoLimpiezaEnum.PENDIENTE.getDto());
         this.tareaLimpiezaRepositoryCustom.save(limpieza);
         verify(this.namedParameterJdbcTemplate).update(this.sqlCaptor.capture(), any(MapSqlParameterSource.class));
         assertEquals(SQL_SAVE_LIMPIEZA, this.sqlCaptor.getValue());
@@ -81,7 +81,7 @@ public class TareaLimpiezaRepositoryCustomImplTest {
     @Test
     public void updateEstadoTest() {
 
-        this.tareaLimpiezaRepositoryCustom.updateEstado(12L, EstadoTareaLimpiezaEnum.KO.getDto());
+        this.tareaLimpiezaRepositoryCustom.updateEstado(12L, EstadoLimpiezaEnum.KO.getDto());
         verify(this.namedParameterJdbcTemplate).update(this.sqlCaptor.capture(), any(MapSqlParameterSource.class));
         assertEquals(SQL_UPDATE_ESTADO, this.sqlCaptor.getValue());
 

@@ -4,7 +4,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
@@ -13,7 +13,7 @@ public interface LimpiezaRepositoryCustom {
     void limpieza(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito);
 
     void updateEstado(@NotNull @Positive final Long idTareaLimpieza,
-            @NotNull @Valid final EstadoTareaLimpiezaDto estado);
+            @NotNull @Valid final EstadoLimpiezaDto estado);
 
     void updateFecha(@NotNull @Positive final Long idTareaLimpieza);
 

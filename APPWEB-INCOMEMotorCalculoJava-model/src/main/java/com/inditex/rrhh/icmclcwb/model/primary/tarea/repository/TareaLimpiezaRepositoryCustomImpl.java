@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
@@ -55,7 +55,7 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
     @Override
     public void updateEstado(
             @NotNull @Positive final Long idTareaLimpieza,
-            @NotNull @Valid final EstadoTareaLimpiezaDto estado) {
+            @NotNull @Valid final EstadoLimpiezaDto estado) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA, estado.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_LIMPIEZA, idTareaLimpieza);

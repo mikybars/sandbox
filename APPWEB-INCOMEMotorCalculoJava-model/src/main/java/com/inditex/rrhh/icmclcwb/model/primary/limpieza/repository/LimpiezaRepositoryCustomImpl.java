@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -455,7 +455,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Override
     public void updateEstado(
             @NotNull @Positive final Long idTareaLimpieza,
-            @NotNull @Valid final EstadoTareaLimpiezaDto estado) {
+            @NotNull @Valid final EstadoLimpiezaDto estado) {
         this.tareaLimpiezaRepositoryCustom.updateEstado(idTareaLimpieza, estado);
     }
 

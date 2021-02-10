@@ -27,15 +27,23 @@ public class TareaLimpiezaDto implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "Estado de la limpieza", required = true)
-    private EstadoTareaLimpiezaDto estado;
+    private EstadoLimpiezaDto estado;
 
     @NotNull
     @ApiModelProperty(value = "Tipo de limpieza", required = true)
     private TipoLimpiezaDto tipo;
 
-    @ApiModelProperty(value = "Fecha en la que se realizó la limpieza", required = false,
+    @ApiModelProperty(value = "Fecha en la que se creó la tarea de limpieza", required = false,
             accessMode = AccessMode.READ_ONLY, hidden = true)
-    private LocalDateTime fechaHoraLimpieza;
+    private LocalDateTime fechaHoraCreacion;
+
+    @ApiModelProperty(value = "Fecha en la que se inició la limpieza", required = false,
+            accessMode = AccessMode.READ_ONLY, hidden = true)
+    private LocalDateTime fechaHoraInicio;
+
+    @ApiModelProperty(value = "Fecha en la que se finalizó la limpieza", required = false,
+            accessMode = AccessMode.READ_ONLY, hidden = true)
+    private LocalDateTime fechaHoraFin;
 
     @ApiModelProperty(value = "Nombre del usuario que solicito la limpieza", required = false,
             accessMode = AccessMode.READ_ONLY, hidden = true, example = "IAGOML")

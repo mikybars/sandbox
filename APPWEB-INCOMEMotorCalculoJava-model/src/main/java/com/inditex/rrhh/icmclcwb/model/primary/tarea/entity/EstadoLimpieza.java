@@ -19,16 +19,16 @@ import lombok.ToString;
  * @author javierev
  */
 @Entity
-@Table(name = "ESTADO_TAREA_LIMPIEZA")
+@Table(name = "ESTADO_LIMPIEZA")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @ToString
-public class EstadoTareaLimpieza {
+public class EstadoLimpieza {
 
     @Id
-    @Column(name = "ID_ESTADO_TAREA_LIMPIEZA")
+    @Column(name = "ID_ESTADO_LIMPIEZA")
     private Integer id;
 
     @NotBlank

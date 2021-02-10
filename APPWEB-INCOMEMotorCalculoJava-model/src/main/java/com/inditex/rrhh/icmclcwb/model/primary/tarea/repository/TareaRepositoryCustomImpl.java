@@ -16,8 +16,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -98,7 +98,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA,
                 DateUtils.addDays(TimeUtils.nowDate(), this.daysNumber));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA,
-                Arrays.asList(EstadoTareaLimpiezaEnum.OK.getId()));
+                Arrays.asList(EstadoLimpiezaEnum.OK.getId()));
         return this.namedParameterJdbcTemplate.query(this.sqlFindLimpieza, parameters, new RowMapper<IdTareaDto>() {
             @Override
             public IdTareaDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
@@ -118,7 +118,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA,
-                Arrays.asList(EstadoTareaLimpiezaEnum.OK.getId()));
+                Arrays.asList(EstadoLimpiezaEnum.OK.getId()));
         return this.namedParameterJdbcTemplate.query(this.sqlFindLimpiezaByIdTarea, parameters, (rs, rowNum) -> {
             final IdTareaDto dto = new IdTareaDto();
             dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));

@@ -10,13 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaLimpiezaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLimpiezaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.OptionalUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLimpieza;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
@@ -49,7 +50,8 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
                 tareaLimpieza.setNombreUsuario(userSSO.getUser());
             }
         }
-        tareaLimpieza.setEstado(EstadoTareaLimpiezaEnum.PENDIENTE.getDto());
+        tareaLimpieza.setEstado(EstadoLimpiezaEnum.PENDIENTE.getDto());
+        tareaLimpieza.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
         // TODO [javierev] cuando se implemente la limpieza parcial esta línea se debe retirar
         tareaLimpieza.setTipo(TipoLimpiezaEnum.COMPLETA.getDto());
         this.tareaLimpiezaRepositoryCustom

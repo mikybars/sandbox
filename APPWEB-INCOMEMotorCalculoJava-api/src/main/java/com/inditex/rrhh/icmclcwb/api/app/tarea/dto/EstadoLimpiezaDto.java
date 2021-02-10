@@ -17,13 +17,13 @@ import lombok.ToString;
 /**
  * @author javierev
  */
-@ApiModel(description = "Modelo EstadoTareaLimpiezaDto")
+@ApiModel(description = "Modelo EstadoLimpiezaDto")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @ToString
-public class EstadoTareaLimpiezaDto implements Serializable {
+public class EstadoLimpiezaDto implements Serializable {
 
     private static final long serialVersionUID = 5812871987442400781L;
 

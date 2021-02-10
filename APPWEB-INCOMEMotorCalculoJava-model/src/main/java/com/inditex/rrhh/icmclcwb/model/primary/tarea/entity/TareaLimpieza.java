@@ -34,15 +34,22 @@ public class TareaLimpieza {
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_ESTADO_TAREA_LIMPIEZA", nullable = false)
-    private EstadoTareaLimpieza estado;
+    private EstadoLimpieza estado;
 
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TIPO_LIMPIEZA", nullable = false)
     private TipoLimpieza tipo;
 
-    @Column(name = "FECHA_HORA_LIMPIEZA", nullable = true)
-    private Date fechaHoraLimpieza;
+    @NotNull
+    @Column(name = "FECHA_HORA_CREACION", nullable = false)
+    private Date fechaHoraCreacion;
+
+    @Column(name = "FECHA_HORA_INICIO", nullable = true)
+    private Date fechaHoraInicio;
+
+    @Column(name = "FECHA_HORA_FIN", nullable = true)
+    private Date fechaHoraFin;
 
     @NotBlank
     @Column(name = "NOMBRE_USUARIO", nullable = false, length = 12)
