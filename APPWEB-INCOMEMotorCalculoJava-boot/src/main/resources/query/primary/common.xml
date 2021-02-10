@@ -1986,28 +1986,97 @@ AND ID_TIPO_DATO IN (
 
   <entry key="TareaRepositoryCustom.findLimpieza">
     <![CDATA[
-  SELECT
-    DISTINCT T.ID_TAREA
-  FROM TAREA T
-  LEFT JOIN PERIODO_CALCULO_PERSONA PCP
-   ON PCP.ID_TAREA_ACTUAL = T.ID_TAREA OR PCP.ID_TAREA_ULTIMA = T.ID_TAREA
-  LEFT JOIN TAREA_LIMPIEZA TL
-   ON TL.ID_TAREA = T.ID_TAREA
-  WHERE PCP.ICM_ID_PERIODO IS NULL
-  AND T.ID_ESTADO_TAREA NOT IN (:idEstado)
-  AND T.FECHA_HORA_CREACION < :fecha
-  AND T.FECHA_HORA_INICIO_TAREA IS NOT NULL
-  AND T.FECHA_HORA_FIN_TAREA IS NOT NULL
-  AND (TL.ID_TAREA IS NULL OR
-    (TL.ID_ESTADO_LIMPIEZA IN (:idEstadoLimpieza) AND TL.FECHA_HORA_CREACION < :fechaHoraCreacion))
-]]>
+    SELECT
+      DISTINCT T.ID_TAREA
+    FROM
+      TAREA T
+    LEFT JOIN PERIODO_CALCULO_PERSONA PCP ON
+      PCP.ID_TAREA_ACTUAL = T.ID_TAREA
+      OR PCP.ID_TAREA_ULTIMA = T.ID_TAREA
+    LEFT JOIN (
+        SELECT LIMPIEZA.ID_TAREA_LIMPIEZA,
+        LIMPIEZA.ID_TAREA,
+        LIMPIEZA.FECHA_HORA_CREACION,
+        LIMPIEZA.ID_ESTADO_LIMPIEZA
+      FROM
+        (
+        SELECT
+          ROW_NUMBER() OVER (PARTITION BY TL.ID_TAREA
+        ORDER BY
+          FECHA_HORA_CREACION DESC) AS REG,
+          TL.ID_TAREA,
+          TL.ID_TAREA_LIMPIEZA,
+          TL.FECHA_HORA_CREACION,
+          TL.ID_ESTADO_LIMPIEZA
+        FROM
+          TAREA_LIMPIEZA TL ) LIMPIEZA
+      WHERE
+        LIMPIEZA.REG = 1) TL ON
+      TL.ID_TAREA = T.ID_TAREA
+    WHERE
+      PCP.ICM_ID_PERIODO IS NULL
+      AND T.ID_ESTADO_TAREA NOT IN (:idEstado)
+      AND T.FECHA_HORA_CREACION < :fecha
+      AND T.FECHA_HORA_INICIO_TAREA IS NOT NULL
+      AND T.FECHA_HORA_FIN_TAREA IS NOT NULL
+      AND (TL.ID_TAREA IS NULL
+      OR (TL.ID_ESTADO_LIMPIEZA IN (:idEstadoLimpieza)
+      AND TL.FECHA_HORA_CREACION < :fechaHoraCreacion))
+    ]]>
+  </entry>
+
+  <entry key="TareaRepositoryCustom.totalLimpieza">
+    <![CDATA[
+    SELECT
+      COUNT(DISTINCT T.ID_TAREA) AS TOTAL
+    FROM
+      TAREA T
+    LEFT JOIN PERIODO_CALCULO_PERSONA PCP ON
+      PCP.ID_TAREA_ACTUAL = T.ID_TAREA
+      OR PCP.ID_TAREA_ULTIMA = T.ID_TAREA
+    LEFT JOIN (
+        SELECT LIMPIEZA.ID_TAREA_LIMPIEZA,
+        LIMPIEZA.ID_TAREA,
+        LIMPIEZA.FECHA_HORA_CREACION,
+        LIMPIEZA.ID_ESTADO_LIMPIEZA
+      FROM
+        (
+        SELECT
+          ROW_NUMBER() OVER (PARTITION BY TL.ID_TAREA
+        ORDER BY
+          FECHA_HORA_CREACION DESC) AS REG,
+          TL.ID_TAREA,
+          TL.ID_TAREA_LIMPIEZA,
+          TL.FECHA_HORA_CREACION,
+          TL.ID_ESTADO_LIMPIEZA
+        FROM
+          TAREA_LIMPIEZA TL ) LIMPIEZA
+      WHERE
+        LIMPIEZA.REG = 1) TL ON
+      TL.ID_TAREA = T.ID_TAREA
+    WHERE
+      PCP.ICM_ID_PERIODO IS NULL
+      AND T.ID_ESTADO_TAREA NOT IN (:idEstado)
+      AND T.FECHA_HORA_CREACION < :fecha
+      AND T.FECHA_HORA_INICIO_TAREA IS NOT NULL
+      AND T.FECHA_HORA_FIN_TAREA IS NOT NULL
+      AND (TL.ID_TAREA IS NULL
+      OR (TL.ID_ESTADO_LIMPIEZA IN (:idEstadoLimpieza)
+      AND TL.FECHA_HORA_CREACION < :fechaHoraCreacion))
+    ]]>
   </entry>
 
   <entry key="TareaRepositoryCustom.findLimpieza.byIdTarea">
     <![CDATA[
   AND T.ID_TAREA = :idTarea
-]]>
+    ]]>
   </entry>
+  <entry key="TareaRepositoryCustom.findLimpieza.limit">
+    <![CDATA[
+  LIMIT :limit
+    ]]>
+  </entry>
+
 
   <entry key="TareaRepositoryCustom.updateEstadoFinal">
     <![CDATA[

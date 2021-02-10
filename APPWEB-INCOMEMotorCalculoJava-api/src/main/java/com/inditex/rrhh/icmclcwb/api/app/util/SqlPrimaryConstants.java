@@ -265,6 +265,8 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_ACCION = "idAccion";
 
+    public static final String SQL_PARAM_LIMIT = "limit";
+
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
@@ -408,5 +410,7 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_FECHA_HORA_FIN = "FECHA_HORA_FIN";
 
     public static final String SQL_RESULT_FECHA_HORA_CREACION = "FECHA_HORA_CREACION";
+
+    public static final String SQL_RESULT_TOTAL = "TOTAL";
 
 }

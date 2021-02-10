@@ -20,6 +20,8 @@ public interface TareaRepositoryCustom {
 
     List<IdTareaDto> findLimpieza();
 
+    Integer totalLimpieza();
+
     List<IdTareaDto> findLimpiezaByIdTarea(@NotNull final Long idTarea);
 
 }

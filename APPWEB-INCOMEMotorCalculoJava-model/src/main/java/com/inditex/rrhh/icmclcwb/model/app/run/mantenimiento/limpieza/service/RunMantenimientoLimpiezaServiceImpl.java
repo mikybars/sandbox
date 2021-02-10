@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.dto.RunMantenimientoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunMantenimientoLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
@@ -37,25 +36,25 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public RunMantenimientoLimpiezaDto run() {
-        final List<IdTareaDto> idTarea = this.tareaService.findLimpieza();
-        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.save(idTarea);
+        final RunMantenimientoLimpiezaDto result = this.tareaService.findLimpieza();
+        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.save(result.getIdTarea());
         Flux.fromIterable(limpiezas)
             .parallel()
             .runOn(ItxSchedulers.single())
             .subscribe(this.senderLimpieza::send);
-        return RunMantenimientoLimpiezaDto.builder().idTarea(idTarea).build();
+        return result;
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {
-        final List<IdTareaDto> idTarea = this.tareaService.findLimpiezaByIdTarea(id);
-        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.save(idTarea);
+        final RunMantenimientoLimpiezaDto result = this.tareaService.findLimpiezaByIdTarea(id);
+        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.save(result.getIdTarea());
         Flux.fromIterable(limpiezas)
             .parallel()
             .runOn(ItxSchedulers.single())
             .subscribe(this.senderLimpieza::send);
-        return RunMantenimientoLimpiezaDto.builder().idTarea(idTarea).build();
+        return result;
     }
 
 }

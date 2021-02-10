@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -37,6 +34,9 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     @Value("${app.envars.limpieza.days-number-creation:-3}")
     private int daysNumberFechaCreacion;
 
+    @Value("${app.envars.limpieza.max:100}")
+    private int limitLimpieza;
+
     @Value("#{primaryQuery['TareaRepositoryCustom.updateFechaFin']}")
     private String sqlUpdateFechaFin;
 
@@ -49,8 +49,11 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     @Value("#{primaryQuery['TareaRepositoryCustom.updateEstadoFinal']}")
     private String sqlUpdateEstadoFinal;
 
-    @Value("#{primaryQuery['TareaRepositoryCustom.findLimpieza']}")
+    @Value("#{primaryQuery['TareaRepositoryCustom.findLimpieza']} #{primaryQuery['TareaRepositoryCustom.findLimpieza.limit']}")
     private String sqlFindLimpieza;
+
+    @Value("#{primaryQuery['TareaRepositoryCustom.totalLimpieza']}")
+    private String sqlTotalLimpieza;
 
     @Value("#{primaryQuery['TareaRepositoryCustom.findLimpieza']} #{primaryQuery['TareaRepositoryCustom.findLimpieza.byIdTarea']}")
     private String sqlFindLimpiezaByIdTarea;
@@ -104,14 +107,27 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
                 DateUtils.addDays(TimeUtils.nowDate(), this.daysNumberFechaCreacion));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA,
                 Arrays.asList(EstadoLimpiezaEnum.PENDIENTE.getId(), EstadoLimpiezaEnum.KO.getId()));
-        return this.namedParameterJdbcTemplate.query(this.sqlFindLimpieza, parameters, new RowMapper<IdTareaDto>() {
-            @Override
-            public IdTareaDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-                final IdTareaDto dto = new IdTareaDto();
-                dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
-                return dto;
-            }
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_LIMIT, this.limitLimpieza);
+        return this.namedParameterJdbcTemplate.query(this.sqlFindLimpieza, parameters, (rs, rowNum) -> {
+            final IdTareaDto dto = new IdTareaDto();
+            dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
+            return dto;
         });
+    }
+
+    @Override
+    public Integer totalLimpieza() {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
+                Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA,
+                DateUtils.addDays(TimeUtils.nowDate(), this.daysNumber));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_HORA_CREACION,
+                DateUtils.addDays(TimeUtils.nowDate(), this.daysNumberFechaCreacion));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA,
+                Arrays.asList(EstadoLimpiezaEnum.PENDIENTE.getId(), EstadoLimpiezaEnum.KO.getId()));
+        return this.namedParameterJdbcTemplate.queryForObject(this.sqlTotalLimpieza, parameters,
+                (rs, rowNum) -> rs.getInt(SqlPrimaryConstants.SQL_RESULT_TOTAL));
     }
 
     @Override
