@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.mantenimiento.limpieza.service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import javax.validation.constraints.NotNull;
 
@@ -12,11 +13,12 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.dto.RunMantenimientoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunMantenimientoLimpiezaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLimpiezaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.ms.app.limpieza.SenderLimpieza;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 
@@ -28,7 +30,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     private TareaService tareaService;
 
     @Autowired
-    private TareaLimpiezaService tareaLimpiezaService;
+    private TareaLimpiezaAsyncService tareaLimpiezaAsyncService;
 
     @Autowired
     private SenderLimpieza senderLimpieza;
@@ -37,11 +39,14 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Override
     public RunMantenimientoLimpiezaDto run() {
         final RunMantenimientoLimpiezaDto result = this.tareaService.findLimpieza();
-        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.save(result.getIdTarea());
-        Flux.fromIterable(limpiezas)
-            .parallel()
-            .runOn(ItxSchedulers.single())
-            .subscribe(this.senderLimpieza::send);
+        final CompletableFuture<List<TareaLimpiezaDto>> future = this.tareaLimpiezaAsyncService
+            .save(result.getIdTarea());
+        Mono.fromFuture(future)
+            .subscribe(tareas -> Flux.fromIterable(tareas)
+                .parallel()
+                .runOn(ItxSchedulers.single())
+                .subscribe(this.senderLimpieza::send));
+
         return result;
     }
 
@@ -49,11 +54,14 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Override
     public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {
         final RunMantenimientoLimpiezaDto result = this.tareaService.findLimpiezaByIdTarea(id);
-        final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.save(result.getIdTarea());
-        Flux.fromIterable(limpiezas)
-            .parallel()
-            .runOn(ItxSchedulers.single())
-            .subscribe(this.senderLimpieza::send);
+        final CompletableFuture<List<TareaLimpiezaDto>> future = this.tareaLimpiezaAsyncService
+            .save(result.getIdTarea());
+        Mono.fromFuture(future)
+            .subscribe(tareas -> Flux.fromIterable(tareas)
+                .parallel()
+                .runOn(ItxSchedulers.single())
+                .subscribe(this.senderLimpieza::send));
+
         return result;
     }
 

@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLimpiezaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLimpieza;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
 import org.junit.Test;
@@ -43,11 +44,12 @@ public class TareaLimpiezaServiceImplTest {
     public void saveTest() {
         final TareaLimpiezaDto limpieza = mock(TareaLimpiezaDto.class);
         when(limpieza.getNombreUsuario()).thenReturn("username");
-        when(limpieza.getIdTarea()).thenReturn(1234L);
+        final TareaLimpieza limpiezaEntity = mock(TareaLimpieza.class);
+        when(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(any(TareaLimpiezaDto.class)))
+            .thenReturn(mock(TareaLimpieza.class));
 
         this.tareaLimpiezaServiceImpl.save(limpieza);
-        verify(this.tareaLimpiezaRepositoryCustom, times(1)).save(any(TareaLimpiezaDto.class));
-        verify(this.tareaLimpiezaRepository, times(1)).findByTareaId(1234L);
+        verify(this.tareaLimpiezaRepository, times(1)).save(any(TareaLimpieza.class));
     }
 
     @Test

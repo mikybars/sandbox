@@ -12,7 +12,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +44,8 @@ public class TareaRepositoryCustomImplTest {
 
     private final static String SQL_FIND_LIMPIEZA = "SQL FIND LIMPIEZA";
 
+    private final static Integer LIMIT = 10;
+
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -69,6 +70,7 @@ public class TareaRepositoryCustomImplTest {
                 "sqlUpdateEstadoFinal", SQL_UPDATE_ESTADO_FINAL, true);
         FieldUtils.writeField(this.tareaRepositoryCustom,
                 "sqlFindLimpieza", SQL_FIND_LIMPIEZA, true);
+        FieldUtils.writeField(this.tareaRepositoryCustom, "limitLimpieza", LIMIT, true);
     }
 
     @Test
@@ -182,16 +184,20 @@ public class TareaRepositoryCustomImplTest {
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: idEstado, fecha
-        assertEquals(3, params.getValues().size());
+        assertEquals(5, params.getValues().size());
         assertTrue(params.hasValue("idEstado"));
         assertTrue(params.hasValue("fecha"));
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA));
+        assertTrue(params.hasValue("idEstadoLimpieza"));
+        assertTrue(params.hasValue("fechaHoraCreacion"));
+        assertTrue(params.hasValue("limit"));
         assertEquals(
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()),
                 params.getValue("idEstado"));
         assertEquals(
-                Arrays.asList(EstadoLimpiezaEnum.OK.getId()),
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA));
+                Arrays.asList(EstadoLimpiezaEnum.PENDIENTE.getId(), EstadoLimpiezaEnum.KO
+                    .getId()),
+                params.getValue("idEstadoLimpieza"));
+        assertEquals(LIMIT, params.getValue("limit"));
     }
 
 }
