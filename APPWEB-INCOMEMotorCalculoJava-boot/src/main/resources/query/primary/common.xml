@@ -1997,7 +1997,8 @@ AND ID_TIPO_DATO IN (
         SELECT LIMPIEZA.ID_TAREA_LIMPIEZA,
         LIMPIEZA.ID_TAREA,
         LIMPIEZA.FECHA_HORA_CREACION,
-        LIMPIEZA.ID_ESTADO_LIMPIEZA
+        LIMPIEZA.ID_ESTADO_LIMPIEZA,
+        LIMPIEZA.ID_TIPO_LIMPIEZA
       FROM
         (
         SELECT
@@ -2007,7 +2008,8 @@ AND ID_TIPO_DATO IN (
           TL.ID_TAREA,
           TL.ID_TAREA_LIMPIEZA,
           TL.FECHA_HORA_CREACION,
-          TL.ID_ESTADO_LIMPIEZA
+          TL.ID_ESTADO_LIMPIEZA,
+          TL.ID_TIPO_LIMPIEZA
         FROM
           TAREA_LIMPIEZA TL ) LIMPIEZA
       WHERE
@@ -2021,7 +2023,8 @@ AND ID_TIPO_DATO IN (
       AND T.FECHA_HORA_FIN_TAREA IS NOT NULL
       AND (TL.ID_TAREA IS NULL
       OR (TL.ID_ESTADO_LIMPIEZA IN (:idEstadoLimpieza)
-      AND TL.FECHA_HORA_CREACION < :fechaHoraCreacion))
+        AND TL.FECHA_HORA_CREACION < :fechaHoraCreacion
+        AND TL.ID_TIPO_LIMPIEZA = :idTipoLimpieza))
     ]]>
   </entry>
 
@@ -2038,7 +2041,8 @@ AND ID_TIPO_DATO IN (
         SELECT LIMPIEZA.ID_TAREA_LIMPIEZA,
         LIMPIEZA.ID_TAREA,
         LIMPIEZA.FECHA_HORA_CREACION,
-        LIMPIEZA.ID_ESTADO_LIMPIEZA
+        LIMPIEZA.ID_ESTADO_LIMPIEZA,
+        LIMPIEZA.ID_TIPO_LIMPIEZA
       FROM
         (
         SELECT
@@ -2048,7 +2052,8 @@ AND ID_TIPO_DATO IN (
           TL.ID_TAREA,
           TL.ID_TAREA_LIMPIEZA,
           TL.FECHA_HORA_CREACION,
-          TL.ID_ESTADO_LIMPIEZA
+          TL.ID_ESTADO_LIMPIEZA,
+          TL.ID_TIPO_LIMPIEZA
         FROM
           TAREA_LIMPIEZA TL ) LIMPIEZA
       WHERE
@@ -2062,7 +2067,8 @@ AND ID_TIPO_DATO IN (
       AND T.FECHA_HORA_FIN_TAREA IS NOT NULL
       AND (TL.ID_TAREA IS NULL
       OR (TL.ID_ESTADO_LIMPIEZA IN (:idEstadoLimpieza)
-      AND TL.FECHA_HORA_CREACION < :fechaHoraCreacion))
+        AND TL.FECHA_HORA_CREACION < :fechaHoraCreacion
+        AND TL.ID_TIPO_LIMPIEZA = :idTipoLimpieza))
     ]]>
   </entry>
 
@@ -4411,24 +4417,6 @@ WHERE INDICADOR.ROW = 1
   </entry>
   <entry key="ProgramacionRepositoryCustom.activaById">
     <![CDATA[UPDATE PROGRAMACION SET ES_ACTIVO = :activo WHERE ID_PROGRAMACION = :idProgramacion]]>
-  </entry>
-
-  <entry key="TareaLimpiezaRepositoryCustom.mergeLimpieza">
-    <![CDATA[
-    MERGE INTO TAREA_LIMPIEZA AS TL USING
-    (
-        SELECT ID_TAREA
-        FROM TAREA
-        WHERE ID_TAREA = :idTarea
-    ) AS S ON (
-        TL.ID_TAREA = S.ID_TAREA
-    )
-    WHEN MATCHED THEN
-        UPDATE SET ID_ESTADO_LIMPIEZA = :idEstadoLimpieza
-    WHEN NOT MATCHED THEN
-        INSERT (ID_TAREA, NOMBRE_USUARIO, ID_ESTADO_LIMPIEZA, ID_TIPO_LIMPIEZA)
-        VALUES (:idTarea, :nombreUsuario, :idEstadoLimpieza, :idTipoLimpieza)
-    ]]>
   </entry>
 
   <entry key="TareaLimpiezaRepositoryCustom.updateFechaFinalizacion">

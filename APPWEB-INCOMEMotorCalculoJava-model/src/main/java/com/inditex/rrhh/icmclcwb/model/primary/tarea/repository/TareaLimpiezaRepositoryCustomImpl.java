@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
@@ -24,9 +23,6 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.saveLimpieza']}")
-    private String sqlSaveLimpieza;
-
     @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.updateFechaFinalizacion']}")
     private String sqlUpdateFechaFinalizacion;
 
@@ -35,17 +31,6 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
 
     @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.inicioLimpieza']}")
     private String sqlInicioLimpieza;
-
-    @Override
-    public void save(
-            @NotNull @Valid final TareaLimpiezaDto limpiezaDto) {
-        final MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, limpiezaDto.getIdTarea());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA, limpiezaDto.getEstado().getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_NOMBRE_USUARIO, limpiezaDto.getNombreUsuario());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_LIMPIEZA, limpiezaDto.getTipo().getId());
-        this.namedParameterJdbcTemplate.update(this.sqlSaveLimpieza, params);
-    }
 
     @Override
     public void updateFechaFinalizacion(

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -107,6 +108,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
                 DateUtils.addDays(TimeUtils.nowDate(), this.daysNumberFechaCreacion));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA,
                 Arrays.asList(EstadoLimpiezaEnum.PENDIENTE.getId(), EstadoLimpiezaEnum.KO.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_LIMPIEZA, TipoLimpiezaEnum.COMPLETA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_LIMIT, this.limitLimpieza);
         return this.namedParameterJdbcTemplate.query(this.sqlFindLimpieza, parameters, (rs, rowNum) -> {
             final IdTareaDto dto = new IdTareaDto();
@@ -126,6 +128,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
                 DateUtils.addDays(TimeUtils.nowDate(), this.daysNumberFechaCreacion));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA,
                 Arrays.asList(EstadoLimpiezaEnum.PENDIENTE.getId(), EstadoLimpiezaEnum.KO.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_LIMPIEZA, TipoLimpiezaEnum.COMPLETA.getId());
         return this.namedParameterJdbcTemplate.queryForObject(this.sqlTotalLimpieza, parameters,
                 (rs, rowNum) -> rs.getInt(SqlPrimaryConstants.SQL_RESULT_TOTAL));
     }
@@ -141,7 +144,8 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA,
-                Arrays.asList(EstadoLimpiezaEnum.OK.getId()));
+                Arrays.asList(EstadoLimpiezaEnum.PENDIENTE.getId(), EstadoLimpiezaEnum.KO.getId()));
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_LIMPIEZA, TipoLimpiezaEnum.COMPLETA.getId());
         return this.namedParameterJdbcTemplate.query(this.sqlFindLimpiezaByIdTarea, parameters, (rs, rowNum) -> {
             final IdTareaDto dto = new IdTareaDto();
             dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));

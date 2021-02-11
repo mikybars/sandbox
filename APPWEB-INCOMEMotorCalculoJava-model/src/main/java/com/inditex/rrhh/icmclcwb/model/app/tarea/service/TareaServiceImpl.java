@@ -165,10 +165,11 @@ public class TareaServiceImpl implements TareaService {
     @Override
     public RunMantenimientoLimpiezaDto findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea) {
         final List<IdTareaDto> tareas = this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
+        final Integer total = this.tareaRepositoryCustom.totalLimpieza();
         return RunMantenimientoLimpiezaDto.builder()
             .idTarea(tareas)
             .tareasProcesadas(tareas.size())
-            .tareasPendientes(tareas.size())
+            .tareasPendientes(total)
             .build();
     }
 

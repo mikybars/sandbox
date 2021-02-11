@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -184,11 +185,12 @@ public class TareaRepositoryCustomImplTest {
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
 
         // Parámetros de la consulta: idEstado, fecha
-        assertEquals(5, params.getValues().size());
+        assertEquals(6, params.getValues().size());
         assertTrue(params.hasValue("idEstado"));
         assertTrue(params.hasValue("fecha"));
         assertTrue(params.hasValue("idEstadoLimpieza"));
         assertTrue(params.hasValue("fechaHoraCreacion"));
+        assertTrue(params.hasValue("idTipoLimpieza"));
         assertTrue(params.hasValue("limit"));
         assertEquals(
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()),
@@ -197,6 +199,7 @@ public class TareaRepositoryCustomImplTest {
                 Arrays.asList(EstadoLimpiezaEnum.PENDIENTE.getId(), EstadoLimpiezaEnum.KO
                     .getId()),
                 params.getValue("idEstadoLimpieza"));
+        assertEquals(TipoLimpiezaEnum.COMPLETA.getId(), params.getValue("idTipoLimpieza"));
         assertEquals(LIMIT, params.getValue("limit"));
     }
 
