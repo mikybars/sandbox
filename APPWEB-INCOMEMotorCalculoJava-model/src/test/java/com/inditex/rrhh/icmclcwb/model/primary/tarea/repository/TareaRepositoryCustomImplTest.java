@@ -45,6 +45,10 @@ public class TareaRepositoryCustomImplTest {
 
     private final static String SQL_FIND_LIMPIEZA = "SQL FIND LIMPIEZA";
 
+    private final static String SQL_TOTAL_LIMPIEZA = "SQL TOTAL LIMPIEZA";
+
+    private final static String SQL_FIND_LIMPIEZA_BY_ID_TAREA = "SQL FIND LIMPIEZA BY ID TAREA";
+
     private final static Integer LIMIT = 10;
 
     @Mock
@@ -71,6 +75,10 @@ public class TareaRepositoryCustomImplTest {
                 "sqlUpdateEstadoFinal", SQL_UPDATE_ESTADO_FINAL, true);
         FieldUtils.writeField(this.tareaRepositoryCustom,
                 "sqlFindLimpieza", SQL_FIND_LIMPIEZA, true);
+        FieldUtils.writeField(this.tareaRepositoryCustom,
+                "sqlFindLimpiezaByIdTarea", SQL_FIND_LIMPIEZA_BY_ID_TAREA, true);
+        FieldUtils.writeField(this.tareaRepositoryCustom,
+                "sqlTotalLimpieza", SQL_TOTAL_LIMPIEZA, true);
         FieldUtils.writeField(this.tareaRepositoryCustom, "limitLimpieza", LIMIT, true);
     }
 
@@ -201,6 +209,72 @@ public class TareaRepositoryCustomImplTest {
                 params.getValue("idEstadoLimpieza"));
         assertEquals(TipoLimpiezaEnum.COMPLETA.getId(), params.getValue("idTipoLimpieza"));
         assertEquals(LIMIT, params.getValue("limit"));
+    }
+
+    @Test
+    public void totalLimpiezaTest() {
+
+        final Integer total = 1234;
+        when(this.namedParameterJdbcTemplate.queryForObject(any(String.class), any(MapSqlParameterSource.class),
+                ArgumentMatchers.<RowMapper<Integer>>any())).thenReturn(total);
+        final Integer result = this.tareaRepositoryCustom.totalLimpieza();
+        verify(this.namedParameterJdbcTemplate, times(1)).queryForObject(this.sqlCaptor.capture(),
+                this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdTareaDto>>any());
+
+        assertEquals(total, result);
+        assertEquals(SQL_TOTAL_LIMPIEZA, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+        // Parámetros de la consulta: idEstado, fecha
+        assertEquals(5, params.getValues().size());
+        assertTrue(params.hasValue("idEstado"));
+        assertTrue(params.hasValue("fecha"));
+        assertTrue(params.hasValue("idEstadoLimpieza"));
+        assertTrue(params.hasValue("fechaHoraCreacion"));
+        assertTrue(params.hasValue("idTipoLimpieza"));
+        assertEquals(
+                Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()),
+                params.getValue("idEstado"));
+        assertEquals(
+                Arrays.asList(EstadoLimpiezaEnum.PENDIENTE.getId(), EstadoLimpiezaEnum.KO
+                    .getId()),
+                params.getValue("idEstadoLimpieza"));
+        assertEquals(TipoLimpiezaEnum.COMPLETA.getId(), params.getValue("idTipoLimpieza"));
+    }
+
+    @Test
+    public void findLimpiezaByIdTareaTest() {
+
+        final Long idTarea = 22L;
+        final List<IdTareaDto> idTareas = Arrays.asList(new IdTareaDto(idTarea));
+        when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+                ArgumentMatchers.<RowMapper<IdTareaDto>>any())).thenReturn(idTareas);
+        final List<IdTareaDto> result = this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdTareaDto>>any());
+
+        assertEquals(idTareas, result);
+        assertEquals(SQL_FIND_LIMPIEZA_BY_ID_TAREA, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+        // Parámetros de la consulta: idEstado, fecha
+        assertEquals(6, params.getValues().size());
+        assertTrue(params.hasValue("idEstado"));
+        assertTrue(params.hasValue("fecha"));
+        assertTrue(params.hasValue("idEstadoLimpieza"));
+        assertTrue(params.hasValue("fechaHoraCreacion"));
+        assertTrue(params.hasValue("idTipoLimpieza"));
+        assertTrue(params.hasValue("idTarea"));
+        assertEquals(
+                Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()),
+                params.getValue("idEstado"));
+        assertEquals(
+                Arrays.asList(EstadoLimpiezaEnum.PENDIENTE.getId(), EstadoLimpiezaEnum.KO
+                    .getId()),
+                params.getValue("idEstadoLimpieza"));
+        assertEquals(TipoLimpiezaEnum.COMPLETA.getId(), params.getValue("idTipoLimpieza"));
+        assertEquals(idTarea, params.getValue("idTarea"));
     }
 
 }
