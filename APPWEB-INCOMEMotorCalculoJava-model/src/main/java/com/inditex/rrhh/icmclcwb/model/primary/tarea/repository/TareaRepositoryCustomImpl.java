@@ -50,13 +50,13 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     @Value("#{primaryQuery['TareaRepositoryCustom.updateEstadoFinal']}")
     private String sqlUpdateEstadoFinal;
 
-    @Value("#{primaryQuery['TareaRepositoryCustom.findLimpieza']} #{primaryQuery['TareaRepositoryCustom.findLimpieza.limit']}")
+    @Value("#{primaryQuery['TareaRepositoryCustom.selectTarea']} #{primaryQuery['TareaRepositoryCustom.findLimpieza']} #{primaryQuery['TareaRepositoryCustom.findLimpieza.limit']}")
     private String sqlFindLimpieza;
 
-    @Value("#{primaryQuery['TareaRepositoryCustom.totalLimpieza']}")
+    @Value("#{primaryQuery['TareaRepositoryCustom.selectTotal']} #{primaryQuery['TareaRepositoryCustom.findLimpieza']}")
     private String sqlTotalLimpieza;
 
-    @Value("#{primaryQuery['TareaRepositoryCustom.findLimpieza']} #{primaryQuery['TareaRepositoryCustom.findLimpieza.byIdTarea']}")
+    @Value("#{primaryQuery['TareaRepositoryCustom.selectTarea']} #{primaryQuery['TareaRepositoryCustom.findLimpieza']} #{primaryQuery['TareaRepositoryCustom.findLimpieza.byIdTarea']}")
     private String sqlFindLimpiezaByIdTarea;
 
 
