@@ -34,6 +34,8 @@ public interface ProgramacionService {
 
     ProgramacionDto findById(@Positive @NotNull final Long id);
 
+    ProgramacionDto findActivoById(@Positive @NotNull final Long id);
+
     ProgramacionDto findPendienteById(@Positive @NotNull Long id);
 
     void updateFechaSiguienteEjecucion(@NotNull @NotEmpty List<ProgramacionDto> programaciones);

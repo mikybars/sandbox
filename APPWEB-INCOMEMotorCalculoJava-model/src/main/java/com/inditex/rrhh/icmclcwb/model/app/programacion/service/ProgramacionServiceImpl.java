@@ -99,7 +99,6 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     @Override
     public ProgramacionDto updateEjecucion(@Valid final ProgramacionDto programacion) {
         programacion.setFechaHoraUltimaEjecucion(TimeUtils.nowLocalDateTime());
-        programacion.setFechaHoraSiguienteEjecucion(this.fechaSiguienteEjecucion(programacion));
         return this.modify(programacion);
     }
 
@@ -132,6 +131,15 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     public ProgramacionDto findById(@Positive @NotNull final Long id) {
         final ProgramacionDto programacionDto = this.programacionMapper
             .programacionToProgramacionDto(this.programacionRepository.findById(id).get());
+        programacionDto.setAmbito(this.programacionAmbitoService.findByProgramacion(programacionDto));
+        return programacionDto;
+    }
+
+    @Override
+    public ProgramacionDto findActivoById(
+            @Positive @NotNull final Long id) {
+        final ProgramacionDto programacionDto = this.programacionMapper
+            .programacionToProgramacionDto(this.programacionRepository.findByIdAndActivoTrue(id));
         programacionDto.setAmbito(this.programacionAmbitoService.findByProgramacion(programacionDto));
         return programacionDto;
     }
