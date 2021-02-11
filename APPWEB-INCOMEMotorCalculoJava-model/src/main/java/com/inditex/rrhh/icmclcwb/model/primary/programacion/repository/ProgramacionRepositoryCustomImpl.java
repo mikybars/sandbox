@@ -90,7 +90,8 @@ public class ProgramacionRepositoryCustomImpl implements ProgramacionRepositoryC
                     .map(IdProgramacionDto::getId)
                     .collect(
                             Collectors.toList()));
-        arg.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_SIGUIENTE_EJECUCION, fechaSiguienteEjecucion);
+        arg.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_SIGUIENTE_EJECUCION,
+                TimeUtils.toDate(fechaSiguienteEjecucion));
         this.namedParameterJdbcTemplate.update(this.sqlUpdateSiguienteEjecucion, arg);
     }
 

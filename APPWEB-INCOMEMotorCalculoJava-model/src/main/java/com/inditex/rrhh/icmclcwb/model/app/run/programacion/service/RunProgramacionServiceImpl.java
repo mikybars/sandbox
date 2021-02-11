@@ -127,6 +127,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                 .build())
             .collect(Collectors.toList());
         // Se establece la fecha de la siguiente ejecución inmediatamente
+        // TODO [javierev] hacer esta operación asíncrona para devolver al usuario el control
         this.programacionService.updateFechaSiguienteEjecucion(pendientes);
         // Y se envían a la cola
         Flux.fromIterable(pendientes)
