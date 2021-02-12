@@ -10,9 +10,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 
 /**
  * @author mdelrio
@@ -35,7 +36,7 @@ public interface TareaFaseAccionService {
     /**
      * @param tareaDto
      */
-    void create(@Valid @NotNull TareaDto tareaDto);
+    void create(@Valid @NotNull RunTareaDto tareaDto);
 
     /**
      * @param idTarea
@@ -72,7 +73,8 @@ public interface TareaFaseAccionService {
      * @param tareaFaseAccionDto
      * @param estadoTareaFaseAccionDto
      */
-    void updateFechaFinAndEstadoAndActivo(@Valid @NotNull TareaFaseAccionDto tareaFaseAccionDto,
+    void updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(@Valid @NotNull TareaFaseDto tareaFaseDto,
+            @Valid @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @Valid @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
     /**
@@ -92,5 +94,11 @@ public interface TareaFaseAccionService {
     List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucionAndPeso(
             @NotNull Long idTarea, @NotNull Integer idFase, @NotNull Integer idAccion,
             @NotNull Integer idPuntoEjecucion, @NotNull Long peso);
+
+    /**
+     * @param tareaFaseAccionDto
+     * @return
+     */
+    Integer countReintentosByIdTareaAndIdAccionAndIdEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto);
 
 }

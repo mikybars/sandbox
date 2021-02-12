@@ -18,13 +18,16 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.PuntoEjecucionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import reactor.core.publisher.Flux;
@@ -46,6 +49,9 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
 
     @Autowired
     private TareaFaseAccionService tareaFaseAccionService;
+
+    @Autowired
+    private TareaFaseService tareaFaseService;
 
     @Autowired
     private SenderTarea senderTarea;
@@ -85,6 +91,8 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
             .forEach(e -> {
                 final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
                     .findById(e.getIdTareaFaseAccion());
+                final TareaFaseDto tareaFase = this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(
+                        runTareaDto.getTarea().getId(), faseDto.getId());
                 this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
                         EstadoTareaFaseAccionEnum.KO.getDto());
                 final AccionDto accion = this.accionService
@@ -96,8 +104,14 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                     }
                     this.senderTarea.send(runTareaDto.getTarea());
                 }
-                this.tareaFaseAccionService.updateFechaFinAndEstadoAndActivo(tareaFaseAccion,
+                this.tareaFaseAccionService.updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+                        tareaFase,
+                        EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
                         EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
+                this.tareaFaseService.updateFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
+                        runTareaDto.getTarea(),
+                        EstadoTareaFaseEnum.PENDIENTE.getDto(),
+                        EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
                 throw new ValidationException("Error validando");
             });
     }

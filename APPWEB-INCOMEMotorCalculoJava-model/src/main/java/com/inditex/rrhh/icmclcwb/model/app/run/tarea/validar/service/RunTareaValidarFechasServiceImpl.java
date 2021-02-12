@@ -54,8 +54,9 @@ public class RunTareaValidarFechasServiceImpl implements RunPrevalidar {
             .map(item -> this.runTareaAmbitoValidarFechasService
                 .execute(runTarea, item, tareaFaseAccion))
             .collect(Collectors.toList());
-        this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
-
+        if (validaciones.isEmpty()) {
+            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+        }
         return validaciones;
     }
 

@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFase;
 
@@ -38,15 +39,23 @@ public interface TareaFaseRepositoryCustom {
     void updateFechaInicio(@NotNull TareaFaseDto tareaFaseDto);
 
     /**
-     * @param tareaFaseDto
-     * @param estadoTareaFaseDto
-     */
-    void updateFechaFinAndEstado(@NotNull TareaFaseDto tareaFaseDto, @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
-
-    /**
      * @param idTarea
      * @return
      */
     List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NotNull @Positive Long idTarea);
+
+    /**
+     * @param tareaDto
+     * @param estadoTareaFaseActualDto
+     * @param estadoTareaFaseDto
+     */
+    void updateFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(@NotNull TareaDto tareaDto,
+            @NotNull EstadoTareaFaseDto estadoTareaFaseActualDto, @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
+
+    /**
+     * @param tareaFaseDto
+     * @param estadoTareaFaseDto
+     */
+    void updateFechaFinAndEstado(@NotNull TareaFaseDto tareaFaseDto, @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
 }

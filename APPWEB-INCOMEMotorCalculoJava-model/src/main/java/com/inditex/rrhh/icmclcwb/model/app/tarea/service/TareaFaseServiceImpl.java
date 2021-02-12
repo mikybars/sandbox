@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -48,9 +49,10 @@ public class TareaFaseServiceImpl implements TareaFaseService {
         return this.tareaFaseMapper.tareaFaseToTareaFaseDto(this.tareaFaseRepository.findAll());
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public List<TareaFaseDto> create(@Valid @NotNull final TareaDto tareaDto) {
+    public List<TareaFaseDto> create(@Valid @NotNull final RunTareaDto runTareaDto) {
+        final TareaDto tareaDto = runTareaDto.getTarea();
         return this.save(this.faseService.findAll()
             .stream()
             .map(x -> TareaFaseDto.builder()
@@ -92,7 +94,19 @@ public class TareaFaseServiceImpl implements TareaFaseService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void updateFechaFinAndEstado(@Valid @NotNull final TareaFaseDto tareaFaseDto,
+    public void updateFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
+            @Valid @NotNull final TareaDto tareaDto,
+            @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseActualDto,
+            @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseDto) {
+        this.tareaFaseRepositoryCustom.updateFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(tareaDto,
+                estadoTareaFaseActualDto,
+                estadoTareaFaseDto);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void updateFechaFinAndEstado(
+            @Valid @NotNull final TareaFaseDto tareaFaseDto,
             @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseDto) {
         this.tareaFaseRepositoryCustom.updateFechaFinAndEstado(tareaFaseDto, estadoTareaFaseDto);
     }

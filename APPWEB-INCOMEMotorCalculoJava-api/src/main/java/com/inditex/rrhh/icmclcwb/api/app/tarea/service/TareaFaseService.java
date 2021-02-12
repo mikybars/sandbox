@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
@@ -35,7 +36,7 @@ public interface TareaFaseService {
      * @param tareaFase
      * @return
      */
-    List<TareaFaseDto> create(@Valid @NotNull TareaDto tareaDto);
+    List<TareaFaseDto> create(@Valid @NotNull RunTareaDto runTareaDto);
 
     /**
      * @param tarea
@@ -54,7 +55,8 @@ public interface TareaFaseService {
      * @param tareaFaseDto
      * @param estadoTareaFaseDto
      */
-    void updateFechaFinAndEstado(@Valid @NotNull TareaFaseDto tareaFaseDto,
+    void updateFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(@Valid @NotNull TareaDto tareaDto,
+            @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseActualDto,
             @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
     /**
@@ -62,5 +64,12 @@ public interface TareaFaseService {
      * @return
      */
     List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NotNull Long idTarea);
+
+    /**
+     * @param tareaFaseDto
+     * @param estadoTareaFaseDto
+     */
+    void updateFechaFinAndEstado(@Valid @NotNull TareaFaseDto tareaFaseDto,
+            @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
 }

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
@@ -55,6 +56,9 @@ public class TareaFaseAccionRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.updateFechaFinAndEstadoAndActivo']}")
     private String sqlUpdateFechaFinAndEstadoAndActivo;
+
+    @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.countReintentosByIdTareaAndIdAccionAndIdEstado']}")
+    private String sqlCountReintentosByIdTareaAndIdAccionAndIdEstado;
 
     @Override
     public List<TareaFaseAccion> save(final List<TareaFaseAccion> src) {
@@ -156,6 +160,7 @@ public class TareaFaseAccionRepositoryCustomImpl
     public void updateFechaInicio(@NotNull final TareaFaseAccionDto tareaFaseAccionDto) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE_ACCION, tareaFaseAccionDto.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, EstadoTareaFaseAccionEnum.PENDIENTE.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
         this.update(this.sqlUpdateFechaInicio, params);
     }
@@ -166,20 +171,32 @@ public class TareaFaseAccionRepositoryCustomImpl
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE_ACCION, tareaFaseAccionDto.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estadoTareaFaseAccionDto.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
         this.update(this.sqlUpdateFechaFinAndEstado, params);
     }
 
     @Override
-    public void updateFechaFinAndEstadoAndActivo(@NotNull final TareaFaseAccionDto tareaFaseAccionDto,
+    public void updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(@NotNull final TareaFaseDto tareaFaseDto,
+            @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE, tareaFaseAccionDto.getIdTareaFase());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE, tareaFaseDto.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estadoTareaFaseAccionDto.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, EstadoTareaFaseAccionEnum.NO_EJECUTADA.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, estadoTareaFaseAccionActualDto.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
         this.update(this.sqlUpdateFechaFinAndEstadoAndActivo, params);
+    }
+
+    @Override
+    public Integer countReintentosByIdTareaAndIdAccionAndIdEstado(
+            @NotNull final TareaFaseAccionDto tareaFaseAccionDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE, tareaFaseAccionDto.getIdTareaFase());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, EstadoTareaFaseAccionEnum.ERROR.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ACCION, tareaFaseAccionDto.getIdAccion());
+        return this.queryForObject(this.sqlCountReintentosByIdTareaAndIdAccionAndIdEstado, params, Integer.class);
     }
 
 }

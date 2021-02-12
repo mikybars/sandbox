@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseAccionDto;
@@ -77,9 +78,10 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
             .saveAll(this.tareaFaseAccionMapper.tareaFaseAccionDtoToTareaFaseAccion(tareaFaseAccion)));
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void create(@Valid @NotNull final TareaDto tareaDto) {
+    public void create(@Valid @NotNull final RunTareaDto runTareaDto) {
+        final TareaDto tareaDto = runTareaDto.getTarea();
         final List<TareaFaseDto> tareaFaseDto = this.tareaFaseService.findTareaFaseDtoByIdTarea(tareaDto.getId());
         this.save(tareaFaseDto.stream().map(x -> {
             final List<FaseAccionDto> faseAccion = this.faseAccionService
@@ -139,10 +141,19 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void updateFechaFinAndEstadoAndActivo(@Valid @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
+    public void updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+            @Valid @NotNull final TareaFaseDto tareaFaseDto,
+            @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
-        this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstadoAndActivo(tareaFaseAccionDto,
-                estadoTareaFaseAccionDto);
+        this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(tareaFaseDto,
+                estadoTareaFaseAccionActualDto, estadoTareaFaseAccionDto);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public Integer countReintentosByIdTareaAndIdAccionAndIdEstado(
+            @NotNull final TareaFaseAccionDto tareaFaseAccionDto) {
+        return this.tareaFaseAccionRepositoryCustom.countReintentosByIdTareaAndIdAccionAndIdEstado(tareaFaseAccionDto);
     }
 
 }

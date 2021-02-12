@@ -54,8 +54,9 @@ public class RunTareaValidarCondicionesHistoricoServiceImpl implements RunPreval
             .map(item -> this.runTareaAmbitoValidarCondicionesHistoricoService
                 .execute(runTarea, item, tareaFaseAccion))
             .collect(Collectors.toList());
-        this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
-
+        if (validaciones.isEmpty()) {
+            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+        }
         return validaciones;
     }
 

@@ -10,6 +10,7 @@ import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFaseAccion;
 
 /**
@@ -64,7 +65,8 @@ public interface TareaFaseAccionRepositoryCustom {
      * @param tareaFaseAccionDto
      * @param estadoTareaFaseAccionDto
      */
-    void updateFechaFinAndEstadoAndActivo(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
+    void updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(@NotNull TareaFaseDto tareaFaseDto,
+            @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
 
@@ -79,5 +81,12 @@ public interface TareaFaseAccionRepositoryCustom {
     List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucionAndPeso(
             @NotNull @Positive Long idTarea, @NotNull Integer idFase, @NotNull Integer idAccion,
             @NotNull Integer idPuntoEjecucion, @NotNull Long peso);
+
+
+    /**
+     * @param tareaFaseAccionDto
+     * @return
+     */
+    Integer countReintentosByIdTareaAndIdAccionAndIdEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto);
 
 }

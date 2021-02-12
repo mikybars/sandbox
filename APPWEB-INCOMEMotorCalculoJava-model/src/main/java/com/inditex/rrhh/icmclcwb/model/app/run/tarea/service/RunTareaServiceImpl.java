@@ -21,6 +21,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
@@ -60,6 +62,12 @@ public class RunTareaServiceImpl implements RunTareaService {
     @Autowired
     private RunTareaAjustarService runTareaAjustarService;
 
+    @Autowired
+    private TareaFaseService tareaFaseService;
+
+    @Autowired
+    private TareaFaseAccionService tareaFaseAccionService;
+
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaService.run.timer", metricGroupName = "RunTareaServiceGroup",
             metricDescription = "RunTareaService.run.timer")
@@ -69,6 +77,8 @@ public class RunTareaServiceImpl implements RunTareaService {
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         try {
             this.tareaService.updateFechaInicioAndEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
+            this.tareaFaseService.create(runTarea);
+            this.tareaFaseAccionService.create(runTarea);
             this.runTareaRecolectarService.run(runTarea);
             this.runTareaRecolectarValidarService.run(runTarea);
             this.runTareaProcesarService.run(runTarea);
