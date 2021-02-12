@@ -54,7 +54,10 @@ public class RunTareaValidarCarenciaServiceImpl implements RunPrevalidar {
             .map(item -> this.runTareaAmbitoValidarCarenciaService
                 .execute(runTarea, item, tareaFaseAccion))
             .collect(Collectors.toList());
-        if (validaciones.isEmpty()) {
+        if (validaciones.stream()
+            .filter(e -> e.getResult().equals(Boolean.FALSE))
+            .collect(Collectors.toList())
+            .isEmpty()) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
         }
         return validaciones;
