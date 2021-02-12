@@ -19,7 +19,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarMotivosDesplazamientoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
@@ -83,19 +82,6 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl
             this.primaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoComis();
             this.primaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoMeta4();
 
-
-            if (!motivos.isEmpty()) {
-                this.log.error(
-                        "RunTareaAmbitoValidarMotivosDesplazamientoService :: Error validando motivos :: Items: {}",
-                        motivos);
-                final AccionDto accion = this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion());
-                if (accion.getEsReaccionReintento()) {
-                    if (accion.getEsReaccionEsperar()) {
-                        this.senderTarea.sendWithDelay(runTareaDto.getTarea(), accion.getReintentoDelay());
-                    }
-                    this.senderTarea.send(runTareaDto.getTarea());
-                }
-            }
 
         } catch (final Exception e) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
