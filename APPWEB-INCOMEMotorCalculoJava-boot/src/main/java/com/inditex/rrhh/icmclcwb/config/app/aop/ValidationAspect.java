@@ -91,13 +91,13 @@ public class ValidationAspect {
                                     runTareaDto.getTarea().getId(), faseDto.getId());
                             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
                                     EstadoTareaFaseAccionEnum.KO.getDto());
-                            this.tareaFaseService.updateFechaFinAndEstado(tareaFase,
+                            this.tareaFaseService.updateFechaInicioAndFechaFinAndEstado(tareaFase,
                                     EstadoTareaFaseEnum.KO.getDto());
                             final AccionDto accion = this.accionService
                                 .findAccionDtoById(tareaFaseAccion.getIdAccion());
                             if (Boolean.TRUE.equals(accion.getEsReaccionReintento()) && (this.tareaFaseAccionService
                                 .countReintentosByIdTareaAndIdAccionAndIdEstado(
-                                        tareaFaseAccion) < accion.getReintentoMax())) {
+                                        tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {
                                 if (Boolean.TRUE.equals(accion.getEsReaccionEsperar())) {
                                     this.senderTarea.sendWithDelay(runTareaDto.getTarea(),
                                             accion.getReintentoDelay());
@@ -106,14 +106,16 @@ public class ValidationAspect {
                                 }
 
                             }
-                            this.tareaFaseAccionService.updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
-                                    tareaFase,
-                                    EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
-                                    EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
-                            this.tareaFaseService.updateFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
-                                    runTareaDto.getTarea(),
-                                    EstadoTareaFaseEnum.PENDIENTE.getDto(),
-                                    EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
+                            this.tareaFaseAccionService
+                                .updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+                                        tareaFase,
+                                        EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
+                                        EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
+                            this.tareaFaseService
+                                .updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
+                                        runTareaDto.getTarea(),
+                                        EstadoTareaFaseEnum.PENDIENTE.getDto(),
+                                        EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
                             throw new ValidationException("Error validando");
                         });
                 }
@@ -161,14 +163,16 @@ public class ValidationAspect {
                                 }
                                 this.senderTarea.send(runTareaDto.getTarea());
                             }
-                            this.tareaFaseAccionService.updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
-                                    tareaFase,
-                                    EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
-                                    EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
-                            this.tareaFaseService.updateFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
-                                    runTareaDto.getTarea(),
-                                    EstadoTareaFaseEnum.PENDIENTE.getDto(),
-                                    EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
+                            this.tareaFaseAccionService
+                                .updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+                                        tareaFase,
+                                        EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
+                                        EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
+                            this.tareaFaseService
+                                .updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
+                                        runTareaDto.getTarea(),
+                                        EstadoTareaFaseEnum.PENDIENTE.getDto(),
+                                        EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
                             throw new ValidationException("Error validando");
                         });
                 }

@@ -49,7 +49,7 @@ public interface TareaFaseRepositoryCustom {
      * @param estadoTareaFaseActualDto
      * @param estadoTareaFaseDto
      */
-    void updateFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(@NotNull TareaDto tareaDto,
+    void updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(@NotNull TareaDto tareaDto,
             @NotNull EstadoTareaFaseDto estadoTareaFaseActualDto, @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
     /**
@@ -57,5 +57,12 @@ public interface TareaFaseRepositoryCustom {
      * @param estadoTareaFaseDto
      */
     void updateFechaFinAndEstado(@NotNull TareaFaseDto tareaFaseDto, @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
+
+    /**
+     * @param tareaFaseDto
+     * @param estadoTareaFaseDto
+     */
+    void updateFechaInicioAndFechaFinAndEstado(@NotNull TareaFaseDto tareaFaseDto,
+            @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
 }

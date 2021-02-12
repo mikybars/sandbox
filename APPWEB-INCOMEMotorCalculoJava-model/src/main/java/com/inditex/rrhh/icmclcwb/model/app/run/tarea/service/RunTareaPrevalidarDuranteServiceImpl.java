@@ -104,11 +104,11 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                     }
                     this.senderTarea.send(runTareaDto.getTarea());
                 }
-                this.tareaFaseAccionService.updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+                this.tareaFaseAccionService.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
                         tareaFase,
                         EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
                         EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
-                this.tareaFaseService.updateFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
+                this.tareaFaseService.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
                         runTareaDto.getTarea(),
                         EstadoTareaFaseEnum.PENDIENTE.getDto(),
                         EstadoTareaFaseEnum.NO_EJECUTADA.getDto());

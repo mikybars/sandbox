@@ -94,11 +94,11 @@ public class TareaFaseServiceImpl implements TareaFaseService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void updateFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
+    public void updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
             @Valid @NotNull final TareaDto tareaDto,
             @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseActualDto,
             @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseDto) {
-        this.tareaFaseRepositoryCustom.updateFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(tareaDto,
+        this.tareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(tareaDto,
                 estadoTareaFaseActualDto,
                 estadoTareaFaseDto);
     }
@@ -109,6 +109,14 @@ public class TareaFaseServiceImpl implements TareaFaseService {
             @Valid @NotNull final TareaFaseDto tareaFaseDto,
             @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseDto) {
         this.tareaFaseRepositoryCustom.updateFechaFinAndEstado(tareaFaseDto, estadoTareaFaseDto);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void updateFechaInicioAndFechaFinAndEstado(
+            @Valid @NotNull final TareaFaseDto tareaFaseDto,
+            @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseDto) {
+        this.tareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstado(tareaFaseDto, estadoTareaFaseDto);
     }
 
 }

@@ -73,7 +73,8 @@ public interface TareaFaseAccionService {
      * @param tareaFaseAccionDto
      * @param estadoTareaFaseAccionDto
      */
-    void updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(@Valid @NotNull TareaFaseDto tareaFaseDto,
+    void updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+            @Valid @NotNull TareaFaseDto tareaFaseDto,
             @Valid @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @Valid @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
@@ -99,6 +100,14 @@ public interface TareaFaseAccionService {
      * @param tareaFaseAccionDto
      * @return
      */
-    Integer countReintentosByIdTareaAndIdAccionAndIdEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto);
+    Integer countReintentosByIdTareaAndIdAccionAndIdEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
+            @NotNull TareaFaseDto tareaFaseDto);
+
+    /**
+     * @param tareaFaseAccionDto
+     * @param estadoTareaFaseAccionDto
+     */
+    void updateFechaInicioAndFechaFinAndEstado(@Valid @NotNull TareaFaseAccionDto tareaFaseAccionDto,
+            @Valid @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
 }

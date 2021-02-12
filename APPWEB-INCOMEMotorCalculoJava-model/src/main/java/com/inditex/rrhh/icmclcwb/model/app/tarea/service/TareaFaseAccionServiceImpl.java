@@ -29,7 +29,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.FaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaFaseAccionMapper;
-import com.inditex.rrhh.icmclcwb.model.app.util.OptionalUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseAccionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseAccionRepositoryCustom;
 
@@ -67,9 +66,7 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
 
     @Override
     public TareaFaseAccionDto findById(@Valid @NotNull @Positive final Long idTareaFaseAccion) {
-        return this.tareaFaseAccionMapper
-            .tareaFaseAccionToTareaFaseAccionDto(
-                    OptionalUtils.get(this.tareaFaseAccionRepository.findById(idTareaFaseAccion)));
+        return this.tareaFaseAccionRepositoryCustom.findById(idTareaFaseAccion);
     }
 
     @Override
@@ -90,7 +87,7 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
                 return TareaFaseAccionDto.builder()
                     .idAccion(y.getIdAccion())
                     .activo(Boolean.TRUE)
-                    .idEstadoTareaFaseAccion(EstadoTareaFaseAccionEnum.NO_EJECUTADA.getId())
+                    .idEstadoTareaFaseAccion(EstadoTareaFaseAccionEnum.PENDIENTE.getId())
                     .fechaHoraCreacion(LocalDateTime.now())
                     .idPuntoEjecucion(y.getIdPuntoEjecucion())
                     .idTareaFase(x.getId())
@@ -141,7 +138,14 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+    public void updateFechaInicioAndFechaFinAndEstado(@Valid @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
+            @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
+        this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstado(tareaFaseAccionDto, estadoTareaFaseAccionDto);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
             @Valid @NotNull final TareaFaseDto tareaFaseDto,
             @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
@@ -152,8 +156,10 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public Integer countReintentosByIdTareaAndIdAccionAndIdEstado(
-            @NotNull final TareaFaseAccionDto tareaFaseAccionDto) {
-        return this.tareaFaseAccionRepositoryCustom.countReintentosByIdTareaAndIdAccionAndIdEstado(tareaFaseAccionDto);
+            @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
+            @NotNull final TareaFaseDto tareaFaseDto) {
+        return this.tareaFaseAccionRepositoryCustom.countReintentosByIdTareaAndIdAccionAndIdEstado(tareaFaseAccionDto,
+                tareaFaseDto);
     }
 
 }

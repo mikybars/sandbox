@@ -87,6 +87,22 @@ public interface TareaFaseAccionRepositoryCustom {
      * @param tareaFaseAccionDto
      * @return
      */
-    Integer countReintentosByIdTareaAndIdAccionAndIdEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto);
+    Integer countReintentosByIdTareaAndIdAccionAndIdEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
+            @NotNull TareaFaseDto tareaFaseDto);
+
+
+    /**
+     * @param tareaFaseAccionDto
+     * @param estadoTareaFaseAccionDto
+     */
+    void updateFechaInicioAndFechaFinAndEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
+            @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
+
+
+    /**
+     * @param idTareaFaseAccion
+     * @return
+     */
+    TareaFaseAccionDto findById(@NotNull @Positive Long idTareaFaseAccion);
 
 }
