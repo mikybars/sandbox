@@ -65,8 +65,8 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     private RecolectarPropertiesDto recolectarProperties;
 
     @Override
-    public void saveAbierto(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void saveAbierto(@NotNull final TareaDto tareaDto, final TrabajoDto trabajoDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IMPORTE, SqlPrimaryConstants.SQL_VALUE_IMPORTE_CERO);
@@ -78,12 +78,12 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
-        namedParameterJdbcTemplate.update(sqlSaveAbierto, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlSaveAbierto, parameters);
     }
 
     @Override
-    public void saveAbiertoSeccion(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void saveAbiertoSeccion(@NotNull final TareaDto tareaDto, final TrabajoDto trabajoDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IMPORTE, SqlPrimaryConstants.SQL_VALUE_IMPORTE_CERO);
@@ -94,16 +94,16 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        namedParameterJdbcTemplate.update(sqlSaveAbiertoSeccion, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlSaveAbiertoSeccion, parameters);
     }
 
     @Override
-    public void compensarOnlineSeccionCerrada(@NotNull TareaDto tareaDto, @NotNull TrabajoDto trabajoDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void compensarOnlineSeccionCerrada(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
                 TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN,
-                RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
+                RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), this.recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
                 Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
@@ -161,12 +161,12 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
                 SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION_TRASLADADA,
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
 
-        namedParameterJdbcTemplate.update(sqlCompensarOnlineSeccionCerrada, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlCompensarOnlineSeccionCerrada, parameters);
     }
 
     @Override
-    public void trasladar(@NotNull TareaDto tareaDto, @NotNull List<Integer> idTipoImporteVenta) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void trasladar(@NotNull final TareaDto tareaDto, @NotNull final List<Integer> idTipoImporteVenta) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idTipoImporteVenta);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -210,23 +210,25 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(
                 SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION_TRASLADADA,
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA.getId());
-        namedParameterJdbcTemplate.update(sqlTrasladar, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlTrasladar, parameters);
     }
 
     @Override
-    public void compensar(@NotNull TareaDto tareaDto, @NotNull List<Integer> idTipoImporteVenta) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void compensar(@NotNull final TareaDto tareaDto, @NotNull final List<Integer> idTipoImporteVenta) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idTipoImporteVenta);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CERRADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        namedParameterJdbcTemplate.update(sqlCompensar, parameters);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+                TimeUtils.toDate(tareaDto.getFechaInicioPeriodo()));
+        this.namedParameterJdbcTemplate.update(this.sqlCompensar, parameters);
     }
 
     @Override
-    public void saveCerrado(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto,
-            @NotNull List<Integer> idTipoImporteVenta) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void saveCerrado(@NotNull final TareaDto tareaDto, final TrabajoDto trabajoDto,
+            @NotNull final List<Integer> idTipoImporteVenta) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
                 Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
@@ -237,13 +239,13 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
-        namedParameterJdbcTemplate.update(sqlSaveCerrado, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlSaveCerrado, parameters);
     }
 
     @Override
-    public void saveCerradoSeccion(@NotNull TareaDto tareaDto, TrabajoDto trabajoDto,
-            @NotNull List<Integer> idTipoImporteVenta) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void saveCerradoSeccion(@NotNull final TareaDto tareaDto, final TrabajoDto trabajoDto,
+            @NotNull final List<Integer> idTipoImporteVenta) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
                 Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
@@ -253,16 +255,16 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        namedParameterJdbcTemplate.update(sqlSaveCerradoSeccion, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlSaveCerradoSeccion, parameters);
     }
 
     @Override
-    public void updateActivoTrasladadasSeccion(@NotNull TareaDto tarea, @NotNull TrabajoDto trabajoDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void updateActivoTrasladadasSeccion(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
                 TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN,
-                RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
+                RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), this.recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
@@ -273,12 +275,12 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
                         TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
                         TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
                         TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()));
-        namedParameterJdbcTemplate.update(sqlUpdateActivoTrasladadasSeccion, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlUpdateActivoTrasladadasSeccion, parameters);
     }
 
     @Override
-    public void agruparOnlineSeccionDia(@NotNull TareaDto tarea, @NotNull TrabajoDto trabajoDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void agruparOnlineSeccionDia(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPO_GRUPO_DATO_TRASLADADOS,
                 Arrays.asList(TipoGrupoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA.getId(),
@@ -299,15 +301,15 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
                         TipoGrupoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_TOTALIZADA.getId(),
                         TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_TOTALIZADA.getId(),
                         TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_TOTALIZADA.getId()));
-        namedParameterJdbcTemplate.update(sqlAgruparOnlineSeccionDia, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlAgruparOnlineSeccionDia, parameters);
     }
 
     @Override
-    public void updateActivoTrasladadasTotalizado(@NotNull TareaDto tarea, @NotNull TrabajoDto trabajoDto) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+    public void updateActivoTrasladadasTotalizado(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        namedParameterJdbcTemplate.update(sqlUpdateActivoTrasladadasTotalizado, parameters);
+        this.namedParameterJdbcTemplate.update(this.sqlUpdateActivoTrasladadasTotalizado, parameters);
     }
 
 }
