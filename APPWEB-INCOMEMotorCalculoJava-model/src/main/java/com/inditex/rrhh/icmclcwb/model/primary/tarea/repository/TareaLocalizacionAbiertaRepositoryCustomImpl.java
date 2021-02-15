@@ -103,7 +103,8 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
                 TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN,
-                RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), this.recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
+                RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), this.recolectarProperties.getDaysNumber(),
+                        "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
                 Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
@@ -264,7 +265,8 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
                 TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN,
-                RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), this.recolectarProperties.getDaysNumber(), "yyyy-MM-dd"));
+                RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), this.recolectarProperties.getDaysNumber(),
+                        "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);

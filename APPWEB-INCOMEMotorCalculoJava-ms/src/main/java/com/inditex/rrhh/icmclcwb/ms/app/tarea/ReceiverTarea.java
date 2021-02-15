@@ -16,11 +16,11 @@ public class ReceiverTarea {
     private RunService runService;
 
     @CircuitBreaker(name = "tarea")
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @JmsListener(id = "tareaListener", destination = "${amiga.service.jms.tarea-queue.destination-fqdn}",
-        containerFactory = "tareaContainerFactoryListener")
+            containerFactory = "tareaContainerFactoryListener")
     public void onMessageTareaListener(
-        final Message<TareaDto> message /* TareaDto message */ /* TareaDto message, @Headers Map headers */) {
+            final Message<TareaDto> message /* TareaDto message */ /* TareaDto message, @Headers Map headers */) {
         this.runService.runTarea(message.getPayload().getId());
     }
 

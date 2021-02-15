@@ -86,6 +86,7 @@ public class RunTareaServiceImpl implements RunTareaService {
             this.runTareaRegularizarChallengeService.run(runTarea);
             this.runTareaRegularizarService.run(runTarea);
             this.runTareaAjustarService.run(runTarea);
+            this.tareaFaseService.updateActivo(runTarea);
             this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
                     EstadoTareaCalculoPersonaEnum.OK.getDto());
             this.runTareaConsolidarService.run(runTarea);

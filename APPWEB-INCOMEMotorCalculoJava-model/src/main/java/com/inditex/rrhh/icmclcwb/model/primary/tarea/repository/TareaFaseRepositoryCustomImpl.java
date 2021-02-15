@@ -47,14 +47,20 @@ public class TareaFaseRepositoryCustomImpl
     @Value("#{primaryQuery['TareaFaseRepositoryCustom.updateFechaInicio']}")
     private String sqlUpdateFechaInicio;
 
-    @Value("#{primaryQuery['TareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual']}")
-    private String sqlUpdateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual;
+    @Value("#{primaryQuery['TareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual']}")
+    private String sqlUpdateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual;
 
-    @Value("#{primaryQuery['TareaFaseRepositoryCustom.updateFechaFinAndEstado']}")
-    private String sqlUpdateFechaFinAndEstado;
+    @Value("#{primaryQuery['TareaFaseRepositoryCustom.updateFechaFinAndEstadoByIdTareaFase']}")
+    private String sqlUpdateFechaFinAndEstadoByIdTareaFase;
 
-    @Value("#{primaryQuery['TareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstado']}")
-    private String sqlUpdateFechaInicioAndFechaFinAndEstado;
+    @Value("#{primaryQuery['TareaFaseRepositoryCustom.updateActivoByIdTarea']}")
+    private String sqlUpdateActivoByIdTarea;
+
+    @Value("#{primaryQuery['TareaFaseRepositoryCustom.updateActivoByIdTareaFase']}")
+    private String sqlUpdateActivoByIdTareaFase;
+
+    @Value("#{primaryQuery['TareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoByIdTareaFase']}")
+    private String sqlUpdateFechaInicioAndFechaFinAndEstadoByIdTareaFase;
 
     @Override
     public List<TareaFase> save(final List<TareaFase> src) {
@@ -115,16 +121,15 @@ public class TareaFaseRepositoryCustomImpl
     }
 
     @Override
-    public void updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(@NotNull final TareaDto tareaDto,
+    public void updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(@NotNull final TareaDto tareaDto,
             @NotNull final EstadoTareaFaseDto estadoTareaFaseActualDto,
             @NotNull final EstadoTareaFaseDto estadoTareaFaseDto) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, estadoTareaFaseActualDto.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estadoTareaFaseDto.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
-        this.update(this.sqlUpdateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual, params);
+        this.update(this.sqlUpdateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual, params);
     }
 
     @Override
@@ -135,7 +140,7 @@ public class TareaFaseRepositoryCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estadoTareaFaseDto.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
-        this.update(this.sqlUpdateFechaFinAndEstado, params);
+        this.update(this.sqlUpdateFechaFinAndEstadoByIdTareaFase, params);
     }
 
     @Override
@@ -146,7 +151,23 @@ public class TareaFaseRepositoryCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estadoTareaFaseDto.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
-        this.update(this.sqlUpdateFechaInicioAndFechaFinAndEstado, params);
+        this.update(this.sqlUpdateFechaInicioAndFechaFinAndEstadoByIdTareaFase, params);
+    }
+
+    @Override
+    public void updateActivoByIdTarea(@NotNull final TareaDto tareaDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        this.update(this.sqlUpdateActivoByIdTarea, params);
+    }
+
+    @Override
+    public void updateActivoByIdTareaFase(@NotNull final TareaFaseDto tareaFaseDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE, tareaFaseDto.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        this.update(this.sqlUpdateActivoByIdTareaFase, params);
     }
 
 }

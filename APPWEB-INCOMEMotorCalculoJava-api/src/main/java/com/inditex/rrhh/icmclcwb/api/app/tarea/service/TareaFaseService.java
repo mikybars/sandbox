@@ -55,7 +55,7 @@ public interface TareaFaseService {
      * @param tareaFaseDto
      * @param estadoTareaFaseDto
      */
-    void updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(@Valid @NotNull TareaDto tareaDto,
+    void updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(@Valid @NotNull TareaDto tareaDto,
             @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseActualDto,
             @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
@@ -78,5 +78,15 @@ public interface TareaFaseService {
      */
     void updateFechaInicioAndFechaFinAndEstado(@Valid @NotNull TareaFaseDto tareaFaseDto,
             @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
+
+    /**
+     * @param runTareaDto
+     */
+    void updateActivo(@Valid @NotNull RunTareaDto runTareaDto);
+
+    /**
+     * @param tareaFaseDto
+     */
+    void updateActivoByIdTareaFase(@Valid @NotNull TareaFaseDto tareaFaseDto);
 
 }

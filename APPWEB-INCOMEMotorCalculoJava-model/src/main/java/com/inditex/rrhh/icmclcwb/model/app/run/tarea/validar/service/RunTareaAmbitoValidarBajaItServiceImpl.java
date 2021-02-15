@@ -51,7 +51,7 @@ public class RunTareaAmbitoValidarBajaItServiceImpl
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final Boolean validacion = Boolean.FALSE;
+        final Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfBajasIt = this.comisAsyncService

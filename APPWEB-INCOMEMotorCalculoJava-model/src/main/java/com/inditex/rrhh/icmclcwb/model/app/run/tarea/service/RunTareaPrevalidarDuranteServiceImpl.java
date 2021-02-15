@@ -95,25 +95,32 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                         runTareaDto.getTarea().getId(), faseDto.getId());
                 this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
                         EstadoTareaFaseAccionEnum.KO.getDto());
+                this.tareaFaseService.updateFechaFinAndEstado(tareaFase,
+                        EstadoTareaFaseEnum.KO.getDto());
                 final AccionDto accion = this.accionService
                     .findAccionDtoById(tareaFaseAccion.getIdAccion());
-                if (Boolean.TRUE.equals(accion.getEsReaccionReintento())) {
+                if (Boolean.TRUE.equals(accion.getEsReaccionReintento()) && (this.tareaFaseAccionService
+                    .countReintentosByIdTareaAndIdAccionAndIdEstado(
+                            tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {
                     if (Boolean.TRUE.equals(accion.getEsReaccionEsperar())) {
                         this.senderTarea.sendWithDelay(runTareaDto.getTarea(),
                                 accion.getReintentoDelay());
+                    } else {
+                        this.senderTarea.send(runTareaDto.getTarea());
                     }
-                    this.senderTarea.send(runTareaDto.getTarea());
                 }
                 this.tareaFaseAccionService.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
                         tareaFase,
                         EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
                         EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
-                this.tareaFaseService.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
+                this.tareaFaseService.updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(
                         runTareaDto.getTarea(),
                         EstadoTareaFaseEnum.PENDIENTE.getDto(),
                         EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
+                this.tareaFaseService.updateActivo(runTareaDto);
                 throw new ValidationException("Error validando");
             });
+
     }
 
 }
