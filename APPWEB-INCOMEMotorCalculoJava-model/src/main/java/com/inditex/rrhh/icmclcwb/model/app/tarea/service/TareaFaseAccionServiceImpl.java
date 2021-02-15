@@ -141,7 +141,7 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
         this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstado(tareaFaseAccionDto, estadoTareaFaseAccionDto);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
             @Valid @NotNull final TareaFaseDto tareaFaseDto,
