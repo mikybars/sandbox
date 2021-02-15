@@ -84,24 +84,30 @@ public class TareaFaseServiceImpl implements TareaFaseService {
         return this.tareaFaseRepositoryCustom.findTareaFaseDtoByIdTarea(idTarea);
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaInicio(@Valid @NotNull final TareaFaseDto tareaFaseDto) {
         this.tareaFaseRepositoryCustom.updateFechaInicio(tareaFaseDto);
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
-            @Valid @NotNull final TareaDto tareaDto,
+    public void updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(@Valid @NotNull final TareaDto tareaDto,
             @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseActualDto,
             @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseDto) {
-        this.tareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(tareaDto,
+        this.tareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(tareaDto,
                 estadoTareaFaseActualDto,
                 estadoTareaFaseDto);
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void updateActivo(@Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaFaseRepositoryCustom.updateActivoByIdTarea(runTareaDto.getTarea());
+    }
+
+    @Override
+    public void updateActivoByIdTareaFase(@Valid @NotNull final TareaFaseDto tareaFaseDto) {
+        this.tareaFaseRepositoryCustom.updateActivoByIdTareaFase(tareaFaseDto);
+    }
+
     @Override
     public void updateFechaFinAndEstado(
             @Valid @NotNull final TareaFaseDto tareaFaseDto,
@@ -109,7 +115,6 @@ public class TareaFaseServiceImpl implements TareaFaseService {
         this.tareaFaseRepositoryCustom.updateFechaFinAndEstado(tareaFaseDto, estadoTareaFaseDto);
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaInicioAndFechaFinAndEstado(
             @Valid @NotNull final TareaFaseDto tareaFaseDto,
