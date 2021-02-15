@@ -23,7 +23,7 @@ public class SenderTarea {
         this.tareaJmsClient.convertAndSend(tarea);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void sendWithDelay(final TareaDto tarea, final long delay) {
         this.tareaJmsClient.convertAndSend(tarea, message -> {
             message.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
@@ -31,7 +31,7 @@ public class SenderTarea {
         });
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void sendWithPriority(final TareaDto tarea, final int priority) {
         this.tareaJmsClient.convertAndSend(tarea, message -> {
             message.setJMSPriority(priority);

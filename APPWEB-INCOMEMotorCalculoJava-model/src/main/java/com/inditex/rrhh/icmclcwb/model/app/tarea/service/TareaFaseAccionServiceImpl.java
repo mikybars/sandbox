@@ -14,8 +14,6 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -75,7 +73,7 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
             .saveAll(this.tareaFaseAccionMapper.tareaFaseAccionDtoToTareaFaseAccion(tareaFaseAccion)));
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void create(@Valid @NotNull final RunTareaDto runTareaDto) {
         final TareaDto tareaDto = runTareaDto.getTarea();
@@ -123,20 +121,20 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     }
 
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaInicio(@Valid @NotNull final TareaFaseAccionDto tareaFaseAccionDto) {
         this.tareaFaseAccionRepositoryCustom.updateFechaInicio(tareaFaseAccionDto);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaFinAndEstado(@Valid @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
             @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
         this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstado(tareaFaseAccionDto, estadoTareaFaseAccionDto);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaInicioAndFechaFinAndEstado(@Valid @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
             @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
@@ -153,7 +151,7 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
                 estadoTareaFaseAccionActualDto, estadoTareaFaseAccionDto);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public Integer countReintentosByIdTareaAndIdAccionAndIdEstado(
             @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
