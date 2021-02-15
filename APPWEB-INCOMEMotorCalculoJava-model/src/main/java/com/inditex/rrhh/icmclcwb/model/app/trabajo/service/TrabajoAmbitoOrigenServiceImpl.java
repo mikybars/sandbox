@@ -26,20 +26,20 @@ public class TrabajoAmbitoOrigenServiceImpl implements TrabajoAmbitoOrigenServic
     @Autowired
     private TrabajoAmbitoOrigenMapper trabajoAmbitoOrigenMapper;
 
-    //@Transactional(propagation = Propagation.REQUIRED)
+    // @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public List<TrabajoAmbitoOrigenDto> create(
-        @Valid @NotNull @NotEmpty final List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigen,
-        @NotNull final TrabajoDto trabajo) {
+            @Valid @NotNull @NotEmpty final List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigen,
+            @NotNull final TrabajoDto trabajo) {
         return this.trabajoAmbitoOrigenMapper.trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(
-            this.trabajoAmbitoOrigenRepository.saveAll(this.trabajoAmbitoOrigenMapper
-                .mergeTrabajoAmbitoOrigenDtoAndTrabajoDtoToTrabajoAmbitoOrigen(trabajoAmbitoOrigen, trabajo)));
+                this.trabajoAmbitoOrigenRepository.saveAll(this.trabajoAmbitoOrigenMapper
+                    .mergeTrabajoAmbitoOrigenDtoAndTrabajoDtoToTrabajoAmbitoOrigen(trabajoAmbitoOrigen, trabajo)));
     }
 
     @Override
     public List<TrabajoAmbitoOrigenDto> findByTrabajo(@Valid @NotNull final TrabajoDto trabajo) {
         return this.trabajoAmbitoOrigenMapper.trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(
-            this.trabajoAmbitoOrigenRepository.findByTrabajoId(trabajo.getId()));
+                this.trabajoAmbitoOrigenRepository.findByTrabajoId(trabajo.getId()));
     }
 
 }

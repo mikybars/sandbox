@@ -94,11 +94,11 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         // idTipoImporteVenta
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(),
-            this.params.getValue().getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
+                this.params.getValue().getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         // idTipoPresencia
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TIPO_MINUTOS));
         assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-            this.params.getValue().getValue(SQL_PARAM_ID_TIPO_MINUTOS));
+                this.params.getValue().getValue(SQL_PARAM_ID_TIPO_MINUTOS));
         // nuevoAbierto
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_NUEVO_ABIERTO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_NUEVO_ABIERTO));
@@ -163,67 +163,67 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         // idTipoDatoVentaIpodLocalizacion
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaIpodLocalizacion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacion"));
+                this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacion"));
         // idTipoDatoVentaIpodLocalizacionSeccion
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionSeccion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacionSeccion"));
+                this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacionSeccion"));
         // idTipoDatoVentaSINTLocalizacion
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaSINTLocalizacion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacion"));
+                this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacion"));
         // idTipoDatoVentaSINTLocalizacionSeccion
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionSeccion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacionSeccion"));
+                this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacionSeccion"));
         // idTipoDatoVentaEntregaTiendaLocalizacion
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacion"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacion"));
         // idTipoDatoVentaEntregaTiendaLocalizacionSeccion
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccion"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccion"));
         // idTipoDatoVentaEntregaDomicilioLocalizacion
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacion"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacion"));
         // idTipoDatoVentaEntregaDomicilioLocalizacionSeccion
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccion"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccion"));
         // idTipoDatoVentaIpodLocalizacionTrasladada
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_DIA.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
         // idTipoDatoVentaIpodLocalizacionSeccionTrasladada
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
         // idTipoDatoVentaSINTLocalizacionTrasladada
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_DIA.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
         // idTipoDatoVentaSINTLocalizacionSeccionTrasladada
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
         // idTipoDatoVentaEntregaTiendaLocalizacionTrasladada
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_DIA.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
         // idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
         // idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_DIA.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
         // idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada
         assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-            this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
     }
 
     @Test

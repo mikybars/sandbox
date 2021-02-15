@@ -74,9 +74,9 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
 
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunProgramacionService.run.timer",
-        metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.timer")
+            metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.timer")
     @CounterFunctionalMetric(metricName = "RunProgramacionService.run.counter",
-        metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.counter")
+            metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.counter")
     @Override
     public RunProgramacionDto run(@NotNull @Valid final Long id) {
         // Se usa el findById en lugar de findPendienteById id porque ya no están marcadas como pendientes
@@ -112,14 +112,14 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                             .build()));
             } else {
                 this.log.warn("No existen periodos activos para la organización {}",
-                    programacionAmbito.getIdOrgenization());
+                        programacionAmbito.getIdOrgenization());
             }
         });
         return runProgramacion;
     }
 
     @Auditoria
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<RunProgramacionDto> create() {
         final List<ProgramacionDto> pendientes = this.programacionService.findPendiente();

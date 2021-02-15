@@ -15,7 +15,7 @@ public class SenderTrabajo {
     @Qualifier("trabajoJmsClient")
     private JmsClient trabajoJmsClient;
 
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void send(final TrabajoDto trabajo) {
         this.trabajoJmsClient.convertAndSend(trabajo);
     }

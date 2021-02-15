@@ -16,12 +16,12 @@ public class SenderTareaPreValidar {
     @Qualifier("tareaPreValidarJmsClient")
     private JmsClient tareaPreValidarJmsClient;
 
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void send(final TareaDto tarea) {
         this.tareaPreValidarJmsClient.convertAndSend(tarea);
     }
 
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void sendWithDelay(final TareaDto tarea, final long delay) {
         this.tareaPreValidarJmsClient.convertAndSend(tarea, message -> {
             message.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
@@ -29,7 +29,7 @@ public class SenderTareaPreValidar {
         });
     }
 
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void sendWithPriority(final TareaDto tarea, final int priority) {
         this.tareaPreValidarJmsClient.convertAndSend(tarea, message -> {
             message.setJMSPriority(priority);

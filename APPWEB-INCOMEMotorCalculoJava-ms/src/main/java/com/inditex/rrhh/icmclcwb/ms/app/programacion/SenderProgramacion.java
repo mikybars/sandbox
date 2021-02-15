@@ -15,7 +15,7 @@ public class SenderProgramacion {
     @Qualifier("programacionJmsClient")
     private JmsClient programacionJmsClient;
 
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void send(final IdProgramacionDto programacion) {
         this.programacionJmsClient.convertAndSend(programacion);
     }

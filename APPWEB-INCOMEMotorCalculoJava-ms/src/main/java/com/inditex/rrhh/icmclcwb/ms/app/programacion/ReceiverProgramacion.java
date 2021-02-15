@@ -16,9 +16,9 @@ public class ReceiverProgramacion {
     private RunService runService;
 
     @CircuitBreaker(name = "programacion")
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @JmsListener(id = "programacionListener", destination = "${amiga.service.jms.programacion-queue.destination-fqdn}",
-        containerFactory = "programacionContainerFactoryListener")
+            containerFactory = "programacionContainerFactoryListener")
     public void onMessageProgramacionListener(final Message<IdProgramacionDto> message) {
         this.runService.runProgramacion(message.getPayload().getId());
     }

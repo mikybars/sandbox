@@ -33,7 +33,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     @Autowired
     private SenderLimpieza senderLimpieza;
 
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public RunMantenimientoLimpiezaDto run() {
         final RunMantenimientoLimpiezaDto result = this.tareaService.findLimpieza();
@@ -48,7 +48,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
         return result;
     }
 
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {
         final RunMantenimientoLimpiezaDto result = this.tareaService.findLimpiezaByIdTarea(id);

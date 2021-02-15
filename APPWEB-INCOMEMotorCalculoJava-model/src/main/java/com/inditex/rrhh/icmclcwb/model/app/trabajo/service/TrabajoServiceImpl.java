@@ -97,7 +97,7 @@ public class TrabajoServiceImpl implements TrabajoService {
         return trabajo;
     }
 
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo) {
         trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
@@ -151,19 +151,19 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Override
     public TrabajoDto merge(@Valid @NotNull final ProgramacionDto programacion,
-        @Valid @NotNull final ProgramacionAmbitoDto programacionAmbito, @Valid @NotNull final PeriodoDto periodo) {
+            @Valid @NotNull final ProgramacionAmbitoDto programacionAmbito, @Valid @NotNull final PeriodoDto periodo) {
         return this.trabajoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
-            programacionAmbito,
-            programacion, periodo);
+                programacionAmbito,
+                programacion, periodo);
     }
 
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaFin(@NotNull final TrabajoDto trabajo) {
         this.trabajoRepositoryCustom.updateFechaFin(trabajo);
     }
 
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateEstado(@NotNull final TrabajoDto trabajo, @NotNull final EstadoTrabajoDto estado) {
         trabajo.setEstado(estado);
