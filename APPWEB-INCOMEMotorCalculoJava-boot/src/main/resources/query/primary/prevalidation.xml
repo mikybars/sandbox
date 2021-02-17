@@ -2,49 +2,49 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoComis">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoComis">
     <![CDATA[
   DECLARE GLOBAL TEMPORARY TABLE TEMP_MOTIVO_DESPLAZAMIENTO_COMIS (
     ID_MOTIVO_DESPLAZAMIENTO INTEGER NOT NULL
   )ON COMMIT PRESERVE ROWS NOT LOGGED WITH REPLACE
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoComis">
-  <![CDATA[
+  <entry key="PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoComis">
+    <![CDATA[
     INSERT INTO SESSION.TEMP_MOTIVO_DESPLAZAMIENTO_COMIS (ID_MOTIVO_DESPLAZAMIENTO)
     VALUES (?)
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoComis">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoComis">
     <![CDATA[
     DROP TABLE SESSION.TEMP_MOTIVO_DESPLAZAMIENTO_COMIS
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoMeta4">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoMeta4">
     <![CDATA[
   DECLARE GLOBAL TEMPORARY TABLE TEMP_MOTIVO_DESPLAZAMIENTO_META4 (
     ID_MOTIVO_DESPLAZAMIENTO INTEGER NOT NULL
   )ON COMMIT PRESERVE ROWS NOT LOGGED WITH REPLACE
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoMeta4">
-  <![CDATA[
+  <entry key="PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoMeta4">
+    <![CDATA[
     INSERT INTO SESSION.TEMP_MOTIVO_DESPLAZAMIENTO_META4 (ID_MOTIVO_DESPLAZAMIENTO)
     VALUES (?)
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoMeta4">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoMeta4">
     <![CDATA[
     DROP TABLE SESSION.TEMP_MOTIVO_DESPLAZAMIENTO_META4
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.validateTempMotivoDesplazamiento">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.validateTempMotivoDesplazamiento">
     <![CDATA[
     SELECT ID_MOTIVO_DESPLAZAMIENTO
     FROM SESSION.TEMP_MOTIVO_DESPLAZAMIENTO_COMIS COMIS
@@ -52,9 +52,9 @@
     ON COMIS.ID_MOTIVO_DESPLAZAMIENTO = META4.ID_MOTIVO_DESPLAZAMIENTO
     WHERE META4.ID_MOTIVO_DESPLAZAMIENTO IS NULL
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisHistorico">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisHistorico">
     <![CDATA[
   DECLARE GLOBAL TEMPORARY TABLE TEMP_COMIS_HISTORICO (
     CCL_ID_PERSON VARGRAPHIC(24) NOT NULL,
@@ -64,23 +64,23 @@
     ID_TIPO_CALCULO BIGINT NOT NULL,
     PORCENTAJE DECIMAL(10, 4),
     BANDA INTEGER,
-    IMPORTE DECIMAL(23, 8) 
+    IMPORTE DECIMAL(23, 8)
   )ON COMMIT PRESERVE ROWS NOT LOGGED WITH REPLACE
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisHistorico">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisHistorico">
     <![CDATA[
     INSERT INTO SESSION.TEMP_COMIS_HISTORICO (CCL_ID_PERSON, FECHADESDE, FECHAHASTA, CCL_ID_COD_ORIGEN, ID_TIPO_CALCULO, PORCENTAJE, BANDA, IMPORTE)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.validateTempComisHistorico">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.validateTempComisHistorico">
     <![CDATA[
-    SELECT 
-    TPE.CCL_ID_PERSON, 
-    TPE.FECHA_INICIO, 
+    SELECT
+    TPE.CCL_ID_PERSON,
+    TPE.FECHA_INICIO,
     TPE.FECHA_FIN,
     TPE.ICM_ID_TP_CALCULO AS ID_TIPO_CALCULO
     FROM TAREA_PERSONA_ESTRUCTURA TPE
@@ -94,15 +94,15 @@
     WHERE TPE.ID_TAREA = ?
     AND COMIS.CCL_ID_PERSON IS NULL
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisHistorico">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisHistorico">
     <![CDATA[
     DROP TABLE SESSION.TEMP_COMIS_HISTORICO
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento">
     <![CDATA[
   DECLARE GLOBAL TEMPORARY TABLE TEMP_COMIS_DESPLAZAMIENTO (
     CCL_ID_PERSON VARGRAPHIC(24) NOT NULL,
@@ -114,19 +114,19 @@
     ID_TIPO_OPCION_CALCULO INTEGER,
     PORCENTAJE DECIMAL(10, 4),
     BANDA INTEGER,
-    IMPORTE DECIMAL(23, 8) 
+    IMPORTE DECIMAL(23, 8)
   )ON COMMIT PRESERVE ROWS NOT LOGGED WITH REPLACE
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento">
     <![CDATA[
     INSERT INTO SESSION.TEMP_COMIS_DESPLAZAMIENTO (CCL_ID_PERSON, FECHADESDE, FECHAHASTA, CCL_ID_COD_ORIGEN, CCL_ID_COD_ORIGEN_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, PORCENTAJE, BANDA, IMPORTE)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.validateTempComisDesplazamiento">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.validateTempComisDesplazamiento">
     <![CDATA[
     SELECT ESTRUCTURA.CCL_ID_PERSON, ESTRUCTURA.FECHA_INICIO, ESTRUCTURA.FECHA_FIN, ESTRUCTURA.ICM_ID_TP_CALCULO
     FROM TAREA_PERSONA_ESTRUCTURA ESTRUCTURA
@@ -151,15 +151,15 @@
     AND (ESTRUCTURA.ICM_VALOR = COMIS.PORCENTAJE OR ESTRUCTURA.ICM_VALOR = COMIS.IMPORTE)
     WHERE ESTRUCTURA.ID_TAREA = ?
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento">
     <![CDATA[
     DROP TABLE SESSION.TEMP_COMIS_DESPLAZAMIENTO
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisResalta">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisResalta">
     <![CDATA[
   DECLARE GLOBAL TEMPORARY TABLE TEMP_COMIS_RESALTA (
     CCL_ID_PERSON VARGRAPHIC(24) NOT NULL,
@@ -168,19 +168,19 @@
     ID_TIPO_CALCULO BIGINT NOT NULL,
     PORCENTAJE DECIMAL(10, 4),
     BANDA INTEGER,
-    IMPORTE DECIMAL(23, 8) 
+    IMPORTE DECIMAL(23, 8)
   )ON COMMIT PRESERVE ROWS NOT LOGGED WITH REPLACE
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisResalta">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisResalta">
     <![CDATA[
     INSERT INTO SESSION.TEMP_COMIS_RESALTA (CCL_ID_PERSON, FECHADESDE, FECHAHASTA, ID_TIPO_CALCULO, PORCENTAJE, BANDA, IMPORTE)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.validateTempComisResalta">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.validateTempComisResalta">
     <![CDATA[
        SELECT TPE.CCL_ID_PERSON, TPE.FECHA_INICIO, TPE.FECHA_FIN, TPE.ICM_ID_TP_CALCULO
   FROM TAREA_PERSONA_ESTRUCTURA TPE
@@ -192,15 +192,15 @@
   WHERE TPE.ID_TAREA = ?
   AND TPE.ICM_ID_TP_COMISION IN ('002', '003', '004')
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisResalta">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisResalta">
     <![CDATA[
     DROP TABLE SESSION.TEMP_COMIS_RESALTA
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisBajaIt">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisBajaIt">
     <![CDATA[
   DECLARE GLOBAL TEMPORARY TABLE TEMP_COMIS_BAJA (
     CCL_ID_PERSON VARGRAPHIC(24) NOT NULL,
@@ -209,35 +209,41 @@
     PORCENTAJE DECIMAL(10, 4)
   )ON COMMIT PRESERVE ROWS NOT LOGGED WITH REPLACE
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisBajaIt">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisBajaIt">
     <![CDATA[
     INSERT INTO SESSION.TEMP_COMIS_BAJA (CCL_ID_PERSON, FECHAINICIO, FECHAFIN, PORCENTAJE)
     VALUES (?, ?, ?, ?)
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.validateTempComisBajaIt">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.validateTempComisBajaIt">
     <![CDATA[
-  SELECT TPEP.CCL_ID_PERSON, TPEP.FECHA_INICIO, TPEP.FECHA_FIN
+  SELECT
+    TPEP.CCL_ID_PERSON,
+    TPEP.FECHA_INICIO,
+    TPEP.FECHA_FIN
   FROM TAREA_PERSONA_ESTRUCTURA_POLITICA TPEP
   INNER JOIN SESSION.TEMP_COMIS_BAJA COMIS
-  ON TPEP.CCL_ID_PERSON = COMIS.CCL_ID_PERSON
-  AND TPEP.FECHA_INICIO = COMIS.FECHAINICIO
-  AND TPEP.FECHA_FIN = COMIS.FECHAFIN
-  AND TPEP.ICM_PORCENTAJE != COMIS.PORCENTAJE
-  WHERE TPEP.ID_TIPO_POLITICA = 5
+    ON TPEP.CCL_ID_PERSON = COMIS.CCL_ID_PERSON
+    AND TPEP.FECHA_INICIO = COMIS.FECHAINICIO
+    AND TPEP.FECHA_FIN = COMIS.FECHAFIN
+    AND TPEP.ICM_PORCENTAJE != COMIS.PORCENTAJE
+  WHERE
+    TPEP.FECHA_INICIO_PERIODO = :fechaInicioPeriodo
+    AND TPEP.ID_TAREA = :idTarea
+    AND TPEP.ID_TIPO_POLITICA = 5
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisBajaIt">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisBajaIt">
     <![CDATA[
     DROP TABLE SESSION.TEMP_COMIS_BAJA
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisCarencia">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisCarencia">
     <![CDATA[
   DECLARE GLOBAL TEMPORARY TABLE TEMP_COMIS_CARENCIA (
     CCL_ID_PERSON VARGRAPHIC(24) NOT NULL,
@@ -246,22 +252,22 @@
     CCL_ID_COD_ORIGEN VARGRAPHIC(24)
   )ON COMMIT PRESERVE ROWS NOT LOGGED WITH REPLACE
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisCarencia">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisCarencia">
     <![CDATA[
     INSERT INTO SESSION.TEMP_COMIS_CARENCIA (CCL_ID_PERSON, FECHA_ALTA, FECHA_INICIO_CALCULO, CCL_ID_COD_ORIGEN)
     VALUES (?, ?, ?, ?)
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisCarencia">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisCarencia">
     <![CDATA[
     DROP TABLE SESSION.TEMP_COMIS_CARENCIA
   ]]>
-</entry>
+  </entry>
 
-<entry key="PrimaryTemporaryTableRepositoryCustom.validateTempComisCarencia">
+  <entry key="PrimaryTemporaryTableRepositoryCustom.validateTempComisCarencia">
     <![CDATA[
     SELECT TPEP.CCL_ID_PERSON, CARENCIA.FECHA_INICIO_CALCULO
     FROM TAREA_PERSONA_ESTRUCTURA_POLITICA TPEP
@@ -271,6 +277,6 @@
     WHERE TPEP.ID_TIPO_POLITICA = 3
     AND CARENCIA.CCL_ID_PERSON IS NULL
   ]]>
-</entry>
+  </entry>
 
 </properties>

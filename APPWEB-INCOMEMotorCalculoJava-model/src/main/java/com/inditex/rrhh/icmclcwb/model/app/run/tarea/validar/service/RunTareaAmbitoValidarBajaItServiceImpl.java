@@ -66,7 +66,7 @@ public class RunTareaAmbitoValidarBajaItServiceImpl
             this.primaryTemporaryTableRepositoryCustom.insertTempComisBajaIt(bajasIt);
 
             final List<IdPersonaLocalCondicionesDto> bajaItValidationResult = this.primaryTemporaryTableRepositoryCustom
-                .validateTempComisBajaIt();
+                .validateTempComisBajaIt(runTareaDto.getTarea());
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisBajaIt();
 

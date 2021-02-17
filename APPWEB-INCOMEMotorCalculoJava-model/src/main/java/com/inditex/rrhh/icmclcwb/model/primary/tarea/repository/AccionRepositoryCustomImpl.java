@@ -5,6 +5,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -42,7 +43,7 @@ public class AccionRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstra
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
 
-        final AccionDto accion = this.queryForObject(this.sqlFindByIdAccionAndIdOrigenAndStdIdLegEnt, parameters,
+        final List<AccionDto> acciones = this.query(this.sqlFindByIdAccionAndIdOrigenAndStdIdLegEnt, parameters,
                 new RowMapper<AccionDto>() {
                     @Override
                     public AccionDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
@@ -52,7 +53,7 @@ public class AccionRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstra
                     }
                 });
 
-        return accion != null ? Boolean.TRUE : Boolean.FALSE;
+        return acciones.size() == 1;
     }
 
 }

@@ -9,12 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
@@ -22,6 +26,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
@@ -36,6 +41,10 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Autowired
     @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    @Qualifier("primaryNamedParameterJdbcTemplate")
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Value("${app.envars.repository.batch-size.default}")
     private int batchSize;
@@ -410,8 +419,14 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalCondicionesDto> validateTempComisBajaIt() {
-        return this.jdbcTemplate.query(this.sqlValidateTempComisBajaIt,
+    public List<IdPersonaLocalCondicionesDto> validateTempComisBajaIt(
+            @NotNull final TareaDto tarea) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+
+        return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisBajaIt, params,
                 new RowMapper<IdPersonaLocalCondicionesDto>() {
 
                     @Override

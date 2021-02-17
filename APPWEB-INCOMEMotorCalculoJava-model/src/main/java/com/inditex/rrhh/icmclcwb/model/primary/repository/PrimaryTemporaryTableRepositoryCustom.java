@@ -5,6 +5,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
@@ -129,7 +131,7 @@ public interface PrimaryTemporaryTableRepositoryCustom {
     /**
      * @return
      */
-    List<IdPersonaLocalCondicionesDto> validateTempComisBajaIt();
+    List<IdPersonaLocalCondicionesDto> validateTempComisBajaIt(@NotNull TareaDto tarea);
 
     /**
      * @return
