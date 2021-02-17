@@ -25,11 +25,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_ParamcaldesplazrealBlock complex type.
+ * <p>Clase Java para Icm_ParamcaldesplazrealBlock complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ParamcaldesplazrealBlock"&gt;
@@ -47,12 +45,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcaldesplazrealBlock", propOrder = {
-        "icmParamcaldesplazrealRecordSet"
+    "icmParamcaldesplazrealRecordSet"
 })
-public class IcmParamcaldesplazrealBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmParamcaldesplazrealBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "Icm_ParamcaldesplazrealRecordSet", nillable = true)
     protected List<IcmParamcaldesplazrealRecord> icmParamcaldesplazrealRecordSet;
 
@@ -60,20 +58,21 @@ public class IcmParamcaldesplazrealBlock implements Serializable, Cloneable, Cop
      * Gets the value of the icmParamcaldesplazrealRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmParamcaldesplazrealRecordSet property.
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmParamcaldesplazrealRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmParamcaldesplazrealRecordSet().add(newItem);
+     *    getIcmParamcaldesplazrealRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmParamcaldesplazrealRecord }
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmParamcaldesplazrealRecord }
      *
      *
      */
@@ -84,9 +83,8 @@ public class IcmParamcaldesplazrealBlock implements Serializable, Cloneable, Cop
         return this.icmParamcaldesplazrealRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -95,23 +93,10 @@ public class IcmParamcaldesplazrealBlock implements Serializable, Cloneable, Cop
         final IcmParamcaldesplazrealBlock that = ((IcmParamcaldesplazrealBlock) object);
         {
             List<IcmParamcaldesplazrealRecord> lhsIcmParamcaldesplazrealRecordSet;
-            lhsIcmParamcaldesplazrealRecordSet = (((this.icmParamcaldesplazrealRecordSet != null)
-                    && (!this.icmParamcaldesplazrealRecordSet.isEmpty())) ? this.getIcmParamcaldesplazrealRecordSet()
-                            : null);
+            lhsIcmParamcaldesplazrealRecordSet = (((this.icmParamcaldesplazrealRecordSet!= null)&&(!this.icmParamcaldesplazrealRecordSet.isEmpty()))?this.getIcmParamcaldesplazrealRecordSet():null);
             List<IcmParamcaldesplazrealRecord> rhsIcmParamcaldesplazrealRecordSet;
-            rhsIcmParamcaldesplazrealRecordSet = (((that.icmParamcaldesplazrealRecordSet != null)
-                    && (!that.icmParamcaldesplazrealRecordSet.isEmpty())) ? that.getIcmParamcaldesplazrealRecordSet()
-                            : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmParamcaldesplazrealRecordSet",
-                            lhsIcmParamcaldesplazrealRecordSet),
-                    LocatorUtils.property(thatLocator, "icmParamcaldesplazrealRecordSet",
-                            rhsIcmParamcaldesplazrealRecordSet),
-                    lhsIcmParamcaldesplazrealRecordSet, rhsIcmParamcaldesplazrealRecordSet,
-                    ((this.icmParamcaldesplazrealRecordSet != null)
-                            && (!this.icmParamcaldesplazrealRecordSet.isEmpty())),
-                    ((that.icmParamcaldesplazrealRecordSet != null)
-                            && (!that.icmParamcaldesplazrealRecordSet.isEmpty())))) {
+            rhsIcmParamcaldesplazrealRecordSet = (((that.icmParamcaldesplazrealRecordSet!= null)&&(!that.icmParamcaldesplazrealRecordSet.isEmpty()))?that.getIcmParamcaldesplazrealRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcaldesplazrealRecordSet", lhsIcmParamcaldesplazrealRecordSet), LocatorUtils.property(thatLocator, "icmParamcaldesplazrealRecordSet", rhsIcmParamcaldesplazrealRecordSet), lhsIcmParamcaldesplazrealRecordSet, rhsIcmParamcaldesplazrealRecordSet, ((this.icmParamcaldesplazrealRecordSet!= null)&&(!this.icmParamcaldesplazrealRecordSet.isEmpty())), ((that.icmParamcaldesplazrealRecordSet!= null)&&(!that.icmParamcaldesplazrealRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -140,12 +125,8 @@ public class IcmParamcaldesplazrealBlock implements Serializable, Cloneable, Cop
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmParamcaldesplazrealRecord> theIcmParamcaldesplazrealRecordSet;
-            theIcmParamcaldesplazrealRecordSet = (((this.icmParamcaldesplazrealRecordSet != null)
-                    && (!this.icmParamcaldesplazrealRecordSet.isEmpty())) ? this.getIcmParamcaldesplazrealRecordSet()
-                            : null);
-            strategy.appendField(locator, this, "icmParamcaldesplazrealRecordSet", buffer,
-                    theIcmParamcaldesplazrealRecordSet, ((this.icmParamcaldesplazrealRecordSet != null)
-                            && (!this.icmParamcaldesplazrealRecordSet.isEmpty())));
+            theIcmParamcaldesplazrealRecordSet = (((this.icmParamcaldesplazrealRecordSet!= null)&&(!this.icmParamcaldesplazrealRecordSet.isEmpty()))?this.getIcmParamcaldesplazrealRecordSet():null);
+            strategy.appendField(locator, this, "icmParamcaldesplazrealRecordSet", buffer, theIcmParamcaldesplazrealRecordSet, ((this.icmParamcaldesplazrealRecordSet!= null)&&(!this.icmParamcaldesplazrealRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -154,14 +135,8 @@ public class IcmParamcaldesplazrealBlock implements Serializable, Cloneable, Cop
         int currentHashCode = 1;
         {
             List<IcmParamcaldesplazrealRecord> theIcmParamcaldesplazrealRecordSet;
-            theIcmParamcaldesplazrealRecordSet = (((this.icmParamcaldesplazrealRecordSet != null)
-                    && (!this.icmParamcaldesplazrealRecordSet.isEmpty())) ? this.getIcmParamcaldesplazrealRecordSet()
-                            : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmParamcaldesplazrealRecordSet",
-                            theIcmParamcaldesplazrealRecordSet),
-                    currentHashCode, theIcmParamcaldesplazrealRecordSet, ((this.icmParamcaldesplazrealRecordSet != null)
-                            && (!this.icmParamcaldesplazrealRecordSet.isEmpty())));
+            theIcmParamcaldesplazrealRecordSet = (((this.icmParamcaldesplazrealRecordSet!= null)&&(!this.icmParamcaldesplazrealRecordSet.isEmpty()))?this.getIcmParamcaldesplazrealRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcaldesplazrealRecordSet", theIcmParamcaldesplazrealRecordSet), currentHashCode, theIcmParamcaldesplazrealRecordSet, ((this.icmParamcaldesplazrealRecordSet!= null)&&(!this.icmParamcaldesplazrealRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -181,28 +156,19 @@ public class IcmParamcaldesplazrealBlock implements Serializable, Cloneable, Cop
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmParamcaldesplazrealBlock) {
             final IcmParamcaldesplazrealBlock copy = ((IcmParamcaldesplazrealBlock) draftCopy);
             {
-                Boolean icmParamcaldesplazrealRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        ((this.icmParamcaldesplazrealRecordSet != null)
-                                && (!this.icmParamcaldesplazrealRecordSet.isEmpty())));
+                Boolean icmParamcaldesplazrealRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmParamcaldesplazrealRecordSet!= null)&&(!this.icmParamcaldesplazrealRecordSet.isEmpty())));
                 if (icmParamcaldesplazrealRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmParamcaldesplazrealRecord> sourceIcmParamcaldesplazrealRecordSet;
-                    sourceIcmParamcaldesplazrealRecordSet = (((this.icmParamcaldesplazrealRecordSet != null)
-                            && (!this.icmParamcaldesplazrealRecordSet.isEmpty()))
-                                    ? this.getIcmParamcaldesplazrealRecordSet() : null);
+                    sourceIcmParamcaldesplazrealRecordSet = (((this.icmParamcaldesplazrealRecordSet!= null)&&(!this.icmParamcaldesplazrealRecordSet.isEmpty()))?this.getIcmParamcaldesplazrealRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmParamcaldesplazrealRecord> copyIcmParamcaldesplazrealRecordSet = ((List<IcmParamcaldesplazrealRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmParamcaldesplazrealRecordSet",
-                                sourceIcmParamcaldesplazrealRecordSet), sourceIcmParamcaldesplazrealRecordSet,
-                                ((this.icmParamcaldesplazrealRecordSet != null)
-                                        && (!this.icmParamcaldesplazrealRecordSet.isEmpty()))));
+                    List<IcmParamcaldesplazrealRecord> copyIcmParamcaldesplazrealRecordSet = ((List<IcmParamcaldesplazrealRecord> ) strategy.copy(LocatorUtils.property(locator, "icmParamcaldesplazrealRecordSet", sourceIcmParamcaldesplazrealRecordSet), sourceIcmParamcaldesplazrealRecordSet, ((this.icmParamcaldesplazrealRecordSet!= null)&&(!this.icmParamcaldesplazrealRecordSet.isEmpty()))));
                     copy.icmParamcaldesplazrealRecordSet = null;
-                    if (copyIcmParamcaldesplazrealRecordSet != null) {
-                        List<IcmParamcaldesplazrealRecord> uniqueIcmParamcaldesplazrealRecordSetl = copy
-                            .getIcmParamcaldesplazrealRecordSet();
+                    if (copyIcmParamcaldesplazrealRecordSet!= null) {
+                        List<IcmParamcaldesplazrealRecord> uniqueIcmParamcaldesplazrealRecordSetl = copy.getIcmParamcaldesplazrealRecordSet();
                         uniqueIcmParamcaldesplazrealRecordSetl.addAll(copyIcmParamcaldesplazrealRecordSet);
                     }
                 } else {

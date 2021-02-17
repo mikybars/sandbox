@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 
 /**
  * This object contains factory methods for each Java content interface and Java element interface
- * generated in the com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated package.
+ * generated in the com.inditex.rrhh.icmclcwb.model.meta4.login.entity package.
  * <p>
  * An ObjectFactory allows you to programatically construct new instances of the Java representation
  * for XML content. The Java representation of XML content can consist of schema derived interfaces
@@ -24,26 +24,26 @@ public class ObjectFactory {
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for
-     * package: com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated
+     * package: com.inditex.rrhh.icmclcwb.model.meta4.login.entity
      *
      */
     public ObjectFactory() {
     }
 
     /**
-     * Create an instance of {@link LoginWithRole }
+     * Create an instance of {@link LoginWithCertificate }
      *
      */
-    public LoginWithRole createLoginWithRole() {
-        return new LoginWithRole();
+    public LoginWithCertificate createLoginWithCertificate() {
+        return new LoginWithCertificate();
     }
 
     /**
-     * Create an instance of {@link LoginWithRoleResponse }
+     * Create an instance of {@link LoginWithCertificateResponse }
      *
      */
-    public LoginWithRoleResponse createLoginWithRoleResponse() {
-        return new LoginWithRoleResponse();
+    public LoginWithCertificateResponse createLoginWithCertificateResponse() {
+        return new LoginWithCertificateResponse();
     }
 
     /**
@@ -63,19 +63,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link LoginWithCertificate }
+     * Create an instance of {@link LoginWithRole }
      *
      */
-    public LoginWithCertificate createLoginWithCertificate() {
-        return new LoginWithCertificate();
+    public LoginWithRole createLoginWithRole() {
+        return new LoginWithRole();
     }
 
     /**
-     * Create an instance of {@link LoginWithCertificateResponse }
+     * Create an instance of {@link LoginWithRoleResponse }
      *
      */
-    public LoginWithCertificateResponse createLoginWithCertificateResponse() {
-        return new LoginWithCertificateResponse();
+    public LoginWithRoleResponse createLoginWithRoleResponse() {
+        return new LoginWithRoleResponse();
     }
 
     /**
@@ -132,7 +132,7 @@ public class ObjectFactory {
      * @return the new instance of {@link JAXBElement }{@code <}{@link M4SoapException }{@code >}
      */
     @XmlElementDecl(namespace = "http://schemas.meta4.com/", name = "fault")
-    public JAXBElement<M4SoapException> createFault(M4SoapException value) {
+    public JAXBElement<M4SoapException> createFault(final M4SoapException value) {
         return new JAXBElement<M4SoapException>(_Fault_QNAME, M4SoapException.class, null, value);
     }
 

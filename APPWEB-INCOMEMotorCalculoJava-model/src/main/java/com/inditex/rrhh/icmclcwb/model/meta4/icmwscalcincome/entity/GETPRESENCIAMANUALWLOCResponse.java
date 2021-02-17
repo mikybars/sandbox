@@ -24,11 +24,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para anonymous complex type.
+ * <p>Clase Java para anonymous complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -46,19 +44,22 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "getpresenciamanualwlocReturn"
+    "getpresenciamanualwlocReturn"
 })
 @XmlRootElement(name = "GETPRESENCIAMANUALWLOCResponse")
-public class GETPRESENCIAMANUALWLOCResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETPRESENCIAMANUALWLOCResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "GETPRESENCIAMANUALWLOCReturn", required = true)
     protected GetpresenciamanualwlocOutput getpresenciamanualwlocReturn;
 
     /**
      * Obtiene el valor de la propiedad getpresenciamanualwlocReturn.
-     * @return possible object is {@link GetpresenciamanualwlocOutput }
+     *
+     * @return
+     *     possible object is
+     *     {@link GetpresenciamanualwlocOutput }
      *
      */
     public GetpresenciamanualwlocOutput getGETPRESENCIAMANUALWLOCReturn() {
@@ -67,16 +68,18 @@ public class GETPRESENCIAMANUALWLOCResponse implements Serializable, Cloneable, 
 
     /**
      * Define el valor de la propiedad getpresenciamanualwlocReturn.
-     * @param value allowed object is {@link GetpresenciamanualwlocOutput }
+     *
+     * @param value
+     *     allowed object is
+     *     {@link GetpresenciamanualwlocOutput }
      *
      */
     public void setGETPRESENCIAMANUALWLOCReturn(GetpresenciamanualwlocOutput value) {
         this.getpresenciamanualwlocReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -88,11 +91,7 @@ public class GETPRESENCIAMANUALWLOCResponse implements Serializable, Cloneable, 
             lhsGETPRESENCIAMANUALWLOCReturn = this.getGETPRESENCIAMANUALWLOCReturn();
             GetpresenciamanualwlocOutput rhsGETPRESENCIAMANUALWLOCReturn;
             rhsGETPRESENCIAMANUALWLOCReturn = that.getGETPRESENCIAMANUALWLOCReturn();
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "getpresenciamanualwlocReturn", lhsGETPRESENCIAMANUALWLOCReturn),
-                    LocatorUtils.property(thatLocator, "getpresenciamanualwlocReturn", rhsGETPRESENCIAMANUALWLOCReturn),
-                    lhsGETPRESENCIAMANUALWLOCReturn, rhsGETPRESENCIAMANUALWLOCReturn,
-                    (this.getpresenciamanualwlocReturn != null), (that.getpresenciamanualwlocReturn != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getpresenciamanualwlocReturn", lhsGETPRESENCIAMANUALWLOCReturn), LocatorUtils.property(thatLocator, "getpresenciamanualwlocReturn", rhsGETPRESENCIAMANUALWLOCReturn), lhsGETPRESENCIAMANUALWLOCReturn, rhsGETPRESENCIAMANUALWLOCReturn, (this.getpresenciamanualwlocReturn!= null), (that.getpresenciamanualwlocReturn!= null))) {
                 return false;
             }
         }
@@ -122,8 +121,7 @@ public class GETPRESENCIAMANUALWLOCResponse implements Serializable, Cloneable, 
         {
             GetpresenciamanualwlocOutput theGETPRESENCIAMANUALWLOCReturn;
             theGETPRESENCIAMANUALWLOCReturn = this.getGETPRESENCIAMANUALWLOCReturn();
-            strategy.appendField(locator, this, "getpresenciamanualwlocReturn", buffer, theGETPRESENCIAMANUALWLOCReturn,
-                    (this.getpresenciamanualwlocReturn != null));
+            strategy.appendField(locator, this, "getpresenciamanualwlocReturn", buffer, theGETPRESENCIAMANUALWLOCReturn, (this.getpresenciamanualwlocReturn!= null));
         }
         return buffer;
     }
@@ -133,9 +131,7 @@ public class GETPRESENCIAMANUALWLOCResponse implements Serializable, Cloneable, 
         {
             GetpresenciamanualwlocOutput theGETPRESENCIAMANUALWLOCReturn;
             theGETPRESENCIAMANUALWLOCReturn = this.getGETPRESENCIAMANUALWLOCReturn();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "getpresenciamanualwlocReturn", theGETPRESENCIAMANUALWLOCReturn),
-                    currentHashCode, theGETPRESENCIAMANUALWLOCReturn, (this.getpresenciamanualwlocReturn != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getpresenciamanualwlocReturn", theGETPRESENCIAMANUALWLOCReturn), currentHashCode, theGETPRESENCIAMANUALWLOCReturn, (this.getpresenciamanualwlocReturn!= null));
         }
         return currentHashCode;
     }
@@ -155,19 +151,15 @@ public class GETPRESENCIAMANUALWLOCResponse implements Serializable, Cloneable, 
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof GETPRESENCIAMANUALWLOCResponse) {
             final GETPRESENCIAMANUALWLOCResponse copy = ((GETPRESENCIAMANUALWLOCResponse) draftCopy);
             {
-                Boolean getpresenciamanualwlocReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.getpresenciamanualwlocReturn != null));
+                Boolean getpresenciamanualwlocReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getpresenciamanualwlocReturn!= null));
                 if (getpresenciamanualwlocReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetpresenciamanualwlocOutput sourceGETPRESENCIAMANUALWLOCReturn;
                     sourceGETPRESENCIAMANUALWLOCReturn = this.getGETPRESENCIAMANUALWLOCReturn();
-                    GetpresenciamanualwlocOutput copyGETPRESENCIAMANUALWLOCReturn = ((GetpresenciamanualwlocOutput) strategy
-                        .copy(LocatorUtils.property(locator, "getpresenciamanualwlocReturn",
-                                sourceGETPRESENCIAMANUALWLOCReturn), sourceGETPRESENCIAMANUALWLOCReturn,
-                                (this.getpresenciamanualwlocReturn != null)));
+                    GetpresenciamanualwlocOutput copyGETPRESENCIAMANUALWLOCReturn = ((GetpresenciamanualwlocOutput) strategy.copy(LocatorUtils.property(locator, "getpresenciamanualwlocReturn", sourceGETPRESENCIAMANUALWLOCReturn), sourceGETPRESENCIAMANUALWLOCReturn, (this.getpresenciamanualwlocReturn!= null)));
                     copy.setGETPRESENCIAMANUALWLOCReturn(copyGETPRESENCIAMANUALWLOCReturn);
                 } else {
                     if (getpresenciamanualwlocReturnShouldBeCopiedAndSet == Boolean.FALSE) {

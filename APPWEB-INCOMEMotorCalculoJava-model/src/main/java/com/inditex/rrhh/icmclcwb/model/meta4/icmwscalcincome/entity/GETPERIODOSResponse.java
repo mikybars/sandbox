@@ -24,11 +24,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para anonymous complex type.
+ * <p>Clase Java para anonymous complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -46,19 +44,22 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "getperiodosReturn"
+    "getperiodosReturn"
 })
 @XmlRootElement(name = "GETPERIODOSResponse")
-public class GETPERIODOSResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETPERIODOSResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "GETPERIODOSReturn", required = true)
     protected GetperiodosOutput getperiodosReturn;
 
     /**
      * Obtiene el valor de la propiedad getperiodosReturn.
-     * @return possible object is {@link GetperiodosOutput }
+     *
+     * @return
+     *     possible object is
+     *     {@link GetperiodosOutput }
      *
      */
     public GetperiodosOutput getGETPERIODOSReturn() {
@@ -67,16 +68,18 @@ public class GETPERIODOSResponse implements Serializable, Cloneable, CopyTo2, Eq
 
     /**
      * Define el valor de la propiedad getperiodosReturn.
-     * @param value allowed object is {@link GetperiodosOutput }
+     *
+     * @param value
+     *     allowed object is
+     *     {@link GetperiodosOutput }
      *
      */
     public void setGETPERIODOSReturn(GetperiodosOutput value) {
         this.getperiodosReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -88,9 +91,7 @@ public class GETPERIODOSResponse implements Serializable, Cloneable, CopyTo2, Eq
             lhsGETPERIODOSReturn = this.getGETPERIODOSReturn();
             GetperiodosOutput rhsGETPERIODOSReturn;
             rhsGETPERIODOSReturn = that.getGETPERIODOSReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getperiodosReturn", lhsGETPERIODOSReturn),
-                    LocatorUtils.property(thatLocator, "getperiodosReturn", rhsGETPERIODOSReturn), lhsGETPERIODOSReturn,
-                    rhsGETPERIODOSReturn, (this.getperiodosReturn != null), (that.getperiodosReturn != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getperiodosReturn", lhsGETPERIODOSReturn), LocatorUtils.property(thatLocator, "getperiodosReturn", rhsGETPERIODOSReturn), lhsGETPERIODOSReturn, rhsGETPERIODOSReturn, (this.getperiodosReturn!= null), (that.getperiodosReturn!= null))) {
                 return false;
             }
         }
@@ -120,8 +121,7 @@ public class GETPERIODOSResponse implements Serializable, Cloneable, CopyTo2, Eq
         {
             GetperiodosOutput theGETPERIODOSReturn;
             theGETPERIODOSReturn = this.getGETPERIODOSReturn();
-            strategy.appendField(locator, this, "getperiodosReturn", buffer, theGETPERIODOSReturn,
-                    (this.getperiodosReturn != null));
+            strategy.appendField(locator, this, "getperiodosReturn", buffer, theGETPERIODOSReturn, (this.getperiodosReturn!= null));
         }
         return buffer;
     }
@@ -131,9 +131,7 @@ public class GETPERIODOSResponse implements Serializable, Cloneable, CopyTo2, Eq
         {
             GetperiodosOutput theGETPERIODOSReturn;
             theGETPERIODOSReturn = this.getGETPERIODOSReturn();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "getperiodosReturn", theGETPERIODOSReturn), currentHashCode,
-                    theGETPERIODOSReturn, (this.getperiodosReturn != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getperiodosReturn", theGETPERIODOSReturn), currentHashCode, theGETPERIODOSReturn, (this.getperiodosReturn!= null));
         }
         return currentHashCode;
     }
@@ -153,18 +151,15 @@ public class GETPERIODOSResponse implements Serializable, Cloneable, CopyTo2, Eq
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof GETPERIODOSResponse) {
             final GETPERIODOSResponse copy = ((GETPERIODOSResponse) draftCopy);
             {
-                Boolean getperiodosReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.getperiodosReturn != null));
+                Boolean getperiodosReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getperiodosReturn!= null));
                 if (getperiodosReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetperiodosOutput sourceGETPERIODOSReturn;
                     sourceGETPERIODOSReturn = this.getGETPERIODOSReturn();
-                    GetperiodosOutput copyGETPERIODOSReturn = ((GetperiodosOutput) strategy.copy(
-                            LocatorUtils.property(locator, "getperiodosReturn", sourceGETPERIODOSReturn),
-                            sourceGETPERIODOSReturn, (this.getperiodosReturn != null)));
+                    GetperiodosOutput copyGETPERIODOSReturn = ((GetperiodosOutput) strategy.copy(LocatorUtils.property(locator, "getperiodosReturn", sourceGETPERIODOSReturn), sourceGETPERIODOSReturn, (this.getperiodosReturn!= null)));
                     copy.setGETPERIODOSReturn(copyGETPERIODOSReturn);
                 } else {
                     if (getperiodosReturnShouldBeCopiedAndSet == Boolean.FALSE) {

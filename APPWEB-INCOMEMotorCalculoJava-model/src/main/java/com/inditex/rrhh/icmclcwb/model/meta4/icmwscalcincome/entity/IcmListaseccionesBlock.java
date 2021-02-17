@@ -25,11 +25,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_ListaseccionesBlock complex type.
+ * <p>Clase Java para Icm_ListaseccionesBlock complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ListaseccionesBlock"&gt;
@@ -49,26 +47,27 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaseccionesBlock", propOrder = {
-        "fecha",
-        "idempleado",
-        "icmListaseccionesRecordSet"
+    "fecha",
+    "idempleado",
+    "icmListaseccionesRecordSet"
 })
-public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(required = true, nillable = true)
     protected String fecha;
-
     @XmlElement(required = true, nillable = true)
     protected String idempleado;
-
     @XmlElement(name = "Icm_ListaseccionesRecordSet", nillable = true)
     protected List<IcmListaseccionesRecord> icmListaseccionesRecordSet;
 
     /**
      * Obtiene el valor de la propiedad fecha.
-     * @return possible object is {@link String }
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
      *
      */
     public String getFecha() {
@@ -77,7 +76,10 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
 
     /**
      * Define el valor de la propiedad fecha.
-     * @param value allowed object is {@link String }
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
      *
      */
     public void setFecha(String value) {
@@ -86,7 +88,10 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
 
     /**
      * Obtiene el valor de la propiedad idempleado.
-     * @return possible object is {@link String }
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
      *
      */
     public String getIdempleado() {
@@ -95,7 +100,10 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
 
     /**
      * Define el valor de la propiedad idempleado.
-     * @param value allowed object is {@link String }
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
      *
      */
     public void setIdempleado(String value) {
@@ -106,20 +114,21 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
      * Gets the value of the icmListaseccionesRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmListaseccionesRecordSet property.
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmListaseccionesRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmListaseccionesRecordSet().add(newItem);
+     *    getIcmListaseccionesRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmListaseccionesRecord }
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmListaseccionesRecord }
      *
      *
      */
@@ -130,9 +139,8 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
         return this.icmListaseccionesRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -144,9 +152,7 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
             lhsFecha = this.getFecha();
             String rhsFecha;
             rhsFecha = that.getFecha();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "fecha", lhsFecha),
-                    LocatorUtils.property(thatLocator, "fecha", rhsFecha), lhsFecha, rhsFecha, (this.fecha != null),
-                    (that.fecha != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "fecha", lhsFecha), LocatorUtils.property(thatLocator, "fecha", rhsFecha), lhsFecha, rhsFecha, (this.fecha!= null), (that.fecha!= null))) {
                 return false;
             }
         }
@@ -155,25 +161,16 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
             lhsIdempleado = this.getIdempleado();
             String rhsIdempleado;
             rhsIdempleado = that.getIdempleado();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idempleado", lhsIdempleado),
-                    LocatorUtils.property(thatLocator, "idempleado", rhsIdempleado), lhsIdempleado, rhsIdempleado,
-                    (this.idempleado != null), (that.idempleado != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idempleado", lhsIdempleado), LocatorUtils.property(thatLocator, "idempleado", rhsIdempleado), lhsIdempleado, rhsIdempleado, (this.idempleado!= null), (that.idempleado!= null))) {
                 return false;
             }
         }
         {
             List<IcmListaseccionesRecord> lhsIcmListaseccionesRecordSet;
-            lhsIcmListaseccionesRecordSet = (((this.icmListaseccionesRecordSet != null)
-                    && (!this.icmListaseccionesRecordSet.isEmpty())) ? this.getIcmListaseccionesRecordSet() : null);
+            lhsIcmListaseccionesRecordSet = (((this.icmListaseccionesRecordSet!= null)&&(!this.icmListaseccionesRecordSet.isEmpty()))?this.getIcmListaseccionesRecordSet():null);
             List<IcmListaseccionesRecord> rhsIcmListaseccionesRecordSet;
-            rhsIcmListaseccionesRecordSet = (((that.icmListaseccionesRecordSet != null)
-                    && (!that.icmListaseccionesRecordSet.isEmpty())) ? that.getIcmListaseccionesRecordSet() : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmListaseccionesRecordSet", lhsIcmListaseccionesRecordSet),
-                    LocatorUtils.property(thatLocator, "icmListaseccionesRecordSet", rhsIcmListaseccionesRecordSet),
-                    lhsIcmListaseccionesRecordSet, rhsIcmListaseccionesRecordSet,
-                    ((this.icmListaseccionesRecordSet != null) && (!this.icmListaseccionesRecordSet.isEmpty())),
-                    ((that.icmListaseccionesRecordSet != null) && (!that.icmListaseccionesRecordSet.isEmpty())))) {
+            rhsIcmListaseccionesRecordSet = (((that.icmListaseccionesRecordSet!= null)&&(!that.icmListaseccionesRecordSet.isEmpty()))?that.getIcmListaseccionesRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaseccionesRecordSet", lhsIcmListaseccionesRecordSet), LocatorUtils.property(thatLocator, "icmListaseccionesRecordSet", rhsIcmListaseccionesRecordSet), lhsIcmListaseccionesRecordSet, rhsIcmListaseccionesRecordSet, ((this.icmListaseccionesRecordSet!= null)&&(!this.icmListaseccionesRecordSet.isEmpty())), ((that.icmListaseccionesRecordSet!= null)&&(!that.icmListaseccionesRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -203,19 +200,17 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
         {
             String theFecha;
             theFecha = this.getFecha();
-            strategy.appendField(locator, this, "fecha", buffer, theFecha, (this.fecha != null));
+            strategy.appendField(locator, this, "fecha", buffer, theFecha, (this.fecha!= null));
         }
         {
             String theIdempleado;
             theIdempleado = this.getIdempleado();
-            strategy.appendField(locator, this, "idempleado", buffer, theIdempleado, (this.idempleado != null));
+            strategy.appendField(locator, this, "idempleado", buffer, theIdempleado, (this.idempleado!= null));
         }
         {
             List<IcmListaseccionesRecord> theIcmListaseccionesRecordSet;
-            theIcmListaseccionesRecordSet = (((this.icmListaseccionesRecordSet != null)
-                    && (!this.icmListaseccionesRecordSet.isEmpty())) ? this.getIcmListaseccionesRecordSet() : null);
-            strategy.appendField(locator, this, "icmListaseccionesRecordSet", buffer, theIcmListaseccionesRecordSet,
-                    ((this.icmListaseccionesRecordSet != null) && (!this.icmListaseccionesRecordSet.isEmpty())));
+            theIcmListaseccionesRecordSet = (((this.icmListaseccionesRecordSet!= null)&&(!this.icmListaseccionesRecordSet.isEmpty()))?this.getIcmListaseccionesRecordSet():null);
+            strategy.appendField(locator, this, "icmListaseccionesRecordSet", buffer, theIcmListaseccionesRecordSet, ((this.icmListaseccionesRecordSet!= null)&&(!this.icmListaseccionesRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -225,23 +220,17 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
         {
             String theFecha;
             theFecha = this.getFecha();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fecha", theFecha), currentHashCode,
-                    theFecha, (this.fecha != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fecha", theFecha), currentHashCode, theFecha, (this.fecha!= null));
         }
         {
             String theIdempleado;
             theIdempleado = this.getIdempleado();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idempleado", theIdempleado),
-                    currentHashCode, theIdempleado, (this.idempleado != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idempleado", theIdempleado), currentHashCode, theIdempleado, (this.idempleado!= null));
         }
         {
             List<IcmListaseccionesRecord> theIcmListaseccionesRecordSet;
-            theIcmListaseccionesRecordSet = (((this.icmListaseccionesRecordSet != null)
-                    && (!this.icmListaseccionesRecordSet.isEmpty())) ? this.getIcmListaseccionesRecordSet() : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmListaseccionesRecordSet", theIcmListaseccionesRecordSet),
-                    currentHashCode, theIcmListaseccionesRecordSet,
-                    ((this.icmListaseccionesRecordSet != null) && (!this.icmListaseccionesRecordSet.isEmpty())));
+            theIcmListaseccionesRecordSet = (((this.icmListaseccionesRecordSet!= null)&&(!this.icmListaseccionesRecordSet.isEmpty()))?this.getIcmListaseccionesRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaseccionesRecordSet", theIcmListaseccionesRecordSet), currentHashCode, theIcmListaseccionesRecordSet, ((this.icmListaseccionesRecordSet!= null)&&(!this.icmListaseccionesRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -261,16 +250,15 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmListaseccionesBlock) {
             final IcmListaseccionesBlock copy = ((IcmListaseccionesBlock) draftCopy);
             {
-                Boolean fechaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fecha != null));
+                Boolean fechaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fecha!= null));
                 if (fechaShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceFecha;
                     sourceFecha = this.getFecha();
-                    String copyFecha = ((String) strategy.copy(LocatorUtils.property(locator, "fecha", sourceFecha),
-                            sourceFecha, (this.fecha != null)));
+                    String copyFecha = ((String) strategy.copy(LocatorUtils.property(locator, "fecha", sourceFecha), sourceFecha, (this.fecha!= null)));
                     copy.setFecha(copyFecha);
                 } else {
                     if (fechaShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -279,14 +267,11 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
                 }
             }
             {
-                Boolean idempleadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.idempleado != null));
+                Boolean idempleadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idempleado!= null));
                 if (idempleadoShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdempleado;
                     sourceIdempleado = this.getIdempleado();
-                    String copyIdempleado = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "idempleado", sourceIdempleado), sourceIdempleado,
-                            (this.idempleado != null)));
+                    String copyIdempleado = ((String) strategy.copy(LocatorUtils.property(locator, "idempleado", sourceIdempleado), sourceIdempleado, (this.idempleado!= null)));
                     copy.setIdempleado(copyIdempleado);
                 } else {
                     if (idempleadoShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -295,23 +280,15 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
                 }
             }
             {
-                Boolean icmListaseccionesRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        ((this.icmListaseccionesRecordSet != null) && (!this.icmListaseccionesRecordSet.isEmpty())));
+                Boolean icmListaseccionesRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListaseccionesRecordSet!= null)&&(!this.icmListaseccionesRecordSet.isEmpty())));
                 if (icmListaseccionesRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListaseccionesRecord> sourceIcmListaseccionesRecordSet;
-                    sourceIcmListaseccionesRecordSet = (((this.icmListaseccionesRecordSet != null)
-                            && (!this.icmListaseccionesRecordSet.isEmpty())) ? this.getIcmListaseccionesRecordSet()
-                                    : null);
+                    sourceIcmListaseccionesRecordSet = (((this.icmListaseccionesRecordSet!= null)&&(!this.icmListaseccionesRecordSet.isEmpty()))?this.getIcmListaseccionesRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListaseccionesRecord> copyIcmListaseccionesRecordSet = ((List<IcmListaseccionesRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmListaseccionesRecordSet",
-                                sourceIcmListaseccionesRecordSet), sourceIcmListaseccionesRecordSet,
-                                ((this.icmListaseccionesRecordSet != null)
-                                        && (!this.icmListaseccionesRecordSet.isEmpty()))));
+                    List<IcmListaseccionesRecord> copyIcmListaseccionesRecordSet = ((List<IcmListaseccionesRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListaseccionesRecordSet", sourceIcmListaseccionesRecordSet), sourceIcmListaseccionesRecordSet, ((this.icmListaseccionesRecordSet!= null)&&(!this.icmListaseccionesRecordSet.isEmpty()))));
                     copy.icmListaseccionesRecordSet = null;
-                    if (copyIcmListaseccionesRecordSet != null) {
-                        List<IcmListaseccionesRecord> uniqueIcmListaseccionesRecordSetl = copy
-                            .getIcmListaseccionesRecordSet();
+                    if (copyIcmListaseccionesRecordSet!= null) {
+                        List<IcmListaseccionesRecord> uniqueIcmListaseccionesRecordSetl = copy.getIcmListaseccionesRecordSet();
                         uniqueIcmListaseccionesRecordSetl.addAll(copyIcmListaseccionesRecordSet);
                     }
                 } else {
