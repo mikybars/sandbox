@@ -652,56 +652,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         return result;
     }
 
-    /*
-     * TODO [javierev] eliminar estos tests y todo lo relacionado con getconfprevalid
-     *
-     * @Override public IcmParamcalvalonBlock asIcmParamcalvalonBlock(final PreValidOnFilterDto src) {
-     * final List<IcmParamcalvalonRecord> list = this.asIcmParamcalvalonRecord(src); final
-     * IcmParamcalvalonBlock result = this.delegate.asIcmParamcalvalonBlock(src);
-     * result.getIcmParamcalvalonRecordSet().addAll(list); return result; }
-     *
-     * private List<IcmParamcalvalonRecord> asIcmParamcalvalonRecord(final PreValidOnFilterDto src) {
-     * final List<IcmParamcalvalonRecord> result = new ArrayList<>(); if (src != null) {
-     * src.getItem().forEach(item -> { final IcmParamcalvalonRecord record =
-     * this.delegate.asIcmParamcalvalonRecord(item); result.add(record); }); } else { result.add(new
-     * IcmParamcalvalonRecord()); } return result; }
-     *
-     * @Override public IcmParamcalvaloffBlock asIcmParamcalvaloffBlock(final PreValidOffFilterDto src)
-     * { final List<IcmParamcalvaloffRecord> list = this.asIcmParamcalvaloffRecord(src); final
-     * IcmParamcalvaloffBlock result = this.delegate.asIcmParamcalvaloffBlock(src);
-     * result.getIcmParamcalvaloffRecordSet().addAll(list); return result; }
-     *
-     * private List<IcmParamcalvaloffRecord> asIcmParamcalvaloffRecord(final PreValidOffFilterDto src) {
-     * final List<IcmParamcalvaloffRecord> result = new ArrayList<>(); if (src != null) {
-     * src.getItem().forEach(item -> { final IcmParamcalvaloffRecord record =
-     * this.delegate.asIcmParamcalvaloffRecord(item); result.add(record); }); } else { result.add(new
-     * IcmParamcalvaloffRecord()); } return result; }
-     *
-     * @Override public IcmParamcalvaloffBlock asIcmParamcalvaloffBlock(final ReqPreValidOffFilterDto
-     * src) { final List<IcmParamcalvaloffRecord> list = this.asIcmParamcalvaloffRecord(src); final
-     * IcmParamcalvaloffBlock result = this.delegate.asIcmParamcalvaloffBlock(src);
-     * result.getIcmParamcalvaloffRecordSet().addAll(list); return result; }
-     *
-     * private List<IcmParamcalvaloffRecord> asIcmParamcalvaloffRecord(final ReqPreValidOffFilterDto
-     * src) { final List<IcmParamcalvaloffRecord> result = new ArrayList<>(); if (src != null) {
-     * src.getItem().forEach(item -> { final IcmParamcalvaloffRecord record =
-     * this.delegate.asIcmParamcalvaloffRecord(item); result.add(record); }); } else { result.add(new
-     * IcmParamcalvaloffRecord()); } return result; }
-     *
-     * @Override public IcmParamcalconfprevalidBlock asIcmParamcalconfprevalidBlock(final
-     * ConfPreValidFilterDto src) { final List<IcmParamcalconfprevalidRecord> list =
-     * this.asIcmParamcalconfprevalidRecord(src); final IcmParamcalconfprevalidBlock result =
-     * this.delegate.asIcmParamcalconfprevalidBlock(src);
-     * result.getIcmParamcalconfprevalidRecordSet().addAll(list); return result; }
-     *
-     * private List<IcmParamcalconfprevalidRecord> asIcmParamcalconfprevalidRecord(final
-     * ConfPreValidFilterDto src) { final List<IcmParamcalconfprevalidRecord> result = new
-     * ArrayList<>(); if (src != null) { src.getItem().forEach(item -> { final
-     * IcmParamcalconfprevalidRecord record = this.delegate.asIcmParamcalconfprevalidRecord(item);
-     * result.add(record); }); } else { result.add(new IcmParamcalconfprevalidRecord()); } return
-     * result; }
-     *
-     */
     @Override
     public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final PresenciaManualWlocFilterDto src) {
         final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);

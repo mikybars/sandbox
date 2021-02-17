@@ -424,33 +424,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
             .getDesplazReal(ArgumentMatchers.any(DesplazamientoRealRequestDto.class));
     }
 
-    /*
-     * TODO [javierev] eliminar estos tests y todo lo relacionado con getconfprevalid
-     *
-     * @Test public void getPrevalidOff() { final Meta4PropertiesDto properties = new
-     * Meta4PropertiesDto(); final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-     * filter.setMaxPageSize(1); properties.setFilter(filter);
-     * when(this.meta4IcmWsCalcIncomeService.getPrevalidOff(any(PreValidOffRequestDto.class)))
-     * .thenReturn(new PreValidOffResponseDto());
-     *
-     * final PreValidOffRequestDto request = new PreValidOffRequestDto(); request.setData(new
-     * PreValidOffFilterDto()); request.setPage(new PageDto(1, 100));
-     * this.meta4IcmWsCalcIncomeSessionServiceImpl.getPrevalidOff(request);
-     * verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
-     * .getPrevalidOff(ArgumentMatchers.any(PreValidOffRequestDto.class)); }
-     *
-     * @Test public void reqPrevalidOff() { final Meta4PropertiesDto properties = new
-     * Meta4PropertiesDto(); final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-     * filter.setMaxPageSize(1); properties.setFilter(filter);
-     * when(this.meta4IcmWsCalcIncomeService.reqPrevalidOff(any(ReqPreValidOffRequestDto.class)))
-     * .thenReturn(new ReqPreValidOffResponseDto());
-     *
-     * final ReqPreValidOffRequestDto request = new ReqPreValidOffRequestDto(); request.setData(new
-     * ReqPreValidOffFilterDto()); request.setPage(new PageDto(1, 100));
-     * this.meta4IcmWsCalcIncomeSessionServiceImpl.reqPrevalidOff(request);
-     * verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
-     * .reqPrevalidOff(ArgumentMatchers.any(ReqPreValidOffRequestDto.class)); }
-     */
     @Test
     public void getPresenciaManualWloc() {
         final Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -468,45 +441,5 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
             .getPresenciaManualWloc(ArgumentMatchers.any(PresenciaManualWlocRequestDto.class));
     }
-
-    /*
-     * TODO [javierev] eliminar estos tests y todo lo relacionado con getconfprevalid
-     *
-     * @Test public void getConfPrevalid() { final Meta4PropertiesDto properties = new
-     * Meta4PropertiesDto(); final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-     * filter.setMaxPageSize(1); properties.setFilter(filter);
-     * when(this.meta4IcmWsCalcIncomeService.getConfPrevalid(any(ConfPreValidRequestDto.class)))
-     * .thenReturn(new ConfPreValidResponseDto());
-     *
-     * final ConfPreValidRequestDto request = new ConfPreValidRequestDto(); request.setData(new
-     * ConfPreValidFilterDto()); request.setPage(new PageDto(1, 100));
-     * this.meta4IcmWsCalcIncomeSessionServiceImpl.getConfPrevalid(request);
-     * verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
-     * .getConfPrevalid(ArgumentMatchers.any(ConfPreValidRequestDto.class)); }
-     *
-     * @Test public void getPrevalidOn() { final Meta4PropertiesDto properties = new
-     * Meta4PropertiesDto(); final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-     * filter.setMaxPageSize(1); properties.setFilter(filter);
-     * when(this.meta4IcmWsCalcIncomeService.getPrevalidOn(any(PreValidOnRequestDto.class)))
-     * .thenReturn(new PreValidOnResponseDto());
-     *
-     * final PreValidOnRequestDto request = new PreValidOnRequestDto(); request.setData(new
-     * PreValidOnFilterDto()); request.setPage(new PageDto(1, 100));
-     * this.meta4IcmWsCalcIncomeSessionServiceImpl.getPrevalidOn(request);
-     * verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
-     * .getPrevalidOn(ArgumentMatchers.any(PreValidOnRequestDto.class)); }
-     *
-     * @Test public void getVentaManualLocalizacion() { final Meta4PropertiesDto properties = new
-     * Meta4PropertiesDto(); final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-     * filter.setMaxPageSize(1); properties.setFilter(filter); when(this.meta4IcmWsCalcIncomeService
-     * .getVentaManualWloc(any(VentaManualWlocRequestDto.class))) .thenReturn(new
-     * VentaManualWlocResponseDto());
-     *
-     * final VentaManualWlocRequestDto request = new VentaManualWlocRequestDto(); request.setData(new
-     * VentaManualWlocFilterDto()); request.setPage(new PageDto(1, 100));
-     * this.meta4IcmWsCalcIncomeSessionServiceImpl.getVentaManualWloc(request);
-     * verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
-     * .getVentaManualWloc(ArgumentMatchers.any(VentaManualWlocRequestDto.class)); }
-     */
 
 }

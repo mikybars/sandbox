@@ -20,8 +20,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
@@ -50,12 +48,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
@@ -135,13 +127,5 @@ public interface Meta4IcmWsCalcIncomeSessionAsyncService {
 
     CompletableFuture<List<VentaManualWlocResultItemDto>> getVentaManualWloc(
             VentaManualWlocRequestDto request);
-
-    CompletableFuture<List<ConfPreValidResultItemDto>> getConfPrevalid(ConfPreValidRequestDto request);
-
-    CompletableFuture<List<PreValidOnResultItemDto>> getPrevalidOn(PreValidOnRequestDto request);
-
-    CompletableFuture<List<PreValidOffResultItemDto>> getPrevalidOff(PreValidOffRequestDto request);
-
-    CompletableFuture<List<ReqPreValidOffResultItemDto>> reqPrevalidOff(ReqPreValidOffRequestDto request);
 
 }

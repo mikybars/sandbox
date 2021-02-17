@@ -891,59 +891,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         return result;
     }
 
-    /*
-     * TODO [javierev] eliminar estos tests y todo lo relacionado con getconfprevalid
-     *
-     *
-     * @Override public ConfPreValidResponseDto getConfPrevalid(final ConfPreValidRequestDto request) {
-     * final ConfPreValidResponseDto result = new ConfPreValidResponseDto(); final
-     * IcmParamcalconfprevalidBlock param1 = this.icmWsCalcIncomeMapper
-     * .asIcmParamcalconfprevalidBlock(request.getData()); final GetconfprevalidOutput getConfPrevalid =
-     * this.meta4ClientPool.getconfprevalid(param1); if ((getConfPrevalid != null) &&
-     * (Double.compare(NumberUtils.DOUBLE_ZERO, getConfPrevalid.getReturn()) == 0)) { if
-     * ((getConfPrevalid.getIcmListaconfprevalid() != null) && CollectionUtils
-     * .isNotEmpty(getConfPrevalid.getIcmListaconfprevalid().getIcmListaconfprevalidRecordSet())) {
-     * final List<ConfPreValidResultItemDto> items = this.icmWsCalcIncomeMapper
-     * .asConfPreValidResultItemDto(
-     * getConfPrevalid.getIcmListaconfprevalid().getIcmListaconfprevalidRecordSet());
-     * result.setData(items); } } return result; }
-     *
-     * @Override public PreValidOnResponseDto getPrevalidOn(final PreValidOnRequestDto request) { final
-     * PreValidOnResponseDto result = new PreValidOnResponseDto(); final IcmParamcalvalonBlock param1 =
-     * this.icmWsCalcIncomeMapper .asIcmParamcalvalonBlock(request.getData()); final GetprevalidonOutput
-     * getprevalidonOutput = this.meta4ClientPool.getprevalidon(param1); if ((getprevalidonOutput !=
-     * null) && (Double.compare(NumberUtils.DOUBLE_ZERO, getprevalidonOutput.getReturn()) == 0)) { if
-     * ((getprevalidonOutput.getIcmListaprevalid() != null) && CollectionUtils
-     * .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) { final
-     * List<PreValidOnResultItemDto> items = this.icmWsCalcIncomeMapper .asPreValidOnResultItemDto(
-     * getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet()); result.setData(items);
-     * } } return result; }
-     *
-     * @Override public PreValidOffResponseDto getPrevalidOff(final PreValidOffRequestDto request) {
-     * final PreValidOffResponseDto result = new PreValidOffResponseDto(); final IcmParamcalvaloffBlock
-     * param1 = this.icmWsCalcIncomeMapper .asIcmParamcalvaloffBlock(request.getData()); final
-     * GetprevalidoffOutput getprevalidonOutput = this.meta4ClientPool.getprevalidoff(param1); if
-     * ((getprevalidonOutput != null) && (Double.compare(NumberUtils.DOUBLE_ZERO,
-     * getprevalidonOutput.getReturn()) == 0)) { if ((getprevalidonOutput.getIcmListaprevalid() != null)
-     * && CollectionUtils
-     * .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) { final
-     * List<PreValidOffResultItemDto> items = this.icmWsCalcIncomeMapper .asPreValidOffResultItemDto(
-     * getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet()); result.setData(items);
-     * } } return result; }
-     *
-     * @Override public ReqPreValidOffResponseDto reqPrevalidOff(final ReqPreValidOffRequestDto request)
-     * { final ReqPreValidOffResponseDto result = new ReqPreValidOffResponseDto(); final
-     * IcmParamcalvaloffBlock param1 = this.icmWsCalcIncomeMapper
-     * .asIcmParamcalvaloffBlock(request.getData()); final ReqprevalidoffOutput getprevalidonOutput =
-     * this.meta4ClientPool.reqprevalidoff(param1); if ((getprevalidonOutput != null) &&
-     * (Double.compare(NumberUtils.DOUBLE_ZERO, getprevalidonOutput.getReturn()) == 0)) { if
-     * ((getprevalidonOutput.getIcmListaprevalid() != null) && CollectionUtils
-     * .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) { final
-     * List<ReqPreValidOffResultItemDto> items = this.icmWsCalcIncomeMapper
-     * .asReqPreValidOffResultItemDto(
-     * getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet()); result.setData(items);
-     * } } return result; }
-     */
     @Override
     public PresenciaManualWlocResponseDto getPresenciaManualWloc(final PresenciaManualWlocRequestDto request) {
         final PresenciaManualWlocResponseDto result = new PresenciaManualWlocResponseDto();

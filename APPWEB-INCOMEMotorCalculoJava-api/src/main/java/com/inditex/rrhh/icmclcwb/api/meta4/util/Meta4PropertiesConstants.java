@@ -68,12 +68,4 @@ public class Meta4PropertiesConstants {
 
     public static final String VENTA_MANUAL_WLOC = "getVentaManualWloc";
 
-    public static final String CONF_PREVALID = "getConfPrevalid";
-
-    public static final String PREVALID_ON = "getPrevalidOn";
-
-    public static final String PREVALID_OFF = "getPrevalidOff";
-
-    public static final String REQ_PREVALID_OFF = "reqPrevalidOff";
-
 }

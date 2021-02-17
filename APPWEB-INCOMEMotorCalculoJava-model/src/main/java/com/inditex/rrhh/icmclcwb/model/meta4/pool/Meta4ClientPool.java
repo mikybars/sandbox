@@ -525,37 +525,6 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    /*
-     * TODO [javierev] eliminar estos tests y todo lo relacionado con getconfprevalid
-     *
-     * @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}") public
-     * GetconfprevalidOutput getconfprevalid(final IcmParamcalconfprevalidBlock param1) { final
-     * Meta4ClientPoolable client = this.claim(this.pool); try { return
-     * client.getIcmWsCalcIncomeService().getconfprevalid(param1); } catch (final Exception e) {
-     * this.catchException(e, client, Arrays.asList(param1, param1)); throw new
-     * Meta4IcmclcwbException(e.getMessage(), e); } finally { this.release(client); } }
-     *
-     * @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}") public
-     * GetprevalidonOutput getprevalidon(final IcmParamcalvalonBlock param1) { final Meta4ClientPoolable
-     * client = this.claim(this.pool); try { return
-     * client.getIcmWsCalcIncomeService().getprevalidon(param1); } catch (final Exception e) {
-     * this.catchException(e, client, Arrays.asList(param1, param1)); throw new
-     * Meta4IcmclcwbException(e.getMessage(), e); } finally { this.release(client); } }
-     *
-     * @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}") public
-     * ReqprevalidoffOutput reqprevalidoff(final IcmParamcalvaloffBlock param1) { final
-     * Meta4ClientPoolable client = this.claim(this.pool); try { return
-     * client.getIcmWsCalcIncomeService().reqprevalidoff(param1); } catch (final Exception e) {
-     * this.catchException(e, client, Arrays.asList(param1, param1)); throw new
-     * Meta4IcmclcwbException(e.getMessage(), e); } finally { this.release(client); } }
-     *
-     * @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}") public
-     * GetprevalidoffOutput getprevalidoff(final IcmParamcalvaloffBlock param1) { final
-     * Meta4ClientPoolable client = this.claim(this.pool); try { return
-     * client.getIcmWsCalcIncomeService().getprevalidoff(param1); } catch (final Exception e) {
-     * this.catchException(e, client, Arrays.asList(param1, param1)); throw new
-     * Meta4IcmclcwbException(e.getMessage(), e); } finally { this.release(client); } }
-     */
     @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetpresenciamanualwlocOutput getpresenciamanualwloc(final IcmParametrospaginacionBlock param1,
             final IcmParamcaltiendasBlock param2) {

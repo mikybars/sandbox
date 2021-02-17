@@ -131,18 +131,6 @@ public interface Meta4IcmWsCalcIncomeService {
 
     DesplazamientosMultiempresaResponseDto getDesplazamientosMultiempresa(
             DesplazamientosMultiempresaRequestDto request);
-    /*
-     * TODO [javierev] eliminar estos tests y todo lo relacionado con getconfprevalid
-     *
-     * ConfPreValidResponseDto getConfPrevalid(ConfPreValidRequestDto request);
-     *
-     * PreValidOnResponseDto getPrevalidOn(PreValidOnRequestDto request);
-     *
-     * PreValidOffResponseDto getPrevalidOff(PreValidOffRequestDto request);
-     *
-     * ReqPreValidOffResponseDto reqPrevalidOff(ReqPreValidOffRequestDto request);
-     *
-     */
 
     PresenciaManualWlocResponseDto getPresenciaManualWloc(PresenciaManualWlocRequestDto request);
 

@@ -1801,38 +1801,4 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         verify(this.meta4ClientPool, times(1)).getdesplazreal(any(IcmParamcaldesplazrealBlock.class));
     }
 
-    /*
-     * TODO [javierev] eliminar estos tests y todo lo relacionado con getconfprevalid
-     *
-     * @Test public void getConfPrevalid() { final IcmParamcalconfprevalidBlock entrada = new
-     * IcmParamcalconfprevalidBlock(); final GetconfprevalidOutput output = new GetconfprevalidOutput();
-     * final IcmListaconfprevalidBlock block = new IcmListaconfprevalidBlock();
-     * block.getIcmListaconfprevalidRecordSet().add(new IcmListaconfprevalidRecord());
-     * output.setReturn(NumberUtils.DOUBLE_ZERO); output.setIcmListaconfprevalid(block);
-     *
-     * when(this.icmWsCalcIncomeMapper.asIcmParamcalconfprevalidBlock(any(ConfPreValidFilterDto.class)))
-     * .thenReturn(entrada);
-     * when(this.meta4ClientPool.getconfprevalid(any(IcmParamcalconfprevalidBlock.class))).thenReturn(
-     * output);
-     *
-     * final ConfPreValidRequestDto request = new ConfPreValidRequestDto(); request.setData(new
-     * ConfPreValidFilterDto()); request.setPage(new PageDto(1, 100));
-     * this.meta4IcmWsCalcIncomeServiceImpl.getConfPrevalid(request); verify(this.meta4ClientPool,
-     * times(1)).getconfprevalid(any(IcmParamcalconfprevalidBlock.class)); }
-     *
-     * @Test public void getConfPrevalidNullOutput() { final IcmParamcalconfprevalidBlock entrada = new
-     * IcmParamcalconfprevalidBlock();
-     *
-     * when(this.icmWsCalcIncomeMapper.asIcmParamcalconfprevalidBlock(any(ConfPreValidFilterDto.class)))
-     * .thenReturn(entrada);
-     * when(this.meta4ClientPool.getconfprevalid(any(IcmParamcalconfprevalidBlock.class))).thenReturn(
-     * null);
-     *
-     * final ConfPreValidRequestDto request = new ConfPreValidRequestDto(); request.setData(new
-     * ConfPreValidFilterDto()); request.setPage(new PageDto(1, 100));
-     * this.meta4IcmWsCalcIncomeServiceImpl.getConfPrevalid(request); verify(this.meta4ClientPool,
-     * times(1)).getconfprevalid(any(IcmParamcalconfprevalidBlock.class)); }
-     *
-     */
-
 }
