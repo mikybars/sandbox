@@ -21,9 +21,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
@@ -54,15 +51,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultErrorDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
@@ -87,7 +75,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconf
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfiguracionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconforigenRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfprevalidRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListadesplazrealRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
@@ -100,7 +87,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapoli
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresenciamanwlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestosrangoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestoswlocRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaprevalidRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresbaseRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresdestinoRecord;
@@ -116,8 +102,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalc
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconforigenRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfprevalidBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfprevalidRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
@@ -149,10 +133,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcals
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvaloffBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvaloffRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvalonBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvalonRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
@@ -1425,109 +1405,164 @@ public interface IcmWsCalcIncomeMapper {
             expression = "java(CollectionUtils.isNotEmpty(src.getIdsEmpresa()) ? src.getIdsEmpresa().get(0) : \"\")")
     IcmParamcalpresenciamanualRecord asIcmParamcalpresenciamanualRecord(GenericFilterDto src);
 
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechainicio", source = "fechaInicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idorigen", source = "idOrigen")
-    @Mapping(target = "idempresa", source = "idEmpresa")
-    @Mapping(target = "idlugartrabajo", source = "idLugarTrabajo")
-    @Mapping(target = "idempleado", source = "idEmpleado")
-    @Mapping(target = "idvalidacion", source = "idValidacion")
-    IcmParamcalvalonRecord asIcmParamcalvalonRecord(PreValidOnFilterParametersDto src);
-
-    @Mapping(target = "icmParamcalvalonRecordSet", ignore = true)
-    IcmParamcalvalonBlock asIcmParamcalvalonBlock(PreValidOnFilterDto src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "mensaje", source = "mensaje")
-    @Mapping(target = "idEstado", source = "idestado")
-    @Mapping(target = "idValidacion", source = "idvalidacion")
-    PreValidOnResultItemDto asPreValidOnResultItemDto(IcmListaprevalidRecord src);
-
-    @InheritInverseConfiguration
-    IcmListaprevalidRecord asIcmListaprevalidRecord(PreValidOnResultItemDto src);
-
-    List<PreValidOnResultItemDto> asPreValidOnResultItemDto(List<IcmListaprevalidRecord> src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechainicio", source = "fechaInicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idorigen", source = "idOrigen")
-    @Mapping(target = "idempresa", source = "idEmpresa")
-    @Mapping(target = "idlugartrabajo", source = "idLugarTrabajo")
-    @Mapping(target = "idempleado", source = "idEmpleado")
-    @Mapping(target = "idvalidacion", source = "idValidacion")
-    @Mapping(target = "idprevalidacion", source = "idPrevalidacion")
-    @Mapping(target = "idtarea", source = "idTarea")
-    IcmParamcalvaloffRecord asIcmParamcalvaloffRecord(PreValidOffFilterParametersDto src);
-
-    @Mapping(target = "icmParamcalvaloffRecordSet", ignore = true)
-    IcmParamcalvaloffBlock asIcmParamcalvaloffBlock(PreValidOffFilterDto src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "mensaje", source = "mensaje")
-    @Mapping(target = "idEstado", source = "idestado")
-    @Mapping(target = "idValidacion", source = "idvalidacion")
-    PreValidOffResultItemDto asPreValidOffResultItemDto(IcmListaprevalidRecord src);
-
-    @InheritInverseConfiguration
-    IcmListaprevalidRecord asIcmListaprevalidRecord(PreValidOffResultItemDto src);
-
-    List<PreValidOffResultItemDto> asPreValidOffResultItemDto(List<IcmListaprevalidRecord> src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "fechainicio", source = "fechaInicio", dateFormat = Meta4Constants.META4_DATE_FULL)
-    @Mapping(target = "idorigen", source = "idOrigen")
-    @Mapping(target = "idempresa", source = "idEmpresa")
-    @Mapping(target = "idlugartrabajo", source = "idLugarTrabajo")
-    @Mapping(target = "idempleado", source = "idEmpleado")
-    @Mapping(target = "idvalidacion", source = "idValidacion")
-    @Mapping(target = "idprevalidacion", source = "idPrevalidacion")
-    @Mapping(target = "idtarea", source = "idTarea")
-    IcmParamcalvaloffRecord asIcmParamcalvaloffRecord(ReqPreValidOffFilterParametersDto src);
-
-    @Mapping(target = "icmParamcalvaloffRecordSet", ignore = true)
-    IcmParamcalvaloffBlock asIcmParamcalvaloffBlock(ReqPreValidOffFilterDto src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    ReqPreValidOffResultItemDto asReqPreValidOffResultItemDto(IcmListaprevalidRecord src);
-
-    @InheritInverseConfiguration
-    IcmListaprevalidRecord asIcmListadesplazrealRecord(ReqPreValidOffResultItemDto src);
-
-    List<ReqPreValidOffResultItemDto> asReqPreValidOffResultItemDto(List<IcmListaprevalidRecord> src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "idorigen", source = "idOrigen")
-    @Mapping(target = "idempresa", source = "idEmpresa")
-    IcmParamcalconfprevalidRecord asIcmParamcalconfprevalidRecord(ConfPreValidFilterParametersDto src);
-
-    @Mapping(target = "icmParamcalconfprevalidRecordSet", ignore = true)
-    IcmParamcalconfprevalidBlock asIcmParamcalconfprevalidBlock(ConfPreValidFilterDto src);
-
-    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
-    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
-    @Mapping(target = "delay", source = "delay")
-    @Mapping(target = "idAccion", source = "idaccion")
-    @Mapping(target = "idEstado", source = "idestado")
-    @Mapping(target = "delayTiempo", source = "delaytiempo")
-    @Mapping(target = "idValidacion", source = "idvalidacion")
-    @Mapping(target = "reintentoMax", source = "reintentomax")
-    ConfPreValidResultItemDto asConfPreValidResultItemDto(IcmListaconfprevalidRecord src);
-
-    @InheritInverseConfiguration
-    IcmListaconfprevalidRecord asIcmListaconfprevalidRecord(ConfPreValidResultItemDto src);
-
-    List<ConfPreValidResultItemDto> asConfPreValidResultItemDto(List<IcmListaconfprevalidRecord> src);
-
+    /*
+     * TODO [javierev] eliminar estos tests y todo lo relacionado con getconfprevalid
+     *
+     * @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+     *
+     * @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+     *
+     * @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL)
+     *
+     * @Mapping(target = "fechainicio", source = "fechaInicio", dateFormat =
+     * Meta4Constants.META4_DATE_FULL)
+     *
+     * @Mapping(target = "idorigen", source = "idOrigen")
+     *
+     * @Mapping(target = "idempresa", source = "idEmpresa")
+     *
+     * @Mapping(target = "idlugartrabajo", source = "idLugarTrabajo")
+     *
+     * @Mapping(target = "idempleado", source = "idEmpleado")
+     *
+     * @Mapping(target = "idvalidacion", source = "idValidacion") IcmParamcalvalonRecord
+     * asIcmParamcalvalonRecord(PreValidOnFilterParametersDto src);
+     *
+     * @Mapping(target = "icmParamcalvalonRecordSet", ignore = true) IcmParamcalvalonBlock
+     * asIcmParamcalvalonBlock(PreValidOnFilterDto src);
+     *
+     * @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+     *
+     * @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+     *
+     * @Mapping(target = "mensaje", source = "mensaje")
+     *
+     * @Mapping(target = "idEstado", source = "idestado")
+     *
+     * @Mapping(target = "idValidacion", source = "idvalidacion") PreValidOnResultItemDto
+     * asPreValidOnResultItemDto(IcmListaprevalidRecord src);
+     *
+     * @InheritInverseConfiguration IcmListaprevalidRecord
+     * asIcmListaprevalidRecord(PreValidOnResultItemDto src);
+     *
+     * List<PreValidOnResultItemDto> asPreValidOnResultItemDto(List<IcmListaprevalidRecord> src);
+     *
+     * @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+     *
+     * @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+     *
+     * @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL)
+     *
+     * @Mapping(target = "fechainicio", source = "fechaInicio", dateFormat =
+     * Meta4Constants.META4_DATE_FULL)
+     *
+     * @Mapping(target = "idorigen", source = "idOrigen")
+     *
+     * @Mapping(target = "idempresa", source = "idEmpresa")
+     *
+     * @Mapping(target = "idlugartrabajo", source = "idLugarTrabajo")
+     *
+     * @Mapping(target = "idempleado", source = "idEmpleado")
+     *
+     * @Mapping(target = "idvalidacion", source = "idValidacion")
+     *
+     * @Mapping(target = "idprevalidacion", source = "idPrevalidacion")
+     *
+     * @Mapping(target = "idtarea", source = "idTarea") IcmParamcalvaloffRecord
+     * asIcmParamcalvaloffRecord(PreValidOffFilterParametersDto src);
+     *
+     * @Mapping(target = "icmParamcalvaloffRecordSet", ignore = true) IcmParamcalvaloffBlock
+     * asIcmParamcalvaloffBlock(PreValidOffFilterDto src);
+     *
+     * @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+     *
+     * @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+     *
+     * @Mapping(target = "mensaje", source = "mensaje")
+     *
+     * @Mapping(target = "idEstado", source = "idestado")
+     *
+     * @Mapping(target = "idValidacion", source = "idvalidacion") PreValidOffResultItemDto
+     * asPreValidOffResultItemDto(IcmListaprevalidRecord src);
+     *
+     * @InheritInverseConfiguration IcmListaprevalidRecord
+     * asIcmListaprevalidRecord(PreValidOffResultItemDto src);
+     *
+     * List<PreValidOffResultItemDto> asPreValidOffResultItemDto(List<IcmListaprevalidRecord> src);
+     *
+     * @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+     *
+     * @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+     *
+     * @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL)
+     *
+     * @Mapping(target = "fechainicio", source = "fechaInicio", dateFormat =
+     * Meta4Constants.META4_DATE_FULL)
+     *
+     * @Mapping(target = "idorigen", source = "idOrigen")
+     *
+     * @Mapping(target = "idempresa", source = "idEmpresa")
+     *
+     * @Mapping(target = "idlugartrabajo", source = "idLugarTrabajo")
+     *
+     * @Mapping(target = "idempleado", source = "idEmpleado")
+     *
+     * @Mapping(target = "idvalidacion", source = "idValidacion")
+     *
+     * @Mapping(target = "idprevalidacion", source = "idPrevalidacion")
+     *
+     * @Mapping(target = "idtarea", source = "idTarea") IcmParamcalvaloffRecord
+     * asIcmParamcalvaloffRecord(ReqPreValidOffFilterParametersDto src);
+     *
+     * @Mapping(target = "icmParamcalvaloffRecordSet", ignore = true) IcmParamcalvaloffBlock
+     * asIcmParamcalvaloffBlock(ReqPreValidOffFilterDto src);
+     *
+     * @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+     *
+     * @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+     * ReqPreValidOffResultItemDto asReqPreValidOffResultItemDto(IcmListaprevalidRecord src);
+     *
+     * @InheritInverseConfiguration IcmListaprevalidRecord
+     * asIcmListadesplazrealRecord(ReqPreValidOffResultItemDto src);
+     *
+     * List<ReqPreValidOffResultItemDto> asReqPreValidOffResultItemDto(List<IcmListaprevalidRecord>
+     * src);
+     *
+     * @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+     *
+     * @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+     *
+     * @Mapping(target = "idorigen", source = "idOrigen")
+     *
+     * @Mapping(target = "idempresa", source = "idEmpresa") IcmParamcalconfprevalidRecord
+     * asIcmParamcalconfprevalidRecord(ConfPreValidFilterParametersDto src);
+     *
+     * @Mapping(target = "icmParamcalconfprevalidRecordSet", ignore = true) IcmParamcalconfprevalidBlock
+     * asIcmParamcalconfprevalidBlock(ConfPreValidFilterDto src);
+     *
+     * @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+     *
+     * @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+     *
+     * @Mapping(target = "delay", source = "delay")
+     *
+     * @Mapping(target = "idAccion", source = "idaccion")
+     *
+     * @Mapping(target = "idEstado", source = "idestado")
+     *
+     * @Mapping(target = "delayTiempo", source = "delaytiempo")
+     *
+     * @Mapping(target = "idValidacion", source = "idvalidacion")
+     *
+     * @Mapping(target = "reintentoMax", source = "reintentomax") ConfPreValidResultItemDto
+     * asConfPreValidResultItemDto(IcmListaconfprevalidRecord src);
+     *
+     * @InheritInverseConfiguration IcmListaconfprevalidRecord
+     * asIcmListaconfprevalidRecord(ConfPreValidResultItemDto src);
+     *
+     * List<ConfPreValidResultItemDto> asConfPreValidResultItemDto(List<IcmListaconfprevalidRecord>
+     * src);
+     */
     @Mapping(target = "icmParamcaltiendasRecordSet", ignore = true)
     IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(PresenciaManualWlocFilterDto src);
 

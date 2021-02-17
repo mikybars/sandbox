@@ -36,9 +36,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
@@ -83,15 +80,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
@@ -119,7 +107,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getconfchdia
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfpreciohoraOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprevalidOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprodventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetdesplazmultiempresaOutput;
@@ -138,8 +125,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getpresencia
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualwlocOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestosrangoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestoswlocOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetprevalidoffOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetprevalidonOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventacongeladaOutput;
@@ -148,7 +133,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalc
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfprevalidBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
@@ -164,12 +148,9 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvaloffBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvalonBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.ReqprevalidoffOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
@@ -910,82 +891,59 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         return result;
     }
 
-    @Override
-    public ConfPreValidResponseDto getConfPrevalid(final ConfPreValidRequestDto request) {
-        final ConfPreValidResponseDto result = new ConfPreValidResponseDto();
-        final IcmParamcalconfprevalidBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParamcalconfprevalidBlock(request.getData());
-        final GetconfprevalidOutput getConfPrevalid = this.meta4ClientPool.getconfprevalid(param1);
-        if ((getConfPrevalid != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfPrevalid.getReturn()) == 0)) {
-            if ((getConfPrevalid.getIcmListaconfprevalid() != null) && CollectionUtils
-                .isNotEmpty(getConfPrevalid.getIcmListaconfprevalid().getIcmListaconfprevalidRecordSet())) {
-                final List<ConfPreValidResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asConfPreValidResultItemDto(
-                            getConfPrevalid.getIcmListaconfprevalid().getIcmListaconfprevalidRecordSet());
-                result.setData(items);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public PreValidOnResponseDto getPrevalidOn(final PreValidOnRequestDto request) {
-        final PreValidOnResponseDto result = new PreValidOnResponseDto();
-        final IcmParamcalvalonBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParamcalvalonBlock(request.getData());
-        final GetprevalidonOutput getprevalidonOutput = this.meta4ClientPool.getprevalidon(param1);
-        if ((getprevalidonOutput != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getprevalidonOutput.getReturn()) == 0)) {
-            if ((getprevalidonOutput.getIcmListaprevalid() != null) && CollectionUtils
-                .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) {
-                final List<PreValidOnResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asPreValidOnResultItemDto(
-                            getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet());
-                result.setData(items);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public PreValidOffResponseDto getPrevalidOff(final PreValidOffRequestDto request) {
-        final PreValidOffResponseDto result = new PreValidOffResponseDto();
-        final IcmParamcalvaloffBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParamcalvaloffBlock(request.getData());
-        final GetprevalidoffOutput getprevalidonOutput = this.meta4ClientPool.getprevalidoff(param1);
-        if ((getprevalidonOutput != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getprevalidonOutput.getReturn()) == 0)) {
-            if ((getprevalidonOutput.getIcmListaprevalid() != null) && CollectionUtils
-                .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) {
-                final List<PreValidOffResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asPreValidOffResultItemDto(
-                            getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet());
-                result.setData(items);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public ReqPreValidOffResponseDto reqPrevalidOff(final ReqPreValidOffRequestDto request) {
-        final ReqPreValidOffResponseDto result = new ReqPreValidOffResponseDto();
-        final IcmParamcalvaloffBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParamcalvaloffBlock(request.getData());
-        final ReqprevalidoffOutput getprevalidonOutput = this.meta4ClientPool.reqprevalidoff(param1);
-        if ((getprevalidonOutput != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getprevalidonOutput.getReturn()) == 0)) {
-            if ((getprevalidonOutput.getIcmListaprevalid() != null) && CollectionUtils
-                .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) {
-                final List<ReqPreValidOffResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asReqPreValidOffResultItemDto(
-                            getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet());
-                result.setData(items);
-            }
-        }
-        return result;
-    }
-
+    /*
+     * TODO [javierev] eliminar estos tests y todo lo relacionado con getconfprevalid
+     *
+     *
+     * @Override public ConfPreValidResponseDto getConfPrevalid(final ConfPreValidRequestDto request) {
+     * final ConfPreValidResponseDto result = new ConfPreValidResponseDto(); final
+     * IcmParamcalconfprevalidBlock param1 = this.icmWsCalcIncomeMapper
+     * .asIcmParamcalconfprevalidBlock(request.getData()); final GetconfprevalidOutput getConfPrevalid =
+     * this.meta4ClientPool.getconfprevalid(param1); if ((getConfPrevalid != null) &&
+     * (Double.compare(NumberUtils.DOUBLE_ZERO, getConfPrevalid.getReturn()) == 0)) { if
+     * ((getConfPrevalid.getIcmListaconfprevalid() != null) && CollectionUtils
+     * .isNotEmpty(getConfPrevalid.getIcmListaconfprevalid().getIcmListaconfprevalidRecordSet())) {
+     * final List<ConfPreValidResultItemDto> items = this.icmWsCalcIncomeMapper
+     * .asConfPreValidResultItemDto(
+     * getConfPrevalid.getIcmListaconfprevalid().getIcmListaconfprevalidRecordSet());
+     * result.setData(items); } } return result; }
+     *
+     * @Override public PreValidOnResponseDto getPrevalidOn(final PreValidOnRequestDto request) { final
+     * PreValidOnResponseDto result = new PreValidOnResponseDto(); final IcmParamcalvalonBlock param1 =
+     * this.icmWsCalcIncomeMapper .asIcmParamcalvalonBlock(request.getData()); final GetprevalidonOutput
+     * getprevalidonOutput = this.meta4ClientPool.getprevalidon(param1); if ((getprevalidonOutput !=
+     * null) && (Double.compare(NumberUtils.DOUBLE_ZERO, getprevalidonOutput.getReturn()) == 0)) { if
+     * ((getprevalidonOutput.getIcmListaprevalid() != null) && CollectionUtils
+     * .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) { final
+     * List<PreValidOnResultItemDto> items = this.icmWsCalcIncomeMapper .asPreValidOnResultItemDto(
+     * getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet()); result.setData(items);
+     * } } return result; }
+     *
+     * @Override public PreValidOffResponseDto getPrevalidOff(final PreValidOffRequestDto request) {
+     * final PreValidOffResponseDto result = new PreValidOffResponseDto(); final IcmParamcalvaloffBlock
+     * param1 = this.icmWsCalcIncomeMapper .asIcmParamcalvaloffBlock(request.getData()); final
+     * GetprevalidoffOutput getprevalidonOutput = this.meta4ClientPool.getprevalidoff(param1); if
+     * ((getprevalidonOutput != null) && (Double.compare(NumberUtils.DOUBLE_ZERO,
+     * getprevalidonOutput.getReturn()) == 0)) { if ((getprevalidonOutput.getIcmListaprevalid() != null)
+     * && CollectionUtils
+     * .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) { final
+     * List<PreValidOffResultItemDto> items = this.icmWsCalcIncomeMapper .asPreValidOffResultItemDto(
+     * getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet()); result.setData(items);
+     * } } return result; }
+     *
+     * @Override public ReqPreValidOffResponseDto reqPrevalidOff(final ReqPreValidOffRequestDto request)
+     * { final ReqPreValidOffResponseDto result = new ReqPreValidOffResponseDto(); final
+     * IcmParamcalvaloffBlock param1 = this.icmWsCalcIncomeMapper
+     * .asIcmParamcalvaloffBlock(request.getData()); final ReqprevalidoffOutput getprevalidonOutput =
+     * this.meta4ClientPool.reqprevalidoff(param1); if ((getprevalidonOutput != null) &&
+     * (Double.compare(NumberUtils.DOUBLE_ZERO, getprevalidonOutput.getReturn()) == 0)) { if
+     * ((getprevalidonOutput.getIcmListaprevalid() != null) && CollectionUtils
+     * .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) { final
+     * List<ReqPreValidOffResultItemDto> items = this.icmWsCalcIncomeMapper
+     * .asReqPreValidOffResultItemDto(
+     * getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet()); result.setData(items);
+     * } } return result; }
+     */
     @Override
     public PresenciaManualWlocResponseDto getPresenciaManualWloc(final PresenciaManualWlocRequestDto request) {
         final PresenciaManualWlocResponseDto result = new PresenciaManualWlocResponseDto();

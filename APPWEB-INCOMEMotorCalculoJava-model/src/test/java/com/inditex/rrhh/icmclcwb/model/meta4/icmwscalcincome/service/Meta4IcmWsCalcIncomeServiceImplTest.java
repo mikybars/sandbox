@@ -12,8 +12,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproducto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
@@ -45,7 +43,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getcoefjorna
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchdiasminimosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfpreciohoraOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprevalidOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprodventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetdesplazrealOutput;
@@ -74,8 +71,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconf
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfiguracionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfprevalidBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfprevalidRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListadesplazrealBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListadesplazrealRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoBlock;
@@ -102,7 +97,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalc
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfprevalidBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
@@ -1807,39 +1801,38 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         verify(this.meta4ClientPool, times(1)).getdesplazreal(any(IcmParamcaldesplazrealBlock.class));
     }
 
-    @Test
-    public void getConfPrevalid() {
-        final IcmParamcalconfprevalidBlock entrada = new IcmParamcalconfprevalidBlock();
-        final GetconfprevalidOutput output = new GetconfprevalidOutput();
-        final IcmListaconfprevalidBlock block = new IcmListaconfprevalidBlock();
-        block.getIcmListaconfprevalidRecordSet().add(new IcmListaconfprevalidRecord());
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaconfprevalid(block);
-
-        when(this.icmWsCalcIncomeMapper.asIcmParamcalconfprevalidBlock(any(ConfPreValidFilterDto.class)))
-            .thenReturn(entrada);
-        when(this.meta4ClientPool.getconfprevalid(any(IcmParamcalconfprevalidBlock.class))).thenReturn(output);
-
-        final ConfPreValidRequestDto request = new ConfPreValidRequestDto();
-        request.setData(new ConfPreValidFilterDto());
-        request.setPage(new PageDto(1, 100));
-        this.meta4IcmWsCalcIncomeServiceImpl.getConfPrevalid(request);
-        verify(this.meta4ClientPool, times(1)).getconfprevalid(any(IcmParamcalconfprevalidBlock.class));
-    }
-
-    @Test
-    public void getConfPrevalidNullOutput() {
-        final IcmParamcalconfprevalidBlock entrada = new IcmParamcalconfprevalidBlock();
-
-        when(this.icmWsCalcIncomeMapper.asIcmParamcalconfprevalidBlock(any(ConfPreValidFilterDto.class)))
-            .thenReturn(entrada);
-        when(this.meta4ClientPool.getconfprevalid(any(IcmParamcalconfprevalidBlock.class))).thenReturn(null);
-
-        final ConfPreValidRequestDto request = new ConfPreValidRequestDto();
-        request.setData(new ConfPreValidFilterDto());
-        request.setPage(new PageDto(1, 100));
-        this.meta4IcmWsCalcIncomeServiceImpl.getConfPrevalid(request);
-        verify(this.meta4ClientPool, times(1)).getconfprevalid(any(IcmParamcalconfprevalidBlock.class));
-    }
+    /*
+     * TODO [javierev] eliminar estos tests y todo lo relacionado con getconfprevalid
+     *
+     * @Test public void getConfPrevalid() { final IcmParamcalconfprevalidBlock entrada = new
+     * IcmParamcalconfprevalidBlock(); final GetconfprevalidOutput output = new GetconfprevalidOutput();
+     * final IcmListaconfprevalidBlock block = new IcmListaconfprevalidBlock();
+     * block.getIcmListaconfprevalidRecordSet().add(new IcmListaconfprevalidRecord());
+     * output.setReturn(NumberUtils.DOUBLE_ZERO); output.setIcmListaconfprevalid(block);
+     *
+     * when(this.icmWsCalcIncomeMapper.asIcmParamcalconfprevalidBlock(any(ConfPreValidFilterDto.class)))
+     * .thenReturn(entrada);
+     * when(this.meta4ClientPool.getconfprevalid(any(IcmParamcalconfprevalidBlock.class))).thenReturn(
+     * output);
+     *
+     * final ConfPreValidRequestDto request = new ConfPreValidRequestDto(); request.setData(new
+     * ConfPreValidFilterDto()); request.setPage(new PageDto(1, 100));
+     * this.meta4IcmWsCalcIncomeServiceImpl.getConfPrevalid(request); verify(this.meta4ClientPool,
+     * times(1)).getconfprevalid(any(IcmParamcalconfprevalidBlock.class)); }
+     *
+     * @Test public void getConfPrevalidNullOutput() { final IcmParamcalconfprevalidBlock entrada = new
+     * IcmParamcalconfprevalidBlock();
+     *
+     * when(this.icmWsCalcIncomeMapper.asIcmParamcalconfprevalidBlock(any(ConfPreValidFilterDto.class)))
+     * .thenReturn(entrada);
+     * when(this.meta4ClientPool.getconfprevalid(any(IcmParamcalconfprevalidBlock.class))).thenReturn(
+     * null);
+     *
+     * final ConfPreValidRequestDto request = new ConfPreValidRequestDto(); request.setData(new
+     * ConfPreValidFilterDto()); request.setPage(new PageDto(1, 100));
+     * this.meta4IcmWsCalcIncomeServiceImpl.getConfPrevalid(request); verify(this.meta4ClientPool,
+     * times(1)).getconfprevalid(any(IcmParamcalconfprevalidBlock.class)); }
+     *
+     */
 
 }
