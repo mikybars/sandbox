@@ -65,4 +65,13 @@ public class TareaFaseAccionDto implements Serializable {
     @ApiModelProperty(value = "Flag activo", required = true)
     private Boolean activo;
 
+    @ApiModelProperty(value = "Peso, extraido de FaseAccionDto", required = false, accessMode = AccessMode.READ_ONLY,
+            hidden = true)
+    private Integer peso;
+
+    @ApiModelProperty(value = "Peso de la reaccion, extraido de AccionDto", required = false,
+            accessMode = AccessMode.READ_ONLY,
+            hidden = true)
+    private Integer reaccionPeso;
+
 }

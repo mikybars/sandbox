@@ -24,9 +24,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -44,22 +46,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getventamanualwlocReturn"
+        "getventamanualwlocReturn"
 })
 @XmlRootElement(name = "GETVENTAMANUALWLOCResponse")
-public class GETVENTAMANUALWLOCResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETVENTAMANUALWLOCResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "GETVENTAMANUALWLOCReturn", required = true)
     protected GetventamanualwlocOutput getventamanualwlocReturn;
 
     /**
      * Obtiene el valor de la propiedad getventamanualwlocReturn.
-     *
-     * @return
-     *     possible object is
-     *     {@link GetventamanualwlocOutput }
+     * @return possible object is {@link GetventamanualwlocOutput }
      *
      */
     public GetventamanualwlocOutput getGETVENTAMANUALWLOCReturn() {
@@ -68,18 +67,16 @@ public class GETVENTAMANUALWLOCResponse implements Serializable, Cloneable, Copy
 
     /**
      * Define el valor de la propiedad getventamanualwlocReturn.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link GetventamanualwlocOutput }
+     * @param value allowed object is {@link GetventamanualwlocOutput }
      *
      */
     public void setGETVENTAMANUALWLOCReturn(GetventamanualwlocOutput value) {
         this.getventamanualwlocReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,11 @@ public class GETVENTAMANUALWLOCResponse implements Serializable, Cloneable, Copy
             lhsGETVENTAMANUALWLOCReturn = this.getGETVENTAMANUALWLOCReturn();
             GetventamanualwlocOutput rhsGETVENTAMANUALWLOCReturn;
             rhsGETVENTAMANUALWLOCReturn = that.getGETVENTAMANUALWLOCReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getventamanualwlocReturn", lhsGETVENTAMANUALWLOCReturn), LocatorUtils.property(thatLocator, "getventamanualwlocReturn", rhsGETVENTAMANUALWLOCReturn), lhsGETVENTAMANUALWLOCReturn, rhsGETVENTAMANUALWLOCReturn, (this.getventamanualwlocReturn!= null), (that.getventamanualwlocReturn!= null))) {
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "getventamanualwlocReturn", lhsGETVENTAMANUALWLOCReturn),
+                    LocatorUtils.property(thatLocator, "getventamanualwlocReturn", rhsGETVENTAMANUALWLOCReturn),
+                    lhsGETVENTAMANUALWLOCReturn, rhsGETVENTAMANUALWLOCReturn, (this.getventamanualwlocReturn != null),
+                    (that.getventamanualwlocReturn != null))) {
                 return false;
             }
         }
@@ -121,7 +122,8 @@ public class GETVENTAMANUALWLOCResponse implements Serializable, Cloneable, Copy
         {
             GetventamanualwlocOutput theGETVENTAMANUALWLOCReturn;
             theGETVENTAMANUALWLOCReturn = this.getGETVENTAMANUALWLOCReturn();
-            strategy.appendField(locator, this, "getventamanualwlocReturn", buffer, theGETVENTAMANUALWLOCReturn, (this.getventamanualwlocReturn!= null));
+            strategy.appendField(locator, this, "getventamanualwlocReturn", buffer, theGETVENTAMANUALWLOCReturn,
+                    (this.getventamanualwlocReturn != null));
         }
         return buffer;
     }
@@ -131,7 +133,9 @@ public class GETVENTAMANUALWLOCResponse implements Serializable, Cloneable, Copy
         {
             GetventamanualwlocOutput theGETVENTAMANUALWLOCReturn;
             theGETVENTAMANUALWLOCReturn = this.getGETVENTAMANUALWLOCReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getventamanualwlocReturn", theGETVENTAMANUALWLOCReturn), currentHashCode, theGETVENTAMANUALWLOCReturn, (this.getventamanualwlocReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "getventamanualwlocReturn", theGETVENTAMANUALWLOCReturn),
+                    currentHashCode, theGETVENTAMANUALWLOCReturn, (this.getventamanualwlocReturn != null));
         }
         return currentHashCode;
     }
@@ -151,15 +155,18 @@ public class GETVENTAMANUALWLOCResponse implements Serializable, Cloneable, Copy
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETVENTAMANUALWLOCResponse) {
             final GETVENTAMANUALWLOCResponse copy = ((GETVENTAMANUALWLOCResponse) draftCopy);
             {
-                Boolean getventamanualwlocReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getventamanualwlocReturn!= null));
+                Boolean getventamanualwlocReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.getventamanualwlocReturn != null));
                 if (getventamanualwlocReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetventamanualwlocOutput sourceGETVENTAMANUALWLOCReturn;
                     sourceGETVENTAMANUALWLOCReturn = this.getGETVENTAMANUALWLOCReturn();
-                    GetventamanualwlocOutput copyGETVENTAMANUALWLOCReturn = ((GetventamanualwlocOutput) strategy.copy(LocatorUtils.property(locator, "getventamanualwlocReturn", sourceGETVENTAMANUALWLOCReturn), sourceGETVENTAMANUALWLOCReturn, (this.getventamanualwlocReturn!= null)));
+                    GetventamanualwlocOutput copyGETVENTAMANUALWLOCReturn = ((GetventamanualwlocOutput) strategy.copy(
+                            LocatorUtils.property(locator, "getventamanualwlocReturn", sourceGETVENTAMANUALWLOCReturn),
+                            sourceGETVENTAMANUALWLOCReturn, (this.getventamanualwlocReturn != null)));
                     copy.setGETVENTAMANUALWLOCReturn(copyGETVENTAMANUALWLOCReturn);
                 } else {
                     if (getventamanualwlocReturnShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -21,9 +21,11 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 
 
 /**
- * <p>Clase Java para M4SoapException complex type.
+ * <p>
+ * Clase Java para M4SoapException complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="M4SoapException"&gt;
@@ -40,13 +42,13 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "M4SoapException")
-public class M4SoapException implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class M4SoapException implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -98,7 +100,7 @@ public class M4SoapException implements Serializable, Cloneable, CopyTo2, Equals
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         return draftCopy;
     }
 

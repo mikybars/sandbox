@@ -413,4 +413,6 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_RESULT_TOTAL = "TOTAL";
 
+    public static final String SQL_RESULT_REACCION_PESO = "REACCION_PESO";
+
 }

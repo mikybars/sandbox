@@ -24,9 +24,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -44,22 +46,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getpresenciamanualReturn"
+        "getpresenciamanualReturn"
 })
 @XmlRootElement(name = "GETPRESENCIAMANUALResponse")
-public class GETPRESENCIAMANUALResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETPRESENCIAMANUALResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "GETPRESENCIAMANUALReturn", required = true)
     protected GetpresenciamanualOutput getpresenciamanualReturn;
 
     /**
      * Obtiene el valor de la propiedad getpresenciamanualReturn.
-     *
-     * @return
-     *     possible object is
-     *     {@link GetpresenciamanualOutput }
+     * @return possible object is {@link GetpresenciamanualOutput }
      *
      */
     public GetpresenciamanualOutput getGETPRESENCIAMANUALReturn() {
@@ -68,18 +67,16 @@ public class GETPRESENCIAMANUALResponse implements Serializable, Cloneable, Copy
 
     /**
      * Define el valor de la propiedad getpresenciamanualReturn.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link GetpresenciamanualOutput }
+     * @param value allowed object is {@link GetpresenciamanualOutput }
      *
      */
     public void setGETPRESENCIAMANUALReturn(GetpresenciamanualOutput value) {
         this.getpresenciamanualReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,11 @@ public class GETPRESENCIAMANUALResponse implements Serializable, Cloneable, Copy
             lhsGETPRESENCIAMANUALReturn = this.getGETPRESENCIAMANUALReturn();
             GetpresenciamanualOutput rhsGETPRESENCIAMANUALReturn;
             rhsGETPRESENCIAMANUALReturn = that.getGETPRESENCIAMANUALReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getpresenciamanualReturn", lhsGETPRESENCIAMANUALReturn), LocatorUtils.property(thatLocator, "getpresenciamanualReturn", rhsGETPRESENCIAMANUALReturn), lhsGETPRESENCIAMANUALReturn, rhsGETPRESENCIAMANUALReturn, (this.getpresenciamanualReturn!= null), (that.getpresenciamanualReturn!= null))) {
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "getpresenciamanualReturn", lhsGETPRESENCIAMANUALReturn),
+                    LocatorUtils.property(thatLocator, "getpresenciamanualReturn", rhsGETPRESENCIAMANUALReturn),
+                    lhsGETPRESENCIAMANUALReturn, rhsGETPRESENCIAMANUALReturn, (this.getpresenciamanualReturn != null),
+                    (that.getpresenciamanualReturn != null))) {
                 return false;
             }
         }
@@ -121,7 +122,8 @@ public class GETPRESENCIAMANUALResponse implements Serializable, Cloneable, Copy
         {
             GetpresenciamanualOutput theGETPRESENCIAMANUALReturn;
             theGETPRESENCIAMANUALReturn = this.getGETPRESENCIAMANUALReturn();
-            strategy.appendField(locator, this, "getpresenciamanualReturn", buffer, theGETPRESENCIAMANUALReturn, (this.getpresenciamanualReturn!= null));
+            strategy.appendField(locator, this, "getpresenciamanualReturn", buffer, theGETPRESENCIAMANUALReturn,
+                    (this.getpresenciamanualReturn != null));
         }
         return buffer;
     }
@@ -131,7 +133,9 @@ public class GETPRESENCIAMANUALResponse implements Serializable, Cloneable, Copy
         {
             GetpresenciamanualOutput theGETPRESENCIAMANUALReturn;
             theGETPRESENCIAMANUALReturn = this.getGETPRESENCIAMANUALReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getpresenciamanualReturn", theGETPRESENCIAMANUALReturn), currentHashCode, theGETPRESENCIAMANUALReturn, (this.getpresenciamanualReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "getpresenciamanualReturn", theGETPRESENCIAMANUALReturn),
+                    currentHashCode, theGETPRESENCIAMANUALReturn, (this.getpresenciamanualReturn != null));
         }
         return currentHashCode;
     }
@@ -151,15 +155,18 @@ public class GETPRESENCIAMANUALResponse implements Serializable, Cloneable, Copy
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETPRESENCIAMANUALResponse) {
             final GETPRESENCIAMANUALResponse copy = ((GETPRESENCIAMANUALResponse) draftCopy);
             {
-                Boolean getpresenciamanualReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getpresenciamanualReturn!= null));
+                Boolean getpresenciamanualReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.getpresenciamanualReturn != null));
                 if (getpresenciamanualReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetpresenciamanualOutput sourceGETPRESENCIAMANUALReturn;
                     sourceGETPRESENCIAMANUALReturn = this.getGETPRESENCIAMANUALReturn();
-                    GetpresenciamanualOutput copyGETPRESENCIAMANUALReturn = ((GetpresenciamanualOutput) strategy.copy(LocatorUtils.property(locator, "getpresenciamanualReturn", sourceGETPRESENCIAMANUALReturn), sourceGETPRESENCIAMANUALReturn, (this.getpresenciamanualReturn!= null)));
+                    GetpresenciamanualOutput copyGETPRESENCIAMANUALReturn = ((GetpresenciamanualOutput) strategy.copy(
+                            LocatorUtils.property(locator, "getpresenciamanualReturn", sourceGETPRESENCIAMANUALReturn),
+                            sourceGETPRESENCIAMANUALReturn, (this.getpresenciamanualReturn != null)));
                     copy.setGETPRESENCIAMANUALReturn(copyGETPRESENCIAMANUALReturn);
                 } else {
                     if (getpresenciamanualReturnShouldBeCopiedAndSet == Boolean.FALSE) {

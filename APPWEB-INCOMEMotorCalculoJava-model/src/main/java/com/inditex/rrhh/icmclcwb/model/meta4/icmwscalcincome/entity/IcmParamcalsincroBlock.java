@@ -25,9 +25,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ParamcalsincroBlock complex type.
+ * <p>
+ * Clase Java para Icm_ParamcalsincroBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ParamcalsincroBlock"&gt;
@@ -45,12 +47,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalsincroBlock", propOrder = {
-    "icmParamcalsincroRecordSet"
+        "icmParamcalsincroRecordSet"
 })
-public class IcmParamcalsincroBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmParamcalsincroBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ParamcalsincroRecordSet", nillable = true)
     protected List<IcmParamcalsincroRecord> icmParamcalsincroRecordSet;
 
@@ -58,21 +60,20 @@ public class IcmParamcalsincroBlock implements Serializable, Cloneable, CopyTo2,
      * Gets the value of the icmParamcalsincroRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmParamcalsincroRecordSet property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmParamcalsincroRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmParamcalsincroRecordSet().add(newItem);
+     * getIcmParamcalsincroRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmParamcalsincroRecord }
+     * Objects of the following type(s) are allowed in the list {@link IcmParamcalsincroRecord }
      *
      *
      */
@@ -83,8 +84,9 @@ public class IcmParamcalsincroBlock implements Serializable, Cloneable, CopyTo2,
         return this.icmParamcalsincroRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -93,10 +95,17 @@ public class IcmParamcalsincroBlock implements Serializable, Cloneable, CopyTo2,
         final IcmParamcalsincroBlock that = ((IcmParamcalsincroBlock) object);
         {
             List<IcmParamcalsincroRecord> lhsIcmParamcalsincroRecordSet;
-            lhsIcmParamcalsincroRecordSet = (((this.icmParamcalsincroRecordSet!= null)&&(!this.icmParamcalsincroRecordSet.isEmpty()))?this.getIcmParamcalsincroRecordSet():null);
+            lhsIcmParamcalsincroRecordSet = (((this.icmParamcalsincroRecordSet != null)
+                    && (!this.icmParamcalsincroRecordSet.isEmpty())) ? this.getIcmParamcalsincroRecordSet() : null);
             List<IcmParamcalsincroRecord> rhsIcmParamcalsincroRecordSet;
-            rhsIcmParamcalsincroRecordSet = (((that.icmParamcalsincroRecordSet!= null)&&(!that.icmParamcalsincroRecordSet.isEmpty()))?that.getIcmParamcalsincroRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalsincroRecordSet", lhsIcmParamcalsincroRecordSet), LocatorUtils.property(thatLocator, "icmParamcalsincroRecordSet", rhsIcmParamcalsincroRecordSet), lhsIcmParamcalsincroRecordSet, rhsIcmParamcalsincroRecordSet, ((this.icmParamcalsincroRecordSet!= null)&&(!this.icmParamcalsincroRecordSet.isEmpty())), ((that.icmParamcalsincroRecordSet!= null)&&(!that.icmParamcalsincroRecordSet.isEmpty())))) {
+            rhsIcmParamcalsincroRecordSet = (((that.icmParamcalsincroRecordSet != null)
+                    && (!that.icmParamcalsincroRecordSet.isEmpty())) ? that.getIcmParamcalsincroRecordSet() : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmParamcalsincroRecordSet", lhsIcmParamcalsincroRecordSet),
+                    LocatorUtils.property(thatLocator, "icmParamcalsincroRecordSet", rhsIcmParamcalsincroRecordSet),
+                    lhsIcmParamcalsincroRecordSet, rhsIcmParamcalsincroRecordSet,
+                    ((this.icmParamcalsincroRecordSet != null) && (!this.icmParamcalsincroRecordSet.isEmpty())),
+                    ((that.icmParamcalsincroRecordSet != null) && (!that.icmParamcalsincroRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -125,8 +134,10 @@ public class IcmParamcalsincroBlock implements Serializable, Cloneable, CopyTo2,
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmParamcalsincroRecord> theIcmParamcalsincroRecordSet;
-            theIcmParamcalsincroRecordSet = (((this.icmParamcalsincroRecordSet!= null)&&(!this.icmParamcalsincroRecordSet.isEmpty()))?this.getIcmParamcalsincroRecordSet():null);
-            strategy.appendField(locator, this, "icmParamcalsincroRecordSet", buffer, theIcmParamcalsincroRecordSet, ((this.icmParamcalsincroRecordSet!= null)&&(!this.icmParamcalsincroRecordSet.isEmpty())));
+            theIcmParamcalsincroRecordSet = (((this.icmParamcalsincroRecordSet != null)
+                    && (!this.icmParamcalsincroRecordSet.isEmpty())) ? this.getIcmParamcalsincroRecordSet() : null);
+            strategy.appendField(locator, this, "icmParamcalsincroRecordSet", buffer, theIcmParamcalsincroRecordSet,
+                    ((this.icmParamcalsincroRecordSet != null) && (!this.icmParamcalsincroRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -135,8 +146,12 @@ public class IcmParamcalsincroBlock implements Serializable, Cloneable, CopyTo2,
         int currentHashCode = 1;
         {
             List<IcmParamcalsincroRecord> theIcmParamcalsincroRecordSet;
-            theIcmParamcalsincroRecordSet = (((this.icmParamcalsincroRecordSet!= null)&&(!this.icmParamcalsincroRecordSet.isEmpty()))?this.getIcmParamcalsincroRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalsincroRecordSet", theIcmParamcalsincroRecordSet), currentHashCode, theIcmParamcalsincroRecordSet, ((this.icmParamcalsincroRecordSet!= null)&&(!this.icmParamcalsincroRecordSet.isEmpty())));
+            theIcmParamcalsincroRecordSet = (((this.icmParamcalsincroRecordSet != null)
+                    && (!this.icmParamcalsincroRecordSet.isEmpty())) ? this.getIcmParamcalsincroRecordSet() : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmParamcalsincroRecordSet", theIcmParamcalsincroRecordSet),
+                    currentHashCode, theIcmParamcalsincroRecordSet,
+                    ((this.icmParamcalsincroRecordSet != null) && (!this.icmParamcalsincroRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -156,19 +171,27 @@ public class IcmParamcalsincroBlock implements Serializable, Cloneable, CopyTo2,
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmParamcalsincroBlock) {
             final IcmParamcalsincroBlock copy = ((IcmParamcalsincroBlock) draftCopy);
             {
-                Boolean icmParamcalsincroRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmParamcalsincroRecordSet!= null)&&(!this.icmParamcalsincroRecordSet.isEmpty())));
+                Boolean icmParamcalsincroRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmParamcalsincroRecordSet != null) && (!this.icmParamcalsincroRecordSet.isEmpty())));
                 if (icmParamcalsincroRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmParamcalsincroRecord> sourceIcmParamcalsincroRecordSet;
-                    sourceIcmParamcalsincroRecordSet = (((this.icmParamcalsincroRecordSet!= null)&&(!this.icmParamcalsincroRecordSet.isEmpty()))?this.getIcmParamcalsincroRecordSet():null);
+                    sourceIcmParamcalsincroRecordSet = (((this.icmParamcalsincroRecordSet != null)
+                            && (!this.icmParamcalsincroRecordSet.isEmpty())) ? this.getIcmParamcalsincroRecordSet()
+                                    : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmParamcalsincroRecord> copyIcmParamcalsincroRecordSet = ((List<IcmParamcalsincroRecord> ) strategy.copy(LocatorUtils.property(locator, "icmParamcalsincroRecordSet", sourceIcmParamcalsincroRecordSet), sourceIcmParamcalsincroRecordSet, ((this.icmParamcalsincroRecordSet!= null)&&(!this.icmParamcalsincroRecordSet.isEmpty()))));
+                    List<IcmParamcalsincroRecord> copyIcmParamcalsincroRecordSet = ((List<IcmParamcalsincroRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmParamcalsincroRecordSet",
+                                sourceIcmParamcalsincroRecordSet), sourceIcmParamcalsincroRecordSet,
+                                ((this.icmParamcalsincroRecordSet != null)
+                                        && (!this.icmParamcalsincroRecordSet.isEmpty()))));
                     copy.icmParamcalsincroRecordSet = null;
-                    if (copyIcmParamcalsincroRecordSet!= null) {
-                        List<IcmParamcalsincroRecord> uniqueIcmParamcalsincroRecordSetl = copy.getIcmParamcalsincroRecordSet();
+                    if (copyIcmParamcalsincroRecordSet != null) {
+                        List<IcmParamcalsincroRecord> uniqueIcmParamcalsincroRecordSetl = copy
+                            .getIcmParamcalsincroRecordSet();
                         uniqueIcmParamcalsincroRecordSetl.addAll(copyIcmParamcalsincroRecordSet);
                     }
                 } else {

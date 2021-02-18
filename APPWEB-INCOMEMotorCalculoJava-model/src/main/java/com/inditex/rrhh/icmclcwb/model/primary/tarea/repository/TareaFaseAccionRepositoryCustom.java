@@ -33,9 +33,8 @@ public interface TareaFaseAccionRepositoryCustom {
      * @param peso
      * @return
      */
-    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
-            @NotNull @Positive Long idTarea, @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion,
-            @NotNull Long peso);
+    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
+            @NotNull @Positive Long idTarea, @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion);
 
     /**
      * @param idTarea
@@ -65,7 +64,7 @@ public interface TareaFaseAccionRepositoryCustom {
      * @param tareaFaseAccionDto
      * @param estadoTareaFaseAccionDto
      */
-    void updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(@NotNull TareaFaseDto tareaFaseDto,
+    void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(@NotNull TareaFaseDto tareaFaseDto,
             @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
@@ -78,9 +77,9 @@ public interface TareaFaseAccionRepositoryCustom {
      * @param peso
      * @return
      */
-    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucionAndPeso(
+    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
             @NotNull @Positive Long idTarea, @NotNull Integer idFase, @NotNull Integer idAccion,
-            @NotNull Integer idPuntoEjecucion, @NotNull Long peso);
+            @NotNull Integer idPuntoEjecucion);
 
 
     /**
@@ -89,14 +88,6 @@ public interface TareaFaseAccionRepositoryCustom {
      */
     Integer countReintentosByIdTareaAndIdAccionAndIdEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
             @NotNull TareaFaseDto tareaFaseDto);
-
-
-    /**
-     * @param tareaFaseAccionDto
-     * @param estadoTareaFaseAccionDto
-     */
-    void updateFechaInicioAndFechaFinAndEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
-            @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
 
     /**

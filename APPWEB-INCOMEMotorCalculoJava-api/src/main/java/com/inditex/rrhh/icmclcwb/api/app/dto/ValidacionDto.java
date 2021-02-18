@@ -20,4 +20,6 @@ public class ValidacionDto implements Serializable {
 
     private Long idTareaFaseAccion;
 
+    private Integer reaccionPeso;
+
 }

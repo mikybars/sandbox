@@ -3,7 +3,9 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -61,16 +63,20 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
             @NotNull @Valid final FaseDto faseDto,
             @NotNull @Valid final AccionDto accionDto) {
         final TareaDto tareaDto = runTareaDto.getTarea();
-        final List<ValidacionDto> validaciones = this.tareaFaseAccionService
-            .findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(tareaDto.getId(), faseDto.getId(),
+
+        final Map<Integer, List<TareaFaseAccionDto>> fases = this.tareaFaseAccionService
+            .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(tareaDto.getId(), faseDto.getId(),
+                    accionDto.getId(),
                     PuntoEjecucionEnum.DURANTE.getId())
             .stream()
-            .map(a -> Flux
-                .fromIterable(
-                        this.tareaFaseAccionService
-                            .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucionAndPeso(
-                                    tareaDto.getId(), faseDto.getId(), accionDto.getId(),
-                                    PuntoEjecucionEnum.DURANTE.getId(), a))
+            .sorted(Comparator.comparingInt(TareaFaseAccionDto::getPeso)
+                .reversed())
+            .collect(Collectors.groupingBy(TareaFaseAccionDto::getPeso));
+
+        final List<ValidacionDto> validaciones = fases.keySet()
+            .stream()
+            .map(peso -> Flux
+                .fromIterable(fases.get(peso))
                 .parallel()
                 .runOn(Schedulers.newElastic("async-reactor-prevalidar-durante"))
                 .map(tareaFaseAccion -> {
@@ -81,45 +87,62 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                 })
                 .sequential()
                 .collectList()
-                .block())
-            .flatMap(List::stream)
+                .block()
+                .stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList()))
             .flatMap(List::stream)
             .collect(Collectors.toList());
 
-        validaciones.stream()
+        final TareaFaseDto tareaFase = this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(
+                runTareaDto.getTarea().getId(), faseDto.getId());
+
+        final List<ValidacionDto> fallidas = validaciones.stream()
             .filter(e -> Boolean.FALSE.equals(e.getResult()))
-            .forEach(e -> {
+            .sorted(Comparator.comparingInt(ValidacionDto::getReaccionPeso)
+                .reversed())
+            .map(e -> {
                 final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
                     .findById(e.getIdTareaFaseAccion());
-                final TareaFaseDto tareaFase = this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(
-                        runTareaDto.getTarea().getId(), faseDto.getId());
+
                 this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
                         EstadoTareaFaseAccionEnum.KO.getDto());
                 this.tareaFaseService.updateFechaFinAndEstado(tareaFase,
                         EstadoTareaFaseEnum.KO.getDto());
-                final AccionDto accion = this.accionService
-                    .findAccionDtoById(tareaFaseAccion.getIdAccion());
-                if (Boolean.TRUE.equals(accion.getEsReaccionReintento()) && (this.tareaFaseAccionService
-                    .countReintentosByIdTareaAndIdAccionAndIdEstado(
-                            tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {
-                    if (Boolean.TRUE.equals(accion.getEsReaccionEsperar())) {
-                        this.senderTarea.sendWithDelay(runTareaDto.getTarea(),
-                                accion.getReintentoDelay());
-                    } else {
-                        this.senderTarea.send(runTareaDto.getTarea());
-                    }
-                }
-                this.tareaFaseAccionService.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+
+                return e;
+            })
+            .collect(Collectors.toList());
+
+        if (!fallidas.isEmpty()) {
+            final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
+                .findById(fallidas.get(0).getIdTareaFaseAccion());
+            final AccionDto accion = this.accionService
+                .findAccionDtoById(tareaFaseAccion.getIdAccion());
+
+            this.tareaFaseAccionService
+                .updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
                         tareaFase,
                         EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
                         EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
-                this.tareaFaseService.updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(
+            this.tareaFaseService
+                .updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(
                         runTareaDto.getTarea(),
                         EstadoTareaFaseEnum.PENDIENTE.getDto(),
                         EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
-                this.tareaFaseService.updateActivo(runTareaDto);
-                throw new ValidationException("Error validando");
-            });
+            this.tareaFaseService.updateActivo(runTareaDto);
+            if (Boolean.TRUE.equals(accion.getEsReaccionReintento()) && (this.tareaFaseAccionService
+                .countReintentosByIdTareaAndIdAccionAndIdEstado(
+                        tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {
+                if (Boolean.TRUE.equals(accion.getEsReaccionEsperar())) {
+                    this.senderTarea.sendWithDelay(runTareaDto.getTarea(),
+                            accion.getReintentoDelay());
+                } else {
+                    this.senderTarea.send(runTareaDto.getTarea());
+                }
+            }
+            throw new ValidationException("Error validando");
+        }
 
     }
 

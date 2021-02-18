@@ -24,9 +24,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -44,22 +46,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "aiSessionId"
+        "aiSessionId"
 })
 @XmlRootElement(name = "retrieveM4Session")
-public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "ai_sessionId", required = true)
     protected String aiSessionId;
 
     /**
      * Obtiene el valor de la propiedad aiSessionId.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
+     * @return possible object is {@link String }
      *
      */
     public String getAiSessionId() {
@@ -68,18 +67,16 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
 
     /**
      * Define el valor de la propiedad aiSessionId.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
+     * @param value allowed object is {@link String }
      *
      */
     public void setAiSessionId(String value) {
         this.aiSessionId = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,9 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
             lhsAiSessionId = this.getAiSessionId();
             String rhsAiSessionId;
             rhsAiSessionId = that.getAiSessionId();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSessionId", lhsAiSessionId), LocatorUtils.property(thatLocator, "aiSessionId", rhsAiSessionId), lhsAiSessionId, rhsAiSessionId, (this.aiSessionId!= null), (that.aiSessionId!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSessionId", lhsAiSessionId),
+                    LocatorUtils.property(thatLocator, "aiSessionId", rhsAiSessionId), lhsAiSessionId, rhsAiSessionId,
+                    (this.aiSessionId != null), (that.aiSessionId != null))) {
                 return false;
             }
         }
@@ -121,7 +120,7 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
         {
             String theAiSessionId;
             theAiSessionId = this.getAiSessionId();
-            strategy.appendField(locator, this, "aiSessionId", buffer, theAiSessionId, (this.aiSessionId!= null));
+            strategy.appendField(locator, this, "aiSessionId", buffer, theAiSessionId, (this.aiSessionId != null));
         }
         return buffer;
     }
@@ -131,7 +130,8 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
         {
             String theAiSessionId;
             theAiSessionId = this.getAiSessionId();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSessionId", theAiSessionId), currentHashCode, theAiSessionId, (this.aiSessionId!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSessionId", theAiSessionId),
+                    currentHashCode, theAiSessionId, (this.aiSessionId != null));
         }
         return currentHashCode;
     }
@@ -151,15 +151,18 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof RetrieveM4Session) {
             final RetrieveM4Session copy = ((RetrieveM4Session) draftCopy);
             {
-                Boolean aiSessionIdShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSessionId!= null));
+                Boolean aiSessionIdShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.aiSessionId != null));
                 if (aiSessionIdShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceAiSessionId;
                     sourceAiSessionId = this.getAiSessionId();
-                    String copyAiSessionId = ((String) strategy.copy(LocatorUtils.property(locator, "aiSessionId", sourceAiSessionId), sourceAiSessionId, (this.aiSessionId!= null)));
+                    String copyAiSessionId = ((String) strategy.copy(
+                            LocatorUtils.property(locator, "aiSessionId", sourceAiSessionId), sourceAiSessionId,
+                            (this.aiSessionId != null)));
                     copy.setAiSessionId(copyAiSessionId);
                 } else {
                     if (aiSessionIdShouldBeCopiedAndSet == Boolean.FALSE) {

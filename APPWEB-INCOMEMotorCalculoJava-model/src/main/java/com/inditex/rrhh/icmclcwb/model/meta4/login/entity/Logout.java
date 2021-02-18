@@ -75,7 +75,8 @@ public class Logout implements Serializable, Cloneable, CopyTo2, Equals2, HashCo
     }
 
     @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
+    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
+            final ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
         this.appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
@@ -83,7 +84,8 @@ public class Logout implements Serializable, Cloneable, CopyTo2, Equals2, HashCo
     }
 
     @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
+            final ToStringStrategy2 strategy) {
         return buffer;
     }
 

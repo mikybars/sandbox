@@ -115,7 +115,8 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
     }
 
     @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
+    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
+            final ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
         this.appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
@@ -123,7 +124,8 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
     }
 
     @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
+            final ToStringStrategy2 strategy) {
         {
             final String theAiSessionId;
             theAiSessionId = this.getAiSessionId();

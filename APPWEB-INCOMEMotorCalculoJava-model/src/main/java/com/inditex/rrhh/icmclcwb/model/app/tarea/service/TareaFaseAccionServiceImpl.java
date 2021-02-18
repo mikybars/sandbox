@@ -97,22 +97,21 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     }
 
     @Override
-    public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
-            @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idPuntoEjecucion,
-            @NotNull final Long peso) {
-        return this.tareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
+    public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
+            @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idPuntoEjecucion) {
+        return this.tareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
                 idTarea,
-                idFase, idPuntoEjecucion, peso);
+                idFase, idPuntoEjecucion);
     }
 
     @Override
-    public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucionAndPeso(
+    public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
             @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idAccion,
-            @NotNull final Integer idPuntoEjecucion,
-            @NotNull final Long peso) {
-        return this.tareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
-                idTarea,
-                idFase, idPuntoEjecucion, peso);
+            @NotNull final Integer idPuntoEjecucion) {
+        return this.tareaFaseAccionRepositoryCustom
+            .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
+                    idTarea,
+                    idFase, idAccion, idPuntoEjecucion);
     }
 
     @Override
@@ -141,11 +140,12 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     }
 
     @Override
-    public void updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+    public void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
             @Valid @NotNull final TareaFaseDto tareaFaseDto,
             @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
-        this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(tareaFaseDto,
+        this.tareaFaseAccionRepositoryCustom.updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+                tareaFaseDto,
                 estadoTareaFaseAccionActualDto, estadoTareaFaseAccionDto);
     }
 

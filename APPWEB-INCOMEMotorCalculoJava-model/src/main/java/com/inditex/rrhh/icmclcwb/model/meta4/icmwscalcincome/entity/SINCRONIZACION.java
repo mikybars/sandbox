@@ -24,9 +24,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -44,22 +46,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparamcalsincro"
+        "icmparamcalsincro"
 })
 @XmlRootElement(name = "SINCRONIZACION")
-public class SINCRONIZACION implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class SINCRONIZACION implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "ICM_PARAMCALSINCRO", required = true)
     protected IcmParamcalsincroBlock icmparamcalsincro;
 
     /**
      * Obtiene el valor de la propiedad icmparamcalsincro.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalsincroBlock }
+     * @return possible object is {@link IcmParamcalsincroBlock }
      *
      */
     public IcmParamcalsincroBlock getICMPARAMCALSINCRO() {
@@ -68,18 +67,16 @@ public class SINCRONIZACION implements Serializable, Cloneable, CopyTo2, Equals2
 
     /**
      * Define el valor de la propiedad icmparamcalsincro.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalsincroBlock }
+     * @param value allowed object is {@link IcmParamcalsincroBlock }
      *
      */
     public void setICMPARAMCALSINCRO(IcmParamcalsincroBlock value) {
         this.icmparamcalsincro = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,9 @@ public class SINCRONIZACION implements Serializable, Cloneable, CopyTo2, Equals2
             lhsICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
             IcmParamcalsincroBlock rhsICMPARAMCALSINCRO;
             rhsICMPARAMCALSINCRO = that.getICMPARAMCALSINCRO();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalsincro", lhsICMPARAMCALSINCRO), LocatorUtils.property(thatLocator, "icmparamcalsincro", rhsICMPARAMCALSINCRO), lhsICMPARAMCALSINCRO, rhsICMPARAMCALSINCRO, (this.icmparamcalsincro!= null), (that.icmparamcalsincro!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalsincro", lhsICMPARAMCALSINCRO),
+                    LocatorUtils.property(thatLocator, "icmparamcalsincro", rhsICMPARAMCALSINCRO), lhsICMPARAMCALSINCRO,
+                    rhsICMPARAMCALSINCRO, (this.icmparamcalsincro != null), (that.icmparamcalsincro != null))) {
                 return false;
             }
         }
@@ -121,7 +120,8 @@ public class SINCRONIZACION implements Serializable, Cloneable, CopyTo2, Equals2
         {
             IcmParamcalsincroBlock theICMPARAMCALSINCRO;
             theICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
-            strategy.appendField(locator, this, "icmparamcalsincro", buffer, theICMPARAMCALSINCRO, (this.icmparamcalsincro!= null));
+            strategy.appendField(locator, this, "icmparamcalsincro", buffer, theICMPARAMCALSINCRO,
+                    (this.icmparamcalsincro != null));
         }
         return buffer;
     }
@@ -131,7 +131,9 @@ public class SINCRONIZACION implements Serializable, Cloneable, CopyTo2, Equals2
         {
             IcmParamcalsincroBlock theICMPARAMCALSINCRO;
             theICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalsincro", theICMPARAMCALSINCRO), currentHashCode, theICMPARAMCALSINCRO, (this.icmparamcalsincro!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalsincro", theICMPARAMCALSINCRO), currentHashCode,
+                    theICMPARAMCALSINCRO, (this.icmparamcalsincro != null));
         }
         return currentHashCode;
     }
@@ -151,15 +153,18 @@ public class SINCRONIZACION implements Serializable, Cloneable, CopyTo2, Equals2
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof SINCRONIZACION) {
             final SINCRONIZACION copy = ((SINCRONIZACION) draftCopy);
             {
-                Boolean icmparamcalsincroShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalsincro!= null));
+                Boolean icmparamcalsincroShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalsincro != null));
                 if (icmparamcalsincroShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalsincroBlock sourceICMPARAMCALSINCRO;
                     sourceICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
-                    IcmParamcalsincroBlock copyICMPARAMCALSINCRO = ((IcmParamcalsincroBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalsincro", sourceICMPARAMCALSINCRO), sourceICMPARAMCALSINCRO, (this.icmparamcalsincro!= null)));
+                    IcmParamcalsincroBlock copyICMPARAMCALSINCRO = ((IcmParamcalsincroBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalsincro", sourceICMPARAMCALSINCRO),
+                            sourceICMPARAMCALSINCRO, (this.icmparamcalsincro != null)));
                     copy.setICMPARAMCALSINCRO(copyICMPARAMCALSINCRO);
                 } else {
                     if (icmparamcalsincroShouldBeCopiedAndSet == Boolean.FALSE) {

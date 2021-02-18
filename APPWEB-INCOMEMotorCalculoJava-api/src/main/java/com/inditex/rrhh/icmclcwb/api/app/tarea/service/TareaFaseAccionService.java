@@ -44,9 +44,8 @@ public interface TareaFaseAccionService {
      * @param idPuntoEjecucion
      * @return
      */
-    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(@NotNull Long idTarea,
-            @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion,
-            @NotNull Long peso);
+    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(@NotNull Long idTarea,
+            @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion);
 
     /**
      * @param idTarea
@@ -73,7 +72,7 @@ public interface TareaFaseAccionService {
      * @param tareaFaseAccionDto
      * @param estadoTareaFaseAccionDto
      */
-    void updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+    void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
             @Valid @NotNull TareaFaseDto tareaFaseDto,
             @Valid @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @Valid @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
@@ -92,9 +91,9 @@ public interface TareaFaseAccionService {
      * @param peso
      * @return
      */
-    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucionAndPeso(
+    List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
             @NotNull Long idTarea, @NotNull Integer idFase, @NotNull Integer idAccion,
-            @NotNull Integer idPuntoEjecucion, @NotNull Long peso);
+            @NotNull Integer idPuntoEjecucion);
 
     /**
      * @param tareaFaseAccionDto

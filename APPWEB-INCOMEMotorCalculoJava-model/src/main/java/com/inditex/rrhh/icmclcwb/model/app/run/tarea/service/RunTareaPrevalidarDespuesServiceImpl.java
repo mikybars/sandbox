@@ -3,7 +3,9 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -19,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDes
 import com.inditex.rrhh.icmclcwb.api.app.tarea.PuntoEjecucionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
@@ -46,14 +49,18 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
     public List<ValidacionDto> run(@NotNull @Valid final RunTareaDto runTareaDto,
             @NotNull @Valid final FaseDto faseDto) {
         final TareaDto tareaDto = runTareaDto.getTarea();
-        return this.tareaFaseAccionService
-            .findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(tareaDto.getId(), faseDto.getId(),
+        final Map<Integer, List<TareaFaseAccionDto>> fases = this.tareaFaseAccionService
+            .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(tareaDto.getId(), faseDto.getId(),
                     PuntoEjecucionEnum.DESPUES.getId())
             .stream()
-            .map(a -> Flux
-                .fromIterable(
-                        this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucionAndPeso(
-                                tareaDto.getId(), faseDto.getId(), PuntoEjecucionEnum.DESPUES.getId(), a))
+            .sorted(Comparator.comparingInt(TareaFaseAccionDto::getPeso)
+                .reversed())
+            .collect(Collectors.groupingBy(TareaFaseAccionDto::getPeso));
+
+        return fases.keySet()
+            .stream()
+            .map(peso -> Flux
+                .fromIterable(fases.get(peso))
                 .parallel()
                 .runOn(Schedulers.newElastic("async-reactor-prevalidar-despues"))
                 .map(tareaFaseAccion -> {
@@ -64,10 +71,13 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
                 })
                 .sequential()
                 .collectList()
-                .block())
-            .flatMap(List::stream)
+                .block()
+                .stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList()))
             .flatMap(List::stream)
             .collect(Collectors.toList());
+
     }
 
 }

@@ -25,9 +25,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ParamcalflagcalculaBlock complex type.
+ * <p>
+ * Clase Java para Icm_ParamcalflagcalculaBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ParamcalflagcalculaBlock"&gt;
@@ -45,12 +47,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalflagcalculaBlock", propOrder = {
-    "icmParamcalflagcalculaRecordSet"
+        "icmParamcalflagcalculaRecordSet"
 })
-public class IcmParamcalflagcalculaBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmParamcalflagcalculaBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ParamcalflagcalculaRecordSet", nillable = true)
     protected List<IcmParamcalflagcalculaRecord> icmParamcalflagcalculaRecordSet;
 
@@ -58,21 +60,20 @@ public class IcmParamcalflagcalculaBlock implements Serializable, Cloneable, Cop
      * Gets the value of the icmParamcalflagcalculaRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmParamcalflagcalculaRecordSet property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmParamcalflagcalculaRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmParamcalflagcalculaRecordSet().add(newItem);
+     * getIcmParamcalflagcalculaRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmParamcalflagcalculaRecord }
+     * Objects of the following type(s) are allowed in the list {@link IcmParamcalflagcalculaRecord }
      *
      *
      */
@@ -83,8 +84,9 @@ public class IcmParamcalflagcalculaBlock implements Serializable, Cloneable, Cop
         return this.icmParamcalflagcalculaRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -93,10 +95,23 @@ public class IcmParamcalflagcalculaBlock implements Serializable, Cloneable, Cop
         final IcmParamcalflagcalculaBlock that = ((IcmParamcalflagcalculaBlock) object);
         {
             List<IcmParamcalflagcalculaRecord> lhsIcmParamcalflagcalculaRecordSet;
-            lhsIcmParamcalflagcalculaRecordSet = (((this.icmParamcalflagcalculaRecordSet!= null)&&(!this.icmParamcalflagcalculaRecordSet.isEmpty()))?this.getIcmParamcalflagcalculaRecordSet():null);
+            lhsIcmParamcalflagcalculaRecordSet = (((this.icmParamcalflagcalculaRecordSet != null)
+                    && (!this.icmParamcalflagcalculaRecordSet.isEmpty())) ? this.getIcmParamcalflagcalculaRecordSet()
+                            : null);
             List<IcmParamcalflagcalculaRecord> rhsIcmParamcalflagcalculaRecordSet;
-            rhsIcmParamcalflagcalculaRecordSet = (((that.icmParamcalflagcalculaRecordSet!= null)&&(!that.icmParamcalflagcalculaRecordSet.isEmpty()))?that.getIcmParamcalflagcalculaRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalflagcalculaRecordSet", lhsIcmParamcalflagcalculaRecordSet), LocatorUtils.property(thatLocator, "icmParamcalflagcalculaRecordSet", rhsIcmParamcalflagcalculaRecordSet), lhsIcmParamcalflagcalculaRecordSet, rhsIcmParamcalflagcalculaRecordSet, ((this.icmParamcalflagcalculaRecordSet!= null)&&(!this.icmParamcalflagcalculaRecordSet.isEmpty())), ((that.icmParamcalflagcalculaRecordSet!= null)&&(!that.icmParamcalflagcalculaRecordSet.isEmpty())))) {
+            rhsIcmParamcalflagcalculaRecordSet = (((that.icmParamcalflagcalculaRecordSet != null)
+                    && (!that.icmParamcalflagcalculaRecordSet.isEmpty())) ? that.getIcmParamcalflagcalculaRecordSet()
+                            : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmParamcalflagcalculaRecordSet",
+                            lhsIcmParamcalflagcalculaRecordSet),
+                    LocatorUtils.property(thatLocator, "icmParamcalflagcalculaRecordSet",
+                            rhsIcmParamcalflagcalculaRecordSet),
+                    lhsIcmParamcalflagcalculaRecordSet, rhsIcmParamcalflagcalculaRecordSet,
+                    ((this.icmParamcalflagcalculaRecordSet != null)
+                            && (!this.icmParamcalflagcalculaRecordSet.isEmpty())),
+                    ((that.icmParamcalflagcalculaRecordSet != null)
+                            && (!that.icmParamcalflagcalculaRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -125,8 +140,12 @@ public class IcmParamcalflagcalculaBlock implements Serializable, Cloneable, Cop
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmParamcalflagcalculaRecord> theIcmParamcalflagcalculaRecordSet;
-            theIcmParamcalflagcalculaRecordSet = (((this.icmParamcalflagcalculaRecordSet!= null)&&(!this.icmParamcalflagcalculaRecordSet.isEmpty()))?this.getIcmParamcalflagcalculaRecordSet():null);
-            strategy.appendField(locator, this, "icmParamcalflagcalculaRecordSet", buffer, theIcmParamcalflagcalculaRecordSet, ((this.icmParamcalflagcalculaRecordSet!= null)&&(!this.icmParamcalflagcalculaRecordSet.isEmpty())));
+            theIcmParamcalflagcalculaRecordSet = (((this.icmParamcalflagcalculaRecordSet != null)
+                    && (!this.icmParamcalflagcalculaRecordSet.isEmpty())) ? this.getIcmParamcalflagcalculaRecordSet()
+                            : null);
+            strategy.appendField(locator, this, "icmParamcalflagcalculaRecordSet", buffer,
+                    theIcmParamcalflagcalculaRecordSet, ((this.icmParamcalflagcalculaRecordSet != null)
+                            && (!this.icmParamcalflagcalculaRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -135,8 +154,14 @@ public class IcmParamcalflagcalculaBlock implements Serializable, Cloneable, Cop
         int currentHashCode = 1;
         {
             List<IcmParamcalflagcalculaRecord> theIcmParamcalflagcalculaRecordSet;
-            theIcmParamcalflagcalculaRecordSet = (((this.icmParamcalflagcalculaRecordSet!= null)&&(!this.icmParamcalflagcalculaRecordSet.isEmpty()))?this.getIcmParamcalflagcalculaRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalflagcalculaRecordSet", theIcmParamcalflagcalculaRecordSet), currentHashCode, theIcmParamcalflagcalculaRecordSet, ((this.icmParamcalflagcalculaRecordSet!= null)&&(!this.icmParamcalflagcalculaRecordSet.isEmpty())));
+            theIcmParamcalflagcalculaRecordSet = (((this.icmParamcalflagcalculaRecordSet != null)
+                    && (!this.icmParamcalflagcalculaRecordSet.isEmpty())) ? this.getIcmParamcalflagcalculaRecordSet()
+                            : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmParamcalflagcalculaRecordSet",
+                            theIcmParamcalflagcalculaRecordSet),
+                    currentHashCode, theIcmParamcalflagcalculaRecordSet, ((this.icmParamcalflagcalculaRecordSet != null)
+                            && (!this.icmParamcalflagcalculaRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -156,19 +181,28 @@ public class IcmParamcalflagcalculaBlock implements Serializable, Cloneable, Cop
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmParamcalflagcalculaBlock) {
             final IcmParamcalflagcalculaBlock copy = ((IcmParamcalflagcalculaBlock) draftCopy);
             {
-                Boolean icmParamcalflagcalculaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmParamcalflagcalculaRecordSet!= null)&&(!this.icmParamcalflagcalculaRecordSet.isEmpty())));
+                Boolean icmParamcalflagcalculaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmParamcalflagcalculaRecordSet != null)
+                                && (!this.icmParamcalflagcalculaRecordSet.isEmpty())));
                 if (icmParamcalflagcalculaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmParamcalflagcalculaRecord> sourceIcmParamcalflagcalculaRecordSet;
-                    sourceIcmParamcalflagcalculaRecordSet = (((this.icmParamcalflagcalculaRecordSet!= null)&&(!this.icmParamcalflagcalculaRecordSet.isEmpty()))?this.getIcmParamcalflagcalculaRecordSet():null);
+                    sourceIcmParamcalflagcalculaRecordSet = (((this.icmParamcalflagcalculaRecordSet != null)
+                            && (!this.icmParamcalflagcalculaRecordSet.isEmpty()))
+                                    ? this.getIcmParamcalflagcalculaRecordSet() : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmParamcalflagcalculaRecord> copyIcmParamcalflagcalculaRecordSet = ((List<IcmParamcalflagcalculaRecord> ) strategy.copy(LocatorUtils.property(locator, "icmParamcalflagcalculaRecordSet", sourceIcmParamcalflagcalculaRecordSet), sourceIcmParamcalflagcalculaRecordSet, ((this.icmParamcalflagcalculaRecordSet!= null)&&(!this.icmParamcalflagcalculaRecordSet.isEmpty()))));
+                    List<IcmParamcalflagcalculaRecord> copyIcmParamcalflagcalculaRecordSet = ((List<IcmParamcalflagcalculaRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmParamcalflagcalculaRecordSet",
+                                sourceIcmParamcalflagcalculaRecordSet), sourceIcmParamcalflagcalculaRecordSet,
+                                ((this.icmParamcalflagcalculaRecordSet != null)
+                                        && (!this.icmParamcalflagcalculaRecordSet.isEmpty()))));
                     copy.icmParamcalflagcalculaRecordSet = null;
-                    if (copyIcmParamcalflagcalculaRecordSet!= null) {
-                        List<IcmParamcalflagcalculaRecord> uniqueIcmParamcalflagcalculaRecordSetl = copy.getIcmParamcalflagcalculaRecordSet();
+                    if (copyIcmParamcalflagcalculaRecordSet != null) {
+                        List<IcmParamcalflagcalculaRecord> uniqueIcmParamcalflagcalculaRecordSetl = copy
+                            .getIcmParamcalflagcalculaRecordSet();
                         uniqueIcmParamcalflagcalculaRecordSetl.addAll(copyIcmParamcalflagcalculaRecordSet);
                     }
                 } else {

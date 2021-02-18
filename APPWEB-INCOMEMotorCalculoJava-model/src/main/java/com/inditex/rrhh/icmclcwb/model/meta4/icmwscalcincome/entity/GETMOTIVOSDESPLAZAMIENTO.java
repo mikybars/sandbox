@@ -24,9 +24,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -44,22 +46,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparamcalmotivos"
+        "icmparamcalmotivos"
 })
 @XmlRootElement(name = "GETMOTIVOSDESPLAZAMIENTO")
-public class GETMOTIVOSDESPLAZAMIENTO implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETMOTIVOSDESPLAZAMIENTO implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "ICM_PARAMCALMOTIVOS", required = true)
     protected IcmParamcalmotivosBlock icmparamcalmotivos;
 
     /**
      * Obtiene el valor de la propiedad icmparamcalmotivos.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalmotivosBlock }
+     * @return possible object is {@link IcmParamcalmotivosBlock }
      *
      */
     public IcmParamcalmotivosBlock getICMPARAMCALMOTIVOS() {
@@ -68,18 +67,16 @@ public class GETMOTIVOSDESPLAZAMIENTO implements Serializable, Cloneable, CopyTo
 
     /**
      * Define el valor de la propiedad icmparamcalmotivos.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalmotivosBlock }
+     * @param value allowed object is {@link IcmParamcalmotivosBlock }
      *
      */
     public void setICMPARAMCALMOTIVOS(IcmParamcalmotivosBlock value) {
         this.icmparamcalmotivos = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,10 @@ public class GETMOTIVOSDESPLAZAMIENTO implements Serializable, Cloneable, CopyTo
             lhsICMPARAMCALMOTIVOS = this.getICMPARAMCALMOTIVOS();
             IcmParamcalmotivosBlock rhsICMPARAMCALMOTIVOS;
             rhsICMPARAMCALMOTIVOS = that.getICMPARAMCALMOTIVOS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalmotivos", lhsICMPARAMCALMOTIVOS), LocatorUtils.property(thatLocator, "icmparamcalmotivos", rhsICMPARAMCALMOTIVOS), lhsICMPARAMCALMOTIVOS, rhsICMPARAMCALMOTIVOS, (this.icmparamcalmotivos!= null), (that.icmparamcalmotivos!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalmotivos", lhsICMPARAMCALMOTIVOS),
+                    LocatorUtils.property(thatLocator, "icmparamcalmotivos", rhsICMPARAMCALMOTIVOS),
+                    lhsICMPARAMCALMOTIVOS, rhsICMPARAMCALMOTIVOS, (this.icmparamcalmotivos != null),
+                    (that.icmparamcalmotivos != null))) {
                 return false;
             }
         }
@@ -121,7 +121,8 @@ public class GETMOTIVOSDESPLAZAMIENTO implements Serializable, Cloneable, CopyTo
         {
             IcmParamcalmotivosBlock theICMPARAMCALMOTIVOS;
             theICMPARAMCALMOTIVOS = this.getICMPARAMCALMOTIVOS();
-            strategy.appendField(locator, this, "icmparamcalmotivos", buffer, theICMPARAMCALMOTIVOS, (this.icmparamcalmotivos!= null));
+            strategy.appendField(locator, this, "icmparamcalmotivos", buffer, theICMPARAMCALMOTIVOS,
+                    (this.icmparamcalmotivos != null));
         }
         return buffer;
     }
@@ -131,7 +132,9 @@ public class GETMOTIVOSDESPLAZAMIENTO implements Serializable, Cloneable, CopyTo
         {
             IcmParamcalmotivosBlock theICMPARAMCALMOTIVOS;
             theICMPARAMCALMOTIVOS = this.getICMPARAMCALMOTIVOS();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalmotivos", theICMPARAMCALMOTIVOS), currentHashCode, theICMPARAMCALMOTIVOS, (this.icmparamcalmotivos!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalmotivos", theICMPARAMCALMOTIVOS), currentHashCode,
+                    theICMPARAMCALMOTIVOS, (this.icmparamcalmotivos != null));
         }
         return currentHashCode;
     }
@@ -151,15 +154,18 @@ public class GETMOTIVOSDESPLAZAMIENTO implements Serializable, Cloneable, CopyTo
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETMOTIVOSDESPLAZAMIENTO) {
             final GETMOTIVOSDESPLAZAMIENTO copy = ((GETMOTIVOSDESPLAZAMIENTO) draftCopy);
             {
-                Boolean icmparamcalmotivosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalmotivos!= null));
+                Boolean icmparamcalmotivosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalmotivos != null));
                 if (icmparamcalmotivosShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalmotivosBlock sourceICMPARAMCALMOTIVOS;
                     sourceICMPARAMCALMOTIVOS = this.getICMPARAMCALMOTIVOS();
-                    IcmParamcalmotivosBlock copyICMPARAMCALMOTIVOS = ((IcmParamcalmotivosBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalmotivos", sourceICMPARAMCALMOTIVOS), sourceICMPARAMCALMOTIVOS, (this.icmparamcalmotivos!= null)));
+                    IcmParamcalmotivosBlock copyICMPARAMCALMOTIVOS = ((IcmParamcalmotivosBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalmotivos", sourceICMPARAMCALMOTIVOS),
+                            sourceICMPARAMCALMOTIVOS, (this.icmparamcalmotivos != null)));
                     copy.setICMPARAMCALMOTIVOS(copyICMPARAMCALMOTIVOS);
                 } else {
                     if (icmparamcalmotivosShouldBeCopiedAndSet == Boolean.FALSE) {

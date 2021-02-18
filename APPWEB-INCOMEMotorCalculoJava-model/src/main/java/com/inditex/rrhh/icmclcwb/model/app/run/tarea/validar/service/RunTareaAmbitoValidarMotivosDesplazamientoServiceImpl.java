@@ -89,7 +89,11 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return ValidacionDto.builder().result(validacion).idTareaFaseAccion(tareaFaseAccion.getId()).build();
+        return ValidacionDto.builder()
+            .result(validacion)
+            .idTareaFaseAccion(tareaFaseAccion.getId())
+            .reaccionPeso(tareaFaseAccion.getReaccionPeso())
+            .build();
     }
 
 }

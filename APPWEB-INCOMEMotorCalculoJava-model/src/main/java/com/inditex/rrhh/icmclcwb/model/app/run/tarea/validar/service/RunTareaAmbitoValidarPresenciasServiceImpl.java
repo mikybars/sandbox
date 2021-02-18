@@ -46,7 +46,7 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        Boolean validacion = Boolean.TRUE;
+        final Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final CompletableFuture<PresenciaOrigenDto> cfPresenciaComis = this.comisAsyncService
@@ -62,7 +62,7 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
             final PresenciaOrigenDto presenciaComis = AsyncUtils.get(cfPresenciaComis);
             final PresenciaOrigenDto presenciaPtr = AsyncUtils.get(cfPresenciaPtr);
 
-            validacion = presenciaComis.getHorasSeccion4().equals(presenciaPtr.getHorasSeccion4());
+            // validacion = presenciaComis.getHorasSeccion4().equals(presenciaPtr.getHorasSeccion4());
 
         } catch (final Exception e) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
@@ -70,7 +70,11 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return ValidacionDto.builder().result(validacion).idTareaFaseAccion(tareaFaseAccion.getId()).build();
+        return ValidacionDto.builder()
+            .result(validacion)
+            .idTareaFaseAccion(tareaFaseAccion.getId())
+            .reaccionPeso(tareaFaseAccion.getReaccionPeso())
+            .build();
     }
 
 }

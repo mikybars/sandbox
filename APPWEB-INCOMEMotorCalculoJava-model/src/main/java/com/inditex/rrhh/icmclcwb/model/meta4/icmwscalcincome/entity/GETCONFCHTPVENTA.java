@@ -24,9 +24,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -44,22 +46,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparamcalconfchventa"
+        "icmparamcalconfchventa"
 })
 @XmlRootElement(name = "GETCONFCHTPVENTA")
-public class GETCONFCHTPVENTA implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETCONFCHTPVENTA implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "ICM_PARAMCALCONFCHVENTA", required = true)
     protected IcmParamcalconfchventaBlock icmparamcalconfchventa;
 
     /**
      * Obtiene el valor de la propiedad icmparamcalconfchventa.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalconfchventaBlock }
+     * @return possible object is {@link IcmParamcalconfchventaBlock }
      *
      */
     public IcmParamcalconfchventaBlock getICMPARAMCALCONFCHVENTA() {
@@ -68,18 +67,16 @@ public class GETCONFCHTPVENTA implements Serializable, Cloneable, CopyTo2, Equal
 
     /**
      * Define el valor de la propiedad icmparamcalconfchventa.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalconfchventaBlock }
+     * @param value allowed object is {@link IcmParamcalconfchventaBlock }
      *
      */
     public void setICMPARAMCALCONFCHVENTA(IcmParamcalconfchventaBlock value) {
         this.icmparamcalconfchventa = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +88,11 @@ public class GETCONFCHTPVENTA implements Serializable, Cloneable, CopyTo2, Equal
             lhsICMPARAMCALCONFCHVENTA = this.getICMPARAMCALCONFCHVENTA();
             IcmParamcalconfchventaBlock rhsICMPARAMCALCONFCHVENTA;
             rhsICMPARAMCALCONFCHVENTA = that.getICMPARAMCALCONFCHVENTA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalconfchventa", lhsICMPARAMCALCONFCHVENTA), LocatorUtils.property(thatLocator, "icmparamcalconfchventa", rhsICMPARAMCALCONFCHVENTA), lhsICMPARAMCALCONFCHVENTA, rhsICMPARAMCALCONFCHVENTA, (this.icmparamcalconfchventa!= null), (that.icmparamcalconfchventa!= null))) {
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparamcalconfchventa", lhsICMPARAMCALCONFCHVENTA),
+                    LocatorUtils.property(thatLocator, "icmparamcalconfchventa", rhsICMPARAMCALCONFCHVENTA),
+                    lhsICMPARAMCALCONFCHVENTA, rhsICMPARAMCALCONFCHVENTA, (this.icmparamcalconfchventa != null),
+                    (that.icmparamcalconfchventa != null))) {
                 return false;
             }
         }
@@ -121,7 +122,8 @@ public class GETCONFCHTPVENTA implements Serializable, Cloneable, CopyTo2, Equal
         {
             IcmParamcalconfchventaBlock theICMPARAMCALCONFCHVENTA;
             theICMPARAMCALCONFCHVENTA = this.getICMPARAMCALCONFCHVENTA();
-            strategy.appendField(locator, this, "icmparamcalconfchventa", buffer, theICMPARAMCALCONFCHVENTA, (this.icmparamcalconfchventa!= null));
+            strategy.appendField(locator, this, "icmparamcalconfchventa", buffer, theICMPARAMCALCONFCHVENTA,
+                    (this.icmparamcalconfchventa != null));
         }
         return buffer;
     }
@@ -131,7 +133,9 @@ public class GETCONFCHTPVENTA implements Serializable, Cloneable, CopyTo2, Equal
         {
             IcmParamcalconfchventaBlock theICMPARAMCALCONFCHVENTA;
             theICMPARAMCALCONFCHVENTA = this.getICMPARAMCALCONFCHVENTA();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalconfchventa", theICMPARAMCALCONFCHVENTA), currentHashCode, theICMPARAMCALCONFCHVENTA, (this.icmparamcalconfchventa!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalconfchventa", theICMPARAMCALCONFCHVENTA),
+                    currentHashCode, theICMPARAMCALCONFCHVENTA, (this.icmparamcalconfchventa != null));
         }
         return currentHashCode;
     }
@@ -151,15 +155,18 @@ public class GETCONFCHTPVENTA implements Serializable, Cloneable, CopyTo2, Equal
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETCONFCHTPVENTA) {
             final GETCONFCHTPVENTA copy = ((GETCONFCHTPVENTA) draftCopy);
             {
-                Boolean icmparamcalconfchventaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalconfchventa!= null));
+                Boolean icmparamcalconfchventaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalconfchventa != null));
                 if (icmparamcalconfchventaShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalconfchventaBlock sourceICMPARAMCALCONFCHVENTA;
                     sourceICMPARAMCALCONFCHVENTA = this.getICMPARAMCALCONFCHVENTA();
-                    IcmParamcalconfchventaBlock copyICMPARAMCALCONFCHVENTA = ((IcmParamcalconfchventaBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalconfchventa", sourceICMPARAMCALCONFCHVENTA), sourceICMPARAMCALCONFCHVENTA, (this.icmparamcalconfchventa!= null)));
+                    IcmParamcalconfchventaBlock copyICMPARAMCALCONFCHVENTA = ((IcmParamcalconfchventaBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparamcalconfchventa", sourceICMPARAMCALCONFCHVENTA),
+                                sourceICMPARAMCALCONFCHVENTA, (this.icmparamcalconfchventa != null)));
                     copy.setICMPARAMCALCONFCHVENTA(copyICMPARAMCALCONFCHVENTA);
                 } else {
                     if (icmparamcalconfchventaShouldBeCopiedAndSet == Boolean.FALSE) {
