@@ -436,19 +436,9 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         idPersonaLocalCondicionesDto
                             .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
                         idPersonaLocalCondicionesDto
-                            .setFechaDesde((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE)).toLocalDate());
+                            .setFechaDesde((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO)).toLocalDate());
                         idPersonaLocalCondicionesDto
-                            .setFechaHasta((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA)).toLocalDate());
-                        idPersonaLocalCondicionesDto
-                            .setCclIdCodOrigen((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)));
-                        idPersonaLocalCondicionesDto
-                            .setIdTipoCalculo((rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO)));
-                        idPersonaLocalCondicionesDto
-                            .setPorcentaje((rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE)));
-                        idPersonaLocalCondicionesDto
-                            .setBanda((rs.getString(SqlComisConstants.SQL_RESULT_BANDA)));
-                        idPersonaLocalCondicionesDto
-                            .setImporte((rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)));
+                            .setFechaHasta((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_FIN)).toLocalDate());
                         return idPersonaLocalCondicionesDto;
                     }
                 });

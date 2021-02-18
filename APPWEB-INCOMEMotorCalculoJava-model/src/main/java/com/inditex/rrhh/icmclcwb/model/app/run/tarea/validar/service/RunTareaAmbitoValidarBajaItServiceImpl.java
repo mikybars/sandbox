@@ -51,7 +51,7 @@ public class RunTareaAmbitoValidarBajaItServiceImpl
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final Boolean validacion = Boolean.TRUE;
+        final boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfBajasIt = this.comisAsyncService
@@ -67,6 +67,9 @@ public class RunTareaAmbitoValidarBajaItServiceImpl
 
             final List<IdPersonaLocalCondicionesDto> bajaItValidationResult = this.primaryTemporaryTableRepositoryCustom
                 .validateTempComisBajaIt(runTareaDto.getTarea());
+
+            // TODO [javierev] activar esta validacion
+            // validacion = CollectionUtils.isEmpty(bajaItValidationResult);
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisBajaIt();
 
