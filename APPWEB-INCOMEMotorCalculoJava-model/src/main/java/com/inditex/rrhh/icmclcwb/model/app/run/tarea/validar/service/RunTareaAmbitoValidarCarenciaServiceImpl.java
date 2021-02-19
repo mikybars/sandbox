@@ -51,7 +51,7 @@ public class RunTareaAmbitoValidarCarenciaServiceImpl
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final Boolean validacion = Boolean.TRUE;
+        final boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final CompletableFuture<List<IdPersonaLocalCarenciaDto>> cfCarencia = this.comisAsyncService
@@ -66,7 +66,10 @@ public class RunTareaAmbitoValidarCarenciaServiceImpl
             this.primaryTemporaryTableRepositoryCustom.insertTempComisCarencia(carencia);
 
             final List<IdPersonaLocalCarenciaDto> carenciaValidationResult = this.primaryTemporaryTableRepositoryCustom
-                .validateTempComisCarencia();
+                .validateTempComisCarencia(runTareaDto.getTarea());
+
+            // TODO [javierev] activar esta validacion
+            // validacion = CollectionUtils.isEmpty(carenciaValidationResult);
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisCarencia();
 

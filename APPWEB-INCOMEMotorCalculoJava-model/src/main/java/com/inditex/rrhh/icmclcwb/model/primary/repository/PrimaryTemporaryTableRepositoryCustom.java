@@ -136,7 +136,7 @@ public interface PrimaryTemporaryTableRepositoryCustom {
     /**
      * @return
      */
-    List<IdPersonaLocalCarenciaDto> validateTempComisCarencia();
+    List<IdPersonaLocalCarenciaDto> validateTempComisCarencia(@NotNull TareaDto tarea);
 
     /**
      * @param tarea

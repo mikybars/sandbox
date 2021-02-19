@@ -477,8 +477,13 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalCarenciaDto> validateTempComisCarencia() {
-        return this.jdbcTemplate.query(this.sqlValidateTempComisCarencia,
+    public List<IdPersonaLocalCarenciaDto> validateTempComisCarencia(@NotNull final TareaDto tarea) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+
+        return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisCarencia, params,
                 new RowMapper<IdPersonaLocalCarenciaDto>() {
 
                     @Override
@@ -487,9 +492,9 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         final IdPersonaLocalCarenciaDto idPersonaLocalCarenciaDto = new IdPersonaLocalCarenciaDto();
                         idPersonaLocalCarenciaDto
                             .setIdPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON));
-                        // idPersonaLocalCarenciaDto
-                        // .setFechaInicioCalculo(
-                        // (rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO_CALCULO)).toLocalDate());
+                        idPersonaLocalCarenciaDto
+                            .setFechaInicioCalculo(
+                                    (rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO_CALCULO)).toLocalDate());
                         return idPersonaLocalCarenciaDto;
                     }
                 });
