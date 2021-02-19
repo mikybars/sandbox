@@ -4,6 +4,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,5 +22,9 @@ public class ValidacionDto implements Serializable {
     private Long idTareaFaseAccion;
 
     private Integer reaccionPeso;
+
+    private String cclIdOrigen;
+
+    private List<String> idPersonaLocal;
 
 }
