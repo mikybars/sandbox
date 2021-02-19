@@ -196,6 +196,8 @@ public class ComisRepositoryCustomImpl
     @Override
     public List<IdPersonaLocalCarenciaDto> findCarencia(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE, tarea.getFechaInicioPeriodo());
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, tarea.getFechaFinPeriodo());
 
         return this.query(this.sqlFindCarencia, map,
                 (rs, rowNum) -> IdPersonaLocalCarenciaDto
