@@ -23,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
@@ -47,12 +48,15 @@ public class RunTareaAmbitoValidarBajaItServiceImpl
     @Autowired
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
+    @Autowired
+    private ValidacionMapper validacionMapper;
+
     @Override
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<IdPersonaLocalCondicionesDto> bajaItValidationResult;
         try {
             final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfBajasIt = this.comisAsyncService
                 .findBajasIt(runTareaDto, tareaAmbito);
@@ -65,11 +69,8 @@ public class RunTareaAmbitoValidarBajaItServiceImpl
             this.primaryTemporaryTableRepositoryCustom.createTempComisBajaIt();
             this.primaryTemporaryTableRepositoryCustom.insertTempComisBajaIt(bajasIt);
 
-            final List<IdPersonaLocalCondicionesDto> bajaItValidationResult = this.primaryTemporaryTableRepositoryCustom
+            bajaItValidationResult = this.primaryTemporaryTableRepositoryCustom
                 .validateTempComisBajaIt(runTareaDto.getTarea());
-
-            // TODO [javierev] activar esta validacion
-            // validacion = CollectionUtils.isEmpty(bajaItValidationResult);
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisBajaIt();
 
@@ -79,12 +80,8 @@ public class RunTareaAmbitoValidarBajaItServiceImpl
             AsyncUtils.cancel(cf);
             throw e;
         }
-
-        return ValidacionDto.builder()
-            .result(validacion)
-            .idTareaFaseAccion(tareaFaseAccion.getId())
-            .reaccionPeso(tareaFaseAccion.getReaccionPeso())
-            .build();
+        return this.validacionMapper.idPersonaLocalCondicionesDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
+                bajaItValidationResult);
     }
 
 }

@@ -23,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
@@ -47,12 +48,15 @@ public class RunTareaAmbitoValidarCarenciaServiceImpl
     @Autowired
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
+    @Autowired
+    private ValidacionMapper validacionMapper;
+
     @Override
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
+        List<IdPersonaLocalCarenciaDto> carenciaValidationResult = new ArrayList<>();
         try {
             final CompletableFuture<List<IdPersonaLocalCarenciaDto>> cfCarencia = this.comisAsyncService
                 .findCarencia(runTareaDto, tareaAmbito);
@@ -65,11 +69,8 @@ public class RunTareaAmbitoValidarCarenciaServiceImpl
             this.primaryTemporaryTableRepositoryCustom.createTempComisCarencia();
             this.primaryTemporaryTableRepositoryCustom.insertTempComisCarencia(carencia);
 
-            final List<IdPersonaLocalCarenciaDto> carenciaValidationResult = this.primaryTemporaryTableRepositoryCustom
+            carenciaValidationResult = this.primaryTemporaryTableRepositoryCustom
                 .validateTempComisCarencia(runTareaDto.getTarea());
-
-            // TODO [javierev] activar esta validacion
-            // validacion = CollectionUtils.isEmpty(carenciaValidationResult);
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisCarencia();
 
@@ -80,11 +81,8 @@ public class RunTareaAmbitoValidarCarenciaServiceImpl
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return ValidacionDto.builder()
-            .result(validacion)
-            .idTareaFaseAccion(tareaFaseAccion.getId())
-            .reaccionPeso(tareaFaseAccion.getReaccionPeso())
-            .build();
+        return this.validacionMapper.idPersonaLocalCarenciaDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
+                carenciaValidationResult);
     }
 
 }
