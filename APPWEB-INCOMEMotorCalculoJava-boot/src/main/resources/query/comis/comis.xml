@@ -216,31 +216,31 @@
 
   <entry key="ComisRepositoryCustom.findBajasIt">
     <![CDATA[
-WITH T AS (
-  SELECT FECHAINICIO inicio, FECHAFIN fin, ROW_NUMBER() OVER (ORDER BY Persona, CodigoIncidencia, FECHAINICIO) row, Persona, CodigoIncidencia
-  FROM INCIDENCIASSIL
-  WHERE TIPOINCIDENCIA = 700
-      AND CODIGOINCIDENCIA >= 7000 AND CODIGOINCIDENCIA <= 7100
-      AND FECHAINICIO >= :fechaDesde AND FECHAFIN <= :fechaHasta
-      AND (
-        ESTADO NOT IN (
-              SELECT CONVERT(INTEGER,INDICE)
-              FROM TABLASGENERALES
-              WHERE TABLA = 9061 AND INDICADOR1 = 'E')
-        AND ORIGEN NOT IN (
-              SELECT CONVERT(INTEGER,INDICE)
-              FROM TABLASGENERALES
-              WHERE TABLA = 9061 AND INDICADOR1 = 'O')
+      WITH T AS (
+        SELECT FECHAINICIO inicio, FECHAFIN fin, ROW_NUMBER() OVER (ORDER BY Persona, CodigoIncidencia, FECHAINICIO) row, Persona, CodigoIncidencia
+        FROM INCIDENCIASSIL
+        WHERE TIPOINCIDENCIA = 700
+            AND CODIGOINCIDENCIA >= 7000 AND CODIGOINCIDENCIA <= 7100
+            AND FECHAINICIO >= :fechaDesde AND FECHAFIN <= :fechaHasta
+            AND (
+              ESTADO NOT IN (
+                    SELECT CONVERT(INTEGER,INDICE)
+                    FROM TABLASGENERALES
+                    WHERE TABLA = 9061 AND INDICADOR1 = 'E')
+              AND ORIGEN NOT IN (
+                    SELECT CONVERT(INTEGER,INDICE)
+                    FROM TABLASGENERALES
+                    WHERE TABLA = 9061 AND INDICADOR1 = 'O')
+            )
+        GROUP BY FECHAINICIO, FECHAFIN, Persona, CodigoIncidencia
       )
-  GROUP BY FECHAINICIO, FECHAFIN, Persona, CodigoIncidencia
-)
-SELECT
-	Min(inicio) AS FECHA_INICIO,
-    Max(fin) AS FECHA_FIN,
-    PERSONA AS CCL_ID_PERSON,
-    (100 - (CODIGOINCIDENCIA - 7000))/100.0 AS PORCENTAJE
-FROM T
-GROUP BY Persona, CodigoIncidencia, DATEDIFF(day, FIN, row)
+      SELECT
+        Min(inicio) AS FECHA_INICIO,
+          Max(fin) AS FECHA_FIN,
+          PERSONA AS CCL_ID_PERSON,
+          (100 - (CODIGOINCIDENCIA - 7000))/100.0 AS PORCENTAJE
+      FROM T
+      GROUP BY Persona, CodigoIncidencia, DATEDIFF(day, FIN, row)
       ]]>
   </entry>
 
