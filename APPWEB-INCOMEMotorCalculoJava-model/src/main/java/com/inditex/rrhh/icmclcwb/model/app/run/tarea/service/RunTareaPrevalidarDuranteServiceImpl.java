@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimientoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
@@ -42,6 +43,9 @@ import reactor.core.scheduler.Schedulers;
 @Service
 @Validated
 public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarDuranteService {
+
+    @Autowired
+    private RunMantenimientoService runMantenimientoService;
 
     @Autowired
     private RunPrevalidarFactory runPrevalidarFactory;
@@ -131,6 +135,8 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                         EstadoTareaFaseEnum.PENDIENTE.getDto(),
                         EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
             this.tareaFaseService.updateActivo(runTareaDto);
+            this.runMantenimientoService.runIdTarea(runTareaDto.getTarea().getId());
+
             if (Boolean.TRUE.equals(accion.getEsReaccionReintento()) && (this.tareaFaseAccionService
                 .countReintentosByIdTareaAndIdAccionAndIdEstado(
                         tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {

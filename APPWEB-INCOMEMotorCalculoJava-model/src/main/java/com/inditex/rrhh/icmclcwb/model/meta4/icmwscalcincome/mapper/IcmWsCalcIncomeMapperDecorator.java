@@ -27,6 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
@@ -70,6 +71,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
@@ -744,6 +747,27 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             }
         }
         return list;
+    }
+
+    @Override
+    public IcmParamcalsincroBlock asIcmParamcalsincroBlock(final SincronizacionFilterDto src) {
+        final List<IcmParamcalsincroRecord> list = this.asIcmParamcalsincroRecordList(src);
+        final IcmParamcalsincroBlock result = new IcmParamcalsincroBlock();
+        result.getIcmParamcalsincroRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcalsincroRecord> asIcmParamcalsincroRecordList(final SincronizacionFilterDto src) {
+        final List<IcmParamcalsincroRecord> result = new ArrayList<>();
+        if (src != null) {
+            src.getItems().forEach(item -> {
+                final IcmParamcalsincroRecord record = this.delegate.asIcmParamcalsincroRecord(src);
+                record.setIdempleado(item.getIdEmpleado());
+                record.setIdorigen(item.getIdOrigen());
+                result.add(record);
+            });
+        }
+        return result;
     }
 
 }

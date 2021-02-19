@@ -64,6 +64,9 @@ public class RunTareaRecolectarCondicionesBaseServiceImpl implements RunTareaRec
             this.runTareaPrevalidarDuranteService.run(runTarea, FaseEnum.RECOLECTAR.getDto(),
                     AccionEnum.MOTIVOS.getDto());
 
+            this.runTareaPrevalidarDuranteService.run(runTarea, FaseEnum.RECOLECTAR.getDto(),
+                    AccionEnum.FECHAS.getDto());
+
             final CompletableFuture<Void> cfEstructurasPol = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .estructurasPolByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfEstructurasPol, cf);

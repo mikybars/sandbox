@@ -42,7 +42,7 @@ public class RunTareaAmbitoValidarFechasServiceImpl implements RunTareaAmbitoVal
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        Boolean validacion = Boolean.TRUE;
+        final Boolean validacion = Boolean.FALSE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> cfIncidencias = this.comisAsyncService
@@ -56,7 +56,7 @@ public class RunTareaAmbitoValidarFechasServiceImpl implements RunTareaAmbitoVal
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
             final List<IdPersonaLocalFechaIncidenciaDto> presenciaComis = AsyncUtils.get(cfIncidencias);
-            validacion = presenciaComis.isEmpty();
+            // validacion = presenciaComis.isEmpty();
 
         } catch (final Exception e) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
