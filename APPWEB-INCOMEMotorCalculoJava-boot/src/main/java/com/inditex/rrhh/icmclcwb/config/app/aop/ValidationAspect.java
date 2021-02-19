@@ -112,7 +112,7 @@ public class ValidationAspect {
                         .findAccionDtoById(tareaFaseAccion.getIdAccion());
 
                     this.tareaFaseAccionService
-                        .updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+                        .updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
                                 tareaFase,
                                 EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
                                 EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
@@ -183,7 +183,7 @@ public class ValidationAspect {
                         .findAccionDtoById(tareaFaseAccion.getIdAccion());
 
                     this.tareaFaseAccionService
-                        .updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+                        .updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
                                 tareaFase,
                                 EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
                                 EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());

@@ -140,11 +140,11 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     }
 
     @Override
-    public void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+    public void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
             @Valid @NotNull final TareaFaseDto tareaFaseDto,
             @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
-        this.tareaFaseAccionRepositoryCustom.updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+        this.tareaFaseAccionRepositoryCustom.updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
                 tareaFaseDto,
                 estadoTareaFaseAccionActualDto, estadoTareaFaseAccionDto);
     }

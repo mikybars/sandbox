@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarFechasService;
@@ -45,17 +44,19 @@ public class RunTareaAmbitoValidarFechasServiceImpl implements RunTareaAmbitoVal
         final Boolean validacion = Boolean.FALSE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            final CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> cfIncidencias = this.comisAsyncService
-                .findFechasIncidencias(runTareaDto, tareaAmbito);
-            AsyncUtils.exceptionally(cfIncidencias, cf);
-
-            final CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> cfDesplazamientos = this.comisAsyncService
-                .findFechasDesplazamientos(runTareaDto, tareaAmbito);
-            AsyncUtils.exceptionally(cfDesplazamientos, cf);
-
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-
-            final List<IdPersonaLocalFechaIncidenciaDto> presenciaComis = AsyncUtils.get(cfIncidencias);
+            // final CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> cfIncidencias =
+            // this.comisAsyncService
+            // .findFechasIncidencias(runTareaDto, tareaAmbito);
+            // AsyncUtils.exceptionally(cfIncidencias, cf);
+            //
+            // final CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> cfDesplazamientos =
+            // this.comisAsyncService
+            // .findFechasDesplazamientos(runTareaDto, tareaAmbito);
+            // AsyncUtils.exceptionally(cfDesplazamientos, cf);
+            //
+            // AsyncUtils.waitAllOfIsOk(cf, cf);
+            //
+            // final List<IdPersonaLocalFechaIncidenciaDto> presenciaComis = AsyncUtils.get(cfIncidencias);
             // validacion = presenciaComis.isEmpty();
 
         } catch (final Exception e) {

@@ -6444,7 +6444,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
     ]]>
   </entry>
   
-  <entry key="TareaFaseAccionRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual">
+  <entry key="TareaFaseAccionRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual">
     <![CDATA[
            MERGE INTO TAREA_FASE_ACCION AS TFA USING
         (
@@ -6452,7 +6452,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
                 FROM TAREA_FASE_ACCION TFA
                 INNER JOIN TAREA_FASE TF
                 ON TF.ID_TAREA_FASE = TFA.ID_TAREA_FASE
-                WHERE TF.ID_TAREA_FASE = :idTareaFase
+                WHERE TF.ID_TAREA = :idTarea
                 AND TFA.ID_ESTADO_TAREA_FASE_ACCION = :idEstado                
         )AS S ON (S.ID_TAREA_FASE_ACCION = TFA.ID_TAREA_FASE_ACCION)
         WHEN MATCHED THEN

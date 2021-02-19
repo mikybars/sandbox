@@ -54,8 +54,8 @@ public class TareaFaseAccionRepositoryCustomImpl
     @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.updateFechaFinAndEstado']}")
     private String sqlUpdateFechaFinAndEstado;
 
-    @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual']}")
-    private String sqlUpdateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual;
+    @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual']}")
+    private String sqlUpdateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual;
 
     @Value("#{primaryQuery['TareaFaseAccionRepositoryCustom.countReintentosByIdTareaAndIdAccionAndIdEstado']}")
     private String sqlCountReintentosByIdTareaAndIdAccionAndIdEstado;
@@ -182,17 +182,17 @@ public class TareaFaseAccionRepositoryCustomImpl
     }
 
     @Override
-    public void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+    public void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
             @NotNull final TareaFaseDto tareaFaseDto,
             @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE, tareaFaseDto.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaFaseDto.getIdTarea());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estadoTareaFaseAccionDto.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, estadoTareaFaseAccionActualDto.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
-        this.update(this.sqlUpdateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual, params);
+        this.update(this.sqlUpdateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual, params);
     }
 
     @Override

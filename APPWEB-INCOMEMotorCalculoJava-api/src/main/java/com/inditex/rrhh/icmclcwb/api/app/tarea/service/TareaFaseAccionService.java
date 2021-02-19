@@ -72,7 +72,7 @@ public interface TareaFaseAccionService {
      * @param tareaFaseAccionDto
      * @param estadoTareaFaseAccionDto
      */
-    void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+    void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
             @Valid @NotNull TareaFaseDto tareaFaseDto,
             @Valid @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @Valid @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);

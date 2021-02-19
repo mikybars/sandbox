@@ -76,7 +76,7 @@ public class TareaFaseRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_FASE, idFase);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
-        return this.queryForObject(this.sqlFindTareaFaseDtoByIdTareaAndIdFase,
+        final List<TareaFaseDto> tareaFaseDto = this.query(this.sqlFindTareaFaseDtoByIdTareaAndIdFase,
                 parameters,
                 new RowMapper<TareaFaseDto>() {
                     @Override
@@ -88,6 +88,8 @@ public class TareaFaseRepositoryCustomImpl
                         return dto;
                     }
                 });
+
+        return tareaFaseDto.size() == 1 ? tareaFaseDto.get(0) : null;
     }
 
     @Override

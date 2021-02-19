@@ -125,7 +125,7 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                 .findAccionDtoById(tareaFaseAccion.getIdAccion());
 
             this.tareaFaseAccionService
-                .updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(
+                .updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
                         tareaFase,
                         EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
                         EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());

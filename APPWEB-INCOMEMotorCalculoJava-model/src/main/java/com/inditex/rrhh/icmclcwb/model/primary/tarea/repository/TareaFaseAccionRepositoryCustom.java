@@ -64,7 +64,7 @@ public interface TareaFaseAccionRepositoryCustom {
      * @param tareaFaseAccionDto
      * @param estadoTareaFaseAccionDto
      */
-    void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaFaseAndEstadoActual(@NotNull TareaFaseDto tareaFaseDto,
+    void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(@NotNull TareaFaseDto tareaFaseDto,
             @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
             @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
