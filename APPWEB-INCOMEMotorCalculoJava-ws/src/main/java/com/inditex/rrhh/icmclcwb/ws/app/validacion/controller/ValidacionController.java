@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaValidarService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,12 +39,6 @@ public class ValidacionController {
     public @Valid List<Map<String, Object>> validateByIdTrabajo(
             @PathVariable @Valid @NotNull @Positive final Long idTrabajo) {
         return this.tareaValidarService.validateByIdTrabajo(idTrabajo);
-    }
-
-    @GetMapping("/faseit/{idTarea}")
-    @ApiOperation("Realiza la validación de baja it")
-    public @Valid ValidacionDto validateBajaIt(@PathVariable @Valid @NotNull @Positive final Long idTarea) {
-        return this.tareaValidarService.validateBajaIt(idTarea);
     }
 
 }

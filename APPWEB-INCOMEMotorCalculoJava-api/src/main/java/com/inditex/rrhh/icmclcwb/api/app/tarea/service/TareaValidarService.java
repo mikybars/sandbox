@@ -6,8 +6,6 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
-
 public interface TareaValidarService {
 
     List<String> checkDuplicatedTiendasHistorico(@NotNull @Positive Long idTarea);
@@ -31,7 +29,5 @@ public interface TareaValidarService {
     List<String> validateAmbito(@NotNull @Positive Long idTarea);
 
     List<String> checkDuplicatedTiposHora(@NotNull @Positive Long idTarea);
-
-    ValidacionDto validateBajaIt(@NotNull @Positive Long idTarea);
 
 }

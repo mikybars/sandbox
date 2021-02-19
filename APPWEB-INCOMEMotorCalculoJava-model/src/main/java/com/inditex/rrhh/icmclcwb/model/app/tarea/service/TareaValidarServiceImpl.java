@@ -14,15 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ReflectionIcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarBajaItService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaValidarService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaValidarRepositoryCustom;
 
@@ -35,12 +30,6 @@ public class TareaValidarServiceImpl implements TareaValidarService {
 
     @Autowired
     private TareaService tareaService;
-
-    @Autowired
-    private TrabajoService trabajoService;
-
-    @Autowired
-    private RunTareaAmbitoValidarBajaItService runTareaAmbitoValidarBajaItService;
 
     @Override
     public List<String> checkDuplicatedTiendasHistorico(@NotNull @Positive final Long idTarea) {
@@ -113,19 +102,6 @@ public class TareaValidarServiceImpl implements TareaValidarService {
         } catch (final Exception e) {
             throw e;
         }
-    }
-
-    @Override
-    public ValidacionDto validateBajaIt(
-            @NotNull @Positive final Long idTarea) {
-        final TareaDto tarea = this.tareaService.find(idTarea);
-        final RunTareaDto runTarea = RunTareaDto.builder()
-            .tarea(tarea)
-            .trabajo(this.trabajoService.find(tarea.getIdTrabajo()))
-            .build();
-
-        return this.runTareaAmbitoValidarBajaItService.execute(runTarea, runTarea.getTarea().getAmbito().get(0),
-                TareaFaseAccionDto.builder().activo(true).build());
     }
 
 }
