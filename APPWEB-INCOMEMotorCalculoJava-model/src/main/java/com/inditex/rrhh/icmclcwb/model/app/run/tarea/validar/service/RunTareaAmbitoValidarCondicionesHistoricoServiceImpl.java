@@ -27,6 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
@@ -52,6 +53,9 @@ public class RunTareaAmbitoValidarCondicionesHistoricoServiceImpl
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Autowired
+    private ValidacionMapper validacionMapper;
+
+    @Autowired
     @Qualifier("historicoProperties")
     private PrevalidarPropertiesDto historicoProperties;
 
@@ -60,8 +64,8 @@ public class RunTareaAmbitoValidarCondicionesHistoricoServiceImpl
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<IdPersonaLocalCondicionesDto> historicoValidationResult;
         try {
             final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesHistorico = this.comisAsyncService
                 .findCondicionesHistorico(runTareaDto, tareaAmbito);
@@ -74,7 +78,7 @@ public class RunTareaAmbitoValidarCondicionesHistoricoServiceImpl
             this.primaryTemporaryTableRepositoryCustom.createTempComisHistorico();
             this.primaryTemporaryTableRepositoryCustom.insertTempComisHistorico(condicionesHistorico);
 
-            final List<IdPersonaLocalCondicionesDto> historicoValidationResult = this.primaryTemporaryTableRepositoryCustom
+            historicoValidationResult = this.primaryTemporaryTableRepositoryCustom
                 .validateTempComisHistorico(runTareaDto.getTarea());
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisHistorico();
@@ -85,11 +89,9 @@ public class RunTareaAmbitoValidarCondicionesHistoricoServiceImpl
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return ValidacionDto.builder()
-            .result(validacion)
-            .idTareaFaseAccion(tareaFaseAccion.getId())
-            .reaccionPeso(tareaFaseAccion.getReaccionPeso())
-            .build();
+
+        return this.validacionMapper.idPersonaLocalCondicionesDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
+                historicoValidationResult);
     }
 
 }

@@ -258,12 +258,12 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         // .setCclIdCodOrigen((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)));
                         idPersonaLocalCondicionesDto
                             .setIdTipoCalculo((rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO)));
-                        // idPersonaLocalCondicionesDto
-                        // .setPorcentaje((rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE)));
-                        // idPersonaLocalCondicionesDto
-                        // .setBanda((rs.getString(SqlComisConstants.SQL_RESULT_BANDA)));
-                        // idPersonaLocalCondicionesDto
-                        // .setImporte((rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)));
+                        idPersonaLocalCondicionesDto
+                            .setPorcentaje((rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE)));
+                        idPersonaLocalCondicionesDto
+                            .setBanda((rs.getString(SqlComisConstants.SQL_RESULT_BANDA)));
+                        idPersonaLocalCondicionesDto
+                            .setImporte((rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)));
                         return idPersonaLocalCondicionesDto;
                     }
                 });
