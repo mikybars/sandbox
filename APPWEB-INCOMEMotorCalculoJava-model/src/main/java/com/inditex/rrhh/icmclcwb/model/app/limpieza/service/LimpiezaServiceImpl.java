@@ -39,6 +39,11 @@ public class LimpiezaServiceImpl implements LimpiezaService {
     }
 
     @Override
+    public void limpiezaAmbito(@NotNull @Valid final TareaDto tarea) {
+        tarea.getAmbito().forEach(item -> this.limpiezaRepositoryCustom.limpieza(tarea, item));
+    }
+
+    @Override
     public void limpiezaTareaPersonaHistorico(@NotNull @Valid final TareaDto tarea) {
         this.limpiezaRepositoryCustom.limpiezaTareaPersonaHistorico(tarea);
     }

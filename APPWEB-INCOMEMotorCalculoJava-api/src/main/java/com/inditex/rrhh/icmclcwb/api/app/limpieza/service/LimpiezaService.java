@@ -26,4 +26,6 @@ public interface LimpiezaService {
 
     void limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid final TareaDto tarea);
 
+    void limpiezaAmbito(@NotNull @Valid TareaDto tarea);
+
 }

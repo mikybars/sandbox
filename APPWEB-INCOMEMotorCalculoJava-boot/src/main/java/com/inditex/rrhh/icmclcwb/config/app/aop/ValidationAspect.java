@@ -16,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
-import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimientoService;
+import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarAntesService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDespuesService;
@@ -32,6 +32,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import org.aspectj.lang.JoinPoint;
@@ -52,7 +54,7 @@ public class ValidationAspect {
     private RunTareaPrevalidarDespuesService runTareaPrevalidarDespuesService;
 
     @Autowired
-    private RunMantenimientoService runMantenimientoService;
+    private LimpiezaService limpiezaService;
 
     @Autowired
     private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
@@ -126,7 +128,7 @@ public class ValidationAspect {
                                 EstadoTareaFaseEnum.PENDIENTE.getDto(),
                                 EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
                     this.tareaFaseService.updateActivo(runTareaDto);
-                    this.runMantenimientoService.runIdTarea(runTareaDto.getTarea().getId());
+                    this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
                     if (Boolean.TRUE.equals(accion.getEsReaccionReintento()) && (this.tareaFaseAccionService
                         .countReintentosByIdTareaAndIdAccionAndIdEstado(
                                 tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {
@@ -138,7 +140,25 @@ public class ValidationAspect {
                         }
 
                     }
-                    this.meta4IcmWsCalcIncomeService.sincronizacion(new SincronizacionRequestDto());
+                    if ((fallidas.get(0).getIdPersonaLocal() != null)
+                            && !fallidas.get(0).getIdPersonaLocal().isEmpty()) {
+                        final List<SincronizacionFilterParametersDto> filterParameters = fallidas.get(0)
+                            .getIdPersonaLocal()
+                            .stream()
+                            .map(
+                                    e -> SincronizacionFilterParametersDto.builder()
+                                        .idOrigen(fallidas.get(0).getCclIdOrigen())
+                                        .idEmpleado(e)
+                                        .build())
+                            .collect(Collectors.toList());
+                        final SincronizacionFilterDto filter = SincronizacionFilterDto.builder()
+                            .items(filterParameters)
+                            .build();
+                        final SincronizacionRequestDto request = new SincronizacionRequestDto();
+                        request.setData(filter);
+                        this.meta4IcmWsCalcIncomeService
+                            .sincronizacion(request);
+                    }
                     throw new ValidationException("Error validando");
                 }
             }
@@ -198,7 +218,7 @@ public class ValidationAspect {
                                 EstadoTareaFaseEnum.PENDIENTE.getDto(),
                                 EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
                     this.tareaFaseService.updateActivo(runTareaDto);
-                    this.runMantenimientoService.runIdTarea(runTareaDto.getTarea().getId());
+                    this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
                     if (Boolean.TRUE.equals(accion.getEsReaccionReintento()) && (this.tareaFaseAccionService
                         .countReintentosByIdTareaAndIdAccionAndIdEstado(
                                 tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {
@@ -209,7 +229,25 @@ public class ValidationAspect {
                             this.senderTarea.send(runTareaDto.getTarea());
                         }
                     }
-                    this.meta4IcmWsCalcIncomeService.sincronizacion(new SincronizacionRequestDto());
+                    if ((fallidas.get(0).getIdPersonaLocal() != null)
+                            && !fallidas.get(0).getIdPersonaLocal().isEmpty()) {
+                        final List<SincronizacionFilterParametersDto> filterParameters = fallidas.get(0)
+                            .getIdPersonaLocal()
+                            .stream()
+                            .map(
+                                    e -> SincronizacionFilterParametersDto.builder()
+                                        .idOrigen(fallidas.get(0).getCclIdOrigen())
+                                        .idEmpleado(e)
+                                        .build())
+                            .collect(Collectors.toList());
+                        final SincronizacionFilterDto filter = SincronizacionFilterDto.builder()
+                            .items(filterParameters)
+                            .build();
+                        final SincronizacionRequestDto request = new SincronizacionRequestDto();
+                        request.setData(filter);
+                        this.meta4IcmWsCalcIncomeService
+                            .sincronizacion(request);
+                    }
                     throw new ValidationException("Error validando");
                 }
             }
