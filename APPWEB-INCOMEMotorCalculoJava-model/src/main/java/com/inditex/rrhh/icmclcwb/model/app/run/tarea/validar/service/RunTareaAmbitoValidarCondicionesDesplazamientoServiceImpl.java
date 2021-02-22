@@ -64,7 +64,6 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<IdPersonaLocalCondicionesDto> desplazamientoValidationResult;
         try {
