@@ -200,8 +200,8 @@
         ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
         LEFT JOIN TablasPresupuestosComision TPP
         ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
-          WHERE PH.FECHADESDE >= :fechaDesde
-          AND PH.FECHAHASTA <= :fechaHasta
+          WHERE PH.FECHADESDE <= :fechaHasta
+          AND PH.FECHAHASTA >= :fechaDesde
           AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       GROUP BY
       PH.PERSONA,

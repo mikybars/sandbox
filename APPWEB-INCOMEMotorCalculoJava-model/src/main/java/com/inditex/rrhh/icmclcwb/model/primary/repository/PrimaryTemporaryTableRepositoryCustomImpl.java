@@ -385,6 +385,14 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                     public IdPersonaLocalCondicionesDto mapRow(final ResultSet rs, final int rowNum)
                             throws SQLException {
                         final IdPersonaLocalCondicionesDto idPersonaLocalCondicionesDto = new IdPersonaLocalCondicionesDto();
+                        idPersonaLocalCondicionesDto
+                            .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
+                        idPersonaLocalCondicionesDto
+                            .setFechaDesde((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO)).toLocalDate());
+                        idPersonaLocalCondicionesDto
+                            .setFechaHasta((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_FIN)).toLocalDate());
+                        idPersonaLocalCondicionesDto
+                            .setIdTipoCalculo((rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO)));
                         return idPersonaLocalCondicionesDto;
                     }
                 });

@@ -27,6 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
@@ -52,6 +53,9 @@ public class RunTareaAmbitoValidarCondicionesResaltaServiceImpl
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Autowired
+    private ValidacionMapper validacionMapper;
+
+    @Autowired
     @Qualifier("resaltaProperties")
     private PrevalidarPropertiesDto resaltaProperties;
 
@@ -60,8 +64,8 @@ public class RunTareaAmbitoValidarCondicionesResaltaServiceImpl
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<IdPersonaLocalCondicionesDto> resaltaValidationResult;
         try {
             final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesResalta = this.comisAsyncService
                 .findCondicionesResalta(runTareaDto, tareaAmbito);
@@ -74,7 +78,7 @@ public class RunTareaAmbitoValidarCondicionesResaltaServiceImpl
             this.primaryTemporaryTableRepositoryCustom.createTempComisResalta();
             this.primaryTemporaryTableRepositoryCustom.insertTempComisResalta(condicionesResalta);
 
-            final List<IdPersonaLocalCondicionesDto> resaltaValidationResult = this.primaryTemporaryTableRepositoryCustom
+            resaltaValidationResult = this.primaryTemporaryTableRepositoryCustom
                 .validateTempComisResalta(runTareaDto.getTarea());
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisResalta();
@@ -85,11 +89,8 @@ public class RunTareaAmbitoValidarCondicionesResaltaServiceImpl
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return ValidacionDto.builder()
-            .result(validacion)
-            .idTareaFaseAccion(tareaFaseAccion.getId())
-            .reaccionPeso(tareaFaseAccion.getReaccionPeso())
-            .build();
+        return this.validacionMapper.idPersonaLocalCondicionesDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
+                resaltaValidationResult);
     }
 
 }
