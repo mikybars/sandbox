@@ -323,9 +323,13 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         idPersonaLocalCondicionesDto
                             .setFechaHasta((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA)).toLocalDate());
                         idPersonaLocalCondicionesDto
-                            .setCclIdCodOrigen((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)));
+                            .setCclIdCodOrigenDestino(
+                                    (rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN_DESTINO)));
                         idPersonaLocalCondicionesDto
                             .setIdTipoCalculo((rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO)));
+                        idPersonaLocalCondicionesDto
+                            .setIdTipoOpcionCalculo(
+                                    (rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_OPCION_CALCULO)));
                         idPersonaLocalCondicionesDto
                             .setPorcentaje((rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE)));
                         idPersonaLocalCondicionesDto

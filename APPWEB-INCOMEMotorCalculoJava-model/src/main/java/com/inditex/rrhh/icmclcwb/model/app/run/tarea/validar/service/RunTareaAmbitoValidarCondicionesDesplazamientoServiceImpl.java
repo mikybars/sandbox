@@ -27,6 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
@@ -52,6 +53,9 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Autowired
+    private ValidacionMapper validacionMapper;
+
+    @Autowired
     @Qualifier("desplazamientoProperties")
     private PrevalidarPropertiesDto desplazamientoProperties;
 
@@ -62,6 +66,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
         final Boolean validacion = Boolean.TRUE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<IdPersonaLocalCondicionesDto> desplazamientoValidationResult;
         try {
             final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesDesplazamiento = this.comisAsyncService
                 .findCondicionesDesplazamiento(runTareaDto, tareaAmbito);
@@ -75,7 +80,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
             this.primaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento();
             this.primaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento(condicionesDesplazamiento);
 
-            final List<IdPersonaLocalCondicionesDto> desplazamientoValidationResult = this.primaryTemporaryTableRepositoryCustom
+            desplazamientoValidationResult = this.primaryTemporaryTableRepositoryCustom
                 .validateTempComisDesplazamiento(runTareaDto.getTarea());
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento();
@@ -86,11 +91,10 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return ValidacionDto.builder()
-            .result(validacion)
-            .idTareaFaseAccion(tareaFaseAccion.getId())
-            .reaccionPeso(tareaFaseAccion.getReaccionPeso())
-            .build();
+
+        return this.validacionMapper.idPersonaLocalCondicionesDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
+                desplazamientoValidationResult);
+
     }
 
 }
