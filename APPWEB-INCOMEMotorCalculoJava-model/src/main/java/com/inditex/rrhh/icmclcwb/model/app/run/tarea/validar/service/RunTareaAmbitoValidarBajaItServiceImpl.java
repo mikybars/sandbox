@@ -10,12 +10,16 @@ import java.util.concurrent.CompletableFuture;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarBajaItService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
@@ -51,7 +55,12 @@ public class RunTareaAmbitoValidarBajaItServiceImpl
     @Autowired
     private ValidacionMapper validacionMapper;
 
+    @Autowired
+    @Qualifier("bajaProperties")
+    private PrevalidarPropertiesDto bajaProperties;
+
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {

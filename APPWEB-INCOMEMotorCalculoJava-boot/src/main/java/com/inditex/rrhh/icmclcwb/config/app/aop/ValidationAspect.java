@@ -9,14 +9,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.validation.ValidationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimientoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarAntesService;
@@ -32,6 +31,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -52,6 +53,9 @@ public class ValidationAspect {
 
     @Autowired
     private RunMantenimientoService runMantenimientoService;
+
+    @Autowired
+    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
     @Autowired
     private TareaFaseAccionService tareaFaseAccionService;
@@ -134,6 +138,7 @@ public class ValidationAspect {
                         }
 
                     }
+                    this.meta4IcmWsCalcIncomeService.sincronizacion(new SincronizacionRequestDto());
                     throw new ValidationException("Error validando");
                 }
             }
@@ -204,6 +209,7 @@ public class ValidationAspect {
                             this.senderTarea.send(runTareaDto.getTarea());
                         }
                     }
+                    this.meta4IcmWsCalcIncomeService.sincronizacion(new SincronizacionRequestDto());
                     throw new ValidationException("Error validando");
                 }
             }

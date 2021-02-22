@@ -626,6 +626,31 @@ app:
       max: 100
       batch-size:
         default: 100
+    prevalidacion:
+      baja:
+        sincronizacion:
+          max-empleados: 10
+      carencia:
+        sincronizacion:
+          max-empleados: 10
+      motivos:
+        sincronizacion:
+          max-empleados: 10
+      fechas:
+        sincronizacion:
+          max-empleados: 10
+      presencia:
+        sincronizacion:
+          max-empleados: 10
+      resalta:
+        sincronizacion:
+          max-empleados: 10
+      desplazamiento:
+        sincronizacion:
+          max-empleados: 10
+      historico:
+        sincronizacion:
+          max-empleados: 10
     ptr:
       config:
         max-attempts: 2

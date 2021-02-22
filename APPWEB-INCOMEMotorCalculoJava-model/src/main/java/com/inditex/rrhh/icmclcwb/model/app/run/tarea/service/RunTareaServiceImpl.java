@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
@@ -91,6 +92,12 @@ public class RunTareaServiceImpl implements RunTareaService {
                     EstadoTareaCalculoPersonaEnum.OK.getDto());
             this.runTareaConsolidarService.run(runTarea);
             this.tareaService.updateEstadoFinal(runTarea.getTarea());
+        } catch (final ValidationException e) {
+            this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
+                    EstadoTareaCalculoPersonaEnum.KO.getDto());
+            this.runTareaConsolidarService.run(runTarea);
+            this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR_VALIDANDO.getDto());
+            throw e;
         } catch (final Exception e) {
             this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
                     EstadoTareaCalculoPersonaEnum.KO.getDto());

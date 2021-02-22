@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
-import javax.validation.ValidationException;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimientoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
@@ -31,6 +31,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import reactor.core.publisher.Flux;
@@ -46,6 +48,9 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
 
     @Autowired
     private RunMantenimientoService runMantenimientoService;
+
+    @Autowired
+    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
     @Autowired
     private RunPrevalidarFactory runPrevalidarFactory;
@@ -147,6 +152,7 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                     this.senderTarea.send(runTareaDto.getTarea());
                 }
             }
+            this.meta4IcmWsCalcIncomeService.sincronizacion(new SincronizacionRequestDto());
             throw new ValidationException("Error validando");
         }
 
