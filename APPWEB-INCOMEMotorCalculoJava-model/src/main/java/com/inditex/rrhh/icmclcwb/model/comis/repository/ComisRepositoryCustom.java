@@ -1,11 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.comis.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
@@ -24,16 +25,16 @@ public interface ComisRepositoryCustom {
     List<IdMotivoDesplazamientoDto> findMotivoDesplazamiento(TareaDto tarea);
 
     /**
-     * @param tarea
+     * @param fechaDesde
      * @return
      */
-    List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(TareaDto tarea);
+    List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(LocalDate fechaDesde);
 
     /**
-     * @param tarea
+     * @param fechaDesde
      * @return
      */
-    List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(TareaDto tarea);
+    List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(LocalDate fechaDesde);
 
     /**
      * @param tarea

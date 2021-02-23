@@ -3,6 +3,7 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -11,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
@@ -63,14 +64,14 @@ public class ComisServiceImpl implements ComisService {
     }
 
     @Override
-    public List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(@Valid final RunTareaDto runTareaDto,
+    public List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(final LocalDate fechaDesde,
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdPersonaLocalFechaIncidenciaDto> incidencias = null;
         try {
             ClientDatabaseContextHolder
                 .set(ClientDatabase.getClient(tareaAmbito.getCclIdOrigen()));
             incidencias = this.comisRepositoryCustom
-                .findFechasIncidencias(runTareaDto.getTarea());
+                .findFechasIncidencias(fechaDesde);
         } finally {
             ClientDatabaseContextHolder.clear();
         }
@@ -79,14 +80,14 @@ public class ComisServiceImpl implements ComisService {
     }
 
     @Override
-    public List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(@Valid final RunTareaDto runTareaDto,
+    public List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(final LocalDate fechaDesde,
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdPersonaLocalFechaIncidenciaDto> desplazamientos = null;
         try {
             ClientDatabaseContextHolder
                 .set(ClientDatabase.getClient(tareaAmbito.getCclIdOrigen()));
             desplazamientos = this.comisRepositoryCustom
-                .findFechasDesplazamientos(runTareaDto.getTarea());
+                .findFechasDesplazamientos(fechaDesde);
         } finally {
             ClientDatabaseContextHolder.clear();
         }

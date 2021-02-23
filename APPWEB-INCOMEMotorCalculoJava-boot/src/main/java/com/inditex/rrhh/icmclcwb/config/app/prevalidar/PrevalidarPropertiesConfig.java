@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarFechasPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import lombok.Data;
 
@@ -11,61 +12,61 @@ import lombok.Data;
 @Configuration
 @ConfigurationProperties(prefix = "app.envars.prevalidacion")
 public class PrevalidarPropertiesConfig {
-    
+
     private PrevalidarPropertiesDto baja;
-    
+
     private PrevalidarPropertiesDto carencia;
-    
+
     private PrevalidarPropertiesDto motivos;
-    
-    private PrevalidarPropertiesDto fechas;
-    
+
+    private PrevalidarFechasPropertiesDto fechas;
+
     private PrevalidarPropertiesDto presencia;
-    
+
     private PrevalidarPropertiesDto resalta;
-    
+
     private PrevalidarPropertiesDto desplazamiento;
-    
+
     private PrevalidarPropertiesDto historico;
 
     @Bean(name = "bajaProperties")
     public PrevalidarPropertiesDto baja() {
-        return baja;
+        return this.baja;
     }
-    
+
     @Bean(name = "motivosProperties")
     public PrevalidarPropertiesDto motivos() {
-        return motivos;
+        return this.motivos;
     }
-    
+
     @Bean(name = "carenciaProperties")
     public PrevalidarPropertiesDto carencia() {
-        return carencia;
+        return this.carencia;
     }
-    
+
     @Bean(name = "fechasProperties")
-    public PrevalidarPropertiesDto fechas() {
-        return fechas;
+    public PrevalidarFechasPropertiesDto fechas() {
+        return this.fechas;
     }
-    
+
     @Bean(name = "presenciaProperties")
     public PrevalidarPropertiesDto presencia() {
-        return presencia;
+        return this.presencia;
     }
-    
+
     @Bean(name = "resaltaProperties")
     public PrevalidarPropertiesDto resalta() {
-        return resalta;
+        return this.resalta;
     }
-    
+
     @Bean(name = "desplazamientoProperties")
     public PrevalidarPropertiesDto desplazamiento() {
-        return desplazamiento;
+        return this.desplazamiento;
     }
-    
+
     @Bean(name = "historicoProperties")
     public PrevalidarPropertiesDto historico() {
-        return historico;
+        return this.historico;
     }
 
 }

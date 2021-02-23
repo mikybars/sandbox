@@ -3,6 +3,7 @@
  */
 package com.inditex.rrhh.icmclcwb.api.app.async.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -10,10 +11,10 @@ import javax.validation.Valid;
 
 import org.springframework.scheduling.annotation.Async;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -42,19 +43,19 @@ public interface ComisAsyncService {
             @Valid TareaAmbitoDto tareaAmbito);
 
     /**
-     * @param runTareaDto
+     * @param fechaDesde
      * @param tareaAmbito
      * @return
      */
-    CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasIncidencias(@Valid RunTareaDto runTareaDto,
+    CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasIncidencias(LocalDate fechaDesde,
             @Valid TareaAmbitoDto tareaAmbito);
 
     /**
-     * @param runTareaDto
+     * @param fechaDesde
      * @param tareaAmbito
      * @return
      */
-    CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasDesplazamientos(@Valid RunTareaDto runTareaDto,
+    CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasDesplazamientos(LocalDate fechaDesde,
             @Valid TareaAmbitoDto tareaAmbito);
 
     /**

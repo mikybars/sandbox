@@ -3,6 +3,7 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.async.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -12,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
@@ -47,18 +48,18 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
 
     @Override
     public CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasIncidencias(
-            @Valid final RunTareaDto runTareaDto,
+            final LocalDate fechaDesde,
             @Valid final TareaAmbitoDto tareaAmbito) {
         return CompletableFuture
-            .completedFuture(this.comisService.findFechasIncidencias(runTareaDto, tareaAmbito));
+            .completedFuture(this.comisService.findFechasIncidencias(fechaDesde, tareaAmbito));
     }
 
     @Override
     public CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasDesplazamientos(
-            @Valid final RunTareaDto runTareaDto,
+            final LocalDate fechaDesde,
             @Valid final TareaAmbitoDto tareaAmbito) {
         return CompletableFuture
-            .completedFuture(this.comisService.findFechasDesplazamientos(runTareaDto, tareaAmbito));
+            .completedFuture(this.comisService.findFechasDesplazamientos(fechaDesde, tareaAmbito));
     }
 
     @Override

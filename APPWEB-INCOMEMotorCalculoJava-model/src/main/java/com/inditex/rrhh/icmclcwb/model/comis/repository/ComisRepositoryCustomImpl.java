@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.comis.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -79,12 +80,10 @@ public class ComisRepositoryCustomImpl
 
 
     @Override
-    public List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(final TareaDto tarea) {
+    public List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(final LocalDate fechaDesde) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO,
-                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
-        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_FIN,
-                TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+                TimeUtils.toDate(fechaDesde));
 
         return this.query(this.sqlFindFechasIncidencias, map,
                 (rs, rowNum) -> IdPersonaLocalFechaIncidenciaDto
@@ -96,8 +95,9 @@ public class ComisRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(final TareaDto tarea) {
+    public List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(final LocalDate fechaDesde) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.toDate(fechaDesde));
 
         return this.query(this.sqlFindFechasDesplazamiento, map,
                 (rs, rowNum) -> IdPersonaLocalFechaIncidenciaDto

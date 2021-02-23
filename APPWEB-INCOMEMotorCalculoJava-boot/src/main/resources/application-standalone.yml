@@ -639,6 +639,7 @@ app:
       fechas:
         sincronizacion:
           max-empleados: 10
+          meses: 24
       presencia:
         sincronizacion:
           max-empleados: 10
