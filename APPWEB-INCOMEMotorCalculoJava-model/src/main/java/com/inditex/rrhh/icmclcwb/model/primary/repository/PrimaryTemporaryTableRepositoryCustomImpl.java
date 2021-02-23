@@ -309,36 +309,18 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalCondicionesDto> validateTempComisDesplazamiento(final TareaDto tarea) {
-        return this.jdbcTemplate.query(this.sqlValidateTempComisDesplazamiento, new Object[] { tarea.getId() },
-                new RowMapper<IdPersonaLocalCondicionesDto>() {
+    public List<IdPersonaLocalDto> validateTempComisDesplazamiento(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
 
-                    @Override
-                    public IdPersonaLocalCondicionesDto mapRow(final ResultSet rs, final int rowNum)
-                            throws SQLException {
-                        final IdPersonaLocalCondicionesDto idPersonaLocalCondicionesDto = new IdPersonaLocalCondicionesDto();
-                        idPersonaLocalCondicionesDto
-                            .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
-                        idPersonaLocalCondicionesDto
-                            .setFechaDesde((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE)).toLocalDate());
-                        idPersonaLocalCondicionesDto
-                            .setFechaHasta((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA)).toLocalDate());
-                        idPersonaLocalCondicionesDto
-                            .setCclIdCodOrigenDestino(
-                                    (rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN_DESTINO)));
-                        idPersonaLocalCondicionesDto
-                            .setIdTipoCalculo((rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO)));
-                        idPersonaLocalCondicionesDto
-                            .setIdTipoOpcionCalculo(
-                                    (rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_OPCION_CALCULO)));
-                        idPersonaLocalCondicionesDto
-                            .setPorcentaje((rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE)));
-                        idPersonaLocalCondicionesDto
-                            .setBanda((rs.getString(SqlComisConstants.SQL_RESULT_BANDA)));
-                        idPersonaLocalCondicionesDto
-                            .setImporte((rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)));
-                        return idPersonaLocalCondicionesDto;
-                    }
+
+        return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisDesplazamiento, map,
+                (rs, rowNum) -> {
+                    final IdPersonaLocalDto idPersonaLocalCondicionesDto = new IdPersonaLocalDto();
+                    idPersonaLocalCondicionesDto
+                        .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
+                    return idPersonaLocalCondicionesDto;
                 });
     }
 

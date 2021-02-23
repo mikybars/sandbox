@@ -19,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -65,7 +66,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
         final List<CompletableFuture<?>> cf = new ArrayList<>();
-        final List<IdPersonaLocalCondicionesDto> desplazamientoValidationResult;
+        final List<IdPersonaLocalDto> desplazamientoValidationResult;
         try {
             final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesDesplazamiento = this.comisAsyncService
                 .findCondicionesDesplazamiento(runTareaDto, tareaAmbito);
@@ -91,7 +92,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
             throw e;
         }
 
-        return this.validacionMapper.idPersonaLocalCondicionesDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
+        return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
                 desplazamientoValidationResult);
 
     }
