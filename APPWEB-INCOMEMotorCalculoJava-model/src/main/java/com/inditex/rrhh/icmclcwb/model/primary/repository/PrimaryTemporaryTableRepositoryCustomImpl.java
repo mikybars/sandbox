@@ -24,6 +24,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -431,7 +432,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalCondicionesDto> validateTempComisBajaIt(
+    public List<IdPersonaLocalDto> validateTempComisBajaIt(
             @NotNull final TareaDto tarea) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
@@ -439,20 +440,11 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                 TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
         return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisBajaIt, params,
-                new RowMapper<IdPersonaLocalCondicionesDto>() {
-
-                    @Override
-                    public IdPersonaLocalCondicionesDto mapRow(final ResultSet rs, final int rowNum)
-                            throws SQLException {
-                        final IdPersonaLocalCondicionesDto idPersonaLocalCondicionesDto = new IdPersonaLocalCondicionesDto();
-                        idPersonaLocalCondicionesDto
-                            .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
-                        idPersonaLocalCondicionesDto
-                            .setFechaDesde((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO)).toLocalDate());
-                        idPersonaLocalCondicionesDto
-                            .setFechaHasta((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_FIN)).toLocalDate());
-                        return idPersonaLocalCondicionesDto;
-                    }
+                (rs, rowNum) -> {
+                    final IdPersonaLocalDto idPersonaLocalDto = new IdPersonaLocalDto();
+                    idPersonaLocalDto
+                        .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
+                    return idPersonaLocalDto;
                 });
     }
 

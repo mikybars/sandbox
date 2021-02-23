@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 /**
@@ -131,7 +132,7 @@ public interface PrimaryTemporaryTableRepositoryCustom {
     /**
      * @return
      */
-    List<IdPersonaLocalCondicionesDto> validateTempComisBajaIt(@NotNull TareaDto tarea);
+    List<IdPersonaLocalDto> validateTempComisBajaIt(@NotNull TareaDto tarea);
 
     /**
      * @return

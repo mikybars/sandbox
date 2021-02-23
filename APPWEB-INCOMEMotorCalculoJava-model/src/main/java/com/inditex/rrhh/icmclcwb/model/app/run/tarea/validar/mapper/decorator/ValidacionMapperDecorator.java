@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -38,6 +39,20 @@ public abstract class ValidacionMapperDecorator implements ValidacionMapper {
         if (CollectionUtils.isNotEmpty(condiciones)) {
             result.setIdPersonaLocal(condiciones.stream()
                 .map(IdPersonaLocalCondicionesDto::getIdPersonaLocal)
+                .collect(Collectors.toList()));
+        }
+        return result;
+    }
+
+    @Override
+    public ValidacionDto idPersonaLocalDtoTovalidacionDto(final TareaAmbitoDto ambito,
+            final TareaFaseAccionDto accion, final List<IdPersonaLocalDto> personas) {
+        final ValidacionDto result = this.delegate.idPersonaLocalDtoTovalidacionDto(ambito, accion,
+                personas);
+        result.setIdPersonaLocal(new ArrayList<>());
+        if (CollectionUtils.isNotEmpty(personas)) {
+            result.setIdPersonaLocal(personas.stream()
+                .map(IdPersonaLocalDto::getIdPersonaLocal)
                 .collect(Collectors.toList()));
         }
         return result;
