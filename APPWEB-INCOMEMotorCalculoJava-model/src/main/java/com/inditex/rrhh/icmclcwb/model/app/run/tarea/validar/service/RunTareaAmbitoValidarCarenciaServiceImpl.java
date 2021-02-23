@@ -19,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -65,7 +66,7 @@ public class RunTareaAmbitoValidarCarenciaServiceImpl
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
         final List<CompletableFuture<?>> cf = new ArrayList<>();
-        List<IdPersonaLocalCarenciaDto> carenciaValidationResult = new ArrayList<>();
+        List<IdPersonaLocalDto> carenciaValidationResult = new ArrayList<>();
         try {
             final CompletableFuture<List<IdPersonaLocalCarenciaDto>> cfCarencia = this.comisAsyncService
                 .findCarencia(runTareaDto, tareaAmbito);
@@ -90,7 +91,7 @@ public class RunTareaAmbitoValidarCarenciaServiceImpl
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return this.validacionMapper.idPersonaLocalCarenciaDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
+        return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
                 carenciaValidationResult);
     }
 

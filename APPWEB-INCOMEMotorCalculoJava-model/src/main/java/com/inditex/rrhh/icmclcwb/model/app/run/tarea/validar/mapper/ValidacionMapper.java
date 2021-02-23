@@ -6,7 +6,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
@@ -41,14 +40,6 @@ public interface ValidacionMapper {
     @Mapping(target = "idPersonaLocal", ignore = true)
     ValidacionDto idPersonaLocalDtoTovalidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion,
             List<IdPersonaLocalDto> personas);
-
-    @Mapping(target = "result", expression = "java(CollectionUtils.isEmpty(carencias))")
-    @Mapping(target = "idTareaFaseAccion", source = "accion.id")
-    @Mapping(target = "reaccionPeso", source = "accion.reaccionPeso")
-    @Mapping(target = "cclIdOrigen", source = "ambito.cclIdOrigen")
-    @Mapping(target = "idPersonaLocal", ignore = true)
-    ValidacionDto idPersonaLocalCarenciaDtoTovalidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion,
-            List<IdPersonaLocalCarenciaDto> carencias);
 
     @Mapping(target = "result", expression = "java(CollectionUtils.isEmpty(incidencias))")
     @Mapping(target = "idTareaFaseAccion", source = "accion.id")

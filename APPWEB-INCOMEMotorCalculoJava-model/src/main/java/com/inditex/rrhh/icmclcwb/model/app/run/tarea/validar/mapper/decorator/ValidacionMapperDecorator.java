@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
@@ -54,19 +53,6 @@ public abstract class ValidacionMapperDecorator implements ValidacionMapper {
             result.setIdPersonaLocal(personas.stream()
                 .map(IdPersonaLocalDto::getIdPersonaLocal)
                 .collect(Collectors.toList()));
-        }
-        return result;
-    }
-
-    @Override
-    public ValidacionDto idPersonaLocalCarenciaDtoTovalidacionDto(
-            final TareaAmbitoDto ambito, final TareaFaseAccionDto accion,
-            final List<IdPersonaLocalCarenciaDto> carencias) {
-        final ValidacionDto result = this.delegate.idPersonaLocalCarenciaDtoTovalidacionDto(ambito, accion, carencias);
-        result.setIdPersonaLocal(new ArrayList<>());
-        if (CollectionUtils.isNotEmpty(carencias)) {
-            result.setIdPersonaLocal(
-                    carencias.stream().map(IdPersonaLocalCarenciaDto::getIdPersonaLocal).collect(Collectors.toList()));
         }
         return result;
     }
