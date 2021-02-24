@@ -23,7 +23,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.FaseService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaFaseMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseRepositoryCustom;
 
 @Service
@@ -34,20 +33,11 @@ public class TareaFaseServiceImpl implements TareaFaseService {
     private TareaFaseRepositoryCustom tareaFaseRepositoryCustom;
 
     @Autowired
-    private TareaFaseRepository tareaFaseRepository;
-
-    @Autowired
     private TareaFaseMapper tareaFaseMapper;
 
     @Autowired
     private FaseService faseService;
 
-    @Override
-    public List<TareaFaseDto> findAll() {
-        return this.tareaFaseMapper.tareaFaseToTareaFaseDto(this.tareaFaseRepository.findAll());
-    }
-
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<TareaFaseDto> create(@Valid @NotNull final RunTareaDto runTareaDto) {
         final TareaDto tareaDto = runTareaDto.getTarea();
@@ -61,7 +51,6 @@ public class TareaFaseServiceImpl implements TareaFaseService {
                 .fechaHoraCreacion(LocalDateTime.now())
                 .build())
             .collect(Collectors.toList()));
-
     }
 
     @Override

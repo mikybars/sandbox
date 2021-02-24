@@ -119,7 +119,7 @@ public class ComisServiceImpl implements ComisService {
             ClientDatabaseContextHolder
                 .set(ClientDatabase.getClient(tareaAmbito.getCclIdOrigen()));
             desplazamiento = this.comisRepositoryCustom
-                .findCondicionesHistorico(runTareaDto.getTarea());
+                .findCondicionesDesplazamiento(runTareaDto.getTarea());
         } finally {
             ClientDatabaseContextHolder.clear();
         }

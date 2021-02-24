@@ -27,11 +27,6 @@ public interface TareaFaseService {
     List<TareaFaseDto> save(@Valid @NotNull @NotEmpty List<TareaFaseDto> tareaFase);
 
     /**
-     * @return
-     */
-    List<TareaFaseDto> findAll();
-
-    /**
      * @param tareaDto
      * @param tareaFase
      * @return
