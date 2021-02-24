@@ -93,7 +93,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: idTarea, nuevoIdSeccion, nuevoIdTipoDato,
         // excluidoDenominador, idTipoPolitica, tiposDato, activo
-        assertEquals(4, params.getValues().size());
+        assertEquals(5, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
