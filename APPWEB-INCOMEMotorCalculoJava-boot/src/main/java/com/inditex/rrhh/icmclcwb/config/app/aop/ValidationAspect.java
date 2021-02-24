@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
@@ -71,6 +73,9 @@ public class ValidationAspect {
     @Autowired
     private SenderTarea senderTarea;
 
+    @Autowired
+    private MailSender mailSender;
+
     @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation)")
     public void validationPointcut() {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
@@ -112,11 +117,6 @@ public class ValidationAspect {
                     .collect(Collectors.toList());
 
                 if (!fallidas.isEmpty()) {
-                    final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
-                        .findById(fallidas.get(0).getIdTareaFaseAccion());
-                    final AccionDto accion = this.accionService
-                        .findAccionDtoById(tareaFaseAccion.getIdAccion());
-
                     this.tareaFaseAccionService
                         .updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
                                 tareaFase,
@@ -129,6 +129,36 @@ public class ValidationAspect {
                                 EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
                     this.tareaFaseService.updateActivo(runTareaDto);
                     this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
+
+                    this.sendMail(tareaFase, fallidas);
+
+                    fallidas.stream().forEach(e -> {
+                        if ((e.getIdPersonaLocal() != null)
+                                && !e.getIdPersonaLocal().isEmpty()) {
+                            final List<SincronizacionFilterParametersDto> filterParameters = e
+                                .getIdPersonaLocal()
+                                .stream()
+                                .map(
+                                        f -> SincronizacionFilterParametersDto.builder()
+                                            .idOrigen(e.getCclIdOrigen())
+                                            .idEmpleado(f)
+                                            .build())
+                                .collect(Collectors.toList());
+                            final SincronizacionFilterDto filter = SincronizacionFilterDto.builder()
+                                .items(filterParameters)
+                                .build();
+                            final SincronizacionRequestDto request = new SincronizacionRequestDto();
+                            request.setData(filter);
+                            this.meta4IcmWsCalcIncomeService
+                                .sincronizacion(request);
+                        }
+                    });
+
+                    final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
+                        .findById(fallidas.get(0).getIdTareaFaseAccion());
+                    final AccionDto accion = this.accionService
+                        .findAccionDtoById(tareaFaseAccion.getIdAccion());
+
                     if (Boolean.TRUE.equals(accion.getEsReaccionReintento()) && (this.tareaFaseAccionService
                         .countReintentosByIdTareaAndIdAccionAndIdEstado(
                                 tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {
@@ -139,25 +169,6 @@ public class ValidationAspect {
                             this.senderTarea.send(runTareaDto.getTarea());
                         }
 
-                    }
-                    if ((fallidas.get(0).getIdPersonaLocal() != null)
-                            && !fallidas.get(0).getIdPersonaLocal().isEmpty()) {
-                        final List<SincronizacionFilterParametersDto> filterParameters = fallidas.get(0)
-                            .getIdPersonaLocal()
-                            .stream()
-                            .map(
-                                    e -> SincronizacionFilterParametersDto.builder()
-                                        .idOrigen(fallidas.get(0).getCclIdOrigen())
-                                        .idEmpleado(e)
-                                        .build())
-                            .collect(Collectors.toList());
-                        final SincronizacionFilterDto filter = SincronizacionFilterDto.builder()
-                            .items(filterParameters)
-                            .build();
-                        final SincronizacionRequestDto request = new SincronizacionRequestDto();
-                        request.setData(filter);
-                        this.meta4IcmWsCalcIncomeService
-                            .sincronizacion(request);
                     }
                     throw new ValidationException("Error validando");
                 }
@@ -202,11 +213,6 @@ public class ValidationAspect {
                     .collect(Collectors.toList());
 
                 if (!fallidas.isEmpty()) {
-                    final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
-                        .findById(fallidas.get(0).getIdTareaFaseAccion());
-                    final AccionDto accion = this.accionService
-                        .findAccionDtoById(tareaFaseAccion.getIdAccion());
-
                     this.tareaFaseAccionService
                         .updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
                                 tareaFase,
@@ -219,6 +225,36 @@ public class ValidationAspect {
                                 EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
                     this.tareaFaseService.updateActivo(runTareaDto);
                     this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
+
+                    this.sendMail(tareaFase, fallidas);
+
+                    fallidas.stream().forEach(e -> {
+                        if ((e.getIdPersonaLocal() != null)
+                                && !e.getIdPersonaLocal().isEmpty()) {
+                            final List<SincronizacionFilterParametersDto> filterParameters = e
+                                .getIdPersonaLocal()
+                                .stream()
+                                .map(
+                                        f -> SincronizacionFilterParametersDto.builder()
+                                            .idOrigen(e.getCclIdOrigen())
+                                            .idEmpleado(f)
+                                            .build())
+                                .collect(Collectors.toList());
+                            final SincronizacionFilterDto filter = SincronizacionFilterDto.builder()
+                                .items(filterParameters)
+                                .build();
+                            final SincronizacionRequestDto request = new SincronizacionRequestDto();
+                            request.setData(filter);
+                            this.meta4IcmWsCalcIncomeService
+                                .sincronizacion(request);
+                        }
+                    });
+
+                    final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
+                        .findById(fallidas.get(0).getIdTareaFaseAccion());
+                    final AccionDto accion = this.accionService
+                        .findAccionDtoById(tareaFaseAccion.getIdAccion());
+
                     if (Boolean.TRUE.equals(accion.getEsReaccionReintento()) && (this.tareaFaseAccionService
                         .countReintentosByIdTareaAndIdAccionAndIdEstado(
                                 tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {
@@ -229,30 +265,43 @@ public class ValidationAspect {
                             this.senderTarea.send(runTareaDto.getTarea());
                         }
                     }
-                    if ((fallidas.get(0).getIdPersonaLocal() != null)
-                            && !fallidas.get(0).getIdPersonaLocal().isEmpty()) {
-                        final List<SincronizacionFilterParametersDto> filterParameters = fallidas.get(0)
-                            .getIdPersonaLocal()
-                            .stream()
-                            .map(
-                                    e -> SincronizacionFilterParametersDto.builder()
-                                        .idOrigen(fallidas.get(0).getCclIdOrigen())
-                                        .idEmpleado(e)
-                                        .build())
-                            .collect(Collectors.toList());
-                        final SincronizacionFilterDto filter = SincronizacionFilterDto.builder()
-                            .items(filterParameters)
-                            .build();
-                        final SincronizacionRequestDto request = new SincronizacionRequestDto();
-                        request.setData(filter);
-                        this.meta4IcmWsCalcIncomeService
-                            .sincronizacion(request);
-                    }
+
                     throw new ValidationException("Error validando");
                 }
             }
         }
         return pjp;
+    }
+
+    /**
+     * @param tareaFase
+     * @param fallidas
+     */
+    private void sendMail(final TareaFaseDto tareaFase, final List<ValidacionDto> fallidas) {
+        final StringBuilder result = new StringBuilder();
+        result.append("Listado de errores: \n");
+        fallidas.stream().forEach(e -> {
+            final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
+                .findById(e.getIdTareaFaseAccion());
+            final AccionDto accion = this.accionService
+                .findAccionDtoById(tareaFaseAccion.getIdAccion());
+            result.append(accion.getNombre());
+            if ((e.getIdPersonaLocal() != null) && !e.getIdPersonaLocal().isEmpty()) {
+                result.append(" - ");
+                result.append(e.getIdPersonaLocal());
+            }
+            result.append("\n");
+        });
+
+        final SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("noreply@inditex.com");
+        message.setTo("mdelrio@vectoritcgroup.com");
+        message.setSubject(new StringBuilder("[INCOME][CALC] - Errores validación tarea: ")
+            .append(tareaFase.getIdTarea())
+            .toString());
+        message.setText(result.toString());
+
+        this.mailSender.send(message);
     }
 
 }

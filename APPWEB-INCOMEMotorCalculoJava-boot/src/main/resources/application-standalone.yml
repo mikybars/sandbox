@@ -40,7 +40,7 @@ amiga:
       embedded:
         enabled: true
     mail:
-      host: mail.inditex.grp
+      host: localhost
       port: 25
       protocol: smtp
       default-encoding: UTF-8
@@ -629,28 +629,25 @@ app:
     prevalidacion:
       baja:
         sincronizacion:
+          activo: true
           max-empleados: 10
       carencia:
         sincronizacion:
-          max-empleados: 10
-      motivos:
-        sincronizacion:
+          activo: true
           max-empleados: 10
       fechas:
-        sincronizacion:
-          max-empleados: 10
-          meses: 24
-      presencia:
-        sincronizacion:
-          max-empleados: 10
+        meses: 24
       resalta:
         sincronizacion:
+          activo: true
           max-empleados: 10
       desplazamiento:
         sincronizacion:
+          activo: true
           max-empleados: 10
       historico:
         sincronizacion:
+          activo: true
           max-empleados: 10
     ptr:
       config:

@@ -20,7 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarFechasPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarFechasService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
@@ -49,7 +49,7 @@ public class RunTareaAmbitoValidarFechasServiceImpl implements RunTareaAmbitoVal
 
     @Autowired
     @Qualifier("fechasProperties")
-    private PrevalidarFechasPropertiesDto fechasProperties;
+    private PrevalidarPropertiesDto fechasProperties;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -63,7 +63,7 @@ public class RunTareaAmbitoValidarFechasServiceImpl implements RunTareaAmbitoVal
             // Se comprueba desde x meses antes del período del cálculo
             final LocalDate fechaInicio = runTareaDto.getTarea()
                 .getFechaInicioPeriodo()
-                .minusMonths(this.fechasProperties.getSincronizacion().getMeses());
+                .minusMonths(this.fechasProperties.getMeses());
             final CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> cfIncidencias = this.comisAsyncService
                 .findFechasIncidencias(fechaInicio, tareaAmbito);
             AsyncUtils.exceptionally(cfIncidencias, cf);

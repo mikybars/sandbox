@@ -92,7 +92,7 @@ public class RunTareaAmbitoValidarCarenciaServiceImpl
             throw e;
         }
         return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-                carenciaValidationResult);
+                carenciaValidationResult, this.carenciaProperties);
     }
 
 }

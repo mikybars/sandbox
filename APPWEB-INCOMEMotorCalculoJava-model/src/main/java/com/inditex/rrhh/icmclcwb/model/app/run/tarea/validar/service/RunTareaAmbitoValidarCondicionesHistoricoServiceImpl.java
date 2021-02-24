@@ -91,7 +91,7 @@ public class RunTareaAmbitoValidarCondicionesHistoricoServiceImpl
         }
 
         return this.validacionMapper.idPersonaLocalCondicionesDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-                historicoValidationResult);
+                historicoValidationResult, this.historicoProperties);
     }
 
 }

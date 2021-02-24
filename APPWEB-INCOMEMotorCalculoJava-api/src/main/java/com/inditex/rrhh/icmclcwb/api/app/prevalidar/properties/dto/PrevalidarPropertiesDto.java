@@ -7,4 +7,6 @@ public class PrevalidarPropertiesDto {
 
     SincronizacionDto sincronizacion;
 
+    private int meses;
+
 }

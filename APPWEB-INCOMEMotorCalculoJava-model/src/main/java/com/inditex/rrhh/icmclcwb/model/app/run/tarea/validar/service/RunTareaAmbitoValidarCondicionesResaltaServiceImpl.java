@@ -90,7 +90,7 @@ public class RunTareaAmbitoValidarCondicionesResaltaServiceImpl
             throw e;
         }
         return this.validacionMapper.idPersonaLocalCondicionesDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-                resaltaValidationResult);
+                resaltaValidationResult, this.resaltaProperties);
     }
 
 }

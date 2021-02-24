@@ -4,7 +4,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarFechasPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import lombok.Data;
 
@@ -17,11 +16,7 @@ public class PrevalidarPropertiesConfig {
 
     private PrevalidarPropertiesDto carencia;
 
-    private PrevalidarPropertiesDto motivos;
-
-    private PrevalidarFechasPropertiesDto fechas;
-
-    private PrevalidarPropertiesDto presencia;
+    private PrevalidarPropertiesDto fechas;
 
     private PrevalidarPropertiesDto resalta;
 
@@ -34,24 +29,14 @@ public class PrevalidarPropertiesConfig {
         return this.baja;
     }
 
-    @Bean(name = "motivosProperties")
-    public PrevalidarPropertiesDto motivos() {
-        return this.motivos;
-    }
-
     @Bean(name = "carenciaProperties")
     public PrevalidarPropertiesDto carencia() {
         return this.carencia;
     }
 
     @Bean(name = "fechasProperties")
-    public PrevalidarFechasPropertiesDto fechas() {
+    public PrevalidarPropertiesDto fechas() {
         return this.fechas;
-    }
-
-    @Bean(name = "presenciaProperties")
-    public PrevalidarPropertiesDto presencia() {
-        return this.presencia;
     }
 
     @Bean(name = "resaltaProperties")

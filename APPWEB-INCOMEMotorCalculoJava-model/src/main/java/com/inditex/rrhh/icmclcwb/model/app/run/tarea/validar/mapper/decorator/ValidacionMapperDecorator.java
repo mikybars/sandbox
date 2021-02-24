@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
@@ -31,9 +32,9 @@ public abstract class ValidacionMapperDecorator implements ValidacionMapper {
     public ValidacionDto idPersonaLocalCondicionesDtoTovalidacionDto(
             final TareaAmbitoDto ambito,
             final TareaFaseAccionDto accion,
-            final List<IdPersonaLocalCondicionesDto> condiciones) {
+            final List<IdPersonaLocalCondicionesDto> condiciones, final PrevalidarPropertiesDto properties) {
         final ValidacionDto result = this.delegate.idPersonaLocalCondicionesDtoTovalidacionDto(ambito, accion,
-                condiciones);
+                condiciones, properties);
         result.setIdPersonaLocal(new ArrayList<>());
         if (CollectionUtils.isNotEmpty(condiciones)) {
             result.setIdPersonaLocal(condiciones.stream()
@@ -45,9 +46,10 @@ public abstract class ValidacionMapperDecorator implements ValidacionMapper {
 
     @Override
     public ValidacionDto idPersonaLocalDtoTovalidacionDto(final TareaAmbitoDto ambito,
-            final TareaFaseAccionDto accion, final List<IdPersonaLocalDto> personas) {
+            final TareaFaseAccionDto accion, final List<IdPersonaLocalDto> personas,
+            final PrevalidarPropertiesDto properties) {
         final ValidacionDto result = this.delegate.idPersonaLocalDtoTovalidacionDto(ambito, accion,
-                personas);
+                personas, properties);
         result.setIdPersonaLocal(new ArrayList<>());
         if (CollectionUtils.isNotEmpty(personas)) {
             result.setIdPersonaLocal(personas.stream()

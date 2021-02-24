@@ -90,8 +90,9 @@ public class RunTareaAmbitoValidarBajaItServiceImpl
             AsyncUtils.cancel(cf);
             throw e;
         }
+
         return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-                bajaItValidationResult);
+                bajaItValidationResult, this.bajaProperties);
     }
 
 }

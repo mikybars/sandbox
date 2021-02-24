@@ -6,4 +6,6 @@ import lombok.Data;
 public class SincronizacionDto {
 
     private int maxEmpleados;
+    
+    private boolean activo;
 }

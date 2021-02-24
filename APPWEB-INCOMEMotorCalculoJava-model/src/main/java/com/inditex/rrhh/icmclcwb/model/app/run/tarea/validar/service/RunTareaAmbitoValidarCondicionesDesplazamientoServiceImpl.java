@@ -93,7 +93,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
         }
 
         return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-                desplazamientoValidationResult);
+                desplazamientoValidationResult, this.desplazamientoProperties);
 
     }
 
