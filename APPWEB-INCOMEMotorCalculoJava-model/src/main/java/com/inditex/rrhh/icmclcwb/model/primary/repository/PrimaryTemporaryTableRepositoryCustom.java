@@ -155,6 +155,6 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      * @param tarea
      * @return
      */
-    List<IdPersonaLocalCondicionesDto> validateTempComisResalta(TareaDto tarea);
+    List<IdPersonaLocalDto> validateTempComisResalta(TareaDto tarea);
 
 }

@@ -344,24 +344,17 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalCondicionesDto> validateTempComisResalta(final TareaDto tarea) {
-        return this.jdbcTemplate.query(this.sqlValidateTempComisResalta, new Object[] { tarea.getId() },
-                new RowMapper<IdPersonaLocalCondicionesDto>() {
+    public List<IdPersonaLocalDto> validateTempComisResalta(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
-                    @Override
-                    public IdPersonaLocalCondicionesDto mapRow(final ResultSet rs, final int rowNum)
-                            throws SQLException {
-                        final IdPersonaLocalCondicionesDto idPersonaLocalCondicionesDto = new IdPersonaLocalCondicionesDto();
-                        idPersonaLocalCondicionesDto
-                            .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
-                        idPersonaLocalCondicionesDto
-                            .setFechaDesde((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO)).toLocalDate());
-                        idPersonaLocalCondicionesDto
-                            .setFechaHasta((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_FIN)).toLocalDate());
-                        idPersonaLocalCondicionesDto
-                            .setIdTipoCalculo((rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO)));
-                        return idPersonaLocalCondicionesDto;
-                    }
+        return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisResalta, map,
+                (rs, rowMap) -> {
+                    final IdPersonaLocalDto idPersonaLocalDto = new IdPersonaLocalDto();
+                    idPersonaLocalDto
+                        .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
+                    return idPersonaLocalDto;
                 });
     }
 

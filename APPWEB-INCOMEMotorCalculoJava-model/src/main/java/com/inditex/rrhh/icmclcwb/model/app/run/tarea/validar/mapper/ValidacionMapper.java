@@ -6,7 +6,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
@@ -25,16 +24,6 @@ import org.mapstruct.Mapping;
 @Mapper(imports = CollectionUtils.class)
 @DecoratedWith(ValidacionMapperDecorator.class)
 public interface ValidacionMapper {
-
-    @Mapping(target = "result", expression = "java(CollectionUtils.isEmpty(condiciones))")
-    @Mapping(target = "sincronizacion",
-            expression = "java((properties.getSincronizacion() != null) && properties.getSincronizacion().isActivo() && (properties.getSincronizacion().getMaxEmpleados() >= condiciones.size()) )")
-    @Mapping(target = "idTareaFaseAccion", source = "accion.id")
-    @Mapping(target = "reaccionPeso", source = "accion.reaccionPeso")
-    @Mapping(target = "cclIdOrigen", source = "ambito.cclIdOrigen")
-    @Mapping(target = "idPersonaLocal", ignore = true)
-    ValidacionDto idPersonaLocalCondicionesDtoTovalidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion,
-            List<IdPersonaLocalCondicionesDto> condiciones, PrevalidarPropertiesDto properties);
 
     @Mapping(target = "result", expression = "java(CollectionUtils.isEmpty(personas))")
     @Mapping(target = "sincronizacion",
