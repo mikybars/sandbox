@@ -231,7 +231,9 @@ public class ProgramacionServiceImplTest {
 
         assertTrue(DateUtils.isSameDay(new Date(),
                 Date.from(programacion.getFechaHoraUltimaEjecucion().atZone(TimeUtils.ofZone()).toInstant())));
-        assertNotNull(programacion.getFechaHoraSiguienteEjecucion());
+        verify(this.programacionRepository, times(1)).save(any(Programacion.class));
+        verify(this.programacionMapper, times(1)).programacionDtoToProgramacion(programacion);
+        verify(this.programacionMapper, times(1)).programacionToProgramacionDto(any(Programacion.class));
 
     }
 
