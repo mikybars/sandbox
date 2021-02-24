@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author mdelrio
@@ -18,6 +19,7 @@ import lombok.Data;
 @ApiModel(description = "Modelo FaseDto")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class FaseDto implements Serializable {
 
     @ApiModelProperty(value = "Identificador de fase", required = false, accessMode = AccessMode.READ_ONLY,
