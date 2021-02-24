@@ -27,7 +27,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
@@ -241,32 +240,17 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalCondicionesDto> validateTempComisHistorico(final TareaDto tarea) {
-        return this.jdbcTemplate.query(this.sqlValidateTempComisHistorico, new Object[] { tarea.getId() },
-                new RowMapper<IdPersonaLocalCondicionesDto>() {
+    public List<IdPersonaLocalDto> validateTempComisHistorico(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
-                    @Override
-                    public IdPersonaLocalCondicionesDto mapRow(final ResultSet rs, final int rowNum)
-                            throws SQLException {
-                        final IdPersonaLocalCondicionesDto idPersonaLocalCondicionesDto = new IdPersonaLocalCondicionesDto();
-                        idPersonaLocalCondicionesDto
-                            .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
-                        idPersonaLocalCondicionesDto
-                            .setFechaDesde((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO)).toLocalDate());
-                        idPersonaLocalCondicionesDto
-                            .setFechaHasta((rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_FIN)).toLocalDate());
-                        // idPersonaLocalCondicionesDto
-                        // .setCclIdCodOrigen((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)));
-                        idPersonaLocalCondicionesDto
-                            .setIdTipoCalculo((rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO)));
-                        idPersonaLocalCondicionesDto
-                            .setPorcentaje((rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE)));
-                        idPersonaLocalCondicionesDto
-                            .setBanda((rs.getString(SqlComisConstants.SQL_RESULT_BANDA)));
-                        idPersonaLocalCondicionesDto
-                            .setImporte((rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)));
-                        return idPersonaLocalCondicionesDto;
-                    }
+        return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisHistorico, map,
+                (rs, rowNum) -> {
+                    final IdPersonaLocalDto idPersonaLocalDto = new IdPersonaLocalDto();
+                    idPersonaLocalDto
+                        .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
+                    return idPersonaLocalDto;
                 });
     }
 
@@ -312,7 +296,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     public List<IdPersonaLocalDto> validateTempComisDesplazamiento(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
 
 
         return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisDesplazamiento, map,
@@ -417,8 +401,8 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     public List<IdPersonaLocalDto> validateTempComisBajaIt(
             @NotNull final TareaDto tarea) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+        params.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
                 TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
         return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisBajaIt, params,
@@ -465,8 +449,8 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Override
     public List<IdPersonaLocalDto> validateTempComisCarencia(@NotNull final TareaDto tarea) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+        params.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
                 TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
         return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisCarencia, params,

@@ -143,7 +143,7 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      * @param tarea
      * @return
      */
-    List<IdPersonaLocalCondicionesDto> validateTempComisHistorico(TareaDto tarea);
+    List<IdPersonaLocalDto> validateTempComisHistorico(TareaDto tarea);
 
     /**
      * @param tarea

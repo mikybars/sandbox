@@ -16,6 +16,8 @@ public class SqlComisConstants {
 
     public static final String SQL_PARAM_FECHA_HASTA = "fechaHasta";
 
+    public static final String SQL_PARAM_FECHA_INICIO_PERIODO = "fechaInicioPeriodo";
+
     public static final String SQL_PARAM_ID_TAREA = "idTarea";
 
     // RESULTADOS DE CONSULTAS

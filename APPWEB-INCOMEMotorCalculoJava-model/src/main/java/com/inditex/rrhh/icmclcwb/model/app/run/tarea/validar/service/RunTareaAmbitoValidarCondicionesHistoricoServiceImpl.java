@@ -19,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -65,7 +66,7 @@ public class RunTareaAmbitoValidarCondicionesHistoricoServiceImpl
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
         final List<CompletableFuture<?>> cf = new ArrayList<>();
-        final List<IdPersonaLocalCondicionesDto> historicoValidationResult;
+        final List<IdPersonaLocalDto> historicoValidationResult;
         try {
             final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesHistorico = this.comisAsyncService
                 .findCondicionesHistorico(runTareaDto, tareaAmbito);
@@ -90,7 +91,7 @@ public class RunTareaAmbitoValidarCondicionesHistoricoServiceImpl
             throw e;
         }
 
-        return this.validacionMapper.idPersonaLocalCondicionesDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
+        return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
                 historicoValidationResult, this.historicoProperties);
     }
 
