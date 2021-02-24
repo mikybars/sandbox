@@ -29,7 +29,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.FaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaFaseAccionMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseAccionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseAccionRepositoryCustom;
 
 /**
@@ -42,9 +41,6 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
 
     @Autowired
     private TareaFaseAccionRepositoryCustom tareaFaseAccionRepositoryCustom;
-
-    @Autowired
-    private TareaFaseAccionRepository tareaFaseAccionRepository;
 
     @Autowired
     private TareaFaseAccionMapper tareaFaseAccionMapper;
@@ -69,11 +65,6 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
         return this.tareaFaseAccionRepositoryCustom.findById(idTareaFaseAccion);
     }
 
-    @Override
-    public List<TareaFaseAccionDto> saveAll(@Valid @NotNull @NotEmpty final List<TareaFaseAccionDto> tareaFaseAccion) {
-        return this.tareaFaseAccionMapper.tareaFaseAccionToTareaFaseAccionDto(this.tareaFaseAccionRepository
-            .saveAll(this.tareaFaseAccionMapper.tareaFaseAccionDtoToTareaFaseAccion(tareaFaseAccion)));
-    }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
@@ -133,11 +124,6 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
         this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstado(tareaFaseAccionDto, estadoTareaFaseAccionDto);
     }
 
-    @Override
-    public void updateFechaInicioAndFechaFinAndEstado(@Valid @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
-            @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
-        this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstado(tareaFaseAccionDto, estadoTareaFaseAccionDto);
-    }
 
     @Override
     public void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(

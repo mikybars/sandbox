@@ -28,12 +28,6 @@ public interface TareaFaseAccionService {
     List<TareaFaseAccionDto> save(@Valid @NotNull @NotEmpty List<TareaFaseAccionDto> tareaFaseAccion);
 
     /**
-     * @param tareaFaseAccion
-     * @return
-     */
-    List<TareaFaseAccionDto> saveAll(@Valid @NotNull @NotEmpty List<TareaFaseAccionDto> tareaFaseAccion);
-
-    /**
      * @param tareaDto
      */
     void create(@Valid @NotNull RunTareaDto tareaDto);
@@ -101,12 +95,5 @@ public interface TareaFaseAccionService {
      */
     Integer countReintentosByIdTareaAndIdAccionAndIdEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
             @NotNull TareaFaseDto tareaFaseDto);
-
-    /**
-     * @param tareaFaseAccionDto
-     * @param estadoTareaFaseAccionDto
-     */
-    void updateFechaInicioAndFechaFinAndEstado(@Valid @NotNull TareaFaseAccionDto tareaFaseAccionDto,
-            @Valid @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
 }
