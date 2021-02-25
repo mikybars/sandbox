@@ -12,8 +12,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -22,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
+import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.PuntoEjecucionEnum;
@@ -72,7 +71,7 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
     private SenderTarea senderTarea;
 
     @Autowired
-    private MailSender mailSender;
+    private MailService mailService;
 
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTareaDto,
@@ -144,7 +143,7 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
             this.tareaFaseService.updateActivo(runTareaDto);
             this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
 
-            this.sendMail(tareaFase, fallidas);
+            this.mailService.sendMail(tareaFase, fallidas);
 
             fallidas.stream().forEach(e -> {
                 if (Boolean.TRUE.equals(e.getSincronizacion()) && (e.getIdPersonaLocal() != null)
@@ -186,37 +185,6 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
             throw new ValidationException("Error validando");
         }
 
-    }
-
-    /**
-     * @param tareaFase
-     * @param fallidas
-     */
-    private void sendMail(final TareaFaseDto tareaFase, final List<ValidacionDto> fallidas) {
-        final StringBuilder result = new StringBuilder();
-        result.append("Listado de errores: \n");
-        fallidas.stream().forEach(e -> {
-            final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
-                .findById(e.getIdTareaFaseAccion());
-            final AccionDto accion = this.accionService
-                .findAccionDtoById(tareaFaseAccion.getIdAccion());
-            result.append(accion.getNombre());
-            if ((e.getIdPersonaLocal() != null) && !e.getIdPersonaLocal().isEmpty()) {
-                result.append(" - ");
-                result.append(e.getIdPersonaLocal());
-            }
-            result.append("\n");
-        });
-
-        final SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("noreply@inditex.com");
-        message.setTo("mdelrio@vectoritcgroup.com");
-        message.setSubject(new StringBuilder("[INCOME][CALC] - Errores validación tarea: ")
-            .append(tareaFase.getIdTarea())
-            .toString());
-        message.setText(result.toString());
-
-        this.mailSender.send(message);
     }
 
 }

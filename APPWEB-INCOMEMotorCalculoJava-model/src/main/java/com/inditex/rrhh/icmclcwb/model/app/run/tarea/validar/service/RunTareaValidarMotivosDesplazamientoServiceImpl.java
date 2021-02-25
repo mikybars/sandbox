@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarMotivosDesplazamientoService;
+import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
@@ -40,6 +41,9 @@ public class RunTareaValidarMotivosDesplazamientoServiceImpl implements RunPreva
     @Autowired
     private AccionService accionService;
 
+    @Autowired
+    private MailService mailService;
+
     @Override
     public List<ValidacionDto> execute(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
@@ -59,6 +63,8 @@ public class RunTareaValidarMotivosDesplazamientoServiceImpl implements RunPreva
             .collect(Collectors.toList())
             .isEmpty()) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+        } else {
+            this.mailService.sendMailMotivos();
         }
         return validaciones;
     }
