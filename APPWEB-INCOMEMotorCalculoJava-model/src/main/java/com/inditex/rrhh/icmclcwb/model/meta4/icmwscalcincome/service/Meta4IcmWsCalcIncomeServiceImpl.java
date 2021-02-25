@@ -993,7 +993,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
          * .getmotivosdesplazamiento(param);
          */
 
-        // TODO [javierev] Código de pruebas a eliminar final GetmotivosdesplazamientoOutput
+        // TODO [javierev] Código de pruebas a eliminar
         final GetmotivosdesplazamientoOutput motivosdesplazamiento = new GetmotivosdesplazamientoOutput();
         final IcmListamotivosBlock block = new IcmListamotivosBlock();
         block.getIcmListamotivosRecordSet()

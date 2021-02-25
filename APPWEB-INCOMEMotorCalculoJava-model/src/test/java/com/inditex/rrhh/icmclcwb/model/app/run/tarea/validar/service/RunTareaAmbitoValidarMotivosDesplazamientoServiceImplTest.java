@@ -18,9 +18,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import org.junit.Test;
@@ -57,7 +57,7 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImplTest {
     private PrevalidarPropertiesDto fechaProperties;
 
     @Mock
-    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+    private Meta4IcmWsCalcIncomeAsyncService meta4IcmWsCalcIncomeService;
 
     @InjectMocks
     private RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl runTareaAmbitoValidarMotivosDesplazamientoServiceImpl;
@@ -77,18 +77,20 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImplTest {
         accionDto.setId(1);
 
         final List<IdMotivoDesplazamientoDto> lista = new ArrayList<>();
-        final CompletableFuture<List<IdMotivoDesplazamientoDto>> cf = new CompletableFuture<>();
-        cf.complete(lista);
+        final CompletableFuture<List<IdMotivoDesplazamientoDto>> cfComis = new CompletableFuture<>();
+        cfComis.complete(lista);
 
         final MotivosDesplazamientoResponseDto responseDto = MotivosDesplazamientoResponseDto
             .builder()
             .items(new ArrayList<>())
             .build();
+        final CompletableFuture<MotivosDesplazamientoResponseDto> cfMeta4 = new CompletableFuture<>();
+        cfMeta4.complete(responseDto);
 
         when(this.comisAsyncService.findMotivoDesplazamiento(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
-            .thenReturn(cf);
+            .thenReturn(cfComis);
         when(this.meta4IcmWsCalcIncomeService.getMotivosDesplazamiento(any(MotivosDesplazamientoRequestDto.class)))
-            .thenReturn(responseDto);
+            .thenReturn(cfMeta4);
 
         this.runTareaAmbitoValidarMotivosDesplazamientoServiceImpl.execute(runTareaDto, tareaAmbitoDto,
                 tareaFaseAccionDto);

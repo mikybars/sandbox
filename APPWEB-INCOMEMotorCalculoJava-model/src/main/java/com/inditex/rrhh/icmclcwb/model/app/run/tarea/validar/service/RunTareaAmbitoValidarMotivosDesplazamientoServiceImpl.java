@@ -26,10 +26,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
@@ -55,7 +55,7 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Autowired
-    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+    private Meta4IcmWsCalcIncomeAsyncService meta4IcmWsCalcIncomeAsyncService;
 
     @Autowired
     private AccionService accionService;
@@ -81,20 +81,21 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl
                 .findMotivoDesplazamiento(runTareaDto, tareaAmbito);
             AsyncUtils.exceptionally(cfMotivoDesplazamiento, cf);
 
+            final CompletableFuture<MotivosDesplazamientoResponseDto> cfMotivosDesplazamientoMeta4 = this.meta4IcmWsCalcIncomeAsyncService
+                .getMotivosDesplazamiento(MotivosDesplazamientoRequestDto
+                    .builder()
+                    .items(Arrays.asList(
+                            MotivosDesplazamientoRequestItemDto
+                                .builder()
+                                .idOrigen(tareaAmbito.getCclIdOrigen())
+                                .build()))
+                    .build());
+            AsyncUtils.exceptionally(cfMotivosDesplazamientoMeta4, cf);
+
             AsyncUtils.waitAllOfIsOk(cf, cf);
 
             final List<IdMotivoDesplazamientoDto> motivosSil = AsyncUtils.get(cfMotivoDesplazamiento);
-
-            final MotivosDesplazamientoResponseDto motivosmeta4 = this.meta4IcmWsCalcIncomeService
-                .getMotivosDesplazamiento(
-                        MotivosDesplazamientoRequestDto
-                            .builder()
-                            .items(Arrays.asList(
-                                    MotivosDesplazamientoRequestItemDto
-                                        .builder()
-                                        .idOrigen(tareaAmbito.getCclIdOrigen())
-                                        .build()))
-                            .build());
+            final MotivosDesplazamientoResponseDto motivosmeta4 = AsyncUtils.get(cfMotivosDesplazamientoMeta4);
 
             this.primaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoComis();
             this.primaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoMeta4();
