@@ -4,6 +4,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -25,6 +26,11 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
@@ -49,7 +55,13 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Autowired
+    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+
+    @Autowired
     private AccionService accionService;
+
+    @Autowired
+    private ValidacionMapper validacionMapper;
 
     @Autowired
     private SenderTarea senderTarea;
@@ -62,7 +74,7 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final Boolean validacion = Boolean.TRUE;
+        final List<IdMotivoDesplazamientoDto> motivos;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final CompletableFuture<List<IdMotivoDesplazamientoDto>> cfMotivoDesplazamiento = this.comisAsyncService
@@ -73,13 +85,26 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl
 
             final List<IdMotivoDesplazamientoDto> motivosSil = AsyncUtils.get(cfMotivoDesplazamiento);
 
+            final MotivosDesplazamientoResponseDto motivosmeta4 = this.meta4IcmWsCalcIncomeService
+                .getMotivosDesplazamiento(
+                        MotivosDesplazamientoRequestDto
+                            .builder()
+                            .items(Arrays.asList(
+                                    MotivosDesplazamientoRequestItemDto
+                                        .builder()
+                                        .idOrigen(tareaAmbito.getCclIdOrigen())
+                                        .build()))
+                            .build());
+
             this.primaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoComis();
             this.primaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoMeta4();
 
             this.primaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoComis(motivosSil);
-            // this.primaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoMeta4(motivosmeta4);
+            this.primaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoMeta4(
+                    this.validacionMapper
+                        .motivosDesplazamientoItemDtoToIdMotivoDesplazamientoDto(motivosmeta4.getItems()));
 
-            final List<IdMotivoDesplazamientoDto> motivos = this.primaryTemporaryTableRepositoryCustom
+            motivos = this.primaryTemporaryTableRepositoryCustom
                 .validateTempMotivoDesplazamiento();
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoComis();
@@ -92,11 +117,7 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return ValidacionDto.builder()
-            .result(validacion)
-            .idTareaFaseAccion(tareaFaseAccion.getId())
-            .reaccionPeso(tareaFaseAccion.getReaccionPeso())
-            .build();
+        return this.validacionMapper.idMotivoDesplazamientoDtoToValidacionDto(tareaAmbito, tareaFaseAccion, motivos);
     }
 
 }

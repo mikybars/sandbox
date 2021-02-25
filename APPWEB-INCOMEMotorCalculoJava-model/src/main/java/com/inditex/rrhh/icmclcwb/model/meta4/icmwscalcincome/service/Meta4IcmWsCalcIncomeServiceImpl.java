@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -63,6 +64,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagC
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
@@ -122,6 +125,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getestructur
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmotivosdesplazamientoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
@@ -132,6 +136,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Gettiendasin
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventacongeladaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventamanualwlocOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListamotivosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
@@ -143,6 +148,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcale
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmotivosBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmultiempresaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
@@ -972,6 +978,37 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             result.setData(items);
         }
         return result;
+    }
+
+    @Override
+    public MotivosDesplazamientoResponseDto getMotivosDesplazamiento(
+            final MotivosDesplazamientoRequestDto request) {
+        final MotivosDesplazamientoResponseDto result = new MotivosDesplazamientoResponseDto();
+        final IcmParamcalmotivosBlock param = this.icmWsCalcIncomeMapper.asIcmParamcalmotivosBlock(request);
+
+        final GetmotivosdesplazamientoOutput motivosdesplazamiento = this.meta4ClientPool
+            .getmotivosdesplazamiento(param);
+
+        /*
+         * TODO [javierev] Código de pruebas a eliminar final GetmotivosdesplazamientoOutput
+         * motivosdesplazamiento = new GetmotivosdesplazamientoOutput(); final IcmListamotivosBlock block =
+         * new IcmListamotivosBlock();
+         * block.getIcmListamotivosRecordSet().addAll(this.lista(Arrays.asList("30", "31", "40", "42", "43",
+         * "98"))); motivosdesplazamiento.setIcmListamotivos(block);
+         */
+        result.setItems(this.icmWsCalcIncomeMapper
+            .asMotivosDesplazamientoItemDto(motivosdesplazamiento.getIcmListamotivos().getIcmListamotivosRecordSet()));
+
+        return result;
+    }
+
+    // TODO [javierev] eliminar este método
+    private List<IcmListamotivosRecord> lista(final List<String> motivos) {
+        return motivos.stream().map(x -> {
+            final IcmListamotivosRecord record = new IcmListamotivosRecord();
+            record.setIdmotivo(x);
+            return record;
+        }).collect(Collectors.toList());
     }
 
 }

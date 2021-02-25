@@ -17,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class ValidacionDto implements Serializable {
 
+    private static final long serialVersionUID = -2130233513919563977L;
+
     private Boolean result;
 
     private Long idTareaFaseAccion;
@@ -26,7 +28,9 @@ public class ValidacionDto implements Serializable {
     private String cclIdOrigen;
 
     private List<String> idPersonaLocal;
-    
+
     private Boolean sincronizacion;
+
+    private List<Integer> idMotivosDesplazamiento;
 
 }
