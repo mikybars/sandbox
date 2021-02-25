@@ -91,7 +91,7 @@ public class RunTareaAmbitoValidarCondicionesResaltaServiceImplTest {
         verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
             .deleteTempComisResalta();
         verify(this.validacionMapper, timeout(1000).times(1))
-            .idPersonaLocalCondicionesDtoTovalidacionDto(ArgumentMatchers.any(TareaAmbitoDto.class),
+            .idPersonaLocalDtoTovalidacionDto(ArgumentMatchers.any(TareaAmbitoDto.class),
                     ArgumentMatchers.any(TareaFaseAccionDto.class), ArgumentMatchers.any(List.class),
                     ArgumentMatchers.any(PrevalidarPropertiesDto.class));
     }
