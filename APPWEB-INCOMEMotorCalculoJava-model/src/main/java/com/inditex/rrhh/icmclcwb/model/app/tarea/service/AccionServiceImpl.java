@@ -8,12 +8,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.AccionMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.OptionalUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.AccionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.AccionRepositoryCustom;
 
@@ -35,8 +37,9 @@ public class AccionServiceImpl implements AccionService {
     private AccionMapper accionMapper;
 
     @Override
+    @Cacheable(value = "itx.icmlcwb.accion_dto_by_id", key = "{#id}")
     public AccionDto findAccionDtoById(@NotNull final Integer id) {
-        return this.accionMapper.accionToAccionDto(this.accionRepository.findById(id).get());
+        return this.accionMapper.accionToAccionDto(OptionalUtils.get(this.accionRepository.findById(id)));
     }
 
     @Override
