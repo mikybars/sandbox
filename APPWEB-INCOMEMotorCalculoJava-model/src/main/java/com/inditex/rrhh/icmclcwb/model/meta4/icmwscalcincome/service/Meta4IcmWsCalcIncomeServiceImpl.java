@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -136,6 +137,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Gettiendasin
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventacongeladaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventamanualwlocOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListamotivosBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListamotivosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
@@ -983,23 +985,28 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     @Override
     public MotivosDesplazamientoResponseDto getMotivosDesplazamiento(
             final MotivosDesplazamientoRequestDto request) {
-        final MotivosDesplazamientoResponseDto result = new MotivosDesplazamientoResponseDto();
         final IcmParamcalmotivosBlock param = this.icmWsCalcIncomeMapper.asIcmParamcalmotivosBlock(request);
 
-        final GetmotivosdesplazamientoOutput motivosdesplazamiento = this.meta4ClientPool
-            .getmotivosdesplazamiento(param);
-
         /*
-         * TODO [javierev] Código de pruebas a eliminar final GetmotivosdesplazamientoOutput
-         * motivosdesplazamiento = new GetmotivosdesplazamientoOutput(); final IcmListamotivosBlock block =
-         * new IcmListamotivosBlock();
-         * block.getIcmListamotivosRecordSet().addAll(this.lista(Arrays.asList("30", "31", "40", "42", "43",
-         * "98"))); motivosdesplazamiento.setIcmListamotivos(block);
+         * TODO [javierev] Código bueno, usarlo cuando se arregle el servicio final
+         * GetmotivosdesplazamientoOutput motivosdesplazamiento = this.meta4ClientPool
+         * .getmotivosdesplazamiento(param);
          */
-        result.setItems(this.icmWsCalcIncomeMapper
-            .asMotivosDesplazamientoItemDto(motivosdesplazamiento.getIcmListamotivos().getIcmListamotivosRecordSet()));
 
-        return result;
+        // TODO [javierev] Código de pruebas a eliminar final GetmotivosdesplazamientoOutput
+        final GetmotivosdesplazamientoOutput motivosdesplazamiento = new GetmotivosdesplazamientoOutput();
+        final IcmListamotivosBlock block = new IcmListamotivosBlock();
+        block.getIcmListamotivosRecordSet()
+            .addAll(this.lista(Arrays.asList("30", "31", "40", "42", "43",
+                    "98")));
+        motivosdesplazamiento.setIcmListamotivos(block);
+        return MotivosDesplazamientoResponseDto
+            .builder()
+            .items(this.icmWsCalcIncomeMapper
+                .asMotivosDesplazamientoItemDto(
+                        motivosdesplazamiento.getIcmListamotivos().getIcmListamotivosRecordSet()))
+            .build();
+
     }
 
     // TODO [javierev] eliminar este método

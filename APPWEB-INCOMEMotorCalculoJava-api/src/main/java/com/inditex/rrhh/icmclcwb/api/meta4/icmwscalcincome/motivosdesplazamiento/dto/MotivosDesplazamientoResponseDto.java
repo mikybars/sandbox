@@ -3,12 +3,14 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamient
 import java.io.Serializable;
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
  * @author javierev
  */
 @Data
+@Builder
 public class MotivosDesplazamientoResponseDto implements Serializable {
 
     private static final long serialVersionUID = -8746827304482711682L;

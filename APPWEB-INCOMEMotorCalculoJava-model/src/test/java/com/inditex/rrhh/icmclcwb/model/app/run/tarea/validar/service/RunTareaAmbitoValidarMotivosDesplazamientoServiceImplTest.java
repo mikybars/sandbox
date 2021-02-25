@@ -18,6 +18,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import org.junit.Test;
@@ -53,6 +56,9 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImplTest {
     @Mock
     private PrevalidarPropertiesDto fechaProperties;
 
+    @Mock
+    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+
     @InjectMocks
     private RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl runTareaAmbitoValidarMotivosDesplazamientoServiceImpl;
 
@@ -74,8 +80,15 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImplTest {
         final CompletableFuture<List<IdMotivoDesplazamientoDto>> cf = new CompletableFuture<>();
         cf.complete(lista);
 
+        final MotivosDesplazamientoResponseDto responseDto = MotivosDesplazamientoResponseDto
+            .builder()
+            .items(new ArrayList<>())
+            .build();
+
         when(this.comisAsyncService.findMotivoDesplazamiento(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
             .thenReturn(cf);
+        when(this.meta4IcmWsCalcIncomeService.getMotivosDesplazamiento(any(MotivosDesplazamientoRequestDto.class)))
+            .thenReturn(responseDto);
 
         this.runTareaAmbitoValidarMotivosDesplazamientoServiceImpl.execute(runTareaDto, tareaAmbitoDto,
                 tareaFaseAccionDto);
@@ -83,6 +96,8 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImplTest {
         verify(this.comisAsyncService, timeout(1000).times(1))
             .findMotivoDesplazamiento(
                     ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class));
+        verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
+            .getMotivosDesplazamiento(ArgumentMatchers.any(MotivosDesplazamientoRequestDto.class));
         verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
             .createTempMotivoDesplazamientoComis();
         verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
