@@ -55,6 +55,14 @@ public class RunTareaRecolectarCondicionesBaseServiceImpl implements RunTareaRec
                 .estructurasComByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfEstructurasCom, cf);
 
+            final CompletableFuture<Void> cfEstructurasPol = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .estructurasPolByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfEstructurasPol, cf);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+
             this.runTareaPrevalidarDuranteService.run(runTarea, FaseEnum.RECOLECTAR.getDto(),
                     AccionEnum.CONDICIONES_HISTORICO.getDto());
 
@@ -67,16 +75,9 @@ public class RunTareaRecolectarCondicionesBaseServiceImpl implements RunTareaRec
             this.runTareaPrevalidarDuranteService.run(runTarea, FaseEnum.RECOLECTAR.getDto(),
                     AccionEnum.FECHAS.getDto());
 
-            final CompletableFuture<Void> cfEstructurasPol = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-                .estructurasPolByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfEstructurasPol, cf);
-
             this.runTareaPrevalidarDuranteService.run(runTarea, FaseEnum.RECOLECTAR.getDto(),
                     AccionEnum.BAJA.getDto());
 
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-            /*-------------------------------------------------------------*/
             final CompletableFuture<Void> cfPresupuestos = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .presupuestosWlocByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresupuestos, cf);
