@@ -53,6 +53,7 @@ public abstract class ValidacionMapperDecorator implements ValidacionMapper {
         if (CollectionUtils.isNotEmpty(incidencias)) {
             result.setIdPersonaLocal(incidencias.stream()
                 .map(IdPersonaLocalFechaIncidenciaDto::getIdPersonaLocal)
+                .distinct()
                 .collect(Collectors.toList()));
         }
         return result;
