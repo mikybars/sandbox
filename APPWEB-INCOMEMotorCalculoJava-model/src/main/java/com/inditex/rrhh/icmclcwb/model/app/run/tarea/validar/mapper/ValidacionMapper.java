@@ -47,7 +47,7 @@ public interface ValidacionMapper {
     @Mapping(target = "idPersonaLocal", ignore = true)
     @Mapping(target = "idMotivosDesplazamiento", expression = "java(new ArrayList<>())")
     ValidacionDto idPersonaLocalFechaIncidenciaDtoToValidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion,
-            List<IdPersonaLocalFechaIncidenciaDto> incidencias);
+            List<IdPersonaLocalFechaIncidenciaDto> incidencias, PrevalidarPropertiesDto properties);
 
     @Mapping(target = "idMotivoDesplazamiento", source = "idMotivo")
     IdMotivoDesplazamientoDto motivosDesplazamientoItemDtoToIdMotivoDesplazamientoDto(MotivosDesplazamientoItemDto src);
