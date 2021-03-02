@@ -640,6 +640,9 @@ app:
           max-empleados: 10
       fechas:
         meses: 24
+        sincronizacion:
+          activo: true
+          max-empleados: 10
       resalta:
         sincronizacion:
           activo: true
