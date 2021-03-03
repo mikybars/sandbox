@@ -26,7 +26,7 @@ public class PtrServiceImpl implements PtrService {
     public PresenciaOrigenDto findPresenciasOrigenAndFecha(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
         return this.ptrRepositoryCustom
-            .findPresenciasOrigenAndFecha(runTareaDto.getTarea());
+            .findPresenciasOrigenAndFecha(runTareaDto.getTarea(), tareaAmbito);
     }
 
 }

@@ -10,6 +10,9 @@ public class SqlPtrConstants {
 
     public static final String SQL_PARAM_FECHA_FIN = "fechaFin";
 
+    public static final String SQL_PARAM_CCL_ID_ORIGEN = "idOrigen";
+
+
     // RESULTADOS DE CONSULTAS
 
     public static final String SQL_RESULT_HORAS_SECCION_1 = "HORAS_SECCION_1";

@@ -154,7 +154,7 @@ amiga:
             connectionTimeout: 300
             commandTimeout: 300
             interruptProcessingMode: 2
-            currentSchema: GESTION_COMISION
+            currentSchema: DESARROLLO_RRHH
 #          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
 #          xa-properties:
 #            clientProgramName: ${metadata.jirakey}
@@ -166,7 +166,7 @@ amiga:
     jpa:
       properties:
         hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
-        hibernate.default_schema: GESTION_COMISION
+        hibernate.default_schema: DESARROLLO_RRHH
 app:
   envars:
     calculo:
@@ -197,7 +197,33 @@ app:
       days-number-creation: -3
       max: 100
       batch-size:
-        default: 100        
+        default: 100   
+    prevalidacion:
+      baja:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      carencia:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      fechas:
+        meses: 24
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      resalta:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      desplazamiento:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      historico:
+        sincronizacion:
+          activo: true
+          max-empleados: 10             
     ptr:
       config:
         max-attempts: 2
@@ -620,3 +646,13 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
+          sincronizacion:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3              
+              

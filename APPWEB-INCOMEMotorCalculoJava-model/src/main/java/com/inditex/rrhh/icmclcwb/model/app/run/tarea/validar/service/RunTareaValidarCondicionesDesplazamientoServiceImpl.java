@@ -54,6 +54,13 @@ public class RunTareaValidarCondicionesDesplazamientoServiceImpl implements RunP
             .map(item -> this.runTareaAmbitoValidarCondicionesDesplazamientoService
                 .execute(runTarea, item, tareaFaseAccion))
             .collect(Collectors.toList());
+
+        if (validaciones.isEmpty()) {
+            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+                    EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
+            return validaciones;
+        }
+
         if (validaciones.stream()
             .filter(e -> e.getResult().equals(Boolean.FALSE))
             .collect(Collectors.toList())

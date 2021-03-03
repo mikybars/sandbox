@@ -84,7 +84,7 @@ public class RunTareaAmbitoValidarFechasServiceImpl implements RunTareaAmbitoVal
             throw e;
         }
         return this.validacionMapper.idPersonaLocalFechaIncidenciaDtoToValidacionDto(tareaAmbito, tareaFaseAccion,
-                incidencias);
+                incidencias, this.fechasProperties);
     }
 
 }

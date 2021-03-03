@@ -46,15 +46,18 @@ public abstract class ValidacionMapperDecorator implements ValidacionMapper {
     @Override
     public ValidacionDto idPersonaLocalFechaIncidenciaDtoToValidacionDto(
             final TareaAmbitoDto ambito, final TareaFaseAccionDto accion,
-            final List<IdPersonaLocalFechaIncidenciaDto> incidencias) {
+            final List<IdPersonaLocalFechaIncidenciaDto> incidencias, final PrevalidarPropertiesDto properties) {
         final ValidacionDto result = this.delegate.idPersonaLocalFechaIncidenciaDtoToValidacionDto(ambito, accion,
-                incidencias);
+                incidencias, properties);
         result.setIdPersonaLocal(new ArrayList<>());
         if (CollectionUtils.isNotEmpty(incidencias)) {
             result.setIdPersonaLocal(incidencias.stream()
                 .map(IdPersonaLocalFechaIncidenciaDto::getIdPersonaLocal)
+                .distinct()
                 .collect(Collectors.toList()));
         }
+        result.setSincronizacion(properties.getSincronizacion().isActivo()
+                && result.getIdPersonaLocal().size() >= properties.getSincronizacion().getMaxEmpleados());
         return result;
     }
 
