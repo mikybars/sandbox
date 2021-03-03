@@ -68,4 +68,6 @@ public class Meta4PropertiesConstants {
 
     public static final String VENTA_MANUAL_WLOC = "getVentaManualWloc";
 
+    public static final String SINCRONIZACION = "sincronizacion";
+
 }

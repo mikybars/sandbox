@@ -54,6 +54,11 @@ public class RunTareaValidarCondicionesResaltaServiceImpl implements RunPrevalid
             .map(item -> this.runTareaAmbitoValidarCondicionesResaltaService
                 .execute(runTarea, item, tareaFaseAccion))
             .collect(Collectors.toList());
+        if (validaciones.isEmpty()) {
+            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+                    EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
+            return validaciones;
+        }
         if (validaciones.stream()
             .filter(e -> e.getResult().equals(Boolean.FALSE))
             .collect(Collectors.toList())
