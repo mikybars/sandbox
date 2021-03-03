@@ -197,7 +197,33 @@ app:
       days-number-creation: -3
       max: 100
       batch-size:
-        default: 100        
+        default: 100   
+    prevalidacion:
+      baja:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      carencia:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      fechas:
+        meses: 24
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      resalta:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      desplazamiento:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      historico:
+        sincronizacion:
+          activo: true
+          max-empleados: 10             
     ptr:
       config:
         max-attempts: 2
