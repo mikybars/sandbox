@@ -5,8 +5,10 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPtrConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 @Repository
@@ -18,12 +20,13 @@ public class PtrRepositoryCustomImpl
     private String sqlfindPresenciasOrigenAndFechaQuery;
 
     @Override
-    public PresenciaOrigenDto findPresenciasOrigenAndFecha(final TareaDto tarea) {
+    public PresenciaOrigenDto findPresenciasOrigenAndFecha(final TareaDto tarea, final TareaAmbitoDto ambito) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO,
+        map.addValue(SqlPtrConstants.SQL_PARAM_FECHA_INICIO,
                 TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
-        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_FIN,
+        map.addValue(SqlPtrConstants.SQL_PARAM_FECHA_FIN,
                 TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlPtrConstants.SQL_PARAM_CCL_ID_ORIGEN, ambito.getCclIdOrigen());
 
         return this.queryForObject(this.sqlfindPresenciasOrigenAndFechaQuery, map,
                 (rs, rowNum) -> PresenciaOrigenDto
