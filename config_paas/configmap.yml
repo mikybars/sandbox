@@ -154,7 +154,7 @@ amiga:
             connectionTimeout: 300
             commandTimeout: 300
             interruptProcessingMode: 2
-            currentSchema: GESTION_COMISION
+            currentSchema: DESARROLLO_RRHH
 #          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
 #          xa-properties:
 #            clientProgramName: ${metadata.jirakey}
@@ -166,7 +166,7 @@ amiga:
     jpa:
       properties:
         hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
-        hibernate.default_schema: GESTION_COMISION
+        hibernate.default_schema: DESARROLLO_RRHH
 app:
   envars:
     calculo:
