@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustomImpl;
@@ -57,9 +58,10 @@ public class PtrRepositoryCustomImplTest {
     @Test
     public void findPresenciasOrigenAndFecha() {
         final TareaDto tarea = new TareaDto();
+        final TareaAmbitoDto ambito = new TareaAmbitoDto();
         tarea.setFechaInicioPeriodo(LocalDate.now());
         tarea.setFechaFinPeriodo(LocalDate.now());
-        this.ptrRepositoryCustom.findPresenciasOrigenAndFecha(tarea);
+        this.ptrRepositoryCustom.findPresenciasOrigenAndFecha(tarea, ambito);
         verify(this.namedParameterJdbcTemplate, times(1)).queryForObject(this.sqlCaptor.capture(),
                 this.paramsCaptor.capture(),
                 ArgumentMatchers.<RowMapper<PresenciaOrigenDto>>any());
@@ -67,7 +69,7 @@ public class PtrRepositoryCustomImplTest {
                 this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: fechainicio, fechafin
-        assertEquals(2, params.getValues().size());
+        assertEquals(3, params.getValues().size());
         // fechainicio
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO));
         // fechafin
