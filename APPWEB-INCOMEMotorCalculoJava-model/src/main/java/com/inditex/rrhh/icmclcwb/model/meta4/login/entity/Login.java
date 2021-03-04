@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
 import java.io.Serializable;
@@ -183,8 +187,7 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
     }
 
     @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
         this.appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
@@ -192,8 +195,7 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
     }
 
     @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
         {
             final String theAiSUser;
             theAiSUser = this.getAiSUser();
@@ -259,8 +261,7 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
         if (draftCopy instanceof Login) {
             final Login copy = ((Login) draftCopy);
             {
-                final Boolean aiSUserShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.aiSUser != null));
+                final Boolean aiSUserShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSUser != null));
                 if (aiSUserShouldBeCopiedAndSet == Boolean.TRUE) {
                     final String sourceAiSUser;
                     sourceAiSUser = this.getAiSUser();

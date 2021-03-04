@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021.  Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -25,11 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_ListaausenciasBlock complex type.
+ * <p>Clase Java para Icm_ListaausenciasBlock complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ListaausenciasBlock"&gt;
@@ -47,12 +49,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaausenciasBlock", propOrder = {
-        "icmListaausenciasRecordSet"
+    "icmListaausenciasRecordSet"
 })
-public class IcmListaausenciasBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmListaausenciasBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "Icm_ListaausenciasRecordSet", nillable = true)
     protected List<IcmListaausenciasRecord> icmListaausenciasRecordSet;
 
@@ -60,20 +62,21 @@ public class IcmListaausenciasBlock implements Serializable, Cloneable, CopyTo2,
      * Gets the value of the icmListaausenciasRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmListaausenciasRecordSet property.
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmListaausenciasRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmListaausenciasRecordSet().add(newItem);
+     *    getIcmListaausenciasRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmListaausenciasRecord }
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmListaausenciasRecord }
      *
      *
      */
@@ -84,9 +87,8 @@ public class IcmListaausenciasBlock implements Serializable, Cloneable, CopyTo2,
         return this.icmListaausenciasRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -95,17 +97,10 @@ public class IcmListaausenciasBlock implements Serializable, Cloneable, CopyTo2,
         final IcmListaausenciasBlock that = ((IcmListaausenciasBlock) object);
         {
             List<IcmListaausenciasRecord> lhsIcmListaausenciasRecordSet;
-            lhsIcmListaausenciasRecordSet = (((this.icmListaausenciasRecordSet != null)
-                    && (!this.icmListaausenciasRecordSet.isEmpty())) ? this.getIcmListaausenciasRecordSet() : null);
+            lhsIcmListaausenciasRecordSet = (((this.icmListaausenciasRecordSet!= null)&&(!this.icmListaausenciasRecordSet.isEmpty()))?this.getIcmListaausenciasRecordSet():null);
             List<IcmListaausenciasRecord> rhsIcmListaausenciasRecordSet;
-            rhsIcmListaausenciasRecordSet = (((that.icmListaausenciasRecordSet != null)
-                    && (!that.icmListaausenciasRecordSet.isEmpty())) ? that.getIcmListaausenciasRecordSet() : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmListaausenciasRecordSet", lhsIcmListaausenciasRecordSet),
-                    LocatorUtils.property(thatLocator, "icmListaausenciasRecordSet", rhsIcmListaausenciasRecordSet),
-                    lhsIcmListaausenciasRecordSet, rhsIcmListaausenciasRecordSet,
-                    ((this.icmListaausenciasRecordSet != null) && (!this.icmListaausenciasRecordSet.isEmpty())),
-                    ((that.icmListaausenciasRecordSet != null) && (!that.icmListaausenciasRecordSet.isEmpty())))) {
+            rhsIcmListaausenciasRecordSet = (((that.icmListaausenciasRecordSet!= null)&&(!that.icmListaausenciasRecordSet.isEmpty()))?that.getIcmListaausenciasRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaausenciasRecordSet", lhsIcmListaausenciasRecordSet), LocatorUtils.property(thatLocator, "icmListaausenciasRecordSet", rhsIcmListaausenciasRecordSet), lhsIcmListaausenciasRecordSet, rhsIcmListaausenciasRecordSet, ((this.icmListaausenciasRecordSet!= null)&&(!this.icmListaausenciasRecordSet.isEmpty())), ((that.icmListaausenciasRecordSet!= null)&&(!that.icmListaausenciasRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -134,10 +129,8 @@ public class IcmListaausenciasBlock implements Serializable, Cloneable, CopyTo2,
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListaausenciasRecord> theIcmListaausenciasRecordSet;
-            theIcmListaausenciasRecordSet = (((this.icmListaausenciasRecordSet != null)
-                    && (!this.icmListaausenciasRecordSet.isEmpty())) ? this.getIcmListaausenciasRecordSet() : null);
-            strategy.appendField(locator, this, "icmListaausenciasRecordSet", buffer, theIcmListaausenciasRecordSet,
-                    ((this.icmListaausenciasRecordSet != null) && (!this.icmListaausenciasRecordSet.isEmpty())));
+            theIcmListaausenciasRecordSet = (((this.icmListaausenciasRecordSet!= null)&&(!this.icmListaausenciasRecordSet.isEmpty()))?this.getIcmListaausenciasRecordSet():null);
+            strategy.appendField(locator, this, "icmListaausenciasRecordSet", buffer, theIcmListaausenciasRecordSet, ((this.icmListaausenciasRecordSet!= null)&&(!this.icmListaausenciasRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -146,12 +139,8 @@ public class IcmListaausenciasBlock implements Serializable, Cloneable, CopyTo2,
         int currentHashCode = 1;
         {
             List<IcmListaausenciasRecord> theIcmListaausenciasRecordSet;
-            theIcmListaausenciasRecordSet = (((this.icmListaausenciasRecordSet != null)
-                    && (!this.icmListaausenciasRecordSet.isEmpty())) ? this.getIcmListaausenciasRecordSet() : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmListaausenciasRecordSet", theIcmListaausenciasRecordSet),
-                    currentHashCode, theIcmListaausenciasRecordSet,
-                    ((this.icmListaausenciasRecordSet != null) && (!this.icmListaausenciasRecordSet.isEmpty())));
+            theIcmListaausenciasRecordSet = (((this.icmListaausenciasRecordSet!= null)&&(!this.icmListaausenciasRecordSet.isEmpty()))?this.getIcmListaausenciasRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaausenciasRecordSet", theIcmListaausenciasRecordSet), currentHashCode, theIcmListaausenciasRecordSet, ((this.icmListaausenciasRecordSet!= null)&&(!this.icmListaausenciasRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -171,27 +160,19 @@ public class IcmListaausenciasBlock implements Serializable, Cloneable, CopyTo2,
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmListaausenciasBlock) {
             final IcmListaausenciasBlock copy = ((IcmListaausenciasBlock) draftCopy);
             {
-                Boolean icmListaausenciasRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        ((this.icmListaausenciasRecordSet != null) && (!this.icmListaausenciasRecordSet.isEmpty())));
+                Boolean icmListaausenciasRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListaausenciasRecordSet!= null)&&(!this.icmListaausenciasRecordSet.isEmpty())));
                 if (icmListaausenciasRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListaausenciasRecord> sourceIcmListaausenciasRecordSet;
-                    sourceIcmListaausenciasRecordSet = (((this.icmListaausenciasRecordSet != null)
-                            && (!this.icmListaausenciasRecordSet.isEmpty())) ? this.getIcmListaausenciasRecordSet()
-                                    : null);
+                    sourceIcmListaausenciasRecordSet = (((this.icmListaausenciasRecordSet!= null)&&(!this.icmListaausenciasRecordSet.isEmpty()))?this.getIcmListaausenciasRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListaausenciasRecord> copyIcmListaausenciasRecordSet = ((List<IcmListaausenciasRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmListaausenciasRecordSet",
-                                sourceIcmListaausenciasRecordSet), sourceIcmListaausenciasRecordSet,
-                                ((this.icmListaausenciasRecordSet != null)
-                                        && (!this.icmListaausenciasRecordSet.isEmpty()))));
+                    List<IcmListaausenciasRecord> copyIcmListaausenciasRecordSet = ((List<IcmListaausenciasRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListaausenciasRecordSet", sourceIcmListaausenciasRecordSet), sourceIcmListaausenciasRecordSet, ((this.icmListaausenciasRecordSet!= null)&&(!this.icmListaausenciasRecordSet.isEmpty()))));
                     copy.icmListaausenciasRecordSet = null;
-                    if (copyIcmListaausenciasRecordSet != null) {
-                        List<IcmListaausenciasRecord> uniqueIcmListaausenciasRecordSetl = copy
-                            .getIcmListaausenciasRecordSet();
+                    if (copyIcmListaausenciasRecordSet!= null) {
+                        List<IcmListaausenciasRecord> uniqueIcmListaausenciasRecordSetl = copy.getIcmListaausenciasRecordSet();
                         uniqueIcmListaausenciasRecordSetl.addAll(copyIcmListaausenciasRecordSet);
                     }
                 } else {

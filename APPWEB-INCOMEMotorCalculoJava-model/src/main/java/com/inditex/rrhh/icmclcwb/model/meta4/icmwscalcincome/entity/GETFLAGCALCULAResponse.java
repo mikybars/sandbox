@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021.  Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -24,11 +28,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para anonymous complex type.
+ * <p>Clase Java para anonymous complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -46,19 +48,22 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "getflagcalculaReturn"
+    "getflagcalculaReturn"
 })
 @XmlRootElement(name = "GETFLAGCALCULAResponse")
-public class GETFLAGCALCULAResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETFLAGCALCULAResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "GETFLAGCALCULAReturn", required = true)
     protected GetflagcalculaOutput getflagcalculaReturn;
 
     /**
      * Obtiene el valor de la propiedad getflagcalculaReturn.
-     * @return possible object is {@link GetflagcalculaOutput }
+     *
+     * @return
+     *     possible object is
+     *     {@link GetflagcalculaOutput }
      *
      */
     public GetflagcalculaOutput getGETFLAGCALCULAReturn() {
@@ -67,16 +72,18 @@ public class GETFLAGCALCULAResponse implements Serializable, Cloneable, CopyTo2,
 
     /**
      * Define el valor de la propiedad getflagcalculaReturn.
-     * @param value allowed object is {@link GetflagcalculaOutput }
+     *
+     * @param value
+     *     allowed object is
+     *     {@link GetflagcalculaOutput }
      *
      */
     public void setGETFLAGCALCULAReturn(GetflagcalculaOutput value) {
         this.getflagcalculaReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -88,10 +95,7 @@ public class GETFLAGCALCULAResponse implements Serializable, Cloneable, CopyTo2,
             lhsGETFLAGCALCULAReturn = this.getGETFLAGCALCULAReturn();
             GetflagcalculaOutput rhsGETFLAGCALCULAReturn;
             rhsGETFLAGCALCULAReturn = that.getGETFLAGCALCULAReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getflagcalculaReturn", lhsGETFLAGCALCULAReturn),
-                    LocatorUtils.property(thatLocator, "getflagcalculaReturn", rhsGETFLAGCALCULAReturn),
-                    lhsGETFLAGCALCULAReturn, rhsGETFLAGCALCULAReturn, (this.getflagcalculaReturn != null),
-                    (that.getflagcalculaReturn != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getflagcalculaReturn", lhsGETFLAGCALCULAReturn), LocatorUtils.property(thatLocator, "getflagcalculaReturn", rhsGETFLAGCALCULAReturn), lhsGETFLAGCALCULAReturn, rhsGETFLAGCALCULAReturn, (this.getflagcalculaReturn!= null), (that.getflagcalculaReturn!= null))) {
                 return false;
             }
         }
@@ -121,8 +125,7 @@ public class GETFLAGCALCULAResponse implements Serializable, Cloneable, CopyTo2,
         {
             GetflagcalculaOutput theGETFLAGCALCULAReturn;
             theGETFLAGCALCULAReturn = this.getGETFLAGCALCULAReturn();
-            strategy.appendField(locator, this, "getflagcalculaReturn", buffer, theGETFLAGCALCULAReturn,
-                    (this.getflagcalculaReturn != null));
+            strategy.appendField(locator, this, "getflagcalculaReturn", buffer, theGETFLAGCALCULAReturn, (this.getflagcalculaReturn!= null));
         }
         return buffer;
     }
@@ -132,9 +135,7 @@ public class GETFLAGCALCULAResponse implements Serializable, Cloneable, CopyTo2,
         {
             GetflagcalculaOutput theGETFLAGCALCULAReturn;
             theGETFLAGCALCULAReturn = this.getGETFLAGCALCULAReturn();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "getflagcalculaReturn", theGETFLAGCALCULAReturn), currentHashCode,
-                    theGETFLAGCALCULAReturn, (this.getflagcalculaReturn != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getflagcalculaReturn", theGETFLAGCALCULAReturn), currentHashCode, theGETFLAGCALCULAReturn, (this.getflagcalculaReturn!= null));
         }
         return currentHashCode;
     }
@@ -154,18 +155,15 @@ public class GETFLAGCALCULAResponse implements Serializable, Cloneable, CopyTo2,
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof GETFLAGCALCULAResponse) {
             final GETFLAGCALCULAResponse copy = ((GETFLAGCALCULAResponse) draftCopy);
             {
-                Boolean getflagcalculaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.getflagcalculaReturn != null));
+                Boolean getflagcalculaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getflagcalculaReturn!= null));
                 if (getflagcalculaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetflagcalculaOutput sourceGETFLAGCALCULAReturn;
                     sourceGETFLAGCALCULAReturn = this.getGETFLAGCALCULAReturn();
-                    GetflagcalculaOutput copyGETFLAGCALCULAReturn = ((GetflagcalculaOutput) strategy.copy(
-                            LocatorUtils.property(locator, "getflagcalculaReturn", sourceGETFLAGCALCULAReturn),
-                            sourceGETFLAGCALCULAReturn, (this.getflagcalculaReturn != null)));
+                    GetflagcalculaOutput copyGETFLAGCALCULAReturn = ((GetflagcalculaOutput) strategy.copy(LocatorUtils.property(locator, "getflagcalculaReturn", sourceGETFLAGCALCULAReturn), sourceGETFLAGCALCULAReturn, (this.getflagcalculaReturn!= null)));
                     copy.setGETFLAGCALCULAReturn(copyGETFLAGCALCULAReturn);
                 } else {
                     if (getflagcalculaReturnShouldBeCopiedAndSet == Boolean.FALSE) {

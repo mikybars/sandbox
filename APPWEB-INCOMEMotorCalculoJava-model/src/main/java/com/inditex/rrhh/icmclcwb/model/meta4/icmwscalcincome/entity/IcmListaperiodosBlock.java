@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021.  Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -25,11 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_ListaperiodosBlock complex type.
+ * <p>Clase Java para Icm_ListaperiodosBlock complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ListaperiodosBlock"&gt;
@@ -47,12 +49,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaperiodosBlock", propOrder = {
-        "icmListaperiodosRecordSet"
+    "icmListaperiodosRecordSet"
 })
-public class IcmListaperiodosBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmListaperiodosBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "Icm_ListaperiodosRecordSet", nillable = true)
     protected List<IcmListaperiodosRecord> icmListaperiodosRecordSet;
 
@@ -60,20 +62,21 @@ public class IcmListaperiodosBlock implements Serializable, Cloneable, CopyTo2, 
      * Gets the value of the icmListaperiodosRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmListaperiodosRecordSet property.
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmListaperiodosRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmListaperiodosRecordSet().add(newItem);
+     *    getIcmListaperiodosRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmListaperiodosRecord }
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmListaperiodosRecord }
      *
      *
      */
@@ -84,9 +87,8 @@ public class IcmListaperiodosBlock implements Serializable, Cloneable, CopyTo2, 
         return this.icmListaperiodosRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -95,17 +97,10 @@ public class IcmListaperiodosBlock implements Serializable, Cloneable, CopyTo2, 
         final IcmListaperiodosBlock that = ((IcmListaperiodosBlock) object);
         {
             List<IcmListaperiodosRecord> lhsIcmListaperiodosRecordSet;
-            lhsIcmListaperiodosRecordSet = (((this.icmListaperiodosRecordSet != null)
-                    && (!this.icmListaperiodosRecordSet.isEmpty())) ? this.getIcmListaperiodosRecordSet() : null);
+            lhsIcmListaperiodosRecordSet = (((this.icmListaperiodosRecordSet!= null)&&(!this.icmListaperiodosRecordSet.isEmpty()))?this.getIcmListaperiodosRecordSet():null);
             List<IcmListaperiodosRecord> rhsIcmListaperiodosRecordSet;
-            rhsIcmListaperiodosRecordSet = (((that.icmListaperiodosRecordSet != null)
-                    && (!that.icmListaperiodosRecordSet.isEmpty())) ? that.getIcmListaperiodosRecordSet() : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmListaperiodosRecordSet", lhsIcmListaperiodosRecordSet),
-                    LocatorUtils.property(thatLocator, "icmListaperiodosRecordSet", rhsIcmListaperiodosRecordSet),
-                    lhsIcmListaperiodosRecordSet, rhsIcmListaperiodosRecordSet,
-                    ((this.icmListaperiodosRecordSet != null) && (!this.icmListaperiodosRecordSet.isEmpty())),
-                    ((that.icmListaperiodosRecordSet != null) && (!that.icmListaperiodosRecordSet.isEmpty())))) {
+            rhsIcmListaperiodosRecordSet = (((that.icmListaperiodosRecordSet!= null)&&(!that.icmListaperiodosRecordSet.isEmpty()))?that.getIcmListaperiodosRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaperiodosRecordSet", lhsIcmListaperiodosRecordSet), LocatorUtils.property(thatLocator, "icmListaperiodosRecordSet", rhsIcmListaperiodosRecordSet), lhsIcmListaperiodosRecordSet, rhsIcmListaperiodosRecordSet, ((this.icmListaperiodosRecordSet!= null)&&(!this.icmListaperiodosRecordSet.isEmpty())), ((that.icmListaperiodosRecordSet!= null)&&(!that.icmListaperiodosRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -134,10 +129,8 @@ public class IcmListaperiodosBlock implements Serializable, Cloneable, CopyTo2, 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListaperiodosRecord> theIcmListaperiodosRecordSet;
-            theIcmListaperiodosRecordSet = (((this.icmListaperiodosRecordSet != null)
-                    && (!this.icmListaperiodosRecordSet.isEmpty())) ? this.getIcmListaperiodosRecordSet() : null);
-            strategy.appendField(locator, this, "icmListaperiodosRecordSet", buffer, theIcmListaperiodosRecordSet,
-                    ((this.icmListaperiodosRecordSet != null) && (!this.icmListaperiodosRecordSet.isEmpty())));
+            theIcmListaperiodosRecordSet = (((this.icmListaperiodosRecordSet!= null)&&(!this.icmListaperiodosRecordSet.isEmpty()))?this.getIcmListaperiodosRecordSet():null);
+            strategy.appendField(locator, this, "icmListaperiodosRecordSet", buffer, theIcmListaperiodosRecordSet, ((this.icmListaperiodosRecordSet!= null)&&(!this.icmListaperiodosRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -146,12 +139,8 @@ public class IcmListaperiodosBlock implements Serializable, Cloneable, CopyTo2, 
         int currentHashCode = 1;
         {
             List<IcmListaperiodosRecord> theIcmListaperiodosRecordSet;
-            theIcmListaperiodosRecordSet = (((this.icmListaperiodosRecordSet != null)
-                    && (!this.icmListaperiodosRecordSet.isEmpty())) ? this.getIcmListaperiodosRecordSet() : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmListaperiodosRecordSet", theIcmListaperiodosRecordSet),
-                    currentHashCode, theIcmListaperiodosRecordSet,
-                    ((this.icmListaperiodosRecordSet != null) && (!this.icmListaperiodosRecordSet.isEmpty())));
+            theIcmListaperiodosRecordSet = (((this.icmListaperiodosRecordSet!= null)&&(!this.icmListaperiodosRecordSet.isEmpty()))?this.getIcmListaperiodosRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaperiodosRecordSet", theIcmListaperiodosRecordSet), currentHashCode, theIcmListaperiodosRecordSet, ((this.icmListaperiodosRecordSet!= null)&&(!this.icmListaperiodosRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -171,27 +160,19 @@ public class IcmListaperiodosBlock implements Serializable, Cloneable, CopyTo2, 
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmListaperiodosBlock) {
             final IcmListaperiodosBlock copy = ((IcmListaperiodosBlock) draftCopy);
             {
-                Boolean icmListaperiodosRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        ((this.icmListaperiodosRecordSet != null) && (!this.icmListaperiodosRecordSet.isEmpty())));
+                Boolean icmListaperiodosRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListaperiodosRecordSet!= null)&&(!this.icmListaperiodosRecordSet.isEmpty())));
                 if (icmListaperiodosRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListaperiodosRecord> sourceIcmListaperiodosRecordSet;
-                    sourceIcmListaperiodosRecordSet = (((this.icmListaperiodosRecordSet != null)
-                            && (!this.icmListaperiodosRecordSet.isEmpty())) ? this.getIcmListaperiodosRecordSet()
-                                    : null);
+                    sourceIcmListaperiodosRecordSet = (((this.icmListaperiodosRecordSet!= null)&&(!this.icmListaperiodosRecordSet.isEmpty()))?this.getIcmListaperiodosRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListaperiodosRecord> copyIcmListaperiodosRecordSet = ((List<IcmListaperiodosRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmListaperiodosRecordSet",
-                                sourceIcmListaperiodosRecordSet), sourceIcmListaperiodosRecordSet,
-                                ((this.icmListaperiodosRecordSet != null)
-                                        && (!this.icmListaperiodosRecordSet.isEmpty()))));
+                    List<IcmListaperiodosRecord> copyIcmListaperiodosRecordSet = ((List<IcmListaperiodosRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListaperiodosRecordSet", sourceIcmListaperiodosRecordSet), sourceIcmListaperiodosRecordSet, ((this.icmListaperiodosRecordSet!= null)&&(!this.icmListaperiodosRecordSet.isEmpty()))));
                     copy.icmListaperiodosRecordSet = null;
-                    if (copyIcmListaperiodosRecordSet != null) {
-                        List<IcmListaperiodosRecord> uniqueIcmListaperiodosRecordSetl = copy
-                            .getIcmListaperiodosRecordSet();
+                    if (copyIcmListaperiodosRecordSet!= null) {
+                        List<IcmListaperiodosRecord> uniqueIcmListaperiodosRecordSetl = copy.getIcmListaperiodosRecordSet();
                         uniqueIcmListaperiodosRecordSetl.addAll(copyIcmListaperiodosRecordSet);
                     }
                 } else {

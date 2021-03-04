@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
 import javax.xml.ws.WebFault;
@@ -13,7 +17,6 @@ public class M4SoapException_Exception
         extends Exception {
 
     private static final long serialVersionUID = -781586420857169571L;
-
     /**
      * Java type that goes as soapenv:Fault detail element.
      *

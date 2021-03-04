@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
 import java.io.Serializable;
@@ -112,8 +116,7 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
     }
 
     @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
         this.appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
@@ -121,8 +124,7 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
     }
 
     @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
         {
             final int theRetrieveM4SessionReturn;
             theRetrieveM4SessionReturn = this.getRetrieveM4SessionReturn();
@@ -167,8 +169,7 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
         if (draftCopy instanceof RetrieveM4SessionResponse) {
             final RetrieveM4SessionResponse copy = ((RetrieveM4SessionResponse) draftCopy);
             {
-                final Boolean retrieveM4SessionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        true);
+                final Boolean retrieveM4SessionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
                 if (retrieveM4SessionReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     final int sourceRetrieveM4SessionReturn;
                     sourceRetrieveM4SessionReturn = this.getRetrieveM4SessionReturn();

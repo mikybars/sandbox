@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
 import javax.jws.WebMethod;

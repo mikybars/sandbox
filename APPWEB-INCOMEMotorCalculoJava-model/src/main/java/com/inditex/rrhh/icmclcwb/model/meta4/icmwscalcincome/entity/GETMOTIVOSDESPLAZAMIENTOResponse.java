@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021.  Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -24,11 +28,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para anonymous complex type.
+ * <p>Clase Java para anonymous complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -46,20 +48,22 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "getmotivosdesplazamientoReturn"
+    "getmotivosdesplazamientoReturn"
 })
 @XmlRootElement(name = "GETMOTIVOSDESPLAZAMIENTOResponse")
-public class GETMOTIVOSDESPLAZAMIENTOResponse
-        implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETMOTIVOSDESPLAZAMIENTOResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "GETMOTIVOSDESPLAZAMIENTOReturn", required = true)
     protected GetmotivosdesplazamientoOutput getmotivosdesplazamientoReturn;
 
     /**
      * Obtiene el valor de la propiedad getmotivosdesplazamientoReturn.
-     * @return possible object is {@link GetmotivosdesplazamientoOutput }
+     *
+     * @return
+     *     possible object is
+     *     {@link GetmotivosdesplazamientoOutput }
      *
      */
     public GetmotivosdesplazamientoOutput getGETMOTIVOSDESPLAZAMIENTOReturn() {
@@ -68,16 +72,18 @@ public class GETMOTIVOSDESPLAZAMIENTOResponse
 
     /**
      * Define el valor de la propiedad getmotivosdesplazamientoReturn.
-     * @param value allowed object is {@link GetmotivosdesplazamientoOutput }
+     *
+     * @param value
+     *     allowed object is
+     *     {@link GetmotivosdesplazamientoOutput }
      *
      */
     public void setGETMOTIVOSDESPLAZAMIENTOReturn(GetmotivosdesplazamientoOutput value) {
         this.getmotivosdesplazamientoReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -89,13 +95,7 @@ public class GETMOTIVOSDESPLAZAMIENTOResponse
             lhsGETMOTIVOSDESPLAZAMIENTOReturn = this.getGETMOTIVOSDESPLAZAMIENTOReturn();
             GetmotivosdesplazamientoOutput rhsGETMOTIVOSDESPLAZAMIENTOReturn;
             rhsGETMOTIVOSDESPLAZAMIENTOReturn = that.getGETMOTIVOSDESPLAZAMIENTOReturn();
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "getmotivosdesplazamientoReturn",
-                            lhsGETMOTIVOSDESPLAZAMIENTOReturn),
-                    LocatorUtils.property(thatLocator, "getmotivosdesplazamientoReturn",
-                            rhsGETMOTIVOSDESPLAZAMIENTOReturn),
-                    lhsGETMOTIVOSDESPLAZAMIENTOReturn, rhsGETMOTIVOSDESPLAZAMIENTOReturn,
-                    (this.getmotivosdesplazamientoReturn != null), (that.getmotivosdesplazamientoReturn != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getmotivosdesplazamientoReturn", lhsGETMOTIVOSDESPLAZAMIENTOReturn), LocatorUtils.property(thatLocator, "getmotivosdesplazamientoReturn", rhsGETMOTIVOSDESPLAZAMIENTOReturn), lhsGETMOTIVOSDESPLAZAMIENTOReturn, rhsGETMOTIVOSDESPLAZAMIENTOReturn, (this.getmotivosdesplazamientoReturn!= null), (that.getmotivosdesplazamientoReturn!= null))) {
                 return false;
             }
         }
@@ -125,8 +125,7 @@ public class GETMOTIVOSDESPLAZAMIENTOResponse
         {
             GetmotivosdesplazamientoOutput theGETMOTIVOSDESPLAZAMIENTOReturn;
             theGETMOTIVOSDESPLAZAMIENTOReturn = this.getGETMOTIVOSDESPLAZAMIENTOReturn();
-            strategy.appendField(locator, this, "getmotivosdesplazamientoReturn", buffer,
-                    theGETMOTIVOSDESPLAZAMIENTOReturn, (this.getmotivosdesplazamientoReturn != null));
+            strategy.appendField(locator, this, "getmotivosdesplazamientoReturn", buffer, theGETMOTIVOSDESPLAZAMIENTOReturn, (this.getmotivosdesplazamientoReturn!= null));
         }
         return buffer;
     }
@@ -136,9 +135,7 @@ public class GETMOTIVOSDESPLAZAMIENTOResponse
         {
             GetmotivosdesplazamientoOutput theGETMOTIVOSDESPLAZAMIENTOReturn;
             theGETMOTIVOSDESPLAZAMIENTOReturn = this.getGETMOTIVOSDESPLAZAMIENTOReturn();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "getmotivosdesplazamientoReturn", theGETMOTIVOSDESPLAZAMIENTOReturn),
-                    currentHashCode, theGETMOTIVOSDESPLAZAMIENTOReturn, (this.getmotivosdesplazamientoReturn != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getmotivosdesplazamientoReturn", theGETMOTIVOSDESPLAZAMIENTOReturn), currentHashCode, theGETMOTIVOSDESPLAZAMIENTOReturn, (this.getmotivosdesplazamientoReturn!= null));
         }
         return currentHashCode;
     }
@@ -158,19 +155,15 @@ public class GETMOTIVOSDESPLAZAMIENTOResponse
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof GETMOTIVOSDESPLAZAMIENTOResponse) {
             final GETMOTIVOSDESPLAZAMIENTOResponse copy = ((GETMOTIVOSDESPLAZAMIENTOResponse) draftCopy);
             {
-                Boolean getmotivosdesplazamientoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.getmotivosdesplazamientoReturn != null));
+                Boolean getmotivosdesplazamientoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getmotivosdesplazamientoReturn!= null));
                 if (getmotivosdesplazamientoReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetmotivosdesplazamientoOutput sourceGETMOTIVOSDESPLAZAMIENTOReturn;
                     sourceGETMOTIVOSDESPLAZAMIENTOReturn = this.getGETMOTIVOSDESPLAZAMIENTOReturn();
-                    GetmotivosdesplazamientoOutput copyGETMOTIVOSDESPLAZAMIENTOReturn = ((GetmotivosdesplazamientoOutput) strategy
-                        .copy(LocatorUtils.property(locator, "getmotivosdesplazamientoReturn",
-                                sourceGETMOTIVOSDESPLAZAMIENTOReturn), sourceGETMOTIVOSDESPLAZAMIENTOReturn,
-                                (this.getmotivosdesplazamientoReturn != null)));
+                    GetmotivosdesplazamientoOutput copyGETMOTIVOSDESPLAZAMIENTOReturn = ((GetmotivosdesplazamientoOutput) strategy.copy(LocatorUtils.property(locator, "getmotivosdesplazamientoReturn", sourceGETMOTIVOSDESPLAZAMIENTOReturn), sourceGETMOTIVOSDESPLAZAMIENTOReturn, (this.getmotivosdesplazamientoReturn!= null)));
                     copy.setGETMOTIVOSDESPLAZAMIENTOReturn(copyGETMOTIVOSDESPLAZAMIENTOReturn);
                 } else {
                     if (getmotivosdesplazamientoReturnShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021.  Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -24,11 +28,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para anonymous complex type.
+ * <p>Clase Java para anonymous complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -46,19 +48,22 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "getestructuraspolReturn"
+    "getestructuraspolReturn"
 })
 @XmlRootElement(name = "GETESTRUCTURASPOLResponse")
-public class GETESTRUCTURASPOLResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETESTRUCTURASPOLResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "GETESTRUCTURASPOLReturn", required = true)
     protected GetestructuraspolOutput getestructuraspolReturn;
 
     /**
      * Obtiene el valor de la propiedad getestructuraspolReturn.
-     * @return possible object is {@link GetestructuraspolOutput }
+     *
+     * @return
+     *     possible object is
+     *     {@link GetestructuraspolOutput }
      *
      */
     public GetestructuraspolOutput getGETESTRUCTURASPOLReturn() {
@@ -67,16 +72,18 @@ public class GETESTRUCTURASPOLResponse implements Serializable, Cloneable, CopyT
 
     /**
      * Define el valor de la propiedad getestructuraspolReturn.
-     * @param value allowed object is {@link GetestructuraspolOutput }
+     *
+     * @param value
+     *     allowed object is
+     *     {@link GetestructuraspolOutput }
      *
      */
     public void setGETESTRUCTURASPOLReturn(GetestructuraspolOutput value) {
         this.getestructuraspolReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -88,11 +95,7 @@ public class GETESTRUCTURASPOLResponse implements Serializable, Cloneable, CopyT
             lhsGETESTRUCTURASPOLReturn = this.getGETESTRUCTURASPOLReturn();
             GetestructuraspolOutput rhsGETESTRUCTURASPOLReturn;
             rhsGETESTRUCTURASPOLReturn = that.getGETESTRUCTURASPOLReturn();
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "getestructuraspolReturn", lhsGETESTRUCTURASPOLReturn),
-                    LocatorUtils.property(thatLocator, "getestructuraspolReturn", rhsGETESTRUCTURASPOLReturn),
-                    lhsGETESTRUCTURASPOLReturn, rhsGETESTRUCTURASPOLReturn, (this.getestructuraspolReturn != null),
-                    (that.getestructuraspolReturn != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getestructuraspolReturn", lhsGETESTRUCTURASPOLReturn), LocatorUtils.property(thatLocator, "getestructuraspolReturn", rhsGETESTRUCTURASPOLReturn), lhsGETESTRUCTURASPOLReturn, rhsGETESTRUCTURASPOLReturn, (this.getestructuraspolReturn!= null), (that.getestructuraspolReturn!= null))) {
                 return false;
             }
         }
@@ -122,8 +125,7 @@ public class GETESTRUCTURASPOLResponse implements Serializable, Cloneable, CopyT
         {
             GetestructuraspolOutput theGETESTRUCTURASPOLReturn;
             theGETESTRUCTURASPOLReturn = this.getGETESTRUCTURASPOLReturn();
-            strategy.appendField(locator, this, "getestructuraspolReturn", buffer, theGETESTRUCTURASPOLReturn,
-                    (this.getestructuraspolReturn != null));
+            strategy.appendField(locator, this, "getestructuraspolReturn", buffer, theGETESTRUCTURASPOLReturn, (this.getestructuraspolReturn!= null));
         }
         return buffer;
     }
@@ -133,9 +135,7 @@ public class GETESTRUCTURASPOLResponse implements Serializable, Cloneable, CopyT
         {
             GetestructuraspolOutput theGETESTRUCTURASPOLReturn;
             theGETESTRUCTURASPOLReturn = this.getGETESTRUCTURASPOLReturn();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "getestructuraspolReturn", theGETESTRUCTURASPOLReturn),
-                    currentHashCode, theGETESTRUCTURASPOLReturn, (this.getestructuraspolReturn != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getestructuraspolReturn", theGETESTRUCTURASPOLReturn), currentHashCode, theGETESTRUCTURASPOLReturn, (this.getestructuraspolReturn!= null));
         }
         return currentHashCode;
     }
@@ -155,18 +155,15 @@ public class GETESTRUCTURASPOLResponse implements Serializable, Cloneable, CopyT
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof GETESTRUCTURASPOLResponse) {
             final GETESTRUCTURASPOLResponse copy = ((GETESTRUCTURASPOLResponse) draftCopy);
             {
-                Boolean getestructuraspolReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.getestructuraspolReturn != null));
+                Boolean getestructuraspolReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getestructuraspolReturn!= null));
                 if (getestructuraspolReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetestructuraspolOutput sourceGETESTRUCTURASPOLReturn;
                     sourceGETESTRUCTURASPOLReturn = this.getGETESTRUCTURASPOLReturn();
-                    GetestructuraspolOutput copyGETESTRUCTURASPOLReturn = ((GetestructuraspolOutput) strategy.copy(
-                            LocatorUtils.property(locator, "getestructuraspolReturn", sourceGETESTRUCTURASPOLReturn),
-                            sourceGETESTRUCTURASPOLReturn, (this.getestructuraspolReturn != null)));
+                    GetestructuraspolOutput copyGETESTRUCTURASPOLReturn = ((GetestructuraspolOutput) strategy.copy(LocatorUtils.property(locator, "getestructuraspolReturn", sourceGETESTRUCTURASPOLReturn), sourceGETESTRUCTURASPOLReturn, (this.getestructuraspolReturn!= null)));
                     copy.setGETESTRUCTURASPOLReturn(copyGETESTRUCTURASPOLReturn);
                 } else {
                     if (getestructuraspolReturnShouldBeCopiedAndSet == Boolean.FALSE) {

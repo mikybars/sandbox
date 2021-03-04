@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021.  Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -25,11 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_ListasincroBlock complex type.
+ * <p>Clase Java para Icm_ListasincroBlock complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ListasincroBlock"&gt;
@@ -47,12 +49,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListasincroBlock", propOrder = {
-        "icmListasincroRecordSet"
+    "icmListasincroRecordSet"
 })
-public class IcmListasincroBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmListasincroBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "Icm_ListasincroRecordSet", nillable = true)
     protected List<IcmListasincroRecord> icmListasincroRecordSet;
 
@@ -60,20 +62,21 @@ public class IcmListasincroBlock implements Serializable, Cloneable, CopyTo2, Eq
      * Gets the value of the icmListasincroRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmListasincroRecordSet property.
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmListasincroRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmListasincroRecordSet().add(newItem);
+     *    getIcmListasincroRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmListasincroRecord }
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmListasincroRecord }
      *
      *
      */
@@ -84,9 +87,8 @@ public class IcmListasincroBlock implements Serializable, Cloneable, CopyTo2, Eq
         return this.icmListasincroRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -95,17 +97,10 @@ public class IcmListasincroBlock implements Serializable, Cloneable, CopyTo2, Eq
         final IcmListasincroBlock that = ((IcmListasincroBlock) object);
         {
             List<IcmListasincroRecord> lhsIcmListasincroRecordSet;
-            lhsIcmListasincroRecordSet = (((this.icmListasincroRecordSet != null)
-                    && (!this.icmListasincroRecordSet.isEmpty())) ? this.getIcmListasincroRecordSet() : null);
+            lhsIcmListasincroRecordSet = (((this.icmListasincroRecordSet!= null)&&(!this.icmListasincroRecordSet.isEmpty()))?this.getIcmListasincroRecordSet():null);
             List<IcmListasincroRecord> rhsIcmListasincroRecordSet;
-            rhsIcmListasincroRecordSet = (((that.icmListasincroRecordSet != null)
-                    && (!that.icmListasincroRecordSet.isEmpty())) ? that.getIcmListasincroRecordSet() : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmListasincroRecordSet", lhsIcmListasincroRecordSet),
-                    LocatorUtils.property(thatLocator, "icmListasincroRecordSet", rhsIcmListasincroRecordSet),
-                    lhsIcmListasincroRecordSet, rhsIcmListasincroRecordSet,
-                    ((this.icmListasincroRecordSet != null) && (!this.icmListasincroRecordSet.isEmpty())),
-                    ((that.icmListasincroRecordSet != null) && (!that.icmListasincroRecordSet.isEmpty())))) {
+            rhsIcmListasincroRecordSet = (((that.icmListasincroRecordSet!= null)&&(!that.icmListasincroRecordSet.isEmpty()))?that.getIcmListasincroRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListasincroRecordSet", lhsIcmListasincroRecordSet), LocatorUtils.property(thatLocator, "icmListasincroRecordSet", rhsIcmListasincroRecordSet), lhsIcmListasincroRecordSet, rhsIcmListasincroRecordSet, ((this.icmListasincroRecordSet!= null)&&(!this.icmListasincroRecordSet.isEmpty())), ((that.icmListasincroRecordSet!= null)&&(!that.icmListasincroRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -134,10 +129,8 @@ public class IcmListasincroBlock implements Serializable, Cloneable, CopyTo2, Eq
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListasincroRecord> theIcmListasincroRecordSet;
-            theIcmListasincroRecordSet = (((this.icmListasincroRecordSet != null)
-                    && (!this.icmListasincroRecordSet.isEmpty())) ? this.getIcmListasincroRecordSet() : null);
-            strategy.appendField(locator, this, "icmListasincroRecordSet", buffer, theIcmListasincroRecordSet,
-                    ((this.icmListasincroRecordSet != null) && (!this.icmListasincroRecordSet.isEmpty())));
+            theIcmListasincroRecordSet = (((this.icmListasincroRecordSet!= null)&&(!this.icmListasincroRecordSet.isEmpty()))?this.getIcmListasincroRecordSet():null);
+            strategy.appendField(locator, this, "icmListasincroRecordSet", buffer, theIcmListasincroRecordSet, ((this.icmListasincroRecordSet!= null)&&(!this.icmListasincroRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -146,12 +139,8 @@ public class IcmListasincroBlock implements Serializable, Cloneable, CopyTo2, Eq
         int currentHashCode = 1;
         {
             List<IcmListasincroRecord> theIcmListasincroRecordSet;
-            theIcmListasincroRecordSet = (((this.icmListasincroRecordSet != null)
-                    && (!this.icmListasincroRecordSet.isEmpty())) ? this.getIcmListasincroRecordSet() : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmListasincroRecordSet", theIcmListasincroRecordSet),
-                    currentHashCode, theIcmListasincroRecordSet,
-                    ((this.icmListasincroRecordSet != null) && (!this.icmListasincroRecordSet.isEmpty())));
+            theIcmListasincroRecordSet = (((this.icmListasincroRecordSet!= null)&&(!this.icmListasincroRecordSet.isEmpty()))?this.getIcmListasincroRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListasincroRecordSet", theIcmListasincroRecordSet), currentHashCode, theIcmListasincroRecordSet, ((this.icmListasincroRecordSet!= null)&&(!this.icmListasincroRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -171,23 +160,18 @@ public class IcmListasincroBlock implements Serializable, Cloneable, CopyTo2, Eq
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmListasincroBlock) {
             final IcmListasincroBlock copy = ((IcmListasincroBlock) draftCopy);
             {
-                Boolean icmListasincroRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        ((this.icmListasincroRecordSet != null) && (!this.icmListasincroRecordSet.isEmpty())));
+                Boolean icmListasincroRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListasincroRecordSet!= null)&&(!this.icmListasincroRecordSet.isEmpty())));
                 if (icmListasincroRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListasincroRecord> sourceIcmListasincroRecordSet;
-                    sourceIcmListasincroRecordSet = (((this.icmListasincroRecordSet != null)
-                            && (!this.icmListasincroRecordSet.isEmpty())) ? this.getIcmListasincroRecordSet() : null);
+                    sourceIcmListasincroRecordSet = (((this.icmListasincroRecordSet!= null)&&(!this.icmListasincroRecordSet.isEmpty()))?this.getIcmListasincroRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListasincroRecord> copyIcmListasincroRecordSet = ((List<IcmListasincroRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmListasincroRecordSet", sourceIcmListasincroRecordSet),
-                                sourceIcmListasincroRecordSet,
-                                ((this.icmListasincroRecordSet != null) && (!this.icmListasincroRecordSet.isEmpty()))));
+                    List<IcmListasincroRecord> copyIcmListasincroRecordSet = ((List<IcmListasincroRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListasincroRecordSet", sourceIcmListasincroRecordSet), sourceIcmListasincroRecordSet, ((this.icmListasincroRecordSet!= null)&&(!this.icmListasincroRecordSet.isEmpty()))));
                     copy.icmListasincroRecordSet = null;
-                    if (copyIcmListasincroRecordSet != null) {
+                    if (copyIcmListasincroRecordSet!= null) {
                         List<IcmListasincroRecord> uniqueIcmListasincroRecordSetl = copy.getIcmListasincroRecordSet();
                         uniqueIcmListasincroRecordSetl.addAll(copyIcmListasincroRecordSet);
                     }

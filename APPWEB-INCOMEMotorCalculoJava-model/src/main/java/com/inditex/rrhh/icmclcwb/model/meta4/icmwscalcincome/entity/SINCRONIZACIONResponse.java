@@ -2,11 +2,13 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;
@@ -62,7 +64,7 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
      *
      */
     public SincronizacionOutput getSINCRONIZACIONReturn() {
-        return sincronizacionReturn;
+        return this.sincronizacionReturn;
     }
 
     /**
@@ -70,12 +72,13 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
      * @param value allowed object is {@link SincronizacionOutput }
      *
      */
-    public void setSINCRONIZACIONReturn(SincronizacionOutput value) {
+    public void setSINCRONIZACIONReturn(final SincronizacionOutput value) {
         this.sincronizacionReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
+    @Override
+    public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+            final EqualsStrategy2 strategy) {
         if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
@@ -84,9 +87,9 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
         }
         final SINCRONIZACIONResponse that = ((SINCRONIZACIONResponse) object);
         {
-            SincronizacionOutput lhsSINCRONIZACIONReturn;
+            final SincronizacionOutput lhsSINCRONIZACIONReturn;
             lhsSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
-            SincronizacionOutput rhsSINCRONIZACIONReturn;
+            final SincronizacionOutput rhsSINCRONIZACIONReturn;
             rhsSINCRONIZACIONReturn = that.getSINCRONIZACIONReturn();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "sincronizacionReturn", lhsSINCRONIZACIONReturn),
                     LocatorUtils.property(thatLocator, "sincronizacionReturn", rhsSINCRONIZACIONReturn),
@@ -98,28 +101,32 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
         return true;
     }
 
-    public boolean equals(Object object) {
+    @Override
+    public boolean equals(final Object object) {
         final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return equals(null, null, object, strategy);
+        return this.equals(null, null, object, strategy);
     }
 
+    @Override
     public String toString() {
         final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
         final StringBuilder buffer = new StringBuilder();
-        append(null, buffer, strategy);
+        this.append(null, buffer, strategy);
         return buffer.toString();
     }
 
-    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    @Override
+    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
-        appendFields(locator, buffer, strategy);
+        this.appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
         return buffer;
     }
 
-    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    @Override
+    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
         {
-            SincronizacionOutput theSINCRONIZACIONReturn;
+            final SincronizacionOutput theSINCRONIZACIONReturn;
             theSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
             strategy.appendField(locator, this, "sincronizacionReturn", buffer, theSINCRONIZACIONReturn,
                     (this.sincronizacionReturn != null));
@@ -127,10 +134,11 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
         return buffer;
     }
 
-    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+    @Override
+    public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            SincronizacionOutput theSINCRONIZACIONReturn;
+            final SincronizacionOutput theSINCRONIZACIONReturn;
             theSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
             currentHashCode = strategy.hashCode(
                     LocatorUtils.property(locator, "sincronizacionReturn", theSINCRONIZACIONReturn), currentHashCode,
@@ -139,31 +147,35 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
         return currentHashCode;
     }
 
+    @Override
     public int hashCode() {
         final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
         return this.hashCode(null, strategy);
     }
 
+    @Override
     public Object clone() {
-        return copyTo(createNewInstance());
+        return this.copyTo(this.createNewInstance());
     }
 
-    public Object copyTo(Object target) {
+    @Override
+    public Object copyTo(final Object target) {
         final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return copyTo(null, target, strategy);
+        return this.copyTo(null, target, strategy);
     }
 
-    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+    @Override
+    public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
         if (draftCopy instanceof SINCRONIZACIONResponse) {
             final SINCRONIZACIONResponse copy = ((SINCRONIZACIONResponse) draftCopy);
             {
-                Boolean sincronizacionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                final Boolean sincronizacionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.sincronizacionReturn != null));
                 if (sincronizacionReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    SincronizacionOutput sourceSINCRONIZACIONReturn;
+                    final SincronizacionOutput sourceSINCRONIZACIONReturn;
                     sourceSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
-                    SincronizacionOutput copySINCRONIZACIONReturn = ((SincronizacionOutput) strategy.copy(
+                    final SincronizacionOutput copySINCRONIZACIONReturn = ((SincronizacionOutput) strategy.copy(
                             LocatorUtils.property(locator, "sincronizacionReturn", sourceSINCRONIZACIONReturn),
                             sourceSINCRONIZACIONReturn, (this.sincronizacionReturn != null)));
                     copy.setSINCRONIZACIONReturn(copySINCRONIZACIONReturn);
@@ -177,6 +189,7 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
         return draftCopy;
     }
 
+    @Override
     public Object createNewInstance() {
         return new SINCRONIZACIONResponse();
     }

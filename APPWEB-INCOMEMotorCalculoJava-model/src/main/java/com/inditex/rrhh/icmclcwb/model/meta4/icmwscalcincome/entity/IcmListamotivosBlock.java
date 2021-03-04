@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021.  Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -25,11 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_ListamotivosBlock complex type.
+ * <p>Clase Java para Icm_ListamotivosBlock complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ListamotivosBlock"&gt;
@@ -47,12 +49,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListamotivosBlock", propOrder = {
-        "icmListamotivosRecordSet"
+    "icmListamotivosRecordSet"
 })
-public class IcmListamotivosBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmListamotivosBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "Icm_ListamotivosRecordSet", nillable = true)
     protected List<IcmListamotivosRecord> icmListamotivosRecordSet;
 
@@ -60,20 +62,21 @@ public class IcmListamotivosBlock implements Serializable, Cloneable, CopyTo2, E
      * Gets the value of the icmListamotivosRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmListamotivosRecordSet property.
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmListamotivosRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmListamotivosRecordSet().add(newItem);
+     *    getIcmListamotivosRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmListamotivosRecord }
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmListamotivosRecord }
      *
      *
      */
@@ -84,9 +87,8 @@ public class IcmListamotivosBlock implements Serializable, Cloneable, CopyTo2, E
         return this.icmListamotivosRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -95,17 +97,10 @@ public class IcmListamotivosBlock implements Serializable, Cloneable, CopyTo2, E
         final IcmListamotivosBlock that = ((IcmListamotivosBlock) object);
         {
             List<IcmListamotivosRecord> lhsIcmListamotivosRecordSet;
-            lhsIcmListamotivosRecordSet = (((this.icmListamotivosRecordSet != null)
-                    && (!this.icmListamotivosRecordSet.isEmpty())) ? this.getIcmListamotivosRecordSet() : null);
+            lhsIcmListamotivosRecordSet = (((this.icmListamotivosRecordSet!= null)&&(!this.icmListamotivosRecordSet.isEmpty()))?this.getIcmListamotivosRecordSet():null);
             List<IcmListamotivosRecord> rhsIcmListamotivosRecordSet;
-            rhsIcmListamotivosRecordSet = (((that.icmListamotivosRecordSet != null)
-                    && (!that.icmListamotivosRecordSet.isEmpty())) ? that.getIcmListamotivosRecordSet() : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmListamotivosRecordSet", lhsIcmListamotivosRecordSet),
-                    LocatorUtils.property(thatLocator, "icmListamotivosRecordSet", rhsIcmListamotivosRecordSet),
-                    lhsIcmListamotivosRecordSet, rhsIcmListamotivosRecordSet,
-                    ((this.icmListamotivosRecordSet != null) && (!this.icmListamotivosRecordSet.isEmpty())),
-                    ((that.icmListamotivosRecordSet != null) && (!that.icmListamotivosRecordSet.isEmpty())))) {
+            rhsIcmListamotivosRecordSet = (((that.icmListamotivosRecordSet!= null)&&(!that.icmListamotivosRecordSet.isEmpty()))?that.getIcmListamotivosRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListamotivosRecordSet", lhsIcmListamotivosRecordSet), LocatorUtils.property(thatLocator, "icmListamotivosRecordSet", rhsIcmListamotivosRecordSet), lhsIcmListamotivosRecordSet, rhsIcmListamotivosRecordSet, ((this.icmListamotivosRecordSet!= null)&&(!this.icmListamotivosRecordSet.isEmpty())), ((that.icmListamotivosRecordSet!= null)&&(!that.icmListamotivosRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -134,10 +129,8 @@ public class IcmListamotivosBlock implements Serializable, Cloneable, CopyTo2, E
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListamotivosRecord> theIcmListamotivosRecordSet;
-            theIcmListamotivosRecordSet = (((this.icmListamotivosRecordSet != null)
-                    && (!this.icmListamotivosRecordSet.isEmpty())) ? this.getIcmListamotivosRecordSet() : null);
-            strategy.appendField(locator, this, "icmListamotivosRecordSet", buffer, theIcmListamotivosRecordSet,
-                    ((this.icmListamotivosRecordSet != null) && (!this.icmListamotivosRecordSet.isEmpty())));
+            theIcmListamotivosRecordSet = (((this.icmListamotivosRecordSet!= null)&&(!this.icmListamotivosRecordSet.isEmpty()))?this.getIcmListamotivosRecordSet():null);
+            strategy.appendField(locator, this, "icmListamotivosRecordSet", buffer, theIcmListamotivosRecordSet, ((this.icmListamotivosRecordSet!= null)&&(!this.icmListamotivosRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -146,12 +139,8 @@ public class IcmListamotivosBlock implements Serializable, Cloneable, CopyTo2, E
         int currentHashCode = 1;
         {
             List<IcmListamotivosRecord> theIcmListamotivosRecordSet;
-            theIcmListamotivosRecordSet = (((this.icmListamotivosRecordSet != null)
-                    && (!this.icmListamotivosRecordSet.isEmpty())) ? this.getIcmListamotivosRecordSet() : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmListamotivosRecordSet", theIcmListamotivosRecordSet),
-                    currentHashCode, theIcmListamotivosRecordSet,
-                    ((this.icmListamotivosRecordSet != null) && (!this.icmListamotivosRecordSet.isEmpty())));
+            theIcmListamotivosRecordSet = (((this.icmListamotivosRecordSet!= null)&&(!this.icmListamotivosRecordSet.isEmpty()))?this.getIcmListamotivosRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListamotivosRecordSet", theIcmListamotivosRecordSet), currentHashCode, theIcmListamotivosRecordSet, ((this.icmListamotivosRecordSet!= null)&&(!this.icmListamotivosRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -171,26 +160,19 @@ public class IcmListamotivosBlock implements Serializable, Cloneable, CopyTo2, E
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmListamotivosBlock) {
             final IcmListamotivosBlock copy = ((IcmListamotivosBlock) draftCopy);
             {
-                Boolean icmListamotivosRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        ((this.icmListamotivosRecordSet != null) && (!this.icmListamotivosRecordSet.isEmpty())));
+                Boolean icmListamotivosRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListamotivosRecordSet!= null)&&(!this.icmListamotivosRecordSet.isEmpty())));
                 if (icmListamotivosRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListamotivosRecord> sourceIcmListamotivosRecordSet;
-                    sourceIcmListamotivosRecordSet = (((this.icmListamotivosRecordSet != null)
-                            && (!this.icmListamotivosRecordSet.isEmpty())) ? this.getIcmListamotivosRecordSet() : null);
+                    sourceIcmListamotivosRecordSet = (((this.icmListamotivosRecordSet!= null)&&(!this.icmListamotivosRecordSet.isEmpty()))?this.getIcmListamotivosRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListamotivosRecord> copyIcmListamotivosRecordSet = ((List<IcmListamotivosRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmListamotivosRecordSet",
-                                sourceIcmListamotivosRecordSet), sourceIcmListamotivosRecordSet,
-                                ((this.icmListamotivosRecordSet != null)
-                                        && (!this.icmListamotivosRecordSet.isEmpty()))));
+                    List<IcmListamotivosRecord> copyIcmListamotivosRecordSet = ((List<IcmListamotivosRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListamotivosRecordSet", sourceIcmListamotivosRecordSet), sourceIcmListamotivosRecordSet, ((this.icmListamotivosRecordSet!= null)&&(!this.icmListamotivosRecordSet.isEmpty()))));
                     copy.icmListamotivosRecordSet = null;
-                    if (copyIcmListamotivosRecordSet != null) {
-                        List<IcmListamotivosRecord> uniqueIcmListamotivosRecordSetl = copy
-                            .getIcmListamotivosRecordSet();
+                    if (copyIcmListamotivosRecordSet!= null) {
+                        List<IcmListamotivosRecord> uniqueIcmListamotivosRecordSetl = copy.getIcmListamotivosRecordSet();
                         uniqueIcmListamotivosRecordSetl.addAll(copyIcmListamotivosRecordSet);
                     }
                 } else {

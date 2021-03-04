@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021.  Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -24,11 +28,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para anonymous complex type.
+ * <p>Clase Java para anonymous complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -46,19 +48,22 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "getconfchtpventaReturn"
+    "getconfchtpventaReturn"
 })
 @XmlRootElement(name = "GETCONFCHTPVENTAResponse")
-public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "GETCONFCHTPVENTAReturn", required = true)
     protected GetconfchtpventaOutput getconfchtpventaReturn;
 
     /**
      * Obtiene el valor de la propiedad getconfchtpventaReturn.
-     * @return possible object is {@link GetconfchtpventaOutput }
+     *
+     * @return
+     *     possible object is
+     *     {@link GetconfchtpventaOutput }
      *
      */
     public GetconfchtpventaOutput getGETCONFCHTPVENTAReturn() {
@@ -67,16 +72,18 @@ public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo
 
     /**
      * Define el valor de la propiedad getconfchtpventaReturn.
-     * @param value allowed object is {@link GetconfchtpventaOutput }
+     *
+     * @param value
+     *     allowed object is
+     *     {@link GetconfchtpventaOutput }
      *
      */
     public void setGETCONFCHTPVENTAReturn(GetconfchtpventaOutput value) {
         this.getconfchtpventaReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -88,11 +95,7 @@ public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo
             lhsGETCONFCHTPVENTAReturn = this.getGETCONFCHTPVENTAReturn();
             GetconfchtpventaOutput rhsGETCONFCHTPVENTAReturn;
             rhsGETCONFCHTPVENTAReturn = that.getGETCONFCHTPVENTAReturn();
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "getconfchtpventaReturn", lhsGETCONFCHTPVENTAReturn),
-                    LocatorUtils.property(thatLocator, "getconfchtpventaReturn", rhsGETCONFCHTPVENTAReturn),
-                    lhsGETCONFCHTPVENTAReturn, rhsGETCONFCHTPVENTAReturn, (this.getconfchtpventaReturn != null),
-                    (that.getconfchtpventaReturn != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfchtpventaReturn", lhsGETCONFCHTPVENTAReturn), LocatorUtils.property(thatLocator, "getconfchtpventaReturn", rhsGETCONFCHTPVENTAReturn), lhsGETCONFCHTPVENTAReturn, rhsGETCONFCHTPVENTAReturn, (this.getconfchtpventaReturn!= null), (that.getconfchtpventaReturn!= null))) {
                 return false;
             }
         }
@@ -122,8 +125,7 @@ public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo
         {
             GetconfchtpventaOutput theGETCONFCHTPVENTAReturn;
             theGETCONFCHTPVENTAReturn = this.getGETCONFCHTPVENTAReturn();
-            strategy.appendField(locator, this, "getconfchtpventaReturn", buffer, theGETCONFCHTPVENTAReturn,
-                    (this.getconfchtpventaReturn != null));
+            strategy.appendField(locator, this, "getconfchtpventaReturn", buffer, theGETCONFCHTPVENTAReturn, (this.getconfchtpventaReturn!= null));
         }
         return buffer;
     }
@@ -133,9 +135,7 @@ public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo
         {
             GetconfchtpventaOutput theGETCONFCHTPVENTAReturn;
             theGETCONFCHTPVENTAReturn = this.getGETCONFCHTPVENTAReturn();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "getconfchtpventaReturn", theGETCONFCHTPVENTAReturn),
-                    currentHashCode, theGETCONFCHTPVENTAReturn, (this.getconfchtpventaReturn != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfchtpventaReturn", theGETCONFCHTPVENTAReturn), currentHashCode, theGETCONFCHTPVENTAReturn, (this.getconfchtpventaReturn!= null));
         }
         return currentHashCode;
     }
@@ -155,18 +155,15 @@ public class GETCONFCHTPVENTAResponse implements Serializable, Cloneable, CopyTo
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof GETCONFCHTPVENTAResponse) {
             final GETCONFCHTPVENTAResponse copy = ((GETCONFCHTPVENTAResponse) draftCopy);
             {
-                Boolean getconfchtpventaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.getconfchtpventaReturn != null));
+                Boolean getconfchtpventaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getconfchtpventaReturn!= null));
                 if (getconfchtpventaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetconfchtpventaOutput sourceGETCONFCHTPVENTAReturn;
                     sourceGETCONFCHTPVENTAReturn = this.getGETCONFCHTPVENTAReturn();
-                    GetconfchtpventaOutput copyGETCONFCHTPVENTAReturn = ((GetconfchtpventaOutput) strategy.copy(
-                            LocatorUtils.property(locator, "getconfchtpventaReturn", sourceGETCONFCHTPVENTAReturn),
-                            sourceGETCONFCHTPVENTAReturn, (this.getconfchtpventaReturn != null)));
+                    GetconfchtpventaOutput copyGETCONFCHTPVENTAReturn = ((GetconfchtpventaOutput) strategy.copy(LocatorUtils.property(locator, "getconfchtpventaReturn", sourceGETCONFCHTPVENTAReturn), sourceGETCONFCHTPVENTAReturn, (this.getconfchtpventaReturn!= null)));
                     copy.setGETCONFCHTPVENTAReturn(copyGETCONFCHTPVENTAReturn);
                 } else {
                     if (getconfchtpventaReturnShouldBeCopiedAndSet == Boolean.FALSE) {

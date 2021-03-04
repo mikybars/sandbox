@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021.  Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -25,11 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_ListacondicionesbaseBlock complex type.
+ * <p>Clase Java para Icm_ListacondicionesbaseBlock complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ListacondicionesbaseBlock"&gt;
@@ -48,22 +50,24 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListacondicionesbaseBlock", propOrder = {
-        "idestructura",
-        "icmListacondicionesbaseRecordSet"
+    "idestructura",
+    "icmListacondicionesbaseRecordSet"
 })
-public class IcmListacondicionesbaseBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmListacondicionesbaseBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(required = true, nillable = true)
     protected String idestructura;
-
     @XmlElement(name = "Icm_ListacondicionesbaseRecordSet", nillable = true)
     protected List<IcmListacondicionesbaseRecord> icmListacondicionesbaseRecordSet;
 
     /**
      * Obtiene el valor de la propiedad idestructura.
-     * @return possible object is {@link String }
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
      *
      */
     public String getIdestructura() {
@@ -72,7 +76,10 @@ public class IcmListacondicionesbaseBlock implements Serializable, Cloneable, Co
 
     /**
      * Define el valor de la propiedad idestructura.
-     * @param value allowed object is {@link String }
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
      *
      */
     public void setIdestructura(String value) {
@@ -83,20 +90,21 @@ public class IcmListacondicionesbaseBlock implements Serializable, Cloneable, Co
      * Gets the value of the icmListacondicionesbaseRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmListacondicionesbaseRecordSet property.
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmListacondicionesbaseRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmListacondicionesbaseRecordSet().add(newItem);
+     *    getIcmListacondicionesbaseRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmListacondicionesbaseRecord }
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmListacondicionesbaseRecord }
      *
      *
      */
@@ -107,9 +115,8 @@ public class IcmListacondicionesbaseBlock implements Serializable, Cloneable, Co
         return this.icmListacondicionesbaseRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -121,31 +128,16 @@ public class IcmListacondicionesbaseBlock implements Serializable, Cloneable, Co
             lhsIdestructura = this.getIdestructura();
             String rhsIdestructura;
             rhsIdestructura = that.getIdestructura();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "idestructura", lhsIdestructura),
-                    LocatorUtils.property(thatLocator, "idestructura", rhsIdestructura), lhsIdestructura,
-                    rhsIdestructura, (this.idestructura != null), (that.idestructura != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "idestructura", lhsIdestructura), LocatorUtils.property(thatLocator, "idestructura", rhsIdestructura), lhsIdestructura, rhsIdestructura, (this.idestructura!= null), (that.idestructura!= null))) {
                 return false;
             }
         }
         {
             List<IcmListacondicionesbaseRecord> lhsIcmListacondicionesbaseRecordSet;
-            lhsIcmListacondicionesbaseRecordSet = (((this.icmListacondicionesbaseRecordSet != null)
-                    && (!this.icmListacondicionesbaseRecordSet.isEmpty())) ? this.getIcmListacondicionesbaseRecordSet()
-                            : null);
+            lhsIcmListacondicionesbaseRecordSet = (((this.icmListacondicionesbaseRecordSet!= null)&&(!this.icmListacondicionesbaseRecordSet.isEmpty()))?this.getIcmListacondicionesbaseRecordSet():null);
             List<IcmListacondicionesbaseRecord> rhsIcmListacondicionesbaseRecordSet;
-            rhsIcmListacondicionesbaseRecordSet = (((that.icmListacondicionesbaseRecordSet != null)
-                    && (!that.icmListacondicionesbaseRecordSet.isEmpty())) ? that.getIcmListacondicionesbaseRecordSet()
-                            : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmListacondicionesbaseRecordSet",
-                            lhsIcmListacondicionesbaseRecordSet),
-                    LocatorUtils.property(thatLocator, "icmListacondicionesbaseRecordSet",
-                            rhsIcmListacondicionesbaseRecordSet),
-                    lhsIcmListacondicionesbaseRecordSet, rhsIcmListacondicionesbaseRecordSet,
-                    ((this.icmListacondicionesbaseRecordSet != null)
-                            && (!this.icmListacondicionesbaseRecordSet.isEmpty())),
-                    ((that.icmListacondicionesbaseRecordSet != null)
-                            && (!that.icmListacondicionesbaseRecordSet.isEmpty())))) {
+            rhsIcmListacondicionesbaseRecordSet = (((that.icmListacondicionesbaseRecordSet!= null)&&(!that.icmListacondicionesbaseRecordSet.isEmpty()))?that.getIcmListacondicionesbaseRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListacondicionesbaseRecordSet", lhsIcmListacondicionesbaseRecordSet), LocatorUtils.property(thatLocator, "icmListacondicionesbaseRecordSet", rhsIcmListacondicionesbaseRecordSet), lhsIcmListacondicionesbaseRecordSet, rhsIcmListacondicionesbaseRecordSet, ((this.icmListacondicionesbaseRecordSet!= null)&&(!this.icmListacondicionesbaseRecordSet.isEmpty())), ((that.icmListacondicionesbaseRecordSet!= null)&&(!that.icmListacondicionesbaseRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -175,16 +167,12 @@ public class IcmListacondicionesbaseBlock implements Serializable, Cloneable, Co
         {
             String theIdestructura;
             theIdestructura = this.getIdestructura();
-            strategy.appendField(locator, this, "idestructura", buffer, theIdestructura, (this.idestructura != null));
+            strategy.appendField(locator, this, "idestructura", buffer, theIdestructura, (this.idestructura!= null));
         }
         {
             List<IcmListacondicionesbaseRecord> theIcmListacondicionesbaseRecordSet;
-            theIcmListacondicionesbaseRecordSet = (((this.icmListacondicionesbaseRecordSet != null)
-                    && (!this.icmListacondicionesbaseRecordSet.isEmpty())) ? this.getIcmListacondicionesbaseRecordSet()
-                            : null);
-            strategy.appendField(locator, this, "icmListacondicionesbaseRecordSet", buffer,
-                    theIcmListacondicionesbaseRecordSet, ((this.icmListacondicionesbaseRecordSet != null)
-                            && (!this.icmListacondicionesbaseRecordSet.isEmpty())));
+            theIcmListacondicionesbaseRecordSet = (((this.icmListacondicionesbaseRecordSet!= null)&&(!this.icmListacondicionesbaseRecordSet.isEmpty()))?this.getIcmListacondicionesbaseRecordSet():null);
+            strategy.appendField(locator, this, "icmListacondicionesbaseRecordSet", buffer, theIcmListacondicionesbaseRecordSet, ((this.icmListacondicionesbaseRecordSet!= null)&&(!this.icmListacondicionesbaseRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -194,20 +182,12 @@ public class IcmListacondicionesbaseBlock implements Serializable, Cloneable, Co
         {
             String theIdestructura;
             theIdestructura = this.getIdestructura();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idestructura", theIdestructura),
-                    currentHashCode, theIdestructura, (this.idestructura != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idestructura", theIdestructura), currentHashCode, theIdestructura, (this.idestructura!= null));
         }
         {
             List<IcmListacondicionesbaseRecord> theIcmListacondicionesbaseRecordSet;
-            theIcmListacondicionesbaseRecordSet = (((this.icmListacondicionesbaseRecordSet != null)
-                    && (!this.icmListacondicionesbaseRecordSet.isEmpty())) ? this.getIcmListacondicionesbaseRecordSet()
-                            : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmListacondicionesbaseRecordSet",
-                            theIcmListacondicionesbaseRecordSet),
-                    currentHashCode, theIcmListacondicionesbaseRecordSet,
-                    ((this.icmListacondicionesbaseRecordSet != null)
-                            && (!this.icmListacondicionesbaseRecordSet.isEmpty())));
+            theIcmListacondicionesbaseRecordSet = (((this.icmListacondicionesbaseRecordSet!= null)&&(!this.icmListacondicionesbaseRecordSet.isEmpty()))?this.getIcmListacondicionesbaseRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListacondicionesbaseRecordSet", theIcmListacondicionesbaseRecordSet), currentHashCode, theIcmListacondicionesbaseRecordSet, ((this.icmListacondicionesbaseRecordSet!= null)&&(!this.icmListacondicionesbaseRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -227,18 +207,15 @@ public class IcmListacondicionesbaseBlock implements Serializable, Cloneable, Co
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmListacondicionesbaseBlock) {
             final IcmListacondicionesbaseBlock copy = ((IcmListacondicionesbaseBlock) draftCopy);
             {
-                Boolean idestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.idestructura != null));
+                Boolean idestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idestructura!= null));
                 if (idestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIdestructura;
                     sourceIdestructura = this.getIdestructura();
-                    String copyIdestructura = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "idestructura", sourceIdestructura), sourceIdestructura,
-                            (this.idestructura != null)));
+                    String copyIdestructura = ((String) strategy.copy(LocatorUtils.property(locator, "idestructura", sourceIdestructura), sourceIdestructura, (this.idestructura!= null)));
                     copy.setIdestructura(copyIdestructura);
                 } else {
                     if (idestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -247,24 +224,15 @@ public class IcmListacondicionesbaseBlock implements Serializable, Cloneable, Co
                 }
             }
             {
-                Boolean icmListacondicionesbaseRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        ((this.icmListacondicionesbaseRecordSet != null)
-                                && (!this.icmListacondicionesbaseRecordSet.isEmpty())));
+                Boolean icmListacondicionesbaseRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListacondicionesbaseRecordSet!= null)&&(!this.icmListacondicionesbaseRecordSet.isEmpty())));
                 if (icmListacondicionesbaseRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListacondicionesbaseRecord> sourceIcmListacondicionesbaseRecordSet;
-                    sourceIcmListacondicionesbaseRecordSet = (((this.icmListacondicionesbaseRecordSet != null)
-                            && (!this.icmListacondicionesbaseRecordSet.isEmpty()))
-                                    ? this.getIcmListacondicionesbaseRecordSet() : null);
+                    sourceIcmListacondicionesbaseRecordSet = (((this.icmListacondicionesbaseRecordSet!= null)&&(!this.icmListacondicionesbaseRecordSet.isEmpty()))?this.getIcmListacondicionesbaseRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListacondicionesbaseRecord> copyIcmListacondicionesbaseRecordSet = ((List<IcmListacondicionesbaseRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmListacondicionesbaseRecordSet",
-                                sourceIcmListacondicionesbaseRecordSet), sourceIcmListacondicionesbaseRecordSet,
-                                ((this.icmListacondicionesbaseRecordSet != null)
-                                        && (!this.icmListacondicionesbaseRecordSet.isEmpty()))));
+                    List<IcmListacondicionesbaseRecord> copyIcmListacondicionesbaseRecordSet = ((List<IcmListacondicionesbaseRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListacondicionesbaseRecordSet", sourceIcmListacondicionesbaseRecordSet), sourceIcmListacondicionesbaseRecordSet, ((this.icmListacondicionesbaseRecordSet!= null)&&(!this.icmListacondicionesbaseRecordSet.isEmpty()))));
                     copy.icmListacondicionesbaseRecordSet = null;
-                    if (copyIcmListacondicionesbaseRecordSet != null) {
-                        List<IcmListacondicionesbaseRecord> uniqueIcmListacondicionesbaseRecordSetl = copy
-                            .getIcmListacondicionesbaseRecordSet();
+                    if (copyIcmListacondicionesbaseRecordSet!= null) {
+                        List<IcmListacondicionesbaseRecord> uniqueIcmListacondicionesbaseRecordSetl = copy.getIcmListacondicionesbaseRecordSet();
                         uniqueIcmListacondicionesbaseRecordSetl.addAll(copyIcmListacondicionesbaseRecordSet);
                     }
                 } else {

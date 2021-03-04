@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021.  Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -24,11 +28,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para anonymous complex type.
+ * <p>Clase Java para anonymous complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -46,19 +48,22 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "getempleadosdesplazReturn"
+    "getempleadosdesplazReturn"
 })
 @XmlRootElement(name = "GETEMPLEADOSDESPLAZResponse")
-public class GETEMPLEADOSDESPLAZResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETEMPLEADOSDESPLAZResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "GETEMPLEADOSDESPLAZReturn", required = true)
     protected GetempleadosdesplazOutput getempleadosdesplazReturn;
 
     /**
      * Obtiene el valor de la propiedad getempleadosdesplazReturn.
-     * @return possible object is {@link GetempleadosdesplazOutput }
+     *
+     * @return
+     *     possible object is
+     *     {@link GetempleadosdesplazOutput }
      *
      */
     public GetempleadosdesplazOutput getGETEMPLEADOSDESPLAZReturn() {
@@ -67,16 +72,18 @@ public class GETEMPLEADOSDESPLAZResponse implements Serializable, Cloneable, Cop
 
     /**
      * Define el valor de la propiedad getempleadosdesplazReturn.
-     * @param value allowed object is {@link GetempleadosdesplazOutput }
+     *
+     * @param value
+     *     allowed object is
+     *     {@link GetempleadosdesplazOutput }
      *
      */
     public void setGETEMPLEADOSDESPLAZReturn(GetempleadosdesplazOutput value) {
         this.getempleadosdesplazReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -88,11 +95,7 @@ public class GETEMPLEADOSDESPLAZResponse implements Serializable, Cloneable, Cop
             lhsGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
             GetempleadosdesplazOutput rhsGETEMPLEADOSDESPLAZReturn;
             rhsGETEMPLEADOSDESPLAZReturn = that.getGETEMPLEADOSDESPLAZReturn();
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "getempleadosdesplazReturn", lhsGETEMPLEADOSDESPLAZReturn),
-                    LocatorUtils.property(thatLocator, "getempleadosdesplazReturn", rhsGETEMPLEADOSDESPLAZReturn),
-                    lhsGETEMPLEADOSDESPLAZReturn, rhsGETEMPLEADOSDESPLAZReturn,
-                    (this.getempleadosdesplazReturn != null), (that.getempleadosdesplazReturn != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getempleadosdesplazReturn", lhsGETEMPLEADOSDESPLAZReturn), LocatorUtils.property(thatLocator, "getempleadosdesplazReturn", rhsGETEMPLEADOSDESPLAZReturn), lhsGETEMPLEADOSDESPLAZReturn, rhsGETEMPLEADOSDESPLAZReturn, (this.getempleadosdesplazReturn!= null), (that.getempleadosdesplazReturn!= null))) {
                 return false;
             }
         }
@@ -122,8 +125,7 @@ public class GETEMPLEADOSDESPLAZResponse implements Serializable, Cloneable, Cop
         {
             GetempleadosdesplazOutput theGETEMPLEADOSDESPLAZReturn;
             theGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
-            strategy.appendField(locator, this, "getempleadosdesplazReturn", buffer, theGETEMPLEADOSDESPLAZReturn,
-                    (this.getempleadosdesplazReturn != null));
+            strategy.appendField(locator, this, "getempleadosdesplazReturn", buffer, theGETEMPLEADOSDESPLAZReturn, (this.getempleadosdesplazReturn!= null));
         }
         return buffer;
     }
@@ -133,9 +135,7 @@ public class GETEMPLEADOSDESPLAZResponse implements Serializable, Cloneable, Cop
         {
             GetempleadosdesplazOutput theGETEMPLEADOSDESPLAZReturn;
             theGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "getempleadosdesplazReturn", theGETEMPLEADOSDESPLAZReturn),
-                    currentHashCode, theGETEMPLEADOSDESPLAZReturn, (this.getempleadosdesplazReturn != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getempleadosdesplazReturn", theGETEMPLEADOSDESPLAZReturn), currentHashCode, theGETEMPLEADOSDESPLAZReturn, (this.getempleadosdesplazReturn!= null));
         }
         return currentHashCode;
     }
@@ -155,19 +155,15 @@ public class GETEMPLEADOSDESPLAZResponse implements Serializable, Cloneable, Cop
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof GETEMPLEADOSDESPLAZResponse) {
             final GETEMPLEADOSDESPLAZResponse copy = ((GETEMPLEADOSDESPLAZResponse) draftCopy);
             {
-                Boolean getempleadosdesplazReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.getempleadosdesplazReturn != null));
+                Boolean getempleadosdesplazReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getempleadosdesplazReturn!= null));
                 if (getempleadosdesplazReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetempleadosdesplazOutput sourceGETEMPLEADOSDESPLAZReturn;
                     sourceGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
-                    GetempleadosdesplazOutput copyGETEMPLEADOSDESPLAZReturn = ((GetempleadosdesplazOutput) strategy
-                        .copy(LocatorUtils.property(locator, "getempleadosdesplazReturn",
-                                sourceGETEMPLEADOSDESPLAZReturn), sourceGETEMPLEADOSDESPLAZReturn,
-                                (this.getempleadosdesplazReturn != null)));
+                    GetempleadosdesplazOutput copyGETEMPLEADOSDESPLAZReturn = ((GetempleadosdesplazOutput) strategy.copy(LocatorUtils.property(locator, "getempleadosdesplazReturn", sourceGETEMPLEADOSDESPLAZReturn), sourceGETEMPLEADOSDESPLAZReturn, (this.getempleadosdesplazReturn!= null)));
                     copy.setGETEMPLEADOSDESPLAZReturn(copyGETEMPLEADOSDESPLAZReturn);
                 } else {
                     if (getempleadosdesplazReturnShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021.  Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -25,11 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>
- * Clase Java para Icm_Ws_Calc_OperacionesBlock complex type.
+ * <p>Clase Java para Icm_Ws_Calc_OperacionesBlock complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_Ws_Calc_OperacionesBlock"&gt;
@@ -48,22 +50,24 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_Ws_Calc_OperacionesBlock", propOrder = {
-        "icmPTrace",
-        "icmWsCalcOperacionesRecordSet"
+    "icmPTrace",
+    "icmWsCalcOperacionesRecordSet"
 })
-public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
     private final static long serialVersionUID = 1L;
-
     @XmlElement(name = "icm_P_Trace", required = true, nillable = true)
     protected String icmPTrace;
-
     @XmlElement(name = "Icm_Ws_Calc_OperacionesRecordSet", nillable = true)
     protected List<IcmWsCalcOperacionesRecord> icmWsCalcOperacionesRecordSet;
 
     /**
      * Obtiene el valor de la propiedad icmPTrace.
-     * @return possible object is {@link String }
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
      *
      */
     public String getIcmPTrace() {
@@ -72,7 +76,10 @@ public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyT
 
     /**
      * Define el valor de la propiedad icmPTrace.
-     * @param value allowed object is {@link String }
+     *
+     * @param value
+     *     allowed object is
+     *     {@link String }
      *
      */
     public void setIcmPTrace(String value) {
@@ -83,20 +90,21 @@ public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyT
      * Gets the value of the icmWsCalcOperacionesRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmWsCalcOperacionesRecordSet property.
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmWsCalcOperacionesRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
-     *
      * <pre>
-     * getIcmWsCalcOperacionesRecordSet().add(newItem);
+     *    getIcmWsCalcOperacionesRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmWsCalcOperacionesRecord }
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmWsCalcOperacionesRecord }
      *
      *
      */
@@ -107,9 +115,8 @@ public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyT
         return this.icmWsCalcOperacionesRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -121,30 +128,16 @@ public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyT
             lhsIcmPTrace = this.getIcmPTrace();
             String rhsIcmPTrace;
             rhsIcmPTrace = that.getIcmPTrace();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmPTrace", lhsIcmPTrace),
-                    LocatorUtils.property(thatLocator, "icmPTrace", rhsIcmPTrace), lhsIcmPTrace, rhsIcmPTrace,
-                    (this.icmPTrace != null), (that.icmPTrace != null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmPTrace", lhsIcmPTrace), LocatorUtils.property(thatLocator, "icmPTrace", rhsIcmPTrace), lhsIcmPTrace, rhsIcmPTrace, (this.icmPTrace!= null), (that.icmPTrace!= null))) {
                 return false;
             }
         }
         {
             List<IcmWsCalcOperacionesRecord> lhsIcmWsCalcOperacionesRecordSet;
-            lhsIcmWsCalcOperacionesRecordSet = (((this.icmWsCalcOperacionesRecordSet != null)
-                    && (!this.icmWsCalcOperacionesRecordSet.isEmpty())) ? this.getIcmWsCalcOperacionesRecordSet()
-                            : null);
+            lhsIcmWsCalcOperacionesRecordSet = (((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty()))?this.getIcmWsCalcOperacionesRecordSet():null);
             List<IcmWsCalcOperacionesRecord> rhsIcmWsCalcOperacionesRecordSet;
-            rhsIcmWsCalcOperacionesRecordSet = (((that.icmWsCalcOperacionesRecordSet != null)
-                    && (!that.icmWsCalcOperacionesRecordSet.isEmpty())) ? that.getIcmWsCalcOperacionesRecordSet()
-                            : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmWsCalcOperacionesRecordSet",
-                            lhsIcmWsCalcOperacionesRecordSet),
-                    LocatorUtils.property(thatLocator, "icmWsCalcOperacionesRecordSet",
-                            rhsIcmWsCalcOperacionesRecordSet),
-                    lhsIcmWsCalcOperacionesRecordSet, rhsIcmWsCalcOperacionesRecordSet,
-                    ((this.icmWsCalcOperacionesRecordSet != null) && (!this.icmWsCalcOperacionesRecordSet.isEmpty())),
-                    ((that.icmWsCalcOperacionesRecordSet != null)
-                            && (!that.icmWsCalcOperacionesRecordSet.isEmpty())))) {
+            rhsIcmWsCalcOperacionesRecordSet = (((that.icmWsCalcOperacionesRecordSet!= null)&&(!that.icmWsCalcOperacionesRecordSet.isEmpty()))?that.getIcmWsCalcOperacionesRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmWsCalcOperacionesRecordSet", lhsIcmWsCalcOperacionesRecordSet), LocatorUtils.property(thatLocator, "icmWsCalcOperacionesRecordSet", rhsIcmWsCalcOperacionesRecordSet), lhsIcmWsCalcOperacionesRecordSet, rhsIcmWsCalcOperacionesRecordSet, ((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty())), ((that.icmWsCalcOperacionesRecordSet!= null)&&(!that.icmWsCalcOperacionesRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -174,16 +167,12 @@ public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyT
         {
             String theIcmPTrace;
             theIcmPTrace = this.getIcmPTrace();
-            strategy.appendField(locator, this, "icmPTrace", buffer, theIcmPTrace, (this.icmPTrace != null));
+            strategy.appendField(locator, this, "icmPTrace", buffer, theIcmPTrace, (this.icmPTrace!= null));
         }
         {
             List<IcmWsCalcOperacionesRecord> theIcmWsCalcOperacionesRecordSet;
-            theIcmWsCalcOperacionesRecordSet = (((this.icmWsCalcOperacionesRecordSet != null)
-                    && (!this.icmWsCalcOperacionesRecordSet.isEmpty())) ? this.getIcmWsCalcOperacionesRecordSet()
-                            : null);
-            strategy.appendField(locator, this, "icmWsCalcOperacionesRecordSet", buffer,
-                    theIcmWsCalcOperacionesRecordSet,
-                    ((this.icmWsCalcOperacionesRecordSet != null) && (!this.icmWsCalcOperacionesRecordSet.isEmpty())));
+            theIcmWsCalcOperacionesRecordSet = (((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty()))?this.getIcmWsCalcOperacionesRecordSet():null);
+            strategy.appendField(locator, this, "icmWsCalcOperacionesRecordSet", buffer, theIcmWsCalcOperacionesRecordSet, ((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -193,18 +182,12 @@ public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyT
         {
             String theIcmPTrace;
             theIcmPTrace = this.getIcmPTrace();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPTrace", theIcmPTrace),
-                    currentHashCode, theIcmPTrace, (this.icmPTrace != null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPTrace", theIcmPTrace), currentHashCode, theIcmPTrace, (this.icmPTrace!= null));
         }
         {
             List<IcmWsCalcOperacionesRecord> theIcmWsCalcOperacionesRecordSet;
-            theIcmWsCalcOperacionesRecordSet = (((this.icmWsCalcOperacionesRecordSet != null)
-                    && (!this.icmWsCalcOperacionesRecordSet.isEmpty())) ? this.getIcmWsCalcOperacionesRecordSet()
-                            : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmWsCalcOperacionesRecordSet", theIcmWsCalcOperacionesRecordSet),
-                    currentHashCode, theIcmWsCalcOperacionesRecordSet,
-                    ((this.icmWsCalcOperacionesRecordSet != null) && (!this.icmWsCalcOperacionesRecordSet.isEmpty())));
+            theIcmWsCalcOperacionesRecordSet = (((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty()))?this.getIcmWsCalcOperacionesRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmWsCalcOperacionesRecordSet", theIcmWsCalcOperacionesRecordSet), currentHashCode, theIcmWsCalcOperacionesRecordSet, ((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -224,18 +207,15 @@ public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyT
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
+        final Object draftCopy = ((target == null)?createNewInstance():target);
         if (draftCopy instanceof IcmWsCalcOperacionesBlock) {
             final IcmWsCalcOperacionesBlock copy = ((IcmWsCalcOperacionesBlock) draftCopy);
             {
-                Boolean icmPTraceShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmPTrace != null));
+                Boolean icmPTraceShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmPTrace!= null));
                 if (icmPTraceShouldBeCopiedAndSet == Boolean.TRUE) {
                     String sourceIcmPTrace;
                     sourceIcmPTrace = this.getIcmPTrace();
-                    String copyIcmPTrace = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "icmPTrace", sourceIcmPTrace), sourceIcmPTrace,
-                            (this.icmPTrace != null)));
+                    String copyIcmPTrace = ((String) strategy.copy(LocatorUtils.property(locator, "icmPTrace", sourceIcmPTrace), sourceIcmPTrace, (this.icmPTrace!= null)));
                     copy.setIcmPTrace(copyIcmPTrace);
                 } else {
                     if (icmPTraceShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -244,24 +224,15 @@ public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyT
                 }
             }
             {
-                Boolean icmWsCalcOperacionesRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        ((this.icmWsCalcOperacionesRecordSet != null)
-                                && (!this.icmWsCalcOperacionesRecordSet.isEmpty())));
+                Boolean icmWsCalcOperacionesRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty())));
                 if (icmWsCalcOperacionesRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmWsCalcOperacionesRecord> sourceIcmWsCalcOperacionesRecordSet;
-                    sourceIcmWsCalcOperacionesRecordSet = (((this.icmWsCalcOperacionesRecordSet != null)
-                            && (!this.icmWsCalcOperacionesRecordSet.isEmpty()))
-                                    ? this.getIcmWsCalcOperacionesRecordSet() : null);
+                    sourceIcmWsCalcOperacionesRecordSet = (((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty()))?this.getIcmWsCalcOperacionesRecordSet():null);
                     @SuppressWarnings("unchecked")
-                    List<IcmWsCalcOperacionesRecord> copyIcmWsCalcOperacionesRecordSet = ((List<IcmWsCalcOperacionesRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmWsCalcOperacionesRecordSet",
-                                sourceIcmWsCalcOperacionesRecordSet), sourceIcmWsCalcOperacionesRecordSet,
-                                ((this.icmWsCalcOperacionesRecordSet != null)
-                                        && (!this.icmWsCalcOperacionesRecordSet.isEmpty()))));
+                    List<IcmWsCalcOperacionesRecord> copyIcmWsCalcOperacionesRecordSet = ((List<IcmWsCalcOperacionesRecord> ) strategy.copy(LocatorUtils.property(locator, "icmWsCalcOperacionesRecordSet", sourceIcmWsCalcOperacionesRecordSet), sourceIcmWsCalcOperacionesRecordSet, ((this.icmWsCalcOperacionesRecordSet!= null)&&(!this.icmWsCalcOperacionesRecordSet.isEmpty()))));
                     copy.icmWsCalcOperacionesRecordSet = null;
-                    if (copyIcmWsCalcOperacionesRecordSet != null) {
-                        List<IcmWsCalcOperacionesRecord> uniqueIcmWsCalcOperacionesRecordSetl = copy
-                            .getIcmWsCalcOperacionesRecordSet();
+                    if (copyIcmWsCalcOperacionesRecordSet!= null) {
+                        List<IcmWsCalcOperacionesRecord> uniqueIcmWsCalcOperacionesRecordSetl = copy.getIcmWsCalcOperacionesRecordSet();
                         uniqueIcmWsCalcOperacionesRecordSetl.addAll(copyIcmWsCalcOperacionesRecordSet);
                     }
                 } else {

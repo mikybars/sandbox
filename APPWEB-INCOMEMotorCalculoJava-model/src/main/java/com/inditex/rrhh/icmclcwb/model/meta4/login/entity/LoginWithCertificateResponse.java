@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
 import java.io.Serializable;
@@ -117,8 +121,7 @@ public class LoginWithCertificateResponse implements Serializable, Cloneable, Co
     }
 
     @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
         this.appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
@@ -126,8 +129,7 @@ public class LoginWithCertificateResponse implements Serializable, Cloneable, Co
     }
 
     @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
         {
             final M4LoginOutput theLoginWithCertificateReturn;
             theLoginWithCertificateReturn = this.getLoginWithCertificateReturn();
