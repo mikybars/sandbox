@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 /**
@@ -44,12 +45,15 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
     @Autowired
     private PtrAsyncService ptrAsyncService;
 
+    @Autowired
+    private ValidacionMapper validacionMapper;
+
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final Boolean validacion = Boolean.FALSE;
+        boolean validacion = Boolean.FALSE;
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
             final CompletableFuture<PresenciaOrigenDto> cfPresenciaComis = this.comisAsyncService
@@ -65,7 +69,7 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
             final PresenciaOrigenDto presenciaComis = AsyncUtils.get(cfPresenciaComis);
             final PresenciaOrigenDto presenciaPtr = AsyncUtils.get(cfPresenciaPtr);
 
-            // validacion = presenciaComis.getHorasSeccion4().equals(presenciaPtr.getHorasSeccion4());
+            validacion = presenciaComis.getHorasSeccion4().equals(presenciaPtr.getHorasSeccion4());
 
         } catch (final Exception e) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
@@ -73,11 +77,7 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
             AsyncUtils.cancel(cf);
             throw e;
         }
-        return ValidacionDto.builder()
-            .result(validacion)
-            .idTareaFaseAccion(tareaFaseAccion.getId())
-            .reaccionPeso(tareaFaseAccion.getReaccionPeso())
-            .build();
+        return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, validacion);
     }
 
 }

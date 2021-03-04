@@ -65,4 +65,13 @@ public interface ValidacionMapper {
     ValidacionDto idMotivoDesplazamientoDtoToValidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion,
             List<IdMotivoDesplazamientoDto> motivos);
 
+    @Mapping(target = "result", source = "result")
+    @Mapping(target = "sincronizacion", constant = "false")
+    @Mapping(target = "idTareaFaseAccion", source = "accion.id")
+    @Mapping(target = "reaccionPeso", source = "accion.reaccionPeso")
+    @Mapping(target = "cclIdOrigen", source = "ambito.cclIdOrigen")
+    @Mapping(target = "idPersonaLocal", expression = "java(new ArrayList<>())")
+    @Mapping(target = "idMotivosDesplazamiento", expression = "java(new ArrayList<>())")
+    ValidacionDto booleanToValidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion, boolean result);
+
 }
