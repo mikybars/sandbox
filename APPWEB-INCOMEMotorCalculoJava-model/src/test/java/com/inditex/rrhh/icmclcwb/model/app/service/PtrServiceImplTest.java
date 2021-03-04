@@ -40,7 +40,7 @@ public class PtrServiceImplTest {
         tareaAmbitoDto.setCclIdOrigen(ORIGEN);
         this.ptrServiceImpl.findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
         verify(this.ptrRepositoryCustom, times(1))
-            .findPresenciasOrigenAndFecha(any(TareaDto.class));
+            .findPresenciasOrigenAndFecha(any(TareaDto.class), any(TareaAmbitoDto.class));
     }
 
 }

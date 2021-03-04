@@ -8,6 +8,7 @@ public interface PtrRepositoryCustom {
 
     /**
      * @param tarea
+     * @param ambito
      * @return
      */
     PresenciaOrigenDto findPresenciasOrigenAndFecha(TareaDto tarea, TareaAmbitoDto ambito);
