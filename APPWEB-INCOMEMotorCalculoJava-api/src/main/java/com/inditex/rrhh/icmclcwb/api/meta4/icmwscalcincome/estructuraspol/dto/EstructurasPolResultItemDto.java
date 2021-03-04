@@ -21,8 +21,6 @@ public class EstructurasPolResultItemDto implements Serializable {
 
     private LocalDateTime fechaFin;
 
-    private String inOut;
-
     private String idOrigen;
 
     private String idEmpleado;

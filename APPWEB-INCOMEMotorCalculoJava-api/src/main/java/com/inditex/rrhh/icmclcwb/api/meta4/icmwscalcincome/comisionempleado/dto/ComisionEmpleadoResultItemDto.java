@@ -37,8 +37,6 @@ public class ComisionEmpleadoResultItemDto implements Serializable {
 
     private String tipo;
 
-    private String inOut;
-
     private String importe;
 
     private String numHoras;

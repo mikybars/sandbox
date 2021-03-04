@@ -1,10 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class ListaEstructuraDesplazamientosResultItemDto implements Serializable {
@@ -28,8 +28,6 @@ public class ListaEstructuraDesplazamientosResultItemDto implements Serializable
     private String diaV;
 
     private String diaX;
-
-    private String inOut;
 
     private String importe;
 
