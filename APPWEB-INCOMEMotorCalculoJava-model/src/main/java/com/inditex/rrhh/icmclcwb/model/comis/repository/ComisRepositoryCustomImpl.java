@@ -123,6 +123,7 @@ public class ComisRepositoryCustomImpl
                     .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
                     .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
                     .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
+                    .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
                     .idTipoCalculo(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO))
                     .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
                     .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))

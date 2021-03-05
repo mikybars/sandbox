@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class IdPersonaLocalCondicionesDto implements Serializable {
 
+    private static final long serialVersionUID = -4235085358661235034L;
     @NotBlank
     private String idPersonaLocal;
 
@@ -28,7 +29,11 @@ public class IdPersonaLocalCondicionesDto implements Serializable {
 
     private String cclIdCodOrigen;
 
+    private String cclIdSeccion;
+
     private String cclIdCodOrigenDestino;
+
+    private String cclIdSeccionDestino;
 
     private String idTipoCalculo;
 

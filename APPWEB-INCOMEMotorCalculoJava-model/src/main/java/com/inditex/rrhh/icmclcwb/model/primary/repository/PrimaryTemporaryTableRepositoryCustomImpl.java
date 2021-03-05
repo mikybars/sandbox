@@ -229,6 +229,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                             ps.setString(6, el.getPorcentaje());
                             ps.setString(7, el.getBanda());
                             ps.setString(8, el.getImporte());
+                            ps.setString(9, el.getCclIdSeccion());
                         }
 
                         @Override
@@ -282,6 +283,8 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                             ps.setString(8, el.getPorcentaje());
                             ps.setString(9, el.getBanda());
                             ps.setString(10, el.getImporte());
+                            ps.setString(11, el.getCclIdSeccion());
+                            ps.setString(12, el.getCclIdSeccionDestino());
                         }
 
                         @Override
@@ -296,7 +299,6 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     public List<IdPersonaLocalDto> validateTempComisDesplazamiento(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
 
         return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisDesplazamiento, map,
