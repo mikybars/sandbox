@@ -73,6 +73,7 @@ public class RunTareaAmbitoValidarPresenciasServiceImplTest {
         accionDto.setId(1);
 
         final PresenciaOrigenDto lista = new PresenciaOrigenDto();
+        lista.setHorasSeccion4(1);
         final CompletableFuture<PresenciaOrigenDto> cf = new CompletableFuture<>();
         cf.complete(lista);
 
