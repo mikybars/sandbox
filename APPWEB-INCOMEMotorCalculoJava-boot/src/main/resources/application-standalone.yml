@@ -622,7 +622,7 @@ app:
         default: 100
     limpieza:
       days-number: -7
-      days-number-creation: 1
+      days-number-creation: -1
       max: 100
       batch-size:
         default: 100
