@@ -301,7 +301,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
                 any(RowMapper.class));
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertEquals(2, params.getValues().size());
+        assertEquals(1, params.getValues().size());
         assertTrue(params.hasValue(ID_TAREA_PARAM));
         assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
         assertTrue(params.hasValue(FECHA_INICIO_PERIODO_PARAM));
