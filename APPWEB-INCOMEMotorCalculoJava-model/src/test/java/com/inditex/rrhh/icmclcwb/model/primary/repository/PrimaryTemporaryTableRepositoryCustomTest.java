@@ -16,7 +16,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -188,9 +187,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     public void validateTempComisBajaItTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
-        final LocalDate fechaInicio = LocalDate.of(2020, 01, 01);
         final long idTarea = 1234L;
-        when(tarea.getFechaInicioPeriodo()).thenReturn(fechaInicio);
         when(tarea.getId()).thenReturn(idTarea);
 
         this.primaryTemporaryTableRepositoryCustom.validateTempComisBajaIt(tarea);
@@ -198,11 +195,9 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
                 any(RowMapper.class));
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertEquals(2, params.getValues().size());
+        assertEquals(1, params.getValues().size());
         assertTrue(params.hasValue(ID_TAREA_PARAM));
         assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
-        assertTrue(params.hasValue(FECHA_INICIO_PERIODO_PARAM));
-        assertEquals(TimeUtils.toDate(fechaInicio), params.getValue(FECHA_INICIO_PERIODO_PARAM));
 
     }
 
@@ -335,9 +330,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     public void validateTempComisHistoricoTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
-        final LocalDate fechaInicio = LocalDate.of(2020, 01, 01);
         final long idTarea = 1234L;
-        when(tarea.getFechaInicioPeriodo()).thenReturn(fechaInicio);
         when(tarea.getId()).thenReturn(idTarea);
 
         this.primaryTemporaryTableRepositoryCustom.validateTempComisHistorico(tarea);
@@ -346,11 +339,9 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
                 any(RowMapper.class));
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertEquals(2, params.getValues().size());
+        assertEquals(1, params.getValues().size());
         assertTrue(params.hasValue(ID_TAREA_PARAM));
         assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
-        assertTrue(params.hasValue(FECHA_INICIO_PERIODO_PARAM));
-        assertEquals(TimeUtils.toDate(fechaInicio), params.getValue(FECHA_INICIO_PERIODO_PARAM));
 
     }
 
@@ -387,9 +378,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     public void validateTempComisResaltaTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
-        final LocalDate fechaInicio = LocalDate.of(2020, 01, 01);
         final long idTarea = 1234L;
-        when(tarea.getFechaInicioPeriodo()).thenReturn(fechaInicio);
         when(tarea.getId()).thenReturn(idTarea);
 
         this.primaryTemporaryTableRepositoryCustom.validateTempComisResalta(tarea);
@@ -398,11 +387,9 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
                 any(RowMapper.class));
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertEquals(2, params.getValues().size());
+        assertEquals(1, params.getValues().size());
         assertTrue(params.hasValue(ID_TAREA_PARAM));
         assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
-        assertTrue(params.hasValue(FECHA_INICIO_PERIODO_PARAM));
-        assertEquals(TimeUtils.toDate(fechaInicio), params.getValue(FECHA_INICIO_PERIODO_PARAM));
 
     }
 

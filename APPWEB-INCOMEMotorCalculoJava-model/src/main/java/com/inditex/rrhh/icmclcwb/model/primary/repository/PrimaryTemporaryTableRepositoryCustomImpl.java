@@ -244,7 +244,6 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     public List<IdPersonaLocalDto> validateTempComisHistorico(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
         return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisHistorico, map,
                 (rs, rowNum) -> {
@@ -349,7 +348,6 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     public List<IdPersonaLocalDto> validateTempComisResalta(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
         return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisResalta, map,
                 (rs, rowMap) -> {
@@ -397,8 +395,6 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
             @NotNull final TareaDto tarea) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        params.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
-                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
         return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisBajaIt, params,
                 (rs, rowNum) -> {
