@@ -445,8 +445,6 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     public List<IdPersonaLocalDto> validateTempComisCarencia(@NotNull final TareaDto tarea) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        params.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
-                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
         return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisCarencia, params,
                 (rs, rowNum) -> {
