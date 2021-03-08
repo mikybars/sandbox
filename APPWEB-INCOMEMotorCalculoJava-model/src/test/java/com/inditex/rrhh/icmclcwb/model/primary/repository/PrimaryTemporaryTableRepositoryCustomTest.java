@@ -292,7 +292,6 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
         final TareaDto tarea = mock(TareaDto.class);
         final LocalDate fechaInicio = LocalDate.of(2020, 01, 01);
         final long idTarea = 1234L;
-        when(tarea.getFechaInicioPeriodo()).thenReturn(fechaInicio);
         when(tarea.getId()).thenReturn(idTarea);
 
         this.primaryTemporaryTableRepositoryCustom.validateTempComisDesplazamiento(tarea);
@@ -304,8 +303,6 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
         assertEquals(1, params.getValues().size());
         assertTrue(params.hasValue(ID_TAREA_PARAM));
         assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
-        assertTrue(params.hasValue(FECHA_INICIO_PERIODO_PARAM));
-        assertEquals(TimeUtils.toDate(fechaInicio), params.getValue(FECHA_INICIO_PERIODO_PARAM));
 
     }
 
