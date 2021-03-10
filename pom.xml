@@ -19,8 +19,6 @@
     <!-- TODO [javierev] se excluyen ficheros markdown porque sonar los confunde con otra cosa (¿MetaDapper?) -->
     <sonar.exclusions>**/model/meta4/icmwscalcincome/entity/**,**/model/meta4/login/entity/**,**/resources/*.md
     </sonar.exclusions>
-    <!-- TODO [javierev] quitamos las validaciones de formato temporalmente por incompatibildad de versiones -->
-    <!--    <amiga-javaformat.skip>true</amiga-javaformat.skip>-->
     <amiga-javaformat.version>1.5.0</amiga-javaformat.version>
     <app.github.chrisvest.version>3.1</app.github.chrisvest.version>
     <app.org.jvnet.jaxb2_commons.version>0.12.0</app.org.jvnet.jaxb2_commons.version>
