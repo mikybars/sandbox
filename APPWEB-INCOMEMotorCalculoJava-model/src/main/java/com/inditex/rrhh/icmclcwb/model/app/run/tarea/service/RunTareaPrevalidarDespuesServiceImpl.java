@@ -12,7 +12,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -49,12 +48,6 @@ import reactor.core.scheduler.Schedulers;
 @Service
 @Validated
 public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarDespuesService {
-
-    @Value("${app.envars.mail.sender}")
-    private String sender;
-
-    @Value("${app.envars.mail.receiver}")
-    private String receiver;
 
     @Autowired
     private RunPrevalidarFactory runPrevalidarFactory;

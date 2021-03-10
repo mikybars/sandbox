@@ -45,6 +45,8 @@ public class MailServiceImpl implements MailService {
 
     private static final String LINE_BREAK = "\n";
 
+    private static final String DOUBLE_LINE_BREAK = " \n\n";
+
     private static final String SEPARATOR = " - ";
 
     private static final String SUBJECT = "[INCOME][CALC] - Error validating task: ";
@@ -60,18 +62,18 @@ public class MailServiceImpl implements MailService {
     public void sendMail(final TareaFaseDto tareaFase, final List<ValidacionDto> fallidas) {
         final StringBuilder result = new StringBuilder();
         result.append(TITLE);
-        result.append(LINE_BREAK);
+        result.append(DOUBLE_LINE_BREAK);
         fallidas.stream().forEach(e -> {
             final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
                 .findById(e.getIdTareaFaseAccion());
             final AccionDto accion = this.accionService
                 .findAccionDtoById(tareaFaseAccion.getIdAccion());
-            result.append(accion.getNombre());
+            result.append(accion.getDescripcion());
             if ((e.getIdPersonaLocal() != null) && !e.getIdPersonaLocal().isEmpty()) {
                 result.append(SEPARATOR);
                 result.append(e.getIdPersonaLocal());
             }
-            result.append(LINE_BREAK);
+            result.append(DOUBLE_LINE_BREAK);
         });
 
         final SimpleMailMessage message = new SimpleMailMessage();
