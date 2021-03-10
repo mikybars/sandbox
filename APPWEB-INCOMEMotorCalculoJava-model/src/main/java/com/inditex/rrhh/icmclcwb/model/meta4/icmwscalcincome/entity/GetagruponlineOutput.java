@@ -228,7 +228,8 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
     }
 
     @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
+    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
+            final ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
         this.appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
@@ -236,7 +237,8 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
     }
 
     @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
+            final ToStringStrategy2 strategy) {
         {
             final double theReturn;
             theReturn = this.getReturn();
@@ -337,7 +339,8 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
                     final List<LogMessage> sourceLogMessage;
                     sourceLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty()))
                             ? this.getLogMessage() : null);
-                    @SuppressWarnings("unchecked") final List<LogMessage> copyLogMessage = ((List<LogMessage>) strategy.copy(
+                    @SuppressWarnings("unchecked")
+                    final List<LogMessage> copyLogMessage = ((List<LogMessage>) strategy.copy(
                             LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage,
                             ((this.logMessage != null) && (!this.logMessage.isEmpty()))));
                     copy.logMessage = null;
@@ -357,9 +360,10 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
                 if (icmListaconfiguracionShouldBeCopiedAndSet == Boolean.TRUE) {
                     final IcmListaconfiguracionBlock sourceIcmListaconfiguracion;
                     sourceIcmListaconfiguracion = this.getIcmListaconfiguracion();
-                    final IcmListaconfiguracionBlock copyIcmListaconfiguracion = ((IcmListaconfiguracionBlock) strategy.copy(
-                            LocatorUtils.property(locator, "icmListaconfiguracion", sourceIcmListaconfiguracion),
-                            sourceIcmListaconfiguracion, (this.icmListaconfiguracion != null)));
+                    final IcmListaconfiguracionBlock copyIcmListaconfiguracion = ((IcmListaconfiguracionBlock) strategy
+                        .copy(
+                                LocatorUtils.property(locator, "icmListaconfiguracion", sourceIcmListaconfiguracion),
+                                sourceIcmListaconfiguracion, (this.icmListaconfiguracion != null)));
                     copy.setIcmListaconfiguracion(copyIcmListaconfiguracion);
                 } else {
                     if (icmListaconfiguracionShouldBeCopiedAndSet == Boolean.FALSE) {

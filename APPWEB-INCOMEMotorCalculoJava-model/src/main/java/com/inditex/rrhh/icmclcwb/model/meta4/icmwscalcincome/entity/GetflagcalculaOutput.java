@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -29,9 +29,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para GetflagcalculaOutput complex type.
+ * <p>
+ * Clase Java para GetflagcalculaOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="GetflagcalculaOutput"&gt;
@@ -52,21 +54,24 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GetflagcalculaOutput", propOrder = {
-    "_return",
-    "logMessage",
-    "icmListatiendas",
-    "icmParametrospaginacion"
+        "_return",
+        "logMessage",
+        "icmListatiendas",
+        "icmParametrospaginacion"
 })
-public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "return")
     protected double _return;
+
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
+
     @XmlElement(name = "Icm_Listatiendas", required = true, nillable = true)
     protected IcmListatiendasBlock icmListatiendas;
+
     @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
     protected IcmParametrospaginacionBlock icmParametrospaginacion;
 
@@ -90,21 +95,20 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
      * Gets the value of the logMessage property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the logMessage property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the logMessage property.
      *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getLogMessage().add(newItem);
+     * getLogMessage().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link LogMessage }
+     * Objects of the following type(s) are allowed in the list {@link LogMessage }
      *
      *
      */
@@ -117,10 +121,7 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
 
     /**
      * Obtiene el valor de la propiedad icmListatiendas.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmListatiendasBlock }
+     * @return possible object is {@link IcmListatiendasBlock }
      *
      */
     public IcmListatiendasBlock getIcmListatiendas() {
@@ -129,10 +130,7 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
 
     /**
      * Define el valor de la propiedad icmListatiendas.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmListatiendasBlock }
+     * @param value allowed object is {@link IcmListatiendasBlock }
      *
      */
     public void setIcmListatiendas(IcmListatiendasBlock value) {
@@ -141,10 +139,7 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
 
     /**
      * Obtiene el valor de la propiedad icmParametrospaginacion.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmParametrospaginacionBlock }
+     * @return possible object is {@link IcmParametrospaginacionBlock }
      *
      */
     public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
@@ -153,18 +148,16 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
 
     /**
      * Define el valor de la propiedad icmParametrospaginacion.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmParametrospaginacionBlock }
+     * @param value allowed object is {@link IcmParametrospaginacionBlock }
      *
      */
     public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
         this.icmParametrospaginacion = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -176,16 +169,20 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
             lhsReturn = this.getReturn();
             double rhsReturn;
             rhsReturn = that.getReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "_return", lhsReturn), LocatorUtils.property(thatLocator, "_return", rhsReturn), lhsReturn, rhsReturn, true, true)) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "_return", lhsReturn),
+                    LocatorUtils.property(thatLocator, "_return", rhsReturn), lhsReturn, rhsReturn, true, true)) {
                 return false;
             }
         }
         {
             List<LogMessage> lhsLogMessage;
-            lhsLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
+            lhsLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
             List<LogMessage> rhsLogMessage;
-            rhsLogMessage = (((that.logMessage!= null)&&(!that.logMessage.isEmpty()))?that.getLogMessage():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "logMessage", lhsLogMessage), LocatorUtils.property(thatLocator, "logMessage", rhsLogMessage), lhsLogMessage, rhsLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())), ((that.logMessage!= null)&&(!that.logMessage.isEmpty())))) {
+            rhsLogMessage = (((that.logMessage != null) && (!that.logMessage.isEmpty())) ? that.getLogMessage() : null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "logMessage", lhsLogMessage),
+                    LocatorUtils.property(thatLocator, "logMessage", rhsLogMessage), lhsLogMessage, rhsLogMessage,
+                    ((this.logMessage != null) && (!this.logMessage.isEmpty())),
+                    ((that.logMessage != null) && (!that.logMessage.isEmpty())))) {
                 return false;
             }
         }
@@ -194,7 +191,9 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
             lhsIcmListatiendas = this.getIcmListatiendas();
             IcmListatiendasBlock rhsIcmListatiendas;
             rhsIcmListatiendas = that.getIcmListatiendas();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListatiendas", lhsIcmListatiendas), LocatorUtils.property(thatLocator, "icmListatiendas", rhsIcmListatiendas), lhsIcmListatiendas, rhsIcmListatiendas, (this.icmListatiendas!= null), (that.icmListatiendas!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListatiendas", lhsIcmListatiendas),
+                    LocatorUtils.property(thatLocator, "icmListatiendas", rhsIcmListatiendas), lhsIcmListatiendas,
+                    rhsIcmListatiendas, (this.icmListatiendas != null), (that.icmListatiendas != null))) {
                 return false;
             }
         }
@@ -203,7 +202,11 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
             lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
             IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
             rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion), LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion!= null), (that.icmParametrospaginacion!= null))) {
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion),
+                    LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion),
+                    lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion != null),
+                    (that.icmParametrospaginacion != null))) {
                 return false;
             }
         }
@@ -237,18 +240,21 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
         }
         {
             List<LogMessage> theLogMessage;
-            theLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
-            strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
+            theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
+            strategy.appendField(locator, this, "logMessage", buffer, theLogMessage,
+                    ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
             IcmListatiendasBlock theIcmListatiendas;
             theIcmListatiendas = this.getIcmListatiendas();
-            strategy.appendField(locator, this, "icmListatiendas", buffer, theIcmListatiendas, (this.icmListatiendas!= null));
+            strategy.appendField(locator, this, "icmListatiendas", buffer, theIcmListatiendas,
+                    (this.icmListatiendas != null));
         }
         {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
+            strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion,
+                    (this.icmParametrospaginacion != null));
         }
         return buffer;
     }
@@ -258,22 +264,27 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
         {
             double theReturn;
             theReturn = this.getReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode, theReturn, true);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode,
+                    theReturn, true);
         }
         {
             List<LogMessage> theLogMessage;
-            theLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
+            theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage),
+                    currentHashCode, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
             IcmListatiendasBlock theIcmListatiendas;
             theIcmListatiendas = this.getIcmListatiendas();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListatiendas", theIcmListatiendas), currentHashCode, theIcmListatiendas, (this.icmListatiendas!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListatiendas", theIcmListatiendas),
+                    currentHashCode, theIcmListatiendas, (this.icmListatiendas != null));
         }
         {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion), currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion),
+                    currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion != null));
         }
         return currentHashCode;
     }
@@ -293,7 +304,7 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GetflagcalculaOutput) {
             final GetflagcalculaOutput copy = ((GetflagcalculaOutput) draftCopy);
             {
@@ -301,7 +312,8 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
                 if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
                     double sourceReturn;
                     sourceReturn = this.getReturn();
-                    double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn), sourceReturn, true);
+                    double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn),
+                            sourceReturn, true);
                     copy.setReturn(copyReturn);
                 } else {
                     if (_returnShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -309,14 +321,18 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
                 }
             }
             {
-                Boolean logMessageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
+                Boolean logMessageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.logMessage != null) && (!this.logMessage.isEmpty())));
                 if (logMessageShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<LogMessage> sourceLogMessage;
-                    sourceLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
+                    sourceLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty()))
+                            ? this.getLogMessage() : null);
                     @SuppressWarnings("unchecked")
-                    List<LogMessage> copyLogMessage = ((List<LogMessage> ) strategy.copy(LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty()))));
+                    List<LogMessage> copyLogMessage = ((List<LogMessage>) strategy.copy(
+                            LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage,
+                            ((this.logMessage != null) && (!this.logMessage.isEmpty()))));
                     copy.logMessage = null;
-                    if (copyLogMessage!= null) {
+                    if (copyLogMessage != null) {
                         List<LogMessage> uniqueLogMessagel = copy.getLogMessage();
                         uniqueLogMessagel.addAll(copyLogMessage);
                     }
@@ -327,11 +343,14 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
                 }
             }
             {
-                Boolean icmListatiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListatiendas!= null));
+                Boolean icmListatiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmListatiendas != null));
                 if (icmListatiendasShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListatiendasBlock sourceIcmListatiendas;
                     sourceIcmListatiendas = this.getIcmListatiendas();
-                    IcmListatiendasBlock copyIcmListatiendas = ((IcmListatiendasBlock) strategy.copy(LocatorUtils.property(locator, "icmListatiendas", sourceIcmListatiendas), sourceIcmListatiendas, (this.icmListatiendas!= null)));
+                    IcmListatiendasBlock copyIcmListatiendas = ((IcmListatiendasBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmListatiendas", sourceIcmListatiendas),
+                            sourceIcmListatiendas, (this.icmListatiendas != null)));
                     copy.setIcmListatiendas(copyIcmListatiendas);
                 } else {
                     if (icmListatiendasShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -340,11 +359,14 @@ public class GetflagcalculaOutput implements Serializable, Cloneable, CopyTo2, E
                 }
             }
             {
-                Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParametrospaginacion!= null));
+                Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmParametrospaginacion != null));
                 if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
                     sourceIcmParametrospaginacion = this.getIcmParametrospaginacion();
-                    IcmParametrospaginacionBlock copyIcmParametrospaginacion = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmParametrospaginacion", sourceIcmParametrospaginacion), sourceIcmParametrospaginacion, (this.icmParametrospaginacion!= null)));
+                    IcmParametrospaginacionBlock copyIcmParametrospaginacion = ((IcmParametrospaginacionBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmParametrospaginacion", sourceIcmParametrospaginacion),
+                                sourceIcmParametrospaginacion, (this.icmParametrospaginacion != null)));
                     copy.setIcmParametrospaginacion(copyIcmParametrospaginacion);
                 } else {
                     if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {

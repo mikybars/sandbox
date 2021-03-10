@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -29,9 +29,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ListaempresasBlock complex type.
+ * <p>
+ * Clase Java para Icm_ListaempresasBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ListaempresasBlock"&gt;
@@ -49,12 +51,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaempresasBlock", propOrder = {
-    "icmListaempresasRecordSet"
+        "icmListaempresasRecordSet"
 })
-public class IcmListaempresasBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmListaempresasBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ListaempresasRecordSet", nillable = true)
     protected List<IcmListaempresasRecord> icmListaempresasRecordSet;
 
@@ -62,21 +64,20 @@ public class IcmListaempresasBlock implements Serializable, Cloneable, CopyTo2, 
      * Gets the value of the icmListaempresasRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmListaempresasRecordSet property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmListaempresasRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmListaempresasRecordSet().add(newItem);
+     * getIcmListaempresasRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmListaempresasRecord }
+     * Objects of the following type(s) are allowed in the list {@link IcmListaempresasRecord }
      *
      *
      */
@@ -87,8 +88,9 @@ public class IcmListaempresasBlock implements Serializable, Cloneable, CopyTo2, 
         return this.icmListaempresasRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -97,10 +99,17 @@ public class IcmListaempresasBlock implements Serializable, Cloneable, CopyTo2, 
         final IcmListaempresasBlock that = ((IcmListaempresasBlock) object);
         {
             List<IcmListaempresasRecord> lhsIcmListaempresasRecordSet;
-            lhsIcmListaempresasRecordSet = (((this.icmListaempresasRecordSet!= null)&&(!this.icmListaempresasRecordSet.isEmpty()))?this.getIcmListaempresasRecordSet():null);
+            lhsIcmListaempresasRecordSet = (((this.icmListaempresasRecordSet != null)
+                    && (!this.icmListaempresasRecordSet.isEmpty())) ? this.getIcmListaempresasRecordSet() : null);
             List<IcmListaempresasRecord> rhsIcmListaempresasRecordSet;
-            rhsIcmListaempresasRecordSet = (((that.icmListaempresasRecordSet!= null)&&(!that.icmListaempresasRecordSet.isEmpty()))?that.getIcmListaempresasRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaempresasRecordSet", lhsIcmListaempresasRecordSet), LocatorUtils.property(thatLocator, "icmListaempresasRecordSet", rhsIcmListaempresasRecordSet), lhsIcmListaempresasRecordSet, rhsIcmListaempresasRecordSet, ((this.icmListaempresasRecordSet!= null)&&(!this.icmListaempresasRecordSet.isEmpty())), ((that.icmListaempresasRecordSet!= null)&&(!that.icmListaempresasRecordSet.isEmpty())))) {
+            rhsIcmListaempresasRecordSet = (((that.icmListaempresasRecordSet != null)
+                    && (!that.icmListaempresasRecordSet.isEmpty())) ? that.getIcmListaempresasRecordSet() : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmListaempresasRecordSet", lhsIcmListaempresasRecordSet),
+                    LocatorUtils.property(thatLocator, "icmListaempresasRecordSet", rhsIcmListaempresasRecordSet),
+                    lhsIcmListaempresasRecordSet, rhsIcmListaempresasRecordSet,
+                    ((this.icmListaempresasRecordSet != null) && (!this.icmListaempresasRecordSet.isEmpty())),
+                    ((that.icmListaempresasRecordSet != null) && (!that.icmListaempresasRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -129,8 +138,10 @@ public class IcmListaempresasBlock implements Serializable, Cloneable, CopyTo2, 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListaempresasRecord> theIcmListaempresasRecordSet;
-            theIcmListaempresasRecordSet = (((this.icmListaempresasRecordSet!= null)&&(!this.icmListaempresasRecordSet.isEmpty()))?this.getIcmListaempresasRecordSet():null);
-            strategy.appendField(locator, this, "icmListaempresasRecordSet", buffer, theIcmListaempresasRecordSet, ((this.icmListaempresasRecordSet!= null)&&(!this.icmListaempresasRecordSet.isEmpty())));
+            theIcmListaempresasRecordSet = (((this.icmListaempresasRecordSet != null)
+                    && (!this.icmListaempresasRecordSet.isEmpty())) ? this.getIcmListaempresasRecordSet() : null);
+            strategy.appendField(locator, this, "icmListaempresasRecordSet", buffer, theIcmListaempresasRecordSet,
+                    ((this.icmListaempresasRecordSet != null) && (!this.icmListaempresasRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -139,8 +150,12 @@ public class IcmListaempresasBlock implements Serializable, Cloneable, CopyTo2, 
         int currentHashCode = 1;
         {
             List<IcmListaempresasRecord> theIcmListaempresasRecordSet;
-            theIcmListaempresasRecordSet = (((this.icmListaempresasRecordSet!= null)&&(!this.icmListaempresasRecordSet.isEmpty()))?this.getIcmListaempresasRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaempresasRecordSet", theIcmListaempresasRecordSet), currentHashCode, theIcmListaempresasRecordSet, ((this.icmListaempresasRecordSet!= null)&&(!this.icmListaempresasRecordSet.isEmpty())));
+            theIcmListaempresasRecordSet = (((this.icmListaempresasRecordSet != null)
+                    && (!this.icmListaempresasRecordSet.isEmpty())) ? this.getIcmListaempresasRecordSet() : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmListaempresasRecordSet", theIcmListaempresasRecordSet),
+                    currentHashCode, theIcmListaempresasRecordSet,
+                    ((this.icmListaempresasRecordSet != null) && (!this.icmListaempresasRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -160,19 +175,27 @@ public class IcmListaempresasBlock implements Serializable, Cloneable, CopyTo2, 
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmListaempresasBlock) {
             final IcmListaempresasBlock copy = ((IcmListaempresasBlock) draftCopy);
             {
-                Boolean icmListaempresasRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListaempresasRecordSet!= null)&&(!this.icmListaempresasRecordSet.isEmpty())));
+                Boolean icmListaempresasRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmListaempresasRecordSet != null) && (!this.icmListaempresasRecordSet.isEmpty())));
                 if (icmListaempresasRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListaempresasRecord> sourceIcmListaempresasRecordSet;
-                    sourceIcmListaempresasRecordSet = (((this.icmListaempresasRecordSet!= null)&&(!this.icmListaempresasRecordSet.isEmpty()))?this.getIcmListaempresasRecordSet():null);
+                    sourceIcmListaempresasRecordSet = (((this.icmListaempresasRecordSet != null)
+                            && (!this.icmListaempresasRecordSet.isEmpty())) ? this.getIcmListaempresasRecordSet()
+                                    : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListaempresasRecord> copyIcmListaempresasRecordSet = ((List<IcmListaempresasRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListaempresasRecordSet", sourceIcmListaempresasRecordSet), sourceIcmListaempresasRecordSet, ((this.icmListaempresasRecordSet!= null)&&(!this.icmListaempresasRecordSet.isEmpty()))));
+                    List<IcmListaempresasRecord> copyIcmListaempresasRecordSet = ((List<IcmListaempresasRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmListaempresasRecordSet",
+                                sourceIcmListaempresasRecordSet), sourceIcmListaempresasRecordSet,
+                                ((this.icmListaempresasRecordSet != null)
+                                        && (!this.icmListaempresasRecordSet.isEmpty()))));
                     copy.icmListaempresasRecordSet = null;
-                    if (copyIcmListaempresasRecordSet!= null) {
-                        List<IcmListaempresasRecord> uniqueIcmListaempresasRecordSetl = copy.getIcmListaempresasRecordSet();
+                    if (copyIcmListaempresasRecordSet != null) {
+                        List<IcmListaempresasRecord> uniqueIcmListaempresasRecordSetl = copy
+                            .getIcmListaempresasRecordSet();
                         uniqueIcmListaempresasRecordSetl.addAll(copyIcmListaempresasRecordSet);
                     }
                 } else {

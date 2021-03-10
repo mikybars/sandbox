@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -29,9 +29,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ListapresupuestosrangoBlock complex type.
+ * <p>
+ * Clase Java para Icm_ListapresupuestosrangoBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ListapresupuestosrangoBlock"&gt;
@@ -49,12 +51,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListapresupuestosrangoBlock", propOrder = {
-    "icmListapresupuestosrangoRecordSet"
+        "icmListapresupuestosrangoRecordSet"
 })
-public class IcmListapresupuestosrangoBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmListapresupuestosrangoBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ListapresupuestosrangoRecordSet", nillable = true)
     protected List<IcmListapresupuestosrangoRecord> icmListapresupuestosrangoRecordSet;
 
@@ -62,21 +64,20 @@ public class IcmListapresupuestosrangoBlock implements Serializable, Cloneable, 
      * Gets the value of the icmListapresupuestosrangoRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmListapresupuestosrangoRecordSet property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmListapresupuestosrangoRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmListapresupuestosrangoRecordSet().add(newItem);
+     * getIcmListapresupuestosrangoRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmListapresupuestosrangoRecord }
+     * Objects of the following type(s) are allowed in the list {@link IcmListapresupuestosrangoRecord }
      *
      *
      */
@@ -87,8 +88,9 @@ public class IcmListapresupuestosrangoBlock implements Serializable, Cloneable, 
         return this.icmListapresupuestosrangoRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -97,10 +99,23 @@ public class IcmListapresupuestosrangoBlock implements Serializable, Cloneable, 
         final IcmListapresupuestosrangoBlock that = ((IcmListapresupuestosrangoBlock) object);
         {
             List<IcmListapresupuestosrangoRecord> lhsIcmListapresupuestosrangoRecordSet;
-            lhsIcmListapresupuestosrangoRecordSet = (((this.icmListapresupuestosrangoRecordSet!= null)&&(!this.icmListapresupuestosrangoRecordSet.isEmpty()))?this.getIcmListapresupuestosrangoRecordSet():null);
+            lhsIcmListapresupuestosrangoRecordSet = (((this.icmListapresupuestosrangoRecordSet != null)
+                    && (!this.icmListapresupuestosrangoRecordSet.isEmpty()))
+                            ? this.getIcmListapresupuestosrangoRecordSet() : null);
             List<IcmListapresupuestosrangoRecord> rhsIcmListapresupuestosrangoRecordSet;
-            rhsIcmListapresupuestosrangoRecordSet = (((that.icmListapresupuestosrangoRecordSet!= null)&&(!that.icmListapresupuestosrangoRecordSet.isEmpty()))?that.getIcmListapresupuestosrangoRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListapresupuestosrangoRecordSet", lhsIcmListapresupuestosrangoRecordSet), LocatorUtils.property(thatLocator, "icmListapresupuestosrangoRecordSet", rhsIcmListapresupuestosrangoRecordSet), lhsIcmListapresupuestosrangoRecordSet, rhsIcmListapresupuestosrangoRecordSet, ((this.icmListapresupuestosrangoRecordSet!= null)&&(!this.icmListapresupuestosrangoRecordSet.isEmpty())), ((that.icmListapresupuestosrangoRecordSet!= null)&&(!that.icmListapresupuestosrangoRecordSet.isEmpty())))) {
+            rhsIcmListapresupuestosrangoRecordSet = (((that.icmListapresupuestosrangoRecordSet != null)
+                    && (!that.icmListapresupuestosrangoRecordSet.isEmpty()))
+                            ? that.getIcmListapresupuestosrangoRecordSet() : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmListapresupuestosrangoRecordSet",
+                            lhsIcmListapresupuestosrangoRecordSet),
+                    LocatorUtils.property(thatLocator, "icmListapresupuestosrangoRecordSet",
+                            rhsIcmListapresupuestosrangoRecordSet),
+                    lhsIcmListapresupuestosrangoRecordSet, rhsIcmListapresupuestosrangoRecordSet,
+                    ((this.icmListapresupuestosrangoRecordSet != null)
+                            && (!this.icmListapresupuestosrangoRecordSet.isEmpty())),
+                    ((that.icmListapresupuestosrangoRecordSet != null)
+                            && (!that.icmListapresupuestosrangoRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -129,8 +144,12 @@ public class IcmListapresupuestosrangoBlock implements Serializable, Cloneable, 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListapresupuestosrangoRecord> theIcmListapresupuestosrangoRecordSet;
-            theIcmListapresupuestosrangoRecordSet = (((this.icmListapresupuestosrangoRecordSet!= null)&&(!this.icmListapresupuestosrangoRecordSet.isEmpty()))?this.getIcmListapresupuestosrangoRecordSet():null);
-            strategy.appendField(locator, this, "icmListapresupuestosrangoRecordSet", buffer, theIcmListapresupuestosrangoRecordSet, ((this.icmListapresupuestosrangoRecordSet!= null)&&(!this.icmListapresupuestosrangoRecordSet.isEmpty())));
+            theIcmListapresupuestosrangoRecordSet = (((this.icmListapresupuestosrangoRecordSet != null)
+                    && (!this.icmListapresupuestosrangoRecordSet.isEmpty()))
+                            ? this.getIcmListapresupuestosrangoRecordSet() : null);
+            strategy.appendField(locator, this, "icmListapresupuestosrangoRecordSet", buffer,
+                    theIcmListapresupuestosrangoRecordSet, ((this.icmListapresupuestosrangoRecordSet != null)
+                            && (!this.icmListapresupuestosrangoRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -139,8 +158,15 @@ public class IcmListapresupuestosrangoBlock implements Serializable, Cloneable, 
         int currentHashCode = 1;
         {
             List<IcmListapresupuestosrangoRecord> theIcmListapresupuestosrangoRecordSet;
-            theIcmListapresupuestosrangoRecordSet = (((this.icmListapresupuestosrangoRecordSet!= null)&&(!this.icmListapresupuestosrangoRecordSet.isEmpty()))?this.getIcmListapresupuestosrangoRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListapresupuestosrangoRecordSet", theIcmListapresupuestosrangoRecordSet), currentHashCode, theIcmListapresupuestosrangoRecordSet, ((this.icmListapresupuestosrangoRecordSet!= null)&&(!this.icmListapresupuestosrangoRecordSet.isEmpty())));
+            theIcmListapresupuestosrangoRecordSet = (((this.icmListapresupuestosrangoRecordSet != null)
+                    && (!this.icmListapresupuestosrangoRecordSet.isEmpty()))
+                            ? this.getIcmListapresupuestosrangoRecordSet() : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmListapresupuestosrangoRecordSet",
+                            theIcmListapresupuestosrangoRecordSet),
+                    currentHashCode, theIcmListapresupuestosrangoRecordSet,
+                    ((this.icmListapresupuestosrangoRecordSet != null)
+                            && (!this.icmListapresupuestosrangoRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -160,19 +186,28 @@ public class IcmListapresupuestosrangoBlock implements Serializable, Cloneable, 
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmListapresupuestosrangoBlock) {
             final IcmListapresupuestosrangoBlock copy = ((IcmListapresupuestosrangoBlock) draftCopy);
             {
-                Boolean icmListapresupuestosrangoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListapresupuestosrangoRecordSet!= null)&&(!this.icmListapresupuestosrangoRecordSet.isEmpty())));
+                Boolean icmListapresupuestosrangoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmListapresupuestosrangoRecordSet != null)
+                                && (!this.icmListapresupuestosrangoRecordSet.isEmpty())));
                 if (icmListapresupuestosrangoRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListapresupuestosrangoRecord> sourceIcmListapresupuestosrangoRecordSet;
-                    sourceIcmListapresupuestosrangoRecordSet = (((this.icmListapresupuestosrangoRecordSet!= null)&&(!this.icmListapresupuestosrangoRecordSet.isEmpty()))?this.getIcmListapresupuestosrangoRecordSet():null);
+                    sourceIcmListapresupuestosrangoRecordSet = (((this.icmListapresupuestosrangoRecordSet != null)
+                            && (!this.icmListapresupuestosrangoRecordSet.isEmpty()))
+                                    ? this.getIcmListapresupuestosrangoRecordSet() : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListapresupuestosrangoRecord> copyIcmListapresupuestosrangoRecordSet = ((List<IcmListapresupuestosrangoRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListapresupuestosrangoRecordSet", sourceIcmListapresupuestosrangoRecordSet), sourceIcmListapresupuestosrangoRecordSet, ((this.icmListapresupuestosrangoRecordSet!= null)&&(!this.icmListapresupuestosrangoRecordSet.isEmpty()))));
+                    List<IcmListapresupuestosrangoRecord> copyIcmListapresupuestosrangoRecordSet = ((List<IcmListapresupuestosrangoRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmListapresupuestosrangoRecordSet",
+                                sourceIcmListapresupuestosrangoRecordSet), sourceIcmListapresupuestosrangoRecordSet,
+                                ((this.icmListapresupuestosrangoRecordSet != null)
+                                        && (!this.icmListapresupuestosrangoRecordSet.isEmpty()))));
                     copy.icmListapresupuestosrangoRecordSet = null;
-                    if (copyIcmListapresupuestosrangoRecordSet!= null) {
-                        List<IcmListapresupuestosrangoRecord> uniqueIcmListapresupuestosrangoRecordSetl = copy.getIcmListapresupuestosrangoRecordSet();
+                    if (copyIcmListapresupuestosrangoRecordSet != null) {
+                        List<IcmListapresupuestosrangoRecord> uniqueIcmListapresupuestosrangoRecordSetl = copy
+                            .getIcmListapresupuestosrangoRecordSet();
                         uniqueIcmListapresupuestosrangoRecordSetl.addAll(copyIcmListapresupuestosrangoRecordSet);
                     }
                 } else {

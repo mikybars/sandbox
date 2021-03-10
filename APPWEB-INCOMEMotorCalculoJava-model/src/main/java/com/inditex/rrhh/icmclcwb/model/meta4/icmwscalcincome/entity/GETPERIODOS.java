@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -28,9 +28,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -49,25 +51,23 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparametrospaginacion",
-    "icmparamcalperiodo"
+        "icmparametrospaginacion",
+        "icmparamcalperiodo"
 })
 @XmlRootElement(name = "GETPERIODOS")
-public class GETPERIODOS implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETPERIODOS implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
     protected IcmParametrospaginacionBlock icmparametrospaginacion;
+
     @XmlElement(name = "ICM_PARAMCALPERIODO", required = true)
     protected IcmParamcalperiodoBlock icmparamcalperiodo;
 
     /**
      * Obtiene el valor de la propiedad icmparametrospaginacion.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmParametrospaginacionBlock }
+     * @return possible object is {@link IcmParametrospaginacionBlock }
      *
      */
     public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
@@ -76,10 +76,7 @@ public class GETPERIODOS implements Serializable, Cloneable, CopyTo2, Equals2, H
 
     /**
      * Define el valor de la propiedad icmparametrospaginacion.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmParametrospaginacionBlock }
+     * @param value allowed object is {@link IcmParametrospaginacionBlock }
      *
      */
     public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
@@ -88,10 +85,7 @@ public class GETPERIODOS implements Serializable, Cloneable, CopyTo2, Equals2, H
 
     /**
      * Obtiene el valor de la propiedad icmparamcalperiodo.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalperiodoBlock }
+     * @return possible object is {@link IcmParamcalperiodoBlock }
      *
      */
     public IcmParamcalperiodoBlock getICMPARAMCALPERIODO() {
@@ -100,18 +94,16 @@ public class GETPERIODOS implements Serializable, Cloneable, CopyTo2, Equals2, H
 
     /**
      * Define el valor de la propiedad icmparamcalperiodo.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalperiodoBlock }
+     * @param value allowed object is {@link IcmParamcalperiodoBlock }
      *
      */
     public void setICMPARAMCALPERIODO(IcmParamcalperiodoBlock value) {
         this.icmparamcalperiodo = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -123,7 +115,11 @@ public class GETPERIODOS implements Serializable, Cloneable, CopyTo2, Equals2, H
             lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
             rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION), LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION), lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null), (that.icmparametrospaginacion!= null))) {
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
+                    LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION),
+                    lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null),
+                    (that.icmparametrospaginacion != null))) {
                 return false;
             }
         }
@@ -132,7 +128,10 @@ public class GETPERIODOS implements Serializable, Cloneable, CopyTo2, Equals2, H
             lhsICMPARAMCALPERIODO = this.getICMPARAMCALPERIODO();
             IcmParamcalperiodoBlock rhsICMPARAMCALPERIODO;
             rhsICMPARAMCALPERIODO = that.getICMPARAMCALPERIODO();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalperiodo", lhsICMPARAMCALPERIODO), LocatorUtils.property(thatLocator, "icmparamcalperiodo", rhsICMPARAMCALPERIODO), lhsICMPARAMCALPERIODO, rhsICMPARAMCALPERIODO, (this.icmparamcalperiodo!= null), (that.icmparamcalperiodo!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalperiodo", lhsICMPARAMCALPERIODO),
+                    LocatorUtils.property(thatLocator, "icmparamcalperiodo", rhsICMPARAMCALPERIODO),
+                    lhsICMPARAMCALPERIODO, rhsICMPARAMCALPERIODO, (this.icmparamcalperiodo != null),
+                    (that.icmparamcalperiodo != null))) {
                 return false;
             }
         }
@@ -162,12 +161,14 @@ public class GETPERIODOS implements Serializable, Cloneable, CopyTo2, Equals2, H
         {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
+            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
+                    (this.icmparametrospaginacion != null));
         }
         {
             IcmParamcalperiodoBlock theICMPARAMCALPERIODO;
             theICMPARAMCALPERIODO = this.getICMPARAMCALPERIODO();
-            strategy.appendField(locator, this, "icmparamcalperiodo", buffer, theICMPARAMCALPERIODO, (this.icmparamcalperiodo!= null));
+            strategy.appendField(locator, this, "icmparamcalperiodo", buffer, theICMPARAMCALPERIODO,
+                    (this.icmparamcalperiodo != null));
         }
         return buffer;
     }
@@ -177,12 +178,16 @@ public class GETPERIODOS implements Serializable, Cloneable, CopyTo2, Equals2, H
         {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION), currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
+                    currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
         }
         {
             IcmParamcalperiodoBlock theICMPARAMCALPERIODO;
             theICMPARAMCALPERIODO = this.getICMPARAMCALPERIODO();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalperiodo", theICMPARAMCALPERIODO), currentHashCode, theICMPARAMCALPERIODO, (this.icmparamcalperiodo!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalperiodo", theICMPARAMCALPERIODO), currentHashCode,
+                    theICMPARAMCALPERIODO, (this.icmparamcalperiodo != null));
         }
         return currentHashCode;
     }
@@ -202,15 +207,18 @@ public class GETPERIODOS implements Serializable, Cloneable, CopyTo2, Equals2, H
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETPERIODOS) {
             final GETPERIODOS copy = ((GETPERIODOS) draftCopy);
             {
-                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospaginacion!= null));
+                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparametrospaginacion != null));
                 if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
                     sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION), sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null)));
+                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
+                                sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
                     copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
                 } else {
                     if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -219,11 +227,14 @@ public class GETPERIODOS implements Serializable, Cloneable, CopyTo2, Equals2, H
                 }
             }
             {
-                Boolean icmparamcalperiodoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalperiodo!= null));
+                Boolean icmparamcalperiodoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalperiodo != null));
                 if (icmparamcalperiodoShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcalperiodoBlock sourceICMPARAMCALPERIODO;
                     sourceICMPARAMCALPERIODO = this.getICMPARAMCALPERIODO();
-                    IcmParamcalperiodoBlock copyICMPARAMCALPERIODO = ((IcmParamcalperiodoBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalperiodo", sourceICMPARAMCALPERIODO), sourceICMPARAMCALPERIODO, (this.icmparamcalperiodo!= null)));
+                    IcmParamcalperiodoBlock copyICMPARAMCALPERIODO = ((IcmParamcalperiodoBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcalperiodo", sourceICMPARAMCALPERIODO),
+                            sourceICMPARAMCALPERIODO, (this.icmparamcalperiodo != null)));
                     copy.setICMPARAMCALPERIODO(copyICMPARAMCALPERIODO);
                 } else {
                     if (icmparamcalperiodoShouldBeCopiedAndSet == Boolean.FALSE) {

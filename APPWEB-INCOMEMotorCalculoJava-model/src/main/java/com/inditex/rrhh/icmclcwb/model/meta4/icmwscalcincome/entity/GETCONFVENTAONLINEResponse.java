@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -28,9 +28,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -48,22 +50,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getconfventaonlineReturn"
+        "getconfventaonlineReturn"
 })
 @XmlRootElement(name = "GETCONFVENTAONLINEResponse")
-public class GETCONFVENTAONLINEResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETCONFVENTAONLINEResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "GETCONFVENTAONLINEReturn", required = true)
     protected GetconfventaonlineOutput getconfventaonlineReturn;
 
     /**
      * Obtiene el valor de la propiedad getconfventaonlineReturn.
-     *
-     * @return
-     *     possible object is
-     *     {@link GetconfventaonlineOutput }
+     * @return possible object is {@link GetconfventaonlineOutput }
      *
      */
     public GetconfventaonlineOutput getGETCONFVENTAONLINEReturn() {
@@ -72,18 +71,16 @@ public class GETCONFVENTAONLINEResponse implements Serializable, Cloneable, Copy
 
     /**
      * Define el valor de la propiedad getconfventaonlineReturn.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link GetconfventaonlineOutput }
+     * @param value allowed object is {@link GetconfventaonlineOutput }
      *
      */
     public void setGETCONFVENTAONLINEReturn(GetconfventaonlineOutput value) {
         this.getconfventaonlineReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -95,7 +92,11 @@ public class GETCONFVENTAONLINEResponse implements Serializable, Cloneable, Copy
             lhsGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
             GetconfventaonlineOutput rhsGETCONFVENTAONLINEReturn;
             rhsGETCONFVENTAONLINEReturn = that.getGETCONFVENTAONLINEReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfventaonlineReturn", lhsGETCONFVENTAONLINEReturn), LocatorUtils.property(thatLocator, "getconfventaonlineReturn", rhsGETCONFVENTAONLINEReturn), lhsGETCONFVENTAONLINEReturn, rhsGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null), (that.getconfventaonlineReturn!= null))) {
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "getconfventaonlineReturn", lhsGETCONFVENTAONLINEReturn),
+                    LocatorUtils.property(thatLocator, "getconfventaonlineReturn", rhsGETCONFVENTAONLINEReturn),
+                    lhsGETCONFVENTAONLINEReturn, rhsGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn != null),
+                    (that.getconfventaonlineReturn != null))) {
                 return false;
             }
         }
@@ -125,7 +126,8 @@ public class GETCONFVENTAONLINEResponse implements Serializable, Cloneable, Copy
         {
             GetconfventaonlineOutput theGETCONFVENTAONLINEReturn;
             theGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
-            strategy.appendField(locator, this, "getconfventaonlineReturn", buffer, theGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null));
+            strategy.appendField(locator, this, "getconfventaonlineReturn", buffer, theGETCONFVENTAONLINEReturn,
+                    (this.getconfventaonlineReturn != null));
         }
         return buffer;
     }
@@ -135,7 +137,9 @@ public class GETCONFVENTAONLINEResponse implements Serializable, Cloneable, Copy
         {
             GetconfventaonlineOutput theGETCONFVENTAONLINEReturn;
             theGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfventaonlineReturn", theGETCONFVENTAONLINEReturn), currentHashCode, theGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "getconfventaonlineReturn", theGETCONFVENTAONLINEReturn),
+                    currentHashCode, theGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn != null));
         }
         return currentHashCode;
     }
@@ -155,15 +159,18 @@ public class GETCONFVENTAONLINEResponse implements Serializable, Cloneable, Copy
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETCONFVENTAONLINEResponse) {
             final GETCONFVENTAONLINEResponse copy = ((GETCONFVENTAONLINEResponse) draftCopy);
             {
-                Boolean getconfventaonlineReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getconfventaonlineReturn!= null));
+                Boolean getconfventaonlineReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.getconfventaonlineReturn != null));
                 if (getconfventaonlineReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetconfventaonlineOutput sourceGETCONFVENTAONLINEReturn;
                     sourceGETCONFVENTAONLINEReturn = this.getGETCONFVENTAONLINEReturn();
-                    GetconfventaonlineOutput copyGETCONFVENTAONLINEReturn = ((GetconfventaonlineOutput) strategy.copy(LocatorUtils.property(locator, "getconfventaonlineReturn", sourceGETCONFVENTAONLINEReturn), sourceGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn!= null)));
+                    GetconfventaonlineOutput copyGETCONFVENTAONLINEReturn = ((GetconfventaonlineOutput) strategy.copy(
+                            LocatorUtils.property(locator, "getconfventaonlineReturn", sourceGETCONFVENTAONLINEReturn),
+                            sourceGETCONFVENTAONLINEReturn, (this.getconfventaonlineReturn != null)));
                     copy.setGETCONFVENTAONLINEReturn(copyGETCONFVENTAONLINEReturn);
                 } else {
                     if (getconfventaonlineReturnShouldBeCopiedAndSet == Boolean.FALSE) {

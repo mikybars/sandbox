@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -29,9 +29,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ListaventacongeladaBlock complex type.
+ * <p>
+ * Clase Java para Icm_ListaventacongeladaBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ListaventacongeladaBlock"&gt;
@@ -49,12 +51,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaventacongeladaBlock", propOrder = {
-    "icmListaventacongeladaRecordSet"
+        "icmListaventacongeladaRecordSet"
 })
-public class IcmListaventacongeladaBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmListaventacongeladaBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ListaventacongeladaRecordSet", nillable = true)
     protected List<IcmListaventacongeladaRecord> icmListaventacongeladaRecordSet;
 
@@ -62,21 +64,20 @@ public class IcmListaventacongeladaBlock implements Serializable, Cloneable, Cop
      * Gets the value of the icmListaventacongeladaRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmListaventacongeladaRecordSet property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmListaventacongeladaRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmListaventacongeladaRecordSet().add(newItem);
+     * getIcmListaventacongeladaRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmListaventacongeladaRecord }
+     * Objects of the following type(s) are allowed in the list {@link IcmListaventacongeladaRecord }
      *
      *
      */
@@ -87,8 +88,9 @@ public class IcmListaventacongeladaBlock implements Serializable, Cloneable, Cop
         return this.icmListaventacongeladaRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -97,10 +99,23 @@ public class IcmListaventacongeladaBlock implements Serializable, Cloneable, Cop
         final IcmListaventacongeladaBlock that = ((IcmListaventacongeladaBlock) object);
         {
             List<IcmListaventacongeladaRecord> lhsIcmListaventacongeladaRecordSet;
-            lhsIcmListaventacongeladaRecordSet = (((this.icmListaventacongeladaRecordSet!= null)&&(!this.icmListaventacongeladaRecordSet.isEmpty()))?this.getIcmListaventacongeladaRecordSet():null);
+            lhsIcmListaventacongeladaRecordSet = (((this.icmListaventacongeladaRecordSet != null)
+                    && (!this.icmListaventacongeladaRecordSet.isEmpty())) ? this.getIcmListaventacongeladaRecordSet()
+                            : null);
             List<IcmListaventacongeladaRecord> rhsIcmListaventacongeladaRecordSet;
-            rhsIcmListaventacongeladaRecordSet = (((that.icmListaventacongeladaRecordSet!= null)&&(!that.icmListaventacongeladaRecordSet.isEmpty()))?that.getIcmListaventacongeladaRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaventacongeladaRecordSet", lhsIcmListaventacongeladaRecordSet), LocatorUtils.property(thatLocator, "icmListaventacongeladaRecordSet", rhsIcmListaventacongeladaRecordSet), lhsIcmListaventacongeladaRecordSet, rhsIcmListaventacongeladaRecordSet, ((this.icmListaventacongeladaRecordSet!= null)&&(!this.icmListaventacongeladaRecordSet.isEmpty())), ((that.icmListaventacongeladaRecordSet!= null)&&(!that.icmListaventacongeladaRecordSet.isEmpty())))) {
+            rhsIcmListaventacongeladaRecordSet = (((that.icmListaventacongeladaRecordSet != null)
+                    && (!that.icmListaventacongeladaRecordSet.isEmpty())) ? that.getIcmListaventacongeladaRecordSet()
+                            : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmListaventacongeladaRecordSet",
+                            lhsIcmListaventacongeladaRecordSet),
+                    LocatorUtils.property(thatLocator, "icmListaventacongeladaRecordSet",
+                            rhsIcmListaventacongeladaRecordSet),
+                    lhsIcmListaventacongeladaRecordSet, rhsIcmListaventacongeladaRecordSet,
+                    ((this.icmListaventacongeladaRecordSet != null)
+                            && (!this.icmListaventacongeladaRecordSet.isEmpty())),
+                    ((that.icmListaventacongeladaRecordSet != null)
+                            && (!that.icmListaventacongeladaRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -129,8 +144,12 @@ public class IcmListaventacongeladaBlock implements Serializable, Cloneable, Cop
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListaventacongeladaRecord> theIcmListaventacongeladaRecordSet;
-            theIcmListaventacongeladaRecordSet = (((this.icmListaventacongeladaRecordSet!= null)&&(!this.icmListaventacongeladaRecordSet.isEmpty()))?this.getIcmListaventacongeladaRecordSet():null);
-            strategy.appendField(locator, this, "icmListaventacongeladaRecordSet", buffer, theIcmListaventacongeladaRecordSet, ((this.icmListaventacongeladaRecordSet!= null)&&(!this.icmListaventacongeladaRecordSet.isEmpty())));
+            theIcmListaventacongeladaRecordSet = (((this.icmListaventacongeladaRecordSet != null)
+                    && (!this.icmListaventacongeladaRecordSet.isEmpty())) ? this.getIcmListaventacongeladaRecordSet()
+                            : null);
+            strategy.appendField(locator, this, "icmListaventacongeladaRecordSet", buffer,
+                    theIcmListaventacongeladaRecordSet, ((this.icmListaventacongeladaRecordSet != null)
+                            && (!this.icmListaventacongeladaRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -139,8 +158,14 @@ public class IcmListaventacongeladaBlock implements Serializable, Cloneable, Cop
         int currentHashCode = 1;
         {
             List<IcmListaventacongeladaRecord> theIcmListaventacongeladaRecordSet;
-            theIcmListaventacongeladaRecordSet = (((this.icmListaventacongeladaRecordSet!= null)&&(!this.icmListaventacongeladaRecordSet.isEmpty()))?this.getIcmListaventacongeladaRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaventacongeladaRecordSet", theIcmListaventacongeladaRecordSet), currentHashCode, theIcmListaventacongeladaRecordSet, ((this.icmListaventacongeladaRecordSet!= null)&&(!this.icmListaventacongeladaRecordSet.isEmpty())));
+            theIcmListaventacongeladaRecordSet = (((this.icmListaventacongeladaRecordSet != null)
+                    && (!this.icmListaventacongeladaRecordSet.isEmpty())) ? this.getIcmListaventacongeladaRecordSet()
+                            : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmListaventacongeladaRecordSet",
+                            theIcmListaventacongeladaRecordSet),
+                    currentHashCode, theIcmListaventacongeladaRecordSet, ((this.icmListaventacongeladaRecordSet != null)
+                            && (!this.icmListaventacongeladaRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -160,19 +185,28 @@ public class IcmListaventacongeladaBlock implements Serializable, Cloneable, Cop
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmListaventacongeladaBlock) {
             final IcmListaventacongeladaBlock copy = ((IcmListaventacongeladaBlock) draftCopy);
             {
-                Boolean icmListaventacongeladaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListaventacongeladaRecordSet!= null)&&(!this.icmListaventacongeladaRecordSet.isEmpty())));
+                Boolean icmListaventacongeladaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmListaventacongeladaRecordSet != null)
+                                && (!this.icmListaventacongeladaRecordSet.isEmpty())));
                 if (icmListaventacongeladaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListaventacongeladaRecord> sourceIcmListaventacongeladaRecordSet;
-                    sourceIcmListaventacongeladaRecordSet = (((this.icmListaventacongeladaRecordSet!= null)&&(!this.icmListaventacongeladaRecordSet.isEmpty()))?this.getIcmListaventacongeladaRecordSet():null);
+                    sourceIcmListaventacongeladaRecordSet = (((this.icmListaventacongeladaRecordSet != null)
+                            && (!this.icmListaventacongeladaRecordSet.isEmpty()))
+                                    ? this.getIcmListaventacongeladaRecordSet() : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListaventacongeladaRecord> copyIcmListaventacongeladaRecordSet = ((List<IcmListaventacongeladaRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListaventacongeladaRecordSet", sourceIcmListaventacongeladaRecordSet), sourceIcmListaventacongeladaRecordSet, ((this.icmListaventacongeladaRecordSet!= null)&&(!this.icmListaventacongeladaRecordSet.isEmpty()))));
+                    List<IcmListaventacongeladaRecord> copyIcmListaventacongeladaRecordSet = ((List<IcmListaventacongeladaRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmListaventacongeladaRecordSet",
+                                sourceIcmListaventacongeladaRecordSet), sourceIcmListaventacongeladaRecordSet,
+                                ((this.icmListaventacongeladaRecordSet != null)
+                                        && (!this.icmListaventacongeladaRecordSet.isEmpty()))));
                     copy.icmListaventacongeladaRecordSet = null;
-                    if (copyIcmListaventacongeladaRecordSet!= null) {
-                        List<IcmListaventacongeladaRecord> uniqueIcmListaventacongeladaRecordSetl = copy.getIcmListaventacongeladaRecordSet();
+                    if (copyIcmListaventacongeladaRecordSet != null) {
+                        List<IcmListaventacongeladaRecord> uniqueIcmListaventacongeladaRecordSetl = copy
+                            .getIcmListaventacongeladaRecordSet();
                         uniqueIcmListaventacongeladaRecordSetl.addAll(copyIcmListaventacongeladaRecordSet);
                     }
                 } else {

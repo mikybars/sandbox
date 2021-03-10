@@ -30,7 +30,7 @@ public class AccionDto implements Serializable {
 
     @ApiModelProperty(value = "Nombre de la accion", required = true, example = "motivosDesplazamientoV1")
     private String nombre;
-    
+
     @ApiModelProperty(value = "Descripcion de la accion", required = true, example = "Texto descriptivo")
     private String descripcion;
 

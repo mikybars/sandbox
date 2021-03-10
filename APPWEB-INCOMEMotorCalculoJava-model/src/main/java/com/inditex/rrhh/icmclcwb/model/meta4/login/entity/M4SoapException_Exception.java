@@ -17,6 +17,7 @@ public class M4SoapException_Exception
         extends Exception {
 
     private static final long serialVersionUID = -781586420857169571L;
+
     /**
      * Java type that goes as soapenv:Fault detail element.
      *

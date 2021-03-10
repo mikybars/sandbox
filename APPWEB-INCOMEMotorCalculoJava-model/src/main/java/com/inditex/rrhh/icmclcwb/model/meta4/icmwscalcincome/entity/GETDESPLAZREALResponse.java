@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -28,9 +28,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -48,22 +50,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getdesplazrealReturn"
+        "getdesplazrealReturn"
 })
 @XmlRootElement(name = "GETDESPLAZREALResponse")
-public class GETDESPLAZREALResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETDESPLAZREALResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "GETDESPLAZREALReturn", required = true)
     protected GetdesplazrealOutput getdesplazrealReturn;
 
     /**
      * Obtiene el valor de la propiedad getdesplazrealReturn.
-     *
-     * @return
-     *     possible object is
-     *     {@link GetdesplazrealOutput }
+     * @return possible object is {@link GetdesplazrealOutput }
      *
      */
     public GetdesplazrealOutput getGETDESPLAZREALReturn() {
@@ -72,18 +71,16 @@ public class GETDESPLAZREALResponse implements Serializable, Cloneable, CopyTo2,
 
     /**
      * Define el valor de la propiedad getdesplazrealReturn.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link GetdesplazrealOutput }
+     * @param value allowed object is {@link GetdesplazrealOutput }
      *
      */
     public void setGETDESPLAZREALReturn(GetdesplazrealOutput value) {
         this.getdesplazrealReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -95,7 +92,10 @@ public class GETDESPLAZREALResponse implements Serializable, Cloneable, CopyTo2,
             lhsGETDESPLAZREALReturn = this.getGETDESPLAZREALReturn();
             GetdesplazrealOutput rhsGETDESPLAZREALReturn;
             rhsGETDESPLAZREALReturn = that.getGETDESPLAZREALReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getdesplazrealReturn", lhsGETDESPLAZREALReturn), LocatorUtils.property(thatLocator, "getdesplazrealReturn", rhsGETDESPLAZREALReturn), lhsGETDESPLAZREALReturn, rhsGETDESPLAZREALReturn, (this.getdesplazrealReturn!= null), (that.getdesplazrealReturn!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getdesplazrealReturn", lhsGETDESPLAZREALReturn),
+                    LocatorUtils.property(thatLocator, "getdesplazrealReturn", rhsGETDESPLAZREALReturn),
+                    lhsGETDESPLAZREALReturn, rhsGETDESPLAZREALReturn, (this.getdesplazrealReturn != null),
+                    (that.getdesplazrealReturn != null))) {
                 return false;
             }
         }
@@ -125,7 +125,8 @@ public class GETDESPLAZREALResponse implements Serializable, Cloneable, CopyTo2,
         {
             GetdesplazrealOutput theGETDESPLAZREALReturn;
             theGETDESPLAZREALReturn = this.getGETDESPLAZREALReturn();
-            strategy.appendField(locator, this, "getdesplazrealReturn", buffer, theGETDESPLAZREALReturn, (this.getdesplazrealReturn!= null));
+            strategy.appendField(locator, this, "getdesplazrealReturn", buffer, theGETDESPLAZREALReturn,
+                    (this.getdesplazrealReturn != null));
         }
         return buffer;
     }
@@ -135,7 +136,9 @@ public class GETDESPLAZREALResponse implements Serializable, Cloneable, CopyTo2,
         {
             GetdesplazrealOutput theGETDESPLAZREALReturn;
             theGETDESPLAZREALReturn = this.getGETDESPLAZREALReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getdesplazrealReturn", theGETDESPLAZREALReturn), currentHashCode, theGETDESPLAZREALReturn, (this.getdesplazrealReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "getdesplazrealReturn", theGETDESPLAZREALReturn), currentHashCode,
+                    theGETDESPLAZREALReturn, (this.getdesplazrealReturn != null));
         }
         return currentHashCode;
     }
@@ -155,15 +158,18 @@ public class GETDESPLAZREALResponse implements Serializable, Cloneable, CopyTo2,
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETDESPLAZREALResponse) {
             final GETDESPLAZREALResponse copy = ((GETDESPLAZREALResponse) draftCopy);
             {
-                Boolean getdesplazrealReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getdesplazrealReturn!= null));
+                Boolean getdesplazrealReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.getdesplazrealReturn != null));
                 if (getdesplazrealReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetdesplazrealOutput sourceGETDESPLAZREALReturn;
                     sourceGETDESPLAZREALReturn = this.getGETDESPLAZREALReturn();
-                    GetdesplazrealOutput copyGETDESPLAZREALReturn = ((GetdesplazrealOutput) strategy.copy(LocatorUtils.property(locator, "getdesplazrealReturn", sourceGETDESPLAZREALReturn), sourceGETDESPLAZREALReturn, (this.getdesplazrealReturn!= null)));
+                    GetdesplazrealOutput copyGETDESPLAZREALReturn = ((GetdesplazrealOutput) strategy.copy(
+                            LocatorUtils.property(locator, "getdesplazrealReturn", sourceGETDESPLAZREALReturn),
+                            sourceGETDESPLAZREALReturn, (this.getdesplazrealReturn != null)));
                     copy.setGETDESPLAZREALReturn(copyGETDESPLAZREALReturn);
                 } else {
                     if (getdesplazrealReturnShouldBeCopiedAndSet == Boolean.FALSE) {

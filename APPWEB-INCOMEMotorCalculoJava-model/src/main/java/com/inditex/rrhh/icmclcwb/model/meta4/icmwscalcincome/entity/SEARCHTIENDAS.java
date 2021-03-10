@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -28,9 +28,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -49,25 +51,23 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparamcaltiendas",
-    "icmparametrospaginacion"
+        "icmparamcaltiendas",
+        "icmparametrospaginacion"
 })
 @XmlRootElement(name = "SEARCHTIENDAS")
-public class SEARCHTIENDAS implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class SEARCHTIENDAS implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "ICM_PARAMCALTIENDAS", required = true)
     protected IcmParamcaltiendasBlock icmparamcaltiendas;
+
     @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
     protected IcmParametrospaginacionBlock icmparametrospaginacion;
 
     /**
      * Obtiene el valor de la propiedad icmparamcaltiendas.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmParamcaltiendasBlock }
+     * @return possible object is {@link IcmParamcaltiendasBlock }
      *
      */
     public IcmParamcaltiendasBlock getICMPARAMCALTIENDAS() {
@@ -76,10 +76,7 @@ public class SEARCHTIENDAS implements Serializable, Cloneable, CopyTo2, Equals2,
 
     /**
      * Define el valor de la propiedad icmparamcaltiendas.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcaltiendasBlock }
+     * @param value allowed object is {@link IcmParamcaltiendasBlock }
      *
      */
     public void setICMPARAMCALTIENDAS(IcmParamcaltiendasBlock value) {
@@ -88,10 +85,7 @@ public class SEARCHTIENDAS implements Serializable, Cloneable, CopyTo2, Equals2,
 
     /**
      * Obtiene el valor de la propiedad icmparametrospaginacion.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmParametrospaginacionBlock }
+     * @return possible object is {@link IcmParametrospaginacionBlock }
      *
      */
     public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
@@ -100,18 +94,16 @@ public class SEARCHTIENDAS implements Serializable, Cloneable, CopyTo2, Equals2,
 
     /**
      * Define el valor de la propiedad icmparametrospaginacion.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmParametrospaginacionBlock }
+     * @param value allowed object is {@link IcmParametrospaginacionBlock }
      *
      */
     public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
         this.icmparametrospaginacion = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -123,7 +115,10 @@ public class SEARCHTIENDAS implements Serializable, Cloneable, CopyTo2, Equals2,
             lhsICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
             IcmParamcaltiendasBlock rhsICMPARAMCALTIENDAS;
             rhsICMPARAMCALTIENDAS = that.getICMPARAMCALTIENDAS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcaltiendas", lhsICMPARAMCALTIENDAS), LocatorUtils.property(thatLocator, "icmparamcaltiendas", rhsICMPARAMCALTIENDAS), lhsICMPARAMCALTIENDAS, rhsICMPARAMCALTIENDAS, (this.icmparamcaltiendas!= null), (that.icmparamcaltiendas!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcaltiendas", lhsICMPARAMCALTIENDAS),
+                    LocatorUtils.property(thatLocator, "icmparamcaltiendas", rhsICMPARAMCALTIENDAS),
+                    lhsICMPARAMCALTIENDAS, rhsICMPARAMCALTIENDAS, (this.icmparamcaltiendas != null),
+                    (that.icmparamcaltiendas != null))) {
                 return false;
             }
         }
@@ -132,7 +127,11 @@ public class SEARCHTIENDAS implements Serializable, Cloneable, CopyTo2, Equals2,
             lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
             rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION), LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION), lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null), (that.icmparametrospaginacion!= null))) {
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
+                    LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION),
+                    lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null),
+                    (that.icmparametrospaginacion != null))) {
                 return false;
             }
         }
@@ -162,12 +161,14 @@ public class SEARCHTIENDAS implements Serializable, Cloneable, CopyTo2, Equals2,
         {
             IcmParamcaltiendasBlock theICMPARAMCALTIENDAS;
             theICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
-            strategy.appendField(locator, this, "icmparamcaltiendas", buffer, theICMPARAMCALTIENDAS, (this.icmparamcaltiendas!= null));
+            strategy.appendField(locator, this, "icmparamcaltiendas", buffer, theICMPARAMCALTIENDAS,
+                    (this.icmparamcaltiendas != null));
         }
         {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
+            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
+                    (this.icmparametrospaginacion != null));
         }
         return buffer;
     }
@@ -177,12 +178,16 @@ public class SEARCHTIENDAS implements Serializable, Cloneable, CopyTo2, Equals2,
         {
             IcmParamcaltiendasBlock theICMPARAMCALTIENDAS;
             theICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcaltiendas", theICMPARAMCALTIENDAS), currentHashCode, theICMPARAMCALTIENDAS, (this.icmparamcaltiendas!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcaltiendas", theICMPARAMCALTIENDAS), currentHashCode,
+                    theICMPARAMCALTIENDAS, (this.icmparamcaltiendas != null));
         }
         {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION), currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
+                    currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
         }
         return currentHashCode;
     }
@@ -202,15 +207,18 @@ public class SEARCHTIENDAS implements Serializable, Cloneable, CopyTo2, Equals2,
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof SEARCHTIENDAS) {
             final SEARCHTIENDAS copy = ((SEARCHTIENDAS) draftCopy);
             {
-                Boolean icmparamcaltiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcaltiendas!= null));
+                Boolean icmparamcaltiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcaltiendas != null));
                 if (icmparamcaltiendasShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParamcaltiendasBlock sourceICMPARAMCALTIENDAS;
                     sourceICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
-                    IcmParamcaltiendasBlock copyICMPARAMCALTIENDAS = ((IcmParamcaltiendasBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcaltiendas", sourceICMPARAMCALTIENDAS), sourceICMPARAMCALTIENDAS, (this.icmparamcaltiendas!= null)));
+                    IcmParamcaltiendasBlock copyICMPARAMCALTIENDAS = ((IcmParamcaltiendasBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcaltiendas", sourceICMPARAMCALTIENDAS),
+                            sourceICMPARAMCALTIENDAS, (this.icmparamcaltiendas != null)));
                     copy.setICMPARAMCALTIENDAS(copyICMPARAMCALTIENDAS);
                 } else {
                     if (icmparamcaltiendasShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -219,11 +227,14 @@ public class SEARCHTIENDAS implements Serializable, Cloneable, CopyTo2, Equals2,
                 }
             }
             {
-                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospaginacion!= null));
+                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparametrospaginacion != null));
                 if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
                     sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy.copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION), sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion!= null)));
+                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
+                                sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
                     copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
                 } else {
                     if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {

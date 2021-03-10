@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -28,9 +28,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -48,22 +50,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getfestivosReturn"
+        "getfestivosReturn"
 })
 @XmlRootElement(name = "GETFESTIVOSResponse")
-public class GETFESTIVOSResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETFESTIVOSResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "GETFESTIVOSReturn", required = true)
     protected GetfestivosOutput getfestivosReturn;
 
     /**
      * Obtiene el valor de la propiedad getfestivosReturn.
-     *
-     * @return
-     *     possible object is
-     *     {@link GetfestivosOutput }
+     * @return possible object is {@link GetfestivosOutput }
      *
      */
     public GetfestivosOutput getGETFESTIVOSReturn() {
@@ -72,18 +71,16 @@ public class GETFESTIVOSResponse implements Serializable, Cloneable, CopyTo2, Eq
 
     /**
      * Define el valor de la propiedad getfestivosReturn.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link GetfestivosOutput }
+     * @param value allowed object is {@link GetfestivosOutput }
      *
      */
     public void setGETFESTIVOSReturn(GetfestivosOutput value) {
         this.getfestivosReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -95,7 +92,9 @@ public class GETFESTIVOSResponse implements Serializable, Cloneable, CopyTo2, Eq
             lhsGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
             GetfestivosOutput rhsGETFESTIVOSReturn;
             rhsGETFESTIVOSReturn = that.getGETFESTIVOSReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getfestivosReturn", lhsGETFESTIVOSReturn), LocatorUtils.property(thatLocator, "getfestivosReturn", rhsGETFESTIVOSReturn), lhsGETFESTIVOSReturn, rhsGETFESTIVOSReturn, (this.getfestivosReturn!= null), (that.getfestivosReturn!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getfestivosReturn", lhsGETFESTIVOSReturn),
+                    LocatorUtils.property(thatLocator, "getfestivosReturn", rhsGETFESTIVOSReturn), lhsGETFESTIVOSReturn,
+                    rhsGETFESTIVOSReturn, (this.getfestivosReturn != null), (that.getfestivosReturn != null))) {
                 return false;
             }
         }
@@ -125,7 +124,8 @@ public class GETFESTIVOSResponse implements Serializable, Cloneable, CopyTo2, Eq
         {
             GetfestivosOutput theGETFESTIVOSReturn;
             theGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
-            strategy.appendField(locator, this, "getfestivosReturn", buffer, theGETFESTIVOSReturn, (this.getfestivosReturn!= null));
+            strategy.appendField(locator, this, "getfestivosReturn", buffer, theGETFESTIVOSReturn,
+                    (this.getfestivosReturn != null));
         }
         return buffer;
     }
@@ -135,7 +135,9 @@ public class GETFESTIVOSResponse implements Serializable, Cloneable, CopyTo2, Eq
         {
             GetfestivosOutput theGETFESTIVOSReturn;
             theGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getfestivosReturn", theGETFESTIVOSReturn), currentHashCode, theGETFESTIVOSReturn, (this.getfestivosReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "getfestivosReturn", theGETFESTIVOSReturn), currentHashCode,
+                    theGETFESTIVOSReturn, (this.getfestivosReturn != null));
         }
         return currentHashCode;
     }
@@ -155,15 +157,18 @@ public class GETFESTIVOSResponse implements Serializable, Cloneable, CopyTo2, Eq
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETFESTIVOSResponse) {
             final GETFESTIVOSResponse copy = ((GETFESTIVOSResponse) draftCopy);
             {
-                Boolean getfestivosReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getfestivosReturn!= null));
+                Boolean getfestivosReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.getfestivosReturn != null));
                 if (getfestivosReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetfestivosOutput sourceGETFESTIVOSReturn;
                     sourceGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
-                    GetfestivosOutput copyGETFESTIVOSReturn = ((GetfestivosOutput) strategy.copy(LocatorUtils.property(locator, "getfestivosReturn", sourceGETFESTIVOSReturn), sourceGETFESTIVOSReturn, (this.getfestivosReturn!= null)));
+                    GetfestivosOutput copyGETFESTIVOSReturn = ((GetfestivosOutput) strategy.copy(
+                            LocatorUtils.property(locator, "getfestivosReturn", sourceGETFESTIVOSReturn),
+                            sourceGETFESTIVOSReturn, (this.getfestivosReturn != null)));
                     copy.setGETFESTIVOSReturn(copyGETFESTIVOSReturn);
                 } else {
                     if (getfestivosReturnShouldBeCopiedAndSet == Boolean.FALSE) {

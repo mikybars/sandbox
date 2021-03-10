@@ -221,7 +221,8 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
     }
 
     @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
+    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
+            final ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
         this.appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
@@ -229,7 +230,8 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
     }
 
     @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
+            final ToStringStrategy2 strategy) {
         {
             final String theAiSUser;
             theAiSUser = this.getAiSUser();
@@ -306,7 +308,8 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
         if (draftCopy instanceof LoginWithRole) {
             final LoginWithRole copy = ((LoginWithRole) draftCopy);
             {
-                final Boolean aiSUserShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSUser != null));
+                final Boolean aiSUserShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.aiSUser != null));
                 if (aiSUserShouldBeCopiedAndSet == Boolean.TRUE) {
                     final String sourceAiSUser;
                     sourceAiSUser = this.getAiSUser();
@@ -353,7 +356,8 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
                 }
             }
             {
-                final Boolean aiSRoleShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSRole != null));
+                final Boolean aiSRoleShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.aiSRole != null));
                 if (aiSRoleShouldBeCopiedAndSet == Boolean.TRUE) {
                     final String sourceAiSRole;
                     sourceAiSRole = this.getAiSRole();

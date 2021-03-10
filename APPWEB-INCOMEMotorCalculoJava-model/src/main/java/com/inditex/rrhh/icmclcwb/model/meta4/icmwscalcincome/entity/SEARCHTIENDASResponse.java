@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -28,9 +28,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>
+ * Clase Java para anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -48,22 +50,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "searchtiendasReturn"
+        "searchtiendasReturn"
 })
 @XmlRootElement(name = "SEARCHTIENDASResponse")
-public class SEARCHTIENDASResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class SEARCHTIENDASResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "SEARCHTIENDASReturn", required = true)
     protected SearchtiendasOutput searchtiendasReturn;
 
     /**
      * Obtiene el valor de la propiedad searchtiendasReturn.
-     *
-     * @return
-     *     possible object is
-     *     {@link SearchtiendasOutput }
+     * @return possible object is {@link SearchtiendasOutput }
      *
      */
     public SearchtiendasOutput getSEARCHTIENDASReturn() {
@@ -72,18 +71,16 @@ public class SEARCHTIENDASResponse implements Serializable, Cloneable, CopyTo2, 
 
     /**
      * Define el valor de la propiedad searchtiendasReturn.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link SearchtiendasOutput }
+     * @param value allowed object is {@link SearchtiendasOutput }
      *
      */
     public void setSEARCHTIENDASReturn(SearchtiendasOutput value) {
         this.searchtiendasReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -95,7 +92,10 @@ public class SEARCHTIENDASResponse implements Serializable, Cloneable, CopyTo2, 
             lhsSEARCHTIENDASReturn = this.getSEARCHTIENDASReturn();
             SearchtiendasOutput rhsSEARCHTIENDASReturn;
             rhsSEARCHTIENDASReturn = that.getSEARCHTIENDASReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "searchtiendasReturn", lhsSEARCHTIENDASReturn), LocatorUtils.property(thatLocator, "searchtiendasReturn", rhsSEARCHTIENDASReturn), lhsSEARCHTIENDASReturn, rhsSEARCHTIENDASReturn, (this.searchtiendasReturn!= null), (that.searchtiendasReturn!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "searchtiendasReturn", lhsSEARCHTIENDASReturn),
+                    LocatorUtils.property(thatLocator, "searchtiendasReturn", rhsSEARCHTIENDASReturn),
+                    lhsSEARCHTIENDASReturn, rhsSEARCHTIENDASReturn, (this.searchtiendasReturn != null),
+                    (that.searchtiendasReturn != null))) {
                 return false;
             }
         }
@@ -125,7 +125,8 @@ public class SEARCHTIENDASResponse implements Serializable, Cloneable, CopyTo2, 
         {
             SearchtiendasOutput theSEARCHTIENDASReturn;
             theSEARCHTIENDASReturn = this.getSEARCHTIENDASReturn();
-            strategy.appendField(locator, this, "searchtiendasReturn", buffer, theSEARCHTIENDASReturn, (this.searchtiendasReturn!= null));
+            strategy.appendField(locator, this, "searchtiendasReturn", buffer, theSEARCHTIENDASReturn,
+                    (this.searchtiendasReturn != null));
         }
         return buffer;
     }
@@ -135,7 +136,9 @@ public class SEARCHTIENDASResponse implements Serializable, Cloneable, CopyTo2, 
         {
             SearchtiendasOutput theSEARCHTIENDASReturn;
             theSEARCHTIENDASReturn = this.getSEARCHTIENDASReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "searchtiendasReturn", theSEARCHTIENDASReturn), currentHashCode, theSEARCHTIENDASReturn, (this.searchtiendasReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "searchtiendasReturn", theSEARCHTIENDASReturn), currentHashCode,
+                    theSEARCHTIENDASReturn, (this.searchtiendasReturn != null));
         }
         return currentHashCode;
     }
@@ -155,15 +158,18 @@ public class SEARCHTIENDASResponse implements Serializable, Cloneable, CopyTo2, 
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof SEARCHTIENDASResponse) {
             final SEARCHTIENDASResponse copy = ((SEARCHTIENDASResponse) draftCopy);
             {
-                Boolean searchtiendasReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.searchtiendasReturn!= null));
+                Boolean searchtiendasReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.searchtiendasReturn != null));
                 if (searchtiendasReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     SearchtiendasOutput sourceSEARCHTIENDASReturn;
                     sourceSEARCHTIENDASReturn = this.getSEARCHTIENDASReturn();
-                    SearchtiendasOutput copySEARCHTIENDASReturn = ((SearchtiendasOutput) strategy.copy(LocatorUtils.property(locator, "searchtiendasReturn", sourceSEARCHTIENDASReturn), sourceSEARCHTIENDASReturn, (this.searchtiendasReturn!= null)));
+                    SearchtiendasOutput copySEARCHTIENDASReturn = ((SearchtiendasOutput) strategy.copy(
+                            LocatorUtils.property(locator, "searchtiendasReturn", sourceSEARCHTIENDASReturn),
+                            sourceSEARCHTIENDASReturn, (this.searchtiendasReturn != null)));
                     copy.setSEARCHTIENDASReturn(copySEARCHTIENDASReturn);
                 } else {
                     if (searchtiendasReturnShouldBeCopiedAndSet == Boolean.FALSE) {

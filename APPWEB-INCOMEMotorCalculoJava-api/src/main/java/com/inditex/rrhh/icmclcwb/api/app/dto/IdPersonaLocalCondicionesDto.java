@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class IdPersonaLocalCondicionesDto implements Serializable {
 
     private static final long serialVersionUID = -4235085358661235034L;
+
     @NotBlank
     private String idPersonaLocal;
 

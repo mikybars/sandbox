@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -29,9 +29,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ListapresenciamanwlocBlock complex type.
+ * <p>
+ * Clase Java para Icm_ListapresenciamanwlocBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ListapresenciamanwlocBlock"&gt;
@@ -49,12 +51,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListapresenciamanwlocBlock", propOrder = {
-    "icmListapresenciamanwlocRecordSet"
+        "icmListapresenciamanwlocRecordSet"
 })
-public class IcmListapresenciamanwlocBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmListapresenciamanwlocBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ListapresenciamanwlocRecordSet", nillable = true)
     protected List<IcmListapresenciamanwlocRecord> icmListapresenciamanwlocRecordSet;
 
@@ -62,21 +64,20 @@ public class IcmListapresenciamanwlocBlock implements Serializable, Cloneable, C
      * Gets the value of the icmListapresenciamanwlocRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmListapresenciamanwlocRecordSet property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmListapresenciamanwlocRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmListapresenciamanwlocRecordSet().add(newItem);
+     * getIcmListapresenciamanwlocRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmListapresenciamanwlocRecord }
+     * Objects of the following type(s) are allowed in the list {@link IcmListapresenciamanwlocRecord }
      *
      *
      */
@@ -87,8 +88,9 @@ public class IcmListapresenciamanwlocBlock implements Serializable, Cloneable, C
         return this.icmListapresenciamanwlocRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -97,10 +99,23 @@ public class IcmListapresenciamanwlocBlock implements Serializable, Cloneable, C
         final IcmListapresenciamanwlocBlock that = ((IcmListapresenciamanwlocBlock) object);
         {
             List<IcmListapresenciamanwlocRecord> lhsIcmListapresenciamanwlocRecordSet;
-            lhsIcmListapresenciamanwlocRecordSet = (((this.icmListapresenciamanwlocRecordSet!= null)&&(!this.icmListapresenciamanwlocRecordSet.isEmpty()))?this.getIcmListapresenciamanwlocRecordSet():null);
+            lhsIcmListapresenciamanwlocRecordSet = (((this.icmListapresenciamanwlocRecordSet != null)
+                    && (!this.icmListapresenciamanwlocRecordSet.isEmpty()))
+                            ? this.getIcmListapresenciamanwlocRecordSet() : null);
             List<IcmListapresenciamanwlocRecord> rhsIcmListapresenciamanwlocRecordSet;
-            rhsIcmListapresenciamanwlocRecordSet = (((that.icmListapresenciamanwlocRecordSet!= null)&&(!that.icmListapresenciamanwlocRecordSet.isEmpty()))?that.getIcmListapresenciamanwlocRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListapresenciamanwlocRecordSet", lhsIcmListapresenciamanwlocRecordSet), LocatorUtils.property(thatLocator, "icmListapresenciamanwlocRecordSet", rhsIcmListapresenciamanwlocRecordSet), lhsIcmListapresenciamanwlocRecordSet, rhsIcmListapresenciamanwlocRecordSet, ((this.icmListapresenciamanwlocRecordSet!= null)&&(!this.icmListapresenciamanwlocRecordSet.isEmpty())), ((that.icmListapresenciamanwlocRecordSet!= null)&&(!that.icmListapresenciamanwlocRecordSet.isEmpty())))) {
+            rhsIcmListapresenciamanwlocRecordSet = (((that.icmListapresenciamanwlocRecordSet != null)
+                    && (!that.icmListapresenciamanwlocRecordSet.isEmpty()))
+                            ? that.getIcmListapresenciamanwlocRecordSet() : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmListapresenciamanwlocRecordSet",
+                            lhsIcmListapresenciamanwlocRecordSet),
+                    LocatorUtils.property(thatLocator, "icmListapresenciamanwlocRecordSet",
+                            rhsIcmListapresenciamanwlocRecordSet),
+                    lhsIcmListapresenciamanwlocRecordSet, rhsIcmListapresenciamanwlocRecordSet,
+                    ((this.icmListapresenciamanwlocRecordSet != null)
+                            && (!this.icmListapresenciamanwlocRecordSet.isEmpty())),
+                    ((that.icmListapresenciamanwlocRecordSet != null)
+                            && (!that.icmListapresenciamanwlocRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -129,8 +144,12 @@ public class IcmListapresenciamanwlocBlock implements Serializable, Cloneable, C
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListapresenciamanwlocRecord> theIcmListapresenciamanwlocRecordSet;
-            theIcmListapresenciamanwlocRecordSet = (((this.icmListapresenciamanwlocRecordSet!= null)&&(!this.icmListapresenciamanwlocRecordSet.isEmpty()))?this.getIcmListapresenciamanwlocRecordSet():null);
-            strategy.appendField(locator, this, "icmListapresenciamanwlocRecordSet", buffer, theIcmListapresenciamanwlocRecordSet, ((this.icmListapresenciamanwlocRecordSet!= null)&&(!this.icmListapresenciamanwlocRecordSet.isEmpty())));
+            theIcmListapresenciamanwlocRecordSet = (((this.icmListapresenciamanwlocRecordSet != null)
+                    && (!this.icmListapresenciamanwlocRecordSet.isEmpty()))
+                            ? this.getIcmListapresenciamanwlocRecordSet() : null);
+            strategy.appendField(locator, this, "icmListapresenciamanwlocRecordSet", buffer,
+                    theIcmListapresenciamanwlocRecordSet, ((this.icmListapresenciamanwlocRecordSet != null)
+                            && (!this.icmListapresenciamanwlocRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -139,8 +158,15 @@ public class IcmListapresenciamanwlocBlock implements Serializable, Cloneable, C
         int currentHashCode = 1;
         {
             List<IcmListapresenciamanwlocRecord> theIcmListapresenciamanwlocRecordSet;
-            theIcmListapresenciamanwlocRecordSet = (((this.icmListapresenciamanwlocRecordSet!= null)&&(!this.icmListapresenciamanwlocRecordSet.isEmpty()))?this.getIcmListapresenciamanwlocRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListapresenciamanwlocRecordSet", theIcmListapresenciamanwlocRecordSet), currentHashCode, theIcmListapresenciamanwlocRecordSet, ((this.icmListapresenciamanwlocRecordSet!= null)&&(!this.icmListapresenciamanwlocRecordSet.isEmpty())));
+            theIcmListapresenciamanwlocRecordSet = (((this.icmListapresenciamanwlocRecordSet != null)
+                    && (!this.icmListapresenciamanwlocRecordSet.isEmpty()))
+                            ? this.getIcmListapresenciamanwlocRecordSet() : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmListapresenciamanwlocRecordSet",
+                            theIcmListapresenciamanwlocRecordSet),
+                    currentHashCode, theIcmListapresenciamanwlocRecordSet,
+                    ((this.icmListapresenciamanwlocRecordSet != null)
+                            && (!this.icmListapresenciamanwlocRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -160,19 +186,28 @@ public class IcmListapresenciamanwlocBlock implements Serializable, Cloneable, C
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmListapresenciamanwlocBlock) {
             final IcmListapresenciamanwlocBlock copy = ((IcmListapresenciamanwlocBlock) draftCopy);
             {
-                Boolean icmListapresenciamanwlocRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListapresenciamanwlocRecordSet!= null)&&(!this.icmListapresenciamanwlocRecordSet.isEmpty())));
+                Boolean icmListapresenciamanwlocRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmListapresenciamanwlocRecordSet != null)
+                                && (!this.icmListapresenciamanwlocRecordSet.isEmpty())));
                 if (icmListapresenciamanwlocRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListapresenciamanwlocRecord> sourceIcmListapresenciamanwlocRecordSet;
-                    sourceIcmListapresenciamanwlocRecordSet = (((this.icmListapresenciamanwlocRecordSet!= null)&&(!this.icmListapresenciamanwlocRecordSet.isEmpty()))?this.getIcmListapresenciamanwlocRecordSet():null);
+                    sourceIcmListapresenciamanwlocRecordSet = (((this.icmListapresenciamanwlocRecordSet != null)
+                            && (!this.icmListapresenciamanwlocRecordSet.isEmpty()))
+                                    ? this.getIcmListapresenciamanwlocRecordSet() : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListapresenciamanwlocRecord> copyIcmListapresenciamanwlocRecordSet = ((List<IcmListapresenciamanwlocRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListapresenciamanwlocRecordSet", sourceIcmListapresenciamanwlocRecordSet), sourceIcmListapresenciamanwlocRecordSet, ((this.icmListapresenciamanwlocRecordSet!= null)&&(!this.icmListapresenciamanwlocRecordSet.isEmpty()))));
+                    List<IcmListapresenciamanwlocRecord> copyIcmListapresenciamanwlocRecordSet = ((List<IcmListapresenciamanwlocRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmListapresenciamanwlocRecordSet",
+                                sourceIcmListapresenciamanwlocRecordSet), sourceIcmListapresenciamanwlocRecordSet,
+                                ((this.icmListapresenciamanwlocRecordSet != null)
+                                        && (!this.icmListapresenciamanwlocRecordSet.isEmpty()))));
                     copy.icmListapresenciamanwlocRecordSet = null;
-                    if (copyIcmListapresenciamanwlocRecordSet!= null) {
-                        List<IcmListapresenciamanwlocRecord> uniqueIcmListapresenciamanwlocRecordSetl = copy.getIcmListapresenciamanwlocRecordSet();
+                    if (copyIcmListapresenciamanwlocRecordSet != null) {
+                        List<IcmListapresenciamanwlocRecord> uniqueIcmListapresenciamanwlocRecordSetl = copy
+                            .getIcmListapresenciamanwlocRecordSet();
                         uniqueIcmListapresenciamanwlocRecordSetl.addAll(copyIcmListapresenciamanwlocRecordSet);
                     }
                 } else {

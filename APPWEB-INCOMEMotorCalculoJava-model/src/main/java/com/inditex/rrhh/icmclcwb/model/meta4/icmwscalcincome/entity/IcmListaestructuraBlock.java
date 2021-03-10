@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -29,9 +29,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ListaestructuraBlock complex type.
+ * <p>
+ * Clase Java para Icm_ListaestructuraBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ListaestructuraBlock"&gt;
@@ -49,12 +51,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaestructuraBlock", propOrder = {
-    "icmListaestructuraRecordSet"
+        "icmListaestructuraRecordSet"
 })
-public class IcmListaestructuraBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmListaestructuraBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ListaestructuraRecordSet", nillable = true)
     protected List<IcmListaestructuraRecord> icmListaestructuraRecordSet;
 
@@ -62,21 +64,20 @@ public class IcmListaestructuraBlock implements Serializable, Cloneable, CopyTo2
      * Gets the value of the icmListaestructuraRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmListaestructuraRecordSet property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmListaestructuraRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmListaestructuraRecordSet().add(newItem);
+     * getIcmListaestructuraRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmListaestructuraRecord }
+     * Objects of the following type(s) are allowed in the list {@link IcmListaestructuraRecord }
      *
      *
      */
@@ -87,8 +88,9 @@ public class IcmListaestructuraBlock implements Serializable, Cloneable, CopyTo2
         return this.icmListaestructuraRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -97,10 +99,17 @@ public class IcmListaestructuraBlock implements Serializable, Cloneable, CopyTo2
         final IcmListaestructuraBlock that = ((IcmListaestructuraBlock) object);
         {
             List<IcmListaestructuraRecord> lhsIcmListaestructuraRecordSet;
-            lhsIcmListaestructuraRecordSet = (((this.icmListaestructuraRecordSet!= null)&&(!this.icmListaestructuraRecordSet.isEmpty()))?this.getIcmListaestructuraRecordSet():null);
+            lhsIcmListaestructuraRecordSet = (((this.icmListaestructuraRecordSet != null)
+                    && (!this.icmListaestructuraRecordSet.isEmpty())) ? this.getIcmListaestructuraRecordSet() : null);
             List<IcmListaestructuraRecord> rhsIcmListaestructuraRecordSet;
-            rhsIcmListaestructuraRecordSet = (((that.icmListaestructuraRecordSet!= null)&&(!that.icmListaestructuraRecordSet.isEmpty()))?that.getIcmListaestructuraRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaestructuraRecordSet", lhsIcmListaestructuraRecordSet), LocatorUtils.property(thatLocator, "icmListaestructuraRecordSet", rhsIcmListaestructuraRecordSet), lhsIcmListaestructuraRecordSet, rhsIcmListaestructuraRecordSet, ((this.icmListaestructuraRecordSet!= null)&&(!this.icmListaestructuraRecordSet.isEmpty())), ((that.icmListaestructuraRecordSet!= null)&&(!that.icmListaestructuraRecordSet.isEmpty())))) {
+            rhsIcmListaestructuraRecordSet = (((that.icmListaestructuraRecordSet != null)
+                    && (!that.icmListaestructuraRecordSet.isEmpty())) ? that.getIcmListaestructuraRecordSet() : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmListaestructuraRecordSet", lhsIcmListaestructuraRecordSet),
+                    LocatorUtils.property(thatLocator, "icmListaestructuraRecordSet", rhsIcmListaestructuraRecordSet),
+                    lhsIcmListaestructuraRecordSet, rhsIcmListaestructuraRecordSet,
+                    ((this.icmListaestructuraRecordSet != null) && (!this.icmListaestructuraRecordSet.isEmpty())),
+                    ((that.icmListaestructuraRecordSet != null) && (!that.icmListaestructuraRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -129,8 +138,10 @@ public class IcmListaestructuraBlock implements Serializable, Cloneable, CopyTo2
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListaestructuraRecord> theIcmListaestructuraRecordSet;
-            theIcmListaestructuraRecordSet = (((this.icmListaestructuraRecordSet!= null)&&(!this.icmListaestructuraRecordSet.isEmpty()))?this.getIcmListaestructuraRecordSet():null);
-            strategy.appendField(locator, this, "icmListaestructuraRecordSet", buffer, theIcmListaestructuraRecordSet, ((this.icmListaestructuraRecordSet!= null)&&(!this.icmListaestructuraRecordSet.isEmpty())));
+            theIcmListaestructuraRecordSet = (((this.icmListaestructuraRecordSet != null)
+                    && (!this.icmListaestructuraRecordSet.isEmpty())) ? this.getIcmListaestructuraRecordSet() : null);
+            strategy.appendField(locator, this, "icmListaestructuraRecordSet", buffer, theIcmListaestructuraRecordSet,
+                    ((this.icmListaestructuraRecordSet != null) && (!this.icmListaestructuraRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -139,8 +150,12 @@ public class IcmListaestructuraBlock implements Serializable, Cloneable, CopyTo2
         int currentHashCode = 1;
         {
             List<IcmListaestructuraRecord> theIcmListaestructuraRecordSet;
-            theIcmListaestructuraRecordSet = (((this.icmListaestructuraRecordSet!= null)&&(!this.icmListaestructuraRecordSet.isEmpty()))?this.getIcmListaestructuraRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaestructuraRecordSet", theIcmListaestructuraRecordSet), currentHashCode, theIcmListaestructuraRecordSet, ((this.icmListaestructuraRecordSet!= null)&&(!this.icmListaestructuraRecordSet.isEmpty())));
+            theIcmListaestructuraRecordSet = (((this.icmListaestructuraRecordSet != null)
+                    && (!this.icmListaestructuraRecordSet.isEmpty())) ? this.getIcmListaestructuraRecordSet() : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmListaestructuraRecordSet", theIcmListaestructuraRecordSet),
+                    currentHashCode, theIcmListaestructuraRecordSet,
+                    ((this.icmListaestructuraRecordSet != null) && (!this.icmListaestructuraRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -160,19 +175,27 @@ public class IcmListaestructuraBlock implements Serializable, Cloneable, CopyTo2
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmListaestructuraBlock) {
             final IcmListaestructuraBlock copy = ((IcmListaestructuraBlock) draftCopy);
             {
-                Boolean icmListaestructuraRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListaestructuraRecordSet!= null)&&(!this.icmListaestructuraRecordSet.isEmpty())));
+                Boolean icmListaestructuraRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmListaestructuraRecordSet != null) && (!this.icmListaestructuraRecordSet.isEmpty())));
                 if (icmListaestructuraRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListaestructuraRecord> sourceIcmListaestructuraRecordSet;
-                    sourceIcmListaestructuraRecordSet = (((this.icmListaestructuraRecordSet!= null)&&(!this.icmListaestructuraRecordSet.isEmpty()))?this.getIcmListaestructuraRecordSet():null);
+                    sourceIcmListaestructuraRecordSet = (((this.icmListaestructuraRecordSet != null)
+                            && (!this.icmListaestructuraRecordSet.isEmpty())) ? this.getIcmListaestructuraRecordSet()
+                                    : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListaestructuraRecord> copyIcmListaestructuraRecordSet = ((List<IcmListaestructuraRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListaestructuraRecordSet", sourceIcmListaestructuraRecordSet), sourceIcmListaestructuraRecordSet, ((this.icmListaestructuraRecordSet!= null)&&(!this.icmListaestructuraRecordSet.isEmpty()))));
+                    List<IcmListaestructuraRecord> copyIcmListaestructuraRecordSet = ((List<IcmListaestructuraRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmListaestructuraRecordSet",
+                                sourceIcmListaestructuraRecordSet), sourceIcmListaestructuraRecordSet,
+                                ((this.icmListaestructuraRecordSet != null)
+                                        && (!this.icmListaestructuraRecordSet.isEmpty()))));
                     copy.icmListaestructuraRecordSet = null;
-                    if (copyIcmListaestructuraRecordSet!= null) {
-                        List<IcmListaestructuraRecord> uniqueIcmListaestructuraRecordSetl = copy.getIcmListaestructuraRecordSet();
+                    if (copyIcmListaestructuraRecordSet != null) {
+                        List<IcmListaestructuraRecord> uniqueIcmListaestructuraRecordSetl = copy
+                            .getIcmListaestructuraRecordSet();
                         uniqueIcmListaestructuraRecordSetl.addAll(copyIcmListaestructuraRecordSet);
                     }
                 } else {

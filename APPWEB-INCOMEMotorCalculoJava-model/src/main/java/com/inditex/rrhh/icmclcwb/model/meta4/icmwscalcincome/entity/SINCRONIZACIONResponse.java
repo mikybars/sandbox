@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -43,8 +42,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -61,7 +58,6 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
     /**
      * Obtiene el valor de la propiedad sincronizacionReturn.
      * @return possible object is {@link SincronizacionOutput }
-     *
      */
     public SincronizacionOutput getSINCRONIZACIONReturn() {
         return this.sincronizacionReturn;
@@ -70,7 +66,6 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
     /**
      * Define el valor de la propiedad sincronizacionReturn.
      * @param value allowed object is {@link SincronizacionOutput }
-     *
      */
     public void setSINCRONIZACIONReturn(final SincronizacionOutput value) {
         this.sincronizacionReturn = value;
@@ -116,7 +111,8 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
     }
 
     @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
+    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
+            final ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
         this.appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
@@ -124,7 +120,8 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
     }
 
     @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
+            final ToStringStrategy2 strategy) {
         {
             final SincronizacionOutput theSINCRONIZACIONReturn;
             theSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();

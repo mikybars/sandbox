@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -29,9 +29,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ParamcalperiodoBlock complex type.
+ * <p>
+ * Clase Java para Icm_ParamcalperiodoBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ParamcalperiodoBlock"&gt;
@@ -49,12 +51,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalperiodoBlock", propOrder = {
-    "icmParamcalperiodoRecordSet"
+        "icmParamcalperiodoRecordSet"
 })
-public class IcmParamcalperiodoBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmParamcalperiodoBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ParamcalperiodoRecordSet", nillable = true)
     protected List<IcmParamcalperiodoRecord> icmParamcalperiodoRecordSet;
 
@@ -62,21 +64,20 @@ public class IcmParamcalperiodoBlock implements Serializable, Cloneable, CopyTo2
      * Gets the value of the icmParamcalperiodoRecordSet property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmParamcalperiodoRecordSet property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmParamcalperiodoRecordSet property.
      *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmParamcalperiodoRecordSet().add(newItem);
+     * getIcmParamcalperiodoRecordSet().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmParamcalperiodoRecord }
+     * Objects of the following type(s) are allowed in the list {@link IcmParamcalperiodoRecord }
      *
      *
      */
@@ -87,8 +88,9 @@ public class IcmParamcalperiodoBlock implements Serializable, Cloneable, CopyTo2
         return this.icmParamcalperiodoRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -97,10 +99,17 @@ public class IcmParamcalperiodoBlock implements Serializable, Cloneable, CopyTo2
         final IcmParamcalperiodoBlock that = ((IcmParamcalperiodoBlock) object);
         {
             List<IcmParamcalperiodoRecord> lhsIcmParamcalperiodoRecordSet;
-            lhsIcmParamcalperiodoRecordSet = (((this.icmParamcalperiodoRecordSet!= null)&&(!this.icmParamcalperiodoRecordSet.isEmpty()))?this.getIcmParamcalperiodoRecordSet():null);
+            lhsIcmParamcalperiodoRecordSet = (((this.icmParamcalperiodoRecordSet != null)
+                    && (!this.icmParamcalperiodoRecordSet.isEmpty())) ? this.getIcmParamcalperiodoRecordSet() : null);
             List<IcmParamcalperiodoRecord> rhsIcmParamcalperiodoRecordSet;
-            rhsIcmParamcalperiodoRecordSet = (((that.icmParamcalperiodoRecordSet!= null)&&(!that.icmParamcalperiodoRecordSet.isEmpty()))?that.getIcmParamcalperiodoRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalperiodoRecordSet", lhsIcmParamcalperiodoRecordSet), LocatorUtils.property(thatLocator, "icmParamcalperiodoRecordSet", rhsIcmParamcalperiodoRecordSet), lhsIcmParamcalperiodoRecordSet, rhsIcmParamcalperiodoRecordSet, ((this.icmParamcalperiodoRecordSet!= null)&&(!this.icmParamcalperiodoRecordSet.isEmpty())), ((that.icmParamcalperiodoRecordSet!= null)&&(!that.icmParamcalperiodoRecordSet.isEmpty())))) {
+            rhsIcmParamcalperiodoRecordSet = (((that.icmParamcalperiodoRecordSet != null)
+                    && (!that.icmParamcalperiodoRecordSet.isEmpty())) ? that.getIcmParamcalperiodoRecordSet() : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmParamcalperiodoRecordSet", lhsIcmParamcalperiodoRecordSet),
+                    LocatorUtils.property(thatLocator, "icmParamcalperiodoRecordSet", rhsIcmParamcalperiodoRecordSet),
+                    lhsIcmParamcalperiodoRecordSet, rhsIcmParamcalperiodoRecordSet,
+                    ((this.icmParamcalperiodoRecordSet != null) && (!this.icmParamcalperiodoRecordSet.isEmpty())),
+                    ((that.icmParamcalperiodoRecordSet != null) && (!that.icmParamcalperiodoRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -129,8 +138,10 @@ public class IcmParamcalperiodoBlock implements Serializable, Cloneable, CopyTo2
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmParamcalperiodoRecord> theIcmParamcalperiodoRecordSet;
-            theIcmParamcalperiodoRecordSet = (((this.icmParamcalperiodoRecordSet!= null)&&(!this.icmParamcalperiodoRecordSet.isEmpty()))?this.getIcmParamcalperiodoRecordSet():null);
-            strategy.appendField(locator, this, "icmParamcalperiodoRecordSet", buffer, theIcmParamcalperiodoRecordSet, ((this.icmParamcalperiodoRecordSet!= null)&&(!this.icmParamcalperiodoRecordSet.isEmpty())));
+            theIcmParamcalperiodoRecordSet = (((this.icmParamcalperiodoRecordSet != null)
+                    && (!this.icmParamcalperiodoRecordSet.isEmpty())) ? this.getIcmParamcalperiodoRecordSet() : null);
+            strategy.appendField(locator, this, "icmParamcalperiodoRecordSet", buffer, theIcmParamcalperiodoRecordSet,
+                    ((this.icmParamcalperiodoRecordSet != null) && (!this.icmParamcalperiodoRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -139,8 +150,12 @@ public class IcmParamcalperiodoBlock implements Serializable, Cloneable, CopyTo2
         int currentHashCode = 1;
         {
             List<IcmParamcalperiodoRecord> theIcmParamcalperiodoRecordSet;
-            theIcmParamcalperiodoRecordSet = (((this.icmParamcalperiodoRecordSet!= null)&&(!this.icmParamcalperiodoRecordSet.isEmpty()))?this.getIcmParamcalperiodoRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalperiodoRecordSet", theIcmParamcalperiodoRecordSet), currentHashCode, theIcmParamcalperiodoRecordSet, ((this.icmParamcalperiodoRecordSet!= null)&&(!this.icmParamcalperiodoRecordSet.isEmpty())));
+            theIcmParamcalperiodoRecordSet = (((this.icmParamcalperiodoRecordSet != null)
+                    && (!this.icmParamcalperiodoRecordSet.isEmpty())) ? this.getIcmParamcalperiodoRecordSet() : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmParamcalperiodoRecordSet", theIcmParamcalperiodoRecordSet),
+                    currentHashCode, theIcmParamcalperiodoRecordSet,
+                    ((this.icmParamcalperiodoRecordSet != null) && (!this.icmParamcalperiodoRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -160,19 +175,27 @@ public class IcmParamcalperiodoBlock implements Serializable, Cloneable, CopyTo2
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmParamcalperiodoBlock) {
             final IcmParamcalperiodoBlock copy = ((IcmParamcalperiodoBlock) draftCopy);
             {
-                Boolean icmParamcalperiodoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmParamcalperiodoRecordSet!= null)&&(!this.icmParamcalperiodoRecordSet.isEmpty())));
+                Boolean icmParamcalperiodoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmParamcalperiodoRecordSet != null) && (!this.icmParamcalperiodoRecordSet.isEmpty())));
                 if (icmParamcalperiodoRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmParamcalperiodoRecord> sourceIcmParamcalperiodoRecordSet;
-                    sourceIcmParamcalperiodoRecordSet = (((this.icmParamcalperiodoRecordSet!= null)&&(!this.icmParamcalperiodoRecordSet.isEmpty()))?this.getIcmParamcalperiodoRecordSet():null);
+                    sourceIcmParamcalperiodoRecordSet = (((this.icmParamcalperiodoRecordSet != null)
+                            && (!this.icmParamcalperiodoRecordSet.isEmpty())) ? this.getIcmParamcalperiodoRecordSet()
+                                    : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmParamcalperiodoRecord> copyIcmParamcalperiodoRecordSet = ((List<IcmParamcalperiodoRecord> ) strategy.copy(LocatorUtils.property(locator, "icmParamcalperiodoRecordSet", sourceIcmParamcalperiodoRecordSet), sourceIcmParamcalperiodoRecordSet, ((this.icmParamcalperiodoRecordSet!= null)&&(!this.icmParamcalperiodoRecordSet.isEmpty()))));
+                    List<IcmParamcalperiodoRecord> copyIcmParamcalperiodoRecordSet = ((List<IcmParamcalperiodoRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmParamcalperiodoRecordSet",
+                                sourceIcmParamcalperiodoRecordSet), sourceIcmParamcalperiodoRecordSet,
+                                ((this.icmParamcalperiodoRecordSet != null)
+                                        && (!this.icmParamcalperiodoRecordSet.isEmpty()))));
                     copy.icmParamcalperiodoRecordSet = null;
-                    if (copyIcmParamcalperiodoRecordSet!= null) {
-                        List<IcmParamcalperiodoRecord> uniqueIcmParamcalperiodoRecordSetl = copy.getIcmParamcalperiodoRecordSet();
+                    if (copyIcmParamcalperiodoRecordSet != null) {
+                        List<IcmParamcalperiodoRecord> uniqueIcmParamcalperiodoRecordSetl = copy
+                            .getIcmParamcalperiodoRecordSet();
                         uniqueIcmParamcalperiodoRecordSetl.addAll(copyIcmParamcalperiodoRecordSet);
                     }
                 } else {

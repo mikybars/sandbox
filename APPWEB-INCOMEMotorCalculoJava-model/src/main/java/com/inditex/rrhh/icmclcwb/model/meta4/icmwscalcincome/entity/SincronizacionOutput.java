@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -29,9 +29,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para SincronizacionOutput complex type.
+ * <p>
+ * Clase Java para SincronizacionOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="SincronizacionOutput"&gt;
@@ -51,18 +53,20 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SincronizacionOutput", propOrder = {
-    "_return",
-    "logMessage",
-    "icmListasincro"
+        "_return",
+        "logMessage",
+        "icmListasincro"
 })
-public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "return")
     protected double _return;
+
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
+
     @XmlElement(name = "Icm_Listasincro", required = true, nillable = true)
     protected IcmListasincroBlock icmListasincro;
 
@@ -86,21 +90,20 @@ public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, E
      * Gets the value of the logMessage property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the logMessage property.
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the logMessage property.
      *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getLogMessage().add(newItem);
+     * getLogMessage().add(newItem);
      * </pre>
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link LogMessage }
+     * Objects of the following type(s) are allowed in the list {@link LogMessage }
      *
      *
      */
@@ -113,10 +116,7 @@ public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, E
 
     /**
      * Obtiene el valor de la propiedad icmListasincro.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmListasincroBlock }
+     * @return possible object is {@link IcmListasincroBlock }
      *
      */
     public IcmListasincroBlock getIcmListasincro() {
@@ -125,18 +125,16 @@ public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, E
 
     /**
      * Define el valor de la propiedad icmListasincro.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmListasincroBlock }
+     * @param value allowed object is {@link IcmListasincroBlock }
      *
      */
     public void setIcmListasincro(IcmListasincroBlock value) {
         this.icmListasincro = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -148,16 +146,20 @@ public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, E
             lhsReturn = this.getReturn();
             double rhsReturn;
             rhsReturn = that.getReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "_return", lhsReturn), LocatorUtils.property(thatLocator, "_return", rhsReturn), lhsReturn, rhsReturn, true, true)) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "_return", lhsReturn),
+                    LocatorUtils.property(thatLocator, "_return", rhsReturn), lhsReturn, rhsReturn, true, true)) {
                 return false;
             }
         }
         {
             List<LogMessage> lhsLogMessage;
-            lhsLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
+            lhsLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
             List<LogMessage> rhsLogMessage;
-            rhsLogMessage = (((that.logMessage!= null)&&(!that.logMessage.isEmpty()))?that.getLogMessage():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "logMessage", lhsLogMessage), LocatorUtils.property(thatLocator, "logMessage", rhsLogMessage), lhsLogMessage, rhsLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())), ((that.logMessage!= null)&&(!that.logMessage.isEmpty())))) {
+            rhsLogMessage = (((that.logMessage != null) && (!that.logMessage.isEmpty())) ? that.getLogMessage() : null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "logMessage", lhsLogMessage),
+                    LocatorUtils.property(thatLocator, "logMessage", rhsLogMessage), lhsLogMessage, rhsLogMessage,
+                    ((this.logMessage != null) && (!this.logMessage.isEmpty())),
+                    ((that.logMessage != null) && (!that.logMessage.isEmpty())))) {
                 return false;
             }
         }
@@ -166,7 +168,9 @@ public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, E
             lhsIcmListasincro = this.getIcmListasincro();
             IcmListasincroBlock rhsIcmListasincro;
             rhsIcmListasincro = that.getIcmListasincro();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListasincro", lhsIcmListasincro), LocatorUtils.property(thatLocator, "icmListasincro", rhsIcmListasincro), lhsIcmListasincro, rhsIcmListasincro, (this.icmListasincro!= null), (that.icmListasincro!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListasincro", lhsIcmListasincro),
+                    LocatorUtils.property(thatLocator, "icmListasincro", rhsIcmListasincro), lhsIcmListasincro,
+                    rhsIcmListasincro, (this.icmListasincro != null), (that.icmListasincro != null))) {
                 return false;
             }
         }
@@ -200,13 +204,15 @@ public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, E
         }
         {
             List<LogMessage> theLogMessage;
-            theLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
-            strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
+            theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
+            strategy.appendField(locator, this, "logMessage", buffer, theLogMessage,
+                    ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
             IcmListasincroBlock theIcmListasincro;
             theIcmListasincro = this.getIcmListasincro();
-            strategy.appendField(locator, this, "icmListasincro", buffer, theIcmListasincro, (this.icmListasincro!= null));
+            strategy.appendField(locator, this, "icmListasincro", buffer, theIcmListasincro,
+                    (this.icmListasincro != null));
         }
         return buffer;
     }
@@ -216,17 +222,20 @@ public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, E
         {
             double theReturn;
             theReturn = this.getReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode, theReturn, true);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode,
+                    theReturn, true);
         }
         {
             List<LogMessage> theLogMessage;
-            theLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
+            theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage),
+                    currentHashCode, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
             IcmListasincroBlock theIcmListasincro;
             theIcmListasincro = this.getIcmListasincro();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListasincro", theIcmListasincro), currentHashCode, theIcmListasincro, (this.icmListasincro!= null));
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListasincro", theIcmListasincro),
+                    currentHashCode, theIcmListasincro, (this.icmListasincro != null));
         }
         return currentHashCode;
     }
@@ -246,7 +255,7 @@ public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, E
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof SincronizacionOutput) {
             final SincronizacionOutput copy = ((SincronizacionOutput) draftCopy);
             {
@@ -254,7 +263,8 @@ public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, E
                 if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
                     double sourceReturn;
                     sourceReturn = this.getReturn();
-                    double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn), sourceReturn, true);
+                    double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn),
+                            sourceReturn, true);
                     copy.setReturn(copyReturn);
                 } else {
                     if (_returnShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -262,14 +272,18 @@ public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, E
                 }
             }
             {
-                Boolean logMessageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
+                Boolean logMessageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.logMessage != null) && (!this.logMessage.isEmpty())));
                 if (logMessageShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<LogMessage> sourceLogMessage;
-                    sourceLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
+                    sourceLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty()))
+                            ? this.getLogMessage() : null);
                     @SuppressWarnings("unchecked")
-                    List<LogMessage> copyLogMessage = ((List<LogMessage> ) strategy.copy(LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty()))));
+                    List<LogMessage> copyLogMessage = ((List<LogMessage>) strategy.copy(
+                            LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage,
+                            ((this.logMessage != null) && (!this.logMessage.isEmpty()))));
                     copy.logMessage = null;
-                    if (copyLogMessage!= null) {
+                    if (copyLogMessage != null) {
                         List<LogMessage> uniqueLogMessagel = copy.getLogMessage();
                         uniqueLogMessagel.addAll(copyLogMessage);
                     }
@@ -280,11 +294,14 @@ public class SincronizacionOutput implements Serializable, Cloneable, CopyTo2, E
                 }
             }
             {
-                Boolean icmListasincroShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListasincro!= null));
+                Boolean icmListasincroShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmListasincro != null));
                 if (icmListasincroShouldBeCopiedAndSet == Boolean.TRUE) {
                     IcmListasincroBlock sourceIcmListasincro;
                     sourceIcmListasincro = this.getIcmListasincro();
-                    IcmListasincroBlock copyIcmListasincro = ((IcmListasincroBlock) strategy.copy(LocatorUtils.property(locator, "icmListasincro", sourceIcmListasincro), sourceIcmListasincro, (this.icmListasincro!= null)));
+                    IcmListasincroBlock copyIcmListasincro = ((IcmListasincroBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmListasincro", sourceIcmListasincro),
+                            sourceIcmListasincro, (this.icmListasincro != null)));
                     copy.setIcmListasincro(copyIcmListasincro);
                 } else {
                     if (icmListasincroShouldBeCopiedAndSet == Boolean.FALSE) {

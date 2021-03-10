@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
@@ -12,17 +12,13 @@ import javax.xml.namespace.QName;
 
 
 /**
- * This object contains factory methods for each
- * Java content interface and Java element interface
+ * This object contains factory methods for each Java content interface and Java element interface
  * generated in the com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated package.
- * <p>An ObjectFactory allows you to programatically
- * construct new instances of the Java representation
- * for XML content. The Java representation of XML
- * content can consist of schema derived interfaces
- * and classes representing the binding of schema
- * type definitions, element declarations and model
- * groups.  Factory methods for each of these are
- * provided in this class.
+ * <p>
+ * An ObjectFactory allows you to programatically construct new instances of the Java representation
+ * for XML content. The Java representation of XML content can consist of schema derived interfaces
+ * and classes representing the binding of schema type definitions, element declarations and model
+ * groups. Factory methods for each of these are provided in this class.
  *
  */
 @XmlRegistry
@@ -31,7 +27,8 @@ public class ObjectFactory {
     private final static QName _Fault_QNAME = new QName("http://schemas.meta4.com/", "fault");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for
+     * package: com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated
      *
      */
     public ObjectFactory() {
@@ -1959,11 +1956,8 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link M4SoapException }{@code >}
-     *
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link M4SoapException }{@code >}
+     * @param value Java instance representing xml element's value.
+     * @return the new instance of {@link JAXBElement }{@code <}{@link M4SoapException }{@code >}
      */
     @XmlElementDecl(namespace = "http://schemas.meta4.com/", name = "fault")
     public JAXBElement<M4SoapException> createFault(M4SoapException value) {
