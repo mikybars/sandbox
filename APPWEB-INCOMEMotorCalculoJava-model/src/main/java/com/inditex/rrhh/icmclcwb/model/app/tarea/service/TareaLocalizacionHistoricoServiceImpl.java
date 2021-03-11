@@ -188,7 +188,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
             @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
             @NotNull @NotEmpty final List<String> stdIdLegEnt) {
         return this.tareaLocalizacionHistoricoRepository
-            .findIdLocalizacionLocalDtoByIdTareaAndCClIdOrigenAndStdIdLegEnt(idTarea,
+            .findIdLocalizacionLocalDtoByIdTareaAndCClIdOrigenAndStdIdLegEntList(idTarea,
                     cclIdOrigen, stdIdLegEnt);
     }
 
