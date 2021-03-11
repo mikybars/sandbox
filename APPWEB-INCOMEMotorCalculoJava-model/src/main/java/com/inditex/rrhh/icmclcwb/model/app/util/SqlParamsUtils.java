@@ -1,17 +1,18 @@
 package com.inditex.rrhh.icmclcwb.model.app.util;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.springframework.stereotype.Component;
-
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.springframework.stereotype.Component;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Component
 public class SqlParamsUtils {
@@ -31,21 +32,20 @@ public class SqlParamsUtils {
      * <b>Importante:</b> Este metodo no debe usarse para ejeuctar SQL, es para imprimir en el log las
      * consultas.
      */
-    public static String replaceValues(String sql, Map<String, ? extends Object> params) {
+    public static String replaceValues(final String sql, final Map<String, ? extends Object> params) {
 
         String result = sql;
         if (sql != null && params != null) {
-            Iterator<String> iterator = params.keySet().iterator();
-            while (iterator.hasNext()) {
-                String key = iterator.next();
-                String value = createValueCreator(params.get(key)).createValue();
-                String paramRegexp = new StringBuilder(REGEXP_GROUP_1_REGEXP).append(key)
+            for (final Entry<String, ? extends Object> entry : params.entrySet()) {
+                final String key = entry.getKey();
+                final String value = createValueCreator(entry.getValue()).createValue();
+                final String paramRegexp = new StringBuilder(REGEXP_GROUP_1_REGEXP).append(key)
                     .append(REGEXP_GROUP_3_REGEXP)
                     .toString();
-                Pattern pattern = Pattern.compile(paramRegexp);
-                Matcher matcher = pattern.matcher(result);
+                final Pattern pattern = Pattern.compile(paramRegexp);
+                final Matcher matcher = pattern.matcher(result);
                 if (matcher.find()) {
-                    String v = new StringBuilder(REGEXP_GROUP_1).append(value).append(REGEXP_GROUP_3).toString();
+                    final String v = new StringBuilder(REGEXP_GROUP_1).append(value).append(REGEXP_GROUP_3).toString();
                     result = matcher.replaceAll(v);
                 }
                 result = result.replaceAll(paramRegexp, value);
@@ -55,7 +55,7 @@ public class SqlParamsUtils {
         return result;
     }
 
-    private static ValueCreator createValueCreator(Object value) {
+    private static ValueCreator createValueCreator(final Object value) {
         if (value == null) {
             return new NullValueCreator();
         } else if (value instanceof Collection) {
@@ -83,7 +83,7 @@ public class SqlParamsUtils {
 
         @Override
         public String createValue() {
-            return new StringBuilder(SIMPLE_QUOTE).append(value).append(SIMPLE_QUOTE).toString();
+            return new StringBuilder(SIMPLE_QUOTE).append(this.value).append(SIMPLE_QUOTE).toString();
         }
 
     }
@@ -96,7 +96,7 @@ public class SqlParamsUtils {
 
         @Override
         public String createValue() {
-            return value.toString();
+            return this.value.toString();
         }
 
     }
@@ -109,8 +109,8 @@ public class SqlParamsUtils {
 
         @Override
         public String createValue() {
-            Stream<String> stream = list.stream().map(value -> createValueCreator(value).createValue());
-            List<String> cleanList = stream.collect(Collectors.toList());
+            final Stream<String> stream = this.list.stream().map(value -> createValueCreator(value).createValue());
+            final List<String> cleanList = stream.collect(Collectors.toList());
             return String.join(", ", cleanList);
         }
 

@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.config.app.data.query;
 
 import java.io.IOException;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -95,11 +96,11 @@ public class QueryPrimaryConfig {
             castInicio = CAST_RESULT_INICIO;
             castFin = CAST_RESULT_FIN.replace(CAST_VAR_PRECISION, precision);
         }
-        for (final Object key : props.keySet()) {
-            String prop = (String) props.get(key);
+        for (final Entry<Object, Object> entry : props.entrySet()) {
+            String prop = (String) entry.getValue();
             prop = prop.replace(CAST_REPLACE_INICIO, castInicio);
             prop = prop.replace(CAST_REPLACE_FIN, castFin);
-            props.put(key, prop);
+            props.put(entry.getKey(), prop);
         }
         bean.setLocalOverride(true);
         bean.setProperties(props);
