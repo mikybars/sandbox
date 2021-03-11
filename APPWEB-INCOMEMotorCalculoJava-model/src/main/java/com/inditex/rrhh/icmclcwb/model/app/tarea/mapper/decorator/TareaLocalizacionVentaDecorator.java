@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -123,14 +124,17 @@ public abstract class TareaLocalizacionVentaDecorator extends TareaLocalizacionV
             listaSeccion.stream().forEach(item -> {
                 final TareaLocalizacionVenta venta = this.delegate.responseItemDtoToTareaLocalizacionVenta(tienda,
                         cadena,
-                        fecha, tarea, item.getImporteSinIVA().doubleValue(), item.getImporteConIVA().doubleValue(),
-                        item.getSeccion(), tipoDatoLocalizacionSeccion);
+                        fecha, tarea, item, tipoDatoLocalizacionSeccion);
                 dtoList.add(venta);
                 importeSinIva.getAndAdd(venta.getImporteSinImpuestos());
                 importeConIva.getAndAdd(venta.getImporteConImpuestos());
             });
-            dtoList.add(this.delegate.responseItemDtoToTareaLocalizacionVenta(tienda, cadena, fecha, tarea,
-                    importeSinIva.doubleValue(), importeConIva.doubleValue(), AppConstants.SECCION_4,
+            final PtrSeccionVentaOnlineGenericType seccion4 = PtrSeccionVentaOnlineGenericType.builder()
+                .seccion(AppConstants.SECCION_4)
+                .importeConIVA(BigDecimal.valueOf(importeConIva.doubleValue()))
+                .importeSinIVA(BigDecimal.valueOf(importeSinIva.doubleValue()))
+                .build();
+            dtoList.add(this.delegate.responseItemDtoToTareaLocalizacionVenta(tienda, cadena, fecha, tarea, seccion4,
                     tipoDatoLocalizacion));
         }
         return dtoList;
@@ -142,12 +146,11 @@ public abstract class TareaLocalizacionVentaDecorator extends TareaLocalizacionV
             final List<VentaManualWlocResultItemDto> src, final TareaDto tareaDto) {
         final List<TareaLocalizacionVenta> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(item -> {
-                result.add(
-                        this.delegate.genericTiendaResultItemDtoToTareaLocalizacionVenta(item,
-                                tareaDto));
+            src.forEach(item -> result.add(
+                    this.delegate.genericTiendaResultItemDtoToTareaLocalizacionVenta(item,
+                            tareaDto))
 
-            });
+            );
         }
         return result;
     }

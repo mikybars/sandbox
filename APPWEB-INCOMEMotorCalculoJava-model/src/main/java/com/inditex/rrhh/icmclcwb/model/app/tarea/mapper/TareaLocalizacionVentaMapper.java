@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResultItemDto;
@@ -51,15 +52,14 @@ public abstract class TareaLocalizacionVentaMapper {
     @Mapping(source = "tienda", target = "cclIdCodOrigen")
     @Mapping(source = "cadena", target = "cclIdCadena")
     @Mapping(source = "fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(source = "idSeccion", target = "cclIdSeccion")
-    @Mapping(source = "importeSinIVA", target = "importeSinImpuestos")
-    @Mapping(source = "importeConIVA", target = "importeConImpuestos")
+    @Mapping(source = "seccionVenta.seccion", target = "cclIdSeccion")
+    @Mapping(source = "seccionVenta.importeSinIVA", target = "importeSinImpuestos")
+    @Mapping(source = "seccionVenta.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "idTipoDato", target = "tipoDato.id")
     @Mapping(constant = "true", target = "activo")
     @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaLocalizacionVenta responseItemDtoToTareaLocalizacionVenta(Integer tienda, Integer cadena,
-            String fecha, TareaDto tarea, Double importeSinIVA, Double importeConIVA, Integer idSeccion,
-            Integer idTipoDato);
+            String fecha, TareaDto tarea, PtrSeccionVentaOnlineGenericType seccionVenta, Integer idTipoDato);
 
     public List<TareaLocalizacionVenta> ventaTotalizadoResponseItemDtoToTareaLocalizacionVenta(
             final List<PtrVentaTotalizadoResultItemDto> src, final TareaDto tarea,
