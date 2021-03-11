@@ -84,25 +84,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 .updateActivoLocalizacionPersonaPresencia(runTarea);
             AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivas, cf, cfWait);
 
-            // TODO [JAVIEREV] Esto queda por si necesitamos arreglar rápidamente algún caso extraño con
-            // presencias 0,
-            // pero no debería darse nunca (y, por tanto, podríamos eliminarlo)
-
-            // /*-------------------------------------------------------------*/
-            // AsyncUtils.waitAllOfIsOk(cf, cf);
-            // /*-------------------------------------------------------------*/
-            //
-            // //Actualizar flags de presencias totales con minutos a cero
-            // CompletableFuture<Void> cfUpdatePresenciasActivasVacio = runTareaProcesarPresenciaAsyncService
-            // .updateActivoLocalizacionVacio(runTarea);
-            // AsyncUtils.exceptionally(cfUpdatePresenciasActivasVacio, cf);
-            //
-            // //Actualizar flags de presencias localizacion persona con minutos a cero
-            // CompletableFuture<Void> cfUpdateSeccionPresenciasActivasVacio =
-            // runTareaProcesarPresenciaAsyncService
-            // .updateActivoLocalizacionPersonaPresenciaVacio(runTarea);
-            // AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivasVacio, cf);
-
             final CompletableFuture<Void> cfTotalizarDevolucion = this.runTareaProcesarVentaAsyncService
                 .totalizarDevolucionLocalizacionSeccion(runTarea);
             AsyncUtils.exceptionally(cfTotalizarDevolucion, cf, cfWait);
