@@ -1,10 +1,9 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.util;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totaltienda.dto.PtrPresenciaTiendaSeccionDto;
-import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.List;
+
+import lombok.Getter;
 
 public class PtrTestConstants {
 
@@ -14,12 +13,6 @@ public class PtrTestConstants {
     public static final String FECHA_DESDE = "2017-12-01";
 
     public static final String FECHA_HASTA = "2017-12-01";
-
-    public static final String FECHA_HORA_DESDE = "2017-12-01 00:00";
-
-    public static final String FECHA_HORA_HASTA = "2017-12-31 00:00";
-
-    private static final List<Integer> PAIS_LIST = Arrays.asList(11);
 
     @Getter
     private static final List<Integer> CADENA_LIST = Arrays.asList(1);
@@ -42,8 +35,6 @@ public class PtrTestConstants {
 
     public static final Integer CADENA = 1;
 
-    public static final Integer ID_LOCALIZACION = 57;
-
     public static final Integer ID_EMPRESA = 95;
 
     public static final Integer ID_EMPRESA_VENTA_ECOMMERCE = 329;
@@ -65,8 +56,6 @@ public class PtrTestConstants {
     @Getter
     private static final List<Integer> ID_TIPO_SECCION = Arrays.asList(1);
 
-    public static final Integer ID_EJERCICIO = 1;
-
     public static final Integer AGRUPAR_SECCION_TRUE = 1;
 
     public static final Integer AGRUPAR_SECCION_FALSE = 0;
@@ -74,10 +63,6 @@ public class PtrTestConstants {
     public static final Integer TIPO = 1;
 
     public static final Integer SECCION = 1;
-
-    public static final PtrPresenciaTiendaSeccionDto TIENDA_SECCION_1 = new PtrPresenciaTiendaSeccionDto(2, null);
-
-    public static final PtrPresenciaTiendaSeccionDto TIENDA_SECCION_2 = new PtrPresenciaTiendaSeccionDto(150, null);
 
     public static final String AGRUPACION = "TIENDA";
 
