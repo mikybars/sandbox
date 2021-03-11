@@ -444,14 +444,13 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             .asIcmParamcalestructuraBlock(request.getData());
         final GetestructurascomOutput getEstructurasComOutput = this.meta4ClientPool.getestructurascom(param1);
         if ((getEstructurasComOutput != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getEstructurasComOutput.getReturn()) == 0)) {
-            if ((getEstructurasComOutput.getIcmListaestructura() != null) && CollectionUtils
-                .isNotEmpty(getEstructurasComOutput.getIcmListaestructura().getIcmListaestructuraRecordSet())) {
-                final List<EstructurasComResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asEstructurasComResultItemDtos(
-                            getEstructurasComOutput.getIcmListaestructura().getIcmListaestructuraRecordSet());
-                result.setData(items);
-            }
+                && (Double.compare(NumberUtils.DOUBLE_ZERO, getEstructurasComOutput.getReturn()) == 0)
+                && (getEstructurasComOutput.getIcmListaestructura() != null) && CollectionUtils
+                    .isNotEmpty(getEstructurasComOutput.getIcmListaestructura().getIcmListaestructuraRecordSet())) {
+            final List<EstructurasComResultItemDto> items = this.icmWsCalcIncomeMapper
+                .asEstructurasComResultItemDtos(
+                        getEstructurasComOutput.getIcmListaestructura().getIcmListaestructuraRecordSet());
+            result.setData(items);
         }
 
         return result;
@@ -464,14 +463,13 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             .asIcmParamcalestructuraBlock(request.getData());
         final GetestructuraspolOutput getEstructurasPolOutput = this.meta4ClientPool.getestructuraspol(param1);
         if ((getEstructurasPolOutput != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getEstructurasPolOutput.getReturn()) == 0)) {
-            if ((getEstructurasPolOutput.getIcmListapoliticas() != null) && CollectionUtils
-                .isNotEmpty(getEstructurasPolOutput.getIcmListapoliticas().getIcmListapoliticasRecordSet())) {
-                final List<EstructurasPolResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asEstructurasPolResultItemDto(
-                            getEstructurasPolOutput.getIcmListapoliticas().getIcmListapoliticasRecordSet());
-                result.setData(items);
-            }
+                && (Double.compare(NumberUtils.DOUBLE_ZERO, getEstructurasPolOutput.getReturn()) == 0)
+                && (getEstructurasPolOutput.getIcmListapoliticas() != null) && CollectionUtils
+                    .isNotEmpty(getEstructurasPolOutput.getIcmListapoliticas().getIcmListapoliticasRecordSet())) {
+            final List<EstructurasPolResultItemDto> items = this.icmWsCalcIncomeMapper
+                .asEstructurasPolResultItemDto(
+                        getEstructurasPolOutput.getIcmListapoliticas().getIcmListapoliticasRecordSet());
+            result.setData(items);
         }
 
         return result;
@@ -730,14 +728,13 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             .asIcmParamcalconfchdiasBlock(request.getData());
         final GetconfchdiasminimosOutput getConfChDiasMinimos = this.meta4ClientPool.getconfchdiasminimos(param1);
         if ((getConfChDiasMinimos != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfChDiasMinimos.getReturn()) == 0)) {
-            if ((getConfChDiasMinimos.getIcmListaconfchdias() != null) && CollectionUtils
-                .isNotEmpty(getConfChDiasMinimos.getIcmListaconfchdias().getIcmListaconfchdiasRecordSet())) {
-                final List<ConfChDiasMinimosResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asConfChDiasMinimosResultItemDto(
-                            getConfChDiasMinimos.getIcmListaconfchdias().getIcmListaconfchdiasRecordSet());
-                result.setData(items);
-            }
+                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfChDiasMinimos.getReturn()) == 0)
+                && (getConfChDiasMinimos.getIcmListaconfchdias() != null) && CollectionUtils
+                    .isNotEmpty(getConfChDiasMinimos.getIcmListaconfchdias().getIcmListaconfchdiasRecordSet())) {
+            final List<ConfChDiasMinimosResultItemDto> items = this.icmWsCalcIncomeMapper
+                .asConfChDiasMinimosResultItemDto(
+                        getConfChDiasMinimos.getIcmListaconfchdias().getIcmListaconfchdiasRecordSet());
+            result.setData(items);
         }
         return result;
     }
@@ -777,14 +774,13 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             .asIcmParamcalconfpreciohoraBlock(request.getData());
         final GetconfpreciohoraOutput getConfPrecioHora = this.meta4ClientPool.getconfpreciohora(param1);
         if ((getConfPrecioHora != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfPrecioHora.getReturn()) == 0)) {
-            if ((getConfPrecioHora.getIcmListaconfpreciohora() != null) && CollectionUtils
-                .isNotEmpty(getConfPrecioHora.getIcmListaconfpreciohora().getIcmListaconfpreciohoraRecordSet())) {
-                final List<ConfPrecioHoraResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asConfPrecioHoraResultItemDto(
-                            getConfPrecioHora.getIcmListaconfpreciohora().getIcmListaconfpreciohoraRecordSet());
-                result.setData(items);
-            }
+                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfPrecioHora.getReturn()) == 0)
+                && (getConfPrecioHora.getIcmListaconfpreciohora() != null) && CollectionUtils
+                    .isNotEmpty(getConfPrecioHora.getIcmListaconfpreciohora().getIcmListaconfpreciohoraRecordSet())) {
+            final List<ConfPrecioHoraResultItemDto> items = this.icmWsCalcIncomeMapper
+                .asConfPrecioHoraResultItemDto(
+                        getConfPrecioHora.getIcmListaconfpreciohora().getIcmListaconfpreciohoraRecordSet());
+            result.setData(items);
         }
         return result;
     }
@@ -796,13 +792,12 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             .asIcmParamcalconfchventaBlock(request.getData());
         final GetconfchtpventaOutput getConfChallengeTpVenta = this.meta4ClientPool.getconfchtpventa(param1);
         if ((getConfChallengeTpVenta != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfChallengeTpVenta.getReturn()) == 0)) {
-            if ((getConfChallengeTpVenta.getIcmListaconfchventa() != null) && CollectionUtils
-                .isNotEmpty(getConfChallengeTpVenta.getIcmListaconfchventa().getIcmListaconfchventaRecordSet())) {
-                final List<ConfChTpVentaResultItemDto> items = this.icmWsCalcIncomeMapper.asConfChTpVentaResultItemDto(
-                        getConfChallengeTpVenta.getIcmListaconfchventa().getIcmListaconfchventaRecordSet());
-                result.setData(items);
-            }
+                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfChallengeTpVenta.getReturn()) == 0)
+                && (getConfChallengeTpVenta.getIcmListaconfchventa() != null) && CollectionUtils
+                    .isNotEmpty(getConfChallengeTpVenta.getIcmListaconfchventa().getIcmListaconfchventaRecordSet())) {
+            final List<ConfChTpVentaResultItemDto> items = this.icmWsCalcIncomeMapper.asConfChTpVentaResultItemDto(
+                    getConfChallengeTpVenta.getIcmListaconfchventa().getIcmListaconfchventaRecordSet());
+            result.setData(items);
         }
         return result;
     }
