@@ -138,7 +138,7 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
             this.tareaFaseService.updateActivo(runTareaDto);
             this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
 
-            this.mailService.sendMail(tareaFase, fallidas);
+            this.mailService.sendMail(tareaFase, fallidas, runTareaDto);
 
             fallidas.stream().forEach(e -> {
                 if (Boolean.TRUE.equals(e.getSincronizacion())

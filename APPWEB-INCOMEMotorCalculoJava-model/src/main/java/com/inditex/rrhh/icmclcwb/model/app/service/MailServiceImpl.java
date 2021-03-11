@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 /**
  * @author mdelrio
@@ -43,7 +46,7 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private TareaFaseAccionService tareaFaseAccionService;
 
-    private static final String LINE_BREAK = "\n";
+    private static final String LINE_BREAK = " \n";
 
     private static final String DOUBLE_LINE_BREAK = " \n\n";
 
@@ -53,14 +56,37 @@ public class MailServiceImpl implements MailService {
 
     private static final String SUBJECT_MOTIVOS = "[INCOME][CALC] - Error validating displacement reasons ";
 
-    private static final String TITLE = "List of errors:";
+    private static final String SCOPE = "Task scope: ";
+
+    private static final String STD_ID_LEG_ENT = "Company: ";
+
+    private static final String PERIOD = "Period: ";
+
+    private static final String ORIGIN = "Origin: ";
+
+    private static final String TITLE = "List of errors: ";
 
     private static final String TITLE_MOTIVOS = "There are unsynchronized displacement reasons";
 
 
     @Override
-    public void sendMail(final TareaFaseDto tareaFase, final List<ValidacionDto> fallidas) {
+    public void sendMail(final TareaFaseDto tareaFase, final List<ValidacionDto> fallidas, final RunTareaDto runTarea) {
+        final TareaDto tarea = runTarea.getTarea();
+        final TrabajoDto trabajo = runTarea.getTrabajo();
+
         final StringBuilder result = new StringBuilder();
+        result.append(SCOPE);
+        result.append(tarea.getIdOrganization());
+        result.append(LINE_BREAK);
+        result.append(ORIGIN);
+        result.append(trabajo.getOrigen());
+        result.append(LINE_BREAK);
+        result.append(STD_ID_LEG_ENT);
+        result.append(tarea.getStdIdLegEnt());
+        result.append(LINE_BREAK);
+        result.append(PERIOD);
+        result.append(trabajo.getIcmIdPeriodo());
+        result.append(DOUBLE_LINE_BREAK);
         result.append(TITLE);
         result.append(DOUBLE_LINE_BREAK);
         fallidas.stream().forEach(e -> {
