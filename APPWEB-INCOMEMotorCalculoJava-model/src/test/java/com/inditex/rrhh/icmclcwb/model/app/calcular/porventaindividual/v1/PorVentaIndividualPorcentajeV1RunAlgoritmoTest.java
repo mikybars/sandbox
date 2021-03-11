@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaIndividualPorcentajeV1RepositoryCustom;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -35,7 +35,7 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmoTest {
     private Logger log;
 
     @Mock
-    private TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
+    private TareaCalculoAlgoritmoPorVentaIndividualPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoPorVentaIndividualPorcentajeV1RepositoryCustom;
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -48,7 +48,7 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmoTest {
 
     @Test
     public void getSqlCalcularTest() {
-        when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
+        when(this.tareaCalculoAlgoritmoPorVentaIndividualPorcentajeV1RepositoryCustom
             .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
 
         final String result = this.porVentaIndividualPorcentajeV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDto());
@@ -68,7 +68,7 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmoTest {
         personas.add(p2);
         final IdPersonaLocalDto p3 = new IdPersonaLocalDto();
         personas.add(p3);
-        when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
+        when(this.tareaCalculoAlgoritmoPorVentaIndividualPorcentajeV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
 
         final RunTareaDto runTarea = new RunTareaDto();
@@ -78,7 +78,7 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmoTest {
         this.porVentaIndividualPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
         verify(this.log, times(1)).info("Inicio :: PorVentaIndividualPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
-        verify(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom, times(1))
+        verify(this.tareaCalculoAlgoritmoPorVentaIndividualPorcentajeV1RepositoryCustom, times(1))
             .calcular(algoritmo, tarea, personas);
         verify(this.log, times(1)).info("Fin :: PorVentaIndividualPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
     }
@@ -91,12 +91,12 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmoTest {
         personas.add(p1);
         final IdPersonaLocalDto p2 = new IdPersonaLocalDto();
         personas.add(p2);
-        when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
+        when(this.tareaCalculoAlgoritmoPorVentaIndividualPorcentajeV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
 
         when(this.runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(2);
         final RuntimeException exception = new RuntimeException("EEEE");
-        doThrow(exception).when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom)
+        doThrow(exception).when(this.tareaCalculoAlgoritmoPorVentaIndividualPorcentajeV1RepositoryCustom)
             .calcular(any(AlgoritmoDto.class), any(TareaDto.class),
                     ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
