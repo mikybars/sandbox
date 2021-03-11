@@ -36,9 +36,9 @@ public class PorVentaIndividualPorcentajeV1RunAlgoritmo implements RunAlgoritmo 
     @Override
     public void execute(final RunTareaDto runTarea, final AlgoritmoDto algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-            this.tareaCalculoAlgoritmoPorVentaIndividualPorcentajeV1RepositoryCustom.ids(algoritmo,
+                this.tareaCalculoAlgoritmoPorVentaIndividualPorcentajeV1RepositoryCustom.ids(algoritmo,
                         runTarea.getTarea()),
-            this.runAlgoritmoProperties.getBatchSize()))
+                this.runAlgoritmoProperties.getBatchSize()))
             .parallel()
             .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
