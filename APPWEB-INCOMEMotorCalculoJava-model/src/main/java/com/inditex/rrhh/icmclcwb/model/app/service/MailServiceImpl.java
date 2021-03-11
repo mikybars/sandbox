@@ -4,6 +4,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +22,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
 /**
@@ -64,7 +66,11 @@ public class MailServiceImpl implements MailService {
 
     private static final String ORIGIN = "Origin: ";
 
-    private static final String TITLE = "List of errors: ";
+    private static final String TITLE = "Dear INCOME administrator: ";
+
+    private static final String KIND_REGARDS = "Kind regards ";
+
+    private static final String ERROR_LIST = "List of errors: ";
 
     private static final String TITLE_MOTIVOS = "There are unsynchronized displacement reasons";
 
@@ -75,11 +81,14 @@ public class MailServiceImpl implements MailService {
         final TrabajoDto trabajo = runTarea.getTrabajo();
 
         final StringBuilder result = new StringBuilder();
+        result.append(TITLE);
+        result.append(DOUBLE_LINE_BREAK);
         result.append(SCOPE);
         result.append(tarea.getIdOrganization());
         result.append(LINE_BREAK);
         result.append(ORIGIN);
-        result.append(trabajo.getOrigen());
+        result.append(
+                trabajo.getOrigen().stream().map(TrabajoAmbitoOrigenDto::getCclIdOrigen).collect(Collectors.toList()));
         result.append(LINE_BREAK);
         result.append(STD_ID_LEG_ENT);
         result.append(tarea.getStdIdLegEnt());
@@ -87,7 +96,7 @@ public class MailServiceImpl implements MailService {
         result.append(PERIOD);
         result.append(trabajo.getIcmIdPeriodo());
         result.append(DOUBLE_LINE_BREAK);
-        result.append(TITLE);
+        result.append(ERROR_LIST);
         result.append(DOUBLE_LINE_BREAK);
         fallidas.stream().forEach(e -> {
             final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
@@ -101,6 +110,7 @@ public class MailServiceImpl implements MailService {
             }
             result.append(DOUBLE_LINE_BREAK);
         });
+        result.append(KIND_REGARDS);
 
         final SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(this.sender);
