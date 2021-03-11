@@ -1,10 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +21,7 @@ public class TareaAmbitoGlobalFechaAsyncServiceImpl implements TareaAmbitoGlobal
     private TareaAmbitoGlobalFechaService tareaAmbitoGlobalFechaService;
 
     @Override
-    public CompletableFuture<Void> save(
-            @Valid @NotNull @NotEmpty final List<TareaAmbitoGlobalFechaDto> src, @Valid @NotNull final TareaDto tarea) {
-        this.tareaAmbitoGlobalFechaService.save(src, tarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
-    public CompletableFuture<Void> save(@Valid @NotNull TareaAmbitoGlobalFechaDto src, @Valid @NotNull TareaDto tarea) {
+    public CompletableFuture<Void> save(@Valid @NotNull final TareaAmbitoGlobalFechaDto src, @Valid @NotNull final TareaDto tarea) {
         this.tareaAmbitoGlobalFechaService.save(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

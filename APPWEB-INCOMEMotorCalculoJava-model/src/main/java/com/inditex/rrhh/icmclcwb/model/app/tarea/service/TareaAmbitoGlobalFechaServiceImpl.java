@@ -1,10 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.Arrays;
-import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +28,7 @@ public class TareaAmbitoGlobalFechaServiceImpl implements TareaAmbitoGlobalFecha
     private TareaAmbitoGlobalFechaMapper tareaAmbitoGlobalFechaMapper;
 
     @Override
-    public void save(@Valid @NotNull @NotEmpty final List<TareaAmbitoGlobalFechaDto> src,
-            @Valid @NotNull final TareaDto tarea) {
-        this.tareaAmbitoGlobalFechaRepositoryCustom.save(
-                this.tareaAmbitoGlobalFechaMapper
-                    .tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(src, tarea));
-    }
-
-    @Override
-    public void save(@Valid @NotNull TareaAmbitoGlobalFechaDto src, @Valid @NotNull TareaDto tarea) {
+    public void save(@Valid @NotNull final TareaAmbitoGlobalFechaDto src, @Valid @NotNull final TareaDto tarea) {
         this.tareaAmbitoGlobalFechaRepositoryCustom.save(
                 this.tareaAmbitoGlobalFechaMapper.tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(Arrays.asList(src),
                         tarea));
