@@ -306,11 +306,11 @@ public class DataSourceComisConfig {
         return dataSourceBuilder.build(DataSourceType.NONXA);
     }
 
-  //  @Bean(name = "comis800Datasource")
-  //  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis800")
-  //  public DataSource comis800DataSource(final DataSourceBuilder dataSourceBuilder) {
-  //      return dataSourceBuilder.build(DataSourceType.NONXA);
-  //  }
+    // @Bean(name = "comis800Datasource")
+    // @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis800")
+    // public DataSource comis800DataSource(final DataSourceBuilder dataSourceBuilder) {
+    // return dataSourceBuilder.build(DataSourceType.NONXA);
+    // }
 
     @Bean(name = "comisDatasource")
     public DataSource dataSourceSql(@Lazy @Qualifier("comis1Datasource") final DataSource comis1Datasource,
