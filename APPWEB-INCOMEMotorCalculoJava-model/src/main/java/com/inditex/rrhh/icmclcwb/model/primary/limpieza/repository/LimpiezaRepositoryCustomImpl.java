@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,9 +20,9 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
@@ -452,8 +453,22 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     }
 
     @Override
-    public void consolidar(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TrabajoDto trabajo) {
-        this.tareaLimpiezaRepositoryCustom.mergeLimpieza(tarea, trabajo);
+    public void updateEstado(
+            @NotNull @Positive final Long idTareaLimpieza,
+            @NotNull @Valid final EstadoLimpiezaDto estado) {
+        this.tareaLimpiezaRepositoryCustom.updateEstado(idTareaLimpieza, estado);
+    }
+
+    @Override
+    public void updateFechaFinalizacion(
+            @NotNull @Positive final Long idTareaLimpieza) {
+        this.tareaLimpiezaRepositoryCustom.updateFechaFinalizacion(idTareaLimpieza);
+    }
+
+    @Override
+    public void inicioLimpieza(
+            @NotNull @Positive final Long idTareaLimpieza) {
+        this.tareaLimpiezaRepositoryCustom.inicioLimpieza(idTareaLimpieza);
     }
 
     private List<MapSqlParameterSource> getParametersLocal(final TareaDto tarea, final TareaAmbitoDto ambito) {

@@ -26,7 +26,8 @@ public abstract class TareaAmbitoGlobalFechaMapperDecorator extends TareaAmbitoG
         final List<TareaAmbitoGlobalFecha> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(src)) {
             for (final TareaAmbitoGlobalFechaDto item : src) {
-                // Se guarda lo que venga como período ampliado (independientemente de que sea el mismo que el del cálculo)
+                // Se guarda lo que venga como período ampliado (independientemente de que sea el mismo que el del
+                // cálculo)
                 final TareaAmbitoGlobalFecha periodoAmpliado = this.delegate
                     .tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(item);
                 periodoAmpliado.setTipoDato(TipoDato.builder().id(TipoDatoEnum.PERIODO_AMPLIADO.getId()).build());

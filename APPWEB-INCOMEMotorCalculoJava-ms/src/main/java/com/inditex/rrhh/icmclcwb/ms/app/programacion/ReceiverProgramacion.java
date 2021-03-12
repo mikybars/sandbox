@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.service.RunService;
@@ -18,7 +16,7 @@ public class ReceiverProgramacion {
     private RunService runService;
 
     @CircuitBreaker(name = "programacion")
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @JmsListener(id = "programacionListener", destination = "${amiga.service.jms.programacion-queue.destination-fqdn}",
             containerFactory = "programacionContainerFactoryListener")
     public void onMessageProgramacionListener(final Message<IdProgramacionDto> message) {

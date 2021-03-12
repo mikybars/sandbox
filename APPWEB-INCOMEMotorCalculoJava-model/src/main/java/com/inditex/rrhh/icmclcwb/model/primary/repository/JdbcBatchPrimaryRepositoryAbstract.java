@@ -76,4 +76,16 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
         }
     }
 
+    public <T> T queryForObject(final String sql, final MapSqlParameterSource paramSource,
+            final Class<T> requiredType) {
+        try {
+            return this.namedParameterJdbcTemplate.queryForObject(sql, paramSource, requiredType);
+        } catch (final DataAccessException e) {
+            this.log.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error consultando objeto :: Items: {}",
+                    paramSource,
+                    e);
+            throw e;
+        }
+    }
+
 }

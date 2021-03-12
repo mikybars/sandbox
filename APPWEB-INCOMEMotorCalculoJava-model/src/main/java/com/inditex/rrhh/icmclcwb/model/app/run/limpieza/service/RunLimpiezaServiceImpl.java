@@ -1,16 +1,19 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.limpieza.service;
 
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.service.RunLimpiezaService;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
+
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 
 @Service
 @Validated
@@ -26,7 +29,7 @@ public class RunLimpiezaServiceImpl implements RunLimpiezaService {
             metricDescription = "RunLimpiezaService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunLimpiezaDto runLimpieza) {
-        limpiezaService.runTarea(runLimpieza.getTarea());
+        this.limpiezaService.runTarea(runLimpieza);
     }
 
 }

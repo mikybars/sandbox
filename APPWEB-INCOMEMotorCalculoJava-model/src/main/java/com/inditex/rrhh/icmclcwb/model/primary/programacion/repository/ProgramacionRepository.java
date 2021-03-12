@@ -16,4 +16,6 @@ public interface ProgramacionRepository extends BaseRepository<Programacion, Lon
     Programacion findByIdAndFechaHoraSiguienteEjecucionBeforeAndActivoTrue(@Positive @NotNull Long id,
             LocalDateTime nowLocalDateTime);
 
+    Programacion findByIdAndActivoTrue(@Positive @NotNull Long id);
+
 }

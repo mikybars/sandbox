@@ -19,7 +19,7 @@ metadata:
   platform: Openshift-Intranet Arteixo
   slot: develop
   tenant: global
-  version: 2.6.0
+  version: 2.6.1
 amiga:
   monitoring:
     metrics:
@@ -39,6 +39,11 @@ amiga:
         enabled: false
       embedded:
         enabled: true
+    mail:
+      host: localhost
+      port: 25
+      protocol: smtp
+      default-encoding: UTF-8
     rest:
       client:
         http:
@@ -100,8 +105,8 @@ amiga:
     jms:
       listener:
         default:
-          sessionTransacted: true
-          globalTransacted: true
+          sessionTransacted: false
+          globalTransacted: false
           pubSubDomain: false
           receiveTimeout: 1000
       trabajo-queue:
@@ -136,34 +141,32 @@ amiga:
         broker-escritura:
           minPoolSize: 10
           maxPoolSize: 20
-          xaConnectionFactory:
-            brokerURL: failover:(tcp://127.0.0.1:61616)
-            userName: root
-            password: V3ct0r1nd1t3x
+          brokerURL: failover:(tcp://127.0.0.1:61616)
+          userName: root
+          password: V3ct0r1nd1t3x
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
-          xaConnectionFactory:
-            brokerURL: failover:(tcp://127.0.0.1:61616)
-            userName: root
-            password: V3ct0r1nd1t3x
+          brokerURL: failover:(tcp://127.0.0.1:61616)
+          userName: root
+          password: V3ct0r1nd1t3x
       listener-container-factory:
         trabajo:
           concurrency: 1
-          sessionTransacted: true
-          globalTransacted: true
+          sessionTransacted: false
+          globalTransacted: false
           pubSubDomain: false
           receiveTimeout: 1000
         tarea:
           concurrency: 1
-          sessionTransacted: true
-          globalTransacted: true
+          sessionTransacted: false
+          globalTransacted: false
           pubSubDomain: false
           receiveTimeout: 1000
         limpieza:
           concurrency: 1
-          sessionTransacted: true
-          globalTransacted: true
+          sessionTransacted: false
+          globalTransacted: false
           pubSubDomain: false
           receiveTimeout: 1000
         programacion:
@@ -171,24 +174,24 @@ amiga:
           sessionTransacted: true
           globalTransacted: true
           pubSubDomain: false
-          receiveTimeout: 1000    
+          receiveTimeout: 1000
       client:
         trabajo:
           destinationName: ${amiga.service.jms.trabajo-queue.destination-fqdn}
           pubSubDomain: false
-          sessionTransacted: true
+          sessionTransacted: false
         tarea:
           destinationName: ${amiga.service.jms.tarea-queue.destination-fqdn}
           pubSubDomain: false
-          sessionTransacted: true
+          sessionTransacted: false
         limpieza:
           destinationName: ${amiga.service.jms.limpieza-queue.destination-fqdn}
           pubSubDomain: false
-          sessionTransacted: true
+          sessionTransacted: false
         programacion:
           destinationName: ${amiga.service.jms.programacion-queue.destination-fqdn}
           pubSubDomain: false
-          sessionTransacted: true         
+          sessionTransacted: true
     jdbc:
       configuration:
         prop:
@@ -199,49 +202,391 @@ amiga:
       datasource:
         primary:
           #init-connection-sql: set schema GESTION_COMISION
-          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
-          xa-properties:
-            #[BBDD][ITX][DES][GESTION_COMISION][INICIO]
-            serverName: axdesdb22.central.inditex.grp
-            portNumber: 50000
-            databaseName: INDITEX
-            currentSchema: GESTION_COMISION
-            user: uincome
-            password: pzuUKBm1ppMGzzOn
-            #[BBDD][ITX][DES][GESTION_COMISION][FIN]
-            #[BBDD][ITX][DES][DESARROLLO_RRHH][INICIO]
+          #[BBDD][ITX][NON_XA][INICIO]
+          driverClassName: com.ibm.db2.jcc.DB2Driver
+          #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
+#          user: uincome
+#          password: pzuUKBm1ppMGzzOn
+#          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+          #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
+          #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
+          user: oincome
+          password: aMJLp8ahF09w
+          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+          #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][FIN]
+          #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][INICIO]
+#          user: uincome
+#          password:
+#          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+          #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][FIN]
+          driver-properties:
+            clientProgramName: ${metadata.jirakey}-${metadata.slot}
+            loginTimeout: 300
+            connectionTimeout: 300
+            commandTimeout: 300
+            interruptProcessingMode: 2
+            currentSchema: DESARROLLO_RRHH
+          #[BBDD][ITX][NON_XA][FIN]
+          #[BBDD][ITX][XA][INICIO]
+#          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
+#          xa-properties:
+            #[BBDD][ITX][XA][DES][GESTION_COMISION][INICIO]
+#            serverName: axdesdb22.central.inditex.grp
+#            portNumber: 50000
+#            databaseName: INDITEX
+#            currentSchema: GESTION_COMISION
+#            user: uincome
+#            password: pzuUKBm1ppMGzzOn
+            #[BBDD][ITX][XA][DES][GESTION_COMISION][FIN]
+            #[BBDD][ITX][XA][DES][DESARROLLO_RRHH][INICIO]
 #            serverName: axdesdb22.central.inditex.grp
 #            portNumber: 50000
 #            databaseName: INDITEX
 #            currentSchema: DESARROLLO_RRHH
 #            user: oincome
 #            password: aMJLp8ahF09w
-            #[BBDD][ITX][DES][DESARROLLO_RRHH][FIN]
-            #[BBDD][VECTOR][DES][INICIO]
+            #[BBDD][ITX][XA][DES][DESARROLLO_RRHH][FIN]
+            #[BBDD][VECTOR][XA][DES][INICIO]
 #            serverName: 10.202.10.178
 #            portNumber: 50000
 #            databaseName: INDITEX
 #            currentSchema: GESTION_COMISION
 #            user: db2inst1
 #            password: vector.hc
-            #[BBDD][VECTOR][DES][FIN]
-            #[BBDD][ITX][PRE][GESTION_COMISION][INICIO]
+            #[BBDD][VECTOR][XA][DES][FIN]
+            #[BBDD][ITX][XA][PRE][GESTION_COMISION][INICIO]
 #            serverName: axpredb22.central.inditex.grp
 #            portNumber: 50000
 #            databaseName: INDITEX
 #            currentSchema: GESTION_COMISION
 #            user: uincome
 #            password: 
-            #[BBDD][ITX][PRE][GESTION_COMISION][FIN]
-            clientProgramName: ${metadata.jirakey}-${metadata.slot}
-            driverType: 4
-#            loginTimeout: 10
-#            connectionTimeout: 10
-#            commandTimeout: 5
-            loginTimeout: 300
-            connectionTimeout: 300
-            commandTimeout: 300
-            interruptProcessingMode: 2
+            #[BBDD][ITX][XA][PRE][GESTION_COMISION][FIN]
+#            clientProgramName: ${metadata.jirakey}-${metadata.slot}
+#            driverType: 4
+              #            loginTimeout: 10
+              #            connectionTimeout: 10
+              #            commandTimeout: 5
+#            loginTimeout: 300
+#            connectionTimeout: 300
+#            commandTimeout: 300
+#            interruptProcessingMode: 2
+        #[BBDD][ITX][XA][FIN]
+        #[PTR][ITX][PRE][NON_XA][INICIO]
+#        ptr:
+#          driver-class-name: oracle.jdbc.OracleDriver
+#          url: jdbc:oracle:thin:@//axine5-scansrv.central.inditex.grp:11521/s_pdbpr01rt_gener.central.inditex.grp
+#          user: uincome
+#          password: C2IYgNZKpjmz
+#          defaultIsolationLevel: 8
+        #[PTR][ITX][PRE][NON_XA][FIN]
+        #[PTR][ITX][DES][NON_XA][INICIO]
+        ptr:
+          driverClassName: oracle.jdbc.OracleDriver
+          url: jdbc:oracle:thin:@//axine3-scansrv.central.inditex.grp:1521/s_pdbds01rt_gener.central.inditex.grp
+          user: uincome
+          password: pzuUKBm1ppMGzzOn
+          defaultIsolationLevel: 8
+        #[PTR][ITX][DES][NON_XA][FIN]
+        #[PTR][ITX][DES][XA][INICIO]
+#        ptr:
+#          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
+#          xa-properties:
+#            serverName: axine3-scansrv.central.inditex.grp
+#            serviceName: s_pdbds01rt_gener.central.inditex.grp
+#            portNumber: 1521
+#            user: uincome
+#            password: pzuUKBm1ppMGzzOn
+#            driverType: thin
+        #[PTR][ITX][DES][XA][FIN]
+        comis1:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis2:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis3:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis4:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis5:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis6:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis7:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis8:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis9:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis10:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis18:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis28:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis30:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis32:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis38:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis39:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis52:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis60:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis61:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis63:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis64:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis66:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis68:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis72:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis75:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis79:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis92:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis93:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis96:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis97:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis98:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis139:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis388:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis400:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis404:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis412:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis508:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis512:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis524:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis528:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis664:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis720:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis728:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis732:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis736:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis740:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis743:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
+        comis800:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+          password: j50lc9sL
+          readOnly: true
     jpa:
       properties:
         #properties: '{''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary-ddl.sql,import-primary-dml.sql'',''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
@@ -249,7 +594,7 @@ amiga:
         #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.isolation'':''1''}'
         #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
         hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
-        hibernate.default_schema: GESTION_COMISION
+        hibernate.default_schema: DESARROLLO_RRHH
 app:
   envars:
     calculo:
@@ -276,8 +621,40 @@ app:
       batch-size:
         default: 100
     limpieza:
+      days-number: -7
+      days-number-creation: -1
+      max: 100
       batch-size:
         default: 100
+    mail:
+      sender: 'noreply@inditex.com'
+      receiver: 'income-java@vectoritcgroup.com'
+    prevalidacion:
+      baja:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      carencia:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      fechas:
+        meses: 24
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      resalta:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      desplazamiento:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
+      historico:
+        sincronizacion:
+          activo: true
+          max-empleados: 10
     ptr:
       config:
         max-attempts: 2
@@ -386,13 +763,13 @@ app:
       config:
         max-attempts: 20
         credentials:
-           user: INCOME_CALC
-           password: 123
+          user: INCOME_CALC
+          password: 123
 #          user: SRVCICMCLCWSDESAX
 #          password: kUZaIucw>WVIO9x
 #          user: SRVCICMCLCWSPREAX
 #          password: rbqOxKz4cm)fI
-           language: 2
+          language: 2
         pool:
           pre-login: false
           size: 5
@@ -683,6 +1060,15 @@ app:
               maxPageSize: 50
               maxPersistenceSize: 3
           getVentaManualWloc:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3
+          sincronizacion:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50

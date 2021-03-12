@@ -1,0 +1,15 @@
+/***************************/
+/** ESTADO_TAREA_LIMPIEZA **/
+/***************************/
+
+INSERT INTO ESTADO_LIMPIEZA (ID_ESTADO_LIMPIEZA, NOMBRE) VALUES (1, 'Pendiente');
+INSERT INTO ESTADO_LIMPIEZA (ID_ESTADO_LIMPIEZA, NOMBRE) VALUES (2, 'En curso');
+INSERT INTO ESTADO_LIMPIEZA (ID_ESTADO_LIMPIEZA, NOMBRE) VALUES (3, 'Ok');
+INSERT INTO ESTADO_LIMPIEZA (ID_ESTADO_LIMPIEZA, NOMBRE) VALUES (4, 'Ko');
+
+/***************************/
+/** TIPO_LIMPIEZA **/
+/***************************/
+
+INSERT INTO TIPO_LIMPIEZA (ID_TIPO_LIMPIEZA, NOMBRE, DESCRIPCION) VALUES (1, 'Completa', 'Limpieza completa de la tarea');
+INSERT INTO TIPO_LIMPIEZA (ID_TIPO_LIMPIEZA, NOMBRE, DESCRIPCION) VALUES (2, 'Parcial', 'Limpieza parcial de la tarea');

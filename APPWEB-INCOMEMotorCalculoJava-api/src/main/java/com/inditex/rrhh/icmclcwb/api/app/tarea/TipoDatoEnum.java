@@ -121,9 +121,8 @@ public enum TipoDatoEnum {
     /* 7000 (Localizacion Procesado) *//* 8000 (Persona) */
     PERSONA_COEFICIENTEREDUCCIONJORNADA(8001),
     /* 9000 (Persona Procesado) */
-    /* 10000 (Periodos)*/
-    PERIODO(10001),
-    PERIODO_AMPLIADO(10002);
+    /* 10000 (Periodos) */
+    PERIODO(10001), PERIODO_AMPLIADO(10002);
 
     private final Integer id;
 

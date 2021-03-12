@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,14 +11,10 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import org.apache.commons.lang3.StringUtils;
-
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
 
 @Repository
 public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositoryCustom {
@@ -25,25 +23,42 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.mergeLimpieza']}")
-    private String sqlMergeLimpieza;
+    @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.updateFechaFinalizacion']}")
+    private String sqlUpdateFechaFinalizacion;
+
+    @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.updateEstado']}")
+    private String sqlUpdateEstado;
+
+    @Value("#{primaryQuery['TareaLimpiezaRepositoryCustom.inicioLimpieza']}")
+    private String sqlInicioLimpieza;
 
     @Override
-    public void mergeLimpieza(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
+    public void updateFechaFinalizacion(
+            @NotNull @Positive final Long idTareaLimpieza) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_HORA_LIMPIEZA, TimeUtils.nowDate());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_HORA_FIN, TimeUtils.nowDate());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_LIMPIEZA, idTareaLimpieza);
+        this.namedParameterJdbcTemplate.update(this.sqlUpdateFechaFinalizacion, params);
+    }
 
-        final UserSSO userSSO = SsoUtils.getUserSSO();
-        if ((userSSO != null) && StringUtils.isNotBlank(userSSO.getUser())) {
-            params.addValue(SqlPrimaryConstants.SQL_PARAM_NOMBRE_USUARIO, userSSO.getUser());
-        } else {
-            params.addValue(SqlPrimaryConstants.SQL_PARAM_NOMBRE_USUARIO, trabajoDto.getNombreUsuario());
-        }
+    @Override
+    public void inicioLimpieza(
+            @NotNull @Positive final Long idTareaLimpieza) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_HORA_INICIO, TimeUtils.nowDate());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_LIMPIEZA, idTareaLimpieza);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA, EstadoLimpiezaEnum.EN_CURSO.getId());
+        this.namedParameterJdbcTemplate.update(this.sqlInicioLimpieza, params);
+    }
 
-        this.namedParameterJdbcTemplate.update(this.sqlMergeLimpieza, params);
+    @Override
+    public void updateEstado(
+            @NotNull @Positive final Long idTareaLimpieza,
+            @NotNull @Valid final EstadoLimpiezaDto estado) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA, estado.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_LIMPIEZA, idTareaLimpieza);
+        this.namedParameterJdbcTemplate.update(this.sqlUpdateEstado, params);
     }
 
 }

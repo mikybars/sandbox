@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -24,10 +28,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,28 +45,25 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getorigenesReturn"
+        "getorigenesReturn"
 })
 @XmlRootElement(name = "GETORIGENESResponse")
-public class GETORIGENESResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETORIGENESResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "GETORIGENESReturn", required = true)
     protected GetorigenesOutput getorigenesReturn;
 
     /**
      * Obtiene el valor de la propiedad getorigenesReturn.
-     * 
-     * @return
-     *     possible object is
-     *     {@link GetorigenesOutput }
-     *     
+     * @return possible object is {@link GetorigenesOutput }
+     *
      */
     public GetorigenesOutput getGETORIGENESReturn() {
         return getorigenesReturn;
@@ -68,18 +71,16 @@ public class GETORIGENESResponse implements Serializable, Cloneable, CopyTo2, Eq
 
     /**
      * Define el valor de la propiedad getorigenesReturn.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link GetorigenesOutput }
-     *     
+     * @param value allowed object is {@link GetorigenesOutput }
+     *
      */
     public void setGETORIGENESReturn(GetorigenesOutput value) {
         this.getorigenesReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +92,9 @@ public class GETORIGENESResponse implements Serializable, Cloneable, CopyTo2, Eq
             lhsGETORIGENESReturn = this.getGETORIGENESReturn();
             GetorigenesOutput rhsGETORIGENESReturn;
             rhsGETORIGENESReturn = that.getGETORIGENESReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getorigenesReturn", lhsGETORIGENESReturn), LocatorUtils.property(thatLocator, "getorigenesReturn", rhsGETORIGENESReturn), lhsGETORIGENESReturn, rhsGETORIGENESReturn, (this.getorigenesReturn!= null), (that.getorigenesReturn!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getorigenesReturn", lhsGETORIGENESReturn),
+                    LocatorUtils.property(thatLocator, "getorigenesReturn", rhsGETORIGENESReturn), lhsGETORIGENESReturn,
+                    rhsGETORIGENESReturn, (this.getorigenesReturn != null), (that.getorigenesReturn != null))) {
                 return false;
             }
         }
@@ -121,7 +124,8 @@ public class GETORIGENESResponse implements Serializable, Cloneable, CopyTo2, Eq
         {
             GetorigenesOutput theGETORIGENESReturn;
             theGETORIGENESReturn = this.getGETORIGENESReturn();
-            strategy.appendField(locator, this, "getorigenesReturn", buffer, theGETORIGENESReturn, (this.getorigenesReturn!= null));
+            strategy.appendField(locator, this, "getorigenesReturn", buffer, theGETORIGENESReturn,
+                    (this.getorigenesReturn != null));
         }
         return buffer;
     }
@@ -131,7 +135,9 @@ public class GETORIGENESResponse implements Serializable, Cloneable, CopyTo2, Eq
         {
             GetorigenesOutput theGETORIGENESReturn;
             theGETORIGENESReturn = this.getGETORIGENESReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getorigenesReturn", theGETORIGENESReturn), currentHashCode, theGETORIGENESReturn, (this.getorigenesReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "getorigenesReturn", theGETORIGENESReturn), currentHashCode,
+                    theGETORIGENESReturn, (this.getorigenesReturn != null));
         }
         return currentHashCode;
     }
@@ -151,15 +157,18 @@ public class GETORIGENESResponse implements Serializable, Cloneable, CopyTo2, Eq
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETORIGENESResponse) {
             final GETORIGENESResponse copy = ((GETORIGENESResponse) draftCopy);
             {
-                Boolean getorigenesReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getorigenesReturn!= null));
+                Boolean getorigenesReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.getorigenesReturn != null));
                 if (getorigenesReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetorigenesOutput sourceGETORIGENESReturn;
                     sourceGETORIGENESReturn = this.getGETORIGENESReturn();
-                    GetorigenesOutput copyGETORIGENESReturn = ((GetorigenesOutput) strategy.copy(LocatorUtils.property(locator, "getorigenesReturn", sourceGETORIGENESReturn), sourceGETORIGENESReturn, (this.getorigenesReturn!= null)));
+                    GetorigenesOutput copyGETORIGENESReturn = ((GetorigenesOutput) strategy.copy(
+                            LocatorUtils.property(locator, "getorigenesReturn", sourceGETORIGENESReturn),
+                            sourceGETORIGENESReturn, (this.getorigenesReturn != null)));
                     copy.setGETORIGENESReturn(copyGETORIGENESReturn);
                 } else {
                     if (getorigenesReturnShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -11,7 +11,7 @@ public class RunAlgoritmoFactoryConfig {
 
     @Bean
     public ServiceLocatorFactoryBean serviceLocatorFactoryBean() {
-        ServiceLocatorFactoryBean factoryBean = new ServiceLocatorFactoryBean();
+        final ServiceLocatorFactoryBean factoryBean = new ServiceLocatorFactoryBean();
         factoryBean.setServiceLocatorInterface(RunAlgoritmoFactory.class);
         return factoryBean;
     }

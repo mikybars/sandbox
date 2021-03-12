@@ -9,11 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoFactory;
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
@@ -31,13 +35,20 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
     @Autowired
     private AlgoritmoService algoritmoService;
 
+    @Autowired
+    private TareaFaseService tareaFaseService;
+
     @Auditoria
+    @Validation(fase = 4)
     @TimerFunctionalMetric(metricName = "RunTareaCalcularService.run.timer",
             metricGroupName = "RunTareaCalcularServiceGroup", metricDescription = "RunTareaCalcularService.run.timer")
     @CounterFunctionalMetric(metricName = "RunTareaCalcularService.run.counter",
             metricGroupName = "RunTareaCalcularServiceGroup", metricDescription = "RunTareaCalcularService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
+        this.tareaFaseService.updateFechaInicio(
+                this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                        FaseEnum.CALCULAR.getId()));
         final TareaDto tarea = runTarea.getTarea();
         Flux.fromIterable(this.algoritmoService.customFindAlgoritmosIdsByTarea(tarea.getId()))
             .parallel()
@@ -50,6 +61,10 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
             .sequential()
             .collectList()
             .block();
+        this.tareaFaseService.updateFechaFinAndEstado(
+                this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                        FaseEnum.CALCULAR.getId()),
+                EstadoTareaFaseEnum.OK.getDto());
     }
 
 }

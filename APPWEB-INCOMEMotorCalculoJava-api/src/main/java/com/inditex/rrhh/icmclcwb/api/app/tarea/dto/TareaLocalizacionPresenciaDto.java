@@ -30,7 +30,7 @@ public class TareaLocalizacionPresenciaDto {
     @NotBlank
     @ApiModelProperty(value = "Id de la seccion", required = true)
     private String cclIdSeccion;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id de la cadena", required = true)
     private String cclIdCadena;

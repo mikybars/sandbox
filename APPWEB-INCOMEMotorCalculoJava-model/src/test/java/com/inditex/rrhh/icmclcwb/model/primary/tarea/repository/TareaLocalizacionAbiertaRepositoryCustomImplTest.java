@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +27,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CERRADO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_SECCION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
@@ -69,63 +72,63 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaLocalizacionAbiertaRepositoryCustom, "sqlSaveAbierto", SQL_SAVE_ABIERTO, true);
-        FieldUtils.writeField(tareaLocalizacionAbiertaRepositoryCustom, "sqlSaveCerrado", SQL_SAVE_CERRADO, true);
-        FieldUtils.writeField(tareaLocalizacionAbiertaRepositoryCustom, "sqlCompensar", SQL_COMPENSARL, true);
-        FieldUtils.writeField(tareaLocalizacionAbiertaRepositoryCustom, "sqlTrasladar", SQL_TRASLADAR, true);
+        FieldUtils.writeField(this.tareaLocalizacionAbiertaRepositoryCustom, "sqlSaveAbierto", SQL_SAVE_ABIERTO, true);
+        FieldUtils.writeField(this.tareaLocalizacionAbiertaRepositoryCustom, "sqlSaveCerrado", SQL_SAVE_CERRADO, true);
+        FieldUtils.writeField(this.tareaLocalizacionAbiertaRepositoryCustom, "sqlCompensar", SQL_COMPENSARL, true);
+        FieldUtils.writeField(this.tareaLocalizacionAbiertaRepositoryCustom, "sqlTrasladar", SQL_TRASLADAR, true);
     }
 
     @Test
     public void saveAbiertoTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(900L);
-        TrabajoDto trabajo = mock(TrabajoDto.class);
+        final TrabajoDto trabajo = mock(TrabajoDto.class);
 
-        tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(tarea, trabajo);
-        verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
-        assertEquals(SQL_SAVE_ABIERTO, sql.getValue());
+        this.tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(tarea, trabajo);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
+        assertEquals(SQL_SAVE_ABIERTO, this.sql.getValue());
         // Parametros de la consulta:
         // idTipoImporteVenta, idTipoPresencia, idTarea, importe, excluidoCalculo, activo, nuevoAbierto,
         // idSeccion
-        assertEquals(8, params.getValue().getValues().size());
+        assertEquals(8, this.params.getValue().getValues().size());
         // idTipoImporteVenta
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(),
-                params.getValue().getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
+                this.params.getValue().getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         // idTipoPresencia
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TIPO_MINUTOS));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TIPO_MINUTOS));
         assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-                params.getValue().getValue(SQL_PARAM_ID_TIPO_MINUTOS));
+                this.params.getValue().getValue(SQL_PARAM_ID_TIPO_MINUTOS));
         // nuevoAbierto
-        assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ABIERTO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_NUEVO_ABIERTO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_NUEVO_ABIERTO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_NUEVO_ABIERTO));
         // idTarea
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
-        assertEquals(tarea.getId(), params.getValue().getValue(SQL_PARAM_ID_TAREA));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
         // importe
-        assertTrue(params.getValue().hasValue(SQL_PARAM_IMPORTE));
-        assertEquals(SQL_VALUE_IMPORTE_CERO, params.getValue().getValue(SQL_PARAM_IMPORTE));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_IMPORTE));
+        assertEquals(SQL_VALUE_IMPORTE_CERO, this.params.getValue().getValue(SQL_PARAM_IMPORTE));
         // idSeccion
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_SECCION));
-        assertEquals(AppConstants.SECCION_4, params.getValue().getValue(SQL_PARAM_ID_SECCION));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_SECCION));
+        assertEquals(AppConstants.SECCION_4, this.params.getValue().getValue(SQL_PARAM_ID_SECCION));
         // excluidoCalculo
-        assertTrue(params.getValue().hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
-        assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_EXCLUIDO_CALCULO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
+        assertEquals(SQL_VALUE_BOOLEAN_FALSE, this.params.getValue().getValue(SQL_PARAM_EXCLUIDO_CALCULO));
         // activo
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ACTIVO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ACTIVO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_ACTIVO));
     }
 
     @Test
     public void trasladarTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(900L);
-        List<Integer> idTipoImporteVentas = Arrays.asList(2001, 2002);
+        final List<Integer> idTipoImporteVentas = Arrays.asList(2001, 2002);
 
-        tareaLocalizacionAbiertaRepositoryCustom.trasladar(tarea, idTipoImporteVentas);
-        verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
-        assertEquals(SQL_TRASLADAR, sql.getValue());
+        this.tareaLocalizacionAbiertaRepositoryCustom.trasladar(tarea, idTipoImporteVentas);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
+        assertEquals(SQL_TRASLADAR, this.sql.getValue());
         // parametros de la consulta: tiposDato, idTarea, cerrado, abierto, nuevoActivo, activo
         // idTipoDatoVentaIpodLocalizacion, idTipoDatoVentaIpodLocalizacionTrasladada
         // idTipoDatoVentaIpodLocalizacionSeccion, idTipoDatoVentaIpodLocalizacionSeccionTrasladada
@@ -138,149 +141,154 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         // idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada
         // idTipoDatoVentaEntregaDomicilioLocalizacionSeccion,
         // idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada
-        assertEquals(22, params.getValue().getValues().size());
+        assertEquals(22, this.params.getValue().getValues().size());
         // tiposDato
-        assertTrue(params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
-        assertEquals(idTipoImporteVentas, params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
+        assertEquals(idTipoImporteVentas, this.params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
         // idTarea
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
-        assertEquals(tarea.getId(), params.getValue().getValue(SQL_PARAM_ID_TAREA));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
         // cerrado
-        assertTrue(params.getValue().hasValue(SQL_PARAM_CERRADO));
-        assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_CERRADO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_CERRADO));
+        assertEquals(SQL_VALUE_BOOLEAN_FALSE, this.params.getValue().getValue(SQL_PARAM_CERRADO));
         // abierto
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ABIERTO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ABIERTO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ABIERTO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_ABIERTO));
         // nuevoActivo
-        assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ACTIVO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_NUEVO_ACTIVO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_NUEVO_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_NUEVO_ACTIVO));
         // activo
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ACTIVO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ACTIVO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_ACTIVO));
         // idTipoDatoVentaIpodLocalizacion
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaIpodLocalizacion"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaIpodLocalizacion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
-                params.getValue().getValue("idTipoDatoVentaIpodLocalizacion"));
+                this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacion"));
         // idTipoDatoVentaIpodLocalizacionSeccion
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionSeccion"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionSeccion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-                params.getValue().getValue("idTipoDatoVentaIpodLocalizacionSeccion"));
+                this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacionSeccion"));
         // idTipoDatoVentaSINTLocalizacion
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaSINTLocalizacion"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaSINTLocalizacion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(),
-                params.getValue().getValue("idTipoDatoVentaSINTLocalizacion"));
+                this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacion"));
         // idTipoDatoVentaSINTLocalizacionSeccion
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionSeccion"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionSeccion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
-                params.getValue().getValue("idTipoDatoVentaSINTLocalizacionSeccion"));
+                this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacionSeccion"));
         // idTipoDatoVentaEntregaTiendaLocalizacion
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacion"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(),
-                params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacion"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacion"));
         // idTipoDatoVentaEntregaTiendaLocalizacionSeccion
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccion"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
-                params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccion"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccion"));
         // idTipoDatoVentaEntregaDomicilioLocalizacion
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacion"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(),
-                params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacion"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacion"));
         // idTipoDatoVentaEntregaDomicilioLocalizacionSeccion
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccion"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccion"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
-                params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccion"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccion"));
         // idTipoDatoVentaIpodLocalizacionTrasladada
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_DIA.getId(),
-                params.getValue().getValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacionTrasladada"));
         // idTipoDatoVentaIpodLocalizacionSeccionTrasladada
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-                params.getValue().getValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaIpodLocalizacionSeccionTrasladada"));
         // idTipoDatoVentaSINTLocalizacionTrasladada
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_DIA.getId(),
-                params.getValue().getValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacionTrasladada"));
         // idTipoDatoVentaSINTLocalizacionSeccionTrasladada
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-                params.getValue().getValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaSINTLocalizacionSeccionTrasladada"));
         // idTipoDatoVentaEntregaTiendaLocalizacionTrasladada
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_DIA.getId(),
-                params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionTrasladada"));
         // idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-                params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada"));
         // idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_DIA.getId(),
-                params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada"));
         // idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada
-        assertTrue(params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
+        assertTrue(this.params.getValue().hasValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-                params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
+                this.params.getValue().getValue("idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada"));
     }
 
     @Test
     public void compensarTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final LocalDate inicioPeriodo = LocalDate.of(2020, 1, 1);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(900L);
-        List<Integer> idTipoImporteVentas = Arrays.asList(2001, 2002);
+        when(tarea.getFechaInicioPeriodo()).thenReturn(inicioPeriodo);
+        final List<Integer> idTipoImporteVentas = Arrays.asList(2001, 2002);
 
-        tareaLocalizacionAbiertaRepositoryCustom.compensar(tarea, idTipoImporteVentas);
-        verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
-        assertEquals(SQL_COMPENSARL, sql.getValue());
+        this.tareaLocalizacionAbiertaRepositoryCustom.compensar(tarea, idTipoImporteVentas);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
+        assertEquals(SQL_COMPENSARL, this.sql.getValue());
         // parametros de la consulta: tiposDato, idTarea, cerrado, nuevoActivo
-        assertEquals(4, params.getValue().getValues().size());
+        assertEquals(5, this.params.getValue().getValues().size());
         // tiposDato
-        assertTrue(params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
-        assertEquals(idTipoImporteVentas, params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
+        assertEquals(idTipoImporteVentas, this.params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
         // idTarea
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
-        assertEquals(tarea.getId(), params.getValue().getValue(SQL_PARAM_ID_TAREA));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
         // cerrado
-        assertTrue(params.getValue().hasValue(SQL_PARAM_CERRADO));
-        assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_CERRADO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_CERRADO));
+        assertEquals(SQL_VALUE_BOOLEAN_FALSE, this.params.getValue().getValue(SQL_PARAM_CERRADO));
         // nuevoActivo
-        assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ACTIVO));
-        assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_NUEVO_ACTIVO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_NUEVO_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_FALSE, this.params.getValue().getValue(SQL_PARAM_NUEVO_ACTIVO));
+        // fecha inicio periodo
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_FECHA_INICIO_PERIODO));
+        assertEquals(TimeUtils.toDate(inicioPeriodo), this.params.getValue().getValue(SQL_PARAM_FECHA_INICIO_PERIODO));
     }
 
     @Test
     public void saveCerradoTest() {
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(6789L);
-        TrabajoDto trabajo = mock(TrabajoDto.class);
-        List<Integer> idTipoImporteVenta = Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
+        final TrabajoDto trabajo = mock(TrabajoDto.class);
+        final List<Integer> idTipoImporteVenta = Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
                 TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(),
                 TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(),
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId());
-        tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tarea, trabajo, idTipoImporteVenta);
-        verify(namedParameterJdbcTemplate, times(1)).update(sql.capture(), params.capture());
-        assertEquals(SQL_SAVE_CERRADO, sql.getValue());
+        this.tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tarea, trabajo, idTipoImporteVenta);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
+        assertEquals(SQL_SAVE_CERRADO, this.sql.getValue());
         // parametros de la consulta: tiposDato, idTarea, nuevoAbierto, idSeccion, activo, abierto
-        assertEquals(6, params.getValue().getValues().size());
+        assertEquals(6, this.params.getValue().getValues().size());
         // tiposDato
-        assertTrue(params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
-        assertEquals(idTipoImporteVenta, params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
+        assertEquals(idTipoImporteVenta, this.params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
         // idTarea
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_TAREA));
-        assertEquals(tarea.getId(), params.getValue().getValue(SQL_PARAM_ID_TAREA));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
         // nuevoAbierto
-        assertTrue(params.getValue().hasValue(SQL_PARAM_NUEVO_ABIERTO));
-        assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue().getValue(SQL_PARAM_NUEVO_ABIERTO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_NUEVO_ABIERTO));
+        assertEquals(SQL_VALUE_BOOLEAN_FALSE, this.params.getValue().getValue(SQL_PARAM_NUEVO_ABIERTO));
         // idSeccion
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ID_SECCION));
-        assertEquals(AppConstants.SECCION_4, params.getValue().getValue(SQL_PARAM_ID_SECCION));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_SECCION));
+        assertEquals(AppConstants.SECCION_4, this.params.getValue().getValue(SQL_PARAM_ID_SECCION));
         // activo
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ACTIVO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ACTIVO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_ACTIVO));
         // abierto
-        assertTrue(params.getValue().hasValue(SQL_PARAM_ABIERTO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue().getValue(SQL_PARAM_ABIERTO));
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ABIERTO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_ABIERTO));
     }
 
 }

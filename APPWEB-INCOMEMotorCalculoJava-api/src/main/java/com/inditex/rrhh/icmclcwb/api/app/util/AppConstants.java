@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.util;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,11 +30,14 @@ public class AppConstants {
 
     public static final Integer TOPE_DEFAULT = 0;
 
-    public static final Integer[] SECCIONES = { SECCION_1, SECCION_2, SECCION_3 };
+    @Getter
+    private static final Integer[] SECCIONES = { SECCION_1, SECCION_2, SECCION_3 };
 
-    public static final List<String> SECCIONES_STRING = Arrays.asList("1", "2", "3");
+    @Getter
+    private static final List<String> SECCIONES_STRING = Arrays.asList("1", "2", "3");
 
-    public static final List<Integer> PRODUCTOS_COMISIONABLES = Arrays.asList(1, 2, 3, 4, 5);
+    @Getter
+    private static final List<Integer> PRODUCTOS_COMISIONABLES = Arrays.asList(1, 2, 3, 4, 5);
 
     public static final Float PORCENTAJE_COMISION = 0.01F;
 

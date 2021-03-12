@@ -11,8 +11,6 @@ import javax.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
@@ -37,11 +35,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
@@ -99,7 +97,7 @@ public class TrabajoServiceImpl implements TrabajoService {
         return trabajo;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo) {
         trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
@@ -159,13 +157,13 @@ public class TrabajoServiceImpl implements TrabajoService {
                 programacion, periodo);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaFin(@NotNull final TrabajoDto trabajo) {
         this.trabajoRepositoryCustom.updateFechaFin(trabajo);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateEstado(@NotNull final TrabajoDto trabajo, @NotNull final EstadoTrabajoDto estado) {
         trabajo.setEstado(estado);

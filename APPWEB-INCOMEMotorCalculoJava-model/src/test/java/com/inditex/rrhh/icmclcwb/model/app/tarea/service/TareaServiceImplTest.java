@@ -11,6 +11,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
@@ -63,6 +65,12 @@ public class TareaServiceImplTest {
 
     @Mock
     private SenderTareaPreValidar senderTareaPreValidar;
+
+    @Mock
+    private TareaFaseService tareaFaseService;
+
+    @Mock
+    private TareaFaseAccionService tareaFaseAccionService;
 
     @Test
     public void saveTest() {

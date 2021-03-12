@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -24,10 +28,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,28 +45,25 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getconfiguracionReturn"
+        "getconfiguracionReturn"
 })
 @XmlRootElement(name = "GETCONFIGURACIONResponse")
-public class GETCONFIGURACIONResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETCONFIGURACIONResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "GETCONFIGURACIONReturn", required = true)
     protected GetconfiguracionOutput getconfiguracionReturn;
 
     /**
      * Obtiene el valor de la propiedad getconfiguracionReturn.
-     * 
-     * @return
-     *     possible object is
-     *     {@link GetconfiguracionOutput }
-     *     
+     * @return possible object is {@link GetconfiguracionOutput }
+     *
      */
     public GetconfiguracionOutput getGETCONFIGURACIONReturn() {
         return getconfiguracionReturn;
@@ -68,18 +71,16 @@ public class GETCONFIGURACIONResponse implements Serializable, Cloneable, CopyTo
 
     /**
      * Define el valor de la propiedad getconfiguracionReturn.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link GetconfiguracionOutput }
-     *     
+     * @param value allowed object is {@link GetconfiguracionOutput }
+     *
      */
     public void setGETCONFIGURACIONReturn(GetconfiguracionOutput value) {
         this.getconfiguracionReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +92,11 @@ public class GETCONFIGURACIONResponse implements Serializable, Cloneable, CopyTo
             lhsGETCONFIGURACIONReturn = this.getGETCONFIGURACIONReturn();
             GetconfiguracionOutput rhsGETCONFIGURACIONReturn;
             rhsGETCONFIGURACIONReturn = that.getGETCONFIGURACIONReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfiguracionReturn", lhsGETCONFIGURACIONReturn), LocatorUtils.property(thatLocator, "getconfiguracionReturn", rhsGETCONFIGURACIONReturn), lhsGETCONFIGURACIONReturn, rhsGETCONFIGURACIONReturn, (this.getconfiguracionReturn!= null), (that.getconfiguracionReturn!= null))) {
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "getconfiguracionReturn", lhsGETCONFIGURACIONReturn),
+                    LocatorUtils.property(thatLocator, "getconfiguracionReturn", rhsGETCONFIGURACIONReturn),
+                    lhsGETCONFIGURACIONReturn, rhsGETCONFIGURACIONReturn, (this.getconfiguracionReturn != null),
+                    (that.getconfiguracionReturn != null))) {
                 return false;
             }
         }
@@ -121,7 +126,8 @@ public class GETCONFIGURACIONResponse implements Serializable, Cloneable, CopyTo
         {
             GetconfiguracionOutput theGETCONFIGURACIONReturn;
             theGETCONFIGURACIONReturn = this.getGETCONFIGURACIONReturn();
-            strategy.appendField(locator, this, "getconfiguracionReturn", buffer, theGETCONFIGURACIONReturn, (this.getconfiguracionReturn!= null));
+            strategy.appendField(locator, this, "getconfiguracionReturn", buffer, theGETCONFIGURACIONReturn,
+                    (this.getconfiguracionReturn != null));
         }
         return buffer;
     }
@@ -131,7 +137,9 @@ public class GETCONFIGURACIONResponse implements Serializable, Cloneable, CopyTo
         {
             GetconfiguracionOutput theGETCONFIGURACIONReturn;
             theGETCONFIGURACIONReturn = this.getGETCONFIGURACIONReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfiguracionReturn", theGETCONFIGURACIONReturn), currentHashCode, theGETCONFIGURACIONReturn, (this.getconfiguracionReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "getconfiguracionReturn", theGETCONFIGURACIONReturn),
+                    currentHashCode, theGETCONFIGURACIONReturn, (this.getconfiguracionReturn != null));
         }
         return currentHashCode;
     }
@@ -151,15 +159,18 @@ public class GETCONFIGURACIONResponse implements Serializable, Cloneable, CopyTo
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETCONFIGURACIONResponse) {
             final GETCONFIGURACIONResponse copy = ((GETCONFIGURACIONResponse) draftCopy);
             {
-                Boolean getconfiguracionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getconfiguracionReturn!= null));
+                Boolean getconfiguracionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.getconfiguracionReturn != null));
                 if (getconfiguracionReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetconfiguracionOutput sourceGETCONFIGURACIONReturn;
                     sourceGETCONFIGURACIONReturn = this.getGETCONFIGURACIONReturn();
-                    GetconfiguracionOutput copyGETCONFIGURACIONReturn = ((GetconfiguracionOutput) strategy.copy(LocatorUtils.property(locator, "getconfiguracionReturn", sourceGETCONFIGURACIONReturn), sourceGETCONFIGURACIONReturn, (this.getconfiguracionReturn!= null)));
+                    GetconfiguracionOutput copyGETCONFIGURACIONReturn = ((GetconfiguracionOutput) strategy.copy(
+                            LocatorUtils.property(locator, "getconfiguracionReturn", sourceGETCONFIGURACIONReturn),
+                            sourceGETCONFIGURACIONReturn, (this.getconfiguracionReturn != null)));
                     copy.setGETCONFIGURACIONReturn(copyGETCONFIGURACIONReturn);
                 } else {
                     if (getconfiguracionReturnShouldBeCopiedAndSet == Boolean.FALSE) {

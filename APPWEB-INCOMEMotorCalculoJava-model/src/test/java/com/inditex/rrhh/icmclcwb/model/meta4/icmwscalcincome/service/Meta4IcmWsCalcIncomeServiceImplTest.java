@@ -12,8 +12,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproducto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
@@ -37,6 +35,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDt
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
@@ -45,7 +45,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getcoefjorna
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchdiasminimosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfpreciohoraOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprevalidOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprodventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetdesplazrealOutput;
@@ -74,8 +73,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconf
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfiguracionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfprevalidBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfprevalidRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListadesplazrealBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListadesplazrealRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoBlock;
@@ -96,13 +93,14 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapres
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestosrangoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestoswlocBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestoswlocRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListasincroBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListasincroRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfprevalidBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
@@ -117,6 +115,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
@@ -125,6 +124,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultado
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SincronizacionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -1808,38 +1808,38 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     }
 
     @Test
-    public void getConfPrevalid() {
-        final IcmParamcalconfprevalidBlock entrada = new IcmParamcalconfprevalidBlock();
-        final GetconfprevalidOutput output = new GetconfprevalidOutput();
-        final IcmListaconfprevalidBlock block = new IcmListaconfprevalidBlock();
-        block.getIcmListaconfprevalidRecordSet().add(new IcmListaconfprevalidRecord());
+    public void sincronizacion() {
+        final IcmParamcalsincroBlock entrada = new IcmParamcalsincroBlock();
+        final SincronizacionOutput output = new SincronizacionOutput();
+        final IcmListasincroBlock block = new IcmListasincroBlock();
+        block.getIcmListasincroRecordSet().add(new IcmListasincroRecord());
         output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaconfprevalid(block);
+        output.setIcmListasincro(block);
 
-        when(this.icmWsCalcIncomeMapper.asIcmParamcalconfprevalidBlock(any(ConfPreValidFilterDto.class)))
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalsincroBlock(any(SincronizacionFilterDto.class)))
             .thenReturn(entrada);
-        when(this.meta4ClientPool.getconfprevalid(any(IcmParamcalconfprevalidBlock.class))).thenReturn(output);
+        when(this.meta4ClientPool.sincronizacion(any(IcmParamcalsincroBlock.class))).thenReturn(output);
 
-        final ConfPreValidRequestDto request = new ConfPreValidRequestDto();
-        request.setData(new ConfPreValidFilterDto());
+        final SincronizacionRequestDto request = new SincronizacionRequestDto();
+        request.setData(new SincronizacionFilterDto());
         request.setPage(new PageDto(1, 100));
-        this.meta4IcmWsCalcIncomeServiceImpl.getConfPrevalid(request);
-        verify(this.meta4ClientPool, times(1)).getconfprevalid(any(IcmParamcalconfprevalidBlock.class));
+        this.meta4IcmWsCalcIncomeServiceImpl.sincronizacion(request);
+        verify(this.meta4ClientPool, times(1)).sincronizacion(any(IcmParamcalsincroBlock.class));
     }
 
     @Test
-    public void getConfPrevalidNullOutput() {
-        final IcmParamcalconfprevalidBlock entrada = new IcmParamcalconfprevalidBlock();
+    public void sincronizacionNullOutput() {
+        final IcmParamcalsincroBlock entrada = new IcmParamcalsincroBlock();
 
-        when(this.icmWsCalcIncomeMapper.asIcmParamcalconfprevalidBlock(any(ConfPreValidFilterDto.class)))
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalsincroBlock(any(SincronizacionFilterDto.class)))
             .thenReturn(entrada);
-        when(this.meta4ClientPool.getconfprevalid(any(IcmParamcalconfprevalidBlock.class))).thenReturn(null);
+        when(this.meta4ClientPool.sincronizacion(any(IcmParamcalsincroBlock.class))).thenReturn(null);
 
-        final ConfPreValidRequestDto request = new ConfPreValidRequestDto();
-        request.setData(new ConfPreValidFilterDto());
+        final SincronizacionRequestDto request = new SincronizacionRequestDto();
+        request.setData(new SincronizacionFilterDto());
         request.setPage(new PageDto(1, 100));
-        this.meta4IcmWsCalcIncomeServiceImpl.getConfPrevalid(request);
-        verify(this.meta4ClientPool, times(1)).getconfprevalid(any(IcmParamcalconfprevalidBlock.class));
+        this.meta4IcmWsCalcIncomeServiceImpl.sincronizacion(request);
+        verify(this.meta4ClientPool, times(1)).sincronizacion(any(IcmParamcalsincroBlock.class));
     }
 
 }

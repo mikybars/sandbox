@@ -36,9 +36,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confprevalid.ConfPreValidResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
@@ -66,6 +63,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagC
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
@@ -83,15 +82,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidoff.dto.PreValidOffResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.prevalidon.dto.PreValidOnResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.reqprevalidoff.dto.ReqPreValidOffResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
@@ -99,6 +89,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -119,7 +112,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getconfchdia
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfpreciohoraOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprevalidOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprodventaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetdesplazmultiempresaOutput;
@@ -132,14 +124,13 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getestructur
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmotivosdesplazamientoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualwlocOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestosrangoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestoswlocOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetprevalidoffOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetprevalidonOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventacongeladaOutput;
@@ -148,7 +139,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalc
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfprevalidBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
@@ -156,23 +146,23 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcale
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmotivosBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmultiempresaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvaloffBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalvalonBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.ReqprevalidoffOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SincronizacionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -454,14 +444,13 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             .asIcmParamcalestructuraBlock(request.getData());
         final GetestructurascomOutput getEstructurasComOutput = this.meta4ClientPool.getestructurascom(param1);
         if ((getEstructurasComOutput != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getEstructurasComOutput.getReturn()) == 0)) {
-            if ((getEstructurasComOutput.getIcmListaestructura() != null) && CollectionUtils
-                .isNotEmpty(getEstructurasComOutput.getIcmListaestructura().getIcmListaestructuraRecordSet())) {
-                final List<EstructurasComResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asEstructurasComResultItemDtos(
-                            getEstructurasComOutput.getIcmListaestructura().getIcmListaestructuraRecordSet());
-                result.setData(items);
-            }
+                && (Double.compare(NumberUtils.DOUBLE_ZERO, getEstructurasComOutput.getReturn()) == 0)
+                && (getEstructurasComOutput.getIcmListaestructura() != null) && CollectionUtils
+                    .isNotEmpty(getEstructurasComOutput.getIcmListaestructura().getIcmListaestructuraRecordSet())) {
+            final List<EstructurasComResultItemDto> items = this.icmWsCalcIncomeMapper
+                .asEstructurasComResultItemDtos(
+                        getEstructurasComOutput.getIcmListaestructura().getIcmListaestructuraRecordSet());
+            result.setData(items);
         }
 
         return result;
@@ -474,14 +463,13 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             .asIcmParamcalestructuraBlock(request.getData());
         final GetestructuraspolOutput getEstructurasPolOutput = this.meta4ClientPool.getestructuraspol(param1);
         if ((getEstructurasPolOutput != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getEstructurasPolOutput.getReturn()) == 0)) {
-            if ((getEstructurasPolOutput.getIcmListapoliticas() != null) && CollectionUtils
-                .isNotEmpty(getEstructurasPolOutput.getIcmListapoliticas().getIcmListapoliticasRecordSet())) {
-                final List<EstructurasPolResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asEstructurasPolResultItemDto(
-                            getEstructurasPolOutput.getIcmListapoliticas().getIcmListapoliticasRecordSet());
-                result.setData(items);
-            }
+                && (Double.compare(NumberUtils.DOUBLE_ZERO, getEstructurasPolOutput.getReturn()) == 0)
+                && (getEstructurasPolOutput.getIcmListapoliticas() != null) && CollectionUtils
+                    .isNotEmpty(getEstructurasPolOutput.getIcmListapoliticas().getIcmListapoliticasRecordSet())) {
+            final List<EstructurasPolResultItemDto> items = this.icmWsCalcIncomeMapper
+                .asEstructurasPolResultItemDto(
+                        getEstructurasPolOutput.getIcmListapoliticas().getIcmListapoliticasRecordSet());
+            result.setData(items);
         }
 
         return result;
@@ -740,14 +728,13 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             .asIcmParamcalconfchdiasBlock(request.getData());
         final GetconfchdiasminimosOutput getConfChDiasMinimos = this.meta4ClientPool.getconfchdiasminimos(param1);
         if ((getConfChDiasMinimos != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfChDiasMinimos.getReturn()) == 0)) {
-            if ((getConfChDiasMinimos.getIcmListaconfchdias() != null) && CollectionUtils
-                .isNotEmpty(getConfChDiasMinimos.getIcmListaconfchdias().getIcmListaconfchdiasRecordSet())) {
-                final List<ConfChDiasMinimosResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asConfChDiasMinimosResultItemDto(
-                            getConfChDiasMinimos.getIcmListaconfchdias().getIcmListaconfchdiasRecordSet());
-                result.setData(items);
-            }
+                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfChDiasMinimos.getReturn()) == 0)
+                && (getConfChDiasMinimos.getIcmListaconfchdias() != null) && CollectionUtils
+                    .isNotEmpty(getConfChDiasMinimos.getIcmListaconfchdias().getIcmListaconfchdiasRecordSet())) {
+            final List<ConfChDiasMinimosResultItemDto> items = this.icmWsCalcIncomeMapper
+                .asConfChDiasMinimosResultItemDto(
+                        getConfChDiasMinimos.getIcmListaconfchdias().getIcmListaconfchdiasRecordSet());
+            result.setData(items);
         }
         return result;
     }
@@ -787,14 +774,13 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             .asIcmParamcalconfpreciohoraBlock(request.getData());
         final GetconfpreciohoraOutput getConfPrecioHora = this.meta4ClientPool.getconfpreciohora(param1);
         if ((getConfPrecioHora != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfPrecioHora.getReturn()) == 0)) {
-            if ((getConfPrecioHora.getIcmListaconfpreciohora() != null) && CollectionUtils
-                .isNotEmpty(getConfPrecioHora.getIcmListaconfpreciohora().getIcmListaconfpreciohoraRecordSet())) {
-                final List<ConfPrecioHoraResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asConfPrecioHoraResultItemDto(
-                            getConfPrecioHora.getIcmListaconfpreciohora().getIcmListaconfpreciohoraRecordSet());
-                result.setData(items);
-            }
+                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfPrecioHora.getReturn()) == 0)
+                && (getConfPrecioHora.getIcmListaconfpreciohora() != null) && CollectionUtils
+                    .isNotEmpty(getConfPrecioHora.getIcmListaconfpreciohora().getIcmListaconfpreciohoraRecordSet())) {
+            final List<ConfPrecioHoraResultItemDto> items = this.icmWsCalcIncomeMapper
+                .asConfPrecioHoraResultItemDto(
+                        getConfPrecioHora.getIcmListaconfpreciohora().getIcmListaconfpreciohoraRecordSet());
+            result.setData(items);
         }
         return result;
     }
@@ -806,13 +792,12 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             .asIcmParamcalconfchventaBlock(request.getData());
         final GetconfchtpventaOutput getConfChallengeTpVenta = this.meta4ClientPool.getconfchtpventa(param1);
         if ((getConfChallengeTpVenta != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfChallengeTpVenta.getReturn()) == 0)) {
-            if ((getConfChallengeTpVenta.getIcmListaconfchventa() != null) && CollectionUtils
-                .isNotEmpty(getConfChallengeTpVenta.getIcmListaconfchventa().getIcmListaconfchventaRecordSet())) {
-                final List<ConfChTpVentaResultItemDto> items = this.icmWsCalcIncomeMapper.asConfChTpVentaResultItemDto(
-                        getConfChallengeTpVenta.getIcmListaconfchventa().getIcmListaconfchventaRecordSet());
-                result.setData(items);
-            }
+                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfChallengeTpVenta.getReturn()) == 0)
+                && (getConfChallengeTpVenta.getIcmListaconfchventa() != null) && CollectionUtils
+                    .isNotEmpty(getConfChallengeTpVenta.getIcmListaconfchventa().getIcmListaconfchventaRecordSet())) {
+            final List<ConfChTpVentaResultItemDto> items = this.icmWsCalcIncomeMapper.asConfChTpVentaResultItemDto(
+                    getConfChallengeTpVenta.getIcmListaconfchventa().getIcmListaconfchventaRecordSet());
+            result.setData(items);
         }
         return result;
     }
@@ -911,82 +896,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     }
 
     @Override
-    public ConfPreValidResponseDto getConfPrevalid(final ConfPreValidRequestDto request) {
-        final ConfPreValidResponseDto result = new ConfPreValidResponseDto();
-        final IcmParamcalconfprevalidBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParamcalconfprevalidBlock(request.getData());
-        final GetconfprevalidOutput getConfPrevalid = this.meta4ClientPool.getconfprevalid(param1);
-        if ((getConfPrevalid != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getConfPrevalid.getReturn()) == 0)) {
-            if ((getConfPrevalid.getIcmListaconfprevalid() != null) && CollectionUtils
-                .isNotEmpty(getConfPrevalid.getIcmListaconfprevalid().getIcmListaconfprevalidRecordSet())) {
-                final List<ConfPreValidResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asConfPreValidResultItemDto(
-                            getConfPrevalid.getIcmListaconfprevalid().getIcmListaconfprevalidRecordSet());
-                result.setData(items);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public PreValidOnResponseDto getPrevalidOn(final PreValidOnRequestDto request) {
-        final PreValidOnResponseDto result = new PreValidOnResponseDto();
-        final IcmParamcalvalonBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParamcalvalonBlock(request.getData());
-        final GetprevalidonOutput getprevalidonOutput = this.meta4ClientPool.getprevalidon(param1);
-        if ((getprevalidonOutput != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getprevalidonOutput.getReturn()) == 0)) {
-            if ((getprevalidonOutput.getIcmListaprevalid() != null) && CollectionUtils
-                .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) {
-                final List<PreValidOnResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asPreValidOnResultItemDto(
-                            getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet());
-                result.setData(items);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public PreValidOffResponseDto getPrevalidOff(final PreValidOffRequestDto request) {
-        final PreValidOffResponseDto result = new PreValidOffResponseDto();
-        final IcmParamcalvaloffBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParamcalvaloffBlock(request.getData());
-        final GetprevalidoffOutput getprevalidonOutput = this.meta4ClientPool.getprevalidoff(param1);
-        if ((getprevalidonOutput != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getprevalidonOutput.getReturn()) == 0)) {
-            if ((getprevalidonOutput.getIcmListaprevalid() != null) && CollectionUtils
-                .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) {
-                final List<PreValidOffResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asPreValidOffResultItemDto(
-                            getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet());
-                result.setData(items);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public ReqPreValidOffResponseDto reqPrevalidOff(final ReqPreValidOffRequestDto request) {
-        final ReqPreValidOffResponseDto result = new ReqPreValidOffResponseDto();
-        final IcmParamcalvaloffBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParamcalvaloffBlock(request.getData());
-        final ReqprevalidoffOutput getprevalidonOutput = this.meta4ClientPool.reqprevalidoff(param1);
-        if ((getprevalidonOutput != null)
-                && (Double.compare(NumberUtils.DOUBLE_ZERO, getprevalidonOutput.getReturn()) == 0)) {
-            if ((getprevalidonOutput.getIcmListaprevalid() != null) && CollectionUtils
-                .isNotEmpty(getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet())) {
-                final List<ReqPreValidOffResultItemDto> items = this.icmWsCalcIncomeMapper
-                    .asReqPreValidOffResultItemDto(
-                            getprevalidonOutput.getIcmListaprevalid().getIcmListaprevalidRecordSet());
-                result.setData(items);
-            }
-        }
-        return result;
-    }
-
-    @Override
     public PresenciaManualWlocResponseDto getPresenciaManualWloc(final PresenciaManualWlocRequestDto request) {
         final PresenciaManualWlocResponseDto result = new PresenciaManualWlocResponseDto();
         final IcmParamcaltiendasBlock param1 = this.icmWsCalcIncomeMapper
@@ -1044,6 +953,41 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
             }
         }
         return result;
+    }
+
+    @Override
+    public SincronizacionResponseDto sincronizacion(final SincronizacionRequestDto request) {
+        final SincronizacionResponseDto result = new SincronizacionResponseDto();
+        final IcmParamcalsincroBlock param1 = this.icmWsCalcIncomeMapper
+            .asIcmParamcalsincroBlock(request.getData());
+        final SincronizacionOutput sincronizacion = this.meta4ClientPool.sincronizacion(param1);
+        if ((sincronizacion != null)
+                && (Double.compare(NumberUtils.DOUBLE_ZERO, sincronizacion.getReturn()) == 0)
+                && (sincronizacion.getIcmListasincro() != null) && CollectionUtils
+                    .isNotEmpty(sincronizacion.getIcmListasincro().getIcmListasincroRecordSet())) {
+            final List<SincronizacionResultItemDto> items = this.icmWsCalcIncomeMapper
+                .asSincronizacionResultItemDto(
+                        sincronizacion.getIcmListasincro().getIcmListasincroRecordSet());
+            result.setData(items);
+        }
+        return result;
+    }
+
+    @Override
+    public MotivosDesplazamientoResponseDto getMotivosDesplazamiento(
+            final MotivosDesplazamientoRequestDto request) {
+        final IcmParamcalmotivosBlock param = this.icmWsCalcIncomeMapper.asIcmParamcalmotivosBlock(request);
+
+        final GetmotivosdesplazamientoOutput motivosdesplazamiento = this.meta4ClientPool
+            .getmotivosdesplazamiento(param);
+
+        return MotivosDesplazamientoResponseDto
+            .builder()
+            .items(this.icmWsCalcIncomeMapper
+                .asMotivosDesplazamientoItemDto(
+                        motivosdesplazamiento.getIcmListamotivos().getIcmListamotivosRecordSet()))
+            .build();
+
     }
 
 }

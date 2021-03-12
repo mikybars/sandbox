@@ -1,19 +1,19 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.service;
 
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoAjusteService;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.AlgoritmoAjusteMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.OptionalUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoAjusteRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoAjusteRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoAjusteService;
-import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.AlgoritmoAjusteMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoAjusteRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoAjusteRepositoryCustom;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -31,24 +31,26 @@ public class AlgoritmoAjusteServiceImpl implements AlgoritmoAjusteService {
 
     @Override
     public List<Long> customFindAjustePesosByTarea(@NotNull @Positive final Long id) {
-        return algoritmoAjusteRepositoryCustom.customFindAjustePesosByTarea(id);
+        return this.algoritmoAjusteRepositoryCustom.customFindAjustePesosByTarea(id);
     }
 
     @Override
     public List<Integer> customFindAjusteIdsByTareaAndPeso(@NotNull @Positive final Long idTarea,
             @NotNull @Positive final Long peso) {
-        return algoritmoAjusteRepositoryCustom.customFindAjusteIdsByTareaAndPeso(idTarea, peso);
+        return this.algoritmoAjusteRepositoryCustom.customFindAjusteIdsByTareaAndPeso(idTarea, peso);
     }
 
     @Override
     public AlgoritmoAjusteDto findById(@NotNull @Positive final Integer id) {
-        return algoritmoAjusteMapper.algoritmoAjusteToAlgoritmoAjusteDto(algoritmoAjusteRepository.findById(id).get());
+        return this.algoritmoAjusteMapper
+            .algoritmoAjusteToAlgoritmoAjusteDto(OptionalUtils.get(this.algoritmoAjusteRepository.findById(id)));
     }
 
     @Override
     public List<AlgoritmoAjusteDto> findByPeso(@NotNull @Positive final Long id) {
-        return algoritmoAjusteMapper
-            .algoritmoAjusteToAlgoritmoAjusteDto(algoritmoAjusteRepository.findByPeso(id).get());
+        return this.algoritmoAjusteMapper
+            .algoritmoAjusteToAlgoritmoAjusteDto(
+                    OptionalUtils.get(this.algoritmoAjusteRepository.findByPeso(id), new ArrayList<>()));
     }
 
 }

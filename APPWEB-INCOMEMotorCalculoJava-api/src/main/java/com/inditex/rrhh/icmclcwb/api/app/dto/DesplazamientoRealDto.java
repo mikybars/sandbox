@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class DesplazamientoRealDto implements Serializable{
+public class DesplazamientoRealDto implements Serializable {
 
     @NotNull
     private LocalDate fechaInicio;
@@ -26,16 +26,16 @@ public class DesplazamientoRealDto implements Serializable{
     private String cclIdOrigen;
 
     private String idEstructura;
-    
+
     private String idEstructuraBase;
 
     private String idEstructuraPadre;
-    
+
     private String idEstructuraAmbito;
 
     @NotBlank
     private String stdIdHr;
-    
+
     @NotBlank
     private String stdOrHrPeriod;
 

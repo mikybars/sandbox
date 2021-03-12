@@ -2,11 +2,13 @@ package com.inditex.rrhh.icmclcwb.api.app.limpieza.service;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface LimpiezaService {
 
-    void runTarea(@NotNull @Valid final TareaDto tarea);
+    void runTarea(@NotNull @Valid final RunLimpiezaDto tarea);
 
     void limpiezaTareaPersonaHistorico(@NotNull @Valid final TareaDto tarea);
 
@@ -23,5 +25,7 @@ public interface LimpiezaService {
     void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NotNull @Valid final TareaDto tarea);
 
     void limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid final TareaDto tarea);
+
+    void limpiezaAmbito(@NotNull @Valid TareaDto tarea);
 
 }

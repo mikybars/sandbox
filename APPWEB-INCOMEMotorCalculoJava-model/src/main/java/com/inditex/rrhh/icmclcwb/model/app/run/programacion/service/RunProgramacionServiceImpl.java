@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.run.programacion.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -10,12 +12,11 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.async.service.ProgramacionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
@@ -31,9 +32,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCal
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
-import com.inditex.rrhh.icmclcwb.ms.app.programacion.SenderProgramacion;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.ms.app.programacion.SenderProgramacion;
 import org.slf4j.Logger;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
@@ -47,6 +52,9 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
 
     @Autowired
     private ProgramacionService programacionService;
+
+    @Autowired
+    private ProgramacionAsyncService programacionAsyncService;
 
     @Autowired
     private PeriodoMapper periodoMapper;
@@ -71,7 +79,8 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
             metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.counter")
     @Override
     public RunProgramacionDto run(@NotNull @Valid final Long id) {
-        final ProgramacionDto programacion = this.programacionService.findPendienteById(id);
+        // Se usa el findById en lugar de findPendienteById id porque ya no están marcadas como pendientes
+        final ProgramacionDto programacion = this.programacionService.findActivoById(id);
         final RunProgramacionDto runProgramacion = RunProgramacionDto.builder()
             .programacion(programacion)
             .runProgramacionPeriodo(new ArrayList<>())
@@ -110,18 +119,31 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     }
 
     @Auditoria
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<RunProgramacionDto> create() {
-        final List<RunProgramacionDto> result = new ArrayList<>();
-        this.programacionService.findPendiente().parallelStream().forEach(programacion -> {
-            this.senderProgramacion.send(IdProgramacionDto.builder().id(programacion.getId()).build());
-            final RunProgramacionDto runProgramacion = RunProgramacionDto.builder()
+        final List<ProgramacionDto> pendientes = this.programacionService.findPendiente();
+        // Obtencion del resultado final sin esperar al envio de las programaciones
+        final List<RunProgramacionDto> result = pendientes.stream()
+            .map(programacion -> RunProgramacionDto
+                .builder()
                 .programacion(programacion)
                 .runProgramacionPeriodo(new ArrayList<>())
-                .build();
-            result.add(runProgramacion);
-        });
+                .build())
+            .collect(Collectors.toList());
+        // Se establece la fecha de la siguiente ejecución inmediatamente
+        if (CollectionUtils.isNotEmpty(pendientes)) {
+            final CompletableFuture<Void> future = this.programacionAsyncService
+                .updateFechaSiguienteEjecucion(pendientes);
+            Mono.fromFuture(future)
+                .subscribe(v ->
+                // Y se envían a la cola
+                Flux.fromIterable(pendientes)
+                    .parallel()
+                    .runOn(ItxSchedulers.single())
+                    .subscribe(programacion -> this.senderProgramacion
+                        .send(IdProgramacionDto.builder().id(programacion.getId()).build())));
+        }
         return result;
     }
 

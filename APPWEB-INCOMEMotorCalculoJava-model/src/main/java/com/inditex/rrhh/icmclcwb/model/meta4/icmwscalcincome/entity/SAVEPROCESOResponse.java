@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -24,10 +28,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,28 +45,25 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "saveprocesoReturn"
+        "saveprocesoReturn"
 })
 @XmlRootElement(name = "SAVEPROCESOResponse")
-public class SAVEPROCESOResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class SAVEPROCESOResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "SAVEPROCESOReturn", required = true)
     protected SaveprocesoOutput saveprocesoReturn;
 
     /**
      * Obtiene el valor de la propiedad saveprocesoReturn.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SaveprocesoOutput }
-     *     
+     * @return possible object is {@link SaveprocesoOutput }
+     *
      */
     public SaveprocesoOutput getSAVEPROCESOReturn() {
         return saveprocesoReturn;
@@ -68,18 +71,16 @@ public class SAVEPROCESOResponse implements Serializable, Cloneable, CopyTo2, Eq
 
     /**
      * Define el valor de la propiedad saveprocesoReturn.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SaveprocesoOutput }
-     *     
+     * @param value allowed object is {@link SaveprocesoOutput }
+     *
      */
     public void setSAVEPROCESOReturn(SaveprocesoOutput value) {
         this.saveprocesoReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +92,9 @@ public class SAVEPROCESOResponse implements Serializable, Cloneable, CopyTo2, Eq
             lhsSAVEPROCESOReturn = this.getSAVEPROCESOReturn();
             SaveprocesoOutput rhsSAVEPROCESOReturn;
             rhsSAVEPROCESOReturn = that.getSAVEPROCESOReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "saveprocesoReturn", lhsSAVEPROCESOReturn), LocatorUtils.property(thatLocator, "saveprocesoReturn", rhsSAVEPROCESOReturn), lhsSAVEPROCESOReturn, rhsSAVEPROCESOReturn, (this.saveprocesoReturn!= null), (that.saveprocesoReturn!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "saveprocesoReturn", lhsSAVEPROCESOReturn),
+                    LocatorUtils.property(thatLocator, "saveprocesoReturn", rhsSAVEPROCESOReturn), lhsSAVEPROCESOReturn,
+                    rhsSAVEPROCESOReturn, (this.saveprocesoReturn != null), (that.saveprocesoReturn != null))) {
                 return false;
             }
         }
@@ -121,7 +124,8 @@ public class SAVEPROCESOResponse implements Serializable, Cloneable, CopyTo2, Eq
         {
             SaveprocesoOutput theSAVEPROCESOReturn;
             theSAVEPROCESOReturn = this.getSAVEPROCESOReturn();
-            strategy.appendField(locator, this, "saveprocesoReturn", buffer, theSAVEPROCESOReturn, (this.saveprocesoReturn!= null));
+            strategy.appendField(locator, this, "saveprocesoReturn", buffer, theSAVEPROCESOReturn,
+                    (this.saveprocesoReturn != null));
         }
         return buffer;
     }
@@ -131,7 +135,9 @@ public class SAVEPROCESOResponse implements Serializable, Cloneable, CopyTo2, Eq
         {
             SaveprocesoOutput theSAVEPROCESOReturn;
             theSAVEPROCESOReturn = this.getSAVEPROCESOReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "saveprocesoReturn", theSAVEPROCESOReturn), currentHashCode, theSAVEPROCESOReturn, (this.saveprocesoReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "saveprocesoReturn", theSAVEPROCESOReturn), currentHashCode,
+                    theSAVEPROCESOReturn, (this.saveprocesoReturn != null));
         }
         return currentHashCode;
     }
@@ -151,15 +157,18 @@ public class SAVEPROCESOResponse implements Serializable, Cloneable, CopyTo2, Eq
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof SAVEPROCESOResponse) {
             final SAVEPROCESOResponse copy = ((SAVEPROCESOResponse) draftCopy);
             {
-                Boolean saveprocesoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.saveprocesoReturn!= null));
+                Boolean saveprocesoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.saveprocesoReturn != null));
                 if (saveprocesoReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     SaveprocesoOutput sourceSAVEPROCESOReturn;
                     sourceSAVEPROCESOReturn = this.getSAVEPROCESOReturn();
-                    SaveprocesoOutput copySAVEPROCESOReturn = ((SaveprocesoOutput) strategy.copy(LocatorUtils.property(locator, "saveprocesoReturn", sourceSAVEPROCESOReturn), sourceSAVEPROCESOReturn, (this.saveprocesoReturn!= null)));
+                    SaveprocesoOutput copySAVEPROCESOReturn = ((SaveprocesoOutput) strategy.copy(
+                            LocatorUtils.property(locator, "saveprocesoReturn", sourceSAVEPROCESOReturn),
+                            sourceSAVEPROCESOReturn, (this.saveprocesoReturn != null)));
                     copy.setSAVEPROCESOReturn(copySAVEPROCESOReturn);
                 } else {
                     if (saveprocesoReturnShouldBeCopiedAndSet == Boolean.FALSE) {

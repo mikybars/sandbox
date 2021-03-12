@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -24,10 +28,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,28 +45,25 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getagruponlineReturn"
+        "getagruponlineReturn"
 })
 @XmlRootElement(name = "GETAGRUPONLINEResponse")
-public class GETAGRUPONLINEResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETAGRUPONLINEResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "GETAGRUPONLINEReturn", required = true)
     protected GetagruponlineOutput getagruponlineReturn;
 
     /**
      * Obtiene el valor de la propiedad getagruponlineReturn.
-     * 
-     * @return
-     *     possible object is
-     *     {@link GetagruponlineOutput }
-     *     
+     * @return possible object is {@link GetagruponlineOutput }
+     *
      */
     public GetagruponlineOutput getGETAGRUPONLINEReturn() {
         return getagruponlineReturn;
@@ -68,18 +71,16 @@ public class GETAGRUPONLINEResponse implements Serializable, Cloneable, CopyTo2,
 
     /**
      * Define el valor de la propiedad getagruponlineReturn.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link GetagruponlineOutput }
-     *     
+     * @param value allowed object is {@link GetagruponlineOutput }
+     *
      */
     public void setGETAGRUPONLINEReturn(GetagruponlineOutput value) {
         this.getagruponlineReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +92,10 @@ public class GETAGRUPONLINEResponse implements Serializable, Cloneable, CopyTo2,
             lhsGETAGRUPONLINEReturn = this.getGETAGRUPONLINEReturn();
             GetagruponlineOutput rhsGETAGRUPONLINEReturn;
             rhsGETAGRUPONLINEReturn = that.getGETAGRUPONLINEReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getagruponlineReturn", lhsGETAGRUPONLINEReturn), LocatorUtils.property(thatLocator, "getagruponlineReturn", rhsGETAGRUPONLINEReturn), lhsGETAGRUPONLINEReturn, rhsGETAGRUPONLINEReturn, (this.getagruponlineReturn!= null), (that.getagruponlineReturn!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getagruponlineReturn", lhsGETAGRUPONLINEReturn),
+                    LocatorUtils.property(thatLocator, "getagruponlineReturn", rhsGETAGRUPONLINEReturn),
+                    lhsGETAGRUPONLINEReturn, rhsGETAGRUPONLINEReturn, (this.getagruponlineReturn != null),
+                    (that.getagruponlineReturn != null))) {
                 return false;
             }
         }
@@ -121,7 +125,8 @@ public class GETAGRUPONLINEResponse implements Serializable, Cloneable, CopyTo2,
         {
             GetagruponlineOutput theGETAGRUPONLINEReturn;
             theGETAGRUPONLINEReturn = this.getGETAGRUPONLINEReturn();
-            strategy.appendField(locator, this, "getagruponlineReturn", buffer, theGETAGRUPONLINEReturn, (this.getagruponlineReturn!= null));
+            strategy.appendField(locator, this, "getagruponlineReturn", buffer, theGETAGRUPONLINEReturn,
+                    (this.getagruponlineReturn != null));
         }
         return buffer;
     }
@@ -131,7 +136,9 @@ public class GETAGRUPONLINEResponse implements Serializable, Cloneable, CopyTo2,
         {
             GetagruponlineOutput theGETAGRUPONLINEReturn;
             theGETAGRUPONLINEReturn = this.getGETAGRUPONLINEReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getagruponlineReturn", theGETAGRUPONLINEReturn), currentHashCode, theGETAGRUPONLINEReturn, (this.getagruponlineReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "getagruponlineReturn", theGETAGRUPONLINEReturn), currentHashCode,
+                    theGETAGRUPONLINEReturn, (this.getagruponlineReturn != null));
         }
         return currentHashCode;
     }
@@ -151,15 +158,18 @@ public class GETAGRUPONLINEResponse implements Serializable, Cloneable, CopyTo2,
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETAGRUPONLINEResponse) {
             final GETAGRUPONLINEResponse copy = ((GETAGRUPONLINEResponse) draftCopy);
             {
-                Boolean getagruponlineReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getagruponlineReturn!= null));
+                Boolean getagruponlineReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.getagruponlineReturn != null));
                 if (getagruponlineReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetagruponlineOutput sourceGETAGRUPONLINEReturn;
                     sourceGETAGRUPONLINEReturn = this.getGETAGRUPONLINEReturn();
-                    GetagruponlineOutput copyGETAGRUPONLINEReturn = ((GetagruponlineOutput) strategy.copy(LocatorUtils.property(locator, "getagruponlineReturn", sourceGETAGRUPONLINEReturn), sourceGETAGRUPONLINEReturn, (this.getagruponlineReturn!= null)));
+                    GetagruponlineOutput copyGETAGRUPONLINEReturn = ((GetagruponlineOutput) strategy.copy(
+                            LocatorUtils.property(locator, "getagruponlineReturn", sourceGETAGRUPONLINEReturn),
+                            sourceGETAGRUPONLINEReturn, (this.getagruponlineReturn != null)));
                     copy.setGETAGRUPONLINEReturn(copyGETAGRUPONLINEReturn);
                 } else {
                     if (getagruponlineReturnShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -1,15 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.app.util;
 
+import com.inditex.rrhh.icmclcwb.api.app.exception.AsyncIcmclcwbException;
+import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
-import org.apache.commons.lang3.ArrayUtils;
-import org.springframework.stereotype.Component;
-
-import com.inditex.rrhh.icmclcwb.api.app.exception.AsyncIcmclcwbException;
 
 @Component
 public class AsyncUtils {
@@ -17,7 +15,7 @@ public class AsyncUtils {
     private AsyncUtils() {
     }
 
-    public static void checkAsyncAvaliable(final List<CompletableFuture<?>> cfList, Integer maxSize) {
+    public static void checkAsyncAvaliable(final List<CompletableFuture<?>> cfList, final Integer maxSize) {
         if (cfList.size() >= maxSize.intValue()) {
             AsyncUtils.waitAnyOfIsOk(cfList, cfList);
         }
@@ -47,7 +45,7 @@ public class AsyncUtils {
 
     public static void isOk(final List<CompletableFuture<?>> cfList) {
         final List<CompletableFuture<?>> cfListRemove = new ArrayList<>();
-        for (CompletableFuture<?> item : cfList) {
+        for (final CompletableFuture<?> item : cfList) {
             if (item.isCompletedExceptionally()) {
                 throw new AsyncIcmclcwbException("AsyncUtils.isOk() == false");
             } else if (item.isDone()) {
@@ -91,10 +89,13 @@ public class AsyncUtils {
         AsyncUtils.isOk(cfWait);
     }
 
-    public static <T> T get(CompletableFuture<T> cf) {
+    public static <T> T get(final CompletableFuture<T> cf) {
         try {
             return cf.get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (final InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new AsyncIcmclcwbException("Error al recuperar los datos asincronamente", e);
+        } catch (final ExecutionException e) {
             throw new AsyncIcmclcwbException("Error al recuperar los datos asincronamente", e);
         }
     }

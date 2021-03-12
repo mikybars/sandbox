@@ -1,9 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.util;
 
-import java.util.concurrent.CountDownLatch;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
 import org.springframework.stereotype.Component;
 
-import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
+import java.util.concurrent.CountDownLatch;
 
 @Component
 public class ReactorUtils {
@@ -14,7 +14,8 @@ public class ReactorUtils {
     public static void await(final CountDownLatch latch) {
         try {
             latch.await();
-        } catch (InterruptedException e) {
+        } catch (final InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new ReactorIcmclcwbException("Error ReactorUtils.ReactorUtils()", e);
         }
     }

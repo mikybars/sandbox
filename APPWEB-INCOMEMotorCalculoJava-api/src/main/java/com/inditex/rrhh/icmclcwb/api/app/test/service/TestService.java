@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.app.test.service;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 
@@ -26,5 +27,11 @@ public interface TestService {
     String sqlFormatter(@NotBlank String sql);
 
     Boolean testUrl(@NotBlank String sql);
+
+    void sendMail();
+
+    void comisTest();
+
+    void ptrTest();
 
 }

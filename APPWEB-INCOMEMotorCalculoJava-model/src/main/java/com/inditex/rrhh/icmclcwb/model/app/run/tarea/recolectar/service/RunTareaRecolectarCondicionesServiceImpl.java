@@ -18,7 +18,10 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEcommerceAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEmpleadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.AccionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
@@ -42,6 +45,9 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
 
     @Autowired
     private RunTareaRecolectarPtrVentaEmpleadoAsyncService runTareaRecolectarPtrVentaEmpleadoAsyncService;
+
+    @Autowired
+    private RunTareaPrevalidarDuranteService runTareaPrevalidarDuranteService;
 
     @Auditoria
     @TimerFunctionalMetric(metricName = "RunTareaRecolectarCondicionesService.run.timer",
@@ -203,6 +209,9 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             final CompletableFuture<Void> cfPresenciasDetalleComisionablePersona = this.runTareaRecolectarPtrPresenciaAsyncService
                 .presenciaDetalleComisionablePersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciasDetalleComisionablePersona, cf, cfWait);
+
+            this.runTareaPrevalidarDuranteService.run(runTarea, FaseEnum.RECOLECTAR.getDto(),
+                    AccionEnum.PRESENCIAS.getDto());
 
             // Coeficiente de reduccion de jornada
             final CompletableFuture<Void> cfCoefJornada = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService

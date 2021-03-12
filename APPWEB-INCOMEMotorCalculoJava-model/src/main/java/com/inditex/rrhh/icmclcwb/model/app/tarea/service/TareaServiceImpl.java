@@ -10,17 +10,18 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.dto.RunMantenimientoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
@@ -52,6 +53,9 @@ public class TareaServiceImpl implements TareaService {
     private TareaAmbitoPersonaService tareaAmbitoPersonaService;
 
     @Autowired
+    private TareaLimpiezaService tareaLimpiezaService;
+
+    @Autowired
     private SenderTarea senderTarea;
 
     @Override
@@ -66,6 +70,14 @@ public class TareaServiceImpl implements TareaService {
         tarea.setLocalizacion(this.tareaAmbitoLocalizacionService.findByTarea(tarea));
         tarea.setPersona(this.tareaAmbitoPersonaService.findByTarea(tarea));
         return tarea;
+    }
+
+    @Override
+    public TareaDto findByIdLimpieza(
+            @NotNull @Positive final Long idLimpieza) {
+        // TODO [javierev] mejorar esta obtención de tarea
+        final TareaLimpiezaDto tareaLimpiezaDto = this.tareaLimpiezaService.find(idLimpieza);
+        return tareaLimpiezaDto != null ? this.find(tareaLimpiezaDto.getIdTarea()) : null;
     }
 
     // @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -83,11 +95,12 @@ public class TareaServiceImpl implements TareaService {
         if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
             result.setPersona(this.tareaAmbitoPersonaService.create(tarea.getPersona(), result));
         }
+
         this.senderTarea.send(result);
         return null;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo) {
         final List<TareaDto> result = new ArrayList<>();
@@ -101,39 +114,51 @@ public class TareaServiceImpl implements TareaService {
         return this.tareaMapper.tareaToTareaDto(this.tareaRepository.findByTrabajoId(id));
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaFin(@Valid @NotNull final TareaDto tarea) {
         this.tareaRepositoryCustom.updateFechaFin(tarea);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaInicioAndEstado(@Valid @NotNull final TareaDto tarea,
             @Valid @NotNull final EstadoTareaDto estado) {
         this.tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
     }
 
-    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    // @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Override
     public void updateEstado(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final EstadoTareaDto estado) {
         this.tareaRepositoryCustom.updateEstado(tarea, estado);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateEstadoFinal(@Valid @NotNull final TareaDto tarea) {
         this.tareaRepositoryCustom.updateEstadoFinal(tarea);
     }
 
     @Override
-    public List<IdTareaDto> findLimpieza() {
-        return this.tareaRepositoryCustom.findLimpieza();
+    public RunMantenimientoLimpiezaDto findLimpieza() {
+        final List<IdTareaDto> tareas = this.tareaRepositoryCustom.findLimpieza();
+        final Integer total = this.tareaRepositoryCustom.totalLimpieza();
+        return RunMantenimientoLimpiezaDto.builder()
+            .idTarea(tareas)
+            .tareasProcesadas(tareas.size())
+            .tareasPendientes(total)
+            .build();
     }
 
     @Override
-    public List<IdTareaDto> findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea) {
-        return this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
+    public RunMantenimientoLimpiezaDto findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea) {
+        final List<IdTareaDto> tareas = this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
+        final Integer total = this.tareaRepositoryCustom.totalLimpieza();
+        return RunMantenimientoLimpiezaDto.builder()
+            .idTarea(tareas)
+            .tareasProcesadas(tareas.size())
+            .tareasPendientes(total)
+            .build();
     }
 
 }

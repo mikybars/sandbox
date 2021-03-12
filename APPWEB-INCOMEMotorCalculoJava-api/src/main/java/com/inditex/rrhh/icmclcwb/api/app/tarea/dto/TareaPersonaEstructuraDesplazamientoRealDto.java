@@ -27,7 +27,7 @@ public class TareaPersonaEstructuraDesplazamientoRealDto implements Serializable
     @NotNull
     @ApiModelProperty(value = "Fecha de fin en la estructura", required = true)
     private LocalDateTime fechaFin;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id origen", required = true)
     private String cclIdOrigen;
@@ -43,7 +43,7 @@ public class TareaPersonaEstructuraDesplazamientoRealDto implements Serializable
     @NotBlank
     @ApiModelProperty(value = "Id estructura", required = true)
     private String icmIdEstrComision;
-    
+
     @NotBlank
     @ApiModelProperty(value = "Id estructura padre", required = true)
     private String icmIdEstrComisionPadre;
@@ -55,8 +55,9 @@ public class TareaPersonaEstructuraDesplazamientoRealDto implements Serializable
     @NotBlank
     @ApiModelProperty(value = "Id estructura del ambito", required = true)
     private String icmIdEstructuraAmbito;
-    
+
     @NotNull
     @ApiModelProperty(value = "Fecha inicio periodo", required = true)
     private LocalDate fechaInicioPeriodo;
+
 }

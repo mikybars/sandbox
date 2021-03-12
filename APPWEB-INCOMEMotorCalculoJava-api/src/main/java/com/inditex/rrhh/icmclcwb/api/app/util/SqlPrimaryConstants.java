@@ -189,7 +189,17 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_FECHA = "fecha";
 
-    public static final String SQL_PARAM_FECHA_HORA_LIMPIEZA = "fechaHoraLimpieza";
+    public static final String SQL_PARAM_FECHA_HORA_FIN = "fechaHoraFin";
+
+    public static final String SQL_PARAM_FECHA_HORA_INICIO = "fechaHoraInicio";
+
+    public static final String SQL_PARAM_FECHA_HORA_CREACION = "fechaHoraCreacion";
+
+    public static final String SQL_PARAM_ID_ESTADO_LIMPIEZA = "idEstadoLimpieza";
+
+    public static final String SQL_PARAM_ID_TIPO_LIMPIEZA = "idTipoLimpieza";
+
+    public static final String SQL_PARAM_ID_TAREA_LIMPIEZA = "idTareaLimpieza";
 
     public static final String SQL_PARAM_ID_CONCEPTO = "idConcepto";
 
@@ -244,6 +254,19 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ICM_CK_EXCEPCION = "icmCkExcepcion";
 
     public static final String SQL_PARAM_TIPO_CONCEPTO_VENTA_CHALLENGE = "tipoVentaConceptoChallenge";
+
+    public static final String SQL_PARAM_ID_TAREA_FASE = "idTareaFase";
+
+    public static final String SQL_PARAM_ID_TAREA_FASE_ACCION = "idTareaFaseAccion";
+
+    public static final String SQL_PARAM_ID_FASE = "idFase";
+
+    public static final String SQL_PARAM_ID_PUNTO_EJECUCION = "idPuntoEjecucion";
+
+    public static final String SQL_PARAM_ID_ACCION = "idAccion";
+
+    public static final String SQL_PARAM_LIMIT = "limit";
+
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
@@ -367,5 +390,29 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_ID_TIPO_VALIDACION = "ID_TIPO_VALIDACION";
 
     public static final String SQL_RESULT_ID_TAREA_PREVALIDACION = "ID_TAREA_PREVALIDACION";
+
+    public static final String SQL_RESULT_ID_TAREA_FASE = "ID_TAREA_FASE";
+
+    public static final String SQL_RESULT_ES_ACTIVO = "ES_ACTIVO";
+
+    public static final String SQL_RESULT_ID_FASE = "ID_FASE";
+
+    public static final String SQL_RESULT_ID_ACCION = "ID_ACCION";
+
+    public static final String SQL_RESULT_ID_PUNTO_EJECUCION = "ID_PUNTO_EJECUCION";
+
+    public static final String SQL_RESULT_ID_TAREA_FASE_ACCION = "ID_TAREA_FASE_ACCION";
+
+    public static final String SQL_RESULT_ID_ESTADO_TAREA_FASE_ACCION = "ID_ESTADO_TAREA_FASE_ACCION";
+
+    public static final String SQL_RESULT_FECHA_HORA_INICIO = "FECHA_HORA_INICIO";
+
+    public static final String SQL_RESULT_FECHA_HORA_FIN = "FECHA_HORA_FIN";
+
+    public static final String SQL_RESULT_FECHA_HORA_CREACION = "FECHA_HORA_CREACION";
+
+    public static final String SQL_RESULT_TOTAL = "TOTAL";
+
+    public static final String SQL_RESULT_REACCION_PESO = "REACCION_PESO";
 
 }

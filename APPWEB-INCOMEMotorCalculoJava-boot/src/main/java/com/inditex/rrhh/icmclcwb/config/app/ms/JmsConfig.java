@@ -25,14 +25,14 @@ public class JmsConfig {
     @ConfigurationProperties(prefix = "amiga.data.jms.connection-factory.broker-lectura")
     public ConnectionFactory connectionFactoryLectura(final ActiveMQConnectionFactoryBuilder builder)
             throws JMSException {
-        return builder.type(JmsConnectionFactoryType.XA).build();
+        return builder.type(JmsConnectionFactoryType.NONXA).build();
     }
 
     @Bean
     @ConfigurationProperties(prefix = "amiga.data.jms.connection-factory.broker-escritura")
     public ConnectionFactory connectionFactoryEscritura(final ActiveMQConnectionFactoryBuilder builder)
             throws JMSException {
-        return builder.type(JmsConnectionFactoryType.XA).build();
+        return builder.type(JmsConnectionFactoryType.NONXA).build();
     }
 
     @Bean
@@ -42,7 +42,7 @@ public class JmsConfig {
             final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
             .connectionFactory(cf)
-            .sessionTransacted(true)
+            .sessionTransacted(false)
             .build();
     }
 
@@ -53,7 +53,7 @@ public class JmsConfig {
             final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
             .connectionFactory(cf)
-            .sessionTransacted(true)
+            .sessionTransacted(false)
             .build();
     }
 
@@ -64,7 +64,7 @@ public class JmsConfig {
             final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
             .connectionFactory(cf)
-            .sessionTransacted(true)
+            .sessionTransacted(false)
             .build();
     }
 
@@ -75,7 +75,7 @@ public class JmsConfig {
             final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
             .connectionFactory(cf)
-            .sessionTransacted(true)
+            .sessionTransacted(false)
             .build();
     }
 
@@ -86,7 +86,7 @@ public class JmsConfig {
             final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
         return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
             .connectionFactory(cf)
-            .sessionTransacted(true)
+            .sessionTransacted(false)
             .build();
     }
 

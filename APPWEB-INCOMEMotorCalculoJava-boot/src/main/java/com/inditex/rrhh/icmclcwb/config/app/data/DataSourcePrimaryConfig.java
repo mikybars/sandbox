@@ -26,7 +26,7 @@ public class DataSourcePrimaryConfig {
     @Primary
     @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.primary")
     public DataSource primaryDataSource(final DataSourceBuilder dataSourceBuilder) {
-        return dataSourceBuilder.build(DataSourceType.XA);
+        return dataSourceBuilder.build(DataSourceType.NONXA);
     }
 
     @Bean(name = "primaryEntityManagerFactory")

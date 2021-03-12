@@ -1,13 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.periodo.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.periodo.service.PeriodoCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoCalculoPersonaRepositoryCustom;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
+import com.inditex.rrhh.icmclcwb.api.app.periodo.service.PeriodoCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoCalculoPersonaRepositoryCustom;
 
 @Service
 @Validated
@@ -16,10 +17,9 @@ public class PeriodoCalculoPersonaServiceImpl implements PeriodoCalculoPersonaSe
     @Autowired
     private PeriodoCalculoPersonaRepositoryCustom periodoCalculoPersonaRepositoryCustom;
 
-    // @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
     @Override
-    public void mergePeriodoCalculoPersona(@NotNull RunTareaDto tareaDto) {
-        periodoCalculoPersonaRepositoryCustom.mergePeriodoCalculoPersona(tareaDto);
+    public void mergePeriodoCalculoPersona(@NotNull final RunTareaDto tareaDto) {
+        this.periodoCalculoPersonaRepositoryCustom.mergePeriodoCalculoPersona(tareaDto);
     }
 
 }
