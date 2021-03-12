@@ -171,8 +171,8 @@ amiga:
           receiveTimeout: 1000
         programacion:
           concurrency: 1
-          sessionTransacted: true
-          globalTransacted: true
+          sessionTransacted: false
+          globalTransacted: false
           pubSubDomain: false
           receiveTimeout: 1000
       client:
@@ -191,7 +191,7 @@ amiga:
         programacion:
           destinationName: ${amiga.service.jms.programacion-queue.destination-fqdn}
           pubSubDomain: false
-          sessionTransacted: true
+          sessionTransacted: false
     jdbc:
       configuration:
         prop:
