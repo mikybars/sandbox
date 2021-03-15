@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4TestConstants;
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetausenciasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
@@ -105,7 +104,6 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
@@ -613,9 +611,6 @@ public class Meta4ServiceTest {
         param.getIcmParamcalsistdestinoRecordSet().add(new IcmParamcalsistdestinoRecord());
         final GetsistdestinoOutput getsisdestinoOutput = this.meta4ClientPool.getsisdestino(param);
         assertNotNull(getsisdestinoOutput);
-        assertNotNull(getsisdestinoOutput.getIcmListasistdestino());
-        assertTrue(CollectionUtils
-            .isNotEmpty(getsisdestinoOutput.getIcmListasistdestino().getIcmListasistdestinoRecordSet()));
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getsisdestinoOutput.getReturn()));
 
     }
