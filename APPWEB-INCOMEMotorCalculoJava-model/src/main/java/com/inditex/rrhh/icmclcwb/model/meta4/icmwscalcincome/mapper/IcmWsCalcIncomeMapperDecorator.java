@@ -28,12 +28,15 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
@@ -73,6 +76,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsistdestinoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsistdestinoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
@@ -766,6 +771,26 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                 record.setIdorigen(item.getIdOrigen());
                 result.add(record);
             });
+        }
+        return result;
+    }
+
+    @Override
+    public IcmParamcalsistdestinoBlock asIcmParamcalsistdestinoBlock(
+            final SistemaDestinoRequestDto src) {
+        final IcmParamcalsistdestinoBlock result = this.delegate.asIcmParamcalsistdestinoBlock(src);
+        result.getIcmParamcalsistdestinoRecordSet().add(new IcmParamcalsistdestinoRecord());
+        return result;
+    }
+
+    @Override
+    public SistemaDestinoResponseDto asSistemaDestinoResponseDto(
+            final GetsistdestinoOutput src) {
+        final SistemaDestinoResponseDto result = this.delegate.asSistemaDestinoResponseDto(src);
+        if (src.getIcmListasistdestino() != null
+                && CollectionUtils.isNotEmpty(src.getIcmListasistdestino().getIcmListasistdestinoRecordSet())) {
+            result.setIdSistemaDestino(
+                    src.getIcmListasistdestino().getIcmListasistdestinoRecordSet().get(0).getIdsistema());
         }
         return result;
     }

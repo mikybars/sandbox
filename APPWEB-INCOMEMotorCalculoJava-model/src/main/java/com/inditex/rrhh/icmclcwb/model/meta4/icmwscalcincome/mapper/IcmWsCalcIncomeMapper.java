@@ -60,6 +60,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.Save
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterParametersDto;
@@ -69,6 +71,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmErroresguardadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacadenasRecord;
@@ -140,6 +143,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsistdestinoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
@@ -1484,5 +1488,12 @@ public interface IcmWsCalcIncomeMapper {
     MotivosDesplazamientoItemDto asMotivosDesplazamientoItemDto(IcmListamotivosRecord src);
 
     List<MotivosDesplazamientoItemDto> asMotivosDesplazamientoItemDto(List<IcmListamotivosRecord> src);
+
+    @Mapping(target = "idorigen", source = "cclIdOrigen")
+    @Mapping(target = "icmParamcalsistdestinoRecordSet", ignore = true)
+    IcmParamcalsistdestinoBlock asIcmParamcalsistdestinoBlock(SistemaDestinoRequestDto src);
+
+    @Mapping(target = "idSistemaDestino", ignore = true)
+    SistemaDestinoResponseDto asSistemaDestinoResponseDto(GetsistdestinoOutput src);
 
 }

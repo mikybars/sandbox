@@ -33,6 +33,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getpresencia
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualwlocOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestosrangoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestoswlocOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventacongeladaOutput;
@@ -58,6 +59,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsistdestinoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaBlock;
@@ -575,6 +577,19 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
             return client.getIcmWsCalcIncomeService().getmotivosdesplazamiento(param1);
+        } catch (final Exception e) {
+            this.catchException(e, client, Arrays.asList(param1));
+            throw new Meta4IcmclcwbException(e.getMessage(), e);
+        } finally {
+            this.release(client);
+        }
+    }
+
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
+    public GetsistdestinoOutput getsisdestino(final IcmParamcalsistdestinoBlock param1) {
+        final Meta4ClientPoolable client = this.claim(this.pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getsistdestino(param1);
         } catch (final Exception e) {
             this.catchException(e, client, Arrays.asList(param1));
             throw new Meta4IcmclcwbException(e.getMessage(), e);

@@ -37,6 +37,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
@@ -61,6 +62,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosO
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestosrangoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestoswlocOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacadenasBlock;
@@ -116,6 +118,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalp
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsistdestinoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
@@ -1840,6 +1843,24 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         request.setPage(new PageDto(1, 100));
         this.meta4IcmWsCalcIncomeServiceImpl.sincronizacion(request);
         verify(this.meta4ClientPool, times(1)).sincronizacion(any(IcmParamcalsincroBlock.class));
+    }
+
+    @Test
+    public void sistemaDestino() {
+
+        final IcmParamcalsistdestinoBlock entrada = new IcmParamcalsistdestinoBlock();
+        final GetsistdestinoOutput output = new GetsistdestinoOutput();
+
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalsistdestinoBlock(any(SistemaDestinoRequestDto.class)))
+            .thenReturn(entrada);
+        when(this.meta4ClientPool.getsisdestino(entrada)).thenReturn(output);
+        final SistemaDestinoRequestDto request = SistemaDestinoRequestDto.builder().build();
+        this.meta4IcmWsCalcIncomeServiceImpl.getSistemaDestino(request);
+
+        verify(this.meta4ClientPool, times(1)).getsisdestino(entrada);
+        verify(this.icmWsCalcIncomeMapper, times(1)).asSistemaDestinoResponseDto(output);
+        verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcalsistdestinoBlock(request);
+
     }
 
 }
