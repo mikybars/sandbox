@@ -267,6 +267,9 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_LIMIT = "limit";
 
+    public static final String SQL_PARAM_ID_SISTEMA_DESTINO = "idSistemaDestino";
+
+    public static final String SQL_PAAM_ID_SISTEMAS_DESTINO = "idSistemasDestino";
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 

@@ -205,14 +205,14 @@ amiga:
           #[BBDD][ITX][NON_XA][INICIO]
           driverClassName: com.ibm.db2.jcc.DB2Driver
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
-#          user: uincome
-#          password: pzuUKBm1ppMGzzOn
-#          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+          user: uincome
+          password: pzuUKBm1ppMGzzOn
+          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
           #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
-          user: oincome
-          password: aMJLp8ahF09w
-          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+#          user: oincome
+#          password: aMJLp8ahF09w
+#          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
           #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][FIN]
           #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][INICIO]
 #          user: uincome
@@ -594,7 +594,7 @@ amiga:
         #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.isolation'':''1''}'
         #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
         hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
-        hibernate.default_schema: DESARROLLO_RRHH
+        hibernate.default_schema: GESTION_COMISION
 app:
   envars:
     calculo:

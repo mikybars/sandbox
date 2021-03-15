@@ -13,8 +13,10 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,6 +42,12 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPerosnaService;
+
+    @Mock
+    private TareaAmbitoService tareaAmbitoService;
+
+    @Mock
+    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -68,8 +76,12 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
         when(this.tareaCalculoPerosnaService.findByTareaAndIdEstadoAndIdTipoPolitica(any(TareaDto.class),
                 any(String.class)))
                     .thenReturn(personas);
-
         final TareaDto tarea = mock(TareaDto.class);
+        // when(this.tareaAmbitoService.findByTarea(tarea)).thenReturn(
+        // Collections.singletonList(TareaAmbitoDto.builder().cclIdOrigen("2").build()));
+        // when(this.meta4IcmWsCalcIncomeService.getSistemaDestino(any(SistemaDestinoRequestDto.class))).thenReturn(
+        // SistemaDestinoResponseDto.builder().idSistemaDestino("01").build());
+
         final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteBajaItRepositoryCustomImpl.ids(tarea);
 
         assertEquals(personas, ids);
