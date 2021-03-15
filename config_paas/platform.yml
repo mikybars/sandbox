@@ -29,7 +29,7 @@ datagrid:
   session:
     enabled: true
 amq:
-  force: true
+  force: false
   enabled: true
   scheduler:
     enabled: true
