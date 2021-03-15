@@ -39,7 +39,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="SINCRONIZACIONReturn" type="{http://schemas.meta4.com/}SincronizacionOutput"/&gt;
+ *         &lt;element name="ICM_PARAMCALSISTDESTINO" type="{http://schemas.meta4.com/}Icm_ParamcalsistdestinoBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -50,32 +50,32 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "sincronizacionReturn"
+        "icmparamcalsistdestino"
 })
-@XmlRootElement(name = "SINCRONIZACIONResponse")
-public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+@XmlRootElement(name = "GETSISTDESTINO")
+public class GETSISTDESTINO implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
 
-    @XmlElement(name = "SINCRONIZACIONReturn", required = true)
-    protected SincronizacionOutput sincronizacionReturn;
+    @XmlElement(name = "ICM_PARAMCALSISTDESTINO", required = true)
+    protected IcmParamcalsistdestinoBlock icmparamcalsistdestino;
 
     /**
-     * Obtiene el valor de la propiedad sincronizacionReturn.
-     * @return possible object is {@link SincronizacionOutput }
+     * Obtiene el valor de la propiedad icmparamcalsistdestino.
+     * @return possible object is {@link IcmParamcalsistdestinoBlock }
      *
      */
-    public SincronizacionOutput getSINCRONIZACIONReturn() {
-        return sincronizacionReturn;
+    public IcmParamcalsistdestinoBlock getICMPARAMCALSISTDESTINO() {
+        return icmparamcalsistdestino;
     }
 
     /**
-     * Define el valor de la propiedad sincronizacionReturn.
-     * @param value allowed object is {@link SincronizacionOutput }
+     * Define el valor de la propiedad icmparamcalsistdestino.
+     * @param value allowed object is {@link IcmParamcalsistdestinoBlock }
      *
      */
-    public void setSINCRONIZACIONReturn(SincronizacionOutput value) {
-        this.sincronizacionReturn = value;
+    public void setICMPARAMCALSISTDESTINO(IcmParamcalsistdestinoBlock value) {
+        this.icmparamcalsistdestino = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
@@ -86,16 +86,17 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
         if (this == object) {
             return true;
         }
-        final SINCRONIZACIONResponse that = ((SINCRONIZACIONResponse) object);
+        final GETSISTDESTINO that = ((GETSISTDESTINO) object);
         {
-            SincronizacionOutput lhsSINCRONIZACIONReturn;
-            lhsSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
-            SincronizacionOutput rhsSINCRONIZACIONReturn;
-            rhsSINCRONIZACIONReturn = that.getSINCRONIZACIONReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "sincronizacionReturn", lhsSINCRONIZACIONReturn),
-                    LocatorUtils.property(thatLocator, "sincronizacionReturn", rhsSINCRONIZACIONReturn),
-                    lhsSINCRONIZACIONReturn, rhsSINCRONIZACIONReturn, (this.sincronizacionReturn != null),
-                    (that.sincronizacionReturn != null))) {
+            IcmParamcalsistdestinoBlock lhsICMPARAMCALSISTDESTINO;
+            lhsICMPARAMCALSISTDESTINO = this.getICMPARAMCALSISTDESTINO();
+            IcmParamcalsistdestinoBlock rhsICMPARAMCALSISTDESTINO;
+            rhsICMPARAMCALSISTDESTINO = that.getICMPARAMCALSISTDESTINO();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparamcalsistdestino", lhsICMPARAMCALSISTDESTINO),
+                    LocatorUtils.property(thatLocator, "icmparamcalsistdestino", rhsICMPARAMCALSISTDESTINO),
+                    lhsICMPARAMCALSISTDESTINO, rhsICMPARAMCALSISTDESTINO, (this.icmparamcalsistdestino != null),
+                    (that.icmparamcalsistdestino != null))) {
                 return false;
             }
         }
@@ -123,10 +124,10 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            SincronizacionOutput theSINCRONIZACIONReturn;
-            theSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
-            strategy.appendField(locator, this, "sincronizacionReturn", buffer, theSINCRONIZACIONReturn,
-                    (this.sincronizacionReturn != null));
+            IcmParamcalsistdestinoBlock theICMPARAMCALSISTDESTINO;
+            theICMPARAMCALSISTDESTINO = this.getICMPARAMCALSISTDESTINO();
+            strategy.appendField(locator, this, "icmparamcalsistdestino", buffer, theICMPARAMCALSISTDESTINO,
+                    (this.icmparamcalsistdestino != null));
         }
         return buffer;
     }
@@ -134,11 +135,11 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            SincronizacionOutput theSINCRONIZACIONReturn;
-            theSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
+            IcmParamcalsistdestinoBlock theICMPARAMCALSISTDESTINO;
+            theICMPARAMCALSISTDESTINO = this.getICMPARAMCALSISTDESTINO();
             currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "sincronizacionReturn", theSINCRONIZACIONReturn), currentHashCode,
-                    theSINCRONIZACIONReturn, (this.sincronizacionReturn != null));
+                    LocatorUtils.property(locator, "icmparamcalsistdestino", theICMPARAMCALSISTDESTINO),
+                    currentHashCode, theICMPARAMCALSISTDESTINO, (this.icmparamcalsistdestino != null));
         }
         return currentHashCode;
     }
@@ -159,21 +160,21 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null) ? createNewInstance() : target);
-        if (draftCopy instanceof SINCRONIZACIONResponse) {
-            final SINCRONIZACIONResponse copy = ((SINCRONIZACIONResponse) draftCopy);
+        if (draftCopy instanceof GETSISTDESTINO) {
+            final GETSISTDESTINO copy = ((GETSISTDESTINO) draftCopy);
             {
-                Boolean sincronizacionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.sincronizacionReturn != null));
-                if (sincronizacionReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    SincronizacionOutput sourceSINCRONIZACIONReturn;
-                    sourceSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
-                    SincronizacionOutput copySINCRONIZACIONReturn = ((SincronizacionOutput) strategy.copy(
-                            LocatorUtils.property(locator, "sincronizacionReturn", sourceSINCRONIZACIONReturn),
-                            sourceSINCRONIZACIONReturn, (this.sincronizacionReturn != null)));
-                    copy.setSINCRONIZACIONReturn(copySINCRONIZACIONReturn);
+                Boolean icmparamcalsistdestinoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcalsistdestino != null));
+                if (icmparamcalsistdestinoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalsistdestinoBlock sourceICMPARAMCALSISTDESTINO;
+                    sourceICMPARAMCALSISTDESTINO = this.getICMPARAMCALSISTDESTINO();
+                    IcmParamcalsistdestinoBlock copyICMPARAMCALSISTDESTINO = ((IcmParamcalsistdestinoBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparamcalsistdestino", sourceICMPARAMCALSISTDESTINO),
+                                sourceICMPARAMCALSISTDESTINO, (this.icmparamcalsistdestino != null)));
+                    copy.setICMPARAMCALSISTDESTINO(copyICMPARAMCALSISTDESTINO);
                 } else {
-                    if (sincronizacionReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.sincronizacionReturn = null;
+                    if (icmparamcalsistdestinoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalsistdestino = null;
                     }
                 }
             }
@@ -182,7 +183,7 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
     }
 
     public Object createNewInstance() {
-        return new SINCRONIZACIONResponse();
+        return new GETSISTDESTINO();
     }
 
 }

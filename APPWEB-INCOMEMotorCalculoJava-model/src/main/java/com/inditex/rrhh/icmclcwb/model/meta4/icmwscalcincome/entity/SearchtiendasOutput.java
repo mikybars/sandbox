@@ -42,8 +42,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *       &lt;sequence&gt;
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="Icm_Listatiendas" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/&gt;
  *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
+ *         &lt;element name="Icm_Listatiendas" type="{http://schemas.meta4.com/}Icm_ListatiendasBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -56,8 +56,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "SearchtiendasOutput", propOrder = {
         "_return",
         "logMessage",
-        "icmListatiendas",
-        "icmParametrospaginacion"
+        "icmParametrospaginacion",
+        "icmListatiendas"
 })
 public class SearchtiendasOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
@@ -69,11 +69,11 @@ public class SearchtiendasOutput implements Serializable, Cloneable, CopyTo2, Eq
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
 
-    @XmlElement(name = "Icm_Listatiendas", required = true, nillable = true)
-    protected IcmListatiendasBlock icmListatiendas;
-
     @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
     protected IcmParametrospaginacionBlock icmParametrospaginacion;
+
+    @XmlElement(name = "Icm_Listatiendas", required = true, nillable = true)
+    protected IcmListatiendasBlock icmListatiendas;
 
     /**
      * Obtiene el valor de la propiedad return.
@@ -120,24 +120,6 @@ public class SearchtiendasOutput implements Serializable, Cloneable, CopyTo2, Eq
     }
 
     /**
-     * Obtiene el valor de la propiedad icmListatiendas.
-     * @return possible object is {@link IcmListatiendasBlock }
-     *
-     */
-    public IcmListatiendasBlock getIcmListatiendas() {
-        return icmListatiendas;
-    }
-
-    /**
-     * Define el valor de la propiedad icmListatiendas.
-     * @param value allowed object is {@link IcmListatiendasBlock }
-     *
-     */
-    public void setIcmListatiendas(IcmListatiendasBlock value) {
-        this.icmListatiendas = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad icmParametrospaginacion.
      * @return possible object is {@link IcmParametrospaginacionBlock }
      *
@@ -153,6 +135,24 @@ public class SearchtiendasOutput implements Serializable, Cloneable, CopyTo2, Eq
      */
     public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
         this.icmParametrospaginacion = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad icmListatiendas.
+     * @return possible object is {@link IcmListatiendasBlock }
+     *
+     */
+    public IcmListatiendasBlock getIcmListatiendas() {
+        return icmListatiendas;
+    }
+
+    /**
+     * Define el valor de la propiedad icmListatiendas.
+     * @param value allowed object is {@link IcmListatiendasBlock }
+     *
+     */
+    public void setIcmListatiendas(IcmListatiendasBlock value) {
+        this.icmListatiendas = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
@@ -187,17 +187,6 @@ public class SearchtiendasOutput implements Serializable, Cloneable, CopyTo2, Eq
             }
         }
         {
-            IcmListatiendasBlock lhsIcmListatiendas;
-            lhsIcmListatiendas = this.getIcmListatiendas();
-            IcmListatiendasBlock rhsIcmListatiendas;
-            rhsIcmListatiendas = that.getIcmListatiendas();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListatiendas", lhsIcmListatiendas),
-                    LocatorUtils.property(thatLocator, "icmListatiendas", rhsIcmListatiendas), lhsIcmListatiendas,
-                    rhsIcmListatiendas, (this.icmListatiendas != null), (that.icmListatiendas != null))) {
-                return false;
-            }
-        }
-        {
             IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
             lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
             IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
@@ -207,6 +196,17 @@ public class SearchtiendasOutput implements Serializable, Cloneable, CopyTo2, Eq
                     LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion),
                     lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion != null),
                     (that.icmParametrospaginacion != null))) {
+                return false;
+            }
+        }
+        {
+            IcmListatiendasBlock lhsIcmListatiendas;
+            lhsIcmListatiendas = this.getIcmListatiendas();
+            IcmListatiendasBlock rhsIcmListatiendas;
+            rhsIcmListatiendas = that.getIcmListatiendas();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListatiendas", lhsIcmListatiendas),
+                    LocatorUtils.property(thatLocator, "icmListatiendas", rhsIcmListatiendas), lhsIcmListatiendas,
+                    rhsIcmListatiendas, (this.icmListatiendas != null), (that.icmListatiendas != null))) {
                 return false;
             }
         }
@@ -245,16 +245,16 @@ public class SearchtiendasOutput implements Serializable, Cloneable, CopyTo2, Eq
                     ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
-            IcmListatiendasBlock theIcmListatiendas;
-            theIcmListatiendas = this.getIcmListatiendas();
-            strategy.appendField(locator, this, "icmListatiendas", buffer, theIcmListatiendas,
-                    (this.icmListatiendas != null));
-        }
-        {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
             strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion,
                     (this.icmParametrospaginacion != null));
+        }
+        {
+            IcmListatiendasBlock theIcmListatiendas;
+            theIcmListatiendas = this.getIcmListatiendas();
+            strategy.appendField(locator, this, "icmListatiendas", buffer, theIcmListatiendas,
+                    (this.icmListatiendas != null));
         }
         return buffer;
     }
@@ -274,17 +274,17 @@ public class SearchtiendasOutput implements Serializable, Cloneable, CopyTo2, Eq
                     currentHashCode, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
-            IcmListatiendasBlock theIcmListatiendas;
-            theIcmListatiendas = this.getIcmListatiendas();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListatiendas", theIcmListatiendas),
-                    currentHashCode, theIcmListatiendas, (this.icmListatiendas != null));
-        }
-        {
             IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
             currentHashCode = strategy.hashCode(
                     LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion),
                     currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion != null));
+        }
+        {
+            IcmListatiendasBlock theIcmListatiendas;
+            theIcmListatiendas = this.getIcmListatiendas();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListatiendas", theIcmListatiendas),
+                    currentHashCode, theIcmListatiendas, (this.icmListatiendas != null));
         }
         return currentHashCode;
     }
@@ -343,22 +343,6 @@ public class SearchtiendasOutput implements Serializable, Cloneable, CopyTo2, Eq
                 }
             }
             {
-                Boolean icmListatiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmListatiendas != null));
-                if (icmListatiendasShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListatiendasBlock sourceIcmListatiendas;
-                    sourceIcmListatiendas = this.getIcmListatiendas();
-                    IcmListatiendasBlock copyIcmListatiendas = ((IcmListatiendasBlock) strategy.copy(
-                            LocatorUtils.property(locator, "icmListatiendas", sourceIcmListatiendas),
-                            sourceIcmListatiendas, (this.icmListatiendas != null)));
-                    copy.setIcmListatiendas(copyIcmListatiendas);
-                } else {
-                    if (icmListatiendasShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmListatiendas = null;
-                    }
-                }
-            }
-            {
                 Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.icmParametrospaginacion != null));
                 if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -371,6 +355,22 @@ public class SearchtiendasOutput implements Serializable, Cloneable, CopyTo2, Eq
                 } else {
                     if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmParametrospaginacion = null;
+                    }
+                }
+            }
+            {
+                Boolean icmListatiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmListatiendas != null));
+                if (icmListatiendasShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListatiendasBlock sourceIcmListatiendas;
+                    sourceIcmListatiendas = this.getIcmListatiendas();
+                    IcmListatiendasBlock copyIcmListatiendas = ((IcmListatiendasBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmListatiendas", sourceIcmListatiendas),
+                            sourceIcmListatiendas, (this.icmListatiendas != null)));
+                    copy.setIcmListatiendas(copyIcmListatiendas);
+                } else {
+                    if (icmListatiendasShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListatiendas = null;
                     }
                 }
             }
