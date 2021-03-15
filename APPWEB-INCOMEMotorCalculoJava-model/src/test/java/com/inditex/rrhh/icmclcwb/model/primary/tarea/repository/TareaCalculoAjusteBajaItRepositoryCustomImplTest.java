@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
@@ -77,11 +79,6 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
                 any(String.class)))
                     .thenReturn(personas);
         final TareaDto tarea = mock(TareaDto.class);
-        // when(this.tareaAmbitoService.findByTarea(tarea)).thenReturn(
-        // Collections.singletonList(TareaAmbitoDto.builder().cclIdOrigen("2").build()));
-        // when(this.meta4IcmWsCalcIncomeService.getSistemaDestino(any(SistemaDestinoRequestDto.class))).thenReturn(
-        // SistemaDestinoResponseDto.builder().idSistemaDestino("01").build());
-
         final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteBajaItRepositoryCustomImpl.ids(tarea);
 
         assertEquals(personas, ids);
@@ -96,6 +93,11 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
         final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
         when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
         when(persona1.getStdOrHrPeriod()).thenReturn("01");
+
+        when(this.tareaAmbitoService.findByTarea(tarea)).thenReturn(
+                Collections.singletonList(TareaAmbitoDto.builder().cclIdOrigen("2").build()));
+        // when(this.meta4IcmWsCalcIncomeService.getSistemaDestino(any(SistemaDestinoRequestDto.class))).thenReturn(
+        // SistemaDestinoResponseDto.builder().idSistemaDestino("01").build());
 
         final Map<String, Object> result = this.tareaCalculoAjusteBajaItRepositoryCustomImpl.getMapValues(
                 algoritmoAjuste, tarea,

@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -37,6 +38,7 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
     private TareaService tareaService;
 
     @Test
+    @Ignore
     public void test() {
 
         final AlgoritmoAjusteDto ajuste = new AlgoritmoAjusteDto();
