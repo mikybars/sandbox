@@ -137,12 +137,12 @@ amiga:
           readOnly: true
         comis61:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://CZSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalPre
           user: ncomis
           readOnly: true
         comis63:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://CZSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalEslovaquiaPre
           user: ncomis
           readOnly: true
         comis64:
