@@ -89,13 +89,9 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImpl
         map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
                 Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4()));
-        // TODO [JAVIEREV] Incluir estos valores en el mapa
-        /*
-         * map.put(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO, sistemaDestino.getIdSistemaDestino());
-         * map.put(SqlPrimaryConstants.SQL_PAAM_ID_SISTEMAS_DESTINO,
-         * Arrays.asList(SistemaDestinoEnum.SOLUCION_GLOBAL.getIdMeta4(),
-         * SistemaDestinoEnum.AS400.getIdMeta4()));
-         */
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO, sistemaDestino.getIdSistemaDestino());
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO_SOLUCION_GLOBAL,
+                SistemaDestinoEnum.SOLUCION_GLOBAL.getIdMeta4());
         return map;
     }
 

@@ -269,7 +269,7 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_SISTEMA_DESTINO = "idSistemaDestino";
 
-    public static final String SQL_PAAM_ID_SISTEMAS_DESTINO = "idSistemasDestino";
+    public static final String SQL_PARAM_ID_SISTEMA_DESTINO_SOLUCION_GLOBAL = "idSistemaDestinoSolucionGlobal";
 
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 

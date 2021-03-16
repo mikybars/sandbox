@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.SistemaDestinoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoAusenciaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
@@ -19,6 +20,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -96,13 +99,16 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
 
         when(this.tareaAmbitoService.findByTarea(tarea)).thenReturn(
                 Collections.singletonList(TareaAmbitoDto.builder().cclIdOrigen("2").build()));
-        // when(this.meta4IcmWsCalcIncomeService.getSistemaDestino(any(SistemaDestinoRequestDto.class))).thenReturn(
-        // SistemaDestinoResponseDto.builder().idSistemaDestino("01").build());
+        final SistemaDestinoResponseDto sistemaDestino = SistemaDestinoResponseDto.builder()
+            .idSistemaDestino("01")
+            .build();
+        when(this.meta4IcmWsCalcIncomeService.getSistemaDestino(any(SistemaDestinoRequestDto.class))).thenReturn(
+                sistemaDestino);
 
         final Map<String, Object> result = this.tareaCalculoAjusteBajaItRepositoryCustomImpl.getMapValues(
                 algoritmoAjuste, tarea,
                 persona1);
-        assertEquals(12, result.size());
+        assertEquals(14, result.size());
 
         // idTarea
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
@@ -145,6 +151,15 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
         assertEquals(TipoUnidadTiempoEnum.DIAS.getId(),
                 result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+        // idSistemaDestino
+        assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO));
+        assertEquals(sistemaDestino.getIdSistemaDestino(),
+                result.get(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO));
+        // idSistemaDestinoSolucionGlobal
+        assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO_SOLUCION_GLOBAL));
+        assertEquals(SistemaDestinoEnum.SOLUCION_GLOBAL.getIdMeta4(),
+                result.get(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO_SOLUCION_GLOBAL));
+
     }
 
 }
