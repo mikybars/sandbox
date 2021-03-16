@@ -1,15 +1,17 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;
@@ -78,14 +80,14 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
      *
      */
     public double getReturn() {
-        return this._return;
+        return _return;
     }
 
     /**
      * Define el valor de la propiedad return.
      *
      */
-    public void setReturn(final double value) {
+    public void setReturn(double value) {
         this._return = value;
     }
 
@@ -111,8 +113,8 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
      *
      */
     public List<LogMessage> getLogMessage() {
-        if (this.logMessage == null) {
-            this.logMessage = new ArrayList<LogMessage>();
+        if (logMessage == null) {
+            logMessage = new ArrayList<LogMessage>();
         }
         return this.logMessage;
     }
@@ -123,7 +125,7 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
      *
      */
     public IcmListaconfiguracionBlock getIcmListaconfiguracion() {
-        return this.icmListaconfiguracion;
+        return icmListaconfiguracion;
     }
 
     /**
@@ -131,7 +133,7 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
      * @param value allowed object is {@link IcmListaconfiguracionBlock }
      *
      */
-    public void setIcmListaconfiguracion(final IcmListaconfiguracionBlock value) {
+    public void setIcmListaconfiguracion(IcmListaconfiguracionBlock value) {
         this.icmListaconfiguracion = value;
     }
 
@@ -141,7 +143,7 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
      *
      */
     public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
-        return this.icmParametrospaginacion;
+        return icmParametrospaginacion;
     }
 
     /**
@@ -149,13 +151,12 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
      * @param value allowed object is {@link IcmParametrospaginacionBlock }
      *
      */
-    public void setIcmParametrospaginacion(final IcmParametrospaginacionBlock value) {
+    public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
         this.icmParametrospaginacion = value;
     }
 
-    @Override
-    public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
-            final EqualsStrategy2 strategy) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
         if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
@@ -164,9 +165,9 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
         }
         final GetagruponlineOutput that = ((GetagruponlineOutput) object);
         {
-            final double lhsReturn;
+            double lhsReturn;
             lhsReturn = this.getReturn();
-            final double rhsReturn;
+            double rhsReturn;
             rhsReturn = that.getReturn();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "_return", lhsReturn),
                     LocatorUtils.property(thatLocator, "_return", rhsReturn), lhsReturn, rhsReturn, true, true)) {
@@ -174,9 +175,9 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
             }
         }
         {
-            final List<LogMessage> lhsLogMessage;
+            List<LogMessage> lhsLogMessage;
             lhsLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
-            final List<LogMessage> rhsLogMessage;
+            List<LogMessage> rhsLogMessage;
             rhsLogMessage = (((that.logMessage != null) && (!that.logMessage.isEmpty())) ? that.getLogMessage() : null);
             if (!strategy.equals(LocatorUtils.property(thisLocator, "logMessage", lhsLogMessage),
                     LocatorUtils.property(thatLocator, "logMessage", rhsLogMessage), lhsLogMessage, rhsLogMessage,
@@ -186,9 +187,9 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
             }
         }
         {
-            final IcmListaconfiguracionBlock lhsIcmListaconfiguracion;
+            IcmListaconfiguracionBlock lhsIcmListaconfiguracion;
             lhsIcmListaconfiguracion = this.getIcmListaconfiguracion();
-            final IcmListaconfiguracionBlock rhsIcmListaconfiguracion;
+            IcmListaconfiguracionBlock rhsIcmListaconfiguracion;
             rhsIcmListaconfiguracion = that.getIcmListaconfiguracion();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaconfiguracion", lhsIcmListaconfiguracion),
                     LocatorUtils.property(thatLocator, "icmListaconfiguracion", rhsIcmListaconfiguracion),
@@ -198,9 +199,9 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
             }
         }
         {
-            final IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
+            IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
             lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            final IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
+            IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
             rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
             if (!strategy.equals(
                     LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion),
@@ -213,51 +214,45 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
         return true;
     }
 
-    @Override
-    public boolean equals(final Object object) {
+    public boolean equals(Object object) {
         final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return this.equals(null, null, object, strategy);
+        return equals(null, null, object, strategy);
     }
 
-    @Override
     public String toString() {
         final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
         final StringBuilder buffer = new StringBuilder();
-        this.append(null, buffer, strategy);
+        append(null, buffer, strategy);
         return buffer.toString();
     }
 
-    @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
-        this.appendFields(locator, buffer, strategy);
+        appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
         return buffer;
     }
 
-    @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            final double theReturn;
+            double theReturn;
             theReturn = this.getReturn();
             strategy.appendField(locator, this, "_return", buffer, theReturn, true);
         }
         {
-            final List<LogMessage> theLogMessage;
+            List<LogMessage> theLogMessage;
             theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
             strategy.appendField(locator, this, "logMessage", buffer, theLogMessage,
                     ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
-            final IcmListaconfiguracionBlock theIcmListaconfiguracion;
+            IcmListaconfiguracionBlock theIcmListaconfiguracion;
             theIcmListaconfiguracion = this.getIcmListaconfiguracion();
             strategy.appendField(locator, this, "icmListaconfiguracion", buffer, theIcmListaconfiguracion,
                     (this.icmListaconfiguracion != null));
         }
         {
-            final IcmParametrospaginacionBlock theIcmParametrospaginacion;
+            IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
             strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion,
                     (this.icmParametrospaginacion != null));
@@ -265,30 +260,29 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
         return buffer;
     }
 
-    @Override
-    public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            final double theReturn;
+            double theReturn;
             theReturn = this.getReturn();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode,
                     theReturn, true);
         }
         {
-            final List<LogMessage> theLogMessage;
+            List<LogMessage> theLogMessage;
             theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage),
                     currentHashCode, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
-            final IcmListaconfiguracionBlock theIcmListaconfiguracion;
+            IcmListaconfiguracionBlock theIcmListaconfiguracion;
             theIcmListaconfiguracion = this.getIcmListaconfiguracion();
             currentHashCode = strategy.hashCode(
                     LocatorUtils.property(locator, "icmListaconfiguracion", theIcmListaconfiguracion), currentHashCode,
                     theIcmListaconfiguracion, (this.icmListaconfiguracion != null));
         }
         {
-            final IcmParametrospaginacionBlock theIcmParametrospaginacion;
+            IcmParametrospaginacionBlock theIcmParametrospaginacion;
             theIcmParametrospaginacion = this.getIcmParametrospaginacion();
             currentHashCode = strategy.hashCode(
                     LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion),
@@ -297,34 +291,30 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
         return currentHashCode;
     }
 
-    @Override
     public int hashCode() {
         final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
         return this.hashCode(null, strategy);
     }
 
-    @Override
     public Object clone() {
-        return this.copyTo(this.createNewInstance());
+        return copyTo(createNewInstance());
     }
 
-    @Override
-    public Object copyTo(final Object target) {
+    public Object copyTo(Object target) {
         final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return this.copyTo(null, target, strategy);
+        return copyTo(null, target, strategy);
     }
 
-    @Override
-    public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GetagruponlineOutput) {
             final GetagruponlineOutput copy = ((GetagruponlineOutput) draftCopy);
             {
-                final Boolean _returnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
+                Boolean _returnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
                 if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    final double sourceReturn;
+                    double sourceReturn;
                     sourceReturn = this.getReturn();
-                    final double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn),
+                    double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn),
                             sourceReturn, true);
                     copy.setReturn(copyReturn);
                 } else {
@@ -333,19 +323,19 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
                 }
             }
             {
-                final Boolean logMessageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                Boolean logMessageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         ((this.logMessage != null) && (!this.logMessage.isEmpty())));
                 if (logMessageShouldBeCopiedAndSet == Boolean.TRUE) {
-                    final List<LogMessage> sourceLogMessage;
+                    List<LogMessage> sourceLogMessage;
                     sourceLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty()))
                             ? this.getLogMessage() : null);
                     @SuppressWarnings("unchecked")
-                    final List<LogMessage> copyLogMessage = ((List<LogMessage>) strategy.copy(
+                    List<LogMessage> copyLogMessage = ((List<LogMessage>) strategy.copy(
                             LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage,
                             ((this.logMessage != null) && (!this.logMessage.isEmpty()))));
                     copy.logMessage = null;
                     if (copyLogMessage != null) {
-                        final List<LogMessage> uniqueLogMessagel = copy.getLogMessage();
+                        List<LogMessage> uniqueLogMessagel = copy.getLogMessage();
                         uniqueLogMessagel.addAll(copyLogMessage);
                     }
                 } else {
@@ -355,15 +345,14 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
                 }
             }
             {
-                final Boolean icmListaconfiguracionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                Boolean icmListaconfiguracionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.icmListaconfiguracion != null));
                 if (icmListaconfiguracionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    final IcmListaconfiguracionBlock sourceIcmListaconfiguracion;
+                    IcmListaconfiguracionBlock sourceIcmListaconfiguracion;
                     sourceIcmListaconfiguracion = this.getIcmListaconfiguracion();
-                    final IcmListaconfiguracionBlock copyIcmListaconfiguracion = ((IcmListaconfiguracionBlock) strategy
-                        .copy(
-                                LocatorUtils.property(locator, "icmListaconfiguracion", sourceIcmListaconfiguracion),
-                                sourceIcmListaconfiguracion, (this.icmListaconfiguracion != null)));
+                    IcmListaconfiguracionBlock copyIcmListaconfiguracion = ((IcmListaconfiguracionBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmListaconfiguracion", sourceIcmListaconfiguracion),
+                            sourceIcmListaconfiguracion, (this.icmListaconfiguracion != null)));
                     copy.setIcmListaconfiguracion(copyIcmListaconfiguracion);
                 } else {
                     if (icmListaconfiguracionShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -372,12 +361,12 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
                 }
             }
             {
-                final Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.icmParametrospaginacion != null));
                 if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    final IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
+                    IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
                     sourceIcmParametrospaginacion = this.getIcmParametrospaginacion();
-                    final IcmParametrospaginacionBlock copyIcmParametrospaginacion = ((IcmParametrospaginacionBlock) strategy
+                    IcmParametrospaginacionBlock copyIcmParametrospaginacion = ((IcmParametrospaginacionBlock) strategy
                         .copy(LocatorUtils.property(locator, "icmParametrospaginacion", sourceIcmParametrospaginacion),
                                 sourceIcmParametrospaginacion, (this.icmParametrospaginacion != null)));
                     copy.setIcmParametrospaginacion(copyIcmParametrospaginacion);
@@ -391,7 +380,6 @@ public class GetagruponlineOutput implements Serializable, Cloneable, CopyTo2, E
         return draftCopy;
     }
 
-    @Override
     public Object createNewInstance() {
         return new GetagruponlineOutput();
     }

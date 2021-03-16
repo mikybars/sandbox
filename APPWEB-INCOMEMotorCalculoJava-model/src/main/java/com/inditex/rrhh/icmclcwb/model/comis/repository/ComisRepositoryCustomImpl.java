@@ -173,6 +173,7 @@ public class ComisRepositoryCustomImpl
                     .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
                     .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
                     .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
+                    .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
                     .build());
     }
 

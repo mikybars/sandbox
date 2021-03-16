@@ -39,7 +39,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="SINCRONIZACIONReturn" type="{http://schemas.meta4.com/}SincronizacionOutput"/&gt;
+ *         &lt;element name="GETSISTDESTINOReturn" type="{http://schemas.meta4.com/}GetsistdestinoOutput"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -50,32 +50,32 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "sincronizacionReturn"
+        "getsistdestinoReturn"
 })
-@XmlRootElement(name = "SINCRONIZACIONResponse")
-public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+@XmlRootElement(name = "GETSISTDESTINOResponse")
+public class GETSISTDESTINOResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
 
-    @XmlElement(name = "SINCRONIZACIONReturn", required = true)
-    protected SincronizacionOutput sincronizacionReturn;
+    @XmlElement(name = "GETSISTDESTINOReturn", required = true)
+    protected GetsistdestinoOutput getsistdestinoReturn;
 
     /**
-     * Obtiene el valor de la propiedad sincronizacionReturn.
-     * @return possible object is {@link SincronizacionOutput }
+     * Obtiene el valor de la propiedad getsistdestinoReturn.
+     * @return possible object is {@link GetsistdestinoOutput }
      *
      */
-    public SincronizacionOutput getSINCRONIZACIONReturn() {
-        return sincronizacionReturn;
+    public GetsistdestinoOutput getGETSISTDESTINOReturn() {
+        return getsistdestinoReturn;
     }
 
     /**
-     * Define el valor de la propiedad sincronizacionReturn.
-     * @param value allowed object is {@link SincronizacionOutput }
+     * Define el valor de la propiedad getsistdestinoReturn.
+     * @param value allowed object is {@link GetsistdestinoOutput }
      *
      */
-    public void setSINCRONIZACIONReturn(SincronizacionOutput value) {
-        this.sincronizacionReturn = value;
+    public void setGETSISTDESTINOReturn(GetsistdestinoOutput value) {
+        this.getsistdestinoReturn = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
@@ -86,16 +86,16 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
         if (this == object) {
             return true;
         }
-        final SINCRONIZACIONResponse that = ((SINCRONIZACIONResponse) object);
+        final GETSISTDESTINOResponse that = ((GETSISTDESTINOResponse) object);
         {
-            SincronizacionOutput lhsSINCRONIZACIONReturn;
-            lhsSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
-            SincronizacionOutput rhsSINCRONIZACIONReturn;
-            rhsSINCRONIZACIONReturn = that.getSINCRONIZACIONReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "sincronizacionReturn", lhsSINCRONIZACIONReturn),
-                    LocatorUtils.property(thatLocator, "sincronizacionReturn", rhsSINCRONIZACIONReturn),
-                    lhsSINCRONIZACIONReturn, rhsSINCRONIZACIONReturn, (this.sincronizacionReturn != null),
-                    (that.sincronizacionReturn != null))) {
+            GetsistdestinoOutput lhsGETSISTDESTINOReturn;
+            lhsGETSISTDESTINOReturn = this.getGETSISTDESTINOReturn();
+            GetsistdestinoOutput rhsGETSISTDESTINOReturn;
+            rhsGETSISTDESTINOReturn = that.getGETSISTDESTINOReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getsistdestinoReturn", lhsGETSISTDESTINOReturn),
+                    LocatorUtils.property(thatLocator, "getsistdestinoReturn", rhsGETSISTDESTINOReturn),
+                    lhsGETSISTDESTINOReturn, rhsGETSISTDESTINOReturn, (this.getsistdestinoReturn != null),
+                    (that.getsistdestinoReturn != null))) {
                 return false;
             }
         }
@@ -123,10 +123,10 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            SincronizacionOutput theSINCRONIZACIONReturn;
-            theSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
-            strategy.appendField(locator, this, "sincronizacionReturn", buffer, theSINCRONIZACIONReturn,
-                    (this.sincronizacionReturn != null));
+            GetsistdestinoOutput theGETSISTDESTINOReturn;
+            theGETSISTDESTINOReturn = this.getGETSISTDESTINOReturn();
+            strategy.appendField(locator, this, "getsistdestinoReturn", buffer, theGETSISTDESTINOReturn,
+                    (this.getsistdestinoReturn != null));
         }
         return buffer;
     }
@@ -134,11 +134,11 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            SincronizacionOutput theSINCRONIZACIONReturn;
-            theSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
+            GetsistdestinoOutput theGETSISTDESTINOReturn;
+            theGETSISTDESTINOReturn = this.getGETSISTDESTINOReturn();
             currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "sincronizacionReturn", theSINCRONIZACIONReturn), currentHashCode,
-                    theSINCRONIZACIONReturn, (this.sincronizacionReturn != null));
+                    LocatorUtils.property(locator, "getsistdestinoReturn", theGETSISTDESTINOReturn), currentHashCode,
+                    theGETSISTDESTINOReturn, (this.getsistdestinoReturn != null));
         }
         return currentHashCode;
     }
@@ -159,21 +159,21 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null) ? createNewInstance() : target);
-        if (draftCopy instanceof SINCRONIZACIONResponse) {
-            final SINCRONIZACIONResponse copy = ((SINCRONIZACIONResponse) draftCopy);
+        if (draftCopy instanceof GETSISTDESTINOResponse) {
+            final GETSISTDESTINOResponse copy = ((GETSISTDESTINOResponse) draftCopy);
             {
-                Boolean sincronizacionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.sincronizacionReturn != null));
-                if (sincronizacionReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    SincronizacionOutput sourceSINCRONIZACIONReturn;
-                    sourceSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
-                    SincronizacionOutput copySINCRONIZACIONReturn = ((SincronizacionOutput) strategy.copy(
-                            LocatorUtils.property(locator, "sincronizacionReturn", sourceSINCRONIZACIONReturn),
-                            sourceSINCRONIZACIONReturn, (this.sincronizacionReturn != null)));
-                    copy.setSINCRONIZACIONReturn(copySINCRONIZACIONReturn);
+                Boolean getsistdestinoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.getsistdestinoReturn != null));
+                if (getsistdestinoReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GetsistdestinoOutput sourceGETSISTDESTINOReturn;
+                    sourceGETSISTDESTINOReturn = this.getGETSISTDESTINOReturn();
+                    GetsistdestinoOutput copyGETSISTDESTINOReturn = ((GetsistdestinoOutput) strategy.copy(
+                            LocatorUtils.property(locator, "getsistdestinoReturn", sourceGETSISTDESTINOReturn),
+                            sourceGETSISTDESTINOReturn, (this.getsistdestinoReturn != null)));
+                    copy.setGETSISTDESTINOReturn(copyGETSISTDESTINOReturn);
                 } else {
-                    if (sincronizacionReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.sincronizacionReturn = null;
+                    if (getsistdestinoReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.getsistdestinoReturn = null;
                     }
                 }
             }
@@ -182,7 +182,7 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
     }
 
     public Object createNewInstance() {
-        return new SINCRONIZACIONResponse();
+        return new GETSISTDESTINOResponse();
     }
 
 }
