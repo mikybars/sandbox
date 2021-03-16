@@ -334,6 +334,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                             ps.setString(5, el.getPorcentaje());
                             ps.setString(6, el.getBanda());
                             ps.setString(7, el.getImporte());
+                            ps.setString(8, el.getCclIdSeccion());
                         }
 
                         @Override
