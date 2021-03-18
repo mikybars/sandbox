@@ -33,14 +33,14 @@ public class RunMantenimientoControllerTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(runMantenimientoController)
+        this.mockMvc = MockMvcBuilders.standaloneSetup(this.runMantenimientoController)
             .build();
     }
 
     @Test
     public void run() throws Exception {
         when(this.runMantenimientoServiceMock.run()).thenReturn(new RunMantenimientoDto());
-        this.mockMvc.perform(get("/run/mantenimiento/force")).andReturn();
+        this.mockMvc.perform(get("/run/mantenimiento")).andReturn();
         verify(this.runMantenimientoServiceMock, times(1)).run();
     }
 
