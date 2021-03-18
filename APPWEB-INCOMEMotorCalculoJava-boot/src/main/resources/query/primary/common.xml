@@ -2049,7 +2049,7 @@ AND ID_TIPO_DATO IN (
 
   <entry key="TareaRepositoryCustom.findLimpieza.limit">
     <![CDATA[
-  LIMIT :limit
+  FETCH FIRST :limit ROWS ONLY
     ]]>
   </entry>
 
@@ -6341,7 +6341,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
     UPDATE TAREA_FASE_ACCION SET FECHA_HORA_FIN = :nuevaFecha, ID_ESTADO_TAREA_FASE_ACCION = :nuevoIdEstado, ES_ACTIVO = :nuevoActivo WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion
     ]]>
   </entry>
-  
+
   <entry key="TareaFaseAccionRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual">
     <![CDATA[
            MERGE INTO TAREA_FASE_ACCION AS TFA USING
@@ -6351,7 +6351,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
                 INNER JOIN TAREA_FASE TF
                 ON TF.ID_TAREA_FASE = TFA.ID_TAREA_FASE
                 WHERE TF.ID_TAREA = :idTarea
-                AND TFA.ID_ESTADO_TAREA_FASE_ACCION = :idEstado                
+                AND TFA.ID_ESTADO_TAREA_FASE_ACCION = :idEstado
         )AS S ON (S.ID_TAREA_FASE_ACCION = TFA.ID_TAREA_FASE_ACCION)
         WHEN MATCHED THEN
                 UPDATE SET ID_ESTADO_TAREA_FASE_ACCION = :nuevoIdEstado, ES_ACTIVO = :nuevoActivo, FECHA_HORA_FIN = :nuevaFecha, FECHA_HORA_INICIO = :nuevaFecha
@@ -6376,37 +6376,37 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
     )
     ]]>
   </entry>
-  
+
   <entry key="TareaFaseRepositoryCustom.updateFechaFinAndEstadoByIdTareaFase">
     <![CDATA[
     UPDATE TAREA_FASE SET FECHA_HORA_FIN = :nuevaFecha, ID_ESTADO_TAREA_FASE = :nuevoIdEstado WHERE ID_TAREA_FASE = :idTareaFase
     ]]>
   </entry>
-  
+
   <entry key="TareaFaseRepositoryCustom.updateActivoByIdTarea">
     <![CDATA[
     UPDATE TAREA_FASE SET ES_ACTIVO = :nuevoActivo WHERE ID_TAREA = :idTarea
     ]]>
   </entry>
-  
-    <entry key="TareaFaseRepositoryCustom.updateActivoByIdTareaFase">
+
+  <entry key="TareaFaseRepositoryCustom.updateActivoByIdTareaFase">
     <![CDATA[
     UPDATE TAREA_FASE SET ES_ACTIVO = :nuevoActivo WHERE ID_TAREA_FASE = :idTareaFase
     ]]>
   </entry>
-  
+
   <entry key="TareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoByIdTareaFase">
     <![CDATA[
     UPDATE TAREA_FASE SET FECHA_HORA_INICIO = :nuevaFecha, FECHA_HORA_FIN = :nuevaFecha, ID_ESTADO_TAREA_FASE = :nuevoIdEstado, ES_ACTIVO = :nuevoActivo WHERE ID_TAREA_FASE = :idTareaFase
     ]]>
   </entry>
-  
+
   <entry key="TareaFaseAccionRepositoryCustom.findByIdTareaFaseAccion">
     <![CDATA[
       SELECT ID_TAREA_FASE_ACCION, ID_TAREA_FASE, ID_ACCION, ID_PUNTO_EJECUCION, ID_ESTADO_TAREA_FASE_ACCION, FECHA_HORA_CREACION, FECHA_HORA_INICIO, FECHA_HORA_FIN, ES_ACTIVO
-      FROM TAREA_FASE_ACCION WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion 
+      FROM TAREA_FASE_ACCION WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion
     ]]>
   </entry>
-  
+
 
 </properties>
