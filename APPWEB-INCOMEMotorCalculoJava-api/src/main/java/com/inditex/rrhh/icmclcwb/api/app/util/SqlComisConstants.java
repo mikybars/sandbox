@@ -50,6 +50,8 @@ public class SqlComisConstants {
 
     public static final String SQL_RESULT_CCL_ID_SECCION = "CCL_ID_SECCION";
 
+    public static final String SQL_RESULT_CCL_ID_SECCION_DESTINO = "CCL_ID_SECCION_DESTINO";
+
     public static final String SQL_RESULT_CCL_ID_COD_ORIGEN_DESTINO = "CCL_ID_COD_ORIGEN_DESTINO";
 
     public static final String SQL_RESULT_ID_TIPO_CALCULO = "ID_TIPO_CALCULO";
