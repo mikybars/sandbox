@@ -1987,8 +1987,16 @@ AND ID_TIPO_DATO IN (
 
   <entry key="TareaRepositoryCustom.selectTarea">
     <![CDATA[
-        SELECT
-          DISTINCT T.ID_TAREA
+        SELECT T.ID_TAREA
+    ]]>
+  </entry>
+
+  <entry key="TareaRepositoryCustom.selectLimit">
+    <![CDATA[
+        SELECT ID_TAREA FROM (
+          SELECT
+            ROW_NUMBER() OVER () AS ROW,
+            T.ID_TAREA
     ]]>
   </entry>
 
@@ -2049,7 +2057,8 @@ AND ID_TIPO_DATO IN (
 
   <entry key="TareaRepositoryCustom.findLimpieza.limit">
     <![CDATA[
-  FETCH FIRST :limit ROWS ONLY
+      GROUP BY T.ID_TAREA)
+    WHERE ROW <= :limit
     ]]>
   </entry>
 
