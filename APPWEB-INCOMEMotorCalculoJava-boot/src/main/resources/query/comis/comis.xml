@@ -126,7 +126,8 @@
       TPC.PORCENTAJE,
       TPP.BANDA,
       TPP.IMPORTE,
-      TPC.SECCION AS CCL_ID_SECCION
+      TPC.SECCION AS CCL_ID_SECCION,
+      PH.TIENDA AS CCL_ID_COD_ORIGEN
         FROM PERSONASHISTORICO PH
         LEFT JOIN TABLASPORCENTAJESCOMISION TPC
         ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
@@ -146,7 +147,8 @@
       TPP.TABLAPORCENTAJE,
       TPP.BANDA,
       TPP.IMPORTE,
-      TPC.SECCION
+      TPC.SECCION,
+      PH.TIENDA
     ]]>
   </entry>
 
@@ -241,7 +243,8 @@
         TPC.PORCENTAJE,
         TPP.BANDA,
         TPP.IMPORTE,
-        TPC.SECCION AS CCL_ID_SECCION
+        TPC.SECCION AS CCL_ID_SECCION,
+        PH.TIENDA AS CCL_ID_COD_ORIGEN
       FROM PERSONASRESALTAS PR
       INNER JOIN PERSONASHISTORICO PH
         ON PH.PERSONA = PR.PERSONA
@@ -262,14 +265,15 @@
         TPC.PORCENTAJE,
         TPP.BANDA,
         TPP.IMPORTE,
-        TPC.SECCION
+        TPC.SECCION,
+        PH.TIENDA 
     ]]>
   </entry>
 
   <entry key="ComisRepositoryCustom.findBajasIt">
     <![CDATA[
       WITH T AS (
-        SELECT FECHAINICIO inicio, FECHAFIN fin, ROW_NUMBER() OVER (ORDER BY Persona, CodigoIncidencia, FECHAINICIO) row, Persona, CodigoIncidencia
+        SELECT FECHAINICIO inicio, FECHAFIN fin, Tienda, ROW_NUMBER() OVER (ORDER BY Persona, CodigoIncidencia, FECHAINICIO) row, Persona, CodigoIncidencia
         FROM INCIDENCIASSIL
         WHERE TIPOINCIDENCIA = 700
             AND CODIGOINCIDENCIA >= 7000 AND CODIGOINCIDENCIA <= 7100
@@ -284,15 +288,16 @@
                     FROM TABLASGENERALES
                     WHERE TABLA = 9061 AND INDICADOR1 = 'O')
             )
-        GROUP BY FECHAINICIO, FECHAFIN, Persona, CodigoIncidencia
+        GROUP BY FECHAINICIO, FECHAFIN, Tienda, Persona, CodigoIncidencia
       )
       SELECT
         Min(inicio) AS FECHA_INICIO,
           Max(fin) AS FECHA_FIN,
           PERSONA AS CCL_ID_PERSON,
+          Tienda AS CCL_ID_COD_ORIGEN,          
           (100 - (CODIGOINCIDENCIA - 7000))/100.0 AS PORCENTAJE
       FROM T
-      GROUP BY Persona, CodigoIncidencia, DATEDIFF(day, FIN, row)
+      GROUP BY Persona, CodigoIncidencia, Tienda, DATEDIFF(day, FIN, row)
       ]]>
   </entry>
 
@@ -305,8 +310,8 @@
         TIENDA AS CCL_ID_COD_ORIGEN
         FROM PERSONAS 
         WHERE FECHAINICIOCALCULO IS NOT NULL
-        AND FECHAINICIOCALCULO <> FECHAALTA
-        AND FECHAINICIOCALCULO BETWEEN :fechaDesde AND :fechaHasta
+        AND FECHAALTA < :fechaHasta
+        AND FECHAINICIOCALCULO > :fechaHasta
       ]]>
   </entry>
 

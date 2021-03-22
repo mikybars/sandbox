@@ -335,6 +335,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                             ps.setString(6, el.getBanda());
                             ps.setString(7, el.getImporte());
                             ps.setString(8, el.getCclIdSeccion());
+                            ps.setString(9, el.getCclIdCodOrigen());
                         }
 
                         @Override
@@ -381,6 +382,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                             ps.setDate(2, new Date(TimeUtils.toDate(el.getFechaDesde()).getTime()));
                             ps.setDate(3, new Date(TimeUtils.toDate(el.getFechaHasta()).getTime()));
                             ps.setString(4, el.getPorcentaje());
+                            ps.setString(5, el.getCclIdCodOrigen());
                         }
 
                         @Override

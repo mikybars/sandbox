@@ -128,6 +128,7 @@ public class ComisRepositoryCustomImpl
                     .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
                     .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
                     .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
+                    .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
                     .build());
     }
 
@@ -175,6 +176,7 @@ public class ComisRepositoryCustomImpl
                     .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
                     .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
                     .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
+                    .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
                     .build());
     }
 
@@ -193,6 +195,7 @@ public class ComisRepositoryCustomImpl
                     .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
                     .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
                     .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
+                    .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
                     .build());
     }
 
