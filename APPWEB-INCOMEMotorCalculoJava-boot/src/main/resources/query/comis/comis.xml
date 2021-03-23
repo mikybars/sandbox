@@ -147,6 +147,7 @@
           AND PCT.FECHADESDE <= :fechaHasta
           AND PCT.FECHAHASTA >= :fechaDesde
           AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
+          AND PH.TIPOCALCULO IS NOT NULL
           GROUP BY
             PCT.Persona,
             PCT.FechaDesde,
@@ -189,13 +190,14 @@
       PH.FechaDesde <= :fechaHasta
       AND PH.FECHAHASTA >= :fechaDesde
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND PH.TIPOCALCULO IS NOT NULL
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
     SELECT
       PH.PERSONA AS CCL_ID_PERSON,
       D.FECHAHASTA + 1 AS FECHADESDE,
       CASE
-        WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > '2020-08-31' THEN '2020-08-31'
+        WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
         ELSE PH.FECHAHASTA
       END AS FECHAHASTA,
       PH.TIENDA AS CCL_ID_COD_ORIGEN,
@@ -215,13 +217,14 @@
     WHERE PH.FechaDesde <= :fechaHasta
       AND PH.FECHAHASTA >= :fechaDesde
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND PH.TIPOCALCULO IS NOT NULL
     UNION
     -- Casos que no tienen desplazamientos en el período
     SELECT
       PH.PERSONA AS CLL_ID_PERSON,
       CASE WHEN PH.FechaDesde < :fechaDesde THEN :fechaDesde ELSE PH.FechaDesde END AS FechaDesde,
       CASE
-        WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > '2020-08-31' THEN '2020-08-31'
+        WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
         ELSE PH.FECHAHASTA
       END AS FECHAHASTA,
       PH.Tienda AS CCL_ID_COD_ORIGEN,
@@ -244,6 +247,7 @@
       AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND pct.Persona IS NULL
+      AND PH.TIPOCALCULO IS NOT NULL
     ]]>
   </entry>
 
