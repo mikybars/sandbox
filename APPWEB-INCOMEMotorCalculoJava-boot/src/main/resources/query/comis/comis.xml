@@ -148,6 +148,7 @@
           AND PCT.FECHAHASTA >= :fechaDesde
           AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
           AND PH.TIPOCALCULO IS NOT NULL
+          AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99          
           GROUP BY
             PCT.Persona,
             PCT.FechaDesde,
@@ -191,6 +192,7 @@
       AND PH.FECHAHASTA >= :fechaDesde
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99     
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
     SELECT
@@ -218,6 +220,7 @@
       AND PH.FECHAHASTA >= :fechaDesde
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99      
     UNION
     -- Casos que no tienen desplazamientos en el período
     SELECT
@@ -248,6 +251,7 @@
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND pct.Persona IS NULL
       AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
     ]]>
   </entry>
 
