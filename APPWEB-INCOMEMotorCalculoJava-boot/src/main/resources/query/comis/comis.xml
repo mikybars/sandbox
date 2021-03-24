@@ -132,6 +132,7 @@
             PCT.Persona,
             LAG(PCT.FechaDesde, 1, :fechaDesde) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FechaDesde) AS LAG,
             LEAD(PCT.FechaDesde, 1, :fechaHasta) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FechaDesde) AS LEAD,
+            LAG(PCT.FechaHasta, 1) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FECHAHASTA) AS LAGHASTA,
             PCT.FechaDesde - 1 AS FechaDesde1,
             PCT.FechaDesde,
             PCT.FechaHasta,
@@ -154,6 +155,7 @@
             PCT.FechaDesde,
             PCT.FechaHasta
         ) AS FECHAS
+        WHERE (LAGHASTA IS NULL OR LAGHASTA <> FECHADESDE1)
       ) AS DATA
     ) AS FILTRO
     WHERE FILTRO.FechaDesde <= FILTRO.FechaHasta),
