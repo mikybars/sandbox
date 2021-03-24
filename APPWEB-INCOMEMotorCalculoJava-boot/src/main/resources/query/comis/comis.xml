@@ -139,8 +139,8 @@
           FROM PERSONASHISTORICO PH
           LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT
             ON PCT.PERSONA = PH.PERSONA
-            AND PCT.FechaDesde <= PH.FechaHasta
-            AND PCT.FechaHasta >= PH.FechaDesde
+            AND (PH.FechaHasta IS NULL OR PCT.FechaDesde <= PH.FechaHasta)
+            AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PH.FechaDesde)
           WHERE 1 = 1
           AND PH.FECHADESDE <= :fechaHasta
           AND PH.FECHAHASTA >= :fechaDesde
@@ -148,7 +148,7 @@
           AND PCT.FECHAHASTA >= :fechaDesde
           AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
           AND PH.TIPOCALCULO IS NOT NULL
-          AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99          
+          AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
           GROUP BY
             PCT.Persona,
             PCT.FechaDesde,
@@ -192,7 +192,7 @@
       AND PH.FECHAHASTA >= :fechaDesde
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL
-      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99     
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
     SELECT
@@ -209,7 +209,7 @@
       TPP.IMPORTE,
       TPC.SECCION AS CCL_ID_SECCION
     FROM PersonasHistorico PH
-    JOIN DESPLAZAMIENTOS D
+    INNER JOIN DESPLAZAMIENTOS D
       ON PH.PERSONA = D.PERSONA
       AND D.ROW = 1
     LEFT JOIN TABLASPORCENTAJESCOMISION TPC
@@ -217,10 +217,10 @@
     LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
       ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
     WHERE PH.FechaDesde <= :fechaHasta
-      AND PH.FECHAHASTA >= :fechaDesde
+      AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL
-      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99      
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
     UNION
     -- Casos que no tienen desplazamientos en el período
     SELECT
@@ -254,13 +254,20 @@
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
     ]]>
   </entry>
-
+  
   <entry key="ComisRepositoryCustom.findCondicionesDesplazamiento">
     <![CDATA[
     WITH T AS (
       SELECT PCT.PERSONA AS CCL_ID_PERSON,
-          PCT.FECHADESDE AS FECHA_DESDE,
-          PCT.FECHAHASTA AS FECHA_HASTA,
+          CASE
+            WHEN PCT.FECHADESDE < :fechaDesde THEN :fechaDesde
+            ELSE PCT.FECHADESDE
+          END AS FECHA_DESDE,
+          CASE
+            WHEN PCT.FECHAHASTA IS NULL THEN :fechaHasta
+            WHEN PCT.FECHAHASTA > :fechaHasta THEN :fechaHasta
+            ELSE PCT.FECHAHASTA
+          END AS FECHA_HASTA,
           PCT.TIENDAORIGEN AS CCL_ID_COD_ORIGEN,
           PCT.TIENDADESTINO AS CCL_ID_COD_ORIGEN_DESTINO,
           TPC.SECCION AS CCL_ID_SECCION_DESTINO,
@@ -352,7 +359,7 @@
       INNER JOIN PERSONASHISTORICO PH
         ON PH.PERSONA = PR.PERSONA
         AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
-        AND (PR.FECHADESDE <= PH.FECHADESDE)
+       -- AND (PH.FECHADESDE <= PR.FECHADESDE)
       LEFT JOIN TABLASPORCENTAJESCOMISION TPC
         ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
       LEFT JOIN TablasPresupuestosComision TPP
