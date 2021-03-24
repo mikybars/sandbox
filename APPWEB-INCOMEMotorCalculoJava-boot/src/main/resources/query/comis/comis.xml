@@ -143,9 +143,9 @@
             AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PH.FechaDesde)
           WHERE 1 = 1
           AND PH.FECHADESDE <= :fechaHasta
-          AND PH.FECHAHASTA >= :fechaDesde
+          AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
           AND PCT.FECHADESDE <= :fechaHasta
-          AND PCT.FECHAHASTA >= :fechaDesde
+          AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
           AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
           AND PH.TIPOCALCULO IS NOT NULL
           AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
@@ -189,7 +189,7 @@
       ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
     WHERE
       PH.FechaDesde <= :fechaHasta
-      AND PH.FECHAHASTA >= :fechaDesde
+      AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
@@ -212,6 +212,7 @@
     INNER JOIN DESPLAZAMIENTOS D
       ON PH.PERSONA = D.PERSONA
       AND D.ROW = 1
+      AND D.FECHAHASTA <> :fechaHasta
     LEFT JOIN TABLASPORCENTAJESCOMISION TPC
       ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
     LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
@@ -254,7 +255,7 @@
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
     ]]>
   </entry>
-  
+
   <entry key="ComisRepositoryCustom.findCondicionesDesplazamiento">
     <![CDATA[
     WITH T AS (
