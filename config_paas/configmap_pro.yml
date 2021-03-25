@@ -22,9 +22,9 @@ amiga:
   data:
     jdbc:
       datasource:
-        user: uincome
-        url: jdbc:db2://axindb22v1.central.inditex.grp:50000/INDITEX
-#        primary:
+        primary:
+          user: uincome
+          url: jdbc:db2://axindb22v1.central.inditex.grp:50000/INDITEX
 #          xa-properties:
 #            serverName: axindb22v1.central.inditex.grp
 #            portNumber: 50000
