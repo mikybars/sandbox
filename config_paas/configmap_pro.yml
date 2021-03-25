@@ -55,7 +55,7 @@ amiga:
           user: ncomis
         comis3:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://NLSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          url: jdbc:sqlserver://NLSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           user: ncomis
         comis4:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -111,7 +111,7 @@ amiga:
           user: ncomis
         comis52:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://TRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          URL: JDBC:SQLSERVER://TRSQL.SEDES.INDITEX.GRP:1433;DATABASENAME=PERSONAL
           user: ncomis
         comis60:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -139,7 +139,7 @@ amiga:
           user: ncomis
         comis72:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://UASQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          url: jdbc:sqlserver://UASQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           user: ncomis
         comis75:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -147,7 +147,7 @@ amiga:
           user: ncomis
         comis79:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://KZSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          url: jdbc:sqlserver://KZSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           user: ncomis
         comis92:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -211,7 +211,7 @@ amiga:
           user: ncomis
         comis720:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://CNSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          url: jdbc:sqlserver://CNSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           user: ncomis
         comis728:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -223,19 +223,19 @@ amiga:
           user: ncomis
         comis736:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://TWSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          url: jdbc:sqlserver://TWSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           user: ncomis
         comis740:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           user: ncomis
         comis743:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalMacao
+          url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComisionMacao
           user: ncomis
         comis800:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           user: ncomis
 app:
   envars:
