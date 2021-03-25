@@ -219,7 +219,7 @@ amiga:
           user: ncomis
         comis732:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://JPSQL.JAPON.INDITEX.GRP:1433;databaseName=Personal
+          url: jdbc:sqlserver://JPSQL.SEDES.INDITEX.GRP:1433;databaseName=personalcomision
           user: ncomis
         comis736:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
