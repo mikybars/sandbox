@@ -19,7 +19,7 @@ metadata:
   platform: Openshift-Intranet Arteixo
   slot: develop
   tenant: global
-  version: 2.7.0
+  version: 2.7.1
 amiga:
   monitoring:
     metrics:
@@ -763,7 +763,7 @@ app:
       config:
         max-attempts: 20
         credentials:
-          user: INCOME_CALC
+          user: JAVIEREV
           password: 123
 #          user: SRVCICMCLCWSDESAX
 #          password: kUZaIucw>WVIO9x
@@ -779,15 +779,15 @@ app:
           connectTimeout: 300000
           receiveTimeout: 300000
       login:
-        server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
+        #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
         #server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/Login
-        #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
+        server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icmwscalcincome:
-        server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
           getEmpresa:
             page:
