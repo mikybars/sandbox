@@ -763,7 +763,7 @@ app:
       config:
         max-attempts: 20
         credentials:
-          user: JAVIEREV
+          user: INCOME_CALC
           password: 123
 #          user: SRVCICMCLCWSDESAX
 #          password: kUZaIucw>WVIO9x
