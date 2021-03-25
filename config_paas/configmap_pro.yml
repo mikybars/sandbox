@@ -33,7 +33,7 @@ amiga:
 #            user: uincome
         ptr:
           driverClassName: oracle.jdbc.OracleDriver
-          url: jdbc:oracle:thin:@//axine6-scansrv.central.inditex.grp:11521/s_pdbds01rt_gener.central.inditex.grp
+          url: jdbc:oracle:thin:@//axine6-scansrv.central.inditex.grp:11521/s_pdbin01rt_gener.central.inditex.grp
           user: uincome
           defaultIsolationLevel: 8
 #        ptr:
@@ -171,7 +171,7 @@ amiga:
           user: ncomis
         comis139:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalMerken
+          url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
           user: ncomis
         comis388:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
