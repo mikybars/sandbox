@@ -33,7 +33,7 @@ amiga:
 #            user: uincome
         ptr:
           driverClassName: oracle.jdbc.OracleDriver
-          url:
+          url: jdbc:oracle:thin:@//axine6-scansrv.central.inditex.grp:1521/s_pdbds01rt_gener.central.inditex.grp
           user: uincome
           defaultIsolationLevel: 8
 #        ptr:
@@ -45,10 +45,6 @@ amiga:
 #            user: uincome
 #            password:
 #            driverType: thin
-        meta4:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://axinsqlm4v1:1433;databaseName=PeopleNet
-          user: UINCOME
         comis1:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://FRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
