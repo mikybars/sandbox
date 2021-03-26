@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>2.7.2</version>
+    <version>2.7.3</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-ws</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
