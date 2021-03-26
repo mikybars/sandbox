@@ -32,11 +32,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCal
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.programacion.SenderProgramacion;
 import org.slf4j.Logger;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 
@@ -133,16 +133,17 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
             .collect(Collectors.toList());
         // Se establece la fecha de la siguiente ejecución inmediatamente
         if (CollectionUtils.isNotEmpty(pendientes)) {
+            final List<CompletableFuture<?>> cf = new ArrayList<>();
             final CompletableFuture<Void> future = this.programacionAsyncService
                 .updateFechaSiguienteEjecucion(pendientes);
-            Mono.fromFuture(future)
-                .subscribe(v ->
-                // Y se envían a la cola
-                Flux.fromIterable(pendientes)
-                    .parallel()
-                    .runOn(ItxSchedulers.single())
-                    .subscribe(programacion -> this.senderProgramacion
-                        .send(IdProgramacionDto.builder().id(programacion.getId()).build())));
+            AsyncUtils.exceptionally(future, cf);
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            // Y se envían a la cola
+            Flux.fromIterable(pendientes)
+                .parallel()
+                .runOn(ItxSchedulers.single())
+                .subscribe(programacion -> this.senderProgramacion
+                    .send(IdProgramacionDto.builder().id(programacion.getId()).build()));
         }
         return result;
     }
