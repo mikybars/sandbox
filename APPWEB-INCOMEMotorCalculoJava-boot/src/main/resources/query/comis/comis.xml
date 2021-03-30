@@ -260,7 +260,7 @@
 
   <entry key="ComisRepositoryCustom.findCondicionesDesplazamiento">
     <![CDATA[
-    WITH T AS (
+  WITH T AS (
       SELECT PCT.PERSONA AS CCL_ID_PERSON,
           CASE
             WHEN PCT.FECHADESDE < :fechaDesde THEN :fechaDesde
@@ -311,8 +311,64 @@
             PCT.TIPOOPCIONCALCULO,
             TPC.PORCENTAJE,
             TPP.BANDA,
+            TPP.IMPORTE),
+   U AS (
+      SELECT PCT.PERSONA AS CCL_ID_PERSON,
+          CASE
+            WHEN PCT.FECHADESDE < :fechaDesde THEN :fechaDesde
+            ELSE PCT.FECHADESDE
+          END AS FECHA_DESDE,
+          CASE
+            WHEN PCT.FECHAHASTA IS NULL THEN :fechaHasta
+            WHEN PCT.FECHAHASTA > :fechaHasta THEN :fechaHasta
+            ELSE PCT.FECHAHASTA
+          END AS FECHA_HASTA,
+          PCT.TIENDAORIGEN AS CCL_ID_COD_ORIGEN,
+          PCT.TIENDADESTINO AS CCL_ID_COD_ORIGEN_DESTINO,
+          TPC.SECCION AS CCL_ID_SECCION_DESTINO,
+          PCT.TIPOCALCULO AS ID_TIPO_CALCULO,
+          PCT.TIPOOPCIONCALCULO AS ID_TIPO_OPCION_CALCULO,
+          TPC.PORCENTAJE,
+          TPP.BANDA AS BANDA,
+          TPP.IMPORTE,
+          ROW_NUMBER() OVER (
+            ORDER BY
+            PCT.PERSONA,
+            PCT.TIENDAORIGEN,
+            PCT.TIENDADESTINO,
+            TPC.SECCION,
+            PCT.TIPOCALCULO,
+            PCT.TIPOOPCIONCALCULO,
+            TPC.PORCENTAJE,
+            TPP.BANDA,
+            TPP.IMPORTE,
+            PCT.FECHADESDE
+          ) ROW
+          FROM PERSONASCAMBIOSTEMPORALES PCT
+          INNER JOIN PERSONASRESALTAS PR
+          ON PCT.PERSONA = PR.PERSONA
+          AND (PCT.FECHAHASTA >= PR.FECHADESDE)
+          AND (PCT.FECHADESDE <= PR.FECHAHASTA)
+          LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+          ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
+          LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+          ON TPP.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
+            WHERE PCT.FECHADESDE <= :fechaHasta
+            AND PCT.FECHAHASTA >= :fechaDesde
+            AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+          GROUP BY
+            PCT.PERSONA,
+            PCT.FECHADESDE,
+            PCT.FECHAHASTA,
+            PCT.TIENDAORIGEN,
+            PCT.TIENDADESTINO,
+            TPC.SECCION,
+            PCT.TIPOCALCULO,
+            PCT.TIPOOPCIONCALCULO,
+            TPC.PORCENTAJE,
+            TPP.BANDA,
             TPP.IMPORTE)
-    SELECT
+   SELECT
         CCL_ID_PERSON,
         MIN(FECHA_DESDE) AS FECHA_DESDE,
         MAX(FECHA_HASTA) AS FECHA_HASTA,
@@ -325,6 +381,31 @@
         BANDA,
         IMPORTE
     FROM T
+    GROUP BY
+        CCL_ID_PERSON,
+        CCL_ID_COD_ORIGEN,
+        CCL_ID_COD_ORIGEN_DESTINO,
+        CCL_ID_SECCION_DESTINO,
+        ID_TIPO_CALCULO,
+        ID_TIPO_OPCION_CALCULO,
+        PORCENTAJE,
+        BANDA,
+        IMPORTE,
+        DATEDIFF(day, FECHA_HASTA, ROW)
+UNION
+   SELECT
+        CCL_ID_PERSON,
+        MIN(FECHA_DESDE) AS FECHA_DESDE,
+        MAX(FECHA_HASTA) AS FECHA_HASTA,
+        CCL_ID_COD_ORIGEN,
+        CCL_ID_COD_ORIGEN_DESTINO,
+        CCL_ID_SECCION_DESTINO,
+        ID_TIPO_CALCULO,
+        ID_TIPO_OPCION_CALCULO,
+        PORCENTAJE,
+        BANDA,
+        IMPORTE
+    FROM U
     GROUP BY
         CCL_ID_PERSON,
         CCL_ID_COD_ORIGEN,
