@@ -367,18 +367,22 @@
             PCT.FechaDesde,
             PCT.FechaHasta,
             PCT.FechaHasta + 1 AS FechaHasta1
-          FROM PERSONASHISTORICO PH
+          FROM PERSONASRESALTAS PR
+          INNER JOIN PersonasHistorico PH
+            ON PH.PERSONA = PR.PERSONA
+            AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
+        	AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
           LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT
-            ON PCT.PERSONA = PH.PERSONA
-            AND (PH.FechaHasta IS NULL OR PCT.FechaDesde <= PH.FechaHasta)
-            AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PH.FechaDesde)
+            ON PCT.PERSONA = PR.PERSONA
+            AND (PR.FechaHasta IS NULL OR PCT.FechaDesde <= PR.FechaHasta)
+            AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PR.FechaDesde)
           WHERE 1 = 1
-          AND PH.FECHADESDE <= :fechaHasta
-          AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
+          AND PR.FECHADESDE <= :fechaHasta
+          AND (PR.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
           AND PCT.FECHADESDE <= :fechaHasta
           AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
           AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
-          AND PH.TIPOCALCULO IS NOT NULL
+          AND PR.TIPOCALCULO IS NOT NULL
           AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
           GROUP BY
             PCT.Persona,
@@ -415,6 +419,7 @@
     FROM PersonasResaltas PR
     INNER JOIN PERSONASHISTORICO PH
         ON PH.PERSONA = PR.PERSONA
+        AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
         AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
     INNER JOIN FECHAS_ESTRUCTURA F
       ON F.PERSONA = PH.PERSONA
@@ -448,6 +453,7 @@
     FROM PersonasResaltas PR
     INNER JOIN PERSONASHISTORICO PH
         ON PH.PERSONA = PR.PERSONA
+        AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
         AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
     INNER JOIN DESPLAZAMIENTOS D
       ON PH.PERSONA = D.PERSONA
@@ -482,6 +488,7 @@
     FROM PersonasResaltas PR
     INNER JOIN PERSONASHISTORICO PH
         ON PH.PERSONA = PR.PERSONA
+        AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
         AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
     LEFT JOIN TABLASPORCENTAJESCOMISION TPC
       ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
@@ -501,7 +508,7 @@
       AND PH.TIPOCALCULO IS NOT NULL
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
     -- Desplazamientos
-    union
+    UNION
     SELECT
       PH.PERSONA AS CCL_ID_PERSON,
       D.FECHADESDE,
@@ -518,6 +525,7 @@
     FROM PersonasResaltas PR
     INNER JOIN PERSONASHISTORICO PH
         ON PH.PERSONA = PR.PERSONA
+        AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
         AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
     INNER JOIN DESPLAZAMIENTOS D
       ON PH.PERSONA = D.PERSONA
