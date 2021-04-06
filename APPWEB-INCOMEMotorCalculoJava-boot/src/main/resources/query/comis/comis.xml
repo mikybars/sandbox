@@ -119,7 +119,7 @@
     FROM (
       SELECT
         PERSONA,
-        CASE WHEN DATA.INICIO = 1 THEN DATA.LAG ELSE DATA.LAG + 1 END AS FechaDesde,
+        CASE WHEN DATA.INICIO = 1 THEN DATA.LAG ELSE DATA.LAGHASTA + 1 END AS FechaDesde,
         CASE WHEN DATA.FIN = 1 THEN DATA.FechaDesde1 ELSE DATA.FechaDesde1 END AS FechaHasta
       FROM (
         SELECT
@@ -246,8 +246,8 @@
       ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
     LEFT JOIN PersonasCambiosTemporales pct
       ON pct.Persona = ph.Persona
-      AND pct.FechaDesde < :fechaHasta
-      AND (pct.FechaHasta IS NULL OR pct.FechaHasta > :fechaDesde)
+      AND pct.FechaDesde <= :fechaHasta
+      AND (pct.FechaHasta IS NULL OR pct.FechaHasta >= :fechaDesde)
     WHERE
       PH.FechaDesde <= :fechaHasta
       AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
