@@ -79,6 +79,9 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisHistorico']}")
     private String sqlInsertTempComisHistorico;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisHistorico']}")
+    private String sqlMergeDateRangesTempComisHistorico;
+
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisHistorico']}")
     private String sqlValidateTempComisHistorico;
 
@@ -238,6 +241,13 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         }
                     });
         }
+    }
+
+    @Override
+    public void mergeDateRangesTempComisHistorico(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesTempComisHistorico, map);
     }
 
     @Override

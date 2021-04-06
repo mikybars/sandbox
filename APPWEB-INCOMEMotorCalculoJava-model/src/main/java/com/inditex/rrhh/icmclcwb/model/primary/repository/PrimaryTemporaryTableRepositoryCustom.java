@@ -35,6 +35,12 @@ public interface PrimaryTemporaryTableRepositoryCustom {
     void insertTempComisHistorico(List<IdPersonaLocalCondicionesDto> listado);
 
     /**
+     * @param tarea
+     * @return
+     */
+    void mergeDateRangesTempComisHistorico(final TareaDto tarea);
+
+    /**
      * @return
      */
     int createTempComisDesplazamiento();
