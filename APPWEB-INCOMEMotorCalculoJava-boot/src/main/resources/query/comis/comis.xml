@@ -422,7 +422,7 @@ UNION
     ]]>
   </entry>
 
-  <entry key="ComisRepositoryCustom.findCondicionesResalta">
+     <entry key="ComisRepositoryCustom.findCondicionesResalta">
     <![CDATA[
     WITH FECHAS_ESTRUCTURA AS (
     SELECT
@@ -454,7 +454,7 @@ UNION
           INNER JOIN PersonasHistorico PH
             ON PH.PERSONA = PR.PERSONA
             AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
-        	AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
+          AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
           LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT
             ON PCT.PERSONA = PR.PERSONA
             AND (PR.FechaHasta IS NULL OR PCT.FechaDesde <= PR.FechaHasta)
@@ -465,7 +465,7 @@ UNION
           AND PCT.FECHADESDE <= :fechaHasta
           AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
           AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
-          AND PR.TIPOCALCULO IS NOT NULL
+          AND PR.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0 
           AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
           GROUP BY
             PCT.Persona,
@@ -516,7 +516,7 @@ UNION
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-      AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
@@ -551,7 +551,7 @@ UNION
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-      AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
     UNION
     -- Casos que no tienen desplazamientos en el período
@@ -588,7 +588,7 @@ UNION
       AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND pct.Persona IS NULL
-      AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
     -- Desplazamientos
     UNION
@@ -621,7 +621,7 @@ UNION
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-      AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
     ]]>
   </entry>
