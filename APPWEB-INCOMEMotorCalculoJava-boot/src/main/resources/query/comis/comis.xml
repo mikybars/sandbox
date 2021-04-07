@@ -279,6 +279,7 @@
           TPC.PORCENTAJE,
           TPP.BANDA AS BANDA,
           TPP.IMPORTE,
+          PCT.MOTIVO,
           ROW_NUMBER() OVER (
             ORDER BY
             PCT.PERSONA,
@@ -290,7 +291,8 @@
             TPC.PORCENTAJE,
             TPP.BANDA,
             TPP.IMPORTE,
-            PCT.FECHADESDE
+            PCT.FECHADESDE,
+            PCT.MOTIVO
           ) ROW
           FROM PERSONASCAMBIOSTEMPORALES PCT
           LEFT JOIN TABLASPORCENTAJESCOMISION TPC
@@ -311,7 +313,8 @@
             PCT.TIPOOPCIONCALCULO,
             TPC.PORCENTAJE,
             TPP.BANDA,
-            TPP.IMPORTE),
+            TPP.IMPORTE,
+            PCT.MOTIVO),
    U AS (
       SELECT PCT.PERSONA AS CCL_ID_PERSON,
           CASE
@@ -332,6 +335,7 @@
           TPC.PORCENTAJE,
           TPP.BANDA AS BANDA,
           TPP.IMPORTE,
+          PCT.MOTIVO,
           ROW_NUMBER() OVER (
             ORDER BY
             PCT.PERSONA,
@@ -343,7 +347,8 @@
             TPC.PORCENTAJE,
             TPP.BANDA,
             TPP.IMPORTE,
-            PCT.FECHADESDE
+            PCT.FECHADESDE,
+            PCT.MOTIVO
           ) ROW
           FROM PERSONASCAMBIOSTEMPORALES PCT
           INNER JOIN PERSONASRESALTAS PR
@@ -369,7 +374,8 @@
             PCT.TIPOOPCIONCALCULO,
             TPC.PORCENTAJE,
             TPP.BANDA,
-            TPP.IMPORTE)
+            TPP.IMPORTE,
+            PCT.MOTIVO)
    SELECT
         CCL_ID_PERSON,
         MIN(FECHA_DESDE) AS FECHA_DESDE,
@@ -393,7 +399,8 @@
         PORCENTAJE,
         BANDA,
         IMPORTE,
-        DATEDIFF(day, FECHA_HASTA, ROW)
+        DATEDIFF(day, FECHA_HASTA, ROW),
+        PCT.MOTIVO
 UNION
    SELECT
         CCL_ID_PERSON,
@@ -418,7 +425,8 @@ UNION
         PORCENTAJE,
         BANDA,
         IMPORTE,
-        DATEDIFF(day, FECHA_HASTA, ROW)
+        DATEDIFF(day, FECHA_HASTA, ROW),
+        PCT.MOTIVO
     ]]>
   </entry>
 
