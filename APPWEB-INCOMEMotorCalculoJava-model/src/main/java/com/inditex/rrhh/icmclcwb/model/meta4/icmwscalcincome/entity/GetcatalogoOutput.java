@@ -30,20 +30,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>
- * Clase Java para GetventacongeladaOutput complex type.
+ * Clase Java para GetcatalogoOutput complex type.
  *
  * <p>
  * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
- * &lt;complexType name="GetventacongeladaOutput"&gt;
+ * &lt;complexType name="GetcatalogoOutput"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
- *         &lt;element name="Icm_Listaventacongelada" type="{http://schemas.meta4.com/}Icm_ListaventacongeladaBlock"/&gt;
+ *         &lt;element name="Icm_Listacatalogo" type="{http://schemas.meta4.com/}Icm_ListacatalogoBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -53,13 +52,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetventacongeladaOutput", propOrder = {
+@XmlType(name = "GetcatalogoOutput", propOrder = {
         "_return",
         "logMessage",
-        "icmParametrospaginacion",
-        "icmListaventacongelada"
+        "icmListacatalogo"
 })
-public class GetventacongeladaOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
 
@@ -69,11 +67,8 @@ public class GetventacongeladaOutput implements Serializable, Cloneable, CopyTo2
     @XmlElement(nillable = true)
     protected List<LogMessage> logMessage;
 
-    @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
-    protected IcmParametrospaginacionBlock icmParametrospaginacion;
-
-    @XmlElement(name = "Icm_Listaventacongelada", required = true, nillable = true)
-    protected IcmListaventacongeladaBlock icmListaventacongelada;
+    @XmlElement(name = "Icm_Listacatalogo", required = true, nillable = true)
+    protected IcmListacatalogoBlock icmListacatalogo;
 
     /**
      * Obtiene el valor de la propiedad return.
@@ -120,39 +115,21 @@ public class GetventacongeladaOutput implements Serializable, Cloneable, CopyTo2
     }
 
     /**
-     * Obtiene el valor de la propiedad icmParametrospaginacion.
-     * @return possible object is {@link IcmParametrospaginacionBlock }
+     * Obtiene el valor de la propiedad icmListacatalogo.
+     * @return possible object is {@link IcmListacatalogoBlock }
      *
      */
-    public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
-        return icmParametrospaginacion;
+    public IcmListacatalogoBlock getIcmListacatalogo() {
+        return icmListacatalogo;
     }
 
     /**
-     * Define el valor de la propiedad icmParametrospaginacion.
-     * @param value allowed object is {@link IcmParametrospaginacionBlock }
+     * Define el valor de la propiedad icmListacatalogo.
+     * @param value allowed object is {@link IcmListacatalogoBlock }
      *
      */
-    public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
-        this.icmParametrospaginacion = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad icmListaventacongelada.
-     * @return possible object is {@link IcmListaventacongeladaBlock }
-     *
-     */
-    public IcmListaventacongeladaBlock getIcmListaventacongelada() {
-        return icmListaventacongelada;
-    }
-
-    /**
-     * Define el valor de la propiedad icmListaventacongelada.
-     * @param value allowed object is {@link IcmListaventacongeladaBlock }
-     *
-     */
-    public void setIcmListaventacongelada(IcmListaventacongeladaBlock value) {
-        this.icmListaventacongelada = value;
+    public void setIcmListacatalogo(IcmListacatalogoBlock value) {
+        this.icmListacatalogo = value;
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
@@ -163,7 +140,7 @@ public class GetventacongeladaOutput implements Serializable, Cloneable, CopyTo2
         if (this == object) {
             return true;
         }
-        final GetventacongeladaOutput that = ((GetventacongeladaOutput) object);
+        final GetcatalogoOutput that = ((GetcatalogoOutput) object);
         {
             double lhsReturn;
             lhsReturn = this.getReturn();
@@ -187,28 +164,13 @@ public class GetventacongeladaOutput implements Serializable, Cloneable, CopyTo2
             }
         }
         {
-            IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
-            lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
-            rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion),
-                    LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion),
-                    lhsIcmParametrospaginacion, rhsIcmParametrospaginacion, (this.icmParametrospaginacion != null),
-                    (that.icmParametrospaginacion != null))) {
-                return false;
-            }
-        }
-        {
-            IcmListaventacongeladaBlock lhsIcmListaventacongelada;
-            lhsIcmListaventacongelada = this.getIcmListaventacongelada();
-            IcmListaventacongeladaBlock rhsIcmListaventacongelada;
-            rhsIcmListaventacongelada = that.getIcmListaventacongelada();
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmListaventacongelada", lhsIcmListaventacongelada),
-                    LocatorUtils.property(thatLocator, "icmListaventacongelada", rhsIcmListaventacongelada),
-                    lhsIcmListaventacongelada, rhsIcmListaventacongelada, (this.icmListaventacongelada != null),
-                    (that.icmListaventacongelada != null))) {
+            IcmListacatalogoBlock lhsIcmListacatalogo;
+            lhsIcmListacatalogo = this.getIcmListacatalogo();
+            IcmListacatalogoBlock rhsIcmListacatalogo;
+            rhsIcmListacatalogo = that.getIcmListacatalogo();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListacatalogo", lhsIcmListacatalogo),
+                    LocatorUtils.property(thatLocator, "icmListacatalogo", rhsIcmListacatalogo), lhsIcmListacatalogo,
+                    rhsIcmListacatalogo, (this.icmListacatalogo != null), (that.icmListacatalogo != null))) {
                 return false;
             }
         }
@@ -247,16 +209,10 @@ public class GetventacongeladaOutput implements Serializable, Cloneable, CopyTo2
                     ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
-            IcmParametrospaginacionBlock theIcmParametrospaginacion;
-            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion,
-                    (this.icmParametrospaginacion != null));
-        }
-        {
-            IcmListaventacongeladaBlock theIcmListaventacongelada;
-            theIcmListaventacongelada = this.getIcmListaventacongelada();
-            strategy.appendField(locator, this, "icmListaventacongelada", buffer, theIcmListaventacongelada,
-                    (this.icmListaventacongelada != null));
+            IcmListacatalogoBlock theIcmListacatalogo;
+            theIcmListacatalogo = this.getIcmListacatalogo();
+            strategy.appendField(locator, this, "icmListacatalogo", buffer, theIcmListacatalogo,
+                    (this.icmListacatalogo != null));
         }
         return buffer;
     }
@@ -276,18 +232,10 @@ public class GetventacongeladaOutput implements Serializable, Cloneable, CopyTo2
                     currentHashCode, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         }
         {
-            IcmParametrospaginacionBlock theIcmParametrospaginacion;
-            theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion),
-                    currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion != null));
-        }
-        {
-            IcmListaventacongeladaBlock theIcmListaventacongelada;
-            theIcmListaventacongelada = this.getIcmListaventacongelada();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmListaventacongelada", theIcmListaventacongelada),
-                    currentHashCode, theIcmListaventacongelada, (this.icmListaventacongelada != null));
+            IcmListacatalogoBlock theIcmListacatalogo;
+            theIcmListacatalogo = this.getIcmListacatalogo();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListacatalogo", theIcmListacatalogo),
+                    currentHashCode, theIcmListacatalogo, (this.icmListacatalogo != null));
         }
         return currentHashCode;
     }
@@ -308,8 +256,8 @@ public class GetventacongeladaOutput implements Serializable, Cloneable, CopyTo2
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
         final Object draftCopy = ((target == null) ? createNewInstance() : target);
-        if (draftCopy instanceof GetventacongeladaOutput) {
-            final GetventacongeladaOutput copy = ((GetventacongeladaOutput) draftCopy);
+        if (draftCopy instanceof GetcatalogoOutput) {
+            final GetcatalogoOutput copy = ((GetcatalogoOutput) draftCopy);
             {
                 Boolean _returnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
                 if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -346,34 +294,18 @@ public class GetventacongeladaOutput implements Serializable, Cloneable, CopyTo2
                 }
             }
             {
-                Boolean icmParametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmParametrospaginacion != null));
-                if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrospaginacionBlock sourceIcmParametrospaginacion;
-                    sourceIcmParametrospaginacion = this.getIcmParametrospaginacion();
-                    IcmParametrospaginacionBlock copyIcmParametrospaginacion = ((IcmParametrospaginacionBlock) strategy
-                        .copy(LocatorUtils.property(locator, "icmParametrospaginacion", sourceIcmParametrospaginacion),
-                                sourceIcmParametrospaginacion, (this.icmParametrospaginacion != null)));
-                    copy.setIcmParametrospaginacion(copyIcmParametrospaginacion);
+                Boolean icmListacatalogoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmListacatalogo != null));
+                if (icmListacatalogoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmListacatalogoBlock sourceIcmListacatalogo;
+                    sourceIcmListacatalogo = this.getIcmListacatalogo();
+                    IcmListacatalogoBlock copyIcmListacatalogo = ((IcmListacatalogoBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmListacatalogo", sourceIcmListacatalogo),
+                            sourceIcmListacatalogo, (this.icmListacatalogo != null)));
+                    copy.setIcmListacatalogo(copyIcmListacatalogo);
                 } else {
-                    if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmParametrospaginacion = null;
-                    }
-                }
-            }
-            {
-                Boolean icmListaventacongeladaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmListaventacongelada != null));
-                if (icmListaventacongeladaShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListaventacongeladaBlock sourceIcmListaventacongelada;
-                    sourceIcmListaventacongelada = this.getIcmListaventacongelada();
-                    IcmListaventacongeladaBlock copyIcmListaventacongelada = ((IcmListaventacongeladaBlock) strategy
-                        .copy(LocatorUtils.property(locator, "icmListaventacongelada", sourceIcmListaventacongelada),
-                                sourceIcmListaventacongelada, (this.icmListaventacongelada != null)));
-                    copy.setIcmListaventacongelada(copyIcmListaventacongelada);
-                } else {
-                    if (icmListaventacongeladaShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmListaventacongelada = null;
+                    if (icmListacatalogoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListacatalogo = null;
                     }
                 }
             }
@@ -382,7 +314,7 @@ public class GetventacongeladaOutput implements Serializable, Cloneable, CopyTo2
     }
 
     public Object createNewInstance() {
-        return new GetventacongeladaOutput();
+        return new GetcatalogoOutput();
     }
 
 }
