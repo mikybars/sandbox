@@ -175,8 +175,8 @@
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
       PH.Persona AS CCL_ID_PERSON,
-      F.FechaDesde AS FECHADESDE,
-      F.FechaHasta AS FECHAHASTA,
+      F.FechaDesde AS FECHA_DESDE,
+      F.FechaHasta AS FECHA_HASTA,
       PH.TIENDA AS CCL_ID_COD_ORIGEN,
       PH.TIPOCALCULO AS ID_TIPO_CALCULO,
       TPC.PORCENTAJE,
@@ -200,11 +200,11 @@
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
     SELECT
       PH.PERSONA AS CCL_ID_PERSON,
-      D.FECHAHASTA + 1 AS FECHADESDE,
+      D.FECHAHASTA + 1 AS FECHA_DESDE,
       CASE
         WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
         ELSE PH.FECHAHASTA
-      END AS FECHAHASTA,
+      END AS FECHA_HASTA,
       PH.TIENDA AS CCL_ID_COD_ORIGEN,
       PH.TIPOCALCULO AS ID_TIPO_CALCULO,
       TPC.PORCENTAJE,
@@ -230,11 +230,11 @@
     -- Casos que no tienen desplazamientos en el período
     SELECT
       PH.PERSONA AS CCL_ID_PERSON,
-      CASE WHEN PH.FechaDesde < :fechaDesde THEN :fechaDesde ELSE PH.FechaDesde END AS FECHADESDE,
+      CASE WHEN PH.FechaDesde < :fechaDesde THEN :fechaDesde ELSE PH.FechaDesde END AS FECHA_DESDE,
       CASE
         WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
         ELSE PH.FECHAHASTA
-      END AS FECHAHASTA,
+      END AS FECHA_HASTA,
       PH.TIENDA AS CCL_ID_COD_ORIGEN,
       PH.TIPOCALCULO AS ID_TIPO_CALCULO,
       TPC.PORCENTAJE,
