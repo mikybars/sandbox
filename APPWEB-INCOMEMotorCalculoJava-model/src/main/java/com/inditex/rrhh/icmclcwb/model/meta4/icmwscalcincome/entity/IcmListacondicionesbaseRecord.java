@@ -47,6 +47,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="dias" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="diav" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="diax" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="festivo" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="importe" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="grupomanual" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idtipocalculo" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idtipocomision" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idestructurabase" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
@@ -70,6 +73,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
         "dias",
         "diav",
         "diax",
+        "festivo",
+        "importe",
+        "grupomanual",
         "idtipocalculo",
         "idtipocomision",
         "idestructurabase",
@@ -104,6 +110,15 @@ public class IcmListacondicionesbaseRecord implements Serializable, Cloneable, C
 
     @XmlElement(required = true, nillable = true)
     protected String diax;
+
+    @XmlElement(required = true, nillable = true)
+    protected String festivo;
+
+    @XmlElement(required = true, nillable = true)
+    protected String importe;
+
+    @XmlElement(required = true, nillable = true)
+    protected String grupomanual;
 
     @XmlElement(required = true, nillable = true)
     protected String idtipocalculo;
@@ -275,6 +290,60 @@ public class IcmListacondicionesbaseRecord implements Serializable, Cloneable, C
      */
     public void setDiax(String value) {
         this.diax = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad festivo.
+     * @return possible object is {@link String }
+     *
+     */
+    public String getFestivo() {
+        return festivo;
+    }
+
+    /**
+     * Define el valor de la propiedad festivo.
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setFestivo(String value) {
+        this.festivo = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad importe.
+     * @return possible object is {@link String }
+     *
+     */
+    public String getImporte() {
+        return importe;
+    }
+
+    /**
+     * Define el valor de la propiedad importe.
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setImporte(String value) {
+        this.importe = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad grupomanual.
+     * @return possible object is {@link String }
+     *
+     */
+    public String getGrupomanual() {
+        return grupomanual;
+    }
+
+    /**
+     * Define el valor de la propiedad grupomanual.
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setGrupomanual(String value) {
+        this.grupomanual = value;
     }
 
     /**
@@ -461,6 +530,39 @@ public class IcmListacondicionesbaseRecord implements Serializable, Cloneable, C
             }
         }
         {
+            String lhsFestivo;
+            lhsFestivo = this.getFestivo();
+            String rhsFestivo;
+            rhsFestivo = that.getFestivo();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "festivo", lhsFestivo),
+                    LocatorUtils.property(thatLocator, "festivo", rhsFestivo), lhsFestivo, rhsFestivo,
+                    (this.festivo != null), (that.festivo != null))) {
+                return false;
+            }
+        }
+        {
+            String lhsImporte;
+            lhsImporte = this.getImporte();
+            String rhsImporte;
+            rhsImporte = that.getImporte();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "importe", lhsImporte),
+                    LocatorUtils.property(thatLocator, "importe", rhsImporte), lhsImporte, rhsImporte,
+                    (this.importe != null), (that.importe != null))) {
+                return false;
+            }
+        }
+        {
+            String lhsGrupomanual;
+            lhsGrupomanual = this.getGrupomanual();
+            String rhsGrupomanual;
+            rhsGrupomanual = that.getGrupomanual();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "grupomanual", lhsGrupomanual),
+                    LocatorUtils.property(thatLocator, "grupomanual", rhsGrupomanual), lhsGrupomanual, rhsGrupomanual,
+                    (this.grupomanual != null), (that.grupomanual != null))) {
+                return false;
+            }
+        }
+        {
             String lhsIdtipocalculo;
             lhsIdtipocalculo = this.getIdtipocalculo();
             String rhsIdtipocalculo;
@@ -575,6 +677,21 @@ public class IcmListacondicionesbaseRecord implements Serializable, Cloneable, C
             strategy.appendField(locator, this, "diax", buffer, theDiax, (this.diax != null));
         }
         {
+            String theFestivo;
+            theFestivo = this.getFestivo();
+            strategy.appendField(locator, this, "festivo", buffer, theFestivo, (this.festivo != null));
+        }
+        {
+            String theImporte;
+            theImporte = this.getImporte();
+            strategy.appendField(locator, this, "importe", buffer, theImporte, (this.importe != null));
+        }
+        {
+            String theGrupomanual;
+            theGrupomanual = this.getGrupomanual();
+            strategy.appendField(locator, this, "grupomanual", buffer, theGrupomanual, (this.grupomanual != null));
+        }
+        {
             String theIdtipocalculo;
             theIdtipocalculo = this.getIdtipocalculo();
             strategy.appendField(locator, this, "idtipocalculo", buffer, theIdtipocalculo,
@@ -658,6 +775,24 @@ public class IcmListacondicionesbaseRecord implements Serializable, Cloneable, C
             theDiax = this.getDiax();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "diax", theDiax), currentHashCode,
                     theDiax, (this.diax != null));
+        }
+        {
+            String theFestivo;
+            theFestivo = this.getFestivo();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "festivo", theFestivo), currentHashCode,
+                    theFestivo, (this.festivo != null));
+        }
+        {
+            String theImporte;
+            theImporte = this.getImporte();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "importe", theImporte), currentHashCode,
+                    theImporte, (this.importe != null));
+        }
+        {
+            String theGrupomanual;
+            theGrupomanual = this.getGrupomanual();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "grupomanual", theGrupomanual),
+                    currentHashCode, theGrupomanual, (this.grupomanual != null));
         }
         {
             String theIdtipocalculo;
@@ -830,6 +965,52 @@ public class IcmListacondicionesbaseRecord implements Serializable, Cloneable, C
                 } else {
                     if (diaxShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.diax = null;
+                    }
+                }
+            }
+            {
+                Boolean festivoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.festivo != null));
+                if (festivoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceFestivo;
+                    sourceFestivo = this.getFestivo();
+                    String copyFestivo = ((String) strategy.copy(
+                            LocatorUtils.property(locator, "festivo", sourceFestivo), sourceFestivo,
+                            (this.festivo != null)));
+                    copy.setFestivo(copyFestivo);
+                } else {
+                    if (festivoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.festivo = null;
+                    }
+                }
+            }
+            {
+                Boolean importeShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.importe != null));
+                if (importeShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceImporte;
+                    sourceImporte = this.getImporte();
+                    String copyImporte = ((String) strategy.copy(
+                            LocatorUtils.property(locator, "importe", sourceImporte), sourceImporte,
+                            (this.importe != null)));
+                    copy.setImporte(copyImporte);
+                } else {
+                    if (importeShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.importe = null;
+                    }
+                }
+            }
+            {
+                Boolean grupomanualShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.grupomanual != null));
+                if (grupomanualShouldBeCopiedAndSet == Boolean.TRUE) {
+                    String sourceGrupomanual;
+                    sourceGrupomanual = this.getGrupomanual();
+                    String copyGrupomanual = ((String) strategy.copy(
+                            LocatorUtils.property(locator, "grupomanual", sourceGrupomanual), sourceGrupomanual,
+                            (this.grupomanual != null)));
+                    copy.setGrupomanual(copyGrupomanual);
+                } else {
+                    if (grupomanualShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.grupomanual = null;
                     }
                 }
             }
