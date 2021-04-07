@@ -130,7 +130,7 @@
           SELECT
             DENSE_RANK() OVER (ORDER BY PCT.FechaDesde) AS DENSE_RANK,
             PCT.Persona,
-            LAG(PCT.FechaDesde, 1, :fechaDesde) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FechaDesde) AS LAG,
+            LAG(PCT.FechaDesde, 1, CASE WHEN PH.FECHADESDE > :fechaDesde THEN PH.FECHADESDE ELSE :fechaDesde END) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FechaDesde) AS LAG,
             LEAD(PCT.FechaDesde, 1, :fechaHasta) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FechaDesde) AS LEAD,
             LAG(PCT.FechaHasta, 1) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FECHAHASTA) AS LAGHASTA,
             PCT.FechaDesde - 1 AS FechaDesde1,
@@ -153,7 +153,8 @@
           GROUP BY
             PCT.Persona,
             PCT.FechaDesde,
-            PCT.FechaHasta
+            PCT.FechaHasta,
+            PH.FECHADESDE
         ) AS FECHAS
         WHERE (LAGHASTA IS NULL OR LAGHASTA <> FECHADESDE1)
       ) AS DATA
@@ -174,8 +175,8 @@
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
       PH.Persona AS CCL_ID_PERSON,
-      F.FechaDesde AS FECHA_DESDE,
-      F.FechaHasta AS FECHA_HASTA,
+      F.FechaDesde AS FECHADESDE,
+      F.FechaHasta AS FECHAHASTA,
       PH.TIENDA AS CCL_ID_COD_ORIGEN,
       PH.TIPOCALCULO AS ID_TIPO_CALCULO,
       TPC.PORCENTAJE,
@@ -228,18 +229,18 @@
     UNION
     -- Casos que no tienen desplazamientos en el período
     SELECT
-      PH.PERSONA AS CLL_ID_PERSON,
-      CASE WHEN PH.FechaDesde < :fechaDesde THEN :fechaDesde ELSE PH.FechaDesde END AS FechaDesde,
+      PH.PERSONA AS CCL_ID_PERSON,
+      CASE WHEN PH.FechaDesde < :fechaDesde THEN :fechaDesde ELSE PH.FechaDesde END AS FECHADESDE,
       CASE
         WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
         ELSE PH.FECHAHASTA
       END AS FECHAHASTA,
-      PH.Tienda AS CCL_ID_COD_ORIGEN,
-      PH.TipoCalculo AS ID_TIPO_CALCULO,
-      TPC.Porcentaje,
+      PH.TIENDA AS CCL_ID_COD_ORIGEN,
+      PH.TIPOCALCULO AS ID_TIPO_CALCULO,
+      TPC.PORCENTAJE,
       TPP.BANDA,
-      TPP.Importe,
-      TPC.Seccion
+      TPP.IMPORTE,
+      TPC.SECCION AS CCL_ID_SECCION
     FROM PersonasHistorico PH
     LEFT JOIN TABLASPORCENTAJESCOMISION TPC
       ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
