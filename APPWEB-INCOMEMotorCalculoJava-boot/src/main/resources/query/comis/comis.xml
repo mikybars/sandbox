@@ -561,6 +561,7 @@ UNION
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
+      AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
     UNION
     -- Casos que no tienen desplazamientos en el período
     SELECT
@@ -587,7 +588,7 @@ UNION
       ON TPP.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
     LEFT JOIN PersonasCambiosTemporales pct
       ON pct.Persona = ph.Persona
-      AND pct.FechaDesde < :fechaHasta
+      AND pct.FechaDesde <= :fechaHasta
       AND (pct.FechaHasta IS NULL OR pct.FechaHasta > :fechaDesde)
     WHERE
       PR.FechaDesde <= :fechaHasta
