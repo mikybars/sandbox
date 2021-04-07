@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
@@ -40,6 +41,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchdiasminimosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
@@ -95,6 +97,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListasinc
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcatalogoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
@@ -1855,6 +1858,23 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         verify(this.meta4ClientPool, times(1)).getsisdestino(entrada);
         verify(this.icmWsCalcIncomeMapper, times(1)).asSistemaDestinoResponseDto(output);
         verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcalsistdestinoBlock(request);
+
+    }
+
+    @Test
+    public void catalogo() {
+
+        final IcmParamcalcatalogoBlock entrada = new IcmParamcalcatalogoBlock();
+        final GetcatalogoOutput output = new GetcatalogoOutput();
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalcatalogoBlock(any(CatalogoRequestDto.class)))
+            .thenReturn(entrada);
+        when(this.meta4ClientPool.getcatalogo(entrada)).thenReturn(output);
+        final CatalogoRequestDto request = CatalogoRequestDto.builder().build();
+        this.meta4IcmWsCalcIncomeServiceImpl.getCatalogo(request);
+
+        verify(this.meta4ClientPool, times(1)).getcatalogo(entrada);
+        verify(this.icmWsCalcIncomeMapper, times(1)).asCatalogoResponseDto(output);
+        verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcalcatalogoBlock(request);
 
     }
 

@@ -4,12 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
@@ -35,6 +37,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
@@ -791,6 +794,21 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                 && CollectionUtils.isNotEmpty(src.getIcmListasistdestino().getIcmListasistdestinoRecordSet())) {
             result.setIdSistemaDestino(
                     src.getIcmListasistdestino().getIcmListasistdestinoRecordSet().get(0).getIdsistema());
+        }
+        return result;
+    }
+
+    @Override
+    public CatalogoResponseDto asCatalogoResponseDto(
+            final GetcatalogoOutput src) {
+        final CatalogoResponseDto result = this.delegate.asCatalogoResponseDto(src);
+        if (src.getIcmListacatalogo() != null
+                && CollectionUtils.isNotEmpty(src.getIcmListacatalogo().getIcmListacatalogoRecordSet())) {
+            result.setItems(src.getIcmListacatalogo()
+                .getIcmListacatalogoRecordSet()
+                .stream()
+                .map(record -> this.delegate.asCatalogoResponseItemDto(record))
+                .collect(Collectors.toList()));
         }
         return result;
     }
