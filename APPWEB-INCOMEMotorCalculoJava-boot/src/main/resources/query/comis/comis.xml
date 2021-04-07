@@ -401,7 +401,7 @@
         BANDA,
         IMPORTE,
         DATEDIFF(day, FECHA_HASTA, ROW),
-        PCT.MOTIVO
+        MOTIVO
 UNION
    SELECT
         CCL_ID_PERSON,
@@ -427,7 +427,7 @@ UNION
         BANDA,
         IMPORTE,
         DATEDIFF(day, FECHA_HASTA, ROW),
-        PCT.MOTIVO
+        MOTIVO
     ]]>
   </entry>
 
