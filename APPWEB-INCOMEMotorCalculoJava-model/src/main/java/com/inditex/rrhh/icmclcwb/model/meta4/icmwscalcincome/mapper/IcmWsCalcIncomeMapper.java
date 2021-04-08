@@ -782,6 +782,9 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idLugarTrabajoDestino", source = "idlugartrabajodestino")
     @Mapping(target = "idLugarTrabajoDestinoMtu", source = "idlugartrabajodestinomtu")
     @Mapping(target = "idEstructuraAmbito", source = "idestructuraambito")
+    @Mapping(target = "importe", source = "importe")
+    @Mapping(target = "festivo", source = "festivo")
+    @Mapping(target = "grupoManual", source = "grupomanual")
     @Mapping(target = "icmListaValoresDestino", source = "icmListavaloresdestino.icmListavaloresdestinoRecordSet")
     ListaCondicionesDestinoResultItemDto asListaCondicionesDestinoResultItemDto(IcmListacondicionesdestinoRecord src);
 
