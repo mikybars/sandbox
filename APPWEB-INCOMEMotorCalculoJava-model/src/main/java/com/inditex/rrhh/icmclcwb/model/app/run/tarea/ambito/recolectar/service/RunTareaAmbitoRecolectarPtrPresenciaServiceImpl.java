@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -29,6 +30,11 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
@@ -77,6 +83,14 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
     private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
 
     @Autowired
+    private Meta4IcmWsCalcIncomeAsyncService meta4IcmWsCalcIncomeAsyncService;
+
+    @Override
+    protected String getFechaInicioPeriodo(final TareaDto tarea) {
+        return tarea.getFechaInicioPeriodo().format(DateTimeFormatter.ofPattern(PtrConstants.DATE_FORMAT));
+    }
+
+    @Autowired
     @Qualifier("presenciasProperties")
     private Map<String, PtrPropertiesDto> presenciasProperties;
 
@@ -85,19 +99,35 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
     private RecolectarPropertiesDto recolectarProperties;
 
     @Override
-    protected String getFechaInicioPeriodo(final TareaDto tarea) {
-        return tarea.getFechaInicioPeriodo().format(DateTimeFormatter.ofPattern(PtrConstants.DATE_FORMAT));
-    }
-
-    @Override
     public void tiposHorasByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         final List<CompletableFuture<?>> cf = new ArrayList<>();
+        Integer idCatalogo = null;
         try {
             final TareaDto tarea = runTarea.getTarea();
+            // Si el origen es españa hay que obtener el id de catalogo y pasarlo al servicio PTR
+            if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
+                final CompletableFuture<CatalogoResponseDto> cfCatalogo = this.meta4IcmWsCalcIncomeAsyncService
+                    .getCatalogo(CatalogoRequestDto
+                        .builder()
+                        .cclIdOrigen(tareaAmbito.getCclIdOrigen())
+                        .items(Arrays
+                            .asList(CatalogoRequestItemDto
+                                .builder()
+                                .stdIdLegEnt(runTarea.getTarea().getStdIdLegEnt())
+                                .build()))
+                        .build());
+                AsyncUtils.exceptionally(cfCatalogo, cf);
+                final CatalogoResponseDto catalogo = AsyncUtils.get(cfCatalogo);
+                if (catalogo != null && CollectionUtils.isNotEmpty(catalogo.getItems())) {
+                    idCatalogo = Integer.parseInt(catalogo.getItems().get(0).getIdCatalogo());
+                }
+            }
+
             final CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = this.ptrPresenciaAsyncService
                 .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
                     .origen(Integer.parseInt(tareaAmbito.getCclIdOrigen()))
+                    .catalogo(idCatalogo)
                     .build());
             AsyncUtils.exceptionally(cfData, cf);
             final PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);

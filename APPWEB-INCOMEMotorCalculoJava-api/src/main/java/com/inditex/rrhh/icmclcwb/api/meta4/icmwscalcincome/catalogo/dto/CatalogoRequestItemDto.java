@@ -2,9 +2,15 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CatalogoRequestItemDto implements Serializable {
 
     private static final long serialVersionUID = -4951471636758948242L;
