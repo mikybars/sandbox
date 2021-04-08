@@ -79,6 +79,8 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaV", source = "listaCondicionesBaseResultItem.diaV", defaultValue = "true")
     @Mapping(target = "diaS", source = "listaCondicionesBaseResultItem.diaS", defaultValue = "true")
     @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "festivo", source = "listaCondicionesBaseResultItem.festivo", defaultValue = "true")
+    @Mapping(target = "importe", source = "listaCondicionesBaseResultItem.importe")
     // Valores por seccion
     @Mapping(target = "valor", constant = "0")
     @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
@@ -121,6 +123,8 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaV", source = "listaCondicionesBaseResultItem.diaV", defaultValue = "true")
     @Mapping(target = "diaS", source = "listaCondicionesBaseResultItem.diaS", defaultValue = "true")
     @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "festivo", source = "listaCondicionesBaseResultItem.festivo", defaultValue = "true")
+    @Mapping(target = "importe", source = "listaCondicionesBaseResultItem.importe")
     // Valores por seccion
     @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
     @Mapping(target = "valor", source = "listaValoresBaseResultItem.valor", defaultValue = "0")
@@ -164,6 +168,8 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaV", source = "listaCondicionesDestinoResultItem.diaV", defaultValue = "true")
     @Mapping(target = "diaS", source = "listaCondicionesDestinoResultItem.diaS", defaultValue = "true")
     @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "festivo", source = "listaCondicionesDestinoResultItem.festivo", defaultValue = "true")
+    @Mapping(target = "importe", source = "listaCondicionesDestinoResultItem.importe")
     // Valores por seccion
     @Mapping(target = "valor", constant = "0")
     @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
@@ -243,6 +249,8 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaV", source = "listaCondicionesDestinoResultItem.diaV", defaultValue = "true")
     @Mapping(target = "diaS", source = "listaCondicionesDestinoResultItem.diaS", defaultValue = "true")
     @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "festivo", source = "listaCondicionesDestinoResultItem.festivo", defaultValue = "true")
+    @Mapping(target = "importe", source = "listaCondicionesDestinoResultItem.importe")
     // Valores por seccion
     @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
     @Mapping(target = "valor", source = "listaValoresDestinoResultItem.valor", defaultValue = "0")

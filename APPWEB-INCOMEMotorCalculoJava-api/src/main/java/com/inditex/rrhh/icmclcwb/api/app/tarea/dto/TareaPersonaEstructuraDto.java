@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -129,5 +130,11 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Fecha inicio periodo", required = true)
     private LocalDate fechaInicioPeriodo;
+
+    @ApiModelProperty(value = "Check festivos", required = false)
+    private Boolean festivo;
+
+    @ApiModelProperty(value = "Importe", required = false)
+    private BigDecimal importe;
 
 }
