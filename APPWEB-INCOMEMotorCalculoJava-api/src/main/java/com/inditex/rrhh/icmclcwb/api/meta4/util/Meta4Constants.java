@@ -15,4 +15,6 @@ public class Meta4Constants {
 
     public static final String RESULTADO_OK = "OK";
 
+    public static final String RESULTADO_ERROR = "ERROR";
+
 }
