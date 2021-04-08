@@ -18,8 +18,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.Emplead
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
@@ -53,7 +51,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getempleados
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosdesplazOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructurascomOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
@@ -83,8 +80,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempl
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempresasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempresasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructuraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructuraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaorigenesBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaorigenesRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaperiodosBlock;
@@ -832,59 +827,59 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
                 any(IcmParamcalempleadoBlock.class));
     }
 
-    @Test
-    public void getEstructurasCom() {
-        final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
-        final IcmListaestructuraBlock block = new IcmListaestructuraBlock();
-        final GetestructurascomOutput output = new GetestructurascomOutput();
-        block.getIcmListaestructuraRecordSet().add(new IcmListaestructuraRecord());
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaestructura(block);
-
-        when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
-            .thenReturn(entrada);
-        when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
-
-        final EstructurasComRequestDto request = new EstructurasComRequestDto();
-        request.setData(new EstructurasComFilterDto());
-        request.setPage(new PageDto());
-        this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasCom(request);
-        verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
-    }
-
-
-    @Test
-    public void getEstructurasComNullOutput() {
-        final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
-
-        when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
-            .thenReturn(entrada);
-        when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(null);
-
-        final EstructurasComRequestDto request = new EstructurasComRequestDto();
-        request.setData(new EstructurasComFilterDto());
-        request.setPage(new PageDto());
-        this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasCom(request);
-        verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
-    }
-
-    @Test
-    public void getEstructurasComNullData() {
-        final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
-        final GetestructurascomOutput output = new GetestructurascomOutput();
-        output.setReturn(NumberUtils.DOUBLE_ZERO);
-        output.setIcmListaestructura(null);
-
-        when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
-            .thenReturn(entrada);
-        when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
-
-        final EstructurasComRequestDto request = new EstructurasComRequestDto();
-        request.setData(new EstructurasComFilterDto());
-        request.setPage(new PageDto());
-        this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasCom(request);
-        verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
-    }
+    // @Test
+    // public void getEstructurasCom() {
+    // final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
+    // final IcmListaestructuraBlock block = new IcmListaestructuraBlock();
+    // final GetestructurascomOutput output = new GetestructurascomOutput();
+    // block.getIcmListaestructuraRecordSet().add(new IcmListaestructuraRecord());
+    // output.setReturn(NumberUtils.DOUBLE_ZERO);
+    // output.setIcmListaestructura(block);
+    //
+    // when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
+    // .thenReturn(entrada);
+    // when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
+    //
+    // final EstructurasComRequestDto request = new EstructurasComRequestDto();
+    // request.setData(new EstructurasComFilterDto());
+    // request.setPage(new PageDto());
+    // this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasCom(request);
+    // verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
+    // }
+    //
+    //
+    // @Test
+    // public void getEstructurasComNullOutput() {
+    // final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
+    //
+    // when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
+    // .thenReturn(entrada);
+    // when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(null);
+    //
+    // final EstructurasComRequestDto request = new EstructurasComRequestDto();
+    // request.setData(new EstructurasComFilterDto());
+    // request.setPage(new PageDto());
+    // this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasCom(request);
+    // verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
+    // }
+    //
+    // @Test
+    // public void getEstructurasComNullData() {
+    // final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
+    // final GetestructurascomOutput output = new GetestructurascomOutput();
+    // output.setReturn(NumberUtils.DOUBLE_ZERO);
+    // output.setIcmListaestructura(null);
+    //
+    // when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
+    // .thenReturn(entrada);
+    // when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
+    //
+    // final EstructurasComRequestDto request = new EstructurasComRequestDto();
+    // request.setData(new EstructurasComFilterDto());
+    // request.setPage(new PageDto());
+    // this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasCom(request);
+    // verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
+    // }
 
     @Test
     public void getEstructurasPol() {
