@@ -4,6 +4,8 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.scheduling.annotation.Async;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
@@ -16,5 +18,7 @@ public interface Meta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<MotivosDesplazamientoResponseDto> getMotivosDesplazamiento(
             MotivosDesplazamientoRequestDto request);
+
+    CompletableFuture<CatalogoResponseDto> getCatalogo(CatalogoRequestDto request);
 
 }
