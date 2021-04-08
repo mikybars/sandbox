@@ -39,8 +39,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Gettiendasin
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventacongeladaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventamanualwlocOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacatalogoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacatalogoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcatalogoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
@@ -604,27 +602,16 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
 
     public GetcatalogoOutput getcatalogo(final IcmParamcalcatalogoBlock param1) {
 
-        // TODO [javierev] mock result a retirar
-        final GetcatalogoOutput result = new GetcatalogoOutput();
-        final IcmListacatalogoBlock block = new IcmListacatalogoBlock();
-        final IcmListacatalogoRecord record = new IcmListacatalogoRecord();
-        record.setIdcatalogo("1001");
-        record.setIdempresa(param1.getIcmParamcalcatalogoRecordSet().get(0).getIdempresa());
-        record.setIdorigen(param1.getIdorigen());
-        block.getIcmListacatalogoRecordSet().add(record);
-        result.setIcmListacatalogo(block);
-        return result;
 
-        // TODO [javierev] recuperar el código bueno, el comentado a continuación
-        // final Meta4ClientPoolable client = this.claim(this.pool);
-        // try {
-        // return client.getIcmWsCalcIncomeService().getcatalogo(param1);
-        // } catch (final Exception e) {
-        // this.catchException(e, client, Arrays.asList(param1));
-        // throw new Meta4IcmclcwbException(e.getMessage(), e);
-        // } finally {
-        // this.release(client);
-        // }
+        final Meta4ClientPoolable client = this.claim(this.pool);
+        try {
+            return client.getIcmWsCalcIncomeService().getcatalogo(param1);
+        } catch (final Exception e) {
+            this.catchException(e, client, Arrays.asList(param1));
+            throw new Meta4IcmclcwbException(e.getMessage(), e);
+        } finally {
+            this.release(client);
+        }
     }
 
 }
