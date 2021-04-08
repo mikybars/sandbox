@@ -50,6 +50,7 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
 @Service
@@ -119,7 +120,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
                         .build());
                 AsyncUtils.exceptionally(cfCatalogo, cf);
                 final CatalogoResponseDto catalogo = AsyncUtils.get(cfCatalogo);
-                if (catalogo != null && CollectionUtils.isNotEmpty(catalogo.getItems())) {
+                if (catalogo != null && CollectionUtils.isNotEmpty(catalogo.getItems())
+                        && StringUtils.isNotBlank(catalogo.getItems().get(0).getIdCatalogo())) {
                     idCatalogo = Integer.parseInt(catalogo.getItems().get(0).getIdCatalogo());
                 }
             }
