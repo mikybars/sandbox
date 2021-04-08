@@ -766,7 +766,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         final List<IcmParamcalsincroRecord> result = new ArrayList<>();
         if (src != null) {
             src.getItems().forEach(item -> {
-                final IcmParamcalsincroRecord record = this.delegate.asIcmParamcalsincroRecord(src);
+                final IcmParamcalsincroRecord record = this.delegate.asIcmParamcalsincroRecord(item);
                 record.setIdempleado(item.getIdEmpleado());
                 record.setIdorigen(item.getIdOrigen());
                 result.add(record);
@@ -787,7 +787,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     public SistemaDestinoResponseDto asSistemaDestinoResponseDto(
             final GetsistdestinoOutput src) {
         final SistemaDestinoResponseDto result = this.delegate.asSistemaDestinoResponseDto(src);
-        if (src.getIcmListasistdestino() != null
+        if ((src.getIcmListasistdestino() != null)
                 && CollectionUtils.isNotEmpty(src.getIcmListasistdestino().getIcmListasistdestinoRecordSet())) {
             result.setIdSistemaDestino(
                     src.getIcmListasistdestino().getIcmListasistdestinoRecordSet().get(0).getIdsistema());
