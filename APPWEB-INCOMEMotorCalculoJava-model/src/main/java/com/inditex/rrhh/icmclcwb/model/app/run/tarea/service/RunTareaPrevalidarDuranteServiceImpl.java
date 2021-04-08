@@ -38,6 +38,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.Si
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
+import org.slf4j.Logger;
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
@@ -72,6 +73,9 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private Logger log;
 
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTareaDto,
@@ -155,6 +159,8 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                                 f -> SincronizacionFilterParametersDto.builder()
                                     .idOrigen(e.getCclIdOrigen())
                                     .idEmpleado(f)
+                                    .fechaInicio(tareaDto.getFechaInicioPeriodo())
+                                    .fechaFin(tareaDto.getFechaFinPeriodo())
                                     .build())
                         .collect(Collectors.toList());
                     final SincronizacionFilterDto filter = SincronizacionFilterDto.builder()
@@ -162,8 +168,26 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                         .build();
                     final SincronizacionRequestDto request = new SincronizacionRequestDto();
                     request.setData(filter);
-                    this.meta4IcmWsCalcIncomeService
-                        .sincronizacion(request);
+                    this.log.info("Inicio :: sincronizacion :: Personas: {}",
+                            e
+                                .getIdPersonaLocal()
+                                .size());
+                    try {
+                        this.meta4IcmWsCalcIncomeService
+                            .sincronizacion(request);
+                    } catch (final Exception e1) {
+                        this.log.error(
+                                "sincronizacion :: KO :: Personas: {}",
+                                e
+                                    .getIdPersonaLocal()
+                                    .size(),
+                                e
+                                    .getIdPersonaLocal());
+                    }
+                    this.log.info("Fin :: sincronizacion :: Personas: {}",
+                            e
+                                .getIdPersonaLocal()
+                                .size());
                 }
             });
 

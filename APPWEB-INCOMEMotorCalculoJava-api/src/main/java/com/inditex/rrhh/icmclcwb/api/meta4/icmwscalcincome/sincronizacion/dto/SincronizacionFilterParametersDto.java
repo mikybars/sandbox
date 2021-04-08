@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,5 +19,9 @@ public class SincronizacionFilterParametersDto implements Serializable {
     private String idEmpleado;
 
     private String idOrigen;
+
+    private LocalDate fechaInicio;
+
+    private LocalDate fechaFin;
 
 }
