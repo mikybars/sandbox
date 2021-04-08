@@ -36,6 +36,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCal
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import org.slf4j.Logger;
@@ -168,23 +171,34 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                         .build();
                     final SincronizacionRequestDto request = new SincronizacionRequestDto();
                     request.setData(filter);
-                    this.log.info("Inicio :: sincronizacion :: Personas: {}",
+                    this.log.info("Inicio :: Sincronizacion :: Personas: {}",
                             e
                                 .getIdPersonaLocal()
                                 .size());
                     try {
-                        this.meta4IcmWsCalcIncomeService
+                        final SincronizacionResponseDto result = this.meta4IcmWsCalcIncomeService
                             .sincronizacion(request);
+                        this.log.info(
+                                "Sincronizacion :: Ok :: Personas: {}",
+                                result.getData()
+                                    .stream()
+                                    .filter(a -> a.getResultado().equals(Meta4Constants.RESULTADO_OK))
+                                    .map(SincronizacionResultItemDto::getIdEmpleado)
+                                    .collect(Collectors.toList()));
+                        this.log.info(
+                                "Sincronizacion :: Ko :: Personas: {}",
+                                result.getData()
+                                    .stream()
+                                    .filter(a -> a.getResultado().equals(Meta4Constants.RESULTADO_ERROR))
+                                    .map(SincronizacionResultItemDto::getIdEmpleado)
+                                    .collect(Collectors.toList()));
                     } catch (final Exception e1) {
                         this.log.error(
-                                "sincronizacion :: KO :: Personas: {}",
-                                e
-                                    .getIdPersonaLocal()
-                                    .size(),
+                                "Sincronizacion :: Error :: Personas: {}",
                                 e
                                     .getIdPersonaLocal());
                     }
-                    this.log.info("Fin :: sincronizacion :: Personas: {}",
+                    this.log.info("Fin :: Sincronizacion :: Personas: {}",
                             e
                                 .getIdPersonaLocal()
                                 .size());
