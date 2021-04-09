@@ -735,6 +735,9 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "diaS", source = "dias")
     @Mapping(target = "diaV", source = "diav")
     @Mapping(target = "diaX", source = "diax")
+    @Mapping(target = "festivo", source = "festivo")
+    @Mapping(target = "importe",
+            expression = "java(StringUtils.isNotBlank(src.getImporte()) ? src.getImporte() : null)")
     @Mapping(target = "idTipoCalculo", source = "idtipocalculo")
     @Mapping(target = "idTipoComision", source = "idtipocomision")
     @Mapping(target = "idEstructuraBase", source = "idestructurabase")
@@ -782,7 +785,8 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idLugarTrabajoDestino", source = "idlugartrabajodestino")
     @Mapping(target = "idLugarTrabajoDestinoMtu", source = "idlugartrabajodestinomtu")
     @Mapping(target = "idEstructuraAmbito", source = "idestructuraambito")
-    @Mapping(target = "importe", source = "importe")
+    @Mapping(target = "importe",
+            expression = "java(StringUtils.isNotBlank(src.getImporte()) ? src.getImporte() : null)")
     @Mapping(target = "festivo", source = "festivo")
     @Mapping(target = "grupoManual", source = "grupomanual")
     @Mapping(target = "icmListaValoresDestino", source = "icmListavaloresdestino.icmListavaloresdestinoRecordSet")
