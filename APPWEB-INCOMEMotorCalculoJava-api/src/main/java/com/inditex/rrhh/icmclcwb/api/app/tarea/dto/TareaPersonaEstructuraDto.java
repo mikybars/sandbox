@@ -134,7 +134,10 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @ApiModelProperty(value = "Check festivos", required = false)
     private Boolean festivo;
 
-    @ApiModelProperty(value = "Importe", required = false)
-    private BigDecimal importe;
+    @ApiModelProperty(value = "Grupo manual", required = false)
+    private String grupoManual;
+
+    @ApiModelProperty(value = "Importe grupo manual", required = false)
+    private BigDecimal importeGrupoManual;
 
 }

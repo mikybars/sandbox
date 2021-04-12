@@ -56,7 +56,7 @@ public class ListaCondicionesDestinoResultItemDto implements Serializable {
 
     private String festivo;
 
-    private String importe;
+    private String importeGrupoManual;
 
     private String grupoManual;
 

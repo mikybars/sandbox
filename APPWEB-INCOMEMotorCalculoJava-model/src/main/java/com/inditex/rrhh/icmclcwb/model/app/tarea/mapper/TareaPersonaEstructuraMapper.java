@@ -26,6 +26,7 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "id", source = "pk.id")
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "fechaInicioPeriodo", source = "pk.fechaInicioPeriodo")
+    @Mapping(target = "grupoManual", source = "icmGrupoManual")
     public abstract TareaPersonaEstructuraDto tareaPersonaEstructuraToTareaPersonaEstructuraDto(
             TareaPersonaEstructura src);
 
@@ -81,7 +82,9 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesBaseResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getFestivo()) : null)")
-    @Mapping(target = "importe", source = "listaCondicionesBaseResultItem.importe")
+    @Mapping(target = "grupoManual", source = "listaCondicionesBaseResultItem.grupoManual", defaultValue = "")
+    @Mapping(target = "importeGrupoManual",
+            expression = "java(StringUtils.isNotBlank(listaCondicionesBaseResultItem.getImporteGrupoManual()) ? new BigDecimal(listaCondicionesBaseResultItem.getImporteGrupoManual()) : BigDecimal.ZERO)")
     // Valores por seccion
     @Mapping(target = "valor", constant = "0")
     @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
@@ -126,7 +129,9 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesBaseResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getFestivo()) : null)")
-    @Mapping(target = "importe", source = "listaCondicionesBaseResultItem.importe")
+    @Mapping(target = "grupoManual", source = "listaCondicionesBaseResultItem.grupoManual", defaultValue = "")
+    @Mapping(target = "importeGrupoManual",
+            expression = "java(StringUtils.isNotBlank(listaCondicionesBaseResultItem.getImporteGrupoManual()) ? new BigDecimal(listaCondicionesBaseResultItem.getImporteGrupoManual()) : BigDecimal.ZERO)")
     // Valores por seccion
     @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
     @Mapping(target = "valor", source = "listaValoresBaseResultItem.valor", defaultValue = "0")
@@ -172,7 +177,9 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesDestinoResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getFestivo()) : null)")
-    @Mapping(target = "importe", source = "listaCondicionesDestinoResultItem.importe")
+    @Mapping(target = "grupoManual", source = "listaCondicionesDestinoResultItem.grupoManual", defaultValue = "")
+    @Mapping(target = "importeGrupoManual",
+            expression = "java(StringUtils.isNotBlank(listaCondicionesDestinoResultItem.getImporteGrupoManual()) ? new BigDecimal(listaCondicionesDestinoResultItem.getImporteGrupoManual()) : BigDecimal.ZERO)")
     // Valores por seccion
     @Mapping(target = "valor", constant = "0")
     @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
@@ -254,7 +261,9 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesDestinoResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getFestivo()) : null)")
-    @Mapping(target = "importe", source = "listaCondicionesDestinoResultItem.importe")
+    @Mapping(target = "grupoManual", source = "listaCondicionesDestinoResultItem.grupoManual", defaultValue = "")
+    @Mapping(target = "importeGrupoManual",
+            expression = "java(StringUtils.isNotBlank(listaCondicionesDestinoResultItem.getImporteGrupoManual()) ? new BigDecimal(listaCondicionesDestinoResultItem.getImporteGrupoManual()) : BigDecimal.ZERO)")
     // Valores por seccion
     @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
     @Mapping(target = "valor", source = "listaValoresDestinoResultItem.valor", defaultValue = "0")
