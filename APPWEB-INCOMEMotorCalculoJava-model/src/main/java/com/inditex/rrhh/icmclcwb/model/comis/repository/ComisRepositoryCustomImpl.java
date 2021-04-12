@@ -154,6 +154,7 @@ public class ComisRepositoryCustomImpl
                     .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
                     .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
                     .cclIdSeccionDestino(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION_DESTINO))
+                    .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
                     .build());
     }
 
