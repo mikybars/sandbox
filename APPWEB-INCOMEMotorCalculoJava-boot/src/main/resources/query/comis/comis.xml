@@ -144,6 +144,9 @@
             ON PCT.PERSONA = PH.PERSONA
             AND (PH.FechaHasta IS NULL OR PCT.FechaDesde <= PH.FechaHasta)
             AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PH.FechaDesde)
+          LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT2
+            ON PCT2.PERSONA = PH.PERSONA
+            AND (PCT2.FECHADESDE = PH.FECHADESDE OR PCT2.FECHADESDE = :fechaDesde)            
           WHERE 1 = 1
           AND PH.FECHADESDE <= :fechaHasta
           AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
@@ -152,6 +155,7 @@
           AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
           AND PH.TIPOCALCULO IS NOT NULL
           AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
+          AND PCT2.PERSONA IS NULL
           GROUP BY
             PCT.Persona,
             PCT.FechaDesde,
@@ -575,9 +579,8 @@ UNION
             AND (PR.FechaHasta IS NULL OR PCT.FechaDesde <= PR.FechaHasta)
             AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PR.FechaDesde)
           LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT2
-            ON PCT2.PERSONA = PR.PERSONA
-            AND PCT2.FECHADESDE = PR.FECHADESDE
-            AND PCT2.FECHADESDE = PH.FECHADESDE            
+            ON PCT2.PERSONA = PH.PERSONA
+            AND (PCT2.FECHADESDE = PH.FECHADESDE OR PCT2.FECHADESDE = :fechaDesde)         
           WHERE 1 = 1
           AND PR.FECHADESDE <= :fechaHasta
           AND (PR.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
