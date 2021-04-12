@@ -133,9 +133,15 @@ public class TareaPersonaEstructura {
     @Column(name = "ICM_ID_TP_ESTRUCTURA", nullable = false, length = 48)
     private String icmIdTpEstructura;
 
-    @Column(name = "ICM_IMPORTE", nullable = true)
-    private BigDecimal importe;
+    @NotNull
+    @Column(name = "ICM_GRUPO_MANUAL", nullable = false)
+    private String icmGrupoManual;
 
+    @NotNull
+    @Column(name = "ICM_IMPORTE_GRUPO_MANUAL", nullable = false)
+    private BigDecimal importeGrupoManual;
+
+    @NotNull
     @Column(name = "FESTIVO", nullable = false)
     private Boolean festivo;
 
