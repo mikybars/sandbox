@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
@@ -20,9 +21,11 @@ public class TareaCalculoAlgoritmoResaltaManualDesplazamientoBaseV1RepositoryCus
 
     // TODO [javierev] Consultas algoritmo resalta manual desplazamiento base
 
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['AbstractTareaCalculoAlgoritmoBaseRepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
     @Getter
     private String sqlCalcular;
 
+    @Value("#{calculoPrimaryQuery['AbstractTareaCalculoAlgoritmoBaseRepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
     @Getter
     private String sqlCalcularBase;
 
