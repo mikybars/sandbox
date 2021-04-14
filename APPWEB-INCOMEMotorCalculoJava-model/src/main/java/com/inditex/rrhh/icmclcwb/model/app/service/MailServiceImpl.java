@@ -39,6 +39,9 @@ public class MailServiceImpl implements MailService {
     @Value("${app.envars.mail.receiver}")
     private String receiver;
 
+    @Value("${metadata.environment}")
+    private String environment;
+
     @Autowired
     private MailSender mailSender;
 
@@ -54,9 +57,11 @@ public class MailServiceImpl implements MailService {
 
     private static final String SEPARATOR = " - ";
 
-    private static final String SUBJECT = "[INCOME][CALC] - Error validating task: ";
+    private static final String APP = "[INCOME][CALC]";
 
-    private static final String SUBJECT_MOTIVOS = "[INCOME][CALC] - Error validating displacement reasons ";
+    private static final String SUBJECT = "Error validating task: ";
+
+    private static final String SUBJECT_MOTIVOS = "Error validating displacement reasons ";
 
     private static final String SCOPE = "Task scope: ";
 
@@ -115,7 +120,13 @@ public class MailServiceImpl implements MailService {
         final SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(this.sender);
         message.setTo(this.receiver);
-        message.setSubject(new StringBuilder(SUBJECT)
+
+        message.setSubject(new StringBuilder(APP)
+            .append(SEPARATOR)
+            .append(this.environment.toUpperCase())
+            .append(SEPARATOR)
+            .append(SUBJECT)
+            .append(SEPARATOR)
             .append(tareaFase.getIdTarea())
             .toString());
         message.setText(result.toString());
@@ -132,7 +143,12 @@ public class MailServiceImpl implements MailService {
         final SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(this.sender);
         message.setTo(this.receiver);
-        message.setSubject(new StringBuilder(SUBJECT_MOTIVOS)
+        message.setSubject(new StringBuilder(APP)
+            .append(SEPARATOR)
+            .append(this.environment.toUpperCase())
+            .append(SEPARATOR)
+            .append(SUBJECT_MOTIVOS)
+            .append(SEPARATOR)
             .toString());
         message.setText(result.toString());
 
