@@ -142,7 +142,7 @@ public class TareaPersonaEstructura {
     private BigDecimal importeGrupoManual;
 
     @NotNull
-    @Column(name = "FESTIVO", nullable = false)
+    @Column(name = "ES_FESTIVO", nullable = false)
     private Boolean festivo;
 
     @ManyToMany(mappedBy = "estructura")
