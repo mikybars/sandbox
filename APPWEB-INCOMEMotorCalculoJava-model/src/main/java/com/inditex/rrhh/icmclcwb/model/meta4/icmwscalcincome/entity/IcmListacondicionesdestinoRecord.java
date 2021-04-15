@@ -48,8 +48,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="diav" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="diax" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="festivo" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="importe" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="grupomanual" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="horasorigen" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="horasdestino" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idmotivodesp" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
@@ -84,8 +82,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
         "diav",
         "diax",
         "festivo",
-        "importe",
-        "grupomanual",
         "horasorigen",
         "horasdestino",
         "idmotivodesp",
@@ -134,12 +130,6 @@ public class IcmListacondicionesdestinoRecord
 
     @XmlElement(required = true, nillable = true)
     protected String festivo;
-
-    @XmlElement(required = true, nillable = true)
-    protected String importe;
-
-    @XmlElement(required = true, nillable = true)
-    protected String grupomanual;
 
     @XmlElement(required = true, nillable = true)
     protected String horasorigen;
@@ -359,42 +349,6 @@ public class IcmListacondicionesdestinoRecord
      */
     public void setFestivo(String value) {
         this.festivo = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad importe.
-     * @return possible object is {@link String }
-     *
-     */
-    public String getImporte() {
-        return importe;
-    }
-
-    /**
-     * Define el valor de la propiedad importe.
-     * @param value allowed object is {@link String }
-     *
-     */
-    public void setImporte(String value) {
-        this.importe = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad grupomanual.
-     * @return possible object is {@link String }
-     *
-     */
-    public String getGrupomanual() {
-        return grupomanual;
-    }
-
-    /**
-     * Define el valor de la propiedad grupomanual.
-     * @param value allowed object is {@link String }
-     *
-     */
-    public void setGrupomanual(String value) {
-        this.grupomanual = value;
     }
 
     /**
@@ -772,28 +726,6 @@ public class IcmListacondicionesdestinoRecord
             }
         }
         {
-            String lhsImporte;
-            lhsImporte = this.getImporte();
-            String rhsImporte;
-            rhsImporte = that.getImporte();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "importe", lhsImporte),
-                    LocatorUtils.property(thatLocator, "importe", rhsImporte), lhsImporte, rhsImporte,
-                    (this.importe != null), (that.importe != null))) {
-                return false;
-            }
-        }
-        {
-            String lhsGrupomanual;
-            lhsGrupomanual = this.getGrupomanual();
-            String rhsGrupomanual;
-            rhsGrupomanual = that.getGrupomanual();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "grupomanual", lhsGrupomanual),
-                    LocatorUtils.property(thatLocator, "grupomanual", rhsGrupomanual), lhsGrupomanual, rhsGrupomanual,
-                    (this.grupomanual != null), (that.grupomanual != null))) {
-                return false;
-            }
-        }
-        {
             String lhsHorasorigen;
             lhsHorasorigen = this.getHorasorigen();
             String rhsHorasorigen;
@@ -1029,16 +961,6 @@ public class IcmListacondicionesdestinoRecord
             strategy.appendField(locator, this, "festivo", buffer, theFestivo, (this.festivo != null));
         }
         {
-            String theImporte;
-            theImporte = this.getImporte();
-            strategy.appendField(locator, this, "importe", buffer, theImporte, (this.importe != null));
-        }
-        {
-            String theGrupomanual;
-            theGrupomanual = this.getGrupomanual();
-            strategy.appendField(locator, this, "grupomanual", buffer, theGrupomanual, (this.grupomanual != null));
-        }
-        {
             String theHorasorigen;
             theHorasorigen = this.getHorasorigen();
             strategy.appendField(locator, this, "horasorigen", buffer, theHorasorigen, (this.horasorigen != null));
@@ -1185,18 +1107,6 @@ public class IcmListacondicionesdestinoRecord
             theFestivo = this.getFestivo();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "festivo", theFestivo), currentHashCode,
                     theFestivo, (this.festivo != null));
-        }
-        {
-            String theImporte;
-            theImporte = this.getImporte();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "importe", theImporte), currentHashCode,
-                    theImporte, (this.importe != null));
-        }
-        {
-            String theGrupomanual;
-            theGrupomanual = this.getGrupomanual();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "grupomanual", theGrupomanual),
-                    currentHashCode, theGrupomanual, (this.grupomanual != null));
         }
         {
             String theHorasorigen;
@@ -1449,37 +1359,6 @@ public class IcmListacondicionesdestinoRecord
                 } else {
                     if (festivoShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.festivo = null;
-                    }
-                }
-            }
-            {
-                Boolean importeShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.importe != null));
-                if (importeShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceImporte;
-                    sourceImporte = this.getImporte();
-                    String copyImporte = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "importe", sourceImporte), sourceImporte,
-                            (this.importe != null)));
-                    copy.setImporte(copyImporte);
-                } else {
-                    if (importeShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.importe = null;
-                    }
-                }
-            }
-            {
-                Boolean grupomanualShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.grupomanual != null));
-                if (grupomanualShouldBeCopiedAndSet == Boolean.TRUE) {
-                    String sourceGrupomanual;
-                    sourceGrupomanual = this.getGrupomanual();
-                    String copyGrupomanual = ((String) strategy.copy(
-                            LocatorUtils.property(locator, "grupomanual", sourceGrupomanual), sourceGrupomanual,
-                            (this.grupomanual != null)));
-                    copy.setGrupomanual(copyGrupomanual);
-                } else {
-                    if (grupomanualShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.grupomanual = null;
                     }
                 }
             }
