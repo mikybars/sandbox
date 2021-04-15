@@ -12,7 +12,6 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -49,7 +48,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TareaCalculoResaltaManualDesplazamientoV1RepositoryCustomImplTest {
+public class TareaCalculoAlgoritmoResaltaManualDesplazamientoV1RepositoryCustomImplTest {
 
     private final static String SQL_BASE = "SQL CALCULAR BASE";
 
@@ -57,9 +56,6 @@ public class TareaCalculoResaltaManualDesplazamientoV1RepositoryCustomImplTest {
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-
-    @Mock
-    private TipoDatoService tipoDatoService;
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
