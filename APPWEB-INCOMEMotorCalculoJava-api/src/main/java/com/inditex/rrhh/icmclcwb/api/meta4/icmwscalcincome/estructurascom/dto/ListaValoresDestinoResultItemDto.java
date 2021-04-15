@@ -21,4 +21,6 @@ public class ListaValoresDestinoResultItemDto implements Serializable {
 
     private String idTipoVenta;
 
+    private String grupoManual;
+
 }

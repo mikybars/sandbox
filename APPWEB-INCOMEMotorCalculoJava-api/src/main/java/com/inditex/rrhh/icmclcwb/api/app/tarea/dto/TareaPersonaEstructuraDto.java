@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -136,8 +135,5 @@ public class TareaPersonaEstructuraDto implements Serializable {
 
     @ApiModelProperty(value = "Grupo manual", required = false)
     private String grupoManual;
-
-    @ApiModelProperty(value = "Importe grupo manual", required = false)
-    private BigDecimal importeGrupoManual;
 
 }

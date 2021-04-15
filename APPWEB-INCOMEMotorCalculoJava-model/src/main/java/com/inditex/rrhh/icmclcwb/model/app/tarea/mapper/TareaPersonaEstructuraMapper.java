@@ -82,11 +82,9 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesBaseResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getFestivo()) : null)")
-    @Mapping(target = "grupoManual", source = "listaCondicionesBaseResultItem.grupoManual", defaultValue = "")
-    @Mapping(target = "importeGrupoManual",
-            expression = "java(StringUtils.isNotBlank(listaCondicionesBaseResultItem.getImporteGrupoManual()) ? new BigDecimal(listaCondicionesBaseResultItem.getImporteGrupoManual()) : BigDecimal.ZERO)")
     // Valores por seccion
     @Mapping(target = "valor", constant = "0")
+    @Mapping(target = "grupoManual", constant = "")
     @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
     @Mapping(target = "cclIdSeccionEstructura", constant = "0")
     @Mapping(target = "tope", constant = "0")
@@ -129,11 +127,9 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesBaseResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getFestivo()) : null)")
-    @Mapping(target = "grupoManual", source = "listaCondicionesBaseResultItem.grupoManual", defaultValue = "")
-    @Mapping(target = "importeGrupoManual",
-            expression = "java(StringUtils.isNotBlank(listaCondicionesBaseResultItem.getImporteGrupoManual()) ? new BigDecimal(listaCondicionesBaseResultItem.getImporteGrupoManual()) : BigDecimal.ZERO)")
     // Valores por seccion
     @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
+    @Mapping(target = "grupoManual", source = "listaValoresBaseResultItem.grupoManual", defaultValue = "")
     @Mapping(target = "valor", source = "listaValoresBaseResultItem.valor", defaultValue = "0")
     @Mapping(target = "cclIdSeccionEstructura", source = "listaValoresBaseResultItem.idSeccion", defaultValue = "0")
     @Mapping(target = "tope", source = "listaValoresBaseResultItem.tope", defaultValue = "0")
@@ -177,11 +173,9 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesDestinoResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getFestivo()) : null)")
-    @Mapping(target = "grupoManual", source = "listaCondicionesDestinoResultItem.grupoManual", defaultValue = "")
-    @Mapping(target = "importeGrupoManual",
-            expression = "java(StringUtils.isNotBlank(listaCondicionesDestinoResultItem.getImporteGrupoManual()) ? new BigDecimal(listaCondicionesDestinoResultItem.getImporteGrupoManual()) : BigDecimal.ZERO)")
     // Valores por seccion
     @Mapping(target = "valor", constant = "0")
+    @Mapping(target = "grupoManual", constant = "")
     @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
     @Mapping(target = "cclIdSeccionEstructura", constant = "0")
     @Mapping(target = "tope", constant = "0")
@@ -261,12 +255,10 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesDestinoResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getFestivo()) : null)")
-    @Mapping(target = "grupoManual", source = "listaCondicionesDestinoResultItem.grupoManual", defaultValue = "")
-    @Mapping(target = "importeGrupoManual",
-            expression = "java(StringUtils.isNotBlank(listaCondicionesDestinoResultItem.getImporteGrupoManual()) ? new BigDecimal(listaCondicionesDestinoResultItem.getImporteGrupoManual()) : BigDecimal.ZERO)")
     // Valores por seccion
     @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
     @Mapping(target = "valor", source = "listaValoresDestinoResultItem.valor", defaultValue = "0")
+    @Mapping(target = "grupoManual", source = "listaValoresDestinoResultItem.grupoManual")
     @Mapping(target = "cclIdSeccionEstructura", source = "listaValoresDestinoResultItem.idSeccion", defaultValue = "0")
     @Mapping(target = "tope", source = "listaValoresDestinoResultItem.tope", defaultValue = "0")
     // Datos del desplazamiento

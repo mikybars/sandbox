@@ -15,6 +15,8 @@ public class ListaValoresBaseResultItemDto implements Serializable {
 
     private String tope;
 
+    private String grupoManual;
+
     private String valor;
 
     private String idSeccion;
