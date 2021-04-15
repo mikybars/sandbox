@@ -46,7 +46,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TareaCalculoResaltaManualV1RepositoryCustomImplTest {
+public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
 
     private final static String SQL_BASE = "SQL CALCULAR BASE";
 
@@ -205,6 +205,19 @@ public class TareaCalculoResaltaManualV1RepositoryCustomImplTest {
             assertTrue(value.hasValue(SQL_PARAM_CALCULA));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
         }
+
+        // cclIdPerson, stdOrHrPeriod - valores del parámetro
+        assertEquals(1,
+                Arrays.stream(values)
+                    .filter(value -> persona1.getIdPersonaLocal().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
+                            && persona1.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
+                    .toArray().length);
+        assertEquals(1,
+                Arrays.stream(values)
+                    .filter(value -> persona2.getIdPersonaLocal().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
+                            && persona2.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
+
+                    .toArray().length);
 
     }
 

@@ -23,8 +23,6 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImpl
         extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
         implements TareaCalculoAlgoritmoResaltaManualV1RepositoryCustom {
 
-    // TODO [javierev] Consultas algoritmo resalta manual
-
     @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoResaltaManualV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
     @Getter
     private String sqlCalcular;
@@ -48,7 +46,6 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImpl
             final AlgoritmoDto algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
         final Map<String, Object> map = new HashMap<>();
 
-        // TODO [javierev] Map values resalta manual
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         }
