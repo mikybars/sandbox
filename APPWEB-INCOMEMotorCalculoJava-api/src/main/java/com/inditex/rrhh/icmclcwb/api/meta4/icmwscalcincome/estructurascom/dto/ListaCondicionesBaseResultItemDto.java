@@ -36,10 +36,6 @@ public class ListaCondicionesBaseResultItemDto implements Serializable {
 
     private String festivo;
 
-    private String importeGrupoManual;
-
-    private String grupoManual;
-
     private List<ListaValoresBaseResultItemDto> icmListaValoresBase;
 
 }

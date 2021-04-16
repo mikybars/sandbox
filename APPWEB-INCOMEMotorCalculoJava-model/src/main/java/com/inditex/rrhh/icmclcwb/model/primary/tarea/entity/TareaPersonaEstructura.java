@@ -138,10 +138,6 @@ public class TareaPersonaEstructura {
     private String icmGrupoManual;
 
     @NotNull
-    @Column(name = "ICM_IMPORTE_GRUPO_MANUAL", nullable = false)
-    private BigDecimal importeGrupoManual;
-
-    @NotNull
     @Column(name = "ES_FESTIVO", nullable = false)
     private Boolean festivo;
 
