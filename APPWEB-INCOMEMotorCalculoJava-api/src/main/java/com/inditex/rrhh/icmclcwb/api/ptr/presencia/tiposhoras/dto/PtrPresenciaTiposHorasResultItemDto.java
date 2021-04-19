@@ -21,6 +21,8 @@ public class PtrPresenciaTiposHorasResultItemDto implements Serializable {
 
     private Integer tipoHora;
 
+    private Integer idCatalogoAplicacion;
+
     private Boolean excluidoDenom;
 
     private Boolean excluidoCalculo;
