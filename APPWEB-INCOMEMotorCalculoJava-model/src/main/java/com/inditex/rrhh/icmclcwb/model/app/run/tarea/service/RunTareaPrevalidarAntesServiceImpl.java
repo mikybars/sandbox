@@ -165,7 +165,9 @@ public class RunTareaPrevalidarAntesServiceImpl implements RunTareaPrevalidarAnt
                         .build();
                     final SincronizacionRequestDto request = new SincronizacionRequestDto();
                     request.setData(filter);
-                    this.log.info("Inicio :: Sincronizacion :: Personas: {}",
+                    this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: Sincronizacion :: Personas: {}",
+                            tareaDto.getIdTrabajo(),
+                            tareaDto.getId(),
                             e
                                 .getIdPersonaLocal()
                                 .size());
@@ -173,14 +175,18 @@ public class RunTareaPrevalidarAntesServiceImpl implements RunTareaPrevalidarAnt
                         final SincronizacionResponseDto result = this.meta4IcmWsCalcIncomeService
                             .sincronizacion(request);
                         this.log.info(
-                                "Sincronizacion :: Ok :: Personas: {}",
+                                "Trabajo[{}]Tarea[{}] :: Inicio :: Sincronizacion :: Ok :: Personas: {}",
+                                tareaDto.getIdTrabajo(),
+                                tareaDto.getId(),
                                 result.getData()
                                     .stream()
                                     .filter(a -> a.getResultado().equals(Meta4Constants.RESULTADO_OK))
                                     .map(SincronizacionResultItemDto::getIdEmpleado)
                                     .collect(Collectors.toList()));
                         this.log.info(
-                                "Sincronizacion :: Ko :: Personas: {}",
+                                "Trabajo[{}]Tarea[{}] :: Inicio :: Sincronizacion :: Ko :: Personas: {}",
+                                tareaDto.getIdTrabajo(),
+                                tareaDto.getId(),
                                 result.getData()
                                     .stream()
                                     .filter(a -> a.getResultado().equals(Meta4Constants.RESULTADO_ERROR))
@@ -188,11 +194,15 @@ public class RunTareaPrevalidarAntesServiceImpl implements RunTareaPrevalidarAnt
                                     .collect(Collectors.toList()));
                     } catch (final Exception e1) {
                         this.log.error(
-                                "Sincronizacion :: Error :: Personas: {}",
+                                "Trabajo[{}]Tarea[{}] :: Inicio :: Sincronizacion :: Error :: Personas: {}",
+                                tareaDto.getIdTrabajo(),
+                                tareaDto.getId(),
                                 e
                                     .getIdPersonaLocal());
                     }
-                    this.log.info("Fin :: Sincronizacion :: Personas: {}",
+                    this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: Fin :: Sincronizacion :: Personas: {}",
+                            tareaDto.getIdTrabajo(),
+                            tareaDto.getId(),
                             e
                                 .getIdPersonaLocal()
                                 .size());
