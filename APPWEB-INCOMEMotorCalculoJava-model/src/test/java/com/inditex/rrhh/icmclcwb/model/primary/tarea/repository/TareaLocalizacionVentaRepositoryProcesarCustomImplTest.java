@@ -20,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ABIERTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_FECHA_FIN;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO;
@@ -84,8 +85,8 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: nuevoIdTipoDato, nuevoActivo, idTipoImporteVentaFisicaAgrupacion,
         // idTipoImporteVentaEntregaDomicilioAgrupacion, idTarea, idTipoImporteVentaFisicaLocalizacion,
-        // idSeccion, fechaFin, idConcepto, porcentajeInclusion
-        assertEquals(10, params.getValues().size());
+        // idSeccion, fechaFin, abierto, idConcepto, porcentajeInclusion
+        assertEquals(11, params.getValues().size());
         // nuevoIdTipoDato,
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(),
@@ -120,6 +121,9 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
         // fechaFin
         assertTrue(params.hasValue(SQL_PARAM_FECHA_FIN));
         assertEquals(TimeUtils.toDate(tarea.getFechaFinPeriodo()), params.getValue(SQL_PARAM_FECHA_FIN));
+        // abierto
+        assertTrue(params.hasValue(SQL_PARAM_ABIERTO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ABIERTO));
     }
 
     @Test
@@ -127,6 +131,7 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
 
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(7474L);
+        when(tarea.getFechaFinPeriodo()).thenReturn(LocalDate.of(2020, 8, 31));
 
         this.tareaLocalizacionVentaRepositoryProcesarCustom
             .procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(tarea);
@@ -135,9 +140,9 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: nuevoIdTipoDato, nuevoActivo, idTipoPresenciaLocalizacion, activo,
         // idTipoPresenciaAgrupacion, idTipoImporteVentaEntregaDomicilioAgrupacion, idTarea,
-        // idTipoImporteVentaFisicaLocalizacion, idSeccion,
+        // idTipoImporteVentaFisicaLocalizacion, idSeccion, abierto, fechaFin
         // idConcepto, porcentajeInclusion, nuevoIdSeccion
-        assertEquals(12, params.getValues().size());
+        assertEquals(14, params.getValues().size());
         // nuevoIdTipoDato,
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(),
@@ -180,6 +185,12 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
         // nuevoIdSeccion
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_SECCION));
         assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_NUEVO_ID_SECCION));
+        // fechaFin
+        assertTrue(params.hasValue(SQL_PARAM_FECHA_FIN));
+        assertEquals(TimeUtils.toDate(tarea.getFechaFinPeriodo()), params.getValue(SQL_PARAM_FECHA_FIN));
+        // abierto
+        assertTrue(params.hasValue(SQL_PARAM_ABIERTO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ABIERTO));
     }
 
 }

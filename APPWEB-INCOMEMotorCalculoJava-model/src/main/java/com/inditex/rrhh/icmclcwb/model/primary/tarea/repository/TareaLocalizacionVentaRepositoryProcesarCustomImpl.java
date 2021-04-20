@@ -48,6 +48,7 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
                 SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.toDate(tareaDto.getFechaFinPeriodo()));
         this.namedParameterJdbcTemplate.update(this.sqlProcesarEntregaDomicilioAgrupaciones, params);
     }
@@ -76,6 +77,8 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.toDate(tareaDto.getFechaFinPeriodo()));
         this.namedParameterJdbcTemplate.update(this.sqlProcesarEntregaDomicilioPresenciaAgrupaciones, params);
     }
 
