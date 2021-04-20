@@ -85,8 +85,8 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: nuevoIdTipoDato, nuevoActivo, idTipoImporteVentaFisicaAgrupacion,
         // idTipoImporteVentaEntregaDomicilioAgrupacion, idTarea, idTipoImporteVentaFisicaLocalizacion,
-        // idSeccion, fechaFin, abierto, idConcepto, porcentajeInclusion
-        assertEquals(11, params.getValues().size());
+        // idSeccion, fechaFin, abierto, activo, idConcepto, porcentajeInclusion
+        assertEquals(12, params.getValues().size());
         // nuevoIdTipoDato,
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
         assertEquals(TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId(),
@@ -124,6 +124,9 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
         // abierto
         assertTrue(params.hasValue(SQL_PARAM_ABIERTO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ABIERTO));
+        // activo
+        assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
     }
 
     @Test
