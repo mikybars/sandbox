@@ -66,7 +66,8 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
     @Before
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryProcesarCustom,
-                "sqlProcesarEntregaDomicilioAgrupaciones", SQL_PROCESAR_REPARTO_ENTREGA_DOMICILIO_AGRUPACIONES, true);
+                "sqlProcesarEntregaDomicilioPorVentasAgrupaciones", SQL_PROCESAR_REPARTO_ENTREGA_DOMICILIO_AGRUPACIONES,
+                true);
         FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryProcesarCustom,
                 "sqlProcesarEntregaDomicilioPresenciaAgrupaciones",
                 SQL_PROCESAR_REPARTO_ETNREGA_DOMICILIO_POR_PRESENCIA_AGRUPACIONES, true);
