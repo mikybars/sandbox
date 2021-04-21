@@ -44,14 +44,14 @@ public class TareaAmbitoGlobalFechaRepositoryCustomImpl extends
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idTipoDato);
 
         return this.queryForObject(this.sqlFindFechaAmbitoDtoByIdTareaAndIdTipoDato, parameters,
-            (rs, rowNum) -> {
-                final PeriodoDto dto = new PeriodoDto();
-                dto.setFechaInicioPeriodo(
-                    rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate());
-                dto.setFechaFinPeriodo(
-                    rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate());
-                return dto;
-            });
+                (rs, rowNum) -> {
+                    final PeriodoDto dto = new PeriodoDto();
+                    dto.setFechaInicioPeriodo(
+                            rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate());
+                    dto.setFechaFinPeriodo(
+                            rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate());
+                    return dto;
+                });
     }
 
 }

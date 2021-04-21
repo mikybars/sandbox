@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.util;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,7 +10,8 @@ public class AppTestConstants {
     private AppTestConstants() {
     }
 
-    public static final List<String> FASE_1A = Arrays.asList("AT,38,135", "AT,38,251", "AT,38,315", "AT,38,329",
+    @Getter
+    private static final List<String> FASE_1A = Arrays.asList("AT,38,135", "AT,38,251", "AT,38,315", "AT,38,329",
             "AT,38,340", "AT,38,425", "AT,38,468", "AT,38,95", "CA,404,362", "CA,404,395", "CA,404,97", "CH,39,100",
             "CH,39,137", "CH,39,143", "CH,39,325", "CH,39,348", "CH,39,36", "CH,39,456", "CH,39,481", "CH,39,508",
             "CZ,61,123", "CZ,61,172", "CZ,61,173", "CZ,61,252", "CZ,61,253", "CZ,61,254", "CZ,61,510", "CZ,61,511",
@@ -17,14 +20,15 @@ public class AppTestConstants {
             "HU,64,220", "HU,64,221", "HU,64,235", "HU,64,290", "HU,64,457", "SK,63,209", "SK,63,222", "SK,63,223",
             "SK,63,224", "SK,63,470", "SK,63,476", "UY,524,429", "UY,524,87", "ZA,388,343", "ZA,388,477");
 
-    public static final List<String> AT_TEST = Arrays.asList("AT,38,95,1422", "AT,38,95,3112", "AT,38,95,3113",
+    @Getter
+    private static final List<String> AT_TEST = Arrays.asList("AT,38,95,1422", "AT,38,95,3112", "AT,38,95,3113",
             "AT,38,95,3114",
             "AT,38,95,3173", "AT,38,95,3321", "AT,38,95,3357", "AT,38,95,3465", "AT,38,95,3477", "AT,38,95,3487",
             "AT,38,95,3596", "AT,38,95,3626",
             "AT,38,95,4941", "AT,38,95,4943", "AT,38,95,946", "AT,38,95,9724", "AT,38,95,9864");
 
-
-    public static final List<String> TEST = Arrays.asList("AT,38,95,3321,AT1003201,1", "AT,38,95,3113,AT1010140,1",
+    @Getter
+    private static final List<String> TEST = Arrays.asList("AT,38,95,3321,AT1003201,1", "AT,38,95,3113,AT1010140,1",
             "AT,38,95,3113,AT1010154,1", "AT,38,95,3113,AT1010175,1",
             "AT,38,95,3113,AT1010269,1", "AT,38,95,3112,AT1010325,2", "AT,38,95,3113,AT1010349,1",
             "AT,38,95,3112,AT1010372,2", "AT,38,95,3113,AT1010429,1", "AT,38,95,3173,AT1010439,1",
@@ -177,6 +181,7 @@ public class AppTestConstants {
             "AT,38,95,3173,AT1014366,1", "AT,38,95,3173,AT1014367,1", "AT,38,95,3173,AT1014376,1",
             "AT,38,95,3113,AT1014384,1");
 
-    public static final List<Integer> MESES_CON_DATOS = Arrays.asList(3, 4, 5, 6, 7);
+    @Getter
+    private static final List<Integer> MESES_CON_DATOS = Arrays.asList(3, 4, 5, 6, 7);
 
 }

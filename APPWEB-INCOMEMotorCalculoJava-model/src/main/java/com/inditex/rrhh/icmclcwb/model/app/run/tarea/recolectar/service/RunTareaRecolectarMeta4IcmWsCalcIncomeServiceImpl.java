@@ -92,6 +92,24 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
+    public void presenciaManualLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .presenciaManualWlocByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
+    public void ventaManualLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .ventaManualWlocByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
+    @Override
     public void estructurasComByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()

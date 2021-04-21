@@ -42,7 +42,7 @@ public class TareaAmbitoGlobalFecha {
     @Column(name = "FECHA_FIN", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    
+
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
     private TipoDato tipoDato;

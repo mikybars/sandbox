@@ -2,10 +2,14 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResultItemDto;
@@ -14,12 +18,13 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.P
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizacionVentaDecorator;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(imports = { TipoDato.class, TipoDatoEnum.class })
 @DecoratedWith(TareaLocalizacionVentaDecorator.class)
 public abstract class TareaLocalizacionVentaMapper {
 
@@ -47,15 +52,14 @@ public abstract class TareaLocalizacionVentaMapper {
     @Mapping(source = "tienda", target = "cclIdCodOrigen")
     @Mapping(source = "cadena", target = "cclIdCadena")
     @Mapping(source = "fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
-    @Mapping(source = "idSeccion", target = "cclIdSeccion")
-    @Mapping(source = "importeSinIVA", target = "importeSinImpuestos")
-    @Mapping(source = "importeConIVA", target = "importeConImpuestos")
+    @Mapping(source = "seccionVenta.seccion", target = "cclIdSeccion")
+    @Mapping(source = "seccionVenta.importeSinIVA", target = "importeSinImpuestos")
+    @Mapping(source = "seccionVenta.importeConIVA", target = "importeConImpuestos")
     @Mapping(source = "idTipoDato", target = "tipoDato.id")
     @Mapping(constant = "true", target = "activo")
     @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaLocalizacionVenta responseItemDtoToTareaLocalizacionVenta(Integer tienda, Integer cadena,
-            String fecha, TareaDto tarea, Double importeSinIVA, Double importeConIVA, Integer idSeccion,
-            Integer idTipoDato);
+            String fecha, TareaDto tarea, PtrSeccionVentaOnlineGenericType seccionVenta, Integer idTipoDato);
 
     public List<TareaLocalizacionVenta> ventaTotalizadoResponseItemDtoToTareaLocalizacionVenta(
             final List<PtrVentaTotalizadoResultItemDto> src, final TareaDto tarea,
@@ -102,6 +106,27 @@ public abstract class TareaLocalizacionVentaMapper {
             final List<PtrVentaIndividualDetalleResultItemDto> src, final TareaDto tarea,
             final Integer tipoDatoLocalizacionSeccion,
             final Integer tipoDatoLocalizacion) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+
+
+    @Mapping(source = "src.idLugarTrabajoMtu", target = "cclIdCodOrigen")
+    @Mapping(source = "src.idSeccion", target = "cclIdSeccion")
+    @Mapping(source = "src.idCadena", target = "cclIdCadena")
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = Meta4Constants.META4_DATE)
+    @Mapping(source = "src.importe", target = "importeSinImpuestos")
+    @Mapping(source = "src.importe", target = "importeConImpuestos")
+    @Mapping(source = "tareaDto.id", target = "tarea.id")
+    @Mapping(target = "tipoDato",
+            expression = "java(TipoDato.builder().id(TipoDatoEnum.VENTA_MANUAL_LOCALIZACION_SECCION.getId()).build())")
+    @Mapping(target = "activo", expression = "java(Boolean.TRUE)")
+    @Mapping(target = "pk.id", ignore = true)
+    @Mapping(source = "tareaDto.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    public abstract TareaLocalizacionVenta genericTiendaResultItemDtoToTareaLocalizacionVenta(
+            VentaManualWlocResultItemDto src, TareaDto tareaDto);
+
+    public List<TareaLocalizacionVenta> genericTiendaResultItemDtoToTareaLocalizacionVenta(
+            final List<VentaManualWlocResultItemDto> src, final TareaDto tareaDto) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

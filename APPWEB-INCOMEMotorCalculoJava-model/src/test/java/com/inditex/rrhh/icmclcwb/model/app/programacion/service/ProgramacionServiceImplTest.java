@@ -7,11 +7,13 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
@@ -23,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.Programac
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -32,6 +35,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -227,7 +231,9 @@ public class ProgramacionServiceImplTest {
 
         assertTrue(DateUtils.isSameDay(new Date(),
                 Date.from(programacion.getFechaHoraUltimaEjecucion().atZone(TimeUtils.ofZone()).toInstant())));
-        assertNotNull(programacion.getFechaHoraSiguienteEjecucion());
+        verify(this.programacionRepository, times(1)).save(any(Programacion.class));
+        verify(this.programacionMapper, times(1)).programacionDtoToProgramacion(programacion);
+        verify(this.programacionMapper, times(1)).programacionToProgramacionDto(any(Programacion.class));
 
     }
 
@@ -261,6 +267,45 @@ public class ProgramacionServiceImplTest {
         final Long id = 1L;
         this.programacionService.desactiva(id);
         verify(this.programacionRepositoryCustom, times(1)).desactiva(id);
+    }
+
+    @Test
+    public void updateFechaSiguienteEjecucionTest() {
+
+        final ProgramacionDto programacion1 = new ProgramacionDto();
+        programacion1.setHoraProgramacion(LocalTime.of(0, 0));
+        programacion1.setProgramacionHuso(TimeUtils.ofZoneId());
+        final ProgramacionDto programacion2 = new ProgramacionDto();
+        programacion2.setHoraProgramacion(LocalTime.of(0, 0));
+        programacion2.setProgramacionHuso(TimeUtils.ofZoneId());
+        final ProgramacionDto programacion3 = new ProgramacionDto();
+        programacion3.setHoraProgramacion(LocalTime.of(3, 0));
+        programacion3.setProgramacionHuso(TimeUtils.ofZoneId());
+
+        final List<ProgramacionDto> programaciones = Arrays.asList(programacion1, programacion2, programacion3);
+        this.programacionService.updateFechaSiguienteEjecucion(programaciones);
+
+        final ArgumentCaptor<List<IdProgramacionDto>> idsCaptor = ArgumentCaptor.forClass(List.class);
+        final ArgumentCaptor<LocalDateTime> dateCaptor = ArgumentCaptor.forClass(LocalDateTime.class);
+
+        verify(this.programacionRepositoryCustom, times(2))
+            .updateFechaSiguienteEjecucion(idsCaptor.capture(), dateCaptor.capture());
+
+        final List<List<IdProgramacionDto>> allIds = idsCaptor.getAllValues();
+        assertEquals(1, allIds.stream().filter(x -> x.size() == 2).collect(Collectors.toList()).size());
+        assertEquals(1, allIds.stream().filter(x -> x.size() == 1).collect(Collectors.toList()).size());
+
+        final List<LocalDateTime> allDates = dateCaptor.getAllValues();
+        final Date tomorrow = DateUtils.addDays(new Date(), 1);
+        assertEquals(2, allDates.stream()
+            .filter(x -> DateUtils.isSameDay(tomorrow,
+                    Date.from(x.atZone(TimeUtils.ofZone()).toInstant())))
+            .collect(Collectors.toList())
+            .size());
+        assertFalse(DateUtils.isSameInstant(
+                Date.from(allDates.get(0).atZone(TimeUtils.ofZone()).toInstant()),
+                Date.from(allDates.get(1).atZone(TimeUtils.ofZone()).toInstant())));
+
     }
 
 }

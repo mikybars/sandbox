@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>2.5.1</version>
+    <version>2.7.9</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Este módulo se proporciona para que el ejemplo funcione, pero lo recomendable es que no exista
-        dentro del proyecto, y en su lugar se importe una librería con el api y el acceso a datos.</description>
+    dentro del proyecto, y en su lugar se importe una librería con el api y el acceso a datos.
+  </description>
 
   <dependencies>
 
@@ -24,7 +25,7 @@
       <groupId>com.inditex.aqsw.framework.common</groupId>
       <artifactId>common-framework-starter-api-validation</artifactId>
     </dependency>
-   <dependency>
+    <dependency>
       <groupId>com.inditex.aqsw.framework.service</groupId>
       <artifactId>service-framework-starter-aaa-oidc-ldap-spnego</artifactId>
     </dependency>
@@ -32,7 +33,7 @@
       <groupId>com.inditex.aqsw.framework.service</groupId>
       <artifactId>service-framework-starter-aaa-userdetails-sso</artifactId>
     </dependency>
-    
+
 
     <!-- OTHER DEPENDENCIES -->
     <dependency>
@@ -60,7 +61,7 @@
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
     </dependency>
-    
+
     <!-- TEST -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

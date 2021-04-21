@@ -12,11 +12,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarCondicionesAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
@@ -35,7 +39,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
     @Autowired
     private RunTareaProcesarCondicionesAsyncService runTareaProcesarCondicionesAsyncService;
 
+    @Autowired
+    private TareaFaseService tareaFaseService;
+
     @Auditoria
+    @Validation(fase = 3)
     @TimerFunctionalMetric(metricName = "RunTareaProcesarService.run.timer",
             metricGroupName = "RunTareaProcesarServiceGroup", metricDescription = "RunTareaProcesarService.run.timer")
     @CounterFunctionalMetric(metricName = "RunTareaProcesarService.run.counter",
@@ -46,6 +54,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         final List<CompletableFuture<?>> cfWait = new ArrayList<>();
 
         try {
+            this.tareaFaseService.updateFechaInicio(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.PROCESAR.getId()));
+
             final CompletableFuture<Void> cfDesactivarChallengeOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
                 .desactivarChallengeOpcionOrigen(runTarea);
             AsyncUtils.exceptionally(cfDesactivarChallengeOpcionOrigen, cf, cfWait);
@@ -71,25 +83,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             CompletableFuture<Void> cfUpdateSeccionPresenciasActivas = this.runTareaProcesarPresenciaAsyncService
                 .updateActivoLocalizacionPersonaPresencia(runTarea);
             AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivas, cf, cfWait);
-
-            // TODO [JAVIEREV] Esto queda por si necesitamos arreglar rápidamente algún caso extraño con
-            // presencias 0,
-            // pero no debería darse nunca (y, por tanto, podríamos eliminarlo)
-
-            // /*-------------------------------------------------------------*/
-            // AsyncUtils.waitAllOfIsOk(cf, cf);
-            // /*-------------------------------------------------------------*/
-            //
-            // //Actualizar flags de presencias totales con minutos a cero
-            // CompletableFuture<Void> cfUpdatePresenciasActivasVacio = runTareaProcesarPresenciaAsyncService
-            // .updateActivoLocalizacionVacio(runTarea);
-            // AsyncUtils.exceptionally(cfUpdatePresenciasActivasVacio, cf);
-            //
-            // //Actualizar flags de presencias localizacion persona con minutos a cero
-            // CompletableFuture<Void> cfUpdateSeccionPresenciasActivasVacio =
-            // runTareaProcesarPresenciaAsyncService
-            // .updateActivoLocalizacionPersonaPresenciaVacio(runTarea);
-            // AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivasVacio, cf);
 
             final CompletableFuture<Void> cfTotalizarDevolucion = this.runTareaProcesarVentaAsyncService
                 .totalizarDevolucionLocalizacionSeccion(runTarea);
@@ -187,6 +180,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
+            // Totalizamos las presencias de la tienda por seccion
+            final CompletableFuture<Void> cfTotalizarPresenciaLocalizacion = this.runTareaProcesarPresenciaAsyncService
+                .totalizarLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarPresenciaLocalizacion, cf, cfWait);
+
             // Compensar presencia total localizacion persona con las manuales
             final CompletableFuture<Void> cfCompensarPresenciaPersonaLocalizacion = this.runTareaProcesarPresenciaAsyncService
                 .compensarLocalizacionPersonaPresencia(runTarea);
@@ -197,19 +195,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 .compensarChallenge(runTarea);
             AsyncUtils.exceptionally(cfCompensarChallenge, cf, cfWait);
 
-            // Compensar presencia total localizacion con las manuales
-            final CompletableFuture<Void> cfCompensarPresenciaLocalizacion = this.runTareaProcesarPresenciaAsyncService
-                .compensarLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacion, cf, cfWait);
-
             // Compensar presencia total localizacion con las manuales para incluido ecommerce
             final CompletableFuture<Void> cfCompensarPresenciaLocalizacionEcommerce = this.runTareaProcesarPresenciaAsyncService
                 .compensarLocalizacionEcommerce(runTarea);
             AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionEcommerce, cf, cfWait);
-
-            final CompletableFuture<Void> cfTotalizarPresenciaLocalizacion = this.runTareaProcesarPresenciaAsyncService
-                .totalizarLocalizacion(runTarea);
-            AsyncUtils.exceptionally(cfTotalizarPresenciaLocalizacion, cf, cfWait);
 
             final CompletableFuture<Void> cfTotalizarPresenciaEcommerceLocalizacion = this.runTareaProcesarPresenciaAsyncService
                 .totalizarEcommerceLocalizacion(runTarea);
@@ -224,6 +213,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             final CompletableFuture<Void> cfPresenciasIncluidoVentaPersona = this.runTareaProcesarPresenciaAsyncService
                 .presenciasIncluidoVentaPersona(runTarea);
             AsyncUtils.exceptionally(cfPresenciasIncluidoVentaPersona, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // Compenar presencia total localizacion con las manuales de tienda
+            final CompletableFuture<Void> cfCompensarPresenciaLocalizacionManual = this.runTareaProcesarPresenciaAsyncService
+                .compensarLocalizacionManual(runTarea);
+            AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionManual, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
@@ -442,8 +440,26 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
+            // Desactivo venta de tienda por seccion si hay manual
+            final CompletableFuture<Void> cfUpdateActivoManual = this.runTareaProcesarVentaAsyncService
+                .updateActivoManual(runTarea);
+            AsyncUtils.exceptionally(cfUpdateActivoManual, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            this.tareaFaseService.updateFechaFinAndEstado(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.PROCESAR.getId()),
+                    EstadoTareaFaseEnum.OK.getDto());
+
         } catch (final Exception e) {
             AsyncUtils.cancel(cf);
+            this.tareaFaseService.updateFechaFinAndEstado(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.PROCESAR.getId()),
+                    EstadoTareaFaseEnum.KO.getDto());
             throw e;
         }
     }

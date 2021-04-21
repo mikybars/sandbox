@@ -51,7 +51,7 @@ public class PtrVentaTotalizadoRequestDto implements Serializable {
 
     @ApiModelProperty(value = "Agrupación de datos", required = false, example = "FECHA_TIENDA")
     private PtrGroupTypeEnum agrupacion;
-    
+
     @ApiModelProperty(value = "Operacion a consultar", required = false, example = "V")
     private String operacion;
 

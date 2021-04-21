@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 
 @Service
@@ -20,6 +22,12 @@ public class Meta4IcmWsCalcIncomeAsyncServiceImpl implements Meta4IcmWsCalcIncom
     public CompletableFuture<ConfiguracionesResponseDto> getConfiguraciones(
             final ConfiguracionesRequestDto request) {
         return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeService.getConfiguracion(request));
+    }
+
+    @Override
+    public CompletableFuture<MotivosDesplazamientoResponseDto> getMotivosDesplazamiento(
+            final MotivosDesplazamientoRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeService.getMotivosDesplazamiento(request));
     }
 
 }

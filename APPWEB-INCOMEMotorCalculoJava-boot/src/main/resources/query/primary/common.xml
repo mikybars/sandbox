@@ -2,42 +2,42 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-<entry key="TareaLocalizacionPresenciaRepositoryCustom.save">
+  <entry key="TareaLocalizacionPresenciaRepositoryCustom.save">
     <![CDATA[
     INSERT INTO TAREA_LOCALIZACION_PRESENCIA (FECHA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, MINUTOS, ID_TIPO_DATO, ES_ACTIVO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
     VALUES (:fecha, :cclIdCodOrigen, :cclIdSeccion, :minutos, :tipoDato.id, :activo, :tarea.id, :cclIdCadena, :pk.fechaInicioPeriodo)
 ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom.save">
+  <entry key="TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_DESPLAZAMIENTO (STD_ID_WORK_LOCAT, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, ID_TAREA)
-        VALUES(:stdIdWorkLocat, :cclIdOrigen, :cclIdPerson, :stdIdLegEnt, :tarea.id) 
+        VALUES(:stdIdWorkLocat, :cclIdOrigen, :cclIdPerson, :stdIdLegEnt, :tarea.id)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustom.save">
+  <entry key="TareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, ID_TAREA)
-        VALUES(:cclIdCodOrigen, :cclIdOrigen, :cclIdPerson, :stdIdLegEnt, :tarea.id) 
+        VALUES(:cclIdCodOrigen, :cclIdOrigen, :cclIdPerson, :stdIdLegEnt, :tarea.id)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.save">
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, COD_TIPO_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
         VALUES(:cclIdCodOrigen, :cclIdOrigen, :cclIdPerson, :stdIdLegEnt, :cclIdSeccion, :fecha, :minutos, :codTipoHora, :activo, :tipoDato.id, :tarea.id, :cclIdCadena, :pk.fechaInicioPeriodo)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaAusenciaHistoricoRepositoryCustom.save">
+  <entry key="TareaPersonaAusenciaHistoricoRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_PERSONA_AUSENCIA_HISTORICO (FECHA_FIN, FECHA_INICIO, CCL_ID_PERSON, STD_OR_HR_PERIOD, ID_TIPO_AUSENCIA, CCL_ID_ORIGEN, ID_TAREA)
         VALUES(:fechaFin, :fechaInicio, :cclIdPerson, :stdOrHrPeriod, :tipoAusencia.id, :cclIdOrigen, :tarea.id)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoByIdTareaAndIdOrigenInPeriodoCalculoPersona">
+  <entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoByIdTareaAndIdOrigenInPeriodoCalculoPersona">
     <![CDATA[
     SELECT PH.STD_ID_HR, PH.STD_OR_HR_PERIOD
     FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA LP
@@ -67,10 +67,10 @@
     AND LP.CCL_ID_ORIGEN = :cclIdOrigen
     GROUP BY PH.STD_ID_HR, PH.STD_OR_HR_PERIOD
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona">
-  <![CDATA[
+  <entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona">
+    <![CDATA[
     SELECT PH.CCL_ID_PERSON, PH.STD_OR_HR_PERIOD
     FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA LP
     INNER JOIN (
@@ -95,10 +95,10 @@
     AND LP.CCL_ID_ORIGEN = :cclIdOrigen
     GROUP BY PH.CCL_ID_PERSON, PH.STD_OR_HR_PERIOD
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdTipoCalculo">
-  <![CDATA[
+  <entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdTipoCalculo">
+    <![CDATA[
   SELECT P.CCL_ID_PERSON FROM TAREA_PERSONA_HISTORICO P
   JOIN TAREA_PERSONA_ESTRUCTURA E
   ON P.FECHA_INICIO_PERIODO = E.FECHA_INICIO_PERIODO
@@ -110,9 +110,9 @@
   AND E.CCL_ID_ORIGEN = :cclIdOrigen
   GROUP BY P.CCL_ID_PERSON
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInPeriodoCalculoPersona">
+  <entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInPeriodoCalculoPersona">
     <![CDATA[
     SELECT PH.STD_ID_HR
     FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA LP
@@ -138,9 +138,9 @@
     AND LP.CCL_ID_ORIGEN = :cclIdOrigen
     GROUP BY PH.STD_ID_WORK_LOCAT
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito">
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbito">
     <![CDATA[
     SELECT TAMGLP.STD_ID_WORK_LOCAT
     FROM TAREA_CALCULO_PERSONA TCP
@@ -151,9 +151,9 @@
     AND TCP.CCL_ID_ORIGEN = :cclIdOrigen
     GROUP BY TAMGLP.STD_ID_WORK_LOCAT, TAMGLP.ID_TAREA
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbitoLocalizacion">
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbitoLocalizacion">
     <![CDATA[
     SELECT TAMGLP.STD_ID_WORK_LOCAT
     FROM TAREA_AMBITO_GLOBAL_LOCALIZACION TAMGLP
@@ -161,9 +161,10 @@
     AND TAMGLP.CCL_ID_ORIGEN = :cclIdOrigen
     GROUP BY TAMGLP.STD_ID_WORK_LOCAT, TAMGLP.ID_TAREA
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbitoLocalizacion">
+  <entry
+    key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbitoLocalizacion">
     <![CDATA[
     SELECT TLH.CCL_ID_COD_ORIGEN
     FROM TAREA_LOCALIZACION_HISTORICO TLH
@@ -174,9 +175,9 @@
     AND TAMGLP.CCL_ID_ORIGEN = :cclIdOrigen
     GROUP BY TLH.CCL_ID_COD_ORIGEN, TAMGLP.ID_TAREA
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito">
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito">
     <![CDATA[
     SELECT TAMGLP.STD_ID_WORK_LOCAT
     FROM TAREA_CALCULO_PERSONA TCP
@@ -198,9 +199,10 @@
     AND A.ID_TIPO_DATO IN (:tiposDato)
     GROUP BY TAMGLP.STD_ID_WORK_LOCAT, TAMGLP.ID_TAREA
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito">
+  <entry
+    key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito">
     <![CDATA[
     SELECT TLH.CCL_ID_COD_ORIGEN
     FROM TAREA_CALCULO_PERSONA TCP
@@ -225,9 +227,9 @@
     AND A.ID_TIPO_DATO IN (:tiposDato)
     GROUP BY TLH.CCL_ID_COD_ORIGEN, TAMGLP.ID_TAREA
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito">
+  <entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito">
     <![CDATA[
     SELECT TPH.STD_ID_HR, TPH.STD_OR_HR_PERIOD
     FROM TAREA_CALCULO_PERSONA TCP
@@ -252,9 +254,9 @@
     AND A.ID_TIPO_DATO IN (:tiposDato)
     GROUP BY TPH.STD_ID_HR, TPH.STD_OR_HR_PERIOD, TPH.ID_TAREA
       ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito">
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito">
     <![CDATA[
     SELECT TLH.CCL_ID_COD_ORIGEN
     FROM TAREA_CALCULO_PERSONA TCP
@@ -268,9 +270,10 @@
     AND TCP.CCL_ID_ORIGEN = :cclIdOrigen
     GROUP BY TLH.CCL_ID_COD_ORIGEN, TLH.ID_TAREA
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito">
+  <entry
+    key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito">
     <![CDATA[
     SELECT TLH.CCL_ID_COD_ORIGEN
     FROM TAREA_CALCULO_PERSONA TCP
@@ -285,8 +288,9 @@
     AND TLH.STD_ID_LEG_ENT IN (:stdIdLegEnt)
     GROUP BY TLH.CCL_ID_COD_ORIGEN, TLH.ID_TAREA
     ]]>
-</entry>
-<entry key="TareaLocalizacionOnlineHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito">
+  </entry>
+  <entry
+    key="TareaLocalizacionOnlineHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito">
     <![CDATA[
     SELECT TLOH.CCL_ID_COD_ORIGEN
     FROM TAREA_CALCULO_PERSONA TCP
@@ -314,12 +318,12 @@
     AND A.ID_TIPO_DATO IN (:tiposDato)
     GROUP BY TLOH.CCL_ID_COD_ORIGEN, TAMGLP.ID_TAREA
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTareaAndCclIdPersonInAmbito">
-  <![CDATA[
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTareaAndCclIdPersonInAmbito">
+    <![CDATA[
     WITH PERSONA AS (
-      SELECT P.ID_TAREA, P.CCL_ID_PERSON 
+      SELECT P.ID_TAREA, P.CCL_ID_PERSON
       FROM TAREA_CALCULO_PERSONA TCP
       INNER JOIN TAREA_PERSONA_HISTORICO P
       ON TCP.ID_TAREA = P.ID_TAREA
@@ -367,11 +371,12 @@
     ON TAMGLPPM.ID_TAREA = TLH.ID_TAREA
     AND TAMGLPPM.STD_ID_WORK_LOCAT = TLH.STD_ID_WORK_LOCAT
   ]]>
-</entry>
+  </entry>
 
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito">
-  <![CDATA[
+  <entry
+    key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito">
+    <![CDATA[
     WITH PERSONA AS (
       SELECT P.ID_TAREA, P.CCL_ID_PERSON
       FROM TAREA_CALCULO_PERSONA TCP
@@ -422,15 +427,16 @@
     ON TAMGLPPM.ID_TAREA = TLH.ID_TAREA
     AND TAMGLPPM.STD_ID_WORK_LOCAT = TLH.STD_ID_WORK_LOCAT
   ]]>
-</entry>
-<entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio"><![CDATA[
+  </entry>
+
+  <entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio"><![CDATA[
 UPDATE TAREA_LOCALIZACION_PRESENCIA
 SET ES_ACTIVO = :activo
-WHERE ID_TAREA = :idTarea 
+WHERE ID_TAREA = :idTarea
 AND MINUTOS = :minutos
 ]]></entry>
 
-<entry key="TareaLocalizacionPresenciaRepositoryCustom.compensar">
+  <entry key="TareaLocalizacionPresenciaRepositoryCustom.compensar">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PRESENCIA (ES_ACTIVO, FECHA, ID_TAREA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, MINUTOS, ID_TIPO_DATO, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
 SELECT
@@ -475,7 +481,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                     ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -548,7 +554,7 @@ FROM (
                                 ON LOCALIZACION.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
                                 AND LOCALIZACION.STD_ID_WORK_LOCAT = DESPLAZAMIENTO.STD_ID_WORK_LOCAT_DESTINO
                                 AND DESPLAZAMIENTO.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO                                   
+                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
                         WHERE ESTRUCTURA.ID_TAREA = :idTarea
                         GROUP BY ESTRUCTURA.FECHA_INICIO_PERIODO, ESTRUCTURA.ID_TAREA, DESPLAZAMIENTO.FECHA_INICIO, DESPLAZAMIENTO.FECHA_FIN, ESTRUCTURA.CCL_ID_PERSON, LOCALIZACION.CCL_ID_COD_ORIGEN, DESPLAZAMIENTO.CCL_ID_SECCION_DESTINO
                 ) ESTRUCTURA
@@ -571,7 +577,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                         ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -644,7 +650,7 @@ FROM (
                                 ON LOCALIZACION.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
                                 AND LOCALIZACION.STD_ID_WORK_LOCAT = DESPLAZAMIENTO.STD_ID_WORK_LOCAT_DESTINO
                                 AND DESPLAZAMIENTO.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO                                
+                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
                         WHERE ESTRUCTURA.ID_TAREA = :idTarea
                         GROUP BY ESTRUCTURA.FECHA_INICIO_PERIODO, ESTRUCTURA.ID_TAREA, DESPLAZAMIENTO.FECHA_INICIO, DESPLAZAMIENTO.FECHA_FIN, ESTRUCTURA.CCL_ID_PERSON, LOCALIZACION.CCL_ID_COD_ORIGEN, DESPLAZAMIENTO.CCL_ID_SECCION_DESTINO
                 ) ESTRUCTURA
@@ -667,7 +673,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                         ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -687,11 +693,19 @@ FROM (
         ) PRESENCIA_DESPLAZAMIENTO_ORIGEN
         WHERE PRESENCIA_DESPLAZAMIENTO_ORIGEN.ROW = 1
 ) AS PRESENCIA
+LEFT JOIN TAREA_LOCALIZACION_PRESENCIA TLP
+ON TLP.FECHA_INICIO_PERIODO = PRESENCIA.FECHA_INICIO_PERIODO
+AND TLP.ID_TAREA = PRESENCIA.ID_TAREA
+AND TLP.CCL_ID_COD_ORIGEN = PRESENCIA.CCL_ID_COD_ORIGEN
+AND TLP.FECHA = PRESENCIA.FECHA
+AND TLP.CCL_ID_CADENA = PRESENCIA.CCL_ID_CADENA
+AND TLP.ID_TIPO_DATO = :nuevoIdTipoDato
+WHERE TLP.ID_TAREA_LOCALIZACION_PRESENCIA IS NULL
 GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESENCIA.CCL_ID_CADENA, PRESENCIA.FECHA_INICIO_PERIODO
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresenciaRepositoryCustom.totalizar">
+  <entry key="TareaLocalizacionPresenciaRepositoryCustom.totalizar">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PRESENCIA (ES_ACTIVO, FECHA, ID_TAREA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, MINUTOS, ID_TIPO_DATO, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
 SELECT
@@ -736,7 +750,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                     ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -809,7 +823,7 @@ FROM (
                                 ON LOCALIZACION.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
                                 AND LOCALIZACION.STD_ID_WORK_LOCAT = DESPLAZAMIENTO.STD_ID_WORK_LOCAT_DESTINO
                                 AND DESPLAZAMIENTO.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO                                  
+                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
                         WHERE ESTRUCTURA.ID_TAREA = :idTarea
                         GROUP BY ESTRUCTURA.FECHA_INICIO_PERIODO, ESTRUCTURA.ID_TAREA, DESPLAZAMIENTO.FECHA_INICIO, DESPLAZAMIENTO.FECHA_FIN, ESTRUCTURA.CCL_ID_PERSON, LOCALIZACION.CCL_ID_COD_ORIGEN, DESPLAZAMIENTO.CCL_ID_SECCION_DESTINO
                 ) ESTRUCTURA
@@ -832,7 +846,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                         ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -905,7 +919,7 @@ FROM (
                                 ON LOCALIZACION.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
                                 AND LOCALIZACION.STD_ID_WORK_LOCAT = DESPLAZAMIENTO.STD_ID_WORK_LOCAT_DESTINO
                                 AND DESPLAZAMIENTO.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO                                  
+                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
                         WHERE ESTRUCTURA.ID_TAREA = :idTarea
                         GROUP BY ESTRUCTURA.FECHA_INICIO_PERIODO, ESTRUCTURA.ID_TAREA, DESPLAZAMIENTO.FECHA_INICIO, DESPLAZAMIENTO.FECHA_FIN, ESTRUCTURA.CCL_ID_PERSON, LOCALIZACION.CCL_ID_COD_ORIGEN, DESPLAZAMIENTO.CCL_ID_SECCION_DESTINO
                 ) ESTRUCTURA
@@ -928,7 +942,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                         ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -948,11 +962,20 @@ FROM (
         ) PRESENCIA_DESPLAZAMIENTO_ORIGEN
         WHERE PRESENCIA_DESPLAZAMIENTO_ORIGEN.ROW = 1
 ) AS PRESENCIA
+LEFT JOIN TAREA_LOCALIZACION_PRESENCIA TLP
+ON TLP.FECHA_INICIO_PERIODO = PRESENCIA.FECHA_INICIO_PERIODO
+AND TLP.ID_TAREA = PRESENCIA.ID_TAREA
+AND TLP.CCL_ID_COD_ORIGEN = PRESENCIA.CCL_ID_COD_ORIGEN
+AND TLP.CCL_ID_SECCION = PRESENCIA.CCL_ID_SECCION
+AND TLP.FECHA = PRESENCIA.FECHA
+AND TLP.CCL_ID_CADENA = PRESENCIA.CCL_ID_CADENA
+AND TLP.ID_TIPO_DATO = :idTipoDatoManual
+WHERE TLP.ID_TAREA_LOCALIZACION_PRESENCIA IS NULL
 GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESENCIA.CCL_ID_SECCION, PRESENCIA.CCL_ID_CADENA, PRESENCIA.FECHA_INICIO_PERIODO
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerce">
+  <entry key="TareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerce">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PRESENCIA (ES_ACTIVO, FECHA, ID_TAREA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, MINUTOS, ID_TIPO_DATO, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
 SELECT
@@ -997,7 +1020,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                     ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -1063,7 +1086,7 @@ FROM (
                                 ON LOCALIZACION.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
                                 AND LOCALIZACION.STD_ID_WORK_LOCAT = DESPLAZAMIENTO.STD_ID_WORK_LOCAT_DESTINO
                                 AND DESPLAZAMIENTO.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO                                     
+                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
                         WHERE ESTRUCTURA.ID_TAREA = :idTarea
                         GROUP BY ESTRUCTURA.FECHA_INICIO_PERIODO, ESTRUCTURA.ID_TAREA, DESPLAZAMIENTO.FECHA_INICIO, DESPLAZAMIENTO.FECHA_FIN, ESTRUCTURA.CCL_ID_PERSON, LOCALIZACION.CCL_ID_COD_ORIGEN, DESPLAZAMIENTO.CCL_ID_SECCION_DESTINO
                 ) ESTRUCTURA
@@ -1086,7 +1109,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                         ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -1152,7 +1175,7 @@ FROM (
                                 ON LOCALIZACION.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
                                 AND LOCALIZACION.STD_ID_WORK_LOCAT = DESPLAZAMIENTO.STD_ID_WORK_LOCAT_DESTINO
                                 AND DESPLAZAMIENTO.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO                                
+                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
                         WHERE ESTRUCTURA.ID_TAREA = :idTarea
                         GROUP BY ESTRUCTURA.FECHA_INICIO_PERIODO, ESTRUCTURA.ID_TAREA, DESPLAZAMIENTO.FECHA_INICIO, DESPLAZAMIENTO.FECHA_FIN, ESTRUCTURA.CCL_ID_PERSON, LOCALIZACION.CCL_ID_COD_ORIGEN, DESPLAZAMIENTO.CCL_ID_SECCION_DESTINO
                 ) ESTRUCTURA
@@ -1175,7 +1198,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                         ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -1190,9 +1213,9 @@ FROM (
 ) AS PRESENCIA
 GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESENCIA.CCL_ID_SECCION, PRESENCIA.CCL_ID_CADENA, PRESENCIA.FECHA_INICIO_PERIODO
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresenciaRepositoryCustom.totalizarEmpleadosPorVenta">
+  <entry key="TareaLocalizacionPresenciaRepositoryCustom.totalizarEmpleadosPorVenta">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PRESENCIA (ES_ACTIVO, FECHA, ID_TAREA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, MINUTOS, ID_TIPO_DATO, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
 SELECT
@@ -1311,7 +1334,7 @@ FROM (
                                 ON LOCALIZACION.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
                                 AND LOCALIZACION.STD_ID_WORK_LOCAT = DESPLAZAMIENTO.STD_ID_WORK_LOCAT_DESTINO
                                 AND DESPLAZAMIENTO.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO                                    
+                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
                         WHERE ESTRUCTURA.ID_TAREA = :idTarea
                                 AND ESTRUCTURA.ICM_ID_TP_CALCULO = :idTipoCalculo
                         GROUP BY ESTRUCTURA.FECHA_INICIO_PERIODO, ESTRUCTURA.ID_TAREA, DESPLAZAMIENTO.FECHA_INICIO, DESPLAZAMIENTO.FECHA_FIN, ESTRUCTURA.CCL_ID_PERSON, LOCALIZACION.CCL_ID_COD_ORIGEN, DESPLAZAMIENTO.CCL_ID_SECCION_DESTINO
@@ -1401,7 +1424,7 @@ FROM (
                                 ON LOCALIZACION.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
                                 AND LOCALIZACION.STD_ID_WORK_LOCAT = DESPLAZAMIENTO.STD_ID_WORK_LOCAT_DESTINO
                                 AND DESPLAZAMIENTO.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO                                   
+                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
                         WHERE ESTRUCTURA.ID_TAREA = :idTarea
                                 AND ESTRUCTURA.ICM_ID_TP_CALCULO = :idTipoCalculo
                         GROUP BY ESTRUCTURA.FECHA_INICIO_PERIODO, ESTRUCTURA.ID_TAREA, DESPLAZAMIENTO.FECHA_INICIO, DESPLAZAMIENTO.FECHA_FIN, ESTRUCTURA.CCL_ID_PERSON, LOCALIZACION.CCL_ID_COD_ORIGEN, DESPLAZAMIENTO.CCL_ID_SECCION_DESTINO
@@ -1440,9 +1463,9 @@ FROM (
 ) AS PRESENCIA
 GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESENCIA.CCL_ID_SECCION, PRESENCIA.CCL_ID_CADENA, PRESENCIA.FECHA_INICIO_PERIODO
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce">
+  <entry key="TareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PRESENCIA (ES_ACTIVO, FECHA, ID_TAREA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, MINUTOS, ID_TIPO_DATO, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
 SELECT
@@ -1487,7 +1510,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                     ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -1553,7 +1576,7 @@ FROM (
                                 ON LOCALIZACION.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
                                 AND LOCALIZACION.STD_ID_WORK_LOCAT = DESPLAZAMIENTO.STD_ID_WORK_LOCAT_DESTINO
                                 AND DESPLAZAMIENTO.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO                                  
+                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
                         WHERE ESTRUCTURA.ID_TAREA = :idTarea
                         GROUP BY ESTRUCTURA.FECHA_INICIO_PERIODO, ESTRUCTURA.ID_TAREA, DESPLAZAMIENTO.FECHA_INICIO, DESPLAZAMIENTO.FECHA_FIN, ESTRUCTURA.CCL_ID_PERSON, LOCALIZACION.CCL_ID_COD_ORIGEN, DESPLAZAMIENTO.CCL_ID_SECCION_DESTINO
                 ) ESTRUCTURA
@@ -1576,7 +1599,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                         ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -1642,7 +1665,7 @@ FROM (
                                 ON LOCALIZACION.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
                                 AND LOCALIZACION.STD_ID_WORK_LOCAT = DESPLAZAMIENTO.STD_ID_WORK_LOCAT_DESTINO
                                 AND DESPLAZAMIENTO.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO                                     
+                                AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
                         WHERE ESTRUCTURA.ID_TAREA = :idTarea
                         GROUP BY ESTRUCTURA.FECHA_INICIO_PERIODO, ESTRUCTURA.ID_TAREA, DESPLAZAMIENTO.FECHA_INICIO, DESPLAZAMIENTO.FECHA_FIN, ESTRUCTURA.CCL_ID_PERSON, LOCALIZACION.CCL_ID_COD_ORIGEN, DESPLAZAMIENTO.CCL_ID_SECCION_DESTINO
                 ) ESTRUCTURA
@@ -1665,7 +1688,7 @@ FROM (
                 INNER JOIN TIPO_DATO TIPO_DATO
                         ON PRESENCIA.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO                        
+                        ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
                 INNER JOIN TIPO_PRESENCIA TIPO_PRESENCIA
                         ON TIPO_DATO.ID_TIPO_PRESENCIA = TIPO_PRESENCIA.ID_TIPO_PRESENCIA
                 INNER JOIN TAREA_TIPO_HORA TIPO_HORA
@@ -1680,9 +1703,9 @@ FROM (
 ) AS PRESENCIA
 GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESENCIA.CCL_ID_CADENA, PRESENCIA.FECHA_INICIO_PERIODO
 ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.compensarChallenge">
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.compensarChallenge">
     <![CDATA[
     INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (ES_ACTIVO, FECHA, STD_ID_LEG_ENT, CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, CCL_ID_SECCION, COD_TIPO_HORA, MINUTOS, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
      SELECT
@@ -1737,9 +1760,9 @@ GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESE
     WHERE PRESENCIA.ROW = 1
     GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.CCL_ID_PERSON, PRESENCIA.FECHA, PRESENCIA.COD_TIPO_HORA, PRESENCIA.STD_ID_LEG_ENT, PRESENCIA.CCL_ID_ORIGEN, PRESENCIA.CCL_ID_CADENA, PRESENCIA.FECHA_INICIO_PERIODO
 ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.compensar">
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.compensar">
     <![CDATA[
     INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (ES_ACTIVO, FECHA, STD_ID_LEG_ENT, CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, CCL_ID_SECCION, COD_TIPO_HORA, MINUTOS, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
     SELECT
@@ -1801,10 +1824,10 @@ GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESE
     WHERE PRESENCIA.ROW = 1
     GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.CCL_ID_PERSON, PRESENCIA.FECHA, PRESENCIA.COD_TIPO_HORA, PRESENCIA.STD_ID_LEG_ENT, PRESENCIA.CCL_ID_ORIGEN, PRESENCIA.CCL_ID_CADENA, PRESENCIA.FECHA_INICIO_PERIODO
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasIncluidoVenta">
-  <![CDATA[
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasIncluidoVenta">
+    <![CDATA[
     INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (ES_ACTIVO, FECHA, STD_ID_LEG_ENT, CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, CCL_ID_SECCION, COD_TIPO_HORA, MINUTOS, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
     SELECT
     1 AS ES_ACTIVO,
@@ -1858,9 +1881,9 @@ GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESE
     WHERE PRESENCIA.ROW = 1
     GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.CCL_ID_PERSON, PRESENCIA.FECHA, PRESENCIA.COD_TIPO_HORA, PRESENCIA.STD_ID_LEG_ENT, PRESENCIA.CCL_ID_ORIGEN, PRESENCIA.CCL_ID_CADENA, PRESENCIA.FECHA_INICIO_PERIODO
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo">
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivo">
     <![CDATA[
            MERGE INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA AS TLP USING
         (
@@ -1870,7 +1893,7 @@ GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESE
                         PRESENCIA.CCL_ID_COD_ORIGEN,
                         PRESENCIA.CCL_ID_SECCION,
                         PRESENCIA.CCL_ID_PERSON,
-                        PRESENCIA.COD_TIPO_HORA,                        
+                        PRESENCIA.COD_TIPO_HORA,
                         PRESENCIA.FECHA
                 ORDER BY TIPO_PRESENCIA.PESO DESC) AS ROW,
                  PRESENCIA.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA,
@@ -1898,13 +1921,14 @@ GROUP BY PRESENCIA.ID_TAREA, PRESENCIA.CCL_ID_COD_ORIGEN, PRESENCIA.FECHA, PRESE
         WHEN MATCHED THEN
                 UPDATE SET ES_ACTIVO = :nuevoActivo
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoVacio"><![CDATA[
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoVacio"><![CDATA[
 UPDATE TAREA_LOCALIZACION_PERSONA_PRESENCIA
 SET ES_ACTIVO = :activo
-WHERE MINUTOS = :minutos
+WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo
 AND ID_TAREA = :idTarea
+AND MINUTOS = :minutos
 AND ID_TIPO_DATO IN (
   SELECT ID_TIPO_DATO
   FROM TIPO_GRUPO_DATO_TIPO_DATO
@@ -1912,7 +1936,7 @@ AND ID_TIPO_DATO IN (
 )
 ]]></entry>
 
-<entry key="TareaAgrupacionPresenciaRepositoryCustom.totalizar">
+  <entry key="TareaAgrupacionPresenciaRepositoryCustom.totalizar">
     <![CDATA[
     MERGE INTO TAREA_AGRUPACION_PRESENCIA USING
     (
@@ -1947,44 +1971,99 @@ AND ID_TIPO_DATO IN (
     INSERT (ES_ACTIVO, FECHA, ICM_ID_AGRUPACION_ONLINE, CCL_ID_ORIGEN, CCL_ID_SECCION, MINUTOS, ID_TAREA, ID_TIPO_DATO)
     VALUES (S.ES_ACTIVO, S.FECHA, S.ICM_ID_AGRUPACION_ONLINE, S.CCL_ID_ORIGEN, S.CCL_ID_SECCION, S.MINUTOS, S.ID_TAREA, S.ID_TIPO_DATO)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaRepositoryCustom.updateFechaFin">
+  <entry key="TareaRepositoryCustom.updateFechaFin">
     <![CDATA[
     UPDATE TAREA SET FECHA_HORA_FIN_TAREA = :nuevaFecha WHERE ID_TAREA = :idTarea
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaRepositoryCustom.updateFechaInicioAndEstado">
+  <entry key="TareaRepositoryCustom.updateFechaInicioAndEstado">
     <![CDATA[
     UPDATE TAREA SET FECHA_HORA_INICIO_TAREA = :nuevaFecha, ID_ESTADO_TAREA = :nuevoIdEstado WHERE ID_TAREA = :idTarea
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaRepositoryCustom.findLimpieza">
+  <entry key="TareaRepositoryCustom.selectTarea">
     <![CDATA[
-  SELECT
-          T.ID_TAREA
-  FROM TAREA T
-  LEFT JOIN PERIODO_CALCULO_PERSONA PCP
-   ON PCP.ID_TAREA_ACTUAL = T.ID_TAREA OR PCP.ID_TAREA_ULTIMA = T.ID_TAREA
-  LEFT JOIN TAREA_LIMPIEZA TL
-   ON TL.ID_TAREA = T.ID_TAREA
-  WHERE PCP.ICM_ID_PERIODO IS NULL
-  AND T.ID_ESTADO_TAREA NOT IN (:idEstado)
-  AND T.FECHA_HORA_INICIO_TAREA IS NOT NULL
-  AND T.FECHA_HORA_FIN_TAREA IS NOT NULL
-  AND (TL.ID_TAREA IS NULL OR TL.ES_COMPLETA = 0)
-]]>
-</entry>
+        SELECT T.ID_TAREA
+    ]]>
+  </entry>
 
-<entry key="TareaRepositoryCustom.findLimpieza.byIdTarea">
+  <entry key="TareaRepositoryCustom.selectLimit">
+    <![CDATA[
+        SELECT ID_TAREA FROM (
+          SELECT
+            ROW_NUMBER() OVER () AS ROW,
+            T.ID_TAREA
+    ]]>
+  </entry>
+
+  <entry key="TareaRepositoryCustom.selectTotal">
+    <![CDATA[
+    SELECT
+      COUNT(DISTINCT T.ID_TAREA) AS TOTAL
+    ]]>
+  </entry>
+
+  <entry key="TareaRepositoryCustom.findLimpieza">
+    <![CDATA[
+    FROM
+      TAREA T
+    LEFT JOIN PERIODO_CALCULO_PERSONA PCP ON
+      PCP.ID_TAREA_ACTUAL = T.ID_TAREA
+      OR PCP.ID_TAREA_ULTIMA = T.ID_TAREA
+    LEFT JOIN (
+        SELECT LIMPIEZA.ID_TAREA_LIMPIEZA,
+        LIMPIEZA.ID_TAREA,
+        LIMPIEZA.FECHA_HORA_CREACION,
+        LIMPIEZA.ID_ESTADO_LIMPIEZA,
+        LIMPIEZA.ID_TIPO_LIMPIEZA
+      FROM
+        (
+        SELECT
+          ROW_NUMBER() OVER (PARTITION BY TL.ID_TAREA
+        ORDER BY
+          FECHA_HORA_CREACION DESC) AS REG,
+          TL.ID_TAREA,
+          TL.ID_TAREA_LIMPIEZA,
+          TL.FECHA_HORA_CREACION,
+          TL.ID_ESTADO_LIMPIEZA,
+          TL.ID_TIPO_LIMPIEZA
+        FROM
+          TAREA_LIMPIEZA TL ) LIMPIEZA
+      WHERE
+        LIMPIEZA.REG = 1) TL ON
+      TL.ID_TAREA = T.ID_TAREA
+    WHERE
+      PCP.ICM_ID_PERIODO IS NULL
+      AND T.ID_ESTADO_TAREA NOT IN (:idEstado)
+      AND T.FECHA_HORA_CREACION < :fecha
+      AND T.FECHA_HORA_INICIO_TAREA IS NOT NULL
+      AND T.FECHA_HORA_FIN_TAREA IS NOT NULL
+      AND (TL.ID_TAREA IS NULL
+      OR (TL.ID_ESTADO_LIMPIEZA IN (:idEstadoLimpieza)
+        AND TL.FECHA_HORA_CREACION < :fechaHoraCreacion
+        AND TL.ID_TIPO_LIMPIEZA = :idTipoLimpieza))
+    ]]>
+  </entry>
+
+  <entry key="TareaRepositoryCustom.findLimpieza.byIdTarea">
     <![CDATA[
   AND T.ID_TAREA = :idTarea
-]]>
-</entry>
+    ]]>
+  </entry>
 
-<entry key="TareaRepositoryCustom.updateEstadoFinal">
+  <entry key="TareaRepositoryCustom.findLimpieza.limit">
+    <![CDATA[
+      GROUP BY T.ID_TAREA)
+    WHERE ROW <= :limit
+    ]]>
+  </entry>
+
+
+  <entry key="TareaRepositoryCustom.updateEstadoFinal">
     <![CDATA[
    UPDATE TAREA SET ID_ESTADO_TAREA = (
     SELECT CASE WHEN NOT EXISTS (
@@ -1998,151 +2077,151 @@ AND ID_TIPO_DATO IN (
     )
     WHERE ID_TAREA = :idTarea
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaRepositoryCustom.updateEstado">
+  <entry key="TareaRepositoryCustom.updateEstado">
     <![CDATA[
     UPDATE TAREA SET ID_ESTADO_TAREA = :nuevoIdEstado WHERE ID_TAREA = :idTarea
     ]]>
-</entry>
+  </entry>
 
-<entry key="TrabajoRepositoryCustom.updateFechaInicioAndEstado">
+  <entry key="TrabajoRepositoryCustom.updateFechaInicioAndEstado">
     <![CDATA[
       UPDATE TRABAJO SET FECHA_HORA_INICIO_TRABAJO = :nuevaFecha, ID_ESTADO_TRABAJO = :nuevoIdEstado WHERE ID_TRABAJO = :idTrabajo
     ]]>
-</entry>
+  </entry>
 
-<entry key="TrabajoRepositoryCustom.updateFechaFin">
+  <entry key="TrabajoRepositoryCustom.updateFechaFin">
     <![CDATA[
       UPDATE TRABAJO SET FECHA_HORA_FIN_TRABAJO = :nuevaFecha WHERE ID_TRABAJO = :idTrabajo
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaCoeficienteRepositoryCustom.save">
+  <entry key="TareaPersonaCoeficienteRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_PERSONA_COEFICIENTE (COEFICIENTE, STD_ID_HR, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA_INICIO_PARCIAL, FECHA_FIN_PARCIAL, FECHA_INICIO_COMPLETA, FECHA_FIN_COMPLETA, ID_TAREA)
         VALUES(:coeficiente, :stdIdHr, :cclIdPerson, :stdOrHrPeriod, :fechaInicioPar, :fechaFinPar, :fechaInicioCom, :fechaFinCom, :tarea.id)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionFestivoRepositoryCustom.save">
+  <entry key="TareaLocalizacionFestivoRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_FESTIVO (ID_TAREA, STD_ID_WORK_LOCAT, FECHA )
         VALUES(:tarea.id, :stdIdWorkLocat, :fecha)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionCalcularRepositoryCustom.save">
+  <entry key="TareaLocalizacionCalcularRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_CALCULAR (ID_TAREA, STD_ID_WORK_LOCAT, CCL_ID_COD_ORIGEN, ES_CALCULA, FECHA_INICIO, FECHA_FIN )
         VALUES(:tarea.id, :stdIdWorkLocat, :cclIdCodOrigen, :calcula, :fechaInicio, :fechaFin)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaCalculoPersonaRepositoryCustom.updateWithEstado">
+  <entry key="TareaCalculoPersonaRepositoryCustom.updateWithEstado">
     <![CDATA[
         UPDATE TAREA_CALCULO_PERSONA SET ID_ESTADO = :idEstado WHERE CCL_ID_PERSON IN (:cclIdPerson) AND ID_TAREA = :idTarea
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaCalculoPersonaRepositoryCustom.updateEstadoActualWithEstadoNuevo">
+  <entry key="TareaCalculoPersonaRepositoryCustom.updateEstadoActualWithEstadoNuevo">
     <![CDATA[
         UPDATE TAREA_CALCULO_PERSONA SET ID_ESTADO = :idEstadoNuevo WHERE ID_TAREA = :idTarea AND ID_ESTADO = :idEstadoActual
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom.save">
+  <entry key="TareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA_MANUAL (STD_ID_WORK_LOCAT, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, ID_TAREA)
         VALUES(:stdIdWorkLocat, :cclIdOrigen, :cclIdPerson, :stdIdLegEnt, :tarea.id)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAgrupacionConfiguracionRepositoryCustom.save">
+  <entry key="TareaAgrupacionConfiguracionRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_AGRUPACION_CONFIGURACION (ID_TAREA, CCL_ID_ORIGEN, ICM_ID_AGRUPACION_ONLINE, FECHA_INICIO, FECHA_FIN, PORCENTAJE_INCLUSION, ID_TIPO_VENTA_CONCEPTO)
         VALUES (:tarea.id, :cclIdOrigen, :icmIdAgrupacionOnline, :fechaInicio, :fechaFin, :porcentajeInclusion, :tipoVentaConcepto.id)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAgrupacionCadenaRepositoryCustom.save">
+  <entry key="TareaAgrupacionCadenaRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_AGRUPACION_CADENA (ID_TAREA, ICM_ID_AGRUPACION_ONLINE, CCL_ID_CADENA, ES_MULTIPLE, CCL_ID_ORIGEN)
         VALUES (:tarea.id, :icmIdAgrupacionOnline, :cclIdCadena, :multiple, :cclIdOrigen)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionOnlineHistoricoRepositoryCustom.save">
+  <entry key="TareaLocalizacionOnlineHistoricoRepositoryCustom.save">
     <![CDATA[
         INSERT INTO TAREA_LOCALIZACION_ONLINE_HISTORICO (ID_TAREA, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, CCL_ID_ORIGEN, STD_ID_LEG_ENT, CCL_ID_CADENA, FECHA_INICIO, FECHA_FIN)
         VALUES (:tarea.id, :cclIdCodOrigen, :stdIdWorkLocat, :cclIdOrigen, :stdIdLegEnt, :cclIdCadena, :fechaInicio, :fechaFin)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaTipoHoraRepositoryCustom.save">
+  <entry key="TareaTipoHoraRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_TIPO_HORA (ES_EXCLUIDO_CALCULO, ES_EXCLUIDO_DENOMINADOR, ES_INCLUIDO_VENTA, ES_INCLUIDO_CHALLENGE, ES_INCLUIDO_ECOMMERCE, COD_TIPO_HORA, ID_TAREA)
 VALUES (:excluidoCalculo, :excluidoDenominador, :incluidoVenta, :incluidoChallenge, :incluidoEcommerce, :idTipoHora, :tarea.id)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.save">
+  <entry key="TareaLocalizacionVentaRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TIPO_DATO, ES_ACTIVO, ID_TAREA, FECHA_INICIO_PERIODO)
 VALUES (:fecha, :cclIdCadena, :cclIdCodOrigen, :cclIdSeccion, :importeSinImpuestos, :importeConImpuestos, :tipoDato.id, :activo, :tarea.id, :pk.fechaInicioPeriodo)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaVentaRepositoryCustom.save">
+  <entry key="TareaLocalizacionPersonaVentaRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PERSONA_VENTA (FECHA, CCL_ID_COD_ORIGEN, CCL_ID_PERSON, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TIPO_DATO, ID_TAREA, FECHA_INICIO_PERIODO, CCL_ID_SECCION, CCL_ID_CADENA, ES_ACTIVO)
 VALUES (:fecha, :cclIdCodOrigen, :cclIdPerson, :importeSinImpuestos, :importeConImpuestos, :tipoDato.id, :tarea.id, :pk.fechaInicioPeriodo, :cclIdSeccion, :cclIdCadena, :activo)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.save">
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_HISTORICO (FECHA_FIN, FECHA_INICIO, CCL_ID_CADENA, STD_ID_LEG_ENT, STD_ID_COUNTRY, CCL_ID_ORIGEN, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, ID_TAREA)
 VALUES(:fechaFin, :fechaInicio, :cclIdCadena, :stdIdLegEnt, :stdIdCountry, :cclIdOrigen, :cclIdCodOrigen, :stdIdWorkLocat, :tarea.id)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionComisionHistoricoRepositoryCustom.save">
+  <entry key="TareaLocalizacionComisionHistoricoRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_COMISION_HISTORICO (FECHA_FIN, FECHA_INICIO, ES_COMISIONABLE, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, ID_TAREA)
 VALUES (:fechaFin, :fechaInicio, :comisionable, :cclIdCodOrigen, :stdIdWorkLocat, :tarea.id)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaHistoricoRepositoryCustom.save">
+  <entry key="TareaPersonaHistoricoRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_PERSONA_HISTORICO (FECHA_FIN, FECHA_INICIO, FECHA_FIN_SECCION, FECHA_INICIO_SECCION, FECHA_FIN_LOCALIZACION, FECHA_INICIO_LOCALIZACION, STD_ID_HR, CCL_ID_PERSON, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, STD_OR_HR_PERIOD, STD_ID_LEG_ENT, CCL_ID_ORIGEN, CCL_ID_SECCION, ID_TAREA, FECHA_INICIO_PERIODO, FECHA_ANTIGUEDAD)
 VALUES (:fechaFin, :fechaInicio, :fechaFinSeccion, :fechaInicioSeccion, :fechaFinLocalizacion, :fechaInicioLocalizacion, :stdIdHr, :cclIdPerson, :cclIdCodOrigen, :stdIdWorkLocat, :stdOrHrPeriod, :stdIdLegEnt, :cclIdOrigen, :cclIdSeccion, :tarea.id, :pk.fechaInicioPeriodo, :fechaAntiguedad)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaEstructuraRepositoryCustom.save">
+  <entry key="TareaPersonaEstructuraRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_PERSONA_ESTRUCTURA (FECHA_FIN, FECHA_INICIO, CCL_ID_SECCION_EFECTIVA, CCL_ID_SECCION_ESTRUCTURA, STD_ID_HR, CCL_ID_PERSON, ICM_ID_ESTR_COMISION, ICM_ID_ESTR_COMISION_BASE, ICM_ID_TP_CALCULO, ICM_ID_TP_COMISION, STD_OR_HR_PERIOD, ICM_VALOR, ID_TAREA, ES_ACTIVO, CCL_ID_ORIGEN, ES_DESPLAZAMIENTO, ES_DESPLAZAMIENTO_BASE, ORDINAL_ESTRUCTURA, ICM_ORD_TOPE, ES_DIA_DOMINGO, ES_DIA_JUEVES, ES_DIA_LUNES, ES_DIA_MARTES, ES_DIA_SABADO, ES_DIA_VIERNES, ES_DIA_MIERCOLES, ICM_ID_TP_ESTRUCTURA, ICM_ID_ESTR_COMISION_PADRE, FECHA_INICIO_PERIODO)
 VALUES(:fechaFin, :fechaInicio, :cclIdSeccionEfectiva, :cclIdSeccionEstructura, :stdIdHr, :cclIdPerson, :icmIdEstrComision, :icmIdEstrComisionBase, :icmIdTpCalculo, :icmIdTpComision, :stdOrHrPeriod, :valor, :tarea.id, :activo, :cclIdOrigen, :desplazamiento, :desplazamientoBase, :ordinalEstructura, :tope, :diaD, :diaJ, :diaL, :diaM, :diaS, :diaV, :diaX, :icmIdTpEstructura, :icmIdEstrComisionPadre, :pk.fechaInicioPeriodo)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaEstructuraDesplazamientoRepositoryCustom.save">
+  <entry key="TareaPersonaEstructuraDesplazamientoRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO (ID_TAREA, ICM_ID_ESTR_COMISION, ORDINAL_ESTRUCTURA, FECHA_INICIO, FECHA_FIN, ID_TIPO_OPCION_CALCULO_ESTRUCTURA, ID_TIPO_OPCION_CALCULO_EFECTIVA, CCL_ID_PUESTO_DESTINO, CCL_ID_SECCION_DESTINO, CCL_ID_COD_ORIGEN_DESTINO, STD_ID_WORK_LOCAT_DESTINO, ES_HORAS_ORIGEN, ES_HORAS_DESTINO, ICM_ID_TP_REQ_COMISION, ES_ACTIVO, CCL_ID_ORIGEN, CCL_ID_PERSON, ICM_ID_ESTR_COMISION_PADRE, ICM_ID_ESTR_COMISION_BASE, STD_ID_HR, STD_OR_HR_PERIOD, ICM_ID_ESTRUCTURA_AMBITO, FECHA_INICIO_PERIODO)
 VALUES(:tarea.id, :icmIdEstrComision, :ordinalEstructura, :fechaInicio, :fechaFin, :tipoOpcionCalculoEstructura.id, :tipoOpcionCalculoEfectiva.id, :cclIdPuestoDestino, :cclIdSeccionDestino, :cclIdCodOrigenDestino, :stdIdWorkLocatDestino, :horasOrigen, :horasDestino, :icmIdTpReqCom, :activo, :cclIdOrigen, :cclIdPerson, :icmIdEstrComisionPadre, :icmIdEstrComisionBase, :stdIdHr, :stdOrHrPeriod, :icmIdEstructuraAmbito, :pk.fechaInicioPeriodo)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaEstructuraPoliticaRepositoryCustom.save">
-  <![CDATA[
+  <entry key="TareaPersonaEstructuraPoliticaRepositoryCustom.save">
+    <![CDATA[
 INSERT INTO TAREA_PERSONA_ESTRUCTURA_POLITICA (FECHA_FIN, FECHA_INICIO, STD_ID_HR, CCL_ID_PERSON, ICM_ID_ESTR_POLITICAS, ID_TIPO_POLITICA, STD_OR_HR_PERIOD, ID_TAREA, CCL_ID_ORIGEN, ES_EXCLUIDO_DENOMINADOR, ID_TIPO_UNIDAD_TIEMPO, ICM_NUM_UNIDADES, ICM_PORCENTAJE, ICM_TRAMO, FECHA_INICIO_PERIODO, ICM_IMPORTE, ICM_NUM_MESES_CALC_MEDIA, ICM_NUM_HORAS, ICM_ID_MOTIVO_BAJA)
 VALUES(:fechaFin, :fechaInicio, :stdIdHr, :cclIdPerson, :idEstructuraPolitica, :tipoPolitica.id, :stdOrHrPeriod, :tarea.id, :cclIdOrigen, :excluidoDenominador, :tipoUnidadTiempo.id, :numeroUnidades, :valor, :tramo, :pk.fechaInicioPeriodo, :importe, :numMesesCalcMedia, :numHoras, :idMotivoBaja)
   ]]>
-</entry>
+  </entry>
 
-<entry key="RunTareaCalcularService.customFindAlgoritmosIdsByTarea">
+  <entry key="RunTareaCalcularService.customFindAlgoritmosIdsByTarea">
     <![CDATA[
     SELECT A.ID_ALGORITMO FROM ALGORITMO A
     INNER JOIN ALGORITMO_TIPO_CALCULO ATC
@@ -2159,9 +2238,9 @@ VALUES(:fechaFin, :fechaInicio, :stdIdHr, :cclIdPerson, :idEstructuraPolitica, :
     AND A.ES_ACTIVO = :activo
     GROUP BY A.ID_ALGORITMO
     ]]>
-</entry>
+  </entry>
 
-<entry key="RunTareaAjustarService.customFindAjustePesosByTarea">
+  <entry key="RunTareaAjustarService.customFindAjustePesosByTarea">
     <![CDATA[
     SELECT A.PESO
     FROM ALGORITMO_AJUSTE A
@@ -2175,9 +2254,9 @@ VALUES(:fechaFin, :fechaInicio, :stdIdHr, :cclIdPerson, :idEstructuraPolitica, :
     GROUP BY A.PESO
     ORDER BY A.PESO
     ]]>
-</entry>
+  </entry>
 
-<entry key="RunTareaAjustarService.customFindAjustePesosByTarea">
+  <entry key="RunTareaAjustarService.customFindAjustePesosByTarea">
     <![CDATA[
     SELECT A.PESO
     FROM ALGORITMO_AJUSTE A
@@ -2191,9 +2270,9 @@ VALUES(:fechaFin, :fechaInicio, :stdIdHr, :cclIdPerson, :idEstructuraPolitica, :
     GROUP BY A.PESO
     ORDER BY A.PESO
     ]]>
-</entry>
+  </entry>
 
-<entry key="RunTareaAjustarService.customFindAjusteIdsByTareaAndPeso">
+  <entry key="RunTareaAjustarService.customFindAjusteIdsByTareaAndPeso">
     <![CDATA[
     SELECT A.ID_ALGORITMO_AJUSTE
     FROM ALGORITMO_AJUSTE A
@@ -2208,9 +2287,9 @@ VALUES(:fechaFin, :fechaInicio, :stdIdHr, :cclIdPerson, :idEstructuraPolitica, :
     GROUP BY A.ID_ALGORITMO_AJUSTE
     ORDER BY A.ID_ALGORITMO_AJUSTE
     ]]>
-</entry>
+  </entry>
 
-<entry key="RunTareaCalcularService.checkDuplicatedActives">
+  <entry key="RunTareaCalcularService.checkDuplicatedActives">
     <![CDATA[
 SELECT COUNT(*)
 FROM ALGORITMO A
@@ -2222,12 +2301,12 @@ WHERE A.ES_ACTIVO = :activo
 GROUP BY ATC.ID_TIPO_CALCULO, ATCOM.ID_TIPO_COMISION, A.ES_DESPLAZAMIENTO, A.ES_DESPLAZAMIENTO_BASE
 HAVING COUNT(*) > 1
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionAbiertaRepositoryCustom.saveAbierto">
+  <entry key="TareaLocalizacionAbiertaRepositoryCustom.saveAbierto">
     <![CDATA[
-MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
-        (SELECT TTVS.CCL_ID_COD_ORIGEN, TTVS.FECHA, TTVS.ID_TAREA
+        INSERT INTO TAREA_LOCALIZACION_ABIERTA (CCL_ID_COD_ORIGEN, FECHA, ID_TAREA, ES_ABIERTO, CCL_ID_SECCION)
+        SELECT TTVS.CCL_ID_COD_ORIGEN, TTVS.FECHA, TTVS.ID_TAREA, :nuevoAbierto AS ES_ABIERTO, :idSeccion AS CCL_ID_SECCION
         FROM TAREA T
         INNER JOIN TAREA_LOCALIZACION_VENTA TTVS
         ON TTVS.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
@@ -2250,17 +2329,14 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
         AND TTH.ES_EXCLUIDO_CALCULO = :excluidoCalculo
         AND T.ID_TAREA = :idTarea
         GROUP BY TTVS.CCL_ID_COD_ORIGEN, TTVS.FECHA, TTVS.ID_TAREA
-        ORDER BY TTVS.FECHA) AS S ON (1=0)
-        WHEN NOT MATCHED THEN
-                INSERT (FECHA, CCL_ID_COD_ORIGEN, ID_TAREA, ES_ABIERTO, CCL_ID_SECCION)
-                VALUES (S.FECHA, S.CCL_ID_COD_ORIGEN, S.ID_TAREA, :nuevoAbierto, :idSeccion)
+        ORDER BY TTVS.FECHA
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionAbiertaRepositoryCustom.saveAbiertoSeccion">
+  <entry key="TareaLocalizacionAbiertaRepositoryCustom.saveAbiertoSeccion">
     <![CDATA[
-MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
-        (SELECT TTVS.CCL_ID_COD_ORIGEN, TTVS.FECHA, TTVS.ID_TAREA, TTVS.CCL_ID_SECCION
+        INSERT INTO TAREA_LOCALIZACION_ABIERTA (CCL_ID_COD_ORIGEN, FECHA, ID_TAREA, ES_ABIERTO, CCL_ID_SECCION)
+        SELECT TTVS.CCL_ID_COD_ORIGEN, TTVS.FECHA, TTVS.ID_TAREA, :nuevoAbierto AS ES_ABIERTO, TTVS.CCL_ID_SECCION
         FROM TAREA T
         INNER JOIN TAREA_LOCALIZACION_VENTA TTVS
         ON TTVS.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
@@ -2280,20 +2356,17 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
         AND TTVS.IMPORTE_SIN_IMPUESTOS > :importe
         AND TTVS.ES_ACTIVO = :activo
         AND TTPS.ES_ACTIVO = :activo
-        AND TTH.ES_EXCLUIDO_CALCULO = :excluidoCalculo        
-        AND T.ID_TAREA = :idTarea        
+        AND TTH.ES_EXCLUIDO_CALCULO = :excluidoCalculo
+        AND T.ID_TAREA = :idTarea
         GROUP BY TTVS.CCL_ID_COD_ORIGEN, TTVS.FECHA, TTVS.ID_TAREA, TTVS.CCL_ID_SECCION
-        ORDER BY TTVS.FECHA) AS S ON (1=0)
-        WHEN NOT MATCHED THEN
-                INSERT (FECHA, CCL_ID_COD_ORIGEN, ID_TAREA, ES_ABIERTO, CCL_ID_SECCION)
-                VALUES (S.FECHA, S.CCL_ID_COD_ORIGEN, S.ID_TAREA, :nuevoAbierto, s.CCL_ID_SECCION)
+        ORDER BY TTVS.FECHA
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionAbiertaRepositoryCustom.saveCerrado">
+  <entry key="TareaLocalizacionAbiertaRepositoryCustom.saveCerrado">
     <![CDATA[
-MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
-        (SELECT TTV.CCL_ID_COD_ORIGEN, TTV.FECHA, TTV.ID_TAREA
+        INSERT INTO TAREA_LOCALIZACION_ABIERTA (CCL_ID_COD_ORIGEN, FECHA, ID_TAREA, ES_ABIERTO, CCL_ID_SECCION)
+        SELECT TTV.CCL_ID_COD_ORIGEN, TTV.FECHA, TTV.ID_TAREA, :nuevoAbierto AS ES_ABIERTO, :idSeccion AS CCL_ID_SECCION
         FROM TAREA_LOCALIZACION_VENTA TTV
         LEFT JOIN TAREA_LOCALIZACION_ABIERTA TLA
         ON TTV.ID_TAREA = TLA.ID_TAREA
@@ -2305,17 +2378,13 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
         AND TTV.ES_ACTIVO = :activo
         AND TLA.ID_TAREA_LOCALIZACION_ABIERTA IS NULL
         GROUP BY TTV.CCL_ID_COD_ORIGEN, TTV.FECHA, TTV.ID_TAREA
-        ) AS S ON (1=0)
-        WHEN NOT MATCHED THEN
-                INSERT (FECHA, CCL_ID_COD_ORIGEN, ID_TAREA, ES_ABIERTO, CCL_ID_SECCION)
-                VALUES (S.FECHA, S.CCL_ID_COD_ORIGEN, S.ID_TAREA, :nuevoAbierto, :idSeccion)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionAbiertaRepositoryCustom.saveCerradoSeccion">
+  <entry key="TareaLocalizacionAbiertaRepositoryCustom.saveCerradoSeccion">
     <![CDATA[
-MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
-        (SELECT TTV.CCL_ID_COD_ORIGEN, TTV.CCL_ID_SECCION, TTV.FECHA, TTV.ID_TAREA
+        INSERT INTO TAREA_LOCALIZACION_ABIERTA (CCL_ID_COD_ORIGEN, FECHA, ID_TAREA, ES_ABIERTO, CCL_ID_SECCION)
+        SELECT TTV.CCL_ID_COD_ORIGEN, TTV.FECHA, TTV.ID_TAREA, :nuevoAbierto AS ES_ABIERTO, TTV.CCL_ID_SECCION
         FROM TAREA_LOCALIZACION_VENTA TTV
         LEFT JOIN TAREA_LOCALIZACION_ABIERTA TLA
         ON TTV.ID_TAREA = TLA.ID_TAREA
@@ -2328,14 +2397,10 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
         AND TTV.ES_ACTIVO = :activo
         AND TLA.ID_TAREA_LOCALIZACION_ABIERTA IS NULL
         GROUP BY TTV.CCL_ID_COD_ORIGEN, TTV.CCL_ID_SECCION, TTV.FECHA, TTV.ID_TAREA
-        ) AS S ON (1=0)
-        WHEN NOT MATCHED THEN
-                INSERT (FECHA, CCL_ID_COD_ORIGEN, ID_TAREA, ES_ABIERTO, CCL_ID_SECCION)
-                VALUES (S.FECHA, S.CCL_ID_COD_ORIGEN, S.ID_TAREA, :nuevoAbierto, S.CCL_ID_SECCION)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion">
+  <entry key="TareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion">
     <![CDATA[
      MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
         (
@@ -2370,9 +2435,9 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
         WHEN MATCHED THEN
                 UPDATE SET ES_ACTIVO = :inactivo
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionAbiertaRepositoryCustom.compensarOnlineSeccionCerrada">
+  <entry key="TareaLocalizacionAbiertaRepositoryCustom.compensarOnlineSeccionCerrada">
     <![CDATA[
     INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, CCL_ID_CADENA, CCL_ID_SECCION, CCL_ID_COD_ORIGEN, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TAREA, ID_TIPO_DATO, ES_ACTIVO, FECHA_INICIO_PERIODO)
         WITH VENTASTIENDAFISICA AS (
@@ -2385,10 +2450,11 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
                 ON TLV.ID_TAREA = A.ID_TAREA
                 AND TLV.CCL_ID_COD_ORIGEN = A.CCL_ID_COD_ORIGEN
                 AND TLV.FECHA = A.FECHA
-                AND TLV.CCL_ID_SECCION = A.CCL_ID_SECCION    
+                AND TLV.CCL_ID_SECCION = A.CCL_ID_SECCION
                 WHERE DATE(TLV.FECHA) BETWEEN :fechaInicio AND :fechaFin
                 AND TLV.ID_TAREA = :idTarea
-                AND TLV.CCL_ID_SECCION IN (4) 
+                AND TLV.CCL_ID_SECCION IN (4)
+                AND TLV.IMPORTE_SIN_IMPUESTOS <> 0
                 GROUP BY TLV.CCL_ID_COD_ORIGEN, TLV.FECHA, TLV.ID_TAREA, TLV.IMPORTE_SIN_IMPUESTOS
         ), VENTASTIENDAFISICASECCION AS (
                 SELECT TLV.CCL_ID_COD_ORIGEN, TLV.CCL_ID_SECCION, TLV.FECHA, TLV.ID_TAREA, TLV.IMPORTE_SIN_IMPUESTOS
@@ -2403,7 +2469,7 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
                 AND TD.ID_TIPO_DATO = TLV.ID_TIPO_DATO
                 WHERE DATE(TLV.FECHA) BETWEEN :fechaInicio AND :fechaFin
                 AND TLV.ID_TAREA = :idTarea
-                AND TLV.CCL_ID_SECCION IN (:idSeccion) 
+                AND TLV.CCL_ID_SECCION IN (:idSeccion)
                 GROUP BY TLV.CCL_ID_COD_ORIGEN, TLV.CCL_ID_SECCION, TLV.FECHA, TLV.ID_TAREA, TLV.IMPORTE_SIN_IMPUESTOS
         ), PESO AS (
                 SELECT VTF.CCL_ID_COD_ORIGEN, VTFS.CCL_ID_SECCION, VTF.FECHA, VTF.ID_TAREA, VTFS.IMPORTE_SIN_IMPUESTOS / VTF.IMPORTE_SIN_IMPUESTOS AS PORCENTAJE
@@ -2412,22 +2478,22 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
                 ON VTF.ID_TAREA = VTFS.ID_TAREA
                 AND VTF.CCL_ID_COD_ORIGEN = VTFS.CCL_ID_COD_ORIGEN
                 AND VTF.FECHA = VTFS.FECHA
-                GROUP BY VTF.CCL_ID_COD_ORIGEN, VTFS.CCL_ID_SECCION, VTF.FECHA, VTF.ID_TAREA, VTFS.IMPORTE_SIN_IMPUESTOS, VTF.IMPORTE_SIN_IMPUESTOS 
+                GROUP BY VTF.CCL_ID_COD_ORIGEN, VTFS.CCL_ID_SECCION, VTF.FECHA, VTF.ID_TAREA, VTFS.IMPORTE_SIN_IMPUESTOS, VTF.IMPORTE_SIN_IMPUESTOS
         ), ABIERTAS as (
                 SELECT TLA.CCL_ID_COD_ORIGEN, TLA.ID_TAREA, TLA.FECHA, TLA.CCL_ID_SECCION
                 FROM TAREA_LOCALIZACION_ABIERTA TLA
                 WHERE DATE(TLA.FECHA) BETWEEN :fechaInicio AND :fechaFin
                 AND TLA.ID_TAREA = :idTarea
-                AND TLA.CCL_ID_SECCION IN (:idSeccion) 
+                AND TLA.CCL_ID_SECCION IN (:idSeccion)
                 AND TLA.ES_ABIERTO = :activo
-        )             
+        )
         SELECT TTV.FECHA,
         TTV.CCL_ID_CADENA,
-        A.CCL_ID_SECCION, 
+        A.CCL_ID_SECCION,
         TTV.CCL_ID_COD_ORIGEN,
         (P.PORCENTAJE * TTV.IMPORTE_SIN_IMPUESTOS) as IMPORTE_SIN_IMPUESTOS,
         (P.PORCENTAJE * TTV.IMPORTE_CON_IMPUESTOS) as IMPORTE_CON_IMPUESTOS,
-        TTV.ID_TAREA, 
+        TTV.ID_TAREA,
         CASE
           WHEN TTV.ID_TIPO_DATO = :idTipoDatoVentaIpodLocalizacionSeccion THEN CAST(:idTipoDatoVentaIpodLocalizacionSeccionTrasladada AS INT)
           WHEN TTV.ID_TIPO_DATO = :idTipoDatoVentaSINTLocalizacionSeccion THEN CAST(:idTipoDatoVentaSINTLocalizacionSeccionTrasladada AS INT)
@@ -2458,13 +2524,13 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
         GROUP BY TTV.FECHA, TTV.FECHA_INICIO_PERIODO, TTV.CCL_ID_CADENA, A.CCL_ID_SECCION, TTV.CCL_ID_COD_ORIGEN, TTV.IMPORTE_SIN_IMPUESTOS, TTV.IMPORTE_CON_IMPUESTOS, TTV.ID_TAREA, TTV.ID_TIPO_DATO, P.PORCENTAJE
         ORDER BY TTV.FECHA
        ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionAbiertaRepositoryCustom.agruparOnlineSeccionDia">
+  <entry key="TareaLocalizacionAbiertaRepositoryCustom.agruparOnlineSeccionDia">
     <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, ID_TAREA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, ES_ACTIVO, CCL_ID_CADENA, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TIPO_DATO, FECHA_INICIO_PERIODO)
   WITH AGRUPAR AS (
-          SELECT TLV.FECHA, TLV.ID_TAREA, TLV.CCL_ID_COD_ORIGEN, TLV.CCL_ID_SECCION, TLV.ES_ACTIVO, 
+          SELECT TLV.FECHA, TLV.ID_TAREA, TLV.CCL_ID_COD_ORIGEN, TLV.CCL_ID_SECCION, TLV.ES_ACTIVO,
           CASE
             WHEN TGDTD.ID_TIPO_GRUPO_DATO = 2007 THEN CAST(2015 AS INT)
             WHEN TGDTD.ID_TIPO_GRUPO_DATO = 2008 THEN CAST(2016 AS INT)
@@ -2477,7 +2543,7 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
           END AS ID_TIPO_GRUPO_DATO
           FROM TAREA_LOCALIZACION_VENTA TLV
           INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TGDTD
-          ON TGDTD.ID_TIPO_DATO = TLV.ID_TIPO_DATO  
+          ON TGDTD.ID_TIPO_DATO = TLV.ID_TIPO_DATO
           WHERE ID_TAREA = :idTarea
         AND TGDTD.ID_TIPO_GRUPO_DATO IN (:idsTiposGrupoDatoTrasladados)
         GROUP BY TLV.FECHA, TLV.ID_TAREA, TLV.CCL_ID_COD_ORIGEN, TLV.CCL_ID_SECCION, TLV.ES_ACTIVO, TGDTD.ID_TIPO_GRUPO_DATO
@@ -2503,12 +2569,12 @@ MERGE INTO TAREA_LOCALIZACION_ABIERTA USING
     INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TGDTD
     ON TGDTD.ID_TIPO_GRUPO_DATO = A.ID_TIPO_GRUPO_DATO
     AND TGDTD.ID_TIPO_DATO = TLV.ID_TIPO_DATO
-    WHERE TGDTD.ID_TIPO_GRUPO_DATO IN (:idsTiposGrupoDatoTrasladadosTotalizados)  
+    WHERE TGDTD.ID_TIPO_GRUPO_DATO IN (:idsTiposGrupoDatoTrasladadosTotalizados)
     GROUP BY TLV.FECHA, TLV.FECHA_INICIO_PERIODO, TLV.ID_TAREA, TLV.CCL_ID_COD_ORIGEN, TLV.CCL_ID_SECCION, TLV.ES_ACTIVO, CCL_ID_CADENA, TGDTD.ID_TIPO_GRUPO_DATO
         ]]>
-</entry>
- 
-<entry key="TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion">
+  </entry>
+
+  <entry key="TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion">
     <![CDATA[
 INSERT INTO TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA (STD_ID_WORK_LOCAT, CCL_ID_PERSON, ID_TAREA, CCL_ID_ORIGEN, STD_ID_LEG_ENT)
     SELECT STD_ID_WORK_LOCAT, CCL_ID_PERSON, ID_TAREA, CCL_ID_ORIGEN, STD_ID_LEG_ENT FROM (
@@ -2527,14 +2593,14 @@ INSERT INTO TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA (STD_ID_WORK_LOCAT, CCL_ID_
     )
     GROUP BY STD_ID_WORK_LOCAT, CCL_ID_PERSON, ID_TAREA, CCL_ID_ORIGEN, STD_ID_LEG_ENT
     ]]>
-</entry>
+  </entry>
 
-<!--
-  Esta consulta traslada las ventas online de un día festivo al último día hábil
-  y las inserta en TAREA_LOCALIZACION_VENTA con un nuevo tipo de dato
-  (VENTA_ONLINE_***_TRASLADADA, donde *** es el tipo de venta online correspondiente).
--->
-<entry key="TareaLocalizacionAbiertaRepositoryCustom.trasladar">
+  <!--
+    Esta consulta traslada las ventas online de un día festivo al último día hábil
+    y las inserta en TAREA_LOCALIZACION_VENTA con un nuevo tipo de dato
+    (VENTA_ONLINE_***_TRASLADADA, donde *** es el tipo de venta online correspondiente).
+  -->
+  <entry key="TareaLocalizacionAbiertaRepositoryCustom.trasladar">
     <![CDATA[
 INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, CCL_ID_CADENA, CCL_ID_SECCION, CCL_ID_COD_ORIGEN, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TAREA, ID_TIPO_DATO, ES_ACTIVO, FECHA_INICIO_PERIODO)
 WITH VENTA AS
@@ -2609,14 +2675,16 @@ SELECT
 FROM DATOS AS D
 
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionAbiertaRepositoryCustom.compensar">
+  <entry key="TareaLocalizacionAbiertaRepositoryCustom.compensar">
     <![CDATA[
-      UPDATE TAREA_LOCALIZACION_VENTA SET ES_ACTIVO = :nuevoActivo WHERE ID_TAREA_LOCALIZACION_VENTA IN
+      UPDATE TAREA_LOCALIZACION_VENTA SET ES_ACTIVO = :nuevoActivo
+      WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo
+      AND ID_TAREA_LOCALIZACION_VENTA IN
       (SELECT TLV.ID_TAREA_LOCALIZACION_VENTA
       FROM TAREA_LOCALIZACION_VENTA TLV
-      INNER JOIN (    
+      INNER JOIN (
         SELECT TTV.FECHA, TTV.CCL_ID_CADENA, TTV.CCL_ID_COD_ORIGEN, TTV.ID_TAREA
         FROM TAREA_LOCALIZACION_VENTA TTV
         INNER JOIN TAREA_LOCALIZACION_ABIERTA TLA
@@ -2625,8 +2693,9 @@ FROM DATOS AS D
         AND TTV.FECHA = TLA.FECHA
         AND TTV.CCL_ID_SECCION = TLA.CCL_ID_SECCION
         AND TLA.CCL_ID_SECCION = 4
-        WHERE TTV.ID_TIPO_DATO IN (:tiposDato)
+        WHERE TTV.FECHA_INICIO_PERIODO = :fechaInicioPeriodo
         AND TTV.ID_TAREA = :idTarea
+        AND TTV.ID_TIPO_DATO IN (:tiposDato)
         AND TLA.ES_ABIERTO = :cerrado
         GROUP BY TTV.FECHA, TTV.CCL_ID_CADENA, TTV.CCL_ID_COD_ORIGEN, TTV.ID_TAREA
         ORDER BY FECHA DESC) VT
@@ -2637,22 +2706,22 @@ FROM DATOS AS D
       WHERE TLV.ID_TAREA = :idTarea
       AND TLV.ID_TIPO_DATO IN (:tiposDato))
     ]]>
-</entry>
+  </entry>
 
-<!--
-    Obtencion del reparto de ventas de tienda online entrega domicilio (ED) cuyas cadenas
-    están agrupadas.
-    El cálculo es Venta Online ED de la agrupación de la cadena * peso de las ventas de la tienda, donde
-    el peso = Ventas físicas de la tienda / ventas físicas de la agrupación cadena.
+  <!--
+      Obtencion del reparto de ventas de tienda online entrega domicilio (ED) cuyas cadenas
+      están agrupadas.
+      El cálculo es Venta Online ED de la agrupación de la cadena * peso de las ventas de la tienda, donde
+      el peso = Ventas físicas de la tienda / ventas físicas de la agrupación cadena.
 
-    Alias de la consulta:
-     * VTF - Ventas físicas de tienda.
-     * AC - Agrupaciones de cadenas.
-     * ACVF - Ventas físicas de agrupaciones de cadenas.
-     * ACVED - Ventas online ED de agrupaciones de cadenas.
- -->
+      Alias de la consulta:
+       * VTF - Ventas físicas de tienda.
+       * AC - Agrupaciones de cadenas.
+       * ACVF - Ventas físicas de agrupaciones de cadenas.
+       * ACVED - Ventas online ED de agrupaciones de cadenas.
+   -->
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioAgrupaciones">
+  <entry key="TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioAgrupaciones">
     <![CDATA[
 MERGE INTO TAREA_LOCALIZACION_VENTA  USING
     (SELECT ID_TAREA_LOCALIZACION_VENTA, VTF.FECHA, VTF.CCL_ID_COD_ORIGEN, VTF.CCL_ID_CADENA, VTF.FECHA_INICIO_PERIODO,
@@ -2685,7 +2754,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA  USING
         ON ACVED.ID_TAREA = VTF.ID_TAREA
         AND ACVED.CCL_ID_ORIGEN = H.CCL_ID_ORIGEN
         AND ACVED.FECHA = VTF.FECHA
-        AND ACVED.ICM_ID_AGRUPACION_ONLINE = AC.ICM_ID_AGRUPACION_ONLINE 
+        AND ACVED.ICM_ID_AGRUPACION_ONLINE = AC.ICM_ID_AGRUPACION_ONLINE
         AND ACVED.ID_TIPO_DATO = :idTipoImporteVentaEntregaDomicilioAgrupacion
     JOIN TIPO_DATO TD
         ON TD.ID_TIPO_DATO = ACVED.ID_TIPO_DATO
@@ -2707,22 +2776,22 @@ MERGE INTO TAREA_LOCALIZACION_VENTA  USING
         INSERT (FECHA, FECHA_INICIO_PERIODO, CCL_ID_COD_ORIGEN, CCL_ID_CADENA, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TAREA, ID_TIPO_DATO, ES_ACTIVO, CCL_ID_SECCION)
         VALUES (S.FECHA, S.FECHA_INICIO_PERIODO, S.CCL_ID_COD_ORIGEN, S.CCL_ID_CADENA, S.IMPORTE_SIN_IMPUESTOS, S.IMPORTE_CON_IMPUESTOS, S.ID_TAREA, S.ID_TIPO_DATO, S.ES_ACTIVO, :idSeccion)
     ]]>
-</entry>
+  </entry>
 
-<!--
-    Obtencion del reparto de ventas de tienda online entrega domicilio (ED) cuyas cadenas
-    están agrupadas.
-    El cálculo es Venta Online ED de la agrupación de la cadena * peso de las ventas de la tienda, donde
-    el peso = presencias totales de la tienda / presencias totales de la agrupación cadena.
+  <!--
+      Obtencion del reparto de ventas de tienda online entrega domicilio (ED) cuyas cadenas
+      están agrupadas.
+      El cálculo es Venta Online ED de la agrupación de la cadena * peso de las ventas de la tienda, donde
+      el peso = presencias totales de la tienda / presencias totales de la agrupación cadena.
 
-    Alias de la consulta:
-     * VTF - Ventas físicas de tienda.
-     * AC - Agrupaciones de cadenas.
-     * ACVF - Ventas físicas de agrupaciones de cadenas.
-     * ACVED - Ventas online ED de agrupaciones de cadenas.
- -->
-<entry key="TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioPresenciaAgrupaciones">
-        <![CDATA[
+      Alias de la consulta:
+       * VTF - Ventas físicas de tienda.
+       * AC - Agrupaciones de cadenas.
+       * ACVF - Ventas físicas de agrupaciones de cadenas.
+       * ACVED - Ventas online ED de agrupaciones de cadenas.
+   -->
+  <entry key="TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioPresenciaAgrupaciones">
+    <![CDATA[
 MERGE INTO TAREA_LOCALIZACION_VENTA  USING
     (SELECT ID_TAREA_LOCALIZACION_VENTA, VTF.FECHA, VTF.CCL_ID_COD_ORIGEN, VTF.CCL_ID_CADENA, VTF.FECHA_INICIO_PERIODO,
         MIN (
@@ -2784,11 +2853,11 @@ MERGE INTO TAREA_LOCALIZACION_VENTA  USING
         INSERT (FECHA, FECHA_INICIO_PERIODO, CCL_ID_COD_ORIGEN, CCL_ID_CADENA, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TAREA, ID_TIPO_DATO, ES_ACTIVO, CCL_ID_SECCION)
         VALUES (S.FECHA, S.FECHA_INICIO_PERIODO, S.CCL_ID_COD_ORIGEN, S.CCL_ID_CADENA, S.IMPORTE_SIN_IMPUESTOS, S.IMPORTE_CON_IMPUESTOS, S.ID_TAREA, S.ID_TIPO_DATO, S.ES_ACTIVO, :nuevoIdSeccion)
     ]]>
-</entry>
+  </entry>
 
 
-<entry key="TareaCalculoRepositoryCustom.regularizarMejorOpcion">
-  <![CDATA[
+  <entry key="TareaCalculoRepositoryCustom.regularizarMejorOpcion">
+    <![CDATA[
 DELETE FROM TAREA_CALCULO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA_CALCULO IN (
 SELECT
         TC.ID_TAREA_CALCULO
@@ -2803,7 +2872,7 @@ FROM (
                 TPEDR.FECHA_FIN,
                 TPED.ID_TIPO_OPCION_CALCULO_EFECTIVA,
                 SUM(TC.IMPORTE) IMPORTE,
-                ROW_NUMBER() OVER (PARTITION BY 
+                ROW_NUMBER() OVER (PARTITION BY
                         TC.ID_TAREA,
                         TPE.STD_ID_HR,
                         TC.STD_OR_HR_PERIOD,
@@ -2813,8 +2882,8 @@ FROM (
                 ORDER BY SUM(TC.IMPORTE) DESC, TPED.ID_TIPO_OPCION_CALCULO_EFECTIVA DESC) AS PESO
         FROM TAREA T
         INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE
-                ON TPE.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO       
-                AND TPE.ID_TAREA = T.ID_TAREA     
+                ON TPE.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
+                AND TPE.ID_TAREA = T.ID_TAREA
         INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO TPED
                 ON TPED.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
                 AND TPED.ID_TAREA = TPE.ID_TAREA
@@ -2830,7 +2899,7 @@ FROM (
                 ON TPEDR.FECHA_INICIO_PERIODO = TPED.FECHA_INICIO_PERIODO
                 AND TPEDR.ID_TAREA = TPED.ID_TAREA
                 AND TPEDR.STD_ID_HR = TPED.STD_ID_HR
-                AND TPEDR.STD_OR_HR_PERIOD = TPED.STD_OR_HR_PERIOD     
+                AND TPEDR.STD_OR_HR_PERIOD = TPED.STD_OR_HR_PERIOD
                 AND TPEDR.ICM_ID_ESTR_COMISION_PADRE = TPED.ICM_ID_ESTR_COMISION_PADRE
                 AND TPEDR.ICM_ID_ESTR_COMISION_BASE = TPED.ICM_ID_ESTR_COMISION_BASE
                 AND TPEDR.ICM_ID_ESTR_COMISION = TPED.ICM_ID_ESTR_COMISION
@@ -2857,7 +2926,7 @@ INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO_REAL TPEDR
         ON TPEDR.FECHA_INICIO_PERIODO = AGRUPADO.FECHA_INICIO_PERIODO
         AND TPEDR.ID_TAREA = AGRUPADO.ID_TAREA
         AND TPEDR.STD_ID_HR = AGRUPADO.STD_ID_HR
-        AND TPEDR.STD_OR_HR_PERIOD = AGRUPADO.STD_OR_HR_PERIOD     
+        AND TPEDR.STD_OR_HR_PERIOD = AGRUPADO.STD_OR_HR_PERIOD
         AND TPEDR.ICM_ID_ESTRUCTURA_AMBITO = AGRUPADO.ICM_ID_ESTRUCTURA_AMBITO
 INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO TPED
         ON TPED.FECHA_INICIO_PERIODO = TPEDR.FECHA_INICIO_PERIODO
@@ -2889,10 +2958,10 @@ INNER JOIN TAREA_CALCULO TC
 WHERE AGRUPADO.PESO > 1
 )
   ]]>
-</entry>
+  </entry>
 
 
-<entry key="TareaLocalizacionVentaSeccionRepositoryCustom.proceasrRepartoVentaEntregaDomicilio">
+  <entry key="TareaLocalizacionVentaSeccionRepositoryCustom.proceasrRepartoVentaEntregaDomicilio">
     <![CDATA[
     MERGE INTO TAREA_LOCALIZACION_VENTA USING
     (SELECT
@@ -2939,9 +3008,9 @@ WHERE AGRUPADO.PESO > 1
           (S.FECHA, S.FECHA_INICIO_PERIODO, S.CCL_ID_COD_ORIGEN, S.CCL_ID_SECCION, S.IMPORTE_SIN_IMPUESTOS, S.IMPORTE_CON_IMPUESTOS,
            S.ID_TAREA, S.ID_TIPO_DATO, S.CCL_ID_CADENA, S.ES_ACTIVO)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.updateActivo">
+  <entry key="TareaLocalizacionVentaRepositoryCustom.updateActivo">
     <![CDATA[
     MERGE INTO TAREA_LOCALIZACION_VENTA AS VENTA USING
         (SELECT V.ID_TAREA_LOCALIZACION_VENTA
@@ -2968,10 +3037,10 @@ WHERE AGRUPADO.PESO > 1
         WHEN MATCHED THEN
             UPDATE SET ES_ACTIVO = :nuevoActivo
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas">
-  <![CDATA[
+  <entry key="TareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadas">
+    <![CDATA[
     MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
       (
       SELECT TLV_ORIGINAL.ID_TAREA_LOCALIZACION_VENTA FROM
@@ -2997,10 +3066,10 @@ WHERE AGRUPADO.PESO > 1
     WHEN MATCHED THEN
       UPDATE SET ES_ACTIVO = :nuevoActivo
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadasTotalizado">
-  <![CDATA[
+  <entry key="TareaLocalizacionVentaRepositoryCustom.updateActivoTrasladadasTotalizado">
+    <![CDATA[
   MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING (
         SELECT TLV.ID_TAREA_LOCALIZACION_VENTA
         FROM TAREA_LOCALIZACION_VENTA TLV
@@ -3022,7 +3091,7 @@ WHERE AGRUPADO.PESO > 1
         AND TLV.CCL_ID_COD_ORIGEN = D.CCL_ID_COD_ORIGEN
         AND TLV.CCL_ID_SECCION = D.CCL_ID_SECCION
         AND TLV.CCL_ID_CADENA = D.CCL_ID_CADENA
-        AND TLV.FECHA = D.FECHA 
+        AND TLV.FECHA = D.FECHA
         AND TLV.ES_ACTIVO = D.ES_ACTIVO
         INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TGDTD
         ON TGDTD.ID_TIPO_GRUPO_DATO = D.ID_TIPO_GRUPO_DATO
@@ -3031,9 +3100,9 @@ WHERE AGRUPADO.PESO > 1
         WHEN MATCHED THEN
             UPDATE SET ES_ACTIVO = :nuevoActivo
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAgrupacionVentRepositoryCustom.updateActivo">
+  <entry key="TareaAgrupacionVentRepositoryCustom.updateActivo">
     <![CDATA[
     MERGE INTO TAREA_AGRUPACION_VENTA AS VENTA USING
         (SELECT V.ID_TAREA_AGRUPACION_VENTA FROM TAREA_AGRUPACION_VENTA V
@@ -3065,27 +3134,27 @@ WHERE AGRUPADO.PESO > 1
         WHEN MATCHED THEN
             UPDATE SET ES_ACTIVO = :nuevoActivo
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAmbitoGlobalPersonaRepositoryCustom.mergePersona">
+  <entry key="TareaAmbitoGlobalPersonaRepositoryCustom.mergePersona">
     <![CDATA[
 INSERT INTO TAREA_AMBITO_GLOBAL_PERSONA (CCL_ID_ORIGEN, ID_TAREA, CCL_ID_PERSON, STD_ID_LEG_ENT)
     SELECT CCL_ID_ORIGEN, ID_TAREA, CCL_ID_PERSON, STD_ID_LEG_ENT
     FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA WHERE ID_TAREA = :idTarea
     GROUP BY CCL_ID_ORIGEN, ID_TAREA, CCL_ID_PERSON, STD_ID_LEG_ENT
      ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAmbitoGlobalLocalizacionRepositoryCustom.mergeLocalizacion">
+  <entry key="TareaAmbitoGlobalLocalizacionRepositoryCustom.mergeLocalizacion">
     <![CDATA[
 INSERT INTO TAREA_AMBITO_GLOBAL_LOCALIZACION (CCL_ID_ORIGEN, ID_TAREA, STD_ID_WORK_LOCAT, STD_ID_LEG_ENT)
     SELECT CCL_ID_ORIGEN, ID_TAREA, STD_ID_WORK_LOCAT, STD_ID_LEG_ENT
     FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA WHERE ID_TAREA = :idTarea
     GROUP BY CCL_ID_ORIGEN, ID_TAREA, STD_ID_WORK_LOCAT, STD_ID_LEG_ENT
      ]]>
-</entry>
+  </entry>
 
-<entry key="TareaCalculoPersonaRepositoryCustom.findByAlgoritmo">
+  <entry key="TareaCalculoPersonaRepositoryCustom.findByAlgoritmo">
     <![CDATA[
 SELECT
   TCP.CCL_ID_PERSON,
@@ -3117,9 +3186,9 @@ GROUP BY
   TCP.CCL_ID_ORIGEN,
   TCP.ID_TAREA
      ]]>
-</entry>
+  </entry>
 
-<entry key="TareaCalculoPersonaRepositoryCustom.findByTareaAndIdEstado">
+  <entry key="TareaCalculoPersonaRepositoryCustom.findByTareaAndIdEstado">
     <![CDATA[
     SELECT TCP.CCL_ID_PERSON, TCP.STD_OR_HR_PERIOD, TCP.ID_ESTADO, TCP.CCL_ID_ORIGEN, TCP.ID_TAREA
     FROM TAREA_CALCULO_PERSONA TCP
@@ -3134,9 +3203,9 @@ GROUP BY
     AND TP.ICM_ID_TP_POLITICAS = :idTipoPolitica
     GROUP BY TCP.CCL_ID_PERSON, TCP.STD_OR_HR_PERIOD, TCP.ID_ESTADO, TCP.CCL_ID_ORIGEN, TCP.ID_TAREA
      ]]>
-</entry>
+  </entry>
 
-<entry key="TareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbito">
+  <entry key="TareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbito">
     <![CDATA[
  INSERT INTO TAREA_CALCULO_PERSONA (CCL_ID_ORIGEN, CCL_ID_PERSON, STD_OR_HR_PERIOD, ID_ESTADO, ID_TAREA)
  SELECT CCL_ID_ORIGEN, CCL_ID_PERSON, STD_OR_HR_PERIOD, :idEstadoTareaPersona AS ID_ESTADO, ID_TAREA
@@ -3145,9 +3214,9 @@ GROUP BY
  AND STD_ID_LEG_ENT = :stdIdLegEnt
  GROUP BY CCL_ID_ORIGEN, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD
      ]]>
-</entry>
+  </entry>
 
-<entry key="TareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoPersona">
+  <entry key="TareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoPersona">
     <![CDATA[
 INSERT INTO TAREA_CALCULO_PERSONA (CCL_ID_ORIGEN, CCL_ID_PERSON, STD_OR_HR_PERIOD, ID_ESTADO, ID_TAREA)
 SELECT TAP.CCL_ID_ORIGEN, TAP.CCL_ID_PERSON, TPH.STD_OR_HR_PERIOD, :idEstadoTareaPersona AS ID_ESTADO, TAP.ID_TAREA
@@ -3160,9 +3229,9 @@ WHERE TAP.ID_TAREA = :idTarea
 AND TPH.STD_ID_LEG_ENT = :stdIdLegEnt
 GROUP BY TAP.CCL_ID_ORIGEN, TAP.CCL_ID_PERSON, TPH.STD_OR_HR_PERIOD, TAP.ID_TAREA
      ]]>
-</entry>
+  </entry>
 
-<entry key="TareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoLocalizacion">
+  <entry key="TareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoLocalizacion">
     <![CDATA[
  INSERT INTO TAREA_CALCULO_PERSONA (CCL_ID_ORIGEN, CCL_ID_PERSON, STD_OR_HR_PERIOD, ID_ESTADO, ID_TAREA)
  SELECT TP.CCL_ID_ORIGEN, TP.CCL_ID_PERSON, TP.STD_OR_HR_PERIOD, :idEstadoTareaPersona AS ID_ESTADO, TP.ID_TAREA
@@ -3180,12 +3249,12 @@ GROUP BY TAP.CCL_ID_ORIGEN, TAP.CCL_ID_PERSON, TPH.STD_OR_HR_PERIOD, TAP.ID_TARE
  AND TP.CCL_ID_PERSON = D.CCL_ID_PERSON
  AND TP.CCL_ID_ORIGEN = D.CCL_ID_ORIGEN
  WHERE TP.ID_TAREA = :idTarea
- AND TP.STD_ID_LEG_ENT = :stdIdLegEnt 
+ AND TP.STD_ID_LEG_ENT = :stdIdLegEnt
  GROUP BY TP.CCL_ID_PERSON, TP.CCL_ID_ORIGEN, TP.STD_OR_HR_PERIOD, TP.ID_TAREA
      ]]>
-</entry>
+  </entry>
 
-<entry key="PeriodoCalculoPersonaRepositoryCustom.mergePeriodoCalculoPersona">
+  <entry key="PeriodoCalculoPersonaRepositoryCustom.mergePeriodoCalculoPersona">
     <![CDATA[
 MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
         (
@@ -3207,7 +3276,11 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
 ) AS S ON (S.ICM_ID_PERIODO = PCP.ICM_ID_PERIODO AND S.CCL_ID_ORIGEN = PCP.CCL_ID_ORIGEN AND S.STD_ID_LEG_ENT = PCP.STD_ID_LEG_ENT AND S.CCL_ID_PERSON = PCP.CCL_ID_PERSON AND S.STD_OR_HR_PERIOD = PCP.STD_OR_HR_PERIOD)
     WHEN MATCHED AND PCP.ES_BLOQUEADO = :desbloqueado AND PCP.ID_TAREA_ACTUAL < S.ID_TAREA AND S.ID_ESTADO = :idEstadoTareaPersona THEN
         UPDATE SET FECHA_HORA_ACTUALIZACION = :nuevaFecha, ID_TAREA_ULTIMA = S.ID_TAREA, ID_TAREA_ACTUAL = S.ID_TAREA, ID_ESTADO = :idEstadoPeriodoPersona
+    WHEN MATCHED AND PCP.ES_BLOQUEADO = :desbloqueado AND PCP.ID_TAREA_ACTUAL < S.ID_TAREA AND S.ID_ESTADO = :idEstadoTareaPersonaKo THEN
+        UPDATE SET FECHA_HORA_ACTUALIZACION = :nuevaFecha, ID_TAREA_ULTIMA = S.ID_TAREA, ID_TAREA_ACTUAL = S.ID_TAREA, ID_ESTADO = :idEstadoPeriodoPersonaCalculadoError
     WHEN MATCHED AND PCP.ES_BLOQUEADO = :bloqueado AND PCP.ID_TAREA_ULTIMA < S.ID_TAREA AND S.ID_ESTADO = :idEstadoTareaPersona THEN
+        UPDATE SET FECHA_HORA_ACTUALIZACION = :nuevaFecha, ID_TAREA_ULTIMA = S.ID_TAREA
+    WHEN MATCHED AND PCP.ES_BLOQUEADO = :bloqueado AND PCP.ID_TAREA_ULTIMA < S.ID_TAREA AND S.ID_ESTADO = :idEstadoTareaPersonaKo THEN
         UPDATE SET FECHA_HORA_ACTUALIZACION = :nuevaFecha, ID_TAREA_ULTIMA = S.ID_TAREA
     WHEN NOT MATCHED AND S.ID_ESTADO = :idEstadoTareaPersona THEN
         INSERT (CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA_HORA_CREACION, FECHA_HORA_ACTUALIZACION, STD_ID_LEG_ENT, ICM_ID_PERIODO, CCL_ID_ORIGEN, ID_ESTADO, ID_TAREA_ACTUAL, ID_TAREA_ULTIMA, ES_BLOQUEADO)
@@ -3216,10 +3289,10 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
         INSERT (CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA_HORA_CREACION, FECHA_HORA_ACTUALIZACION, STD_ID_LEG_ENT, ICM_ID_PERIODO, CCL_ID_ORIGEN, ID_ESTADO, ID_TAREA_ACTUAL, ID_TAREA_ULTIMA, ES_BLOQUEADO)
         VALUES (S.CCL_ID_PERSON, S.STD_OR_HR_PERIOD, :nuevaFecha, :nuevaFecha, S.STD_ID_LEG_ENT, S.ICM_ID_PERIODO, S.CCL_ID_ORIGEN, :idEstadoPeriodoPersonaCalculadoError, S.ID_TAREA, S.ID_TAREA, :desbloqueado)
      ]]>
-</entry>
+  </entry>
 
 
-<entry key="PeriodoLocalizacionPersonaRepositoryCustom.mergePeriodoLocalizacionPersona">
+  <entry key="PeriodoLocalizacionPersonaRepositoryCustom.mergePeriodoLocalizacionPersona">
     <![CDATA[
     MERGE INTO PERIODO_LOCALIZACION_PERSONA AS PLP USING
     (
@@ -3240,9 +3313,9 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
     INSERT (STD_ID_WORK_LOCAT, CCL_ID_PERSON, STD_ID_LEG_ENT , ICM_ID_PERIODO, CCL_ID_ORIGEN)
     VALUES (S.STD_ID_WORK_LOCAT, S.CCL_ID_PERSON, S.STD_ID_LEG_ENT , S.ICM_ID_PERIODO, S.CCL_ID_ORIGEN)
      ]]>
-</entry>
+  </entry>
 
-<entry key="PeriodoLocalizacionRepositoryCustom.mergePeriodoLocalizacion">
+  <entry key="PeriodoLocalizacionRepositoryCustom.mergePeriodoLocalizacion">
     <![CDATA[
     MERGE INTO PERIODO_LOCALIZACION AS PL USING
     (
@@ -3262,9 +3335,9 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
     INSERT (STD_ID_WORK_LOCAT,  STD_ID_LEG_ENT , ICM_ID_PERIODO, CCL_ID_ORIGEN)
     VALUES (S.STD_ID_WORK_LOCAT, S.STD_ID_LEG_ENT , S.ICM_ID_PERIODO, S.CCL_ID_ORIGEN)
      ]]>
-</entry>
+  </entry>
 
-<entry key="PeriodoPersonaRepositoryCustom.mergePeriodoPersona">
+  <entry key="PeriodoPersonaRepositoryCustom.mergePeriodoPersona">
     <![CDATA[
     MERGE INTO PERIODO_PERSONA AS PP USING
     (
@@ -3284,9 +3357,9 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
     INSERT (CCL_ID_PERSON,  STD_ID_LEG_ENT , ICM_ID_PERIODO, CCL_ID_ORIGEN)
     VALUES (S.CCL_ID_PERSON, S.STD_ID_LEG_ENT, S.ICM_ID_PERIODO, S.CCL_ID_ORIGEN)
      ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen">
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen">
     <![CDATA[
     SELECT L.CCL_ID_CADENA
     FROM (
@@ -3311,9 +3384,9 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
         AND LP.CCL_ID_ORIGEN = :cclIdOrigen
     GROUP BY L.CCL_ID_CADENA
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDato">
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDato">
     <![CDATA[
         SELECT AC_ALL.CCL_ID_CADENA
         FROM (
@@ -3353,21 +3426,21 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
         GROUP BY
             AC_ALL.CCL_ID_CADENA
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAgrupacionVentaRepository.save">
+  <entry key="TareaAgrupacionVentaRepository.save">
     <![CDATA[
     INSERT INTO TAREA_AGRUPACION_VENTA (ES_ACTIVO, FECHA, ICM_ID_AGRUPACION_ONLINE, CCL_ID_SECCION, CCL_ID_ORIGEN, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TAREA, ID_TIPO_DATO)
     VALUES (:activo, :fecha, :icmIdAgrupacionOnline, :cclIdSeccion, :cclIdOrigen, :importeSinImpuestos, :importeConImpuestos, :tarea.id, :tipoDato.id)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresencia"><![CDATA[
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresencia"><![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, COD_TIPO_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA)
 SELECT
   INDICADOR.CCL_ID_COD_ORIGEN,
   INDICADOR.CCL_ID_ORIGEN,
-  INDICADOR.CCL_ID_PERSON, 
+  INDICADOR.CCL_ID_PERSON,
   INDICADOR.STD_ID_LEG_ENT,
   -- Por localizacion
   CAST(4 AS INT) AS CCL_ID_SECCION,
@@ -3391,7 +3464,7 @@ FROM (
     TLPP.FECHA,
     TLPP.ID_TAREA,
     ROW_NUMBER() OVER (
-      PARTITION BY 
+      PARTITION BY
         TLPP.CCL_ID_COD_ORIGEN,
         -- Por localizacion sección
         --TLPP.CCL_ID_SECCION,
@@ -3429,7 +3502,7 @@ FROM (
     ON LOCALIZACION.ID_TAREA = TPED.ID_TAREA
     AND LOCALIZACION.STD_ID_WORK_LOCAT = TPED.STD_ID_WORK_LOCAT_DESTINO
     AND TPED.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO    
+    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
   INNER JOIN TAREA_LOCALIZACION_PERSONA_PRESENCIA TLPP
     -- Estructura
     ON T.FECHA_INICIO_PERIODO = TLPP.FECHA_INICIO_PERIODO
@@ -3477,12 +3550,12 @@ FROM (
 WHERE INDICADOR.ROW = 1
 ]]></entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamiento"><![CDATA[
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamiento"><![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, COD_TIPO_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
 SELECT
   INDICADOR.CCL_ID_COD_ORIGEN,
   INDICADOR.CCL_ID_ORIGEN,
-  INDICADOR.CCL_ID_PERSON, 
+  INDICADOR.CCL_ID_PERSON,
   INDICADOR.STD_ID_LEG_ENT,
   INDICADOR.CCL_ID_SECCION,
   INDICADOR.FECHA,
@@ -3505,7 +3578,7 @@ FROM (
     TLPP.ID_TAREA,
     TLPP.FECHA_INICIO_PERIODO,
     ROW_NUMBER() OVER (
-      PARTITION BY 
+      PARTITION BY
         TLPP.CCL_ID_COD_ORIGEN,
         TLPP.CCL_ID_SECCION,
         TLPP.CCL_ID_PERSON,
@@ -3531,13 +3604,13 @@ FROM (
     ON LOCALIZACION.ID_TAREA = TPED.ID_TAREA
     AND LOCALIZACION.STD_ID_WORK_LOCAT = TPED.STD_ID_WORK_LOCAT_DESTINO
     AND TPED.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO    
+    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
   INNER JOIN TAREA_LOCALIZACION_PERSONA_PRESENCIA TLPP
     -- Estructura
     ON TLPP.FECHA_INICIO_PERIODO = TPED.FECHA_INICIO_PERIODO
     AND TLPP.ID_TAREA = TPED.ID_TAREA
     AND TLPP.CCL_ID_PERSON = TPED.CCL_ID_PERSON
-    AND TLPP.FECHA >= TPED.FECHA_INICIO  
+    AND TLPP.FECHA >= TPED.FECHA_INICIO
     AND TLPP.FECHA <= TPED.FECHA_FIN
     AND TLPP.CCL_ID_COD_ORIGEN = LOCALIZACION.CCL_ID_COD_ORIGEN
     AND TLPP.CCL_ID_ORIGEN = TPED.CCL_ID_ORIGEN
@@ -3554,12 +3627,12 @@ FROM (
 WHERE INDICADOR.ROW = 1
 ]]></entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBase"><![CDATA[
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBase"><![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, COD_TIPO_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
 SELECT
   INDICADOR.CCL_ID_COD_ORIGEN,
   INDICADOR.CCL_ID_ORIGEN,
-  INDICADOR.CCL_ID_PERSON, 
+  INDICADOR.CCL_ID_PERSON,
   INDICADOR.STD_ID_LEG_ENT,
   CAST(4 AS INT) AS CCL_ID_SECCION,
   INDICADOR.FECHA,
@@ -3582,7 +3655,7 @@ FROM (
     T.ID_TAREA,
     TLPP.FECHA_INICIO_PERIODO,
     ROW_NUMBER() OVER (
-      PARTITION BY 
+      PARTITION BY
         TLPP.CCL_ID_COD_ORIGEN,
         TLPP.CCL_ID_SECCION,
         TLPP.CCL_ID_PERSON,
@@ -3604,19 +3677,19 @@ FROM (
     AND TPH.FECHA_FIN_LOCALIZACION >= TPE.FECHA_INICIO
     AND TPH.FECHA_INICIO_SECCION <= TPE.FECHA_FIN
     AND TPH.FECHA_FIN_SECCION >= TPE.FECHA_INICIO
-  INNER JOIN TAREA_LOCALIZACION_HISTORICO TLH 
+  INNER JOIN TAREA_LOCALIZACION_HISTORICO TLH
     ON T.ID_TAREA = TLH.ID_TAREA
-    AND TPH.CCL_ID_COD_ORIGEN = TLH.CCL_ID_COD_ORIGEN 
-    AND TPH.FECHA_INICIO <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN >= TLH.FECHA_INICIO 
-    AND TPH.FECHA_INICIO_LOCALIZACION <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN_LOCALIZACION >= TLH.FECHA_INICIO 
-    AND TPH.FECHA_INICIO_SECCION <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN_SECCION >= TLH.FECHA_INICIO 
-    AND TPE.FECHA_INICIO <= TLH.FECHA_FIN 
-    AND TPE.FECHA_FIN >= TLH.FECHA_INICIO 
+    AND TPH.CCL_ID_COD_ORIGEN = TLH.CCL_ID_COD_ORIGEN
+    AND TPH.FECHA_INICIO <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN >= TLH.FECHA_INICIO
+    AND TPH.FECHA_INICIO_LOCALIZACION <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN_LOCALIZACION >= TLH.FECHA_INICIO
+    AND TPH.FECHA_INICIO_SECCION <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN_SECCION >= TLH.FECHA_INICIO
+    AND TPE.FECHA_INICIO <= TLH.FECHA_FIN
+    AND TPE.FECHA_FIN >= TLH.FECHA_INICIO
   INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO TPED
-    ON TPED.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO  
+    ON TPED.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
     AND TPED.ID_TAREA = TPE.ID_TAREA
     AND TPED.CCL_ID_PERSON =  TPE.CCL_ID_PERSON
     AND TPED.STD_OR_HR_PERIOD =  TPE.STD_OR_HR_PERIOD
@@ -3630,10 +3703,10 @@ FROM (
     ON LOCALIZACION.ID_TAREA = TPED.ID_TAREA
     AND LOCALIZACION.STD_ID_WORK_LOCAT = TPED.STD_ID_WORK_LOCAT_DESTINO
     AND TPED.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO    
+    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
   INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE_BASE
     ON TPE_BASE.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
-    AND TPE_BASE.ID_TAREA = T.ID_TAREA 
+    AND TPE_BASE.ID_TAREA = T.ID_TAREA
     AND TPED.CCL_ID_PERSON =  TPE_BASE.CCL_ID_PERSON
     AND TPED.STD_OR_HR_PERIOD =  TPE_BASE.STD_OR_HR_PERIOD
     AND TPED.ICM_ID_ESTR_COMISION_PADRE = TPE_BASE.ICM_ID_ESTR_COMISION_PADRE
@@ -3645,7 +3718,7 @@ FROM (
     -- Estructura
     ON TLPP.FECHA_INICIO_PERIODO = TPED.FECHA_INICIO_PERIODO
     AND TLPP.ID_TAREA = TPED.ID_TAREA
-    AND TLPP.CCL_ID_PERSON = TPED.CCL_ID_PERSON 
+    AND TLPP.CCL_ID_PERSON = TPED.CCL_ID_PERSON
     AND TLPP.FECHA >= TPED.FECHA_INICIO
     AND TLPP.FECHA <= TPED.FECHA_FIN
     AND TLPP.CCL_ID_COD_ORIGEN = LOCALIZACION.CCL_ID_COD_ORIGEN
@@ -3666,8 +3739,8 @@ FROM (
 WHERE INDICADOR.ROW = 1
 ]]></entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVentaSimplificada">
-  <![CDATA[
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVentaSimplificada">
+    <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, COD_TIPO_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
   SELECT
     VENTA_INCLUIDO_VENTA.CCL_ID_COD_ORIGEN,
@@ -3713,10 +3786,10 @@ WHERE INDICADOR.ROW = 1
     VENTA_INCLUIDO_VENTA.CCL_ID_CADENA,
     VENTA_INCLUIDO_VENTA.FECHA_INICIO_PERIODO
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVenta">
-  <![CDATA[
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVenta">
+    <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, COD_TIPO_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
   SELECT
     PRESENCIA_INCLUIDO_VENTA.CCL_ID_COD_ORIGEN,
@@ -3791,14 +3864,15 @@ WHERE INDICADOR.ROW = 1
     PRESENCIA_INCLUIDO_VENTA.CCL_ID_CADENA,
     PRESENCIA_INCLUIDO_VENTA.FECHA_INICIO_PERIODO
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion"><![CDATA[
+  <entry
+    key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion"><![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, COD_TIPO_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
 SELECT
   INDICADOR.CCL_ID_COD_ORIGEN,
   INDICADOR.CCL_ID_ORIGEN,
-  INDICADOR.CCL_ID_PERSON, 
+  INDICADOR.CCL_ID_PERSON,
   INDICADOR.STD_ID_LEG_ENT,
   CAST(4 AS INT) AS CCL_ID_SECCION,
   INDICADOR.FECHA,
@@ -3830,7 +3904,7 @@ FROM (
     T.ID_TAREA,
     TLPP.FECHA_INICIO_PERIODO,
     ROW_NUMBER() OVER (
-      PARTITION BY 
+      PARTITION BY
         TLPP.CCL_ID_COD_ORIGEN,
         TLPP.CCL_ID_SECCION,
         TLPP.CCL_ID_PERSON,
@@ -3852,17 +3926,17 @@ FROM (
     AND TPH.FECHA_FIN_LOCALIZACION >= TPE.FECHA_INICIO
     AND TPH.FECHA_INICIO_SECCION <= TPE.FECHA_FIN
     AND TPH.FECHA_FIN_SECCION >= TPE.FECHA_INICIO
-  INNER JOIN TAREA_LOCALIZACION_HISTORICO TLH 
+  INNER JOIN TAREA_LOCALIZACION_HISTORICO TLH
     ON T.ID_TAREA = TLH.ID_TAREA
-    AND TPH.CCL_ID_COD_ORIGEN = TLH.CCL_ID_COD_ORIGEN 
-    AND TPH.FECHA_INICIO <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN >= TLH.FECHA_INICIO 
-    AND TPH.FECHA_INICIO_LOCALIZACION <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN_LOCALIZACION >= TLH.FECHA_INICIO 
-    AND TPH.FECHA_INICIO_SECCION <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN_SECCION >= TLH.FECHA_INICIO 
-    AND TPE.FECHA_INICIO <= TLH.FECHA_FIN 
-    AND TPE.FECHA_FIN >= TLH.FECHA_INICIO 
+    AND TPH.CCL_ID_COD_ORIGEN = TLH.CCL_ID_COD_ORIGEN
+    AND TPH.FECHA_INICIO <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN >= TLH.FECHA_INICIO
+    AND TPH.FECHA_INICIO_LOCALIZACION <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN_LOCALIZACION >= TLH.FECHA_INICIO
+    AND TPH.FECHA_INICIO_SECCION <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN_SECCION >= TLH.FECHA_INICIO
+    AND TPE.FECHA_INICIO <= TLH.FECHA_FIN
+    AND TPE.FECHA_FIN >= TLH.FECHA_INICIO
   INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO TPED
     ON TPED.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
     AND TPED.ID_TAREA = TPE.ID_TAREA
@@ -3918,7 +3992,7 @@ FROM (
 WHERE INDICADOR.ROW = 1
 ]]></entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoDirectoVenta"><![CDATA[
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoDirectoVenta"><![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, COD_TIPO_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
  WITH TMP_DATE (ID_TAREA_PERSONA_ESTRUCTURA, FECHA_INICIO, FECHA_FIN) AS (
         SELECT TPE.ID_TAREA_PERSONA_ESTRUCTURA, TPE.FECHA_INICIO, TPE.FECHA_FIN
@@ -3940,7 +4014,7 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
     T.ID_TAREA,
     T.FECHA_INICIO_PERIODO,
     ROW_NUMBER() OVER (
-      PARTITION BY 
+      PARTITION BY
         LOCALIZACION.CCL_ID_COD_ORIGEN,
         TPED.CCL_ID_SECCION_DESTINO,
         TPE.CCL_ID_PERSON,
@@ -3966,7 +4040,7 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
     ON LOCALIZACION.ID_TAREA = TPED.ID_TAREA
     AND LOCALIZACION.STD_ID_WORK_LOCAT = TPED.STD_ID_WORK_LOCAT_DESTINO
     AND TPED.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO    
+    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
   INNER JOIN
         TMP_DATE FA
             ON FA.ID_TAREA_PERSONA_ESTRUCTURA = TPE.ID_TAREA_PERSONA_ESTRUCTURA
@@ -3976,7 +4050,7 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
 ) SELECT
   INDICADOR.CCL_ID_COD_ORIGEN,
   INDICADOR.CCL_ID_ORIGEN,
-  INDICADOR.CCL_ID_PERSON, 
+  INDICADOR.CCL_ID_PERSON,
   INDICADOR.STD_ID_LEG_ENT,
   INDICADOR.CCL_ID_SECCION,
   INDICADOR.FECHA,
@@ -3991,7 +4065,7 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
   WHERE INDICADOR.ROW = 1
 ]]></entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoDirectoVentaFicticias"><![CDATA[
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoDirectoVentaFicticias"><![CDATA[
 INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, COD_TIPO_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
  WITH TMP_DATE (ID_TAREA_PERSONA_ESTRUCTURA, FECHA_INICIO, FECHA_FIN) AS (
         SELECT TPE.ID_TAREA_PERSONA_ESTRUCTURA, TPE.FECHA_INICIO, TPE.FECHA_FIN
@@ -4013,7 +4087,7 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
     T.ID_TAREA,
     T.FECHA_INICIO_PERIODO,
     ROW_NUMBER() OVER (
-      PARTITION BY 
+      PARTITION BY
         LOCALIZACION.CCL_ID_COD_ORIGEN,
         TPED.CCL_ID_SECCION_DESTINO,
         TPE.CCL_ID_PERSON,
@@ -4048,11 +4122,11 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
     AND TPED.FECHA_FIN >= TLPP.FECHA
     AND LOCALIZACION.CCL_ID_COD_ORIGEN = TLPP.CCL_ID_COD_ORIGEN
     AND TPED.CCL_ID_ORIGEN = TLPP.CCL_ID_ORIGEN
-    AND TPED.CCL_ID_SECCION_DESTINO = TLPP.CCL_ID_SECCION   
+    AND TPED.CCL_ID_SECCION_DESTINO = TLPP.CCL_ID_SECCION
   INNER JOIN TIPO_DATO TIPO_DATO
     ON TLPP.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
   INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-    ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO         
+    ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
   INNER JOIN
         TMP_DATE FA
             ON FA.ID_TAREA_PERSONA_ESTRUCTURA = TPE.ID_TAREA_PERSONA_ESTRUCTURA
@@ -4063,7 +4137,7 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
 ) SELECT
   INDICADOR.CCL_ID_COD_ORIGEN,
   INDICADOR.CCL_ID_ORIGEN,
-  INDICADOR.CCL_ID_PERSON, 
+  INDICADOR.CCL_ID_PERSON,
   INDICADOR.STD_ID_LEG_ENT,
   INDICADOR.CCL_ID_SECCION,
   INDICADOR.FECHA,
@@ -4078,13 +4152,12 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
   WHERE INDICADOR.ROW = 1
 ]]></entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoBaseDirectoVenta"><![CDATA[
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoBaseDirectoVenta"><![CDATA[
  INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, COD_TIPO_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
  WITH TMP_DATE (ID_TAREA_PERSONA_ESTRUCTURA, FECHA_INICIO, FECHA_FIN) AS (
         SELECT TPE.ID_TAREA_PERSONA_ESTRUCTURA, TPE.FECHA_INICIO, TPE.FECHA_FIN
         FROM TAREA_PERSONA_ESTRUCTURA TPE
         WHERE TPE.ID_TAREA = :idTarea
-        AND TPE.ICM_ID_TP_CALCULO IN (:idTipoCalculo)
         UNION ALL
         SELECT ID_TAREA_PERSONA_ESTRUCTURA, FECHA_INICIO + 1 DAY, FECHA_FIN FROM TMP_DATE
         WHERE FECHA_INICIO < FECHA_FIN
@@ -4100,7 +4173,7 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
     T.ID_TAREA,
     T.FECHA_INICIO_PERIODO,
     ROW_NUMBER() OVER (
-      PARTITION BY 
+      PARTITION BY
         LOCALIZACION.CCL_ID_COD_ORIGEN,
         TPH.CCL_ID_SECCION,
         TPH.CCL_ID_PERSON,
@@ -4122,19 +4195,19 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
     AND TPH.FECHA_FIN_LOCALIZACION >= TPE.FECHA_INICIO
     AND TPH.FECHA_INICIO_SECCION <= TPE.FECHA_FIN
     AND TPH.FECHA_FIN_SECCION >= TPE.FECHA_INICIO
-  INNER JOIN TAREA_LOCALIZACION_HISTORICO TLH 
+  INNER JOIN TAREA_LOCALIZACION_HISTORICO TLH
     ON T.ID_TAREA = TLH.ID_TAREA
-    AND TPH.CCL_ID_COD_ORIGEN = TLH.CCL_ID_COD_ORIGEN 
-    AND TPH.FECHA_INICIO <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN >= TLH.FECHA_INICIO 
-    AND TPH.FECHA_INICIO_LOCALIZACION <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN_LOCALIZACION >= TLH.FECHA_INICIO 
-    AND TPH.FECHA_INICIO_SECCION <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN_SECCION >= TLH.FECHA_INICIO 
-    AND TPE.FECHA_INICIO <= TLH.FECHA_FIN 
-    AND TPE.FECHA_FIN >= TLH.FECHA_INICIO 
+    AND TPH.CCL_ID_COD_ORIGEN = TLH.CCL_ID_COD_ORIGEN
+    AND TPH.FECHA_INICIO <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN >= TLH.FECHA_INICIO
+    AND TPH.FECHA_INICIO_LOCALIZACION <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN_LOCALIZACION >= TLH.FECHA_INICIO
+    AND TPH.FECHA_INICIO_SECCION <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN_SECCION >= TLH.FECHA_INICIO
+    AND TPE.FECHA_INICIO <= TLH.FECHA_FIN
+    AND TPE.FECHA_FIN >= TLH.FECHA_INICIO
   INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO TPED
-    ON TPED.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO  
+    ON TPED.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
     AND TPED.ID_TAREA = TPE.ID_TAREA
     AND TPED.CCL_ID_PERSON =  TPE.CCL_ID_PERSON
     AND TPED.STD_OR_HR_PERIOD =  TPE.STD_OR_HR_PERIOD
@@ -4148,10 +4221,10 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
     ON LOCALIZACION.ID_TAREA = TPED.ID_TAREA
     AND LOCALIZACION.STD_ID_WORK_LOCAT = TPED.STD_ID_WORK_LOCAT_DESTINO
     AND TPED.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO    
+    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
   INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE_BASE
     ON TPE_BASE.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
-    AND TPE_BASE.ID_TAREA = T.ID_TAREA 
+    AND TPE_BASE.ID_TAREA = T.ID_TAREA
     AND TPED.CCL_ID_PERSON =  TPE_BASE.CCL_ID_PERSON
     AND TPED.STD_OR_HR_PERIOD =  TPE_BASE.STD_OR_HR_PERIOD
     AND TPED.ICM_ID_ESTR_COMISION_PADRE = TPE_BASE.ICM_ID_ESTR_COMISION_PADRE
@@ -4160,7 +4233,7 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
     AND TPED.FECHA_INICIO = TPE_BASE.FECHA_INICIO
     AND TPED.FECHA_FIN = TPE_BASE.FECHA_FIN
   INNER JOIN TMP_DATE FA
-    ON FA.ID_TAREA_PERSONA_ESTRUCTURA = TPE.ID_TAREA_PERSONA_ESTRUCTURA    
+    ON FA.ID_TAREA_PERSONA_ESTRUCTURA = TPE.ID_TAREA_PERSONA_ESTRUCTURA
   WHERE T.ID_TAREA = :idTarea
   AND TPE_BASE.ICM_ID_TP_CALCULO IN (:idTipoCalculo)
   AND TPED.STD_ID_WORK_LOCAT_DESTINO != 'R'
@@ -4168,7 +4241,7 @@ INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIG
   SELECT
   INDICADOR.CCL_ID_COD_ORIGEN,
   INDICADOR.CCL_ID_ORIGEN,
-  INDICADOR.CCL_ID_PERSON, 
+  INDICADOR.CCL_ID_PERSON,
   INDICADOR.STD_ID_LEG_ENT,
   CAST(4 AS INT) AS CCL_ID_SECCION,
   INDICADOR.FECHA,
@@ -4183,13 +4256,13 @@ FROM INDICADOR
 WHERE INDICADOR.ROW = 1
 ]]></entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoBaseDirectoVentaFicticias"><![CDATA[
+  <entry
+    key="TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoBaseDirectoVentaFicticias"><![CDATA[
  INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (CCL_ID_COD_ORIGEN, CCL_ID_ORIGEN, CCL_ID_PERSON, STD_ID_LEG_ENT, CCL_ID_SECCION, FECHA, MINUTOS, COD_TIPO_HORA, ES_ACTIVO, ID_TIPO_DATO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)
  WITH TMP_DATE (ID_TAREA_PERSONA_ESTRUCTURA, FECHA_INICIO, FECHA_FIN) AS (
         SELECT TPE.ID_TAREA_PERSONA_ESTRUCTURA, TPE.FECHA_INICIO, TPE.FECHA_FIN
         FROM TAREA_PERSONA_ESTRUCTURA TPE
         WHERE TPE.ID_TAREA = :idTarea
-        AND TPE.ICM_ID_TP_CALCULO IN (:idTipoCalculo)
         UNION ALL
         SELECT ID_TAREA_PERSONA_ESTRUCTURA, FECHA_INICIO + 1 DAY, FECHA_FIN FROM TMP_DATE
         WHERE FECHA_INICIO < FECHA_FIN
@@ -4205,7 +4278,7 @@ WHERE INDICADOR.ROW = 1
     T.ID_TAREA,
     T.FECHA_INICIO_PERIODO,
     ROW_NUMBER() OVER (
-      PARTITION BY 
+      PARTITION BY
         LOCALIZACION.CCL_ID_COD_ORIGEN,
         TPH.CCL_ID_SECCION,
         TPH.CCL_ID_PERSON,
@@ -4227,19 +4300,19 @@ WHERE INDICADOR.ROW = 1
     AND TPH.FECHA_FIN_LOCALIZACION >= TPE.FECHA_INICIO
     AND TPH.FECHA_INICIO_SECCION <= TPE.FECHA_FIN
     AND TPH.FECHA_FIN_SECCION >= TPE.FECHA_INICIO
-  INNER JOIN TAREA_LOCALIZACION_HISTORICO TLH 
+  INNER JOIN TAREA_LOCALIZACION_HISTORICO TLH
     ON T.ID_TAREA = TLH.ID_TAREA
-    AND TPH.CCL_ID_COD_ORIGEN = TLH.CCL_ID_COD_ORIGEN 
-    AND TPH.FECHA_INICIO <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN >= TLH.FECHA_INICIO 
-    AND TPH.FECHA_INICIO_LOCALIZACION <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN_LOCALIZACION >= TLH.FECHA_INICIO 
-    AND TPH.FECHA_INICIO_SECCION <= TLH.FECHA_FIN 
-    AND TPH.FECHA_FIN_SECCION >= TLH.FECHA_INICIO 
-    AND TPE.FECHA_INICIO <= TLH.FECHA_FIN 
-    AND TPE.FECHA_FIN >= TLH.FECHA_INICIO 
+    AND TPH.CCL_ID_COD_ORIGEN = TLH.CCL_ID_COD_ORIGEN
+    AND TPH.FECHA_INICIO <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN >= TLH.FECHA_INICIO
+    AND TPH.FECHA_INICIO_LOCALIZACION <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN_LOCALIZACION >= TLH.FECHA_INICIO
+    AND TPH.FECHA_INICIO_SECCION <= TLH.FECHA_FIN
+    AND TPH.FECHA_FIN_SECCION >= TLH.FECHA_INICIO
+    AND TPE.FECHA_INICIO <= TLH.FECHA_FIN
+    AND TPE.FECHA_FIN >= TLH.FECHA_INICIO
   INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO TPED
-    ON TPED.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO  
+    ON TPED.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
     AND TPED.ID_TAREA = TPE.ID_TAREA
     AND TPED.CCL_ID_PERSON =  TPE.CCL_ID_PERSON
     AND TPED.STD_OR_HR_PERIOD =  TPE.STD_OR_HR_PERIOD
@@ -4253,10 +4326,10 @@ WHERE INDICADOR.ROW = 1
     ON LOCALIZACION.ID_TAREA = TPED.ID_TAREA
     AND LOCALIZACION.STD_ID_WORK_LOCAT = TPED.STD_ID_WORK_LOCAT_DESTINO
     AND TPED.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO    
+    AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
   INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE_BASE
     ON TPE_BASE.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
-    AND TPE_BASE.ID_TAREA = T.ID_TAREA 
+    AND TPE_BASE.ID_TAREA = T.ID_TAREA
     AND TPED.CCL_ID_PERSON =  TPE_BASE.CCL_ID_PERSON
     AND TPED.STD_OR_HR_PERIOD =  TPE_BASE.STD_OR_HR_PERIOD
     AND TPED.ICM_ID_ESTR_COMISION_PADRE = TPE_BASE.ICM_ID_ESTR_COMISION_PADRE
@@ -4272,13 +4345,13 @@ WHERE INDICADOR.ROW = 1
     AND TPED.FECHA_FIN >= TLPP.FECHA
     AND LOCALIZACION.CCL_ID_COD_ORIGEN = TLPP.CCL_ID_COD_ORIGEN
     AND TPED.CCL_ID_ORIGEN = TLPP.CCL_ID_ORIGEN
-    AND TPED.CCL_ID_SECCION_DESTINO = TLPP.CCL_ID_SECCION   
+    AND TPED.CCL_ID_SECCION_DESTINO = TLPP.CCL_ID_SECCION
   INNER JOIN TIPO_DATO TIPO_DATO
     ON TLPP.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
   INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_TIPO_DATO
-    ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO       
+    ON TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_DATO = TIPO_DATO.ID_TIPO_DATO
   INNER JOIN TMP_DATE FA
-    ON FA.ID_TAREA_PERSONA_ESTRUCTURA = TPE.ID_TAREA_PERSONA_ESTRUCTURA    
+    ON FA.ID_TAREA_PERSONA_ESTRUCTURA = TPE.ID_TAREA_PERSONA_ESTRUCTURA
   WHERE T.ID_TAREA = :idTarea
   AND TPE_BASE.ICM_ID_TP_CALCULO IN (:idTipoCalculo)
   AND TPED.STD_ID_WORK_LOCAT_DESTINO = 'R'
@@ -4287,7 +4360,7 @@ WHERE INDICADOR.ROW = 1
   SELECT
   INDICADOR.CCL_ID_COD_ORIGEN,
   INDICADOR.CCL_ID_ORIGEN,
-  INDICADOR.CCL_ID_PERSON, 
+  INDICADOR.CCL_ID_PERSON,
   INDICADOR.STD_ID_LEG_ENT,
   CAST(4 AS INT) AS CCL_ID_SECCION,
   INDICADOR.FECHA,
@@ -4302,37 +4375,41 @@ FROM INDICADOR
 WHERE INDICADOR.ROW = 1
 ]]></entry>
 
-<entry key="ProgramacionRepositoryCustom.reset">
-<![CDATA[UPDATE PROGRAMACION SET FECHA_HORA_SIGUIENTE_EJECUCION = :fechaSiguienteEjecucion WHERE ES_ACTIVO = :activo]]>
-</entry>
+  <entry key="ProgramacionRepositoryCustom.reset">
+    <![CDATA[UPDATE PROGRAMACION SET FECHA_HORA_SIGUIENTE_EJECUCION = :fechaSiguienteEjecucion WHERE ES_ACTIVO = :activo]]>
+  </entry>
 
-<entry key="ProgramacionRepositoryCustom.activa">
-<![CDATA[UPDATE PROGRAMACION SET ES_ACTIVO = :activo]]>
-</entry>
-<entry key="ProgramacionRepositoryCustom.activaById">
-<![CDATA[UPDATE PROGRAMACION SET ES_ACTIVO = :activo WHERE ID_PROGRAMACION = :idProgramacion]]>
-</entry>
+  <entry key="ProgramacionRepositoryCustom.activa">
+    <![CDATA[UPDATE PROGRAMACION SET ES_ACTIVO = :activo]]>
+  </entry>
+  <entry key="ProgramacionRepositoryCustom.activaById">
+    <![CDATA[UPDATE PROGRAMACION SET ES_ACTIVO = :activo WHERE ID_PROGRAMACION = :idProgramacion]]>
+  </entry>
 
-<entry key="TareaLimpiezaRepositoryCustom.mergeLimpieza">
+  <entry key="ProgramacionRepositoryCustom.updateSiguienteEjecucion">
+    <![CDATA[UPDATE PROGRAMACION SET FECHA_HORA_SIGUIENTE_EJECUCION = :fechaSiguienteEjecucion WHERE ID_PROGRAMACION IN (:idProgramacion)]]>
+  </entry>
+
+  <entry key="TareaLimpiezaRepositoryCustom.updateFechaFinalizacion">
     <![CDATA[
-    MERGE INTO TAREA_LIMPIEZA AS TL USING
-    (
-        SELECT ID_TAREA
-        FROM TAREA 
-        WHERE ID_TAREA = :idTarea 
-    ) AS S ON (
-        TL.ID_TAREA = S.ID_TAREA
-    )
-    WHEN MATCHED THEN
-        UPDATE SET ES_COMPLETA = :activo
-    WHEN NOT MATCHED THEN
-        INSERT (ID_TAREA, ES_COMPLETA, ES_PARCIAL, FECHA_HORA_LIMPIEZA, NOMBRE_USUARIO)
-        VALUES (:idTarea, :activo, :inactivo, :fechaHoraLimpieza, :nombreUsuario)
+    UPDATE TAREA_LIMPIEZA SET FECHA_HORA_FIN = :fechaHoraFin WHERE ID_TAREA_LIMPIEZA = :idTareaLimpieza
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.procesarPresenciasHorasFijas">
-  <![CDATA[
+  <entry key="TareaLimpiezaRepositoryCustom.updateEstado">
+    <![CDATA[
+    UPDATE TAREA_LIMPIEZA SET ID_ESTADO_LIMPIEZA = :idEstadoLimpieza WHERE ID_TAREA_LIMPIEZA = :idTareaLimpieza
+    ]]>
+  </entry>
+
+  <entry key="TareaLimpiezaRepositoryCustom.inicioLimpieza">
+    <![CDATA[
+    UPDATE TAREA_LIMPIEZA SET ID_ESTADO_LIMPIEZA = :idEstadoLimpieza, FECHA_HORA_INICIO = :fechaHoraInicio WHERE ID_TAREA_LIMPIEZA = :idTareaLimpieza
+    ]]>
+  </entry>
+
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.procesarPresenciasHorasFijas">
+    <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (FECHA, ID_TIPO_DATO, ID_TAREA, STD_ID_LEG_ENT, CCL_ID_COD_ORIGEN,
     CCL_ID_ORIGEN, CCL_ID_PERSON, CCL_ID_SECCION, COD_TIPO_HORA, CCL_ID_CADENA, ES_ACTIVO, MINUTOS, FECHA_INICIO_PERIODO)
   SELECT
@@ -4386,17 +4463,17 @@ WHERE INDICADOR.ROW = 1
     AND POLITICA.ID_TIPO_POLITICA = :idTipoPolitica
     AND DESPLAZAMIENTO.ID_TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO IS NULL
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.procesarPresenciasHorasFijasDesplazamientos">
-  <![CDATA[
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.procesarPresenciasHorasFijasDesplazamientos">
+    <![CDATA[
     INSERT INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA (FECHA, ID_TIPO_DATO, ID_TAREA, STD_ID_LEG_ENT, CCL_ID_COD_ORIGEN,
       CCL_ID_ORIGEN, CCL_ID_PERSON, CCL_ID_SECCION, COD_TIPO_HORA, CCL_ID_CADENA, ES_ACTIVO, MINUTOS, FECHA_INICIO_PERIODO)
     WITH DESPLAZAMIENTO AS (
       SELECT
         FECHA_INICIO_PERIODO,
         ID_TAREA,
-        STD_ID_WORK_LOCAT_DESTINO,        
+        STD_ID_WORK_LOCAT_DESTINO,
         CCL_ID_SECCION_DESTINO,
         CCL_ID_PERSON,
         STD_OR_HR_PERIOD,
@@ -4408,7 +4485,7 @@ WHERE INDICADOR.ROW = 1
       GROUP BY
         FECHA_INICIO_PERIODO,
         ID_TAREA,
-        STD_ID_WORK_LOCAT_DESTINO,        
+        STD_ID_WORK_LOCAT_DESTINO,
         CCL_ID_SECCION_DESTINO,
         CCL_ID_PERSON,
         STD_OR_HR_PERIOD,
@@ -4462,15 +4539,15 @@ WHERE INDICADOR.ROW = 1
         ON DESPLAZAMIENTO.ID_TAREA = LOCALIZACION.ID_TAREA
         AND DESPLAZAMIENTO.STD_ID_WORK_LOCAT_DESTINO = LOCALIZACION.STD_ID_WORK_LOCAT
         AND DESPLAZAMIENTO.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-        AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO    
+        AND DESPLAZAMIENTO.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
       INNER JOIN TAREA_LOCALIZACION_ABIERTA ABIERTA
         ON ABIERTA.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
         AND ABIERTA.CCL_ID_COD_ORIGEN = LOCALIZACION.CCL_ID_COD_ORIGEN
         AND ABIERTA.FECHA <= MIN(POLITICA.FECHA_FIN, DESPLAZAMIENTO.FECHA_FIN)
         AND ABIERTA.FECHA >= MAX(POLITICA.FECHA_INICIO, DESPLAZAMIENTO.FECHA_INICIO)
         AND ABIERTA.CCL_ID_SECCION = DESPLAZAMIENTO.CCL_ID_SECCION_DESTINO
-        AND ABIERTA.FECHA BETWEEN LOCALIZACION.FECHA_INICIO AND LOCALIZACION.FECHA_FIN        
-        AND ABIERTA.ES_ABIERTO = :abierto        
+        AND ABIERTA.FECHA BETWEEN LOCALIZACION.FECHA_INICIO AND LOCALIZACION.FECHA_FIN
+        AND ABIERTA.ES_ABIERTO = :abierto
       INNER JOIN TAREA_CONFIGURACION CONFIGURACION
         ON CONFIGURACION.ID_TAREA = POLITICA.ID_TAREA
         AND CONFIGURACION.CCL_ID_ORIGEN = LOCALIZACION.CCL_ID_ORIGEN
@@ -4480,36 +4557,36 @@ WHERE INDICADOR.ROW = 1
         AND POLITICA.ID_TIPO_POLITICA = :idTipoPolitica)
     WHERE ROW = 1
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaEstructuraPoliticaRepositoryCustom.updateImporteEstructuraPoliticas">
-  <![CDATA[
+  <entry key="TareaPersonaEstructuraPoliticaRepositoryCustom.updateImporteEstructuraPoliticas">
+    <![CDATA[
 MERGE INTO TAREA_PERSONA_ESTRUCTURA_POLITICA AS POLITICA USING
-(SELECT  
-        T.CCL_ID_ORIGEN, 
-        T.STD_ID_LEG_ENT, 
-        T.CCL_ID_PERSON, 
+(SELECT
+        T.CCL_ID_ORIGEN,
+        T.STD_ID_LEG_ENT,
+        T.CCL_ID_PERSON,
         T.STD_OR_HR_PERIOD,
-        SUM(T.IMPORTE) / T.ICM_NUM_MESES_CALC_MEDIA AS IMPORTE  
+        SUM(T.IMPORTE) / T.ICM_NUM_MESES_CALC_MEDIA AS IMPORTE
         FROM (
-                SELECT  T.FECHA_INICIO_PERIODO, 
+                SELECT  T.FECHA_INICIO_PERIODO,
                 T.ID_TAREA,
-                T.CCL_ID_ORIGEN, 
-                T.STD_ID_LEG_ENT, 
-                TC.CCL_ID_PERSON, 
+                T.CCL_ID_ORIGEN,
+                T.STD_ID_LEG_ENT,
+                TC.CCL_ID_PERSON,
                 TC.STD_OR_HR_PERIOD,
-                T.NUMERO_MES, 
-                SUM(TC.IMPORTE) AS IMPORTE, 
+                T.NUMERO_MES,
+                SUM(TC.IMPORTE) AS IMPORTE,
                 T.ICM_NUM_MESES_CALC_MEDIA
                 FROM(
-                        SELECT T.FECHA_INICIO_PERIODO, 
+                        SELECT T.FECHA_INICIO_PERIODO,
                                         T.ID_TAREA,
-                                        PCP.CCL_ID_ORIGEN, 
+                                        PCP.CCL_ID_ORIGEN,
                                         PCP.STD_ID_LEG_ENT,
-                                        ROW_NUMBER() OVER (PARTITION BY PCP.CCL_ID_ORIGEN, PCP.STD_ID_LEG_ENT, TPEP.CCL_ID_PERSON, TPEP.STD_OR_HR_PERIOD ORDER BY T.FECHA_INICIO_PERIODO DESC) AS NUMERO_MES, 
-                                        TPEP.CCL_ID_PERSON, 
+                                        ROW_NUMBER() OVER (PARTITION BY PCP.CCL_ID_ORIGEN, PCP.STD_ID_LEG_ENT, TPEP.CCL_ID_PERSON, TPEP.STD_OR_HR_PERIOD ORDER BY T.FECHA_INICIO_PERIODO DESC) AS NUMERO_MES,
+                                        TPEP.CCL_ID_PERSON,
                                         TPEP.STD_OR_HR_PERIOD,
-                                        TPEP.ICM_NUM_MESES_CALC_MEDIA    
+                                        TPEP.ICM_NUM_MESES_CALC_MEDIA
                         FROM TAREA_PERSONA_ESTRUCTURA_POLITICA TPEP
                         INNER JOIN PERIODO_CALCULO_PERSONA PCP
                         ON PCP.CCL_ID_ORIGEN = TPEP.CCL_ID_ORIGEN
@@ -4521,7 +4598,7 @@ MERGE INTO TAREA_PERSONA_ESTRUCTURA_POLITICA AS POLITICA USING
                         WHERE TPEP.ID_TAREA = :idTarea
                         AND TPEP.ICM_IMPORTE = :inactivo
                         GROUP BY T.FECHA_INICIO_PERIODO, T.ID_TAREA, PCP.CCL_ID_ORIGEN, PCP.STD_ID_LEG_ENT, TPEP.CCL_ID_PERSON, TPEP.STD_OR_HR_PERIOD, TPEP.ICM_NUM_MESES_CALC_MEDIA
-                ) T 
+                ) T
         LEFT JOIN TAREA_CALCULO TC
         ON T.FECHA_INICIO_PERIODO = TC.FECHA_INICIO_PERIODO
         AND T.ID_TAREA = TC.ID_TAREA
@@ -4530,23 +4607,23 @@ MERGE INTO TAREA_PERSONA_ESTRUCTURA_POLITICA AS POLITICA USING
         GROUP BY T.FECHA_INICIO_PERIODO, T.ID_TAREA, T.CCL_ID_ORIGEN, T.STD_ID_LEG_ENT, TC.CCL_ID_PERSON, TC.STD_OR_HR_PERIOD, T.NUMERO_MES, T.ICM_NUM_MESES_CALC_MEDIA
 ) T
 WHERE T.NUMERO_MES <= T.ICM_NUM_MESES_CALC_MEDIA
-GROUP BY T.CCL_ID_ORIGEN, T.STD_ID_LEG_ENT, T.CCL_ID_PERSON, T.STD_OR_HR_PERIOD, T.ICM_NUM_MESES_CALC_MEDIA) AS S   
+GROUP BY T.CCL_ID_ORIGEN, T.STD_ID_LEG_ENT, T.CCL_ID_PERSON, T.STD_OR_HR_PERIOD, T.ICM_NUM_MESES_CALC_MEDIA) AS S
 ON (S.CCL_ID_ORIGEN = POLITICA.CCL_ID_ORIGEN AND S.STD_OR_HR_PERIOD = POLITICA.STD_OR_HR_PERIOD AND S.CCL_ID_PERSON = POLITICA.CCL_ID_PERSON )
 WHEN MATCHED AND POLITICA.ID_TAREA = :idTarea AND POLITICA.ID_TIPO_POLITICA = :idTipoPolitica AND POLITICA.ICM_IMPORTE = :inactivo THEN
     UPDATE SET ICM_IMPORTE = S.IMPORTE
   ]]>
-</entry>
+  </entry>
 
 
-<entry key="TareaConfiguracionRepositoryCustom.save">
-  <![CDATA[
+  <entry key="TareaConfiguracionRepositoryCustom.save">
+    <![CDATA[
   INSERT INTO TAREA_CONFIGURACION (ID_TAREA, CCL_ID_ORIGEN, FECHA_INICIO, FECHA_FIN, COD_TIPO_HORA, ICM_CK_VENTA_IMPUESTOS, ICM_CK_INC_IVA_EVAL_PTPO)
   VALUES (:tarea.id, :cclIdOrigen, :fechaInicio, :fechaFin, :codTipoHora, :icmCkVentaImpuestos, :icmCkIncIvaEvalPtpo)
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.totalizarOperacionesLocalizacionSeccion">
-  <![CDATA[
+  <entry key="TareaLocalizacionVentaRepositoryCustom.totalizarOperacionesLocalizacionSeccion">
+    <![CDATA[
   MERGE INTO TAREA_LOCALIZACION_VENTA AS TLP USING
     (SELECT
       FECHA,
@@ -4579,10 +4656,10 @@ WHEN MATCHED AND POLITICA.ID_TAREA = :idTarea AND POLITICA.ID_TIPO_POLITICA = :i
     INSERT (FECHA, ID_TAREA, CCL_ID_COD_ORIGEN, CCL_ID_CADENA, FECHA_INICIO_PERIODO, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, CCL_ID_SECCION, ID_TIPO_DATO, ES_ACTIVO)
     VALUES (S.FECHA, S.ID_TAREA, S.CCL_ID_COD_ORIGEN, S.CCL_ID_CADENA, S.FECHA_INICIO_PERIODO, S.IMPORTE_SIN_IMPUESTOS, S.IMPORTE_CON_IMPUESTOS, S.CCL_ID_SECCION, S.ID_TIPO_DATO, S.ES_ACTIVO)
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta">
-  <![CDATA[
+  <entry key="TareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta">
+    <![CDATA[
   MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING (
     SELECT
       VENTA.ID_TAREA,
@@ -4622,10 +4699,10 @@ WHEN MATCHED AND POLITICA.ID_TAREA = :idTarea AND POLITICA.ID_TIPO_POLITICA = :i
     INSERT (FECHA, ID_TAREA, CCL_ID_COD_ORIGEN, CCL_ID_CADENA, FECHA_INICIO_PERIODO, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, CCL_ID_SECCION, ID_TIPO_DATO, ES_ACTIVO)
     VALUES (S.FECHA, S.ID_TAREA, S.CCL_ID_COD_ORIGEN, S.CCL_ID_CADENA, S.FECHA_INICIO_PERIODO, S.IMPORTE_SIN_IMPUESTOS, S.IMPORTE_CON_IMPUESTOS, S.CCL_ID_SECCION, S.ID_TIPO_DATO, S.ES_ACTIVO)
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion">
-  <![CDATA[
+  <entry key="TareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion">
+    <![CDATA[
   MERGE INTO TAREA_LOCALIZACION_PERSONA_VENTA AS TLPV USING (
     SELECT
       ID_TAREA,
@@ -4657,10 +4734,10 @@ WHEN MATCHED AND POLITICA.ID_TAREA = :idTarea AND POLITICA.ID_TIPO_POLITICA = :i
     INSERT (FECHA, ID_TAREA, ID_TIPO_DATO, CCL_ID_COD_ORIGEN, CCL_ID_PERSON, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, FECHA_INICIO_PERIODO, CCL_ID_CADENA, CCL_ID_SECCION, ES_ACTIVO)
     VALUES (S.FECHA, S.ID_TAREA, S.ID_TIPO_DATO, S.CCL_ID_COD_ORIGEN, S.CCL_ID_PERSON, S.IMPORTE_SIN_IMPUESTOS, S.IMPORTE_CON_IMPUESTOS, S.FECHA_INICIO_PERIODO, S.CCL_ID_CADENA, S.CCL_ID_SECCION, S.ES_ACTIVO)
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores">
-  <![CDATA[
+  <entry key="TareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores">
+    <![CDATA[
     INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, FECHA_INICIO_PERIODO, ES_ACTIVO)
     WITH VENTA_FISICA_LOCALIZACION AS (
       SELECT
@@ -4717,10 +4794,10 @@ WHEN MATCHED AND POLITICA.ID_TAREA = :idTarea AND POLITICA.ID_TIPO_POLITICA = :i
       AND PRESENCIA_EMPLEADOS_POR_VENTA.ES_ACTIVO = :activo
       AND PRESENCIA_EMPLEADOS_POR_VENTA.ID_TIPO_DATO = :idTipoDatoPresenciaLocalizacionPersonasPorVenta
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion">
-  <![CDATA[
+  <entry key="TareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion">
+    <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, FECHA_INICIO_PERIODO, ES_ACTIVO)
   WITH VENTA_FISICA AS
     (SELECT
@@ -4778,28 +4855,28 @@ WHEN MATCHED AND POLITICA.ID_TAREA = :idTarea AND POLITICA.ID_TIPO_POLITICA = :i
   AND IMPORTE_COMISION_VENDEDORES.ES_ACTIVO = :activo
   AND IMPORTE_COMISION_VENDEDORES.ID_TIPO_DATO = :idTipoDatoImporteComisionVendedores
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.updateActivoNegativoTotalizado">
-  <![CDATA[
+  <entry key="TareaLocalizacionVentaRepositoryCustom.updateActivoNegativoTotalizado">
+    <![CDATA[
 MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
 (
         SELECT TLV.ID_TAREA_LOCALIZACION_VENTA
-        FROM TAREA_LOCALIZACION_VENTA TLV 
-        INNER JOIN 
+        FROM TAREA_LOCALIZACION_VENTA TLV
+        INNER JOIN
         (
                 SELECT IMPORTE_SIN_IMPUESTOS, FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_COD_ORIGEN, FECHA FROM (
                         SELECT SUM(TLV.IMPORTE_SIN_IMPUESTOS) AS IMPORTE_SIN_IMPUESTOS, TLV.FECHA_INICIO_PERIODO, TLV.ID_TAREA, TLV.CCL_ID_COD_ORIGEN, TLV.FECHA
                         FROM TAREA_LOCALIZACION_VENTA TLV
-                        INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TGDTD 
+                        INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TGDTD
                         ON TGDTD.ID_TIPO_DATO = TLV.ID_TIPO_DATO
                         WHERE TLV.ID_TAREA = :idTarea
                         AND TLV.ES_ACTIVO = :activo
                         AND TGDTD.ID_TIPO_GRUPO_DATO = :idTipoGrupoDato
-                        GROUP BY TLV.FECHA_INICIO_PERIODO, TLV.ID_TAREA, TLV.CCL_ID_COD_ORIGEN, TLV.FECHA 
+                        GROUP BY TLV.FECHA_INICIO_PERIODO, TLV.ID_TAREA, TLV.CCL_ID_COD_ORIGEN, TLV.FECHA
                 ) WHERE IMPORTE_SIN_IMPUESTOS <= 0
         ) DESACTIVAR
-        ON DESACTIVAR.FECHA_INICIO_PERIODO = TLV.FECHA_INICIO_PERIODO 
+        ON DESACTIVAR.FECHA_INICIO_PERIODO = TLV.FECHA_INICIO_PERIODO
         AND DESACTIVAR.ID_TAREA = TLV.ID_TAREA
         AND DESACTIVAR.CCL_ID_COD_ORIGEN = TLV.CCL_ID_COD_ORIGEN
         AND DESACTIVAR.FECHA = TLV.FECHA
@@ -4808,20 +4885,20 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
         WHEN MATCHED THEN
                 UPDATE SET ES_ACTIVO = :inactivo
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaHistoricoRepositoryCustom.findPeriodoDtoByIdTarea">
-  <![CDATA[
+  <entry key="TareaPersonaHistoricoRepositoryCustom.findPeriodoDtoByIdTarea">
+    <![CDATA[
       SELECT TR.FECHA_INICIO_PERIODO, TR.FECHA_FIN_PERIODO
       FROM TAREA T
       INNER JOIN TRABAJO TR
       ON TR.ID_TRABAJO = T.ID_TRABAJO
       WHERE T.ID_TAREA = :idTarea
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionPresupuestosByIdTarea">
-  <![CDATA[
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionPresupuestosByIdTarea">
+    <![CDATA[
       SELECT TLP.ID_TIPO_PRESUPUESTO, TLP.FECHA_INICIO, TLP.FECHA_FIN
       FROM TAREA T
       INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE
@@ -4833,7 +4910,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
         ON TPH.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
         AND TPH.ID_TAREA = TPE.ID_TAREA
         AND TPH.CCL_ID_PERSON = TPE.CCL_ID_PERSON
-        AND TPH.STD_OR_HR_PERIOD = TPE.STD_OR_HR_PERIOD        
+        AND TPH.STD_OR_HR_PERIOD = TPE.STD_OR_HR_PERIOD
       LEFT JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO TPED
         ON TPED.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
         AND TPED.ID_TAREA = TPE.ID_TAREA
@@ -4847,9 +4924,9 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
         AND TPED.FECHA_FIN = TPE.FECHA_FIN
       LEFT JOIN TAREA_LOCALIZACION_HISTORICO LOCALIZACION
         ON TPED.ID_TAREA = LOCALIZACION.ID_TAREA
-        AND TPED.STD_ID_WORK_LOCAT_DESTINO = LOCALIZACION.STD_ID_WORK_LOCAT  
+        AND TPED.STD_ID_WORK_LOCAT_DESTINO = LOCALIZACION.STD_ID_WORK_LOCAT
         AND TPED.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-        AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO                
+        AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
       INNER JOIN TAREA_LOCALIZACION_PRESUPUESTO TLP
         ON TLP.ID_TAREA = TPH.ID_TAREA
         AND ((TPED.ID_TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO IS NOT NULL
@@ -4859,10 +4936,10 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
         AND TPE.ICM_ID_TP_COMISION IN (:tiposComision)
       GROUP BY TLP.ID_TIPO_PRESUPUESTO, TLP.FECHA_INICIO, TLP.FECHA_FIN
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea">
-  <![CDATA[
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea">
+    <![CDATA[
       SELECT TLP.ID_TIPO_PRESUPUESTO, TLP.FECHA_INICIO, TLP.FECHA_FIN
       FROM TAREA T
       INNER JOIN TRABAJO TR
@@ -4894,17 +4971,17 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
             OR TLP.CCL_ID_COD_ORIGEN = TPH.CCL_ID_COD_ORIGEN)
       INNER JOIN TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA TACCTV
         ON TACCTV.ID_TAREA = TLP.ID_TAREA
-        AND TACCTV.CCL_ID_ORIGEN = TLP.CCL_ID_ORIGEN             
+        AND TACCTV.CCL_ID_ORIGEN = TLP.CCL_ID_ORIGEN
       WHERE T.ID_TAREA = :idTarea
         AND TPE.ICM_ID_TP_COMISION IN (:tiposComision)
         AND TPH.STD_ID_LEG_ENT IN (:stdIdLegEnt)
         AND TACCTV.ID_TIPO_VENTA_CONCEPTO_CHALLENGE in (:tipoVentaConceptoChallenge)
       GROUP BY TLP.ID_TIPO_PRESUPUESTO, TLP.FECHA_INICIO, TLP.FECHA_FIN
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionGrupoFechasByIdTarea">
-  <![CDATA[
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionGrupoFechasByIdTarea">
+    <![CDATA[
       WITH FECHAS_PRESUPUESTO AS
         (SELECT
           MIN(FECHA_INICIO) AS FECHA_INICIO,
@@ -4946,9 +5023,9 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
         AND TPED.FECHA_FIN = TPE.FECHA_FIN
       LEFT JOIN TAREA_LOCALIZACION_HISTORICO LOCALIZACION
         ON TPED.ID_TAREA = LOCALIZACION.ID_TAREA
-        AND TPED.STD_ID_WORK_LOCAT_DESTINO = LOCALIZACION.STD_ID_WORK_LOCAT  
+        AND TPED.STD_ID_WORK_LOCAT_DESTINO = LOCALIZACION.STD_ID_WORK_LOCAT
         AND TPED.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-        AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO        
+        AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
       INNER JOIN FECHAS_PRESUPUESTO P
         ON P.ID_TAREA = T.ID_TAREA
         AND ((TPED.ID_TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO IS NOT NULL
@@ -4957,10 +5034,10 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
       WHERE T.ID_TAREA = :idTarea
       GROUP BY TR.FECHA_INICIO_PERIODO, TR.FECHA_FIN_PERIODO, TPH.CCL_ID_COD_ORIGEN, P.FECHA_INICIO, P.FECHA_FIN
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea">
-  <![CDATA[
+  <entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea">
+    <![CDATA[
       WITH FECHAS_PRESUPUESTO AS
         (SELECT
           MIN(FECHA_INICIO) AS FECHA_INICIO,
@@ -5003,9 +5080,9 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
         AND TPED.FECHA_FIN = TPE.FECHA_FIN
       LEFT JOIN TAREA_LOCALIZACION_HISTORICO LOCALIZACION
         ON TPED.ID_TAREA = LOCALIZACION.ID_TAREA
-        AND TPED.STD_ID_WORK_LOCAT_DESTINO = LOCALIZACION.STD_ID_WORK_LOCAT  
+        AND TPED.STD_ID_WORK_LOCAT_DESTINO = LOCALIZACION.STD_ID_WORK_LOCAT
         AND TPED.FECHA_INICIO <= LOCALIZACION.FECHA_FIN
-        AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO          
+        AND TPED.FECHA_FIN >= LOCALIZACION.FECHA_INICIO
       INNER JOIN FECHAS_PRESUPUESTO P
         ON P.ID_TAREA = T.ID_TAREA
         AND ((TPED.ID_TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO IS NOT NULL
@@ -5014,10 +5091,10 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
       WHERE T.ID_TAREA = :idTarea
       GROUP BY TR.FECHA_INICIO_PERIODO, TR.FECHA_FIN_PERIODO, TPH.STD_ID_HR, TPH.STD_OR_HR_PERIOD, P.FECHA_INICIO, P.FECHA_FIN
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaEstructuraRepositoryCustom.updateActivoTopes">
-  <![CDATA[
+  <entry key="TareaPersonaEstructuraRepositoryCustom.updateActivoTopes">
+    <![CDATA[
   -- TODO [JAVIEREV] Definir la consulta que active las estructuras topes
   UPDATE TAREA_PERSONA_ESTRUCTURA
   SET ES_ACTIVO = :activo
@@ -5025,17 +5102,17 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
   AND ID_TAREA = :idTarea
   AND ICM_ORD_TOPE > :icmOrdTope
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoRepositoryCustom.save">
-  <![CDATA[
+  <entry key="TareaLocalizacionPresupuestoRepositoryCustom.save">
+    <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_PRESUPUESTO (ID_TAREA, CCL_ID_ORIGEN, STD_ID_LEG_ENT, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, CCL_ID_SECCION, FECHA_INICIO, FECHA_FIN, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ICM_BANDA, ICM_ORDINAL, ICM_CK_EXCEPCION, ID_TIPO_PRESUPUESTO, ES_ACTIVO)
   VALUES (:tarea.id, :cclIdOrigen, :stdIdLegEnt, :cclIdCodOrigen, :stdIdWorkLocat, :cclIdSeccion, :fechaInicio, :fechaFin, :importeSinImpuestos, :importeConImpuestos, :banda, :ordinal, :excepcion, :tipoPresupuesto.id, :activo)
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaEstructura.findPersonasChallenge">
-  <![CDATA[
+  <entry key="TareaPersonaEstructura.findPersonasChallenge">
+    <![CDATA[
   SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD
   FROM TAREA_PERSONA_ESTRUCTURA
   WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo
@@ -5043,10 +5120,10 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
   AND ICM_ID_TP_CALCULO IN (:tiposCalculo)
   GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos">
-  <![CDATA[
+  <entry key="TareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos">
+    <![CDATA[
   SELECT
     CCL_ID_ORIGEN,
     STD_ID_LEG_ENT,
@@ -5057,10 +5134,10 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
   FROM TAREA_LOCALIZACION_PRESUPUESTO
   WHERE ID_TAREA = :idTarea
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo">
-  <![CDATA[
+  <entry key="TareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo">
+    <![CDATA[
   WITH FECHAS_PRESUPUESTO AS
     (SELECT
       MIN(FECHA_INICIO) AS FECHA_INICIO,
@@ -5083,55 +5160,55 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
   WHERE
     TAREA.ID_TAREA = :idTarea
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaConfiguracionChallengeDiasMinimosRepositoryCustom.save">
-  <![CDATA[
+  <entry key="TareaConfiguracionChallengeDiasMinimosRepositoryCustom.save">
+    <![CDATA[
   INSERT INTO TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS (ID_TAREA, ICM_ID_TP_CALCULO, ICM_MIN_NUM_DAYS, FECHA_INICIO, FECHA_FIN, CCL_ID_ORIGEN)
   VALUES (:tarea.id, :icmIdTpCalculo, :icmMinNumDays, :fechaInicio, :fechaFin, :cclIdOrigen)
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaConfiguracionPrecioHoraRepositoryCustom.save">
-  <![CDATA[
+  <entry key="TareaConfiguracionPrecioHoraRepositoryCustom.save">
+    <![CDATA[
   INSERT INTO TAREA_CONFIGURACION_PRECIO_HORA (ID_TAREA, ICM_CK_TP_HORA_COMIS, ICM_CK_TP_HORA_INC_PTPO, FECHA_INICIO, FECHA_FIN, CCL_ID_ORIGEN)
   VALUES (:tarea.id, :icmCkTpHoraComis, :icmCkTpHoraIncPtpo, :fechaInicio, :fechaFin, :cclIdOrigen)
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save">
-  <![CDATA[
+  <entry key="TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save">
+    <![CDATA[
   INSERT INTO TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA (ID_TAREA, ICM_ID_AGRUPACION_ONLINE, ID_TIPO_VENTA_CONCEPTO_CHALLENGE, FECHA_INICIO, FECHA_FIN, CCL_ID_ORIGEN)
   VALUES (:tarea.id, :icmIdAgrupacionOnline, :tipoVentaConceptoChallenge.id, :fechaInicio, :fechaFin, :cclIdOrigen)
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoVentaRepositoryCustom.save">
-  <![CDATA[
+  <entry key="TareaLocalizacionPresupuestoVentaRepositoryCustom.save">
+    <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_PRESUPUESTO_VENTA (ID_TAREA, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, ICM_ORDINAL, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TIPO_PRESUPUESTO, ID_TIPO_VENTA_CONCEPTO_CHALLENGE, CCL_ID_ORIGEN, ES_ACTIVO, ID_TIPO_DATO, FECHA_FIN, FECHA_INICIO)
   VALUES (:tarea.id, :cclIdCadena, :cclIdCodOrigen, :cclIdSeccion, :ordinal, :importeSinImpuestos, :importeConImpuestos, :tipoPresupuesto.id, :tipoVentaConceptoChallenge.id, :cclIdOrigen, :activo, :tipoDato.id, :fechaFin, :fechaInicio)
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoRepositoryCustom.updateActivoBandaExcepcion">
-  <![CDATA[
+  <entry key="TareaLocalizacionPresupuestoRepositoryCustom.updateActivoBandaExcepcion">
+    <![CDATA[
     UPDATE TAREA_LOCALIZACION_PRESUPUESTO
     SET ES_ACTIVO = :nuevoActivo
     WHERE ID_TAREA = :idTarea
     AND ICM_CK_EXCEPCION = :icmCkExcepcion
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoVacioExcepcionada">
-  <![CDATA[
+  <entry key="TareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoVacioExcepcionada">
+    <![CDATA[
     MERGE INTO TAREA_LOCALIZACION_PRESUPUESTO_VENTA AS TLPV USING (
             SELECT ID_TAREA_LOCALIZACION_PRESUPUESTO_VENTA
             FROM TAREA T
             INNER JOIN TAREA_LOCALIZACION_PRESUPUESTO TLP
-            ON TLP.ID_TAREA = T.ID_TAREA 
+            ON TLP.ID_TAREA = T.ID_TAREA
             INNER JOIN TAREA_LOCALIZACION_PRESUPUESTO_VENTA TLPV
             ON TLPV.ID_TAREA = TLP.ID_TAREA
-            AND TLPV.CCL_ID_COD_ORIGEN = TLP.CCL_ID_COD_ORIGEN 
+            AND TLPV.CCL_ID_COD_ORIGEN = TLP.CCL_ID_COD_ORIGEN
             AND TLPV.FECHA_INICIO <= TLP.FECHA_FIN
             AND TLPV.FECHA_FIN >= TLP.FECHA_INICIO
             AND TLPV.CCL_ID_SECCION = TLP.CCL_ID_SECCION
@@ -5143,10 +5220,10 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
     ) AS S ON (S.ID_TAREA_LOCALIZACION_PRESUPUESTO_VENTA = TLPV.ID_TAREA_LOCALIZACION_PRESUPUESTO_VENTA)
         WHEN MATCHED THEN UPDATE SET ES_ACTIVO = :inactivo
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoVacioCongeladaSeccion">
-  <![CDATA[
+  <entry key="TareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoVacioCongeladaSeccion">
+    <![CDATA[
     MERGE INTO TAREA_LOCALIZACION_PRESUPUESTO_VENTA AS TLPV USING (
             SELECT TLPV.ID_TAREA_LOCALIZACION_PRESUPUESTO_VENTA
             FROM TAREA T
@@ -5154,7 +5231,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
             ON T.ID_TAREA = TLP.ID_TAREA
             INNER JOIN TAREA_LOCALIZACION_PRESUPUESTO_VENTA TLPV
             ON TLPV.ID_TAREA = TLP.ID_TAREA
-            AND TLPV.CCL_ID_COD_ORIGEN = TLP.CCL_ID_COD_ORIGEN 
+            AND TLPV.CCL_ID_COD_ORIGEN = TLP.CCL_ID_COD_ORIGEN
             AND TLPV.FECHA_INICIO <= TLP.FECHA_FIN
             AND TLPV.FECHA_FIN >= TLP.FECHA_INICIO
             AND TLPV.ID_TIPO_PRESUPUESTO = TLP.ID_TIPO_PRESUPUESTO
@@ -5165,9 +5242,9 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
             AND INDICADOR_CONGELADA.FECHA_FIN >= TLP.FECHA_INICIO
             AND INDICADOR_CONGELADA.FECHA_INICIO <= TLP.FECHA_FIN
             AND INDICADOR_CONGELADA.CCL_ID_SECCION = TLP.CCL_ID_SECCION
-            AND INDICADOR_CONGELADA.ID_TIPO_PRESUPUESTO = TLP.ID_TIPO_PRESUPUESTO 
+            AND INDICADOR_CONGELADA.ID_TIPO_PRESUPUESTO = TLP.ID_TIPO_PRESUPUESTO
             INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_VENTA
-            ON TIPO_GRUPO_DATO_VENTA.ID_TIPO_DATO = TLPV.ID_TIPO_DATO 
+            ON TIPO_GRUPO_DATO_VENTA.ID_TIPO_DATO = TLPV.ID_TIPO_DATO
             INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TIPO_GRUPO_DATO_INDICADOR
             ON TIPO_GRUPO_DATO_INDICADOR.ID_TIPO_DATO = INDICADOR_CONGELADA.ID_TIPO_DATO
             WHERE T.ID_TAREA = :idTarea
@@ -5178,10 +5255,10 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
     ) AS S ON (S.ID_TAREA_LOCALIZACION_PRESUPUESTO_VENTA = TLPV.ID_TAREA_LOCALIZACION_PRESUPUESTO_VENTA)
         WHEN MATCHED THEN UPDATE SET ES_ACTIVO = :inactivo
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoVacioCongelada">
-  <![CDATA[
+  <entry key="TareaLocalizacionPresupuestoVentaRepositoryCustom.updateActivoVacioCongelada">
+    <![CDATA[
     MERGE INTO TAREA_LOCALIZACION_PRESUPUESTO_VENTA AS TLPV USING (
             SELECT TLPV.ID_TAREA_LOCALIZACION_PRESUPUESTO_VENTA
             FROM TAREA T
@@ -5189,7 +5266,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
             ON T.ID_TAREA = TLP.ID_TAREA
             INNER JOIN TAREA_LOCALIZACION_PRESUPUESTO_VENTA TLPV
             ON TLPV.ID_TAREA = TLP.ID_TAREA
-            AND TLPV.CCL_ID_COD_ORIGEN = TLP.CCL_ID_COD_ORIGEN 
+            AND TLPV.CCL_ID_COD_ORIGEN = TLP.CCL_ID_COD_ORIGEN
             AND TLPV.FECHA_INICIO <= TLP.FECHA_FIN
             AND TLPV.FECHA_FIN >= TLP.FECHA_INICIO
             AND TLPV.ID_TIPO_PRESUPUESTO = TLP.ID_TIPO_PRESUPUESTO
@@ -5200,36 +5277,36 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
             AND INDICADOR_CONGELADA.FECHA_FIN >= TLP.FECHA_INICIO
             AND INDICADOR_CONGELADA.FECHA_INICIO <= TLP.FECHA_FIN
             AND INDICADOR_CONGELADA.CCL_ID_SECCION = TLP.CCL_ID_SECCION
-            AND INDICADOR_CONGELADA.ID_TIPO_PRESUPUESTO = TLP.ID_TIPO_PRESUPUESTO 
+            AND INDICADOR_CONGELADA.ID_TIPO_PRESUPUESTO = TLP.ID_TIPO_PRESUPUESTO
             INNER JOIN TIPO_DATO TIPO_DATO_VENTA
-            ON TIPO_DATO_VENTA.ID_TIPO_DATO = TLPV.ID_TIPO_DATO 
+            ON TIPO_DATO_VENTA.ID_TIPO_DATO = TLPV.ID_TIPO_DATO
             INNER JOIN TIPO_DATO TIPO_DATO_INDICADOR
             ON TIPO_DATO_INDICADOR.ID_TIPO_DATO = INDICADOR_CONGELADA.ID_TIPO_DATO
             WHERE T.ID_TAREA = :idTarea
             AND TLP.ICM_CK_EXCEPCION = :inactivo
             AND TIPO_DATO_VENTA.ID_TIPO_DATO IN (:idTipoDatoVentaReal)
-            AND TIPO_DATO_INDICADOR.ID_TIPO_DATO IN (:idTipoDatoVentaCongelada) 
+            AND TIPO_DATO_INDICADOR.ID_TIPO_DATO IN (:idTipoDatoVentaCongelada)
             GROUP BY TLPV.ID_TAREA_LOCALIZACION_PRESUPUESTO_VENTA
     ) AS S ON (S.ID_TAREA_LOCALIZACION_PRESUPUESTO_VENTA = TLPV.ID_TAREA_LOCALIZACION_PRESUPUESTO_VENTA)
         WHEN MATCHED THEN UPDATE SET ES_ACTIVO = :inactivo
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoVentaRepositoryCustom.totalizar">
-  <![CDATA[
+  <entry key="TareaLocalizacionPresupuestoVentaRepositoryCustom.totalizar">
+    <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_PRESUPUESTO_VENTA (ID_TAREA, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, ICM_ORDINAL, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TIPO_PRESUPUESTO, ID_TIPO_VENTA_CONCEPTO_CHALLENGE, CCL_ID_ORIGEN, ES_ACTIVO, ID_TIPO_DATO, FECHA_FIN, FECHA_INICIO)
-  SELECT 
-  TLPV.ID_TAREA, 
-  TLPV.CCL_ID_CADENA, 
-  TLPV.CCL_ID_COD_ORIGEN, 
-  TLPV.CCL_ID_SECCION, 
-  TLPV.ICM_ORDINAL, 
-  SUM(TLPV.IMPORTE_SIN_IMPUESTOS) AS IMPORTE_SIN_IMPUESTOS, 
+  SELECT
+  TLPV.ID_TAREA,
+  TLPV.CCL_ID_CADENA,
+  TLPV.CCL_ID_COD_ORIGEN,
+  TLPV.CCL_ID_SECCION,
+  TLPV.ICM_ORDINAL,
+  SUM(TLPV.IMPORTE_SIN_IMPUESTOS) AS IMPORTE_SIN_IMPUESTOS,
   SUM(TLPV.IMPORTE_CON_IMPUESTOS) AS IMPORTE_CON_IMPUESTOS,
-  TLPV.ID_TIPO_PRESUPUESTO, 
-  NULL AS ID_TIPO_VENTA_CONCEPTO_CHALLENGE, 
-  TLPV.CCL_ID_ORIGEN, 
-  1 AS ES_ACTIVO, 
+  TLPV.ID_TIPO_PRESUPUESTO,
+  NULL AS ID_TIPO_VENTA_CONCEPTO_CHALLENGE,
+  TLPV.CCL_ID_ORIGEN,
+  1 AS ES_ACTIVO,
   CASE WHEN TGDTD.ID_TIPO_GRUPO_DATO = :idTipoGrupoDatoVentaReal AND CCL_ID_SECCION = 4 THEN 2041
        WHEN TGDTD.ID_TIPO_GRUPO_DATO = :idTipoGrupoDatoVentaReal AND CCL_ID_SECCION != 4 THEN 2042
        WHEN TGDTD.ID_TIPO_GRUPO_DATO = :idTipoGrupoDatoVentaCongelada AND CCL_ID_SECCION = 4 THEN 2039
@@ -5248,21 +5325,21 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
   ON TGDTD.ID_TIPO_DATO = TLPV.ID_TIPO_DATO
   WHERE T.ID_TAREA = :idTarea
   AND TLPV.ES_ACTIVO = :activo
-  GROUP BY TLPV.ID_TAREA, 
-  TLPV.CCL_ID_CADENA, 
-  TLPV.CCL_ID_COD_ORIGEN, 
-  TLPV.CCL_ID_SECCION, 
+  GROUP BY TLPV.ID_TAREA,
+  TLPV.CCL_ID_CADENA,
+  TLPV.CCL_ID_COD_ORIGEN,
+  TLPV.CCL_ID_SECCION,
   TLPV.ICM_ORDINAL,
-  TLPV.ID_TIPO_PRESUPUESTO, 
-  TLPV.CCL_ID_ORIGEN, 
-  TLPV.FECHA_FIN, 
+  TLPV.ID_TIPO_PRESUPUESTO,
+  TLPV.CCL_ID_ORIGEN,
+  TLPV.FECHA_FIN,
   TLPV.FECHA_INICIO,
   TGDTD.ID_TIPO_GRUPO_DATO
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoRepositoryCustom.updateActivoBandasSinExcepcion">
-  <![CDATA[
+  <entry key="TareaLocalizacionPresupuestoRepositoryCustom.updateActivoBandasSinExcepcion">
+    <![CDATA[
   MERGE INTO TAREA_LOCALIZACION_PRESUPUESTO AS TLP USING (
   SELECT
     PRESUPUESTO.ID_TAREA,
@@ -5345,10 +5422,10 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
       WHEN MATCHED THEN
         UPDATE SET ES_ACTIVO = :nuevoActivo
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom.relacionarEstructuraSinDesplazamiento">
-  <![CDATA[
+  <entry key="TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom.relacionarEstructuraSinDesplazamiento">
+    <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA (ID_TAREA_LOCALIZACION_PRESUPUESTO, ID_TAREA_PERSONA_ESTRUCTURA, FECHA_INICIO_PERIODO)
           SELECT
           PRESUPUESTO.ID_TAREA_LOCALIZACION_PRESUPUESTO,
@@ -5385,12 +5462,12 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
                       PRESUPUESTO.ICM_BANDA,
                       DAYS(MIN(PRESUPUESTO.FECHA_FIN, PERSONA.FECHA_FIN)) - DAYS(MAX(PERSONA.FECHA_INICIO, PRESUPUESTO.FECHA_INICIO)) + 1 AS DIAS
                   FROM
-                    TAREA TAREA  
+                    TAREA TAREA
                   INNER JOIN TAREA_LOCALIZACION_PRESUPUESTO PRESUPUESTO
                     ON TAREA.ID_TAREA = PRESUPUESTO.ID_TAREA
                   INNER JOIN TAREA_PERSONA_HISTORICO PERSONA
                     ON PERSONA.FECHA_INICIO_PERIODO = TAREA.FECHA_INICIO_PERIODO
-                    AND PERSONA.ID_TAREA = TAREA.ID_TAREA                         
+                    AND PERSONA.ID_TAREA = TAREA.ID_TAREA
                   WHERE
                     TAREA.ID_TAREA = :idTarea
                     AND PRESUPUESTO.ES_ACTIVO = :activo
@@ -5438,8 +5515,8 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
         AND TPH.STD_OR_HR_PERIOD = ESTRUCTURA.STD_OR_HR_PERIOD
         AND TPH.CCL_ID_COD_ORIGEN = PRESUPUESTO.CCL_ID_COD_ORIGEN
         AND (ESTRUCTURA.ICM_ID_TP_CALCULO IN (:tiposCalculoChallengeLocalizacion)
-            OR TPH.CCL_ID_SECCION = PRESUPUESTO.CCL_ID_SECCION)                
-      LEFT JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO DESPLAZAMIENTO 
+            OR TPH.CCL_ID_SECCION = PRESUPUESTO.CCL_ID_SECCION)
+      LEFT JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO DESPLAZAMIENTO
         ON DESPLAZAMIENTO.FECHA_INICIO_PERIODO = ESTRUCTURA.FECHA_INICIO_PERIODO
           AND DESPLAZAMIENTO.ID_TAREA = ESTRUCTURA.ID_TAREA
           AND DESPLAZAMIENTO.CCL_ID_PERSON = ESTRUCTURA.CCL_ID_PERSON
@@ -5449,7 +5526,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
           AND DESPLAZAMIENTO.ICM_ID_ESTR_COMISION_BASE = ESTRUCTURA.ICM_ID_ESTR_COMISION_BASE
           AND DESPLAZAMIENTO.ICM_ID_ESTR_COMISION = ESTRUCTURA.ICM_ID_ESTR_COMISION
           AND DESPLAZAMIENTO.FECHA_INICIO = ESTRUCTURA.FECHA_INICIO
-          AND DESPLAZAMIENTO.FECHA_FIN = ESTRUCTURA.FECHA_FIN        
+          AND DESPLAZAMIENTO.FECHA_FIN = ESTRUCTURA.FECHA_FIN
       LEFT JOIN TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS DIAS_MINIMOS
         ON DIAS_MINIMOS.ID_TAREA = PRESUPUESTO.ID_TAREA
         AND DIAS_MINIMOS.CCL_ID_ORIGEN = PRESUPUESTO.CCL_ID_ORIGEN
@@ -5459,17 +5536,17 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
       WHERE DESPLAZAMIENTO.ID_TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO IS NULL
       AND ESTRUCTURA.ICM_ID_TP_CALCULO IN (:tiposCalculo)
       AND DIAS_MINIMOS.ID_TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS IS NULL OR (DIAS_MINIMOS.ICM_MIN_NUM_DAYS <= PRESUPUESTO.DIAS AND TPH.ID_TAREA_PERSONA_HISTORICO IS NOT NULL)
-      GROUP BY 
+      GROUP BY
           PRESUPUESTO.ID_TAREA_LOCALIZACION_PRESUPUESTO,
           ESTRUCTURA.ID_TAREA_PERSONA_ESTRUCTURA,
-          PRESUPUESTO.FECHA_INICIO_PERIODO        
+          PRESUPUESTO.FECHA_INICIO_PERIODO
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom.relacionarEstructuraDesplazamiento">
+  <entry key="TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom.relacionarEstructuraDesplazamiento">
     <![CDATA[
  INSERT INTO TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA (ID_TAREA_LOCALIZACION_PRESUPUESTO, ID_TAREA_PERSONA_ESTRUCTURA, FECHA_INICIO_PERIODO)
-          
+
             SELECT
           PRESUPUESTO.ID_TAREA_LOCALIZACION_PRESUPUESTO,
           ESTRUCTURA.ID_TAREA_PERSONA_ESTRUCTURA,
@@ -5505,12 +5582,12 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
                       PRESUPUESTO.ICM_BANDA,
                       DAYS(MIN(PRESUPUESTO.FECHA_FIN, PERSONA.FECHA_FIN)) - DAYS(MAX(PERSONA.FECHA_INICIO, PRESUPUESTO.FECHA_INICIO)) + 1 AS DIAS
                   FROM
-                    TAREA TAREA  
+                    TAREA TAREA
                   INNER JOIN TAREA_LOCALIZACION_PRESUPUESTO PRESUPUESTO
                     ON TAREA.ID_TAREA = PRESUPUESTO.ID_TAREA
                   INNER JOIN TAREA_PERSONA_HISTORICO PERSONA
                     ON PERSONA.FECHA_INICIO_PERIODO = TAREA.FECHA_INICIO_PERIODO
-                    AND PERSONA.ID_TAREA = TAREA.ID_TAREA                         
+                    AND PERSONA.ID_TAREA = TAREA.ID_TAREA
                   WHERE
                     TAREA.ID_TAREA = :idTarea
                     AND PRESUPUESTO.ES_ACTIVO = :activo
@@ -5558,8 +5635,8 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
         AND TPH.STD_OR_HR_PERIOD = ESTRUCTURA.STD_OR_HR_PERIOD
         AND TPH.CCL_ID_COD_ORIGEN = PRESUPUESTO.CCL_ID_COD_ORIGEN
         AND (ESTRUCTURA.ICM_ID_TP_CALCULO IN (:tiposCalculoChallengeLocalizacion)
-            OR TPH.CCL_ID_SECCION = PRESUPUESTO.CCL_ID_SECCION)                
-      INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO DESPLAZAMIENTO 
+            OR TPH.CCL_ID_SECCION = PRESUPUESTO.CCL_ID_SECCION)
+      INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO DESPLAZAMIENTO
         ON DESPLAZAMIENTO.FECHA_INICIO_PERIODO = ESTRUCTURA.FECHA_INICIO_PERIODO
           AND DESPLAZAMIENTO.ID_TAREA = ESTRUCTURA.ID_TAREA
           AND DESPLAZAMIENTO.CCL_ID_PERSON = ESTRUCTURA.CCL_ID_PERSON
@@ -5569,7 +5646,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
           AND DESPLAZAMIENTO.ICM_ID_ESTR_COMISION_BASE = ESTRUCTURA.ICM_ID_ESTR_COMISION_BASE
           AND DESPLAZAMIENTO.ICM_ID_ESTR_COMISION = ESTRUCTURA.ICM_ID_ESTR_COMISION
           AND DESPLAZAMIENTO.FECHA_INICIO = ESTRUCTURA.FECHA_INICIO
-          AND DESPLAZAMIENTO.FECHA_FIN = ESTRUCTURA.FECHA_FIN        
+          AND DESPLAZAMIENTO.FECHA_FIN = ESTRUCTURA.FECHA_FIN
       LEFT JOIN TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS DIAS_MINIMOS
         ON DIAS_MINIMOS.ID_TAREA = PRESUPUESTO.ID_TAREA
         AND DIAS_MINIMOS.CCL_ID_ORIGEN = PRESUPUESTO.CCL_ID_ORIGEN
@@ -5579,22 +5656,22 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
       WHERE 1=1
       AND ESTRUCTURA.ICM_ID_TP_CALCULO IN (:tiposCalculo)
       AND DIAS_MINIMOS.ID_TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS IS NULL OR (DIAS_MINIMOS.ICM_MIN_NUM_DAYS <= PRESUPUESTO.DIAS AND TPH.ID_TAREA_PERSONA_HISTORICO IS NOT NULL)
-      GROUP BY 
+      GROUP BY
           PRESUPUESTO.ID_TAREA_LOCALIZACION_PRESUPUESTO,
           ESTRUCTURA.ID_TAREA_PERSONA_ESTRUCTURA,
           PRESUPUESTO.FECHA_INICIO_PERIODO
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalCompensacionChallengeByIdTarea">
+  <entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalCompensacionChallengeByIdTarea">
     <![CDATA[
        SELECT TPH.CCL_ID_PERSON, TPH.STD_OR_HR_PERIOD, TPE.ICM_ID_TP_CALCULO, TPE.ICM_ID_TP_COMISION, TPE.ES_DESPLAZAMIENTO, TPE.ES_DESPLAZAMIENTO_BASE
         FROM TAREA T
-        INNER JOIN 
+        INNER JOIN
            TAREA_PERSONA_HISTORICO TPH
             ON TPH.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
             AND TPH.ID_TAREA = T.ID_TAREA
-        INNER JOIN 
+        INNER JOIN
            TAREA_PERSONA_ESTRUCTURA TPE
             ON TPE.FECHA_INICIO_PERIODO = TPH.FECHA_INICIO_PERIODO
             AND TPE.ID_TAREA = TPH.ID_TAREA
@@ -5605,9 +5682,9 @@ MERGE INTO TAREA_LOCALIZACION_VENTA TLV USING
        AND TPE.ICM_ID_TP_COMISION IN (:tiposComision)
        GROUP BY TPH.CCL_ID_PERSON, TPH.STD_OR_HR_PERIOD, TPE.ICM_ID_TP_CALCULO, TPE.ICM_ID_TP_COMISION, TPE.ES_DESPLAZAMIENTO, TPE.ES_DESPLAZAMIENTO_BASE
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaCalculoRepositoryCustom.regularizarChallenge">
+  <entry key="TareaCalculoRepositoryCustom.regularizarChallenge">
     <![CDATA[
       INSERT INTO TAREA_CALCULO ( FECHA_INICIO_PERIODO, ID_TAREA, FECHA,  ID_ALGORITMO, IMPORTE, STD_ID_WORK_LOCAT_PAGO, STD_ID_WORK_LOCAT, CCL_ID_PERSON, STD_OR_HR_PERIOD, ID_TAREA_PERSONA_ESTRUCTURA, ID_TAREA_LOCALIZACION_PRESENCIA, ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA, ID_TAREA_LOCALIZACION_VENTA, ID_TAREA_LOCALIZACION_PERSONA_VENTA, ES_MANUAL, ID_TIPO_CALCULO, ID_TIPO_COMISION
   )
@@ -5626,10 +5703,10 @@ ID_TAREA_LOCALIZACION_PRESENCIA,
 ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA,
 ID_TAREA_LOCALIZACION_VENTA,
 ID_TAREA_LOCALIZACION_PERSONA_VENTA,
-ES_MANUAL, 
+ES_MANUAL,
 ID_TIPO_CALCULO,
 ID_TIPO_COMISION
-FROM (    
+FROM (
     SELECT
         T.FECHA_INICIO_PERIODO,
         T.ID_TAREA,
@@ -5645,27 +5722,27 @@ FROM (
         TC.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA,
         TC.ID_TAREA_LOCALIZACION_VENTA,
         TC.ID_TAREA_LOCALIZACION_PERSONA_VENTA,
-        TC.ES_MANUAL, 
+        TC.ES_MANUAL,
         TC.ID_TIPO_CALCULO,
         TC.ID_TIPO_COMISION
-       FROM 
+       FROM
         TAREA T
-       INNER JOIN 
+       INNER JOIN
         TAREA_CALCULO TC
-                ON TC.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO 
+                ON TC.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
                 AND TC.ID_TAREA = T.ID_TAREA
-       INNER JOIN 
+       INNER JOIN
         TAREA_PERSONA_ESTRUCTURA TPE
                 ON TPE.FECHA_INICIO_PERIODO = TC.FECHA_INICIO_PERIODO
                 AND TPE.ID_TAREA_PERSONA_ESTRUCTURA = TC.ID_TAREA_PERSONA_ESTRUCTURA
-       INNER JOIN 
+       INNER JOIN
         TAREA_PERSONA_HISTORICO TPH
                 ON TPH.FECHA_INICIO_PERIODO = TC.FECHA_INICIO_PERIODO
                 AND TPH.ID_TAREA = TC.ID_TAREA
                 AND TPH.CCL_ID_PERSON = TC.CCL_ID_PERSON
                 AND TPH.STD_OR_HR_PERIOD = TC.STD_OR_HR_PERIOD
                 AND TPH.FECHA_INICIO <= T.FECHA_INICIO_PERIODO
-                AND TPH.FECHA_FIN >= T.FECHA_FIN_PERIODO                
+                AND TPH.FECHA_FIN >= T.FECHA_FIN_PERIODO
        LEFT JOIN
         TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO DESPLAZAMIENTO
             ON DESPLAZAMIENTO.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
@@ -5677,10 +5754,10 @@ FROM (
             AND DESPLAZAMIENTO.ICM_ID_ESTR_COMISION_BASE = TPE.ICM_ID_ESTR_COMISION_BASE
             AND DESPLAZAMIENTO.ICM_ID_ESTR_COMISION = TPE.ICM_ID_ESTR_COMISION
             AND DESPLAZAMIENTO.FECHA_INICIO = TPE.FECHA_INICIO
-            AND DESPLAZAMIENTO.FECHA_FIN = TPE.FECHA_FIN                
+            AND DESPLAZAMIENTO.FECHA_FIN = TPE.FECHA_FIN
        INNER JOIN (
                 SELECT FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, ID_TIPO_CALCULO, ID_TIPO_COMISION, MAX(FECHA) AS FECHA, ID_TAREA_PERSONA_ESTRUCTURA
-                FROM TAREA_CALCULO 
+                FROM TAREA_CALCULO
                 WHERE ID_TAREA = :idTarea
                 AND CCL_ID_PERSON = :cclIdPerson
                 AND STD_OR_HR_PERIOD = :stdOrHrPeriod
@@ -5697,16 +5774,16 @@ FROM (
                 SELECT COUNT(ID_TAREA_PERSONA_ESTRUCTURA) AS NUMERO_ESTRUCTURAS_PERIODO
                 FROM (
                         SELECT ID_TAREA_PERSONA_ESTRUCTURA
-                        FROM TAREA_CALCULO 
+                        FROM TAREA_CALCULO
                         WHERE ID_TAREA = :idTarea
                         AND CCL_ID_PERSON = :cclIdPerson
                         AND STD_OR_HR_PERIOD = :stdOrHrPeriod
                         AND ID_TIPO_CALCULO IN (:tiposCalculo)
                         AND ID_TIPO_COMISION IN (:tiposComision)
                         GROUP BY ID_TAREA_PERSONA_ESTRUCTURA
-                ) 
+                )
        ) COUNT_CALCULO
-                ON COUNT_CALCULO.NUMERO_ESTRUCTURAS_PERIODO = 1                
+                ON COUNT_CALCULO.NUMERO_ESTRUCTURAS_PERIODO = 1
        INNER JOIN (
                 SELECT T.FECHA_INICIO_PERIODO, T.FECHA_FIN_PERIODO, TC.ID_TAREA, TC.CCL_ID_PERSON, TC.STD_OR_HR_PERIOD, TC.ID_TIPO_CALCULO, TC.ID_TIPO_COMISION
                 FROM TAREA T
@@ -5725,7 +5802,7 @@ FROM (
                 AND NUMERO_CALCULOS.ID_TAREA = TC.ID_TAREA
                 AND NUMERO_CALCULOS.CCL_ID_PERSON = TC.CCL_ID_PERSON
                 AND NUMERO_CALCULOS.STD_OR_HR_PERIOD = TC.STD_OR_HR_PERIOD
-      WHERE DESPLAZAMIENTO.ID_TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO IS NULL 
+      WHERE DESPLAZAMIENTO.ID_TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO IS NULL
         AND TC.ID_TAREA = :idTarea
         AND TC.CCL_ID_PERSON = :cclIdPerson
         AND TC.STD_OR_HR_PERIOD = :stdOrHrPeriod
@@ -5733,7 +5810,7 @@ FROM (
         AND TC.ID_TIPO_COMISION IN (:tiposComision)
         AND TPE.ES_DESPLAZAMIENTO = :esDesplazamiento
         AND TPE.ES_DESPLAZAMIENTO_BASE = :esDesplazamientoBase
-       GROUP BY         
+       GROUP BY
         T.FECHA_INICIO_PERIODO,
         T.ID_TAREA,
         FECHA_CALCULO.FECHA,
@@ -5749,14 +5826,14 @@ FROM (
         TC.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA,
         TC.ID_TAREA_LOCALIZACION_VENTA,
         TC.ID_TAREA_LOCALIZACION_PERSONA_VENTA,
-        TC.ES_MANUAL, 
+        TC.ES_MANUAL,
         TC.ID_TIPO_CALCULO,
         TC.ID_TIPO_COMISION
-) WHERE IMPORTE > 0        
+) WHERE IMPORTE > 0
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.totalizarVentasVendedor0">
+  <entry key="TareaLocalizacionVentaRepositoryCustom.totalizarVentasVendedor0">
     <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, ES_ACTIVO, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, FECHA_INICIO_PERIODO)
   WITH INDICADOR AS
@@ -5822,9 +5899,9 @@ FROM (
     VENTA_INDIVIDUAL.CCL_ID_SECCION,
     VENTA_INDIVIDUAL.ES_ACTIVO
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0">
+  <entry key="TareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0">
     <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, ES_ACTIVO, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, FECHA_INICIO_PERIODO)
   WITH NUMERO_VENDEDORES AS (
@@ -5872,12 +5949,12 @@ FROM (
     AND NUMERO_VENDEDORES.FECHA = DEVOLUCION_VENDEDOR_0.FECHA
   WHERE TAREA.ID_TAREA = :idTarea
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionPresupuestoRepositoryCustom.findLocalizacionOrdinalTarea">
+  <entry key="TareaLocalizacionPresupuestoRepositoryCustom.findLocalizacionOrdinalTarea">
     <![CDATA[
   SELECT TLP.ICM_ORDINAL
-  FROM TAREA_LOCALIZACION_PRESUPUESTO TLP 
+  FROM TAREA_LOCALIZACION_PRESUPUESTO TLP
   WHERE TLP.ID_TAREA = :idTarea
   AND TLP.CCL_ID_COD_ORIGEN = :cclIdCodOrigen
   AND TLP.CCL_ID_SECCION = :idSeccion
@@ -5886,55 +5963,56 @@ FROM (
   AND TLP.ID_TIPO_PRESUPUESTO = :idTipoPresupuesto
   GROUP BY TLP.CCL_ID_COD_ORIGEN, TLP.CCL_ID_SECCION, TLP.ID_TIPO_PRESUPUESTO, TLP.ICM_ORDINAL
       ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAmbitoGlobalEmpresaRepositoryCustom.save">
-  <![CDATA[
+  <entry key="TareaAmbitoGlobalEmpresaRepositoryCustom.save">
+    <![CDATA[
   INSERT INTO TAREA_AMBITO_GLOBAL_EMPRESA (ID_TAREA, CCL_ID_ORIGEN, STD_ID_LEG_ENT)
   VALUES (:tarea.id, :cclIdOrigen, :stdIdLegEnt)
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAmbitoGlobalFechaRepositoryCustom.save">
-  <![CDATA[
+  <entry key="TareaAmbitoGlobalFechaRepositoryCustom.save">
+    <![CDATA[
   INSERT INTO TAREA_AMBITO_GLOBAL_FECHA (ID_TAREA, FECHA_INICIO, FECHA_FIN, ID_TIPO_DATO)
   VALUES (:tarea.id, :fechaInicio, :fechaFin, :tipoDato.id)
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAmbitoGlobalEmpresaRepositoryCustom.findIdEmpresaByIdTarea">
-  <![CDATA[
+  <entry key="TareaAmbitoGlobalEmpresaRepositoryCustom.findIdEmpresaByIdTarea">
+    <![CDATA[
     SELECT STD_ID_LEG_ENT FROM TAREA_AMBITO_GLOBAL_EMPRESA WHERE ID_TAREA = :idTarea
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaAmbitoGlobalFechaRepositoryCustom.findFechaAmbitoDtoByIdTareaAndIdTipoDato">
-  <![CDATA[
+  <entry key="TareaAmbitoGlobalFechaRepositoryCustom.findFechaAmbitoDtoByIdTareaAndIdTipoDato">
+    <![CDATA[
   SELECT FECHA_INICIO, FECHA_FIN
   FROM TAREA_AMBITO_GLOBAL_FECHA
   WHERE ID_TAREA = :idTarea
   AND ID_TIPO_DATO = :tiposDato
   ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea">
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea">
     <![CDATA[
-  SELECT CCL_ID_COD_ORIGEN 
+  SELECT CCL_ID_COD_ORIGEN
   FROM TAREA_LOCALIZACION_PRESUPUESTO
   WHERE ID_TAREA = :idTarea
   AND ID_TIPO_PRESUPUESTO = :idTipoPresupuesto
   AND FECHA_INICIO = :fechaInicio
   AND FECHA_FIN = :fechaFin
-  GROUP BY CCL_ID_COD_ORIGEN 
+  GROUP BY CCL_ID_COD_ORIGEN
       ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaEstructuraRepositoryCustom.desactivarChallengeOpcionOrigen">
+  <entry key="TareaPersonaEstructuraRepositoryCustom.desactivarChallengeOpcionOrigen">
     <![CDATA[
   UPDATE TAREA_PERSONA_ESTRUCTURA
   SET ES_ACTIVO = :inactivo
-  WHERE ID_TAREA_PERSONA_ESTRUCTURA IN (
-        SELECT 
+  WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo
+  AND ID_TAREA_PERSONA_ESTRUCTURA IN (
+        SELECT
             ESTRUCTURA.ID_TAREA_PERSONA_ESTRUCTURA
         FROM
             TAREA TAREA
@@ -5943,7 +6021,7 @@ FROM (
                 ON ESTRUCTURA.FECHA_INICIO_PERIODO = TAREA.FECHA_INICIO_PERIODO
                 AND ESTRUCTURA.ID_TAREA = TAREA.ID_TAREA
                 AND ESTRUCTURA.ES_ACTIVO = :activo
-        INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO DESPLAZAMIENTO 
+        INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO DESPLAZAMIENTO
             ON DESPLAZAMIENTO.FECHA_INICIO_PERIODO = ESTRUCTURA.FECHA_INICIO_PERIODO
               AND DESPLAZAMIENTO.ID_TAREA = ESTRUCTURA.ID_TAREA
               AND DESPLAZAMIENTO.CCL_ID_PERSON = ESTRUCTURA.CCL_ID_PERSON
@@ -5953,18 +6031,18 @@ FROM (
               AND DESPLAZAMIENTO.ICM_ID_ESTR_COMISION_BASE = ESTRUCTURA.ICM_ID_ESTR_COMISION_BASE
               AND DESPLAZAMIENTO.ICM_ID_ESTR_COMISION = ESTRUCTURA.ICM_ID_ESTR_COMISION
               AND DESPLAZAMIENTO.FECHA_INICIO = ESTRUCTURA.FECHA_INICIO
-              AND DESPLAZAMIENTO.FECHA_FIN = ESTRUCTURA.FECHA_FIN    
+              AND DESPLAZAMIENTO.FECHA_FIN = ESTRUCTURA.FECHA_FIN
         WHERE TAREA.ID_TAREA = :idTarea
         AND ESTRUCTURA.ES_DESPLAZAMIENTO = :activo
         AND ESTRUCTURA.ES_DESPLAZAMIENTO_BASE = :inactivo
         AND ESTRUCTURA.ICM_ID_TP_COMISION IN (:tiposComision)
         AND ESTRUCTURA.ICM_ID_TP_CALCULO IN (:tiposCalculo)
         AND DESPLAZAMIENTO.ID_TIPO_OPCION_CALCULO_EFECTIVA = :activo
-  )            
+  )
     ]]>
-</entry>
-    
-<entry key="TareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen">
+  </entry>
+
+  <entry key="TareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen">
     <![CDATA[
 INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORIGEN, STD_ID_HR, CCL_ID_PERSON, CCL_ID_SECCION_EFECTIVA, CCL_ID_SECCION_ESTRUCTURA, ICM_ID_TP_CALCULO, ICM_ID_TP_COMISION, STD_OR_HR_PERIOD, FECHA_INICIO, FECHA_FIN, ICM_VALOR, ES_DESPLAZAMIENTO, ES_DESPLAZAMIENTO_BASE, ORDINAL_ESTRUCTURA, ES_ACTIVO, ES_DIA_LUNES, ES_DIA_MARTES, ES_DIA_MIERCOLES, ES_DIA_JUEVES, ES_DIA_VIERNES, ES_DIA_SABADO, ES_DIA_DOMINGO, ICM_ID_ESTR_COMISION_BASE, ICM_ID_ESTR_COMISION_PADRE, ICM_ID_TP_ESTRUCTURA, ICM_ORD_TOPE, FECHA_INICIO_PERIODO)
             SELECT ESTRUCTURA.ID_TAREA,
@@ -6003,7 +6081,7 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
                     ON ESTRUCTURA.FECHA_INICIO_PERIODO = TAREA.FECHA_INICIO_PERIODO
                     AND ESTRUCTURA.ID_TAREA = TAREA.ID_TAREA
                     AND ESTRUCTURA.ES_ACTIVO = :inactivo
-            INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO DESPLAZAMIENTO 
+            INNER JOIN TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO DESPLAZAMIENTO
                 ON DESPLAZAMIENTO.FECHA_INICIO_PERIODO = ESTRUCTURA.FECHA_INICIO_PERIODO
                   AND DESPLAZAMIENTO.ID_TAREA = ESTRUCTURA.ID_TAREA
                   AND DESPLAZAMIENTO.CCL_ID_PERSON = ESTRUCTURA.CCL_ID_PERSON
@@ -6013,8 +6091,8 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
                   AND DESPLAZAMIENTO.ICM_ID_ESTR_COMISION_BASE = ESTRUCTURA.ICM_ID_ESTR_COMISION_BASE
                   AND DESPLAZAMIENTO.ICM_ID_ESTR_COMISION = ESTRUCTURA.ICM_ID_ESTR_COMISION
                   AND DESPLAZAMIENTO.FECHA_INICIO = ESTRUCTURA.FECHA_INICIO
-                  AND DESPLAZAMIENTO.FECHA_FIN = ESTRUCTURA.FECHA_FIN    
-            INNER JOIN TAREA_PERSONA_ESTRUCTURA ESTRUCTURA_BASE 
+                  AND DESPLAZAMIENTO.FECHA_FIN = ESTRUCTURA.FECHA_FIN
+            INNER JOIN TAREA_PERSONA_ESTRUCTURA ESTRUCTURA_BASE
                    ON ESTRUCTURA_BASE.FECHA_INICIO_PERIODO = DESPLAZAMIENTO.FECHA_INICIO_PERIODO
                   AND ESTRUCTURA_BASE.ID_TAREA = DESPLAZAMIENTO.ID_TAREA
                   AND ESTRUCTURA_BASE.CCL_ID_PERSON = DESPLAZAMIENTO.CCL_ID_PERSON
@@ -6022,7 +6100,7 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
                   AND ESTRUCTURA_BASE.ICM_ID_ESTR_COMISION = DESPLAZAMIENTO.ICM_ID_ESTR_COMISION_BASE
                   AND ESTRUCTURA_BASE.FECHA_INICIO = DESPLAZAMIENTO.FECHA_INICIO
                   AND ESTRUCTURA_BASE.FECHA_FIN = DESPLAZAMIENTO.FECHA_FIN
-                  AND ESTRUCTURA_BASE.ICM_ORD_TOPE = ESTRUCTURA.ICM_ORD_TOPE   
+                  AND ESTRUCTURA_BASE.ICM_ORD_TOPE = ESTRUCTURA.ICM_ORD_TOPE
             WHERE TAREA.ID_TAREA = :idTarea
             AND ESTRUCTURA.ES_DESPLAZAMIENTO = :activo
             AND ESTRUCTURA.ES_DESPLAZAMIENTO_BASE = :inactivo
@@ -6032,48 +6110,48 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
             AND ESTRUCTURA_BASE.ES_DESPLAZAMIENTO_BASE = :activo
             AND DESPLAZAMIENTO.ID_TIPO_OPCION_CALCULO_EFECTIVA = :activo
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.mergeLocalizacionFicticia">
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.mergeLocalizacionFicticia">
     <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_HISTORICO (ID_TAREA, CCL_ID_CADENA, STD_ID_LEG_ENT, CCL_ID_COD_ORIGEN, STD_ID_WORK_LOCAT, STD_ID_COUNTRY, CCL_ID_ORIGEN, FECHA_INICIO, FECHA_FIN)
     SELECT
-    :idTarea as ID_TAREA, 
-    CCL_ID_CADENA, 
-    STD_ID_LEG_ENT, 
+    :idTarea as ID_TAREA,
+    CCL_ID_CADENA,
+    STD_ID_LEG_ENT,
     CCL_ID_COD_ORIGEN,
-    STD_ID_WORK_LOCAT,  
+    STD_ID_WORK_LOCAT,
     STD_ID_COUNTRY,
-    CCL_ID_ORIGEN, 
-    FECHA_INICIO, 
+    CCL_ID_ORIGEN,
+    FECHA_INICIO,
     FECHA_FIN
-    FROM 
+    FROM
     LOCALIZACION_FICTICIA_HISTORICO
     WHERE CCL_ID_ORIGEN = :cclIdOrigen
     AND STD_ID_LEG_ENT = :stdIdLegEnt
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaLocalizacionHistoricoRepositoryCustom.findLocalizacionFicticiaByIdOrigenAndIdEmpresa">
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findLocalizacionFicticiaByIdOrigenAndIdEmpresa">
     <![CDATA[
     SELECT
     CCL_ID_COD_ORIGEN
-    FROM 
+    FROM
     LOCALIZACION_FICTICIA_HISTORICO
     WHERE CCL_ID_ORIGEN = :cclIdOrigen
     AND STD_ID_LEG_ENT = :stdIdLegEnt
     GROUP BY CCL_ID_COD_ORIGEN
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaEstructuraDesplazamientoRealRepositoryCustom.save">
+  <entry key="TareaPersonaEstructuraDesplazamientoRealRepositoryCustom.save">
     <![CDATA[
   INSERT INTO TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO_REAL (ID_TAREA, ICM_ID_ESTR_COMISION, ICM_ID_ESTR_COMISION_PADRE, ICM_ID_ESTR_COMISION_BASE, FECHA_INICIO, FECHA_FIN, CCL_ID_ORIGEN, ICM_ID_ESTRUCTURA_AMBITO, STD_ID_HR, STD_OR_HR_PERIOD, FECHA_INICIO_PERIODO)
   VALUES(:tarea.id, :icmIdEstrComision, :icmIdEstrComisionPadre, :icmIdEstrComisionBase, :fechaInicio, :fechaFin, :cclIdOrigen, :icmIdEstructuraAmbito, :stdIdHr, :stdOrHrPeriod, :pk.fechaInicioPeriodo)
     ]]>
-</entry>
+  </entry>
 
-<entry key="TareaPersonaEstructuraDesplazamientoRealRepositoryCustom.findDesplazamientoReal">
+  <entry key="TareaPersonaEstructuraDesplazamientoRealRepositoryCustom.findDesplazamientoReal">
     <![CDATA[
     SELECT TPED.ID_TAREA,
     TPED.ICM_ID_ESTRUCTURA_AMBITO,
@@ -6095,13 +6173,250 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
     TPED.ICM_ID_ESTRUCTURA_AMBITO,
     TPED.ICM_ID_ESTR_COMISION,
     TPED.ICM_ID_ESTR_COMISION_PADRE,
-    TPED.ICM_ID_ESTR_COMISION_BASE,    
+    TPED.ICM_ID_ESTR_COMISION_BASE,
     TPED.FECHA_INICIO,
     TPED.FECHA_FIN,
     TPED.STD_ID_HR,
     TPED.STD_OR_HR_PERIOD,
     TPED.CCL_ID_ORIGEN
     ]]>
-</entry>
+  </entry>
+
+  <entry key="TareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManual">
+    <![CDATA[
+INSERT INTO TAREA_LOCALIZACION_PRESENCIA (ID_TAREA, FECHA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, CCL_ID_CADENA, ES_ACTIVO, MINUTOS, ID_TIPO_DATO, FECHA_INICIO_PERIODO)
+  SELECT
+  TLP.ID_TAREA,
+  TLP.FECHA,
+  TLP.CCL_ID_COD_ORIGEN,
+  :idSeccion as CCL_ID_SECCION,
+  TLP.CCL_ID_CADENA,
+  TLP.ES_ACTIVO,
+  SUM(TLP.MINUTOS) AS MINUTOS,
+  :nuevoIdTipoDato AS ID_TIPO_DATO,
+  TLP.FECHA_INICIO_PERIODO
+    FROM TAREA_LOCALIZACION_PRESENCIA TLP
+    WHERE TLP.ID_TAREA = :idTarea
+    AND TLP.ID_TIPO_DATO IN (:tiposDato)
+    AND TLP.MINUTOS > :minutos
+  GROUP BY
+  TLP.ID_TAREA,
+  TLP.FECHA,
+  TLP.CCL_ID_COD_ORIGEN,
+  TLP.CCL_ID_CADENA,
+  TLP.ES_ACTIVO,
+  TLP.FECHA_INICIO_PERIODO
+]]></entry>
+
+  <entry key="TareaLocalizacionVentaRepositoryCustom.updateActivoManual">
+    <![CDATA[
+MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
+  (
+  SELECT TLV.ID_TAREA_LOCALIZACION_VENTA
+  FROM TAREA_LOCALIZACION_VENTA TLV
+  INNER JOIN TAREA_LOCALIZACION_VENTA MANUAL
+  ON MANUAL.FECHA_INICIO_PERIODO = TLV.FECHA_INICIO_PERIODO
+  AND MANUAL.ID_TAREA = TLV.ID_TAREA
+  AND MANUAL.CCL_ID_COD_ORIGEN = TLV.CCL_ID_COD_ORIGEN
+  AND MANUAL.CCL_ID_SECCION = TLV.CCL_ID_SECCION
+  AND MANUAL.FECHA = TLV.FECHA
+  INNER JOIN TIPO_DATO TD
+  ON TD.ID_TIPO_DATO = TLV.ID_TIPO_DATO
+  INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TGDTD
+  ON TGDTD.ID_TIPO_DATO = TLV.ID_TIPO_DATO
+  WHERE TLV.ID_TAREA = :idTarea
+  AND TGDTD.ID_TIPO_GRUPO_DATO = :idTipoGrupoDato
+  AND MANUAL.ID_TIPO_DATO = :idTipoDatoLocalizacionVentaManual
+)AS S ON (S.ID_TAREA_LOCALIZACION_VENTA = TLV.ID_TAREA_LOCALIZACION_VENTA)
+        WHEN MATCHED THEN
+                UPDATE SET ES_ACTIVO = :nuevoActivo
+]]></entry>
+
+  <entry key="TareaFaseRepositoryCustom.save">
+    <![CDATA[
+    INSERT INTO TAREA_FASE (ID_TAREA, ID_FASE, ID_ESTADO_TAREA_FASE, FECHA_HORA_CREACION, FECHA_HORA_INICIO, FECHA_HORA_FIN, ES_ACTIVO)
+    VALUES(:tarea.id, :fase.id, :estadoTareaFase.id, :fechaHoraCreacion, :fechaHoraInicio, :fechaHoraFin, :activo)
+  ]]>
+  </entry>
+
+  <entry key="TareaFaseAccionRepositoryCustom.save">
+    <![CDATA[
+    INSERT INTO TAREA_FASE_ACCION (ID_TAREA_FASE, ID_ACCION, ID_PUNTO_EJECUCION, ID_ESTADO_TAREA_FASE_ACCION, FECHA_HORA_CREACION, FECHA_HORA_INICIO, FECHA_HORA_FIN, ES_ACTIVO)
+    VALUES(:tareaFase.id, :accion.id, :puntoEjecucion.id, :estadoTareaFaseAccion.id, :fechaHoraCreacion, :fechaHoraInicio, :fechaHoraFin, :activo)
+  ]]>
+  </entry>
+
+  <entry key="TareaFaseRepositoryCustom.findTareaFaseDtoByIdTareaAndIdFase">
+    <![CDATA[
+  SELECT ID_TAREA_FASE, ID_TAREA, ID_FASE, ID_ESTADO_TAREA_FASE, FECHA_HORA_CREACION, FECHA_HORA_INICIO, FECHA_HORA_FIN, ES_ACTIVO
+  FROM TAREA_FASE WHERE ID_TAREA = :idTarea AND ID_FASE = :idFase AND ES_ACTIVO = :activo
+  ]]>
+  </entry>
+
+  <entry key="TareaFaseRepositoryCustom.findTareaFaseDtoByIdTarea">
+    <![CDATA[
+  SELECT ID_TAREA_FASE, ID_TAREA, ID_FASE, ID_ESTADO_TAREA_FASE, FECHA_HORA_CREACION, FECHA_HORA_INICIO, FECHA_HORA_FIN, ES_ACTIVO
+  FROM TAREA_FASE WHERE ID_TAREA = :idTarea AND ES_ACTIVO = :activo
+  ]]>
+  </entry>
+
+  <entry key="TareaFaseRepositoryCustom.updateFechaInicio">
+    <![CDATA[
+    UPDATE TAREA_FASE SET FECHA_HORA_INICIO = :nuevaFecha WHERE ID_TAREA_FASE = :idTareaFase
+    ]]>
+  </entry>
+
+  <entry key="TareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual">
+    <![CDATA[
+    UPDATE TAREA_FASE SET FECHA_HORA_INICIO = :nuevaFecha, FECHA_HORA_FIN = :nuevaFecha, ID_ESTADO_TAREA_FASE = :nuevoIdEstado WHERE ID_TAREA = :idTarea AND ID_ESTADO_TAREA_FASE = :idEstado
+    ]]>
+  </entry>
+
+  <entry key="FaseAccionRepositoryCustom.findByIdFase">
+    <![CDATA[
+    SELECT ID_FASE, ID_ACCION, ID_PUNTO_EJECUCION, PESO
+    FROM FASE_ACCION WHERE ID_FASE = :idFase
+    ]]>
+  </entry>
+
+  <entry key="TareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion">
+    <![CDATA[
+    SELECT TFA.ID_TAREA_FASE_ACCION, TFA.ID_TAREA_FASE, TFA.ID_ACCION, TFA.ID_PUNTO_EJECUCION,
+    TFA.ID_ESTADO_TAREA_FASE_ACCION, TFA.FECHA_HORA_CREACION, TFA.FECHA_HORA_INICIO, TFA.FECHA_HORA_FIN, TFA.ES_ACTIVO, FA.PESO, A.REACCION_PESO
+    FROM TAREA_FASE_ACCION TFA
+    INNER JOIN TAREA_FASE TF
+    ON TF.ID_TAREA_FASE = TFA.ID_TAREA_FASE
+    INNER JOIN FASE_ACCION FA
+    ON FA.ID_ACCION = TFA.ID_ACCION
+    AND FA.ID_FASE = TF.ID_FASE
+    AND FA.ID_PUNTO_EJECUCION = TFA.ID_PUNTO_EJECUCION
+    INNER JOIN ACCION A
+    ON A.ID_ACCION = FA.ID_ACCION
+    WHERE TF.ID_TAREA = :idTarea
+    AND TF.ID_FASE = :idFase
+    AND TFA.ID_PUNTO_EJECUCION = :idPuntoEjecucion
+    AND TFA.ES_ACTIVO = :activo
+    ]]>
+  </entry>
+
+  <entry key="TareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion">
+    <![CDATA[
+    SELECT TFA.ID_TAREA_FASE_ACCION, TFA.ID_TAREA_FASE, TFA.ID_ACCION, TFA.ID_PUNTO_EJECUCION,
+    TFA.ID_ESTADO_TAREA_FASE_ACCION, TFA.FECHA_HORA_CREACION, TFA.FECHA_HORA_INICIO, TFA.FECHA_HORA_FIN, TFA.ES_ACTIVO, FA.PESO, A.REACCION_PESO
+    FROM TAREA_FASE_ACCION TFA
+    INNER JOIN TAREA_FASE TF
+    ON TF.ID_TAREA_FASE = TFA.ID_TAREA_FASE
+    INNER JOIN FASE_ACCION FA
+    ON FA.ID_ACCION = TFA.ID_ACCION
+    AND FA.ID_FASE = TF.ID_FASE
+    AND FA.ID_PUNTO_EJECUCION = TFA.ID_PUNTO_EJECUCION
+    INNER JOIN ACCION A
+    ON A.ID_ACCION = FA.ID_ACCION
+    WHERE TF.ID_TAREA = :idTarea
+    AND TF.ID_FASE = :idFase
+    AND TFA.ID_PUNTO_EJECUCION = :idPuntoEjecucion
+    AND TFA.ID_ACCION = :idAccion
+    AND TFA.ES_ACTIVO = :activo
+  ]]>
+  </entry>
+
+  <entry key="TareaFaseAccionRepositoryCustom.findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion">
+    <![CDATA[
+    SELECT FA.PESO
+    FROM TAREA T
+    INNER JOIN TAREA_FASE TF
+    ON TF.ID_TAREA = T.ID_TAREA
+    INNER JOIN TAREA_FASE_ACCION TFA
+    ON TFA.ID_TAREA_FASE = TF.ID_TAREA_FASE
+    INNER JOIN FASE_ACCION FA
+    ON FA.ID_ACCION = TFA.ID_ACCION
+    AND FA.ID_FASE = TF.ID_FASE
+    AND FA.ID_PUNTO_EJECUCION = TFA.ID_PUNTO_EJECUCION
+    WHERE T.ID_TAREA = :idTarea
+    AND FA.ID_FASE = :idFase
+    AND FA.ID_PUNTO_EJECUCION = :idPuntoEjecucion
+    GROUP BY FA.PESO
+    ORDER BY FA.PESO
+]]>
+  </entry>
+
+  <entry key="TareaFaseAccionRepositoryCustom.updateFechaInicio">
+    <![CDATA[
+    UPDATE TAREA_FASE_ACCION SET FECHA_HORA_INICIO = :nuevaFecha WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion
+    ]]>
+  </entry>
+
+  <entry key="TareaFaseAccionRepositoryCustom.updateFechaFinAndEstado">
+    <![CDATA[
+    UPDATE TAREA_FASE_ACCION SET FECHA_HORA_FIN = :nuevaFecha, ID_ESTADO_TAREA_FASE_ACCION = :nuevoIdEstado, ES_ACTIVO = :nuevoActivo WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion
+    ]]>
+  </entry>
+
+  <entry key="TareaFaseAccionRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual">
+    <![CDATA[
+           MERGE INTO TAREA_FASE_ACCION AS TFA USING
+        (
+                SELECT ID_TAREA_FASE_ACCION
+                FROM TAREA_FASE_ACCION TFA
+                INNER JOIN TAREA_FASE TF
+                ON TF.ID_TAREA_FASE = TFA.ID_TAREA_FASE
+                WHERE TF.ID_TAREA = :idTarea
+                AND TFA.ID_ESTADO_TAREA_FASE_ACCION = :idEstado
+        )AS S ON (S.ID_TAREA_FASE_ACCION = TFA.ID_TAREA_FASE_ACCION)
+        WHEN MATCHED THEN
+                UPDATE SET ID_ESTADO_TAREA_FASE_ACCION = :nuevoIdEstado, ES_ACTIVO = :nuevoActivo, FECHA_HORA_FIN = :nuevaFecha, FECHA_HORA_INICIO = :nuevaFecha
+    ]]>
+  </entry>
+
+  <entry key="AccionRepositoryCustom.findByIdAccionAndIdOrigenAndStdIdLegEnt">
+    <![CDATA[
+        SELECT ID_ACCION FROM ACCION_AMBITO WHERE ID_ACCION = :idAccion AND CCL_ID_ORIGEN = :cclIdOrigen AND STD_ID_LEG_ENT = :stdIdLegEnt
+    ]]>
+  </entry>
+
+  <entry key="TareaFaseAccionRepositoryCustom.countReintentosByIdTareaAndIdAccionAndIdEstado">
+    <![CDATA[
+    SELECT COUNT(ID_TAREA_FASE_ACCION) AS ID_TAREA_FASE_ACCION FROM (
+        SELECT ID_TAREA_FASE_ACCION FROM TAREA_FASE_ACCION TFA
+        INNER JOIN TAREA_FASE TF
+        ON TF.ID_TAREA_FASE = TFA.ID_TAREA_FASE
+        WHERE TF.ID_TAREA = :idTarea
+        AND TFA.ID_ACCION = :idAccion
+        AND TFA.ID_ESTADO_TAREA_FASE_ACCION = :idEstado
+    )
+    ]]>
+  </entry>
+
+  <entry key="TareaFaseRepositoryCustom.updateFechaFinAndEstadoByIdTareaFase">
+    <![CDATA[
+    UPDATE TAREA_FASE SET FECHA_HORA_FIN = :nuevaFecha, ID_ESTADO_TAREA_FASE = :nuevoIdEstado WHERE ID_TAREA_FASE = :idTareaFase
+    ]]>
+  </entry>
+
+  <entry key="TareaFaseRepositoryCustom.updateActivoByIdTarea">
+    <![CDATA[
+    UPDATE TAREA_FASE SET ES_ACTIVO = :nuevoActivo WHERE ID_TAREA = :idTarea
+    ]]>
+  </entry>
+
+  <entry key="TareaFaseRepositoryCustom.updateActivoByIdTareaFase">
+    <![CDATA[
+    UPDATE TAREA_FASE SET ES_ACTIVO = :nuevoActivo WHERE ID_TAREA_FASE = :idTareaFase
+    ]]>
+  </entry>
+
+  <entry key="TareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoByIdTareaFase">
+    <![CDATA[
+    UPDATE TAREA_FASE SET FECHA_HORA_INICIO = :nuevaFecha, FECHA_HORA_FIN = :nuevaFecha, ID_ESTADO_TAREA_FASE = :nuevoIdEstado, ES_ACTIVO = :nuevoActivo WHERE ID_TAREA_FASE = :idTareaFase
+    ]]>
+  </entry>
+
+  <entry key="TareaFaseAccionRepositoryCustom.findByIdTareaFaseAccion">
+    <![CDATA[
+      SELECT ID_TAREA_FASE_ACCION, ID_TAREA_FASE, ID_ACCION, ID_PUNTO_EJECUCION, ID_ESTADO_TAREA_FASE_ACCION, FECHA_HORA_CREACION, FECHA_HORA_INICIO, FECHA_HORA_FIN, ES_ACTIVO
+      FROM TAREA_FASE_ACCION WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion
+    ]]>
+  </entry>
+
 
 </properties>

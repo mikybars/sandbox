@@ -67,7 +67,7 @@ public class PtrVentaOnlinePickingRequestDto implements Serializable {
     @ApiModelProperty(value = "Agrupar seccion flag (pivotado)", required = false, example = "1")
     @XmlElement(name = "agruparSeccion")
     private Integer agruparSeccion;
-    
+
     @ApiModelProperty(value = "Flag ventaPAT (includo/excluido)", required = false, example = "1")
     @XmlElement(name = "ventaPAT")
     private Integer ventaPAT;

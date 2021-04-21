@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -29,13 +30,15 @@ public class TareaAmbitoServiceImpl implements TareaAmbitoService {
     @Override
     public List<TareaAmbitoDto> create(@Valid @NotNull @NotEmpty final List<TareaAmbitoDto> tareaAmbito,
             @Valid @NotNull final TareaDto tarea) {
-        return tareaAmbitoMapper.tareaAmbitoToTareaAmbitoDto(tareaAmbitoRepository
-            .saveAll(tareaAmbitoMapper.mergeTareaAmbitoDtoAndTareaDtoToTareaAmbito(tareaAmbito, tarea)));
+        return this.tareaAmbitoMapper.tareaAmbitoToTareaAmbitoDto(this.tareaAmbitoRepository
+            .saveAll(this.tareaAmbitoMapper.mergeTareaAmbitoDtoAndTareaDtoToTareaAmbito(tareaAmbito, tarea)));
     }
 
     @Override
+    @Cacheable(value = "itx.icmlcwb.tarea_ambito_dto_by_tarea", key = "{#tarea.id}")
     public List<TareaAmbitoDto> findByTarea(@Valid @NotNull final TareaDto tarea) {
-        return tareaAmbitoMapper.tareaAmbitoToTareaAmbitoDto(tareaAmbitoRepository.findByTareaId(tarea.getId()));
+        return this.tareaAmbitoMapper
+            .tareaAmbitoToTareaAmbitoDto(this.tareaAmbitoRepository.findByTareaId(tarea.getId()));
     }
 
 }

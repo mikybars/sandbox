@@ -35,6 +35,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.Periodos
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
@@ -419,6 +422,24 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
         this.meta4IcmWsCalcIncomeSessionServiceImpl.getDesplazReal(request);
         verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
             .getDesplazReal(ArgumentMatchers.any(DesplazamientoRealRequestDto.class));
+    }
+
+    @Test
+    public void getPresenciaManualWloc() {
+        final Meta4PropertiesDto properties = new Meta4PropertiesDto();
+        final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
+        filter.setMaxPageSize(1);
+        properties.setFilter(filter);
+        when(this.meta4IcmWsCalcIncomeService
+            .getPresenciaManualWloc(any(PresenciaManualWlocRequestDto.class)))
+                .thenReturn(new PresenciaManualWlocResponseDto());
+
+        final PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
+        request.setData(new PresenciaManualWlocFilterDto());
+        request.setPage(new PageDto(1, 100));
+        this.meta4IcmWsCalcIncomeSessionServiceImpl.getPresenciaManualWloc(request);
+        verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
+            .getPresenciaManualWloc(ArgumentMatchers.any(PresenciaManualWlocRequestDto.class));
     }
 
 }

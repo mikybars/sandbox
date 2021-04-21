@@ -60,6 +60,18 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     }
 
     @Override
+    public CompletableFuture<Void> presenciaManualLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        this.tareaRecolectarMeta4IcmWsCalcIncomeService.presenciaManualLocalizacionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> ventaManualLocalizacionByRunTarea(final RunTareaDto runTarea) {
+        this.tareaRecolectarMeta4IcmWsCalcIncomeService.ventaManualLocalizacionByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
     public CompletableFuture<Void> empleadosPresenciaByRunTarea(final RunTareaDto runTarea) {
         this.tareaRecolectarMeta4IcmWsCalcIncomeService.empleadosPresenciaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

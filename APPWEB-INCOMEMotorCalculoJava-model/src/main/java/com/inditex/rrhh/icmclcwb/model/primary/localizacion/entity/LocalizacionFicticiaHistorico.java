@@ -20,7 +20,7 @@ public class LocalizacionFicticiaHistorico {
 
     @EmbeddedId
     private LocalizacionFicticiaHistoricoPk pk;
-    
+
     @NotNull
     @Column(name = "FECHA_FIN", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -33,10 +33,9 @@ public class LocalizacionFicticiaHistorico {
     @NotBlank
     @Column(name = "CCL_ID_CADENA", nullable = false, length = 24)
     private String cclIdCadena;
-    
+
     @NotBlank
     @Column(name = "STD_ID_COUNTRY", nullable = false, length = 8)
     private String stdIdCountry;
-    
 
 }

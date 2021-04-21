@@ -1,11 +1,12 @@
 package com.inditex.rrhh.icmclcwb;
 
-import com.inditex.aqsw.framework.amiga.service.AmigaBootServiceApplication;
 import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.boot.SpringApplication;
+
+import com.inditex.aqsw.framework.amiga.service.AmigaBootServiceApplication;
 
 @AmigaBootServiceApplication
 public class Application {

@@ -3,9 +3,14 @@ package com.inditex.rrhh.icmclcwb.model.app.programacion.service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -13,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
@@ -93,7 +99,6 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     @Override
     public ProgramacionDto updateEjecucion(@Valid final ProgramacionDto programacion) {
         programacion.setFechaHoraUltimaEjecucion(TimeUtils.nowLocalDateTime());
-        programacion.setFechaHoraSiguienteEjecucion(this.fechaSiguienteEjecucion(programacion));
         return this.modify(programacion);
     }
 
@@ -131,12 +136,42 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     }
 
     @Override
+    public ProgramacionDto findActivoById(
+            @Positive @NotNull final Long id) {
+        final ProgramacionDto programacionDto = this.programacionMapper
+            .programacionToProgramacionDto(this.programacionRepository.findByIdAndActivoTrue(id));
+        programacionDto.setAmbito(this.programacionAmbitoService.findByProgramacion(programacionDto));
+        return programacionDto;
+    }
+
+    @Override
     public ProgramacionDto findPendienteById(@Positive @NotNull final Long id) {
         final ProgramacionDto programacionDto = this.programacionMapper
             .programacionToProgramacionDto(this.programacionRepository
                 .findByIdAndFechaHoraSiguienteEjecucionBeforeAndActivoTrue(id, TimeUtils.nowLocalDateTime()));
         programacionDto.setAmbito(this.programacionAmbitoService.findByProgramacion(programacionDto));
         return programacionDto;
+    }
+
+    @Override
+    public void updateFechaSiguienteEjecucion(
+            @NotNull @NotEmpty final List<ProgramacionDto> programaciones) {
+        // Se obtienen todas las fechas por programacion
+        final Map<LocalDateTime, List<ProgramacionDto>> map = new HashMap<>();
+        programaciones.stream().forEach(programacion -> {
+            final LocalDateTime fechaSiguienteEjecucion = this.fechaSiguienteEjecucion(programacion);
+            if (!map.containsKey(fechaSiguienteEjecucion)) {
+                map.put(fechaSiguienteEjecucion, new ArrayList<>());
+            }
+            map.get(fechaSiguienteEjecucion).add(programacion);
+        });
+
+        map.forEach((fechaSiguienteEjecucion, program) -> {
+            final List<IdProgramacionDto> ids = program.stream()
+                .map(programacion -> IdProgramacionDto.builder().id(programacion.getId()).build())
+                .collect(Collectors.toList());
+            this.programacionRepositoryCustom.updateFechaSiguienteEjecucion(ids, fechaSiguienteEjecucion);
+        });
     }
 
 }

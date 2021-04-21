@@ -17,6 +17,10 @@ public class RunMantenimientoLimpiezaDto implements Serializable {
 
     private static final long serialVersionUID = 7293424922072873504L;
 
+    private Integer tareasProcesadas;
+
     private List<IdTareaDto> idTarea;
+
+    private Integer tareasPendientes;
 
 }

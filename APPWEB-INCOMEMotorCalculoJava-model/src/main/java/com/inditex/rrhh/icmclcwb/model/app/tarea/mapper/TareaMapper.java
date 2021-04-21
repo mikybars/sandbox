@@ -24,10 +24,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultie
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
@@ -171,6 +173,24 @@ public abstract class TareaMapper {
 
     @Mapping(target = "item", ignore = true)
     @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaFinPeriodo()))")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "idsEmpresa", expression = "java(Arrays.asList(srcTarea.getStdIdLegEnt()))")
+    public abstract VentaManualWlocFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToVentaManualWlocFilterDto(
+            TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
+
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaInicioPeriodo()))")
+    @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaFinPeriodo()))")
+    @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "idsEmpresa", expression = "java(Arrays.asList(srcTarea.getStdIdLegEnt()))")
+    public abstract PresenciaManualWlocFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPresenciaManualWlocFilterDto(
+            TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
+
+    @Mapping(target = "item", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcTrabajo.getFechaInicioPeriodo()))")
     @Mapping(target = "fechaFin",
             expression = "java(RunUtils.addDays(TimeUtils.toLocalDateTime(srcTrabajo.getFechaFinPeriodo()), srcRecolectarProperties.getDaysNumber()))")
@@ -210,6 +230,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaTotalizadoRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             RecolectarPropertiesDto srcRecolectarProperties);
@@ -226,6 +247,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaTotalizadoRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo,
             RecolectarPropertiesDto srcRecolectarProperties);
@@ -241,6 +263,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             IdLocalizacionLocalPresupuestoDto srcPresupuesto);
@@ -317,6 +340,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito,
             RecolectarPropertiesDto srcRecolectarProperties, List<IdCadenaDto> cadenas);
@@ -333,6 +357,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoIdCadenaDtoToPtrVentaTotalizadoRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo,
             RecolectarPropertiesDto srcRecolectarProperties, List<IdCadenaDto> cadenas);
@@ -349,6 +374,7 @@ public abstract class TareaMapper {
     @Mapping(target = "producto", ignore = true)
     @Mapping(target = "agruparSeccion", ignore = true)
     @Mapping(target = "agrupacion", ignore = true)
+    @Mapping(target = "operacion", ignore = true)
     public abstract PtrVentaTotalizadoRequestDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoAndIdCadenaDtoToPtrVentaTotalizadoRequestDto(
             TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, RecolectarPropertiesDto srcRecolectarProperties,
             PeriodoDto periodo, List<IdCadenaDto> cadenas);

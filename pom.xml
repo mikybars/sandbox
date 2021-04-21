@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.inditex.aqsw.framework.amiga</groupId>
     <artifactId>amiga-framework</artifactId>
-    <version>3.6.1</version>
+    <version>3.9.4</version>
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
-  <version>2.5.1</version>
+  <version>2.7.9</version>
   <packaging>pom</packaging>
 
   <properties>
-    <maven.test.skip>true</maven.test.skip>
-    <sonar.exclusions>**/model/meta4/icmwscalcincome/entity/**,**/model/meta4/login/entity/**</sonar.exclusions>
+    <maven.test.skip>false</maven.test.skip>
+    <!-- TODO [javierev] se excluyen ficheros markdown porque sonar los confunde con otra cosa (¿MetaDapper?) -->
+    <sonar.exclusions>**/model/meta4/icmwscalcincome/entity/**,**/model/meta4/login/entity/**,**/resources/*.md,**/resources/*.sql
+    </sonar.exclusions>
+    <amiga-javaformat.version>1.5.0</amiga-javaformat.version>
     <app.github.chrisvest.version>3.1</app.github.chrisvest.version>
     <app.org.jvnet.jaxb2_commons.version>0.12.0</app.org.jvnet.jaxb2_commons.version>
     <app.org.codehaus.mojo.jaxws-maven-plugin.version>2.6</app.org.codehaus.mojo.jaxws-maven-plugin.version>
@@ -58,4 +61,24 @@
     <module>APPWEB-INCOMEMotorCalculoJava-ms</module>
     <module>APPWEB-INCOMEMotorCalculoJava-boot</module>
   </modules>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.inditex.aqsw.amiga.javaformat</groupId>
+        <artifactId>amiga-javaformat-maven-plugin</artifactId>
+        <version>${amiga-javaformat.version}</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <inherited>true</inherited>
+            <goals>
+              <goal>validate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>

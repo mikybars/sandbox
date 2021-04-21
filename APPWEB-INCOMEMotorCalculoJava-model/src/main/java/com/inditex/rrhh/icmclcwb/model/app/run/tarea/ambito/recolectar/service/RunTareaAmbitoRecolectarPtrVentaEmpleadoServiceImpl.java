@@ -81,27 +81,31 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId()).stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .map(IdEmpresaDto::getStdIdLegEnt)
+                .collect(Collectors.toList());
             for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                this.tareaLocalizacionHistoricoService
-                    .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
-                        tarea.getId(),
-                        tareaAmbito.getCclIdOrigen(),
-                        empresasAmbito,
-                        Arrays.asList(TipoCalculoEnum.POR_VENTA.getId(),
-                            TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(),
-                            TipoCalculoEnum.POR_VENTA_INDIVIDUAL.getId())),
-                this.ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE)
-                    .getFilter()
-                    .getMaxPageSize())) {
+                    this.tareaLocalizacionHistoricoService
+                        .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
+                                tarea.getId(),
+                                tareaAmbito.getCclIdOrigen(),
+                                empresasAmbito,
+                                Arrays.asList(TipoCalculoEnum.POR_VENTA.getId(),
+                                        TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(),
+                                        TipoCalculoEnum.POR_VENTA_INDIVIDUAL.getId())),
+                    this.ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE)
+                        .getFilter()
+                        .getMaxPageSize())) {
 
                 final PtrVentaIndividualDetalleRequestDto paramVentaFisica = this.tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPtrVentaIndividualDetalleRequestDto(trabajo,
-                        tarea,
-                        tareaAmbito, this.recolectarProperties);
+                            tarea,
+                            tareaAmbito, this.recolectarProperties);
                 paramVentaFisica.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA_SECCION);
                 paramVentaFisica.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                paramVentaFisica.setEmpresa(empresasAmbito.stream().map(Integer::parseInt).collect(Collectors.toList()));
+                paramVentaFisica
+                    .setEmpresa(empresasAmbito.stream().map(Integer::parseInt).collect(Collectors.toList()));
                 paramVentaFisica.setTienda(iter.stream()
                     .map(IdLocalizacionLocalDto::getId)
                     .map(Integer::valueOf)
@@ -120,14 +124,14 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
 
                 if (CollectionUtils.isNotEmpty(data.getVentaIndividualDetalle())) {
                     AsyncUtils.checkAsyncAvaliable(cfPersist,
-                        this.ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE)
-                            .getFilter()
-                            .getMaxPageSize());
+                            this.ventaEmpleadoProperties.get(PtrPropertiesConstants.VENTA_INDIVIDUAL_DETALLE)
+                                .getFilter()
+                                .getMaxPageSize());
                     AsyncUtils.exceptionally(
-                        this.tareaLocalizacionPersonaVentaAsyncService
-                            .savePtrVentaIndividualDetalleResultItem(
-                                data.getVentaIndividualDetalle(), tarea),
-                        cf, cfPersist);
+                            this.tareaLocalizacionPersonaVentaAsyncService
+                                .savePtrVentaIndividualDetalleResultItem(
+                                        data.getVentaIndividualDetalle(), tarea),
+                            cf, cfPersist);
                 }
             }
 

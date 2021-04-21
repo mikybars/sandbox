@@ -1,14 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrPresenciaService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrPresenciaService;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrPresenciaService;
 
 @Service
 @Validated
@@ -23,7 +24,8 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
             .getAmbito()
             .stream()
             .forEach(
-                    item -> runTareaAmbitoRecolectarPtrPresenciaService.tiposHorasByRunTareaAndTareaAmbito(runTarea,
+                    item -> this.runTareaAmbitoRecolectarPtrPresenciaService.tiposHorasByRunTareaAndTareaAmbito(
+                            runTarea,
                             item));
     }
 
@@ -32,7 +34,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
+            .forEach(item -> this.runTareaAmbitoRecolectarPtrPresenciaService
                 .presenciaDetallePersonaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
@@ -41,7 +43,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
         runTarea.getTarea()
             .getAmbito()
             .stream()
-            .forEach(item -> runTareaAmbitoRecolectarPtrPresenciaService
+            .forEach(item -> this.runTareaAmbitoRecolectarPtrPresenciaService
                 .presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(runTarea, item));
     }
 

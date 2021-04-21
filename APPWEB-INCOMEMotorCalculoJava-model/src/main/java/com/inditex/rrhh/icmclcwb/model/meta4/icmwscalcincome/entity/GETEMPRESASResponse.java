@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -24,10 +28,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,28 +45,25 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getempresasReturn"
+        "getempresasReturn"
 })
 @XmlRootElement(name = "GETEMPRESASResponse")
-public class GETEMPRESASResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETEMPRESASResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "GETEMPRESASReturn", required = true)
     protected GetempresasOutput getempresasReturn;
 
     /**
      * Obtiene el valor de la propiedad getempresasReturn.
-     * 
-     * @return
-     *     possible object is
-     *     {@link GetempresasOutput }
-     *     
+     * @return possible object is {@link GetempresasOutput }
+     *
      */
     public GetempresasOutput getGETEMPRESASReturn() {
         return getempresasReturn;
@@ -68,18 +71,16 @@ public class GETEMPRESASResponse implements Serializable, Cloneable, CopyTo2, Eq
 
     /**
      * Define el valor de la propiedad getempresasReturn.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link GetempresasOutput }
-     *     
+     * @param value allowed object is {@link GetempresasOutput }
+     *
      */
     public void setGETEMPRESASReturn(GetempresasOutput value) {
         this.getempresasReturn = value;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -91,7 +92,9 @@ public class GETEMPRESASResponse implements Serializable, Cloneable, CopyTo2, Eq
             lhsGETEMPRESASReturn = this.getGETEMPRESASReturn();
             GetempresasOutput rhsGETEMPRESASReturn;
             rhsGETEMPRESASReturn = that.getGETEMPRESASReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getempresasReturn", lhsGETEMPRESASReturn), LocatorUtils.property(thatLocator, "getempresasReturn", rhsGETEMPRESASReturn), lhsGETEMPRESASReturn, rhsGETEMPRESASReturn, (this.getempresasReturn!= null), (that.getempresasReturn!= null))) {
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getempresasReturn", lhsGETEMPRESASReturn),
+                    LocatorUtils.property(thatLocator, "getempresasReturn", rhsGETEMPRESASReturn), lhsGETEMPRESASReturn,
+                    rhsGETEMPRESASReturn, (this.getempresasReturn != null), (that.getempresasReturn != null))) {
                 return false;
             }
         }
@@ -121,7 +124,8 @@ public class GETEMPRESASResponse implements Serializable, Cloneable, CopyTo2, Eq
         {
             GetempresasOutput theGETEMPRESASReturn;
             theGETEMPRESASReturn = this.getGETEMPRESASReturn();
-            strategy.appendField(locator, this, "getempresasReturn", buffer, theGETEMPRESASReturn, (this.getempresasReturn!= null));
+            strategy.appendField(locator, this, "getempresasReturn", buffer, theGETEMPRESASReturn,
+                    (this.getempresasReturn != null));
         }
         return buffer;
     }
@@ -131,7 +135,9 @@ public class GETEMPRESASResponse implements Serializable, Cloneable, CopyTo2, Eq
         {
             GetempresasOutput theGETEMPRESASReturn;
             theGETEMPRESASReturn = this.getGETEMPRESASReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getempresasReturn", theGETEMPRESASReturn), currentHashCode, theGETEMPRESASReturn, (this.getempresasReturn!= null));
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "getempresasReturn", theGETEMPRESASReturn), currentHashCode,
+                    theGETEMPRESASReturn, (this.getempresasReturn != null));
         }
         return currentHashCode;
     }
@@ -151,15 +157,18 @@ public class GETEMPRESASResponse implements Serializable, Cloneable, CopyTo2, Eq
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETEMPRESASResponse) {
             final GETEMPRESASResponse copy = ((GETEMPRESASResponse) draftCopy);
             {
-                Boolean getempresasReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getempresasReturn!= null));
+                Boolean getempresasReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.getempresasReturn != null));
                 if (getempresasReturnShouldBeCopiedAndSet == Boolean.TRUE) {
                     GetempresasOutput sourceGETEMPRESASReturn;
                     sourceGETEMPRESASReturn = this.getGETEMPRESASReturn();
-                    GetempresasOutput copyGETEMPRESASReturn = ((GetempresasOutput) strategy.copy(LocatorUtils.property(locator, "getempresasReturn", sourceGETEMPRESASReturn), sourceGETEMPRESASReturn, (this.getempresasReturn!= null)));
+                    GetempresasOutput copyGETEMPRESASReturn = ((GetempresasOutput) strategy.copy(
+                            LocatorUtils.property(locator, "getempresasReturn", sourceGETEMPRESASReturn),
+                            sourceGETEMPRESASReturn, (this.getempresasReturn != null)));
                     copy.setGETEMPRESASReturn(copyGETEMPRESASReturn);
                 } else {
                     if (getempresasReturnShouldBeCopiedAndSet == Boolean.FALSE) {

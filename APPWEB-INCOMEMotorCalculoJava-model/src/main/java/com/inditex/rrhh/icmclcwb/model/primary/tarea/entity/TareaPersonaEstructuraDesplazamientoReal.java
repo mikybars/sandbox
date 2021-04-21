@@ -22,7 +22,7 @@ public class TareaPersonaEstructuraDesplazamientoReal {
 
     @EmbeddedId
     private TareaPersonaEstructuraDesplazamientoRealPk pk;
-    
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)
@@ -35,7 +35,7 @@ public class TareaPersonaEstructuraDesplazamientoReal {
     @NotBlank
     @Column(name = "ICM_ID_ESTR_COMISION", nullable = false, length = 48)
     private String icmIdEstrComision;
-    
+
     @NotBlank
     @Column(name = "ICM_ID_ESTR_COMISION_PADRE", nullable = false, length = 48)
     private String icmIdEstrComisionPadre;
@@ -43,7 +43,7 @@ public class TareaPersonaEstructuraDesplazamientoReal {
     @NotBlank
     @Column(name = "ICM_ID_ESTR_COMISION_BASE", nullable = false, length = 48)
     private String icmIdEstrComisionBase;
-    
+
     @NotNull
     @Column(name = "FECHA_INICIO", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -53,15 +53,15 @@ public class TareaPersonaEstructuraDesplazamientoReal {
     @Column(name = "FECHA_FIN", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    
+
     @NotBlank
     @Column(name = "STD_ID_HR", nullable = false, length = 18)
     private String stdIdHr;
-    
+
     @NotBlank
     @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
     private String stdOrHrPeriod;
-    
+
     @NotBlank
     @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
     private String cclIdOrigen;

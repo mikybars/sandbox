@@ -11,13 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.regularizar.async.service.RunTareaRegularizarCalculoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 
 @Service
 @Validated
@@ -26,7 +31,11 @@ public class RunTareaRegularizarServiceImpl implements RunTareaRegularizarServic
     @Autowired
     private RunTareaRegularizarCalculoAsyncService runTareaRegularizarAsyncService;
 
+    @Autowired
+    private TareaFaseService tareaFaseService;
+
     @Auditoria
+    @Validation(fase = 6)
     @TimerFunctionalMetric(metricName = "RunTareaRegularizarService.run.timer",
             metricGroupName = "RunTareaRegularizarServiceGroup",
             metricDescription = "RunTareaRegularizarService.run.timer")
@@ -35,17 +44,31 @@ public class RunTareaRegularizarServiceImpl implements RunTareaRegularizarServic
             metricDescription = "RunTareaRegularizarService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
-        List<CompletableFuture<?>> cf = new ArrayList<>();
+
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            CompletableFuture<Void> cfPostProcesarCalculo = runTareaRegularizarAsyncService
+            this.tareaFaseService.updateFechaInicio(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.REGULARIZAR.getId()));
+
+            final CompletableFuture<Void> cfPostProcesarCalculo = this.runTareaRegularizarAsyncService
                 .regularizarCalculoMejorOpcion(runTarea);
             AsyncUtils.exceptionally(cfPostProcesarCalculo, cf);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
-        } catch (Exception e) {
+
+            this.tareaFaseService.updateFechaFinAndEstado(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.REGULARIZAR.getId()),
+                    EstadoTareaFaseEnum.OK.getDto());
+        } catch (final Exception e) {
             AsyncUtils.cancel(cf);
+            this.tareaFaseService.updateFechaFinAndEstado(
+                    this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
+                            FaseEnum.REGULARIZAR.getId()),
+                    EstadoTareaFaseEnum.KO.getDto());
             throw e;
         }
     }

@@ -92,7 +92,8 @@ public enum TipoDatoEnum {
                                                                                                                                                                                                                                                                                                                                     3042), VENTA_SIN_DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION(
                                                                                                                                                                                                                                                                                                                                             3043), DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION(
                                                                                                                                                                                                                                                                                                                                                     3044), REPARTO_DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION(
-                                                                                                                                                                                                                                                                                                                                                            3045),
+                                                                                                                                                                                                                                                                                                                                                            3045), VENTA_MANUAL_LOCALIZACION_SECCION(
+                                                                                                                                                                                                                                                                                                                                                                    3046),
     /* 4000 (Presencia) */
     PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA(4002), PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA(
             4003),
@@ -113,15 +114,15 @@ public enum TipoDatoEnum {
                                                                                                             5014), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE(
                                                                                                                     5015), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO(
                                                                                                                             5016), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE(
-                                                                                                                                    5017),
+                                                                                                                                    5017), PRESENCIA_MANUAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR(
+                                                                                                                                            5018),
     /* 6000 (Localizacion) */
     LOCALIZACION_FESTIVO(6001),
     /* 7000 (Localizacion Procesado) *//* 8000 (Persona) */
     PERSONA_COEFICIENTEREDUCCIONJORNADA(8001),
     /* 9000 (Persona Procesado) */
-    /* 10000 (Periodos)*/
-    PERIODO(10001),
-    PERIODO_AMPLIADO(10002);
+    /* 10000 (Periodos) */
+    PERIODO(10001), PERIODO_AMPLIADO(10002);
 
     private final Integer id;
 

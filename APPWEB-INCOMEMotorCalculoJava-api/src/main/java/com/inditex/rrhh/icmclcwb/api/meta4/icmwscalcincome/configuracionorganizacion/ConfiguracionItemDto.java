@@ -22,8 +22,6 @@ public class ConfiguracionItemDto implements Serializable {
 
     private String idConfiguracion;
 
-    private String inOut;
-
     private String idOrigen;
 
     private Integer idTipoHora;

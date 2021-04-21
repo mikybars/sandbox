@@ -76,4 +76,6 @@ public interface RunTareaProcesarVentaService {
 
     void updateActivoCongeladaSeccion(@Valid RunTareaDto runTarea);
 
+    void updateActivoManual(@Valid RunTareaDto tarea);
+
 }

@@ -1,11 +1,14 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+@Data
 public class TareaLocalizacionPresenciaDto {
 
     @ApiModelProperty(value = "Identificador de la entidad", required = false,
@@ -27,6 +30,10 @@ public class TareaLocalizacionPresenciaDto {
     @NotBlank
     @ApiModelProperty(value = "Id de la seccion", required = true)
     private String cclIdSeccion;
+
+    @NotBlank
+    @ApiModelProperty(value = "Id de la cadena", required = true)
+    private String cclIdCadena;
 
     @NotNull
     @ApiModelProperty(value = "Tiempo seccion", required = false, accessMode = ApiModelProperty.AccessMode.READ_ONLY)

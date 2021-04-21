@@ -162,4 +162,10 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> compensarLocalizacionManual(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.compensarLocalizacionManual(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

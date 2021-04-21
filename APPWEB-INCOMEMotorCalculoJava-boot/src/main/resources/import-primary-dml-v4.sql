@@ -1,4 +1,5 @@
-DELETE FROM ALGORITMO_TIPO_DATO;
+-- TODO [javierev] WHERE 1 = 1 para evitar que Sonar se queje de que no tiene cláusula WHERE
+DELETE FROM ALGORITMO_TIPO_DATO WHERE 1 = 1;
 -- ALGORITMO_TIPO_DATO
 -- > globalTiendaPorcentajeV1 (Venta [localizacion|seccion])
 INSERT INTO ALGORITMO_TIPO_DATO (ID_ALGORITMO, ID_TIPO_DATO) VALUES (1001, 2002);

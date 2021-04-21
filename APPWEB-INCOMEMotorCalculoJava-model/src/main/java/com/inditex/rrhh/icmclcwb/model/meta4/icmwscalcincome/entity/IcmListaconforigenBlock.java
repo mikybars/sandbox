@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -25,10 +29,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Clase Java para Icm_ListaconforigenBlock complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para Icm_ListaconforigenBlock complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType name="Icm_ListaconforigenBlock"&gt;
  *   &lt;complexContent&gt;
@@ -40,41 +46,40 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaconforigenBlock", propOrder = {
-    "icmListaconforigenRecordSet"
+        "icmListaconforigenRecordSet"
 })
-public class IcmListaconforigenBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmListaconforigenBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
+
     @XmlElement(name = "Icm_ListaconforigenRecordSet", nillable = true)
     protected List<IcmListaconforigenRecord> icmListaconforigenRecordSet;
 
     /**
      * Gets the value of the icmListaconforigenRecordSet property.
-     * 
+     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmListaconforigenRecordSet property.
-     * 
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+     * modification you make to the returned list will be present inside the JAXB object. This is why
+     * there is not a <CODE>set</CODE> method for the icmListaconforigenRecordSet property.
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getIcmListaconforigenRecordSet().add(newItem);
+     * getIcmListaconforigenRecordSet().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmListaconforigenRecord }
-     * 
-     * 
+     * Objects of the following type(s) are allowed in the list {@link IcmListaconforigenRecord }
+     *
+     *
      */
     public List<IcmListaconforigenRecord> getIcmListaconforigenRecordSet() {
         if (icmListaconforigenRecordSet == null) {
@@ -83,8 +88,9 @@ public class IcmListaconforigenBlock implements Serializable, Cloneable, CopyTo2
         return this.icmListaconforigenRecordSet;
     }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
+        if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
         if (this == object) {
@@ -93,10 +99,17 @@ public class IcmListaconforigenBlock implements Serializable, Cloneable, CopyTo2
         final IcmListaconforigenBlock that = ((IcmListaconforigenBlock) object);
         {
             List<IcmListaconforigenRecord> lhsIcmListaconforigenRecordSet;
-            lhsIcmListaconforigenRecordSet = (((this.icmListaconforigenRecordSet!= null)&&(!this.icmListaconforigenRecordSet.isEmpty()))?this.getIcmListaconforigenRecordSet():null);
+            lhsIcmListaconforigenRecordSet = (((this.icmListaconforigenRecordSet != null)
+                    && (!this.icmListaconforigenRecordSet.isEmpty())) ? this.getIcmListaconforigenRecordSet() : null);
             List<IcmListaconforigenRecord> rhsIcmListaconforigenRecordSet;
-            rhsIcmListaconforigenRecordSet = (((that.icmListaconforigenRecordSet!= null)&&(!that.icmListaconforigenRecordSet.isEmpty()))?that.getIcmListaconforigenRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaconforigenRecordSet", lhsIcmListaconforigenRecordSet), LocatorUtils.property(thatLocator, "icmListaconforigenRecordSet", rhsIcmListaconforigenRecordSet), lhsIcmListaconforigenRecordSet, rhsIcmListaconforigenRecordSet, ((this.icmListaconforigenRecordSet!= null)&&(!this.icmListaconforigenRecordSet.isEmpty())), ((that.icmListaconforigenRecordSet!= null)&&(!that.icmListaconforigenRecordSet.isEmpty())))) {
+            rhsIcmListaconforigenRecordSet = (((that.icmListaconforigenRecordSet != null)
+                    && (!that.icmListaconforigenRecordSet.isEmpty())) ? that.getIcmListaconforigenRecordSet() : null);
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmListaconforigenRecordSet", lhsIcmListaconforigenRecordSet),
+                    LocatorUtils.property(thatLocator, "icmListaconforigenRecordSet", rhsIcmListaconforigenRecordSet),
+                    lhsIcmListaconforigenRecordSet, rhsIcmListaconforigenRecordSet,
+                    ((this.icmListaconforigenRecordSet != null) && (!this.icmListaconforigenRecordSet.isEmpty())),
+                    ((that.icmListaconforigenRecordSet != null) && (!that.icmListaconforigenRecordSet.isEmpty())))) {
                 return false;
             }
         }
@@ -125,8 +138,10 @@ public class IcmListaconforigenBlock implements Serializable, Cloneable, CopyTo2
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
             List<IcmListaconforigenRecord> theIcmListaconforigenRecordSet;
-            theIcmListaconforigenRecordSet = (((this.icmListaconforigenRecordSet!= null)&&(!this.icmListaconforigenRecordSet.isEmpty()))?this.getIcmListaconforigenRecordSet():null);
-            strategy.appendField(locator, this, "icmListaconforigenRecordSet", buffer, theIcmListaconforigenRecordSet, ((this.icmListaconforigenRecordSet!= null)&&(!this.icmListaconforigenRecordSet.isEmpty())));
+            theIcmListaconforigenRecordSet = (((this.icmListaconforigenRecordSet != null)
+                    && (!this.icmListaconforigenRecordSet.isEmpty())) ? this.getIcmListaconforigenRecordSet() : null);
+            strategy.appendField(locator, this, "icmListaconforigenRecordSet", buffer, theIcmListaconforigenRecordSet,
+                    ((this.icmListaconforigenRecordSet != null) && (!this.icmListaconforigenRecordSet.isEmpty())));
         }
         return buffer;
     }
@@ -135,8 +150,12 @@ public class IcmListaconforigenBlock implements Serializable, Cloneable, CopyTo2
         int currentHashCode = 1;
         {
             List<IcmListaconforigenRecord> theIcmListaconforigenRecordSet;
-            theIcmListaconforigenRecordSet = (((this.icmListaconforigenRecordSet!= null)&&(!this.icmListaconforigenRecordSet.isEmpty()))?this.getIcmListaconforigenRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaconforigenRecordSet", theIcmListaconforigenRecordSet), currentHashCode, theIcmListaconforigenRecordSet, ((this.icmListaconforigenRecordSet!= null)&&(!this.icmListaconforigenRecordSet.isEmpty())));
+            theIcmListaconforigenRecordSet = (((this.icmListaconforigenRecordSet != null)
+                    && (!this.icmListaconforigenRecordSet.isEmpty())) ? this.getIcmListaconforigenRecordSet() : null);
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmListaconforigenRecordSet", theIcmListaconforigenRecordSet),
+                    currentHashCode, theIcmListaconforigenRecordSet,
+                    ((this.icmListaconforigenRecordSet != null) && (!this.icmListaconforigenRecordSet.isEmpty())));
         }
         return currentHashCode;
     }
@@ -156,19 +175,27 @@ public class IcmListaconforigenBlock implements Serializable, Cloneable, CopyTo2
     }
 
     public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof IcmListaconforigenBlock) {
             final IcmListaconforigenBlock copy = ((IcmListaconforigenBlock) draftCopy);
             {
-                Boolean icmListaconforigenRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListaconforigenRecordSet!= null)&&(!this.icmListaconforigenRecordSet.isEmpty())));
+                Boolean icmListaconforigenRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        ((this.icmListaconforigenRecordSet != null) && (!this.icmListaconforigenRecordSet.isEmpty())));
                 if (icmListaconforigenRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
                     List<IcmListaconforigenRecord> sourceIcmListaconforigenRecordSet;
-                    sourceIcmListaconforigenRecordSet = (((this.icmListaconforigenRecordSet!= null)&&(!this.icmListaconforigenRecordSet.isEmpty()))?this.getIcmListaconforigenRecordSet():null);
+                    sourceIcmListaconforigenRecordSet = (((this.icmListaconforigenRecordSet != null)
+                            && (!this.icmListaconforigenRecordSet.isEmpty())) ? this.getIcmListaconforigenRecordSet()
+                                    : null);
                     @SuppressWarnings("unchecked")
-                    List<IcmListaconforigenRecord> copyIcmListaconforigenRecordSet = ((List<IcmListaconforigenRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListaconforigenRecordSet", sourceIcmListaconforigenRecordSet), sourceIcmListaconforigenRecordSet, ((this.icmListaconforigenRecordSet!= null)&&(!this.icmListaconforigenRecordSet.isEmpty()))));
+                    List<IcmListaconforigenRecord> copyIcmListaconforigenRecordSet = ((List<IcmListaconforigenRecord>) strategy
+                        .copy(LocatorUtils.property(locator, "icmListaconforigenRecordSet",
+                                sourceIcmListaconforigenRecordSet), sourceIcmListaconforigenRecordSet,
+                                ((this.icmListaconforigenRecordSet != null)
+                                        && (!this.icmListaconforigenRecordSet.isEmpty()))));
                     copy.icmListaconforigenRecordSet = null;
-                    if (copyIcmListaconforigenRecordSet!= null) {
-                        List<IcmListaconforigenRecord> uniqueIcmListaconforigenRecordSetl = copy.getIcmListaconforigenRecordSet();
+                    if (copyIcmListaconforigenRecordSet != null) {
+                        List<IcmListaconforigenRecord> uniqueIcmListaconforigenRecordSetl = copy
+                            .getIcmListaconforigenRecordSet();
                         uniqueIcmListaconforigenRecordSetl.addAll(copyIcmListaconforigenRecordSet);
                     }
                 } else {

@@ -4,17 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.cxf.transport.http.Cookie;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.model.app.util.CxfUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.cxf.transport.http.Cookie;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import stormpot.Reallocator;
 import stormpot.Slot;
 
@@ -26,15 +25,16 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 
     private static final AtomicLong count = new AtomicLong(0);
 
-    public Meta4ClientReallocator(Meta4ClientFactory meta4ClientFactory) {
+    public Meta4ClientReallocator(final Meta4ClientFactory meta4ClientFactory) {
         this.meta4ClientFactory = meta4ClientFactory;
     }
 
     @Override
-    public Meta4ClientPoolable allocate(Slot slot) throws Exception {
+    public Meta4ClientPoolable allocate(final Slot slot) throws Exception {
         log.info("Inicio :: Meta4ClientReallocator :: allocate()");
-        Long effectiveCount = meta4ClientFactory.getMeta4ClientProperties().isPreLogin() ? count.incrementAndGet()
-                : count.incrementAndGet() - meta4ClientFactory.getMeta4ClientProperties().getSize();
+        final Long effectiveCount = this.meta4ClientFactory.getMeta4ClientProperties().isPreLogin()
+                ? count.incrementAndGet()
+                : count.incrementAndGet() - this.meta4ClientFactory.getMeta4ClientProperties().getSize();
         String id = StringUtils.EMPTY;
         Map<String, Cookie> cookies = new HashMap<>();
         LoginService loginService = null;
@@ -42,13 +42,13 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
         boolean login = false;
         if (effectiveCount.compareTo(NumberUtils.LONG_ZERO) > 0) {
             login = true;
-            loginService = meta4ClientFactory.getLoginServiceFactory().build(LoginService.class);
-            icmWsCalcIncomeService = meta4ClientFactory.getIcmWsCalcIncomeServiceFactory()
+            loginService = this.meta4ClientFactory.getLoginServiceFactory().build(LoginService.class);
+            icmWsCalcIncomeService = this.meta4ClientFactory.getIcmWsCalcIncomeServiceFactory()
                 .build(IcmWsCalcIncomeService.class);
             try {
-                id = loginService.login(meta4ClientFactory.getMeta4ClientCredentials().getUser(),
-                        meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
-                        meta4ClientFactory.getMeta4ClientCredentials().getLanguage())
+                id = loginService.login(this.meta4ClientFactory.getMeta4ClientCredentials().getUser(),
+                        this.meta4ClientFactory.getMeta4ClientCredentials().getPassword(),
+                        this.meta4ClientFactory.getMeta4ClientCredentials().getLanguage())
                     .getSessionID();
                 if (StringUtils.isNotBlank(id)) {
                     // TODO [DAVIDTSO] NO BORRAR
@@ -71,19 +71,19 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
                             effectiveCount);
                     throw new Meta4IcmclcwbException("No ha sido posible hacer login");
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 log.error("Error :: Meta4ClientReallocator :: allocate({})", effectiveCount, e);
             }
         }
-        Meta4Client client = new Meta4Client();
-        Meta4ClientSession session = new Meta4ClientSession();
+        final Meta4Client client = new Meta4Client();
+        final Meta4ClientSession session = new Meta4ClientSession();
         session.setId(id);
         session.setCookies(cookies);
         session.setFechaCreacion(TimeUtils.nowLocalDateTime());
         session.setLogin(login);
         client.setSession(session);
-        client.setCredentials(meta4ClientFactory.getMeta4ClientCredentials());
-        Meta4ClientService service = new Meta4ClientService();
+        client.setCredentials(this.meta4ClientFactory.getMeta4ClientCredentials());
+        final Meta4ClientService service = new Meta4ClientService();
         service.setLoginService(loginService);
         service.setIcmWsCalcIncomeService(icmWsCalcIncomeService);
         client.setService(service);
@@ -92,22 +92,22 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
     }
 
     @Override
-    public void deallocate(Meta4ClientPoolable poolable) throws Exception {
+    public void deallocate(final Meta4ClientPoolable poolable) throws Exception {
         log.info("Inicio :: Meta4ClientReallocator :: deallocate() :: {}", poolable.getSession().getId());
         try {
             if (StringUtils.isNotBlank(poolable.getSession().getId())) {
                 poolable.getLoginService().logout();
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             log.error("Error :: Meta4ClientReallocator :: deallocate()", e);
         }
         log.info("Fin :: Meta4ClientReallocator :: deallocate() :: {}", poolable.getSession().getId());
     }
 
     @Override
-    public Meta4ClientPoolable reallocate(Slot slot, Meta4ClientPoolable poolable) throws Exception {
+    public Meta4ClientPoolable reallocate(final Slot slot, final Meta4ClientPoolable poolable) throws Exception {
         log.info("Inicio :: Meta4ClientReallocator :: reallocate() :: {}", poolable.getSession().getId());
-        Meta4ClientPoolable result = allocate(slot);
+        final Meta4ClientPoolable result = this.allocate(slot);
         log.info("Fin :: Meta4ClientReallocator :: reallocate() :: {}", poolable.getSession().getId());
         return result;
     }

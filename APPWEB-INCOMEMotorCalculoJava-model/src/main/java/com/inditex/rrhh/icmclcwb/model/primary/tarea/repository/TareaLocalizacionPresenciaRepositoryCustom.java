@@ -1,11 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
-
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
+
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
 
 public interface TareaLocalizacionPresenciaRepositoryCustom {
 
@@ -22,5 +22,7 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
     void totalizarEcommerce(@NotNull RunTareaDto runTareaDto);
 
     void totalizarEmpleadosPorVenta(@NotNull RunTareaDto runTareaDto);
+
+    void compensarLocalizacionManual(@NotNull RunTareaDto runTareaDto);
 
 }

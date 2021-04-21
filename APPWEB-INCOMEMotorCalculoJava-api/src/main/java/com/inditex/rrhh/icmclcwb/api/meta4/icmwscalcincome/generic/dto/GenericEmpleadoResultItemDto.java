@@ -62,8 +62,6 @@ public class GenericEmpleadoResultItemDto implements Serializable {
 
     private String coefJornada;
 
-    private String inOut;
-
     private String importe;
 
     private String minutos;

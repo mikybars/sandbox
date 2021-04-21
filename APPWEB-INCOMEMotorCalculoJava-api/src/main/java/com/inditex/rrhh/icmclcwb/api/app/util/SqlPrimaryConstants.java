@@ -189,7 +189,17 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_FECHA = "fecha";
 
-    public static final String SQL_PARAM_FECHA_HORA_LIMPIEZA = "fechaHoraLimpieza";
+    public static final String SQL_PARAM_FECHA_HORA_FIN = "fechaHoraFin";
+
+    public static final String SQL_PARAM_FECHA_HORA_INICIO = "fechaHoraInicio";
+
+    public static final String SQL_PARAM_FECHA_HORA_CREACION = "fechaHoraCreacion";
+
+    public static final String SQL_PARAM_ID_ESTADO_LIMPIEZA = "idEstadoLimpieza";
+
+    public static final String SQL_PARAM_ID_TIPO_LIMPIEZA = "idTipoLimpieza";
+
+    public static final String SQL_PARAM_ID_TAREA_LIMPIEZA = "idTareaLimpieza";
 
     public static final String SQL_PARAM_ID_CONCEPTO = "idConcepto";
 
@@ -245,6 +255,22 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_TIPO_CONCEPTO_VENTA_CHALLENGE = "tipoVentaConceptoChallenge";
 
+    public static final String SQL_PARAM_ID_TAREA_FASE = "idTareaFase";
+
+    public static final String SQL_PARAM_ID_TAREA_FASE_ACCION = "idTareaFaseAccion";
+
+    public static final String SQL_PARAM_ID_FASE = "idFase";
+
+    public static final String SQL_PARAM_ID_PUNTO_EJECUCION = "idPuntoEjecucion";
+
+    public static final String SQL_PARAM_ID_ACCION = "idAccion";
+
+    public static final String SQL_PARAM_LIMIT = "limit";
+
+    public static final String SQL_PARAM_ID_SISTEMA_DESTINO = "idSistemaDestino";
+
+    public static final String SQL_PARAM_ID_SISTEMA_DESTINO_SOLUCION_GLOBAL = "idSistemaDestinoSolucionGlobal";
+
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
     public static final String SQL_PARAM_NUEVO_ID_TIPO_DATO = "nuevoIdTipoDato";
@@ -280,6 +306,19 @@ public class SqlPrimaryConstants {
     public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION_TRASLADADA = "idTipoDatoVentaEntregaTiendaLocalizacionSeccionTrasladada";
 
     public static final String SQL_PARAM_ID_TIPO_PRESUPUESTO = "idTipoPresupuesto";
+
+    public static final String SQL_PARAM_FECHA_HORA_ACTUALIZACION = "fechaHoraActualizacion";
+
+    public static final String SQL_PARAM_ID_ESTADO_VALIDACION = "idEstadoValidacion";
+
+    public static final String SQL_PARAM_ID_TAREA_PREVALIDACION = "idTareaPrevalidacion";
+
+    public static final String SQL_PARAM_ID_TIPO_VALIDACION = "idTipoValidacion";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_PRESENCIA_MANUAL = "idTipoDatoManual";
+
+    public static final String SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_VENTA_MANUAL = "idTipoDatoLocalizacionVentaManual";
+
 
     public static final Integer SQL_VALUE_BOOLEAN_TRUE = 1;
 
@@ -346,5 +385,37 @@ public class SqlPrimaryConstants {
     public static final String SQL_RESULT_ICM_ID_ESTR_COMISION_PADRE = "ICM_ID_ESTR_COMISION_PADRE";
 
     public static final String SQL_RESULT_ICM_ID_ESTR_COMISION_BASE = "ICM_ID_ESTR_COMISION_BASE";
+
+    public static final String SQL_RESULT_ID_TIPO_ACCION_VALIDACION = "ID_TIPO_ACCION_VALIDACION";
+
+    public static final String SQL_RESULT_REINTENTO_DELAY = "REINTENTO_DELAY";
+
+    public static final String SQL_RESULT_ID_TIPO_VALIDACION = "ID_TIPO_VALIDACION";
+
+    public static final String SQL_RESULT_ID_TAREA_PREVALIDACION = "ID_TAREA_PREVALIDACION";
+
+    public static final String SQL_RESULT_ID_TAREA_FASE = "ID_TAREA_FASE";
+
+    public static final String SQL_RESULT_ES_ACTIVO = "ES_ACTIVO";
+
+    public static final String SQL_RESULT_ID_FASE = "ID_FASE";
+
+    public static final String SQL_RESULT_ID_ACCION = "ID_ACCION";
+
+    public static final String SQL_RESULT_ID_PUNTO_EJECUCION = "ID_PUNTO_EJECUCION";
+
+    public static final String SQL_RESULT_ID_TAREA_FASE_ACCION = "ID_TAREA_FASE_ACCION";
+
+    public static final String SQL_RESULT_ID_ESTADO_TAREA_FASE_ACCION = "ID_ESTADO_TAREA_FASE_ACCION";
+
+    public static final String SQL_RESULT_FECHA_HORA_INICIO = "FECHA_HORA_INICIO";
+
+    public static final String SQL_RESULT_FECHA_HORA_FIN = "FECHA_HORA_FIN";
+
+    public static final String SQL_RESULT_FECHA_HORA_CREACION = "FECHA_HORA_CREACION";
+
+    public static final String SQL_RESULT_TOTAL = "TOTAL";
+
+    public static final String SQL_RESULT_REACCION_PESO = "REACCION_PESO";
 
 }

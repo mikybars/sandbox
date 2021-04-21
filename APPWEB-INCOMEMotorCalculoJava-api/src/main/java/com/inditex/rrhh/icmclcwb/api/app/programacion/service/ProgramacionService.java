@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -33,6 +34,10 @@ public interface ProgramacionService {
 
     ProgramacionDto findById(@Positive @NotNull final Long id);
 
+    ProgramacionDto findActivoById(@Positive @NotNull final Long id);
+
     ProgramacionDto findPendienteById(@Positive @NotNull Long id);
+
+    void updateFechaSiguienteEjecucion(@NotNull @NotEmpty List<ProgramacionDto> programaciones);
 
 }

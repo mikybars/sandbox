@@ -1,16 +1,5 @@
 package com.inditex.rrhh.icmclcwb.meta4;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -36,7 +25,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getempleados
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosdesplazOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructurascomOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
@@ -45,11 +33,10 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosO
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestosrangoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestoswlocOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventacongeladaOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructuraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
@@ -64,22 +51,30 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcald
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosdesplazBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosdesplazRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsistdestinoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsistdestinoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
@@ -100,6 +95,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
@@ -490,70 +486,75 @@ public class Meta4ServiceTest {
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(saveProcesoOutput.getReturn()));
     }
 
-    @Test
-    public void getEstructurasCom() {
-        final IcmParamcalestructuraRecord record = new IcmParamcalestructuraRecord();
-        record.setIdempleado("AT1010154");
-        record.setOrempleado("1");
-        final IcmParamcalestructuraBlock param1 = new IcmParamcalestructuraBlock();
-        param1.setIdorigen("38");
-        param1.setFechainicio("2015-01-01");
-        param1.setFechafin("2015-08-31");
-        param1.getIcmParamcalestructuraRecordSet().add(record);
-        final GetestructurascomOutput getComisionEmpleadoOutput = this.meta4ClientPool.getestructurascom(param1);
-        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getComisionEmpleadoOutput.getReturn()));
-    }
+    // @Test
+    // public void getEstructurasCom() {
+    // final IcmParamcalestructuraRecord record = new IcmParamcalestructuraRecord();
+    // record.setIdempleado("AT1010154");
+    // record.setOrempleado("1");
+    // final IcmParamcalestructuraBlock param1 = new IcmParamcalestructuraBlock();
+    // param1.setIdorigen("38");
+    // param1.setFechainicio("2015-01-01");
+    // param1.setFechafin("2015-08-31");
+    // param1.getIcmParamcalestructuraRecordSet().add(record);
+    // final GetestructurascomOutput getComisionEmpleadoOutput =
+    // this.meta4ClientPool.getestructurascom(param1);
+    // assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getComisionEmpleadoOutput.getReturn()));
+    // }
 
 
-    @Test
-    // @Ignore("Sirve para buscar e imprimir en consola estructuras a partir de localizacion / origen")
-    public void comprobarEstructurasTiendasOrigen() {
-
-        final IcmParamcalestructuraBlock paramEstructura = new IcmParamcalestructuraBlock();
-        paramEstructura.setFechainicio("2017-01-01");
-        paramEstructura.setFechafin("2018-12-31");
-        final IcmParamcalempleadosBlock param1 = new IcmParamcalempleadosBlock();
-
-        final IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
-        param2.setNumeroregistrospagina("50");
-        param2.setNumeropagina(Meta4TestConstants.NUM_PAGINA);
-        param2.setIdbusqueda(StringUtils.EMPTY);
-        param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
-        final List<String> lista = Arrays.asList("T1413", "T3188", "T3189", "T3273", "T3275", "T3323", "T3355", "T3474",
-                "T3511", "T3682", "T3787", "T4330", "T4331", "T4352", "T4481", "T4578", "T8194", "T8195", "T8779",
-                "T9092", "T9263", "T9930", "T9974");
-        for (final String tienda : lista) {
-            final IcmParamcalempleadosRecord record4 = new IcmParamcalempleadosRecord();
-            record4.setFechainicio("2017-01-01");
-            record4.setFechafin("2018-12-31");
-            param1.getIcmParamcalempleadosRecordSet().clear();
-            record4.setIdlugartrabajo(tienda);
-            param1.getIcmParamcalempleadosRecordSet().add(record4);
-            final GetempleadosOutput getEmpleadosOutput = this.meta4ClientPool.getempleados(param1, param2);
-            final List<IcmListaempleadosRecord> emprec = new ArrayList<>();
-            emprec.addAll(getEmpleadosOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
-            record4.setIdorigen("39");
-            param1.getIcmParamcalempleadosRecordSet().clear();
-            final List<IcmParamcalestructuraRecord> entradas2 = emprec.stream().map(obj -> {
-                final IcmParamcalestructuraRecord obj2 = new IcmParamcalestructuraRecord();
-                obj2.setIdempleado(obj.getIdempleado());
-                obj2.setOrempleado(obj.getOrempleado());
-                return obj2;
-            }).collect(Collectors.toList());
-            paramEstructura.getIcmParamcalestructuraRecordSet().addAll(entradas2);
-            if (emprec.size() > 0) {
-                final GetestructurascomOutput getComisionEmpleadoOutput = this.meta4ClientPool
-                    .getestructurascom(paramEstructura);
-                final List<IcmListaestructuraRecord> recordset = getComisionEmpleadoOutput.getIcmListaestructura()
-                    .getIcmListaestructuraRecordSet();
-                for (final IcmListaestructuraRecord record2 : recordset) {
-                    System.out.println("tienda:" + tienda + " idempleado: " + record2.getIdempleado()
-                            + " idempleadolocal: " + record2.getIdempleadolocal() + " estructura: "
-                            + record2.getIdestructura());
-                }
-            }
-        }
-    }
+    // @Test
+    // // @Ignore("Sirve para buscar e imprimir en consola estructuras a partir de localizacion /
+    // origen")
+    // public void comprobarEstructurasTiendasOrigen() {
+    //
+    // final IcmParamcalestructuraBlock paramEstructura = new IcmParamcalestructuraBlock();
+    // paramEstructura.setFechainicio("2017-01-01");
+    // paramEstructura.setFechafin("2018-12-31");
+    // final IcmParamcalempleadosBlock param1 = new IcmParamcalempleadosBlock();
+    //
+    // final IcmParametrospaginacionBlock param2 = new IcmParametrospaginacionBlock();
+    // param2.setNumeroregistrospagina("50");
+    // param2.setNumeropagina(Meta4TestConstants.NUM_PAGINA);
+    // param2.setIdbusqueda(StringUtils.EMPTY);
+    // param2.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
+    // final List<String> lista = Arrays.asList("T1413", "T3188", "T3189", "T3273", "T3275", "T3323",
+    // "T3355", "T3474",
+    // "T3511", "T3682", "T3787", "T4330", "T4331", "T4352", "T4481", "T4578", "T8194", "T8195",
+    // "T8779",
+    // "T9092", "T9263", "T9930", "T9974");
+    // for (final String tienda : lista) {
+    // final IcmParamcalempleadosRecord record4 = new IcmParamcalempleadosRecord();
+    // record4.setFechainicio("2017-01-01");
+    // record4.setFechafin("2018-12-31");
+    // param1.getIcmParamcalempleadosRecordSet().clear();
+    // record4.setIdlugartrabajo(tienda);
+    // param1.getIcmParamcalempleadosRecordSet().add(record4);
+    // final GetempleadosOutput getEmpleadosOutput = this.meta4ClientPool.getempleados(param1, param2);
+    // final List<IcmListaempleadosRecord> emprec = new ArrayList<>();
+    // emprec.addAll(getEmpleadosOutput.getIcmListaempleados().getIcmListaempleadosRecordSet());
+    // record4.setIdorigen("39");
+    // param1.getIcmParamcalempleadosRecordSet().clear();
+    // final List<IcmParamcalestructuraRecord> entradas2 = emprec.stream().map(obj -> {
+    // final IcmParamcalestructuraRecord obj2 = new IcmParamcalestructuraRecord();
+    // obj2.setIdempleado(obj.getIdempleado());
+    // obj2.setOrempleado(obj.getOrempleado());
+    // return obj2;
+    // }).collect(Collectors.toList());
+    // paramEstructura.getIcmParamcalestructuraRecordSet().addAll(entradas2);
+    // if (emprec.size() > 0) {
+    // final GetestructurascomOutput getComisionEmpleadoOutput = this.meta4ClientPool
+    // .getestructurascom(paramEstructura);
+    // final List<IcmListaestructuraRecord> recordset =
+    // getComisionEmpleadoOutput.getIcmListaestructura()
+    // .getIcmListaestructuraRecordSet();
+    // for (final IcmListaestructuraRecord record2 : recordset) {
+    // System.out.println("tienda:" + tienda + " idempleado: " + record2.getIdempleado()
+    // + " idempleadolocal: " + record2.getIdempleadolocal() + " estructura: "
+    // + record2.getIdestructura());
+    // }
+    // }
+    // }
+    // }
 
     @Test
     public void getEmpleados() {
@@ -597,6 +598,18 @@ public class Meta4ServiceTest {
         param1.getIcmParamcaldesplazrealRecordSet().add(record);
         final GetdesplazrealOutput getdesplazrealOutput = this.meta4ClientPool.getdesplazreal(param1);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getdesplazrealOutput.getReturn()));
+    }
+
+    @Test
+    public void getSisDestino() {
+
+        final IcmParamcalsistdestinoBlock param = new IcmParamcalsistdestinoBlock();
+        param.setIdorigen("38");
+        param.getIcmParamcalsistdestinoRecordSet().add(new IcmParamcalsistdestinoRecord());
+        final GetsistdestinoOutput getsisdestinoOutput = this.meta4ClientPool.getsisdestino(param);
+        assertNotNull(getsisdestinoOutput);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getsisdestinoOutput.getReturn()));
+
     }
 
 }
