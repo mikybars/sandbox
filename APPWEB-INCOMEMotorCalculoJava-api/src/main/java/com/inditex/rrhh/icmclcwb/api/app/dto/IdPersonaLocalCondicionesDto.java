@@ -46,4 +46,8 @@ public class IdPersonaLocalCondicionesDto implements Serializable {
 
     private String importe;
 
+    private String puesto;
+
+    private String secciones;
+
 }

@@ -233,6 +233,8 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                             ps.setString(7, el.getBanda());
                             ps.setString(8, el.getImporte());
                             ps.setString(9, el.getCclIdSeccion());
+                            ps.setString(10, el.getPuesto());
+                            ps.setString(11, el.getSecciones());
                         }
 
                         @Override

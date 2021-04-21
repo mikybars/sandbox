@@ -129,6 +129,8 @@ public class ComisRepositoryCustomImpl
                     .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
                     .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
                     .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
+                    .puesto(rs.getString(SqlComisConstants.SQL_RESULT_PUESTO))
+                    .secciones(rs.getString(SqlComisConstants.SQL_RESULT_SECCIONES))
                     .build());
     }
 
