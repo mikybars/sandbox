@@ -2710,7 +2710,7 @@ FROM DATOS AS D
 
   <!--
       Obtencion del reparto de ventas de tienda online entrega domicilio (ED) cuyas cadenas
-      están agrupadas.
+      están agrupadas, por ventas.
       El cálculo es Venta Online ED de la agrupación de la cadena * peso de las ventas de la tienda, donde
       el peso = Ventas físicas de la tienda / ventas físicas de la agrupación cadena.
 
@@ -2721,7 +2721,7 @@ FROM DATOS AS D
        * ACVED - Ventas online ED de agrupaciones de cadenas.
    -->
 
-  <entry key="TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioAgrupaciones">
+  <entry key="TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioPorVentasAgrupaciones">
     <![CDATA[
     INSERT INTO TAREA_LOCALIZACION_VENTA  (FECHA, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, ES_ACTIVO, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, FECHA_INICIO_PERIODO)
     WITH DIAS AS (
@@ -2819,7 +2819,7 @@ FROM DATOS AS D
 
   <!--
       Obtencion del reparto de ventas de tienda online entrega domicilio (ED) cuyas cadenas
-      están agrupadas.
+      están agrupadas, por presencias.
       El cálculo es Venta Online ED de la agrupación de la cadena * peso de las ventas de la tienda, donde
       el peso = presencias totales de la tienda / presencias totales de la agrupación cadena.
 

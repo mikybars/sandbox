@@ -20,8 +20,8 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
         implements TareaLocalizacionVentaRepositoryProcesarCustom {
 
-    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioAgrupaciones']}")
-    private String sqlProcesarEntregaDomicilioAgrupaciones;
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioPorVentaAgrupaciones']}")
+    private String sqlProcesarEntregaDomicilioPorVentasAgrupaciones;
 
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioPresenciaAgrupaciones']}")
     private String sqlProcesarEntregaDomicilioPresenciaAgrupaciones;
@@ -31,7 +31,7 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public void procesarRepartoEntregaDomicilioAgrupaciones(@NotNull final TareaDto tareaDto) {
+    public void procesarRepartoEntregaDomicilioPorVentasAgrupaciones(@NotNull final TareaDto tareaDto) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION,
                 TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId());
@@ -51,7 +51,7 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.toDate(tareaDto.getFechaFinPeriodo()));
-        this.namedParameterJdbcTemplate.update(this.sqlProcesarEntregaDomicilioAgrupaciones, params);
+        this.namedParameterJdbcTemplate.update(this.sqlProcesarEntregaDomicilioPorVentasAgrupaciones, params);
     }
 
     @Override

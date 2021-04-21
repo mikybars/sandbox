@@ -101,8 +101,8 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     }
 
     @Override
-    public void repartoVentaEntregaDomicilioAgrupaciones(@Valid final RunTareaDto runTarea) {
-        this.tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioAgrupaciones(runTarea.getTarea());
+    public void repartoVentaEntregaDomicilioPorVentasAgrupaciones(@Valid final RunTareaDto runTarea) {
+        this.tareaTiendaVentaRepository.procesarRepartoEntregaDomicilioPorVentasAgrupaciones(runTarea.getTarea());
     }
 
     @Override

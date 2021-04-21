@@ -73,13 +73,13 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
     }
 
     @Test
-    public void procesarRepartoEntregaDomicilioAgrupacionesTest() {
+    public void procesarRepartoEntregaDomicilioPorVentasAgrupacionesTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(7474L);
         when(tarea.getFechaFinPeriodo()).thenReturn(LocalDate.of(2020, 8, 31));
 
-        this.tareaLocalizacionVentaRepositoryProcesarCustom.procesarRepartoEntregaDomicilioAgrupaciones(tarea);
+        this.tareaLocalizacionVentaRepositoryProcesarCustom.procesarRepartoEntregaDomicilioPorVentasAgrupaciones(tarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
         assertEquals(SQL_PROCESAR_REPARTO_ENTREGA_DOMICILIO_AGRUPACIONES, this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();

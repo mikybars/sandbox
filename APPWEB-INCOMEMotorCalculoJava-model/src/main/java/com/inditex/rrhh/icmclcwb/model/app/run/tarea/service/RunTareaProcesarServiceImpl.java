@@ -300,7 +300,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas -
             // por ventas
             final CompletableFuture<Void> cfRepartoAgrupaciones = this.runTareaProcesarVentaAsyncService
-                .repartoVentaEntregaDomicilioAgrupaciones(runTarea);
+                .repartoVentaEntregaDomicilioPorVentasAgrupaciones(runTarea);
             AsyncUtils.exceptionally(cfRepartoAgrupaciones, cf, cfWait);
 
             // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas -
