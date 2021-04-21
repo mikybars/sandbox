@@ -20,7 +20,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
         implements TareaLocalizacionVentaRepositoryProcesarCustom {
 
-    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioPorVentaAgrupaciones']}")
+    @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioPorVentasAgrupaciones']}")
     private String sqlProcesarEntregaDomicilioPorVentasAgrupaciones;
 
     @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.procesarRepartoVentaEntregaDomicilioPresenciaAgrupaciones']}")
