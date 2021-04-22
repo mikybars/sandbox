@@ -25,18 +25,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_COMISIONABLE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_COMISION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -111,8 +109,8 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
             .getMapValues(algoritmo, tarea, persona1);
 
         // parametros de la consulta: idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo,
-        // tiposComision, esDesplazamiento, esDesplazamientoBase, comisionable, calcula
-        assertEquals(10, result.size());
+        // tiposComision, esDesplazamiento, esDesplazamientoBase
+        assertEquals(9, result.size());
         // idAlgoritmo
         assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
         assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
@@ -131,18 +129,15 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
         // tipocalculo
         assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
         assertEquals(Arrays.asList(TipoCalculoEnum.NINGUNO.getId()), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
+        // idTipoComision
+        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_COMISION));
+        assertEquals(TipoComisionEnum.RESALTA_MANUAL.getId(), result.get(SQL_PARAM_ID_TIPO_COMISION));
         // esDesplazamiento
         assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
         // esDesplazamientoBase
         assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-        // comisionable
-        assertTrue(result.containsKey(SQL_PARAM_COMISIONABLE));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_COMISIONABLE));
-        // calcula
-        assertTrue(result.containsKey(SQL_PARAM_CALCULA));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
 
     }
 
@@ -174,7 +169,7 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
         assertEquals(2, values.length);
         for (int i = 0; i < values.length; i++) {
             final MapSqlParameterSource value = values[i];
-            assertEquals(10, value.getValues().size());
+            assertEquals(9, value.getValues().size());
             // algoritmo
             assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
             assertEquals(algoritmo.getId(), value.getValue(SQL_PARAM_ID_ALGORITMO));
@@ -188,18 +183,15 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
             assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_COMISION));
             assertEquals(Arrays.asList(TipoComisionEnum.RESALTA_MANUAL.getId()),
                     value.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
+            // idTipoComision
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_COMISION));
+            assertEquals(TipoComisionEnum.RESALTA_MANUAL.getId(), value.getValue(SQL_PARAM_ID_TIPO_COMISION));
             // esDesplazamiento
             assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO));
             assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO));
             // esDesplazamientoBase
             assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
             assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-            // comisionable
-            assertTrue(value.hasValue(SQL_PARAM_COMISIONABLE));
-            assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_COMISIONABLE));
-            // calcula
-            assertTrue(value.hasValue(SQL_PARAM_CALCULA));
-            assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
         }
 
         // cclIdPerson, stdOrHrPeriod - valores del parámetro

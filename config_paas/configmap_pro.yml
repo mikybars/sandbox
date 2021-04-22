@@ -85,6 +85,10 @@ amiga:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://PTSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
           user: ncomis
+        comis11:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXINSQL1V1\\I1:1433;databaseName=Personal
+          user: ncomis          
         comis18:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://BESQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalLuxemburgo
