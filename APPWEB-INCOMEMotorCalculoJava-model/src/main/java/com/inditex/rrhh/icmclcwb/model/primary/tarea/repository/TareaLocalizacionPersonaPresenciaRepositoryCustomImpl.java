@@ -177,6 +177,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     public void updateActivo(@NotNull final RunTareaDto runTareaDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+                TimeUtils.toDate(runTareaDto.getTarea().getFechaInicioPeriodo()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         final List<IdTipoDatoDto> tiposDatoPresencia = this.tipoDatoService

@@ -84,6 +84,12 @@ public class DataSourceComisConfig {
         return dataSourceBuilder.build(DataSourceType.NONXA);
     }
 
+    @Bean(name = "comis11Datasource")
+    @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis11")
+    public DataSource comis11DataSource(final DataSourceBuilder dataSourceBuilder) {
+        return dataSourceBuilder.build(DataSourceType.NONXA);
+    }
+
     @Bean(name = "comis18Datasource")
     @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis18")
     public DataSource comis18DataSource(final DataSourceBuilder dataSourceBuilder) {
@@ -323,6 +329,7 @@ public class DataSourceComisConfig {
             @Lazy @Qualifier("comis8Datasource") final DataSource comis8Datasource,
             @Lazy @Qualifier("comis9Datasource") final DataSource comis9Datasource,
             @Lazy @Qualifier("comis10Datasource") final DataSource comis10Datasource,
+            @Lazy @Qualifier("comis11Datasource") final DataSource comis11Datasource,
             @Lazy @Qualifier("comis18Datasource") final DataSource comis18Datasource,
             @Lazy @Qualifier("comis28Datasource") final DataSource comis28Datasource,
             @Lazy @Qualifier("comis30Datasource") final DataSource comis30Datasource,
@@ -372,6 +379,7 @@ public class DataSourceComisConfig {
         targetDataSources.put(ClientDatabase.COMIS8, comis8Datasource);
         targetDataSources.put(ClientDatabase.COMIS9, comis9Datasource);
         targetDataSources.put(ClientDatabase.COMIS10, comis10Datasource);
+        targetDataSources.put(ClientDatabase.COMIS11, comis11Datasource);
         targetDataSources.put(ClientDatabase.COMIS18, comis18Datasource);
         targetDataSources.put(ClientDatabase.COMIS28, comis28Datasource);
         targetDataSources.put(ClientDatabase.COMIS30, comis30Datasource);
