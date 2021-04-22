@@ -27,15 +27,14 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_COMISIONABLE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_COMISION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
@@ -119,8 +118,8 @@ public class TareaCalculoAlgoritmoResaltaManualDesplazamientoBaseV1RepositoryCus
         // parametros de la consulta: idAlgoritmo, activo,
         // idTipoDatoIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion, idTarea,
         // cclIdPerson, stdOrHrPeriod, tiposCalculo,
-        // tiposComision, esDesplazamiento, esDesplazamientoBase, comisionable, calcula
-        assertEquals(12, result.size());
+        // tiposComision, esDesplazamiento, esDesplazamientoBase
+        assertEquals(11, result.size());
         // idAlgoritmo
         assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
         assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
@@ -150,18 +149,15 @@ public class TareaCalculoAlgoritmoResaltaManualDesplazamientoBaseV1RepositoryCus
         // tipocalculo
         assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
         assertEquals(Arrays.asList(TipoCalculoEnum.NINGUNO.getId()), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
+        // idTipoComision
+        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_COMISION));
+        assertEquals(TipoComisionEnum.RESALTA_MANUAL.getId(), result.get(SQL_PARAM_ID_TIPO_COMISION));
         // esDesplazamiento
         assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
         // esDesplazamientoBase
         assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-        // comisionable
-        assertTrue(result.containsKey(SQL_PARAM_COMISIONABLE));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_COMISIONABLE));
-        // calcula
-        assertTrue(result.containsKey(SQL_PARAM_CALCULA));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
 
     }
 
@@ -187,16 +183,16 @@ public class TareaCalculoAlgoritmoResaltaManualDesplazamientoBaseV1RepositoryCus
         final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
 
         this.tareaCalculoAlgoritmoResaltaManualDesplazamientoBaseV1RepositoryCustom.calcular(algoritmo, tarea,
-                personas);;
+                personas);
 
         // parametros de la consulta: idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo,
-        // tiposComision, esDesplazamiento, esDesplazamientoBase, comisionable, calcula
+        // tiposComision, idTipoComision, esDesplazamiento, esDesplazamientoBase
         verify(this.namedParameterJdbcTemplate).batchUpdate(any(String.class), this.params.capture());
         final MapSqlParameterSource[] values = this.params.getValue();
         assertEquals(2, values.length);
         for (int i = 0; i < values.length; i++) {
             final MapSqlParameterSource value = values[i];
-            assertEquals(12, value.getValues().size());
+            assertEquals(11, value.getValues().size());
             // algoritmo
             assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
             assertEquals(algoritmo.getId(), value.getValue(SQL_PARAM_ID_ALGORITMO));
@@ -221,18 +217,15 @@ public class TareaCalculoAlgoritmoResaltaManualDesplazamientoBaseV1RepositoryCus
             assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_COMISION));
             assertEquals(Arrays.asList(TipoComisionEnum.RESALTA_MANUAL.getId()),
                     value.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
+            // idTipoComision
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_COMISION));
+            assertEquals(TipoComisionEnum.RESALTA_MANUAL.getId(), value.getValue(SQL_PARAM_ID_TIPO_COMISION));
             // esDesplazamiento
             assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO));
             // esDesplazamientoBase
             assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-            // comisionable
-            assertTrue(value.hasValue(SQL_PARAM_COMISIONABLE));
-            assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_COMISIONABLE));
-            // calcula
-            assertTrue(value.hasValue(SQL_PARAM_CALCULA));
-            assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
         }
 
         // cclIdPerson, stdOrHrPeriod - valores del parámetro
