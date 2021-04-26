@@ -1029,7 +1029,7 @@ FROM (
                     AND TIPO_HORA.ES_INCLUIDO_ECOMMERCE = :incluidoEcommerce
                 WHERE PRESENCIA.ID_TAREA = :idTarea
                 AND TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_GRUPO_DATO IN (:idTipoGrupoDato)
-                AND PRESENCIA.ES_ACTIVO = 1
+                --AND PRESENCIA.ES_ACTIVO = 1
         ) PRESENCIA
         WHERE PRESENCIA.ROW = 1
         UNION ALL
@@ -1118,7 +1118,7 @@ FROM (
                         AND TIPO_HORA.ES_INCLUIDO_ECOMMERCE = :incluidoEcommerce
                 WHERE ESTRUCTURA.ID_TAREA = :idTarea
                 AND TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_GRUPO_DATO IN (:idTipoGrupoDato)
-                AND PRESENCIA.ES_ACTIVO = 1
+                --AND PRESENCIA.ES_ACTIVO = 1
         ) PRESENCIA_DESPLAZAMIENTO_ORIGEN
         WHERE PRESENCIA_DESPLAZAMIENTO_ORIGEN.ROW = 1
         UNION ALL
@@ -1207,7 +1207,7 @@ FROM (
                         AND TIPO_HORA.ES_INCLUIDO_ECOMMERCE = :incluidoEcommerce
                 WHERE ESTRUCTURA.ID_TAREA = :idTarea
                 AND TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_GRUPO_DATO IN (:idTipoGrupoDato)
-                AND PRESENCIA.ES_ACTIVO = 1
+                --AND PRESENCIA.ES_ACTIVO = 1
         ) PRESENCIA_DESPLAZAMIENTO_ORIGEN
         WHERE PRESENCIA_DESPLAZAMIENTO_ORIGEN.ROW = 1
 ) AS PRESENCIA
@@ -1519,7 +1519,7 @@ FROM (
                     AND TIPO_HORA.ES_INCLUIDO_ECOMMERCE = :incluidoEcommerce
                 WHERE PRESENCIA.ID_TAREA = :idTarea
                 AND TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_GRUPO_DATO IN (:idTipoGrupoDato)
-                AND PRESENCIA.ES_ACTIVO = 1
+                --AND PRESENCIA.ES_ACTIVO = 1
         ) PRESENCIA
         WHERE PRESENCIA.ROW = 1
         UNION ALL
@@ -1608,7 +1608,7 @@ FROM (
                         AND TIPO_HORA.ES_INCLUIDO_ECOMMERCE = :incluidoEcommerce
                 WHERE ESTRUCTURA.ID_TAREA = :idTarea
                 AND TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_GRUPO_DATO IN (:idTipoGrupoDato)
-                AND PRESENCIA.ES_ACTIVO = 1
+                --AND PRESENCIA.ES_ACTIVO = 1
         ) PRESENCIA_DESPLAZAMIENTO_ORIGEN
         WHERE PRESENCIA_DESPLAZAMIENTO_ORIGEN.ROW = 1
         UNION ALL
@@ -1697,7 +1697,7 @@ FROM (
                         AND TIPO_HORA.ES_INCLUIDO_ECOMMERCE = :incluidoEcommerce
                 WHERE ESTRUCTURA.ID_TAREA = :idTarea
                 AND TIPO_GRUPO_DATO_TIPO_DATO.ID_TIPO_GRUPO_DATO IN (:idTipoGrupoDato)
-                AND PRESENCIA.ES_ACTIVO = 1
+                --AND PRESENCIA.ES_ACTIVO = 1
         ) PRESENCIA_DESPLAZAMIENTO_ORIGEN
         WHERE PRESENCIA_DESPLAZAMIENTO_ORIGEN.ROW = 1
 ) AS PRESENCIA
