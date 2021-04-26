@@ -37,7 +37,8 @@ public enum TipoGrupoDatoEnum {
                                                                                                                                                                                                             2028), VENTA_RANGO_CONGELADA(
                                                                                                                                                                                                                     2029), VENTA_RANGO_REAL_Y_CONGELADA(
                                                                                                                                                                                                                             2030), VENTA_REAL_LOCALIZACION_SECCION(
-                                                                                                                                                                                                                                    2031),
+                                                                                                                                                                                                                                    2031), VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO(
+                                                                                                                                                                                                                                            2032),
 
 
     /* 3000 PRESENCIA */

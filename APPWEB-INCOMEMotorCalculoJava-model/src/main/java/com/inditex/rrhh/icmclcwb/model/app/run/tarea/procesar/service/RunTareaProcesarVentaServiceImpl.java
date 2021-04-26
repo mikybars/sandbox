@@ -87,7 +87,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     @Override
     public void trasladar(@Valid final RunTareaDto runTarea) {
         final List<IdTipoDatoDto> ids = this.tipoDatoService
-            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO.getId());
         this.tareaLocalizacionAbiertaRepositoryCustom.trasladar(runTarea.getTarea(),
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
@@ -95,7 +95,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     @Override
     public void compensar(@Valid final RunTareaDto runTarea) {
         final List<IdTipoDatoDto> ids = this.tipoDatoService
-            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
+            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO.getId());
         this.tareaLocalizacionAbiertaRepositoryCustom.compensar(runTarea.getTarea(),
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
