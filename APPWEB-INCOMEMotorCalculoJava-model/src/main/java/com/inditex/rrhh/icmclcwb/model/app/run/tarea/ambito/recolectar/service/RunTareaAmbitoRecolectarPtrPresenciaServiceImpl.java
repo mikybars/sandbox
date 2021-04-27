@@ -129,7 +129,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
             final CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = this.ptrPresenciaAsyncService
                 .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
                     .origen(Integer.parseInt(tareaAmbito.getCclIdOrigen()))
-                    .catalogo(idCatalogo)
+                    .idCatalogAplicacion(idCatalogo)
                     .build());
             AsyncUtils.exceptionally(cfData, cf);
             final PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);
