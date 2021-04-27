@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -113,11 +114,19 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
     }
 
     @Override
-    @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato",
-            key = "{#idTarea, #cclIdOrigen, #idVentaConcepto}")
     public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(@NotNull final Long idTarea,
             @NotBlank final String cclIdOrigen,
             @NotNull final Long idVentaConcepto) {
+        return this.findIdCadenaDtoByIdTareaAndCclIdOrigen(idTarea, cclIdOrigen,
+                Collections.singletonList(idVentaConcepto));
+    }
+
+    @Override
+    @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato",
+            key = "{#idTarea, #cclIdOrigen, #idVentaConcepto}")
+    public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(
+            @NotNull final Long idTarea, @NotBlank final String cclIdOrigen,
+            @NotNull final List<Long> idVentaConcepto) {
         return this.tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen(idTarea, cclIdOrigen,
                 idVentaConcepto);
     }

@@ -146,7 +146,7 @@ public class TareaLocalizacionHistoricoServiceImplTest {
         this.tareaLocalizacionHistoricoServiceImpl.findIdCadenaDtoByIdTareaAndCclIdOrigen(idTarea, cclIdOrigen,
                 idVentaConcepto);
         verify(this.tareaLocalizacionHistoricoRepositoryCustom, times(1)).getCadenasByTareaAndOrigen(any(Long.class),
-                any(String.class), any(Long.class));
+                any(String.class), any(List.class));
     }
 
     @Test

@@ -3584,7 +3584,7 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
           AND AC.CCL_ID_ORIGEN = C.CCL_ID_ORIGEN
           AND C.PORCENTAJE_INCLUSION > :porcentajeInclusion
         WHERE
-            C.ID_TIPO_VENTA_CONCEPTO = :idConcepto
+            C.ID_TIPO_VENTA_CONCEPTO IN (:idConcepto)
         GROUP BY
             AC_ALL.CCL_ID_CADENA
     ]]>

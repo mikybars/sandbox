@@ -232,7 +232,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
     @Override
     public List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen,
-            final Long idVentaConcepto) {
+            final List<Long> idVentaConcepto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
