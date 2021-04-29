@@ -2767,6 +2767,7 @@ FROM DATOS AS D
     AND VTF.ID_TIPO_DATO = :idTipoImporteVentaFisicaLocalizacion
     AND VTF.CCL_ID_SECCION = :idSeccion
     AND VTF.ES_ACTIVO = :activo
+    AND FECHA <= :fechaFin
     GROUP BY VTF.ID_TAREA, VTF.CCL_ID_COD_ORIGEN, VTF.CCL_ID_CADENA, VTF.FECHA_INICIO_PERIODO, H.CCL_ID_ORIGEN),
     VENTAS_AGRUPACION_TOTALES AS (
     SELECT
@@ -2779,6 +2780,7 @@ FROM DATOS AS D
     FROM TAREA_AGRUPACION_VENTA AGV
     WHERE AGV.ID_TAREA = :idTarea
     AND agv.ID_TIPO_DATO IN (:idTipoImporteVentaFisicaAgrupacion, :idTipoImporteVentaEntregaDomicilioAgrupacion)
+    AND FECHA <= :fechaFin
     GROUP BY ID_TAREA, ID_TIPO_DATO, ICM_ID_AGRUPACION_ONLINE, CCL_ID_ORIGEN)
     SELECT
       FECHAS.FECHA,
@@ -2886,6 +2888,7 @@ FROM DATOS AS D
       AND VTF.ID_TIPO_DATO = :idTipoImporteVentaFisicaLocalizacion
       AND VTF.CCL_ID_SECCION = :idSeccion
       AND VTF.ES_ACTIVO = :activo
+      AND FECHA <= :fechaFin
     GROUP BY
       VTF.ID_TAREA,
       VTF.CCL_ID_COD_ORIGEN,
@@ -2913,6 +2916,7 @@ FROM DATOS AS D
       AND TP.ID_TIPO_DATO = :idTipoPresenciaLocalizacion
       AND TP.ES_ACTIVO = :activo
       AND TP.CCL_ID_SECCION = :idSeccion
+      AND FECHA <= :fechaFin
     GROUP BY
       TP.ID_TAREA,
       TP.CCL_ID_COD_ORIGEN,
@@ -2949,6 +2953,7 @@ FROM DATOS AS D
     WHERE
       ID_TAREA = :idTarea
       AND ID_TIPO_DATO = :idTipoPresenciaAgrupacion
+      AND FECHA <= :fechaFin
     GROUP BY
       ID_TAREA,
       ID_TIPO_DATO,
