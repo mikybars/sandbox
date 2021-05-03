@@ -46,6 +46,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito']}")
     private String sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito;
 
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito']}")
+    private String sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito;
+
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbitoLocalizacion']}")
     private String sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenInAmbitoLocalizacion;
 
@@ -165,6 +168,23 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                 parameters, (rs, rowNum) -> {
                     final IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
                     dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL));
+                    return dto;
+                });
+    }
+
+    @Override
+    public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
+            @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+            @NotNull @NotEmpty final List<String> stdIdLegEnt) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
+
+        return this.query(this.sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito,
+                parameters, (rs, rowNum) -> {
+                    final IdLocalizacionDto dto = new IdLocalizacionDto();
+                    dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
                     return dto;
                 });
     }

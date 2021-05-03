@@ -373,9 +373,15 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
+            final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .map(IdEmpresaDto::getStdIdLegEnt)
+                .collect(Collectors.toList());
             for (final List<IdLocalizacionDto> iter : StreamUtils.partition(
-                    this.tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
-                            tarea.getId(), tareaAmbito.getCclIdOrigen()),
+                    this.tareaLocalizacionHistoricoService
+                        .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
+                                tarea.getId(), tareaAmbito.getCclIdOrigen(), empresasAmbito),
                     this.meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getFilter().getMaxPageSize())) {
                 final PresenciaManualRequestDto request = new PresenciaManualRequestDto();
                 request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PRESENCIA_MANUAL).getPage());
@@ -385,6 +391,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                                     tarea.getId(),
                                     TipoDatoEnum.PERIODO_AMPLIADO.getId())));
+                request.getData().setIdsEmpresa(empresasAmbito);
                 request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
                 request.getData()
                     .getItem()
@@ -1032,13 +1039,13 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     .getDesplazReal(request);
                 final List<DesplazamientoRealResultItemDto> data = AsyncUtils.get(cfData);
                 if (CollectionUtils.isNotEmpty(data)) {
-                    AsyncUtils.checkAsyncAvaliable(cfPersist,
-                            this.meta4Properties.get(Meta4PropertiesConstants.DESPLAZAMIENTO_REAL)
-                                .getFilter()
-                                .getMaxPersistenceSize());
-                    final CompletableFuture<Void> cfSave = this.tareaPersonaEstructuraDesplazamientoRealAsyncService
-                        .saveDesplazamientoRealResultItemDto(data, tarea);
-                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                    // AsyncUtils.checkAsyncAvaliable(cfPersist,
+                    // this.meta4Properties.get(Meta4PropertiesConstants.DESPLAZAMIENTO_REAL)
+                    // .getFilter()
+                    // .getMaxPersistenceSize());
+                    // final CompletableFuture<Void> cfSave = this.tareaPersonaEstructuraDesplazamientoRealAsyncService
+                    // .saveDesplazamientoRealResultItemDto(data, tarea);
+                    // AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                 }
                 AsyncUtils.waitAllOfIsOk(cf, cf);
             }
