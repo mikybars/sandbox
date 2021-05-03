@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -173,7 +174,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     }
 
     @Override
-    public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
+    public List<IdLocalizacionEmpresaDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
             @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
             @NotNull @NotEmpty final List<String> stdIdLegEnt) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -183,8 +184,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
         return this.query(this.sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito,
                 parameters, (rs, rowNum) -> {
-                    final IdLocalizacionDto dto = new IdLocalizacionDto();
+                    final IdLocalizacionEmpresaDto dto = new IdLocalizacionEmpresaDto();
                     dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
+                    dto.setStdIdLegEnt(rs.getString(SqlPrimaryConstants.SQL_RESULT_EMPRESA));
                     return dto;
                 });
     }

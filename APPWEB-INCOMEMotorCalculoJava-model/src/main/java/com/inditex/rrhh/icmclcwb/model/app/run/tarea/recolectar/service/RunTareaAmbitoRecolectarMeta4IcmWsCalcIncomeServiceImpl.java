@@ -21,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.DesplazamientoRealDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
@@ -378,7 +379,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 .stream()
                 .map(IdEmpresaDto::getStdIdLegEnt)
                 .collect(Collectors.toList());
-            for (final List<IdLocalizacionDto> iter : StreamUtils.partition(
+            for (final List<IdLocalizacionEmpresaDto> iter : StreamUtils.partition(
                     this.tareaLocalizacionHistoricoService
                         .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
                                 tarea.getId(), tareaAmbito.getCclIdOrigen(), empresasAmbito),
@@ -391,12 +392,15 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                                     tarea.getId(),
                                     TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-                request.getData().setIdsEmpresa(empresasAmbito);
                 request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
+                request.getData().setIdsEmpresa(null);
                 request.getData()
                     .getItem()
                     .addAll(iter.stream()
-                        .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
+                        .map(e -> GenericFilterParametersDto.builder()
+                            .idLugarTrabajo(e.getId())
+                            .idEmpresa(e.getStdIdLegEnt())
+                            .build())
                         .collect(Collectors.toList()));
                 boolean hasNext = false;
                 do {
