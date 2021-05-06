@@ -77,10 +77,10 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
     @Mapping(target = "tipoDato", ignore = true)
     @Mapping(source = "tareaDto.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
     public abstract TareaLocalizacionPersonaPresencia presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
-            PtrPresenciaDetalleResultItemDto src, TareaDto tareaDto);
+            PtrPresenciaDetalleResultItemDto src, TareaDto tareaDto, final Integer idTipoDato);
 
     public List<TareaLocalizacionPersonaPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
-            final List<PtrPresenciaDetalleResultItemDto> src, final TareaDto tareaDto) {
+            final List<PtrPresenciaDetalleResultItemDto> src, final TareaDto tareaDto, final Integer idTipoDato) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

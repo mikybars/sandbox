@@ -59,11 +59,12 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
         tarea.setIdTrabajo(1L);
         final List<PtrPresenciaDetalleResultItemDto> ptrPresenciaDetalleDto = new ArrayList<>();
 
-        this.tareaLocalizacionPersonaPresenciaServiceImpl.savePtrPresenciaDetalle(ptrPresenciaDetalleDto, tarea);
+        this.tareaLocalizacionPersonaPresenciaServiceImpl.savePtrPresenciaDetalle(ptrPresenciaDetalleDto, tarea, 1);
 
         verify(this.tareaLocalizacionPersonaPresenciaMapper, times(1))
             .presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
-                    ArgumentMatchers.<List<PtrPresenciaDetalleResultItemDto>>any(), any(TareaDto.class));
+                    ArgumentMatchers.<List<PtrPresenciaDetalleResultItemDto>>any(), any(TareaDto.class),
+                    any(Integer.class));
         verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
             .save(ArgumentMatchers.<List<TareaLocalizacionPersonaPresencia>>any());
     }

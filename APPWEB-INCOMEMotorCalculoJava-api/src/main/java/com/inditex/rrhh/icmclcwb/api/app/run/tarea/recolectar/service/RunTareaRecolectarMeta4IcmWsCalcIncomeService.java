@@ -59,4 +59,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void ventaManualLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
+    void localizacionCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+
 }

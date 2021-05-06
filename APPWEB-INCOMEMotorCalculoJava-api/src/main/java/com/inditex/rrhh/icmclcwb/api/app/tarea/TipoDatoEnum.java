@@ -96,7 +96,7 @@ public enum TipoDatoEnum {
                                                                                                                                                                                                                                                                                                                                                                     3046),
     /* 4000 (Presencia) */
     PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA(4002), PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA(
-            4003),
+            4003), PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA_INCLUIDOECOMMERCE(4004),
     /* 5000 (Presencia Procesado) */
     PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR(5001), PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR(
             5002), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR(

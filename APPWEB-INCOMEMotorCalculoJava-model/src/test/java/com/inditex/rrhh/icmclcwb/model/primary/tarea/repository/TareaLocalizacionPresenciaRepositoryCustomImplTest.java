@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
@@ -117,9 +116,6 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(199L);
         when(runTarea.getTarea()).thenReturn(tarea);
-        when(this.tipoDatoService
-            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-                .thenReturn(Arrays.asList(new IdTipoDatoDto(12), new IdTipoDatoDto(89)));
 
         this.tareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
@@ -127,16 +123,13 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: idTarea, nuevoIdSeccion, nuevoIdTipoDato,
         // excluidoDenominador, idTipoPolitica, tiposDato, activo
-        assertEquals(9, params.getValues().size());
+        assertEquals(8, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
-        // tiposDato
-        assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
-        assertEquals(Arrays.asList(12, 89), params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
         // idTipoGrupoDato
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
-        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA_INCLUIDOECOMMERCE.getId(),
                 params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
         // excluidodenominador
         assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_DENOMINADOR));

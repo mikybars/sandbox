@@ -1,18 +1,12 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;
@@ -68,7 +62,7 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
      *
      */
     public String getAiSessionId() {
-        return this.aiSessionId;
+        return aiSessionId;
     }
 
     /**
@@ -76,13 +70,12 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
      * @param value allowed object is {@link String }
      *
      */
-    public void setAiSessionId(final String value) {
+    public void setAiSessionId(String value) {
         this.aiSessionId = value;
     }
 
-    @Override
-    public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
-            final EqualsStrategy2 strategy) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
         if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
@@ -91,9 +84,9 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
         }
         final RetrieveM4Session that = ((RetrieveM4Session) object);
         {
-            final String lhsAiSessionId;
+            String lhsAiSessionId;
             lhsAiSessionId = this.getAiSessionId();
-            final String rhsAiSessionId;
+            String rhsAiSessionId;
             rhsAiSessionId = that.getAiSessionId();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSessionId", lhsAiSessionId),
                     LocatorUtils.property(thatLocator, "aiSessionId", rhsAiSessionId), lhsAiSessionId, rhsAiSessionId,
@@ -104,45 +97,38 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
         return true;
     }
 
-    @Override
-    public boolean equals(final Object object) {
+    public boolean equals(Object object) {
         final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return this.equals(null, null, object, strategy);
+        return equals(null, null, object, strategy);
     }
 
-    @Override
     public String toString() {
         final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
         final StringBuilder buffer = new StringBuilder();
-        this.append(null, buffer, strategy);
+        append(null, buffer, strategy);
         return buffer.toString();
     }
 
-    @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
-        this.appendFields(locator, buffer, strategy);
+        appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
         return buffer;
     }
 
-    @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            final String theAiSessionId;
+            String theAiSessionId;
             theAiSessionId = this.getAiSessionId();
             strategy.appendField(locator, this, "aiSessionId", buffer, theAiSessionId, (this.aiSessionId != null));
         }
         return buffer;
     }
 
-    @Override
-    public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            final String theAiSessionId;
+            String theAiSessionId;
             theAiSessionId = this.getAiSessionId();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSessionId", theAiSessionId),
                     currentHashCode, theAiSessionId, (this.aiSessionId != null));
@@ -150,35 +136,31 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
         return currentHashCode;
     }
 
-    @Override
     public int hashCode() {
         final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
         return this.hashCode(null, strategy);
     }
 
-    @Override
     public Object clone() {
-        return this.copyTo(this.createNewInstance());
+        return copyTo(createNewInstance());
     }
 
-    @Override
-    public Object copyTo(final Object target) {
+    public Object copyTo(Object target) {
         final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return this.copyTo(null, target, strategy);
+        return copyTo(null, target, strategy);
     }
 
-    @Override
-    public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof RetrieveM4Session) {
             final RetrieveM4Session copy = ((RetrieveM4Session) draftCopy);
             {
-                final Boolean aiSessionIdShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                Boolean aiSessionIdShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.aiSessionId != null));
                 if (aiSessionIdShouldBeCopiedAndSet == Boolean.TRUE) {
-                    final String sourceAiSessionId;
+                    String sourceAiSessionId;
                     sourceAiSessionId = this.getAiSessionId();
-                    final String copyAiSessionId = ((String) strategy.copy(
+                    String copyAiSessionId = ((String) strategy.copy(
                             LocatorUtils.property(locator, "aiSessionId", sourceAiSessionId), sourceAiSessionId,
                             (this.aiSessionId != null)));
                     copy.setAiSessionId(copyAiSessionId);
@@ -192,7 +174,6 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
         return draftCopy;
     }
 
-    @Override
     public Object createNewInstance() {
         return new RetrieveM4Session();
     }
