@@ -161,6 +161,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                 .ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaRangoOnlineEntregaDomicilioLocalizacionSeccion, cf, cfWait);
 
+            // Tiendas de las cadenas de la agrupacion
+            final CompletableFuture<Void> cfLocalizacionCadena = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .localizacionCadenaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfLocalizacionCadena, cf, cfWait);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/

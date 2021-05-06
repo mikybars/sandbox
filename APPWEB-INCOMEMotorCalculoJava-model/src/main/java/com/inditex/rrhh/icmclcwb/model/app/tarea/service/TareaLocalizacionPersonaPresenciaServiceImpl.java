@@ -37,9 +37,9 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
 
     @Override
     public void savePtrPresenciaDetalle(@Valid @NotNull @NotEmpty final List<PtrPresenciaDetalleResultItemDto> src,
-            @Valid @NotNull final TareaDto tareaDto) {
+            @Valid @NotNull final TareaDto tareaDto, @Valid @NotNull final Integer idTipoDato) {
         this.tareaLocalizacionPersonaPresenciaRepositoryCustom.save(this.tareaLocalizacionPersonaPresenciaMapper
-            .presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(src, tareaDto));
+            .presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(src, tareaDto, idTipoDato));
     }
 
     @Override

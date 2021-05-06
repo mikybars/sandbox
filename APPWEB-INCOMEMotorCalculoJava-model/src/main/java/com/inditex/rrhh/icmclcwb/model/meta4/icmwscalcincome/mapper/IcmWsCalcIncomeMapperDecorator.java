@@ -32,6 +32,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
@@ -526,6 +527,37 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
 
     @Override
+    public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final SearchTiendasFilterDto src) {
+        final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+        final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+        result.getIcmParamcaltiendasRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final SearchTiendasFilterDto src) {
+        final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+        if (src != null) {
+            if (CollectionUtils.isNotEmpty(src.getIdsEmpresa())) {
+                src.getIdsEmpresa().forEach(empresa -> {
+                    final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+                    record.setIdempresa(empresa);
+                    result.add(record);
+                });
+            }
+            if (CollectionUtils.isNotEmpty(src.getIdsCadena())) {
+                src.getIdsEmpresa().forEach(cadena -> {
+                    final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+                    record.setIdcadena(cadena);
+                    result.add(record);
+                });
+            }
+
+        }
+        return result;
+    }
+
+
+    @Override
     public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(final GenericFilterDto src) {
         final List<IcmParamcalempleadoRecord> list = this.asIcmParamcalempleadoRecordList(src);
         final IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
@@ -808,7 +840,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     public CatalogoResponseDto asCatalogoResponseDto(
             final GetcatalogoOutput src) {
         final CatalogoResponseDto result = this.delegate.asCatalogoResponseDto(src);
-        if (src.getIcmListacatalogo() != null
+        if ((src.getIcmListacatalogo() != null)
                 && CollectionUtils.isNotEmpty(src.getIcmListacatalogo().getIcmListacatalogoRecordSet())) {
             result.setItems(src.getIcmListacatalogo()
                 .getIcmListacatalogoRecordSet()
@@ -825,7 +857,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
 
         final ListaCondicionesBaseResultItemDto condiciones = this.delegate
             .asListaCondicionesBaseResultItemDto(src);
-        if (src.getIcmListavaloresbaseman() != null &&
+        if ((src.getIcmListavaloresbaseman() != null) &&
                 CollectionUtils.isNotEmpty(src.getIcmListavaloresbaseman().getIcmListavaloresbasemanRecordSet())) {
             condiciones.getIcmListaValoresBase()
                 .addAll(this.delegate
@@ -842,7 +874,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
 
         final ListaCondicionesDestinoResultItemDto condiciones = this.delegate
             .asListaCondicionesDestinoResultItemDto(src);
-        if (src.getIcmListavaloresdestinoman() != null &&
+        if ((src.getIcmListavaloresdestinoman() != null) &&
                 CollectionUtils
                     .isNotEmpty(src.getIcmListavaloresdestinoman().getIcmListavaloresdestinomanRecordSet())) {
             condiciones.getIcmListaValoresDestino()

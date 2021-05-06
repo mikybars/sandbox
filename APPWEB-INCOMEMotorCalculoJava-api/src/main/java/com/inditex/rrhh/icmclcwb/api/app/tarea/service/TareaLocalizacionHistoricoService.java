@@ -92,4 +92,10 @@ public interface TareaLocalizacionHistoricoService {
     List<IdLocalizacionEmpresaDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
             @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull @NotEmpty List<String> stdIdLegEnt);
 
+    List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(@NotNull Long idTarea,
+            @NotBlank String cclIdOrigen, @NotNull List<Long> idVentaConcepto);
+
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena(@NotNull Long idTarea,
+            @NotBlank String cclIdOrigen, @NotNull List<String> idsCadena);
+
 }

@@ -75,4 +75,10 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
     List<IdLocalizacionEmpresaDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
             @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull @NotEmpty List<String> stdIdLegEnt);
 
+    List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(Long idTarea, String cclIdOrigen,
+            List<Long> idVentaConcepto);
+
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena(
+            @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull List<String> idsCadena);
+
 }

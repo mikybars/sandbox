@@ -53,6 +53,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
@@ -179,7 +180,7 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
             .thenReturn(new ArrayList<GenericTiendaResultItemDto>());
 
         final SearchTiendasRequestDto request = new SearchTiendasRequestDto();
-        request.setData(new GenericFilterDto());
+        request.setData(new SearchTiendasFilterDto());
         request.setPage(new PageDto(1, 100));
         CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.searchTiendas(request));
 
