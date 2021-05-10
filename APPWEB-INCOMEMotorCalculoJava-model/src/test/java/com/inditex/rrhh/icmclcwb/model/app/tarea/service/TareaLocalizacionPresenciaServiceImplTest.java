@@ -59,14 +59,6 @@ public class TareaLocalizacionPresenciaServiceImplTest {
     }
 
     @Test
-    public void compensarEcommerceTest() {
-        final RunTareaDto runTarea = mock(RunTareaDto.class);
-
-        this.tareaLocalizacionPresenciaServiceImpl.compensarEcommerce(runTarea);
-        verify(this.tareaLocalizacionPresenciaRepositoryCustom, times(1)).compensarEcommerce(any(RunTareaDto.class));
-    }
-
-    @Test
     public void compensarLocalizacionManual() {
         final RunTareaDto runTarea = mock(RunTareaDto.class);
 

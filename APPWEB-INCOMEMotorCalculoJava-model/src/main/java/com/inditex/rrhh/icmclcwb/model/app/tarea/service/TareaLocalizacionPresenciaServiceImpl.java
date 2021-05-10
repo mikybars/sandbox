@@ -55,11 +55,6 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     }
 
     @Override
-    public void compensarEcommerce(@Valid @NotNull final RunTareaDto runTareaDto) {
-        this.tareaLocalizacionPresenciaRepositoryCustom.compensarEcommerce(runTareaDto);
-    }
-
-    @Override
     public void totalizarEmpleadosPorVenta(@Valid @NotNull final RunTareaDto runTareaDto) {
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEmpleadosPorVenta(runTareaDto);
     }

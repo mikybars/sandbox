@@ -10,8 +10,6 @@ public interface RunTareaProcesarPresenciaService {
 
     void compensarLocalizacion(@Valid RunTareaDto runTarea);
 
-    void compensarLocalizacionEcommerce(@Valid RunTareaDto runTarea);
-
     void compensarLocalizacionPersonaPresencia(@Valid RunTareaDto runTarea);
 
     void presenciasIncluidoVentaPersona(@Valid RunTareaDto runTarea);

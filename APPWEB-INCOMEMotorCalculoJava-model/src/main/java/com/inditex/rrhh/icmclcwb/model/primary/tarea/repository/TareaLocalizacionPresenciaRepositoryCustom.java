@@ -15,8 +15,6 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
 
     void totalizar(@NotNull RunTareaDto runTareaDto);
 
-    void compensarEcommerce(@NotNull RunTareaDto runTareaDto);
-
     void updateActivoVacio(@NotNull RunTareaDto runTareaDto);
 
     void totalizarEcommerce(@NotNull RunTareaDto runTareaDto);
