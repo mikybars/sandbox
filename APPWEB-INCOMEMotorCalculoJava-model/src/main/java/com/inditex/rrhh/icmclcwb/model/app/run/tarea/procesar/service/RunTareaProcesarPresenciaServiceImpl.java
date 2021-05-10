@@ -46,11 +46,6 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     }
 
     @Override
-    public void compensarLocalizacionEcommerce(@Valid final RunTareaDto runTarea) {
-        this.tareaLocalizacionPresenciaService.compensarEcommerce(runTarea);
-    }
-
-    @Override
     public void updateActivoLocalizacionVacio(@Valid final RunTareaDto runTarea) {
         this.tareaLocalizacionPresenciaService.updateActivoVacio(runTarea);
     }
