@@ -161,6 +161,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                 .ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaRangoOnlineEntregaDomicilioLocalizacionSeccion, cf, cfWait);
 
+            // Tiendas de las cadenas de la agrupacion
+            final CompletableFuture<Void> cfLocalizacionCadena = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .localizacionCadenaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfLocalizacionCadena, cf, cfWait);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
@@ -232,6 +237,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             final CompletableFuture<Void> cfVentaManualLocalizacion = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .ventaManualLocalizacionByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaManualLocalizacion, cf, cfWait);
+
+            // Presencias incluido commerce
+            final CompletableFuture<Void> cfPresenciasDetalleIncluidoCommerce = this.runTareaRecolectarPtrPresenciaAsyncService
+                .presenciaDetallePersonaIncluidoCommerceByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfPresenciasDetalleIncluidoCommerce, cf, cfWait);
 
             // Festivos
             // CompletableFuture<Void> cfFestivos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService

@@ -1,6 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
@@ -10,10 +14,6 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersona
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class TareaLocalizacionPersonaPresenciaDecorator
         extends TareaLocalizacionPersonaPresenciaMapper {
@@ -39,11 +39,11 @@ public abstract class TareaLocalizacionPersonaPresenciaDecorator
 
     @Override
     public List<TareaLocalizacionPersonaPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
-            final List<PtrPresenciaDetalleResultItemDto> src, final TareaDto tareaDto) {
+            final List<PtrPresenciaDetalleResultItemDto> src, final TareaDto tareaDto, final Integer idTipoDato) {
         final List<TareaLocalizacionPersonaPresencia> result = new ArrayList<>();
         src.forEach(x -> result
             .addAll(this.presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(x.getListaSeccion(), x,
-                    tareaDto)));
+                    tareaDto, idTipoDato)));
         return result;
     }
 
@@ -51,17 +51,19 @@ public abstract class TareaLocalizacionPersonaPresenciaDecorator
     private List<TareaLocalizacionPersonaPresencia> presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(
             final List<PtrSeccionPresenciasGenericType> listaSeccion,
             final PtrPresenciaDetalleResultItemDto presenciaTotalizado,
-            final TareaDto tareaDto) {
+            final TareaDto tareaDto,
+            final Integer idTipoDato) {
         final List<TareaLocalizacionPersonaPresencia> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(listaSeccion)) {
             listaSeccion.forEach(x -> {
                 final TareaLocalizacionPersonaPresencia presencia = this.delegate
-                    .presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(presenciaTotalizado, tareaDto);
+                    .presenciasDetalleResponseDtoToTareaLocalizacionPersonaPresencia(presenciaTotalizado, tareaDto,
+                            idTipoDato);
                 presencia.setCclIdSeccion(x.getSeccion().toString());
                 presencia.setMinutos(x.getMinutos());
                 presencia.setTipoDato(new TipoDato());
                 presencia.getTipoDato()
-                    .setId(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+                    .setId(idTipoDato);
                 result.add(presencia);
             });
 

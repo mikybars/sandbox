@@ -14,7 +14,7 @@ public interface RunTareaProcesarVentaService {
 
     void compensar(@Valid RunTareaDto runTarea);
 
-    void repartoVentaEntregaDomicilioAgrupaciones(@Valid RunTareaDto runTarea);
+    void repartoVentaEntregaDomicilioPorVentasAgrupaciones(@Valid RunTareaDto runTarea);
 
     void repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(@Valid RunTareaDto runTarea);
 

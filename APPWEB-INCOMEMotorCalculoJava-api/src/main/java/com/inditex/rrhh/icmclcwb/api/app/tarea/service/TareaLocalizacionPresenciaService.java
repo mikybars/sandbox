@@ -16,8 +16,6 @@ public interface TareaLocalizacionPresenciaService {
 
     void totalizar(@Valid @NotNull final RunTareaDto runTareaDto);
 
-    void compensarEcommerce(@Valid @NotNull final RunTareaDto runTareaDto);
-
     void updateActivoVacio(@Valid @NotNull final RunTareaDto runTareaDto);
 
     void totalizarEcommerce(@Valid @NotNull final RunTareaDto runTareaDto);

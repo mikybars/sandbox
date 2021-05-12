@@ -81,4 +81,6 @@ public class GenericFilterParametersDto implements Serializable {
 
     private String fechaInicioExportacion;
 
+    private String idEmpresa;
+
 }

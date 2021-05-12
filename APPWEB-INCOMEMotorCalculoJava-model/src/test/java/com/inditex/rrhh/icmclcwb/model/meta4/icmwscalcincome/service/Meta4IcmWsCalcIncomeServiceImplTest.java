@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
@@ -32,6 +33,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionRequestDto;
@@ -40,6 +42,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchdiasminimosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
@@ -95,6 +98,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListasinc
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcatalogoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
@@ -640,13 +644,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         output.setIcmParametrospaginacion(paginacion);
         output.setIcmListatiendas(block);
 
-        when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(GenericFilterDto.class))).thenReturn(entrada);
+        when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(SearchTiendasFilterDto.class)))
+            .thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(this.meta4ClientPool.searchtiendas(any(IcmParamcaltiendasBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(output);
 
         final SearchTiendasRequestDto request = new SearchTiendasRequestDto();
-        request.setData(new GenericFilterDto());
+        request.setData(new SearchTiendasFilterDto());
         request.setPage(new PageDto(1, 100));
         this.meta4IcmWsCalcIncomeServiceImpl.searchTiendas(request);
         verify(this.meta4ClientPool, times(1)).searchtiendas(any(IcmParamcaltiendasBlock.class),
@@ -658,13 +663,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
         final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
-        when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(GenericFilterDto.class))).thenReturn(entrada);
+        when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(SearchTiendasFilterDto.class)))
+            .thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(this.meta4ClientPool.searchtiendas(any(IcmParamcaltiendasBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(null);
 
         final SearchTiendasRequestDto request = new SearchTiendasRequestDto();
-        request.setData(new GenericFilterDto());
+        request.setData(new SearchTiendasFilterDto());
         request.setPage(new PageDto(1, 100));
         this.meta4IcmWsCalcIncomeServiceImpl.searchTiendas(request);
         verify(this.meta4ClientPool, times(1)).searchtiendas(any(IcmParamcaltiendasBlock.class),
@@ -680,13 +686,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         output.setIcmParametrospaginacion(null);
         output.setIcmListatiendas(null);
 
-        when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(GenericFilterDto.class))).thenReturn(entrada);
+        when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(SearchTiendasFilterDto.class)))
+            .thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(this.meta4ClientPool.searchtiendas(any(IcmParamcaltiendasBlock.class),
                 any(IcmParametrospaginacionBlock.class))).thenReturn(output);
 
         final SearchTiendasRequestDto request = new SearchTiendasRequestDto();
-        request.setData(new GenericFilterDto());
+        request.setData(new SearchTiendasFilterDto());
         request.setPage(new PageDto(1, 100));
         this.meta4IcmWsCalcIncomeServiceImpl.searchTiendas(request);
         verify(this.meta4ClientPool, times(1)).searchtiendas(any(IcmParamcaltiendasBlock.class),
@@ -1855,6 +1862,23 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         verify(this.meta4ClientPool, times(1)).getsisdestino(entrada);
         verify(this.icmWsCalcIncomeMapper, times(1)).asSistemaDestinoResponseDto(output);
         verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcalsistdestinoBlock(request);
+
+    }
+
+    @Test
+    public void catalogo() {
+
+        final IcmParamcalcatalogoBlock entrada = new IcmParamcalcatalogoBlock();
+        final GetcatalogoOutput output = new GetcatalogoOutput();
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalcatalogoBlock(any(CatalogoRequestDto.class)))
+            .thenReturn(entrada);
+        when(this.meta4ClientPool.getcatalogo(entrada)).thenReturn(output);
+        final CatalogoRequestDto request = CatalogoRequestDto.builder().build();
+        this.meta4IcmWsCalcIncomeServiceImpl.getCatalogo(request);
+
+        verify(this.meta4ClientPool, times(1)).getcatalogo(entrada);
+        verify(this.icmWsCalcIncomeMapper, times(1)).asCatalogoResponseDto(output);
+        verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcalcatalogoBlock(request);
 
     }
 

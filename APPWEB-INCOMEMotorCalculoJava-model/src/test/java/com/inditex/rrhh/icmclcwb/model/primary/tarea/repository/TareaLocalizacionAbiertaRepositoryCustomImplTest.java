@@ -141,7 +141,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         // idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada
         // idTipoDatoVentaEntregaDomicilioLocalizacionSeccion,
         // idTipoDatoVentaEntregaDomicilioLocalizacionSeccionTrasladada
-        assertEquals(22, this.params.getValue().getValues().size());
+        assertEquals(23, this.params.getValue().getValues().size());
         // tiposDato
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
         assertEquals(idTipoImporteVentas, this.params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));

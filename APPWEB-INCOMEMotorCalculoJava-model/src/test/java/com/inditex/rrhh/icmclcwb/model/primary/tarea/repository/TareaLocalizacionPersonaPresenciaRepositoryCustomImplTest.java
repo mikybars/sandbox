@@ -250,6 +250,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         final RunTareaDto runTarea = mock(RunTareaDto.class);
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(199L);
+        when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.now());
         when(runTarea.getTarea()).thenReturn(tarea);
 
         when(this.tipoDatoService
@@ -262,7 +263,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: idTarea, excluidoDenominador, tiposDato,
         // nuevoActivo
-        assertEquals(4, params.getValues().size());
+        assertEquals(5, params.getValues().size());
         // idTarea
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));

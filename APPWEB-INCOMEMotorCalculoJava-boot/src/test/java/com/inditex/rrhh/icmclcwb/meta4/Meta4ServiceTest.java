@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4TestConstants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetausenciasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchdiasminimosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
@@ -39,6 +40,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Gettiendason
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetventacongeladaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcatalogoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcatalogoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
@@ -609,6 +612,20 @@ public class Meta4ServiceTest {
         final GetsistdestinoOutput getsisdestinoOutput = this.meta4ClientPool.getsisdestino(param);
         assertNotNull(getsisdestinoOutput);
         assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getsisdestinoOutput.getReturn()));
+
+    }
+
+    @Test
+    public void getCatalogo() {
+
+        final IcmParamcalcatalogoBlock param = new IcmParamcalcatalogoBlock();
+        param.setIdorigen("11");
+        final IcmParamcalcatalogoRecord record = new IcmParamcalcatalogoRecord();
+        record.setIdempresa("8");
+        param.getIcmParamcalcatalogoRecordSet().add(record);
+        final GetcatalogoOutput getcatalogoOutput = this.meta4ClientPool.getcatalogo(param);
+        assertNotNull(getcatalogoOutput);
+        assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getcatalogoOutput.getReturn()));
 
     }
 

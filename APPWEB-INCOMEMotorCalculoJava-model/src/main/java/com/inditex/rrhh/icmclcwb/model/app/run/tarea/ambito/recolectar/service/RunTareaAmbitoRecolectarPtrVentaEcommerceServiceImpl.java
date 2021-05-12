@@ -126,7 +126,8 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
             final String cclIdOrigen = tareaAmbito.getCclIdOrigen();
             final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService
                 .findIdCadenaDtoByIdTareaAndCclIdOrigen(idTarea, cclIdOrigen,
-                        TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId());
+                        Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId(),
+                                TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
             if (CollectionUtils.isNotEmpty(cadenas)) {
                 final List<PeriodoDto> periodos = this.tareaLocalizacionPresupuestoService
                     .findListaPeriodosPresupestoYTrabajo(idTarea, filter, this.recolectarProperties);

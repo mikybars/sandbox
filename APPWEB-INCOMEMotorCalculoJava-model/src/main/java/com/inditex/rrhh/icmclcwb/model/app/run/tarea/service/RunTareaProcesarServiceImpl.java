@@ -195,11 +195,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 .compensarChallenge(runTarea);
             AsyncUtils.exceptionally(cfCompensarChallenge, cf, cfWait);
 
-            // Compensar presencia total localizacion con las manuales para incluido ecommerce
-            final CompletableFuture<Void> cfCompensarPresenciaLocalizacionEcommerce = this.runTareaProcesarPresenciaAsyncService
-                .compensarLocalizacionEcommerce(runTarea);
-            AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionEcommerce, cf, cfWait);
-
             final CompletableFuture<Void> cfTotalizarPresenciaEcommerceLocalizacion = this.runTareaProcesarPresenciaAsyncService
                 .totalizarEcommerceLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfTotalizarPresenciaEcommerceLocalizacion, cf, cfWait);
@@ -300,7 +295,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas -
             // por ventas
             final CompletableFuture<Void> cfRepartoAgrupaciones = this.runTareaProcesarVentaAsyncService
-                .repartoVentaEntregaDomicilioAgrupaciones(runTarea);
+                .repartoVentaEntregaDomicilioPorVentasAgrupaciones(runTarea);
             AsyncUtils.exceptionally(cfRepartoAgrupaciones, cf, cfWait);
 
             // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas -

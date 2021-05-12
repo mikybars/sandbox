@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -39,8 +35,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="ICM_PARAMCALTIENDAS" type="{http://schemas.meta4.com/}Icm_ParamcaltiendasBlock"/&gt;
  *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALTIENDAS" type="{http://schemas.meta4.com/}Icm_ParamcaltiendasBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -51,37 +47,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "icmparamcaltiendas",
-        "icmparametrospaginacion"
+        "icmparametrospaginacion",
+        "icmparamcaltiendas"
 })
 @XmlRootElement(name = "GETVENTAMANUALWLOC")
 public class GETVENTAMANUALWLOC implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
 
-    @XmlElement(name = "ICM_PARAMCALTIENDAS", required = true)
-    protected IcmParamcaltiendasBlock icmparamcaltiendas;
-
     @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
     protected IcmParametrospaginacionBlock icmparametrospaginacion;
 
-    /**
-     * Obtiene el valor de la propiedad icmparamcaltiendas.
-     * @return possible object is {@link IcmParamcaltiendasBlock }
-     *
-     */
-    public IcmParamcaltiendasBlock getICMPARAMCALTIENDAS() {
-        return icmparamcaltiendas;
-    }
-
-    /**
-     * Define el valor de la propiedad icmparamcaltiendas.
-     * @param value allowed object is {@link IcmParamcaltiendasBlock }
-     *
-     */
-    public void setICMPARAMCALTIENDAS(IcmParamcaltiendasBlock value) {
-        this.icmparamcaltiendas = value;
-    }
+    @XmlElement(name = "ICM_PARAMCALTIENDAS", required = true)
+    protected IcmParamcaltiendasBlock icmparamcaltiendas;
 
     /**
      * Obtiene el valor de la propiedad icmparametrospaginacion.
@@ -101,6 +79,24 @@ public class GETVENTAMANUALWLOC implements Serializable, Cloneable, CopyTo2, Equ
         this.icmparametrospaginacion = value;
     }
 
+    /**
+     * Obtiene el valor de la propiedad icmparamcaltiendas.
+     * @return possible object is {@link IcmParamcaltiendasBlock }
+     *
+     */
+    public IcmParamcaltiendasBlock getICMPARAMCALTIENDAS() {
+        return icmparamcaltiendas;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamcaltiendas.
+     * @param value allowed object is {@link IcmParamcaltiendasBlock }
+     *
+     */
+    public void setICMPARAMCALTIENDAS(IcmParamcaltiendasBlock value) {
+        this.icmparamcaltiendas = value;
+    }
+
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
             EqualsStrategy2 strategy) {
         if ((object == null) || (this.getClass() != object.getClass())) {
@@ -111,18 +107,6 @@ public class GETVENTAMANUALWLOC implements Serializable, Cloneable, CopyTo2, Equ
         }
         final GETVENTAMANUALWLOC that = ((GETVENTAMANUALWLOC) object);
         {
-            IcmParamcaltiendasBlock lhsICMPARAMCALTIENDAS;
-            lhsICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
-            IcmParamcaltiendasBlock rhsICMPARAMCALTIENDAS;
-            rhsICMPARAMCALTIENDAS = that.getICMPARAMCALTIENDAS();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcaltiendas", lhsICMPARAMCALTIENDAS),
-                    LocatorUtils.property(thatLocator, "icmparamcaltiendas", rhsICMPARAMCALTIENDAS),
-                    lhsICMPARAMCALTIENDAS, rhsICMPARAMCALTIENDAS, (this.icmparamcaltiendas != null),
-                    (that.icmparamcaltiendas != null))) {
-                return false;
-            }
-        }
-        {
             IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
             lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
@@ -132,6 +116,18 @@ public class GETVENTAMANUALWLOC implements Serializable, Cloneable, CopyTo2, Equ
                     LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION),
                     lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null),
                     (that.icmparametrospaginacion != null))) {
+                return false;
+            }
+        }
+        {
+            IcmParamcaltiendasBlock lhsICMPARAMCALTIENDAS;
+            lhsICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
+            IcmParamcaltiendasBlock rhsICMPARAMCALTIENDAS;
+            rhsICMPARAMCALTIENDAS = that.getICMPARAMCALTIENDAS();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcaltiendas", lhsICMPARAMCALTIENDAS),
+                    LocatorUtils.property(thatLocator, "icmparamcaltiendas", rhsICMPARAMCALTIENDAS),
+                    lhsICMPARAMCALTIENDAS, rhsICMPARAMCALTIENDAS, (this.icmparamcaltiendas != null),
+                    (that.icmparamcaltiendas != null))) {
                 return false;
             }
         }
@@ -159,16 +155,16 @@ public class GETVENTAMANUALWLOC implements Serializable, Cloneable, CopyTo2, Equ
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            IcmParamcaltiendasBlock theICMPARAMCALTIENDAS;
-            theICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
-            strategy.appendField(locator, this, "icmparamcaltiendas", buffer, theICMPARAMCALTIENDAS,
-                    (this.icmparamcaltiendas != null));
-        }
-        {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
                     (this.icmparametrospaginacion != null));
+        }
+        {
+            IcmParamcaltiendasBlock theICMPARAMCALTIENDAS;
+            theICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
+            strategy.appendField(locator, this, "icmparamcaltiendas", buffer, theICMPARAMCALTIENDAS,
+                    (this.icmparamcaltiendas != null));
         }
         return buffer;
     }
@@ -176,18 +172,18 @@ public class GETVENTAMANUALWLOC implements Serializable, Cloneable, CopyTo2, Equ
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            IcmParamcaltiendasBlock theICMPARAMCALTIENDAS;
-            theICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmparamcaltiendas", theICMPARAMCALTIENDAS), currentHashCode,
-                    theICMPARAMCALTIENDAS, (this.icmparamcaltiendas != null));
-        }
-        {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             currentHashCode = strategy.hashCode(
                     LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
                     currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
+        }
+        {
+            IcmParamcaltiendasBlock theICMPARAMCALTIENDAS;
+            theICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcaltiendas", theICMPARAMCALTIENDAS), currentHashCode,
+                    theICMPARAMCALTIENDAS, (this.icmparamcaltiendas != null));
         }
         return currentHashCode;
     }
@@ -211,22 +207,6 @@ public class GETVENTAMANUALWLOC implements Serializable, Cloneable, CopyTo2, Equ
         if (draftCopy instanceof GETVENTAMANUALWLOC) {
             final GETVENTAMANUALWLOC copy = ((GETVENTAMANUALWLOC) draftCopy);
             {
-                Boolean icmparamcaltiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmparamcaltiendas != null));
-                if (icmparamcaltiendasShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParamcaltiendasBlock sourceICMPARAMCALTIENDAS;
-                    sourceICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
-                    IcmParamcaltiendasBlock copyICMPARAMCALTIENDAS = ((IcmParamcaltiendasBlock) strategy.copy(
-                            LocatorUtils.property(locator, "icmparamcaltiendas", sourceICMPARAMCALTIENDAS),
-                            sourceICMPARAMCALTIENDAS, (this.icmparamcaltiendas != null)));
-                    copy.setICMPARAMCALTIENDAS(copyICMPARAMCALTIENDAS);
-                } else {
-                    if (icmparamcaltiendasShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparamcaltiendas = null;
-                    }
-                }
-            }
-            {
                 Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.icmparametrospaginacion != null));
                 if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -239,6 +219,22 @@ public class GETVENTAMANUALWLOC implements Serializable, Cloneable, CopyTo2, Equ
                 } else {
                     if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmparametrospaginacion = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparamcaltiendasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparamcaltiendas != null));
+                if (icmparamcaltiendasShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcaltiendasBlock sourceICMPARAMCALTIENDAS;
+                    sourceICMPARAMCALTIENDAS = this.getICMPARAMCALTIENDAS();
+                    IcmParamcaltiendasBlock copyICMPARAMCALTIENDAS = ((IcmParamcaltiendasBlock) strategy.copy(
+                            LocatorUtils.property(locator, "icmparamcaltiendas", sourceICMPARAMCALTIENDAS),
+                            sourceICMPARAMCALTIENDAS, (this.icmparamcaltiendas != null)));
+                    copy.setICMPARAMCALTIENDAS(copyICMPARAMCALTIENDAS);
+                } else {
+                    if (icmparamcaltiendasShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcaltiendas = null;
                     }
                 }
             }

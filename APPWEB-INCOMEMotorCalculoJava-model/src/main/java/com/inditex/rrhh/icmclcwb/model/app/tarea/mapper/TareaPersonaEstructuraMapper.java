@@ -26,6 +26,7 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "id", source = "pk.id")
     @Mapping(target = "idTarea", source = "tarea.id")
     @Mapping(target = "fechaInicioPeriodo", source = "pk.fechaInicioPeriodo")
+    @Mapping(target = "grupoManual", source = "icmGrupoManual")
     public abstract TareaPersonaEstructuraDto tareaPersonaEstructuraToTareaPersonaEstructuraDto(
             TareaPersonaEstructura src);
 
@@ -79,8 +80,11 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaV", source = "listaCondicionesBaseResultItem.diaV", defaultValue = "true")
     @Mapping(target = "diaS", source = "listaCondicionesBaseResultItem.diaS", defaultValue = "true")
     @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "festivo",
+            expression = "java(listaCondicionesBaseResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getFestivo()) : null)")
     // Valores por seccion
     @Mapping(target = "valor", constant = "0")
+    @Mapping(target = "grupoManual", constant = "")
     @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
     @Mapping(target = "cclIdSeccionEstructura", constant = "0")
     @Mapping(target = "tope", constant = "0")
@@ -121,8 +125,11 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaV", source = "listaCondicionesBaseResultItem.diaV", defaultValue = "true")
     @Mapping(target = "diaS", source = "listaCondicionesBaseResultItem.diaS", defaultValue = "true")
     @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "festivo",
+            expression = "java(listaCondicionesBaseResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getFestivo()) : null)")
     // Valores por seccion
     @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
+    @Mapping(target = "grupoManual", source = "listaValoresBaseResultItem.grupoManual", defaultValue = "")
     @Mapping(target = "valor", source = "listaValoresBaseResultItem.valor", defaultValue = "0")
     @Mapping(target = "cclIdSeccionEstructura", source = "listaValoresBaseResultItem.idSeccion", defaultValue = "0")
     @Mapping(target = "tope", source = "listaValoresBaseResultItem.tope", defaultValue = "0")
@@ -164,8 +171,11 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaV", source = "listaCondicionesDestinoResultItem.diaV", defaultValue = "true")
     @Mapping(target = "diaS", source = "listaCondicionesDestinoResultItem.diaS", defaultValue = "true")
     @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "festivo",
+            expression = "java(listaCondicionesDestinoResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getFestivo()) : null)")
     // Valores por seccion
     @Mapping(target = "valor", constant = "0")
+    @Mapping(target = "grupoManual", constant = "")
     @Mapping(target = "cclIdSeccionEfectiva", constant = "0")
     @Mapping(target = "cclIdSeccionEstructura", constant = "0")
     @Mapping(target = "tope", constant = "0")
@@ -243,9 +253,12 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "diaV", source = "listaCondicionesDestinoResultItem.diaV", defaultValue = "true")
     @Mapping(target = "diaS", source = "listaCondicionesDestinoResultItem.diaS", defaultValue = "true")
     @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "festivo",
+            expression = "java(listaCondicionesDestinoResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getFestivo()) : null)")
     // Valores por seccion
     @Mapping(target = "cclIdSeccionEfectiva", source = "idSeccion", defaultValue = "0")
     @Mapping(target = "valor", source = "listaValoresDestinoResultItem.valor", defaultValue = "0")
+    @Mapping(target = "grupoManual", source = "listaValoresDestinoResultItem.grupoManual")
     @Mapping(target = "cclIdSeccionEstructura", source = "listaValoresDestinoResultItem.idSeccion", defaultValue = "0")
     @Mapping(target = "tope", source = "listaValoresDestinoResultItem.tope", defaultValue = "0")
     // Datos del desplazamiento

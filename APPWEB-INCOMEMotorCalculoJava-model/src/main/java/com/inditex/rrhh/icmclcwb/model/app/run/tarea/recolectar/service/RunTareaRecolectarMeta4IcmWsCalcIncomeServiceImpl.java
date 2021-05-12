@@ -250,4 +250,13 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 .desplazamientoRealByRunTareaAndTareaAmbito(runTarea, item));
     }
 
+    @Override
+    public void localizacionCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .localizacionCadenaByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
 }

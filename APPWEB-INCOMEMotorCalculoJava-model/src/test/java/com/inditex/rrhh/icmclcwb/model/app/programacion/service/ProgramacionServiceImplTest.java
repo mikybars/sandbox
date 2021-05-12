@@ -279,7 +279,7 @@ public class ProgramacionServiceImplTest {
         programacion2.setHoraProgramacion(LocalTime.of(0, 0));
         programacion2.setProgramacionHuso(TimeUtils.ofZoneId());
         final ProgramacionDto programacion3 = new ProgramacionDto();
-        programacion3.setHoraProgramacion(LocalTime.of(3, 0));
+        programacion3.setHoraProgramacion(LocalTime.of(0, 1));
         programacion3.setProgramacionHuso(TimeUtils.ofZoneId());
 
         final List<ProgramacionDto> programaciones = Arrays.asList(programacion1, programacion2, programacion3);

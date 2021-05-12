@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -46,6 +47,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito']}")
     private String sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito;
 
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito']}")
+    private String sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito;
+
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenInAmbitoLocalizacion']}")
     private String sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenInAmbitoLocalizacion;
 
@@ -58,8 +62,14 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito']}")
     private String sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito;
 
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena']}")
+    private String sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena;
+
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDato']}")
     private String sqlCadenasFiltroTipoDato;
+
+    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDatoNotInAmbito']}")
+    private String sqlGetCadenasByTareaAndOrigenAndTipoDatoNotInAmbito;
 
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen']}")
     private String sqlCadenas;
@@ -170,6 +180,24 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     }
 
     @Override
+    public List<IdLocalizacionEmpresaDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
+            @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+            @NotNull @NotEmpty final List<String> stdIdLegEnt) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
+
+        return this.query(this.sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito,
+                parameters, (rs, rowNum) -> {
+                    final IdLocalizacionEmpresaDto dto = new IdLocalizacionEmpresaDto();
+                    dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
+                    dto.setStdIdLegEnt(rs.getString(SqlPrimaryConstants.SQL_RESULT_EMPRESA));
+                    return dto;
+                });
+    }
+
+    @Override
     public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
             @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -231,8 +259,29 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     }
 
     @Override
+    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena(
+            @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+            @NotNull final List<String> idsCadena) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CADENA, idsCadena);
+
+        return this.query(
+                this.sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena,
+                parameters, new RowMapper<IdLocalizacionLocalDto>() {
+                    @Override
+                    public IdLocalizacionLocalDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+                        final IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
+                        dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL));
+                        return dto;
+                    }
+                });
+    }
+
+    @Override
     public List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen,
-            final Long idVentaConcepto) {
+            final List<Long> idVentaConcepto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -240,6 +289,22 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
                 SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
         return this.query(this.sqlCadenasFiltroTipoDato, parameters,
+                (rs, rowNum) -> IdCadenaDto.builder()
+                    .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
+                    .build());
+    }
+
+    @Override
+    public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(final Long idTarea,
+            final String cclIdOrigen,
+            final List<Long> idVentaConcepto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, idVentaConcepto);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
+                SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
+        return this.query(this.sqlGetCadenasByTareaAndOrigenAndTipoDatoNotInAmbito, parameters,
                 (rs, rowNum) -> IdCadenaDto.builder()
                     .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
                     .build());

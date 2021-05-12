@@ -4,12 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
@@ -18,6 +20,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganiza
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaCondicionesBaseResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaCondicionesDestinoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
@@ -27,6 +32,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
@@ -35,12 +41,16 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesbaseRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesdestinoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructuraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresenciamanwlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaventamanwlocRecord;
@@ -517,6 +527,37 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
 
     @Override
+    public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final SearchTiendasFilterDto src) {
+        final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+        final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+        result.getIcmParamcaltiendasRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final SearchTiendasFilterDto src) {
+        final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+        if (src != null) {
+            if (CollectionUtils.isNotEmpty(src.getIdsEmpresa())) {
+                src.getIdsEmpresa().forEach(empresa -> {
+                    final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+                    record.setIdempresa(empresa);
+                    result.add(record);
+                });
+            }
+            if (CollectionUtils.isNotEmpty(src.getIdsCadena())) {
+                src.getIdsCadena().forEach(cadena -> {
+                    final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+                    record.setIdcadena(cadena);
+                    result.add(record);
+                });
+            }
+
+        }
+        return result;
+    }
+
+
+    @Override
     public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(final GenericFilterDto src) {
         final List<IcmParamcalempleadoRecord> list = this.asIcmParamcalempleadoRecordList(src);
         final IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
@@ -791,6 +832,94 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                 && CollectionUtils.isNotEmpty(src.getIcmListasistdestino().getIcmListasistdestinoRecordSet())) {
             result.setIdSistemaDestino(
                     src.getIcmListasistdestino().getIcmListasistdestinoRecordSet().get(0).getIdsistema());
+        }
+        return result;
+    }
+
+    @Override
+    public CatalogoResponseDto asCatalogoResponseDto(
+            final GetcatalogoOutput src) {
+        final CatalogoResponseDto result = this.delegate.asCatalogoResponseDto(src);
+        if ((src.getIcmListacatalogo() != null)
+                && CollectionUtils.isNotEmpty(src.getIcmListacatalogo().getIcmListacatalogoRecordSet())) {
+            result.setItems(src.getIcmListacatalogo()
+                .getIcmListacatalogoRecordSet()
+                .stream()
+                .map(record -> this.delegate.asCatalogoResponseItemDto(record))
+                .collect(Collectors.toList()));
+        }
+        return result;
+    }
+
+    @Override
+    public ListaCondicionesBaseResultItemDto asListaCondicionesBaseResultItemDto(
+            final IcmListacondicionesbaseRecord src) {
+
+        final ListaCondicionesBaseResultItemDto condiciones = this.delegate
+            .asListaCondicionesBaseResultItemDto(src);
+        if ((src.getIcmListavaloresbaseman() != null) &&
+                CollectionUtils.isNotEmpty(src.getIcmListavaloresbaseman().getIcmListavaloresbasemanRecordSet())) {
+            condiciones.getIcmListaValoresBase()
+                .addAll(this.delegate
+                    .asListaValoresBaseResultItemDtoFromIcmListavaloresbasemanRecord(
+                            src.getIcmListavaloresbaseman().getIcmListavaloresbasemanRecordSet()));
+        }
+        return condiciones;
+
+    }
+
+    @Override
+    public ListaCondicionesDestinoResultItemDto asListaCondicionesDestinoResultItemDto(
+            final IcmListacondicionesdestinoRecord src) {
+
+        final ListaCondicionesDestinoResultItemDto condiciones = this.delegate
+            .asListaCondicionesDestinoResultItemDto(src);
+        if ((src.getIcmListavaloresdestinoman() != null) &&
+                CollectionUtils
+                    .isNotEmpty(src.getIcmListavaloresdestinoman().getIcmListavaloresdestinomanRecordSet())) {
+            condiciones.getIcmListaValoresDestino()
+                .addAll(this.delegate.asListaValoresDestinoResultItemDtoFromIcmListavaloresdestinomanRecord(
+                        src.getIcmListavaloresdestinoman().getIcmListavaloresdestinomanRecordSet()));
+        }
+        return condiciones;
+
+    }
+
+    @Override
+    public List<ListaCondicionesBaseResultItemDto> asListaCondicionesBaseResultItemDto(
+            final List<IcmListacondicionesbaseRecord> src) {
+        final List<ListaCondicionesBaseResultItemDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(src)) {
+            src.forEach(x -> result.add(this.asListaCondicionesBaseResultItemDto(x)));
+        }
+        return result;
+    }
+
+    @Override
+    public List<ListaCondicionesDestinoResultItemDto> asListaCondicionesDestinoResultItemDto(
+            final List<IcmListacondicionesdestinoRecord> src) {
+        final List<ListaCondicionesDestinoResultItemDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(src)) {
+            src.forEach(x -> result.add(this.asListaCondicionesDestinoResultItemDto(x)));
+        }
+        return result;
+    }
+
+    @Override
+    public EstructurasComResultItemDto asEstructurasComResultItemDto(final IcmListaestructuraRecord src) {
+        final EstructurasComResultItemDto result = this.delegate.asEstructurasComResultItemDto(src);
+        result.setIcmListaCondicionesBase(this.asListaCondicionesBaseResultItemDto(
+                src.getIcmListacondicionesbase().getIcmListacondicionesbaseRecordSet()));
+        result.setIcmListaCondicionesDestino(this.asListaCondicionesDestinoResultItemDto(
+                src.getIcmListacondicionesdestino().getIcmListacondicionesdestinoRecordSet()));
+        return result;
+    }
+
+    @Override
+    public List<EstructurasComResultItemDto> asEstructurasComResultItemDtos(final List<IcmListaestructuraRecord> src) {
+        final List<EstructurasComResultItemDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(src)) {
+            src.forEach(x -> result.add(this.asEstructurasComResultItemDto(x)));
         }
         return result;
     }

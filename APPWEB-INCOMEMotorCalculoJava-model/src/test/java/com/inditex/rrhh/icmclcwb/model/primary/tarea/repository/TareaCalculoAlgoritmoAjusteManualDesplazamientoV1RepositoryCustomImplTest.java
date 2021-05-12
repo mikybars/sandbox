@@ -7,11 +7,13 @@ import java.util.Map;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -25,16 +27,15 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_COMISIONABLE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_COMISION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
@@ -136,7 +137,10 @@ public class TareaCalculoAlgoritmoAjusteManualDesplazamientoV1RepositoryCustomIm
         final Map<String, Object> result = this.tareaCalculoAlgoritmoAjusteManualDesplazamientoV1RepositoryCustom
             .getMapValues(algoritmo, tarea, persona1);
 
-        assertEquals(15, result.size());
+        // parametros de la consulta: idTarea, idTipoComision, idAlgoritmo,
+        // idTipoDatoIndicadorPresenciaDesplazamiento, cclIdPerson, stdOrHrPeriod, tiposComision,
+        // tiposCalculo, esDesplazamiento, esDesplazamientoBase, activo
+        assertEquals(11, result.size());
         // activo
         assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -151,16 +155,7 @@ public class TareaCalculoAlgoritmoAjusteManualDesplazamientoV1RepositoryCustomIm
         assertEquals(persona1.getIdPersonaLocal(), result.get(SQL_PARAM_CCL_ID_PERSON));
         // stdOrHrPeriod
         assertTrue(result.containsKey(SQL_PARAM_STD_OR_HR_PERIOD));
-        assertEquals(persona1.getStdOrHrPeriod(), result.get(SQL_PARAM_STD_OR_HR_PERIOD));
-        // comisionable
-        assertTrue(result.containsKey(SQL_PARAM_COMISIONABLE));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_COMISIONABLE));
-        // calcula
-        assertTrue(result.containsKey(SQL_PARAM_CALCULA));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
-        // excluido calculo
-        assertTrue(result.containsKey(SQL_PARAM_EXCLUIDO_CALCULO));
-        assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_EXCLUIDO_CALCULO));
+        assertEquals(persona1.getStdOrHrPeriod(), result.get(SQL_PARAM_STD_OR_HR_PERIOD));;
         // tipocomision
         assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_COMISION));
         assertEquals(Arrays.asList("001", "002", "003"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
@@ -173,6 +168,9 @@ public class TareaCalculoAlgoritmoAjusteManualDesplazamientoV1RepositoryCustomIm
         // esDesplazamientoBase
         assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+        // idTipoCalculo
+        assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_COMISION));
+        assertEquals(TipoComisionEnum.AJUSTE_MANUAL.getId(), result.get(SQL_PARAM_ID_TIPO_COMISION));
     }
 
     @Test
@@ -218,33 +216,24 @@ public class TareaCalculoAlgoritmoAjusteManualDesplazamientoV1RepositoryCustomIm
 
         this.tareaCalculoAlgoritmoAjusteManualDesplazamientoV1RepositoryCustom.calcular(algoritmo, tarea, personas);
 
-        // parametros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
-        // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
-        // tipoDatoLocalizacionPersonaPresencia
+        // parametros de la consulta: idTarea, idTipoComision, idAlgoritmo,
+        // idTipoDatoIndicadorPresenciaDesplazamiento, cclIdPerson, stdOrHrPeriod, tiposComision,
+        // tiposCalculo, esDesplazamiento, esDesplazamientoBase, activo
         verify(this.namedParameterJdbcTemplate).batchUpdate(any(String.class), this.params.capture());
         final MapSqlParameterSource[] values = this.params.getValue();
         assertEquals(2, values.length);
         for (int i = 0; i < values.length; i++) {
             final MapSqlParameterSource value = values[i];
-            assertEquals(15, value.getValues().size());
+            assertEquals(11, value.getValues().size());
             // activo
             assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
             assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
-            // excluidoCalculo
+            // idAlgoritmo
             assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
             assertEquals(algoritmo.getId(), value.getValue(SQL_PARAM_ID_ALGORITMO));
             // idTarea
             assertTrue(value.hasValue(SQL_PARAM_ID_TAREA));
             assertEquals(tarea.getId(), value.getValue(SQL_PARAM_ID_TAREA));
-            // comisionable
-            assertTrue(value.hasValue(SQL_PARAM_COMISIONABLE));
-            assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_COMISIONABLE));
-            // calcula
-            assertTrue(value.hasValue(SQL_PARAM_CALCULA));
-            assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
-            // excluido calculo
-            assertTrue(value.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
-            assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_EXCLUIDO_CALCULO));
             // tipocomision
             assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_COMISION));
             assertEquals(Arrays.asList("001", "002", "003"), value.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
@@ -257,6 +246,13 @@ public class TareaCalculoAlgoritmoAjusteManualDesplazamientoV1RepositoryCustomIm
             // esDesplazamientoBase
             assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
             assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+            // idTipoComision
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_COMISION));
+            assertEquals(TipoComisionEnum.AJUSTE_MANUAL.getId(), value.getValue(SQL_PARAM_ID_TIPO_COMISION));
+            // idTipoDatoIndicadorPresenciaDesplazamiento
+            assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
+            assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(),
+                    value.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
             // cclIdPerson, stdOrHrPeriod - existencia del parámetro
             assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
             assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));

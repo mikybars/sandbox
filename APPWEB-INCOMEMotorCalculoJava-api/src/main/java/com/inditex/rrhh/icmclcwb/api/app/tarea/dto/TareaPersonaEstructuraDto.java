@@ -130,4 +130,10 @@ public class TareaPersonaEstructuraDto implements Serializable {
     @ApiModelProperty(value = "Fecha inicio periodo", required = true)
     private LocalDate fechaInicioPeriodo;
 
+    @ApiModelProperty(value = "Check festivos", required = false)
+    private Boolean festivo;
+
+    @ApiModelProperty(value = "Grupo manual", required = false)
+    private String grupoManual;
+
 }

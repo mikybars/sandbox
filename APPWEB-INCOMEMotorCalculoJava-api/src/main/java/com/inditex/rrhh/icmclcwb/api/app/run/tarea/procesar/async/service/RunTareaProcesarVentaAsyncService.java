@@ -17,7 +17,7 @@ public interface RunTareaProcesarVentaAsyncService {
 
     CompletableFuture<Void> trasladar(RunTareaDto runTarea);
 
-    CompletableFuture<Void> repartoVentaEntregaDomicilioAgrupaciones(RunTareaDto runTarea);
+    CompletableFuture<Void> repartoVentaEntregaDomicilioPorVentasAgrupaciones(RunTareaDto runTarea);
 
     CompletableFuture<Void> repartoVentaEntregaDomicilioPorPresenciaAgrupaciones(RunTareaDto runTarea);
 

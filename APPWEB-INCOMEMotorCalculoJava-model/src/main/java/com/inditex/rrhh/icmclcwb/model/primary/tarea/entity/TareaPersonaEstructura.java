@@ -133,6 +133,14 @@ public class TareaPersonaEstructura {
     @Column(name = "ICM_ID_TP_ESTRUCTURA", nullable = false, length = 48)
     private String icmIdTpEstructura;
 
+    @NotNull
+    @Column(name = "ICM_GRUPO_MANUAL", nullable = false)
+    private String icmGrupoManual;
+
+    @NotNull
+    @Column(name = "ES_FESTIVO", nullable = false)
+    private Boolean festivo;
+
     @ManyToMany(mappedBy = "estructura")
     private List<TareaLocalizacionPresupuesto> presupuesto;
 

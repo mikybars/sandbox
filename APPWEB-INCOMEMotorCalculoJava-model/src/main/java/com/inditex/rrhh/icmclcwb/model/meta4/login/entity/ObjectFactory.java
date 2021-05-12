@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
 import javax.xml.bind.JAXBElement;
@@ -136,7 +132,7 @@ public class ObjectFactory {
      * @return the new instance of {@link JAXBElement }{@code <}{@link M4SoapException }{@code >}
      */
     @XmlElementDecl(namespace = "http://schemas.meta4.com/", name = "fault")
-    public JAXBElement<M4SoapException> createFault(final M4SoapException value) {
+    public JAXBElement<M4SoapException> createFault(M4SoapException value) {
         return new JAXBElement<M4SoapException>(_Fault_QNAME, M4SoapException.class, null, value);
     }
 

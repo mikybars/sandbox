@@ -23,12 +23,6 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
     }
 
     @Override
-    public CompletableFuture<Void> compensarLocalizacionEcommerce(final RunTareaDto runTarea) {
-        this.runTareaProcesarPresenciaService.compensarLocalizacionEcommerce(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
     public CompletableFuture<Void> totalizarLocalizacion(final RunTareaDto runTarea) {
         this.runTareaProcesarPresenciaService.totalizarLocalizacion(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

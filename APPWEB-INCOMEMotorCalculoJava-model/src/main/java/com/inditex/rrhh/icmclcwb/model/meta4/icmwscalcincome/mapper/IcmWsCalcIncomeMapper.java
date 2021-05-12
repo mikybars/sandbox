@@ -7,6 +7,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
@@ -58,6 +62,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDt
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultErrorDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResultItemDto;
@@ -71,11 +76,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmErroresguardadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacadenasRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacatalogoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesbaseRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesdestinoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionespoliticaRecord;
@@ -100,12 +107,16 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapres
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListasincroRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresbaseRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresbasemanRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresdestinoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavaloresdestinomanRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListavalorespoliticaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaventacongeladaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaventamanwlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcatalogoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcatalogoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaRecord;
@@ -709,9 +720,8 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idEmpleadoLocal", source = "idempleadolocal")
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idTpEstructura", source = "idtpestructura")
-    @Mapping(target = "icmListaCondicionesBase", source = "icmListacondicionesbase.icmListacondicionesbaseRecordSet")
-    @Mapping(target = "icmListaCondicionesDestino",
-            source = "icmListacondicionesdestino.icmListacondicionesdestinoRecordSet")
+    @Mapping(target = "icmListaCondicionesBase", ignore = true)
+    @Mapping(target = "icmListaCondicionesDestino", ignore = true)
     EstructurasComResultItemDto asEstructurasComResultItemDto(IcmListaestructuraRecord src);
 
     @InheritInverseConfiguration
@@ -728,6 +738,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "diaS", source = "dias")
     @Mapping(target = "diaV", source = "diav")
     @Mapping(target = "diaX", source = "diax")
+    @Mapping(target = "festivo", source = "festivo")
     @Mapping(target = "idTipoCalculo", source = "idtipocalculo")
     @Mapping(target = "idTipoComision", source = "idtipocomision")
     @Mapping(target = "idEstructuraBase", source = "idestructurabase")
@@ -745,6 +756,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "tope", source = "tope")
     @Mapping(target = "valor", source = "valor")
     @Mapping(target = "idSeccion", source = "idseccion")
+    @Mapping(target = "grupoManual", constant = "0")
     @Mapping(target = "idTipoVenta", ignore = true)
     ListaValoresBaseResultItemDto asListaValoresBaseResultItemDto(IcmListavaloresbaseRecord src);
 
@@ -752,6 +764,21 @@ public interface IcmWsCalcIncomeMapper {
     IcmListavaloresbaseRecord asIcmListavaloresbaseRecord(ListaValoresBaseResultItemDto src);
 
     List<ListaValoresBaseResultItemDto> asListaValoresBaseResultItemDto(List<IcmListavaloresbaseRecord> src);
+
+    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+    @Mapping(target = "tope", ignore = true)
+    @Mapping(target = "valor", source = "valor")
+    @Mapping(target = "idSeccion", constant = "0")
+    @Mapping(target = "grupoManual", source = "idgrupomanual")
+    @Mapping(target = "idTipoVenta", ignore = true)
+    ListaValoresBaseResultItemDto asListaValoresBaseResultItemDto(IcmListavaloresbasemanRecord src);
+
+    @InheritInverseConfiguration
+    IcmListavaloresbasemanRecord asIcmListavaloresbasemanRecord(ListaValoresBaseResultItemDto src);
+
+    List<ListaValoresBaseResultItemDto> asListaValoresBaseResultItemDtoFromIcmListavaloresbasemanRecord(
+            List<IcmListavaloresbasemanRecord> src);
 
     @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
     @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
@@ -775,6 +802,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idLugarTrabajoDestino", source = "idlugartrabajodestino")
     @Mapping(target = "idLugarTrabajoDestinoMtu", source = "idlugartrabajodestinomtu")
     @Mapping(target = "idEstructuraAmbito", source = "idestructuraambito")
+    @Mapping(target = "festivo", source = "festivo")
     @Mapping(target = "icmListaValoresDestino", source = "icmListavaloresdestino.icmListavaloresdestinoRecordSet")
     ListaCondicionesDestinoResultItemDto asListaCondicionesDestinoResultItemDto(IcmListacondicionesdestinoRecord src);
 
@@ -789,6 +817,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "tope", source = "tope")
     @Mapping(target = "valor", source = "valor")
     @Mapping(target = "idSeccion", source = "idseccion")
+    @Mapping(target = "grupoManual", constant = "0")
     @Mapping(target = "idTipoVenta", ignore = true)
     ListaValoresDestinoResultItemDto asListaValoresDestinoResultItemDto(IcmListavaloresdestinoRecord src);
 
@@ -796,6 +825,21 @@ public interface IcmWsCalcIncomeMapper {
     IcmListavaloresdestinoRecord asIcmListavaloresdestinoRecord(ListaValoresDestinoResultItemDto src);
 
     List<ListaValoresDestinoResultItemDto> asListaValoresDestinoResultItemDto(List<IcmListavaloresdestinoRecord> src);
+
+    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+    @Mapping(target = "tope", ignore = true)
+    @Mapping(target = "valor", source = "valor")
+    @Mapping(target = "idSeccion", constant = "0")
+    @Mapping(target = "grupoManual", source = "idgrupomanual")
+    @Mapping(target = "idTipoVenta", ignore = true)
+    ListaValoresDestinoResultItemDto asListaValoresDestinoResultItemDto(IcmListavaloresdestinomanRecord src);
+
+    @InheritInverseConfiguration
+    IcmListavaloresdestinomanRecord asIcmListavaloresdestinomanRecord(ListaValoresDestinoResultItemDto src);
+
+    List<ListaValoresDestinoResultItemDto> asListaValoresDestinoResultItemDtoFromIcmListavaloresdestinomanRecord(
+            List<IcmListavaloresdestinomanRecord> src);
 
     @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
     @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
@@ -1305,6 +1349,20 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idorigen", source = "idOrigen")
     IcmParamcaltiendasRecord asIcmParamcaltiendasRecord(GenericFilterDto src);
 
+    @Mapping(target = "icmParamcaltiendasRecordSet", ignore = true)
+    IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(SearchTiendasFilterDto src);
+
+    @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+    @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+    @Mapping(target = "fechafin", source = "fechaFin")
+    @Mapping(target = "fechainicio", source = "fechaInicio")
+    @Mapping(target = "idempresa", ignore = true)
+    @Mapping(target = "idcadena", ignore = true)
+    @Mapping(target = "idlugartrabajo", ignore = true)
+    @Mapping(target = "idlugartrabajomtu", ignore = true)
+    @Mapping(target = "idorigen", source = "idOrigen")
+    IcmParamcaltiendasRecord asIcmParamcaltiendasRecord(SearchTiendasFilterDto src);
+
     @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "fechainicio", source = "fechaInicio", dateFormat = Meta4Constants.META4_DATE_FULL)
     @Mapping(target = "idorigen", source = "idOrigen")
@@ -1506,5 +1564,27 @@ public interface IcmWsCalcIncomeMapper {
 
     @Mapping(target = "idSistemaDestino", ignore = true)
     SistemaDestinoResponseDto asSistemaDestinoResponseDto(GetsistdestinoOutput src);
+
+    @Mapping(target = "idorigen", source = "cclIdOrigen")
+    @Mapping(target = "icmParamcalcatalogoRecordSet", source = "items")
+    IcmParamcalcatalogoBlock asIcmParamcalcatalogoBlock(CatalogoRequestDto src);
+
+    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+    @Mapping(target = "stdIdLegEnt", source = "idempresa")
+    CatalogoRequestItemDto asCatalogoRequestItemDto(IcmParamcalcatalogoRecord src);
+
+    @InheritInverseConfiguration
+    IcmParamcalcatalogoRecord asIcmParamcalcatalogoRecord(CatalogoRequestItemDto src);
+
+    @Mapping(target = "items", ignore = true)
+    CatalogoResponseDto asCatalogoResponseDto(GetcatalogoOutput src);
+
+    @Mapping(target = "m4AutoGeneratedRecordID", source = "m4AutoGeneratedRecordID")
+    @Mapping(target = "m4AutoGeneratedToDelete", source = "m4AutoGeneratedToDelete")
+    @Mapping(target = "stdIdLegEnt", source = "idempresa")
+    @Mapping(target = "cclIdOrigen", source = "idorigen")
+    @Mapping(target = "idCatalogo", source = "idcatalogo")
+    CatalogoResultItemDto asCatalogoResponseItemDto(IcmListacatalogoRecord src);
 
 }

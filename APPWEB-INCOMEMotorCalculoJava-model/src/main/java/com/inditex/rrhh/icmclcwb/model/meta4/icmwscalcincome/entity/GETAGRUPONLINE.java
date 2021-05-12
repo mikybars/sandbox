@@ -1,18 +1,12 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;
@@ -73,7 +67,7 @@ public class GETAGRUPONLINE implements Serializable, Cloneable, CopyTo2, Equals2
      *
      */
     public IcmParamcalorigenBlock getICMPARAMCALORIGEN() {
-        return this.icmparamcalorigen;
+        return icmparamcalorigen;
     }
 
     /**
@@ -81,7 +75,7 @@ public class GETAGRUPONLINE implements Serializable, Cloneable, CopyTo2, Equals2
      * @param value allowed object is {@link IcmParamcalorigenBlock }
      *
      */
-    public void setICMPARAMCALORIGEN(final IcmParamcalorigenBlock value) {
+    public void setICMPARAMCALORIGEN(IcmParamcalorigenBlock value) {
         this.icmparamcalorigen = value;
     }
 
@@ -91,7 +85,7 @@ public class GETAGRUPONLINE implements Serializable, Cloneable, CopyTo2, Equals2
      *
      */
     public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
-        return this.icmparametrospaginacion;
+        return icmparametrospaginacion;
     }
 
     /**
@@ -99,13 +93,12 @@ public class GETAGRUPONLINE implements Serializable, Cloneable, CopyTo2, Equals2
      * @param value allowed object is {@link IcmParametrospaginacionBlock }
      *
      */
-    public void setICMPARAMETROSPAGINACION(final IcmParametrospaginacionBlock value) {
+    public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
         this.icmparametrospaginacion = value;
     }
 
-    @Override
-    public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
-            final EqualsStrategy2 strategy) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
         if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
@@ -114,9 +107,9 @@ public class GETAGRUPONLINE implements Serializable, Cloneable, CopyTo2, Equals2
         }
         final GETAGRUPONLINE that = ((GETAGRUPONLINE) object);
         {
-            final IcmParamcalorigenBlock lhsICMPARAMCALORIGEN;
+            IcmParamcalorigenBlock lhsICMPARAMCALORIGEN;
             lhsICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
-            final IcmParamcalorigenBlock rhsICMPARAMCALORIGEN;
+            IcmParamcalorigenBlock rhsICMPARAMCALORIGEN;
             rhsICMPARAMCALORIGEN = that.getICMPARAMCALORIGEN();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalorigen", lhsICMPARAMCALORIGEN),
                     LocatorUtils.property(thatLocator, "icmparamcalorigen", rhsICMPARAMCALORIGEN), lhsICMPARAMCALORIGEN,
@@ -125,9 +118,9 @@ public class GETAGRUPONLINE implements Serializable, Cloneable, CopyTo2, Equals2
             }
         }
         {
-            final IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
+            IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
             lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            final IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
+            IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
             rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
             if (!strategy.equals(
                     LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
@@ -140,40 +133,34 @@ public class GETAGRUPONLINE implements Serializable, Cloneable, CopyTo2, Equals2
         return true;
     }
 
-    @Override
-    public boolean equals(final Object object) {
+    public boolean equals(Object object) {
         final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return this.equals(null, null, object, strategy);
+        return equals(null, null, object, strategy);
     }
 
-    @Override
     public String toString() {
         final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
         final StringBuilder buffer = new StringBuilder();
-        this.append(null, buffer, strategy);
+        append(null, buffer, strategy);
         return buffer.toString();
     }
 
-    @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
-        this.appendFields(locator, buffer, strategy);
+        appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
         return buffer;
     }
 
-    @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            final IcmParamcalorigenBlock theICMPARAMCALORIGEN;
+            IcmParamcalorigenBlock theICMPARAMCALORIGEN;
             theICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
             strategy.appendField(locator, this, "icmparamcalorigen", buffer, theICMPARAMCALORIGEN,
                     (this.icmparamcalorigen != null));
         }
         {
-            final IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
                     (this.icmparametrospaginacion != null));
@@ -181,18 +168,17 @@ public class GETAGRUPONLINE implements Serializable, Cloneable, CopyTo2, Equals2
         return buffer;
     }
 
-    @Override
-    public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            final IcmParamcalorigenBlock theICMPARAMCALORIGEN;
+            IcmParamcalorigenBlock theICMPARAMCALORIGEN;
             theICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
             currentHashCode = strategy.hashCode(
                     LocatorUtils.property(locator, "icmparamcalorigen", theICMPARAMCALORIGEN), currentHashCode,
                     theICMPARAMCALORIGEN, (this.icmparamcalorigen != null));
         }
         {
-            final IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             currentHashCode = strategy.hashCode(
                     LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
@@ -201,35 +187,31 @@ public class GETAGRUPONLINE implements Serializable, Cloneable, CopyTo2, Equals2
         return currentHashCode;
     }
 
-    @Override
     public int hashCode() {
         final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
         return this.hashCode(null, strategy);
     }
 
-    @Override
     public Object clone() {
-        return this.copyTo(this.createNewInstance());
+        return copyTo(createNewInstance());
     }
 
-    @Override
-    public Object copyTo(final Object target) {
+    public Object copyTo(Object target) {
         final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return this.copyTo(null, target, strategy);
+        return copyTo(null, target, strategy);
     }
 
-    @Override
-    public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof GETAGRUPONLINE) {
             final GETAGRUPONLINE copy = ((GETAGRUPONLINE) draftCopy);
             {
-                final Boolean icmparamcalorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                Boolean icmparamcalorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.icmparamcalorigen != null));
                 if (icmparamcalorigenShouldBeCopiedAndSet == Boolean.TRUE) {
-                    final IcmParamcalorigenBlock sourceICMPARAMCALORIGEN;
+                    IcmParamcalorigenBlock sourceICMPARAMCALORIGEN;
                     sourceICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
-                    final IcmParamcalorigenBlock copyICMPARAMCALORIGEN = ((IcmParamcalorigenBlock) strategy.copy(
+                    IcmParamcalorigenBlock copyICMPARAMCALORIGEN = ((IcmParamcalorigenBlock) strategy.copy(
                             LocatorUtils.property(locator, "icmparamcalorigen", sourceICMPARAMCALORIGEN),
                             sourceICMPARAMCALORIGEN, (this.icmparamcalorigen != null)));
                     copy.setICMPARAMCALORIGEN(copyICMPARAMCALORIGEN);
@@ -240,12 +222,12 @@ public class GETAGRUPONLINE implements Serializable, Cloneable, CopyTo2, Equals2
                 }
             }
             {
-                final Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.icmparametrospaginacion != null));
                 if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    final IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
+                    IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
                     sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-                    final IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
+                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
                         .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
                                 sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
                     copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
@@ -259,7 +241,6 @@ public class GETAGRUPONLINE implements Serializable, Cloneable, CopyTo2, Equals2
         return draftCopy;
     }
 
-    @Override
     public Object createNewInstance() {
         return new GETAGRUPONLINE();
     }

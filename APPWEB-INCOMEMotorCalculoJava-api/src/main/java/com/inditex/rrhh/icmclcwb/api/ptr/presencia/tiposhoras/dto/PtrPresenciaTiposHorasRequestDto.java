@@ -27,6 +27,9 @@ public class PtrPresenciaTiposHorasRequestDto implements Serializable {
     @ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
     private Integer tipoHora;
 
+    @ApiModelProperty(value = "Id catalogo", required = false, example = "1")
+    private Integer idCatalogoAplicacion;
+
     @ApiModelProperty(value = "Flag incluido venta", required = false, example = "true")
     private Boolean incluidoVenta;
 

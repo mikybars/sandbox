@@ -64,4 +64,8 @@ public class SqlComisConstants {
 
     public static final String SQL_RESULT_IMPORTE = "IMPORTE";
 
+    public static final String SQL_RESULT_PUESTO = "PUESTO";
+
+    public static final String SQL_RESULT_SECCIONES = "SECCIONES";
+
 }

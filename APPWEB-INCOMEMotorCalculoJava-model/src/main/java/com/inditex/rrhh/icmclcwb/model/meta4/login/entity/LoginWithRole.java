@@ -1,18 +1,12 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;
@@ -83,7 +77,7 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
      *
      */
     public String getAiSUser() {
-        return this.aiSUser;
+        return aiSUser;
     }
 
     /**
@@ -91,7 +85,7 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
      * @param value allowed object is {@link String }
      *
      */
-    public void setAiSUser(final String value) {
+    public void setAiSUser(String value) {
         this.aiSUser = value;
     }
 
@@ -101,7 +95,7 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
      *
      */
     public String getAiSPassword() {
-        return this.aiSPassword;
+        return aiSPassword;
     }
 
     /**
@@ -109,7 +103,7 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
      * @param value allowed object is {@link String }
      *
      */
-    public void setAiSPassword(final String value) {
+    public void setAiSPassword(String value) {
         this.aiSPassword = value;
     }
 
@@ -119,7 +113,7 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
      *
      */
     public String getAiSLanguage() {
-        return this.aiSLanguage;
+        return aiSLanguage;
     }
 
     /**
@@ -127,7 +121,7 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
      * @param value allowed object is {@link String }
      *
      */
-    public void setAiSLanguage(final String value) {
+    public void setAiSLanguage(String value) {
         this.aiSLanguage = value;
     }
 
@@ -137,7 +131,7 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
      *
      */
     public String getAiSRole() {
-        return this.aiSRole;
+        return aiSRole;
     }
 
     /**
@@ -145,13 +139,12 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
      * @param value allowed object is {@link String }
      *
      */
-    public void setAiSRole(final String value) {
+    public void setAiSRole(String value) {
         this.aiSRole = value;
     }
 
-    @Override
-    public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
-            final EqualsStrategy2 strategy) {
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+            EqualsStrategy2 strategy) {
         if ((object == null) || (this.getClass() != object.getClass())) {
             return false;
         }
@@ -160,9 +153,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
         }
         final LoginWithRole that = ((LoginWithRole) object);
         {
-            final String lhsAiSUser;
+            String lhsAiSUser;
             lhsAiSUser = this.getAiSUser();
-            final String rhsAiSUser;
+            String rhsAiSUser;
             rhsAiSUser = that.getAiSUser();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSUser", lhsAiSUser),
                     LocatorUtils.property(thatLocator, "aiSUser", rhsAiSUser), lhsAiSUser, rhsAiSUser,
@@ -171,9 +164,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
             }
         }
         {
-            final String lhsAiSPassword;
+            String lhsAiSPassword;
             lhsAiSPassword = this.getAiSPassword();
-            final String rhsAiSPassword;
+            String rhsAiSPassword;
             rhsAiSPassword = that.getAiSPassword();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSPassword", lhsAiSPassword),
                     LocatorUtils.property(thatLocator, "aiSPassword", rhsAiSPassword), lhsAiSPassword, rhsAiSPassword,
@@ -182,9 +175,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
             }
         }
         {
-            final String lhsAiSLanguage;
+            String lhsAiSLanguage;
             lhsAiSLanguage = this.getAiSLanguage();
-            final String rhsAiSLanguage;
+            String rhsAiSLanguage;
             rhsAiSLanguage = that.getAiSLanguage();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSLanguage", lhsAiSLanguage),
                     LocatorUtils.property(thatLocator, "aiSLanguage", rhsAiSLanguage), lhsAiSLanguage, rhsAiSLanguage,
@@ -193,9 +186,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
             }
         }
         {
-            final String lhsAiSRole;
+            String lhsAiSRole;
             lhsAiSRole = this.getAiSRole();
-            final String rhsAiSRole;
+            String rhsAiSRole;
             rhsAiSRole = that.getAiSRole();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSRole", lhsAiSRole),
                     LocatorUtils.property(thatLocator, "aiSRole", rhsAiSRole), lhsAiSRole, rhsAiSRole,
@@ -206,78 +199,71 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
         return true;
     }
 
-    @Override
-    public boolean equals(final Object object) {
+    public boolean equals(Object object) {
         final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return this.equals(null, null, object, strategy);
+        return equals(null, null, object, strategy);
     }
 
-    @Override
     public String toString() {
         final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
         final StringBuilder buffer = new StringBuilder();
-        this.append(null, buffer, strategy);
+        append(null, buffer, strategy);
         return buffer.toString();
     }
 
-    @Override
-    public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         strategy.appendStart(locator, this, buffer);
-        this.appendFields(locator, buffer, strategy);
+        appendFields(locator, buffer, strategy);
         strategy.appendEnd(locator, this, buffer);
         return buffer;
     }
 
-    @Override
-    public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
-            final ToStringStrategy2 strategy) {
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            final String theAiSUser;
+            String theAiSUser;
             theAiSUser = this.getAiSUser();
             strategy.appendField(locator, this, "aiSUser", buffer, theAiSUser, (this.aiSUser != null));
         }
         {
-            final String theAiSPassword;
+            String theAiSPassword;
             theAiSPassword = this.getAiSPassword();
             strategy.appendField(locator, this, "aiSPassword", buffer, theAiSPassword, (this.aiSPassword != null));
         }
         {
-            final String theAiSLanguage;
+            String theAiSLanguage;
             theAiSLanguage = this.getAiSLanguage();
             strategy.appendField(locator, this, "aiSLanguage", buffer, theAiSLanguage, (this.aiSLanguage != null));
         }
         {
-            final String theAiSRole;
+            String theAiSRole;
             theAiSRole = this.getAiSRole();
             strategy.appendField(locator, this, "aiSRole", buffer, theAiSRole, (this.aiSRole != null));
         }
         return buffer;
     }
 
-    @Override
-    public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            final String theAiSUser;
+            String theAiSUser;
             theAiSUser = this.getAiSUser();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSUser", theAiSUser), currentHashCode,
                     theAiSUser, (this.aiSUser != null));
         }
         {
-            final String theAiSPassword;
+            String theAiSPassword;
             theAiSPassword = this.getAiSPassword();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSPassword", theAiSPassword),
                     currentHashCode, theAiSPassword, (this.aiSPassword != null));
         }
         {
-            final String theAiSLanguage;
+            String theAiSLanguage;
             theAiSLanguage = this.getAiSLanguage();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSLanguage", theAiSLanguage),
                     currentHashCode, theAiSLanguage, (this.aiSLanguage != null));
         }
         {
-            final String theAiSRole;
+            String theAiSRole;
             theAiSRole = this.getAiSRole();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSRole", theAiSRole), currentHashCode,
                     theAiSRole, (this.aiSRole != null));
@@ -285,35 +271,30 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
         return currentHashCode;
     }
 
-    @Override
     public int hashCode() {
         final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
         return this.hashCode(null, strategy);
     }
 
-    @Override
     public Object clone() {
-        return this.copyTo(this.createNewInstance());
+        return copyTo(createNewInstance());
     }
 
-    @Override
-    public Object copyTo(final Object target) {
+    public Object copyTo(Object target) {
         final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return this.copyTo(null, target, strategy);
+        return copyTo(null, target, strategy);
     }
 
-    @Override
-    public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null) ? createNewInstance() : target);
         if (draftCopy instanceof LoginWithRole) {
             final LoginWithRole copy = ((LoginWithRole) draftCopy);
             {
-                final Boolean aiSUserShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.aiSUser != null));
+                Boolean aiSUserShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSUser != null));
                 if (aiSUserShouldBeCopiedAndSet == Boolean.TRUE) {
-                    final String sourceAiSUser;
+                    String sourceAiSUser;
                     sourceAiSUser = this.getAiSUser();
-                    final String copyAiSUser = ((String) strategy.copy(
+                    String copyAiSUser = ((String) strategy.copy(
                             LocatorUtils.property(locator, "aiSUser", sourceAiSUser), sourceAiSUser,
                             (this.aiSUser != null)));
                     copy.setAiSUser(copyAiSUser);
@@ -324,12 +305,12 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
                 }
             }
             {
-                final Boolean aiSPasswordShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                Boolean aiSPasswordShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.aiSPassword != null));
                 if (aiSPasswordShouldBeCopiedAndSet == Boolean.TRUE) {
-                    final String sourceAiSPassword;
+                    String sourceAiSPassword;
                     sourceAiSPassword = this.getAiSPassword();
-                    final String copyAiSPassword = ((String) strategy.copy(
+                    String copyAiSPassword = ((String) strategy.copy(
                             LocatorUtils.property(locator, "aiSPassword", sourceAiSPassword), sourceAiSPassword,
                             (this.aiSPassword != null)));
                     copy.setAiSPassword(copyAiSPassword);
@@ -340,12 +321,12 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
                 }
             }
             {
-                final Boolean aiSLanguageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                Boolean aiSLanguageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.aiSLanguage != null));
                 if (aiSLanguageShouldBeCopiedAndSet == Boolean.TRUE) {
-                    final String sourceAiSLanguage;
+                    String sourceAiSLanguage;
                     sourceAiSLanguage = this.getAiSLanguage();
-                    final String copyAiSLanguage = ((String) strategy.copy(
+                    String copyAiSLanguage = ((String) strategy.copy(
                             LocatorUtils.property(locator, "aiSLanguage", sourceAiSLanguage), sourceAiSLanguage,
                             (this.aiSLanguage != null)));
                     copy.setAiSLanguage(copyAiSLanguage);
@@ -356,12 +337,11 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
                 }
             }
             {
-                final Boolean aiSRoleShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.aiSRole != null));
+                Boolean aiSRoleShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSRole != null));
                 if (aiSRoleShouldBeCopiedAndSet == Boolean.TRUE) {
-                    final String sourceAiSRole;
+                    String sourceAiSRole;
                     sourceAiSRole = this.getAiSRole();
-                    final String copyAiSRole = ((String) strategy.copy(
+                    String copyAiSRole = ((String) strategy.copy(
                             LocatorUtils.property(locator, "aiSRole", sourceAiSRole), sourceAiSRole,
                             (this.aiSRole != null)));
                     copy.setAiSRole(copyAiSRole);
@@ -375,7 +355,6 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
         return draftCopy;
     }
 
-    @Override
     public Object createNewInstance() {
         return new LoginWithRole();
     }

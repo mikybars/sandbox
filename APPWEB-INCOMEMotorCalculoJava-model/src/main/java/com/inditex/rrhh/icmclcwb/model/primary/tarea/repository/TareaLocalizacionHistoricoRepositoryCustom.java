@@ -10,6 +10,7 @@ import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
@@ -31,7 +32,8 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
             @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull List<Integer> idsTipoDato);
 
-    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen, Long idsVentaConcepto);
+    List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen,
+            List<Long> idsVentaConcepto);
 
     List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen);
 
@@ -69,5 +71,14 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
 
     List<IdLocalizacionLocalDto> findLocalizacionFicticiaByIdOrigenAndIdEmpresa(@NotNull String cclIdOrigen,
             @NotBlank String stdIdLegEnt);
+
+    List<IdLocalizacionEmpresaDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
+            @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull @NotEmpty List<String> stdIdLegEnt);
+
+    List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(Long idTarea, String cclIdOrigen,
+            List<Long> idVentaConcepto);
+
+    List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena(
+            @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull List<String> idsCadena);
 
 }

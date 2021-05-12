@@ -20,6 +20,6 @@ public interface TareaLocalizacionPersonaPresenciaAsyncService {
     CompletableFuture<Void> updateActivo(@NotNull RunTareaDto runTareaDto);
 
     CompletableFuture<Void> savePtrPresenciaDetalle(@NotNull List<PtrPresenciaDetalleResultItemDto> src,
-            @NotNull TareaDto tareaDto);
+            @NotNull TareaDto tareaDto, @NotNull Integer idTipoDato);
 
 }

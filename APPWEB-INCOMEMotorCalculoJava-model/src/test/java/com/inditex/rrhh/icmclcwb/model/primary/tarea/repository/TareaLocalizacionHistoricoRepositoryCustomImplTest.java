@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -234,7 +235,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         final Long idVentaConcepto = 222L;
 
         this.tareaLocalizacionHistoricoRepositoryCustom
-            .getCadenasByTareaAndOrigen(idTarea, idOrigen, idVentaConcepto);
+            .getCadenasByTareaAndOrigen(idTarea, idOrigen, Collections.singletonList(idVentaConcepto));
         verify(this.namedParameterJdbcTemplate, times(1))
             .query(this.sql.capture(), this.params.capture(),
                     ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
@@ -252,7 +253,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         assertEquals(SQL_VALUE_PORCENTAJE_CERO, this.params.getValue().getValue(SQL_PARAM_PORCENTAJE_INCLUSION));
         // idConcepto
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_CONCEPTO));
-        assertEquals(idVentaConcepto, this.params.getValue().getValue(SQL_PARAM_ID_CONCEPTO));
+        assertTrue(this.params.getValue().getValue(SQL_PARAM_ID_CONCEPTO) instanceof List);
+        assertEquals(1, ((List) this.params.getValue().getValue(SQL_PARAM_ID_CONCEPTO)).size());
+        assertEquals(idVentaConcepto, ((List) this.params.getValue().getValue(SQL_PARAM_ID_CONCEPTO)).get(0));
 
     }
 

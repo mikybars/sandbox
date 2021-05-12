@@ -40,6 +40,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.d
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
@@ -199,7 +200,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
             .thenReturn(new SearchTiendasResponseDto());
 
         final SearchTiendasRequestDto request = new SearchTiendasRequestDto();
-        request.setData(new GenericFilterDto());
+        request.setData(new SearchTiendasFilterDto());
         request.setPage(new PageDto(1, 100));
         this.meta4IcmWsCalcIncomeSessionServiceImpl.searchTiendas(request);
 

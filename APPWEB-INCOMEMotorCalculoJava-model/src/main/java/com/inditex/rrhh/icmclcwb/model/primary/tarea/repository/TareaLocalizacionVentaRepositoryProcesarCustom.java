@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface TareaLocalizacionVentaRepositoryProcesarCustom {
 
-    void procesarRepartoEntregaDomicilioAgrupaciones(@NotNull final TareaDto tareaDto);
+    void procesarRepartoEntregaDomicilioPorVentasAgrupaciones(@NotNull final TareaDto tareaDto);
 
     void procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(@NotNull TareaDto tareaDto);
 

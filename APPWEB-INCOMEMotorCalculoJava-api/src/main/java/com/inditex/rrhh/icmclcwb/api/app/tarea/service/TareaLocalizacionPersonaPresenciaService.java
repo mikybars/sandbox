@@ -17,7 +17,7 @@ public interface TareaLocalizacionPersonaPresenciaService {
             @Valid @NotNull final TareaDto tareaDto);
 
     void savePtrPresenciaDetalle(@Valid @NotNull @NotEmpty final List<PtrPresenciaDetalleResultItemDto> src,
-            @Valid @NotNull final TareaDto tareaDto);
+            @Valid @NotNull final TareaDto tareaDto, @Valid @NotNull final Integer idTipoDato);
 
     void updateActivo(@Valid @NotNull final RunTareaDto tareaDto);
 

@@ -24,21 +24,22 @@ public class TareaLocalizacionPersonaPresenciaAsyncServiceImpl
     private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
 
     @Override
-    public CompletableFuture<Void> save(@NotNull List<GenericEmpleadoResultItemDto> src, @NotNull TareaDto tareaDto) {
-        tareaLocalizacionPersonaPresenciaService.save(src, tareaDto);
+    public CompletableFuture<Void> save(@NotNull final List<GenericEmpleadoResultItemDto> src,
+            @NotNull final TareaDto tareaDto) {
+        this.tareaLocalizacionPersonaPresenciaService.save(src, tareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> savePtrPresenciaDetalle(@NotNull List<PtrPresenciaDetalleResultItemDto> src,
-            @NotNull TareaDto tareaDto) {
-        tareaLocalizacionPersonaPresenciaService.savePtrPresenciaDetalle(src, tareaDto);
+    public CompletableFuture<Void> savePtrPresenciaDetalle(@NotNull final List<PtrPresenciaDetalleResultItemDto> src,
+            @NotNull final TareaDto tareaDto, @NotNull final Integer idTipoDato) {
+        this.tareaLocalizacionPersonaPresenciaService.savePtrPresenciaDetalle(src, tareaDto, idTipoDato);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> updateActivo(@NotNull RunTareaDto runTareaDto) {
-        tareaLocalizacionPersonaPresenciaService.updateActivo(runTareaDto);
+    public CompletableFuture<Void> updateActivo(@NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPersonaPresenciaService.updateActivo(runTareaDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

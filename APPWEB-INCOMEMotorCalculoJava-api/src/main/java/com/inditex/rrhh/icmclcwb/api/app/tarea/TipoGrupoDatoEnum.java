@@ -37,13 +37,15 @@ public enum TipoGrupoDatoEnum {
                                                                                                                                                                                                             2028), VENTA_RANGO_CONGELADA(
                                                                                                                                                                                                                     2029), VENTA_RANGO_REAL_Y_CONGELADA(
                                                                                                                                                                                                                             2030), VENTA_REAL_LOCALIZACION_SECCION(
-                                                                                                                                                                                                                                    2031),
+                                                                                                                                                                                                                                    2031), VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO(
+                                                                                                                                                                                                                                            2032),
 
 
     /* 3000 PRESENCIA */
     PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA(3001), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR(
             3002), PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR(
-                    3003), PRESENCIA_INCLUIDODENOMINADOR(3005), PRESENCIA_PERSONA_TIPOHORA(3006);
+                    3003), PRESENCIA_INCLUIDODENOMINADOR(3005), PRESENCIA_PERSONA_TIPOHORA(
+                            3006), PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA_INCLUIDOECOMMERCE(3007);
 
     private final Integer id;
 
