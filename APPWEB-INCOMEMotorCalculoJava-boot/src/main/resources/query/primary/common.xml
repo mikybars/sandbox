@@ -774,7 +774,8 @@ FROM (
                                 PRESENCIA.CCL_ID_COD_ORIGEN,
                                 PRESENCIA.CCL_ID_SECCION,
                                 PRESENCIA.CCL_ID_PERSON,
-                                PRESENCIA.FECHA
+                                PRESENCIA.FECHA,
+                                PRESENCIA.COD_TIPO_HORA
                         ORDER BY TIPO_PRESENCIA.PESO DESC) AS ROW,
                         PRESENCIA.ID_TAREA,
                         PRESENCIA.CCL_ID_COD_ORIGEN,
@@ -825,7 +826,8 @@ FROM (
                                 PRESENCIA.CCL_ID_COD_ORIGEN,
                                 PRESENCIA.CCL_ID_SECCION,
                                 PRESENCIA.CCL_ID_PERSON,
-                                PRESENCIA.FECHA
+                                PRESENCIA.FECHA,
+                                PRESENCIA.COD_TIPO_HORA
                         ORDER BY TIPO_PRESENCIA.PESO DESC) AS ROW,
                         PRESENCIA.ID_TAREA,
                         PERSONA.CCL_ID_SECCION,
@@ -921,7 +923,8 @@ FROM (
                                 PRESENCIA.CCL_ID_COD_ORIGEN,
                                 PRESENCIA.CCL_ID_SECCION,
                                 PRESENCIA.CCL_ID_PERSON,
-                                PRESENCIA.FECHA
+                                PRESENCIA.FECHA,
+                                PRESENCIA.COD_TIPO_HORA
                         ORDER BY TIPO_PRESENCIA.PESO DESC) AS ROW,
                         PRESENCIA.ID_TAREA,
                         PRESENCIA.CCL_ID_SECCION,
