@@ -19,7 +19,7 @@ metadata:
   platform: Openshift-Intranet Arteixo
   slot: develop
   tenant: global
-  version: 2.8.2
+  version: 2.8.3
 amiga:
   monitoring:
     metrics:
@@ -634,7 +634,7 @@ app:
         default: 100
     mail:
       sender: 'noreply@inditex.com'
-      receiver: 'income-java@vectoritcgroup.com'
+      receiver: 'income@inditex.com'
     prevalidacion:
       baja:
         sincronizacion:
