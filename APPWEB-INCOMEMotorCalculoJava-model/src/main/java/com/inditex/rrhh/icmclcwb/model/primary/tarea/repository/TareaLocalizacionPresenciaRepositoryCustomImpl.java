@@ -135,6 +135,8 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
                 TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA_INCLUIDOECOMMERCE.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
+                TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE,
