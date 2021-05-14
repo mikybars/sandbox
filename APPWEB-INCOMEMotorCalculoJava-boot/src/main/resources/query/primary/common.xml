@@ -2989,6 +2989,7 @@ FROM DATOS AS D
     WHERE
       AGV.ID_TAREA = :idTarea
       AND AGV.ID_TIPO_DATO = :idTipoImporteVentaEntregaDomicilioAgrupacion
+      AND AGV.FECHA <= :fechaFin
     GROUP BY
       ID_TAREA,
       ID_TIPO_DATO,
