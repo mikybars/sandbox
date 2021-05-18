@@ -421,7 +421,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     public SearchEmpleadosResponseDto searchEmpleados(final SearchEmpleadosRequestDto request) {
         final SearchEmpleadosResponseDto result = new SearchEmpleadosResponseDto();
         final IcmParamcalempleadoBlock param1 = this.icmWsCalcIncomeMapper
-            .asIcmParamcalempleadoBlock(request.getData());
+            .asIcmParamcalempleadosBlock(request.getData());
         final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
             .asIcmParametrospaginacionBlock(request.getPage());
         final SearchempleadosOutput searchEmpleadosOutput = this.meta4ClientPool.searchempleados(param2, param1);
