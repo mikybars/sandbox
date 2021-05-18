@@ -114,7 +114,7 @@ public class PtrPresenciaServiceImplTest {
         when(this.ptrPresenciaClient.postForEntity(any(String.class), any(PtrPresenciaTiendasEmpleadoRequestDto.class),
                 eq(PtrPresenciaTiendasEmpleadoResponseDto.class))).thenReturn(response);
         assertEquals(result,
-            this.ptrPresenciaService.presenciasTiendasEmpleado(new PtrPresenciaTiendasEmpleadoRequestDto()));
+                this.ptrPresenciaService.presenciasTiendasEmpleado(new PtrPresenciaTiendasEmpleadoRequestDto()));
 
     }
 
@@ -130,7 +130,7 @@ public class PtrPresenciaServiceImplTest {
         when(this.ptrPresenciaClient.postForEntity(any(String.class), any(PtrPresenciaEmpleadosTiendaRequestDto.class),
                 eq(PtrPresenciaEmpleadosTiendaResponseDto.class))).thenReturn(response);
         assertEquals(result,
-            this.ptrPresenciaService.presenciasEmpleadosTienda(new PtrPresenciaEmpleadosTiendaRequestDto()));
+                this.ptrPresenciaService.presenciasEmpleadosTienda(new PtrPresenciaEmpleadosTiendaRequestDto()));
 
     }
 

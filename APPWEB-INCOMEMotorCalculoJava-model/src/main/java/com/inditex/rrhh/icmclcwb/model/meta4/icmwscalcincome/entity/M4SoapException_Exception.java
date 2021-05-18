@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import javax.xml.ws.WebFault;
@@ -39,7 +43,7 @@ public class M4SoapException_Exception
 
     /**
      * @return returns fault bean:
-     *         com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.generated.M4SoapException
+     *         com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.M4SoapException
      */
     public M4SoapException getFaultInfo() {
         return faultInfo;

@@ -1,8 +1,13 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebEndpoint;
@@ -32,7 +37,7 @@ public class LoginServiceService
         WebServiceException e = null;
         try {
             url = new URL("http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login?wsdl=1");
-        } catch (MalformedURLException ex) {
+        } catch (final MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
         LOGINSERVICESERVICE_WSDL_LOCATION = url;
@@ -43,23 +48,23 @@ public class LoginServiceService
         super(__getWsdlLocation(), LOGINSERVICESERVICE_QNAME);
     }
 
-    public LoginServiceService(WebServiceFeature... features) {
+    public LoginServiceService(final WebServiceFeature... features) {
         super(__getWsdlLocation(), LOGINSERVICESERVICE_QNAME, features);
     }
 
-    public LoginServiceService(URL wsdlLocation) {
+    public LoginServiceService(final URL wsdlLocation) {
         super(wsdlLocation, LOGINSERVICESERVICE_QNAME);
     }
 
-    public LoginServiceService(URL wsdlLocation, WebServiceFeature... features) {
+    public LoginServiceService(final URL wsdlLocation, final WebServiceFeature... features) {
         super(wsdlLocation, LOGINSERVICESERVICE_QNAME, features);
     }
 
-    public LoginServiceService(URL wsdlLocation, QName serviceName) {
+    public LoginServiceService(final URL wsdlLocation, final QName serviceName) {
         super(wsdlLocation, serviceName);
     }
 
-    public LoginServiceService(URL wsdlLocation, QName serviceName, WebServiceFeature... features) {
+    public LoginServiceService(final URL wsdlLocation, final QName serviceName, final WebServiceFeature... features) {
         super(wsdlLocation, serviceName, features);
     }
 
@@ -78,7 +83,7 @@ public class LoginServiceService
      * @return returns LoginService
      */
     @WebEndpoint(name = "Login")
-    public LoginService getLogin(WebServiceFeature... features) {
+    public LoginService getLogin(final WebServiceFeature... features) {
         return super.getPort(new QName("http://schemas.meta4.com/", "Login"), LoginService.class, features);
     }
 
