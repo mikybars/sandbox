@@ -529,6 +529,55 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
+    public void estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(
+            @NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {
+            final TareaDto tarea = runTarea.getTarea();
+            for (final List<IdPersonaHistoricoDto> iter : StreamUtils.partition(
+                    this.tareaPersonaHistoricoService
+                        .findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
+                                tarea.getId(),
+                                tareaAmbito.getCclIdOrigen()),
+                    this.meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POL).getFilter().getMaxPageSize())) {
+                final EstructurasPolRequestDto estructurasPolRequest = new EstructurasPolRequestDto();
+                estructurasPolRequest.setData(this.tareaMapper
+                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
+                            this.tareaPersonaHistoricoService.findPeriodoByIdTareaDto(tarea.getId())));
+                estructurasPolRequest.getData().setItem(new ArrayList<>());
+                estructurasPolRequest.getData()
+                    .getItem()
+                    .addAll(iter.stream()
+                        .map(
+                                item -> GenericFilterParametersDto.builder()
+                                    .idEmpleado(item.getStdIdHr())
+                                    .orEmpleado(item.getStdOrHrPeriod())
+                                    .build())
+                        .collect(Collectors.toList()));
+                final CompletableFuture<List<EstructurasPolResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
+                    .getEstructurasPol(estructurasPolRequest);
+                AsyncUtils.exceptionally(cfData, cf);
+                final List<EstructurasPolResultItemDto> data = AsyncUtils.get(cfData);
+                if (CollectionUtils.isNotEmpty(data)) {
+                    AsyncUtils.checkAsyncAvaliable(cfPersist, this.meta4Properties
+                        .get(Meta4PropertiesConstants.ESTRUCTURAS_POL)
+                        .getFilter()
+                        .getMaxPersistenceSize());
+                    final CompletableFuture<Void> cfSave = this.tareaPersonaEstructuraPoliticaAsyncService
+                        .saveEstructurasPolResultItemDto(data, tarea);
+                    AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                }
+            }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (final Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
+    @Override
     public void configuracionVentaOnlineByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         final List<CompletableFuture<?>> cf = new ArrayList<>();

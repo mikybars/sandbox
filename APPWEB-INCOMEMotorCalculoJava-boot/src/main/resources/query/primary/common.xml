@@ -72,6 +72,49 @@
     ]]>
   </entry>
 
+
+  <entry
+    key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio">
+    <![CDATA[
+    SELECT PH.STD_ID_HR, PH.STD_OR_HR_PERIOD
+    FROM TAREA T
+    INNER JOIN TAREA_AGRUPACION_CONFIGURACION CF
+    ON CF.ID_TAREA = T.ID_TAREA
+    INNER JOIN TAREA_AGRUPACION_CADENA AC
+    ON AC.ID_TAREA = T.ID_TAREA
+    AND AC.ICM_ID_AGRUPACION_ONLINE = CF.ICM_ID_AGRUPACION_ONLINE
+    INNER JOIN TAREA_LOCALIZACION_HISTORICO L
+    ON L.ID_TAREA = T.ID_TAREA
+    AND L.CCL_ID_CADENA = AC.CCL_ID_CADENA
+    INNER JOIN TAREA_PERSONA_HISTORICO PH
+    ON PH.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
+    AND PH.ID_TAREA = T.ID_TAREA
+    AND PH.CCL_ID_COD_ORIGEN = L.CCL_ID_COD_ORIGEN
+    LEFT JOIN (
+    		SELECT
+             CP.ID_TAREA,
+             LP.STD_ID_WORK_LOCAT
+            FROM TAREA TAREA
+            INNER JOIN TAREA_CALCULO_PERSONA CP
+             ON TAREA.ID_TAREA = CP.ID_TAREA
+            INNER JOIN TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA LP
+             ON CP.CCL_ID_PERSON = LP.CCL_ID_PERSON
+             AND CP.CCL_ID_ORIGEN = LP.CCL_ID_ORIGEN
+             -- Se tienen en cuenta solo las de la empresa original, para evitar obtener estructuras de otras empresas
+             AND LP.STD_ID_LEG_ENT = TAREA.STD_ID_LEG_ENT
+            WHERE TAREA.ID_TAREA = :idTarea
+            AND LP.CCL_ID_ORIGEN = :cclIdOrigen
+            GROUP BY CP.ID_TAREA, LP.STD_ID_WORK_LOCAT) AS AMBITO
+    ON AMBITO.ID_TAREA = T.ID_TAREA
+    AND AMBITO.STD_ID_WORK_LOCAT = L.STD_ID_WORK_LOCAT
+    WHERE T.ID_TAREA = :idTarea
+    AND CF.ID_TIPO_VENTA_CONCEPTO = :idConcepto
+    AND CF.PORCENTAJE_INCLUSION > :porcentajeInclusion
+    AND AMBITO.STD_ID_WORK_LOCAT IS NULL
+    GROUP BY PH.STD_ID_HR, PH.STD_OR_HR_PERIOD
+    ]]>
+  </entry>
+
   <entry key="TareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalByIdTareaAndIdOrigenInPeriodoCalculoPersona">
     <![CDATA[
     SELECT PH.CCL_ID_PERSON, PH.STD_OR_HR_PERIOD

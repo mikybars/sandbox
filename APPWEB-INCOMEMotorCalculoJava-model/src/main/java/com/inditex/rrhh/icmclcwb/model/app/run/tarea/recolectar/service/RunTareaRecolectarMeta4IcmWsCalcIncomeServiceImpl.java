@@ -259,4 +259,14 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 .localizacionCadenaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
+    @Override
+    public void estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(
+            @NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(runTarea, item));
+    }
+
 }
