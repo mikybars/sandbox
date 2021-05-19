@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
@@ -1256,6 +1257,113 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
             .empleadosDesplazamientoByRunTareaAndTareaAmbito(runTarea, tareaAmbito);
         verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
             .getEmpleadosDesplazamiento(ArgumentMatchers.any(EmpleadosDesplazamientoRequestDto.class));
+
+    }
+
+    @Test
+    public void empleadosCadenaByRunTareaAndTareaAmbitoTest() {
+
+        final RunTareaDto runTarea = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1L);
+        runTarea.setTarea(tarea);
+        runTarea.setTrabajo(new TrabajoDto());
+        final PageDto page = new PageDto(1, 100);
+        final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        tareaAmbito.setCclIdOrigen("38");
+        final Meta4PropertiesDto properties = new Meta4PropertiesDto();
+        final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
+        filter.setMaxPageSize(1);
+        filter.setMaxPersistenceSize(1);
+        properties.setFilter(filter);
+        properties.setPage(page);
+
+        final CompletableFuture<List<GenericEmpleadoResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
+            final List<GenericEmpleadoResultItemDto> empleado = new ArrayList<>();
+            empleado.add(new GenericEmpleadoResultItemDto());
+            return empleado;
+        });
+
+        final CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> null);
+
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+                any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
+        when(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS)).thenReturn(properties);
+        when(this.tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(
+                any(Long.class),
+                any(String.class),
+                ArgumentMatchers.eq(Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()))))
+                    .thenReturn(new ArrayList<>(Arrays.asList(new IdCadenaDto("1"))));
+        when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtotoSearchEmpleadosFilterDto(any(TareaDto.class),
+                any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new SearchEmpleadosFilterDto());
+        when(this.meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(any(SearchEmpleadosRequestDto.class)))
+            .thenReturn(cf);
+        when(this.tareaPersonaHistoricoAsyncService.saveGenericEmpleadoResultItemDto(ArgumentMatchers
+            .<List<GenericEmpleadoResultItemDto>>any(), any(TareaDto.class)))
+                .thenReturn(cfNull);
+
+
+        this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.empleadosCadenaByRunTareaAndTareaAmbito(
+                runTarea,
+                tareaAmbito);
+        verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+            .searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
+
+
+    }
+
+    @Test(expected = Exception.class)
+    public void empleadosCadenaByRunTareaAndTareaAmbitoExceptionTest()
+            throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        final RunTareaDto runTarea = new RunTareaDto();
+        final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.empleadosCadenaByRunTareaAndTareaAmbito(
+                runTarea,
+                tareaAmbito);
+        verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+            .searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
+    }
+
+    @Test
+    public void empleadosCadenaByRunTareaAndTareaAmbitoEmptyTest() {
+        final RunTareaDto runTarea = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1L);
+        runTarea.setTarea(tarea);
+        runTarea.setTrabajo(new TrabajoDto());
+        final PageDto page = new PageDto(1, 100);
+        final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        tareaAmbito.setCclIdOrigen("38");
+        final Meta4PropertiesDto properties = new Meta4PropertiesDto();
+        final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
+        filter.setMaxPageSize(1);
+        filter.setMaxPersistenceSize(1);
+        properties.setFilter(filter);
+        properties.setPage(page);
+
+        final CompletableFuture<List<GenericEmpleadoResultItemDto>> cf = CompletableFuture
+            .supplyAsync(() -> new ArrayList<>());
+
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+                any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
+        when(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS)).thenReturn(properties);
+        when(this.tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(
+                any(Long.class),
+                any(String.class),
+                ArgumentMatchers.eq(Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()))))
+                    .thenReturn(new ArrayList<>(Arrays.asList(new IdCadenaDto("1"))));
+        when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtotoSearchEmpleadosFilterDto(any(TareaDto.class),
+                any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new SearchEmpleadosFilterDto());
+        when(this.meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(any(SearchEmpleadosRequestDto.class)))
+            .thenReturn(cf);
+
+        this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.empleadosCadenaByRunTareaAndTareaAmbito(
+                runTarea,
+                tareaAmbito);
+        verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+            .searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
 
     }
 

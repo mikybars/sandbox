@@ -1291,7 +1291,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         tareaAmbito.getCclIdOrigen(),
                         Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
             if (CollectionUtils.isNotEmpty(cadenas)) {
-                request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS).getPage());
+                request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS).getPage());
                 request.setData(this.tareaMapper
                     .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtotoSearchEmpleadosFilterDto(tarea, tareaAmbito,
                             this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
@@ -1308,7 +1308,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     final List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
                     if (CollectionUtils.isNotEmpty(data)) {
                         AsyncUtils.checkAsyncAvaliable(cfPersist,
-                                this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS)
+                                this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS)
                                     .getFilter()
                                     .getMaxPersistenceSize());
                         final CompletableFuture<Void> cfSave = this.tareaPersonaHistoricoAsyncService
