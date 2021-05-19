@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
@@ -19,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -129,6 +131,19 @@ public class TareaPersonaHistoricoServiceImplTest {
         verify(this.tareaPersonaHistoricoRepository, times(1)).findIdPersonaHistoricoByIdTareaAndIdOrigen(
                 any(Long.class),
                 any(String.class));
+    }
+
+    @Test
+    public void findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilioTest() {
+        final Long idTarea = 1L;
+        final String cclIdOrigen = "1";
+        this.tareaPersonaHistoricoServiceImpl
+            .findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(idTarea, cclIdOrigen);
+        verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
+            .findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
+                    eq(idTarea), eq(cclIdOrigen), eq(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS));
+
+
     }
 
 }
