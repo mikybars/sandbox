@@ -777,7 +777,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         output.setIcmListaempleado(block);
         entrada.getIcmParamcalempleadoRecordSet().add(new IcmParamcalempleadoRecord());
 
-        when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadosBlock(any(SearchEmpleadosFilterDto.class)))
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadoBlock(any(SearchEmpleadosFilterDto.class)))
             .thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(this.meta4ClientPool.searchempleados(any(IcmParametrospaginacionBlock.class),
@@ -798,7 +798,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
         entrada.getIcmParamcalempleadoRecordSet().add(new IcmParamcalempleadoRecord());
 
-        when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadosBlock(any(SearchEmpleadosFilterDto.class)))
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadoBlock(any(SearchEmpleadosFilterDto.class)))
             .thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(this.meta4ClientPool.searchempleados(any(IcmParametrospaginacionBlock.class),
@@ -823,7 +823,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         output.setIcmListaempleado(null);
         entrada.getIcmParamcalempleadoRecordSet().add(new IcmParamcalempleadoRecord());
 
-        when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadosBlock(any(SearchEmpleadosFilterDto.class)))
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadoBlock(any(SearchEmpleadosFilterDto.class)))
             .thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(this.meta4ClientPool.searchempleados(any(IcmParametrospaginacionBlock.class),

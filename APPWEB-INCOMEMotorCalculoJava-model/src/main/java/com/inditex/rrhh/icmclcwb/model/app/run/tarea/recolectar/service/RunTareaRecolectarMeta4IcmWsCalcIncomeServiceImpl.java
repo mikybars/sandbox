@@ -260,13 +260,13 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
-    public void estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(
+    public void estructurasPolCadenaByRunTarea(
             @NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()
             .stream()
             .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
-                .estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(runTarea, item));
+                .estructurasPolCadenaByRunTareaAndAmbito(runTarea, item));
     }
 
     @Override

@@ -183,7 +183,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     public CompletableFuture<Void> estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(
             final RunTareaDto runTarea) {
         this.tareaRecolectarMeta4IcmWsCalcIncomeService
-            .estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(runTarea);
+            .estructurasPolCadenaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

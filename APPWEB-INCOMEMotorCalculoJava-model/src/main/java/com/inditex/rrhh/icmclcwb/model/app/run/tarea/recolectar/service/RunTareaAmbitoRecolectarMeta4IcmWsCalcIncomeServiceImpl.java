@@ -534,7 +534,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
-    public void estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(
+    public void estructurasPolCadenaByRunTareaAndAmbito(
             @NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
         final List<CompletableFuture<?>> cf = new ArrayList<>();
