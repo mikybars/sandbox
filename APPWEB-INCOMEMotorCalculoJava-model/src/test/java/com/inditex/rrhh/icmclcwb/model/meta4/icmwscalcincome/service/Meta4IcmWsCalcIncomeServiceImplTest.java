@@ -32,6 +32,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
@@ -782,7 +783,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
                 any(IcmParamcalempleadoBlock.class))).thenReturn(output);
 
         final SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
-        request.setData(new GenericFilterDto());
+        request.setData(new SearchEmpleadosFilterDto());
         request.setPage(new PageDto());
         this.meta4IcmWsCalcIncomeServiceImpl.searchEmpleados(request);
 
@@ -802,7 +803,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
                 any(IcmParamcalempleadoBlock.class))).thenReturn(null);
 
         final SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
-        request.setData(new GenericFilterDto());
+        request.setData(new SearchEmpleadosFilterDto());
         request.setPage(new PageDto());
         this.meta4IcmWsCalcIncomeServiceImpl.searchEmpleados(request);
 
@@ -820,13 +821,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         output.setIcmListaempleado(null);
         entrada.getIcmParamcalempleadoRecordSet().add(new IcmParamcalempleadoRecord());
 
-        when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadoBlock(any(GenericFilterDto.class))).thenReturn(entrada);
+        when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadosBlock(any(SearchEmpleadosFilterDto.class)))
+            .thenReturn(entrada);
         when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
         when(this.meta4ClientPool.searchempleados(any(IcmParametrospaginacionBlock.class),
                 any(IcmParamcalempleadoBlock.class))).thenReturn(output);
 
         final SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
-        request.setData(new GenericFilterDto());
+        request.setData(new SearchEmpleadosFilterDto());
         request.setPage(new PageDto());
         this.meta4IcmWsCalcIncomeServiceImpl.searchEmpleados(request);
 

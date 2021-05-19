@@ -38,6 +38,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.P
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasFilterDto;
@@ -236,7 +237,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImplTest {
             .thenReturn(new SearchEmpleadosResponseDto());
 
         final SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
-        request.setData(new GenericFilterDto());
+        request.setData(new SearchEmpleadosFilterDto());
         request.setPage(new PageDto(1, 100));
         this.meta4IcmWsCalcIncomeSessionServiceImpl.searchEmpleados(request);
 
