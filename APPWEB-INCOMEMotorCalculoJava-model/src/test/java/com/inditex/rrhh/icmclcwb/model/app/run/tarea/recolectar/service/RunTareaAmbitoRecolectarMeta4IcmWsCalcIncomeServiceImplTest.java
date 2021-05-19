@@ -1367,4 +1367,110 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
 
     }
 
+    @Test
+    public void estructurasPolCadenaByRunTareaAndAmbitoTest() {
+
+        final RunTareaDto runTarea = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1L);
+        runTarea.setTarea(tarea);
+        runTarea.setTrabajo(new TrabajoDto());
+        final PageDto page = new PageDto(1, 100);
+        final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        tareaAmbito.setCclIdOrigen("38");
+        final Meta4PropertiesDto properties = new Meta4PropertiesDto();
+        final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
+        filter.setMaxPageSize(1);
+        filter.setMaxPersistenceSize(1);
+        properties.setFilter(filter);
+        properties.setPage(page);
+
+        final CompletableFuture<List<EstructurasPolResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
+            final List<EstructurasPolResultItemDto> politicas = new ArrayList<>();
+            politicas.add(EstructurasPolResultItemDto.builder().build());
+            return politicas;
+        });
+
+        final CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> null);
+
+        when(this.tareaPersonaHistoricoService.findPeriodoByIdTareaDto(any(Long.class))).thenReturn(new PeriodoDto());
+        when(this.meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POL)).thenReturn(properties);
+        when(this.tareaPersonaHistoricoService
+            .findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
+                    any(Long.class),
+                    any(String.class)))
+                        .thenReturn(new ArrayList<>(Arrays
+                            .asList(IdPersonaHistoricoDto.builder().stdOrHrPeriod("1").stdIdHr("1").build())));
+        when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(any(TareaDto.class),
+                any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
+        when(this.meta4IcmWsCalcIncomeSessionAsyncService.getEstructurasPol(any(EstructurasPolRequestDto.class)))
+            .thenReturn(cf);
+        when(this.tareaPersonaEstructuraPoliticaAsyncService.saveEstructurasPolResultItemDto(ArgumentMatchers
+            .<List<EstructurasPolResultItemDto>>any(), any(TareaDto.class)))
+                .thenReturn(cfNull);
+
+
+        this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.estructurasPolCadenaByRunTareaAndAmbito(
+                runTarea,
+                tareaAmbito);
+        verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+            .getEstructurasPol(ArgumentMatchers.any(EstructurasPolRequestDto.class));
+
+
+    }
+
+    @Test(expected = Exception.class)
+    public void estructurasPolCadenaByRunTareaAndAmbitoExceptionTest()
+            throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+        final RunTareaDto runTarea = new RunTareaDto();
+        final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.estructurasPolCadenaByRunTareaAndAmbito(
+                runTarea,
+                tareaAmbito);
+        verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+            .getEstructurasPol(ArgumentMatchers.any(EstructurasPolRequestDto.class));
+    }
+
+    @Test
+    public void estructurasPolCadenaByRunTareaAndAmbitoAmbitoEmptyTest() {
+        final RunTareaDto runTarea = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1L);
+        runTarea.setTarea(tarea);
+        runTarea.setTrabajo(new TrabajoDto());
+        final PageDto page = new PageDto(1, 100);
+        final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+        tareaAmbito.setCclIdOrigen("38");
+        final Meta4PropertiesDto properties = new Meta4PropertiesDto();
+        final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
+        filter.setMaxPageSize(1);
+        filter.setMaxPersistenceSize(1);
+        properties.setFilter(filter);
+        properties.setPage(page);
+
+        final CompletableFuture<List<EstructurasPolResultItemDto>> cf = CompletableFuture
+            .supplyAsync(() -> new ArrayList<>());
+
+        when(this.tareaPersonaHistoricoService.findPeriodoByIdTareaDto(any(Long.class))).thenReturn(new PeriodoDto());
+        when(this.meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_POL)).thenReturn(properties);
+        when(this.tareaPersonaHistoricoService
+            .findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
+                    any(Long.class),
+                    any(String.class)))
+                        .thenReturn(new ArrayList<>(Arrays
+                            .asList(IdPersonaHistoricoDto.builder().stdOrHrPeriod("1").stdIdHr("1").build())));
+        when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(any(TareaDto.class),
+                any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
+        when(this.meta4IcmWsCalcIncomeSessionAsyncService.getEstructurasPol(any(EstructurasPolRequestDto.class)))
+            .thenReturn(cf);
+
+
+        this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.estructurasPolCadenaByRunTareaAndAmbito(
+                runTarea,
+                tareaAmbito);
+        verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+            .getEstructurasPol(ArgumentMatchers.any(EstructurasPolRequestDto.class));
+
+    }
+
 }
