@@ -27,7 +27,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_COD_ORIGEN;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION;
@@ -290,8 +289,8 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
         assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(idTarea, params.getValue(SQL_PARAM_ID_TAREA));
         // cclIdOrigen
-        assertTrue(params.hasValue(SQL_PARAM_CCL_ID_COD_ORIGEN));
-        assertEquals(cclIdOrigen, params.getValue(SQL_PARAM_CCL_ID_COD_ORIGEN));
+        assertTrue(params.hasValue(SQL_PARAM_CCL_ID_ORIGEN));
+        assertEquals(cclIdOrigen, params.getValue(SQL_PARAM_CCL_ID_ORIGEN));
         // porcentajeInclusion
         assertTrue(params.hasValue(SQL_PARAM_PORCENTAJE_INCLUSION));
         assertEquals(SQL_VALUE_PORCENTAJE_CERO, params.getValue(SQL_PARAM_PORCENTAJE_INCLUSION));
