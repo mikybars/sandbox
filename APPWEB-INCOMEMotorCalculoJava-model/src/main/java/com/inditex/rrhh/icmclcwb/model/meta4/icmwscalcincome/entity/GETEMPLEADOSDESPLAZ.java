@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -35,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="ICM_PARAMCALEMPLEADOSDESPLAZ" type="{http://schemas.meta4.com/}Icm_ParamcalempleadosdesplazBlock"/&gt;
  *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
+ *         &lt;element name="ICM_PARAMCALEMPLEADOSDESPLAZ" type="{http://schemas.meta4.com/}Icm_ParamcalempleadosdesplazBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -47,37 +51,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "icmparamcalempleadosdesplaz",
-        "icmparametrospaginacion"
+        "icmparametrospaginacion",
+        "icmparamcalempleadosdesplaz"
 })
 @XmlRootElement(name = "GETEMPLEADOSDESPLAZ")
 public class GETEMPLEADOSDESPLAZ implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
 
-    @XmlElement(name = "ICM_PARAMCALEMPLEADOSDESPLAZ", required = true)
-    protected IcmParamcalempleadosdesplazBlock icmparamcalempleadosdesplaz;
-
     @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
     protected IcmParametrospaginacionBlock icmparametrospaginacion;
 
-    /**
-     * Obtiene el valor de la propiedad icmparamcalempleadosdesplaz.
-     * @return possible object is {@link IcmParamcalempleadosdesplazBlock }
-     *
-     */
-    public IcmParamcalempleadosdesplazBlock getICMPARAMCALEMPLEADOSDESPLAZ() {
-        return icmparamcalempleadosdesplaz;
-    }
-
-    /**
-     * Define el valor de la propiedad icmparamcalempleadosdesplaz.
-     * @param value allowed object is {@link IcmParamcalempleadosdesplazBlock }
-     *
-     */
-    public void setICMPARAMCALEMPLEADOSDESPLAZ(IcmParamcalempleadosdesplazBlock value) {
-        this.icmparamcalempleadosdesplaz = value;
-    }
+    @XmlElement(name = "ICM_PARAMCALEMPLEADOSDESPLAZ", required = true)
+    protected IcmParamcalempleadosdesplazBlock icmparamcalempleadosdesplaz;
 
     /**
      * Obtiene el valor de la propiedad icmparametrospaginacion.
@@ -97,6 +83,24 @@ public class GETEMPLEADOSDESPLAZ implements Serializable, Cloneable, CopyTo2, Eq
         this.icmparametrospaginacion = value;
     }
 
+    /**
+     * Obtiene el valor de la propiedad icmparamcalempleadosdesplaz.
+     * @return possible object is {@link IcmParamcalempleadosdesplazBlock }
+     *
+     */
+    public IcmParamcalempleadosdesplazBlock getICMPARAMCALEMPLEADOSDESPLAZ() {
+        return icmparamcalempleadosdesplaz;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparamcalempleadosdesplaz.
+     * @param value allowed object is {@link IcmParamcalempleadosdesplazBlock }
+     *
+     */
+    public void setICMPARAMCALEMPLEADOSDESPLAZ(IcmParamcalempleadosdesplazBlock value) {
+        this.icmparamcalempleadosdesplaz = value;
+    }
+
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
             EqualsStrategy2 strategy) {
         if ((object == null) || (this.getClass() != object.getClass())) {
@@ -107,19 +111,6 @@ public class GETEMPLEADOSDESPLAZ implements Serializable, Cloneable, CopyTo2, Eq
         }
         final GETEMPLEADOSDESPLAZ that = ((GETEMPLEADOSDESPLAZ) object);
         {
-            IcmParamcalempleadosdesplazBlock lhsICMPARAMCALEMPLEADOSDESPLAZ;
-            lhsICMPARAMCALEMPLEADOSDESPLAZ = this.getICMPARAMCALEMPLEADOSDESPLAZ();
-            IcmParamcalempleadosdesplazBlock rhsICMPARAMCALEMPLEADOSDESPLAZ;
-            rhsICMPARAMCALEMPLEADOSDESPLAZ = that.getICMPARAMCALEMPLEADOSDESPLAZ();
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmparamcalempleadosdesplaz", lhsICMPARAMCALEMPLEADOSDESPLAZ),
-                    LocatorUtils.property(thatLocator, "icmparamcalempleadosdesplaz", rhsICMPARAMCALEMPLEADOSDESPLAZ),
-                    lhsICMPARAMCALEMPLEADOSDESPLAZ, rhsICMPARAMCALEMPLEADOSDESPLAZ,
-                    (this.icmparamcalempleadosdesplaz != null), (that.icmparamcalempleadosdesplaz != null))) {
-                return false;
-            }
-        }
-        {
             IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
             lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
@@ -129,6 +120,19 @@ public class GETEMPLEADOSDESPLAZ implements Serializable, Cloneable, CopyTo2, Eq
                     LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION),
                     lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null),
                     (that.icmparametrospaginacion != null))) {
+                return false;
+            }
+        }
+        {
+            IcmParamcalempleadosdesplazBlock lhsICMPARAMCALEMPLEADOSDESPLAZ;
+            lhsICMPARAMCALEMPLEADOSDESPLAZ = this.getICMPARAMCALEMPLEADOSDESPLAZ();
+            IcmParamcalempleadosdesplazBlock rhsICMPARAMCALEMPLEADOSDESPLAZ;
+            rhsICMPARAMCALEMPLEADOSDESPLAZ = that.getICMPARAMCALEMPLEADOSDESPLAZ();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparamcalempleadosdesplaz", lhsICMPARAMCALEMPLEADOSDESPLAZ),
+                    LocatorUtils.property(thatLocator, "icmparamcalempleadosdesplaz", rhsICMPARAMCALEMPLEADOSDESPLAZ),
+                    lhsICMPARAMCALEMPLEADOSDESPLAZ, rhsICMPARAMCALEMPLEADOSDESPLAZ,
+                    (this.icmparamcalempleadosdesplaz != null), (that.icmparamcalempleadosdesplaz != null))) {
                 return false;
             }
         }
@@ -156,16 +160,16 @@ public class GETEMPLEADOSDESPLAZ implements Serializable, Cloneable, CopyTo2, Eq
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            IcmParamcalempleadosdesplazBlock theICMPARAMCALEMPLEADOSDESPLAZ;
-            theICMPARAMCALEMPLEADOSDESPLAZ = this.getICMPARAMCALEMPLEADOSDESPLAZ();
-            strategy.appendField(locator, this, "icmparamcalempleadosdesplaz", buffer, theICMPARAMCALEMPLEADOSDESPLAZ,
-                    (this.icmparamcalempleadosdesplaz != null));
-        }
-        {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
                     (this.icmparametrospaginacion != null));
+        }
+        {
+            IcmParamcalempleadosdesplazBlock theICMPARAMCALEMPLEADOSDESPLAZ;
+            theICMPARAMCALEMPLEADOSDESPLAZ = this.getICMPARAMCALEMPLEADOSDESPLAZ();
+            strategy.appendField(locator, this, "icmparamcalempleadosdesplaz", buffer, theICMPARAMCALEMPLEADOSDESPLAZ,
+                    (this.icmparamcalempleadosdesplaz != null));
         }
         return buffer;
     }
@@ -173,18 +177,18 @@ public class GETEMPLEADOSDESPLAZ implements Serializable, Cloneable, CopyTo2, Eq
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            IcmParamcalempleadosdesplazBlock theICMPARAMCALEMPLEADOSDESPLAZ;
-            theICMPARAMCALEMPLEADOSDESPLAZ = this.getICMPARAMCALEMPLEADOSDESPLAZ();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmparamcalempleadosdesplaz", theICMPARAMCALEMPLEADOSDESPLAZ),
-                    currentHashCode, theICMPARAMCALEMPLEADOSDESPLAZ, (this.icmparamcalempleadosdesplaz != null));
-        }
-        {
             IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
             theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
             currentHashCode = strategy.hashCode(
                     LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
                     currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
+        }
+        {
+            IcmParamcalempleadosdesplazBlock theICMPARAMCALEMPLEADOSDESPLAZ;
+            theICMPARAMCALEMPLEADOSDESPLAZ = this.getICMPARAMCALEMPLEADOSDESPLAZ();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparamcalempleadosdesplaz", theICMPARAMCALEMPLEADOSDESPLAZ),
+                    currentHashCode, theICMPARAMCALEMPLEADOSDESPLAZ, (this.icmparamcalempleadosdesplaz != null));
         }
         return currentHashCode;
     }
@@ -208,6 +212,22 @@ public class GETEMPLEADOSDESPLAZ implements Serializable, Cloneable, CopyTo2, Eq
         if (draftCopy instanceof GETEMPLEADOSDESPLAZ) {
             final GETEMPLEADOSDESPLAZ copy = ((GETEMPLEADOSDESPLAZ) draftCopy);
             {
+                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparametrospaginacion != null));
+                if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
+                    sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
+                                sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
+                    copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
+                } else {
+                    if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparametrospaginacion = null;
+                    }
+                }
+            }
+            {
                 Boolean icmparamcalempleadosdesplazShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.icmparamcalempleadosdesplaz != null));
                 if (icmparamcalempleadosdesplazShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -221,22 +241,6 @@ public class GETEMPLEADOSDESPLAZ implements Serializable, Cloneable, CopyTo2, Eq
                 } else {
                     if (icmparamcalempleadosdesplazShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmparamcalempleadosdesplaz = null;
-                    }
-                }
-            }
-            {
-                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmparametrospaginacion != null));
-                if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
-                    sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
-                        .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
-                                sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
-                    copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
-                } else {
-                    if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparametrospaginacion = null;
                     }
                 }
             }

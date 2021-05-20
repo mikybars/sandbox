@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -26,11 +27,15 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_COD_ORIGEN;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -263,6 +268,36 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
         // tiposComision
         assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_COMISION));
         assertEquals(tiposComision, params.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
+    }
+
+    @Test
+    public void findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilioTest() {
+
+        final Long idTarea = 1L;
+        final String cclIdOrigen = "11";
+        final TipoVentaConceptoEnum tipoVentaConcepto = TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA;
+
+        this.tareaPersonaHistoricoRepositoryCustom
+            .findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(idTarea, cclIdOrigen,
+                    tipoVentaConcepto);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<TareaPersonaHistorico>>any());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        // Parámetros de la consulta: idTarea, cclIdOrigen, porcentajeInclusion, idConcepto
+        assertEquals(4, params.getValues().size());
+        // idTarea
+        assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, params.getValue(SQL_PARAM_ID_TAREA));
+        // cclIdOrigen
+        assertTrue(params.hasValue(SQL_PARAM_CCL_ID_COD_ORIGEN));
+        assertEquals(cclIdOrigen, params.getValue(SQL_PARAM_CCL_ID_COD_ORIGEN));
+        // porcentajeInclusion
+        assertTrue(params.hasValue(SQL_PARAM_PORCENTAJE_INCLUSION));
+        assertEquals(SQL_VALUE_PORCENTAJE_CERO, params.getValue(SQL_PARAM_PORCENTAJE_INCLUSION));
+        // idConcepto
+        assertTrue(params.hasValue(SQL_PARAM_ID_CONCEPTO));
+        assertEquals(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId(), params.getValue(SQL_PARAM_ID_CONCEPTO));
     }
 
 }

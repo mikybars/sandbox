@@ -166,6 +166,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                 .localizacionCadenaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfLocalizacionCadena, cf, cfWait);
 
+            // Empleados de las cadenas de la agrupacion
+            final CompletableFuture<Void> cfEmpleadosAgrupacion = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .empleadosCadenaByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfEmpleadosAgrupacion, cf, cfWait);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
@@ -242,6 +247,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             final CompletableFuture<Void> cfPresenciasDetalleIncluidoCommerce = this.runTareaRecolectarPtrPresenciaAsyncService
                 .presenciaDetallePersonaIncluidoCommerceByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciasDetalleIncluidoCommerce, cf, cfWait);
+
+            // Politicas de los empleados de la agrupacion
+            final CompletableFuture<Void> cfPoliticasAgrupacion = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(runTarea);
+            AsyncUtils.exceptionally(cfPoliticasAgrupacion, cf, cfWait);
 
             // Festivos
             // CompletableFuture<Void> cfFestivos = runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService

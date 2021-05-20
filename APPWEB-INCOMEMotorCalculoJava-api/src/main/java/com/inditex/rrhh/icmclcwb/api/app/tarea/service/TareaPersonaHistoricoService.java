@@ -42,4 +42,8 @@ public interface TareaPersonaHistoricoService {
 
     List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(@NotNull final Long idTarea);
 
+    List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
+            @NotNull final Long idTarea,
+            @NotNull final String cclIdOrigen);
+
 }
