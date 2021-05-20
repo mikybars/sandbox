@@ -58,7 +58,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalCompensacionChallengeByIdTarea']}")
     private String sqlFindIdPersonaLocalCompensacionChallengeByIdTarea;
 
-    @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoByIdTareaAndIdOrigenInPeriodoCalculoPersona']}")
+    @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio']}")
     private String sqlFindIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio;
 
     @Override
