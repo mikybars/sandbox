@@ -203,7 +203,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
                 SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, tipoVentaConcepto.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_COD_ORIGEN, cclIdOrigen);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
         return this
             .query(this.sqlFindIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio, parameters,
                     (rs, rowNum) -> IdPersonaHistoricoDto
