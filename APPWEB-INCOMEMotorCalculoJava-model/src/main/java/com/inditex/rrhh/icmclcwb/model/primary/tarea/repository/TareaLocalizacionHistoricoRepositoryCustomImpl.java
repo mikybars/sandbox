@@ -86,10 +86,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea']}")
     private String sqlFindIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea;
 
-
-    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionGrupoFechasByIdTarea']}")
-    private String sqlFindIdLocalizacionGrupoFechasByIdTarea;
-
     @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea']}")
     private String sqlFindIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea;
 
@@ -390,17 +386,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
                     .idTipoPresupuesto(rs.getInt(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_PRESUPUESTO))
                     .fechaInicio(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
                     .fechaFin(rs.getDate(SqlPrimaryConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
-                    .build());
-    }
-
-    @Override
-    public List<IdLocalizacionLocalDto> findTiendasGrupoFechasByIdTarea(@NotNull @Positive final Long idTarea) {
-        final MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        return this.query(this.sqlFindIdLocalizacionGrupoFechasByIdTarea, parameters,
-                (rs, rowNum) -> IdLocalizacionLocalDto.builder()
-                    .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
                     .build());
     }
 

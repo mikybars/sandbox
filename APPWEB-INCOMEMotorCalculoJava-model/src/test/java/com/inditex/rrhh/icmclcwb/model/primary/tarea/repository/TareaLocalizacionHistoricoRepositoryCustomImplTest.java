@@ -114,8 +114,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
                 "sqlFindIdLocalizacionPresupuestosByIdTarea", SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA, true);
         FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
-                "sqlFindIdLocalizacionGrupoFechasByIdTarea", SQL_FIND_ID_LOCALIZACION_GRUPO_FECHAS_BY_ID_TAREA, true);
-        FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
                 "batchSize", 100, true);
     }
 
@@ -372,23 +370,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
                 Arrays.asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(),
                         TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()),
                 this.params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
-    }
-
-    @Test
-    public void findTiendasGrupoFechasByIdTareaTest() {
-        final Long idTarea = 23L;
-        this.tareaLocalizacionHistoricoRepositoryCustom.findTiendasGrupoFechasByIdTarea(idTarea);
-        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
-                ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
-        assertEquals(SQL_FIND_ID_LOCALIZACION_GRUPO_FECHAS_BY_ID_TAREA, this.sql.getValue());
-        // parametros de la consulta: idTarea
-        assertEquals(2, this.params.getValue().getValues().size());
-        // idTarea
-        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
-        assertEquals(idTarea, this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
-        // activo
-        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ACTIVO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_ACTIVO));
     }
 
 }
