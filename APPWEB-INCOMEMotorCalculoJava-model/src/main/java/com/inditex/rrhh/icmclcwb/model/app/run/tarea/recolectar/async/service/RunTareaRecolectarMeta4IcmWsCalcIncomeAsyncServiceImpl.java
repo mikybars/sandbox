@@ -179,5 +179,20 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(
+            final RunTareaDto runTarea) {
+        this.tareaRecolectarMeta4IcmWsCalcIncomeService
+            .estructurasPolCadenaByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> empleadosCadenaByRunTarea(
+            final RunTareaDto runTarea) {
+        this.tareaRecolectarMeta4IcmWsCalcIncomeService.empleadosCadenaByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }
 

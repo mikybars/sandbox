@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -35,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
  *         &lt;element name="ICM_PARAMCALPRESENCIAMANUAL" type="{http://schemas.meta4.com/}Icm_ParamcalpresenciamanualBlock"/&gt;
+ *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -47,37 +51,19 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "icmparametrospaginacion",
-        "icmparamcalpresenciamanual"
+        "icmparamcalpresenciamanual",
+        "icmparametrospaginacion"
 })
 @XmlRootElement(name = "GETPRESENCIAMANUAL")
 public class GETPRESENCIAMANUAL implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
     private final static long serialVersionUID = 1L;
 
-    @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
-    protected IcmParametrospaginacionBlock icmparametrospaginacion;
-
     @XmlElement(name = "ICM_PARAMCALPRESENCIAMANUAL", required = true)
     protected IcmParamcalpresenciamanualBlock icmparamcalpresenciamanual;
 
-    /**
-     * Obtiene el valor de la propiedad icmparametrospaginacion.
-     * @return possible object is {@link IcmParametrospaginacionBlock }
-     *
-     */
-    public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
-        return icmparametrospaginacion;
-    }
-
-    /**
-     * Define el valor de la propiedad icmparametrospaginacion.
-     * @param value allowed object is {@link IcmParametrospaginacionBlock }
-     *
-     */
-    public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
-        this.icmparametrospaginacion = value;
-    }
+    @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
+    protected IcmParametrospaginacionBlock icmparametrospaginacion;
 
     /**
      * Obtiene el valor de la propiedad icmparamcalpresenciamanual.
@@ -97,6 +83,24 @@ public class GETPRESENCIAMANUAL implements Serializable, Cloneable, CopyTo2, Equ
         this.icmparamcalpresenciamanual = value;
     }
 
+    /**
+     * Obtiene el valor de la propiedad icmparametrospaginacion.
+     * @return possible object is {@link IcmParametrospaginacionBlock }
+     *
+     */
+    public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
+        return icmparametrospaginacion;
+    }
+
+    /**
+     * Define el valor de la propiedad icmparametrospaginacion.
+     * @param value allowed object is {@link IcmParametrospaginacionBlock }
+     *
+     */
+    public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
+        this.icmparametrospaginacion = value;
+    }
+
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
             EqualsStrategy2 strategy) {
         if ((object == null) || (this.getClass() != object.getClass())) {
@@ -107,19 +111,6 @@ public class GETPRESENCIAMANUAL implements Serializable, Cloneable, CopyTo2, Equ
         }
         final GETPRESENCIAMANUAL that = ((GETPRESENCIAMANUAL) object);
         {
-            IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
-            lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
-            rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
-                    LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION),
-                    lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null),
-                    (that.icmparametrospaginacion != null))) {
-                return false;
-            }
-        }
-        {
             IcmParamcalpresenciamanualBlock lhsICMPARAMCALPRESENCIAMANUAL;
             lhsICMPARAMCALPRESENCIAMANUAL = this.getICMPARAMCALPRESENCIAMANUAL();
             IcmParamcalpresenciamanualBlock rhsICMPARAMCALPRESENCIAMANUAL;
@@ -129,6 +120,19 @@ public class GETPRESENCIAMANUAL implements Serializable, Cloneable, CopyTo2, Equ
                     LocatorUtils.property(thatLocator, "icmparamcalpresenciamanual", rhsICMPARAMCALPRESENCIAMANUAL),
                     lhsICMPARAMCALPRESENCIAMANUAL, rhsICMPARAMCALPRESENCIAMANUAL,
                     (this.icmparamcalpresenciamanual != null), (that.icmparamcalpresenciamanual != null))) {
+                return false;
+            }
+        }
+        {
+            IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
+            lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
+            rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
+            if (!strategy.equals(
+                    LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
+                    LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION),
+                    lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null),
+                    (that.icmparametrospaginacion != null))) {
                 return false;
             }
         }
@@ -156,16 +160,16 @@ public class GETPRESENCIAMANUAL implements Serializable, Cloneable, CopyTo2, Equ
 
     public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
         {
-            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
-            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
-                    (this.icmparametrospaginacion != null));
-        }
-        {
             IcmParamcalpresenciamanualBlock theICMPARAMCALPRESENCIAMANUAL;
             theICMPARAMCALPRESENCIAMANUAL = this.getICMPARAMCALPRESENCIAMANUAL();
             strategy.appendField(locator, this, "icmparamcalpresenciamanual", buffer, theICMPARAMCALPRESENCIAMANUAL,
                     (this.icmparamcalpresenciamanual != null));
+        }
+        {
+            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
+                    (this.icmparametrospaginacion != null));
         }
         return buffer;
     }
@@ -173,18 +177,18 @@ public class GETPRESENCIAMANUAL implements Serializable, Cloneable, CopyTo2, Equ
     public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
         int currentHashCode = 1;
         {
-            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
-            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
-                    currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
-        }
-        {
             IcmParamcalpresenciamanualBlock theICMPARAMCALPRESENCIAMANUAL;
             theICMPARAMCALPRESENCIAMANUAL = this.getICMPARAMCALPRESENCIAMANUAL();
             currentHashCode = strategy.hashCode(
                     LocatorUtils.property(locator, "icmparamcalpresenciamanual", theICMPARAMCALPRESENCIAMANUAL),
                     currentHashCode, theICMPARAMCALPRESENCIAMANUAL, (this.icmparamcalpresenciamanual != null));
+        }
+        {
+            IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+            theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+            currentHashCode = strategy.hashCode(
+                    LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
+                    currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
         }
         return currentHashCode;
     }
@@ -208,22 +212,6 @@ public class GETPRESENCIAMANUAL implements Serializable, Cloneable, CopyTo2, Equ
         if (draftCopy instanceof GETPRESENCIAMANUAL) {
             final GETPRESENCIAMANUAL copy = ((GETPRESENCIAMANUAL) draftCopy);
             {
-                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmparametrospaginacion != null));
-                if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
-                    sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
-                        .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
-                                sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
-                    copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
-                } else {
-                    if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparametrospaginacion = null;
-                    }
-                }
-            }
-            {
                 Boolean icmparamcalpresenciamanualShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
                         (this.icmparamcalpresenciamanual != null));
                 if (icmparamcalpresenciamanualShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -237,6 +225,22 @@ public class GETPRESENCIAMANUAL implements Serializable, Cloneable, CopyTo2, Equ
                 } else {
                     if (icmparamcalpresenciamanualShouldBeCopiedAndSet == Boolean.FALSE) {
                         copy.icmparamcalpresenciamanual = null;
+                    }
+                }
+            }
+            {
+                Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+                        (this.icmparametrospaginacion != null));
+                if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
+                    sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+                    IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
+                        .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
+                                sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
+                    copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
+                } else {
+                    if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparametrospaginacion = null;
                     }
                 }
             }

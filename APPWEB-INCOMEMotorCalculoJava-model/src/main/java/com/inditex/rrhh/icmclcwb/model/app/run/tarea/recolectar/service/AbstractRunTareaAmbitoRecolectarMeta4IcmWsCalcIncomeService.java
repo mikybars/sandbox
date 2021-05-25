@@ -158,7 +158,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
                 .findIdEmpresaByIdTarea(tarea.getId());
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS).getPage());
             request.setData(this.tareaMapper
-                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
+                .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtotoSearchEmpleadosFilterDto(tarea, tareaAmbito,
                         this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                                 tarea.getId(),
                                 TipoDatoEnum.PERIODO_AMPLIADO.getId())));

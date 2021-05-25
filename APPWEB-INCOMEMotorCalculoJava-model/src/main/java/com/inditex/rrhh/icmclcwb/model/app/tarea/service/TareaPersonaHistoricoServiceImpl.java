@@ -11,6 +11,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
@@ -39,9 +40,9 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     @Override
     public List<TareaPersonaHistoricoDto> save(
             @Valid @NotNull @NotEmpty final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico) {
-        return tareaPersonaHistoricoMapper
+        return this.tareaPersonaHistoricoMapper
             .tareaPersonaHistoricoToTareaPersonaHistoricoDto(
-                    tareaPersonaHistoricoRepositoryCustom.save(tareaPersonaHistoricoMapper
+                    this.tareaPersonaHistoricoRepositoryCustom.save(this.tareaPersonaHistoricoMapper
                         .tareaPersonaHistoricoDtoToTareaPersonaHistorico(tareaEmpleadoHistorico)));
     }
 
@@ -49,7 +50,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     public List<TareaPersonaHistoricoDto> merge(
             @Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto,
             @Valid @NotNull final TareaDto tarea) {
-        return tareaPersonaHistoricoMapper
+        return this.tareaPersonaHistoricoMapper
             .genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(genericEmpleadoResultItemDto, tarea);
     }
 
@@ -58,7 +59,8 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     @Cacheable(value = "itx.icmlcwb.id_persona_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
     public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
             @NotNull final String cclIdOrigen) {
-        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea, cclIdOrigen);
+        return this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea,
+                cclIdOrigen);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(
             @NotNull final Long idTarea,
             @NotNull final String cclIdOrigen) {
-        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(idTarea,
+        return this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(idTarea,
                 cclIdOrigen);
     }
 
@@ -76,33 +78,41 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
             @NotNull final Long idTarea,
             @NotNull final String cclIdOrigen, @NotNull final List<Integer> idsTipoDato) {
-        return tareaPersonaHistoricoRepositoryCustom
+        return this.tareaPersonaHistoricoRepositoryCustom
             .findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, cclIdOrigen, idsTipoDato);
     }
 
     @Override
     @Cacheable(value = "itx.icmlcwb.periodo_by_tarea", key = "{#idTarea}")
     public PeriodoDto findPeriodoByIdTareaDto(@NotNull final Long idTarea) {
-        return tareaPersonaHistoricoRepositoryCustom.findPeriodoDtoByIdTarea(idTarea);
+        return this.tareaPersonaHistoricoRepositoryCustom.findPeriodoDtoByIdTarea(idTarea);
     }
 
     @Override
     @Cacheable(value = "itx.icmlcwb.id_persona_historico_grupo_fechas_by_tarea", key = "{#idTarea}")
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NotNull final Long idTarea) {
-        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea(idTarea);
+        return this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea(idTarea);
     }
 
     @Override
     public List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(
             @NotNull final Long idTarea) {
-        return tareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalCompensacionChallengeByIdTarea(idTarea);
+        return this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalCompensacionChallengeByIdTarea(idTarea);
     }
 
     // TODO [COMUN] No se está usando.
     @Override
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
             @NotNull final String cclIdOrigen) {
-        return tareaPersonaHistoricoRepository.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
+        return this.tareaPersonaHistoricoRepository.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
+    }
+
+    @Override
+    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
+            @NotNull final Long idTarea, @NotNull final String cclIdOrigen) {
+        return this.tareaPersonaHistoricoRepositoryCustom
+            .findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(idTarea, cclIdOrigen,
+                    TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS);
     }
 
 }

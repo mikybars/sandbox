@@ -32,6 +32,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
@@ -547,6 +548,36 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             if (CollectionUtils.isNotEmpty(src.getIdsCadena())) {
                 src.getIdsCadena().forEach(cadena -> {
                     final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+                    record.setIdcadena(cadena);
+                    result.add(record);
+                });
+            }
+
+        }
+        return result;
+    }
+
+    @Override
+    public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(final SearchEmpleadosFilterDto src) {
+        final List<IcmParamcalempleadoRecord> list = this.asIcmParamcalempleadosRecordList(src);
+        final IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
+        result.getIcmParamcalempleadoRecordSet().addAll(list);
+        return result;
+    }
+
+    private List<IcmParamcalempleadoRecord> asIcmParamcalempleadosRecordList(final SearchEmpleadosFilterDto src) {
+        final List<IcmParamcalempleadoRecord> result = new ArrayList<>();
+        if (src != null) {
+            if (CollectionUtils.isNotEmpty(src.getIdsEmpresa())) {
+                src.getIdsEmpresa().forEach(empresa -> {
+                    final IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
+                    record.setIdempresa(empresa);
+                    result.add(record);
+                });
+            }
+            if (CollectionUtils.isNotEmpty(src.getIdsCadena())) {
+                src.getIdsCadena().forEach(cadena -> {
+                    final IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
                     record.setIdcadena(cadena);
                     result.add(record);
                 });

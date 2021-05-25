@@ -202,28 +202,28 @@ app:
       baja:
         sincronizacion:
           activo: true
-          max-empleados: 10
+          max-empleados: 30
       carencia:
         sincronizacion:
           activo: true
-          max-empleados: 10
+          max-empleados: 30
       fechas:
         meses: 24
         sincronizacion:
           activo: true
-          max-empleados: 10
+          max-empleados: 30
       resalta:
         sincronizacion:
           activo: true
-          max-empleados: 10
+          max-empleados: 30
       desplazamiento:
         sincronizacion:
           activo: true
-          max-empleados: 10
+          max-empleados: 30
       historico:
         sincronizacion:
           activo: true
-          max-empleados: 10
+          max-empleados: 30
     ptr:
       config:
         max-attempts: 2
