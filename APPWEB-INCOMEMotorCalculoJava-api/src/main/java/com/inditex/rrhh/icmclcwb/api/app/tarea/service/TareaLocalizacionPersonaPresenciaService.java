@@ -48,10 +48,4 @@ public interface TareaLocalizacionPersonaPresenciaService {
 
     void indicadorDesplazamientoDirectoVenta(@Valid @NotNull final RunTareaDto runTareaDto);
 
-    void indicadorDesplazamientoBaseDirectoVenta(@Valid @NotNull final RunTareaDto runTareaDto);
-
-    void indicadorDesplazamientoDirectoVentaFicticias(@Valid @NotNull final RunTareaDto runTareaDto);
-
-    void indicadorDesplazamientoBaseDirectoVentaFicticias(@Valid @NotNull final RunTareaDto runTareaDto);
-
 }

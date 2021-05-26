@@ -46,12 +46,6 @@ public interface RunTareaProcesarPresenciaService {
 
     void indicadorDesplazamientoDirectoVenta(@Valid RunTareaDto runTarea);
 
-    void indicadorDesplazamientoBaseDirectoVenta(@Valid RunTareaDto runTarea);
-
-    void indicadorDesplazamientoDirectoVentaFicticias(@Valid RunTareaDto runTarea);
-
-    void indicadorDesplazamientoBaseDirectoVentaFicticias(@Valid RunTareaDto runTarea);
-
     void compensarLocalizacionManual(@Valid RunTareaDto runTarea);
 
 }
