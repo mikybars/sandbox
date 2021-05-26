@@ -49,8 +49,6 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
     List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionLocalDtoPresupuestosByIdTarea(
             @NotNull @Positive final Long idTarea);
 
-    List<IdLocalizacionLocalDto> findTiendasGrupoFechasByIdTarea(@NotNull @Positive final Long idTarea);
-
     List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
             @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
             @NotNull @NotEmpty final List<String> stdIdLegEnt);
