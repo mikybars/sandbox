@@ -127,6 +127,21 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     }
 
     @Override
+    public void indicadorDesplazamientoDirectoVentaSinPresencias(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.indicadorDesplazamientoDirectoVentaSinPresencias(runTarea);
+    }
+
+    @Override
+    public void indicadorDesplazamientoBaseDirectoVenta(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.indicadorDesplazamientoBaseDirectoVenta(runTarea);
+    }
+
+    @Override
+    public void indicadorDesplazamientoBaseDirectoVentaOtraTienda(@Valid final RunTareaDto runTarea) {
+        this.tareaLocalizacionPersonaPresenciaService.indicadorDesplazamientoBaseDirectoVentaOtraTienda(runTarea);
+    }
+
+    @Override
     public void compensarLocalizacionManual(@Valid final RunTareaDto runTarea) {
         this.tareaLocalizacionPresenciaService.compensarLocalizacionManual(runTarea);
     }
