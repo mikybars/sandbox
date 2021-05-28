@@ -115,4 +115,22 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
             .indicadorDesplazamientoDirectoVenta(runTareaDto);
     }
 
+    @Override
+    public void indicadorDesplazamientoDirectoVentaSinPresencias(@Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom
+            .indicadorDesplazamientoDirectoVentaSinPresencias(runTareaDto);
+    }
+
+    @Override
+    public void indicadorDesplazamientoBaseDirectoVenta(@Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom
+            .indicadorDesplazamientoBaseDirectoVenta(runTareaDto);
+    }
+
+    @Override
+    public void indicadorDesplazamientoBaseDirectoVentaOtraTienda(@Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom
+            .indicadorDesplazamientoBaseDirectoVentaOtraTienda(runTareaDto);
+    }
+
 }
