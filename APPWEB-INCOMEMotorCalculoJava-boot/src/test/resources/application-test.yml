@@ -36,3 +36,10 @@ app:
       config:
         pool:
           size: 1
+    slrhorcoms:
+      config:
+        timeout:
+      service:
+        festivos:
+          endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list
+          rows: 1
