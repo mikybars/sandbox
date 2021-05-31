@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.config.slrhorcoms;
 
 import java.util.HashMap;

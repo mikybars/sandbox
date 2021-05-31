@@ -4,21 +4,25 @@
 
 package com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
 
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPageRequestDto;
 import lombok.Data;
 
 @Data
-public class HorarioComercialFestivosRequestDto {
+public class HorarioComercialFestivosRequestDto extends SlrhorcomsPageRequestDto implements Serializable {
 
-    private int idTienda;
+    private static final long serialVersionUID = -5173071057906661055L;
 
-    private int idCadena;
+    private Integer idTienda;
 
-    private int idPais;
+    private Integer idCadena;
 
-    private Date fechaDesde;
+    private Integer idPais;
 
-    private Date fechaHasta;
+    private LocalDate fechaDesde;
+
+    private LocalDate fechaHasta;
 
 }

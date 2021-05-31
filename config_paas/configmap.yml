@@ -226,10 +226,11 @@ app:
           max-empleados: 30
     slrhorcoms:
       config:
-        timeout:
+        timeout: 1
       service:
+        slrhorcomsService:
           festivos:
-            endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list
+            endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
             rows: 1
     ptr:
       config:

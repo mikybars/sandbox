@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.Hora
 
 public interface SlrHorarioComercialService {
 
-    List<HorarioComercialFestivoDocDto> horarioComercialFestivos(HorarioComercialFestivosRequestDto request);
+    List<HorarioComercialFestivoDocDto> horarioComercialFestivos(
+            HorarioComercialFestivosRequestDto request);
 
 }

@@ -22,6 +22,7 @@ import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.Hora
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.service.SlrHorarioComercialService;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
@@ -43,6 +44,9 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
     @Qualifier("slrhorcomsProperties")
     private Map<String, SlrhorcomsPropertiesDto> slrhorcomsProperties;
 
+    @Autowired
+    private TareaMapper tareaMapper;
+
 
     @Override
     public List<HorarioComercialFestivoDocDto> horarioComercialFestivos(
@@ -51,13 +55,23 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
         final SlrhorcomsPropertiesDto properties = this.slrhorcomsProperties
             .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO);
 
-        final HorarioComercialFestivoDocDto[] result = RestUtils.checkResponse(this.slrhorcomsClient
-            .getForEntity(properties.getEndpoint() + "?q=*&rows=100",
+        final String query = this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request);
+        this.log.info("horario comercial festivos query: {}", query);
+
+        final StringBuilder url = new StringBuilder()
+            .append(properties.getEndpoint())
+            .append(query);
+
+        final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.slrhorcomsClient
+            .getForEntity(url.toString(),
                     HorarioComercialFestivoDocDto[].class),
                 this.slrhorcomsClient,
                 properties.getEndpoint(), request);
 
-        return Arrays.asList(result);
+        request.setHasNext(response.length == request.getRows());
+        request.setStart(request.getStart() + request.getRows());
+
+        return Arrays.asList(response);
     }
 
     /**
@@ -65,7 +79,7 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
      */
     private AuthenticateDto authenticate() {
         final ResponseEntity<AuthenticateResponseDto> responseAuthenticate = this.slrhorcomsClient
-            .postForEntity("/authenticate", null, AuthenticateResponseDto.class);
+            .postForEntity(HorarioComercialPropertiesConstants.AUTHENTICATE, null, AuthenticateResponseDto.class);
         this.log.info("responseAuthenticate: {}", responseAuthenticate);
         if (responseAuthenticate.getStatusCode().value() != HttpStatus.SC_OK) {
             throw new SlrhorcomsIcmclcwbException("Error en login slrhorcomsI");

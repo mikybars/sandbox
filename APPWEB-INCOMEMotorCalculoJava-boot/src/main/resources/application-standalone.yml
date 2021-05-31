@@ -675,11 +675,12 @@ app:
           max-empleados: 10
     slrhorcoms:
       config:
-        timeout:
+        timeout: 1
       service:
-        festivos:
-          endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list
-          rows: 1
+        slrhorcomsService:
+          festivos:
+            endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
+            rows: 1
     ptr:
       config:
         max-attempts: 2
