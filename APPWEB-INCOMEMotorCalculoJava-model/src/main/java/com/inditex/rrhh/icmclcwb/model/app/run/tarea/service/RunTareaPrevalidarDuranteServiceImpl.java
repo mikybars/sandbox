@@ -181,7 +181,7 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                         final SincronizacionResponseDto result = this.meta4IcmWsCalcIncomeService
                             .sincronizacion(request);
                         this.log.info(
-                                "Trabajo[{}]Tarea[{}] :: Inicio :: Sincronizacion :: Ok :: Personas: {}",
+                                "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Ok :: Personas: {}",
                                 tareaDto.getIdTrabajo(),
                                 tareaDto.getId(),
                                 result.getData()
@@ -190,7 +190,7 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                                     .map(SincronizacionResultItemDto::getIdEmpleado)
                                     .collect(Collectors.toList()));
                         this.log.info(
-                                "Trabajo[{}]Tarea[{}] :: Inicio :: Sincronizacion :: Ko :: Personas: {}",
+                                "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Ko :: Personas: {}",
                                 tareaDto.getIdTrabajo(),
                                 tareaDto.getId(),
                                 result.getData()
@@ -200,13 +200,13 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                                     .collect(Collectors.toList()));
                     } catch (final Exception e1) {
                         this.log.error(
-                                "Trabajo[{}]Tarea[{}] :: Inicio :: Sincronizacion :: Error :: Personas: {}",
+                                "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Error :: Personas: {}",
                                 tareaDto.getIdTrabajo(),
                                 tareaDto.getId(),
                                 e
                                     .getIdPersonaLocal());
                     }
-                    this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: Fin :: Sincronizacion :: Personas: {}",
+                    this.log.info("Trabajo[{}]Tarea[{}] :: Fin :: Sincronizacion :: Personas: {}",
                             tareaDto.getIdTrabajo(),
                             tareaDto.getId(),
                             e

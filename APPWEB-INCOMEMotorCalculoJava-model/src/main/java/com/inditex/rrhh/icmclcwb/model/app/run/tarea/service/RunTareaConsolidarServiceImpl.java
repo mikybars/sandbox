@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaCo
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.RunTareaLimpiarConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 
@@ -26,6 +27,9 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
 
     @Autowired
     private RunTareaConsolidarByAmbitoService runTareaConsolidarByAmbitoService;
+
+    @Autowired
+    private RunTareaLimpiarConsolidarByAmbitoService runTareaLimpiarConsolidarByAmbitoService;
 
     @Autowired
     private RunTareaConsolidarByAmbitoLocalizacionService runTareaConsolidarByAmbitoLocalizacionService;
@@ -46,6 +50,7 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
         if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
                 || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
                 || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
+            this.runTareaLimpiarConsolidarByAmbitoService.run(runTarea);
             this.runTareaConsolidarByAmbitoService.run(runTarea);
         } else if (TipoAmbitoEnum.LOCALIZACION.getId().equals(trabajo.getTipoAmbito().getId())) {
             this.runTareaConsolidarByAmbitoLocalizacionService.run(runTarea);
