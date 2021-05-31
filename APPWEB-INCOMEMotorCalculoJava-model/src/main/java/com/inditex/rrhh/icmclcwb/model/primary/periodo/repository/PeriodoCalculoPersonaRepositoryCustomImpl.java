@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.periodo.dto.EstadoPeriodoCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.entity.PeriodoCalculoPersona;
@@ -27,6 +28,10 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
 
     @Value("#{primaryQuery['PeriodoCalculoPersonaRepositoryCustom.mergePeriodoCalculoPersona']}")
     private String sqlMergePeriodoCalculoPersona;
+
+    @Value("#{primaryQuery['PeriodoCalculoPersonaRepositoryCustom.limpiezaPeriodoCalculoPersona']}")
+    private String sqlLimpiezaPeriodoCalculoPersona;
+
 
     @Override
     public void mergePeriodoCalculoPersona(@NotNull final RunTareaDto tareaDto) {
@@ -44,6 +49,22 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
         params.addValue(SqlPrimaryConstants.SQL_PARAM_BLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_DESBLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         this.namedParameterJdbcTemplate.update(this.sqlMergePeriodoCalculoPersona, params);
+    }
+
+    @Override
+    public void limpiezaPeriodoCalculoPersona(@NotNull final RunTareaDto tareaDto,
+            @NotNull final TareaAmbitoDto tareaAmbitoDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
+                EstadoPeriodoCalculoPersonaEnum.EXPORTADO.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN,
+                tareaAmbitoDto.getCclIdOrigen());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT,
+                tareaDto.getTarea().getStdIdLegEnt());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_ID_PERIODO,
+                tareaDto.getTrabajo().getIcmIdPeriodo());
+        this.namedParameterJdbcTemplate.update(this.sqlLimpiezaPeriodoCalculoPersona, params);
     }
 
 }

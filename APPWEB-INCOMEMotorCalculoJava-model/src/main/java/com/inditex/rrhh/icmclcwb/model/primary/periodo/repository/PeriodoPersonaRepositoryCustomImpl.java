@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.entity.PeriodoPersona;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
@@ -25,11 +26,28 @@ public class PeriodoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryReposito
     @Value("#{primaryQuery['PeriodoPersonaRepositoryCustom.mergePeriodoPersona']}")
     private String sqlMergePeriodoPersona;
 
+    @Value("#{primaryQuery['PeriodoPersonaRepositoryCustom.limpiezaPeriodoPersona']}")
+    private String sqlLimpiezaPeriodoPersona;
+
     @Override
     public void mergePeriodoPersona(@NotNull final RunTareaDto tareaDto) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
         this.namedParameterJdbcTemplate.update(this.sqlMergePeriodoPersona, params);
+    }
+
+    @Override
+    public void limpiezaPeriodoPersona(@NotNull final RunTareaDto tareaDto,
+            @NotNull final TareaAmbitoDto tareaAmbitoDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN,
+                tareaAmbitoDto.getCclIdOrigen());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT,
+                tareaDto.getTarea().getStdIdLegEnt());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_ID_PERIODO,
+                tareaDto.getTrabajo().getIcmIdPeriodo());
+        this.namedParameterJdbcTemplate.update(this.sqlLimpiezaPeriodoPersona, params);
     }
 
 }
