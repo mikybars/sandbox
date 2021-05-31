@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionFestivoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionFestivoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionFestivoRepositoryCustom;
 
@@ -29,8 +30,15 @@ public class TareaLocalizacionFestivoServiceImpl implements TareaLocalizacionFes
     @Override
     public void save(@Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> src,
             @Valid @NotNull final TareaDto tareaDto) {
-        tareaLocalizacionFestivoRepositoryCustom.save(tareaLocalizacionFestivoMapper
+        this.tareaLocalizacionFestivoRepositoryCustom.save(this.tareaLocalizacionFestivoMapper
             .genericTiendaResultItemDtoToTareaLocalizacionFestivo(src, tareaDto));
+    }
+
+    @Override
+    public void saveHorarioComercialFestivo(
+            @Valid @NotNull @NotEmpty final List<HorarioComercialFestivoDocDto> src,
+            @Valid @NotNull final TareaDto tareaDto) {
+        // TODO [javierev] transformacion y guardado de los objetos
     }
 
 }

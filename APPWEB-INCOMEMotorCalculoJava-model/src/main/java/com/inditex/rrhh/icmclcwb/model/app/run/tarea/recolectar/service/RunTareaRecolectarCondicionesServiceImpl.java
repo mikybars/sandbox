@@ -96,6 +96,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                 .desplazamientoRealByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfDesplazamientoRealByRunTarea, cf, cfWait);
 
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/

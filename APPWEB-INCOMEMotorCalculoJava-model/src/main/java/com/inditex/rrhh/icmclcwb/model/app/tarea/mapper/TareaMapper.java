@@ -719,13 +719,13 @@ public abstract class TareaMapper {
     @Mapping(target = "idTienda", ignore = true)
     @Mapping(target = "idCadena", ignore = true)
     @Mapping(target = "idPais", source = "srcTareaAmbito.cclIdOrigen")
-    @Mapping(target = "fechaDesde", source = "periodo.fechaInicioPeriodo")
-    @Mapping(target = "fechaHasta", source = "periodo.fechaFinPeriodo")
+    @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo")
+    @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo")
     @Mapping(target = "rows", ignore = true)
     @Mapping(target = "start", constant = "0")
     @Mapping(target = "hasNext", ignore = true)
-    public abstract HorarioComercialFestivosRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToHorarioComercialFestivosRequestDto(
-            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto periodo);
+    public abstract HorarioComercialFestivosRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoDtoToHorarioComercialFestivosRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
     public String horarioComercialFestivosRequestDtoToQuery(
             final HorarioComercialFestivosRequestDto request) {

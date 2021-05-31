@@ -8,10 +8,14 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 
 public interface TareaLocalizacionFestivoService {
 
     void save(@Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> src,
+            @Valid @NotNull final TareaDto tareaDto);
+
+    void saveHorarioComercialFestivo(@Valid @NotNull @NotEmpty final List<HorarioComercialFestivoDocDto> src,
             @Valid @NotNull final TareaDto tareaDto);
 
 }
