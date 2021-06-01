@@ -73,7 +73,7 @@ public class RunTareaAmbitoRecolectarSlrhorcomsServiceImpl implements RunTareaAm
                     .get(cfHorarioComercialFestivos);
                 if (CollectionUtils.isNotEmpty(data)) {
                     final CompletableFuture<Void> cfSave = this.tareaLocalizacionFestivoAsyncService
-                        .saveHorarioComercialFestivo(data, tarea);
+                        .save(data, tarea);
                     AsyncUtils.exceptionally(cfSave, cf, cfPersist);
                 }
                 hasNext = request.isHasNext();
