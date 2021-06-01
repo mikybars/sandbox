@@ -16,7 +16,7 @@ public class HorarioComercialPropertiesConstants {
 
     public static final String HORARIO_COMERCIAL_FESTIVO = "festivos";
 
-    public static final String AUTHENTICATE = "/authenticate";
+    public static final String AUTHENTICATE = "authenticate";
 
     public static final String AUTHENTICATE_REFRESH = "/authenticate/refresh";
 

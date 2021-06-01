@@ -41,6 +41,8 @@ app:
         timeout: 1
       service:
         slrhorcomsService:
+          authenticate:
+            endpoint: /authenticate
           festivos:
             endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
-            rows: 1
+            rows: 100

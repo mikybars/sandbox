@@ -79,7 +79,9 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
      */
     private AuthenticateDto authenticate() {
         final ResponseEntity<AuthenticateResponseDto> responseAuthenticate = this.slrhorcomsClient
-            .postForEntity(HorarioComercialPropertiesConstants.AUTHENTICATE, null, AuthenticateResponseDto.class);
+            .postForEntity(this.slrhorcomsProperties
+                .get(HorarioComercialPropertiesConstants.AUTHENTICATE)
+                .getEndpoint(), null, AuthenticateResponseDto.class);
         this.log.info("responseAuthenticate: {}", responseAuthenticate);
         if (responseAuthenticate.getStatusCode().value() != HttpStatus.SC_OK) {
             throw new SlrhorcomsIcmclcwbException("Error en login slrhorcomsI");
