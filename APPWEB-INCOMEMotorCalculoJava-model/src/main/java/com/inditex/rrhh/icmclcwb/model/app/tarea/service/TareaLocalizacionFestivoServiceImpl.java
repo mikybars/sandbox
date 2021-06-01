@@ -30,7 +30,9 @@ public class TareaLocalizacionFestivoServiceImpl implements TareaLocalizacionFes
     public void save(
             @Valid @NotNull @NotEmpty final List<HorarioComercialFestivoDocDto> src,
             @Valid @NotNull final TareaDto tareaDto) {
-        // TODO [javierev] transformacion y guardado de los objetos
+        this.tareaLocalizacionFestivoRepositoryCustom.save(
+                this.tareaLocalizacionFestivoMapper.horarioComercialFestivoDocDtoToTareaLocalizacionFestivo(src,
+                        tareaDto));
     }
 
 }

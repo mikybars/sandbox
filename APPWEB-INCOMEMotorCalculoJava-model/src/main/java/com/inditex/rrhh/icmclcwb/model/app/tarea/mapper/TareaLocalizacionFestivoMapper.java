@@ -32,12 +32,17 @@ public abstract class TareaLocalizacionFestivoMapper {
     public abstract List<TareaLocalizacionFestivo> tareaLocalizacionFestivoDtoToLocalizacionFestivo(
             List<TareaLocalizacionFestivoDto> src);
 
-    // public abstract TareaLocalizacionFestivo horarioComercialFestivoDocDtoToTareaLocalizacionFestivo(
-    // HorarioComercialFestivoDocDto src, TareaDto tareaDto);
-    //
-    // public List<TareaLocalizacionFestivo> horarioComercialFestivoDocDtoToTareaLocalizacionFestivo(
-    // final List<HorarioComercialFestivoDocDto> src, final TareaDto tareaDto) {
-    // throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    // }
+    @Mapping(source = "tareaDto.id", target = "tarea.id")
+    @Mapping(source = "src.fecha", target = "fecha",
+            dateFormat = HorarioComercialPropertiesConstants.DATE_FORMAT_RESULT)
+    @Mapping(source = "src.idTienda", target = "cclIdCodOrigen")
+    @Mapping(target = "id", ignore = true)
+    public abstract TareaLocalizacionFestivo horarioComercialFestivoDocDtoToTareaLocalizacionFestivo(
+            HorarioComercialFestivoDocDto src, TareaDto tareaDto);
+
+    public List<TareaLocalizacionFestivo> horarioComercialFestivoDocDtoToTareaLocalizacionFestivo(
+            final List<HorarioComercialFestivoDocDto> src, final TareaDto tareaDto) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
 
 }

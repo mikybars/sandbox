@@ -9,6 +9,11 @@ public class HorarioComercialPropertiesConstants {
     private HorarioComercialPropertiesConstants() {
     }
 
+    // ejemplo: Sun May 24 02:00:00 CEST 2020
+    public static final String DATE_FORMAT_RESULT = "EEE MMM dd HH:mm:ss 'CEST' yyyy";
+
+    public static final String DATE_FORMAT_QUERY = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+
     public static final String HORARIO_COMERCIAL_FESTIVO = "festivos";
 
     public static final String AUTHENTICATE = "/authenticate";
@@ -16,8 +21,6 @@ public class HorarioComercialPropertiesConstants {
     public static final String AUTHENTICATE_REFRESH = "/authenticate/refresh";
 
     public static final String AUTHENTICATE_REVOKE = "/authenticate/revoke";
-
-    public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     public static final String ID_TIENDA_FIELD = "idTienda";
 

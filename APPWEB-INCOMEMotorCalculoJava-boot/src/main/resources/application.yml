@@ -57,7 +57,15 @@ amiga:
         maximum-pool-size: 100
         queue-size: 2000
         allow-core-thread-timeout: true
-        keep-alive-time: 60s        
+        keep-alive-time: 60s
+      slrhorcoms-executor:
+          name: async-slrhorcoms-executor
+          name-format: async-slrhorcoms-executor-%d
+          core-pool-size: 10
+          maximum-pool-size: 100
+          queue-size: 2000
+          allow-core-thread-timeout: true
+          keep-alive-time: 60s
       repository-primary-executor:
         name: async-repository-primary-executor
         name-format: async-repository-primary-executor-%d

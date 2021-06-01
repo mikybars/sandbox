@@ -1,12 +1,31 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionFestivoMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionFestivo;
 
 public abstract class TareaLocalizacionFestivoDecorator extends TareaLocalizacionFestivoMapper {
 
     @Autowired
     private TareaLocalizacionFestivoMapper delegate;
+
+    @Override
+    public List<TareaLocalizacionFestivo> horarioComercialFestivoDocDtoToTareaLocalizacionFestivo(
+            final List<HorarioComercialFestivoDocDto> src,
+            final TareaDto tareaDto) {
+        final List<TareaLocalizacionFestivo> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(src)) {
+            src.forEach(item -> result
+                .add(this.delegate.horarioComercialFestivoDocDtoToTareaLocalizacionFestivo(item, tareaDto)));
+        }
+        return result;
+    }
 
 }
