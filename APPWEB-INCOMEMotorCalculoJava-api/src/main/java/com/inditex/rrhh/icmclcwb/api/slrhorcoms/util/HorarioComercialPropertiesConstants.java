@@ -18,7 +18,7 @@ public class HorarioComercialPropertiesConstants {
 
     public static final String AUTHENTICATE = "authenticate";
 
-    public static final String AUTHENTICATE_REFRESH = "/authenticate/refresh";
+    public static final String AUTHENTICATE_REFRESH = "refresh";
 
     public static final String AUTHENTICATE_REVOKE = "/authenticate/revoke";
 

@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import lombok.Builder;
 import lombok.Data;
@@ -16,5 +17,7 @@ public class AuthenticateDto implements Serializable {
     private String accessToken;
 
     private String refreshToken;
+
+    private LocalDateTime creationDate;
 
 }

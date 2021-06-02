@@ -226,11 +226,14 @@ app:
           max-empleados: 30
     slrhorcoms:
       config:
-        timeout: 1
+        timeout: 86400000
+        refresh-timeout: 82800000
       service:
         slrhorcomsService:
           authenticate:
             endpoint: /authenticate
+          refresh:
+            endpoint: /authenticate/refresh
           festivos:
             endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
             rows: 100

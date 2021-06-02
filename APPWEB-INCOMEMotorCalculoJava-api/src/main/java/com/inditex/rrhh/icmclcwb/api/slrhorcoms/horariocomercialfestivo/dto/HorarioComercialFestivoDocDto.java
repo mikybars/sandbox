@@ -7,10 +7,12 @@ package com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto;
 import java.io.Serializable;
 
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.DocDto;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
+@Builder
 @EqualsAndHashCode(callSuper = true)
 public class HorarioComercialFestivoDocDto extends DocDto implements Serializable {
 
