@@ -9,8 +9,10 @@ public class HorarioComercialPropertiesConstants {
     private HorarioComercialPropertiesConstants() {
     }
 
-    // ejemplo: Sun May 24 02:00:00 CEST 2020
-    public static final String DATE_FORMAT_RESULT = "EEE MMM dd HH:mm:ss 'CEST' yyyy";
+    // ejemplo: Sun May 24 02:00:00 CEST 2020 (solo funciona en DES)
+    public static final String DATE_FORMAT_RESULT_DES = "EEE MMM dd HH:mm:ss 'CEST' yyyy";
+
+    public static final String DATE_FORMAT_RESULT = "yyyy-MM-dd HH:mm:ss";
 
     public static final String DATE_FORMAT_QUERY = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 

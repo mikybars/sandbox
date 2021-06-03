@@ -50,18 +50,18 @@ amiga:
           connect-timeout: 300000
           read-timeout: 300000
         #[HORARIOCOMERCIAL][DES][INICIO]
-        slrhorcoms:
-          base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp
-          auth-method: BASIC
-          username: srvcicmclcwbdes
-          password: q2ZB)XKFWdeA
+#        slrhorcoms:
+#          base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp
+#          auth-method: BASIC
+#          username: srvcicmclcwbdes
+#          password: q2ZB)XKFWdeA
         #[HORARIOCOMERCIAL][DES][FIN]
         #[HORARIOCOMERCIAL][PRE][INICIO]
-#        slrhorcoms:
-#          base-url: https://sscc-pre.central.inditex.grp
-#          auth-method: BASIC
-#          username: srvcicmclcwbpreAX
-#          password: xynEJHKK4bu)
+        slrhorcoms:
+          base-url: https://sscc-pre.central.inditex.grp
+          auth-method: BASIC
+          username: srvcicmclcwbpreAX
+          password: xynEJHKK4bu)
         #[HORARIOCOMERCIAL][PRE][FIN]
         #[PTR][DES][INICIO]
         ptr-venta:

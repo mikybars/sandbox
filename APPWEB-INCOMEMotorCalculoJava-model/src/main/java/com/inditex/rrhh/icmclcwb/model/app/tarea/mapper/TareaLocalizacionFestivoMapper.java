@@ -6,6 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionFestivoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizacionFestivoDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionFestivo;
 import org.mapstruct.DecoratedWith;
@@ -34,7 +35,8 @@ public abstract class TareaLocalizacionFestivoMapper {
     @Mapping(source = "tareaDto.id", target = "tarea.id")
     @Mapping(source = "src.idTienda", target = "cclIdCodOrigen")
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "fecha", ignore = true)
+    @Mapping(target = "fecha", source = "src.fecha",
+            dateFormat = HorarioComercialPropertiesConstants.DATE_FORMAT_RESULT)
     public abstract TareaLocalizacionFestivo horarioComercialFestivoDocDtoToTareaLocalizacionFestivo(
             HorarioComercialFestivoDocDto src, TareaDto tareaDto);
 
