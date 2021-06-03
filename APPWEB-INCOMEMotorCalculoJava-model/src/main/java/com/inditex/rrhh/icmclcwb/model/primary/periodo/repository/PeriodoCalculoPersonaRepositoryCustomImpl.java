@@ -56,8 +56,7 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
             @NotNull final TareaAmbitoDto tareaAmbitoDto) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
-                EstadoPeriodoCalculoPersonaEnum.EXPORTADO.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_DESBLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN,
                 tareaAmbitoDto.getCclIdOrigen());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT,
