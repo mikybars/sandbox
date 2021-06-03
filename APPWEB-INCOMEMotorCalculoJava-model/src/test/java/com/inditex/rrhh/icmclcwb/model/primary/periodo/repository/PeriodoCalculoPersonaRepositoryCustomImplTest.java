@@ -136,9 +136,9 @@ public class PeriodoCalculoPersonaRepositoryCustomImplTest {
         assertEquals(idTarea, this.params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
 
         // idEstadoTareaPersona
-        assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO));
-        assertEquals(EstadoPeriodoCalculoPersonaEnum.EXPORTADO.getId(),
-                this.params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO));
+        assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_DESBLOQUEADO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                this.params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_DESBLOQUEADO));
         // origen
         assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN));
         assertEquals("1",

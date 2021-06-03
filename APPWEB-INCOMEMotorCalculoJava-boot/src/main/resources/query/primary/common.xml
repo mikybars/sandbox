@@ -6788,7 +6788,7 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
             WHERE PCP.CCL_ID_ORIGEN = :cclIdOrigen
             AND PCP.STD_ID_LEG_ENT = :stdIdLegEnt
             AND PCP.ICM_ID_PERIODO = :icmIdPeriodo
-            AND PCP.ID_ESTADO < :idEstado
+            AND PCP.ES_BLOQUEADO = :desbloqueado
             AND S.CCL_ID_PERSON IS NULL
             GROUP BY             
                 PCP.ICM_ID_PERIODO,
