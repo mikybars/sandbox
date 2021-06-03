@@ -22,6 +22,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -126,6 +127,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
                 if ((catalogo != null) && CollectionUtils.isNotEmpty(catalogo.getItems())
                         && StringUtils.isNotBlank(catalogo.getItems().get(0).getIdCatalogo())) {
                     idCatalogo = Integer.parseInt(catalogo.getItems().get(0).getIdCatalogo());
+                } else {
+                    throw new IcmclcwbException("No se han podido recuperar tipos de hora");
                 }
             }
 
