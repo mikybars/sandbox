@@ -13,6 +13,9 @@ amiga:
               keep-alive-time: 60000  
     rest:
       client:
+        slrhorcoms:
+          base-url: https://sscc.central.inditex.grp
+          username: srvcicmclcwbAX
         ptr-venta:
           base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
           username: srvcicmclcwbAX
