@@ -13,6 +13,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -61,6 +62,7 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
 
 
     @Override
+    @Cacheable(value = "itx.icmlcwb.horario_comercial_festivos", key = "{#request}")
     public List<HorarioComercialFestivoDocDto> horarioComercialFestivos(
             final HorarioComercialFestivosRequestDto request) {
         this.checkSession();
