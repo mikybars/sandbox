@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -94,7 +95,11 @@ public class RunTareaServiceImpl implements RunTareaService {
             this.tareaFaseService.updateActivo(runTarea);
             this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
                     EstadoTareaCalculoPersonaEnum.OK.getDto());
-            this.runTareaLimpiarConsolidarByAmbitoService.run(runTarea);
+            if (TipoAmbitoEnum.SOCIEDAD.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
+                    || TipoAmbitoEnum.ORIGEN.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
+                    || TipoAmbitoEnum.EMPRESA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
+                this.runTareaLimpiarConsolidarByAmbitoService.run(runTarea);
+            }
             this.runTareaConsolidarService.run(runTarea);
             this.tareaService.updateEstadoFinal(runTarea.getTarea());
         } catch (final ValidationException e) {
