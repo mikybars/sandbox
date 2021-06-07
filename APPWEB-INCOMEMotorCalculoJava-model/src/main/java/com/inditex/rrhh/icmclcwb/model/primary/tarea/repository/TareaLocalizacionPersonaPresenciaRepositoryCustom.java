@@ -41,8 +41,8 @@ public interface TareaLocalizacionPersonaPresenciaRepositoryCustom {
 
     void indicadorDesplazamientoBaseDirectoVenta(@NotNull RunTareaDto runTareaDto);
 
-    void indicadorDesplazamientoDirectoVentaFicticias(@NotNull RunTareaDto runTareaDto);
+    void indicadorDesplazamientoDirectoVentaSinPresencias(@NotNull RunTareaDto runTareaDto);
 
-    void indicadorDesplazamientoBaseDirectoVentaFicticias(@NotNull RunTareaDto runTareaDto);
+    void indicadorDesplazamientoBaseDirectoVentaOtraTienda(@NotNull RunTareaDto runTareaDto);
 
 }

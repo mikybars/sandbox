@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.periodo.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoLocalizacionPersonaRepositoryCustom;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PeriodoLocalizacionPersonaServiceImplTest {
@@ -22,11 +25,23 @@ public class PeriodoLocalizacionPersonaServiceImplTest {
     @Test
     public void mergePeriodoLocalizacionPersonaTest() {
 
-        RunTareaDto runTarea = mock(RunTareaDto.class);
-        periodoLocalizacionPersonaService.mergePeriodoLocalizacionPersona(runTarea);
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        this.periodoLocalizacionPersonaService.mergePeriodoLocalizacionPersona(runTarea);
 
-        verify(periodoLocalizacionPersonaRepositoryCustom, times(1)).mergePeriodoLocalizacionPersona(runTarea);
+        verify(this.periodoLocalizacionPersonaRepositoryCustom, times(1)).mergePeriodoLocalizacionPersona(runTarea);
 
+    }
+
+    @Test
+    public void limpiezaPeriodoLocalizacionPersonaTest() {
+
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        final TareaAmbitoDto tareaAmbitoDto = mock(TareaAmbitoDto.class);
+
+        this.periodoLocalizacionPersonaService.limpiezaPeriodoLocalizacionPersona(runTarea, tareaAmbitoDto);
+
+        verify(this.periodoLocalizacionPersonaRepositoryCustom, times(1)).limpiezaPeriodoLocalizacionPersona(runTarea,
+                tareaAmbitoDto);
     }
 
 }

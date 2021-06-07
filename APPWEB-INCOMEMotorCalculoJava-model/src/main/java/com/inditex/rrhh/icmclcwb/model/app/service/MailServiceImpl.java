@@ -125,6 +125,8 @@ public class MailServiceImpl implements MailService {
             .append(SEPARATOR)
             .append(this.environment.toUpperCase())
             .append(SEPARATOR)
+            .append(tarea.getIdOrganization())
+            .append(SEPARATOR)
             .append(SUBJECT)
             .append(SEPARATOR)
             .append(tareaFase.getIdTarea())

@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 @Async
 public interface RunTareaConsolidarPeriodoAsyncService {
@@ -16,5 +17,13 @@ public interface RunTareaConsolidarPeriodoAsyncService {
     CompletableFuture<Void> mergePeriodoLocalizacion(RunTareaDto runTarea);
 
     CompletableFuture<Void> mergePeriodoLocalizacionPersona(RunTareaDto runTarea);
+
+    CompletableFuture<Void> limpiezaPeriodoCalculoPersona(RunTareaDto runTarea, TareaAmbitoDto tareaAmbitoDto);
+
+    CompletableFuture<Void> limpiezaPeriodoLocalizacionPersona(RunTareaDto runTarea, TareaAmbitoDto tareaAmbitoDto);
+
+    CompletableFuture<Void> limpiezaPeriodoLocalizacion(RunTareaDto runTarea, TareaAmbitoDto tareaAmbitoDto);
+
+    CompletableFuture<Void> limpiezaPeriodoPersona(RunTareaDto runTarea, TareaAmbitoDto tareaAmbitoDto);
 
 }

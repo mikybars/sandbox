@@ -1,13 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.app.periodo.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.periodo.service.PeriodoLocalizacionService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoLocalizacionRepositoryCustom;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
+import com.inditex.rrhh.icmclcwb.api.app.periodo.service.PeriodoLocalizacionService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoLocalizacionRepositoryCustom;
 
 @Service
 @Validated
@@ -17,8 +19,14 @@ public class PeriodoLocalizacionServiceImpl implements PeriodoLocalizacionServic
     private PeriodoLocalizacionRepositoryCustom periodoLocalizacionRepositoryCustom;
 
     @Override
-    public void mergePeriodoLocalizacion(@NotNull RunTareaDto tareaDto) {
-        periodoLocalizacionRepositoryCustom.mergePeriodoLocalizacion(tareaDto);
+    public void mergePeriodoLocalizacion(@NotNull final RunTareaDto tareaDto) {
+        this.periodoLocalizacionRepositoryCustom.mergePeriodoLocalizacion(tareaDto);
+    }
+
+    @Override
+    public void limpiezaPeriodoLocalizacion(@NotNull final RunTareaDto tareaDto,
+            @NotNull final TareaAmbitoDto tareaAmbitoDto) {
+        this.periodoLocalizacionRepositoryCustom.limpiezaPeriodoLocalizacion(tareaDto, tareaAmbitoDto);
     }
 
 }

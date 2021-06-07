@@ -133,26 +133,26 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
     }
 
     @Override
-    public CompletableFuture<Void> indicadorDesplazamientoBaseDirectoVenta(final RunTareaDto runTarea) {
-        this.runTareaProcesarPresenciaService.indicadorDesplazamientoBaseDirectoVenta(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
-    public CompletableFuture<Void> indicadorDesplazamientoBaseDirectoVentaFicticias(final RunTareaDto runTarea) {
-        this.runTareaProcesarPresenciaService.indicadorDesplazamientoBaseDirectoVentaFicticias(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
     public CompletableFuture<Void> indicadorDesplazamientoDirectoVenta(final RunTareaDto runTarea) {
         this.runTareaProcesarPresenciaService.indicadorDesplazamientoDirectoVenta(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> indicadorDesplazamientoDirectoVentaFicticias(final RunTareaDto runTarea) {
-        this.runTareaProcesarPresenciaService.indicadorDesplazamientoDirectoVentaFicticias(runTarea);
+    public CompletableFuture<Void> indicadorDesplazamientoDirectoVentaSinPresencias(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.indicadorDesplazamientoDirectoVentaSinPresencias(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> indicadorDesplazamientoBaseDirectoVenta(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.indicadorDesplazamientoBaseDirectoVenta(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> indicadorDesplazamientoBaseDirectoVentaOtraTienda(final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.indicadorDesplazamientoBaseDirectoVentaOtraTienda(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

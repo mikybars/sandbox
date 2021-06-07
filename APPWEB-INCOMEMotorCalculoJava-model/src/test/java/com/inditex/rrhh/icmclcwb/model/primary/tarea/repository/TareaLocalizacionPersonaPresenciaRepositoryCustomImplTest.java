@@ -136,9 +136,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
                 "sqlIndicadorDesplazamientoDirectoVenta",
                 SQL_INDICADOR_DESPLAZAMIENTO_DIRECTO_VENTA, true);
-        FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
-                "sqlIndicadorDesplazamientoBaseDirectoVenta",
-                SQL_INDICADOR_DESPLAZAMIENTO_BASE_DIRECTO_VENTA, true);
+
         FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, "batchSize", 100, true);
     }
 
@@ -546,37 +544,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
         // nuevoIdTipoDato
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        // idseccion
-        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_SECCION));
-        assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_NUEVO_ID_SECCION));
-    }
 
-    @Test
-    public void indicadorDesplazamientoBaseDirectoVentaTest() {
-
-        final RunTareaDto runTarea = mock(RunTareaDto.class);
-        final TareaDto tarea = mock(TareaDto.class);
-        when(tarea.getId()).thenReturn(199L);
-        when(runTarea.getTarea()).thenReturn(tarea);
-
-        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoBaseDirectoVenta(runTarea);
-
-        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
-        assertEquals(SQL_INDICADOR_DESPLAZAMIENTO_BASE_DIRECTO_VENTA, this.sqlCaptor.getValue());
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        // Parámetros de la consulta: idTarea, activo, nuevoIdTipoDato, idseccion
-        assertEquals(6, params.getValues().size());
-        // idTarea
-        assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
-        assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
-        // activo
-        assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
-        // nuevoIdTipoDato
-        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-        // idseccion
-        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_SECCION));
-        assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_NUEVO_ID_SECCION));
     }
 
 }

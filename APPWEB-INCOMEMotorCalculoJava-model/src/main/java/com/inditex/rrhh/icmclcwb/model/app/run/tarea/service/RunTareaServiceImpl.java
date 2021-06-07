@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.RunTareaLimpiarConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
@@ -61,6 +63,9 @@ public class RunTareaServiceImpl implements RunTareaService {
     private RunTareaRegularizarChallengeService runTareaRegularizarChallengeService;
 
     @Autowired
+    private RunTareaLimpiarConsolidarByAmbitoService runTareaLimpiarConsolidarByAmbitoService;
+
+    @Autowired
     private RunTareaAjustarService runTareaAjustarService;
 
     @Autowired
@@ -90,6 +95,11 @@ public class RunTareaServiceImpl implements RunTareaService {
             this.tareaFaseService.updateActivo(runTarea);
             this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
                     EstadoTareaCalculoPersonaEnum.OK.getDto());
+            if (TipoAmbitoEnum.SOCIEDAD.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
+                    || TipoAmbitoEnum.ORIGEN.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
+                    || TipoAmbitoEnum.EMPRESA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
+                this.runTareaLimpiarConsolidarByAmbitoService.run(runTarea);
+            }
             this.runTareaConsolidarService.run(runTarea);
             this.tareaService.updateEstadoFinal(runTarea.getTarea());
         } catch (final ValidationException e) {

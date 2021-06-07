@@ -1,0 +1,68 @@
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.limpiar.consolidar.ambito.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.async.service.RunTareaConsolidarPeriodoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.ambito.service.RunTareaAmbitoLimpiarConsolidarByAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
+
+@Service
+@Validated
+public class RunTareaAmbitoLimpiarConsolidarByAmbitoServiceImpl
+        implements RunTareaAmbitoLimpiarConsolidarByAmbitoService {
+
+    @Autowired
+    private RunTareaConsolidarPeriodoAsyncService runTareaConsolidarPeriodoAsyncService;
+
+    @Auditoria
+    @TimerFunctionalMetric(metricName = "RunTareaAmbitoLimpiarConsolidarByAmbitoService.run.timer",
+            metricGroupName = "RunTareaAmbitoLimpiarConsolidarByAmbitoServiceGroup",
+            metricDescription = "RunTareaAmbitoLimpiarConsolidarByAmbitoService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaAmbitoLimpiarConsolidarByAmbitoService.run.counter",
+            metricGroupName = "RunTareaAmbitoLimpiarConsolidarByAmbitoServiceGroup",
+            metricDescription = "RunTareaAmbitoLimpiarConsolidarByAmbitoService.run.counter")
+    @Override
+    public void run(@NotNull @Valid final RunTareaDto runTarea, @NotNull @Valid final TareaAmbitoDto tareaAmbitoDto) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            final CompletableFuture<Void> cfPeriodo = this.runTareaConsolidarPeriodoAsyncService
+                .limpiezaPeriodoPersona(runTarea, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPeriodo, cf);
+
+            final CompletableFuture<Void> cfPeriodoCalculoPersona = this.runTareaConsolidarPeriodoAsyncService
+                .limpiezaPeriodoCalculoPersona(runTarea, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPeriodoCalculoPersona, cf);
+
+            final CompletableFuture<Void> cfPeriodoLocalizacion = this.runTareaConsolidarPeriodoAsyncService
+                .limpiezaPeriodoLocalizacion(runTarea, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPeriodoLocalizacion, cf);
+
+            final CompletableFuture<Void> cfPeriodoLocalizacionPersona = this.runTareaConsolidarPeriodoAsyncService
+                .limpiezaPeriodoLocalizacionPersona(runTarea, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPeriodoLocalizacionPersona, cf);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+            /*-------------------------------------------------------------*/
+        } catch (final Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
+}

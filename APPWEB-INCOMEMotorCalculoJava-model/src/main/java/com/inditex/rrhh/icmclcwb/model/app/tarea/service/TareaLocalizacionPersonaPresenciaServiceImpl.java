@@ -111,24 +111,26 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
 
     @Override
     public void indicadorDesplazamientoDirectoVenta(@Valid @NotNull final RunTareaDto runTareaDto) {
-        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoDirectoVenta(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom
+            .indicadorDesplazamientoDirectoVenta(runTareaDto);
     }
 
     @Override
-    public void indicadorDesplazamientoDirectoVentaFicticias(@Valid @NotNull final RunTareaDto runTareaDto) {
+    public void indicadorDesplazamientoDirectoVentaSinPresencias(@Valid @NotNull final RunTareaDto runTareaDto) {
         this.tareaLocalizacionPersonaPresenciaRepositoryCustom
-            .indicadorDesplazamientoDirectoVentaFicticias(runTareaDto);
+            .indicadorDesplazamientoDirectoVentaSinPresencias(runTareaDto);
     }
 
     @Override
     public void indicadorDesplazamientoBaseDirectoVenta(@Valid @NotNull final RunTareaDto runTareaDto) {
-        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoBaseDirectoVenta(runTareaDto);
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom
+            .indicadorDesplazamientoBaseDirectoVenta(runTareaDto);
     }
 
     @Override
-    public void indicadorDesplazamientoBaseDirectoVentaFicticias(@Valid @NotNull final RunTareaDto runTareaDto) {
+    public void indicadorDesplazamientoBaseDirectoVentaOtraTienda(@Valid @NotNull final RunTareaDto runTareaDto) {
         this.tareaLocalizacionPersonaPresenciaRepositoryCustom
-            .indicadorDesplazamientoBaseDirectoVentaFicticias(runTareaDto);
+            .indicadorDesplazamientoBaseDirectoVentaOtraTienda(runTareaDto);
     }
 
 }
