@@ -114,6 +114,8 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
         params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, tareaDto.getTarea().getStdIdLegEnt());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.PENDIENTE.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO,
+                EstadoTareaCalculoPersonaEnum.KO.getId());
         this.update(this.sqlMergePersonaCalculoByAmbito, params);
     }
 
@@ -124,6 +126,8 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
         params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, tareaDto.getTarea().getStdIdLegEnt());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.PENDIENTE.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO,
+                EstadoTareaCalculoPersonaEnum.KO.getId());
         this.update(this.sqlMergePersonaCalculoByAmbitoLocalizacion, params);
     }
 
@@ -134,6 +138,8 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
         params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, tareaDto.getTarea().getStdIdLegEnt());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA,
                 EstadoTareaCalculoPersonaEnum.PENDIENTE.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO,
+                EstadoTareaCalculoPersonaEnum.KO.getId());
         this.update(this.sqlMergePersonaCalculoByAmbitoPersona, params);
     }
 
