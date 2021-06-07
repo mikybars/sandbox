@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -63,9 +64,10 @@ public class TareaMapperHorarioComercialFestivoTest {
     public void horarioComercialFestivosRequestDtoToSolrQueryIdTiendaTest() {
 
         final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-        request.setIdTienda(21);
+        request.setIdTienda(Arrays.asList("21", "112"));
 
-        assertEquals("q=idTienda:21", this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
+        assertEquals("q=(idTienda:21 OR idTienda:112)",
+                this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
     }
 
     @Test
@@ -106,10 +108,10 @@ public class TareaMapperHorarioComercialFestivoTest {
     public void horarioComercialFestivosRequestDtoToSolrQueryIdTiendaAndIdCadenaTest() {
 
         final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-        request.setIdTienda(111);
+        request.setIdTienda(Arrays.asList("111", "123"));
         request.setIdCadena(2);
 
-        assertEquals("q=idTienda:111 AND idCadena:2",
+        assertEquals("q=(idTienda:111 OR idTienda:123) AND idCadena:2",
                 this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
     }
 

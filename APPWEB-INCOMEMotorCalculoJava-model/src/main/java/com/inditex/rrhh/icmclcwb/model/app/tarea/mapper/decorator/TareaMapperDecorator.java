@@ -198,10 +198,18 @@ public abstract class TareaMapperDecorator extends TareaMapper {
                 && (request.getIdPais() != null || request.getIdCadena() != null || request.getIdTienda() != null
                         || (request.getFechaDesde() != null && request.getFechaHasta() != null))) {
             final List<String> filters = new ArrayList<>();
-            if (request.getIdTienda() != null) {
-                filters.add(new StringBuffer().append(HorarioComercialPropertiesConstants.ID_TIENDA_FIELD)
-                    .append(HorarioComercialPropertiesConstants.SOLR_VALUE_SEPARATOR)
-                    .append(request.getIdTienda())
+            if (CollectionUtils.isNotEmpty(request.getIdTienda())) {
+                final List<String> filtrosTienda = request.getIdTienda()
+                    .stream()
+                    .map(idTienda -> new StringBuilder().append(HorarioComercialPropertiesConstants.ID_TIENDA_FIELD)
+                        .append(HorarioComercialPropertiesConstants.SOLR_VALUE_SEPARATOR)
+                        .append(idTienda)
+                        .toString())
+                    .collect(
+                            Collectors.toList());
+                filters.add(new StringBuffer().append(HorarioComercialPropertiesConstants.SOLR_GROUP_BEGIN)
+                    .append(String.join(HorarioComercialPropertiesConstants.SOLR_FIELD_OR_CONNECTOR, filtrosTienda))
+                    .append(HorarioComercialPropertiesConstants.SOLR_GROUP_END)
                     .toString());
             }
             if (request.getIdCadena() != null) {
@@ -230,7 +238,7 @@ public abstract class TareaMapperDecorator extends TareaMapper {
                     .append(HorarioComercialPropertiesConstants.SOLR_RANGE_END)
                     .toString());
             }
-            query = String.join(HorarioComercialPropertiesConstants.SOLR_FIELD_CONNECTOR, filters);
+            query = String.join(HorarioComercialPropertiesConstants.SOLR_FIELD_AND_CONNECTOR, filters);
         }
         return query;
     }

@@ -6,6 +6,7 @@ package com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPageRequestDto;
 import lombok.Data;
@@ -15,7 +16,7 @@ public class HorarioComercialFestivosRequestDto extends SlrhorcomsPageRequestDto
 
     private static final long serialVersionUID = -5173071057906661055L;
 
-    private Integer idTienda;
+    private List<String> idTienda;
 
     private Integer idCadena;
 

@@ -686,6 +686,7 @@ app:
           festivos:
             endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
             rows: 100
+            maxFilterSize: 50
     ptr:
       config:
         max-attempts: 2

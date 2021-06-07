@@ -13,4 +13,6 @@ public class SlrhorcomsPropertiesDto {
 
     private Integer rows;
 
+    private Integer maxFilterSize;
+
 }

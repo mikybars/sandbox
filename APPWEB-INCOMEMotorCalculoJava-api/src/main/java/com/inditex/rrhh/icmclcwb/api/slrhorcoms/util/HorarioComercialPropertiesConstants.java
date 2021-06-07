@@ -42,9 +42,15 @@ public class HorarioComercialPropertiesConstants {
 
     public static final String SOLR_RANGE_END = "]";
 
+    public static final String SOLR_GROUP_BEGIN = "(";
+
+    public static final String SOLR_GROUP_END = ")";
+
     public static final String SOLR_DATE_CONNECTOR = " TO ";
 
-    public static final String SOLR_FIELD_CONNECTOR = " AND ";
+    public static final String SOLR_FIELD_AND_CONNECTOR = " AND ";
+
+    public static final String SOLR_FIELD_OR_CONNECTOR = " OR ";
 
     public static final String SOLR_VALUE_SEPARATOR = ":";
 
