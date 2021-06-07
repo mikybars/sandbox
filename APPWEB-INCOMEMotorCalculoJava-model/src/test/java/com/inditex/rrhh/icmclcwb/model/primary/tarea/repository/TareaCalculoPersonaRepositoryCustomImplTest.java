@@ -30,6 +30,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_ACTUAL;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_NUEVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -171,11 +172,15 @@ public class TareaCalculoPersonaRepositoryCustomImplTest {
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
         assertEquals(SQL_MERGE_BY_AMBITO, this.sql.getValue());
         // parametros de la consulta: idEstadoTareaPersona, idTarea
-        assertEquals(3, this.params.getValue().getValues().size());
+        assertEquals(4, this.params.getValue().getValues().size());
         // idEstadoTareaPersona
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
         assertEquals(EstadoTareaCalculoPersonaEnum.PENDIENTE.getId(),
                 this.params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
+        // idEstadoTareaPersonaKo
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO));
+        assertEquals(EstadoTareaCalculoPersonaEnum.KO.getId(),
+                this.params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO));
         // idTarea
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
@@ -193,11 +198,15 @@ public class TareaCalculoPersonaRepositoryCustomImplTest {
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
         assertEquals(SQL_MERGE_BY_AMBITO_LOCALIZACION, this.sql.getValue());
         // parametros de la consulta: idEstadoTareaPersona, idTarea
-        assertEquals(3, this.params.getValue().getValues().size());
+        assertEquals(4, this.params.getValue().getValues().size());
         // idEstadoTareaPersona
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
         assertEquals(EstadoTareaCalculoPersonaEnum.PENDIENTE.getId(),
                 this.params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
+        // idEstadoTareaPersonaKo
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO));
+        assertEquals(EstadoTareaCalculoPersonaEnum.KO.getId(),
+                this.params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO));
         // idTarea
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
@@ -216,11 +225,15 @@ public class TareaCalculoPersonaRepositoryCustomImplTest {
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
         assertEquals(SQL_MERGE_BY_AMBITO_PERSONA, this.sql.getValue());
         // parametros de la consulta: idEstadoTareaPersona, idTarea
-        assertEquals(3, this.params.getValue().getValues().size());
+        assertEquals(4, this.params.getValue().getValues().size());
         // idEstadoTareaPersona
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
         assertEquals(EstadoTareaCalculoPersonaEnum.PENDIENTE.getId(),
                 this.params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA));
+        // idEstadoTareaPersonaKo
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO));
+        assertEquals(EstadoTareaCalculoPersonaEnum.KO.getId(),
+                this.params.getValue().getValue(SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO));
         // idTarea
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
         assertEquals(tarea.getId(), this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
