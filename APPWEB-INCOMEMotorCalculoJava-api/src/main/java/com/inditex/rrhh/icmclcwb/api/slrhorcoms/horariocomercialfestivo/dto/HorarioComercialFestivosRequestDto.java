@@ -18,9 +18,9 @@ public class HorarioComercialFestivosRequestDto extends SlrhorcomsPageRequestDto
 
     private List<String> idTienda;
 
-    private Integer idCadena;
+    private String idCadena;
 
-    private Integer idPais;
+    private String idPais;
 
     private LocalDate fechaDesde;
 
