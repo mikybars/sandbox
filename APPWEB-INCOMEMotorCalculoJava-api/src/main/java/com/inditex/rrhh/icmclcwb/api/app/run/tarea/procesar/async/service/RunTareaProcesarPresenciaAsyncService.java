@@ -57,4 +57,6 @@ public interface RunTareaProcesarPresenciaAsyncService {
 
     CompletableFuture<Void> indicadorDesplazamientoBaseDirectoVentaOtraTienda(RunTareaDto runTarea);
 
+    CompletableFuture<Void> indicadorDesplazamientoDirectoVentaCambioFuncion(RunTareaDto runTarea);
+
 }

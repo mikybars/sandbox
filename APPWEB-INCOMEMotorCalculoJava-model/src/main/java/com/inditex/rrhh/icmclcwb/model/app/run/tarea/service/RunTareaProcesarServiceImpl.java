@@ -268,6 +268,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 .indicadorDesplazamientoBaseDirectoVentaOtraTienda(runTarea);
             AsyncUtils.exceptionally(cfIndicadorDesplazamientoBaseDirectoVentaOtraTienda, cf, cfWait);
 
+            final CompletableFuture<Void> cfIndicadorDesplazamientoDirectoVentaCambioFuncion = this.runTareaProcesarPresenciaAsyncService
+                .indicadorDesplazamientoDirectoVentaCambioFuncion(runTarea);
+            AsyncUtils.exceptionally(cfIndicadorDesplazamientoDirectoVentaCambioFuncion, cf, cfWait);
+
             // Presencias totales de agrupaciones
             final CompletableFuture<Void> cfCalcularPresenciasTotalesAgrupacion = this.runTareaProcesarPresenciaAsyncService
                 .calcularPresenciasTotalesAgrupacion(runTarea);
