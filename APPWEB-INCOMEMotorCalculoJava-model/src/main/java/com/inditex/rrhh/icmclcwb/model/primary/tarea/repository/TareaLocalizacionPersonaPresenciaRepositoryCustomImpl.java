@@ -390,7 +390,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
                         TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
                         TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
-                TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId());
+                TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
                 TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
 
