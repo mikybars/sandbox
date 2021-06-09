@@ -1,5 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
@@ -12,25 +21,17 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Repository
 public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDiariaDesplazamientoBaseV1RepositoryCustomImpl
         extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
         implements TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom {
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDiariaDesplazamientoBaseV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDiariaDesplazamientoBaseV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseFestivoRepository.calcular.where']}")
     @Getter
     private String sqlCalcular;
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDiariaDesplazamientoBaseV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDiariaDesplazamientoBaseV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseFestivoRepository.calcular.where']}")
     @Getter
     private String sqlCalcularBase;
 
@@ -41,12 +42,13 @@ public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDiariaDesplazami
     private TipoDatoService tipoDatoService;
 
     @Override
-    protected Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea, IdPersonaLocalDto persona) {
+    protected Map<String, Object> getMapValues(
+            final AlgoritmoDto algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
 
-        List<IdTipoDatoDto> tiposDatoLocalizacionSeccion = tipoDatoService
+        final List<IdTipoDatoDto> tiposDatoLocalizacionSeccion = this.tipoDatoService
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
 
-        HashMap<String, Object> map = new HashMap<>();
+        final HashMap<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         }
@@ -80,8 +82,8 @@ public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDiariaDesplazami
     }
 
     @Override
-    public List<IdPersonaLocalDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
-        return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
+    public List<IdPersonaLocalDto> ids(final AlgoritmoDto algoritmo, final TareaDto tarea) {
+        return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
     }
 
 }
