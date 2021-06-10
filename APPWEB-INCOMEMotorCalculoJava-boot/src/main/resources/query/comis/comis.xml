@@ -154,7 +154,7 @@
           AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
           AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
           AND PH.TIPOCALCULO IS NOT NULL
-          AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
+          AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
           AND PCT2.PERSONA IS NULL
           GROUP BY
             PCT.Persona,
@@ -210,7 +210,7 @@
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL
-      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
@@ -250,7 +250,7 @@
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL
-      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
       AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1      
     UNION
@@ -315,7 +315,7 @@
                       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
                       AND pct.Persona IS NULL
                       AND PH.TIPOCALCULO IS NOT NULL
-                      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
+                      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                       AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1   
                 ) Groups      
         ) Islands
@@ -393,7 +393,8 @@
                     AND PCT.FECHAHASTA >= :fechaDesde
                     AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
                     AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
-                    AND PCT.TIPOCALCULO <> 0                       
+                    AND PCT.TIPOCALCULO <> 0  
+                    AND PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0                      
                   GROUP BY
                     PCT.PERSONA,
                     PCT.FECHADESDE,
@@ -491,6 +492,7 @@
             AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1 
             AND PCT.TIPOCALCULO <> 0
             AND PR.TIPOCALCULO = 0        
+            AND PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0
           GROUP BY
             PCT.PERSONA,
             PCT.FECHADESDE,
@@ -627,8 +629,10 @@ UNION
           AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
           AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
           AND PR.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0 
-          AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
+          AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
           AND PCT2.PERSONA IS NULL
+          AND PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0
+          AND PH.TABLAPORCENTAJE IS NOT NULL                    
           GROUP BY
             PCT.Persona,
             PCT.FechaDesde,
@@ -687,8 +691,9 @@ UNION
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
-      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1      
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+      AND PH.TABLAPORCENTAJE IS NOT NULL            
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
     SELECT
@@ -731,9 +736,10 @@ UNION
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
-      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1      
+      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+      AND PH.TABLAPORCENTAJE IS NOT NULL      
     UNION
     -- Casos que no tienen desplazamientos en el período
  SELECT
@@ -787,20 +793,22 @@ UNION
                 ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
               LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
                 ON TPP.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
-              LEFT JOIN PersonasCambiosTemporales pct
-                ON pct.Persona = ph.Persona
-                AND pct.FechaDesde <= :fechaHasta
-                AND (pct.FechaHasta IS NULL OR pct.FechaHasta >= :fechaDesde)
+              LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT
+                ON PCT.PERSONA = PH.PERSONA
+                AND PCT.FECHADESDE <= :fechaHasta
+                AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
               WHERE
                 PR.FechaDesde <= :fechaHasta
                 AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
                 AND PH.FechaDesde <= :fechaHasta
                 AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
                 AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-                AND pct.Persona IS NULL
+                AND PCT.PERSONA IS NULL
                 AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
-                AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
+                AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                 AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1 
+                AND PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0       
+                AND PH.TABLAPORCENTAJE IS NOT NULL                         
           ) Groups      
   ) Islands
   GROUP BY
@@ -869,7 +877,7 @@ UNION
                         AND PH.FECHADESDE <= :fechaHasta
                         AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
                         AND ((PH.FECHADESDE <= I.FECHAINICIO AND PH.FECHAHASTA >= I.FECHAFIN)  OR (PH.FECHADESDE <= I.FECHAINICIO AND PH.FECHAHASTA IS NULL))                                                
-                        AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
+                        AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                 ) Groups
         ) Islands
         GROUP BY
@@ -895,7 +903,7 @@ UNION
         AND P.FECHAINICIOCALCULO > :fechaHasta
         AND PH.FECHADESDE <= :fechaHasta
         AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-        AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99
+        AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       ]]>
   </entry>
 

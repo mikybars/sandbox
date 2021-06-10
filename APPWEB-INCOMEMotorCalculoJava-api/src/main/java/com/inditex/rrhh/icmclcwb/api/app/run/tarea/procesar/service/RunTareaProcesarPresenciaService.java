@@ -54,4 +54,6 @@ public interface RunTareaProcesarPresenciaService {
 
     void indicadorDesplazamientoBaseDirectoVentaOtraTienda(@Valid RunTareaDto runTarea);
 
+    void indicadorDesplazamientoDirectoVentaCambioFuncion(@Valid RunTareaDto runTarea);
+
 }

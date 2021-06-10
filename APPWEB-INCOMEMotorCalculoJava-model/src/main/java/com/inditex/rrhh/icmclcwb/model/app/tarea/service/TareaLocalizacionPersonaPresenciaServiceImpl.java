@@ -133,4 +133,10 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
             .indicadorDesplazamientoBaseDirectoVentaOtraTienda(runTareaDto);
     }
 
+    @Override
+    public void indicadorDesplazamientoDirectoVentaCambioFuncion(@Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom
+            .indicadorDesplazamientoDirectoVentaCambioFuncion(runTareaDto);
+    }
+
 }
