@@ -2,62 +2,62 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.inditex.rrhh.icmclcwb</groupId>
-        <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-        <version>2.8.7</version>
-    </parent>
-    <artifactId>APPWEB-INCOMEMotorCalculoJava-ws</artifactId>
-    <name>${project.groupId}:${project.artifactId}</name>
-    <description>Módulo para definición de los servicios REST</description>
-    <dependencies>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.inditex.rrhh.icmclcwb</groupId>
+    <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
+    <version>2.8.8</version>
+  </parent>
+  <artifactId>APPWEB-INCOMEMotorCalculoJava-ws</artifactId>
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>Módulo para definición de los servicios REST</description>
+  <dependencies>
 
-        <!-- PROJECT DEPENDENCIES -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
-        </dependency>
+    <!-- PROJECT DEPENDENCIES -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
+    </dependency>
 
-        <!-- FRAMEWORK DEPENDENCIES -->
-        <dependency>
-            <groupId>com.inditex.aqsw.framework.common</groupId>
-            <artifactId>common-framework-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.inditex.aqsw.framework.service</groupId>
-            <artifactId>service-framework-starter-rest</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.inditex.aqsw.framework.service</groupId>
-            <artifactId>service-framework-starter-aaa-oidc-ldap-spnego</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.inditex.aqsw.framework.service</groupId>
-            <artifactId>service-framework-starter-aaa-userdetails-sso</artifactId>
-        </dependency>
+    <!-- FRAMEWORK DEPENDENCIES -->
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.common</groupId>
+      <artifactId>common-framework-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.service</groupId>
+      <artifactId>service-framework-starter-rest</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.service</groupId>
+      <artifactId>service-framework-starter-aaa-oidc-ldap-spnego</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.service</groupId>
+      <artifactId>service-framework-starter-aaa-userdetails-sso</artifactId>
+    </dependency>
 
 
-        <!-- OTHER DEPENDENCIES -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-parameter-names</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jdk8</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-        </dependency>
+    <!-- OTHER DEPENDENCIES -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-parameter-names</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jdk8</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+    </dependency>
 
-        <!-- TEST -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+    <!-- TEST -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
 
-    </dependencies>
+  </dependencies>
 </project>
