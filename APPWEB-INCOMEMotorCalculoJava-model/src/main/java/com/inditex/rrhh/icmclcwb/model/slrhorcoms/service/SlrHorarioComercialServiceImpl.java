@@ -27,7 +27,6 @@ import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.Hora
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.service.SlrHorarioComercialService;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
-import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
@@ -76,11 +75,13 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
             .append(properties.getEndpoint())
             .append(query);
 
-        final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.slrhorcomsClient
-            .getForEntity(url.toString(),
-                    HorarioComercialFestivoDocDto[].class),
-                this.slrhorcomsClient,
-                properties.getEndpoint(), request);
+        // final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.slrhorcomsClient
+        // .getForEntity(url.toString(),
+        // HorarioComercialFestivoDocDto[].class),
+        // this.slrhorcomsClient,
+        // properties.getEndpoint(), request);
+        // TODO [javierev] reactivar el servicio de festivos
+        final HorarioComercialFestivoDocDto[] response = new HorarioComercialFestivoDocDto[0];
 
         request.setHasNext(response.length == request.getRows());
         request.setStart(request.getStart() + request.getRows());
