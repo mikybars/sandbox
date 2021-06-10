@@ -42,6 +42,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpod
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
@@ -713,5 +714,22 @@ public abstract class TareaMapper {
     @Mapping(target = "item", ignore = true)
     public abstract DesplazamientoRealFilterDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToDesplazamientoRealFilterDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+
+
+    @Mapping(target = "idTienda", ignore = true)
+    @Mapping(target = "idCadena", ignore = true)
+    @Mapping(target = "idPais", source = "srcTareaAmbito.cclIdOrigen")
+    @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo")
+    @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo")
+    @Mapping(target = "rows", ignore = true)
+    @Mapping(target = "start", constant = "0")
+    @Mapping(target = "hasNext", ignore = true)
+    public abstract HorarioComercialFestivosRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoDtoToHorarioComercialFestivosRequestDto(
+            TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
+
+    public String horarioComercialFestivosRequestDtoToQuery(
+            final HorarioComercialFestivosRequestDto request) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
 
 }

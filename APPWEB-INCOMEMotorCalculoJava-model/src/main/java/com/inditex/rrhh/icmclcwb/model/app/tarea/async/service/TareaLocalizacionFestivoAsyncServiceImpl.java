@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionFe
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionFestivoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 
 @Service
 public class TareaLocalizacionFestivoAsyncServiceImpl implements TareaLocalizacionFestivoAsyncService {
@@ -21,8 +21,10 @@ public class TareaLocalizacionFestivoAsyncServiceImpl implements TareaLocalizaci
     private TareaLocalizacionFestivoService tareaLocalizacionFestivoService;
 
     @Override
-    public CompletableFuture<Void> save(@NotNull List<GenericTiendaResultItemDto> src, @NotNull TareaDto tareaDto) {
-        tareaLocalizacionFestivoService.save(src, tareaDto);
+    public CompletableFuture<Void> save(
+            @NotNull final List<HorarioComercialFestivoDocDto> src,
+            @NotNull final TareaDto tarea) {
+        this.tareaLocalizacionFestivoService.save(src, tarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

@@ -224,6 +224,20 @@ app:
         sincronizacion:
           activo: true
           max-empleados: 30
+    slrhorcoms:
+      config:
+        timeout: 86400000
+        refresh-timeout: 82800000
+      service:
+        slrhorcomsService:
+          authenticate:
+            endpoint: /authenticate
+          refresh:
+            endpoint: /authenticate/refresh
+          festivos:
+            endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
+            rows: 100
+            maxFilterSize: 50
     ptr:
       config:
         max-attempts: 2

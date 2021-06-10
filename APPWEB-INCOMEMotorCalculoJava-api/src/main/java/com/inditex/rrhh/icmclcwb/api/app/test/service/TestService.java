@@ -34,4 +34,6 @@ public interface TestService {
 
     void ptrTest();
 
+    void slrhorcomsTest();
+
 }

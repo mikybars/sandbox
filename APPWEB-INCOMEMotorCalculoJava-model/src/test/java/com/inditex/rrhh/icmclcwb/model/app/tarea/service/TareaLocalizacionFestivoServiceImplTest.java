@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionFestivoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionFestivo;
@@ -39,9 +39,9 @@ public class TareaLocalizacionFestivoServiceImplTest {
     public void saveTest() {
         final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        final List<GenericTiendaResultItemDto> genericTiendaResultItemDto = new ArrayList<>();
+        final List<HorarioComercialFestivoDocDto> items = new ArrayList<>();
 
-        this.tareaLocalizacionFestivoServiceImpl.save(genericTiendaResultItemDto, tarea);
+        this.tareaLocalizacionFestivoServiceImpl.save(items, tarea);
         verify(this.tareaLocalizacionFestivoRepositoryCustom, times(1))
             .save(ArgumentMatchers.<List<TareaLocalizacionFestivo>>any());
     }

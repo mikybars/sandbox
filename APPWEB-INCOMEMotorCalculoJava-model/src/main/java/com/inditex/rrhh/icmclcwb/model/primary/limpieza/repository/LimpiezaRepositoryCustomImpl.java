@@ -259,7 +259,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
                     iter.toArray(new MapSqlParameterSource[0]));
         }
 
-        for (final List<MapSqlParameterSource> iter : StreamUtils.partition(stdIdWorkLocatBatchArgs, this.batchSize)) {
+        for (final List<MapSqlParameterSource> iter : StreamUtils.partition(cclIdCodOrigenBatchArgs, this.batchSize)) {
             this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaLocalizacionFestivo,
                     iter.toArray(new MapSqlParameterSource[0]));
         }
