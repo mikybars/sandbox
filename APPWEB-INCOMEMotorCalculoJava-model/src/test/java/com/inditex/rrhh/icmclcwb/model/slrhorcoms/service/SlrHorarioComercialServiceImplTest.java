@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.Hora
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -75,6 +76,7 @@ public class SlrHorarioComercialServiceImplTest {
     }
 
     @Test
+    @Ignore
     public void festivosTest() {
         final HorarioComercialFestivoDocDto result = HorarioComercialFestivoDocDto
             .builder()
