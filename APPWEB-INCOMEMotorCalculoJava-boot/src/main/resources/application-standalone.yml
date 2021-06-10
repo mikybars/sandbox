@@ -49,8 +49,20 @@ amiga:
         http:
           connect-timeout: 300000
           read-timeout: 300000
-        auth:
-          method: BASIC
+        #[HORARIOCOMERCIAL][DES][INICIO]
+#        slrhorcoms:
+#          base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp
+#          auth-method: BASIC
+#          username: srvcicmclcwbdes
+#          password: q2ZB)XKFWdeA
+        #[HORARIOCOMERCIAL][DES][FIN]
+        #[HORARIOCOMERCIAL][PRE][INICIO]
+        slrhorcoms:
+          base-url: https://sscc-pre.central.inditex.grp
+          auth-method: BASIC
+          username: srvcicmclcwbpreAX
+          password: xynEJHKK4bu)
+        #[HORARIOCOMERCIAL][PRE][FIN]
         #[PTR][DES][INICIO]
         ptr-venta:
           base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
@@ -661,6 +673,20 @@ app:
         sincronizacion:
           activo: true
           max-empleados: 10
+    slrhorcoms:
+      config:
+        timeout: 86400000
+        refresh-timeout: 82800000
+      service:
+        slrhorcomsService:
+          authenticate:
+            endpoint: /authenticate
+          refresh:
+            endpoint: /authenticate/refresh
+          festivos:
+            endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
+            rows: 100
+            maxFilterSize: 50
     ptr:
       config:
         max-attempts: 2

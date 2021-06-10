@@ -73,13 +73,20 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "icmIdEstrComision", source = "listaCondicionesBaseResultItem.idEstructuraBase")
     @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesBaseResultItem.idTipoCalculo", defaultValue = "000")
     @Mapping(target = "icmIdTpComision", source = "listaCondicionesBaseResultItem.idTipoComision")
-    @Mapping(target = "diaL", source = "listaCondicionesBaseResultItem.diaL", defaultValue = "true")
-    @Mapping(target = "diaM", source = "listaCondicionesBaseResultItem.diaM", defaultValue = "true")
-    @Mapping(target = "diaX", source = "listaCondicionesBaseResultItem.diaX", defaultValue = "true")
-    @Mapping(target = "diaJ", source = "listaCondicionesBaseResultItem.diaJ", defaultValue = "true")
-    @Mapping(target = "diaV", source = "listaCondicionesBaseResultItem.diaV", defaultValue = "true")
-    @Mapping(target = "diaS", source = "listaCondicionesBaseResultItem.diaS", defaultValue = "true")
-    @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "diaL",
+            expression = "java(listaCondicionesBaseResultItem.getDiaL() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaL()) : null)")
+    @Mapping(target = "diaM",
+            expression = "java(listaCondicionesBaseResultItem.getDiaM() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaM()) : null)")
+    @Mapping(target = "diaX",
+            expression = "java(listaCondicionesBaseResultItem.getDiaX() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaX()) : null)")
+    @Mapping(target = "diaJ",
+            expression = "java(listaCondicionesBaseResultItem.getDiaJ() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaJ()) : null)")
+    @Mapping(target = "diaV",
+            expression = "java(listaCondicionesBaseResultItem.getDiaV() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaV()) : null)")
+    @Mapping(target = "diaS",
+            expression = "java(listaCondicionesBaseResultItem.getDiaS() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaS()) : null)")
+    @Mapping(target = "diaD",
+            expression = "java(listaCondicionesBaseResultItem.getDiaD() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaD()) : null)")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesBaseResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getFestivo()) : null)")
     // Valores por seccion
@@ -118,13 +125,20 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "icmIdEstrComision", source = "listaCondicionesBaseResultItem.idEstructuraBase")
     @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesBaseResultItem.idTipoCalculo", defaultValue = "000")
     @Mapping(target = "icmIdTpComision", source = "listaCondicionesBaseResultItem.idTipoComision")
-    @Mapping(target = "diaL", source = "listaCondicionesBaseResultItem.diaL", defaultValue = "true")
-    @Mapping(target = "diaM", source = "listaCondicionesBaseResultItem.diaM", defaultValue = "true")
-    @Mapping(target = "diaX", source = "listaCondicionesBaseResultItem.diaX", defaultValue = "true")
-    @Mapping(target = "diaJ", source = "listaCondicionesBaseResultItem.diaJ", defaultValue = "true")
-    @Mapping(target = "diaV", source = "listaCondicionesBaseResultItem.diaV", defaultValue = "true")
-    @Mapping(target = "diaS", source = "listaCondicionesBaseResultItem.diaS", defaultValue = "true")
-    @Mapping(target = "diaD", source = "listaCondicionesBaseResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "diaL",
+            expression = "java(listaCondicionesBaseResultItem.getDiaL() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaL()) : null)")
+    @Mapping(target = "diaM",
+            expression = "java(listaCondicionesBaseResultItem.getDiaM() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaM()) : null)")
+    @Mapping(target = "diaX",
+            expression = "java(listaCondicionesBaseResultItem.getDiaX() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaX()) : null)")
+    @Mapping(target = "diaJ",
+            expression = "java(listaCondicionesBaseResultItem.getDiaJ() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaJ()) : null)")
+    @Mapping(target = "diaV",
+            expression = "java(listaCondicionesBaseResultItem.getDiaV() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaV()) : null)")
+    @Mapping(target = "diaS",
+            expression = "java(listaCondicionesBaseResultItem.getDiaS() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaS()) : null)")
+    @Mapping(target = "diaD",
+            expression = "java(listaCondicionesBaseResultItem.getDiaD() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getDiaD()) : null)")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesBaseResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesBaseResultItem.getFestivo()) : null)")
     // Valores por seccion
@@ -164,13 +178,20 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo",
             defaultValue = "000")
     @Mapping(target = "icmIdTpComision", source = "listaCondicionesDestinoResultItem.idTipoComision")
-    @Mapping(target = "diaL", source = "listaCondicionesDestinoResultItem.diaL", defaultValue = "true")
-    @Mapping(target = "diaM", source = "listaCondicionesDestinoResultItem.diaM", defaultValue = "true")
-    @Mapping(target = "diaX", source = "listaCondicionesDestinoResultItem.diaX", defaultValue = "true")
-    @Mapping(target = "diaJ", source = "listaCondicionesDestinoResultItem.diaJ", defaultValue = "true")
-    @Mapping(target = "diaV", source = "listaCondicionesDestinoResultItem.diaV", defaultValue = "true")
-    @Mapping(target = "diaS", source = "listaCondicionesDestinoResultItem.diaS", defaultValue = "true")
-    @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "diaL",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaL() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaL()) : null)")
+    @Mapping(target = "diaM",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaM() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaM()) : null)")
+    @Mapping(target = "diaX",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaX() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaX()) : null)")
+    @Mapping(target = "diaJ",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaJ() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaJ()) : null)")
+    @Mapping(target = "diaV",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaV() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaV()) : null)")
+    @Mapping(target = "diaS",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaS() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaS()) : null)")
+    @Mapping(target = "diaD",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaD() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaD()) : null)")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesDestinoResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getFestivo()) : null)")
     // Valores por seccion
@@ -246,13 +267,20 @@ public abstract class TareaPersonaEstructuraMapper {
     @Mapping(target = "icmIdTpCalculo", source = "listaCondicionesDestinoResultItem.idTipoCalculo",
             defaultValue = "000")
     @Mapping(target = "icmIdTpComision", source = "listaCondicionesDestinoResultItem.idTipoComision")
-    @Mapping(target = "diaL", source = "listaCondicionesDestinoResultItem.diaL", defaultValue = "true")
-    @Mapping(target = "diaM", source = "listaCondicionesDestinoResultItem.diaM", defaultValue = "true")
-    @Mapping(target = "diaX", source = "listaCondicionesDestinoResultItem.diaX", defaultValue = "true")
-    @Mapping(target = "diaJ", source = "listaCondicionesDestinoResultItem.diaJ", defaultValue = "true")
-    @Mapping(target = "diaV", source = "listaCondicionesDestinoResultItem.diaV", defaultValue = "true")
-    @Mapping(target = "diaS", source = "listaCondicionesDestinoResultItem.diaS", defaultValue = "true")
-    @Mapping(target = "diaD", source = "listaCondicionesDestinoResultItem.diaD", defaultValue = "true")
+    @Mapping(target = "diaL",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaL() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaL()) : null)")
+    @Mapping(target = "diaM",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaM() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaM()) : null)")
+    @Mapping(target = "diaX",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaX() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaX()) : null)")
+    @Mapping(target = "diaJ",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaJ() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaJ()) : null)")
+    @Mapping(target = "diaV",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaV() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaV()) : null)")
+    @Mapping(target = "diaS",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaS() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaS()) : null)")
+    @Mapping(target = "diaD",
+            expression = "java(listaCondicionesDestinoResultItem.getDiaD() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getDiaD()) : null)")
     @Mapping(target = "festivo",
             expression = "java(listaCondicionesDestinoResultItem.getFestivo() != null ? Meta4Constants.TRUE.equals(listaCondicionesDestinoResultItem.getFestivo()) : null)")
     // Valores por seccion
