@@ -15,7 +15,7 @@ amiga:
       client:
         slrhorcoms:
           base-url: https://sscc-pre.central.inditex.grp
-          username: srvcicmclcwbdes
+          username: srvcicmclcwbpreAX
         ptr-venta:
           base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
           username: srvcicmclcwbdes

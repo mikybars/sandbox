@@ -26,6 +26,8 @@ amiga:
           read-timeout: 300000
         auth:
           method: BASIC
+        slrhorcoms:
+          auth-method: BASIC
         ptr-venta:
           auth-method: BASIC
         ptr-presencia:
