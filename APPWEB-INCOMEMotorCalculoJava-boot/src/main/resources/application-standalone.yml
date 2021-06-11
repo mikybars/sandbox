@@ -677,6 +677,7 @@ app:
       config:
         timeout: 86400000
         refresh-timeout: 82800000
+        max-attemps: 2
       service:
         slrhorcomsService:
           authenticate:
