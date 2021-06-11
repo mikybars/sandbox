@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +31,7 @@ import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.Hora
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.service.SlrHorarioComercialService;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
@@ -67,7 +69,7 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
     @Cacheable(value = "itx.icmlcwb.horario_comercial_festivos", key = "{#request}")
     public List<HorarioComercialFestivoDocDto> horarioComercialFestivos(
             final HorarioComercialFestivosRequestDto request) {
-        // this.checkSession();
+        this.checkSession();
         final SlrhorcomsPropertiesDto properties = this.slrhorcomsProperties
             .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO);
 
@@ -80,13 +82,11 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
             .append(properties.getEndpoint())
             .append(query);
 
-        // final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.slrhorcomsClient
-        // .exchange(url.toString(), HttpMethod.GET, this.createTokenHeaders(),
-        // HorarioComercialFestivoDocDto[].class),
-        // this.slrhorcomsClient,
-        // properties.getEndpoint(), request);
-
-        final HorarioComercialFestivoDocDto[] response = new HorarioComercialFestivoDocDto[0];
+        final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.slrhorcomsClient
+            .exchange(url.toString(), HttpMethod.GET, this.createTokenHeaders(),
+                    HorarioComercialFestivoDocDto[].class),
+                this.slrhorcomsClient,
+                properties.getEndpoint(), request);
 
         request.setHasNext(response.length == request.getRows());
         request.setStart(request.getStart() + request.getRows());
