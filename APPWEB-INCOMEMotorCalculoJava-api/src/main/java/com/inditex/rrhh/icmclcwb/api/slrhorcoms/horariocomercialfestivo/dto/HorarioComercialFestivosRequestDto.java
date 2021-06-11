@@ -10,8 +10,10 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPageRequestDto;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class HorarioComercialFestivosRequestDto extends SlrhorcomsPageRequestDto implements Serializable {
 
     private static final long serialVersionUID = -5173071057906661055L;
