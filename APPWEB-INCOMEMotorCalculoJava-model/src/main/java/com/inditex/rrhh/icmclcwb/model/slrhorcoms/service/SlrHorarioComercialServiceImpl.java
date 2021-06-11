@@ -7,6 +7,7 @@ package com.inditex.rrhh.icmclcwb.model.slrhorcoms.service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +31,7 @@ import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.Hora
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.service.SlrHorarioComercialService;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
@@ -64,7 +69,7 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
     @Cacheable(value = "itx.icmlcwb.horario_comercial_festivos", key = "{#request}")
     public List<HorarioComercialFestivoDocDto> horarioComercialFestivos(
             final HorarioComercialFestivosRequestDto request) {
-        // this.checkSession();
+        this.checkSession();
         final SlrhorcomsPropertiesDto properties = this.slrhorcomsProperties
             .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO);
 
@@ -75,18 +80,11 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
             .append(properties.getEndpoint())
             .append(query);
 
-        // final HttpHeaders headers = new HttpHeaders();
-        // headers.set("token", this.session.getAccessToken());
-        // final Map<String, Object> map = new HashMap<>();
-        // final HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
-
-        // final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.slrhorcomsClient
-        // .exchange(url.toString(), HttpMethod.GET, entity,
-        // HorarioComercialFestivoDocDto[].class),
-        // this.slrhorcomsClient,
-        // properties.getEndpoint(), request);
-        // TODO [javierev] reactivar el servicio de festivos
-        final HorarioComercialFestivoDocDto[] response = new HorarioComercialFestivoDocDto[0];
+        final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.slrhorcomsClient
+            .exchange(url.toString(), HttpMethod.GET, this.createTokenHeaders(),
+                    HorarioComercialFestivoDocDto[].class),
+                this.slrhorcomsClient,
+                properties.getEndpoint(), request);
 
         request.setHasNext(response.length == request.getRows());
         request.setStart(request.getStart() + request.getRows());
@@ -94,6 +92,9 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
         return Arrays.asList(response);
     }
 
+    /**
+     * Comprueba si la sesion existe y esta activa. En caso de que no sea asi, crea una nueva sesion.
+     */
     private void checkSession() {
         if (this.session != null) {
             final LocalDateTime now = TimeUtils.nowLocalDateTime();
@@ -120,7 +121,8 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
                 .get(HorarioComercialPropertiesConstants.AUTHENTICATE)
                 .getEndpoint(), null, AuthenticateResponseDto.class);
         this.log.info("responseAuthenticate: {}", responseAuthenticate);
-        if (responseAuthenticate.getStatusCode().value() != HttpStatus.SC_OK) {
+        if (responseAuthenticate.getStatusCode().value() != HttpStatus.SC_OK
+                || responseAuthenticate.getBody() == null) {
             throw new SlrhorcomsIcmclcwbException("Error en login slrhorcomsI");
         }
         return AuthenticateDto.builder()
@@ -145,10 +147,23 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
         }
         return AuthenticateDto.builder()
             .message(responseAuthenticate.getBody().getMessage())
-            .accessToken(responseAuthenticate.getHeaders().getFirst("access-token"))
-            .refreshToken(responseAuthenticate.getHeaders().getFirst("refresh-token"))
+            .accessToken(
+                    responseAuthenticate.getHeaders().getFirst(HorarioComercialPropertiesConstants.ACCESS_TOKEN_COOKIE))
+            .refreshToken(responseAuthenticate.getHeaders()
+                .getFirst(HorarioComercialPropertiesConstants.REFRESH_TOKEN_COOKIE))
             .creationDate(TimeUtils.nowLocalDateTime())
             .build();
+    }
+
+    /**
+     * Crea el header del token.
+     * @return HttpEntity con el header dentro.
+     */
+    private HttpEntity<Map<String, Object>> createTokenHeaders() {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.set(HorarioComercialPropertiesConstants.TOKEN_HEADER, this.session.getAccessToken());
+        final Map<String, Object> map = new HashMap<>();
+        return new HttpEntity<>(map, headers);
     }
 
 }
