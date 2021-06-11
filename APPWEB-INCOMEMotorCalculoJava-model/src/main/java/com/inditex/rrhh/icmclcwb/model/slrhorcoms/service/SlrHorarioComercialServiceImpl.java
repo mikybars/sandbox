@@ -19,6 +19,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -66,6 +67,7 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
 
 
     @Override
+    @Retryable(maxAttemptsExpression = "${app.envars.slrhorcoms.config.max-attempts}")
     @Cacheable(value = "itx.icmlcwb.horario_comercial_festivos", key = "{#request}")
     public List<HorarioComercialFestivoDocDto> horarioComercialFestivos(
             final HorarioComercialFestivosRequestDto request) {
@@ -82,16 +84,21 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
             .append(properties.getEndpoint())
             .append(query);
 
-        final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.slrhorcomsClient
-            .exchange(url.toString(), HttpMethod.GET, this.createTokenHeaders(),
-                    HorarioComercialFestivoDocDto[].class),
-                this.slrhorcomsClient,
-                properties.getEndpoint(), request);
+        try {
+            final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.slrhorcomsClient
+                .exchange(url.toString(), HttpMethod.GET, this.createTokenHeaders(),
+                        HorarioComercialFestivoDocDto[].class),
+                    this.slrhorcomsClient,
+                    properties.getEndpoint(), request);
 
-        request.setHasNext(response.length == request.getRows());
-        request.setStart(request.getStart() + request.getRows());
+            request.setHasNext(response.length == request.getRows());
+            request.setStart(request.getStart() + request.getRows());
 
-        return Arrays.asList(response);
+            return Arrays.asList(response);
+        } catch (final Exception e) {
+            this.session = null;
+            throw new SlrhorcomsIcmclcwbException("Error en login slrhorcomsI", e);
+        }
     }
 
     /**
@@ -118,9 +125,7 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
      * @return informacion de la sesion
      */
     private AuthenticateDto authenticate() {
-        this.log.info("Endpoint autenticacion {}", this.slrhorcomsProperties
-            .get(HorarioComercialPropertiesConstants.AUTHENTICATE)
-            .getEndpoint());
+        this.log.info("SlrHorarioCmercial authenticate");
         final ResponseEntity<AuthenticateResponseDto> responseAuthenticate = this.slrhorcomsClient
             .postForEntity(this.slrhorcomsProperties
                 .get(HorarioComercialPropertiesConstants.AUTHENTICATE)
@@ -143,6 +148,7 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
      * @return informacion de la sesion
      */
     private AuthenticateDto refresh() {
+        this.log.info("SlrHorarioCmercial refresh");
         final ResponseEntity<AuthenticateResponseDto> responseAuthenticate = this.slrhorcomsClient
             .postForEntity(this.slrhorcomsProperties
                 .get(HorarioComercialPropertiesConstants.AUTHENTICATE_REFRESH)
