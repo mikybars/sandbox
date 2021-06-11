@@ -7,7 +7,6 @@ package com.inditex.rrhh.icmclcwb.model.slrhorcoms.service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -78,10 +75,10 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
             .append(properties.getEndpoint())
             .append(query);
 
-        final HttpHeaders headers = new HttpHeaders();
-        headers.set("token", this.session.getAccessToken());
-        final Map<String, Object> map = new HashMap<>();
-        final HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
+        // final HttpHeaders headers = new HttpHeaders();
+        // headers.set("token", this.session.getAccessToken());
+        // final Map<String, Object> map = new HashMap<>();
+        // final HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
 
         // final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.slrhorcomsClient
         // .exchange(url.toString(), HttpMethod.GET, entity,
