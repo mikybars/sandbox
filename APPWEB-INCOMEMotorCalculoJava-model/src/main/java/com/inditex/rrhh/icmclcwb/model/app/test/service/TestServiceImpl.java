@@ -437,6 +437,10 @@ public class TestServiceImpl implements TestService {
 
     private AuthenticateDto slrhorcomsAuthenticateTest() {
 
+        // TODO [javierev] borrar esto URGENTEMENTE
+        this.log.info("Client username {}", this.slrhorcomsClient.getUsername());
+        this.log.info("Client password {}", this.slrhorcomsClient.getPassword());
+
         final ResponseEntity<AuthenticateResponseDto> responseAuthenticate = this.slrhorcomsClient
             .postForEntity("/authenticate", null, AuthenticateResponseDto.class);
         this.log.info("responseAuthenticate: {}", responseAuthenticate);
