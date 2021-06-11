@@ -329,7 +329,8 @@
             BANDA,
             IMPORTE,
             CCL_ID_SECCION,
-            TABLAPORCENTAJE
+            TABLAPORCENTAJE,
+            IslandId
     ]]>
   </entry>
 
@@ -820,7 +821,8 @@ UNION
       PUESTO, 
       SECCIONES,       
       IMPORTE,
-      CCL_ID_SECCION
+      CCL_ID_SECCION,
+  IslandId
     ]]>
   </entry>
 
