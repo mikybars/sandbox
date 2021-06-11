@@ -76,6 +76,8 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
         final String query = this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request);
         this.log.info("horario comercial festivos query: {}", query);
 
+        this.log.info("Endpoint festivos {}", properties.getEndpoint());
+
         final StringBuilder url = new StringBuilder()
             .append(properties.getEndpoint())
             .append(query);
@@ -116,6 +118,9 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
      * @return informacion de la sesion
      */
     private AuthenticateDto authenticate() {
+        this.log.info("Endpoint autenticacion {}", this.slrhorcomsProperties
+            .get(HorarioComercialPropertiesConstants.AUTHENTICATE)
+            .getEndpoint());
         final ResponseEntity<AuthenticateResponseDto> responseAuthenticate = this.slrhorcomsClient
             .postForEntity(this.slrhorcomsProperties
                 .get(HorarioComercialPropertiesConstants.AUTHENTICATE)
