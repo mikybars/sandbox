@@ -34,10 +34,14 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import org.slf4j.Logger;
 
 @Service
 @Validated
 public class RunTareaAmbitoRecolectarSlrhorcomsServiceImpl implements RunTareaAmbitoRecolectarSlrhorcomsService {
+
+    @Autowired
+    private Logger log;
 
     @Autowired
     private TareaMapper tareaMapper;
@@ -90,6 +94,7 @@ public class RunTareaAmbitoRecolectarSlrhorcomsServiceImpl implements RunTareaAm
                 request.setIdTienda(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
                 boolean hasNext;
                 do {
+                    this.log.info("Peticion de festivos: {}", request);
                     final CompletableFuture<List<HorarioComercialFestivoDocDto>> cfHorarioComercialFestivos = this.slrHorarioComercialAsyncService
                         .horarioComercialFestivos(request);
                     AsyncUtils.exceptionally(cfHorarioComercialFestivos, cf);
