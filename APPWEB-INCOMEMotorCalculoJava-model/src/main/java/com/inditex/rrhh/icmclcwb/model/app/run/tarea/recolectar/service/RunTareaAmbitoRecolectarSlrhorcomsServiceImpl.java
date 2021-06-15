@@ -23,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
@@ -62,6 +63,9 @@ public class RunTareaAmbitoRecolectarSlrhorcomsServiceImpl implements RunTareaAm
     private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
 
     @Autowired
+    private TareaPersonaEstructuraService tareaPersonaEstructuraService;
+
+    @Autowired
     @Qualifier("slrhorcomsProperties")
     private Map<String, SlrhorcomsPropertiesDto> slrhorcomsProperties;
 
@@ -74,39 +78,41 @@ public class RunTareaAmbitoRecolectarSlrhorcomsServiceImpl implements RunTareaAm
         try {
             final TrabajoDto trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
-            final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId())
-                .stream()
-                .map(IdEmpresaDto::getStdIdLegEnt)
-                .collect(Collectors.toList());
-            for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
-                    this.tareaLocalizacionHistoricoService
-                        .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(tarea.getId(),
-                                tareaAmbito.getCclIdOrigen(), empresasAmbito),
-                    this.slrhorcomsProperties.get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO)
-                        .getMaxFilterSize())) {
-                final HorarioComercialFestivosRequestDto request = this.tareaMapper
-                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoDtoToHorarioComercialFestivosRequestDto(trabajo,
-                            tarea, tareaAmbito);
-                request.setRows(
+            if (Boolean.TRUE.equals(this.tareaPersonaEstructuraService.calcularFestivos(tarea))) {
+                final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                    .findIdEmpresaByIdTarea(tarea.getId())
+                    .stream()
+                    .map(IdEmpresaDto::getStdIdLegEnt)
+                    .collect(Collectors.toList());
+                for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
+                        this.tareaLocalizacionHistoricoService
+                            .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(tarea.getId(),
+                                    tareaAmbito.getCclIdOrigen(), empresasAmbito),
                         this.slrhorcomsProperties.get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO)
-                            .getRows());
-                request.setIdTienda(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
-                boolean hasNext;
-                do {
-                    this.log.info("Peticion de festivos: {}", request);
-                    final CompletableFuture<List<HorarioComercialFestivoDocDto>> cfHorarioComercialFestivos = this.slrHorarioComercialAsyncService
-                        .horarioComercialFestivos(request);
-                    AsyncUtils.exceptionally(cfHorarioComercialFestivos, cf);
-                    final List<HorarioComercialFestivoDocDto> data = AsyncUtils
-                        .get(cfHorarioComercialFestivos);
-                    if (CollectionUtils.isNotEmpty(data)) {
-                        final CompletableFuture<Void> cfSave = this.tareaLocalizacionFestivoAsyncService
-                            .save(data, tarea);
-                        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-                    }
-                    hasNext = request.isHasNext();
-                } while (hasNext);
+                            .getMaxFilterSize())) {
+                    final HorarioComercialFestivosRequestDto request = this.tareaMapper
+                        .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoDtoToHorarioComercialFestivosRequestDto(trabajo,
+                                tarea, tareaAmbito);
+                    request.setRows(
+                            this.slrhorcomsProperties.get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO)
+                                .getRows());
+                    request.setIdTienda(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
+                    boolean hasNext;
+                    do {
+                        this.log.info("Peticion de festivos: {}", request);
+                        final CompletableFuture<List<HorarioComercialFestivoDocDto>> cfHorarioComercialFestivos = this.slrHorarioComercialAsyncService
+                            .horarioComercialFestivos(request);
+                        AsyncUtils.exceptionally(cfHorarioComercialFestivos, cf);
+                        final List<HorarioComercialFestivoDocDto> data = AsyncUtils
+                            .get(cfHorarioComercialFestivos);
+                        if (CollectionUtils.isNotEmpty(data)) {
+                            final CompletableFuture<Void> cfSave = this.tareaLocalizacionFestivoAsyncService
+                                .save(data, tarea);
+                            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+                        }
+                        hasNext = request.isHasNext();
+                    } while (hasNext);
+                }
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {

@@ -18,4 +18,6 @@ public interface TareaPersonaEstructuraRepositoryCustom {
 
     void crearChallengeOpcionOrigen(final TareaDto tarea);
 
+    Boolean calcularFestivos(final TareaDto tarea);
+
 }

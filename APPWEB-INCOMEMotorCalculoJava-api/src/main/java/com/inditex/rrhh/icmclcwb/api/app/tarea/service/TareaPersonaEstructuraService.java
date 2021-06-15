@@ -23,4 +23,6 @@ public interface TareaPersonaEstructuraService {
 
     List<IdPersonaLocalDto> findPersonasChallenge(@Valid @NotNull final TareaDto tarea);
 
+    Boolean calcularFestivos(@Valid @NotNull final TareaDto tarea);
+
 }
