@@ -28,11 +28,11 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1Repository
         extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
         implements TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom {
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDiariaDevolucionIndividualRepository.calcular.where']}")
     @Getter
     private String sqlCalcular;
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDiariaDevolucionIndividualRepository.calcular.where']}")
     @Getter
     private String sqlCalcularBase;
 
@@ -43,12 +43,13 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1Repository
     private TipoDatoService tipoDatoService;
 
     @Override
-    protected Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea, IdPersonaLocalDto persona) {
+    protected Map<String, Object> getMapValues(
+            final AlgoritmoDto algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
 
-        List<IdTipoDatoDto> tiposDatoPresenciaPersona = tipoDatoService
+        final List<IdTipoDatoDto> tiposDatoPresenciaPersona = this.tipoDatoService
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
 
-        HashMap<String, Object> map = new HashMap<>();
+        final HashMap<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         }
@@ -87,8 +88,8 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1Repository
     }
 
     @Override
-    public List<IdPersonaLocalDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
-        return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
+    public List<IdPersonaLocalDto> ids(final AlgoritmoDto algoritmo, final TareaDto tarea) {
+        return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
     }
 
 }

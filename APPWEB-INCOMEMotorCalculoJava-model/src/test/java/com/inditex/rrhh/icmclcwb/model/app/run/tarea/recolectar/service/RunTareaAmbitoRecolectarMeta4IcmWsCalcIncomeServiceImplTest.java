@@ -54,7 +54,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.Es
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
@@ -312,58 +311,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
                 tareaAmbito);
         verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
             .getEmpleadosPresencia(ArgumentMatchers.any(EmpleadosPresenciaRequestDto.class));
-
-    }
-
-    @Test(expected = Exception.class)
-    public void festivosByRunTareaAndTareaAmbitoException()
-            throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
-        final RunTareaDto runTarea = new RunTareaDto();
-        final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
-        this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.festivosByRunTareaAndTareaAmbito(runTarea,
-                tareaAmbito);
-        verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
-            .getFestivos(ArgumentMatchers.any(FestivosRequestDto.class));
-    }
-
-    @Test
-    public void festivosByRunTareaAndTareaAmbito() {
-        final RunTareaDto runTarea = new RunTareaDto();
-        final TareaDto tarea = mock(TareaDto.class);
-        final TrabajoDto trabajo = mock(TrabajoDto.class);
-
-        runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
-        final PageDto page = new PageDto(1, 100);
-        final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
-        final Meta4PropertiesDto properties = new Meta4PropertiesDto();
-        final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-        filter.setMaxPageSize(1);
-        filter.setMaxPersistenceSize(1);
-        properties.setFilter(filter);
-        properties.setPage(page);
-        final CompletableFuture<List<GenericTiendaResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-            return new ArrayList<>();
-        });
-
-        final List<IdEmpresaDto> empresa = new ArrayList<>();
-        empresa.add(new IdEmpresaDto("95"));
-
-        when(this.tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(any(Long.class))).thenReturn(empresa);
-
-        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
-                any(Integer.class))).thenReturn(new PeriodoDto());
-        when(this.meta4Properties.get(Meta4PropertiesConstants.FESTIVOS)).thenReturn(properties);
-        when(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class),
-                any(TareaDto.class),
-                any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
-
-        when(this.meta4IcmWsCalcIncomeSessionAsyncService.getFestivos(any(FestivosRequestDto.class))).thenReturn(cf);
-
-        this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.festivosByRunTareaAndTareaAmbito(runTarea,
-                tareaAmbito);
-        verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
-            .getFestivos(ArgumentMatchers.any(FestivosRequestDto.class));
 
     }
 

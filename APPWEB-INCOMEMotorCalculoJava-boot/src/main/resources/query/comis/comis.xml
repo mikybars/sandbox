@@ -156,6 +156,7 @@
           AND PH.TIPOCALCULO IS NOT NULL
           AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
           AND PCT2.PERSONA IS NULL
+          AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)                      
           GROUP BY
             PCT.Persona,
             PCT.FechaDesde,
@@ -316,7 +317,8 @@
                       AND pct.Persona IS NULL
                       AND PH.TIPOCALCULO IS NOT NULL
                       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-                      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1   
+                      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+                      AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)                                               
                 ) Groups      
         ) Islands
         GROUP BY
@@ -329,7 +331,8 @@
             BANDA,
             IMPORTE,
             CCL_ID_SECCION,
-            TABLAPORCENTAJE
+            TABLAPORCENTAJE,
+            IslandId
     ]]>
   </entry>
 
@@ -394,7 +397,7 @@
                     AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
                     AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
                     AND PCT.TIPOCALCULO <> 0  
-                    AND PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0                      
+                    AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)               
                   GROUP BY
                     PCT.PERSONA,
                     PCT.FECHADESDE,
@@ -492,7 +495,7 @@
             AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1 
             AND PCT.TIPOCALCULO <> 0
             AND PR.TIPOCALCULO = 0        
-            AND PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0
+            AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
           GROUP BY
             PCT.PERSONA,
             PCT.FECHADESDE,
@@ -631,8 +634,8 @@ UNION
           AND PR.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0 
           AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
           AND PCT2.PERSONA IS NULL
-          AND PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0
-          AND PH.TABLAPORCENTAJE IS NOT NULL                    
+          AND PH.TABLAPORCENTAJE IS NOT NULL
+          AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
           GROUP BY
             PCT.Persona,
             PCT.FechaDesde,
@@ -807,8 +810,8 @@ UNION
                 AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
                 AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                 AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1 
-                AND PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0       
-                AND PH.TABLAPORCENTAJE IS NOT NULL                         
+                AND PH.TABLAPORCENTAJE IS NOT NULL
+                AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)                                                                                    
           ) Groups      
   ) Islands
   GROUP BY
@@ -820,7 +823,8 @@ UNION
       PUESTO, 
       SECCIONES,       
       IMPORTE,
-      CCL_ID_SECCION
+      CCL_ID_SECCION,
+  IslandId
     ]]>
   </entry>
 

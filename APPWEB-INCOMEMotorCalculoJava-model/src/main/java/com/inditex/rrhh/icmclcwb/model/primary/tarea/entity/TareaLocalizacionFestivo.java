@@ -28,8 +28,8 @@ public class TareaLocalizacionFestivo {
     private Long id;
 
     @NotBlank
-    @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
-    private String stdIdWorkLocat;
+    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
+    private String cclIdCodOrigen;
 
     @NotNull
     @Column(name = "FECHA", nullable = false)

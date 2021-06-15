@@ -17,8 +17,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeService {
 
     void empleadosPresenciaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-    void festivosByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
     void coefJornadaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void flagCalculaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);

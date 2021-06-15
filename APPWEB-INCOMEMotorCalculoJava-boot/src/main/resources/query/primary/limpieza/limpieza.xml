@@ -88,7 +88,7 @@
     <![CDATA[DELETE FROM TAREA_LOCALIZACION_COMISION_HISTORICO WHERE ID_TAREA = :idTarea AND STD_ID_WORK_LOCAT = :stdIdWorkLocat]]>
   </entry>
   <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionFestivo">
-    <![CDATA[DELETE FROM TAREA_LOCALIZACION_FESTIVO WHERE ID_TAREA = :idTarea AND STD_ID_WORK_LOCAT = :stdIdWorkLocat]]>
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_FESTIVO WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
   </entry>
   <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionHistorico">
     <![CDATA[DELETE FROM TAREA_LOCALIZACION_HISTORICO WHERE ID_TAREA = :idTarea]]>

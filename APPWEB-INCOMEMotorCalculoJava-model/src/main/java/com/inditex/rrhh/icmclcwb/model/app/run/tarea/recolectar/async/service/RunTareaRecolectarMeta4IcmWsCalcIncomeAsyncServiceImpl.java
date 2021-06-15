@@ -84,12 +84,6 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     }
 
     @Override
-    public CompletableFuture<Void> festivosByRunTarea(final RunTareaDto runTarea) {
-        this.tareaRecolectarMeta4IcmWsCalcIncomeService.festivosByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
     public CompletableFuture<Void> flagCalculaByRunTarea(final RunTareaDto runTarea) {
         this.tareaRecolectarMeta4IcmWsCalcIncomeService.flagCalculaByRunTarea(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);

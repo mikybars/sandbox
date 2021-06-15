@@ -56,15 +56,6 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
-    public void festivosByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
-        runTarea.getTarea()
-            .getAmbito()
-            .stream()
-            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
-                .festivosByRunTareaAndTareaAmbito(runTarea, item));
-    }
-
-    @Override
     public void coefJornadaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
         runTarea.getTarea()
             .getAmbito()

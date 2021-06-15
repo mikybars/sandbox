@@ -26,6 +26,8 @@ amiga:
           read-timeout: 300000
         auth:
           method: BASIC
+        slrhorcoms:
+          auth-method: BASIC
         ptr-venta:
           auth-method: BASIC
         ptr-presencia:
@@ -224,6 +226,21 @@ app:
         sincronizacion:
           activo: true
           max-empleados: 30
+    slrhorcoms:
+      config:
+        timeout: 86400000
+        refresh-timeout: 82800000
+        max-attempts: 2
+      service:
+        slrhorcomsService:
+          authenticate:
+            endpoint: /authenticate
+          refresh:
+            endpoint: /authenticate/refresh
+          festivos:
+            endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
+            rows: 100
+            maxFilterSize: 50
     ptr:
       config:
         max-attempts: 2

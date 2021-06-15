@@ -109,4 +109,10 @@ public class TestController {
         this.testService.ptrTest();
     }
 
+    @GetMapping("/slrhorcoms/")
+    @ApiOperation("Prueba conexion slrhorcoms")
+    public void slrhorcomsTest() {
+        this.testService.slrhorcomsTest();
+    }
+
 }
