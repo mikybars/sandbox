@@ -45,6 +45,8 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
 
     private static final String SQL_DESACTIVAR_CHALLENGE_OPCION_ORIGEN = "SQL DESACTIVAR CHALLENGE OPCION ORIGEN";
 
+    private static final String SQL_CALCULAR_FESTIVOS = "SQL CALCULAR FESTIVOS";
+
     private static final String SQL_SAVE = "SQL_SAVE";
 
     @Mock
@@ -71,6 +73,8 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
                 SQL_FIND_PERSONAS_CHALLENGE, true);
         FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlDesactivarChallengeOpcionOrigen",
                 SQL_DESACTIVAR_CHALLENGE_OPCION_ORIGEN, true);
+        FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlCalcularFestivos", SQL_CALCULAR_FESTIVOS,
+                true);
         FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlSave", SQL_SAVE, true);
         FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "batchSize", 100, true);
     }
@@ -183,6 +187,31 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
                 TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()),
                 map.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
 
+
+    }
+
+    @Test
+    public void calcularFestivosTest() {
+
+        final Long idTarea = 12L;
+        final TareaDto tareaMock = mock(TareaDto.class);
+        when(tareaMock.getId()).thenReturn(idTarea);
+
+        this.tareaPersonaEstructuraRepositoryCustom.calcularFestivos(tareaMock);
+        verify(this.namedParameterJdbcTemplate, times(1)).queryForObject(this.sqlCaptor.capture(),
+                this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<Boolean>>any());
+        assertEquals(SQL_CALCULAR_FESTIVOS, this.sqlCaptor.getValue());
+        final MapSqlParameterSource map = this.paramsCaptor.getValue();
+
+        // Parametros de la peticion: idTarea, festivo
+        assertEquals(2, map.getValues().size());
+        // idTarea
+        assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, map.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        // festivo
+        assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_FESTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, map.getValue(SqlPrimaryConstants.SQL_PARAM_FESTIVO));
 
     }
 

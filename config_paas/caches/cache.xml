@@ -322,3 +322,10 @@
 </memory>
 <expiration max-idle="3600000"/>
 </replicated-cache>
+<replicated-cache name="itx.icmlcwb.calcular_festivos" mode="SYNC"
+                  statistics="true">
+<memory>
+  <object size="1000"/>
+</memory>
+<expiration max-idle="600000"/>
+</replicated-cache>

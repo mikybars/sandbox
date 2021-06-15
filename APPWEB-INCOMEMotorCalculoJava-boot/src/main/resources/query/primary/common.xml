@@ -7036,4 +7036,18 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
     ]]>
   </entry>
 
+  <entry key="TareaPersonaEstructuraRepositoryCustom.calcularFestivos">
+    <![CDATA[
+    SELECT
+      CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END AS CALCULAR_FESTIVOS
+    FROM TAREA T
+    INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE
+      ON TPE.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
+      AND TPE.ID_TAREA = T.ID_TAREA
+    WHERE
+      T.ID_TAREA = :idTarea
+      AND TPE.ES_FESTIVO = :festivo
+    ]]>
+  </entry>
+
 </properties>
