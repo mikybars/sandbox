@@ -39,6 +39,9 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
     @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen']}")
     private String sqlCrearChallengeOpcionOrigen;
 
+    @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.calcularFestivos']}")
+    private String sqlCalcularFestivos;
+
     @Override
     public List<TareaPersonaEstructura> save(final List<TareaPersonaEstructura> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -112,6 +115,18 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
         map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays
             .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
         this.update(this.sqlCrearChallengeOpcionOrigen, map);
+
+    }
+
+    @Override
+    public Boolean calcularFestivos(final TareaDto tarea) {
+
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_FESTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        return this.queryForObject(this.sqlCalcularFestivos, map,
+                (row, num) -> SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
+                    .equals(row.getInt(SqlPrimaryConstants.CALCULAR_FESTIVOS)));
 
     }
 

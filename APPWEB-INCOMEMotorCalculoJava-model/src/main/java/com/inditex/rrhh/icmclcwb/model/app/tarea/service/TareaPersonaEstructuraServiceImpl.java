@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -20,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraSer
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraDesplazamientoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraDesplazamiento;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraDesplazamientoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraRepositoryCustom;
@@ -45,21 +45,21 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
             @Valid @NotNull @NotEmpty final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
             @Valid @NotNull final TareaDto tarea) {
         // Guardado de estructuras
-        List<TareaPersonaEstructuraDto> result = tareaPersonaEstructuraMapper
+        final List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapper
             .tareaPersonaEstructuraToTareaPersonaEstructuraDto(
-                    tareaPersonaEstructuraRepositoryCustom.save(tareaPersonaEstructuraMapper
+                    this.tareaPersonaEstructuraRepositoryCustom.save(this.tareaPersonaEstructuraMapper
                         .tareaPersonaEstructuraDtoToTareaPersonaEstructura(tareaPersonaEstructura)));
         // Guardado de desplazamientos
-        List<TareaPersonaEstructuraDesplazamiento> desplazamientos = new ArrayList<TareaPersonaEstructuraDesplazamiento>();
+        final List<TareaPersonaEstructuraDesplazamiento> desplazamientos = new ArrayList<>();
         tareaPersonaEstructura.stream().forEach(item -> {
             if (item.getEstructuraDesplazamiento() != null) {
-                desplazamientos.add(tareaPersonaEstructuraDesplazamientoMapper
+                desplazamientos.add(this.tareaPersonaEstructuraDesplazamientoMapper
                     .tareaPersonaEstructuraDesplazamientoDtoToTareaPersonaEstructuraDesplazamiento(
                             item.getEstructuraDesplazamiento()));
             }
         });
         if (CollectionUtils.isNotEmpty(desplazamientos)) {
-            tareaPersonaEstructuraDesplazamientoRepositoryCustom.save(desplazamientos);
+            this.tareaPersonaEstructuraDesplazamientoRepositoryCustom.save(desplazamientos);
         }
         return result;
     }
@@ -69,14 +69,21 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
     public List<TareaPersonaEstructuraDto> mergeEstructurasComResultItemDto(
             @Valid @NotNull @NotEmpty final List<EstructurasComResultItemDto> estructurasComResultItemDto,
             @Valid @NotNull final TareaDto tarea) {
-        return tareaPersonaEstructuraMapper
+        return this.tareaPersonaEstructuraMapper
             .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(estructurasComResultItemDto, tarea);
     }
 
     @Override
     @Cacheable(value = "itx.icmlcwb.id_persona_local_challenge_by_tarea", key = "{#tarea}")
     public List<IdPersonaLocalDto> findPersonasChallenge(@Valid @NotNull final TareaDto tarea) {
-        return tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
+        return this.tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
+    }
+
+    @Override
+    @Cacheable(value = "itx.icmlcwb.calcular_festivos", key = "{#tarea}")
+    public Boolean calcularFestivos(
+            @Valid @NotNull final TareaDto tarea) {
+        return this.tareaPersonaEstructuraRepositoryCustom.calcularFestivos(tarea);
     }
 
 }
