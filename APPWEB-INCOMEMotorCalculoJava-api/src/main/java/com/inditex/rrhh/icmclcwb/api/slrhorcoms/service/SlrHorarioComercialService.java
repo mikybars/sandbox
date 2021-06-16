@@ -4,14 +4,13 @@
 
 package com.inditex.rrhh.icmclcwb.api.slrhorcoms.service;
 
-import java.util.List;
-
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.ResponseDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
 
 public interface SlrHorarioComercialService {
 
-    List<HorarioComercialFestivoDocDto> horarioComercialFestivos(
+    ResponseDto<HorarioComercialFestivoDocDto> horarioComercialFestivos(
             HorarioComercialFestivosRequestDto request);
 
 }

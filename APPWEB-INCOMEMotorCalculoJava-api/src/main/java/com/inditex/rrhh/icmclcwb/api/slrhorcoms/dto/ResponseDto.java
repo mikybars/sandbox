@@ -14,9 +14,9 @@ public class ResponseDto<T extends DocDto> implements Serializable {
 
     private static final long serialVersionUID = 2693622743316270172L;
 
-    private int numFound;
+    private boolean hasNext;
 
-    private int start;
+    private int next;
 
     private List<T> docs;
 
