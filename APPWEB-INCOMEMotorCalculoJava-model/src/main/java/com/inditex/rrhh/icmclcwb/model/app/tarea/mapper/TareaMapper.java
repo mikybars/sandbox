@@ -723,7 +723,6 @@ public abstract class TareaMapper {
     @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo")
     @Mapping(target = "rows", ignore = true)
     @Mapping(target = "start", constant = "0")
-    @Mapping(target = "hasNext", ignore = true)
     public abstract HorarioComercialFestivosRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoDtoToHorarioComercialFestivosRequestDto(
             TrabajoDto srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 

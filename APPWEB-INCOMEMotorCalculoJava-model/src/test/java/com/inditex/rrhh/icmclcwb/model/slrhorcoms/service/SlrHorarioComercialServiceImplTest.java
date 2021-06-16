@@ -107,7 +107,8 @@ public class SlrHorarioComercialServiceImplTest {
         request.setStart(0);
         request.setRows(100);
         final List<HorarioComercialFestivoDocDto> actualValue = this.slrHorarioComercialService
-            .horarioComercialFestivos(request);
+            .horarioComercialFestivos(request)
+            .getDocs();
         assertEquals(1, actualValue.size());
         assertEquals(result, actualValue.get(0));
     }

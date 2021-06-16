@@ -4,12 +4,12 @@
 
 package com.inditex.rrhh.icmclcwb.model.slrhorcoms.service;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.ResponseDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.service.SlrHorarioComercialAsyncService;
@@ -22,7 +22,7 @@ public class SlrHorarioComercialAsyncServiceImpl implements SlrHorarioComercialA
     private SlrHorarioComercialService slrHorarioComercialService;
 
     @Override
-    public CompletableFuture<List<HorarioComercialFestivoDocDto>> horarioComercialFestivos(
+    public CompletableFuture<ResponseDto<HorarioComercialFestivoDocDto>> horarioComercialFestivos(
             final HorarioComercialFestivosRequestDto request) {
         return CompletableFuture.completedFuture(this.slrHorarioComercialService.horarioComercialFestivos(request));
     }

@@ -17,6 +17,4 @@ public abstract class SlrhorcomsPageRequestDto implements Serializable {
 
     private Integer start;
 
-    private boolean hasNext;
-
 }
