@@ -36,18 +36,7 @@ public class ComisServiceImpl implements ComisService {
             @Valid final TareaAmbitoDto tareaAmbito) {
         PresenciaOrigenDto presencia = null;
         try {
-            if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase.getClient(new StringBuilder()
-                        .append(tareaAmbito.getCclIdOrigen())
-                        .append(AppConstants.UNDERSCORE)
-                        .append(runTareaDto.getTarea().getStdIdLegEnt())
-                        .toString()));
-            } else {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase
-                        .getClient(tareaAmbito.getCclIdOrigen()));
-            }
+            this.setContext(runTareaDto, tareaAmbito);
             presencia = this.comisRepositoryCustom
                 .findPresenciasOrigenAndFecha(runTareaDto.getTarea());
         } finally {
@@ -62,18 +51,7 @@ public class ComisServiceImpl implements ComisService {
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdMotivoDesplazamientoDto> motivos = null;
         try {
-            if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase.getClient(new StringBuilder()
-                        .append(tareaAmbito.getCclIdOrigen())
-                        .append(AppConstants.UNDERSCORE)
-                        .append(runTareaDto.getTarea().getStdIdLegEnt())
-                        .toString()));
-            } else {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase
-                        .getClient(tareaAmbito.getCclIdOrigen()));
-            }
+            this.setContext(runTareaDto, tareaAmbito);
             motivos = this.comisRepositoryCustom
                 .findMotivoDesplazamiento(runTareaDto.getTarea());
         } finally {
@@ -88,18 +66,7 @@ public class ComisServiceImpl implements ComisService {
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdPersonaLocalFechaIncidenciaDto> incidencias = null;
         try {
-            if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase.getClient(new StringBuilder()
-                        .append(tareaAmbito.getCclIdOrigen())
-                        .append(AppConstants.UNDERSCORE)
-                        .append(runTareaDto.getTarea().getStdIdLegEnt())
-                        .toString()));
-            } else {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase
-                        .getClient(tareaAmbito.getCclIdOrigen()));
-            }
+            this.setContext(runTareaDto, tareaAmbito);
             incidencias = this.comisRepositoryCustom
                 .findFechasIncidencias(runTareaDto.getTarea());
         } finally {
@@ -114,18 +81,7 @@ public class ComisServiceImpl implements ComisService {
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdPersonaLocalFechaIncidenciaDto> desplazamientos = null;
         try {
-            if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase.getClient(new StringBuilder()
-                        .append(tareaAmbito.getCclIdOrigen())
-                        .append(AppConstants.UNDERSCORE)
-                        .append(runTareaDto.getTarea().getStdIdLegEnt())
-                        .toString()));
-            } else {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase
-                        .getClient(tareaAmbito.getCclIdOrigen()));
-            }
+            this.setContext(runTareaDto, tareaAmbito);
             desplazamientos = this.comisRepositoryCustom
                 .findFechasDesplazamientos(runTareaDto.getTarea());
         } finally {
@@ -140,18 +96,7 @@ public class ComisServiceImpl implements ComisService {
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdPersonaLocalCondicionesDto> historico = null;
         try {
-            if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase.getClient(new StringBuilder()
-                        .append(tareaAmbito.getCclIdOrigen())
-                        .append(AppConstants.UNDERSCORE)
-                        .append(runTareaDto.getTarea().getStdIdLegEnt())
-                        .toString()));
-            } else {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase
-                        .getClient(tareaAmbito.getCclIdOrigen()));
-            }
+            this.setContext(runTareaDto, tareaAmbito);
             historico = this.comisRepositoryCustom
                 .findCondicionesHistorico(runTareaDto.getTarea());
         } finally {
@@ -166,18 +111,7 @@ public class ComisServiceImpl implements ComisService {
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdPersonaLocalCondicionesDto> desplazamiento = null;
         try {
-            if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase.getClient(new StringBuilder()
-                        .append(tareaAmbito.getCclIdOrigen())
-                        .append(AppConstants.UNDERSCORE)
-                        .append(runTareaDto.getTarea().getStdIdLegEnt())
-                        .toString()));
-            } else {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase
-                        .getClient(tareaAmbito.getCclIdOrigen()));
-            }
+            this.setContext(runTareaDto, tareaAmbito);
             desplazamiento = this.comisRepositoryCustom
                 .findCondicionesDesplazamiento(runTareaDto.getTarea());
         } finally {
@@ -192,18 +126,7 @@ public class ComisServiceImpl implements ComisService {
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdPersonaLocalCondicionesDto> resalta = null;
         try {
-            if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase.getClient(new StringBuilder()
-                        .append(tareaAmbito.getCclIdOrigen())
-                        .append(AppConstants.UNDERSCORE)
-                        .append(runTareaDto.getTarea().getStdIdLegEnt())
-                        .toString()));
-            } else {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase
-                        .getClient(tareaAmbito.getCclIdOrigen()));
-            }
+            this.setContext(runTareaDto, tareaAmbito);
             resalta = this.comisRepositoryCustom
                 .findCondicionesResalta(runTareaDto.getTarea());
         } finally {
@@ -218,18 +141,7 @@ public class ComisServiceImpl implements ComisService {
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdPersonaLocalCondicionesDto> bajasIt = null;
         try {
-            if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase.getClient(new StringBuilder()
-                        .append(tareaAmbito.getCclIdOrigen())
-                        .append(AppConstants.UNDERSCORE)
-                        .append(runTareaDto.getTarea().getStdIdLegEnt())
-                        .toString()));
-            } else {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase
-                        .getClient(tareaAmbito.getCclIdOrigen()));
-            }
+            this.setContext(runTareaDto, tareaAmbito);
             bajasIt = this.comisRepositoryCustom
                 .findBajasIt(runTareaDto.getTarea());
         } finally {
@@ -244,18 +156,7 @@ public class ComisServiceImpl implements ComisService {
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdPersonaLocalCarenciaDto> carencia = null;
         try {
-            if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase.getClient(new StringBuilder()
-                        .append(tareaAmbito.getCclIdOrigen())
-                        .append(AppConstants.UNDERSCORE)
-                        .append(runTareaDto.getTarea().getStdIdLegEnt())
-                        .toString()));
-            } else {
-                ClientDatabaseContextHolder
-                    .set(ClientDatabase
-                        .getClient(tareaAmbito.getCclIdOrigen()));
-            }
+            this.setContext(runTareaDto, tareaAmbito);
             carencia = this.comisRepositoryCustom
                 .findCarencia(runTareaDto.getTarea());
         } finally {
@@ -263,6 +164,21 @@ public class ComisServiceImpl implements ComisService {
         }
 
         return carencia;
+    }
+
+    private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {
+        if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
+            ClientDatabaseContextHolder
+                .set(ClientDatabase.getClient(new StringBuilder()
+                    .append(tareaAmbito.getCclIdOrigen())
+                    .append(AppConstants.UNDERSCORE)
+                    .append(runTareaDto.getTarea().getStdIdLegEnt())
+                    .toString()));
+        } else {
+            ClientDatabaseContextHolder
+                .set(ClientDatabase
+                    .getClient(tareaAmbito.getCclIdOrigen()));
+        }
     }
 
 }
