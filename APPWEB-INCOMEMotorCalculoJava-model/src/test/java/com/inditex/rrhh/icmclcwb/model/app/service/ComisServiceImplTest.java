@@ -3,8 +3,6 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
-import java.time.LocalDate;
-
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -60,26 +58,28 @@ public class ComisServiceImplTest {
 
     @Test
     public void findFechasIncidencias() {
-        final LocalDate fecha = LocalDate.now();
+        final RunTareaDto runTareaDto = new RunTareaDto();
         final TareaDto tarea = new TareaDto();
         tarea.setId(ID_TAREA);
+        runTareaDto.setTarea(tarea);
         final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
         tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-        this.comisServiceImpl.findFechasIncidencias(fecha, tareaAmbitoDto);
+        this.comisServiceImpl.findFechasIncidencias(runTareaDto, tareaAmbitoDto);
         verify(this.comisRepositoryCustom, times(1))
-            .findFechasIncidencias(any(LocalDate.class));
+            .findFechasIncidencias(any(TareaDto.class));
     }
 
     @Test
     public void findFechasDesplazamientos() {
-        final LocalDate fecha = LocalDate.now();
+        final RunTareaDto runTareaDto = new RunTareaDto();
         final TareaDto tarea = new TareaDto();
         tarea.setId(ID_TAREA);
+        runTareaDto.setTarea(tarea);
         final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
         tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-        this.comisServiceImpl.findFechasDesplazamientos(fecha, tareaAmbitoDto);
+        this.comisServiceImpl.findFechasDesplazamientos(runTareaDto, tareaAmbitoDto);
         verify(this.comisRepositoryCustom, times(1))
-            .findFechasDesplazamientos(any(LocalDate.class));
+            .findFechasDesplazamientos(any(TareaDto.class));
     }
 
     @Test

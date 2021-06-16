@@ -75,13 +75,10 @@ public class RunTareaAmbitoValidarFechasServiceImplTest {
         final CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> cf = new CompletableFuture<>();
         cf.complete(lista);
 
-        when(this.fechaProperties.getMeses())
-            .thenReturn(1);
-
-        when(this.comisAsyncService.findFechasIncidencias(any(LocalDate.class), any(TareaAmbitoDto.class)))
+        when(this.comisAsyncService.findFechasIncidencias(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
             .thenReturn(cf);
 
-        when(this.comisAsyncService.findFechasDesplazamientos(any(LocalDate.class), any(TareaAmbitoDto.class)))
+        when(this.comisAsyncService.findFechasDesplazamientos(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
             .thenReturn(cf);
 
         this.runTareaAmbitoValidarFechasServiceImpl.execute(runTareaDto, tareaAmbitoDto,
@@ -89,10 +86,10 @@ public class RunTareaAmbitoValidarFechasServiceImplTest {
 
         verify(this.comisAsyncService, timeout(1000).times(1))
             .findFechasIncidencias(
-                    ArgumentMatchers.any(LocalDate.class), ArgumentMatchers.any(TareaAmbitoDto.class));
+                    ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class));
         verify(this.comisAsyncService, timeout(1000).times(1))
             .findFechasDesplazamientos(
-                    ArgumentMatchers.any(LocalDate.class), ArgumentMatchers.any(TareaAmbitoDto.class));
+                    ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class));
 
         verify(this.validacionMapper, timeout(1000).times(1))
             .idPersonaLocalFechaIncidenciaDtoToValidacionDto(ArgumentMatchers.any(TareaAmbitoDto.class),

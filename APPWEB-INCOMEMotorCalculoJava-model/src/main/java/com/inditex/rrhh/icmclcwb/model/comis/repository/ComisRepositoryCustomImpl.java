@@ -1,8 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.comis.repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
+import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
@@ -48,6 +50,10 @@ public class ComisRepositoryCustomImpl
     @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findCarencia']}")
     private String sqlFindCarencia;
 
+    @Autowired
+    @Qualifier("fechasProperties")
+    private PrevalidarPropertiesDto fechasProperties;
+
     @Override
     public PresenciaOrigenDto findPresenciasOrigenAndFecha(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
@@ -80,10 +86,11 @@ public class ComisRepositoryCustomImpl
 
 
     @Override
-    public List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(final LocalDate fechaDesde) {
+    public List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO,
-                TimeUtils.toDate(fechaDesde));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.toDate(tarea
+            .getFechaInicioPeriodo()
+            .minusMonths(this.fechasProperties.getMeses())));
 
         return this.query(this.sqlFindFechasIncidencias, map,
                 (rs, rowNum) -> IdPersonaLocalFechaIncidenciaDto
@@ -95,9 +102,11 @@ public class ComisRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(final LocalDate fechaDesde) {
+    public List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.toDate(fechaDesde));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.toDate(tarea
+            .getFechaInicioPeriodo()
+            .minusMonths(this.fechasProperties.getMeses())));
 
         return this.query(this.sqlFindFechasDesplazamiento, map,
                 (rs, rowNum) -> IdPersonaLocalFechaIncidenciaDto

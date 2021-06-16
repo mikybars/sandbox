@@ -88,10 +88,46 @@ amiga:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://PTSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
           user: ncomis
-        comis11:
+        comis11-8:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
-          user: ncomis          
+          user: ncomis
+        comis11-20:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          user: ncomis  
+        comis11-233:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          user: ncomis      
+        comis11-28:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          user: ncomis      
+        comis11-33:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          user: ncomis       
+        comis11-101:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://SASUR:11433;databaseName=Personal
+          user: ncomis     
+        comis11-11:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://NASQL1V1\I1:11433;databaseName=Personal
+          user: ncomis
+        comis11-2:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://TOSQL55v3.TORDERA.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis
+        comis11-30:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://TOSQL66v2.TORDERA.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis      
+        comis11-25:
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP:11433;databaseName=Personal
+          user: ncomis                                                                                                  
         comis18:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://BESQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalLuxemburgo
