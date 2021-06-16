@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.api.app.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -31,19 +30,19 @@ public interface ComisService {
             @Valid TareaAmbitoDto tareaAmbito);
 
     /**
-     * @param fechaDesde
+     * @param runTareaDto
      * @param tareaAmbito
      * @return
      */
-    List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(LocalDate fechaDesde,
+    List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(@Valid final RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito);
 
     /**
-     * @param fechaDesde
+     * @param runTareaDto
      * @param tareaAmbito
      * @return
      */
-    List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(LocalDate fechaDesde,
+    List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(@Valid final RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito);
 
     /**
