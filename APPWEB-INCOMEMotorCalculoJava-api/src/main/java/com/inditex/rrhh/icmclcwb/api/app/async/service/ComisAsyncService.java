@@ -3,7 +3,6 @@
  */
 package com.inditex.rrhh.icmclcwb.api.app.async.service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -47,7 +46,8 @@ public interface ComisAsyncService {
      * @param tareaAmbito
      * @return
      */
-    CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasIncidencias(LocalDate fechaDesde,
+    CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasIncidencias(
+            @Valid final RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito);
 
     /**
@@ -55,7 +55,8 @@ public interface ComisAsyncService {
      * @param tareaAmbito
      * @return
      */
-    CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasDesplazamientos(LocalDate fechaDesde,
+    CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasDesplazamientos(
+            @Valid final RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito);
 
     /**

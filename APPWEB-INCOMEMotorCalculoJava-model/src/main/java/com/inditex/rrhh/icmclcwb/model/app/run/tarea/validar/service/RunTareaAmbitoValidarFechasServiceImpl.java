@@ -3,7 +3,6 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -59,17 +58,12 @@ public class RunTareaAmbitoValidarFechasServiceImpl implements RunTareaAmbitoVal
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<IdPersonaLocalFechaIncidenciaDto> incidencias = new ArrayList<>();
         try {
-
-            // Se comprueba desde x meses antes del período del cálculo
-            final LocalDate fechaInicio = runTareaDto.getTarea()
-                .getFechaInicioPeriodo()
-                .minusMonths(this.fechasProperties.getMeses());
             final CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> cfIncidencias = this.comisAsyncService
-                .findFechasIncidencias(fechaInicio, tareaAmbito);
+                .findFechasIncidencias(runTareaDto, tareaAmbito);
             AsyncUtils.exceptionally(cfIncidencias, cf);
 
             final CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> cfDesplazamientos = this.comisAsyncService
-                .findFechasDesplazamientos(fechaInicio, tareaAmbito);
+                .findFechasDesplazamientos(runTareaDto, tareaAmbito);
 
             AsyncUtils.exceptionally(cfDesplazamientos, cf);
 

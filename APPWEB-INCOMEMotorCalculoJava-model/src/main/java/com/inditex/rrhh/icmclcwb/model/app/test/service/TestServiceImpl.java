@@ -9,7 +9,6 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -47,8 +46,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateResponseDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.exception.SlrhorcomsIcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercial.dto.RootHorarioComercialDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.service.SlrHorarioComercialService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
@@ -432,21 +430,14 @@ public class TestServiceImpl implements TestService {
         // Token datagrid -> KO -> /authenticate -> OK -> Devolver
         // {/authenticate} -> OK -> Guardar datagrid y Devolver
         // {&} -> /authenticate -> OK -> Excepción
-        /*
-         * final AuthenticateDto authenticateDto = this.slrhorcomsAuthenticateTest(); final
-         * ResponseEntity<RootHorarioComercialDto> responseHorarioComercial = this.slrhorcomsClient
-         * .getForEntity("/slrhorcoms/openapi-rest/HorarioComercial/list?q=*&rows=100",
-         * RootHorarioComercialDto.class); this.log.info("responseHorarioComercial: {}",
-         * responseHorarioComercial); this.log.info("responseHorarioComercial: {}",
-         * responseHorarioComercial);
-         */
-        final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-        request.setIdTienda(Arrays.asList("5180"));
-        request.setStart(0);
-        request.setRows(100);
-        final List<HorarioComercialFestivoDocDto> festivos = this.slrHorarioComercialService
-            .horarioComercialFestivos(request);
-        this.log.info("responseHorarioComercial: {}", festivos);
+        final AuthenticateDto authenticateDto = this.slrhorcomsAuthenticateTest();
+        final ResponseEntity<RootHorarioComercialDto> responseHorarioComercial = this.slrhorcomsClient
+            .getForEntity("/slrhorcoms/openapi-rest/HorarioComercial/list?q=*&rows=100",
+                    RootHorarioComercialDto.class);
+        this.log.info("responseHorarioComercial: {}",
+                responseHorarioComercial);
+        this.log.info("responseHorarioComercial: {}",
+                responseHorarioComercial);
     }
 
     private AuthenticateDto slrhorcomsAuthenticateTest() {

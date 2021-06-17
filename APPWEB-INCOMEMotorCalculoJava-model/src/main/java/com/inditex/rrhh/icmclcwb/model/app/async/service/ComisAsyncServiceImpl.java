@@ -3,7 +3,6 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.async.service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -48,18 +47,18 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
 
     @Override
     public CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasIncidencias(
-            final LocalDate fechaDesde,
+            @Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
         return CompletableFuture
-            .completedFuture(this.comisService.findFechasIncidencias(fechaDesde, tareaAmbito));
+            .completedFuture(this.comisService.findFechasIncidencias(runTareaDto, tareaAmbito));
     }
 
     @Override
     public CompletableFuture<List<IdPersonaLocalFechaIncidenciaDto>> findFechasDesplazamientos(
-            final LocalDate fechaDesde,
+            @Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
         return CompletableFuture
-            .completedFuture(this.comisService.findFechasDesplazamientos(fechaDesde, tareaAmbito));
+            .completedFuture(this.comisService.findFechasDesplazamientos(runTareaDto, tareaAmbito));
     }
 
     @Override

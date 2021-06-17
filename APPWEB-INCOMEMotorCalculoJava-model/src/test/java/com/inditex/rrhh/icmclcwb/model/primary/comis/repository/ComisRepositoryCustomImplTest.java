@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
+import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -32,6 +33,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ComisRepositoryCustomImplTest {
@@ -65,6 +67,9 @@ public class ComisRepositoryCustomImplTest {
 
     @Captor
     private ArgumentCaptor<MapSqlParameterSource> paramsCaptor;
+
+    @Mock
+    private PrevalidarPropertiesDto fechaProperties;
 
     @Before
     public void setup() throws IllegalAccessException {
@@ -145,8 +150,12 @@ public class ComisRepositoryCustomImplTest {
 
     @Test
     public void findFechasIncidencias() {
-        final LocalDate date = LocalDate.now();
-        this.comisRepositoryCustom.findFechasIncidencias(date);
+        final TareaDto tarea = new TareaDto();
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        when(this.fechaProperties.getMeses())
+            .thenReturn(1);
+
+        this.comisRepositoryCustom.findFechasIncidencias(tarea);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
                 ArgumentMatchers.<RowMapper<IdPersonaLocalFechaIncidenciaDto>>any());
         assertEquals(SQL_FIND_FECHAS_INCIDENCIAS,
@@ -160,8 +169,12 @@ public class ComisRepositoryCustomImplTest {
 
     @Test
     public void findFechasDesplazamientos() {
-        final LocalDate date = LocalDate.now();
-        this.comisRepositoryCustom.findFechasDesplazamientos(date);
+        final TareaDto tarea = new TareaDto();
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        when(this.fechaProperties.getMeses())
+            .thenReturn(1);
+
+        this.comisRepositoryCustom.findFechasDesplazamientos(tarea);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
                 ArgumentMatchers.<RowMapper<IdPersonaLocalFechaIncidenciaDto>>any());
         assertEquals(SQL_FIND_FECHAS_DESPLAZAMIENTO,

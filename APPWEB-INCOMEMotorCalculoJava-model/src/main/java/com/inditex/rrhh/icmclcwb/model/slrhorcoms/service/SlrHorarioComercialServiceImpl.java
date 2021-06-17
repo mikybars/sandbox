@@ -8,7 +8,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateResponseDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.ResponseDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.exception.SlrhorcomsIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
@@ -68,8 +68,8 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
 
     @Override
     @Retryable(maxAttemptsExpression = "${app.envars.slrhorcoms.config.max-attempts}")
-    @Cacheable(value = "itx.icmlcwb.horario_comercial_festivos", key = "{#request}")
-    public List<HorarioComercialFestivoDocDto> horarioComercialFestivos(
+    @Cacheable(value = "itx.icmlcwb.horario_comercial_festivos", key = "#request")
+    public ResponseDto<HorarioComercialFestivoDocDto> horarioComercialFestivos(
             final HorarioComercialFestivosRequestDto request) {
         this.checkSession();
         final SlrhorcomsPropertiesDto properties = this.slrhorcomsProperties
@@ -91,10 +91,11 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
                     this.slrhorcomsClient,
                     properties.getEndpoint(), request);
 
-            request.setHasNext(response.length == request.getRows());
-            request.setStart(request.getStart() + request.getRows());
-
-            return Arrays.asList(response);
+            final ResponseDto<HorarioComercialFestivoDocDto> result = new ResponseDto<>();
+            result.setNext(request.getStart() + request.getRows());
+            result.setDocs(Arrays.asList(response));
+            result.setHasNext(response.length == request.getRows());
+            return result;
         } catch (final Exception e) {
             this.session = null;
             throw new SlrhorcomsIcmclcwbException("Error en login slrhorcomsI", e);

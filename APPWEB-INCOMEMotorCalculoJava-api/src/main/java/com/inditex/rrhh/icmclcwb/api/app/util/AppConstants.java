@@ -53,4 +53,6 @@ public class AppConstants {
 
     public static final String ID_ORIGEN_SPAIN = "11";
 
+    public static final String UNDERSCORE = "_";
+
 }
