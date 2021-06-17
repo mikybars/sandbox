@@ -130,7 +130,7 @@ amiga:
           user: ncomis
         comis11-2:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXINSQL10.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           user: ncomis
         comis11-30:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
