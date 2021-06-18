@@ -5,6 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -64,5 +65,11 @@ public interface ComisRepositoryCustom {
      * @return
      */
     List<IdPersonaLocalCarenciaDto> findCarencia(TareaDto tarea);
+
+    /**
+     * @param tarea
+     * @return
+     */
+    List<IdPersonaLocalExternaDto> findExternosByClase(TareaDto tarea);
 
 }

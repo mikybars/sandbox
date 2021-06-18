@@ -2310,6 +2310,13 @@ VALUES(:fechaFin, :fechaInicio, :stdIdHr, :cclIdPerson, :idEstructuraPolitica, :
   ]]>
   </entry>
 
+  <entry key="TareaPersonaExternaRepositoryCustom.save">
+    <![CDATA[
+    INSERT INTO TAREA_PERSONA_EXTERNA (ID_TAREA, CCL_ID_PERSON, FECHA_INICIO, FECHA_FIN)
+    VALUES (:tarea.id, :cclIdPerson, :fechaInicio, :fechaFin)
+    ]]>
+  </entry>
+
   <entry key="RunTareaCalcularService.customFindAlgoritmosIdsByTarea">
     <![CDATA[
     SELECT A.ID_ALGORITMO FROM ALGORITMO A

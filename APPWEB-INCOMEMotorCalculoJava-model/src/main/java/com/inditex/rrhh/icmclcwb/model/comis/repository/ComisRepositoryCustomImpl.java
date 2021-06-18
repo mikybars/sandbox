@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.comis.repository;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
@@ -223,6 +225,25 @@ public class ComisRepositoryCustomImpl
                     .fechaAlta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_ALTA).toLocalDate())
                     .fechaInicioCalculo(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO_CALCULO).toLocalDate())
                     .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
+                    .build());
+    }
+
+    @Override
+    public List<IdPersonaLocalExternaDto> findExternosByClase(
+            final TareaDto tarea) {
+        // TODO [javierev] implementar la consulta
+        return Arrays.asList(
+                IdPersonaLocalExternaDto
+                    .builder()
+                    .idPersonaLocal("90909090")
+                    .fechaDesde(tarea.getFechaInicioPeriodo())
+                    .fechaHasta(tarea.getFechaFinPeriodo())
+                    .build(),
+                IdPersonaLocalExternaDto
+                    .builder()
+                    .idPersonaLocal("90909999")
+                    .fechaDesde(tarea.getFechaInicioPeriodo())
+                    .fechaHasta(tarea.getFechaFinPeriodo())
                     .build());
     }
 

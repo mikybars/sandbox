@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -164,6 +165,20 @@ public class ComisServiceImpl implements ComisService {
         }
 
         return carencia;
+    }
+
+    @Override
+    public List<IdPersonaLocalExternaDto> findExternosByClase(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        List<IdPersonaLocalExternaDto> externos = null;
+        try {
+            this.setContext(runTareaDto, tareaAmbito);
+            externos = this.comisRepositoryCustom.findExternosByClase(runTareaDto.getTarea());
+        } finally {
+            ClientDatabaseContextHolder.clear();
+        }
+        return externos;
     }
 
     private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {
