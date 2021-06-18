@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
@@ -17,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPro
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustomImpl;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
@@ -31,6 +33,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -55,6 +58,8 @@ public class ComisRepositoryCustomImplTest {
     private final static String SQL_FIND_BAJAS_IT = "SQL FIND BAJAS IT";
 
     private final static String SQL_FIND_CARENCIA = "SQL FIND CARENCIA";
+
+    private final static String SQL_FIND_EXTERNOS_BY_CLASE = "SQL FIN EXERTNOS BY CLASE";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -105,6 +110,10 @@ public class ComisRepositoryCustomImplTest {
         FieldUtils.writeField(this.comisRepositoryCustom,
                 "sqlFindCarencia",
                 SQL_FIND_CARENCIA,
+                true);
+        FieldUtils.writeField(this.comisRepositoryCustom,
+                "sqlFindExternosByClase",
+                SQL_FIND_EXTERNOS_BY_CLASE,
                 true);
     }
 
@@ -282,6 +291,78 @@ public class ComisRepositoryCustomImplTest {
         assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
         // fecha hasta
         assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    }
+
+    @Test
+    public void findExternosByClaseQueryTest() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1L);
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findExternosByClase(tarea, ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(),
+                any(MapSqlParameterSource.class), ArgumentMatchers.<RowMapper<IdPersonaLocalCarenciaDto>>any());
+        assertEquals(SQL_FIND_CARENCIA, this.sqlCaptor.getValue());
+    }
+
+    @Test
+    public void findExternosByClaseNumeroParametrosTest() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findExternosByClase(tarea, ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(any(String.class), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCarenciaDto>>any());
+
+        // Parámetros de la consulta: clase, fechaDesde, fechaHasta
+        assertEquals(3, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    public void findExternosByClaseParametroFechaDesdeTest() {
+        final TareaDto tarea = new TareaDto();
+        final LocalDate fechaDesde = LocalDate.of(2020, 1, 1);
+        tarea.setFechaInicioPeriodo(fechaDesde);
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findExternosByClase(tarea, ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(any(String.class), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCarenciaDto>>any());
+
+        final MapSqlParameterSource parameters = this.paramsCaptor.getValue();
+        assertTrue(parameters.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+        assertEquals(TimeUtils.toDate(fechaDesde), parameters.getValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+    }
+
+    @Test
+    public void findExternosByClaseParametroFechaHastaTest() {
+        final TareaDto tarea = new TareaDto();
+        final LocalDate fechaHasta = LocalDate.of(2020, 1, 31);
+        tarea.setFechaFinPeriodo(fechaHasta);
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findExternosByClase(tarea, ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(any(String.class), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCarenciaDto>>any());
+
+        final MapSqlParameterSource parameters = this.paramsCaptor.getValue();
+        assertTrue(parameters.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+        assertEquals(TimeUtils.toDate(fechaHasta), parameters.getValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    }
+
+    @Test
+    public void findExternosByClaseParametroClaseTest() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findExternosByClase(tarea, ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).query(any(String.class), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCarenciaDto>>any());
+
+        final MapSqlParameterSource parameters = this.paramsCaptor.getValue();
+        assertTrue(parameters.hasValue(SqlComisConstants.SQL_PARAM_CLASE));
+        assertEquals(ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL.getId(),
+                parameters.getValue(SqlComisConstants.SQL_PARAM_CLASE));
+
     }
 
 }

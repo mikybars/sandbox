@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
@@ -174,7 +175,9 @@ public class ComisServiceImpl implements ComisService {
         List<IdPersonaLocalExternaDto> externos = null;
         try {
             this.setContext(runTareaDto, tareaAmbito);
-            externos = this.comisRepositoryCustom.findExternosByClase(runTareaDto.getTarea());
+            // TODO [javierev] subir el parametro clase
+            externos = this.comisRepositoryCustom.findExternosByClase(runTareaDto.getTarea(),
+                    ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
         } finally {
             ClientDatabaseContextHolder.clear();
         }

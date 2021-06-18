@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
@@ -51,6 +52,9 @@ public class ComisRepositoryCustomImpl
 
     @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findCarencia']}")
     private String sqlFindCarencia;
+
+    @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findExternosByClase']}")
+    private String sqlFindExternosByClase;
 
     @Autowired
     @Qualifier("fechasProperties")
@@ -230,8 +234,28 @@ public class ComisRepositoryCustomImpl
 
     @Override
     public List<IdPersonaLocalExternaDto> findExternosByClase(
-            final TareaDto tarea) {
-        // TODO [javierev] implementar la consulta
+            final TareaDto tarea, final ComisClaseEmpleadoEnum clase) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_CLASE, 99);
+
+        List<IdPersonaLocalExternaDto> result = this.query(this.sqlFindCarencia, map,
+                (rs, rowNum) -> IdPersonaLocalExternaDto
+                    .builder()
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
+                    .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
+                    .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
+                    .build());
+
+        if (result.isEmpty()) {
+            result = this.createExternosMock(tarea);
+        }
+        return result;
+    }
+
+    private List<IdPersonaLocalExternaDto> createExternosMock(final TareaDto tarea) {
+        // TODO [javierev] retirar estos mocks
         return Arrays.asList(
                 IdPersonaLocalExternaDto
                     .builder()

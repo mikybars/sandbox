@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.comis.repository;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
@@ -70,6 +71,6 @@ public interface ComisRepositoryCustom {
      * @param tarea
      * @return
      */
-    List<IdPersonaLocalExternaDto> findExternosByClase(TareaDto tarea);
+    List<IdPersonaLocalExternaDto> findExternosByClase(TareaDto tarea, ComisClaseEmpleadoEnum clase);
 
 }

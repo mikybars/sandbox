@@ -20,6 +20,8 @@ public class SqlComisConstants {
 
     public static final String SQL_PARAM_ID_TAREA = "idTarea";
 
+    public static final String SQL_PARAM_CLASE = "clase";
+
     // RESULTADOS DE CONSULTAS
 
     public static final String SQL_RESULT_HORAS_SECCION_1 = "HORAS_SECCION_1";
