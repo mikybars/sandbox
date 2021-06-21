@@ -73,4 +73,12 @@ public interface ComisRepositoryCustom {
      */
     List<IdPersonaLocalExternaDto> findExternosByClase(TareaDto tarea, ComisClaseEmpleadoEnum clase);
 
+    /**
+     * Obtiene los empleados externos en base a los que tengan un id superior al dado.
+     * @param tarea tarea
+     * @param minIdPersona el id de persona que debe ser superado para ser considerado externo.
+     * @return lista de externos
+     */
+    List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(final TareaDto tarea, final Long minIdPersona);
+
 }

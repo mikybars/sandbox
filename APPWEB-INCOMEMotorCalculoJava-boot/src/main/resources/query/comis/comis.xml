@@ -930,20 +930,20 @@ UNION
     ]]>
   </entry>
 
-  <entry key="ComisRepositoryCustom.findExternosById">
+  <entry key="ComisRepositoryCustom.findExternosByMinIdPersona">
     <![CDATA[
       SELECT
-        Persona,
+        Persona as CCL_ID_PERSON,
         case
           when FechaUltimaAlta < :fechaDesde THEN :fechaDesde
           else FechaUltimaAlta
-        end as FechaDesde,
+        end as FECHA_DESDE,
         case
           when FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja > :fechaHasta THEN :fechaHasta
           else FechaUltimaBaja
-        end as FechaHasta
+        end as FECHA_HASTA
       FROM PersonasGrupo pg
-      WHERE Persona > :persona
+      WHERE Persona > :minPersona
       AND FechaUltimaAlta <= :fechaHasta
       AND (FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja >= :fechaDesde)
     ]]>

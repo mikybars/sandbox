@@ -56,6 +56,9 @@ public class ComisRepositoryCustomImpl
     @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findExternosByClase']}")
     private String sqlFindExternosByClase;
 
+    @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findExternosByMinIdPersona']}")
+    private String sqlFindExternosByMinIdPersona;
+
     @Autowired
     @Qualifier("fechasProperties")
     private PrevalidarPropertiesDto fechasProperties;
@@ -238,7 +241,7 @@ public class ComisRepositoryCustomImpl
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
         map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
-        map.addValue(SqlComisConstants.SQL_PARAM_CLASE, 99);
+        map.addValue(SqlComisConstants.SQL_PARAM_CLASE, clase.getId());
 
         List<IdPersonaLocalExternaDto> result = this.query(this.sqlFindExternosByClase, map,
                 (rs, rowNum) -> IdPersonaLocalExternaDto
@@ -254,7 +257,41 @@ public class ComisRepositoryCustomImpl
         return result;
     }
 
-    private List<IdPersonaLocalExternaDto> createExternosMock(final TareaDto tarea, final ComisClaseEmpleadoEnum clase) {
+    @Override
+    public List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(final TareaDto tarea, final Long minIdPersona) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_MIN_ID_PERSONA, minIdPersona);
+
+        List<IdPersonaLocalExternaDto> result = this.query(this.sqlFindExternosByMinIdPersona, map,
+                (rs, rowNum) -> IdPersonaLocalExternaDto
+                    .builder()
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
+                    .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
+                    .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
+                    .build());
+
+        if (result.isEmpty()) {
+            result = Arrays.asList(
+                    IdPersonaLocalExternaDto
+                        .builder()
+                        .idPersonaLocal("919090_" + minIdPersona)
+                        .fechaDesde(tarea.getFechaInicioPeriodo())
+                        .fechaHasta(tarea.getFechaFinPeriodo())
+                        .build(),
+                    IdPersonaLocalExternaDto
+                        .builder()
+                        .idPersonaLocal("909099_" + minIdPersona)
+                        .fechaDesde(tarea.getFechaInicioPeriodo())
+                        .fechaHasta(tarea.getFechaFinPeriodo())
+                        .build());
+        }
+        return result;
+    }
+
+    private List<IdPersonaLocalExternaDto> createExternosMock(final TareaDto tarea,
+            final ComisClaseEmpleadoEnum clase) {
         // TODO [javierev] retirar estos mocks
         return Arrays.asList(
                 IdPersonaLocalExternaDto

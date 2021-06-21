@@ -22,6 +22,8 @@ public class SqlComisConstants {
 
     public static final String SQL_PARAM_CLASE = "clase";
 
+    public static final String SQL_PARAM_MIN_ID_PERSONA = "minPersona";
+
     // RESULTADOS DE CONSULTAS
 
     public static final String SQL_RESULT_HORAS_SECCION_1 = "HORAS_SECCION_1";

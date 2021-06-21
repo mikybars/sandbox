@@ -59,7 +59,9 @@ public class ComisRepositoryCustomImplTest {
 
     private final static String SQL_FIND_CARENCIA = "SQL FIND CARENCIA";
 
-    private final static String SQL_FIND_EXTERNOS_BY_CLASE = "SQL FIN EXERTNOS BY CLASE";
+    private final static String SQL_FIND_EXTERNOS_BY_CLASE = "SQL FIND EXERTNOS BY CLASE";
+
+    private final static String SQL_FIND_EXTERNOS_BY_MIN_ID_PERSONA = "SQL FIND EXTERNOS BY MIN ID PERSONA";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -114,6 +116,10 @@ public class ComisRepositoryCustomImplTest {
         FieldUtils.writeField(this.comisRepositoryCustom,
                 "sqlFindExternosByClase",
                 SQL_FIND_EXTERNOS_BY_CLASE,
+                true);
+        FieldUtils.writeField(this.comisRepositoryCustom,
+                "sqlFindExternosByMinIdPersona",
+                SQL_FIND_EXTERNOS_BY_MIN_ID_PERSONA,
                 true);
     }
 
@@ -362,6 +368,79 @@ public class ComisRepositoryCustomImplTest {
         assertTrue(parameters.hasValue(SqlComisConstants.SQL_PARAM_CLASE));
         assertEquals(ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL.getId(),
                 parameters.getValue(SqlComisConstants.SQL_PARAM_CLASE));
+
+    }
+
+
+    @Test
+    public void findExternosByMinIdPersonaQueryTest() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1L);
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findExternosByMinIdPersona(tarea, 1234L);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(),
+                any(MapSqlParameterSource.class), ArgumentMatchers.<RowMapper<IdPersonaLocalCarenciaDto>>any());
+        assertEquals(SQL_FIND_EXTERNOS_BY_MIN_ID_PERSONA, this.sqlCaptor.getValue());
+    }
+
+    @Test
+    public void findExternosByMinIdPersonaNumeroParametrosTest() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findExternosByMinIdPersona(tarea, 1234L);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(any(String.class), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCarenciaDto>>any());
+
+        // Parámetros de la consulta: minPersona, fechaDesde, fechaHasta
+        assertEquals(3, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    public void findExternosByMinIdPersonaParametroFechaDesdeTest() {
+        final TareaDto tarea = new TareaDto();
+        final LocalDate fechaDesde = LocalDate.of(2020, 1, 1);
+        tarea.setFechaInicioPeriodo(fechaDesde);
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findExternosByMinIdPersona(tarea, 1234L);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(any(String.class), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCarenciaDto>>any());
+
+        final MapSqlParameterSource parameters = this.paramsCaptor.getValue();
+        assertTrue(parameters.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+        assertEquals(TimeUtils.toDate(fechaDesde), parameters.getValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+    }
+
+    @Test
+    public void findExternosByMinIdPersonaParametroFechaHastaTest() {
+        final TareaDto tarea = new TareaDto();
+        final LocalDate fechaHasta = LocalDate.of(2020, 1, 31);
+        tarea.setFechaFinPeriodo(fechaHasta);
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findExternosByMinIdPersona(tarea, 1234L);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(any(String.class), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCarenciaDto>>any());
+
+        final MapSqlParameterSource parameters = this.paramsCaptor.getValue();
+        assertTrue(parameters.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+        assertEquals(TimeUtils.toDate(fechaHasta), parameters.getValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    }
+
+    @Test
+    public void findExternosByMinIdPersonaParametroMinPersonaTest() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        final Long idPersona = 12456L;
+        this.comisRepositoryCustom.findExternosByMinIdPersona(tarea, idPersona);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).query(any(String.class), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCarenciaDto>>any());
+
+        final MapSqlParameterSource parameters = this.paramsCaptor.getValue();
+        assertTrue(parameters.hasValue(SqlComisConstants.SQL_PARAM_MIN_ID_PERSONA));
+        assertEquals(idPersona, parameters.getValue(SqlComisConstants.SQL_PARAM_MIN_ID_PERSONA));
 
     }
 
