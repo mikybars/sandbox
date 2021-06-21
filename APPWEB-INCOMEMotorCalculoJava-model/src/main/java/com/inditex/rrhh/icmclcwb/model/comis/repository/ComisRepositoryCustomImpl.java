@@ -240,7 +240,7 @@ public class ComisRepositoryCustomImpl
         map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
         map.addValue(SqlComisConstants.SQL_PARAM_CLASE, 99);
 
-        List<IdPersonaLocalExternaDto> result = this.query(this.sqlFindCarencia, map,
+        List<IdPersonaLocalExternaDto> result = this.query(this.sqlFindExternosByClase, map,
                 (rs, rowNum) -> IdPersonaLocalExternaDto
                     .builder()
                     .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
@@ -249,23 +249,23 @@ public class ComisRepositoryCustomImpl
                     .build());
 
         if (result.isEmpty()) {
-            result = this.createExternosMock(tarea);
+            result = this.createExternosMock(tarea, clase);
         }
         return result;
     }
 
-    private List<IdPersonaLocalExternaDto> createExternosMock(final TareaDto tarea) {
+    private List<IdPersonaLocalExternaDto> createExternosMock(final TareaDto tarea, final ComisClaseEmpleadoEnum clase) {
         // TODO [javierev] retirar estos mocks
         return Arrays.asList(
                 IdPersonaLocalExternaDto
                     .builder()
-                    .idPersonaLocal("90909090")
+                    .idPersonaLocal("919090_" + clase.getId())
                     .fechaDesde(tarea.getFechaInicioPeriodo())
                     .fechaHasta(tarea.getFechaFinPeriodo())
                     .build(),
                 IdPersonaLocalExternaDto
                     .builder()
-                    .idPersonaLocal("90909999")
+                    .idPersonaLocal("909099_" + clase.getId())
                     .fechaDesde(tarea.getFechaInicioPeriodo())
                     .fechaHasta(tarea.getFechaFinPeriodo())
                     .build());

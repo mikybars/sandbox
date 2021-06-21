@@ -302,7 +302,7 @@ public class ComisRepositoryCustomImplTest {
         this.comisRepositoryCustom.findExternosByClase(tarea, ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(),
                 any(MapSqlParameterSource.class), ArgumentMatchers.<RowMapper<IdPersonaLocalCarenciaDto>>any());
-        assertEquals(SQL_FIND_CARENCIA, this.sqlCaptor.getValue());
+        assertEquals(SQL_FIND_EXTERNOS_BY_CLASE, this.sqlCaptor.getValue());
     }
 
     @Test
