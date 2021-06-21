@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
@@ -105,8 +106,10 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
     @Override
     public CompletableFuture<List<IdPersonaLocalExternaDto>> findExternosByClase(
             @Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        return CompletableFuture.completedFuture(this.comisService.findExternosByClase(runTareaDto, tareaAmbito));
+            @Valid final TareaAmbitoDto tareaAmbito,
+            final ComisClaseEmpleadoEnum clase) {
+        return CompletableFuture
+            .completedFuture(this.comisService.findExternosByClase(runTareaDto, tareaAmbito, clase));
     }
 
 }

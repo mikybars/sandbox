@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -157,9 +156,10 @@ public class ComisServiceImplTest {
         runTareaDto.setTarea(tarea);
         final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
         tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-        this.comisServiceImpl.findExternosByClase(runTareaDto, tareaAmbitoDto);
-        verify(this.comisRepositoryCustom, times(1)).findExternosByClase(eq(tarea),
-                eq(ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL));
+        this.comisServiceImpl.findExternosByClase(runTareaDto, tareaAmbitoDto,
+                ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
+        verify(this.comisRepositoryCustom, times(1)).findExternosByClase(tarea,
+                ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
     }
 
 }

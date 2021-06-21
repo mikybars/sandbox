@@ -171,13 +171,12 @@ public class ComisServiceImpl implements ComisService {
     @Override
     public List<IdPersonaLocalExternaDto> findExternosByClase(
             @Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
+            @Valid final TareaAmbitoDto tareaAmbito,
+            final ComisClaseEmpleadoEnum clase) {
         List<IdPersonaLocalExternaDto> externos = null;
         try {
             this.setContext(runTareaDto, tareaAmbito);
-            // TODO [javierev] subir el parametro clase
-            externos = this.comisRepositoryCustom.findExternosByClase(runTareaDto.getTarea(),
-                    ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
+            externos = this.comisRepositoryCustom.findExternosByClase(runTareaDto.getTarea(), clase);
         } finally {
             ClientDatabaseContextHolder.clear();
         }

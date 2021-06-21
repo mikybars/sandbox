@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.scheduling.annotation.Async;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
@@ -103,9 +104,10 @@ public interface ComisAsyncService {
     /**
      * @param runTareaDto
      * @param tareaAmbito
+     * @param clase
      * @return
      */
     CompletableFuture<List<IdPersonaLocalExternaDto>> findExternosByClase(@Valid RunTareaDto runTareaDto,
-            @Valid TareaAmbitoDto tareaAmbito);
+            @Valid TareaAmbitoDto tareaAmbito, ComisClaseEmpleadoEnum clase);
 
 }

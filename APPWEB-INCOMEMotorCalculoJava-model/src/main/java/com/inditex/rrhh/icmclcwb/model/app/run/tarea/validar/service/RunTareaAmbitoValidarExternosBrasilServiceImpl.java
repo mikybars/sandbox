@@ -11,18 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarExternosByClaseService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarExternosBrasilService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 @Service
 @Validated
-public class RunTareaAmbitoValidarExternosByClaseServiceImpl
+public class RunTareaAmbitoValidarExternosBrasilServiceImpl
         extends AbstractRunTareaAmbitoValidarExternos
-        implements
-        RunTareaAmbitoValidarExternosByClaseService {
+        implements RunTareaAmbitoValidarExternosBrasilService {
 
     @Autowired
     private ComisAsyncService comisAsyncService;
@@ -31,7 +31,7 @@ public class RunTareaAmbitoValidarExternosByClaseServiceImpl
     protected CompletableFuture<List<IdPersonaLocalExternaDto>> findExternos(
             final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito) {
         return this.comisAsyncService
-            .findExternosByClase(runTarea, tareaAmbito);
+            .findExternosByClase(runTarea, tareaAmbito, ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
     }
 
 }

@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarExternosByClaseService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarExternosBrasilService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
@@ -28,7 +28,7 @@ public class RunTareaValidarExternosBrasilImpl implements RunPrevalidar {
     private TareaFaseAccionService tareaFaseAccionService;
 
     @Autowired
-    private RunTareaAmbitoValidarExternosByClaseService runTareaAmbitoValidarExternosByClaseService;
+    private RunTareaAmbitoValidarExternosBrasilService runTareaAmbitoValidarExternosBrasilService;
 
     @Autowired
     private AccionService accionService;
@@ -46,7 +46,7 @@ public class RunTareaValidarExternosBrasilImpl implements RunPrevalidar {
                     this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
                             a.getCclIdOrigen(),
                             tareaDto.getStdIdLegEnt())))
-            .map(item -> this.runTareaAmbitoValidarExternosByClaseService.execute(runTarea, item, tareaFaseAccion))
+            .map(item -> this.runTareaAmbitoValidarExternosBrasilService.execute(runTarea, item, tareaFaseAccion))
             .collect(Collectors.toList());
         if (validaciones.isEmpty()) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
