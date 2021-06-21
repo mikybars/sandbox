@@ -3,6 +3,7 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -14,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -145,6 +147,19 @@ public class ComisServiceImplTest {
         this.comisServiceImpl.findCarencia(runTareaDto, tareaAmbitoDto);
         verify(this.comisRepositoryCustom, times(1))
             .findCarencia(any(TareaDto.class));
+    }
+
+    @Test
+    public void findEmpleadosExterosByClase() {
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        runTareaDto.setTarea(tarea);
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+        this.comisServiceImpl.findExternosByClase(runTareaDto, tareaAmbitoDto);
+        verify(this.comisRepositoryCustom, times(1)).findExternosByClase(eq(tarea),
+                eq(ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL));
     }
 
 }
