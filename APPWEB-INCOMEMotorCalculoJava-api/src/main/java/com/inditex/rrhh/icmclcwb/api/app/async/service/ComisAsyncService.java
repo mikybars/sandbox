@@ -110,4 +110,14 @@ public interface ComisAsyncService {
     CompletableFuture<List<IdPersonaLocalExternaDto>> findExternosByClase(@Valid RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito, ComisClaseEmpleadoEnum clase);
 
+    /**
+     * Obtiene los empleados externos en base a los que tengan un id superior al dado.
+     * @param runTareaDto run tarea
+     * @param tareaAmbito tarea ambito
+     * @param minIdPersona el id de persona que debe ser superado para ser considerado externo.
+     * @return future lista de externos
+     */
+    CompletableFuture<List<IdPersonaLocalExternaDto>> findExternosByMinIdPersona(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito, final Long minIdPersona);
+
 }
