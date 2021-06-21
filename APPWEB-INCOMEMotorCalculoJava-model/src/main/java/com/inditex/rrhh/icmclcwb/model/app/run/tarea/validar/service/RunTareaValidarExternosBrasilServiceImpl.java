@@ -22,7 +22,7 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 
 @Component("externosBrasilV1")
 @Validated
-public class RunTareaValidarExternosBrasilImpl implements RunPrevalidar {
+public class RunTareaValidarExternosBrasilServiceImpl implements RunPrevalidar {
 
     @Autowired
     private TareaFaseAccionService tareaFaseAccionService;
