@@ -149,7 +149,7 @@ public class ComisServiceImplTest {
     }
 
     @Test
-    public void findEmpleadosExterosByClase() {
+    public void findEmpleadosExterosByClaseTest() {
         final RunTareaDto runTareaDto = new RunTareaDto();
         final TareaDto tarea = new TareaDto();
         tarea.setId(ID_TAREA);
@@ -160,6 +160,21 @@ public class ComisServiceImplTest {
                 ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
         verify(this.comisRepositoryCustom, times(1)).findExternosByClase(tarea,
                 ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
+    }
+
+    @Test
+    public void findEmpleadosExternosByMinIdPersonaTest() {
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        runTareaDto.setTarea(tarea);
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+        final Long idEmpleado = 898989L;
+        this.comisServiceImpl.findExternosByMinIdPersona(runTareaDto, tareaAmbitoDto,
+                idEmpleado);
+        verify(this.comisRepositoryCustom, times(1)).findExternosByMinIdPersona(tarea,
+                idEmpleado);
     }
 
 }

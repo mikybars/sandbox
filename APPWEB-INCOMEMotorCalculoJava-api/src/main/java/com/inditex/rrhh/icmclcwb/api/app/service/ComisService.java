@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.api.app.service;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
@@ -93,5 +95,15 @@ public interface ComisService {
      */
     List<IdPersonaLocalExternaDto> findExternosByClase(@Valid RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito, ComisClaseEmpleadoEnum clase);
+
+    /**
+     * Obtiene los empleados externos en base a los que tengan un id superior al dado.
+     * @param runTareaDto runtarea
+     * @param tareaAmbito tareaAmbito
+     * @param minIdPersona el id de persona que debe ser superado para ser considerado externo.
+     * @return lista de externos
+     */
+    List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito, @NotNull @Positive Long minIdPersona);
 
 }

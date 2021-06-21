@@ -6,6 +6,8 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -177,6 +179,21 @@ public class ComisServiceImpl implements ComisService {
         try {
             this.setContext(runTareaDto, tareaAmbito);
             externos = this.comisRepositoryCustom.findExternosByClase(runTareaDto.getTarea(), clase);
+        } finally {
+            ClientDatabaseContextHolder.clear();
+        }
+        return externos;
+    }
+
+    @Override
+    public List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito,
+            @NotNull @Positive final Long minIdPersona) {
+        List<IdPersonaLocalExternaDto> externos = null;
+        try {
+            this.setContext(runTareaDto, tareaAmbito);
+            externos = this.comisRepositoryCustom.findExternosByMinIdPersona(runTareaDto.getTarea(), minIdPersona);
         } finally {
             ClientDatabaseContextHolder.clear();
         }
