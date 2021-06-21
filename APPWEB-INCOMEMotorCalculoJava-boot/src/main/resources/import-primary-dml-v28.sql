@@ -4,7 +4,7 @@ VALUES (9, 'externosBrasilV1', 'External emploees in Spain', 100, 0, 0, 0, 0);
 INSERT INTO ACCION (ID_ACCION, NOMBRE, DESCRIPCION, REACCION_PESO, ES_REACCION_ESPERAR, ES_REACCION_REINTENTO, REACCION_REINTENTO_MAX, REACCION_REINTENTO_DELAY)
 VALUES (10, 'externosSpainV1', 'External emploees in Spain', 100, 0, 0, 0, 0);
 INSERT INTO ACCION (ID_ACCION, NOMBRE, DESCRIPCION, REACCION_PESO, ES_REACCION_ESPERAR, ES_REACCION_REINTENTO, REACCION_REINTENTO_MAX, REACCION_REINTENTO_DELAY)
-VALUES (10, 'externosBosniaV1', 'External emploees in Bosnia', 100, 0, 0, 0, 0);
+VALUES (11, 'externosBosniaV1', 'External emploees in Bosnia', 100, 0, 0, 0, 0);
 
 -- ACCION_AMBITO
 -- TODO [javierev] establecer los origenes y empresas de BR y BO
