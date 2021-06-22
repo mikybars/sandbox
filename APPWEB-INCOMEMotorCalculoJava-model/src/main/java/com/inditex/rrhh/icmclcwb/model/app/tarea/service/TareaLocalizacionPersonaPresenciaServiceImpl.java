@@ -139,4 +139,10 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
             .indicadorDesplazamientoDirectoVentaCambioFuncion(runTareaDto);
     }
 
+    @Override
+    public void updateActivoPersonasExternas(
+            @Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoPersonasExternas(runTareaDto);
+    }
+
 }

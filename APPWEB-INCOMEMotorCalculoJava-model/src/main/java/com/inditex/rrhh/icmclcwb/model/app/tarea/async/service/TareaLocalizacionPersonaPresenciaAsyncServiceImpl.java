@@ -43,4 +43,11 @@ public class TareaLocalizacionPersonaPresenciaAsyncServiceImpl
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> updateActivoPersonasExternas(
+            @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPersonaPresenciaService.updateActivoPersonasExternas(runTareaDto);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }
