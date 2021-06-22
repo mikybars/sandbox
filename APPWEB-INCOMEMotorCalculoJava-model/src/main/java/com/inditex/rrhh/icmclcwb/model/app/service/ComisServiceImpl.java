@@ -6,14 +6,18 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -107,6 +111,21 @@ public class ComisServiceImpl implements ComisService {
     }
 
     @Override
+    public List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoEs(@Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        List<IdPersonaLocalCondicionesDto> historico = null;
+        try {
+            this.setContext(runTareaDto, tareaAmbito);
+            historico = this.comisRepositoryCustom
+                .findCondicionesHistoricoEs(runTareaDto.getTarea());
+        } finally {
+            ClientDatabaseContextHolder.clear();
+        }
+
+        return historico;
+    }
+
+    @Override
     public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamiento(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdPersonaLocalCondicionesDto> desplazamiento = null;
@@ -114,6 +133,21 @@ public class ComisServiceImpl implements ComisService {
             this.setContext(runTareaDto, tareaAmbito);
             desplazamiento = this.comisRepositoryCustom
                 .findCondicionesDesplazamiento(runTareaDto.getTarea());
+        } finally {
+            ClientDatabaseContextHolder.clear();
+        }
+
+        return desplazamiento;
+    }
+
+    @Override
+    public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(@Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        List<IdPersonaLocalCondicionesDto> desplazamiento = null;
+        try {
+            this.setContext(runTareaDto, tareaAmbito);
+            desplazamiento = this.comisRepositoryCustom
+                .findCondicionesDesplazamientoEs(runTareaDto.getTarea());
         } finally {
             ClientDatabaseContextHolder.clear();
         }
@@ -135,6 +169,22 @@ public class ComisServiceImpl implements ComisService {
 
         return resalta;
     }
+
+    @Override
+    public List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(@Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        List<IdPersonaLocalCondicionesDto> resalta = null;
+        try {
+            this.setContext(runTareaDto, tareaAmbito);
+            resalta = this.comisRepositoryCustom
+                .findCondicionesResaltaEs(runTareaDto.getTarea());
+        } finally {
+            ClientDatabaseContextHolder.clear();
+        }
+
+        return resalta;
+    }
+
 
     @Override
     public List<IdPersonaLocalCondicionesDto> findBajasIt(@Valid final RunTareaDto runTareaDto,
@@ -164,6 +214,51 @@ public class ComisServiceImpl implements ComisService {
         }
 
         return carencia;
+    }
+
+    @Override
+    public List<IdPersonaLocalExternaDto> findExternosByClase(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito,
+            final ComisClaseEmpleadoEnum clase) {
+        List<IdPersonaLocalExternaDto> externos = null;
+        try {
+            this.setContext(runTareaDto, tareaAmbito);
+            externos = this.comisRepositoryCustom.findExternosByClase(runTareaDto.getTarea(), clase);
+        } finally {
+            ClientDatabaseContextHolder.clear();
+        }
+        return externos;
+    }
+
+    @Override
+    public List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito,
+            @NotNull @Positive final Long minIdPersona) {
+        List<IdPersonaLocalExternaDto> externos = null;
+        try {
+            this.setContext(runTareaDto, tareaAmbito);
+            externos = this.comisRepositoryCustom.findExternosByMinIdPersona(runTareaDto.getTarea(), minIdPersona);
+        } finally {
+            ClientDatabaseContextHolder.clear();
+        }
+        return externos;
+    }
+
+    @Override
+    public List<IdPersonaLocalCondicionesDto> findBajasItEs(@Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        List<IdPersonaLocalCondicionesDto> bajasIt = null;
+        try {
+            this.setContext(runTareaDto, tareaAmbito);
+            bajasIt = this.comisRepositoryCustom
+                .findBajasItEs(runTareaDto.getTarea());
+        } finally {
+            ClientDatabaseContextHolder.clear();
+        }
+
+        return bajasIt;
     }
 
     private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {

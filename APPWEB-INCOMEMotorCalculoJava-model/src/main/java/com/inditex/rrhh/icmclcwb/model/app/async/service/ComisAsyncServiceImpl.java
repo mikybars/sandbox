@@ -11,10 +11,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -70,6 +72,14 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
     }
 
     @Override
+    public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesHistoricoEs(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        return CompletableFuture
+            .completedFuture(this.comisService.findCondicionesHistoricoEs(runTareaDto, tareaAmbito));
+    }
+
+    @Override
     public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesDesplazamiento(
             @Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
@@ -78,11 +88,27 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
     }
 
     @Override
+    public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesDesplazamientoEs(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        return CompletableFuture
+            .completedFuture(this.comisService.findCondicionesDesplazamientoEs(runTareaDto, tareaAmbito));
+    }
+
+    @Override
     public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesResalta(
             @Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
         return CompletableFuture
             .completedFuture(this.comisService.findCondicionesResalta(runTareaDto, tareaAmbito));
+    }
+
+    @Override
+    public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesResaltaEs(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        return CompletableFuture
+            .completedFuture(this.comisService.findCondicionesResaltaEs(runTareaDto, tareaAmbito));
     }
 
     @Override
@@ -99,6 +125,31 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
             @Valid final TareaAmbitoDto tareaAmbito) {
         return CompletableFuture
             .completedFuture(this.comisService.findCarencia(runTareaDto, tareaAmbito));
+    }
+
+    @Override
+    public CompletableFuture<List<IdPersonaLocalExternaDto>> findExternosByClase(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito,
+            final ComisClaseEmpleadoEnum clase) {
+        return CompletableFuture
+            .completedFuture(this.comisService.findExternosByClase(runTareaDto, tareaAmbito, clase));
+    }
+
+    @Override
+    public CompletableFuture<List<IdPersonaLocalExternaDto>> findExternosByMinIdPersona(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito, final Long minIdPersona) {
+        return CompletableFuture
+            .completedFuture(this.comisService.findExternosByMinIdPersona(runTareaDto, tareaAmbito, minIdPersona));
+    }
+
+    @Override
+    public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findBajasItEs(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        return CompletableFuture
+            .completedFuture(this.comisService.findBajasItEs(runTareaDto, tareaAmbito));
     }
 
 }

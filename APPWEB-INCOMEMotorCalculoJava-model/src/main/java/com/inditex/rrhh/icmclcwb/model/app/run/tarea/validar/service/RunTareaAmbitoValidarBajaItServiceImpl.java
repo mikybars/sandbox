@@ -26,7 +26,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbit
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
@@ -46,9 +45,6 @@ public class RunTareaAmbitoValidarBajaItServiceImpl
 
     @Autowired
     private TareaFaseAccionService tareaFaseAccionService;
-
-    @Autowired
-    private AccionService accionService;
 
     @Autowired
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;

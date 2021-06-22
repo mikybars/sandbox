@@ -88,6 +88,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
     private final static String SQL_INDICADOR_DESPLAZAMIENTO_BASE_DIRECTO_VENTA = "SQL INDICADOR DESPLAZAMIENTO BASE DIRECTO VENTA";
 
+    private final static String SQL_UPDATE_ACTIVO_PERSONAS_EXTERNAS = "SQL UPDATE ACTIVO PERSONAS EXTERNAS";
+
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -136,6 +138,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
                 "sqlIndicadorDesplazamientoDirectoVenta",
                 SQL_INDICADOR_DESPLAZAMIENTO_DIRECTO_VENTA, true);
+        FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
+                "sqlUpdateActivoPersonasExternas",
+                SQL_UPDATE_ACTIVO_PERSONAS_EXTERNAS, true);
 
         FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, "batchSize", 100, true);
     }
@@ -545,6 +550,68 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         // nuevoIdTipoDato
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
 
+    }
+
+    @Test
+    public void updateActivoPersonasExternasQueryTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getId()).thenReturn(199L);
+        when(runTarea.getTarea()).thenReturn(tarea);
+
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoPersonasExternas(runTarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
+                any(MapSqlParameterSource.class));
+        assertEquals(SQL_UPDATE_ACTIVO_PERSONAS_EXTERNAS, this.sqlCaptor.getValue());
+    }
+
+    @Test
+    public void updateActivoPersonasExternasNumParametrosTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getId()).thenReturn(199L);
+        when(runTarea.getTarea()).thenReturn(tarea);
+
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoPersonasExternas(runTarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class),
+                this.paramsCaptor.capture());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        // parametros de la peticion: idTarea, activo, TODO [javierev] id tipo grupo dato / id tipo dato
+        assertEquals(2, params.getValues().size());
+    }
+
+    @Test
+    public void updateActivoPersonasExternasParametroIdTareaTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
+        final Long idTarea = 199L;
+        when(tarea.getId()).thenReturn(idTarea);
+        when(runTarea.getTarea()).thenReturn(tarea);
+
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoPersonasExternas(runTarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class),
+                this.paramsCaptor.capture());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+        assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, params.getValue(SQL_PARAM_ID_TAREA));
+    }
+
+    @Test
+    public void updateActivoPersonasExternasParametroActivoTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
+        final Long idTarea = 199L;
+        when(tarea.getId()).thenReturn(idTarea);
+        when(runTarea.getTarea()).thenReturn(tarea);
+
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoPersonasExternas(runTarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class),
+                this.paramsCaptor.capture());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+        assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_ACTIVO));
     }
 
 }

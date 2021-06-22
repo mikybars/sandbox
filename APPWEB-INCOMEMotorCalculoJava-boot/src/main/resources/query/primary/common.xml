@@ -2025,6 +2025,31 @@ AND ID_TIPO_DATO IN (
 )
 ]]></entry>
 
+  <entry key="TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoPersonasExternas">
+    <![CDATA[
+    MERGE INTO TAREA_LOCALIZACION_PERSONA_PRESENCIA AS P USING (
+	    SELECT PRESENCIA.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA
+	    FROM TAREA TAREA
+	    INNER JOIN TAREA_LOCALIZACION_PERSONA_PRESENCIA PRESENCIA
+	    ON PRESENCIA.FECHA_INICIO_PERIODO = TAREA.FECHA_INICIO_PERIODO
+	    AND PRESENCIA.ID_TAREA = TAREA.ID_TAREA
+	    INNER JOIN TIPO_DATO TD
+	    ON TD.ID_TIPO_DATO = PRESENCIA.ID_TIPO_DATO
+	    AND TD.ID_TIPO_DATO IN (4002, 4003, 4004)
+	    --TODO [javierev] resolver el tipo grupo dato
+	--    INNER JOIN TIPO_GRUPO_DATO_TIPO_DATO TGD
+	--    ON TGD.ID_TIPO_DATO = TD.ID_TIPO_DATO
+	--    AND TGD.ID_TIPO_GRUPO_DATO = :idGrupoDato
+	    INNER JOIN TAREA_PERSONA_EXTERNA EXTERNA
+	    ON EXTERNA.ID_TAREA = TAREA.ID_TAREA
+	    AND EXTERNA.CCL_ID_PERSON = PRESENCIA.CCL_ID_PERSON
+		WHERE TAREA.ID_TAREA = :idTarea
+    ) AS S ON (S.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA = P.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA)
+    WHEN MATCHED THEN
+    	UPDATE SET ES_ACTIVO = :inactivo
+    ]]>
+  </entry>
+
   <entry key="TareaAgrupacionPresenciaRepositoryCustom.totalizar">
     <![CDATA[
     MERGE INTO TAREA_AGRUPACION_PRESENCIA USING
@@ -2308,6 +2333,13 @@ VALUES(:tarea.id, :icmIdEstrComision, :ordinalEstructura, :fechaInicio, :fechaFi
 INSERT INTO TAREA_PERSONA_ESTRUCTURA_POLITICA (FECHA_FIN, FECHA_INICIO, STD_ID_HR, CCL_ID_PERSON, ICM_ID_ESTR_POLITICAS, ID_TIPO_POLITICA, STD_OR_HR_PERIOD, ID_TAREA, CCL_ID_ORIGEN, ES_EXCLUIDO_DENOMINADOR, ID_TIPO_UNIDAD_TIEMPO, ICM_NUM_UNIDADES, ICM_PORCENTAJE, ICM_TRAMO, FECHA_INICIO_PERIODO, ICM_IMPORTE, ICM_NUM_MESES_CALC_MEDIA, ICM_NUM_HORAS, ICM_ID_MOTIVO_BAJA)
 VALUES(:fechaFin, :fechaInicio, :stdIdHr, :cclIdPerson, :idEstructuraPolitica, :tipoPolitica.id, :stdOrHrPeriod, :tarea.id, :cclIdOrigen, :excluidoDenominador, :tipoUnidadTiempo.id, :numeroUnidades, :valor, :tramo, :pk.fechaInicioPeriodo, :importe, :numMesesCalcMedia, :numHoras, :idMotivoBaja)
   ]]>
+  </entry>
+
+  <entry key="TareaPersonaExternaRepositoryCustom.save">
+    <![CDATA[
+    INSERT INTO TAREA_PERSONA_EXTERNA (ID_TAREA, CCL_ID_PERSON, FECHA_INICIO, FECHA_FIN)
+    VALUES (:tarea.id, :cclIdPerson, :fechaInicio, :fechaFin)
+    ]]>
   </entry>
 
   <entry key="RunTareaCalcularService.customFindAlgoritmosIdsByTarea">

@@ -55,4 +55,6 @@ public class AppConstants {
 
     public static final String UNDERSCORE = "_";
 
+    public static final Long MIN_ID_PERSONA_EXTERNO = 500000L;
+
 }
