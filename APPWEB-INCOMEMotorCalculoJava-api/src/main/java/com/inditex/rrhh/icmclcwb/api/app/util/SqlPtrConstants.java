@@ -12,6 +12,7 @@ public class SqlPtrConstants {
 
     public static final String SQL_PARAM_CCL_ID_ORIGEN = "idOrigen";
 
+    public static final String SQL_PARAM_ID_CATALOGO_APLICACION = "idCatalogoAplicacion";
 
     // RESULTADOS DE CONSULTAS
 

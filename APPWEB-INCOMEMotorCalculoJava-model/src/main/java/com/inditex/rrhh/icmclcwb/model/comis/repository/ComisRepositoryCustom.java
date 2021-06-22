@@ -87,4 +87,22 @@ public interface ComisRepositoryCustom {
      */
     List<IdPersonaLocalCondicionesDto> findBajasItEs(TareaDto tarea);
 
+    /**
+     * @param tarea
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoEs(TareaDto tarea);
+
+    /**
+     * @param tarea
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(TareaDto tarea);
+
+    /**
+     * @param tarea
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(TareaDto tarea);
+
 }

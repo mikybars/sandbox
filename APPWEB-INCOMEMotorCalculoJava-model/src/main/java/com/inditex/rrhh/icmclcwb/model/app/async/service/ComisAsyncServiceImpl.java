@@ -72,6 +72,14 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
     }
 
     @Override
+    public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesHistoricoEs(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        return CompletableFuture
+            .completedFuture(this.comisService.findCondicionesHistoricoEs(runTareaDto, tareaAmbito));
+    }
+
+    @Override
     public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesDesplazamiento(
             @Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
@@ -80,11 +88,27 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
     }
 
     @Override
+    public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesDesplazamientoEs(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        return CompletableFuture
+            .completedFuture(this.comisService.findCondicionesDesplazamientoEs(runTareaDto, tareaAmbito));
+    }
+
+    @Override
     public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesResalta(
             @Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
         return CompletableFuture
             .completedFuture(this.comisService.findCondicionesResalta(runTareaDto, tareaAmbito));
+    }
+
+    @Override
+    public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesResaltaEs(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        return CompletableFuture
+            .completedFuture(this.comisService.findCondicionesResaltaEs(runTareaDto, tareaAmbito));
     }
 
     @Override

@@ -97,6 +97,19 @@ public class ComisServiceImplTest {
     }
 
     @Test
+    public void findCondicionesHistoricoEs() {
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        runTareaDto.setTarea(tarea);
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+        this.comisServiceImpl.findCondicionesHistoricoEs(runTareaDto, tareaAmbitoDto);
+        verify(this.comisRepositoryCustom, times(1))
+            .findCondicionesHistoricoEs(any(TareaDto.class));
+    }
+
+    @Test
     public void findCondicionesDesplazamiento() {
         final RunTareaDto runTareaDto = new RunTareaDto();
         final TareaDto tarea = new TareaDto();
@@ -110,6 +123,19 @@ public class ComisServiceImplTest {
     }
 
     @Test
+    public void findCondicionesDesplazamientoEs() {
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        runTareaDto.setTarea(tarea);
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+        this.comisServiceImpl.findCondicionesDesplazamientoEs(runTareaDto, tareaAmbitoDto);
+        verify(this.comisRepositoryCustom, times(1))
+            .findCondicionesDesplazamientoEs(any(TareaDto.class));
+    }
+
+    @Test
     public void findCondicionesResalta() {
         final RunTareaDto runTareaDto = new RunTareaDto();
         final TareaDto tarea = new TareaDto();
@@ -120,6 +146,19 @@ public class ComisServiceImplTest {
         this.comisServiceImpl.findCondicionesResalta(runTareaDto, tareaAmbitoDto);
         verify(this.comisRepositoryCustom, times(1))
             .findCondicionesResalta(any(TareaDto.class));
+    }
+
+    @Test
+    public void findCondicionesResaltaEs() {
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        runTareaDto.setTarea(tarea);
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+        this.comisServiceImpl.findCondicionesResaltaEs(runTareaDto, tareaAmbitoDto);
+        verify(this.comisRepositoryCustom, times(1))
+            .findCondicionesResaltaEs(any(TareaDto.class));
     }
 
     @Test

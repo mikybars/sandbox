@@ -128,4 +128,28 @@ public interface ComisAsyncService {
     CompletableFuture<List<IdPersonaLocalCondicionesDto>> findBajasItEs(@Valid RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito);
 
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesDesplazamientoEs(
+            @Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesHistoricoEs(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesResaltaEs(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
 }

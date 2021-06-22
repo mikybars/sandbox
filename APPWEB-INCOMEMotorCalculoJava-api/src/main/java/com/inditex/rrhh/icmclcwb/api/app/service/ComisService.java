@@ -113,4 +113,28 @@ public interface ComisService {
      */
     List<IdPersonaLocalCondicionesDto> findBajasItEs(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
 
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoEs(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
 }
