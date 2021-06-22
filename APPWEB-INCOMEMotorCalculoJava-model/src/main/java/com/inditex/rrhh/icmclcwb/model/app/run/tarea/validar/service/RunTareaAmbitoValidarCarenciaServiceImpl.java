@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
@@ -46,9 +45,6 @@ public class RunTareaAmbitoValidarCarenciaServiceImpl
 
     @Autowired
     private TareaFaseAccionService tareaFaseAccionService;
-
-    @Autowired
-    private PtrAsyncService ptrAsyncService;
 
     @Autowired
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;

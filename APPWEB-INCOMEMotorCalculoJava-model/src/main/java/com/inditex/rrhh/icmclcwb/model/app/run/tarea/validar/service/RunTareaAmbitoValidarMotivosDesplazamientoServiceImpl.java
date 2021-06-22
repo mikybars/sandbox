@@ -24,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbit
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
@@ -33,8 +32,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
-import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
-import org.slf4j.Logger;
 
 /**
  * @author mdelrio
@@ -58,16 +55,7 @@ public class RunTareaAmbitoValidarMotivosDesplazamientoServiceImpl
     private Meta4IcmWsCalcIncomeAsyncService meta4IcmWsCalcIncomeAsyncService;
 
     @Autowired
-    private AccionService accionService;
-
-    @Autowired
     private ValidacionMapper validacionMapper;
-
-    @Autowired
-    private SenderTarea senderTarea;
-
-    @Autowired
-    private Logger log;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
