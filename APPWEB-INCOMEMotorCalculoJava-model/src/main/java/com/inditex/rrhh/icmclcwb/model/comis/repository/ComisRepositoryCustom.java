@@ -81,4 +81,10 @@ public interface ComisRepositoryCustom {
      */
     List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(final TareaDto tarea, final Long minIdPersona);
 
+    /**
+     * @param tarea
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> findBajasItEs(TareaDto tarea);
+
 }

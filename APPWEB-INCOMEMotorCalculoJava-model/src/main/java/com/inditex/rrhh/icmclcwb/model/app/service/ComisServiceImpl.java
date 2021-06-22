@@ -200,6 +200,21 @@ public class ComisServiceImpl implements ComisService {
         return externos;
     }
 
+    @Override
+    public List<IdPersonaLocalCondicionesDto> findBajasItEs(@Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        List<IdPersonaLocalCondicionesDto> bajasIt = null;
+        try {
+            this.setContext(runTareaDto, tareaAmbito);
+            bajasIt = this.comisRepositoryCustom
+                .findBajasItEs(runTareaDto.getTarea());
+        } finally {
+            ClientDatabaseContextHolder.clear();
+        }
+
+        return bajasIt;
+    }
+
     private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {
         if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
             ClientDatabaseContextHolder

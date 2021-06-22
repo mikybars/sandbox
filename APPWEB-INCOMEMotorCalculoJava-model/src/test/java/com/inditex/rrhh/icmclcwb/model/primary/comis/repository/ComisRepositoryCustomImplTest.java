@@ -63,6 +63,8 @@ public class ComisRepositoryCustomImplTest {
 
     private final static String SQL_FIND_EXTERNOS_BY_MIN_ID_PERSONA = "SQL FIND EXTERNOS BY MIN ID PERSONA";
 
+    private final static String SQL_FIND_BAJAS_IT_ES = "SQL FIND BAJAS IT ES";
+
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -120,6 +122,10 @@ public class ComisRepositoryCustomImplTest {
         FieldUtils.writeField(this.comisRepositoryCustom,
                 "sqlFindExternosByMinIdPersona",
                 SQL_FIND_EXTERNOS_BY_MIN_ID_PERSONA,
+                true);
+        FieldUtils.writeField(this.comisRepositoryCustom,
+                "sqlFindBajasItEs",
+                SQL_FIND_BAJAS_IT_ES,
                 true);
     }
 
@@ -442,6 +448,26 @@ public class ComisRepositoryCustomImplTest {
         assertTrue(parameters.hasValue(SqlComisConstants.SQL_PARAM_MIN_ID_PERSONA));
         assertEquals(idPersona, parameters.getValue(SqlComisConstants.SQL_PARAM_MIN_ID_PERSONA));
 
+    }
+
+    @Test
+    public void findBajasItEs() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setIdOrganization("1");
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findBajasItEs(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
+        assertEquals(SQL_FIND_BAJAS_IT_ES,
+                this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        // Parámetros de la consulta: fecha desde, fecha hasta
+        assertEquals(2, params.getValues().size());
+        // fecha desde
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+        // fecha hasta
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
     }
 
 }

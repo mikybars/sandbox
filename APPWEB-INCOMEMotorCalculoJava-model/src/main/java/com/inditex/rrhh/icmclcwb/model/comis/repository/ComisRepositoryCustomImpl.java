@@ -59,6 +59,9 @@ public class ComisRepositoryCustomImpl
     @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findExternosByMinIdPersona']}")
     private String sqlFindExternosByMinIdPersona;
 
+    @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findBajasItEs']}")
+    private String sqlFindBajasItEs;
+
     @Autowired
     @Qualifier("fechasProperties")
     private PrevalidarPropertiesDto fechasProperties;
@@ -140,13 +143,11 @@ public class ComisRepositoryCustomImpl
                     .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
                     .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
                     .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
-                    .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
                     .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
                     .idTipoCalculo(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO))
                     .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
                     .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
                     .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
-                    .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
                     .puesto(rs.getString(SqlComisConstants.SQL_RESULT_PUESTO))
                     .secciones(rs.getString(SqlComisConstants.SQL_RESULT_SECCIONES))
                     .build());
@@ -196,7 +197,6 @@ public class ComisRepositoryCustomImpl
                     .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
                     .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
                     .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
-                    .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
                     .build());
     }
 
@@ -305,6 +305,25 @@ public class ComisRepositoryCustomImpl
                     .idPersonaLocal("909099_" + clase.getId())
                     .fechaDesde(tarea.getFechaInicioPeriodo())
                     .fechaHasta(tarea.getFechaFinPeriodo())
+                    .build());
+    }
+
+    @Override
+    public List<IdPersonaLocalCondicionesDto> findBajasItEs(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
+                TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+
+        return this.query(this.sqlFindBajasItEs, map,
+                (rs, rowNum) -> IdPersonaLocalCondicionesDto
+                    .builder()
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
+                    .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_INICIO).toLocalDate())
+                    .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_FIN).toLocalDate())
+                    .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
+                    .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
                     .build());
     }
 

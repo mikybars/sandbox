@@ -106,4 +106,11 @@ public interface ComisService {
     List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(@Valid RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito, @NotNull @Positive Long minIdPersona);
 
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> findBajasItEs(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
+
 }

@@ -120,4 +120,12 @@ public interface ComisAsyncService {
     CompletableFuture<List<IdPersonaLocalExternaDto>> findExternosByMinIdPersona(@Valid RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito, final Long minIdPersona);
 
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    CompletableFuture<List<IdPersonaLocalCondicionesDto>> findBajasItEs(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
 }

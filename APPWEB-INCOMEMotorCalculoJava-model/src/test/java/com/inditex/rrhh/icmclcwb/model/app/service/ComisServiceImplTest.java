@@ -177,4 +177,17 @@ public class ComisServiceImplTest {
                 idEmpleado);
     }
 
+    @Test
+    public void findBajasItEs() {
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        runTareaDto.setTarea(tarea);
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+        this.comisServiceImpl.findBajasItEs(runTareaDto, tareaAmbitoDto);
+        verify(this.comisRepositoryCustom, times(1))
+            .findBajasItEs(any(TareaDto.class));
+    }
+
 }
