@@ -196,4 +196,13 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
             .indicadorDesplazamientoDirectoVenta(any(RunTareaDto.class));
     }
 
+    @Test
+    public void updateActivoPersonasExternasTest() {
+
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPersonaPresenciaServiceImpl.updateActivoPersonasExternas(runTarea);
+        verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).updateActivoPersonasExternas(runTarea);
+    }
+
 }
