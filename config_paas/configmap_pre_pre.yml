@@ -124,19 +124,19 @@ amiga:
           user: ncomis     
         comis11-11:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalPull
           user: ncomis
         comis11-2:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalOysho
           user: ncomis
         comis11-30:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalDutti
           user: ncomis      
         comis11-25:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalBsk
           user: ncomis                      
         comis18:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
