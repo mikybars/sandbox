@@ -216,10 +216,6 @@ amiga:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
           user: ncomis
-        comis204:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://MKSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis          
         comis388:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://ZAFSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
