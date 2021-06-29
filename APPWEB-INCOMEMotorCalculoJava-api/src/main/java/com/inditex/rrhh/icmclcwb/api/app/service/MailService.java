@@ -15,7 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
  */
 public interface MailService {
 
-    void sendMailMotivos();
+    void sendMailMotivos(final RunTareaDto runTarea);
 
     /**
      * @param tareaFase

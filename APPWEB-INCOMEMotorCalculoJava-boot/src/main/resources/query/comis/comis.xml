@@ -336,7 +336,7 @@
 
   <entry key="ComisRepositoryCustom.findCondicionesDesplazamiento">
     <![CDATA[
- WITH T AS (SELECT
+WITH T AS (SELECT
             CCL_ID_PERSON,
             CCL_ID_COD_ORIGEN_DESTINO,
             CCL_ID_SECCION,
@@ -365,6 +365,7 @@
                     ELSE PCT.FECHADESDE
                   END AS FECHA_DESDE,
                   CASE
+                    WHEN PH.FECHAHASTA < PCT.FECHAHASTA THEN PH.FECHAHASTA
                     WHEN PCT.FECHAHASTA IS NULL THEN :fechaHasta
                     WHEN PCT.FECHAHASTA > :fechaHasta THEN :fechaHasta
                     ELSE PCT.FECHAHASTA
@@ -386,6 +387,10 @@
                   PCT.MOTIVO,
                   PCT.PUESTODESTINO AS PUESTO_DESTINO
                   FROM PERSONASCAMBIOSTEMPORALES PCT
+                  INNER JOIN PERSONASHISTORICO PH
+                  ON PCT.PERSONA = PH.PERSONA
+                  AND (PCT.FECHAHASTA >= PH.FECHADESDE)
+                  AND (PCT.FECHADESDE <= PH.FECHAHASTA OR PH.FECHAHASTA IS NULL)
                   LEFT JOIN TABLASPORCENTAJESCOMISION TPC
                   ON TPC.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
                   LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
@@ -396,10 +401,12 @@
                     AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
                     AND PCT.TIPOCALCULO <> 0
                     AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+                    AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                   GROUP BY
                     PCT.PERSONA,
                     PCT.FECHADESDE,
                     PCT.FECHAHASTA,
+                    PH.FECHAHASTA,
                     PCT.TIENDADESTINO,
                     PCT.SECCIONDESTINO,
                     TPC.SECCION,
@@ -457,6 +464,7 @@
             ELSE PCT.FECHADESDE
           END AS FECHA_DESDE,
           CASE
+            WHEN PH.FECHAHASTA < PCT.FECHAHASTA THEN PH.FECHAHASTA          
             WHEN PCT.FECHAHASTA IS NULL THEN :fechaHasta
             WHEN PCT.FECHAHASTA > :fechaHasta THEN :fechaHasta
             ELSE PCT.FECHAHASTA
@@ -483,6 +491,10 @@
           ON PCT.PERSONA = PR.PERSONA
           AND (PCT.FECHAHASTA >= PR.FECHADESDE)
           AND (PCT.FECHADESDE <= PR.FECHAHASTA)
+          INNER JOIN PERSONASHISTORICO PH
+          ON PCT.PERSONA = PH.PERSONA
+          AND (PCT.FECHAHASTA >= PH.FECHADESDE)
+          AND (PCT.FECHADESDE <= PH.FECHAHASTA OR PH.FECHAHASTA IS NULL)          
           LEFT JOIN TABLASPORCENTAJESCOMISION TPC
           ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
           LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
@@ -494,10 +506,12 @@
             AND PCT.TIPOCALCULO <> 0
             AND PR.TIPOCALCULO = 0
             AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+            AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
           GROUP BY
             PCT.PERSONA,
             PCT.FECHADESDE,
             PCT.FECHAHASTA,
+            PH.FECHAHASTA,            
             PCT.TIENDADESTINO,
             TPC.SECCION,
             PCT.SECCIONDESTINO,
