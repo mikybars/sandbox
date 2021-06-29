@@ -137,7 +137,8 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendMailMotivos() {
+    public void sendMailMotivos(final RunTareaDto runTarea) {
+        final TareaDto tarea = runTarea.getTarea();
         final StringBuilder result = new StringBuilder();
         result.append(TITLE_MOTIVOS);
         result.append(LINE_BREAK);
@@ -151,6 +152,7 @@ public class MailServiceImpl implements MailService {
             .append(SEPARATOR)
             .append(SUBJECT_MOTIVOS)
             .append(SEPARATOR)
+            .append(tarea.getIdOrganization())
             .toString());
         message.setText(result.toString());
 
