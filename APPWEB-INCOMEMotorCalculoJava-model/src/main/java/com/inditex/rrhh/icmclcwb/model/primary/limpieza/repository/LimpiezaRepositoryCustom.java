@@ -36,4 +36,6 @@ public interface LimpiezaRepositoryCustom {
 
     void limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid final TareaDto tarea);
 
+    void limpiezaTareaPersonaExterna(@NotNull @Valid final TareaDto tarea);
+
 }

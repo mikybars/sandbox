@@ -82,6 +82,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.personas.tareaPersonaHistorico']}")
     private String sqlPersonasTareaPersonaHistorico;
 
+    @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.personas.tareaPersonaExterna']}")
+    private String sqlPersonasTareaPersonaExterna;
+
     // Consultas de limpieza
     @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaCalculo']}")
     private String sqlLimpiezaTareaCalculo;
@@ -188,6 +191,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresupuestoTareaPersonaEstructura']}")
     private String sqlTareaLocalizacionPresupuestoTareaPersonaEstructura;
 
+    @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaPersonaExterna']}")
+    private String sqlLimpiezaTareaPersonaExterna;
+
     @Value("${app.envars.limpieza.batch-size.default:1}")
     private int batchSize;
 
@@ -242,6 +248,8 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         this.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(tarea);
 
         this.limpiezaTareaAmbitoGlobalPersona(tarea);
+
+        this.limpiezaTareaPersonaExterna(tarea);
 
 
         for (final List<MapSqlParameterSource> iter : StreamUtils.partition(cclIdCodOrigenBatchArgs, this.batchSize)) {
@@ -448,6 +456,18 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         for (final List<MapSqlParameterSource> iter : StreamUtils.partition(parametersPersonaTareaAmbitoGlobalPersona,
                 this.batchSize)) {
             this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaAmbitoGlobalPersona,
+                    iter.toArray(new MapSqlParameterSource[0]));
+        }
+    }
+
+    @Override
+    public void limpiezaTareaPersonaExterna(
+            @NotNull @Valid final TareaDto tarea) {
+        final List<MapSqlParameterSource> parametersPersonaTareaPersonaExterna = this.getParametersPersonaLocal(tarea,
+                this.sqlPersonasTareaPersonaExterna);
+        for (final List<MapSqlParameterSource> iter : StreamUtils.partition(parametersPersonaTareaPersonaExterna,
+                this.batchSize)) {
+            this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaPersonaExterna,
                     iter.toArray(new MapSqlParameterSource[0]));
         }
     }
