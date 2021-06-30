@@ -576,9 +576,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class),
                 this.paramsCaptor.capture());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        // parametros de la peticion: idTarea, activo, nuevoActivo TODO [javierev] id tipo grupo dato / id
-        // tipo dato
-        assertEquals(3, params.getValues().size());
+        // parametros de la peticion: idTarea, activo, nuevoActivo, idTipoGrupoDato
+        assertEquals(4, params.getValues().size());
     }
 
     @Test
@@ -630,6 +629,24 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
         assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
+    }
+
+    @Test
+    public void updateActivoPersonasExternasParametroIdTipoGrupoDatoTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
+        final Long idTarea = 199L;
+        when(tarea.getId()).thenReturn(idTarea);
+        when(runTarea.getTarea()).thenReturn(tarea);
+
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoPersonasExternas(runTarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class),
+                this.paramsCaptor.capture());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+        assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_DESACTIVAR_EXTERNOS.getId(),
+                params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
     }
 
 }

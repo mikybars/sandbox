@@ -17,8 +17,8 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
-// @Entity
-// @Table(name = "TAREA_PERSONA_EXTERNA")
+@Entity
+@Table(name = "TAREA_PERSONA_EXTERNA")
 @Data
 public class TareaPersonaExterna {
 
