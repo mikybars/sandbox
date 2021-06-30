@@ -35,6 +35,8 @@ public class PtrRepositoryCustomImplTest {
 
     private final static String SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA = "SQL FIND PRESENCIAS ORIGEN AND FECHA";
 
+    private final static String SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA_ES = "SQL FIND PRESENCIAS ORIGEN AND FECHA ES";
+
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -52,7 +54,9 @@ public class PtrRepositoryCustomImplTest {
         FieldUtils.writeField(this.ptrRepositoryCustom,
                 "sqlfindPresenciasOrigenAndFechaQuery",
                 SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA, true);
-
+        FieldUtils.writeField(this.ptrRepositoryCustom,
+                "sqlfindPresenciasOrigenAndFechaEsQuery",
+                SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA_ES, true);
     }
 
     @Test
@@ -70,6 +74,28 @@ public class PtrRepositoryCustomImplTest {
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: fechainicio, fechafin
         assertEquals(3, params.getValues().size());
+        // fechainicio
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO));
+        // fechafin
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN));
+    }
+
+    @Test
+    public void findPresenciasOrigenAndFechaEs() {
+        final TareaDto tarea = new TareaDto();
+        final TareaAmbitoDto ambito = new TareaAmbitoDto();
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        final Integer idCatalogo = 1;
+        this.ptrRepositoryCustom.findPresenciasOrigenAndFechaEs(tarea, ambito, idCatalogo);
+        verify(this.namedParameterJdbcTemplate, times(1)).queryForObject(this.sqlCaptor.capture(),
+                this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<PresenciaOrigenDto>>any());
+        assertEquals(SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA_ES,
+                this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        // Parámetros de la consulta: fechainicio, fechafin
+        assertEquals(4, params.getValues().size());
         // fechainicio
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO));
         // fechafin

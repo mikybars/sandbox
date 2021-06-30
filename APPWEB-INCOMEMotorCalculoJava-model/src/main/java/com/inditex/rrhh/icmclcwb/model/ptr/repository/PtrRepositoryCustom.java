@@ -13,4 +13,13 @@ public interface PtrRepositoryCustom {
      */
     PresenciaOrigenDto findPresenciasOrigenAndFecha(TareaDto tarea, TareaAmbitoDto ambito);
 
+    /**
+     * @param tarea
+     * @param ambito
+     * @param idCatalogoAplicacion
+     * @return
+     */
+    PresenciaOrigenDto findPresenciasOrigenAndFechaEs(TareaDto tarea, TareaAmbitoDto ambito,
+            Integer idCatalogoAplicacion);
+
 }

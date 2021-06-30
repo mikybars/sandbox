@@ -10,9 +10,11 @@ import javax.validation.Valid;
 
 import org.springframework.scheduling.annotation.Async;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -97,6 +99,57 @@ public interface ComisAsyncService {
      * @return
      */
     CompletableFuture<List<IdPersonaLocalCarenciaDto>> findCarencia(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @param clase
+     * @return
+     */
+    CompletableFuture<List<IdPersonaLocalExternaDto>> findExternosByClase(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito, ComisClaseEmpleadoEnum clase);
+
+    /**
+     * Obtiene los empleados externos en base a los que tengan un id superior al dado.
+     * @param runTareaDto run tarea
+     * @param tareaAmbito tarea ambito
+     * @param minIdPersona el id de persona que debe ser superado para ser considerado externo.
+     * @return future lista de externos
+     */
+    CompletableFuture<List<IdPersonaLocalExternaDto>> findExternosByMinIdPersona(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito, final Long minIdPersona);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    CompletableFuture<List<IdPersonaLocalCondicionesDto>> findBajasItEs(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesDesplazamientoEs(
+            @Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesHistoricoEs(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesResaltaEs(@Valid RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito);
 
 }

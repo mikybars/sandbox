@@ -89,6 +89,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoDirectoVentaCambioFuncion']}")
     private String sqlIndicadorDesplazamientoDirectoVentaCambioFuncion;
 
+    @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoPersonasExternas']}")
+    private String sqlUpdateActivoPersonasExternas;
+
     @Autowired
     private TipoDatoService tipoDatoService;
 
@@ -402,6 +405,17 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     @Override
     public List<TareaLocalizacionPersonaPresencia> save(final List<TareaLocalizacionPersonaPresencia> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
+    }
+
+    @Override
+    public void updateActivoPersonasExternas(
+            @NotNull final RunTareaDto runTareaDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        // TODO [javierev] parámetro id tipo grupo dato / id tipo dato
+        this.update(this.sqlUpdateActivoPersonasExternas, parameters);
     }
 
 }

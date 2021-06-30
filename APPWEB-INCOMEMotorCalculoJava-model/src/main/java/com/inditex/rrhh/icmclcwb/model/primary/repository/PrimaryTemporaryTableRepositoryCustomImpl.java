@@ -227,14 +227,13 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                             ps.setString(1, el.getIdPersonaLocal());
                             ps.setDate(2, new Date(TimeUtils.toDate(el.getFechaDesde()).getTime()));
                             ps.setDate(3, new Date(TimeUtils.toDate(el.getFechaHasta()).getTime()));
-                            ps.setString(4, el.getCclIdCodOrigen());
-                            ps.setString(5, el.getIdTipoCalculo());
-                            ps.setString(6, el.getPorcentaje());
-                            ps.setString(7, el.getBanda());
-                            ps.setString(8, el.getImporte());
-                            ps.setString(9, el.getCclIdSeccion());
-                            ps.setString(10, el.getPuesto());
-                            ps.setString(11, el.getSecciones());
+                            ps.setString(4, el.getIdTipoCalculo());
+                            ps.setString(5, el.getPorcentaje());
+                            ps.setString(6, el.getBanda());
+                            ps.setString(7, el.getImporte());
+                            ps.setString(8, el.getCclIdSeccion());
+                            ps.setString(9, el.getPuesto());
+                            ps.setString(10, el.getSecciones());
                         }
 
                         @Override
@@ -346,7 +345,6 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                             ps.setString(6, el.getBanda());
                             ps.setString(7, el.getImporte());
                             ps.setString(8, el.getCclIdSeccion());
-                            ps.setString(9, el.getCclIdCodOrigen());
                         }
 
                         @Override

@@ -33,4 +33,11 @@ public class PtrAsyncServiceImpl implements PtrAsyncService {
             .completedFuture(this.ptrService.findPresenciasOrigenAndFecha(runTareaDto, tareaAmbito));
     }
 
+    @Override
+    public CompletableFuture<PresenciaOrigenDto> findPresenciasOrigenAndFechaEs(@Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        return CompletableFuture
+            .completedFuture(this.ptrService.findPresenciasOrigenAndFechaEs(runTareaDto, tareaAmbito));
+    }
+
 }

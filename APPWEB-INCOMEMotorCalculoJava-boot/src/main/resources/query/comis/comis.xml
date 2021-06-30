@@ -25,7 +25,7 @@
 
   <entry key="ComisRepositoryCustom.findMotivosDesplazamiento">
     <![CDATA[
-      SELECT DISTINCT(A.MOTIVO) AS ID_MOTIVO_DESPLAZAMIENTO FROM PERSONASCAMBIOSTEMPORALES A
+      SELECT DISTINCT(A.MOTIVO) AS ID_MOTIVO_DESPLAZAMIENTO FROM PERSONASCAMBIOSTEMPORALES A WHERE A.MOTIVO IS NOT NULL
     ]]>
   </entry>
 
@@ -123,7 +123,7 @@
         CASE WHEN DATA.FIN = 1 THEN DATA.FechaDesde1 ELSE DATA.FechaDesde1 END AS FechaHasta
       FROM (
         SELECT
-          CASE WHEN FECHAS.LAG = :fechaDesde THEN 1 
+          CASE WHEN FECHAS.LAG = :fechaDesde THEN 1
                WHEN FECHAS.LAG > :fechaDesde AND LAGHASTA IS NULL THEN 1
           ELSE 0 END AS INICIO,
           CASE WHEN FECHAS.LEAD = :fechaHasta THEN 1 ELSE 0 END AS FIN,
@@ -146,7 +146,7 @@
             AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PH.FechaDesde)
           LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT2
             ON PCT2.PERSONA = PH.PERSONA
-            AND (PCT2.FECHADESDE = PH.FECHADESDE OR PCT2.FECHADESDE = :fechaDesde)            
+            AND (PCT2.FECHADESDE = PH.FECHADESDE OR PCT2.FECHADESDE = :fechaDesde)
           WHERE 1 = 1
           AND PH.FECHADESDE <= :fechaHasta
           AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
@@ -156,7 +156,498 @@
           AND PH.TIPOCALCULO IS NOT NULL
           AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
           AND PCT2.PERSONA IS NULL
-          AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)                      
+          AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+          GROUP BY
+            PCT.Persona,
+            PCT.FechaDesde,
+            PCT.FechaHasta,
+            PH.FECHADESDE
+        ) AS FECHAS
+        WHERE (LAGHASTA IS NULL OR LAGHASTA <> FECHADESDE1)
+      ) AS DATA
+    ) AS FILTRO
+    WHERE FILTRO.FechaDesde <= FILTRO.FechaHasta),
+    DESPLAZAMIENTOS AS (
+      SELECT
+        ROW_NUMBER() OVER (PARTITION BY PERSONA ORDER BY FECHADESDE DESC) AS ROW,
+        PERSONA,
+        FECHADESDE,
+        FECHAHASTA
+      FROM PersonasCambiosTemporales
+      WHERE
+        FECHADESDE <= :fechaHasta
+        AND FECHAHASTA >= :fechaDesde
+        AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
+    )
+    -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
+    SELECT
+      PH.Persona AS CCL_ID_PERSON,
+      F.FechaDesde AS FECHA_DESDE,
+      CASE
+        WHEN F.FechaHasta > PH.FECHAHASTA THEN PH.FECHAHASTA
+        ELSE F.FechaHasta
+      END AS FECHA_HASTA,
+      PH.TIPOCALCULO AS ID_TIPO_CALCULO,
+      PH.PUESTO AS PUESTO,
+      PH.SECCIONES AS SECCIONES,
+      CASE
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PH.SECCIONES LIKE '%C%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PH.SECCIONES LIKE '%N%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
+        ELSE 0
+      END AS PORCENTAJE,
+      TPP.BANDA,
+      TPP.IMPORTE,
+      TPC.SECCION AS CCL_ID_SECCION
+    FROM PersonasHistorico PH
+    INNER JOIN FECHAS_ESTRUCTURA F
+      ON F.PERSONA = PH.PERSONA
+      AND (F.FECHADESDE BETWEEN PH.FECHADESDE AND PH.FECHADESDE OR F.FECHADESDE >= PH.FECHADESDE AND PH.FECHAHASTA IS NULL)
+    LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+      ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+    LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+      ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+    WHERE
+      PH.FechaDesde <= :fechaHasta
+      AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
+      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+    UNION
+    -- Casos con desplazamientos en el período, el último tramo con la estructura base
+    SELECT
+      PH.PERSONA AS CCL_ID_PERSON,
+      D.FECHAHASTA + 1 AS FECHA_DESDE,
+      CASE
+        WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
+        ELSE PH.FECHAHASTA
+      END AS FECHA_HASTA,
+      PH.TIPOCALCULO AS ID_TIPO_CALCULO,
+      PH.PUESTO AS PUESTO,
+      PH.SECCIONES AS SECCIONES,
+      CASE
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PH.SECCIONES LIKE '%C%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PH.SECCIONES LIKE '%N%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
+        ELSE 0
+      END AS PORCENTAJE,
+      TPP.BANDA,
+      TPP.IMPORTE,
+      TPC.SECCION AS CCL_ID_SECCION
+    FROM PersonasHistorico PH
+    INNER JOIN DESPLAZAMIENTOS D
+      ON PH.PERSONA = D.PERSONA
+      AND D.ROW = 1
+      AND D.FECHAHASTA <> :fechaHasta
+      AND PH.FECHADESDE <= D.FECHADESDE
+      AND (D.FECHAHASTA < PH.FECHAHASTA OR PH.FECHAHASTA IS NULL AND D.FECHAHASTA < :fechaHasta)
+    LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+      ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+    LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+      ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+    WHERE PH.FechaDesde <= :fechaHasta
+      AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
+      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+      AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
+      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+    UNION
+    -- Casos que no tienen desplazamientos en el período
+     SELECT
+            CCL_ID_PERSON,
+            MIN(FECHA_DESDE) AS FECHA_INICIO,
+            MAX(FECHA_HASTA) AS FECHA_HASTA,
+            ID_TIPO_CALCULO,
+            PUESTO,
+            SECCIONES,
+            PORCENTAJE,
+            BANDA,
+            IMPORTE,
+            CCL_ID_SECCION
+        FROM
+            (
+                SELECT
+                *,
+                CASE WHEN Groups.PreviousEndDate >= FECHA_DESDE THEN 0 ELSE 1 END AS IslandStartInd,
+                SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION, TABLAPORCENTAJE ORDER BY Groups.RN) AS IslandId
+                FROM
+                (
+                    SELECT
+                      DENSE_RANK() OVER (ORDER BY PH.FechaDesde) AS DENSE_RANK,
+                      PH.PERSONA AS CCL_ID_PERSON,
+                      CASE WHEN PH.FechaDesde < :fechaDesde THEN :fechaDesde ELSE PH.FechaDesde END AS FECHA_DESDE,
+                      CASE
+                        WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
+                        ELSE PH.FECHAHASTA
+                      END AS FECHA_HASTA,
+                      PH.TIPOCALCULO AS ID_TIPO_CALCULO,
+                      PH.PUESTO AS PUESTO,
+                      PH.SECCIONES AS SECCIONES,
+                      CASE
+                        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
+                        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PH.SECCIONES LIKE '%C%' THEN TPC.PORCENTAJE
+                        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PH.SECCIONES LIKE '%N%' THEN TPC.PORCENTAJE
+                        WHEN PH.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
+                        ELSE 0
+                      END AS PORCENTAJE,
+                      TPP.BANDA,
+                      TPP.IMPORTE,
+                      TPC.SECCION AS CCL_ID_SECCION,
+                      TPC.TABLAPORCENTAJE,
+                      ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPC.PORCENTAJE, TPP.BANDA, TPP.IMPORTE, TPC.SECCION, TPC.TABLAPORCENTAJE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
+                      LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPC.PORCENTAJE, TPP.BANDA, TPP.IMPORTE, TPC.SECCION, TPC.TABLAPORCENTAJE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
+                    FROM PersonasHistorico PH
+                    LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+                      ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+                    LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+                      ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+                    LEFT JOIN PersonasCambiosTemporales pct
+                      ON pct.Persona = ph.Persona
+                      AND pct.FechaDesde <= :fechaHasta
+                      AND (pct.FechaHasta IS NULL OR pct.FechaHasta >= :fechaDesde)
+                    WHERE
+                      PH.FechaDesde <= :fechaHasta
+                      AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
+                      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+                      AND pct.Persona IS NULL
+                      AND PH.TIPOCALCULO IS NOT NULL
+                      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+                      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+                      AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+                ) Groups
+        ) Islands
+        GROUP BY
+            CCL_ID_PERSON,
+            ID_TIPO_CALCULO,
+            PORCENTAJE,
+            PUESTO,
+            SECCIONES,
+            BANDA,
+            IMPORTE,
+            CCL_ID_SECCION,
+            TABLAPORCENTAJE,
+            IslandId
+    ]]>
+  </entry>
+
+  <entry key="ComisRepositoryCustom.findCondicionesDesplazamiento">
+    <![CDATA[
+WITH T AS (SELECT
+            CCL_ID_PERSON,
+            CCL_ID_COD_ORIGEN_DESTINO,
+            CCL_ID_SECCION,
+            CCL_ID_SECCION_DESTINO,
+            ID_TIPO_CALCULO,
+            ID_TIPO_OPCION_CALCULO,
+            PORCENTAJE,
+            BANDA,
+            IMPORTE,
+            MOTIVO,
+            MIN(FECHA_DESDE) AS FECHA_DESDE,
+            MAX(FECHA_HASTA) AS FECHA_HASTA
+        FROM
+            (
+            SELECT
+                *,
+                CASE WHEN Groups.PreviousEndDate >= FECHA_DESDE THEN 0 ELSE 1 END AS IslandStartInd,
+                SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, PORCENTAJE, BANDA, IMPORTE, MOTIVO, PUESTO_DESTINO ORDER BY Groups.RN) AS IslandId
+            FROM
+            (
+             SELECT PCT.PERSONA AS CCL_ID_PERSON,
+                    ROW_NUMBER() OVER(PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, TPC.PORCENTAJE, PCT.SECCIONESCOMISION, TPP.BANDA, TPP.IMPORTE, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS RN,
+                    LAG(PCT.FECHAHASTA,1) OVER (PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, TPC.PORCENTAJE, PCT.SECCIONESCOMISION, TPP.BANDA, TPP.IMPORTE, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS PreviousEndDate,
+                  CASE
+                    WHEN PCT.FECHADESDE < :fechaDesde THEN :fechaDesde
+                    ELSE PCT.FECHADESDE
+                  END AS FECHA_DESDE,
+                  CASE
+                    WHEN PH.FECHAHASTA < PCT.FECHAHASTA THEN PH.FECHAHASTA
+                    WHEN PCT.FECHAHASTA IS NULL THEN :fechaHasta
+                    WHEN PCT.FECHAHASTA > :fechaHasta THEN :fechaHasta
+                    ELSE PCT.FECHAHASTA
+                  END AS FECHA_HASTA,
+                  PCT.TIENDADESTINO AS CCL_ID_COD_ORIGEN_DESTINO,
+                  PCT.SECCIONDESTINO AS CCL_ID_SECCION_DESTINO,
+                  TPC.SECCION AS CCL_ID_SECCION,
+                  PCT.TIPOCALCULO AS ID_TIPO_CALCULO,
+                  PCT.TIPOOPCIONCALCULO AS ID_TIPO_OPCION_CALCULO,
+                  CASE
+                        WHEN PCT.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
+                        WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PCT.SECCIONESCOMISION LIKE '%S%' THEN TPC.PORCENTAJE
+                        WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PCT.SECCIONESCOMISION LIKE '%C%' THEN TPC.PORCENTAJE
+                        WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PCT.SECCIONESCOMISION LIKE '%N%' THEN TPC.PORCENTAJE
+                        ELSE 0
+                  END AS PORCENTAJE,
+                  TPP.BANDA AS BANDA,
+                  TPP.IMPORTE,
+                  PCT.MOTIVO,
+                  PCT.PUESTODESTINO AS PUESTO_DESTINO
+                  FROM PERSONASCAMBIOSTEMPORALES PCT
+                  INNER JOIN PERSONASHISTORICO PH
+                  ON PCT.PERSONA = PH.PERSONA
+                  AND (PCT.FECHAHASTA >= PH.FECHADESDE)
+                  AND (PCT.FECHADESDE <= PH.FECHAHASTA OR PH.FECHAHASTA IS NULL)
+                  LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+                  ON TPC.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+                  LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+                  ON TPP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+                    WHERE PCT.FECHADESDE <= :fechaHasta
+                    AND PCT.FECHAHASTA >= :fechaDesde
+                    AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+                    AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+                    AND PCT.TIPOCALCULO <> 0
+                    AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+                    AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+                  GROUP BY
+                    PCT.PERSONA,
+                    PCT.FECHADESDE,
+                    PCT.FECHAHASTA,
+                    PH.FECHAHASTA,
+                    PCT.TIENDADESTINO,
+                    PCT.SECCIONDESTINO,
+                    TPC.SECCION,
+                    PCT.TIPOCALCULO,
+                    PCT.TIPOOPCIONCALCULO,
+                    TPC.PORCENTAJE,
+                    TPP.BANDA,
+                    TPP.IMPORTE,
+                    PCT.SECCIONESCOMISION,
+                    PCT.MOTIVO,
+                    PCT.PUESTODESTINO
+            ) Groups
+        ) Islands
+        GROUP BY
+            CCL_ID_PERSON,
+            CCL_ID_COD_ORIGEN_DESTINO,
+            CCL_ID_SECCION,
+            CCL_ID_SECCION_DESTINO,
+            ID_TIPO_CALCULO,
+            ID_TIPO_OPCION_CALCULO,
+            PORCENTAJE,
+            BANDA,
+            IMPORTE,
+            MOTIVO,
+            PUESTO_DESTINO,
+            IslandId
+        ),
+   U AS (
+     SELECT
+            CCL_ID_PERSON,
+            CCL_ID_COD_ORIGEN_DESTINO,
+            CCL_ID_SECCION,
+            CCL_ID_SECCION_DESTINO,
+            ID_TIPO_CALCULO,
+            ID_TIPO_OPCION_CALCULO,
+            PORCENTAJE,
+            BANDA,
+            IMPORTE,
+            MOTIVO,
+            MIN(FECHA_DESDE) AS FECHA_DESDE,
+            MAX(FECHA_HASTA) AS FECHA_HASTA
+        FROM
+            (
+            SELECT
+                *,
+                CASE WHEN Groups.PreviousEndDate >= FECHA_DESDE THEN 0 ELSE 1 END AS IslandStartInd,
+                SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, PORCENTAJE, BANDA, IMPORTE, MOTIVO, PUESTO_DESTINO ORDER BY Groups.RN) AS IslandId
+            FROM
+            (
+        SELECT PCT.PERSONA AS CCL_ID_PERSON,
+            ROW_NUMBER() OVER(PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, TPC.PORCENTAJE, PCT.SECCIONESCOMISION, TPP.BANDA, TPP.IMPORTE, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS RN,
+            LAG(PCT.FECHAHASTA,1) OVER (PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, TPC.PORCENTAJE, PCT.SECCIONESCOMISION, TPP.BANDA, TPP.IMPORTE, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS PreviousEndDate,
+          CASE
+            WHEN PCT.FECHADESDE < :fechaDesde THEN :fechaDesde
+            ELSE PCT.FECHADESDE
+          END AS FECHA_DESDE,
+          CASE
+            WHEN PH.FECHAHASTA < PCT.FECHAHASTA THEN PH.FECHAHASTA          
+            WHEN PCT.FECHAHASTA IS NULL THEN :fechaHasta
+            WHEN PCT.FECHAHASTA > :fechaHasta THEN :fechaHasta
+            ELSE PCT.FECHAHASTA
+          END AS FECHA_HASTA,
+          PCT.TIENDADESTINO AS CCL_ID_COD_ORIGEN_DESTINO,
+          TPC.SECCION AS CCL_ID_SECCION,
+          PCT.SECCIONDESTINO AS CCL_ID_SECCION_DESTINO,
+          CASE WHEN PR.TIPOCALCULO <> 0 THEN PR.TIPOCALCULO
+               ELSE PCT.TIPOCALCULO END AS ID_TIPO_CALCULO,
+          PCT.TIPOOPCIONCALCULO AS ID_TIPO_OPCION_CALCULO,
+          CASE
+                WHEN PCT.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
+                WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PCT.SECCIONESCOMISION LIKE '%S%' THEN TPC.PORCENTAJE
+                WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PCT.SECCIONESCOMISION LIKE '%C%' THEN TPC.PORCENTAJE
+                WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PCT.SECCIONESCOMISION LIKE '%N%' THEN TPC.PORCENTAJE
+                ELSE 0
+          END AS PORCENTAJE,
+          TPP.BANDA AS BANDA,
+          TPP.IMPORTE,
+          PCT.MOTIVO,
+          PCT.PUESTODESTINO AS PUESTO_DESTINO
+          FROM PERSONASCAMBIOSTEMPORALES PCT
+          INNER JOIN PERSONASRESALTAS PR
+          ON PCT.PERSONA = PR.PERSONA
+          AND (PCT.FECHAHASTA >= PR.FECHADESDE)
+          AND (PCT.FECHADESDE <= PR.FECHAHASTA)
+          INNER JOIN PERSONASHISTORICO PH
+          ON PCT.PERSONA = PH.PERSONA
+          AND (PCT.FECHAHASTA >= PH.FECHADESDE)
+          AND (PCT.FECHADESDE <= PH.FECHAHASTA OR PH.FECHAHASTA IS NULL)          
+          LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+          ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
+          LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+          ON TPP.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
+            WHERE PCT.FECHADESDE <= :fechaHasta
+            AND PCT.FECHAHASTA >= :fechaDesde
+            AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+            AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+            AND PCT.TIPOCALCULO <> 0
+            AND PR.TIPOCALCULO = 0
+            AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+            AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+          GROUP BY
+            PCT.PERSONA,
+            PCT.FECHADESDE,
+            PCT.FECHAHASTA,
+            PH.FECHAHASTA,            
+            PCT.TIENDADESTINO,
+            TPC.SECCION,
+            PCT.SECCIONDESTINO,
+            PR.TIPOCALCULO,
+            PCT.TIPOCALCULO,
+            PCT.TIPOOPCIONCALCULO,
+            TPC.PORCENTAJE,
+            TPP.BANDA,
+            TPP.IMPORTE,
+            PCT.SECCIONESCOMISION,
+            PCT.MOTIVO,
+            PCT.PUESTODESTINO
+      ) Groups
+) Islands
+        GROUP BY
+            CCL_ID_PERSON,
+            CCL_ID_COD_ORIGEN_DESTINO,
+            CCL_ID_SECCION,
+            CCL_ID_SECCION_DESTINO,
+            ID_TIPO_CALCULO,
+            ID_TIPO_OPCION_CALCULO,
+            PORCENTAJE,
+            BANDA,
+            IMPORTE,
+            MOTIVO,
+            PUESTO_DESTINO,
+            IslandId)
+   SELECT
+        CCL_ID_PERSON,
+        FECHA_DESDE,
+        FECHA_HASTA,
+        CCL_ID_COD_ORIGEN_DESTINO,
+        CCL_ID_SECCION,
+        CCL_ID_SECCION_DESTINO,
+        ID_TIPO_CALCULO,
+        ID_TIPO_OPCION_CALCULO,
+        PORCENTAJE,
+        BANDA,
+        IMPORTE
+    FROM T
+    GROUP BY
+        CCL_ID_PERSON,
+        FECHA_DESDE,
+        FECHA_HASTA,
+        CCL_ID_COD_ORIGEN_DESTINO,
+        CCL_ID_SECCION,
+        CCL_ID_SECCION_DESTINO,
+        ID_TIPO_CALCULO,
+        ID_TIPO_OPCION_CALCULO,
+        PORCENTAJE,
+        BANDA,
+        IMPORTE,
+        MOTIVO
+UNION
+   SELECT
+        CCL_ID_PERSON,
+        FECHA_DESDE,
+        FECHA_HASTA,
+        CCL_ID_COD_ORIGEN_DESTINO,
+        CCL_ID_SECCION,
+        CCL_ID_SECCION_DESTINO,
+        ID_TIPO_CALCULO,
+        ID_TIPO_OPCION_CALCULO,
+        PORCENTAJE,
+        BANDA,
+        IMPORTE
+    FROM U
+    GROUP BY
+        CCL_ID_PERSON,
+        FECHA_DESDE,
+        FECHA_HASTA,
+        CCL_ID_COD_ORIGEN_DESTINO,
+        CCL_ID_SECCION,
+        CCL_ID_SECCION_DESTINO,
+        ID_TIPO_CALCULO,
+        ID_TIPO_OPCION_CALCULO,
+        PORCENTAJE,
+        BANDA,
+        IMPORTE,
+        MOTIVO
+    ]]>
+  </entry>
+
+  <entry key="ComisRepositoryCustom.findCondicionesResalta">
+    <![CDATA[
+    WITH FECHAS_ESTRUCTURA AS (
+    SELECT
+      PERSONA,
+      CASE WHEN FechaDesde < :fechaDesde THEN :fechaDesde ELSE FechaDesde END AS FechaDesde,
+      CASE WHEN FechaHasta > :fechaHasta THEN :fechaHasta ELSE FechaHasta END AS FechaHasta
+    FROM (
+      SELECT
+        PERSONA,
+        CASE WHEN DATA.INICIO = 1 THEN DATA.LAG ELSE DATA.LAGHASTA + 1 END AS FechaDesde,
+        CASE WHEN DATA.FIN = 1 THEN DATA.FechaDesde1 ELSE DATA.FechaDesde1 END AS FechaHasta
+      FROM (
+        SELECT
+          CASE WHEN FECHAS.LAG = :fechaDesde THEN 1
+               WHEN FECHAS.LAG > :fechaDesde AND LAGHASTA IS NULL THEN 1
+          ELSE 0 END AS INICIO,
+          CASE WHEN FECHAS.LEAD = :fechaHasta THEN 1 ELSE 0 END AS FIN,
+          FECHAS.*
+        FROM (
+          SELECT
+            DENSE_RANK() OVER (ORDER BY PCT.FechaDesde) AS DENSE_RANK,
+            PCT.Persona,
+            LAG(PCT.FechaDesde, 1, CASE WHEN PH.FECHADESDE > :fechaDesde THEN PH.FECHADESDE ELSE :fechaDesde END) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FechaDesde) AS LAG,
+            LEAD(PCT.FechaDesde, 1, :fechaHasta) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FechaDesde) AS LEAD,
+            LAG(PCT.FechaHasta, 1) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FECHAHASTA) AS LAGHASTA,
+            PCT.FechaDesde - 1 AS FechaDesde1,
+            PCT.FechaDesde,
+            PCT.FechaHasta,
+            PCT.FechaHasta + 1 AS FechaHasta1
+          FROM PERSONASRESALTAS PR
+          INNER JOIN PersonasHistorico PH
+            ON PH.PERSONA = PR.PERSONA
+            AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
+          AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
+          LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT
+            ON PCT.PERSONA = PR.PERSONA
+            AND (PR.FechaHasta IS NULL OR PCT.FechaDesde <= PR.FechaHasta)
+            AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PR.FechaDesde)
+          LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT2
+            ON PCT2.PERSONA = PH.PERSONA
+            AND (PCT2.FECHADESDE = PH.FECHADESDE OR PCT2.FECHADESDE = :fechaDesde)
+          WHERE 1 = 1
+          AND PR.FECHADESDE <= :fechaHasta
+          AND (PR.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
+          AND PCT.FECHADESDE <= :fechaHasta
+          AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
+          AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
+          AND PR.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
+          AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+          AND PCT2.PERSONA IS NULL
+          AND PH.TABLAPORCENTAJE IS NOT NULL
+          AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
           GROUP BY
             PCT.Persona,
             PCT.FechaDesde,
@@ -184,11 +675,8 @@
       PH.Persona AS CCL_ID_PERSON,
       F.FechaDesde AS FECHA_DESDE,
       F.FechaHasta AS FECHA_HASTA,
-      PH.TIENDA AS CCL_ID_COD_ORIGEN,
       PH.TIPOCALCULO AS ID_TIPO_CALCULO,
-      PH.PUESTO AS PUESTO,
-      PH.SECCIONES AS SECCIONES,
-      CASE 
+      CASE
         WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
         WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PH.SECCIONES LIKE '%C%' THEN TPC.PORCENTAJE
         WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PH.SECCIONES LIKE '%N%' THEN TPC.PORCENTAJE
@@ -198,35 +686,39 @@
       TPP.BANDA,
       TPP.IMPORTE,
       TPC.SECCION AS CCL_ID_SECCION
-    FROM PersonasHistorico PH
+    FROM PersonasResaltas PR
+    INNER JOIN PERSONASHISTORICO PH
+        ON PH.PERSONA = PR.PERSONA
+        AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
+        AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
     INNER JOIN FECHAS_ESTRUCTURA F
       ON F.PERSONA = PH.PERSONA
-      AND (F.FECHADESDE BETWEEN PH.FECHADESDE AND PH.FECHADESDE OR F.FECHADESDE >= PH.FECHADESDE AND PH.FECHAHASTA IS NULL)      
+      AND (F.FECHADESDE BETWEEN PH.FECHADESDE AND PH.FECHADESDE OR F.FECHADESDE >= PH.FECHADESDE AND PH.FECHAHASTA IS NULL)
     LEFT JOIN TABLASPORCENTAJESCOMISION TPC
-      ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+      ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
     LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
-      ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+      ON TPP.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
     WHERE
-      PH.FechaDesde <= :fechaHasta
+      PR.FechaDesde <= :fechaHasta
+      AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
+      AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-      AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+      AND PH.TABLAPORCENTAJE IS NOT NULL
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
     SELECT
       PH.PERSONA AS CCL_ID_PERSON,
-      D.FECHAHASTA + 1 AS FECHA_DESDE,
+      D.FECHAHASTA + 1 AS FECHADESDE,
       CASE
         WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
         ELSE PH.FECHAHASTA
-      END AS FECHA_HASTA,
-      PH.TIENDA AS CCL_ID_COD_ORIGEN,
+      END AS FECHAHASTA,
       PH.TIPOCALCULO AS ID_TIPO_CALCULO,
-      PH.PUESTO AS PUESTO,
-      PH.SECCIONES AS SECCIONES,      
-      CASE 
+      CASE
         WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
         WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PH.SECCIONES LIKE '%C%' THEN TPC.PORCENTAJE
         WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PH.SECCIONES LIKE '%N%' THEN TPC.PORCENTAJE
@@ -236,109 +728,292 @@
       TPP.BANDA,
       TPP.IMPORTE,
       TPC.SECCION AS CCL_ID_SECCION
-    FROM PersonasHistorico PH
+    FROM PersonasResaltas PR
+    INNER JOIN PERSONASHISTORICO PH
+        ON PH.PERSONA = PR.PERSONA
+        AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
+        AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
     INNER JOIN DESPLAZAMIENTOS D
       ON PH.PERSONA = D.PERSONA
       AND D.ROW = 1
       AND D.FECHAHASTA <> :fechaHasta
-      AND PH.FECHADESDE <= D.FECHADESDE   
+      AND PH.FECHADESDE <= D.FECHADESDE
       AND (D.FECHAHASTA < PH.FECHAHASTA OR PH.FECHAHASTA IS NULL AND D.FECHAHASTA < :fechaHasta)
     LEFT JOIN TABLASPORCENTAJESCOMISION TPC
-      ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+      ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
     LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
-      ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
-    WHERE PH.FechaDesde <= :fechaHasta
+      ON TPP.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
+    WHERE PR.FechaDesde <= :fechaHasta
+      AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
+      AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
       AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-      AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1      
+      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+      AND PH.TABLAPORCENTAJE IS NOT NULL
     UNION
     -- Casos que no tienen desplazamientos en el período
-     SELECT
-            CCL_ID_PERSON,
-            MIN(FECHA_DESDE) AS FECHA_INICIO,
-            MAX(FECHA_HASTA) AS FECHA_HASTA,
-            CCL_ID_COD_ORIGEN,            
-            ID_TIPO_CALCULO,
-            PUESTO,
-            SECCIONES,            
-            PORCENTAJE,
-            BANDA,
-            IMPORTE,
-            CCL_ID_SECCION
-        FROM
-            (        
-                SELECT
-                *,
-                CASE WHEN Groups.PreviousEndDate >= FECHA_DESDE THEN 0 ELSE 1 END AS IslandStartInd,
-                SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION, TABLAPORCENTAJE ORDER BY Groups.RN) AS IslandId
-                FROM
-                (        
-                    SELECT
-                      DENSE_RANK() OVER (ORDER BY PH.FechaDesde) AS DENSE_RANK,
-                      PH.PERSONA AS CCL_ID_PERSON,
-                      CASE WHEN PH.FechaDesde < :fechaDesde THEN :fechaDesde ELSE PH.FechaDesde END AS FECHA_DESDE,
-                      CASE
-                        WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
-                        ELSE PH.FECHAHASTA
-                      END AS FECHA_HASTA,
-                      PH.TIENDA AS CCL_ID_COD_ORIGEN,
-                      PH.TIPOCALCULO AS ID_TIPO_CALCULO,
-                      PH.PUESTO AS PUESTO,
-                      PH.SECCIONES AS SECCIONES,                                             
-                      CASE 
-                        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
-                        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PH.SECCIONES LIKE '%C%' THEN TPC.PORCENTAJE
-                        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PH.SECCIONES LIKE '%N%' THEN TPC.PORCENTAJE
-                        WHEN PH.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
-                        ELSE 0
-                      END AS PORCENTAJE,
-                      TPP.BANDA,
-                      TPP.IMPORTE,
-                      TPC.SECCION AS CCL_ID_SECCION,
-                      TPC.TABLAPORCENTAJE,                      
-                      ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIENDA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPC.PORCENTAJE, TPP.BANDA, TPP.IMPORTE, TPC.SECCION, TPC.TABLAPORCENTAJE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
-                      LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIENDA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPC.PORCENTAJE, TPP.BANDA, TPP.IMPORTE, TPC.SECCION, TPC.TABLAPORCENTAJE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
-                    FROM PersonasHistorico PH
-                    LEFT JOIN TABLASPORCENTAJESCOMISION TPC
-                      ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
-                    LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
-                      ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
-                    LEFT JOIN PersonasCambiosTemporales pct
-                      ON pct.Persona = ph.Persona
-                      AND pct.FechaDesde <= :fechaHasta
-                      AND (pct.FechaHasta IS NULL OR pct.FechaHasta >= :fechaDesde)
-                    WHERE
-                      PH.FechaDesde <= :fechaHasta
-                      AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
-                      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-                      AND pct.Persona IS NULL
-                      AND PH.TIPOCALCULO IS NOT NULL
-                      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-                      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
-                      AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)                                               
-                ) Groups      
-        ) Islands
-        GROUP BY
-            CCL_ID_PERSON,
-            CCL_ID_COD_ORIGEN,            
-            ID_TIPO_CALCULO,
-            PORCENTAJE,
-            PUESTO,
-            SECCIONES,            
-            BANDA,
-            IMPORTE,
-            CCL_ID_SECCION,
-            TABLAPORCENTAJE,
-            IslandId
+ SELECT
+      CCL_ID_PERSON,
+      MIN(FECHADESDE) AS FECHA_INICIO,
+      MAX(FECHAHASTA) AS FECHA_HASTA,
+      ID_TIPO_CALCULO,
+      PORCENTAJE,
+      BANDA,
+      IMPORTE,
+      CCL_ID_SECCION
+  FROM
+      (
+          SELECT
+          *,
+          CASE WHEN Groups.PreviousEndDate >= FECHADESDE THEN 0 ELSE 1 END AS IslandStartInd,
+          SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHADESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION ORDER BY Groups.RN) AS IslandId
+          FROM
+          (
+           SELECT
+                DENSE_RANK() OVER (ORDER BY PH.FechaDesde) AS DENSE_RANK,
+                PH.PERSONA AS CCL_ID_PERSON,
+                CASE WHEN PH.FechaDesde < :fechaDesde THEN :fechaDesde ELSE PH.FechaDesde END AS FechaDesde,
+                CASE
+                  WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
+                  WHEN PH.FECHAHASTA > PR.FECHAHASTA THEN PR.FECHAHASTA
+                  ELSE PH.FECHAHASTA
+                END AS FECHAHASTA,
+                PH.TipoCalculo AS ID_TIPO_CALCULO,
+                CASE
+                  WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
+                  WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PH.SECCIONES LIKE '%C%' THEN TPC.PORCENTAJE
+                  WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PH.SECCIONES LIKE '%N%' THEN TPC.PORCENTAJE
+                  WHEN PH.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
+                  ELSE 0
+                END AS PORCENTAJE,
+                TPP.BANDA,
+                PH.PUESTO AS PUESTO,
+                PH.SECCIONES AS SECCIONES,
+                TPP.Importe,
+                TPC.Seccion as CCL_ID_SECCION,
+                ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIPOCALCULO, TPC.PORCENTAJE, TPP.BANDA, PH.PUESTO, PH.SECCIONES, TPP.IMPORTE, TPC.SECCION ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
+                LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIPOCALCULO, TPC.PORCENTAJE, TPP.BANDA, PH.PUESTO, PH.SECCIONES, TPP.IMPORTE, TPC.SECCION ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
+              FROM PersonasResaltas PR
+              INNER JOIN PERSONASHISTORICO PH
+                  ON PH.PERSONA = PR.PERSONA
+                  AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
+                  AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
+              LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+                ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
+              LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+                ON TPP.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
+              LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT
+                ON PCT.PERSONA = PH.PERSONA
+                AND PCT.FECHADESDE <= :fechaHasta
+                AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
+              WHERE
+                PR.FechaDesde <= :fechaHasta
+                AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
+                AND PH.FechaDesde <= :fechaHasta
+                AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
+                AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+                AND PCT.PERSONA IS NULL
+                AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
+                AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+                AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+                AND PH.TABLAPORCENTAJE IS NOT NULL
+                AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+          ) Groups
+  ) Islands
+  GROUP BY
+      CCL_ID_PERSON,
+      ID_TIPO_CALCULO,
+      PORCENTAJE,
+      BANDA,
+      PUESTO,
+      SECCIONES,
+      IMPORTE,
+      CCL_ID_SECCION,
+  IslandId
     ]]>
   </entry>
 
-  <entry key="ComisRepositoryCustom.findCondicionesDesplazamiento">
+  <entry key="ComisRepositoryCustom.findBajasIt">
     <![CDATA[
- WITH T AS (SELECT
+  SELECT
+            Persona AS CCL_ID_PERSON,
+            (100 - (CODIGOINCIDENCIA - 7000))/100.0 AS PORCENTAJE,
+            Tienda AS CCL_ID_COD_ORIGEN,
+            MIN(FechaInicio) AS FECHA_INICIO,
+            MAX(FechaFin) AS FECHA_FIN
+        FROM
+            (
+                    SELECT
+                       *,
+                       CASE WHEN Groups.PreviousEndDate >= FechaInicio THEN 0 ELSE 1 END AS IslandStartInd,
+                       SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FechaInicio) THEN 0 ELSE 1 END) OVER (PARTITION BY PERSONA, CodigoIncidencia, Tienda ORDER BY Groups.RN) AS IslandId
+                       FROM
+                       (
+                        SELECT
+                            DENSE_RANK() OVER (ORDER BY i.FechaInicio) AS DENSE_RANK,
+                            i.Persona,
+                             CASE
+                                    WHEN (PH.FECHADESDE > i.FechaInicio AND PH.FECHADESDE > :fechaDesde) THEN PH.FECHADESDE
+                                    WHEN i.FechaInicio < :fechaDesde THEN :fechaDesde
+                                    ELSE i.FechaInicio
+                                  END AS FechaInicio,
+                                  CASE
+                                    WHEN (PH.FECHAHASTA < i.FECHAFIN AND PH.FECHAHASTA < :fechaHasta) THEN PH.FECHAHASTA
+                                    WHEN i.FechaFin IS NULL THEN :fechaHasta
+                                    WHEN i.FechaFin > :fechaHasta THEN :fechaHasta
+                                    ELSE i.FechaFin
+                                  END AS FechaFin,
+                            i.CodigoIncidencia,
+                            i.Tienda,
+                            ROW_NUMBER() OVER(PARTITION BY i.PERSONA, i.CodigoIncidencia, i.Tienda ORDER BY i.FechaInicio, i.FechaFin) AS RN,
+                            LAG(i.FechaFin,1) OVER (PARTITION BY i.PERSONA, i.CodigoIncidencia, i.Tienda ORDER BY i.FechaInicio, i.FechaFin) AS PreviousEndDate
+                          FROM IncidenciasSil i
+                           INNER JOIN PERSONASHISTORICO PH
+                           ON i.PERSONA = PH.PERSONA
+                          where i.TIPOINCIDENCIA = 700
+                        AND i.CODIGOINCIDENCIA >= 7000 AND i.CODIGOINCIDENCIA <= 7100
+                        AND i.FECHAFIN >= :fechaDesde AND i.FECHAINICIO <= :fechaHasta
+                        AND (
+                          i.ESTADO NOT IN (
+                                SELECT CONVERT(INTEGER,INDICE)
+                                FROM TABLASGENERALES
+                                WHERE TABLA = 9061 AND INDICADOR1 = 'E')
+                          AND ORIGEN NOT IN (
+                                SELECT CONVERT(INTEGER,INDICE)
+                                FROM TABLASGENERALES
+                                WHERE TABLA = 9061 AND INDICADOR1 = 'O')
+                        )
+                        AND PH.FECHADESDE <= :fechaHasta
+                        AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
+                        AND ((PH.FECHADESDE <= I.FECHAINICIO AND PH.FECHAHASTA >= I.FECHAFIN)  OR (PH.FECHADESDE <= I.FECHAINICIO AND PH.FECHAHASTA IS NULL))
+                        AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+                ) Groups
+        ) Islands
+        GROUP BY
+        Persona,
+        Tienda,
+        CodigoIncidencia,
+        IslandId
+      ]]>
+  </entry>
+
+  <entry key="ComisRepositoryCustom.findCarencia">
+    <![CDATA[
+        SELECT
+        P.PERSONA AS CCL_ID_PERSON,
+        P.FECHAINICIOCALCULO AS FECHA_INICIO_CALCULO,
+        P.FECHAALTA AS FECHA_ALTA,
+        P.TIENDA AS CCL_ID_COD_ORIGEN
+        FROM PERSONAS P
+        INNER JOIN PERSONASHISTORICO PH
+        ON P.PERSONA = PH.PERSONA
+        WHERE P.FECHAINICIOCALCULO IS NOT NULL
+        AND P.FECHAALTA < :fechaHasta
+        AND P.FECHAINICIOCALCULO > :fechaHasta
+        AND PH.FECHADESDE <= :fechaHasta
+        AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
+        AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+      ]]>
+  </entry>
+
+  <entry key="ComisRepositoryCustom.findExternosByClase">
+    <![CDATA[
+      SELECT
+        Persona as CCL_ID_PERSON,
+        case
+          when COALESCE(FechaUltimaAlta, FechaAlta) < :fechaDesde THEN :fechaDesde
+          else COALESCE(FechaUltimaAlta, FechaAlta)
+        end as FECHA_DESDE,
+        case
+          when FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja > :fechaHasta THEN :fechaHasta
+          else FechaUltimaBaja
+        end as FECHA_HASTA
+      FROM PersonasGrupo pg
+      WHERE Clase = :clase
+      AND COALESCE(FechaUltimaAlta, FechaAlta) <= :fechaHasta
+      AND (FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja >= :fechaDesde)
+    ]]>
+  </entry>
+
+  <entry key="ComisRepositoryCustom.findExternosByMinIdPersona">
+    <![CDATA[
+      SELECT
+        Persona as CCL_ID_PERSON,
+        case
+          when COALESCE(FechaUltimaAlta, FechaAlta) < :fechaDesde THEN :fechaDesde
+          else COALESCE(FechaUltimaAlta, FechaAlta)
+        end as FECHA_DESDE,
+        case
+          when FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja > :fechaHasta THEN :fechaHasta
+          else FechaUltimaBaja
+        end as FECHA_HASTA
+      FROM PersonasGrupo pg
+      WHERE Persona > :minPersona
+      AND COALESCE(FechaUltimaAlta, FechaAlta) <= :fechaHasta
+      AND (FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja >= :fechaDesde)
+    ]]>
+  </entry>
+
+  <entry key="ComisRepositoryCustom.findBajasItEs">
+    <![CDATA[
+  SELECT
+      PERSONA AS CCL_ID_PERSON,
+      PORCENTAJE AS PORCENTAJE,
+      TIENDA AS CCL_ID_COD_ORIGEN,
+      MIN(FECHAINICIO) AS FECHA_INICIO,
+      MAX(FECHAFIN) AS FECHA_FIN
+        FROM
+            (
+            SELECT
+               *,
+               CASE WHEN GROUPS.PREVIOUSENDDATE >= FECHAINICIO THEN 0 ELSE 1 END AS ISLANDSTARTIND,
+               SUM(CASE WHEN GROUPS.PREVIOUSENDDATE >= DATEADD(DAY, -1, FECHAINICIO) THEN 0 ELSE 1 END) OVER (PARTITION BY PERSONA, PORCENTAJE, TIENDA ORDER BY GROUPS.RN) AS ISLANDID
+               FROM
+               (
+              SELECT
+                  DENSE_RANK() OVER (ORDER BY I.FECHADESDE) AS DENSE_RANK,
+                  I.PORCENTAJEAJUSTE AS PORCENTAJE,
+                     CASE
+                            WHEN (PH.FECHADESDE > I.FECHADESDE AND PH.FECHADESDE > :fechaDesde) THEN PH.FECHADESDE
+                            WHEN I.FECHADESDE < :fechaDesde THEN :fechaDesde
+                            ELSE I.FECHADESDE
+                          END AS FECHAINICIO,
+                          CASE
+                            WHEN (PH.FECHAHASTA < I.FECHAHASTA AND PH.FECHAHASTA < :fechaHasta) THEN PH.FECHAHASTA
+                            WHEN I.FECHAHASTA IS NULL THEN :fechaHasta
+                            WHEN I.FECHAHASTA > :fechaHasta THEN :fechaHasta
+                            ELSE I.FECHAHASTA
+                          END AS FECHAFIN,
+                           I.PERSONA,
+                           I.TIENDA,
+                           I.SECCION,
+                       ROW_NUMBER() OVER(PARTITION BY I.PERSONA, I.PORCENTAJEAJUSTE, I.TIENDA ORDER BY I.FECHADESDE, I.FECHAHASTA) AS RN,
+                      LAG(I.FECHAHASTA,1) OVER (PARTITION BY I.PERSONA, I.PORCENTAJEAJUSTE, I.TIENDA ORDER BY I.FECHADESDE, I.FECHAHASTA) AS PREVIOUSENDDATE
+                    FROM PERSONASINCIDENCIAS I
+                    INNER JOIN PERSONASHISTORICO PH
+                    ON I.PERSONA = PH.PERSONA
+                   WHERE INCIDENCIA IN (4,5,6,7,8)
+                    AND I.FECHAHASTA >= :fechaDesde AND I.FECHADESDE <= :fechaHasta
+                    AND PH.FECHADESDE <= :fechaHasta
+                    AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
+                    AND ((PH.FECHADESDE <= I.FECHADESDE AND PH.FECHAHASTA >= I.FECHAHASTA)  OR (PH.FECHADESDE <= I.FECHADESDE AND PH.FECHAHASTA IS NULL))
+                    AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+                ) GROUPS
+        ) ISLANDS
+        GROUP BY
+        PERSONA,
+        TIENDA,
+        PORCENTAJE,
+        ISLANDID
+      ]]>
+  </entry>
+
+<entry key="ComisRepositoryCustom.findCondicionesDesplazamientoEs">
+  <![CDATA[
+WITH T AS (SELECT
             CCL_ID_PERSON,
             CCL_ID_COD_ORIGEN_DESTINO,
             CCL_ID_SECCION,
@@ -376,7 +1051,7 @@
                   TPC.SECCION AS CCL_ID_SECCION,
                   PCT.TIPOCALCULO AS ID_TIPO_CALCULO,
                   PCT.TIPOOPCIONCALCULO AS ID_TIPO_OPCION_CALCULO,
-                  CASE 
+                  CASE
                         WHEN PCT.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
                         WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PCT.SECCIONESCOMISION LIKE '%S%' THEN TPC.PORCENTAJE
                         WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PCT.SECCIONESCOMISION LIKE '%C%' THEN TPC.PORCENTAJE
@@ -396,8 +1071,9 @@
                     AND PCT.FECHAHASTA >= :fechaDesde
                     AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
                     AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
-                    AND PCT.TIPOCALCULO <> 0  
-                    AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)               
+                    AND PCT.TIPOCALCULO <> 0
+                    AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+                    AND PCT.PERSONA < 500000
                   GROUP BY
                     PCT.PERSONA,
                     PCT.FECHADESDE,
@@ -469,7 +1145,7 @@
           CASE WHEN PR.TIPOCALCULO <> 0 THEN PR.TIPOCALCULO
                ELSE PCT.TIPOCALCULO END AS ID_TIPO_CALCULO,
           PCT.TIPOOPCIONCALCULO AS ID_TIPO_OPCION_CALCULO,
-          CASE 
+          CASE
                 WHEN PCT.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
                 WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PCT.SECCIONESCOMISION LIKE '%S%' THEN TPC.PORCENTAJE
                 WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PCT.SECCIONESCOMISION LIKE '%C%' THEN TPC.PORCENTAJE
@@ -479,7 +1155,7 @@
           TPP.BANDA AS BANDA,
           TPP.IMPORTE,
           PCT.MOTIVO,
-          PCT.PUESTODESTINO AS PUESTO_DESTINO          
+          PCT.PUESTODESTINO AS PUESTO_DESTINO
           FROM PERSONASCAMBIOSTEMPORALES PCT
           INNER JOIN PERSONASRESALTAS PR
           ON PCT.PERSONA = PR.PERSONA
@@ -492,10 +1168,11 @@
             WHERE PCT.FECHADESDE <= :fechaHasta
             AND PCT.FECHAHASTA >= :fechaDesde
             AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-            AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1 
+            AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
             AND PCT.TIPOCALCULO <> 0
-            AND PR.TIPOCALCULO = 0        
+            AND PR.TIPOCALCULO = 0
             AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+            AND PCT.PERSONA < 500000            
           GROUP BY
             PCT.PERSONA,
             PCT.FECHADESDE,
@@ -511,7 +1188,7 @@
             TPP.IMPORTE,
             PCT.SECCIONESCOMISION,
             PCT.MOTIVO,
-            PCT.PUESTODESTINO            
+            PCT.PUESTODESTINO
       ) Groups
 ) Islands
         GROUP BY
@@ -532,7 +1209,7 @@
         FECHA_DESDE,
         FECHA_HASTA,
         CCL_ID_COD_ORIGEN_DESTINO,
-        CCL_ID_SECCION,        
+        CCL_ID_SECCION,
         CCL_ID_SECCION_DESTINO,
         ID_TIPO_CALCULO,
         ID_TIPO_OPCION_CALCULO,
@@ -545,7 +1222,7 @@
         FECHA_DESDE,
         FECHA_HASTA,
         CCL_ID_COD_ORIGEN_DESTINO,
-        CCL_ID_SECCION,        
+        CCL_ID_SECCION,
         CCL_ID_SECCION_DESTINO,
         ID_TIPO_CALCULO,
         ID_TIPO_OPCION_CALCULO,
@@ -581,10 +1258,239 @@ UNION
         IMPORTE,
         MOTIVO
     ]]>
-  </entry>
+</entry>
+    
+<entry key="ComisRepositoryCustom.findCondicionesHistoricoEs">
+  <![CDATA[
+    WITH FECHAS_ESTRUCTURA AS (
+    SELECT
+      PERSONA,
+      CASE WHEN FechaDesde < :fechaDesde THEN :fechaDesde ELSE FechaDesde END AS FechaDesde,
+      CASE WHEN FechaHasta > :fechaHasta THEN :fechaHasta ELSE FechaHasta END AS FechaHasta
+    FROM (
+      SELECT
+        PERSONA,
+        CASE WHEN DATA.INICIO = 1 THEN DATA.LAG ELSE DATA.LAGHASTA + 1 END AS FechaDesde,
+        CASE WHEN DATA.FIN = 1 THEN DATA.FechaDesde1 ELSE DATA.FechaDesde1 END AS FechaHasta
+      FROM (
+        SELECT
+          CASE WHEN FECHAS.LAG = :fechaDesde THEN 1 
+               WHEN FECHAS.LAG > :fechaDesde AND LAGHASTA IS NULL THEN 1
+          ELSE 0 END AS INICIO,
+          CASE WHEN FECHAS.LEAD = :fechaHasta THEN 1 ELSE 0 END AS FIN,
+          FECHAS.*
+        FROM (
+          SELECT
+            DENSE_RANK() OVER (ORDER BY PCT.FechaDesde) AS DENSE_RANK,
+            PCT.Persona,
+            LAG(PCT.FechaDesde, 1, CASE WHEN PH.FECHADESDE > :fechaDesde THEN PH.FECHADESDE ELSE :fechaDesde END) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FechaDesde) AS LAG,
+            LEAD(PCT.FechaDesde, 1, :fechaHasta) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FechaDesde) AS LEAD,
+            LAG(PCT.FechaHasta, 1) OVER (PARTITION BY PCT.Persona ORDER BY PCT.FECHAHASTA) AS LAGHASTA,
+            PCT.FechaDesde - 1 AS FechaDesde1,
+            PCT.FechaDesde,
+            PCT.FechaHasta,
+            PCT.FechaHasta + 1 AS FechaHasta1
+          FROM PERSONASHISTORICO PH
+          LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT
+            ON PCT.PERSONA = PH.PERSONA
+            AND (PH.FechaHasta IS NULL OR PCT.FechaDesde <= PH.FechaHasta)
+            AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PH.FechaDesde)
+          LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT2
+            ON PCT2.PERSONA = PH.PERSONA
+            AND (PCT2.FECHADESDE = PH.FECHADESDE OR PCT2.FECHADESDE = :fechaDesde)            
+          WHERE 1 = 1
+          AND PH.FECHADESDE <= :fechaHasta
+          AND PH.PERSONA < 500000          
+          AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
+          AND PCT.FECHADESDE <= :fechaHasta
+          AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
+          AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
+          AND PH.TIPOCALCULO IS NOT NULL
+          AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+          AND PCT2.PERSONA IS NULL
+          AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)                      
+          GROUP BY
+            PCT.Persona,
+            PCT.FechaDesde,
+            PCT.FechaHasta,
+            PH.FECHADESDE
+        ) AS FECHAS
+        WHERE (LAGHASTA IS NULL OR LAGHASTA <> FECHADESDE1)
+      ) AS DATA
+    ) AS FILTRO
+    WHERE FILTRO.FechaDesde <= FILTRO.FechaHasta),
+    DESPLAZAMIENTOS AS (
+      SELECT
+        ROW_NUMBER() OVER (PARTITION BY PERSONA ORDER BY FECHADESDE DESC) AS ROW,
+        PERSONA,
+        FECHADESDE,
+        FECHAHASTA
+      FROM PersonasCambiosTemporales
+      WHERE
+        FECHADESDE <= :fechaHasta
+        AND FECHAHASTA >= :fechaDesde
+        AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
+    )
+    -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
+    SELECT
+      PH.Persona AS CCL_ID_PERSON,
+      F.FechaDesde AS FECHA_DESDE,
+      CASE 
+        WHEN F.FechaHasta > PH.FECHAHASTA THEN PH.FECHAHASTA
+        ELSE F.FechaHasta 
+      END AS FECHA_HASTA,
+      PH.TIPOCALCULO AS ID_TIPO_CALCULO,
+      PH.PUESTO AS PUESTO,
+      PH.SECCIONES AS SECCIONES,
+      CASE 
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PH.SECCIONES LIKE '%C%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PH.SECCIONES LIKE '%N%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
+        ELSE 0
+      END AS PORCENTAJE,
+      TPP.BANDA,
+      TPP.IMPORTE,
+      TPC.SECCION AS CCL_ID_SECCION
+    FROM PersonasHistorico PH
+    INNER JOIN FECHAS_ESTRUCTURA F
+      ON F.PERSONA = PH.PERSONA
+      AND (F.FECHADESDE BETWEEN PH.FECHADESDE AND PH.FECHADESDE OR F.FECHADESDE >= PH.FECHADESDE AND PH.FECHAHASTA IS NULL)      
+    LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+      ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+    LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+      ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+    WHERE
+      PH.FechaDesde <= :fechaHasta
+      AND PH.PERSONA < 500000      
+      AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
+      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+    UNION
+    -- Casos con desplazamientos en el período, el último tramo con la estructura base
+    SELECT
+      PH.PERSONA AS CCL_ID_PERSON,
+      D.FECHAHASTA + 1 AS FECHA_DESDE,
+      CASE
+        WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
+        ELSE PH.FECHAHASTA
+      END AS FECHA_HASTA,
+      PH.TIPOCALCULO AS ID_TIPO_CALCULO,
+      PH.PUESTO AS PUESTO,
+      PH.SECCIONES AS SECCIONES,      
+      CASE 
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PH.SECCIONES LIKE '%C%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PH.SECCIONES LIKE '%N%' THEN TPC.PORCENTAJE
+        WHEN PH.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
+        ELSE 0
+      END AS PORCENTAJE,
+      TPP.BANDA,
+      TPP.IMPORTE,
+      TPC.SECCION AS CCL_ID_SECCION
+    FROM PersonasHistorico PH
+    INNER JOIN DESPLAZAMIENTOS D
+      ON PH.PERSONA = D.PERSONA
+      AND D.ROW = 1
+      AND D.FECHAHASTA <> :fechaHasta
+      AND PH.FECHADESDE <= D.FECHADESDE   
+      AND (D.FECHAHASTA < PH.FECHAHASTA OR PH.FECHAHASTA IS NULL AND D.FECHAHASTA < :fechaHasta)
+    LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+      ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+    LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+      ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+    WHERE PH.FechaDesde <= :fechaHasta
+      AND PH.PERSONA < 500000    
+      AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
+      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND PH.TIPOCALCULO IS NOT NULL
+      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+      AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
+      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1      
+    UNION
+    -- Casos que no tienen desplazamientos en el período
+     SELECT
+            CCL_ID_PERSON,
+            MIN(FECHA_DESDE) AS FECHA_INICIO,
+            MAX(FECHA_HASTA) AS FECHA_HASTA,
+            ID_TIPO_CALCULO,
+            PUESTO,
+            SECCIONES,            
+            PORCENTAJE,
+            BANDA,
+            IMPORTE,
+            CCL_ID_SECCION
+        FROM
+            (        
+                SELECT
+                *,
+                CASE WHEN Groups.PreviousEndDate >= FECHA_DESDE THEN 0 ELSE 1 END AS IslandStartInd,
+                SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION, TABLAPORCENTAJE ORDER BY Groups.RN) AS IslandId
+                FROM
+                (        
+                    SELECT
+                      DENSE_RANK() OVER (ORDER BY PH.FechaDesde) AS DENSE_RANK,
+                      PH.PERSONA AS CCL_ID_PERSON,
+                      CASE WHEN PH.FechaDesde < :fechaDesde THEN :fechaDesde ELSE PH.FechaDesde END AS FECHA_DESDE,
+                      CASE
+                        WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
+                        ELSE PH.FECHAHASTA
+                      END AS FECHA_HASTA,
+                      PH.TIPOCALCULO AS ID_TIPO_CALCULO,
+                      PH.PUESTO AS PUESTO,
+                      PH.SECCIONES AS SECCIONES,                                             
+                      CASE 
+                        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
+                        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 2 AND PH.SECCIONES LIKE '%C%' THEN TPC.PORCENTAJE
+                        WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 3 AND PH.SECCIONES LIKE '%N%' THEN TPC.PORCENTAJE
+                        WHEN PH.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
+                        ELSE 0
+                      END AS PORCENTAJE,
+                      TPP.BANDA,
+                      TPP.IMPORTE,
+                      TPC.SECCION AS CCL_ID_SECCION,
+                      TPC.TABLAPORCENTAJE,                      
+                      ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPC.PORCENTAJE, TPP.BANDA, TPP.IMPORTE, TPC.SECCION, TPC.TABLAPORCENTAJE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
+                      LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPC.PORCENTAJE, TPP.BANDA, TPP.IMPORTE, TPC.SECCION, TPC.TABLAPORCENTAJE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
+                    FROM PersonasHistorico PH
+                    LEFT JOIN TABLASPORCENTAJESCOMISION TPC
+                      ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+                    LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
+                      ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
+                    LEFT JOIN PersonasCambiosTemporales pct
+                      ON pct.Persona = ph.Persona
+                      AND pct.FechaDesde <= :fechaHasta
+                      AND (pct.FechaHasta IS NULL OR pct.FechaHasta >= :fechaDesde)
+                    WHERE
+                      PH.FechaDesde <= :fechaHasta
+                      AND PH.PERSONA < 500000                                      
+                      AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
+                      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+                      AND pct.Persona IS NULL
+                      AND PH.TIPOCALCULO IS NOT NULL
+                      AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+                      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+                      AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)                                               
+                ) Groups      
+        ) Islands
+        GROUP BY
+            CCL_ID_PERSON,           
+            ID_TIPO_CALCULO,
+            PORCENTAJE,
+            PUESTO,
+            SECCIONES,            
+            BANDA,
+            IMPORTE,
+            CCL_ID_SECCION,
+            TABLAPORCENTAJE,
+            IslandId  
+  ]]>
+</entry>
 
-     <entry key="ComisRepositoryCustom.findCondicionesResalta">
-    <![CDATA[
+<entry key="ComisRepositoryCustom.findCondicionesResaltaEs">
+  <![CDATA[
     WITH FECHAS_ESTRUCTURA AS (
     SELECT
       PERSONA,
@@ -627,6 +1533,7 @@ UNION
             AND (PCT2.FECHADESDE = PH.FECHADESDE OR PCT2.FECHADESDE = :fechaDesde)         
           WHERE 1 = 1
           AND PR.FECHADESDE <= :fechaHasta
+          AND PR.PERSONA < 500000          
           AND (PR.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
           AND PCT.FECHADESDE <= :fechaHasta
           AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
@@ -663,7 +1570,6 @@ UNION
       PH.Persona AS CCL_ID_PERSON,
       F.FechaDesde AS FECHA_DESDE,
       F.FechaHasta AS FECHA_HASTA,
-      PH.TIENDA AS CCL_ID_COD_ORIGEN,
       PH.TIPOCALCULO AS ID_TIPO_CALCULO,
       CASE 
         WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
@@ -689,6 +1595,7 @@ UNION
       ON TPP.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
     WHERE
       PR.FechaDesde <= :fechaHasta
+      AND PR.PERSONA < 500000
       AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
@@ -706,7 +1613,6 @@ UNION
         WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
         ELSE PH.FECHAHASTA
       END AS FECHAHASTA,
-      PH.TIENDA AS CCL_ID_COD_ORIGEN,
       PH.TIPOCALCULO AS ID_TIPO_CALCULO,
       CASE 
         WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
@@ -734,6 +1640,7 @@ UNION
     LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
       ON TPP.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
     WHERE PR.FechaDesde <= :fechaHasta
+      AND PR.PERSONA < 500000
       AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
@@ -748,8 +1655,7 @@ UNION
  SELECT
       CCL_ID_PERSON,
       MIN(FECHADESDE) AS FECHA_INICIO,
-      MAX(FECHAHASTA) AS FECHA_HASTA,
-      CCL_ID_COD_ORIGEN,            
+      MAX(FECHAHASTA) AS FECHA_HASTA,           
       ID_TIPO_CALCULO,
       PORCENTAJE,
       BANDA,
@@ -760,7 +1666,7 @@ UNION
           SELECT
           *,
           CASE WHEN Groups.PreviousEndDate >= FECHADESDE THEN 0 ELSE 1 END AS IslandStartInd,
-          SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHADESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION ORDER BY Groups.RN) AS IslandId
+          SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHADESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION ORDER BY Groups.RN) AS IslandId
           FROM
           (                      
            SELECT
@@ -769,9 +1675,9 @@ UNION
                 CASE WHEN PH.FechaDesde < :fechaDesde THEN :fechaDesde ELSE PH.FechaDesde END AS FechaDesde,
                 CASE
                   WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
+                  WHEN PH.FECHAHASTA > PR.FECHAHASTA THEN PR.FECHAHASTA
                   ELSE PH.FECHAHASTA
                 END AS FECHAHASTA,
-                PH.Tienda AS CCL_ID_COD_ORIGEN,
                 PH.TipoCalculo AS ID_TIPO_CALCULO,
                 CASE 
                   WHEN PH.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PH.SECCIONES LIKE '%S%' THEN TPC.PORCENTAJE
@@ -785,8 +1691,8 @@ UNION
                 PH.SECCIONES AS SECCIONES,                   
                 TPP.Importe,
                 TPC.Seccion as CCL_ID_SECCION,
-                ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIENDA, PH.TIPOCALCULO, TPC.PORCENTAJE, TPP.BANDA, PH.PUESTO, PH.SECCIONES, TPP.IMPORTE, TPC.SECCION ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
-                LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIENDA, PH.TIPOCALCULO, TPC.PORCENTAJE, TPP.BANDA, PH.PUESTO, PH.SECCIONES, TPP.IMPORTE, TPC.SECCION ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
+                ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIPOCALCULO, TPC.PORCENTAJE, TPP.BANDA, PH.PUESTO, PH.SECCIONES, TPP.IMPORTE, TPC.SECCION ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
+                LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIPOCALCULO, TPC.PORCENTAJE, TPP.BANDA, PH.PUESTO, PH.SECCIONES, TPP.IMPORTE, TPC.SECCION ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
               FROM PersonasResaltas PR
               INNER JOIN PERSONASHISTORICO PH
                   ON PH.PERSONA = PR.PERSONA
@@ -802,6 +1708,7 @@ UNION
                 AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
               WHERE
                 PR.FechaDesde <= :fechaHasta
+                AND PR.PERSONA < 500000
                 AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
                 AND PH.FechaDesde <= :fechaHasta
                 AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
@@ -816,7 +1723,6 @@ UNION
   ) Islands
   GROUP BY
       CCL_ID_PERSON,
-      CCL_ID_COD_ORIGEN,            
       ID_TIPO_CALCULO,
       PORCENTAJE,
       BANDA,
@@ -824,91 +1730,8 @@ UNION
       SECCIONES,       
       IMPORTE,
       CCL_ID_SECCION,
-  IslandId
-    ]]>
-  </entry>
-
-  <entry key="ComisRepositoryCustom.findBajasIt">
-    <![CDATA[
-  SELECT
-            Persona AS CCL_ID_PERSON,
-            (100 - (CODIGOINCIDENCIA - 7000))/100.0 AS PORCENTAJE,
-            Tienda AS CCL_ID_COD_ORIGEN,
-            MIN(FechaInicio) AS FECHA_INICIO,
-            MAX(FechaFin) AS FECHA_FIN
-        FROM
-            (
-                    SELECT
-                       *,
-                       CASE WHEN Groups.PreviousEndDate >= FechaInicio THEN 0 ELSE 1 END AS IslandStartInd,
-                       SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FechaInicio) THEN 0 ELSE 1 END) OVER (PARTITION BY PERSONA, CodigoIncidencia, Tienda ORDER BY Groups.RN) AS IslandId
-                       FROM
-                       (
-                        SELECT
-                            DENSE_RANK() OVER (ORDER BY i.FechaInicio) AS DENSE_RANK,
-                            i.Persona,
-                             CASE
-                                    WHEN (PH.FECHADESDE > i.FechaInicio AND PH.FECHADESDE > :fechaDesde) THEN PH.FECHADESDE                                                          
-                                    WHEN i.FechaInicio < :fechaDesde THEN :fechaDesde
-                                    ELSE i.FechaInicio
-                                  END AS FechaInicio,
-                                  CASE
-                                    WHEN (PH.FECHAHASTA < i.FECHAFIN AND PH.FECHAHASTA < :fechaHasta) THEN PH.FECHAHASTA                                  
-                                    WHEN i.FechaFin IS NULL THEN :fechaHasta
-                                    WHEN i.FechaFin > :fechaHasta THEN :fechaHasta
-                                    ELSE i.FechaFin
-                                  END AS FechaFin,
-                            i.CodigoIncidencia,
-                            i.Tienda,
-                            ROW_NUMBER() OVER(PARTITION BY i.PERSONA, i.CodigoIncidencia, i.Tienda ORDER BY i.FechaInicio, i.FechaFin) AS RN,
-                            LAG(i.FechaFin,1) OVER (PARTITION BY i.PERSONA, i.CodigoIncidencia, i.Tienda ORDER BY i.FechaInicio, i.FechaFin) AS PreviousEndDate
-                          FROM IncidenciasSil i
-                           INNER JOIN PERSONASHISTORICO PH
-                           ON i.PERSONA = PH.PERSONA
-                          where i.TIPOINCIDENCIA = 700
-                        AND i.CODIGOINCIDENCIA >= 7000 AND i.CODIGOINCIDENCIA <= 7100
-                        AND i.FECHAFIN >= :fechaDesde AND i.FECHAINICIO <= :fechaHasta
-                        AND (
-                          i.ESTADO NOT IN (
-                                SELECT CONVERT(INTEGER,INDICE)
-                                FROM TABLASGENERALES
-                                WHERE TABLA = 9061 AND INDICADOR1 = 'E')
-                          AND ORIGEN NOT IN (
-                                SELECT CONVERT(INTEGER,INDICE)
-                                FROM TABLASGENERALES
-                                WHERE TABLA = 9061 AND INDICADOR1 = 'O')
-                        )
-                        AND PH.FECHADESDE <= :fechaHasta
-                        AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-                        AND ((PH.FECHADESDE <= I.FECHAINICIO AND PH.FECHAHASTA >= I.FECHAFIN)  OR (PH.FECHADESDE <= I.FECHAINICIO AND PH.FECHAHASTA IS NULL))                                                
-                        AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-                ) Groups
-        ) Islands
-        GROUP BY
-        Persona,
-        Tienda,
-        CodigoIncidencia,
-        IslandId        
-      ]]>
-  </entry>
-
-  <entry key="ComisRepositoryCustom.findCarencia">
-    <![CDATA[
-        SELECT
-        P.PERSONA AS CCL_ID_PERSON,
-        P.FECHAINICIOCALCULO AS FECHA_INICIO_CALCULO,
-        P.FECHAALTA AS FECHA_ALTA,
-        P.TIENDA AS CCL_ID_COD_ORIGEN
-        FROM PERSONAS P
-        INNER JOIN PERSONASHISTORICO PH
-        ON P.PERSONA = PH.PERSONA
-        WHERE P.FECHAINICIOCALCULO IS NOT NULL
-        AND P.FECHAALTA < :fechaHasta
-        AND P.FECHAINICIOCALCULO > :fechaHasta
-        AND PH.FECHADESDE <= :fechaHasta
-        AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-        AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-      ]]>
-  </entry>
-
+      IslandId
+  ]]>
+</entry>
+    
 </properties>

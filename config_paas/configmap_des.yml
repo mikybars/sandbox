@@ -249,7 +249,7 @@ amiga:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           user: ncomis
-          readOnly: true
+          readOnly: true                 
         comis388:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal

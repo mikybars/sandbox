@@ -50,12 +50,12 @@ amiga:
 #            driverType: thin
         comis1:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalFrancia
           user: ncomis
           readOnly: true
         comis2:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBE
           user: ncomis
           readOnly: true
         comis3:
@@ -65,12 +65,12 @@ amiga:
           readOnly: true
         comis4:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalDE
           user: ncomis
           readOnly: true
         comis5:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalIT
           user: ncomis
           readOnly: true
         comis6:
@@ -80,22 +80,22 @@ amiga:
           readOnly: true
         comis7:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalIrlanda
           user: ncomis
           readOnly: true
         comis8:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalDK
           user: ncomis
           readOnly: true
         comis9:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalGR
           user: ncomis
           readOnly: true
         comis10:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPT
           user: ncomis
           readOnly: true
         comis11-8:
@@ -124,53 +124,53 @@ amiga:
           user: ncomis     
         comis11-11:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalPull
           user: ncomis
         comis11-2:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalOysho
           user: ncomis
         comis11-30:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalDutti
           user: ncomis      
         comis11-25:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalBsk
           user: ncomis                      
         comis18:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalLuxemburgo
           user: ncomis
           readOnly: true
         comis28:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalNoruega
           user: ncomis
           readOnly: true
         comis30:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalSuecia
           user: ncomis
           readOnly: true
         comis32:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalFinlandia
           user: ncomis
           readOnly: true
         comis38:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           user: ncomis
           readOnly: true
         comis39:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCH
           user: ncomis
           readOnly: true
         comis52:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PERSONALTURQUIA
           user: ncomis
           readOnly: true
         comis60:
@@ -190,17 +190,17 @@ amiga:
           readOnly: true
         comis64:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalHU
           user: ncomis
           readOnly: true
         comis66:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRO
           user: ncomis
           readOnly: true
         comis68:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBG
           user: ncomis
           readOnly: true
         comis72:
@@ -210,7 +210,7 @@ amiga:
           readOnly: true
         comis75:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRU
           user: ncomis
           readOnly: true
         comis79:
@@ -220,34 +220,34 @@ amiga:
           readOnly: true
         comis92:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalHR
           user: ncomis
           readOnly: true
         comis93:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBosnia
           user: ncomis
           readOnly: true
         comis96:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMacedonia
           user: ncomis
           readOnly: true
         comis97:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMontenegro
           user: ncomis
           readOnly: true
         comis98:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRS
           user: ncomis
           readOnly: true
         comis139:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
           user: ncomis
-          readOnly: true
+          readOnly: true               
         comis388:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
