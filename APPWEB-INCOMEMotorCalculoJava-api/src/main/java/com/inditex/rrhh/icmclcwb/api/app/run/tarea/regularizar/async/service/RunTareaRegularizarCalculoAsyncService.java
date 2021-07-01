@@ -11,4 +11,6 @@ public interface RunTareaRegularizarCalculoAsyncService {
 
     CompletableFuture<Void> regularizarCalculoMejorOpcion(RunTareaDto runTarea);
 
+    CompletableFuture<Void> regularizarMejorOpcionSinFechas(RunTareaDto runTarea);
+
 }

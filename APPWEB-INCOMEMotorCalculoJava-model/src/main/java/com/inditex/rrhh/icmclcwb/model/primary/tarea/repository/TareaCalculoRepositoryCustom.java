@@ -12,4 +12,6 @@ public interface TareaCalculoRepositoryCustom {
     void regularizarChallenge(@NotNull TareaDto tareaDto,
             @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto);
 
+    void regularizarMejorOpcionSinFechas(@NotNull final TareaDto tareaDto);
+
 }
