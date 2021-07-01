@@ -177,7 +177,7 @@ amiga:
           readOnly: true
         comis60:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
           user: ncomis
           readOnly: true
         comis61:
