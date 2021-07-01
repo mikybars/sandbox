@@ -17,8 +17,14 @@ public class RunTareaRegularizarCalculoAsyncServiceImpl implements RunTareaRegul
     private RunTareaRegularizarCalculoService runTareaRegularizarService;
 
     @Override
-    public CompletableFuture<Void> regularizarCalculoMejorOpcion(RunTareaDto runTarea) {
-        runTareaRegularizarService.regularizarCalculoMejorOpcion(runTarea);
+    public CompletableFuture<Void> regularizarCalculoMejorOpcion(final RunTareaDto runTarea) {
+        this.runTareaRegularizarService.regularizarCalculoMejorOpcion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> regularizarMejorOpcionSinFechas(final RunTareaDto runTarea) {
+        this.runTareaRegularizarService.regularizarMejorOpcionSinFechas(runTarea);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

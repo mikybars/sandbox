@@ -55,6 +55,10 @@ public class RunTareaRegularizarServiceImpl implements RunTareaRegularizarServic
                 .regularizarCalculoMejorOpcion(runTarea);
             AsyncUtils.exceptionally(cfPostProcesarCalculo, cf);
 
+            final CompletableFuture<Void> cfPostProcesarCalculoSinFechas = this.runTareaRegularizarAsyncService
+                .regularizarMejorOpcionSinFechas(runTarea);
+            AsyncUtils.exceptionally(cfPostProcesarCalculoSinFechas, cf);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cf);
             /*-------------------------------------------------------------*/
