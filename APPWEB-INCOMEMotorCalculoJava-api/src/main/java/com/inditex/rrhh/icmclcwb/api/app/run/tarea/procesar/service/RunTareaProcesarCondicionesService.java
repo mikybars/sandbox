@@ -22,4 +22,6 @@ public interface RunTareaProcesarCondicionesService {
 
     void crearChallengeOpcionOrigen(@Valid TareaDto tarea);
 
+    void desactivarManualOrdinalDoble(@Valid TareaDto tarea);
+
 }

@@ -59,6 +59,11 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
     }
 
     @Override
+    public void desactivarManualOrdinalDoble(@Valid final TareaDto tarea) {
+        this.tareaPersonaEstructuraRepositoryCustom.desactivarManualOrdinalDoble(tarea);
+    }
+
+    @Override
     public void crearChallengeOpcionOrigen(@Valid final TareaDto tarea) {
         this.tareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen(tarea);
     }
