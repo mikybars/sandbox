@@ -42,6 +42,9 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
     @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.calcularFestivos']}")
     private String sqlCalcularFestivos;
 
+    @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.desactivarManualOrdinalDoble']}")
+    private String sqlDesactivarManualOrdinalDoble;
+
     @Override
     public List<TareaPersonaEstructura> save(final List<TareaPersonaEstructura> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -78,6 +81,21 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
                     .idPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL))
                     .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
                     .build());
+    }
+
+    @Override
+    public void desactivarManualOrdinalDoble(final TareaDto tarea) {
+
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays
+            .asList(TipoComisionEnum.AJUSTE_MANUAL.getId(), TipoComisionEnum.RESALTA_MANUAL.getId()));
+        this.update(this.sqlDesactivarManualOrdinalDoble, map);
+
     }
 
     @Override

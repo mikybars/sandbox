@@ -66,6 +66,14 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
+            final CompletableFuture<Void> cfDesactivarManualOrdinalDoble = this.runTareaProcesarCondicionesAsyncService
+                .desactivarManualOrdinalDoble(runTarea);
+            AsyncUtils.exceptionally(cfDesactivarManualOrdinalDoble, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
             final CompletableFuture<Void> cfCrearChallengeOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
                 .crearChallengeOpcionOrigen(runTarea);
             AsyncUtils.exceptionally(cfCrearChallengeOpcionOrigen, cf, cfWait);

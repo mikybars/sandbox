@@ -20,4 +20,6 @@ public interface TareaPersonaEstructuraRepositoryCustom {
 
     Boolean calcularFestivos(final TareaDto tarea);
 
+    void desactivarManualOrdinalDoble(final TareaDto tarea);
+
 }

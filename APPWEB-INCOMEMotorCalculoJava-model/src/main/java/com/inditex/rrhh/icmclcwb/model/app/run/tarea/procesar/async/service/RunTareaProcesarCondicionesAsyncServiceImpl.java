@@ -64,6 +64,12 @@ public class RunTareaProcesarCondicionesAsyncServiceImpl implements RunTareaProc
     }
 
     @Override
+    public CompletableFuture<Void> desactivarManualOrdinalDoble(final RunTareaDto runTarea) {
+        this.tareaProcesarCondicionesService.desactivarManualOrdinalDoble(runTarea.getTarea());
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
     public CompletableFuture<Void> crearChallengeOpcionOrigen(final RunTareaDto runTarea) {
         this.tareaProcesarCondicionesService.crearChallengeOpcionOrigen(runTarea.getTarea());
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
