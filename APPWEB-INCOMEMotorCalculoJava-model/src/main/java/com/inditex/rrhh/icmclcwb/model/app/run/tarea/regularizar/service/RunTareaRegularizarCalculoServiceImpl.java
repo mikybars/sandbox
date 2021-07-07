@@ -18,8 +18,13 @@ public class RunTareaRegularizarCalculoServiceImpl implements RunTareaRegulariza
     private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
 
     @Override
-    public void regularizarCalculoMejorOpcion(@Valid RunTareaDto runTarea) {
-        tareaCalculoRepositoryCustom.regularizarMejorOpcion(runTarea.getTarea());
+    public void regularizarCalculoMejorOpcion(@Valid final RunTareaDto runTarea) {
+        this.tareaCalculoRepositoryCustom.regularizarMejorOpcion(runTarea.getTarea());
+    }
+
+    @Override
+    public void regularizarMejorOpcionSinFechas(@Valid final RunTareaDto runTarea) {
+        this.tareaCalculoRepositoryCustom.regularizarMejorOpcionSinFechas(runTarea.getTarea());
     }
 
 }
