@@ -35,7 +35,8 @@ public abstract class TareaTipoHoraMapper {
     @Mapping(source = "src.incluidoChallenge", target = "incluidoChallenge")
     @Mapping(source = "src.incluidoEcommerce", target = "incluidoEcommerce")
     @Mapping(source = "tareaDto.id", target = "tarea.id")
-    @Mapping(target = "src.excluidoDenominadorYRepartidoProvincia", ignore = true)
+    // TODO [javierev] Cambiar esta expresión por el campo real (o eliminar este mapper)
+    @Mapping(target = "excluidoDenominadorYRepartidoProvincia", expression = "java(src.getTipoHora() == 401)")
     @Mapping(target = "id", ignore = true)
     public abstract TareaTipoHora ptrPresenciasMockTiposHorasResponseDtoToTareaTipoHoraDto(
             PtrPresenciaTiposHorasResultItemDto src, TareaDto tareaDto);

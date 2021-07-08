@@ -16,6 +16,8 @@ public class GenericTiendaResultItemDto implements Serializable {
 
     private String idPais;
 
+    private String idProvincia;
+
     private Boolean calcula;
 
     private LocalDateTime fechaFin;
