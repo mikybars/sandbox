@@ -61,4 +61,6 @@ public interface RunTareaProcesarPresenciaAsyncService {
 
     CompletableFuture<Void> repartirPresenciasSindicalesLocalizacion(RunTareaDto runTarea);
 
+    CompletableFuture<Void> desactivarPresenciasSindicales(RunTareaDto runTarea);
+
 }

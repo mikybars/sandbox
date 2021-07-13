@@ -175,4 +175,11 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> desactivarPresenciasSindicales(
+            final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.desactivarPresenciasSindicales(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

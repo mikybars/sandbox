@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
 
 public interface TareaLocalizacionPresenciaRepositoryCustom {
@@ -24,5 +25,7 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
     void compensarLocalizacionManual(@NotNull RunTareaDto runTareaDto);
 
     void repartirPresenciasSindicalesLocalizacionSeccion(@NotNull RunTareaDto runTareaDto);
+
+    void updateActivoByTipoDato(@NotNull RunTareaDto runTareaDto, TipoDatoEnum tipoDato);
 
 }

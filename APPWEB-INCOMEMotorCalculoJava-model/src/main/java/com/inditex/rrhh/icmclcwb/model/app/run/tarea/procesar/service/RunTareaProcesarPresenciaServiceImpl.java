@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarPresenciaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
@@ -155,6 +156,13 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     public void repartirPresenciasSindicalesLocalizacion(
             @Valid final RunTareaDto runTareaDto) {
         this.tareaLocalizacionPresenciaService.repartirPresenciasSindicalesLocalizacion(runTareaDto);
+    }
+
+    @Override
+    public void desactivarPresenciasSindicales(
+            @Valid final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaService.updateActivoByTipoDato(runTareaDto,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_HORAS_SINDICALES);
     }
 
 }

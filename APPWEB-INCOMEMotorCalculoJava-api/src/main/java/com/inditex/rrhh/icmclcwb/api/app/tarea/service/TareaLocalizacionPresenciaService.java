@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 
@@ -28,5 +29,7 @@ public interface TareaLocalizacionPresenciaService {
     void compensarLocalizacionManual(@Valid @NotNull final RunTareaDto runTareaDto);
 
     void repartirPresenciasSindicalesLocalizacion(@Valid @NotNull RunTareaDto runTareaDto);
+
+    void updateActivoByTipoDato(@Valid @NotNull final RunTareaDto runtarea, @NotNull TipoDatoEnum tipoDato);
 
 }
