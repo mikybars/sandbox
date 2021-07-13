@@ -115,7 +115,8 @@ public enum TipoDatoEnum {
                                                                                                                     5015), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO(
                                                                                                                             5016), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE(
                                                                                                                                     5017), PRESENCIA_MANUAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR(
-                                                                                                                                            5018),
+                                                                                                                                            5018), PRESENCIA_LOCALIZACION_SECCION_HORAS_SINDICALES(
+                                                                                                                                                    5019),
     /* 6000 (Localizacion) */
     LOCALIZACION_FESTIVO(6001),
     /* 7000 (Localizacion Procesado) *//* 8000 (Persona) */

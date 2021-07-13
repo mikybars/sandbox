@@ -23,4 +23,6 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
 
     void compensarLocalizacionManual(@NotNull RunTareaDto runTareaDto);
 
+    void repartirPresenciasSindicalesLocalizacionSeccion(@NotNull RunTareaDto runTareaDto);
+
 }

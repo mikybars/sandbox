@@ -64,4 +64,10 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
         this.tareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManual(runTareaDto);
     }
 
+    @Override
+    public void repartirPresenciasSindicalesLocalizacion(
+            @Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTareaDto);
+    }
+
 }

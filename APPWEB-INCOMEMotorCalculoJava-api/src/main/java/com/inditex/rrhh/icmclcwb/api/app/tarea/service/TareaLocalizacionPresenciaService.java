@@ -27,4 +27,6 @@ public interface TareaLocalizacionPresenciaService {
 
     void compensarLocalizacionManual(@Valid @NotNull final RunTareaDto runTareaDto);
 
+    void repartirPresenciasSindicalesLocalizacion(@Valid @NotNull RunTareaDto runTareaDto);
+
 }

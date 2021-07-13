@@ -64,6 +64,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManual']}")
     private String sqlCompensarLocalizacionManual;
 
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion']}")
+    private String sqlRepartirPresenciasSindicalesLocalizacionSeccion;
+
     @Autowired
     private TipoDatoService tipoDatoService;
 
@@ -107,10 +110,6 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     public void totalizar(@NotNull final RunTareaDto runTareaDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-        final List<IdTipoDatoDto> tiposDatoPresencia = this.tipoDatoService
-            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-                tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
                 TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR,
@@ -123,6 +122,11 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
                 TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_REPARTIDO_PROVINCIA,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_HORAS_SINDICALES.getId());
 
         this.update(this.sqlTotalizar, parameters);
     }
@@ -182,6 +186,22 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
                         TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId()));
 
         this.update(this.sqlCompensarLocalizacionManual, parameters);
+    }
+
+    @Override
+    public void repartirPresenciasSindicalesLocalizacionSeccion(
+            @NotNull final RunTareaDto runTareaDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_REPARTIDO_PROVINCIA,
+                SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_HORAS_SINDICALES.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        this.update(this.sqlRepartirPresenciasSindicalesLocalizacionSeccion, parameters);
     }
 
 }

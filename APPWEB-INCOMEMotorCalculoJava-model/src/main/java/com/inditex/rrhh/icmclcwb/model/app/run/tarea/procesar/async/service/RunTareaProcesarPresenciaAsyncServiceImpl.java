@@ -168,4 +168,11 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> repartirPresenciasSindicalesLocalizacion(
+            final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.repartirPresenciasSindicalesLocalizacion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }
