@@ -40,6 +40,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_REPARTIDO_PROVINCIA;
@@ -65,6 +66,8 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     private final static String SQL_REPARTIR_PRESENCIAS_SINDICALES = "REPARTIR PRESENCIAS SINDICALES";
 
     private final static String SQL_UPDATE_ACTIVO_BY_TIPO_DATO = "UPDATE ACTIVO BY TIPO DATO";
+
+    private final static String SQL_TOTALIZAR_COMMERCE_SECCION = "TOTALIZAR COMMERCE SECCION";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -95,6 +98,8 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
                 SQL_UPDATE_ACTIVO_BY_TIPO_DATO, true);
         FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
                 "sqlRepartirPresenciasSindicalesLocalizacionSeccion", SQL_REPARTIR_PRESENCIAS_SINDICALES, true);
+        FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom, "sqlTotalizarEcommerceSeccion",
+                SQL_TOTALIZAR_COMMERCE_SECCION, true);
     }
 
     @Test
@@ -664,6 +669,228 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         assertTrue(parametros.hasValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
         assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(),
                 parametros.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
+
+    }
+
+    @Test
+    public void totalizarEcommerceSeccionQueryTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1222L);
+        final RunTareaDto runTarea = RunTareaDto
+            .builder()
+            .tarea(tarea)
+            .build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
+                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
+                any(MapSqlParameterSource.class));
+        assertEquals(SQL_TOTALIZAR_COMMERCE_SECCION, this.sqlCaptor.getValue());
+
+    }
+
+    @Test
+    public void totalizarEcommerceSeccionNumeroParametrosTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1222L);
+        final RunTareaDto runTarea = RunTareaDto
+            .builder()
+            .tarea(tarea)
+            .build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
+                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        // Parámetros de la consulta: nuevoIdTipoDato, incluidoEcommerce, idTipoPolitica, idTarea,
+        // idTipoGrupoDato, activo, horasOrigen, horasDestino
+        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
+        assertEquals(8, parametros.getValues().size());
+
+    }
+
+    @Test
+    public void totalizarEcommerceSeccionParametroIdTareaTest() {
+
+        final Long idTarea = 1432020L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+        final RunTareaDto runTarea = RunTareaDto
+            .builder()
+            .tarea(tarea)
+            .build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
+                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
+        assertTrue(parametros.hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, parametros.getValue(SQL_PARAM_ID_TAREA));
+
+    }
+
+    @Test
+    public void totalizarEcommerceSeccionParametroNuevoIdTipoDatoTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1222L);
+        final RunTareaDto runTarea = RunTareaDto
+            .builder()
+            .tarea(tarea)
+            .build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
+                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
+        assertTrue(parametros.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId(),
+                parametros.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+
+    }
+
+    @Test
+    public void totalizarEcommerceSeccionParametroIncluidoEcommerceTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1222L);
+        final RunTareaDto runTarea = RunTareaDto
+            .builder()
+            .tarea(tarea)
+            .build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
+                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
+        assertTrue(parametros.hasValue(SQL_PARAM_INCLUIDO_ECOMMERCE));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, parametros.getValue(SQL_PARAM_INCLUIDO_ECOMMERCE));
+
+    }
+
+    @Test
+    public void totalizarEcommerceSeccionParametroIdTipoPoliticaTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1222L);
+        final RunTareaDto runTarea = RunTareaDto
+            .builder()
+            .tarea(tarea)
+            .build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
+                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
+        assertTrue(parametros.hasValue(SQL_PARAM_ID_TIPO_POLITICA));
+        assertEquals(TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId(), parametros.getValue(SQL_PARAM_ID_TIPO_POLITICA));
+
+    }
+
+    @Test
+    public void totalizarEcommerceSeccionParametroIdTipoGrupoDatoTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1222L);
+        final RunTareaDto runTarea = RunTareaDto
+            .builder()
+            .tarea(tarea)
+            .build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
+        assertTrue(parametros.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(),
+                parametros.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+
+    }
+
+    @Test
+    public void totalizarEcommerceSeccionParametroActivoTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1222L);
+        final RunTareaDto runTarea = RunTareaDto
+            .builder()
+            .tarea(tarea)
+            .build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
+        assertTrue(parametros.hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, parametros.getValue(SQL_PARAM_ACTIVO));
+
+    }
+
+    @Test
+    public void totalizarEcommerceSeccionParametroHorasOrigenTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1222L);
+        final RunTareaDto runTarea = RunTareaDto
+            .builder()
+            .tarea(tarea)
+            .build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
+        assertTrue(parametros.hasValue(SQL_PARAM_HORAS_ORIGEN));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, parametros.getValue(SQL_PARAM_HORAS_ORIGEN));
+
+    }
+
+    @Test
+    public void totalizarEcommerceSeccionParametroHorasDestinoTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1222L);
+        final RunTareaDto runTarea = RunTareaDto
+            .builder()
+            .tarea(tarea)
+            .build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
+        assertTrue(parametros.hasValue(SQL_PARAM_HORAS_DESTINO));
+        assertEquals(SQL_VALUE_BOOLEAN_FALSE, parametros.getValue(SQL_PARAM_HORAS_DESTINO));
 
     }
 
