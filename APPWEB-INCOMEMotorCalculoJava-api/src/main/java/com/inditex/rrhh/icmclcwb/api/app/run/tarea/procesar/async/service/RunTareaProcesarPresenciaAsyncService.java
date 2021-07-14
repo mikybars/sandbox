@@ -65,4 +65,6 @@ public interface RunTareaProcesarPresenciaAsyncService {
 
     CompletableFuture<Void> totalizarEcommerceSeccion(RunTareaDto runTareaDto);
 
+    CompletableFuture<Void> totalizarPresenciasSindicalesLocalizacion(RunTareaDto runTareaDto);
+
 }

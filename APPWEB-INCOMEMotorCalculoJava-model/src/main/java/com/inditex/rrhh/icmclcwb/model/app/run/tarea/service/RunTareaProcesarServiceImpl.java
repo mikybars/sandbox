@@ -62,14 +62,19 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 .desactivarChallengeOpcionOrigen(runTarea);
             AsyncUtils.exceptionally(cfDesactivarChallengeOpcionOrigen, cf, cfWait);
 
-            // Totalizar las presencias incluido commerce por seccion
-            final CompletableFuture<Void> cfTotalizarEcommerceSeccion = this.runTareaProcesarPresenciaAsyncService
-                .totalizarEcommerceSeccion(runTarea);
-            AsyncUtils.exceptionally(cfTotalizarEcommerceSeccion, cf, cfWait);
+            // Totalizar las presencias sindicales por localizacion
+            final CompletableFuture<Void> cfTotalzarPresenciasSindicales = this.runTareaProcesarPresenciaAsyncService
+                .totalizarPresenciasSindicalesLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfTotalzarPresenciasSindicales, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
+
+            // Totalizar las presencias incluido commerce por seccion
+            final CompletableFuture<Void> cfTotalizarEcommerceSeccion = this.runTareaProcesarPresenciaAsyncService
+                .totalizarEcommerceSeccion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarEcommerceSeccion, cf, cfWait);
 
             final CompletableFuture<Void> cfDesactivarManualOrdinalDoble = this.runTareaProcesarCondicionesAsyncService
                 .desactivarManualOrdinalDoble(runTarea);

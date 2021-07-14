@@ -115,9 +115,11 @@ public enum TipoDatoEnum {
                                                                                                                     5015), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO(
                                                                                                                             5016), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE(
                                                                                                                                     5017), PRESENCIA_MANUAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR(
-                                                                                                                                            5018), PRESENCIA_LOCALIZACION_SECCION_HORAS_SINDICALES(
+                                                                                                                                            5018), PRESENCIA_LOCALIZACION_HORAS_SINDICALES(
                                                                                                                                                     5019), PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE(
-                                                                                                                                                            5020),
+                                                                                                                                                            5020), REPARTO_HORAS_SINDICALES_LOCALIZACION(
+                                                                                                                                                                    5021), REPARTO_HORAS_LOCALIZACION_SECCION(
+                                                                                                                                                                            5022),
     /* 6000 (Localizacion) */
     LOCALIZACION_FESTIVO(6001),
     /* 7000 (Localizacion Procesado) *//* 8000 (Persona) */

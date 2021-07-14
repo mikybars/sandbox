@@ -75,6 +75,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion']}")
     private String sqlTotalizarEcommerceSeccion;
 
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion']}")
+    private String sqlTotalizarPresenciasSindicalesLocalizacion;
+
     @Autowired
     private TipoDatoService tipoDatoService;
 
@@ -134,7 +137,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_REPARTIDO_PROVINCIA,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_HORAS_SINDICALES.getId());
+                TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION.getId());
 
         this.update(this.sqlTotalizar, parameters);
     }
@@ -205,7 +208,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_REPARTIDO_PROVINCIA,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_HORAS_SINDICALES.getId());
+                TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
                 TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
@@ -241,6 +244,21 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
         this.update(this.sqlTotalizarEcommerceSeccion, params);
+    }
+
+    @Override
+    public void totalizarPresenciasSindicalesLocalizacion(
+            @NotNull final RunTareaDto runTareaDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_HORAS_SINDICALES.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_REPARTIDO_PROVINCIA, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        this.update(this.sqlTotalizarPresenciasSindicalesLocalizacion, params);
     }
 
 }

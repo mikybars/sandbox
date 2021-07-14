@@ -34,4 +34,6 @@ public interface TareaLocalizacionPresenciaService {
 
     void totalizarEcommerceSeccion(@Valid @NotNull final RunTareaDto runTarea);
 
+    void totalizarPresenciasSindicalesLocalizacion(@Valid @NotNull final RunTareaDto runTarea);
+
 }

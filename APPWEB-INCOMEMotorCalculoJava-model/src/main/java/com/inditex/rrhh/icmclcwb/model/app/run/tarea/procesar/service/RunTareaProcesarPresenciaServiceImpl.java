@@ -162,13 +162,19 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     public void desactivarPresenciasSindicales(
             @Valid final RunTareaDto runTareaDto) {
         this.tareaLocalizacionPresenciaService.updateActivoByTipoDato(runTareaDto,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_HORAS_SINDICALES);
+                TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION);
     }
 
     @Override
     public void totalizarEcommerceSeccion(
             @Valid final RunTareaDto runTareaDto) {
         this.tareaLocalizacionPresenciaService.totalizarEcommerceSeccion(runTareaDto);
+    }
+
+    @Override
+    public void totalizarPresenciasSindicalesLocalizacion(
+            @Valid final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaService.totalizarPresenciasSindicalesLocalizacion(runTareaDto);
     }
 
 }

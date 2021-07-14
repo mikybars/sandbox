@@ -30,4 +30,6 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
 
     void totalizarEcommerceSeccion(@NotNull RunTareaDto runTareaDto);
 
+    void totalizarPresenciasSindicalesLocalizacion(@NotNull RunTareaDto runTareaDto);
+
 }
