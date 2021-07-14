@@ -165,4 +165,10 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_HORAS_SINDICALES);
     }
 
+    @Override
+    public void totalizarEcommerceSeccion(
+            @Valid final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaService.totalizarEcommerceSeccion(runTareaDto);
+    }
+
 }

@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
 
 public interface TareaLocalizacionPresenciaRepositoryCustom {
@@ -29,7 +28,6 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
 
     void updateActivoByTipoDato(@NotNull RunTareaDto runTareaDto, TipoDatoEnum tipoDato);
 
-    void totalizarEcommerceSeccion(@NotNull RunTareaDto runTareaDto, @NotNull TipoGrupoDatoEnum tipoGrupoDato,
-            @NotNull TipoDatoEnum nuevoTipoDato);
+    void totalizarEcommerceSeccion(@NotNull RunTareaDto runTareaDto);
 
 }

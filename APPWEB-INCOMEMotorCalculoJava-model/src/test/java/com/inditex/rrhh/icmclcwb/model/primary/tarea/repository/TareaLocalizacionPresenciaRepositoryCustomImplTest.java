@@ -682,9 +682,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
             .tarea(tarea)
             .build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
-                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
                 any(MapSqlParameterSource.class));
@@ -702,9 +700,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
             .tarea(tarea)
             .build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
-                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
@@ -726,9 +722,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
             .tarea(tarea)
             .build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
-                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
@@ -748,9 +742,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
             .tarea(tarea)
             .build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
-                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE);
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
@@ -771,9 +763,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
             .tarea(tarea)
             .build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
-                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE);
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
@@ -793,9 +783,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
             .tarea(tarea)
             .build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
-                TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_ENTREGA_DOMICILIO,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE);
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
@@ -815,15 +803,13 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
             .tarea(tarea)
             .build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
-                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
         assertTrue(parametros.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
-        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(),
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
                 parametros.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
 
     }
@@ -838,9 +824,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
             .tarea(tarea)
             .build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
-                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
@@ -860,9 +844,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
             .tarea(tarea)
             .build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
-                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
@@ -882,9 +864,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
             .tarea(tarea)
             .build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea,
-                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 

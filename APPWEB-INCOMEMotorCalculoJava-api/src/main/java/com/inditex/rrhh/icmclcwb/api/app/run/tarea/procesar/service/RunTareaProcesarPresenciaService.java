@@ -60,4 +60,6 @@ public interface RunTareaProcesarPresenciaService {
 
     void desactivarPresenciasSindicales(@Valid RunTareaDto runTareaDto);
 
+    void totalizarEcommerceSeccion(@Valid RunTareaDto runTareaDto);
+
 }

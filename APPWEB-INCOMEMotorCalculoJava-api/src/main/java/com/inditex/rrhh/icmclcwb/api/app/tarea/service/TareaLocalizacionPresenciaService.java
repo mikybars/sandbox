@@ -32,4 +32,6 @@ public interface TareaLocalizacionPresenciaService {
 
     void updateActivoByTipoDato(@Valid @NotNull final RunTareaDto runtarea, @NotNull TipoDatoEnum tipoDato);
 
+    void totalizarEcommerceSeccion(@Valid @NotNull final RunTareaDto runTarea);
+
 }

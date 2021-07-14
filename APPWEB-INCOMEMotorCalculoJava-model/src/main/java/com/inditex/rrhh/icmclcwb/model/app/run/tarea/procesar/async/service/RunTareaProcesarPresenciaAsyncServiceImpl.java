@@ -182,4 +182,11 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> totalizarEcommerceSeccion(
+            final RunTareaDto runTareaDto) {
+        this.runTareaProcesarPresenciaService.totalizarEcommerceSeccion(runTareaDto);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

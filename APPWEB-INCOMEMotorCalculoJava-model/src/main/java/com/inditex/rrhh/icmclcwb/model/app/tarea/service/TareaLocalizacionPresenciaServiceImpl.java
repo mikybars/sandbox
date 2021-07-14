@@ -78,4 +78,10 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
         this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runtarea, tipoDato);
     }
 
+    @Override
+    public void totalizarEcommerceSeccion(
+            @Valid @NotNull final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
+    }
+
 }
