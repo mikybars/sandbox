@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -38,6 +39,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_PRESENCIA_MANUAL;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE;
@@ -350,6 +352,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     }
 
     @Test
+    @Ignore
     public void totalizarParametroIdTipoDatoPresenciasSindicalesTest() {
 
         final TareaDto tarea = new TareaDto();
@@ -420,10 +423,10 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
-        // Parámetros de la consulta: idTarea, abierto, repartidoProvincia, idTipoGrupoDato,
-        // nuevoidTipoDato, activo
+        // Parámetros de la consulta: idTarea, idTipoPresencia, idTipoDatoPresenciasSindicales,
+        // nuevoidTipoDato, activo, idSeccion, abierto
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
-        assertEquals(6, parametros.getValues().size());
+        assertEquals(7, parametros.getValues().size());
 
     }
 
@@ -467,7 +470,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     }
 
     @Test
-    public void repartirPresenciasSindicalesLocalizacionParametroRepartidoProvinciaTest() {
+    public void repartirPresenciasSindicalesLocalizacionParametroIdTipoPresenciaTest() {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
@@ -480,8 +483,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
-        assertTrue(parametros.hasValue(SQL_PARAM_REPARTIDO_PROVINCIA));
-        assertEquals(SQL_VALUE_BOOLEAN_TRUE, parametros.getValue(SQL_PARAM_REPARTIDO_PROVINCIA));
+        assertTrue(parametros.hasValue(SQL_PARAM_ID_TIPO_MINUTOS));
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId(),
+                parametros.getValue(SQL_PARAM_ID_TIPO_MINUTOS));
 
     }
 
@@ -506,7 +510,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     }
 
     @Test
-    public void repartirPresenciasSindicalesLocalizacionParametroIdTipoGrupoDatoTest() {
+    public void repartirPresenciasSindicalesLocalizacionParametroIdTipoDatoPresenciasSindicalesTest() {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
@@ -519,9 +523,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
-        assertTrue(parametros.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
-        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-                parametros.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertTrue(parametros.hasValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES));
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_HORAS_SINDICALES.getId(),
+                parametros.getValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES));
 
     }
 
@@ -541,6 +545,25 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
         assertTrue(parametros.hasValue(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, parametros.getValue(SQL_PARAM_ACTIVO));
+
+    }
+
+    @Test
+    public void repartirPresenciasSindicalesLocalizacionParametroIdSeccionTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(1222L);
+        final RunTareaDto runTarea = RunTareaDto
+            .builder()
+            .tarea(tarea)
+            .build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
+        assertTrue(parametros.hasValue(SQL_PARAM_ID_SECCION));
+        assertEquals(AppConstants.SECCION_4, parametros.getValue(SQL_PARAM_ID_SECCION));
 
     }
 
