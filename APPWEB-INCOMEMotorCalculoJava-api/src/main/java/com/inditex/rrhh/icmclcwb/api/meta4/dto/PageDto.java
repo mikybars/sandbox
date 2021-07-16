@@ -2,10 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.meta4.dto;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang3.math.NumberUtils;
-
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.apache.commons.lang3.math.NumberUtils;
 
 @Data
 @AllArgsConstructor

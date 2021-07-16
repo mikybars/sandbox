@@ -8,13 +8,13 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.aqsw.framework.common.validation.constraints.SpelExpression;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
+
+import com.inditex.aqsw.framework.common.validation.constraints.SpelExpression;
 
 @ApiModel(description = "Modelo TrabajoDto")
 @Data

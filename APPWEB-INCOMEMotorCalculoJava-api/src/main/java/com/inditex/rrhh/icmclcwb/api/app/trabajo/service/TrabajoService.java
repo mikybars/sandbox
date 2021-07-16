@@ -6,8 +6,8 @@ import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 

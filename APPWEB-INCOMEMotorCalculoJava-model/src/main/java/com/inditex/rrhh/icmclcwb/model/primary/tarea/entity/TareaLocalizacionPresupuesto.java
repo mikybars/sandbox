@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPresupuesto;
-import lombok.Data;
+import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +19,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.Set;
+
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPresupuesto;
+import lombok.Data;
 
 @Entity
 @Table(name = "TAREA_LOCALIZACION_PRESUPUESTO")

@@ -1,9 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository;
 
+import javax.validation.constraints.NotNull;
+
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-
-import javax.validation.constraints.NotNull;
 
 public interface TrabajoRepositoryCustom {
 

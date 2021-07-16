@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoUnidadTiempo;
-
 import lombok.Data;
 
 @Entity

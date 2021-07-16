@@ -3,12 +3,12 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoPersonaMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoPersona;
 
 public abstract class TareaAmbitoPersonaMapperDecorator extends TareaAmbitoPersonaMapper {

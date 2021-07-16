@@ -1,8 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.util;
 
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
-import org.springframework.stereotype.Component;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -10,6 +7,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
 import java.util.stream.LongStream;
+
+import org.springframework.stereotype.Component;
+
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 
 @Component
 public class TestUtils {

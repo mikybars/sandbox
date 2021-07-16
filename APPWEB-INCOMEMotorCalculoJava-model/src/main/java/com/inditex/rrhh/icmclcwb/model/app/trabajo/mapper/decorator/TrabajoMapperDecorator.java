@@ -1,5 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator;
 
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
@@ -9,9 +13,6 @@ import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoPersonaMa
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTrabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
 
 public abstract class TrabajoMapperDecorator extends TrabajoMapper {
 

@@ -1,9 +1,9 @@
 package com.inditex.rrhh.icmclcwb.api.app.util;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.List;
+
+import lombok.Getter;
 
 public class AppTestConstants {
 

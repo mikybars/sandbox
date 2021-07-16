@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.dto.RunMantenimientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunMantenimientoLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimientoService;
+
+import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
+import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
 
 @Service
 @Validated
@@ -27,7 +28,9 @@ public class RunMantenimientoServiceImpl implements RunMantenimientoService {
             metricGroupName = "RunMantenimientoServiceGroup", metricDescription = "RunMantenimientoService.run.counter")
     @Override
     public RunMantenimientoDto run() {
-        return RunMantenimientoDto.builder().runMantenimientoLimpieza(runMantenimientoLimpiezaService.run()).build();
+        return RunMantenimientoDto.builder()
+            .runMantenimientoLimpieza(this.runMantenimientoLimpiezaService.run())
+            .build();
     }
 
     @Auditoria
@@ -38,9 +41,9 @@ public class RunMantenimientoServiceImpl implements RunMantenimientoService {
             metricGroupName = "RunMantenimientoServiceGroup",
             metricDescription = "RunMantenimientoService.runIdTarea.counter")
     @Override
-    public RunMantenimientoDto runIdTarea(@NotNull Long id) {
+    public RunMantenimientoDto runIdTarea(@NotNull final Long id) {
         return RunMantenimientoDto.builder()
-            .runMantenimientoLimpieza(runMantenimientoLimpiezaService.runIdTarea(id))
+            .runMantenimientoLimpieza(this.runMantenimientoLimpiezaService.runIdTarea(id))
             .build();
     }
 

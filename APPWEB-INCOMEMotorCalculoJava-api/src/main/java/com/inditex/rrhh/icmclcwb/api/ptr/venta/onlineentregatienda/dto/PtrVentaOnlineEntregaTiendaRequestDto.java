@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlElement;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
-
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

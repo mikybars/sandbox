@@ -1,10 +1,11 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service;
 
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.scheduling.annotation.Async;
 
-import java.util.concurrent.CompletableFuture;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 
 @Async("ptrVentaExecutor")
 public interface PtrVentaGeneralAsyncService {

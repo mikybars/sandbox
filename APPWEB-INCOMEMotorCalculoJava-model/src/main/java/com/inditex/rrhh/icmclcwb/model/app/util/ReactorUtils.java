@@ -1,9 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.util;
 
-import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
+import java.util.concurrent.CountDownLatch;
+
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.CountDownLatch;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ReactorIcmclcwbException;
 
 @Component
 public class ReactorUtils {

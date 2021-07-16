@@ -1,11 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.porventa.v1;
 
-import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -13,8 +7,15 @@ import org.springframework.stereotype.Component;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
+import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
+import org.slf4j.Logger;
 import reactor.core.publisher.Flux;
+
+import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 
 @Component("porVentaSinDevolucionPorcentajeV1")
 public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmo implements RunAlgoritmo {

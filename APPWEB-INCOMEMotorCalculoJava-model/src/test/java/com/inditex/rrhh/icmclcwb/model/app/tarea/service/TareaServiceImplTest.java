@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
@@ -21,11 +23,10 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import com.inditex.rrhh.icmclcwb.ms.app.tareaprevalidar.SenderTareaPreValidar;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -33,7 +34,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class TareaServiceImplTest {
 
     @Mock

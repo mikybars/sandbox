@@ -1,28 +1,29 @@
 package com.inditex.rrhh.icmclcwb.ws.app.validacion.controller;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaValidarService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(SpringExtension.class)
 public class ValidacionControllerTest {
 
     private MockMvc mockMvc;
@@ -33,25 +34,25 @@ public class ValidacionControllerTest {
     @InjectMocks
     private ValidacionController validacionController;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(validacionController)
+        this.mockMvc = MockMvcBuilders.standaloneSetup(this.validacionController)
             .build();
     }
 
     @Test
     public void validateByIdTarea() throws Exception {
-        when(validacionServiceMock.validateByIdTarea(1L)).thenReturn(new HashMap<>());
-        mockMvc.perform(get("/validacion/tarea/{idTarea}", "1")).andReturn();
-        verify(validacionServiceMock, times(1)).validateByIdTarea(any(Long.class));
+        when(this.validacionServiceMock.validateByIdTarea(1L)).thenReturn(new HashMap<>());
+        this.mockMvc.perform(get("/validacion/tarea/{idTarea}", "1")).andReturn();
+        verify(this.validacionServiceMock, times(1)).validateByIdTarea(any(Long.class));
     }
 
     @Test
     public void validateByIdTrabajo() throws Exception {
-        when(validacionServiceMock.validateByIdTrabajo(1L)).thenReturn(new ArrayList<Map<String, Object>>());
-        mockMvc.perform(get("/validacion/trabajo/{idTarea}", "1")).andReturn();
-        verify(validacionServiceMock, times(1)).validateByIdTrabajo(any(Long.class));
+        when(this.validacionServiceMock.validateByIdTrabajo(1L)).thenReturn(new ArrayList<Map<String, Object>>());
+        this.mockMvc.perform(get("/validacion/trabajo/{idTarea}", "1")).andReturn();
+        verify(this.validacionServiceMock, times(1)).validateByIdTrabajo(any(Long.class));
     }
 
 }

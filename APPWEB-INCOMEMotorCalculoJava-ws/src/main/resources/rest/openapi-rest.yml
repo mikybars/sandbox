@@ -1,0 +1,102 @@
+openapi: 3.0.0
+paths:
+   /trabajo:
+    post:
+      tags:
+      - "create"
+      summary: "Crea un nuevo trabajo"
+      description: "Trabajo"
+      operationId: "addTrabajo"
+      parameters:
+      - in: 'body'
+        name: "body"
+        description: "Trabajo"
+        required: true
+        schema:
+          $ref: "#/definitions/Trabajo"
+      responses:
+        "405":
+          description: "Invalid input"
+info:
+  description: REST API example for Decoupled Invocation
+  version: "2.9.6"
+  title: APPWEB-INCOMEMotorCalculoJava
+  contact:
+    name: "Software Architecture"
+    email: "soportearquitecturasw@inditex.com"
+definitions:
+  Trabajo:
+    type: "object"
+    properties:
+      icmIdPeriodo:
+        type: "integer"
+        format: "int64"
+      fechaHoraInicioTrabajo:
+        type: "string"
+        format: "date-time"
+      fechaHoraFinTrabajo:
+        type: "string"
+        format: "date-time"
+      idOrganization:
+        type: "string"
+      tipoAmbito:
+        type: "array"
+        xml:
+          name: "tipoAmbito"
+          wrapped: true
+        items:
+          $ref: "#/definitions/TipoAmbito"
+      origen:
+        type: "array"
+        xml:
+          name: "cclIdOrigen"
+          wrapped: true
+        items:
+          type: "string"          
+      empresa:
+        type: "array"
+        xml:
+          name: "stdIdLegEnt"
+          wrapped: true
+        items:
+          type: "string"              
+      persona:
+        type: "array"
+        xml:
+          name: "tipoAmbito"
+          wrapped: true
+        items:
+          $ref: "#/definitions/Persona"
+    xml:
+      name: "Trabajo"
+  TipoAmbito:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+    xml:
+      name: "TipoAmbito"
+  Persona:
+    type: "object"
+    properties:
+      cclIdOrigen:
+        type: "string"
+      stdIdLegEnt:
+        type: "string"
+      cclIdPerson:
+        type: "string"
+      stdOrHrPeriod:
+        type: "string"
+    xml:
+      name: "Persona"      
+  Localizacion:
+    type: "object"
+    properties:
+      cclIdOrigen:
+        type: "string"
+      stdIdLegEnt:
+        type: "string"
+      stdIdWorkLocat:
+        type: "string"
+    xml:
+      name: "Localizacion"            

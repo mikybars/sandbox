@@ -1,11 +1,11 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto;
 
 import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

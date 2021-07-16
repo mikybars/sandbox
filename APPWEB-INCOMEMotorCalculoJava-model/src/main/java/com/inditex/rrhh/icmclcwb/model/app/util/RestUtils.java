@@ -1,11 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.util;
 
-import org.apache.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import org.apache.http.HttpStatus;
+
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
 
 @Component
 public class RestUtils {

@@ -38,10 +38,9 @@ import com.inditex.rrhh.icmclcwb.ms.app.programacion.SenderProgramacion;
 import org.slf4j.Logger;
 import reactor.core.publisher.Flux;
 
+import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
+import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
 import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
-
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 
 @Service
 @Validated

@@ -1,12 +1,13 @@
 package com.inditex.rrhh.icmclcwb.api.app.dto;
 
+import java.io.Serializable;
+
+import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
 @Data
 @Builder

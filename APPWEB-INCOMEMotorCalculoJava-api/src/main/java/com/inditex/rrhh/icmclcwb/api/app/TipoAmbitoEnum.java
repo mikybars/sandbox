@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

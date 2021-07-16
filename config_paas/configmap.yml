@@ -140,12 +140,9 @@ amiga:
           pubSubDomain: false
           sessionTransacted: false
     jdbc:
-      configuration:
-        prop:
-          default-isolation-level: 1
-          max-pool-size: 10
-          query-timeout: 90s
-          borrow-connection-timeout: 600
+      pool:
+        hikari:
+          maximum-pool-size: 10
       datasource:
         primary:
           #init-connection-sql: set schema GESTION_COMISION

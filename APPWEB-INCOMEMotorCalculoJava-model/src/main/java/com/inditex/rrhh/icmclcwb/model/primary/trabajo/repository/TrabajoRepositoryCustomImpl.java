@@ -1,9 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,7 +9,10 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.validation.constraints.NotNull;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 @Repository
 public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {

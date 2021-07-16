@@ -1,27 +1,29 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionVenta;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
@@ -32,30 +34,30 @@ public class TareaAgrupacionVentaMapperTest {
 
     @Test
     public void ventaTotalizadoVariasFechasTest() {
-        List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
-        PtrVentaTotalizadoResultItemDto unoEnero = createTotalizadoResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
+        final PtrVentaTotalizadoResultItemDto unoEnero = this.createTotalizadoResultItem(1, 1, "2015-01-01",
                 25000, 22300, 38, 4);
-        PtrVentaTotalizadoResultItemDto dosFebrero = createTotalizadoResultItem(1, 1, "2015-01-02",
+        final PtrVentaTotalizadoResultItemDto dosFebrero = this.createTotalizadoResultItem(1, 1, "2015-01-02",
                 15000, 12600, 38, 4);
         list.add(unoEnero);
         list.add(dosFebrero);
-        List<TareaAgrupacionVenta> ventas = tareaAgrupacionVentaMapper
-            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> ventas = this.tareaAgrupacionVentaMapper
+            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
         assertNotNull(ventas);
         assertEquals(2, ventas.size());
     }
 
     @Test
     public void ventaTotalizadoVariasCadenasMismoGrupoTest() {
-        List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
-        PtrVentaTotalizadoResultItemDto cadena1 = createTotalizadoResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
+        final PtrVentaTotalizadoResultItemDto cadena1 = this.createTotalizadoResultItem(1, 1, "2015-01-01",
                 25000, 22300, 38, 4);
-        PtrVentaTotalizadoResultItemDto cadena163 = createTotalizadoResultItem(163, 1, "2015-01-01",
+        final PtrVentaTotalizadoResultItemDto cadena163 = this.createTotalizadoResultItem(163, 1, "2015-01-01",
                 15000, 12600, 38, 4);
         list.add(cadena1);
         list.add(cadena163);
-        List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
-            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
+            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
         assertNotNull(presencias);
         assertEquals(1, presencias.size());
         assertEquals(40000D, presencias.get(0).getImporteConImpuestos().doubleValue(), 0.001);
@@ -64,45 +66,45 @@ public class TareaAgrupacionVentaMapperTest {
 
     @Test
     public void ventaTotalizadoVariasCadenasDistintoGrupoTest() {
-        List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
-        PtrVentaTotalizadoResultItemDto cadena1 = createTotalizadoResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
+        final PtrVentaTotalizadoResultItemDto cadena1 = this.createTotalizadoResultItem(1, 1, "2015-01-01",
                 25000, 22300, 38, 4);
-        PtrVentaTotalizadoResultItemDto cadena2 = createTotalizadoResultItem(2, 1, "2015-01-01",
+        final PtrVentaTotalizadoResultItemDto cadena2 = this.createTotalizadoResultItem(2, 1, "2015-01-01",
                 15000, 12600, 38, 4);
         list.add(cadena1);
         list.add(cadena2);
-        List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
-            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
+            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
         assertNotNull(presencias);
         assertEquals(2, presencias.size());
     }
 
     @Test
     public void ventaTotalizadoVariosPaisesTest() {
-        List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
-        PtrVentaTotalizadoResultItemDto pais38 = createTotalizadoResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
+        final PtrVentaTotalizadoResultItemDto pais38 = this.createTotalizadoResultItem(1, 1, "2015-01-01",
                 25000, 22300, 38, 4);
-        PtrVentaTotalizadoResultItemDto pais11 = createTotalizadoResultItem(1, 1, "2015-01-01",
+        final PtrVentaTotalizadoResultItemDto pais11 = this.createTotalizadoResultItem(1, 1, "2015-01-01",
                 15000, 12600, 11, 4);
         list.add(pais38);
         list.add(pais11);
-        List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
-            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
+            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
         assertNotNull(presencias);
         assertEquals(2, presencias.size());
     }
 
     @Test
     public void ventaTotalizadoVariasEmpresasTest() {
-        List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
-        PtrVentaTotalizadoResultItemDto empresa1 = createTotalizadoResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
+        final PtrVentaTotalizadoResultItemDto empresa1 = this.createTotalizadoResultItem(1, 1, "2015-01-01",
                 25000, 22300, 38, 4);
-        PtrVentaTotalizadoResultItemDto empresa3 = createTotalizadoResultItem(1, 3, "2015-01-01",
+        final PtrVentaTotalizadoResultItemDto empresa3 = this.createTotalizadoResultItem(1, 3, "2015-01-01",
                 15000, 12600, 38, 4);
         list.add(empresa1);
         list.add(empresa3);
-        List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
-            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
+            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
         assertNotNull(presencias);
         assertEquals(1, presencias.size());
         assertEquals(40000D, presencias.get(0).getImporteConImpuestos().doubleValue(), 0.001);
@@ -111,15 +113,15 @@ public class TareaAgrupacionVentaMapperTest {
 
     @Test
     public void ventaTotalizadoVariasSeccionesTest() {
-        List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
-        PtrVentaTotalizadoResultItemDto seccion1 = createTotalizadoResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaTotalizadoResultItemDto> list = new ArrayList<>();
+        final PtrVentaTotalizadoResultItemDto seccion1 = this.createTotalizadoResultItem(1, 1, "2015-01-01",
                 25000, 22300, 38, 1);
-        PtrVentaTotalizadoResultItemDto seccion2 = createTotalizadoResultItem(1, 1, "2015-01-01",
+        final PtrVentaTotalizadoResultItemDto seccion2 = this.createTotalizadoResultItem(1, 1, "2015-01-01",
                 15000, 12600, 38, 2);
         list.add(seccion1);
         list.add(seccion2);
-        List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
-            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
+            .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
         assertNotNull(presencias);
         assertEquals(2, presencias.size());
     }
@@ -127,30 +129,36 @@ public class TareaAgrupacionVentaMapperTest {
 
     @Test
     public void ventaEntregaDomicilioVariasFechasTest() {
-        List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
-        PtrVentaOnlineEntregaDomicilioResultItemDto unoEnero = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
+        final PtrVentaOnlineEntregaDomicilioResultItemDto unoEnero = this.createEntregaDomicilioResultItem(1, 1,
+                "2015-01-01",
                 25000, 22300, 38, 4);
-        PtrVentaOnlineEntregaDomicilioResultItemDto dosFebrero = createEntregaDomicilioResultItem(1, 1, "2015-01-02",
+        final PtrVentaOnlineEntregaDomicilioResultItemDto dosFebrero = this.createEntregaDomicilioResultItem(1, 1,
+                "2015-01-02",
                 15000, 12600, 38, 4);
         list.add(unoEnero);
         list.add(dosFebrero);
-        List<TareaAgrupacionVenta> ventas = tareaAgrupacionVentaMapper
-            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> ventas = this.tareaAgrupacionVentaMapper
+            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
+                    this.createAgrupaciones());
         assertNotNull(ventas);
         assertEquals(2, ventas.size());
     }
 
     @Test
     public void ventaEntregaDomicilioVariasCadenasMismoGrupoTest() {
-        List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
-        PtrVentaOnlineEntregaDomicilioResultItemDto cadena1 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
+        final PtrVentaOnlineEntregaDomicilioResultItemDto cadena1 = this.createEntregaDomicilioResultItem(1, 1,
+                "2015-01-01",
                 25000, 22300, 38, 4);
-        PtrVentaOnlineEntregaDomicilioResultItemDto cadena163 = createEntregaDomicilioResultItem(163, 1, "2015-01-01",
+        final PtrVentaOnlineEntregaDomicilioResultItemDto cadena163 = this.createEntregaDomicilioResultItem(163, 1,
+                "2015-01-01",
                 15000, 12600, 38, 4);
         list.add(cadena1);
         list.add(cadena163);
-        List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
-            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
+            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
+                    this.createAgrupaciones());
         assertNotNull(presencias);
         assertEquals(1, presencias.size());
         assertEquals(40000D, presencias.get(0).getImporteConImpuestos().doubleValue(), 0.001);
@@ -159,45 +167,54 @@ public class TareaAgrupacionVentaMapperTest {
 
     @Test
     public void ventaEntregaDomicilioVariasCadenasDistintoGrupoTest() {
-        List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
-        PtrVentaOnlineEntregaDomicilioResultItemDto cadena1 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
+        final PtrVentaOnlineEntregaDomicilioResultItemDto cadena1 = this.createEntregaDomicilioResultItem(1, 1,
+                "2015-01-01",
                 25000, 22300, 38, 4);
-        PtrVentaOnlineEntregaDomicilioResultItemDto cadena2 = createEntregaDomicilioResultItem(2, 1, "2015-01-01",
+        final PtrVentaOnlineEntregaDomicilioResultItemDto cadena2 = this.createEntregaDomicilioResultItem(2, 1,
+                "2015-01-01",
                 15000, 12600, 38, 4);
         list.add(cadena1);
         list.add(cadena2);
-        List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
-            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
+            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
+                    this.createAgrupaciones());
         assertNotNull(presencias);
         assertEquals(2, presencias.size());
     }
 
     @Test
     public void ventaEntregaDomicilioVariosPaisesTest() {
-        List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
-        PtrVentaOnlineEntregaDomicilioResultItemDto pais38 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
+        final PtrVentaOnlineEntregaDomicilioResultItemDto pais38 = this.createEntregaDomicilioResultItem(1, 1,
+                "2015-01-01",
                 25000, 22300, 38, 4);
-        PtrVentaOnlineEntregaDomicilioResultItemDto pais11 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
+        final PtrVentaOnlineEntregaDomicilioResultItemDto pais11 = this.createEntregaDomicilioResultItem(1, 1,
+                "2015-01-01",
                 15000, 12600, 11, 4);
         list.add(pais38);
         list.add(pais11);
-        List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
-            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
+            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
+                    this.createAgrupaciones());
         assertNotNull(presencias);
         assertEquals(2, presencias.size());
     }
 
     @Test
     public void ventaEntregaDomicilioVariasEmpresasTest() {
-        List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
-        PtrVentaOnlineEntregaDomicilioResultItemDto empresa1 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
+        final PtrVentaOnlineEntregaDomicilioResultItemDto empresa1 = this.createEntregaDomicilioResultItem(1, 1,
+                "2015-01-01",
                 25000, 22300, 38, 4);
-        PtrVentaOnlineEntregaDomicilioResultItemDto empresa3 = createEntregaDomicilioResultItem(1, 3, "2015-01-01",
+        final PtrVentaOnlineEntregaDomicilioResultItemDto empresa3 = this.createEntregaDomicilioResultItem(1, 3,
+                "2015-01-01",
                 15000, 12600, 38, 4);
         list.add(empresa1);
         list.add(empresa3);
-        List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
-            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
+            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
+                    this.createAgrupaciones());
         assertNotNull(presencias);
         assertEquals(1, presencias.size());
         assertEquals(40000D, presencias.get(0).getImporteConImpuestos().doubleValue(), 0.001);
@@ -206,28 +223,31 @@ public class TareaAgrupacionVentaMapperTest {
 
     @Test
     public void ventaEntregaDomicilioVariasSeccionesTest() {
-        List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
-        PtrVentaOnlineEntregaDomicilioResultItemDto seccion1 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
+        final List<PtrVentaOnlineEntregaDomicilioResultItemDto> list = new ArrayList<>();
+        final PtrVentaOnlineEntregaDomicilioResultItemDto seccion1 = this.createEntregaDomicilioResultItem(1, 1,
+                "2015-01-01",
                 25000, 22300, 38, 1);
-        PtrVentaOnlineEntregaDomicilioResultItemDto seccion2 = createEntregaDomicilioResultItem(1, 1, "2015-01-01",
+        final PtrVentaOnlineEntregaDomicilioResultItemDto seccion2 = this.createEntregaDomicilioResultItem(1, 1,
+                "2015-01-01",
                 15000, 12600, 38, 2);
         list.add(seccion1);
         list.add(seccion2);
-        List<TareaAgrupacionVenta> presencias = tareaAgrupacionVentaMapper
-            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, createTarea(), createAgrupaciones());
+        final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
+            .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
+                    this.createAgrupaciones());
         assertNotNull(presencias);
         assertEquals(2, presencias.size());
     }
 
 
     private List<TareaAgrupacionCadenasDto> createAgrupaciones() {
-        List<TareaAgrupacionCadenasDto> agrupaciones = new ArrayList<>();
-        TareaAgrupacionCadenasDto agrupacion1 = new TareaAgrupacionCadenasDto();
+        final List<TareaAgrupacionCadenasDto> agrupaciones = new ArrayList<>();
+        final TareaAgrupacionCadenasDto agrupacion1 = new TareaAgrupacionCadenasDto();
         agrupacion1.setCadenas(new ArrayList<>());
         agrupacion1.getCadenas().add("1");
         agrupacion1.getCadenas().add("163");
         agrupacion1.setId(1L);
-        TareaAgrupacionCadenasDto agrupacion2 = new TareaAgrupacionCadenasDto();
+        final TareaAgrupacionCadenasDto agrupacion2 = new TareaAgrupacionCadenasDto();
         agrupacion2.setCadenas(new ArrayList<>());
         agrupacion2.getCadenas().add("2");
         agrupacion2.setId(2L);
@@ -237,14 +257,15 @@ public class TareaAgrupacionVentaMapperTest {
     }
 
     private TareaDto createTarea() {
-        TareaDto tarea = new TareaDto();
+        final TareaDto tarea = new TareaDto();
         tarea.setId(100L);
         return tarea;
     }
 
-    private PtrVentaOnlineEntregaDomicilioResultItemDto createEntregaDomicilioResultItem(int cadena, int empresa,
-            String fecha, double importeIVA, double importe, int origen, int seccion) {
-        PtrVentaOnlineEntregaDomicilioResultItemDto item = new PtrVentaOnlineEntregaDomicilioResultItemDto();
+    private PtrVentaOnlineEntregaDomicilioResultItemDto createEntregaDomicilioResultItem(final int cadena,
+            final int empresa,
+            final String fecha, final double importeIVA, final double importe, final int origen, final int seccion) {
+        final PtrVentaOnlineEntregaDomicilioResultItemDto item = new PtrVentaOnlineEntregaDomicilioResultItemDto();
         item.setCadena(cadena);
         item.setEmpresa(empresa);
         item.setFecha(fecha);
@@ -255,9 +276,9 @@ public class TareaAgrupacionVentaMapperTest {
         return item;
     }
 
-    private PtrVentaTotalizadoResultItemDto createTotalizadoResultItem(int cadena, int empresa,
-            String fecha, double importeIVA, double importe, int origen, int seccion) {
-        PtrVentaTotalizadoResultItemDto item = new PtrVentaTotalizadoResultItemDto();
+    private PtrVentaTotalizadoResultItemDto createTotalizadoResultItem(final int cadena, final int empresa,
+            final String fecha, final double importeIVA, final double importe, final int origen, final int seccion) {
+        final PtrVentaTotalizadoResultItemDto item = new PtrVentaTotalizadoResultItemDto();
         item.setCadena(cadena);
         item.setEmpresa(empresa);
         item.setFecha(fecha);

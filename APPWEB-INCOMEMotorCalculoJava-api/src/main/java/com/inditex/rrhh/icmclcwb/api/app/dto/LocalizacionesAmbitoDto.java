@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.util.CollectionUtils;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;

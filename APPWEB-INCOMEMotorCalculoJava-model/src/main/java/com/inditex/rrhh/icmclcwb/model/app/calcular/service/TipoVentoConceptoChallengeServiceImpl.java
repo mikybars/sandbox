@@ -1,13 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoVentaConceptoChallengeDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoVentaConceptoChallengeService;
-import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoVentaConceptoChallengeMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoVentaConceptoChallengeRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoVentaConceptoChallengeDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoVentaConceptoChallengeService;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoVentaConceptoChallengeMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoVentaConceptoChallengeRespository;
 
 @Service
 @Validated

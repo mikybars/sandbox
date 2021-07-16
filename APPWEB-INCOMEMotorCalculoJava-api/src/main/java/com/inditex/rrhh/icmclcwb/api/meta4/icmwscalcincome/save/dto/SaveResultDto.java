@@ -1,9 +1,9 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class SaveResultDto implements Serializable {

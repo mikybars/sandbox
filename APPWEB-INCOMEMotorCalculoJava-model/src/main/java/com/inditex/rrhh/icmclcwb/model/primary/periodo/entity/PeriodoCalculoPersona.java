@@ -11,7 +11,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
-
 import lombok.Data;
 
 @Entity

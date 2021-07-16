@@ -19,7 +19,7 @@ metadata:
   platform: Openshift-Intranet Arteixo
   slot: develop
   tenant: global
-  version: 2.9.5
+  version: 2.9.6
 amiga:
   monitoring:
     metrics:
@@ -215,11 +215,11 @@ amiga:
         primary:
           #init-connection-sql: set schema GESTION_COMISION
           #[BBDD][ITX][NON_XA][INICIO]
-          driverClassName: com.ibm.db2.jcc.DB2Driver
+          driver-class-name: com.ibm.db2.jcc.DB2Driver
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
-          user: uincome
+          username: uincome
           password: pzuUKBm1ppMGzzOn
-          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+          jdbc-url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
           #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
 #          user: oincome
@@ -294,9 +294,9 @@ amiga:
         #[PTR][ITX][PRE][NON_XA][FIN]
         #[PTR][ITX][DES][NON_XA][INICIO]
         ptr:
-          driverClassName: oracle.jdbc.OracleDriver
-          url: jdbc:oracle:thin:@//axine3-scansrv.central.inditex.grp:1521/s_pdbds01rt_gener.central.inditex.grp
-          user: uincome
+          driver-class-name: oracle.jdbc.OracleDriver
+          jdbc-url: jdbc:oracle:thin:@//axine3-scansrv.central.inditex.grp:1521/s_pdbds01rt_gener.central.inditex.grp
+          username: uincome
           password: pzuUKBm1ppMGzzOn
           defaultIsolationLevel: 8
         #[PTR][ITX][DES][NON_XA][FIN]
@@ -312,351 +312,351 @@ amiga:
 #            driverType: thin
         #[PTR][ITX][DES][XA][FIN]
         comis1:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis2:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis3:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis4:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis5:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis6:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis7:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis8:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis9:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis10:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis11-8:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL          
           readOnly: true       
         comis11-20:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis  
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis  
           password: j50lc9sL          
           readOnly: true                 
         comis11-233:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis      
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis      
           password: j50lc9sL          
           readOnly: true                 
         comis11-28:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis      
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis      
           password: j50lc9sL          
           readOnly: true                 
         comis11-33:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis       
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis       
           password: j50lc9sL          
           readOnly: true                 
         comis11-101:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXINSQLDES.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis     
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXINSQLDES.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis     
           password: j50lc9sL          
           readOnly: true                 
         comis11-11:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL          
           readOnly: true                 
         comis11-2:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXINSQL10.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXINSQL10.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL          
           readOnly: true                 
         comis11-30:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis     
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis     
           password: j50lc9sL          
           readOnly: true                  
         comis11-25:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis            
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis            
           password: j50lc9sL          
           readOnly: true               
         comis18:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis28:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis30:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis32:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis38:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis39:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis52:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis60:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis61:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis63:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis64:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis66:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis68:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis72:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis75:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis79:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis92:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis93:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis96:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis97:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis98:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis139:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true        
         comis388:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis400:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis404:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis412:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis508:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis512:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis524:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis528:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis664:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis720:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis728:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis732:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis736:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis740:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis743:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
         comis800:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          username: ncomis
           password: j50lc9sL
           readOnly: true
     jpa:

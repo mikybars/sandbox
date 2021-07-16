@@ -15,7 +15,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoAmbito;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

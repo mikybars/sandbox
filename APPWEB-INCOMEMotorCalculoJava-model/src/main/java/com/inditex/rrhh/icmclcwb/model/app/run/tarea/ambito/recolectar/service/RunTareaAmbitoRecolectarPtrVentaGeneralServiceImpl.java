@@ -36,6 +36,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaS
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
@@ -127,7 +128,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
-                    .map(e -> e.getIdProducto())
+                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
 
                 final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService

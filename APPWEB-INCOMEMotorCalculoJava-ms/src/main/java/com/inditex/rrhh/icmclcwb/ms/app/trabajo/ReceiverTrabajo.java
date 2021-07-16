@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.service.RunService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @Component
 public class ReceiverTrabajo {

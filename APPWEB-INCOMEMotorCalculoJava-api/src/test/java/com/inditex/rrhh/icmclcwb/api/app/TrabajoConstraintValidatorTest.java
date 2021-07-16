@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoConstraintValidator;
@@ -12,20 +14,20 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoLocalizacionDt
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+
+@ExtendWith(SpringExtension.class)
 public class TrabajoConstraintValidatorTest {
 
     private static final String CCL_ID_PERSON = "4724";
@@ -48,7 +50,7 @@ public class TrabajoConstraintValidatorTest {
 
     private TrabajoConstraintValidator trabajoValidator;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.constraintValidatorContext = mock(ConstraintValidatorContext.class);
         this.trabajoValidator = new TrabajoConstraintValidator();

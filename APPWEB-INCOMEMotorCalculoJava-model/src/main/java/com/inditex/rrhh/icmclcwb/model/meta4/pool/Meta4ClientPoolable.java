@@ -1,11 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import stormpot.Poolable;
 import stormpot.Slot;
 

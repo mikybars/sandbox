@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 @Data
 public class Meta4Client implements Serializable {

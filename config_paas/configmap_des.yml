@@ -7,7 +7,7 @@ amiga:
         bounded:
           factories:
             default:
-              thread-prefix: async-bounded-executor
+              name: async-bounded-executor
               max-threads: 10
               queued-task-cap: 100000
               keep-alive-time: 60000  

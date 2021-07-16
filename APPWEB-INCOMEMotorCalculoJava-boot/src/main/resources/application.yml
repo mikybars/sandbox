@@ -5,11 +5,6 @@ spring:
     name: ICMCLCWB
   profiles:
     active: standalone
-  jta:
-    atomikos:
-      properties:
-        max-timeout: 90m
-        default-jta-timeout: 90m
 app:
   id: ${spring.application.name}
   version: '@project.version@'

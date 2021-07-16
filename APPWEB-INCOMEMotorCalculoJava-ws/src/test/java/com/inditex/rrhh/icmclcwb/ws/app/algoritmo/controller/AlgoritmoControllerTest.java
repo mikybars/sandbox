@@ -1,29 +1,29 @@
 package com.inditex.rrhh.icmclcwb.ws.app.algoritmo.controller;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
 import java.util.Arrays;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class AlgoritmoControllerTest {
 
     private MockMvc mockMvc;
@@ -35,46 +35,46 @@ public class AlgoritmoControllerTest {
     private AlgoritmoController algoritmoController;
 
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(algoritmoController)
+        this.mockMvc = MockMvcBuilders.standaloneSetup(this.algoritmoController)
             .build();
     }
 
     @Test
     public void findAll() throws Exception {
-        AlgoritmoDto algoritmo = new AlgoritmoDto();
+        final AlgoritmoDto algoritmo = new AlgoritmoDto();
         algoritmo.setId(1);
         algoritmo.setActivo(Boolean.TRUE);
         algoritmo.setDesplazamiento(Boolean.FALSE);
         algoritmo.setDesplazamientoBase(Boolean.FALSE);
         algoritmo.setNombre("test");
-        when(algoritmoServiceMock.findAll()).thenReturn(Arrays.asList(algoritmo));
+        when(this.algoritmoServiceMock.findAll()).thenReturn(Arrays.asList(algoritmo));
 
-        mockMvc.perform(get("/algoritmo")).andReturn();
+        this.mockMvc.perform(get("/algoritmo")).andReturn();
 
-        verify(algoritmoServiceMock, times(1)).findAll();
+        verify(this.algoritmoServiceMock, times(1)).findAll();
     }
 
     @Test
     public void checkDuplicatedActives() throws Exception {
-        when(algoritmoServiceMock.checkDuplicatedActives()).thenReturn(Boolean.TRUE);
-        mockMvc.perform(get("/algoritmo/checkDuplicatedActives")).andReturn();
-        verify(algoritmoServiceMock, times(1)).checkDuplicatedActives();
+        when(this.algoritmoServiceMock.checkDuplicatedActives()).thenReturn(Boolean.TRUE);
+        this.mockMvc.perform(get("/algoritmo/checkDuplicatedActives")).andReturn();
+        verify(this.algoritmoServiceMock, times(1)).checkDuplicatedActives();
     }
 
     @Test
     public void findById() throws Exception {
-        AlgoritmoDto algoritmo = new AlgoritmoDto();
+        final AlgoritmoDto algoritmo = new AlgoritmoDto();
         algoritmo.setId(1);
         algoritmo.setActivo(Boolean.TRUE);
         algoritmo.setDesplazamiento(Boolean.FALSE);
         algoritmo.setDesplazamientoBase(Boolean.FALSE);
         algoritmo.setNombre("test");
-        when(algoritmoServiceMock.findById(1)).thenReturn(algoritmo);
-        mockMvc.perform(get("/algoritmo/{id}", "1")).andReturn();
-        verify(algoritmoServiceMock, times(1)).findById(any(Integer.class));
+        when(this.algoritmoServiceMock.findById(1)).thenReturn(algoritmo);
+        this.mockMvc.perform(get("/algoritmo/{id}", "1")).andReturn();
+        verify(this.algoritmoServiceMock, times(1)).findById(any(Integer.class));
     }
 
 }

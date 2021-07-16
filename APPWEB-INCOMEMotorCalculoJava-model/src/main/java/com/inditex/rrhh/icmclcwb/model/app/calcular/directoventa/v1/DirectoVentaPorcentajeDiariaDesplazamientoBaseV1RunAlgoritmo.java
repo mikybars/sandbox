@@ -1,6 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventa.v1;
 
-import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -9,12 +12,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaServic
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom;
+import org.slf4j.Logger;
 import reactor.core.publisher.Flux;
 
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 
 @Component("directoVentaPorcentajeDiariaDesplazamientoBaseV1")
 public class DirectoVentaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo implements RunAlgoritmo {

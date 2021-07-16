@@ -1,6 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.porventasimplificado.v1;
 
-import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -10,10 +13,9 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeDesplazamientoBaseV1RepositoryCustom;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
+
+import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 
 @Component("porVentaSimplificadoPorcentajeDesplazamientoBaseV1")
 public class PorVentaSimplificadoPorcentajeDesplazamientoBaseV1RunAlgoritmo implements RunAlgoritmo {

@@ -6,6 +6,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.mail.MailSender;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -18,17 +19,16 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class RunTareaPrevalidarDuranteServiceImplTest {
 
     @Mock
