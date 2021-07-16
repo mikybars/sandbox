@@ -24,6 +24,8 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
 
     void compensarLocalizacionManual(@NotNull RunTareaDto runTareaDto);
 
+    void repartirPresenciasSindicalesLocalizacion(@NotNull RunTareaDto runTareaDto);
+
     void repartirPresenciasSindicalesLocalizacionSeccion(@NotNull RunTareaDto runTareaDto);
 
     void updateActivoByTipoDato(@NotNull RunTareaDto runTareaDto, TipoDatoEnum tipoDato);

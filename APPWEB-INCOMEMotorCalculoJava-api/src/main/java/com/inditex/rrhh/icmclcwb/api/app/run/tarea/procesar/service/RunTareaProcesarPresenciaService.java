@@ -58,6 +58,8 @@ public interface RunTareaProcesarPresenciaService {
 
     void repartirPresenciasSindicalesLocalizacion(@Valid RunTareaDto runTareaDto);
 
+    void repartirPresenciasSindicalesLocalizacionSeccion(@Valid RunTareaDto runTareaDto);
+
     void desactivarPresenciasSindicales(@Valid RunTareaDto runTareaDto);
 
     void totalizarEcommerceSeccion(@Valid RunTareaDto runTareaDto);

@@ -159,6 +159,12 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     }
 
     @Override
+    public void repartirPresenciasSindicalesLocalizacionSeccion(
+            @Valid final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaService.repartirPresenciasSindicalesLocalizacionSeccion(runTareaDto);
+    }
+
+    @Override
     public void desactivarPresenciasSindicales(
             @Valid final RunTareaDto runTareaDto) {
         this.tareaLocalizacionPresenciaService.updateActivoByTipoDato(runTareaDto,

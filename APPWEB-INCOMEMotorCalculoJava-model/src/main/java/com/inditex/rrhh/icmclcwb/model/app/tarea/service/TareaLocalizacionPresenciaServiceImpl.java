@@ -68,6 +68,12 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     @Override
     public void repartirPresenciasSindicalesLocalizacion(
             @Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTareaDto);
+    }
+
+    @Override
+    public void repartirPresenciasSindicalesLocalizacionSeccion(
+            @Valid @NotNull final RunTareaDto runTareaDto) {
         this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTareaDto);
     }
 

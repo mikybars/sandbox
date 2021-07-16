@@ -198,10 +198,19 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
-            // Reparto de las presencias sindicales
+            // Reparto de las presencias sindicales a nivel de localizacion
             final CompletableFuture<Void> cfRepartoPresenciasSindicales = this.runTareaProcesarPresenciaAsyncService
                 .repartirPresenciasSindicalesLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfRepartoPresenciasSindicales, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // Reparto de las presencias sindicales a nivel de localizacion seccion
+            final CompletableFuture<Void> cfRepartoPresenciasSindicalesSeccion = this.runTareaProcesarPresenciaAsyncService
+                .repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+            AsyncUtils.exceptionally(cfRepartoPresenciasSindicalesSeccion, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);

@@ -51,10 +51,8 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VAL
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
@@ -64,6 +62,8 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     private final static String SQL_COMPENSAR_LOCALIZACION_MANUAL = "COMPENSAR_LOCALIZACION_MANUAL";
 
     private final static String SQL_TOTALIZAR = "TOTALIZAR";
+
+    private final static String SQL_REPARTIR_PRESENCIAS_SINDICALES_SECCION = "REPARTIR PRESENCIAS SINDICALES SECCION";
 
     private final static String SQL_REPARTIR_PRESENCIAS_SINDICALES = "REPARTIR PRESENCIAS SINDICALES";
 
@@ -101,7 +101,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom, "sqlUpdateActivoByTipoDato",
                 SQL_UPDATE_ACTIVO_BY_TIPO_DATO, true);
         FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
-                "sqlRepartirPresenciasSindicalesLocalizacionSeccion", SQL_REPARTIR_PRESENCIAS_SINDICALES, true);
+                "sqlRepartirPresenciasSindicalesLocalizacion", SQL_REPARTIR_PRESENCIAS_SINDICALES, true);
+        FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
+                "sqlRepartirPresenciasSindicalesLocalizacionSeccion", SQL_REPARTIR_PRESENCIAS_SINDICALES_SECCION, true);
         FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom, "sqlTotalizarEcommerceSeccion",
                 SQL_TOTALIZAR_COMMERCE_SECCION, true);
         FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
@@ -112,10 +114,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     @Test
     public void compensarLocalizacionManualTest() {
 
-        final RunTareaDto runTarea = mock(RunTareaDto.class);
-        final TareaDto tarea = mock(TareaDto.class);
-        when(tarea.getId()).thenReturn(199L);
-        when(runTarea.getTarea()).thenReturn(tarea);
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(199L);
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManual(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
@@ -145,10 +146,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
@@ -162,10 +160,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -183,10 +178,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final TareaDto tarea = new TareaDto();
         final Long idTarea = 1313L;
         tarea.setId(idTarea);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -202,10 +194,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -222,10 +211,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -241,10 +227,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -260,10 +243,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -279,10 +259,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -299,10 +276,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -318,10 +292,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -337,10 +308,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -357,17 +325,14 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
         assertTrue(parametros.hasValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES));
-        assertEquals(TipoDatoEnum.REPARTO_HORAS_LOCALIZACION_SECCION.getId(),
+        assertEquals(TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION_SECCION.getId(),
                 parametros.getValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES));
 
     }
@@ -377,10 +342,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -397,12 +359,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
                 any(MapSqlParameterSource.class));
 
@@ -415,12 +374,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         // Parámetros de la consulta: idTarea, idTipoPresencia, idTipoDatoPresenciasSindicales,
@@ -436,12 +392,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final Long idTarea = 8989L;
         final TareaDto tarea = new TareaDto();
         tarea.setId(idTarea);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
@@ -455,12 +408,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
@@ -474,12 +424,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
@@ -494,12 +441,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
@@ -514,12 +458,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
@@ -534,12 +475,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
@@ -553,12 +491,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
-        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
@@ -573,10 +508,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
         tarea.setFechaInicioPeriodo(LocalDate.of(2021, 1, 1));
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
@@ -593,10 +525,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
         tarea.setFechaInicioPeriodo(LocalDate.of(2021, 1, 1));
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
@@ -615,10 +544,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
         tarea.setFechaInicioPeriodo(LocalDate.of(2021, 1, 1));
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
@@ -638,10 +564,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
         tarea.setFechaInicioPeriodo(fechaInicio);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
@@ -661,10 +584,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(idTarea);
         tarea.setFechaInicioPeriodo(LocalDate.of(2021, 1, 1));
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
@@ -683,10 +603,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
         tarea.setFechaInicioPeriodo(LocalDate.of(2021, 1, 1));
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
@@ -705,10 +622,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -723,10 +637,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -745,10 +656,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final Long idTarea = 1432020L;
         final TareaDto tarea = new TareaDto();
         tarea.setId(idTarea);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -765,10 +673,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -786,10 +691,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -806,10 +708,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -826,10 +725,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -847,10 +743,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -867,10 +760,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -887,10 +777,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(1222L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -907,10 +794,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(123L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -925,10 +809,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(123L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -946,10 +827,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final Long idTarea = 9090L;
         final TareaDto tarea = new TareaDto();
         tarea.setId(idTarea);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -965,10 +843,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(8989L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -985,10 +860,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final Long idTarea = 9090L;
         final TareaDto tarea = new TareaDto();
         tarea.setId(idTarea);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -1005,10 +877,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(8989L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -1024,10 +893,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(786L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -1044,10 +910,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(486L);
-        final RunTareaDto runTarea = RunTareaDto
-            .builder()
-            .tarea(tarea)
-            .build();
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
 
         this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -1056,6 +919,133 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
         assertTrue(parametros.hasValue(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, parametros.getValue(SQL_PARAM_ACTIVO));
+    }
+
+    @Test
+    public void repartirPresenciasSindicalesLocalizacionSeccionQueryTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(8989L);
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
+                any(MapSqlParameterSource.class));
+
+        assertEquals(SQL_REPARTIR_PRESENCIAS_SINDICALES_SECCION, this.sqlCaptor.getValue());
+    }
+
+    @Test
+    public void repartirPresenciasSindicalesLocalizacionSeccionNumeroParametrosTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(8989L);
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        // Parámetros de la query: idTarea, activo, idTipoPresencia, idTipoDatoPresenciasSindicales,
+        // nuevoIdTipoDato
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(5, params.getValues().size());
+
+    }
+
+    @Test
+    public void repartirPresenciasSindicalesLocalizacionSeccionParametroIdTareaTest() {
+
+        final Long idTarea = 231L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+        assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, params.getValue(SQL_PARAM_ID_TAREA));
+
+    }
+
+    @Test
+    public void repartirPresenciasSindicalesLocalizacionSeccionParametroActivoTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(8989L);
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+        assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+        assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
+
+    }
+
+    @Test
+    public void repartirPresenciasSindicalesLocalizacionSeccionParametroIdTipoPresenciaTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(8989L);
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+        assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_MINUTOS));
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId(),
+                params.getValue(SQL_PARAM_ID_TIPO_MINUTOS));
+
+    }
+
+    @Test
+    public void repartirPresenciasSindicalesLocalizacionSeccionParametroIdTipoDatoPresenciaSindicalesTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(8989L);
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+        assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES));
+        assertEquals(TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION.getId(),
+                params.getValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES));
+
+    }
+
+    @Test
+    public void repartirPresenciasSindicalesLocalizacionSeccionParametroNuevoIdTipoDatoTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(8989L);
+        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+        assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+        assertEquals(TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION_SECCION.getId(),
+                params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+
     }
 
 }

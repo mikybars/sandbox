@@ -66,6 +66,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManual']}")
     private String sqlCompensarLocalizacionManual;
 
+    @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion']}")
+    private String sqlRepartirPresenciasSindicalesLocalizacion;
+
     @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion']}")
     private String sqlRepartirPresenciasSindicalesLocalizacionSeccion;
 
@@ -200,7 +203,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     }
 
     @Override
-    public void repartirPresenciasSindicalesLocalizacionSeccion(
+    public void repartirPresenciasSindicalesLocalizacion(
             @NotNull final RunTareaDto runTareaDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
@@ -213,6 +216,21 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES,
                 TipoDatoEnum.PRESENCIA_LOCALIZACION_HORAS_SINDICALES.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
+        this.update(this.sqlRepartirPresenciasSindicalesLocalizacion, parameters);
+    }
+
+    @Override
+    public void repartirPresenciasSindicalesLocalizacionSeccion(
+            @NotNull final RunTareaDto runTareaDto) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS,
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES,
+                TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION.getId());
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+                TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION_SECCION.getId());
         this.update(this.sqlRepartirPresenciasSindicalesLocalizacionSeccion, parameters);
     }
 
