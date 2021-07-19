@@ -18,7 +18,6 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -535,7 +534,6 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     }
 
     @Test
-    @Ignore
     public void totalizarParametroIdTipoDatoPresenciasSindicalesTest() {
 
         final TareaDto tarea = new TareaDto();

@@ -141,7 +141,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_REPARTIDO_PROVINCIA,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES,
-                TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION.getId());
+                TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION_SECCION.getId());
 
         this.update(this.sqlTotalizar, parameters);
     }
