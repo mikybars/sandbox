@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresenciaRepositoryCustom;
 import org.junit.Test;
@@ -93,17 +92,6 @@ public class TareaLocalizacionPresenciaServiceImplTest {
         this.tareaLocalizacionPresenciaServiceImpl.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
         verify(this.tareaLocalizacionPresenciaRepositoryCustom, times(1))
             .repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
-    }
-
-    @Test
-    public void updateActivoByTipoDatoTest() {
-        final RunTareaDto runTarea = RunTareaDto.builder().build();
-
-        this.tareaLocalizacionPresenciaServiceImpl.updateActivoByTipoDato(runTarea,
-                TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION);
-        verify(this.tareaLocalizacionPresenciaRepositoryCustom, times(1)).updateActivoByTipoDato(runTarea,
-                TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION);
-
     }
 
 }

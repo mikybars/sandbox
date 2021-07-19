@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,7 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +27,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ABIERTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO;
@@ -40,9 +37,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_REPARTIDO_PROVINCIA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE;
@@ -712,121 +707,6 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
         assertTrue(parametros.hasValue(SQL_PARAM_ID_SECCION));
         assertEquals(AppConstants.SECCION_4, parametros.getValue(SQL_PARAM_ID_SECCION));
-
-    }
-
-    @Test
-    public void updateActivoByTipoDatoQueryTest() {
-
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(1222L);
-        tarea.setFechaInicioPeriodo(LocalDate.of(2021, 1, 1));
-        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
-
-        this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
-        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
-                any(MapSqlParameterSource.class));
-
-        assertEquals(SQL_UPDATE_ACTIVO_BY_TIPO_DATO, this.sqlCaptor.getValue());
-
-    }
-
-    @Test
-    public void updateActivoByTipoDatoNumeroParametroTest() {
-
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(1222L);
-        tarea.setFechaInicioPeriodo(LocalDate.of(2021, 1, 1));
-        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
-
-        this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
-        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class),
-                this.paramsCaptor.capture());
-
-        // Parámetros: nuevoActivo, fechaInicioPeriodo, idTarea, idTipoPresenciaLocalizacion
-        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
-        assertEquals(4, parametros.getValues().size());
-
-    }
-
-    @Test
-    public void updateActivoByTipoDatoParametroNuevoActivoTest() {
-
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(1222L);
-        tarea.setFechaInicioPeriodo(LocalDate.of(2021, 1, 1));
-        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
-
-        this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
-        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
-        assertTrue(parametros.hasValue(SQL_PARAM_NUEVO_ACTIVO));
-        assertEquals(SQL_VALUE_BOOLEAN_FALSE, parametros.getValue(SQL_PARAM_NUEVO_ACTIVO));
-
-    }
-
-    @Test
-    public void updateActivoByTipoDatoParametroFechaInicioTest() {
-
-        final LocalDate fechaInicio = LocalDate.of(2021, 11, 1);
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(1222L);
-        tarea.setFechaInicioPeriodo(fechaInicio);
-        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
-
-        this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
-        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
-        assertTrue(parametros.hasValue(SQL_PARAM_FECHA_INICIO_PERIODO));
-        assertEquals(TimeUtils.toDate(fechaInicio), parametros.getValue(SQL_PARAM_FECHA_INICIO_PERIODO));
-
-    }
-
-    @Test
-    public void updateActivoByTipoDatoParametroIdTareaTest() {
-
-        final Long idTarea = 9999L;
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(idTarea);
-        tarea.setFechaInicioPeriodo(LocalDate.of(2021, 1, 1));
-        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
-
-        this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
-        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
-        assertTrue(parametros.hasValue(SQL_PARAM_ID_TAREA));
-        assertEquals(idTarea, parametros.getValue(SQL_PARAM_ID_TAREA));
-
-    }
-
-    @Test
-    public void updateActivoByTipoDatoParametroIdTipoDatoTest() {
-
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(1222L);
-        tarea.setFechaInicioPeriodo(LocalDate.of(2021, 1, 1));
-        final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
-
-        this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runTarea,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR);
-        verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
-        assertTrue(parametros.hasValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
-        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(),
-                parametros.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
 
     }
 

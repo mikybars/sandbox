@@ -18,10 +18,8 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
 
@@ -233,20 +231,6 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
                 TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION_SECCION.getId());
         this.update(this.sqlRepartirPresenciasSindicalesLocalizacionSeccion, parameters);
-    }
-
-    @Override
-    public void updateActivoByTipoDato(
-            @NotNull final RunTareaDto runTareaDto, final TipoDatoEnum tipoDato) {
-        final MapSqlParameterSource parameters = new MapSqlParameterSource();
-        final TareaDto tarea = runTareaDto.getTarea();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
-                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION, tipoDato.getId());
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        this.update(this.sqlUpdateActivoByTipoDato, parameters);
-
     }
 
     @Override

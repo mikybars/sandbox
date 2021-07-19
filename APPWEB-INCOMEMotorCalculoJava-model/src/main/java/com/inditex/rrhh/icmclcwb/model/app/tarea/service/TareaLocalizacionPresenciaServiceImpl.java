@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
@@ -75,13 +74,6 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     public void repartirPresenciasSindicalesLocalizacionSeccion(
             @Valid @NotNull final RunTareaDto runTareaDto) {
         this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTareaDto);
-    }
-
-    @Override
-    public void updateActivoByTipoDato(
-            @Valid @NotNull final RunTareaDto runtarea,
-            @NotNull final TipoDatoEnum tipoDato) {
-        this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato(runtarea, tipoDato);
     }
 
     @Override
