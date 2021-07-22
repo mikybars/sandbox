@@ -1,4 +1,9 @@
 app:
+  limits:
+    memory: 8192Mi
+  jvm:
+    mem_ratio:
+      max: 50
   replicas: 2
   instrumented:
     replicas: 1

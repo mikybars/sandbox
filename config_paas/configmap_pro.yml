@@ -270,11 +270,15 @@ amiga:
           user: ncomis
         comis740:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          # Se mockea temporalmente hasta que se verifique la conexión
+          #url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           user: ncomis
         comis743:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComisionMacao
+          # Se mockea temporalmente hasta que se verifique la conexión
+          #url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComisionMacao
+          url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           user: ncomis
         comis800:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
