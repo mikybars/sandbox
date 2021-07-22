@@ -1,4 +1,7 @@
 app:
+  jvm:
+    mem_ratio:
+      max: 60
   replicas: 2
   instrumented:
     replicas: 1
