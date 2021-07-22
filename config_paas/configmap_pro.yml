@@ -114,7 +114,7 @@ amiga:
           user: ncomis     
         comis11-11:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://NASQL1V1\\I1:11433;databaseName=Personal
+          url: jdbc:sqlserver://NASQL:11433;databaseName=Personal
           user: ncomis
         comis11-2:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
