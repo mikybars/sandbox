@@ -29,16 +29,16 @@ public class TiposHoraResultItemDto implements Serializable {
 
     private String idTipoHora;
 
-    private String incluidoVenta;
+    private Boolean incluidoVenta;
 
-    private String excluidoCalculo;
+    private Boolean excluidoCalculo;
 
-    private String incluidoChallenge;
+    private Boolean incluidoChallenge;
 
-    private String incluidoCommerce;
+    private Boolean incluidoCommerce;
 
-    private String excluidoDenominador;
+    private Boolean excluidoDenominador;
 
-    private String excluidoDenominadorRepartoProvincia;
+    private Boolean excluidoDenominadorRepartoProvincia;
 
 }

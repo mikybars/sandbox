@@ -180,7 +180,7 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(imports = { CollectionUtils.class, Collections.class, StringUtils.class })
+@Mapper(imports = { CollectionUtils.class, Collections.class, StringUtils.class, Meta4Constants.class })
 @DecoratedWith(IcmWsCalcIncomeMapperDecorator.class)
 public interface IcmWsCalcIncomeMapper {
 
@@ -1622,12 +1622,15 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "idOrigen", source = "idorigen")
     @Mapping(target = "idEmpresa", source = "idempresa")
     @Mapping(target = "idTipoHora", source = "idtipohora")
-    @Mapping(target = "incluidoVenta", source = "esincluidoventa")
-    @Mapping(target = "excluidoCalculo", source = "esexcluidocalculo")
-    @Mapping(target = "incluidoChallenge", source = "esincluidochallenge")
-    @Mapping(target = "incluidoCommerce", source = "esincluidoecommerce")
-    @Mapping(target = "excluidoDenominador", source = "esexcluidodenominador")
-    @Mapping(target = "excluidoDenominadorRepartoProvincia", source = "esexcluidodenominadorrepprov")
+    @Mapping(target = "incluidoVenta", expression = "java(Meta4Constants.TRUE.equals(src.getEsincluidoventa()))")
+    @Mapping(target = "excluidoCalculo", expression = "java(Meta4Constants.TRUE.equals(src.getEsexcluidocalculo()))")
+    @Mapping(target = "incluidoChallenge",
+            expression = "java(Meta4Constants.TRUE.equals(src.getEsincluidochallenge()))")
+    @Mapping(target = "incluidoCommerce", expression = "java(Meta4Constants.TRUE.equals(src.getEsincluidoecommerce()))")
+    @Mapping(target = "excluidoDenominador",
+            expression = "java(Meta4Constants.TRUE.equals(src.getEsexcluidodenominador()))")
+    @Mapping(target = "excluidoDenominadorRepartoProvincia",
+            expression = "java(Meta4Constants.TRUE.equals(src.getEsexcluidodenominadorrepprov()))")
     TiposHoraResultItemDto asTiposHoraResultItemDto(IcmListatiposhoraRecord src);
 
 }
