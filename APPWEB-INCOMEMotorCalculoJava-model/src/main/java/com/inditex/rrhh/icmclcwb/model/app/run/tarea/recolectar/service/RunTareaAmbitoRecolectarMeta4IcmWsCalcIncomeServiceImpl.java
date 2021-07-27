@@ -1294,15 +1294,10 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         final TareaDto tarea = runTarea.getTarea();
         try {
-            final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
-                .findIdEmpresaByIdTarea(tarea.getId())
-                .stream()
-                .map(IdEmpresaDto::getStdIdLegEnt)
-                .collect(Collectors.toList());
             final TiposHoraRequestDto request = TiposHoraRequestDto
                 .builder()
                 .idOrigen(tareaAmbitoDto.getCclIdOrigen())
-                .idsEmpresa(empresasAmbito)
+                .idsEmpresa(Collections.singletonList(tarea.getStdIdLegEnt()))
                 .build();
             final CompletableFuture<TiposHoraResponseDto> cfData = this.meta4IcmWsCalcIncomeAsyncService
                 .getTiposHora(request);

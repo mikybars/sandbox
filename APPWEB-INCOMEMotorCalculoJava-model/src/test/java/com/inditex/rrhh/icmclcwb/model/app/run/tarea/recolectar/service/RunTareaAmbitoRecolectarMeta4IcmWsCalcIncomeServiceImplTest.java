@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -1440,25 +1441,22 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final String idEmpresa = "28";
         final TareaDto tarea = new TareaDto();
         tarea.setId(11L);
+        tarea.setStdIdLegEnt(idEmpresa);
         final Meta4PropertiesDto properties = new Meta4PropertiesDto();
         final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
         filter.setMaxPersistenceSize(3);
         properties.setFilter(filter);
         final TiposHoraRequestDto request = TiposHoraRequestDto
             .builder()
-            .idsEmpresa(Arrays.asList(idEmpresa))
+            .idsEmpresa(Collections.singletonList(idEmpresa))
             .idOrigen(idOrigen)
             .build();
         final TiposHoraResponseDto response = TiposHoraResponseDto
             .builder()
-            .items(Arrays.asList(TiposHoraResultItemDto.builder().build()))
+            .items(Collections.singletonList(TiposHoraResultItemDto.builder().build()))
             .build();
         final CompletableFuture<TiposHoraResponseDto> cfResponse = CompletableFuture.supplyAsync(() -> response);
         final CompletableFuture<Void> cfSave = CompletableFuture.supplyAsync(() -> AsyncConstants.NIL);
-        when(this.tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(any(Long.class)))
-            .thenReturn(Arrays.asList(IdEmpresaDto.builder()
-                .stdIdLegEnt(idEmpresa)
-                .build()));
         when(this.meta4IcmWsCalcIncomeAsyncService.getTiposHora(any(TiposHoraRequestDto.class))).thenReturn(cfResponse);
         when(this.meta4Properties.get(any(String.class))).thenReturn(properties);
         when(this.tareaTipoHoraAsyncService.save(any(TiposHoraResponseDto.class), any(TareaDto.class)))
