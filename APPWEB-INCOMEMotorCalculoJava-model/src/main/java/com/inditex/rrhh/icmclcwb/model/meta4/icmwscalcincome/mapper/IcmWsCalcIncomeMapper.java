@@ -548,8 +548,7 @@ public interface IcmWsCalcIncomeMapper {
     @Mapping(target = "calcula", source = "calcula")
     @Mapping(target = "idTiendaMtu", ignore = true)
     @Mapping(target = "fechaFestivo", ignore = true)
-    // TODO [javierev] cambiar esta constante por el campo correspondiente
-    @Mapping(target = "idProvincia", constant = "27")
+    @Mapping(target = "idProvincia", source = "idpoblacion")
     GenericTiendaResultItemDto asGenericTiendaResultItemDto(IcmListatiendasRecord src);
 
     @InheritInverseConfiguration
