@@ -308,7 +308,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                                     tarea.getId(),
                                     TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-                request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
+                request.getData().setItem(new ArrayList<>());
                 request.getData()
                     .getItem()
                     .addAll(iter.stream()
@@ -364,7 +364,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                                     tarea.getId(),
                                     TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-                request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
+                request.getData().setItem(new ArrayList<>());
                 request.getData().setIdsEmpresa(null);
                 request.getData()
                     .getItem()
@@ -416,7 +416,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 final EstructurasComRequestDto estructurasComRequest = new EstructurasComRequestDto();
                 estructurasComRequest.setData(this.tareaMapper
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToEstructurasComFilterDto(trabajo, tarea, tareaAmbito));
-                estructurasComRequest.getData().setItem(new ArrayList<EstructurasComFilterParametersDto>());
+                estructurasComRequest.getData().setItem(new ArrayList<>());
                 estructurasComRequest.getData()
                     .getItem()
                     .addAll(iter.stream()
@@ -463,7 +463,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 estructurasPolRequest.setData(this.tareaMapper
                     .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(tarea, tareaAmbito,
                             this.tareaPersonaHistoricoService.findPeriodoByIdTareaDto(tarea.getId())));
-                estructurasPolRequest.getData().setItem(new ArrayList<GenericFilterParametersDto>());
+                estructurasPolRequest.getData().setItem(new ArrayList<>());
                 estructurasPolRequest.getData()
                     .getItem()
                     .addAll(iter.stream()
@@ -602,7 +602,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                                     tarea.getId(),
                                     TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-                tiendasRequest.getData().setItem(new ArrayList<GenericFilterParametersDto>());
+                tiendasRequest.getData().setItem(new ArrayList<>());
                 tiendasRequest.getData()
                     .getItem()
                     .addAll(iter.stream()
@@ -646,7 +646,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                                 tarea.getId(),
                                 TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-            request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
+            request.getData().setItem(new ArrayList<>());
             request.getData()
                 .getItem()
                 .add(GenericFilterParametersDto.builder().idOrigenReg(tareaAmbito.getCclIdOrigen()).build());
@@ -993,7 +993,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                                     tarea.getId(),
                                     TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-                request.getData().setItem(new ArrayList<VentaCongeladaFilterParametersDto>());
+                request.getData().setItem(new ArrayList<>());
                 request.getData()
                     .getItem()
                     .addAll(iter.stream()
@@ -1043,7 +1043,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToDesplazamientoRealFilterDto(trabajo,
                             tarea,
                             tareaAmbito));
-                request.getData().setItem(new ArrayList<DesplazamientoRealFilterParametersDto>());
+                request.getData().setItem(new ArrayList<>());
                 request.getData()
                     .getItem()
                     .addAll(iter.stream()
@@ -1103,7 +1103,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                                     tarea.getId(),
                                     TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-                request.getData().setItem(new ArrayList<PresenciaManualWlocFilterParametersDto>());
+                request.getData().setItem(new ArrayList<>());
                 request.getData()
                     .getItem()
                     .addAll(iter.stream()
@@ -1157,7 +1157,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                                     tarea.getId(),
                                     TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-                request.getData().setItem(new ArrayList<VentaManualWlocFilterParametersDto>());
+                request.getData().setItem(new ArrayList<>());
                 request.getData()
                     .getItem()
                     .addAll(iter.stream()
