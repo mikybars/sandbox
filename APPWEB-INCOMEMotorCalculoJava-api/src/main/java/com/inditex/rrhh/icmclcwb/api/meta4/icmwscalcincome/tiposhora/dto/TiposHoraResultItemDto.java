@@ -7,12 +7,14 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto;
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class TiposHoraResultItemDto implements Serializable {
 
     private static final long serialVersionUID = -5365231963923763290L;

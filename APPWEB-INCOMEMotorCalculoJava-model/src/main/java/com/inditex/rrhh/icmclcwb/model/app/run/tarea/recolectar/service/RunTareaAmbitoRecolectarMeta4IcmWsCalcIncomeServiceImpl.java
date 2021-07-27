@@ -1287,7 +1287,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     }
 
     @Override
-    public void tiposHoraByRunTreaAndTareaAmbito(
+    public void tiposHoraByRunTareaAndTareaAmbito(
             @NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbitoDto) {
         final List<CompletableFuture<?>> cf = new ArrayList<>();

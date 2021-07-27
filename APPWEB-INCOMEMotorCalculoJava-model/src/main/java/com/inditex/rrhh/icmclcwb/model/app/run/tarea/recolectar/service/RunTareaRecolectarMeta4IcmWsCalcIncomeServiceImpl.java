@@ -277,7 +277,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             .getAmbito()
             .stream()
             .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
-                .tiposHoraByRunTreaAndTareaAmbito(runTarea, item));
+                .tiposHoraByRunTareaAndTareaAmbito(runTarea, item));
     }
 
 }

@@ -30,6 +30,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaCoefici
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraPoliticaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaHistoricoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTipoHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
@@ -38,11 +39,13 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoric
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4FilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
@@ -67,6 +70,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCal
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import org.junit.Test;
@@ -79,6 +85,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -156,6 +163,12 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
 
     @Mock
     private TareaMapper tareaMapper;
+
+    @Mock
+    private Meta4IcmWsCalcIncomeAsyncService meta4IcmWsCalcIncomeAsyncService;
+
+    @Mock
+    private TareaTipoHoraAsyncService tareaTipoHoraAsyncService;
 
     @InjectMocks
     private RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl;
@@ -1418,6 +1431,44 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
             .getEstructurasPol(ArgumentMatchers.any(EstructurasPolRequestDto.class));
 
+    }
+
+    @Test
+    public void tiposHorasByRunTareaAndAmbitoTest() {
+
+        final String idOrigen = "11";
+        final String idEmpresa = "28";
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(11L);
+        final Meta4PropertiesDto properties = new Meta4PropertiesDto();
+        final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
+        filter.setMaxPersistenceSize(3);
+        properties.setFilter(filter);
+        final TiposHoraRequestDto request = TiposHoraRequestDto
+            .builder()
+            .idsEmpresa(Arrays.asList(idEmpresa))
+            .idOrigen(idOrigen)
+            .build();
+        final TiposHoraResponseDto response = TiposHoraResponseDto
+            .builder()
+            .items(Arrays.asList(TiposHoraResultItemDto.builder().build()))
+            .build();
+        final CompletableFuture<TiposHoraResponseDto> cfResponse = CompletableFuture.supplyAsync(() -> response);
+        final CompletableFuture<Void> cfSave = CompletableFuture.supplyAsync(() -> AsyncConstants.NIL);
+        when(this.tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(any(Long.class)))
+            .thenReturn(Arrays.asList(IdEmpresaDto.builder()
+                .stdIdLegEnt(idEmpresa)
+                .build()));
+        when(this.meta4IcmWsCalcIncomeAsyncService.getTiposHora(any(TiposHoraRequestDto.class))).thenReturn(cfResponse);
+        when(this.meta4Properties.get(any(String.class))).thenReturn(properties);
+        when(this.tareaTipoHoraAsyncService.save(any(TiposHoraResponseDto.class), any(TareaDto.class)))
+            .thenReturn(cfSave);
+
+        this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.tiposHoraByRunTareaAndTareaAmbito(
+                RunTareaDto.builder().tarea(tarea).build(), TareaAmbitoDto.builder().cclIdOrigen(idOrigen).build());
+
+        verify(this.meta4IcmWsCalcIncomeAsyncService, times(1)).getTiposHora(request);
+        verify(this.tareaTipoHoraAsyncService, times(1)).save(response, tarea);
     }
 
 }
