@@ -24,7 +24,7 @@ public abstract class TareaTipoHoraMapper {
     public abstract List<TareaTipoHora> tareaTipoHoraDtoListToTareaTareaTipoHoraList(
             List<TareaTipoHoraDto> src);
 
-    public abstract List<TareaTipoHoraDto> tareaTareaTipoHoraListTotareaTipoHoraDtoList(
+    public abstract List<TareaTipoHoraDto> tareaTipoHoraListTotareaTipoHoraDtoList(
             List<TareaTipoHora> src);
 
     @Mapping(source = "tarea.id", target = "idTarea")

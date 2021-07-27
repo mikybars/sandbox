@@ -31,7 +31,7 @@ public class TareaTipoHoraServiceImpl implements TareaTipoHoraService {
     @Override
     public List<TareaTipoHoraDto> save(@Valid @NotNull @NotEmpty final List<PtrPresenciaTiposHorasResultItemDto> dto,
             @Valid @NotNull final TareaDto tareaDto) {
-        return this.mapper.tareaTareaTipoHoraListTotareaTipoHoraDtoList(this.tareaTipoHoraRepositoryCustom
+        return this.mapper.tareaTipoHoraListTotareaTipoHoraDtoList(this.tareaTipoHoraRepositoryCustom
             .save(this.mapper.ptrPresenciaTipoHoraResponsesDtoToTareaTipoHoraDto(dto, tareaDto)));
     }
 
@@ -39,7 +39,7 @@ public class TareaTipoHoraServiceImpl implements TareaTipoHoraService {
     public List<TareaTipoHoraDto> save(
             @Valid @NotNull final TiposHoraResponseDto dto,
             @Valid @NotNull final TareaDto tarea) {
-        return this.mapper.tareaTareaTipoHoraListTotareaTipoHoraDtoList(this.tareaTipoHoraRepositoryCustom.save(
+        return this.mapper.tareaTipoHoraListTotareaTipoHoraDtoList(this.tareaTipoHoraRepositoryCustom.save(
                 this.mapper.tiposHorasResponseDtoToTareaTipoHora(dto, tarea)));
     }
 
