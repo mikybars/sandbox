@@ -119,12 +119,16 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import org.slf4j.Logger;
 
 @Service
 @Validated
 public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         extends AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
         implements RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
+
+    @Autowired
+    private Logger log;
 
     @Autowired
     @Qualifier(value = "recolectarProperties")
@@ -1310,6 +1314,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                             .getMaxPersistenceSize());
                 AsyncUtils.exceptionally(
                         this.tareaTipoHoraAsyncService.save(data, tarea), cf, cfPersist);
+            } else {
+                this.log.warn("No hay tipos de hora comisionables para el origen: {}", tareaAmbitoDto.getCclIdOrigen());
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {
