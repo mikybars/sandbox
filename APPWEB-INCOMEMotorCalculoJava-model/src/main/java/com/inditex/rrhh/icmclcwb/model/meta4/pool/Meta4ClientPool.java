@@ -603,6 +603,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
     public GetcatalogoOutput getcatalogo(final IcmParamcalcatalogoBlock param1) {
 
 
@@ -617,13 +618,14 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
         }
     }
 
-    public GettiposhoraOutput gettiposhora(final IcmParamcaltiposhoraBlock param1) {
+    @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
+    public GettiposhoraOutput gettiposhora(final IcmParamcaltiposhoraBlock param) {
 
         final Meta4ClientPoolable client = this.claim(this.pool);
         try {
-            return client.getIcmWsCalcIncomeService().gettiposhora(param1);
+            return client.getIcmWsCalcIncomeService().gettiposhora(param);
         } catch (final M4SoapException_Exception e) {
-            this.catchException(e, client, Arrays.asList(param1));
+            this.catchException(e, client, Arrays.asList(param));
             throw new Meta4IcmclcwbException(e.getMessage(), e);
         } finally {
             this.release(client);

@@ -51,6 +51,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstruct
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraDesplazamientoRealAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaEstructuraPoliticaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaPersonaHistoricoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTipoHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
@@ -104,6 +105,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.Sea
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
@@ -223,6 +226,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Autowired
     private TareaPersonaHistoricoAsyncService tareaPersonaHistoricoAsyncService;
+
+    @Autowired
+    private TareaTipoHoraAsyncService tareaTipoHoraAsyncService;
 
     @Override
     protected LocalDateTime getFechaInicioPeriodo(final TareaDto tarea) {
@@ -1272,6 +1278,43 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                         hasNext = request.nextPage();
                     }
                 } while (hasNext);
+            }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (final Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
+    @Override
+    public void tiposHoraByRunTreaAndTareaAmbito(
+            @NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbitoDto) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        final TareaDto tarea = runTarea.getTarea();
+        try {
+            final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .map(IdEmpresaDto::getStdIdLegEnt)
+                .collect(Collectors.toList());
+            final TiposHoraRequestDto request = TiposHoraRequestDto
+                .builder()
+                .idOrigen(tareaAmbitoDto.getCclIdOrigen())
+                .idsEmpresa(empresasAmbito)
+                .build();
+            final CompletableFuture<TiposHoraResponseDto> cfData = this.meta4IcmWsCalcIncomeAsyncService
+                .getTiposHora(request);
+            AsyncUtils.exceptionally(cfData, cf, cfPersist);
+            final TiposHoraResponseDto data = AsyncUtils.get(cfData);
+            if (data != null && CollectionUtils.isNotEmpty(data.getItems())) {
+                AsyncUtils.checkAsyncAvaliable(cfPersist,
+                        this.meta4Properties.get(Meta4PropertiesConstants.TIPOS_HORA)
+                            .getFilter()
+                            .getMaxPersistenceSize());
+                AsyncUtils.exceptionally(
+                        this.tareaTipoHoraAsyncService.save(data, tarea), cf, cfPersist);
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         } catch (final Exception e) {

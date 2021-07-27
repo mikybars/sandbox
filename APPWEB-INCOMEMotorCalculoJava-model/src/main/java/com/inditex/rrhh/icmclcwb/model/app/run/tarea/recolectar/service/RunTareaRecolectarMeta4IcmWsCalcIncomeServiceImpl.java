@@ -270,4 +270,14 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 .empleadosCadenaByRunTareaAndTareaAmbito(runTarea, item));
     }
 
+    @Override
+    public void tiposHoraByRunTarea(
+            @NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+                .tiposHoraByRunTreaAndTareaAmbito(runTarea, item));
+    }
+
 }

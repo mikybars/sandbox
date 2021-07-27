@@ -1026,6 +1026,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     }
 
     @Override
+    @Cacheable(value = "itx.icmlcwb.get_tipos_hora", key = "{#request.idOrigen, #request.idsEmpresa}")
     public TiposHoraResponseDto getTiposHora(
             final TiposHoraRequestDto request) {
 
