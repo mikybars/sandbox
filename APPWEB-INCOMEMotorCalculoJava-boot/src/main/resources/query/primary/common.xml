@@ -7241,6 +7241,7 @@ FROM (
                 TPE.ICM_ID_ESTR_COMISION_PADRE,
                 TPE.ICM_ID_ESTR_COMISION_BASE,
                 TPE.ICM_ID_ESTR_COMISION,
+                TPE.ICM_GRUPO_MANUAL,
                 TPE.FECHA_INICIO,
                 TPE.FECHA_FIN,
                    ROW_NUMBER() OVER (
@@ -7250,7 +7251,8 @@ FROM (
                         TPE.CCL_ID_PERSON,
                         TPE.ICM_ID_ESTR_COMISION_PADRE,
                         TPE.ICM_ID_ESTR_COMISION_BASE,
-                        TPE.ICM_ID_ESTR_COMISION
+                        TPE.ICM_ID_ESTR_COMISION,
+                        TPE.ICM_GRUPO_MANUAL
                       ORDER BY TPE.ID_TAREA_PERSONA_ESTRUCTURA DESC
                     ) AS PESO
                 FROM TAREA T
@@ -7280,6 +7282,7 @@ FROM (
                 TPE.ICM_ID_ESTR_COMISION_PADRE,
                 TPE.ICM_ID_ESTR_COMISION_BASE,
                 TPE.ICM_ID_ESTR_COMISION,
+                TPE.ICM_GRUPO_MANUAL,
                 TPE.FECHA_INICIO,
                 TPE.FECHA_FIN
         ) AS AGRUPADO
