@@ -64,4 +64,28 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
         this.tareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManual(runTareaDto);
     }
 
+    @Override
+    public void repartirPresenciasSindicalesLocalizacion(
+            @Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTareaDto);
+    }
+
+    @Override
+    public void repartirPresenciasSindicalesLocalizacionSeccion(
+            @Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTareaDto);
+    }
+
+    @Override
+    public void totalizarEcommerceSeccion(
+            @Valid @NotNull final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
+    }
+
+    @Override
+    public void totalizarPresenciasSindicalesLocalizacion(
+            @Valid @NotNull final RunTareaDto runTarea) {
+        this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
+    }
+
 }

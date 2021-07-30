@@ -31,6 +31,8 @@ public class TareaLocalizacionHistoricoDto implements Serializable {
     @NotBlank
     private String stdIdCountry;
 
+    private String stdIdSubGeoDiv;
+
     @NotBlank
     private String cclIdOrigen;
 

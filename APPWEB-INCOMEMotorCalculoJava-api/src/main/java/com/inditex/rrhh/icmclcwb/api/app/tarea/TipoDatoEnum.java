@@ -100,7 +100,7 @@ public enum TipoDatoEnum {
     /* 5000 (Presencia Procesado) */
     PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR(5001), PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR(
             5002), PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR(
-                    5003), PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE(
+                    5003), PRESENCIA_LOCALIZACION_INCLUIDOECOMMERCE(
                             5004), PRESENCIA_AGRUPACIONONLINE_INCLUIDOECOMMERCE(
                                     5005), INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA(
                                             5006), INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO(
@@ -115,7 +115,11 @@ public enum TipoDatoEnum {
                                                                                                                     5015), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO(
                                                                                                                             5016), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE(
                                                                                                                                     5017), PRESENCIA_MANUAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR(
-                                                                                                                                            5018),
+                                                                                                                                            5018), PRESENCIA_LOCALIZACION_HORAS_SINDICALES(
+                                                                                                                                                    5019), PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE(
+                                                                                                                                                            5020), REPARTO_HORAS_SINDICALES_LOCALIZACION(
+                                                                                                                                                                    5021), REPARTO_HORAS_SINDICALES_LOCALIZACION_SECCION(
+                                                                                                                                                                            5022),
     /* 6000 (Localizacion) */
     LOCALIZACION_FESTIVO(6001),
     /* 7000 (Localizacion Procesado) *//* 8000 (Persona) */

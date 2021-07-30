@@ -13,6 +13,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganiza
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResponseDto;
 
 @Service
 public class Meta4IcmWsCalcIncomeAsyncServiceImpl implements Meta4IcmWsCalcIncomeAsyncService {
@@ -36,6 +38,12 @@ public class Meta4IcmWsCalcIncomeAsyncServiceImpl implements Meta4IcmWsCalcIncom
     public CompletableFuture<CatalogoResponseDto> getCatalogo(
             final CatalogoRequestDto request) {
         return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeService.getCatalogo(request));
+    }
+
+    @Override
+    public CompletableFuture<TiposHoraResponseDto> getTiposHora(
+            final TiposHoraRequestDto request) {
+        return CompletableFuture.completedFuture(this.meta4IcmWsCalcIncomeService.getTiposHora(request));
     }
 
 }

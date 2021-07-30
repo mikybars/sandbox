@@ -66,4 +66,8 @@ public class TareaLocalizacionHistorico {
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
 
+    @NotBlank
+    @Column(name = "STD_ID_SUB_GEO_DIV", length = 16)
+    private String stdIdSubGeoDiv;
+
 }

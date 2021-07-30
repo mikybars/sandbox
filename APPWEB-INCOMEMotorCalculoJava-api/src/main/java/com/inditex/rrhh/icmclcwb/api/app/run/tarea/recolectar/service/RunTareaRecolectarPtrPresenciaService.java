@@ -7,8 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 public interface RunTareaRecolectarPtrPresenciaService {
 
-    void tiposHorasByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
-
     void presenciaDetalleComisionablePersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
     void presenciaEmpleadoTiendaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);

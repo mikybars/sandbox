@@ -41,6 +41,9 @@ public class TareaTipoHoraDto implements Serializable {
     @ApiModelProperty(value = "Flag incluido ecommerce", required = true)
     private Boolean incluidoEcommerce;
 
+    @ApiModelProperty(value = "Flag excluido denominador y reparto provincia")
+    private Boolean excluidoDenominadorYRepartidoProvincia;
+
     @NotNull
     @ApiModelProperty(value = "Tarea", required = true)
     private Long idTarea;
