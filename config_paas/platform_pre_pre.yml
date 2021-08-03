@@ -2,8 +2,8 @@ app:
   jvm:
     mem_ratio:
       max: 60
-  replicas: 1
+  replicas: 2
   instrumented:
-    replicas: 0
+    replicas: 1
 datagrid:
   replicas: 2
