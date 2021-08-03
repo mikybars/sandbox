@@ -4,6 +4,6 @@ app:
       max: 60
   replicas: 1
   instrumented:
-    replicas: 1
+    replicas: 0
 datagrid:
   replicas: 2
