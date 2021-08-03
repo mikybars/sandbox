@@ -76,6 +76,8 @@ public class RunTareaAmbitoValidarCondicionesHistoricoServiceImpl
             this.primaryTemporaryTableRepositoryCustom.insertTempComisHistorico(condicionesHistorico);
 
             this.primaryTemporaryTableRepositoryCustom
+                .mergeDateRangesSeccionNotEqualsTempComisHistorico(runTareaDto.getTarea());
+            this.primaryTemporaryTableRepositoryCustom
                 .mergeDateRangesTempComisHistorico(runTareaDto.getTarea());
 
             historicoValidationResult = this.primaryTemporaryTableRepositoryCustom
