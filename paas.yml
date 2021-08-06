@@ -25,4 +25,5 @@ environments:
       - intranetarteixo
       - ssccarteixo
 tenants:
+  - notenant
   - global
