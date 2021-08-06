@@ -1,6 +1,7 @@
 metadata:
   domain: rhcompensa
   service: income
+  tenant: global
 app:
   context_path_builder:
     enabled: true
