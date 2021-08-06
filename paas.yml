@@ -7,6 +7,14 @@ environments:
   pre:
     pre:
       - ssccarteixo
+    prelt:
+      - ssccarteixo
+    prepru:
+      - ssccarteixo
+    preint:
+      - ssccarteixo
+    preqa:
+      - ssccarteixo
   pro:
     pro:
       - intranetarteixo
