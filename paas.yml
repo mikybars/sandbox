@@ -24,3 +24,5 @@ environments:
     pro:
       - intranetarteixo
       - ssccarteixo
+tenants:
+  - global
