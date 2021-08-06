@@ -3,18 +3,25 @@ openshift_template: com.inditex.otec.openshift:openshift-springboot:1.36.1
 environments:
   des:
     des:
+      - intranetarteixo
       - ssccarteixo
   pre:
     pre:
+      - intranetarteixo
       - ssccarteixo
     prelt:
+      - intranetarteixo
       - ssccarteixo
     prepru:
+      - intranetarteixo
       - ssccarteixo
     preint:
+      - intranetarteixo
       - ssccarteixo
     preqa:
+      - intranetarteixo
       - ssccarteixo
   pro:
     pro:
       - intranetarteixo
+      - ssccarteixo
