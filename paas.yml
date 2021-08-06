@@ -1,15 +1,12 @@
 dockerfile_template: com.inditex.otec.dockerfile:dockerfile-springboot:1.2.0
 openshift_template: com.inditex.otec.openshift:openshift-springboot:1.36.1
 environments:
+  des:
+    des:
+      - sscc
   pre:
     pre:
-      - intranetarteixo
-    prelt:
-      - intranetarteixo
-    prepru:
-      - intranetarteixo
-    preqa:
-      - intranetarteixo
+      - sscc
   pro:
     pro:
       - intranetarteixo

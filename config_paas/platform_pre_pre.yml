@@ -1,7 +1,7 @@
 app:
-  jvm:
-    mem_ratio:
-      max: 60
+  limits:
+    cpu: 2
+    memory: 6144Mi
   replicas: 2
   instrumented:
     replicas: 1
