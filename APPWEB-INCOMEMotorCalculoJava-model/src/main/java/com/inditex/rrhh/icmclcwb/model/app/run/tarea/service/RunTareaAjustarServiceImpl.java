@@ -19,10 +19,11 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjusteFactory;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
+import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
+import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
 
 @Service
 @Validated
@@ -49,12 +50,13 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
                         FaseEnum.AJUSTAR.getId()));
         final TareaDto tarea = runTarea.getTarea();
+        final Scheduler s = Schedulers.newElastic("async-reactor-ajustar");
         this.algoritmoAjusteService.customFindAjustePesosByTarea(tarea.getId())
             .stream()
             .forEach(a -> Flux
                 .fromIterable(this.algoritmoAjusteService.customFindAjusteIdsByTareaAndPeso(tarea.getId(), a))
                 .parallel()
-                .runOn(Schedulers.newElastic("async-reactor-ajustar"))
+                .runOn(s)
                 .map(algoritmo -> {
                     final AlgoritmoAjusteDto ajuste = this.algoritmoAjusteService.findById(algoritmo);
                     this.runAjusteFactory.getRunAjuste(ajuste.getNombre()).execute(runTarea, ajuste);
@@ -63,6 +65,7 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
                 .sequential()
                 .collectList()
                 .block());
+        s.dispose();
         this.tareaFaseService.updateFechaFinAndEstado(
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
                         FaseEnum.AJUSTAR.getId()),
