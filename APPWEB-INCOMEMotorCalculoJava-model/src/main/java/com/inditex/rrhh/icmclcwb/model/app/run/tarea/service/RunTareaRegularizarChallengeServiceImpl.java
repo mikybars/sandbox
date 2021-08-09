@@ -21,8 +21,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
-import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
-import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
+import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
 
 @Service
 @Validated
