@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoFactory;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
@@ -50,9 +51,10 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
                         FaseEnum.CALCULAR.getId()));
         final TareaDto tarea = runTarea.getTarea();
+        final Scheduler s = Schedulers.newElastic("async-reactor-calcular");
         Flux.fromIterable(this.algoritmoService.customFindAlgoritmosIdsByTarea(tarea.getId()))
             .parallel()
-            .runOn(Schedulers.newElastic("async-reactor-calcular"))
+            .runOn(s)
             .map(idAlgoritmo -> {
                 final AlgoritmoDto algoritmo = this.algoritmoService.findById(idAlgoritmo);
                 this.runAlgoritmoFactory.getRunAlgoritmo(algoritmo.getNombre()).execute(runTarea, algoritmo);
@@ -61,6 +63,7 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
             .sequential()
             .collectList()
             .block();
+        s.dispose();
         this.tareaFaseService.updateFechaFinAndEstado(
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
                         FaseEnum.CALCULAR.getId()),

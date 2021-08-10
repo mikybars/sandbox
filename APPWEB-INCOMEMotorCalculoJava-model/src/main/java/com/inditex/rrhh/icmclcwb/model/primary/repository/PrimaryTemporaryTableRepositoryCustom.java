@@ -163,4 +163,9 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      */
     List<IdPersonaLocalDto> validateTempComisResalta(TareaDto tarea);
 
+    /**
+     * @param tarea
+     */
+    void mergeDateRangesSeccionNotEqualsTempComisHistorico(TareaDto tarea);
+
 }
