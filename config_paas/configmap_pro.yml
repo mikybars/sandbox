@@ -122,7 +122,7 @@ amiga:
           url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
           user: ncomis
         comis11-30:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDrive
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
           # Se mockea temporalmente hasta que se verifique la conexión          
           url: jdbc:sqlserver://TOSQL66v2.TORDERA.INDITEX.GRP\\massimodutti:11433;databaseName=Personal
           user: ncomis      
