@@ -82,6 +82,9 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisHistorico']}")
     private String sqlMergeDateRangesTempComisHistorico;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisHistorico']}")
+    private String sqlMergeDateRangesSeccionNotEqualsTempComisHistorico;
+
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisHistorico']}")
     private String sqlValidateTempComisHistorico;
 
@@ -247,7 +250,18 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     public void mergeDateRangesTempComisHistorico(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
         this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesTempComisHistorico, map);
+    }
+
+    @Override
+    public void mergeDateRangesSeccionNotEqualsTempComisHistorico(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesSeccionNotEqualsTempComisHistorico, map);
     }
 
     @Override

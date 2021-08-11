@@ -43,6 +43,7 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import org.slf4j.Logger;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
 /**
@@ -94,12 +95,15 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
                 .reversed())
             .collect(Collectors.groupingBy(TareaFaseAccionDto::getPeso));
 
+        final Scheduler s = Schedulers.newElastic("async-reactor-prevalidar-despues");
+
+
         final List<ValidacionDto> validaciones = fases.keySet()
             .stream()
             .map(peso -> Flux
                 .fromIterable(fases.get(peso))
                 .parallel()
-                .runOn(Schedulers.newElastic("async-reactor-prevalidar-despues"))
+                .runOn(s)
                 .map(tareaFaseAccion -> {
                     return this.runPrevalidarFactory
                         .getRunPrevalidar(
@@ -114,6 +118,8 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
                 .collect(Collectors.toList()))
             .flatMap(List::stream)
             .collect(Collectors.toList());
+
+        s.dispose();
 
         final List<ValidacionDto> fallidas = validaciones.stream()
             .filter(e -> Boolean.FALSE.equals(e.getResult()))

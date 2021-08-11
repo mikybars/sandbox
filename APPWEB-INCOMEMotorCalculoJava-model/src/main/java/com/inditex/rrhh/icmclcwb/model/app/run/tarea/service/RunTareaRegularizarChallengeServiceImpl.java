@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
 import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
@@ -50,10 +51,11 @@ public class RunTareaRegularizarChallengeServiceImpl implements RunTareaRegulari
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
                         FaseEnum.REGULARIZAR_CHALLENGE.getId()));
         final TareaDto tarea = runTarea.getTarea();
+        final Scheduler s = Schedulers.newElastic("async-reactor-regularizar");
         Flux.fromIterable(
                 this.tareaPersonaHistoricoService.findIdPersonaLocalCompensacionChallengeByIdTarea(tarea.getId()))
             .parallel()
-            .runOn(Schedulers.newElastic("async-reactor-regularizar"))
+            .runOn(s)
             .map(x -> {
                 this.tareaCalculoService.regularizarChallenge(runTarea, x);
                 return Flux.empty();
@@ -61,6 +63,7 @@ public class RunTareaRegularizarChallengeServiceImpl implements RunTareaRegulari
             .sequential()
             .collectList()
             .block();
+        s.dispose();
 
         this.tareaFaseService.updateFechaFinAndEstado(
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),

@@ -1,7 +1,8 @@
+metadata:
+  domain: rhcompensa
+  service: income
+  tenant: global
 app:
-  limits:
-    cpu: 2
-    memory: 6144Mi
   context_path_builder:
     enabled: true
   readiness_probe:
@@ -23,13 +24,13 @@ app:
     http_private:
       enabled: true
 datagrid:
-  force: false
+  force: true
   application_cache:
     enabled: true
   session:
     enabled: true
 amq:
-  force: false
+  force: true
   enabled: true
   scheduler:
     enabled: true
