@@ -219,17 +219,17 @@ amiga:
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
           user: uincome
           password: pzuUKBm1ppMGzzOn
-          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+          url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
           #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
 #          user: oincome
 #          password: aMJLp8ahF09w
-#          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+#          url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX
           #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][FIN]
           #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][INICIO]
 #          user: uincome
 #          password:
-#          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+#          url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX
           #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][FIN]
           driver-properties:
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
@@ -243,7 +243,7 @@ amiga:
 #          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
 #          xa-properties:
             #[BBDD][ITX][XA][DES][GESTION_COMISION][INICIO]
-#            serverName: axdesdb22.central.inditex.grp
+#            serverName: axdesdb26fin1.central.inditex.grp
 #            portNumber: 50000
 #            databaseName: INDITEX
 #            currentSchema: GESTION_COMISION
@@ -251,7 +251,7 @@ amiga:
 #            password: pzuUKBm1ppMGzzOn
             #[BBDD][ITX][XA][DES][GESTION_COMISION][FIN]
             #[BBDD][ITX][XA][DES][DESARROLLO_RRHH][INICIO]
-#            serverName: axdesdb22.central.inditex.grp
+#            serverName: axdesdb26fin1.central.inditex.grp
 #            portNumber: 50000
 #            databaseName: INDITEX
 #            currentSchema: DESARROLLO_RRHH

@@ -16,10 +16,10 @@ amiga:
       datasource:
         primary:
           user: uincome
-          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+          url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX
 #          xa-properties:
 #            #serverName: axprudb22.central.inditex.grp
-#            serverName: axdesdb22.central.inditex.grp
+#            serverName: axdesdb26fin1.central.inditex.grp
 #            portNumber: 50000
 #            databaseName: INDITEX
 #            currentSchema: GESTION_COMISION
