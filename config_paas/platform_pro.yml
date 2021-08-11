@@ -1,4 +1,7 @@
 app:
+  limits:
+    cpu: 2
+    memory: 8192Mi
   replicas: 2
   instrumented:
     replicas: 1
