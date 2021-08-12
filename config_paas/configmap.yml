@@ -148,23 +148,17 @@ amiga:
           borrow-connection-timeout: 600
       datasource:
         primary:
-          #init-connection-sql: set schema GESTION_COMISION
           driverClassName: com.ibm.db2.jcc.DB2Driver
           driver-properties:
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
-            loginTimeout: 300
-            connectionTimeout: 300
-            commandTimeout: 300
+            #loginTimeout: 300
+            loginTimeout: 10
+            #connectionTimeout: 300
+            connectionTimeout: 10
+            #commandTimeout: 300
             interruptProcessingMode: 2
+            timerLevelForQueryTimeOut: 2
             currentSchema: GESTION_COMISION
-#          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
-#          xa-properties:
-#            clientProgramName: ${metadata.jirakey}
-#            driverType: 4
-#            loginTimeout: 300
-#            connectionTimeout: 300
-#            commandTimeout: 300
-#            interruptProcessingMode: 2
     jpa:
       properties:
         hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
