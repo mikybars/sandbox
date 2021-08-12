@@ -233,10 +233,13 @@ amiga:
           #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][FIN]
           driver-properties:
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
-            loginTimeout: 300
-            connectionTimeout: 300
-            commandTimeout: 300
+            #loginTimeout: 300
+            loginTimeout: 10
+            #connectionTimeout: 300
+            connectionTimeout: 10
+            #commandTimeout: 300
             interruptProcessingMode: 2
+            timerLevelForQueryTimeOut: 2
             currentSchema: GESTION_COMISION
           #[BBDD][ITX][NON_XA][FIN]
           #[BBDD][ITX][XA][INICIO]
