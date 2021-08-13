@@ -26,11 +26,9 @@ amiga:
     jms:
       connection-factory:
         broker-escritura:
-          #brokerURL: tcp://middleware-amq-tcp.icmclcwb-${metadata.environment}.svc.cluster.local:61616
-          brokerURL: tcp://middleware-amq-tcp.sscc-${metadata.tenant}-icmclcwb-${metadata.environment}.svc.cluster.local:61616
+          brokerURL: tcp://middleware-amq-tcp.${metadata.platform}-${metadata.tenant}-icmclcwb-${metadata.environment}.svc.cluster.local:61616
         broker-lectura:
-          #brokerURL: tcp://middleware-amq-tcp.icmclcwb-${metadata.environment}.svc.cluster.local:61616
-          brokerURL: tcp://middleware-amq-tcp.sscc-${metadata.tenant}-icmclcwb-${metadata.environment}.svc.cluster.local:61616
+          brokerURL: tcp://middleware-amq-tcp.${metadata.platform}-${metadata.tenant}-icmclcwb-${metadata.environment}.svc.cluster.local:61616
     jdbc:
       datasource:
         primary:
