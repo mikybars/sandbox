@@ -60,7 +60,7 @@ public class PorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RunAlgoritmoTest
     @Test
     public void executeTest() {
 
-        when(this.runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(10);
+        when(this.runAlgoritmoPropertiesDto.getCalculo().getBatchSize()).thenReturn(10);
 
         final List<IdPersonaLocalDto> personas = new ArrayList<>();
         final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
@@ -98,7 +98,7 @@ public class PorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RunAlgoritmoTest
         when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
 
-        when(this.runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(2);
+        when(this.runAlgoritmoPropertiesDto.getCalculo().getBatchSize()).thenReturn(2);
         final RuntimeException exception = new RuntimeException("EEEE");
         doThrow(exception)
             .when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom)
