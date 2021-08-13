@@ -177,8 +177,10 @@ app:
         exception: false
       calcular:
         algoritmo:
-          config:
+          thread-size: 2                
+          calculo:
             batch-size: 25
+            thread-size: 4
       ajuste:
         config:
           batch-size: 25            
