@@ -15,8 +15,9 @@ amiga:
     jdbc:
       datasource:
         primary:
+          driverClassName: com.ibm.db2.jcc.DB2Driver
+          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
           user: uincome
-          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
 app:
   envars:
     ptr:

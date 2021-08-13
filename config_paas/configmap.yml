@@ -140,22 +140,10 @@ amiga:
           pubSubDomain: false
           sessionTransacted: false
     jdbc:
+      query-timeout: 90s
       configuration:
         prop:
           default-isolation-level: 1
-          max-pool-size: 10
-          query-timeout: 90s
-          borrow-connection-timeout: 600
-      datasource:
-        primary:
-          driverClassName: com.ibm.db2.jcc.DB2Driver
-          driver-properties:
-            clientProgramName: ${metadata.jirakey}-${metadata.slot}
-            loginTimeout: 10
-            connectionTimeout: 10
-            interruptProcessingMode: 2
-            timerLevelForQueryTimeOut: 2
-            currentSchema: GESTION_COMISION
     jpa:
       properties:
         hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
