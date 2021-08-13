@@ -28,12 +28,6 @@ amiga:
         primary:
           user: uincome
           url: jdbc:db2://axpredb22.central.inditex.grp:50000/INDITEX
-#          xa-properties:
-#            serverName: axpredb22.central.inditex.grp
-#            portNumber: 50000
-#            databaseName: INDITEX
-#            currentSchema: GESTION_COMISION
-#            user: uincome
         ptr:
           driverClassName: oracle.jdbc.OracleDriver
           url: jdbc:oracle:thin:@//axine5-scansrv.central.inditex.grp:11521/s_pdbpr01rt_gener.central.inditex.grp
