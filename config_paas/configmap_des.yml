@@ -23,6 +23,12 @@ amiga:
           base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
           username: srvcicmclcwbdes
   data:
+    jms:
+      connection-factory:
+        broker-escritura:
+          brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local:61616
+        broker-lectura:
+          brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local:61616
     jdbc:
       datasource:
         primary:
