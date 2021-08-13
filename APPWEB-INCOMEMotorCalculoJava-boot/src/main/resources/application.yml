@@ -59,13 +59,13 @@ amiga:
         allow-core-thread-timeout: true
         keep-alive-time: 60s
       slrhorcoms-executor:
-          name: async-slrhorcoms-executor
-          name-format: async-slrhorcoms-executor-%d
-          core-pool-size: 10
-          maximum-pool-size: 100
-          queue-size: 2000
-          allow-core-thread-timeout: true
-          keep-alive-time: 60s
+        name: async-slrhorcoms-executor
+        name-format: async-slrhorcoms-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
       repository-primary-executor:
         name: async-repository-primary-executor
         name-format: async-repository-primary-executor-%d
@@ -73,7 +73,23 @@ amiga:
         maximum-pool-size: 100
         queue-size: 2000
         allow-core-thread-timeout: true
-        keep-alive-time: 60s        
+        keep-alive-time: 60s
+      algoritmo-executor:
+        name: algoritmo-executor
+        name-format: async-algoritmo-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s                
+      calculo-executor:
+        name: calculo-executor
+        name-format: async-calculo-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s         
   service:
     session:
       session-type: REMOTE

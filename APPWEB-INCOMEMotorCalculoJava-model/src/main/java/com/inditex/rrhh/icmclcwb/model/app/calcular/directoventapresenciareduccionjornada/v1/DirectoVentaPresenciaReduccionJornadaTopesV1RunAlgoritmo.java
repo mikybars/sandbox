@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventapresenciareduccionjornada.v1;
 
-import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import org.slf4j.Logger;
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
+import org.slf4j.Logger;
 
 @Component("directoVentaPresenciaReduccionJornadaTopesV1")
 public class DirectoVentaPresenciaReduccionJornadaTopesV1RunAlgoritmo implements RunAlgoritmo {
@@ -21,14 +24,16 @@ public class DirectoVentaPresenciaReduccionJornadaTopesV1RunAlgoritmo implements
     @Qualifier("runAlgoritmoProperties")
     private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
+
     @Override
-    public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
-        log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
+    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDto algoritmo) {
+        this.log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
+    public String getSqlCalcular(final AlgoritmoDto algoritmo) {
+        this.log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
         return ErrorConstants.RUN_ALGORITMO_NOT_IMPLEMENTED_RESULT;
     }
 

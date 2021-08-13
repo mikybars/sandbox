@@ -40,4 +40,16 @@ public class ExecutorConfig {
         return executorFactory.newThreadPoolExecutorFactory();
     }
 
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.calculo-executor")
+    public ItxThreadPoolExecutorFactoryBean calculoExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.algoritmo-executor")
+    public ItxThreadPoolExecutorFactoryBean algoritmoExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
 }
