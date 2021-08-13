@@ -47,8 +47,20 @@ public class ExecutorConfig {
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "amiga.common.executor.algoritmo-executor")
-    public ItxThreadPoolExecutorFactoryBean algoritmoExecutor(final ItxExecutorFactory executorFactory) {
+    @ConfigurationProperties(prefix = "amiga.common.executor.algoritmo-calculo-executor")
+    public ItxThreadPoolExecutorFactoryBean algoritmoCalculoExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.ajuste-executor")
+    public ItxThreadPoolExecutorFactoryBean ajusteExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.algoritmo-ajuste-executor")
+    public ItxThreadPoolExecutorFactoryBean algoritmoAjusteExecutor(final ItxExecutorFactory executorFactory) {
         return executorFactory.newThreadPoolExecutorFactory();
     }
 

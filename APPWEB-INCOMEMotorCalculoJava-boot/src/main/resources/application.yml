@@ -74,9 +74,9 @@ amiga:
         queue-size: 2000
         allow-core-thread-timeout: true
         keep-alive-time: 60s
-      algoritmo-executor:
-        name: algoritmo-executor
-        name-format: async-algoritmo-executor-%d
+      algoritmo-calculo-executor:
+        name: algoritmo-calculo-executor
+        name-format: async-algoritmo-calculo-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -89,7 +89,23 @@ amiga:
         maximum-pool-size: 100
         queue-size: 2000
         allow-core-thread-timeout: true
-        keep-alive-time: 60s         
+        keep-alive-time: 60s
+      algoritmo-ajuste-executor:
+        name: algoritmo-ajuste-executor
+        name-format: async-algoritmo-ajuste-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s        
+      ajuste-executor:
+        name: ajuste-executor
+        name-format: async-ajuste-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s                 
   service:
     session:
       session-type: REMOTE

@@ -10,14 +10,14 @@ import lombok.Data;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "app.envars.tarea.ajuste")
+@ConfigurationProperties(prefix = "app.envars.tarea.ajustar")
 public class RunAjustePropertiesConfig {
 
-    private RunAjustePropertiesDto config;
+    private RunAjustePropertiesDto algoritmo;
 
     @Bean(name = "runAjusteProperties")
     public RunAjustePropertiesDto config() {
-        return config;
+        return algoritmo;
     }
 
 }

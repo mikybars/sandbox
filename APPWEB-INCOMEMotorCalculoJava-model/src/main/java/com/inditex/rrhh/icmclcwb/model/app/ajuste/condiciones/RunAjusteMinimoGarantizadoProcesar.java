@@ -1,21 +1,25 @@
 package com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones;
 
-import org.slf4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
+import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteMinimoGarantizadoRepositoryCustom;
-
-import reactor.core.publisher.Flux;
+import org.slf4j.Logger;
 
 @Component("minimoGarantizadoV1")
 public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
@@ -34,33 +38,49 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
-    public void execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste) {
-        Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ids(runTarea.getTarea()),
-                runAjusteProperties.getBatchSize()))
-            .parallel()
-            .runOn(ItxSchedulers.boundedElastic())
-            .map(personas -> {
-                log.info("Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
-                try {
-                    tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ajustar(algoritmoAjuste, runTarea.getTarea(),
+    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
+        this.log.info(
+                "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Ids",
+                runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
+        final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom
+            .ids(runTarea.getTarea());
+        this.log.info(
+                "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteMinimoGarantizadoProcesar :: Ids: {}",
+                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
+
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+
+        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
+                ids,
+                this.runAjusteProperties.getThreadSize())) {
+            AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
+
+            this.log.info(
+                    "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}",
+                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+            try {
+                final CompletableFuture<Void> cfAjuste = this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom
+                    .ajustar(
+                            algoritmoAjuste, runTarea.getTarea(),
                             personas);
-                } catch (Exception e) {
-                    log.error("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
-                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                            EstadoTareaCalculoPersonaEnum.KO.getDto());
-                }
-                log.info("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
-                return Flux.empty();
-            })
-            .sequential()
-            .collectList()
-            .block();
+                AsyncUtils.exceptionally(cfAjuste, cf);
+            } catch (final Exception e) {
+                AsyncUtils.cancel(cf);
+                this.log.error("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
+                this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                        EstadoTareaCalculoPersonaEnum.KO.getDto());
+            }
+            this.log.info("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
+
+        }
+        AsyncUtils.waitAllOfIsOk(cf, cf);
+
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public String getSqlCalcular(AlgoritmoAjusteDto algoritmoAjuste) {
-        return tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.getSqlAjustar(algoritmoAjuste);
+    public String getSqlCalcular(final AlgoritmoAjusteDto algoritmoAjuste) {
+        return this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.getSqlAjustar(algoritmoAjuste);
     }
 
 }
