@@ -326,7 +326,7 @@ amiga:
           readOnly: true                 
         comis11-101:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXINSQLDES.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           user: ncomis     
           password: j50lc9sL          
           readOnly: true                 

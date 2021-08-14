@@ -17,18 +17,18 @@ amiga:
           base-url: https://sscc-pre.central.inditex.grp
           username: srvcicmclcwbpreAX
         ptr-venta:
-          base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
+          base-url: http://develop.rhvtimpwsd.svc.cluster.local.:8080/rhvtimpwsd-develop
           username: srvcicmclcwbdes
         ptr-presencia:
-          base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
+          base-url: http://develop.rhpresnwsd.svc.cluster.local.:8080/rhpresnwsd-develop
           username: srvcicmclcwbdes
   data:
     jms:
       connection-factory:
         broker-escritura:
-          brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local:61616
+          brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local.:61616
         broker-lectura:
-          brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local:61616
+          brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local.:61616
     jdbc:
       datasource:
         primary:
@@ -121,7 +121,7 @@ amiga:
           user: ncomis       
         comis11-101:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXINSQLDES.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           user: ncomis     
         comis11-11:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -346,6 +346,6 @@ app:
         credentials:
           user: SRVCICMCLCWSDESAX
       login:
-        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
+        server: http://develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/Login
       icmwscalcincome:
-        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
+        server: http://develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/ICM_WS_CALC_INCOME
