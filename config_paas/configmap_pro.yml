@@ -15,24 +15,23 @@ amiga:
       client:
         slrhorcoms:
           base-url: https://sscc.central.inditex.grp
+          #base-url: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont.svc.cluster.local.:8080
           username: srvcicmclcwbAX
         ptr-venta:
           base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
+          #base-url: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080
           username: srvcicmclcwbAX
         ptr-presencia:
           base-url: https://openshift.axinocp1.central.inditex.grp/rhpresnwsd
+          #base-url: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080
           username: srvcicmclcwbAX
   data:
     jms:
       connection-factory:
         broker-escritura:
-          #brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local:61616
-          #brokerURL: tcp://middleware-amq-tcp.${metadata.platform}-${metadata.tenant}-icmclcwb.svc.cluster.local:61616
-          brokerURL: tcp://middleware-amq-tcp.${metadata.platform}-${metadata.tenant}-icmclcwb.svc.cluster.local:61616
+          brokerURL: tcp://middleware-amq-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:61616
         broker-lectura:
-          #brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local:61616
-          #brokerURL: tcp://middleware-amq-tcp.sscc-${metadata.tenant}-icmclcwb.svc.cluster.local:61616
-          brokerURL: tcp://middleware-amq-tcp.${metadata.platform}-${metadata.tenant}-icmclcwb.svc.cluster.local:61616
+          brokerURL: tcp://middleware-amq-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:61616
 
     jdbc:
       datasource:
@@ -310,6 +309,6 @@ app:
         credentials:
           user: SRVCICMCLCWSAX
       login:
-        server: http://icmclcws.${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/services/Login
+        server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/services/Login
       icmwscalcincome:
-        server: http://icmclcws.${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/ICM_WS_CALC_INCOME
+        server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/services/ICM_WS_CALC_INCOME
