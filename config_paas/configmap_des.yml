@@ -15,6 +15,7 @@ amiga:
       client:
         slrhorcoms:
           base-url: https://sscc-pre.central.inditex.grp
+          #base-url: http://develop.slrhorcoms.svc.cluster.local.:8080/slrhorcoms
           username: srvcicmclcwbpreAX
         ptr-venta:
           base-url: http://develop.rhvtimpwsd.svc.cluster.local.:8080/rhvtimpwsd-develop
