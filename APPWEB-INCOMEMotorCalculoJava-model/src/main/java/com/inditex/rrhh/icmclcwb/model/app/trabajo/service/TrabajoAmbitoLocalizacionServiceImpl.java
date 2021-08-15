@@ -28,18 +28,18 @@ public class TrabajoAmbitoLocalizacionServiceImpl implements TrabajoAmbitoLocali
 
     @Override
     public List<TrabajoAmbitoLocalizacionDto> create(
-        @Valid @NotNull @NotEmpty final List<TrabajoAmbitoLocalizacionDto> trabajoAmbitoLocalizacion,
-        @NotNull final TrabajoDto trabajo) {
+            @Valid @NotNull @NotEmpty final List<TrabajoAmbitoLocalizacionDto> trabajoAmbitoLocalizacion,
+            @NotNull final TrabajoDto trabajo) {
         return this.trabajoAmbitoLocalizacionMapper.trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
-            this.trabajoAmbitoLocalizacionRepository.saveAll(this.trabajoAmbitoLocalizacionMapper
-                .mergeTrabajoAmbitoLocalizacionDtoAndTrabajoDtoToTrabajoAmbitoLocalizacion(
-                    trabajoAmbitoLocalizacion, trabajo)));
+                this.trabajoAmbitoLocalizacionRepository.saveAll(this.trabajoAmbitoLocalizacionMapper
+                    .mergeTrabajoAmbitoLocalizacionDtoAndTrabajoDtoToTrabajoAmbitoLocalizacion(
+                            trabajoAmbitoLocalizacion, trabajo)));
     }
 
     @Override
     public List<TrabajoAmbitoLocalizacionDto> findByTrabajo(@Valid @NotNull final TrabajoDto trabajo) {
         return this.trabajoAmbitoLocalizacionMapper.trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
-            this.trabajoAmbitoLocalizacionRepository.findByTrabajoId(trabajo.getId()));
+                this.trabajoAmbitoLocalizacionRepository.findByTrabajoId(trabajo.getId()));
     }
 
 }

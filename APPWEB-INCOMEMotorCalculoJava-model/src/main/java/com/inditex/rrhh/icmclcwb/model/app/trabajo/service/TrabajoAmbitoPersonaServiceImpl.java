@@ -28,19 +28,19 @@ public class TrabajoAmbitoPersonaServiceImpl implements TrabajoAmbitoPersonaServ
 
     @Override
     public List<TrabajoAmbitoPersonaDto> create(
-        @Valid @NotNull @NotEmpty final List<TrabajoAmbitoPersonaDto> trabajoAmbitoPersona,
-        @NotNull final TrabajoDto trabajo) {
+            @Valid @NotNull @NotEmpty final List<TrabajoAmbitoPersonaDto> trabajoAmbitoPersona,
+            @NotNull final TrabajoDto trabajo) {
         return this.trabajoAmbitoPersonaMapper.trabajoAmbitoPersonaToTrabajoAmbitoPersonaDto(
-            this.trabajoAmbitoPersonaRepository
-                .saveAll(this.trabajoAmbitoPersonaMapper
-                    .mergeTrabajoAmbitoPersonaDtoAndTrabajoDtoToTrabajoAmbitoPersona(
-                        trabajoAmbitoPersona, trabajo)));
+                this.trabajoAmbitoPersonaRepository
+                    .saveAll(this.trabajoAmbitoPersonaMapper
+                        .mergeTrabajoAmbitoPersonaDtoAndTrabajoDtoToTrabajoAmbitoPersona(
+                                trabajoAmbitoPersona, trabajo)));
     }
 
     @Override
     public List<TrabajoAmbitoPersonaDto> findByTrabajo(@Valid @NotNull final TrabajoDto trabajo) {
         return this.trabajoAmbitoPersonaMapper.trabajoAmbitoPersonaToTrabajoAmbitoPersonaDto(
-            this.trabajoAmbitoPersonaRepository.findByTrabajoId(trabajo.getId()));
+                this.trabajoAmbitoPersonaRepository.findByTrabajoId(trabajo.getId()));
     }
 
 }

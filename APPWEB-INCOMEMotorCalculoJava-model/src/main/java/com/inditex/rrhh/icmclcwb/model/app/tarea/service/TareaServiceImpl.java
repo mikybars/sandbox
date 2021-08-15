@@ -74,7 +74,7 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     public TareaDto findByIdLimpieza(
-        @NotNull @Positive final Long idLimpieza) {
+            @NotNull @Positive final Long idLimpieza) {
         // TODO [javierev] mejorar esta obtención de tarea
         final TareaLimpiezaDto tareaLimpiezaDto = this.tareaLimpiezaService.find(idLimpieza);
         return tareaLimpiezaDto != null ? this.find(tareaLimpiezaDto.getIdTarea()) : null;
@@ -119,7 +119,7 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     public void updateFechaInicioAndEstado(@Valid @NotNull final TareaDto tarea,
-        @Valid @NotNull final EstadoTareaDto estado) {
+            @Valid @NotNull final EstadoTareaDto estado) {
         this.tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
     }
 

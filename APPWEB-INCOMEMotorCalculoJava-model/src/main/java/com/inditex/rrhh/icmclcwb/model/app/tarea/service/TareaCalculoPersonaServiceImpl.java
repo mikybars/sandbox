@@ -37,15 +37,15 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
 
     @Override
     public void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<IdPersonaLocalDto> personas,
-        @Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estado) {
+            @Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estado) {
         this.tareaCalculoPersonaRepositoryCustom.updateWithEstadoAndidPersona(
-            personas.stream().map(e -> e.getIdPersonaLocal()).collect(Collectors.toList()), runTareaDto, estado);
+                personas.stream().map(e -> e.getIdPersonaLocal()).collect(Collectors.toList()), runTareaDto, estado);
     }
 
     @Override
     public void updateWithEstado(@Valid @NotNull final RunTareaDto runTareaDto,
-        @Valid @NotNull final EstadoTareaPersonaDto estadoActual,
-        @Valid @NotNull final EstadoTareaPersonaDto estadoNuevo) {
+            @Valid @NotNull final EstadoTareaPersonaDto estadoActual,
+            @Valid @NotNull final EstadoTareaPersonaDto estadoNuevo) {
         this.tareaCalculoPersonaRepositoryCustom.updateWithEstado(runTareaDto, estadoActual, estadoNuevo);
     }
 
@@ -67,20 +67,20 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     @Override
     public List<TareaCalculoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea) {
         return this.tareaCalculoPersonaMapper.tareaCalculoPersonaToTareaCalculoPersonaDto(
-            this.tareaCalculoPersonaRepository.findByTareaId(tarea.getId()));
+                this.tareaCalculoPersonaRepository.findByTareaId(tarea.getId()));
     }
 
     @Override
     public List<IdPersonaLocalDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea,
-        @Valid @NotNull final AlgoritmoDto algoritmo) {
+            @Valid @NotNull final AlgoritmoDto algoritmo) {
         return this.tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(tarea, algoritmo);
     }
 
     @Override
     public List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@Valid @NotNull final TareaDto tarea,
-        @Valid @NotNull final String idTipoPolitica) {
+            @Valid @NotNull final String idTipoPolitica) {
         return this.tareaCalculoPersonaRepositoryCustom.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
-            idTipoPolitica);
+                idTipoPolitica);
     }
 
 }

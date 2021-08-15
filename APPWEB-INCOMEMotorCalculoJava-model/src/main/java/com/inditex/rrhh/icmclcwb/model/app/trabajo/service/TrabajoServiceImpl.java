@@ -150,10 +150,10 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Override
     public TrabajoDto merge(@Valid @NotNull final ProgramacionDto programacion,
-        @Valid @NotNull final ProgramacionAmbitoDto programacionAmbito, @Valid @NotNull final PeriodoDto periodo) {
+            @Valid @NotNull final ProgramacionAmbitoDto programacionAmbito, @Valid @NotNull final PeriodoDto periodo) {
         return this.trabajoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
-            programacionAmbito,
-            programacion, periodo);
+                programacionAmbito,
+                programacion, periodo);
     }
 
     @Override

@@ -15,7 +15,7 @@ public class ReceiverLimpieza {
     private RunService runService;
 
     @JmsListener(id = "limpiezaListener", destination = "${amiga.service.jms.limpieza-queue.destination-fqdn}",
-        containerFactory = "limpiezaContainerFactoryListener")
+            containerFactory = "limpiezaContainerFactoryListener")
     public void onMessageTareaListener(final Message<TareaLimpiezaDto> message) {
         this.runService.runLimpieza(message.getPayload().getId());
     }

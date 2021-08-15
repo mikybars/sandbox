@@ -15,9 +15,9 @@ public class ReceiverTrabajo {
     private RunService runService;
 
     @JmsListener(id = "trabajoListener", destination = "${amiga.service.jms.trabajo-queue.destination-fqdn}",
-        containerFactory = "trabajoContainerFactoryListener")
+            containerFactory = "trabajoContainerFactoryListener")
     public void onMessageTrabajoListener(
-        final Message<TrabajoDto> message /* TrabajoDto message */ /* TrabajoDto message, @Headers Map headers */) {
+            final Message<TrabajoDto> message /* TrabajoDto message */ /* TrabajoDto message, @Headers Map headers */) {
         this.runService.runTrabajo(message.getPayload().getId());
     }
 

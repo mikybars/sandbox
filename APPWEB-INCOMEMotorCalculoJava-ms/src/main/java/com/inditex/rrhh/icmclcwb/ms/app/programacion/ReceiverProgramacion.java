@@ -15,7 +15,7 @@ public class ReceiverProgramacion {
     private RunService runService;
 
     @JmsListener(id = "programacionListener", destination = "${amiga.service.jms.programacion-queue.destination-fqdn}",
-        containerFactory = "programacionContainerFactoryListener")
+            containerFactory = "programacionContainerFactoryListener")
     public void onMessageProgramacionListener(final Message<IdProgramacionDto> message) {
         this.runService.runProgramacion(message.getPayload().getId());
     }
