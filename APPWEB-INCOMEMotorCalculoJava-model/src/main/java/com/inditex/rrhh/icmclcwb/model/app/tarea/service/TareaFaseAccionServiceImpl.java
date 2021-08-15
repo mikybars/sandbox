@@ -51,11 +51,11 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
 
     @Override
     public List<TareaFaseAccionDto> save(
-            @Valid @NotNull @NotEmpty final List<TareaFaseAccionDto> tareaFaseAccion) {
+        @Valid @NotNull @NotEmpty final List<TareaFaseAccionDto> tareaFaseAccion) {
         return this.tareaFaseAccionMapper
             .tareaFaseAccionToTareaFaseAccionDto(
-                    this.tareaFaseAccionRepositoryCustom.save(this.tareaFaseAccionMapper
-                        .tareaFaseAccionDtoToTareaFaseAccion(tareaFaseAccion)));
+                this.tareaFaseAccionRepositoryCustom.save(this.tareaFaseAccionMapper
+                    .tareaFaseAccionDtoToTareaFaseAccion(tareaFaseAccion)));
     }
 
     @Override
@@ -64,7 +64,6 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     }
 
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void create(@Valid @NotNull final RunTareaDto runTareaDto) {
         final TareaDto tareaDto = runTareaDto.getTarea();
@@ -87,27 +86,27 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
 
     @Override
     public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
-            @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idPuntoEjecucion) {
+        @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idPuntoEjecucion) {
         return this.tareaFaseAccionRepositoryCustom.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
-                idTarea,
-                idFase, idPuntoEjecucion);
+            idTarea,
+            idFase, idPuntoEjecucion);
     }
 
     @Override
     public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
-            @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idAccion,
-            @NotNull final Integer idPuntoEjecucion) {
+        @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idAccion,
+        @NotNull final Integer idPuntoEjecucion) {
         return this.tareaFaseAccionRepositoryCustom
             .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
-                    idTarea,
-                    idFase, idAccion, idPuntoEjecucion);
+                idTarea,
+                idFase, idAccion, idPuntoEjecucion);
     }
 
     @Override
     public List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(
-            @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idPuntoEjecucion) {
+        @NotNull final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idPuntoEjecucion) {
         return this.tareaFaseAccionRepositoryCustom.findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(idTarea,
-                idFase, idPuntoEjecucion);
+            idFase, idPuntoEjecucion);
     }
 
 
@@ -118,27 +117,27 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
 
     @Override
     public void updateFechaFinAndEstado(@Valid @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
-            @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
+        @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
         this.tareaFaseAccionRepositoryCustom.updateFechaFinAndEstado(tareaFaseAccionDto, estadoTareaFaseAccionDto);
     }
 
 
     @Override
     public void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
-            @Valid @NotNull final TareaFaseDto tareaFaseDto,
-            @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
-            @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
+        @Valid @NotNull final TareaFaseDto tareaFaseDto,
+        @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
+        @Valid @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
         this.tareaFaseAccionRepositoryCustom.updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
-                tareaFaseDto,
-                estadoTareaFaseAccionActualDto, estadoTareaFaseAccionDto);
+            tareaFaseDto,
+            estadoTareaFaseAccionActualDto, estadoTareaFaseAccionDto);
     }
 
     @Override
     public Integer countReintentosByIdTareaAndIdAccionAndIdEstado(
-            @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
-            @NotNull final TareaFaseDto tareaFaseDto) {
+        @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
+        @NotNull final TareaFaseDto tareaFaseDto) {
         return this.tareaFaseAccionRepositoryCustom.countReintentosByIdTareaAndIdAccionAndIdEstado(tareaFaseAccionDto,
-                tareaFaseDto);
+            tareaFaseDto);
     }
 
 }

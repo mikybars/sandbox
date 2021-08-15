@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.service.RunService;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @Component
 public class ReceiverProgramacion {
@@ -15,10 +14,8 @@ public class ReceiverProgramacion {
     @Autowired
     private RunService runService;
 
-    // @CircuitBreaker(name = "programacion")
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @JmsListener(id = "programacionListener", destination = "${amiga.service.jms.programacion-queue.destination-fqdn}",
-            containerFactory = "programacionContainerFactoryListener")
+        containerFactory = "programacionContainerFactoryListener")
     public void onMessageProgramacionListener(final Message<IdProgramacionDto> message) {
         this.runService.runProgramacion(message.getPayload().getId());
     }

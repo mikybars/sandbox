@@ -74,13 +74,12 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     public TareaDto findByIdLimpieza(
-            @NotNull @Positive final Long idLimpieza) {
+        @NotNull @Positive final Long idLimpieza) {
         // TODO [javierev] mejorar esta obtención de tarea
         final TareaLimpiezaDto tareaLimpiezaDto = this.tareaLimpiezaService.find(idLimpieza);
         return tareaLimpiezaDto != null ? this.find(tareaLimpiezaDto.getIdTarea()) : null;
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public TareaDto create(@Valid @NotNull final TareaDto tarea) {
         tarea.setFechaHoraCreacion(LocalDateTime.now());
@@ -100,7 +99,6 @@ public class TareaServiceImpl implements TareaService {
         return null;
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo) {
         final List<TareaDto> result = new ArrayList<>();
@@ -114,26 +112,22 @@ public class TareaServiceImpl implements TareaService {
         return this.tareaMapper.tareaToTareaDto(this.tareaRepository.findByTrabajoId(id));
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaFin(@Valid @NotNull final TareaDto tarea) {
         this.tareaRepositoryCustom.updateFechaFin(tarea);
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaInicioAndEstado(@Valid @NotNull final TareaDto tarea,
-            @Valid @NotNull final EstadoTareaDto estado) {
+        @Valid @NotNull final EstadoTareaDto estado) {
         this.tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
     }
 
-    // @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Override
     public void updateEstado(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final EstadoTareaDto estado) {
         this.tareaRepositoryCustom.updateEstado(tarea, estado);
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateEstadoFinal(@Valid @NotNull final TareaDto tarea) {
         this.tareaRepositoryCustom.updateEstadoFinal(tarea);

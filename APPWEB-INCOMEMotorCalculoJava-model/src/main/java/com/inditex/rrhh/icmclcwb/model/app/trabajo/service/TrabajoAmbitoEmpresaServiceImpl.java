@@ -26,22 +26,21 @@ public class TrabajoAmbitoEmpresaServiceImpl implements TrabajoAmbitoEmpresaServ
     @Autowired
     private TrabajoAmbitoEmpresaMapper trabajoAmbitoEmpresaMapper;
 
-    // @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public List<TrabajoAmbitoEmpresaDto> create(
-            @Valid @NotNull @NotEmpty final List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa,
-            @NotNull final TrabajoDto trabajo) {
+        @Valid @NotNull @NotEmpty final List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa,
+        @NotNull final TrabajoDto trabajo) {
         return this.trabajoAmbitoEmpresaMapper.trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(
-                this.trabajoAmbitoEmpresaRepository
-                    .saveAll(this.trabajoAmbitoEmpresaMapper
-                        .mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTrabajoAmbitoEmpresa(
-                                trabajoAmbitoEmpresa, trabajo)));
+            this.trabajoAmbitoEmpresaRepository
+                .saveAll(this.trabajoAmbitoEmpresaMapper
+                    .mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTrabajoAmbitoEmpresa(
+                        trabajoAmbitoEmpresa, trabajo)));
     }
 
     @Override
     public List<TrabajoAmbitoEmpresaDto> findByTrabajo(@Valid @NotNull final TrabajoDto trabajo) {
         return this.trabajoAmbitoEmpresaMapper.trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(
-                this.trabajoAmbitoEmpresaRepository.findByTrabajoId(trabajo.getId()));
+            this.trabajoAmbitoEmpresaRepository.findByTrabajoId(trabajo.getId()));
     }
 
 }

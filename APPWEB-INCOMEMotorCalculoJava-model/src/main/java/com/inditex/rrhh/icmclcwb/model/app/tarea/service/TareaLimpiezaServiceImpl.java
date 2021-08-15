@@ -58,10 +58,9 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
 
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<TareaLimpiezaDto> save(
-            final List<IdTareaDto> idTareas) {
+        final List<IdTareaDto> idTareas) {
         final List<TareaLimpiezaDto> result = new ArrayList<>();
         this.tareaLimpiezaMapper.idTareaDtoToTareaLimpiezaDto(idTareas).forEach(item -> result.add(this.save(item)));
         return result;
