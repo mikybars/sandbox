@@ -14,10 +14,10 @@ metadata:
   service: income
   tenant: global
   environment: local
-  jiracategory: sistemas-financiero-y-rrhh-core-rrhh
+  jiracategory: sistemas-rrhh-compensacion
   jirakey: ICMCLCWB
   jiraprojectname: APPWEB-INCOMEMotorCalculoJava
-  openshiftproject: icmclcwb
+  openshiftproject: sscc-global-rhcompensa
   platform: Openshift-SSCC Arteixo
   slot: develop
   version: 3.0.0
@@ -123,13 +123,13 @@ amiga:
           pubSubDomain: false
           receiveTimeout: 1000
       trabajo-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.service}.${metadata.jirakey}.private.trabajo-queue-${metadata.slot}
       tarea-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.service}.${metadata.jirakey}.private.tarea-queue-${metadata.slot}
       limpieza-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.limpieza-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.service}.${metadata.jirakey}.private.limpieza-queue-${metadata.slot}
       programacion-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.programacion-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.service}.${metadata.jirakey}.private.programacion-queue-${metadata.slot}
     session:
       session-type: EMBEDDED
     aaa:
