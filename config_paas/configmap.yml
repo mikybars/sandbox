@@ -170,7 +170,11 @@ app:
           thread-size: 2
           ajuste:
             batch-size: 25
-            thread-size: 4         
+            thread-size: 4
+      regularizar:
+        thread-size: 4
+      prevalidacion:
+        thread-size: 4
     repository:
       batch-size:
         default: 100

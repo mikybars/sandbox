@@ -105,7 +105,23 @@ amiga:
         maximum-pool-size: 100
         queue-size: 2000
         allow-core-thread-timeout: true
-        keep-alive-time: 60s                 
+        keep-alive-time: 60s 
+      regularizar-executor:
+        name: regularizar-executor
+        name-format: async-regularizar-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s           
+      validacion-executor:
+        name: validacion-executor
+        name-format: async-validacion-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s          
   service:
     session:
       session-type: REMOTE

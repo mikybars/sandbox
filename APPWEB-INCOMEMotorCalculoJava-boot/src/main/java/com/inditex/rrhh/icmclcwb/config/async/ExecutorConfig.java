@@ -64,4 +64,16 @@ public class ExecutorConfig {
         return executorFactory.newThreadPoolExecutorFactory();
     }
 
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.regularizar-executor")
+    public ItxThreadPoolExecutorFactoryBean regularizarExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.validacion-executor")
+    public ItxThreadPoolExecutorFactoryBean validacionExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
 }
