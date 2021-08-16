@@ -18,12 +18,12 @@ amiga:
           #base-url: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont.svc.cluster.local.:8080/slrhorcoms
           username: srvcicmclcwbAX
         ptr-venta:
-          base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
-          #base-url: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhvtimpwsd
+          #base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
+          base-url: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhvtimpwsd
           username: srvcicmclcwbAX
         ptr-presencia:
-          base-url: https://openshift.axinocp1.central.inditex.grp/rhpresnwsd
-          #base-url: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhpresnwsd
+          #base-url: https://openshift.axinocp1.central.inditex.grp/rhpresnwsd
+          base-url: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhpresnwsd
           username: srvcicmclcwbAX
   data:
     jms:

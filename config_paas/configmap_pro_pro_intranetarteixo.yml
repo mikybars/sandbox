@@ -6,24 +6,26 @@ amiga:
           base-url: https://sscc.central.inditex.grp
           #base-url: http://rhvtimpwsd.svc.cluster.local.:8080/slrhorcoms
         ptr-venta:
-          base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
-          #server: http://rhvtimpwsd.svc.cluster.local.:8080/rhvtimpwsd
+          #base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
+          base-url: http://rhvtimpwsd.svc.cluster.local.:8080/rhvtimpwsd
         ptr-presencia:
-          base-url: https://openshift.axinocp1.central.inditex.grp/rhpresnwsd
-          #server: http://rhpresnwsd.svc.cluster.local.:8080/rhpresnwsd
+          #base-url: https://openshift.axinocp1.central.inditex.grp/rhpresnwsd
+          base-url: http://rhpresnwsd.svc.cluster.local.:8080/rhpresnwsd
   data:
     jms:
       connection-factory:
         broker-escritura:
-          brokerURL: tcp://middleware-amq-tcp:61616
+          #brokerURL: tcp://middleware-amq-tcp:61616
+          brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local.:61616
         broker-lectura:
-          brokerURL: tcp://middleware-amq-tcp:61616
+          #brokerURL: tcp://middleware-amq-tcp:61616
+          brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local.:61616
 app:
   envars:
     meta4:
       login:
-        server: https://icmclcws.axinocp1.central.inditex.grp/services/Login
-        #server: http://icmclcws.svc.cluster.local.:8080/services/Login
+        #server: https://icmclcws.axinocp1.central.inditex.grp/services/Login
+        server: http://icmclcws.svc.cluster.local.:8080/services/Login
       icmwscalcincome:
-        server: https://icmclcws.axinocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        #server: http://icmclcws.svc.cluster.local.:8080/services/ICM_WS_CALC_INCOME
+        #server: https://icmclcws.axinocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: http://icmclcws.svc.cluster.local.:8080/services/ICM_WS_CALC_INCOME
