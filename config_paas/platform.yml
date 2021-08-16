@@ -2,6 +2,8 @@ metadata:
   domain: rhcompensa
   service: income
   tenant: global
+  developModel: CORPORATE
+  layer: core
 app:
   context_path_builder:
     enabled: true

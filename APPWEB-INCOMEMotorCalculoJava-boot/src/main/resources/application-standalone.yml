@@ -20,6 +20,8 @@ metadata:
   openshiftproject: sscc-global-rhcompensa
   platform: Openshift-SSCC Arteixo
   slot: develop
+  developModel: CORPORATE
+  layer: core
   version: 3.0.0
 amiga:
   monitoring:
