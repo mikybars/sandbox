@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -35,9 +34,6 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.save']}")
     private String sqlSave;
-
-    @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInPeriodoCalculoPersona']}")
-    private String sqlFindIdPersonaByIdTareaAndIdOrigen;
 
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito']}")
     private String sqlFindIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito;
@@ -63,23 +59,6 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
     @Override
     public List<TareaPersonaHistorico> save(final List<TareaPersonaHistorico> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
-    }
-
-    @Override
-    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive final Long idTarea,
-            @NotBlank final String cclIdOrigen) {
-        final MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        return this.query(this.sqlFindIdPersonaByIdTareaAndIdOrigen, parameters,
-                new RowMapper<IdPersonaDto>() {
-                    @Override
-                    public IdPersonaDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-                        final IdPersonaDto dto = new IdPersonaDto();
-                        dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
-                        return dto;
-                    }
-                });
     }
 
     @Override

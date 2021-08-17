@@ -115,26 +115,6 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
     }
 
     @Test
-    public void findIdPersonaByIdTareaAndIdOrigenInAmbitoTest() {
-        final String idOrigen = "CCL_ID_ORIGEN";
-        final long idTarea = 10L;
-        this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea, idOrigen);
-
-        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
-                ArgumentMatchers.<RowMapper<TareaPersonaHistorico>>any());
-        assertEquals(SQL_FIND_ID_PERSONA_BY_ID_TAREA_AND_ID_ORIGEN, this.sqlCaptor.getValue());
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        // Parámetros de la consulta: idTarea, cclIdOrigen
-        assertEquals(2, params.getValues().size());
-        // idTarea
-        assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
-        assertEquals(idTarea, params.getValue(SQL_PARAM_ID_TAREA));
-        // cclIdOrigen
-        assertTrue(params.hasValue(SQL_PARAM_CCL_ID_ORIGEN));
-        assertEquals(idOrigen, params.getValue(SQL_PARAM_CCL_ID_ORIGEN));
-    }
-
-    @Test
     public void findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbitoTest() {
         final long idTarea = 900L;
         final String idOrigen = "CCL_ID_ORIGEN";

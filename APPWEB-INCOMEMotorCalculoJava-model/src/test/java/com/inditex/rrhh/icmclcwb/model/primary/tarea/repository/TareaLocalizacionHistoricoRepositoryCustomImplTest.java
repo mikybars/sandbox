@@ -27,7 +27,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION;
@@ -126,33 +125,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
     }
 
     @Test
-    public void findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbitoTest() {
-
-        final Long idTarea = 89L;
-        final String idOrigen = "O38";
-        final List<Integer> tiposDato = Arrays.asList(12, 39, 933);
-
-        this.tareaLocalizacionHistoricoRepositoryCustom
-            .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, tiposDato);
-        verify(this.namedParameterJdbcTemplate, times(1))
-            .query(this.sql.capture(), this.params.capture(),
-                    ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
-        assertEquals(SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_ID_ORIGEN_TIPO_DATO_IN_AMBITO, this.sql.getValue());
-        // parametros de la consulta: idTarea, cclIdOrigen, tiposDato
-        assertEquals(3, this.params.getValue().getValues().size());
-        // idTarea
-        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
-        assertEquals(idTarea, this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
-        // cclIdOrigen
-        assertTrue(this.params.getValue().hasValue(SQL_PARAM_CCL_ID_ORIGEN));
-        assertEquals(idOrigen, this.params.getValue().getValue(SQL_PARAM_CCL_ID_ORIGEN));
-        // tiposDato
-        assertTrue(this.params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
-        assertEquals(tiposDato, this.params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
-
-    }
-
-    @Test
     public void findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbitoTest() {
 
         final Long idTarea = 89L;
@@ -195,33 +167,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         // cclIdOrigen
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_CCL_ID_ORIGEN));
         assertEquals(idOrigen, this.params.getValue().getValue(SQL_PARAM_CCL_ID_ORIGEN));
-
-    }
-
-    @Test
-    public void findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbitoTest() {
-
-        final Long idTarea = 89L;
-        final String idOrigen = "O38";
-        final List<Integer> tiposDato = Arrays.asList(12, 39, 933);
-
-        this.tareaLocalizacionHistoricoRepositoryCustom
-            .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(idTarea, idOrigen, tiposDato);
-        verify(this.namedParameterJdbcTemplate, times(1))
-            .query(this.sql.capture(), this.params.capture(),
-                    ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
-        assertEquals(SQL_FIND_ID_LOCALIZACION_LOCAL_ID_TAREA_ID_ORIGEN_TIPO_DATO_IN_AMBITO, this.sql.getValue());
-        // parametros de la consulta: idTarea, cclIdOrigen, tiposDato
-        assertEquals(3, this.params.getValue().getValues().size());
-        // idTarea
-        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
-        assertEquals(idTarea, this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
-        // cclIdOrigen
-        assertTrue(this.params.getValue().hasValue(SQL_PARAM_CCL_ID_ORIGEN));
-        assertEquals(idOrigen, this.params.getValue().getValue(SQL_PARAM_CCL_ID_ORIGEN));
-        // tiposDato
-        assertTrue(this.params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_DATO));
-        assertEquals(tiposDato, this.params.getValue().getValue(SQL_PARAM_IDS_TIPOS_DATO));
 
     }
 

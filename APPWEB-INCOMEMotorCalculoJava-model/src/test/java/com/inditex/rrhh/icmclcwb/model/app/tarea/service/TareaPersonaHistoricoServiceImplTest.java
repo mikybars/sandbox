@@ -67,16 +67,6 @@ public class TareaPersonaHistoricoServiceImplTest {
     }
 
     @Test
-    public void findIdPersonaByIdTareaAndIdOrigenInAmbitoTest() {
-        final String cclIdOrigen = "1";
-        final Long idTarea = 1L;
-
-        this.tareaPersonaHistoricoServiceImpl.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea, cclIdOrigen);
-        verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
-            .findIdPersonaByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class));
-    }
-
-    @Test
     public void findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbitoTest() {
         final String cclIdOrigen = "1";
         final Long idTarea = 1L;
@@ -121,16 +111,6 @@ public class TareaPersonaHistoricoServiceImplTest {
         this.tareaPersonaHistoricoServiceImpl.findIdPersonaLocalCompensacionChallengeByIdTarea(idTarea);
         verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
             .findIdPersonaLocalCompensacionChallengeByIdTarea(any(Long.class));
-    }
-
-    @Test
-    public void findIdPersonaHistoricoByIdTareaAndIdOrigenTest() {
-        final Long idTarea = 1L;
-        final String cclIdOrigen = "1";
-        this.tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
-        verify(this.tareaPersonaHistoricoRepository, times(1)).findIdPersonaHistoricoByIdTareaAndIdOrigen(
-                any(Long.class),
-                any(String.class));
     }
 
     @Test
