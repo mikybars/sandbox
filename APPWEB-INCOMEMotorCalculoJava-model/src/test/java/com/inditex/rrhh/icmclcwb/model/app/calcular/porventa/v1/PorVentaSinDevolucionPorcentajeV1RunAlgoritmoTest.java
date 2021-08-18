@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.porventa.v1;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
@@ -10,6 +11,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoTest;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,13 +24,14 @@ import org.slf4j.Logger;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
+public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest implements RunAlgoritmoTest {
 
     private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
 
@@ -44,7 +48,7 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
     private RunAlgoritmoPropertiesDto runAlgoritmoPropertiesDto;
 
     @InjectMocks
-    PorVentaSinDevolucionPorcentajeV1RunAlgoritmo PorVentaSinDevolucionPorcentajeV1RunAlgoritmo;
+    PorVentaSinDevolucionPorcentajeV1RunAlgoritmo porVentaSinDevolucionPorcentajeV1RunAlgoritmo;
 
     @Test
     public void getSqlCalcularTest() {
@@ -60,7 +64,7 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
     @Test
     public void executeTest() {
 
-        when(this.runAlgoritmoPropertiesDto.getCalculo().getBatchSize()).thenReturn(10);
+        when(this.runAlgoritmoPropertiesDto.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
 
         final List<IdPersonaLocalDto> personas = new ArrayList<>();
         final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
@@ -71,18 +75,26 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
         personas.add(p3);
         when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
+        when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom.calcular(
+                any(AlgoritmoDto.class),
+                any(TareaDto.class), anyList())).thenReturn(
+                        CompletableFuture.completedFuture(AsyncConstants.NIL));
 
-        // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+        final long idTarea = 123L;
+        final long idTrabajo = 5675L;
+        final RunTareaDto runTarea = this.createRunTareaDto(idTarea, idTrabajo);
         final AlgoritmoDto algoritmo = new AlgoritmoDto();
-        final RunTareaDto runTarea = new RunTareaDto();
-        final TareaDto tarea = new TareaDto();
-        runTarea.setTarea(tarea);
-        this.PorVentaSinDevolucionPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
+        this.porVentaSinDevolucionPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(this.log, times(1)).info("Inicio :: PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
-        verify(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom, times(1))
-            .calcular(algoritmo, tarea, personas);
-        verify(this.log, times(1)).info("Fin :: PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: Personas: {}", 3);
+        verify(this.log, times(1))
+            .info("Trabajo[{}]Tarea[{}] :: Inicio :: PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: Personas: {}",
+                    idTrabajo, idTarea, 3);
+        verify(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom,
+                times(1))
+                    .calcular(algoritmo, runTarea.getTarea(), personas);
+        verify(this.log, times(1))
+            .info("Trabajo[{}]Tarea[{}] :: Fin :: PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: Personas: {}",
+                    idTrabajo, idTarea, 3);
     }
 
     @Test
@@ -96,20 +108,21 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest {
         when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
 
-        when(this.runAlgoritmoPropertiesDto.getCalculo().getBatchSize()).thenReturn(2);
+        when(this.runAlgoritmoPropertiesDto.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(2));
         final RuntimeException exception = new RuntimeException("EEEE");
         doThrow(exception).when(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom)
             .calcular(any(AlgoritmoDto.class), any(TareaDto.class),
                     ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
-        final RunTareaDto runTarea = new RunTareaDto();
-        final TareaDto tarea = new TareaDto();
-        runTarea.setTarea(tarea);
+        final long idTarea = 123L;
+        final long idTrabajo = 5675L;
+        final RunTareaDto runTarea = this.createRunTareaDto(idTarea, idTrabajo);
         final AlgoritmoDto algoritmo = new AlgoritmoDto();
-        this.PorVentaSinDevolucionPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
+        this.porVentaSinDevolucionPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
         verify(this.log, times(1))
-            .error("PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
+            .error("Trabajo[{}]Tarea[{}] :: PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: KO :: Personas: {}",
+                    idTrabajo, idTarea, 2, exception);
         verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
                 EstadoTareaCalculoPersonaEnum.KO.getDto());
     }

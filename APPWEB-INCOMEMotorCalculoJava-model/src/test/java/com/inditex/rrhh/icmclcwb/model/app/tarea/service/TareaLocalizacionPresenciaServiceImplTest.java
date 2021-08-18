@@ -76,4 +76,22 @@ public class TareaLocalizacionPresenciaServiceImplTest {
             .totalizarEmpleadosPorVenta(any(RunTareaDto.class));
     }
 
+    @Test
+    public void repartirPresenciasSindicalesLocalizacionTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPresenciaServiceImpl.repartirPresenciasSindicalesLocalizacion(runTarea);
+        verify(this.tareaLocalizacionPresenciaRepositoryCustom, times(1))
+            .repartirPresenciasSindicalesLocalizacion(runTarea);
+    }
+
+    @Test
+    public void repartirPresenciasSindicalesLocalizacionSeccionTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPresenciaServiceImpl.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        verify(this.tareaLocalizacionPresenciaRepositoryCustom, times(1))
+            .repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+    }
+
 }

@@ -41,6 +41,9 @@ public class TareaTipoHora {
     @Column(name = "ES_INCLUIDO_ECOMMERCE", nullable = false)
     private Boolean incluidoEcommerce;
 
+    @Column(name = "ES_EXCLUIDO_DENOMINADOR_Y_REPARTIDO_PROVINCIA", nullable = false)
+    private Boolean excluidoDenominadorYRepartidoProvincia;
+
     @NotNull
     @OneToOne
     @JoinColumn(name = "ID_TAREA", nullable = false)

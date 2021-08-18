@@ -38,6 +38,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.Si
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
@@ -45,6 +48,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiposhoraOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesbaseRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesdestinoRecord;
@@ -91,6 +95,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcals
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsistdestinoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiposhoraBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiposhoraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
@@ -952,6 +958,37 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         if (CollectionUtils.isNotEmpty(src)) {
             src.forEach(x -> result.add(this.asEstructurasComResultItemDto(x)));
         }
+        return result;
+    }
+
+    @Override
+    public IcmParamcaltiposhoraBlock asIcmParamcaltiposhoraBlock(
+            final TiposHoraRequestDto request) {
+        final IcmParamcaltiposhoraBlock result = this.delegate.asIcmParamcaltiposhoraBlock(request);
+        if (CollectionUtils.isNotEmpty(request.getIdsEmpresa())) {
+            result.getIcmParamcaltiposhoraRecordSet().addAll(request.getIdsEmpresa().stream().map(empresa -> {
+                final IcmParamcaltiposhoraRecord record = new IcmParamcaltiposhoraRecord();
+                record.setIdempresa(empresa);
+                return record;
+            }).collect(Collectors.toList()));
+        } else {
+            result.getIcmParamcaltiposhoraRecordSet().add(new IcmParamcaltiposhoraRecord());
+        }
+        return result;
+    }
+
+    @Override
+    public TiposHoraResponseDto asTiposHoraResponseDto(
+            final GettiposhoraOutput tiposhora) {
+        final TiposHoraResponseDto result = this.delegate.asTiposHoraResponseDto(tiposhora);
+        final List<TiposHoraResultItemDto> items = new ArrayList<>();
+        if (tiposhora.getIcmListatiposhora() != null
+                && CollectionUtils.isNotEmpty(tiposhora.getIcmListatiposhora().getIcmListatiposhoraRecordSet())) {
+            tiposhora.getIcmListatiposhora()
+                .getIcmListatiposhoraRecordSet()
+                .forEach(x -> items.add(this.delegate.asTiposHoraResultItemDto(x)));
+        }
+        result.setItems(items);
         return result;
     }
 

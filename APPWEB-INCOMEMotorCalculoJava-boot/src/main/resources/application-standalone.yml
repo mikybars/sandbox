@@ -609,7 +609,7 @@ app:
         exception: false
       calcular:
         algoritmo:
-          thread-size: 2                
+          thread-size: 2
           calculo:
             batch-size: 25
             thread-size: 4
@@ -620,9 +620,9 @@ app:
             batch-size: 25
             thread-size: 4
       regularizar:
-        thread-size: 4     
+        thread-size: 4
       prevalidacion:
-        thread-size: 4      
+        thread-size: 4
     repository:
       batch-size:
         default: 100
@@ -1090,6 +1090,15 @@ app:
               maxPageSize: 50
               maxPersistenceSize: 3
           sincronizacion:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3
+          getTiposHoras:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50

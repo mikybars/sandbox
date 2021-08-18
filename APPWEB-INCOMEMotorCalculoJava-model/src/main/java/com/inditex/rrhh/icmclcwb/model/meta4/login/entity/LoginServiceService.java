@@ -21,7 +21,7 @@ import javax.xml.ws.WebServiceFeature;
  *
  */
 @WebServiceClient(name = "LoginServiceService", targetNamespace = "http://schemas.meta4.com/",
-        wsdlLocation = "http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login?wsdl=1")
+        wsdlLocation = "https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login?wsdl=1")
 public class LoginServiceService
         extends Service {
 
@@ -36,7 +36,7 @@ public class LoginServiceService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login?wsdl=1");
+            url = new URL("https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login?wsdl=1");
         } catch (final MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

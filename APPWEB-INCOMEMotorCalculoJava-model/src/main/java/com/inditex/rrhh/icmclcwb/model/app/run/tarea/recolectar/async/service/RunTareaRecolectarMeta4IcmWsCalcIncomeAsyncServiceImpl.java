@@ -188,5 +188,12 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> tiposHoraByRunTarea(
+            final RunTareaDto runTarea) {
+        this.tareaRecolectarMeta4IcmWsCalcIncomeService.tiposHoraByRunTarea(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }
 

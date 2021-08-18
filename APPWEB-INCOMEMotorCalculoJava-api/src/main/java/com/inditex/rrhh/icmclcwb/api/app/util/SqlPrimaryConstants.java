@@ -275,6 +275,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_FESTIVO = "festivo";
 
+    public static final String SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES = "idTipoDatoPresenciasSindicales";
+
+    public static final String SQL_PARAM_REPARTIDO_PROVINCIA = "repartidoProvincia";
+
     // PARAMETROS USADOS PARA ESTABLECER VALORES
 
     public static final String SQL_PARAM_NUEVO_ID_TIPO_DATO = "nuevoIdTipoDato";

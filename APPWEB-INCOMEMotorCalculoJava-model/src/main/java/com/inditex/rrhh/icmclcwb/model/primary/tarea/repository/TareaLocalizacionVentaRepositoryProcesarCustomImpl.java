@@ -72,7 +72,7 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
                 SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION,
-                TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId());
+                TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOECOMMERCE.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, TimeUtils.toDate(tareaDto.getFechaFinPeriodo()));
         // Parametros para establecer valores

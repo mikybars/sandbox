@@ -76,8 +76,8 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfAusencias, cf, cfWait);
 
             // Tipos hora para los origenes
-            final CompletableFuture<Void> cfTiposHoras = this.runTareaRecolectarPtrPresenciaAsyncService
-                .tiposHorasByRunTarea(runTarea);
+            final CompletableFuture<Void> cfTiposHoras = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .tiposHoraByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfTiposHoras, cf, cfWait);
 
             // Flag comisionable para las localizaciones del ambito
