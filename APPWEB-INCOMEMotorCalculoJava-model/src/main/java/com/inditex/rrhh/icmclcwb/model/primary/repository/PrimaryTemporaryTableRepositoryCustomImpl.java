@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
@@ -135,6 +136,18 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
 
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisCarencia']}")
     private String sqlValidateTempComisCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempAlgoritmo']}")
+    private String sqlCreateTempAlgoritmo;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempAlgoritmo']}")
+    private String sqlIndexTempAlgoritmo;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempAlgoritmo']}")
+    private String sqlDeleteTempAlgoritmo;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisAlgoritmo']}")
+    private String sqlInsertTempComisAlgoritmo;
 
     @Override
     public int deleteTempMotivoDesplazamientoComis() {
@@ -474,6 +487,41 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         .setIdPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON));
                     return idPersonaLocalCarenciaDto;
                 });
+    }
+
+    @Override
+    public int deleteTempAlgoritmo() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempAlgoritmo);
+    }
+
+    @Override
+    public int createTempAlgoritmo() {
+        return this.jdbcTemplate.update(this.sqlCreateTempAlgoritmo);
+    }
+
+    @Override
+    public int indexTempAlgoritmo() {
+        return this.jdbcTemplate.update(this.sqlIndexTempAlgoritmo);
+    }
+
+    @Override
+    public void insertTempAlgoritmo(@NotNull final List<GenericAlgoritmoPropertiesDto> algoritmoDto) {
+        for (final List<GenericAlgoritmoPropertiesDto> iter : StreamUtils.partition(algoritmoDto, this.batchSize)) {
+            this.jdbcTemplate.batchUpdate(this.sqlInsertTempComisAlgoritmo,
+                    new BatchPreparedStatementSetter() {
+                        @Override
+                        public void setValues(final PreparedStatement ps, final int i) throws SQLException {
+                            final GenericAlgoritmoPropertiesDto el = iter.get(i);
+                            ps.setString(1, el.getIdTipoCalculo());
+                            ps.setString(2, el.getIdTipoComision());
+                        }
+
+                        @Override
+                        public int getBatchSize() {
+                            return iter.size();
+                        }
+                    });
+        }
     }
 
 }

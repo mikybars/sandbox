@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
@@ -19,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaCalculoPersonaMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaRepositoryCustom;
 
@@ -34,6 +37,9 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
 
     @Autowired
     private TareaCalculoPersonaRepositoryCustom tareaCalculoPersonaRepositoryCustom;
+
+    @Autowired
+    private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Override
     public void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<IdPersonaLocalDto> personas,
@@ -70,10 +76,23 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
                 this.tareaCalculoPersonaRepository.findByTareaId(tarea.getId()));
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<IdPersonaLocalDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea,
             @Valid @NotNull final AlgoritmoDto algoritmo) {
-        return this.tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(tarea, algoritmo);
+        final List<IdPersonaLocalDto> personas;
+        try {
+            this.primaryTemporaryTableRepositoryCustom.createTempAlgoritmo();
+            this.primaryTemporaryTableRepositoryCustom.indexTempAlgoritmo();
+            this.primaryTemporaryTableRepositoryCustom.insertTempAlgoritmo(
+                    this.tareaCalculoPersonaRepositoryCustom
+                        .findIdTipoCalculoAndIdTipoComisionByIdAlgoritmo(algoritmo));
+            personas = this.tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(tarea,
+                    algoritmo);
+        } finally {
+            this.primaryTemporaryTableRepositoryCustom.deleteTempAlgoritmo();
+        }
+        return personas;
     }
 
     @Override

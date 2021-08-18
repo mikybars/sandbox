@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -56,6 +57,9 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
     @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio']}")
     private String sqlFindIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio;
 
+    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.findIdTipoCalculoAndIdTipoComisionByIdsTiposDato']}")
+    private String sqlFindIdTipoCalculoAndIdTipoComisionByIdsTiposDato;
+
     @Override
     public List<TareaPersonaHistorico> save(final List<TareaPersonaHistorico> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -86,7 +90,6 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
 
         return this.query(
                 this.sqlFindIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito,
@@ -174,6 +177,24 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
                         .stdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4))
                         .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
                         .build());
+    }
+
+    @Override
+    public List<GenericAlgoritmoPropertiesDto> findIdTipoCalculoAndIdTipoComisionByIdsTiposDato(
+            @NotNull final List<Integer> idsTipoDato) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
+        return this.query(this.sqlFindIdTipoCalculoAndIdTipoComisionByIdsTiposDato, parameters,
+                new RowMapper<GenericAlgoritmoPropertiesDto>() {
+                    @Override
+                    public GenericAlgoritmoPropertiesDto mapRow(final ResultSet rs, final int rowNum)
+                            throws SQLException {
+                        final GenericAlgoritmoPropertiesDto dto = new GenericAlgoritmoPropertiesDto();
+                        dto.setIdTipoCalculo(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_CALCULO));
+                        dto.setIdTipoComision(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_COMISION));
+                        return dto;
+                    }
+                });
     }
 
 }
