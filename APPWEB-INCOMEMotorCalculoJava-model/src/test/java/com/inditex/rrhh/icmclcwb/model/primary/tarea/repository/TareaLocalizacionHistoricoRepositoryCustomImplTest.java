@@ -48,10 +48,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
 
     private static final String SQL_FIND_ID_LOCALIZACION_LOCAL_BY_ID_TAREA_ID_ORIGEN_IN_AMBITO = "SQL FIND ID LOCALIZACION LOCAL BY ID TAREA ID ORIGEN IN AMBITO TEST";
 
-    private static final String SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_ID_ORIGEN_TIPO_DATO_IN_AMBITO = "SQL FIND ID LOCALIZACION BY ID TAREA ID ORIGEN TIPO DATO IN AMBITO TEST";
-
-    private static final String SQL_FIND_ID_LOCALIZACION_LOCAL_ID_TAREA_ID_ORIGEN_TIPO_DATO_IN_AMBITO = "SQL FIND ID LOCALIZACION LOCAL BY ID TAREA ID ORIGEN TIPO DATO IN AMBITO TEST";
-
     private static final String SQL_CADENAS_FILTRO_TIPO_DATO = "SQL CADENAS FILTRO TIPO DATO TEST";
 
     private static final String SQL_CADENAS = "CADENAS TEST";
@@ -63,8 +59,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
     private static final String SQL_FIND_ID_LOCALIZACION_LOCAL_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION = "SQL_FIND_ID_LOCALIZACION_LOCAL_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION";
 
     private static final String SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA = "SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA";
-
-    private static final String SQL_FIND_ID_LOCALIZACION_GRUPO_FECHAS_BY_ID_TAREA = "SQL_FIND_ID_LOCALIZACION_GRUPO_FECHAS_BY_ID_TAREA";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -91,12 +85,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
                 "sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenInAmbito",
                 SQL_FIND_ID_LOCALIZACION_LOCAL_BY_ID_TAREA_ID_ORIGEN_IN_AMBITO, true);
-        FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
-                "sqlFindIdLocalizacionDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito",
-                SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA_ID_ORIGEN_TIPO_DATO_IN_AMBITO, true);
-        FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
-                "sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito",
-                SQL_FIND_ID_LOCALIZACION_LOCAL_ID_TAREA_ID_ORIGEN_TIPO_DATO_IN_AMBITO, true);
         FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
                 "sqlCadenasFiltroTipoDato", SQL_CADENAS_FILTRO_TIPO_DATO, true);
         FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
