@@ -17,10 +17,10 @@ amiga:
           base-url: https://sscc-pre.central.inditex.grp
           username: srvcicmclcwbpreAX
         ptr-venta:
-          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
+          base-url: https://sscc-pre.central.inditex.grp/rhvtimpwsd
           username: srvcicmclcwbpreAX
         ptr-presencia:
-          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
+          base-url: https://sscc-pre.central.inditex.grp/rhpresnwsd
           username: srvcicmclcwbpreAX
   data:
     jdbc:
