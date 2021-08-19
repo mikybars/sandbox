@@ -50,3 +50,6 @@ local.properties
 
 # Apache ActiveMQ Embedded
 */activemq-data/embedded/*
+
+# Lego
+/lego_conf
