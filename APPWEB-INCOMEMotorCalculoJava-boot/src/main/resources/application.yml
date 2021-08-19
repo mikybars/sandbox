@@ -75,7 +75,7 @@ amiga:
         allow-core-thread-timeout: true
         keep-alive-time: 60s
       algoritmo-calculo-executor:
-        name: algoritmo-calculo-executor
+        name: async-algoritmo-calculo-executor
         name-format: async-algoritmo-calculo-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
@@ -83,7 +83,7 @@ amiga:
         allow-core-thread-timeout: true
         keep-alive-time: 60s                
       calculo-executor:
-        name: calculo-executor
+        name: async-calculo-executor
         name-format: async-calculo-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
@@ -91,7 +91,7 @@ amiga:
         allow-core-thread-timeout: true
         keep-alive-time: 60s
       algoritmo-ajuste-executor:
-        name: algoritmo-ajuste-executor
+        name: async-algoritmo-ajuste-executor
         name-format: async-algoritmo-ajuste-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
@@ -99,7 +99,7 @@ amiga:
         allow-core-thread-timeout: true
         keep-alive-time: 60s        
       ajuste-executor:
-        name: ajuste-executor
+        name: async-ajuste-executor
         name-format: async-ajuste-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
@@ -107,7 +107,7 @@ amiga:
         allow-core-thread-timeout: true
         keep-alive-time: 60s 
       regularizar-executor:
-        name: regularizar-executor
+        name: async-regularizar-executor
         name-format: async-regularizar-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
@@ -115,7 +115,7 @@ amiga:
         allow-core-thread-timeout: true
         keep-alive-time: 60s           
       validacion-executor:
-        name: validacion-executor
+        name: async-validacion-executor
         name-format: async-validacion-executor-%d
         core-pool-size: 10
         maximum-pool-size: 100
