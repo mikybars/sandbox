@@ -67,13 +67,13 @@ amiga:
           pubSubDomain: false
           receiveTimeout: 1000
       trabajo-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.service}.${metadata.jirakey}.private.trabajo-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-trabajo-queue-${metadata.slot}
       tarea-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.service}.${metadata.jirakey}.private.tarea-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-tarea-queue-${metadata.slot}
       limpieza-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.service}.${metadata.jirakey}.private.limpieza-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-limpieza-queue-${metadata.slot}
       programacion-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.service}.${metadata.jirakey}.private.programacion-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-programacion-queue-${metadata.slot}
   data:
     binder:
       jms-activemq:
