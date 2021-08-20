@@ -350,7 +350,9 @@ app:
           user: SRVCICMCLCWSPREAX
       login:
         #server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/icmclcws/services/Login
-        server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
+        #server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
+        server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/Login
       icmwscalcincome:
         #server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
-        server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+        #server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+        server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
