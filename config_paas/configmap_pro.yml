@@ -315,4 +315,4 @@ app:
       icmwscalcincome:
         #server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://sscc.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
-      server: https://icmclcws.axinocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: https://icmclcws.axinocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
