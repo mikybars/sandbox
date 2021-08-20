@@ -53,3 +53,12 @@ local.properties
 
 # Lego
 /lego_conf
+
+fake-pom.xml
+cachepaascli.yml
+info.yml
+mergedValidations.yml
+databaseChanges.json
+databaseChangesQueries.txt
+Dockerfile
+jmeter-repo

@@ -2,8 +2,10 @@ app:
   limits:
     cpu: 2
     memory: 6144Mi
-  replicas: 2
+  #replicas: 2
+  replicas: 1
   instrumented:
-    replicas: 1
+    #replicas: 1
+    replicas: 0
 datagrid:
   replicas: 2
