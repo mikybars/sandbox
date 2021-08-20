@@ -8,3 +8,8 @@ INSERT INTO TIPO_DATO (ID_TIPO_DATO, ID_TIPO_PRESENCIA, ID_TIPO_VENTA, ES_PROCES
 VALUES (5022, NULL, NULL, 1, 'REPARTO_HORAS_SINDICALES_LOCALIZACION-SECCION', 'Reparto presencias sindicales [localizacion|seccion]');
 
 UPDATE TIPO_DATO SET NOMBRE='PRESENCIA_LOCALIZACION_INCLUIDOECOMMERCE', DESCRIPCION = 'Presencia [localizacion] [incluido ecommerce]' WHERE ID_TIPO_DATO = 5004;
+
+-- TODO [JAVIEREV] Validación FAKE que hay que eliminar cuando se haya validado horas sindicales
+INSERT INTO accion (id_accion, nombre, descripcion, REACCION_PESO, ES_REACCION_ESPERAR, ES_REACCION_REINTENTO, REACCION_REINTENTO_MAX, REACCION_REINTENTO_DELAY)
+VALUES (99, 'horasSindicalesV1', 'Validación fake de horas sindicales', 0, 0, 0, 0, 0);
+INSERT INTO ACCION_AMBITO (id_accion, CCL_ID_ORIGEN, STD_ID_LEG_ENT) VALUES (99, 11, 8);
