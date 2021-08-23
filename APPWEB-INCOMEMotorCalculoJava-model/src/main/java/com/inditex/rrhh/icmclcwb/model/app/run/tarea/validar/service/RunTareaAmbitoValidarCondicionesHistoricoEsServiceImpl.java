@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesHistoricoEsService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
@@ -61,6 +62,7 @@ public class RunTareaAmbitoValidarCondicionesHistoricoEsServiceImpl
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
+        final TareaDto tareaDto = runTareaDto.getTarea();
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<IdPersonaLocalDto> historicoValidationResult;
         try {
@@ -93,7 +95,7 @@ public class RunTareaAmbitoValidarCondicionesHistoricoEsServiceImpl
         }
 
         return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-                historicoValidationResult, this.historicoProperties);
+                historicoValidationResult, this.historicoProperties, tareaDto);
     }
 
 }

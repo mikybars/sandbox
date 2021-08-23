@@ -27,6 +27,8 @@ public class ValidacionDto implements Serializable {
 
     private String cclIdOrigen;
 
+    private String stdIdLegEnt;
+
     private List<String> idPersonaLocal;
 
     private Boolean sincronizacion;
