@@ -50,3 +50,15 @@ local.properties
 
 # Apache ActiveMQ Embedded
 */activemq-data/embedded/*
+
+# Lego
+/lego_conf
+
+fake-pom.xml
+cachepaascli.yml
+info.yml
+mergedValidations.yml
+databaseChanges.json
+databaseChangesQueries.txt
+Dockerfile
+jmeter-repo
