@@ -3,7 +3,7 @@ app:
     cpu: 2
     memory: 6144Mi
   #replicas: 1
-  replicas: 1
+  replicas: 0
   instrumented:
     #replicas: 1
     replicas: 0
