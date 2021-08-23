@@ -26,8 +26,8 @@ app:
       login:
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
         #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/Login
-        server: http://icmclcws.icmclcws-pre.svc.cluster.local.:8080/services/Login
+        server: http://icmclcws.icmclcws-pre.svc.cluster.local.:8080/icmclcws/services/Login
       icmwscalcincome:
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
-        server: http://icmclcws.icmclcws-pre.svc.cluster.local.:8080/services/ICM_WS_CALC_INCOME
+        server: http://icmclcws.icmclcws-pre.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
