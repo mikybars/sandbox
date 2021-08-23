@@ -161,6 +161,7 @@ public class RunTareaPrevalidarAntesServiceImpl implements RunTareaPrevalidarAnt
                         .map(
                                 f -> SincronizacionFilterParametersDto.builder()
                                     .idOrigen(e.getCclIdOrigen())
+                                    .idEmpresa(e.getStdIdLegEnt())
                                     .idEmpleado(f)
                                     .fechaInicio(tareaDto.getFechaInicioPeriodo())
                                     .fechaFin(tareaDto.getFechaFinPeriodo())

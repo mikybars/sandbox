@@ -20,6 +20,8 @@ public class SincronizacionFilterParametersDto implements Serializable {
 
     private String idOrigen;
 
+    private String idEmpresa;
+
     private LocalDate fechaInicio;
 
     private LocalDate fechaFin;

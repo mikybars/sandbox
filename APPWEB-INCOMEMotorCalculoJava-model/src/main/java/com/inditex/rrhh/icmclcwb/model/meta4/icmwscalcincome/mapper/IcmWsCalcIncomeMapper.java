@@ -1551,6 +1551,7 @@ public interface IcmWsCalcIncomeMapper {
     IcmParamcalsincroRecord asIcmParamcalsincroRecord(SincronizacionFilterDto src);
 
     @Mapping(target = "idorigen", source = "idOrigen")
+    @Mapping(target = "idempresa", source = "idEmpresa")
     @Mapping(target = "idempleado", source = "idEmpleado")
     @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE)
     @Mapping(target = "fechainicio", source = "fechaInicio", dateFormat = Meta4Constants.META4_DATE)
