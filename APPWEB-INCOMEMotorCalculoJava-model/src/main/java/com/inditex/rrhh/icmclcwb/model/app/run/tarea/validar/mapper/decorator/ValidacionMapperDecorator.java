@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
@@ -31,9 +32,9 @@ public abstract class ValidacionMapperDecorator implements ValidacionMapper {
     @Override
     public ValidacionDto idPersonaLocalDtoTovalidacionDto(final TareaAmbitoDto ambito,
             final TareaFaseAccionDto accion, final List<IdPersonaLocalDto> personas,
-            final PrevalidarPropertiesDto properties) {
+            final PrevalidarPropertiesDto properties, final TareaDto tareaDto) {
         final ValidacionDto result = this.delegate.idPersonaLocalDtoTovalidacionDto(ambito, accion,
-                personas, properties);
+                personas, properties, tareaDto);
         result.setIdPersonaLocal(new ArrayList<>());
         if (CollectionUtils.isNotEmpty(personas)) {
             result.setIdPersonaLocal(personas.stream()
@@ -57,7 +58,7 @@ public abstract class ValidacionMapperDecorator implements ValidacionMapper {
                 .collect(Collectors.toList()));
         }
         result.setSincronizacion(properties.getSincronizacion().isActivo()
-                && result.getIdPersonaLocal().size() >= properties.getSincronizacion().getMaxEmpleados());
+                && (result.getIdPersonaLocal().size() >= properties.getSincronizacion().getMaxEmpleados()));
         return result;
     }
 

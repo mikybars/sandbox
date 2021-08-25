@@ -64,7 +64,6 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     }
 
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void create(@Valid @NotNull final RunTareaDto runTareaDto) {
         final TareaDto tareaDto = runTareaDto.getTarea();

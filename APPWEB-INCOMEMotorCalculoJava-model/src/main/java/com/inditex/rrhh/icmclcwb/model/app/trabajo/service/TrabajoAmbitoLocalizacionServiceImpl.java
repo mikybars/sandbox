@@ -26,7 +26,6 @@ public class TrabajoAmbitoLocalizacionServiceImpl implements TrabajoAmbitoLocali
     @Autowired
     private TrabajoAmbitoLocalizacionMapper trabajoAmbitoLocalizacionMapper;
 
-    // @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public List<TrabajoAmbitoLocalizacionDto> create(
             @Valid @NotNull @NotEmpty final List<TrabajoAmbitoLocalizacionDto> trabajoAmbitoLocalizacion,

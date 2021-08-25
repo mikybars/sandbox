@@ -66,27 +66,6 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
                 cclIdOrigen);
     }
 
-
-    // TODO [COMUN] No se está usando.
-    @Override
-    @Cacheable(value = "itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_and_tipo_dato_in_ambito",
-            key = "{#idTarea, #cclIdOrigen, #idsTipoDato}")
-    public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
-            @NotNull final Long idTarea, @NotBlank final String cclIdOrigen, @NotNull final List<Integer> idsTipoDato) {
-        return this.tareaLocalizacionHistoricoRepositoryCustom
-            .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(idTarea, cclIdOrigen, idsTipoDato);
-    }
-
-    // TODO [COMUN] No se está usando.
-    @Override
-    @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_tipo_dato_in_ambito",
-            key = "{#idTarea, #cclIdOrigen, #idsTipoDato}")
-    public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
-            @NotNull final Long idTarea, @NotBlank final String cclIdOrigen, @NotNull final List<Integer> idsTipoDato) {
-        return this.tareaLocalizacionHistoricoRepositoryCustom
-            .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(idTarea, cclIdOrigen, idsTipoDato);
-    }
-
     @Override
     @Cacheable(value = "itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_cadena",
             key = "{#idTarea, #cclIdOrigen, #idsCadena}")

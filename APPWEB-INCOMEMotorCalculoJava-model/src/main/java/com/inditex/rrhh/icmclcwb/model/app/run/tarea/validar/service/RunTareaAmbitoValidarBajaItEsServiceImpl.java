@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarBajaItEsService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
@@ -61,6 +62,7 @@ public class RunTareaAmbitoValidarBajaItEsServiceImpl
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
+        final TareaDto tareaDto = runTareaDto.getTarea();
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<IdPersonaLocalDto> bajaItValidationResult;
         try {
@@ -88,7 +90,7 @@ public class RunTareaAmbitoValidarBajaItEsServiceImpl
         }
 
         return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-                bajaItValidationResult, this.bajaProperties);
+                bajaItValidationResult, this.bajaProperties, tareaDto);
     }
 
 }

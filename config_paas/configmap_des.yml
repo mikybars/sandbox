@@ -24,19 +24,18 @@ amiga:
           base-url: http://develop.rhpresnwsd.svc.cluster.local.:8080/rhpresnwsd-develop
           username: srvcicmclcwbdes
   data:
+    jms:
+      connection-factory:
+        broker-escritura:
+          brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local.:61616
+        broker-lectura:
+          brokerURL: tcp://middleware-amq-tcp.icmclcwb.svc.cluster.local.:61616
     jdbc:
       datasource:
         primary:
+          driverClassName: com.ibm.db2.jcc.DB2Driver
+          url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
           user: uincome
-          url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX
-#          xa-properties:
-#            serverName: axdesdb26fin1.central.inditex.grp
-#            portNumber: 50000
-#            databaseName: INDITEX
-#            currentSchema: GESTION_COMISION
-#            user: uincome
-#            currentSchema: DESARROLLO_RRHH
-#            user: oincome
         ptr:
           driverClassName: oracle.jdbc.OracleDriver
           url: jdbc:oracle:thin:@//axine3-scansrv.central.inditex.grp:1521/s_pdbds01rt_gener.central.inditex.grp
@@ -123,7 +122,7 @@ amiga:
           user: ncomis       
         comis11-101:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXINSQLDES.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           user: ncomis     
         comis11-11:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver

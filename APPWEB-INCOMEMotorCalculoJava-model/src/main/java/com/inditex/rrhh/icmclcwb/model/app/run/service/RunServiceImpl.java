@@ -41,13 +41,11 @@ public class RunServiceImpl implements RunService {
     @Autowired
     private RunProgramacionService runProgramacionService;
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void runTrabajo(@NotNull @Positive final Long id) {
         this.runTrabajoService.run(RunTrabajoDto.builder().trabajo(this.trabajoService.find(id)).build());
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void runTarea(@NotNull @Positive final Long id) {
         final TareaDto tarea = this.tareaService.find(id);
@@ -55,14 +53,12 @@ public class RunServiceImpl implements RunService {
             .run(RunTareaDto.builder().trabajo(this.trabajoService.find(tarea.getIdTrabajo())).tarea(tarea).build());
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void runLimpieza(@NotNull @Positive final Long id) {
         this.runLimpiezaService
             .run(RunLimpiezaDto.builder().id(id).tarea(this.tareaService.findByIdLimpieza(id)).build());
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void runProgramacion(@NotNull @Positive final Long id) {
         this.runProgramacionService.run(id);

@@ -26,7 +26,6 @@ public class TrabajoAmbitoEmpresaServiceImpl implements TrabajoAmbitoEmpresaServ
     @Autowired
     private TrabajoAmbitoEmpresaMapper trabajoAmbitoEmpresaMapper;
 
-    // @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public List<TrabajoAmbitoEmpresaDto> create(
             @Valid @NotNull @NotEmpty final List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa,

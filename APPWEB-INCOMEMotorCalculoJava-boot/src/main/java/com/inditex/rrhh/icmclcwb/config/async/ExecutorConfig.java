@@ -40,4 +40,40 @@ public class ExecutorConfig {
         return executorFactory.newThreadPoolExecutorFactory();
     }
 
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.calculo-executor")
+    public ItxThreadPoolExecutorFactoryBean calculoExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.algoritmo-calculo-executor")
+    public ItxThreadPoolExecutorFactoryBean algoritmoCalculoExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.ajuste-executor")
+    public ItxThreadPoolExecutorFactoryBean ajusteExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.algoritmo-ajuste-executor")
+    public ItxThreadPoolExecutorFactoryBean algoritmoAjusteExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.regularizar-executor")
+    public ItxThreadPoolExecutorFactoryBean regularizarExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "amiga.common.executor.validacion-executor")
+    public ItxThreadPoolExecutorFactoryBean validacionExecutor(final ItxExecutorFactory executorFactory) {
+        return executorFactory.newThreadPoolExecutorFactory();
+    }
+
 }

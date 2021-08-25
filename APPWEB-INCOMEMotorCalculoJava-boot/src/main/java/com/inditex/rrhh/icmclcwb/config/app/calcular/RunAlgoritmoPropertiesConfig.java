@@ -10,14 +10,14 @@ import lombok.Data;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "app.envars.tarea.calcular.algoritmo")
+@ConfigurationProperties(prefix = "app.envars.tarea.calcular")
 public class RunAlgoritmoPropertiesConfig {
 
-    private RunAlgoritmoPropertiesDto config;
+    private RunAlgoritmoPropertiesDto algoritmo;
 
     @Bean(name = "runAlgoritmoProperties")
     public RunAlgoritmoPropertiesDto config() {
-        return config;
+        return this.algoritmo;
     }
 
 }

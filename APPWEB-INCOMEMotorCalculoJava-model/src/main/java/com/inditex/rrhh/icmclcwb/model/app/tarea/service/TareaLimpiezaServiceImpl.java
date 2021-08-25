@@ -58,7 +58,6 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
 
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<TareaLimpiezaDto> save(
             final List<IdTareaDto> idTareas) {

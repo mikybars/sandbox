@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class RunAlgoritmoPropertiesDto {
 
-    int batchSize;
+    RunAlgoritmoCalculoPropertiesDto calculo;
+
+    int threadSize;
 
 }
