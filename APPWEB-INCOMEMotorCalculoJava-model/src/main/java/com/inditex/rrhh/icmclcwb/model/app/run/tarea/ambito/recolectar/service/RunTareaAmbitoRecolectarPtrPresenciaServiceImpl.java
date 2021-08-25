@@ -220,4 +220,69 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
 
     }
 
+    @Override
+    public void presenciaDetallePersonaHorasSindicalesByRunTareaAndTareaAmbito(
+            @NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            final TareaDto tarea = runTarea.getTarea();
+            final PtrFilterPropertiesDto filter = this.presenciasProperties
+                .get(PtrPropertiesConstants.PRESENCIA_DETALLE)
+                .getFilter();
+            final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .map(IdEmpresaDto::getStdIdLegEnt)
+                .collect(Collectors.toList());
+            // TODO[javierev] obtener los tipos de hora repartido porvincia y si la lista no está
+            // vacía se obtienen las presencias
+            for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
+                    this.tareaLocalizacionHistoricoService
+                        .findIdLocalizacionLocalInCadenaAndProvinciaDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito(
+                                tarea.getId(),
+                                tareaAmbito.getCclIdOrigen(), empresasAmbito),
+                    filter.getMaxPageSize())) {
+                for (final PeriodoDto periodo : this.tareaLocalizacionPresupuestoService
+                    .findListaPeriodosPresupestoYTrabajo(
+                            tarea.getId(), filter, this.recolectarProperties)) {
+                    final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+                    final PtrPresenciaDetalleRequestDto paramPresenciasDetalle = this.tareaMapper
+                        .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(tarea,
+                                tareaAmbito, periodo);
+                    paramPresenciasDetalle
+                        .setEmpresa(
+                                empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
+                    paramPresenciasDetalle.setTienda(iter.stream()
+                        .map(IdLocalizacionLocalDto::getId)
+                        .map(Integer::valueOf)
+                        .collect(Collectors.toList()));
+                    paramPresenciasDetalle.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                    // TODO[javierev] obtener el tipo
+                    // paramPresenciasDetalle.setTipo();
+                    paramPresenciasDetalle
+                        .setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_TIPOHORA_SECCION.getValue());
+                    final CompletableFuture<PtrPresenciaDetalleResponseDto> cfData = this.ptrPresenciaAsyncService
+                        .presenciasDetalle(paramPresenciasDetalle);
+                    AsyncUtils.exceptionally(cfData, cf, cfPersist);
+
+                    final PtrPresenciaDetalleResponseDto data = AsyncUtils.get(cfData);
+                    if ((data != null) && CollectionUtils.isNotEmpty(data.getPresenciasDetalle())) {
+                        AsyncUtils.checkAsyncAvaliable(cfPersist, filter.getMaxPersistenceSize());
+                        AsyncUtils.exceptionally(this.tareaLocalizacionPersonaPresenciaAsyncService
+                            .savePtrPresenciaDetalle(data.getPresenciasDetalle(), tarea,
+                                    TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA_REPARTIDOPROVINCIA
+                                        .getId()),
+                                cf, cfPersist);
+                    }
+
+                }
+            }
+
+        } catch (final Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
 }
