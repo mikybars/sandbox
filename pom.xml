@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.inditex.aqsw.framework.amiga</groupId>
     <artifactId>amiga-framework</artifactId>
-    <version>4.0.2</version>
+    <version>4.2.0</version>
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
@@ -50,7 +50,11 @@
         <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
         <version>${project.version}</version>
       </dependency>
-
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-ws-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -60,6 +64,7 @@
     <module>APPWEB-INCOMEMotorCalculoJava-ws</module>
     <module>APPWEB-INCOMEMotorCalculoJava-ms</module>
     <module>APPWEB-INCOMEMotorCalculoJava-boot</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-ws-api</module>
   </modules>
 
   <build>
