@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.resaltamanual.v1;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
@@ -10,6 +11,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoTest;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoResaltaManualV1RepositoryCustom;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,13 +24,14 @@ import org.slf4j.Logger;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ResaltaManualV1RunAlgoritmoTest {
+public class ResaltaManualV1RunAlgoritmoTest implements RunAlgoritmoTest {
 
     private final static String SQL_CALCULAR = "SQLECT * FROM TABLE WHERE 1";
 
@@ -56,7 +60,7 @@ public class ResaltaManualV1RunAlgoritmoTest {
     @Test
     public void calcularTest() {
 
-        when(this.runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(10);
+        when(this.runAlgoritmoPropertiesDto.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
 
         final List<IdPersonaLocalDto> personas = new ArrayList<>();
         final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
@@ -67,17 +71,25 @@ public class ResaltaManualV1RunAlgoritmoTest {
         personas.add(p3);
         when(this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
+        when(this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom.calcular(
+                any(AlgoritmoDto.class),
+                any(TareaDto.class), anyList())).thenReturn(
+                        CompletableFuture.completedFuture(AsyncConstants.NIL));
 
-        final RunTareaDto runTarea = new RunTareaDto();
-        final TareaDto tarea = new TareaDto();
-        runTarea.setTarea(tarea);
+        final long idTarea = 123L;
+        final long idTrabajo = 5675L;
+        final RunTareaDto runTarea = this.createRunTareaDto(idTarea, idTrabajo);
         final AlgoritmoDto algoritmo = new AlgoritmoDto();
         this.resaltaManualV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(this.log, times(1)).info("Inicio :: ResaltaManualV1RunAlgoritmo :: Personas: {}", 3);
-        verify(this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom, times(1)).calcular(algoritmo, tarea,
-                personas);
-        verify(this.log, times(1)).info("Fin :: ResaltaManualV1RunAlgoritmo :: Personas: {}", 3);
+        verify(this.log, times(1))
+            .info("Trabajo[{}]Tarea[{}] :: Inicio :: ResaltaManualV1RunAlgoritmo :: Personas: {}",
+                    idTrabajo, idTarea, 3);
+        verify(this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom, times(1))
+            .calcular(algoritmo, runTarea.getTarea(), personas);
+        verify(this.log, times(1))
+            .info("Trabajo[{}]Tarea[{}] :: Fin :: ResaltaManualV1RunAlgoritmo :: Personas: {}",
+                    idTrabajo, idTarea, 3);
 
     }
 
@@ -92,19 +104,21 @@ public class ResaltaManualV1RunAlgoritmoTest {
         when(this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom
             .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
 
-        when(this.runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(2);
+        when(this.runAlgoritmoPropertiesDto.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(2));
         final RuntimeException exception = new RuntimeException("EEEE");
         doThrow(exception).when(this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom)
             .calcular(any(AlgoritmoDto.class), any(TareaDto.class),
                     ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
-        final RunTareaDto runTarea = new RunTareaDto();
-        final TareaDto tarea = new TareaDto();
-        runTarea.setTarea(tarea);
+        final long idTarea = 123L;
+        final long idTrabajo = 5675L;
+        final RunTareaDto runTarea = this.createRunTareaDto(idTarea, idTrabajo);
         final AlgoritmoDto algoritmo = new AlgoritmoDto();
         this.resaltaManualV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(this.log, times(1)).error("ResaltaManualV1RunAlgoritmo :: KO :: Personas: {}", 2, exception);
+        verify(this.log, times(1))
+            .error("Trabajo[{}]Tarea[{}] :: ResaltaManualV1RunAlgoritmo :: KO :: Personas: {}",
+                    idTrabajo, idTarea, 2, exception);
         verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
                 EstadoTareaCalculoPersonaEnum.KO.getDto());
 

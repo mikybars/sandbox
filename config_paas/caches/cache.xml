@@ -12,13 +12,6 @@
 </memory>
 <expiration max-idle="600000"/>
 </replicated-cache>
-<replicated-cache name="itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_tipo_dato_in_ambito" mode="SYNC"
-                  statistics="true">
-<memory>
-  <object size="1000"/>
-</memory>
-<expiration max-idle="600000"/>
-</replicated-cache>
 <replicated-cache name="itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato" mode="SYNC" statistics="true">
 <memory>
   <object size="1000"/>
@@ -49,13 +42,6 @@
 </memory>
 <expiration max-idle="600000"/>
 </replicated-cache>
-<replicated-cache name="itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_and_tipo_dato_in_ambito" mode="SYNC"
-                  statistics="true">
-<memory>
-  <object size="1000"/>
-</memory>
-<expiration max-idle="600000"/>
-</replicated-cache>
 <replicated-cache name="itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen" mode="SYNC" statistics="true">
 <memory>
   <object size="1000"/>
@@ -64,12 +50,6 @@
 </replicated-cache>
 <replicated-cache name="itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato" mode="SYNC"
                   statistics="true">
-<memory>
-  <object size="1000"/>
-</memory>
-<expiration max-idle="600000"/>
-</replicated-cache>
-<replicated-cache name="itx.icmlcwb.id_persona_by_tarea_and_id_origen" mode="SYNC" statistics="true">
 <memory>
   <object size="1000"/>
 </memory>
@@ -323,6 +303,13 @@
 <expiration max-idle="3600000"/>
 </replicated-cache>
 <replicated-cache name="itx.icmlcwb.calcular_festivos" mode="SYNC"
+                  statistics="true">
+<memory>
+  <object size="1000"/>
+</memory>
+<expiration max-idle="600000"/>
+</replicated-cache>
+<replicated-cache name="itx.icmlcwb.get_tipos_hora" mode="SYNC"
                   statistics="true">
 <memory>
   <object size="1000"/>

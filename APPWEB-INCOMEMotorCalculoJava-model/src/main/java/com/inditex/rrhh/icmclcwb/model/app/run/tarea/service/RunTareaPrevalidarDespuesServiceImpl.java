@@ -3,15 +3,18 @@
  */
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -40,11 +43,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.Si
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
+import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import org.slf4j.Logger;
-import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Scheduler;
-import reactor.core.scheduler.Schedulers;
 
 /**
  * @author mdelrio
@@ -53,6 +54,9 @@ import reactor.core.scheduler.Schedulers;
 @Service
 @Validated
 public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarDespuesService {
+
+    @Value("${app.envars.tarea.prevalidacion.thread-size}")
+    private Integer threadSize;
 
     @Autowired
     private RunPrevalidarFactory runPrevalidarFactory;
@@ -95,31 +99,21 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
                 .reversed())
             .collect(Collectors.groupingBy(TareaFaseAccionDto::getPeso));
 
-        final Scheduler s = Schedulers.newElastic("async-reactor-prevalidar-despues");
+        final List<ValidacionDto> validaciones = new ArrayList<>();
 
-
-        final List<ValidacionDto> validaciones = fases.keySet()
-            .stream()
-            .map(peso -> Flux
-                .fromIterable(fases.get(peso))
-                .parallel()
-                .runOn(s)
-                .map(tareaFaseAccion -> {
-                    return this.runPrevalidarFactory
-                        .getRunPrevalidar(
-                                this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion()).getNombre())
-                        .execute(runTareaDto, tareaFaseAccion);
-                })
-                .sequential()
-                .collectList()
-                .block()
-                .stream()
-                .flatMap(List::stream)
-                .collect(Collectors.toList()))
-            .flatMap(List::stream)
-            .collect(Collectors.toList());
-
-        s.dispose();
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        for (final Integer pesos : fases.keySet()) {
+            for (final TareaFaseAccionDto tareaFaseAccion : fases.get(pesos)) {
+                AsyncUtils.checkAsyncAvaliable(cf, this.threadSize);
+                final CompletableFuture<List<ValidacionDto>> cfRun = this.runPrevalidarFactory
+                    .getRunPrevalidar(
+                            this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion()).getNombre())
+                    .execute(runTareaDto, tareaFaseAccion);
+                AsyncUtils.exceptionally(cfRun, cf);
+                final List<ValidacionDto> data = AsyncUtils.get(cfRun);
+                validaciones.addAll(data);
+            }
+        }
 
         final List<ValidacionDto> fallidas = validaciones.stream()
             .filter(e -> Boolean.FALSE.equals(e.getResult()))
@@ -163,6 +157,7 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
                         .map(
                                 f -> SincronizacionFilterParametersDto.builder()
                                     .idOrigen(e.getCclIdOrigen())
+                                    .idEmpresa(e.getStdIdLegEnt())
                                     .idEmpleado(f)
                                     .fechaInicio(tareaDto.getFechaInicioPeriodo())
                                     .fechaFin(tareaDto.getFechaFinPeriodo())

@@ -55,19 +55,19 @@ public class TareaAgrupacionPresenciaRepositoryCustomImplTest {
 
     @Before
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(tareaAgrupacionPresenciaRepositoryCustom, "sqlTotalizar", SQL_TOTALIZAR, true);
+        FieldUtils.writeField(this.tareaAgrupacionPresenciaRepositoryCustom, "sqlTotalizar", SQL_TOTALIZAR, true);
     }
 
     @Test
     public void calcularPresenciasTotalesAgrupacionTest() {
 
-        TareaDto tarea = mock(TareaDto.class);
+        final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(890L);
-        tareaAgrupacionPresenciaRepositoryCustom.calcularPresenciasTotalesAgrupacion(tarea);
+        this.tareaAgrupacionPresenciaRepositoryCustom.calcularPresenciasTotalesAgrupacion(tarea);
 
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-        assertEquals(SQL_TOTALIZAR, sqlCaptor.getValue());
-        MapSqlParameterSource params = paramsCaptor.getValue();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+        assertEquals(SQL_TOTALIZAR, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: nuevoActivo, nuevoIdTipoDato, idConcepto, porcentajeInclusion,
         // idTarea,
         // activo, idSeccion, idTipoPresencia
@@ -97,7 +97,7 @@ public class TareaAgrupacionPresenciaRepositoryCustomImplTest {
         assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_ID_SECCION));
         // idTipoPresencia
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_MINUTOS));
-        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId(),
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOECOMMERCE.getId(),
                 params.getValue(SQL_PARAM_ID_TIPO_MINUTOS));
     }
 

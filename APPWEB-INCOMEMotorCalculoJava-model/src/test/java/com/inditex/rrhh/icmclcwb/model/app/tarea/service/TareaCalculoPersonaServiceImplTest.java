@@ -1,16 +1,19 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaCalculoPersonaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaCalculoPersonaDecorator;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersona;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaRepositoryCustom;
@@ -44,6 +47,9 @@ public class TareaCalculoPersonaServiceImplTest {
 
     @Mock
     private TareaCalculoPersonaDecorator tareaCalculoPersonaDecorator;
+
+    @Mock
+    private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Test
     public void updateWithEstadoAndidPersonaTest() {
@@ -110,8 +116,15 @@ public class TareaCalculoPersonaServiceImplTest {
         final List<IdPersonaLocalDto> list = new ArrayList<IdPersonaLocalDto>();
         when(this.tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
             .thenReturn(list);
+        final List<GenericAlgoritmoPropertiesDto> algoritmos = Arrays.asList(new GenericAlgoritmoPropertiesDto());
+        when(this.tareaCalculoPersonaRepositoryCustom
+            .findIdTipoCalculoAndIdTipoComisionByIdAlgoritmo(any(AlgoritmoDto.class)))
+                .thenReturn(algoritmos);
         this.tareaCalculoPersonaServiceImpl.findByAlgoritmo(tarea, algoritmoDto);
 
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempAlgoritmo();
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).indexTempAlgoritmo();
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).insertTempAlgoritmo(algoritmos);
         verify(this.tareaCalculoPersonaRepositoryCustom, times(1)).findByAlgoritmo(any(TareaDto.class),
                 any(AlgoritmoDto.class));
     }

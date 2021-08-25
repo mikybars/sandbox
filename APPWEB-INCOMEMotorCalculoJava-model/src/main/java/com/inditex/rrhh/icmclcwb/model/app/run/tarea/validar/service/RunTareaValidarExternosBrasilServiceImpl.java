@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -34,7 +35,7 @@ public class RunTareaValidarExternosBrasilServiceImpl implements RunPrevalidar {
     private AccionService accionService;
 
     @Override
-    public List<ValidacionDto> execute(
+    public CompletableFuture<List<ValidacionDto>> execute(
             @NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
         final TareaDto tareaDto = runTarea.getTarea();
@@ -51,7 +52,7 @@ public class RunTareaValidarExternosBrasilServiceImpl implements RunPrevalidar {
         if (validaciones.isEmpty()) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
                     EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
-            return validaciones;
+            return CompletableFuture.completedFuture(validaciones);
         }
         if (validaciones.stream()
             .filter(e -> e.getResult().equals(Boolean.FALSE))
@@ -59,7 +60,7 @@ public class RunTareaValidarExternosBrasilServiceImpl implements RunPrevalidar {
             .isEmpty()) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
         }
-        return validaciones;
+        return CompletableFuture.completedFuture(validaciones);
     }
 
 }

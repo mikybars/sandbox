@@ -151,4 +151,28 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
         this.tareaLocalizacionPresenciaService.compensarLocalizacionManual(runTarea);
     }
 
+    @Override
+    public void repartirPresenciasSindicalesLocalizacion(
+            @Valid final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaService.repartirPresenciasSindicalesLocalizacion(runTareaDto);
+    }
+
+    @Override
+    public void repartirPresenciasSindicalesLocalizacionSeccion(
+            @Valid final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaService.repartirPresenciasSindicalesLocalizacionSeccion(runTareaDto);
+    }
+
+    @Override
+    public void totalizarEcommerceSeccion(
+            @Valid final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaService.totalizarEcommerceSeccion(runTareaDto);
+    }
+
+    @Override
+    public void totalizarPresenciasSindicalesLocalizacion(
+            @Valid final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPresenciaService.totalizarPresenciasSindicalesLocalizacion(runTareaDto);
+    }
+
 }

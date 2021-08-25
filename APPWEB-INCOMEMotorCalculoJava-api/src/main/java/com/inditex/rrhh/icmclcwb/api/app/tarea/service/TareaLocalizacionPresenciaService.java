@@ -27,4 +27,12 @@ public interface TareaLocalizacionPresenciaService {
 
     void compensarLocalizacionManual(@Valid @NotNull final RunTareaDto runTareaDto);
 
+    void repartirPresenciasSindicalesLocalizacion(@Valid @NotNull RunTareaDto runTareaDto);
+
+    void repartirPresenciasSindicalesLocalizacionSeccion(@Valid @NotNull RunTareaDto runTareaDto);
+
+    void totalizarEcommerceSeccion(@Valid @NotNull final RunTareaDto runTarea);
+
+    void totalizarPresenciasSindicalesLocalizacion(@Valid @NotNull final RunTareaDto runTarea);
+
 }

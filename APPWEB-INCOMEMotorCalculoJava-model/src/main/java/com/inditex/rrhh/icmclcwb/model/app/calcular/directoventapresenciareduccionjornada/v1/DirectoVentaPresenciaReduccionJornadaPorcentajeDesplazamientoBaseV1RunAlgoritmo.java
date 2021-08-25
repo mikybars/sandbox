@@ -1,19 +1,25 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventapresenciareduccionjornada.v1;
 
-import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
-import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom;
-import org.slf4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
+
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
+import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom;
+import org.slf4j.Logger;
 
 @Component("directoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1")
 public class DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo implements RunAlgoritmo {
@@ -31,41 +37,54 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
+
     @Override
-    public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
-        Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
-                    .ids(algoritmo, runTarea.getTarea()),
-                runAlgoritmoProperties.getBatchSize()))
-            .parallel()
-            .runOn(ItxSchedulers.boundedElastic())
-            .map(personas -> {
-                log.info(
-                        "Inicio:: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
-                        personas.size());
-                try {
-                    tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
-                        .calcular(algoritmo, runTarea.getTarea(), personas);
-                } catch (Exception e) {
-                    log.error(
-                            "DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
-                            personas.size(), e);
-                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                            EstadoTareaCalculoPersonaEnum.KO.getDto());
-                }
-                log.info(
-                        "Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
-                        personas.size());
-                return Flux.empty();
-            })
-            .sequential()
-            .collectList()
-            .block();
+    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDto algoritmo) {
+        this.log.info(
+                "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Ids",
+                runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
+        final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
+            .ids(algoritmo, runTarea.getTarea());
+        this.log.info(
+                "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Ids: {}",
+                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
+
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+
+        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
+                ids,
+                this.runAlgoritmoProperties.getCalculo().getBatchSize())) {
+            AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
+
+            this.log.info(
+                    "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+            try {
+                final CompletableFuture<Void> cfCalc = this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
+                    .calcular(algoritmo,
+                            runTarea.getTarea(), personas);
+                AsyncUtils.exceptionally(cfCalc, cf);
+
+            } catch (final Exception e) {
+                AsyncUtils.cancel(cf);
+                this.log.error(
+                        "Trabajo[{}]Tarea[{}] :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
+                        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
+                this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                        EstadoTareaCalculoPersonaEnum.KO.getDto());
+            }
+            this.log.info(
+                    "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+        }
+        AsyncUtils.waitAllOfIsOk(cf, cf);
+
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
+    public String getSqlCalcular(final AlgoritmoDto algoritmo) {
+        return this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
             .getSqlCalcular(algoritmo);
     }
 

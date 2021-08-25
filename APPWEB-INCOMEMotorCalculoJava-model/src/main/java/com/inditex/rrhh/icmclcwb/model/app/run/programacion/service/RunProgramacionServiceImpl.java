@@ -119,7 +119,6 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     }
 
     @Auditoria
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<RunProgramacionDto> create() {
         final List<ProgramacionDto> pendientes = this.programacionService.findPendiente();

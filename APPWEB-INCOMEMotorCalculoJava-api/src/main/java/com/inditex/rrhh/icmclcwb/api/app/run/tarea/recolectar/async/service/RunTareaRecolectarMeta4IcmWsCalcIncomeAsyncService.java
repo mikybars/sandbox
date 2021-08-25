@@ -65,4 +65,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
     CompletableFuture<Void> empleadosCadenaByRunTarea(final RunTareaDto runTarea);
 
+    CompletableFuture<Void> tiposHoraByRunTarea(final RunTareaDto runTarea);
+
 }

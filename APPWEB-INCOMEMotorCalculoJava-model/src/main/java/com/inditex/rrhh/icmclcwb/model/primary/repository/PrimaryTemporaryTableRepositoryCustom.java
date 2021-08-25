@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
@@ -167,5 +168,25 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      * @param tarea
      */
     void mergeDateRangesSeccionNotEqualsTempComisHistorico(TareaDto tarea);
+
+    /**
+     * @return
+     */
+    int deleteTempAlgoritmo();
+
+    /**
+     * @return
+     */
+    int createTempAlgoritmo();
+
+    /**
+     * @param algoritmoDto
+     */
+    void insertTempAlgoritmo(@NotNull List<GenericAlgoritmoPropertiesDto> algoritmoDto);
+
+    /**
+     * @return
+     */
+    int indexTempAlgoritmo();
 
 }

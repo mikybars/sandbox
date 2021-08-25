@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -16,9 +16,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistoric
 public interface TareaPersonaHistoricoRepositoryCustom {
 
     List<TareaPersonaHistorico> save(List<TareaPersonaHistorico> src);
-
-    List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
-            @NotNull @Positive String cclIdOrigen);
 
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
             @NotNull @Positive Long idTarea,
@@ -36,5 +33,8 @@ public interface TareaPersonaHistoricoRepositoryCustom {
     List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
             @NotNull @Positive Long idTarea, @NotNull String cclIdOrigen,
             @NotNull TipoVentaConceptoEnum tipoVentaConcepto);
+
+    List<GenericAlgoritmoPropertiesDto> findIdTipoCalculoAndIdTipoComisionByIdsTiposDato(
+            @NotNull List<Integer> idsTipoDato);
 
 }
