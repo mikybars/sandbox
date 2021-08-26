@@ -251,7 +251,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
             final List<PeriodoDto> periodos = this.tareaLocalizacionPresupuestoService
                 .findListaPeriodosPresupestoYTrabajo(
                         tarea.getId(), filter, this.recolectarProperties);
-            for (final TareaTipoHoraDto tipoHora : tiposHoras) {
+            if (CollectionUtils.isNotEmpty(tiposHoras) && CollectionUtils.isNotEmpty(localizaciones)) {
                 for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(localizaciones,
                         filter.getMaxPageSize())) {
                     for (final PeriodoDto periodo : periodos) {
@@ -269,7 +269,9 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
                             .map(Integer::valueOf)
                             .collect(Collectors.toList()));
                         paramPresenciasDetalle.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                        paramPresenciasDetalle.setTipo(tipoHora.getIdTipoHora());
+                        paramPresenciasDetalle.setTipo(tiposHoras.stream()
+                            .map(TareaTipoHoraDto::getIdTipoHora)
+                            .collect(Collectors.toList()));
                         paramPresenciasDetalle
                             .setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_TIPOHORA_SECCION.getValue());
                         final CompletableFuture<PtrPresenciaDetalleResponseDto> cfData = this.ptrPresenciaAsyncService
