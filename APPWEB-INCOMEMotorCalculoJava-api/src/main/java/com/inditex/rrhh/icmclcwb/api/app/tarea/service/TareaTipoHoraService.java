@@ -13,4 +13,6 @@ public interface TareaTipoHoraService {
 
     List<TareaTipoHoraDto> save(@Valid @NotNull final TiposHoraResponseDto dto, @Valid @NotNull final TareaDto tarea);
 
+    List<TareaTipoHoraDto> findByIdTareaAndExcluidoDenominadorYRepartidoProvincia(@Valid @NotNull final TareaDto tarea);
+
 }

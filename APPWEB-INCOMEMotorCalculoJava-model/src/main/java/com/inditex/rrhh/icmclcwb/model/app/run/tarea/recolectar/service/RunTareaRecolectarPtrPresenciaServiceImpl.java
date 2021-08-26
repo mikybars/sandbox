@@ -46,4 +46,14 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
                 .presenciaDetallePersonaIncluidoEcommerceByRunTareaAndTareaAmbito(runTarea, item));
     }
 
+    @Override
+    public void presenciaDetallePersonaHorasSindicalesByRunTarea(
+            @NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarPtrPresenciaService
+                .presenciaDetallePersonaHorasSindicalesByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
 }
