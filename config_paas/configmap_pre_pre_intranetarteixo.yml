@@ -6,11 +6,11 @@ amiga:
           base-url: https://sscc-pre.central.inditex.grp
           #base-url: http://slrhorcoms.slrhorcoms-pre.svc.cluster.local.:8080/slrhorcoms
         ptr-venta:
-          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
-          #base-url: http://rhvtimpwsd.rhvtimpwsd-pre.svc.cluster.local.:8080/rhvtimpwsd
+          #base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
+          base-url: http://rhvtimpwsd.rhvtimpwsd-pre.svc.cluster.local.:8080/rhvtimpwsd
         ptr-presencia:
-          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
-          #base-url: http://rhpresnwsd.rhpresnwsd-pre.svc.cluster.local.:8080/rhpresnwsd
+          #base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
+          base-url: http://rhpresnwsd.rhpresnwsd-pre.svc.cluster.local.:8080/rhpresnwsd
   data:
     jms:
       connection-factory:
