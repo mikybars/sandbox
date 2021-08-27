@@ -123,7 +123,7 @@ public class TareaServiceImplTest {
         trabajoDto.setEmpresa(new ArrayList<>());
         this.tareaServiceImpl.create(trabajoDto);
         verify(this.tareaMapper, times(1)).mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(trabajoDto.getEmpresa(),
-            trabajoDto);
+                trabajoDto);
     }
 
     @Test
@@ -146,7 +146,7 @@ public class TareaServiceImplTest {
         final EstadoTareaDto estado = mock(EstadoTareaDto.class);
         this.tareaServiceImpl.updateFechaInicioAndEstado(tarea, estado);
         verify(this.tareaRepositoryCustom, times(1)).updateFechaInicioAndEstado(any(TareaDto.class),
-            any(EstadoTareaDto.class));
+                any(EstadoTareaDto.class));
     }
 
     @Test

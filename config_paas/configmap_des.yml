@@ -40,7 +40,6 @@ amiga:
           driverClassName: oracle.jdbc.OracleDriver
           url: jdbc:oracle:thin:@//axine3-scansrv.central.inditex.grp:1521/s_pdbds01rt_gener.central.inditex.grp
           user: uincome
-          defaultIsolationLevel: 8
 #        ptr:
 #          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
 #          xa-properties:
