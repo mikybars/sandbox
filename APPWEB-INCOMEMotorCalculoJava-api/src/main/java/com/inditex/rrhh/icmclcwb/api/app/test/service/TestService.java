@@ -32,7 +32,11 @@ public interface TestService {
 
     void comisTest();
 
-    void ptrTest();
+    void ptrTestService();
+
+    void ptrTestBbddSync();
+
+    void ptrTestBbddAsync();
 
     void slrhorcomsTest();
 
