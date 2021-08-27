@@ -37,7 +37,7 @@ public class PtrPresenciaDetalleRequestDto implements Serializable {
     private String fechaHasta;
 
     @ApiModelProperty(value = "Id tipo hora", required = false, example = "1")
-    private Integer tipo;
+    private List<Integer> tipo;
 
     @ApiModelProperty(value = "Id cadena", required = true, example = "[8]")
     private List<Integer> cadena;
