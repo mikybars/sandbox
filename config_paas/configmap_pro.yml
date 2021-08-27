@@ -309,12 +309,12 @@ app:
         credentials:
           user: SRVCICMCLCWSAX
       login:
-        #server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/services/Login
+        server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/services/Login
         #server: https://sscc.central.inditex.grp/icmclcws/services/Login
         #server: https://icmclcws.axinocp1.central.inditex.grp/services/Login
-        server: https://openshift.axinocp1.central.inditex.grp/icmclcws/services/Login
+        #server: https://openshift.axinocp1.central.inditex.grp/icmclcws/services/Login
       icmwscalcincome:
-        #server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
+        server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://sscc.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://icmclcws.axinocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        server: https://openshift.axinocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+        #server: https://openshift.axinocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
