@@ -7,7 +7,6 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,14 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
 
-@Validated
+// @Validated
 @RestController
 @RequestMapping(path = "/test")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "TestController" })
+// @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "TestController"
+// })
 public class TestController {
 
     @Autowired

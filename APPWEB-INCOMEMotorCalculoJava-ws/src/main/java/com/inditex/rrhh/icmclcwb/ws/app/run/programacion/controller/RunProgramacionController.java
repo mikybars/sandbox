@@ -4,21 +4,19 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
 
-@Validated
+// @Validated
 @RestController
 @RequestMapping(path = "/run/programacion")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "RunProgramacionController" })
+// @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = {
+// "RunProgramacionController" })
 public class RunProgramacionController {
 
     @Autowired

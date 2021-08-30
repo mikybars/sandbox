@@ -12,7 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,14 +21,13 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
 
-@Validated
+// @Validated
 @RestController
 @RequestMapping(path = "/trabajo")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "TrabajoController" })
+// @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = {
+// "TrabajoController" })
 public class TrabajoController {
 
     @Autowired

@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.calcular.dto.RunAlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.calcular.service.RunAlgoritmoService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
 
-@Validated
+// @Validated
 @RestController
 @RequestMapping(path = "/run/algoritmo")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "RunAlgoritmoController" })
+// @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = {
+// "RunAlgoritmoController" })
 public class RunAlgoritmoController {
 
     @Autowired

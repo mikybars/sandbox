@@ -3,17 +3,12 @@ paths:
    /trabajo:
     post:
       tags:
-      - "create"
+        - "create"
       summary: "Crea un nuevo trabajo"
       description: "Trabajo"
       operationId: "addTrabajo"
       parameters:
-      - in: 'body'
-        name: "body"
-        description: "Trabajo"
-        required: true
-        schema:
-          $ref: "#/definitions/Trabajo"
+        - $ref: '#/components/parameters/domainIdParam'
       responses:
         "405":
           description: "Invalid input"
