@@ -7,18 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLimpiezaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.OptionalUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLimpieza;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepository;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
 import org.apache.commons.lang3.StringUtils;
 
 import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
@@ -29,13 +27,7 @@ import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
 public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
 
     @Autowired
-    private TareaLimpiezaRepositoryCustom tareaLimpiezaRepositoryCustom;
-
-    @Autowired
     private TareaLimpiezaRepository tareaLimpiezaRepository;
-
-    @Autowired
-    private TrabajoService trabajoService;
 
     @Autowired
     private TareaLimpiezaMapper tareaLimpiezaMapper;
@@ -61,7 +53,7 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
     // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<TareaLimpiezaDto> save(
-            final List<IdTareaDto> idTareas) {
+            final List<IdTareaDTO> idTareas) {
         final List<TareaLimpiezaDto> result = new ArrayList<>();
         this.tareaLimpiezaMapper.idTareaDtoToTareaLimpiezaDto(idTareas).forEach(item -> result.add(this.save(item)));
         return result;

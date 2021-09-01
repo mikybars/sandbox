@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.dto.RunMantenimientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunMantenimientoLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimientoService;
+import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoDTO;
 
 import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
 import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
@@ -27,10 +27,10 @@ public class RunMantenimientoServiceImpl implements RunMantenimientoService {
     @CounterFunctionalMetric(metricName = "RunMantenimientoService.run.counter",
             metricGroupName = "RunMantenimientoServiceGroup", metricDescription = "RunMantenimientoService.run.counter")
     @Override
-    public RunMantenimientoDto run() {
-        return RunMantenimientoDto.builder()
-            .runMantenimientoLimpieza(this.runMantenimientoLimpiezaService.run())
-            .build();
+    public RunMantenimientoDTO run() {
+        final RunMantenimientoDTO mto = new RunMantenimientoDTO();
+        mto.setRunMantenimientoLimpieza(this.runMantenimientoLimpiezaService.run());
+        return mto;
     }
 
     @Auditoria
@@ -41,10 +41,10 @@ public class RunMantenimientoServiceImpl implements RunMantenimientoService {
             metricGroupName = "RunMantenimientoServiceGroup",
             metricDescription = "RunMantenimientoService.runIdTarea.counter")
     @Override
-    public RunMantenimientoDto runIdTarea(@NotNull final Long id) {
-        return RunMantenimientoDto.builder()
-            .runMantenimientoLimpieza(this.runMantenimientoLimpiezaService.runIdTarea(id))
-            .build();
+    public RunMantenimientoDTO runIdTarea(@NotNull final Long id) {
+        final RunMantenimientoDTO mto = new RunMantenimientoDTO();
+        mto.setRunMantenimientoLimpieza(this.runMantenimientoLimpiezaService.runIdTarea(id));
+        return mto;
     }
 
 }

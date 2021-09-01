@@ -12,13 +12,13 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -98,7 +98,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     }
 
     @Override
-    public List<IdTareaDto> findLimpieza() {
+    public List<IdTareaDTO> findLimpieza() {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO,
                 Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(), EstadoTareaEnum.EN_CURSO.getId()));
@@ -111,7 +111,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_LIMPIEZA, TipoLimpiezaEnum.COMPLETA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_LIMIT, this.limitLimpieza);
         return this.namedParameterJdbcTemplate.query(this.sqlFindLimpieza, parameters, (rs, rowNum) -> {
-            final IdTareaDto dto = new IdTareaDto();
+            final IdTareaDTO dto = new IdTareaDTO();
             dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
             return dto;
         });
@@ -134,7 +134,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     }
 
     @Override
-    public List<IdTareaDto> findLimpiezaByIdTarea(@NotNull final Long idTarea) {
+    public List<IdTareaDTO> findLimpiezaByIdTarea(@NotNull final Long idTarea) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA,
@@ -147,7 +147,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
                 Arrays.asList(EstadoLimpiezaEnum.PENDIENTE.getId(), EstadoLimpiezaEnum.KO.getId()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_LIMPIEZA, TipoLimpiezaEnum.COMPLETA.getId());
         return this.namedParameterJdbcTemplate.query(this.sqlFindLimpiezaByIdTarea, parameters, (rs, rowNum) -> {
-            final IdTareaDto dto = new IdTareaDto();
+            final IdTareaDTO dto = new IdTareaDTO();
             dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
             return dto;
         });

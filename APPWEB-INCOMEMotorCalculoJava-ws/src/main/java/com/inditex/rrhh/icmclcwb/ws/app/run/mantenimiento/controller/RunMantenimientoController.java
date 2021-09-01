@@ -5,14 +5,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.dto.RunMantenimientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimientoService;
+import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoDTO;
 import com.inditex.rrhh.icmclcwb.service.RunMantenimientoApi;
 import io.swagger.annotations.ApiOperation;
 
@@ -27,14 +29,14 @@ public class RunMantenimientoController implements RunMantenimientoApi {
     @GetMapping
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Realiza el mantenimiento")
-    public RunMantenimientoDto run() {
-        return this.runMantenimientoService.run();
+    public ResponseEntity<RunMantenimientoDTO> run() {
+        return new ResponseEntity<>(this.runMantenimientoService.run(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Realiza el mantenimiento de una tarea")
-    public RunMantenimientoDto runIdTarea(@PathVariable @Valid @NotNull @Positive final Long id) {
+    public RunMantenimientoDTO runIdTarea(@PathVariable @Valid @NotNull @Positive final Long id) {
         return this.runMantenimientoService.runIdTarea(id);
     }
 
