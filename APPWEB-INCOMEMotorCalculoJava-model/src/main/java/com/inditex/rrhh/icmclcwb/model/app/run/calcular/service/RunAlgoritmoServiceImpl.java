@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.calcular.dto.RunAlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.calcular.service.RunAlgoritmoService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+import com.inditex.rrhh.icmclcwb.dto.RunAlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoFactory;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.AlgoritmoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepository;
@@ -31,21 +31,23 @@ public class RunAlgoritmoServiceImpl implements RunAlgoritmoService {
     private RunAlgoritmoFactory runAlgoritmoFactory;
 
     @Override
-    public RunAlgoritmoDto findById(@NotNull @Positive final Integer id) {
-        RunAlgoritmoDto result = new RunAlgoritmoDto();
-        AlgoritmoDto algoritmo = algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findById(id).get());
-        String sqlCalcular = runAlgoritmoFactory.getRunAlgoritmo(algoritmo.getNombre()).getSqlCalcular(algoritmo);
+    public RunAlgoritmoDTO findById(@NotNull @Positive final Integer id) {
+        final RunAlgoritmoDTO result = new RunAlgoritmoDTO();
+        final AlgoritmoDTO algoritmo = this.algoritmoMapper
+            .algoritmoToAlgoritmoDTO(this.algoritmoRepository.findById(id).get());
+        final String sqlCalcular = this.runAlgoritmoFactory.getRunAlgoritmo(algoritmo.getNombre())
+            .getSqlCalcular(algoritmo);
         result.setAlgoritmo(algoritmo);
         result.setSqlCalcular(sqlCalcular);
         return result;
     }
 
     @Override
-    public List<RunAlgoritmoDto> findAll() {
-        List<RunAlgoritmoDto> result = new ArrayList<>();
-        algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findAll()).stream().forEach(item -> {
-            RunAlgoritmoDto runAlgoritmo = new RunAlgoritmoDto();
-            String sqlCalcular = runAlgoritmoFactory.getRunAlgoritmo(item.getNombre()).getSqlCalcular(item);
+    public List<RunAlgoritmoDTO> findAll() {
+        final List<RunAlgoritmoDTO> result = new ArrayList<>();
+        this.algoritmoMapper.algoritmoToAlgoritmoDTO(this.algoritmoRepository.findAll()).stream().forEach(item -> {
+            final RunAlgoritmoDTO runAlgoritmo = new RunAlgoritmoDTO();
+            final String sqlCalcular = this.runAlgoritmoFactory.getRunAlgoritmo(item.getNombre()).getSqlCalcular(item);
             runAlgoritmo.setAlgoritmo(item);
             runAlgoritmo.setSqlCalcular(sqlCalcular);
             result.add(runAlgoritmo);

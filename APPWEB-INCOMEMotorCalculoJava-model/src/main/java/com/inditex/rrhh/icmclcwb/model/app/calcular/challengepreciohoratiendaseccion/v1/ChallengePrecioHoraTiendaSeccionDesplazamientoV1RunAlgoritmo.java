@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionDesplazamientoV1RepositoryCustom;
@@ -34,7 +34,7 @@ public class ChallengePrecioHoraTiendaSeccionDesplazamientoV1RunAlgoritmo implem
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
-    public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
+    public void execute(RunTareaDto runTarea, AlgoritmoDTO algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
                 tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionDesplazamientoV1RepositoryCustom.ids(algoritmo,
                         runTarea.getTarea()),
@@ -64,7 +64,7 @@ public class ChallengePrecioHoraTiendaSeccionDesplazamientoV1RunAlgoritmo implem
     }
 
     @Override
-    public String getSqlCalcular(AlgoritmoDto algoritmo) {
+    public String getSqlCalcular(AlgoritmoDTO algoritmo) {
         return tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionDesplazamientoV1RepositoryCustom
             .getSqlCalcular(algoritmo);
     }

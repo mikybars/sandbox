@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
@@ -18,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoFactory;
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
@@ -54,7 +54,7 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
             .parallel()
             .runOn(Schedulers.newElastic("async-reactor-calcular"))
             .map(idAlgoritmo -> {
-                final AlgoritmoDto algoritmo = this.algoritmoService.findById(idAlgoritmo);
+                final AlgoritmoDTO algoritmo = this.algoritmoService.findById(idAlgoritmo);
                 this.runAlgoritmoFactory.getRunAlgoritmo(algoritmo.getNombre()).execute(runTarea, algoritmo);
                 return Flux.empty();
             })

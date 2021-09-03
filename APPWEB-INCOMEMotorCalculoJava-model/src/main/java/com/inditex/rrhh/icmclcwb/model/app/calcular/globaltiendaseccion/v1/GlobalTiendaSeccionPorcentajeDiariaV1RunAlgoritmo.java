@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustom;
@@ -35,26 +35,27 @@ public class GlobalTiendaSeccionPorcentajeDiariaV1RunAlgoritmo implements RunAlg
 
 
     @Override
-    public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
+    public void execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustom.ids(algoritmo,
+                this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustom.ids(algoritmo,
                         runTarea.getTarea()),
-                runAlgoritmoProperties.getBatchSize()))
+                this.runAlgoritmoProperties.getBatchSize()))
             .parallel()
             .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
-                log.info("Inicio :: GlobalTiendaSeccionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}",
+                this.log.info("Inicio :: GlobalTiendaSeccionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}",
                         personas.size());
                 try {
-                    tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustom.calcular(algoritmo,
+                    this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustom.calcular(algoritmo,
                             runTarea.getTarea(), personas);
-                } catch (Exception e) {
-                    log.error("GlobalTiendaSeccionPorcentajeDiariaV1RunAlgoritmo :: KO :: Personas: {}",
+                } catch (final Exception e) {
+                    this.log.error("GlobalTiendaSeccionPorcentajeDiariaV1RunAlgoritmo :: KO :: Personas: {}",
                             personas.size(), e);
-                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                    this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
                             EstadoTareaCalculoPersonaEnum.KO.getDto());
                 }
-                log.info("Fin :: GlobalTiendaSeccionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", personas.size());
+                this.log.info("Fin :: GlobalTiendaSeccionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}",
+                        personas.size());
                 return Flux.empty();
             })
             .sequential()
@@ -63,8 +64,9 @@ public class GlobalTiendaSeccionPorcentajeDiariaV1RunAlgoritmo implements RunAlg
     }
 
     @Override
-    public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustom.getSqlCalcular(algoritmo);
+    public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
+        return this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustom
+            .getSqlCalcular(algoritmo);
     }
 
 }

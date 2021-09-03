@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoAjusteManualV1RepositoryCustom;
@@ -34,23 +34,23 @@ public class AjusteManualV1RunAlgoritmo implements RunAlgoritmo {
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
-    public void execute(RunTareaDto runTarea, AlgoritmoDto algoritmo) {
+    public void execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
         Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoAlgoritmoAjusteManualV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
-                runAlgoritmoProperties.getBatchSize()))
+                this.tareaCalculoAlgoritmoAjusteManualV1RepositoryCustom.ids(algoritmo, runTarea.getTarea()),
+                this.runAlgoritmoProperties.getBatchSize()))
             .parallel()
             .runOn(ItxSchedulers.boundedElastic())
             .map(personas -> {
-                log.info("Inicio :: AjusteManualV1RunAlgoritmo :: Personas: {}", personas.size());
+                this.log.info("Inicio :: AjusteManualV1RunAlgoritmo :: Personas: {}", personas.size());
                 try {
-                    tareaCalculoAlgoritmoAjusteManualV1RepositoryCustom.calcular(algoritmo,
+                    this.tareaCalculoAlgoritmoAjusteManualV1RepositoryCustom.calcular(algoritmo,
                             runTarea.getTarea(), personas);
-                } catch (Exception e) {
-                    log.error("AjusteManualV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
-                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                } catch (final Exception e) {
+                    this.log.error("AjusteManualV1RunAlgoritmo :: KO :: Personas: {}", personas.size(), e);
+                    this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
                             EstadoTareaCalculoPersonaEnum.KO.getDto());
                 }
-                log.info("Fin :: AjusteManualV1RunAlgoritmo :: Personas: {}", personas.size());
+                this.log.info("Fin :: AjusteManualV1RunAlgoritmo :: Personas: {}", personas.size());
                 return Flux.empty();
             })
             .sequential()
@@ -59,8 +59,8 @@ public class AjusteManualV1RunAlgoritmo implements RunAlgoritmo {
     }
 
     @Override
-    public String getSqlCalcular(AlgoritmoDto algoritmo) {
-        return tareaCalculoAlgoritmoAjusteManualV1RepositoryCustom.getSqlCalcular(algoritmo);
+    public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
+        return this.tareaCalculoAlgoritmoAjusteManualV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
 
 }
