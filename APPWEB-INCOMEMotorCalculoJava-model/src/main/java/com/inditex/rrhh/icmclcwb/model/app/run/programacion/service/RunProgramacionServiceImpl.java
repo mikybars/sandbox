@@ -109,6 +109,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                             .trabajo(this.trabajoService
                                 .create(this.trabajoService.merge(programacion, programacionAmbito, periodo)))
                             .build()));
+
             } else {
                 this.log.warn("No existen periodos activos para la organización {}",
                         programacionAmbito.getIdOrganization());
