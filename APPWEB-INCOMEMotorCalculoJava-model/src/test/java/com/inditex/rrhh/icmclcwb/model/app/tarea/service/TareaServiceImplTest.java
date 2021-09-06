@@ -20,7 +20,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
-import com.inditex.rrhh.icmclcwb.ms.app.tareaprevalidar.SenderTareaPreValidar;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -62,9 +61,6 @@ public class TareaServiceImplTest {
 
     @Mock
     private SenderTarea senderTarea;
-
-    @Mock
-    private SenderTareaPreValidar senderTareaPreValidar;
 
     @Mock
     private TareaFaseService tareaFaseService;

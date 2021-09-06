@@ -22,7 +22,7 @@ metadata:
   slot: develop
   developModel: CORPORATE
   layer: core
-  version: 3.0.4
+  version: 3.2.0
 amiga:
   monitoring:
     metrics:
@@ -223,7 +223,7 @@ amiga:
           url: jdbc:oracle:thin:@//axine3-scansrv.central.inditex.grp:1521/s_pdbds01rt_gener.central.inditex.grp
           user: uincome
           password: pzuUKBm1ppMGzzOn
-          defaultIsolationLevel: 8
+          defaultIsolationLevel: 2
         #[PTR][ITX][DES][NON_XA][FIN]
         #[PTR][ITX][DES][XA][INICIO]
 #        ptr:

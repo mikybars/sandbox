@@ -103,10 +103,22 @@ public class TestController {
         this.testService.comisTest();
     }
 
-    @GetMapping("/ptr/")
-    @ApiOperation("Prueba conexion ptr")
-    public void ptrTest() {
-        this.testService.ptrTest();
+    @GetMapping("/ptr/service")
+    @ApiOperation("Prueba conexion ptr servicio")
+    public void ptrTestService() {
+        this.testService.ptrTestService();
+    }
+
+    @GetMapping("/ptr/bbdd/sync")
+    @ApiOperation("Prueba conexion ptr bbdd sync")
+    public void ptrTestBbddSync() {
+        this.testService.ptrTestBbddSync();
+    }
+
+    @GetMapping("/ptr/bbdd/async")
+    @ApiOperation("Prueba conexion ptr bbdd async")
+    public void ptrTestBbddAsync() {
+        this.testService.ptrTestBbddAsync();
     }
 
     @GetMapping("/slrhorcoms/")

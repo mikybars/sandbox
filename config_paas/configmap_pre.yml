@@ -37,12 +37,13 @@ amiga:
         primary:
           driverClassName: com.ibm.db2.jcc.DB2Driver
           url: jdbc:db2://axpredb22.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
+          #url: jdbc:db2://axpredb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
           user: uincome
         ptr:
           driverClassName: oracle.jdbc.OracleDriver
           url: jdbc:oracle:thin:@//axine5-scansrv.central.inditex.grp:11521/s_pdbpr01rt_gener.central.inditex.grp
           user: uincome
-          defaultIsolationLevel: 8
+          defaultIsolationLevel: 2
 #        ptr:
 #          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
 #          xa-properties:

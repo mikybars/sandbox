@@ -826,7 +826,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
         final MapSqlParameterSource parametros = this.paramsCaptor.getValue();
         assertTrue(parametros.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
-        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA_INCLUIDOECOMMERCE.getId(),
                 parametros.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
 
     }
