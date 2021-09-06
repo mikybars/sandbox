@@ -33,11 +33,12 @@ public class RunMantenimientoController implements RunMantenimientoApi {
         return new ResponseEntity<>(this.runMantenimientoService.run(), HttpStatus.OK);
     }
 
+    @Override
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Realiza el mantenimiento de una tarea")
-    public RunMantenimientoDTO runIdTarea(@PathVariable @Valid @NotNull @Positive final Long id) {
-        return this.runMantenimientoService.runIdTarea(id);
+    public ResponseEntity<RunMantenimientoDTO> runIdTarea(@PathVariable @Valid @NotNull @Positive final Long id) {
+        return new ResponseEntity<>(this.runMantenimientoService.runIdTarea(id), HttpStatus.OK);
     }
 
 }

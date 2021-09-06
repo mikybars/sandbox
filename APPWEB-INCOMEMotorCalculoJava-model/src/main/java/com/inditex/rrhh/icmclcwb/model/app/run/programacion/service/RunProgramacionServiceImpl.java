@@ -17,9 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.async.service.ProgramacionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
-import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionPeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
@@ -31,6 +29,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.Periodos
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
+import com.inditex.rrhh.icmclcwb.dto.RunProgramacionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
@@ -77,13 +77,13 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     @CounterFunctionalMetric(metricName = "RunProgramacionService.run.counter",
             metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.counter")
     @Override
-    public RunProgramacionDto run(@NotNull @Valid final Long id) {
+    public RunProgramacionDTO run(@NotNull @Valid final Long id) {
         // Se usa el findById en lugar de findPendienteById id porque ya no están marcadas como pendientes
-        final ProgramacionDto programacion = this.programacionService.findActivoById(id);
-        final RunProgramacionDto runProgramacion = RunProgramacionDto.builder()
-            .programacion(programacion)
-            .runProgramacionPeriodo(new ArrayList<>())
-            .build();
+        final ProgramacionDTO programacion = this.programacionService.findActivoById(id);
+        final RunProgramacionDTO runProgramacion = new RunProgramacionDTO();
+        runProgramacion.setProgramacion(programacion);
+        runProgramacion.setRunProgramacionPeriodo(new ArrayList<>());
+
         this.programacionService.updateEjecucion(programacion);
         programacion.getAmbito().parallelStream().forEach(programacionAmbito -> {
             final PeriodosRequestDto request = new PeriodosRequestDto();
@@ -93,7 +93,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
             request.getData()
                 .getItem()
                 .add(GenericFilterParametersDto.builder()
-                    .idSociedadReg(programacionAmbito.getIdOrgenization())
+                    .idSociedadReg(programacionAmbito.getIdOrganization())
                     .abierto(Meta4Constants.TRUE)
                     .activo(Meta4Constants.TRUE)
                     .vigente(Meta4Constants.TRUE)
@@ -111,7 +111,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                             .build()));
             } else {
                 this.log.warn("No existen periodos activos para la organización {}",
-                        programacionAmbito.getIdOrgenization());
+                        programacionAmbito.getIdOrganization());
             }
         });
         return runProgramacion;
@@ -120,15 +120,16 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
     @Auditoria
     // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public List<RunProgramacionDto> create() {
-        final List<ProgramacionDto> pendientes = this.programacionService.findPendiente();
+    public List<RunProgramacionDTO> create() {
+        final List<ProgramacionDTO> pendientes = this.programacionService.findPendiente();
         // Obtencion del resultado final sin esperar al envio de las programaciones
-        final List<RunProgramacionDto> result = pendientes.stream()
-            .map(programacion -> RunProgramacionDto
-                .builder()
-                .programacion(programacion)
-                .runProgramacionPeriodo(new ArrayList<>())
-                .build())
+        final List<RunProgramacionDTO> result = pendientes.stream()
+            .map(programacion -> {
+                final RunProgramacionDTO prog = new RunProgramacionDTO();
+                prog.setProgramacion(programacion);
+                prog.setRunProgramacionPeriodo(new ArrayList<>());
+                return prog;
+            })
             .collect(Collectors.toList());
         // Se establece la fecha de la siguiente ejecución inmediatamente
         if (CollectionUtils.isNotEmpty(pendientes)) {

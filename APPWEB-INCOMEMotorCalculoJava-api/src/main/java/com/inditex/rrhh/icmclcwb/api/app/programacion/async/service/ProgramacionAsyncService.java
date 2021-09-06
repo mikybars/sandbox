@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.scheduling.annotation.Async;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 
 /**
  * @author javierev<
@@ -21,6 +21,6 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 public interface ProgramacionAsyncService {
 
     CompletableFuture<Void> updateFechaSiguienteEjecucion(
-            @NotNull @NotEmpty final List<ProgramacionDto> idProgramacion);
+            @NotNull @NotEmpty final List<ProgramacionDTO> idProgramacion);
 
 }

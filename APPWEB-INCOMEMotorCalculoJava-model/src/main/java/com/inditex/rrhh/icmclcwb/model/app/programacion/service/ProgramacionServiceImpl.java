@@ -19,9 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
@@ -48,7 +48,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     private ProgramacionAmbitoService programacionAmbitoService;
 
     @Override
-    public ProgramacionDto create(@Valid final ProgramacionDto programacion) {
+    public ProgramacionDTO create(@Valid final ProgramacionDTO programacion) {
         programacion.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
         if (StringUtils.isBlank(programacion.getProgramacionHuso())) {
             programacion.setProgramacionHuso(TimeUtils.ofZoneId());
@@ -60,22 +60,22 @@ public class ProgramacionServiceImpl implements ProgramacionService {
             }
         }
         programacion.setFechaHoraSiguienteEjecucion(this.fechaSiguienteEjecucion(programacion));
-        final ProgramacionDto result = this.programacionMapper.programacionToProgramacionDto(
+        final ProgramacionDTO result = this.programacionMapper.programacionToProgramacionDto(
                 this.programacionRepository.save(this.programacionMapper.programacionDtoToProgramacion(programacion)));
         result.setAmbito(this.programacionAmbitoService.create(programacion.getAmbito(), result));
         return result;
     }
 
     @Override
-    public ProgramacionDto modify(final ProgramacionDto programacion) {
-        final ProgramacionDto result = this.programacionMapper.programacionToProgramacionDto(
+    public ProgramacionDTO modify(final ProgramacionDTO programacion) {
+        final ProgramacionDTO result = this.programacionMapper.programacionToProgramacionDto(
                 this.programacionRepository.save(this.programacionMapper.programacionDtoToProgramacion(programacion)));
         result.setAmbito(this.programacionAmbitoService.findByProgramacion(programacion));
         return result;
     }
 
     @Override
-    public LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDto programacion) {
+    public LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDTO programacion) {
         final ZoneId zoneDefaultHuso = TimeUtils.ofZone();
         final ZoneId zoneProgramacionHuso = TimeUtils.ofZone(programacion.getProgramacionHuso());
         ZonedDateTime zonedDateTimeProgramacionHuso = TimeUtils.ofZonedDateTime(programacion.getHoraProgramacion(),
@@ -88,8 +88,8 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     }
 
     @Override
-    public List<ProgramacionDto> findPendiente() {
-        final List<ProgramacionDto> result = this.programacionMapper
+    public List<ProgramacionDTO> findPendiente() {
+        final List<ProgramacionDTO> result = this.programacionMapper
             .programacionToProgramacionDto(this.programacionRepository
                 .findByFechaHoraSiguienteEjecucionBeforeAndActivoTrue(TimeUtils.nowLocalDateTime()));
         result.forEach(item -> item.setAmbito(this.programacionAmbitoService.findByProgramacion(item)));
@@ -97,7 +97,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     }
 
     @Override
-    public ProgramacionDto updateEjecucion(@Valid final ProgramacionDto programacion) {
+    public ProgramacionDTO updateEjecucion(@Valid final ProgramacionDTO programacion) {
         programacion.setFechaHoraUltimaEjecucion(TimeUtils.nowLocalDateTime());
         return this.modify(programacion);
     }
@@ -128,25 +128,25 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     }
 
     @Override
-    public ProgramacionDto findById(@Positive @NotNull final Long id) {
-        final ProgramacionDto programacionDto = this.programacionMapper
+    public ProgramacionDTO findById(@Positive @NotNull final Long id) {
+        final ProgramacionDTO programacionDto = this.programacionMapper
             .programacionToProgramacionDto(this.programacionRepository.findById(id).get());
         programacionDto.setAmbito(this.programacionAmbitoService.findByProgramacion(programacionDto));
         return programacionDto;
     }
 
     @Override
-    public ProgramacionDto findActivoById(
+    public ProgramacionDTO findActivoById(
             @Positive @NotNull final Long id) {
-        final ProgramacionDto programacionDto = this.programacionMapper
+        final ProgramacionDTO programacionDto = this.programacionMapper
             .programacionToProgramacionDto(this.programacionRepository.findByIdAndActivoTrue(id));
         programacionDto.setAmbito(this.programacionAmbitoService.findByProgramacion(programacionDto));
         return programacionDto;
     }
 
     @Override
-    public ProgramacionDto findPendienteById(@Positive @NotNull final Long id) {
-        final ProgramacionDto programacionDto = this.programacionMapper
+    public ProgramacionDTO findPendienteById(@Positive @NotNull final Long id) {
+        final ProgramacionDTO programacionDto = this.programacionMapper
             .programacionToProgramacionDto(this.programacionRepository
                 .findByIdAndFechaHoraSiguienteEjecucionBeforeAndActivoTrue(id, TimeUtils.nowLocalDateTime()));
         programacionDto.setAmbito(this.programacionAmbitoService.findByProgramacion(programacionDto));
@@ -155,9 +155,9 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
     @Override
     public void updateFechaSiguienteEjecucion(
-            @NotNull @NotEmpty final List<ProgramacionDto> programaciones) {
+            @NotNull @NotEmpty final List<ProgramacionDTO> programaciones) {
         // Se obtienen todas las fechas por programacion
-        final Map<LocalDateTime, List<ProgramacionDto>> map = new HashMap<>();
+        final Map<LocalDateTime, List<ProgramacionDTO>> map = new HashMap<>();
         programaciones.stream().forEach(programacion -> {
             final LocalDateTime fechaSiguienteEjecucion = this.fechaSiguienteEjecucion(programacion);
             if (!map.containsKey(fechaSiguienteEjecucion)) {
