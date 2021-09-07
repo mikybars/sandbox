@@ -189,4 +189,69 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      */
     int indexTempAlgoritmo();
 
+    /**
+     * @return
+     */
+    int deleteTempEstructura();
+
+    /**
+     * @return
+     */
+    int createTempEstructura();
+
+    /**
+     * @return
+     */
+    int indexTempEstructura();
+
+    /**
+     * @return
+     */
+    int deleteTempPersonas();
+
+    /**
+     * @return
+     */
+    int createTempPersonas();
+
+    /**
+     * @return
+     */
+    int indexTempPersonas();
+
+    /**
+     * @param algoritmoDto
+     */
+    void insertTempPersonas();
+
+    /**
+     * @return
+     */
+    int deleteTempPresupuestos();
+
+    /**
+     * @return
+     */
+    int createTempPresupuestos();
+
+    /**
+     * @return
+     */
+    int indexTempPresupuestos();
+
+    /**
+     * @param tareaDto
+     */
+    void insertTempPresupuestos(@NotNull TareaDto tareaDto);
+
+    /**
+     * @param tareaDto
+     */
+    void insertTempEstructura(@NotNull TareaDto tareaDto);
+
+    /**
+     * @param tareaDto
+     */
+    void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NotNull TareaDto tareaDto);
+
 }
