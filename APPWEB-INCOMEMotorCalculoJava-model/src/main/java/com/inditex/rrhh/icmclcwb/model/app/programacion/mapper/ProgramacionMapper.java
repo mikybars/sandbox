@@ -1,5 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.programacion.mapper;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
@@ -19,6 +24,22 @@ public abstract class ProgramacionMapper {
     public abstract List<ProgramacionDTO> programacionToProgramacionDto(List<Programacion> src);
 
     public abstract List<Programacion> programacionDtoToProgramacion(List<ProgramacionDTO> src);
+
+    OffsetDateTime map(final LocalDateTime value) {
+        return value.atOffset(ZoneOffset.UTC);
+    }
+
+    LocalDateTime map(final OffsetDateTime value) {
+        return value.toLocalDateTime();
+    }
+
+    OffsetDateTime mapLocalTime(final LocalTime value) {
+        return OffsetDateTime.of(LocalDate.now(), value, ZoneOffset.UTC);
+    }
+
+    LocalTime mapLocalTime(final OffsetDateTime value) {
+        return value.toLocalTime();
+    }
 
 }
 

@@ -18,19 +18,19 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.async.service.ProgramacionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
-import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionPeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
+import com.inditex.rrhh.icmclcwb.dto.PeriodoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 import com.inditex.rrhh.icmclcwb.dto.RunProgramacionDTO;
+import com.inditex.rrhh.icmclcwb.dto.RunProgramacionPeriodoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
@@ -98,17 +98,19 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
                     .activo(Meta4Constants.TRUE)
                     .vigente(Meta4Constants.TRUE)
                     .build());
-            final List<PeriodoDto> periodos = this.periodoMapper
+            final List<PeriodoDTO> periodos = this.periodoMapper
                 .periodoResultItemDtoToPeriodoDto(this.meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
             if (CollectionUtils.isNotEmpty(periodos)) {
                 periodos.parallelStream()
-                    .forEach(periodo -> runProgramacion.getRunProgramacionPeriodo()
-                        .add(RunProgramacionPeriodoDto.builder()
-                            .periodo(periodo)
-                            .programacionAmbito(programacionAmbito)
-                            .trabajo(this.trabajoService
-                                .create(this.trabajoService.merge(programacion, programacionAmbito, periodo)))
-                            .build()));
+                    .forEach(periodo -> {
+                        final RunProgramacionPeriodoDTO runProgramacionPeriodoDTO = new RunProgramacionPeriodoDTO();
+                        runProgramacionPeriodoDTO.setPeriodo(periodo);
+                        runProgramacionPeriodoDTO.setProgramacionAmbito(programacionAmbito);
+                        runProgramacionPeriodoDTO.setTrabajo(this.trabajoService
+                            .create(this.trabajoService.merge(programacion, programacionAmbito, periodo)));
+                        runProgramacion.getRunProgramacionPeriodo()
+                            .add(runProgramacionPeriodoDTO);
+                    });
 
             } else {
                 this.log.warn("No existen periodos activos para la organización {}",
@@ -116,7 +118,10 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
             }
         });
         return runProgramacion;
+
+
     }
+
 
     @Auditoria
     // @Transactional(propagation = Propagation.REQUIRES_NEW)

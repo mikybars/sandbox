@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.programacion.service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +50,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
     @Override
     public ProgramacionDTO create(@Valid final ProgramacionDTO programacion) {
-        programacion.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
+        programacion.setFechaHoraCreacion(TimeUtils.nowLocalDateTime().atOffset(ZoneOffset.UTC));
         if (StringUtils.isBlank(programacion.getProgramacionHuso())) {
             programacion.setProgramacionHuso(TimeUtils.ofZoneId());
         }
@@ -59,7 +60,8 @@ public class ProgramacionServiceImpl implements ProgramacionService {
                 programacion.setNombreUsuario(userSSO.getUser());
             }
         }
-        programacion.setFechaHoraSiguienteEjecucion(this.fechaSiguienteEjecucion(programacion));
+        programacion
+            .setFechaHoraSiguienteEjecucion(this.fechaSiguienteEjecucion(programacion).atOffset(ZoneOffset.UTC));
         final ProgramacionDTO result = this.programacionMapper.programacionToProgramacionDto(
                 this.programacionRepository.save(this.programacionMapper.programacionDtoToProgramacion(programacion)));
         result.setAmbito(this.programacionAmbitoService.create(programacion.getAmbito(), result));
@@ -78,7 +80,8 @@ public class ProgramacionServiceImpl implements ProgramacionService {
     public LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDTO programacion) {
         final ZoneId zoneDefaultHuso = TimeUtils.ofZone();
         final ZoneId zoneProgramacionHuso = TimeUtils.ofZone(programacion.getProgramacionHuso());
-        ZonedDateTime zonedDateTimeProgramacionHuso = TimeUtils.ofZonedDateTime(programacion.getHoraProgramacion(),
+        ZonedDateTime zonedDateTimeProgramacionHuso = TimeUtils.ofZonedDateTime(
+                programacion.getHoraProgramacion().toLocalTime(),
                 zoneProgramacionHuso);
         final ZonedDateTime nowZonedDateTimeProgramacionHuso = TimeUtils.nowZonedDateTime(zoneProgramacionHuso);
         if (nowZonedDateTimeProgramacionHuso.isAfter(zonedDateTimeProgramacionHuso)) {
@@ -98,7 +101,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
     @Override
     public ProgramacionDTO updateEjecucion(@Valid final ProgramacionDTO programacion) {
-        programacion.setFechaHoraUltimaEjecucion(TimeUtils.nowLocalDateTime());
+        programacion.setFechaHoraUltimaEjecucion(TimeUtils.nowLocalDateTime().atOffset(ZoneOffset.UTC));
         return this.modify(programacion);
     }
 

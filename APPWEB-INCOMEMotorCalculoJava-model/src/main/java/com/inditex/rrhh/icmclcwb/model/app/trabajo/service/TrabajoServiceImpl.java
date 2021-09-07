@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
@@ -33,6 +32,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCal
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
+import com.inditex.rrhh.icmclcwb.dto.PeriodoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
@@ -99,8 +102,8 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public TrabajoDto create(@Valid @TrabajoValidator final TrabajoDto trabajo) {
-        trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
+    public TrabajoDTO create(@Valid @TrabajoValidator final TrabajoDTO trabajo) {
+        trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime().atOffset(ZoneOffset.UTC));
         trabajo.setEstado(EstadoTrabajoEnum.PENDIENTE.getDto());
         if (StringUtils.isBlank(trabajo.getNombreUsuario())) {
             final UserSSO userSSO = SsoUtils.getUserSSO();
@@ -150,8 +153,8 @@ public class TrabajoServiceImpl implements TrabajoService {
     }
 
     @Override
-    public TrabajoDto merge(@Valid @NotNull final ProgramacionDto programacion,
-            @Valid @NotNull final ProgramacionAmbitoDto programacionAmbito, @Valid @NotNull final PeriodoDto periodo) {
+    public TrabajoDto merge(@Valid @NotNull final ProgramacionDTO programacion,
+            @Valid @NotNull final ProgramacionAmbitoDTO programacionAmbito, @Valid @NotNull final PeriodoDTO periodo) {
         return this.trabajoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
                 programacionAmbito,
                 programacion, periodo);

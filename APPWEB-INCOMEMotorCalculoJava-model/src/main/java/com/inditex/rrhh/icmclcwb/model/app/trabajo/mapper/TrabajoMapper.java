@@ -3,19 +3,19 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoEjecucionCalculoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoPersonaDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+import com.inditex.rrhh.icmclcwb.dto.PeriodoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 import org.mapstruct.DecoratedWith;
@@ -59,9 +59,9 @@ public abstract class TrabajoMapper {
     @Mapping(target = "icmIdPeriodo", source = "srcPeriodo.id")
     @Mapping(target = "fechaInicioPeriodo", source = "srcPeriodo.fechaInicioPeriodo")
     @Mapping(target = "fechaFinPeriodo", source = "srcPeriodo.fechaFinPeriodo")
-    @Mapping(target = "idOrganization", source = "srcProgramacionAmbito.idOrgenization")
+    @Mapping(target = "idOrganization", source = "srcProgramacionAmbito.idOrganization")
     public abstract TrabajoDto mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
-            ProgramacionAmbitoDto srcProgramacionAmbito, ProgramacionDto srcProgramacion, PeriodoDto srcPeriodo);
+            ProgramacionAmbitoDTO srcProgramacionAmbito, ProgramacionDTO srcProgramacion, PeriodoDTO srcPeriodo);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idTrabajo", ignore = true)

@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoPersonaDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoPersonaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoPersonaRepository;
 
@@ -27,20 +27,20 @@ public class ProgramacionAmbitoPersonaServiceImpl implements ProgramacionAmbitoP
     private ProgramacionAmbitoPersonaMapper programacionAmbitoPersonaMapper;
 
     @Override
-    public List<ProgramacionAmbitoPersonaDto> create(
-            @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoPersonaDto> programacionAmbitoPersona,
-            @NotNull final ProgramacionAmbitoDto programacionAmbito) {
-        return programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
-                programacionAmbitoPersonaRepository.saveAll(programacionAmbitoPersonaMapper
+    public List<ProgramacionAmbitoPersonaDTO> create(
+            @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoPersonaDTO> programacionAmbitoPersona,
+            @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
+        return this.programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
+                this.programacionAmbitoPersonaRepository.saveAll(this.programacionAmbitoPersonaMapper
                     .mergeProgramacionAmbitoPersonaDtoAndProgramacionDtoToProgramacionAmbitoPersona(
                             programacionAmbitoPersona, programacionAmbito)));
     }
 
     @Override
-    public List<ProgramacionAmbitoPersonaDto> findByProgramacionAmbito(
-            @NotNull final ProgramacionAmbitoDto programacionAmbito) {
-        return programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
-                programacionAmbitoPersonaRepository.findByProgramacionAmbitoId(programacionAmbito.getId()));
+    public List<ProgramacionAmbitoPersonaDTO> findByProgramacionAmbito(
+            @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
+        return this.programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
+                this.programacionAmbitoPersonaRepository.findByProgramacionAmbitoId(programacionAmbito.getId()));
     }
 
 }

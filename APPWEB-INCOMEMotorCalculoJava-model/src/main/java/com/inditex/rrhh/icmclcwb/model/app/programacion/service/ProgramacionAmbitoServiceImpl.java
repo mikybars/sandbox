@@ -12,8 +12,6 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoOrigenService;
@@ -48,11 +46,11 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
     private ProgramacionAmbitoPersonaService programacionAmbitoPersonaService;
 
     @Override
-    public List<ProgramacionAmbitoDto> create(@Valid @NotNull final List<ProgramacionAmbitoDto> programacionAmbito,
-            @NotNull final ProgramacionDto programacion) {
-        final List<ProgramacionAmbitoDto> result = new ArrayList<>();
+    public List<ProgramacionAmbitoDTO> create(@Valid @NotNull final List<ProgramacionAmbitoDTO> programacionAmbito,
+            @NotNull final ProgramacionDTO programacion) {
+        final List<ProgramacionAmbitoDTO> result = new ArrayList<>();
         programacionAmbito.forEach(item -> {
-            final ProgramacionAmbitoDto programacionAmbitoResult = this.programacionAmbitoMapper
+            final ProgramacionAmbitoDTO programacionAmbitoResult = this.programacionAmbitoMapper
                 .programacionAmbitoToProgramacionAmbitoDto(this.programacionAmbitoRepository.save(
                         this.programacionAmbitoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(
                                 item, programacion)));
