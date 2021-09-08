@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -21,6 +22,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
@@ -28,6 +30,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
@@ -148,6 +151,45 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
 
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisAlgoritmo']}")
     private String sqlInsertTempComisAlgoritmo;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempEstructura']}")
+    private String sqlCreateTempEstructura;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempEstructura']}")
+    private String sqlIndexTempEstructura;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempEstructura']}")
+    private String sqlDeleteTempEstructura;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempEstructura']}")
+    private String sqlInsertTempEstructura;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempPersonas']}")
+    private String sqlCreateTempPersonas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempPersonas']}")
+    private String sqlIndexTempPersonas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempPersonas']}")
+    private String sqlDeleteTempPersonas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempPersonas']}")
+    private String sqlInsertTempPersonas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempPresupuestos']}")
+    private String sqlCreateTempPresupuestos;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempPresupuestos']}")
+    private String sqlIndexTempPresupuestos;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempPresupuestos']}")
+    private String sqlDeleteTempPresupuestos;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempPresupuesto']}")
+    private String sqlInsertTempPresupuestos;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTareaLocalizacionPresupuestoTareaPersonaEstructura']}")
+    private String sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura;
 
     @Override
     public int deleteTempMotivoDesplazamientoComis() {
@@ -521,6 +563,85 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         }
                     });
         }
+    }
+
+    @Override
+    public int deleteTempEstructura() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempEstructura);
+    }
+
+    @Override
+    public int createTempEstructura() {
+        return this.jdbcTemplate.update(this.sqlCreateTempEstructura);
+    }
+
+    @Override
+    public int indexTempEstructura() {
+        return this.jdbcTemplate.update(this.sqlIndexTempEstructura);
+    }
+
+    @Override
+    public void insertTempEstructura(@NotNull final TareaDto tareaDto) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempEstructura, map);
+    }
+
+    @Override
+    public int deleteTempPersonas() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempPersonas);
+    }
+
+    @Override
+    public int createTempPersonas() {
+        return this.jdbcTemplate.update(this.sqlCreateTempPersonas);
+    }
+
+    @Override
+    public int indexTempPersonas() {
+        return this.jdbcTemplate.update(this.sqlIndexTempPersonas);
+    }
+
+    @Override
+    public void insertTempPersonas() {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempPersonas, map);
+    }
+
+    @Override
+    public int deleteTempPresupuestos() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempPresupuestos);
+    }
+
+    @Override
+    public int createTempPresupuestos() {
+        return this.jdbcTemplate.update(this.sqlCreateTempPresupuestos);
+    }
+
+    @Override
+    public int indexTempPresupuestos() {
+        return this.jdbcTemplate.update(this.sqlIndexTempPresupuestos);
+    }
+
+    @Override
+    public void insertTempPresupuestos(@NotNull final TareaDto tareaDto) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempPresupuestos, map);
+    }
+
+    @Override
+    public void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NotNull final TareaDto tareaDto) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION,
+                Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()));
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura, map);
     }
 
 }
