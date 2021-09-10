@@ -30,7 +30,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaS
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
@@ -44,6 +43,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
@@ -97,12 +97,12 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             final DesplazamientosMultiempresaRequestItemDto item = DesplazamientosMultiempresaRequestItemDto
                 .builder()
-                .fechaFin(trabajo.getFechaFinPeriodo())
-                .fechaInicio(trabajo.getFechaInicioPeriodo())
+                .fechaFin(trabajo.getFechaFinPeriodo().toLocalDate())
+                .fechaInicio(trabajo.getFechaInicioPeriodo().toLocalDate())
                 .idEmpresa(tarea.getStdIdLegEnt())
                 .idOrigen(tareaAmbito.getCclIdOrigen())
                 .build();
@@ -239,7 +239,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             final EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
             final List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
@@ -283,7 +283,7 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             final List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
                 .findIdEmpresaByIdTarea(tarea.getId());

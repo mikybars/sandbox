@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import com.inditex.aqsw.framework.data.jms.JmsClient;
 
@@ -16,7 +16,7 @@ public class SenderTrabajo {
     private JmsClient trabajoJmsClient;
 
     // @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void send(final TrabajoDto trabajo) {
+    public void send(final TrabajoDTO trabajo) {
         this.trabajoJmsClient.convertAndSend(trabajo);
     }
 

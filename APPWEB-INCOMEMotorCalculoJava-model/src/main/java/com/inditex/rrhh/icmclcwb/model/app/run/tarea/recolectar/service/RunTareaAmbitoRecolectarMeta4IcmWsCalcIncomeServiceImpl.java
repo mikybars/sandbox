@@ -59,7 +59,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoric
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraDesplazamientoRealService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
@@ -111,6 +110,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
@@ -400,7 +400,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             for (final List<IdPersonaHistoricoDto> iter : StreamUtils.partition(
                     this.tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(
@@ -826,7 +826,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             final List<IdPersonaLocalDto> personasChallenge = this.tareaPersonaEstructuraService
                 .findPersonasChallenge(tarea);
@@ -939,7 +939,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             final PresupuestosRangoRequestDto request = new PresupuestosRangoRequestDto();
             request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSRANGO).getPage());
@@ -1024,7 +1024,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
             final TareaDto tarea = runTarea.getTarea();
-            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
             for (final List<DesplazamientoRealDto> iter : StreamUtils.partition(
                     this.tareaPersonaEstructuraDesplazamientoRealService.findDesplazamientoReal(
                             tarea),

@@ -24,7 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByA
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalPersonaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
@@ -70,7 +70,7 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
             // Personas asociadas al origen y empresa
             final CompletableFuture<Void> cfPersonaByRunTarea = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .personaByRunTarea(runTarea);

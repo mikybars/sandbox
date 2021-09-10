@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionAmbito;
@@ -18,11 +18,12 @@ public abstract class ProgramacionAmbitoMapperDecorator extends ProgramacionAmbi
 
     @Override
     public List<ProgramacionAmbito> mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(
-            final List<ProgramacionAmbitoDTO> srcProgramacionAmbito, final ProgramacionDto srcProgramacion) {
+            final List<ProgramacionAmbitoDTO> srcProgramacionAmbito, final ProgramacionDTO srcProgramacion) {
         final List<ProgramacionAmbito> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(srcProgramacionAmbito)) {
             srcProgramacionAmbito.forEach(item -> result.add(
-                    delegate.mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(item, srcProgramacion)));
+                    this.delegate.mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(item,
+                            srcProgramacion)));
         }
         return result;
     }

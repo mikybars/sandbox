@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoEmpresaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoLocalizacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoPersonaMapper;
@@ -29,30 +29,30 @@ public abstract class TrabajoMapperDecorator extends TrabajoMapper {
     private TrabajoAmbitoPersonaMapper trabajoAmbitoPersonaMapper;
 
     @Override
-    public Trabajo trabajoDtoToTrabajo(TrabajoDto src) {
-        Trabajo result = delegate.trabajoDtoToTrabajo(src);
+    public Trabajo trabajoDtoToTrabajo(final TrabajoDTO src) {
+        final Trabajo result = this.delegate.trabajoDtoToTrabajo(src);
         result.setEstado(new EstadoTrabajo());
-        result.getEstado().setId(src.getEstado().getId());
+        result.getEstado().setId(src.getEstadoTrabajo().getId());
         return result;
     }
 
     @Override
-    public SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDto trabajo) {
-        SaveProcesoDto result = delegate.trabajoDtoToSaveProcesoDto(trabajo);
-        TipoAmbitoEnum ambito = TipoAmbitoEnum.fromId(trabajo.getTipoAmbito().getId());
+    public SaveProcesoDto trabajoDtoToSaveProcesoDto(final TrabajoDTO trabajo) {
+        final SaveProcesoDto result = this.delegate.trabajoDtoToSaveProcesoDto(trabajo);
+        final TipoAmbitoEnum ambito = TipoAmbitoEnum.fromId(trabajo.getTipoAmbito().getId());
         if (ambito != null) {
             result.setIdAmbito(ambito.getIcmIdAmbitoEjec());
             switch (ambito) {
                 case EMPRESA:
-                    result.setItem(trabajoAmbitoEmpresaMapper
+                    result.setItem(this.trabajoAmbitoEmpresaMapper
                         .trabajoAmbitoEmpresaDtoToSaveProcesoParametersDto(trabajo.getEmpresa()));
                     break;
                 case LOCALIZACION:
-                    result.setItem(trabajoAmbitoLocalizacionMapper
+                    result.setItem(this.trabajoAmbitoLocalizacionMapper
                         .trabajoAmbitoLocalizacionDtoToSaveProcesoParametersDto(trabajo.getLocalizacion()));
                     break;
                 case PERSONA:
-                    result.setItem(trabajoAmbitoPersonaMapper
+                    result.setItem(this.trabajoAmbitoPersonaMapper
                         .trabajoAmbitoPersonaDtoToSaveProcesoParametersDto(trabajo.getPersona()));
                     break;
                 case SOCIEDAD:

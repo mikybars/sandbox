@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.ws.app.run.programacion.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,7 @@ public class RunProgramacionController implements RunProgramacionApi {
     @PreAuthorize("hasAuthority('admin')")
     @ApiOperation("Revisa si hay programaciones pendientes de lanzar y en caso afirmativo genera las acciones necesarias")
     public ResponseEntity<List<RunProgramacionDTO>> create() {
-        return this.runProgramacionService.create();
+        return new ResponseEntity<>(this.runProgramacionService.create(), HttpStatus.OK);
     }
 
 }

@@ -8,8 +8,8 @@ import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 public interface TareaService {
 
@@ -19,7 +19,7 @@ public interface TareaService {
 
     TareaDto create(@Valid @NotNull final TareaDto tarea);
 
-    List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo);
+    List<TareaDto> create(@Valid @NotNull final TrabajoDTO trabajo);
 
     List<TareaDto> findByTrabajoId(@NotNull @Positive final Long id);
 

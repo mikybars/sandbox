@@ -28,7 +28,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLo
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoListDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
@@ -114,7 +114,7 @@ public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaR
                 .findPresupuestos(runTarea.getTarea());
             if (presupuestos.esAmbitoAmpliado(runTarea.getTarea())) {
 
-                final TrabajoDto trabajo = runTarea.getTrabajo();
+                final TrabajoDTO trabajo = runTarea.getTrabajo();
                 /*-----------------------------------------------------------------*/
                 /*
                  * Limpieza del ámbito anterior

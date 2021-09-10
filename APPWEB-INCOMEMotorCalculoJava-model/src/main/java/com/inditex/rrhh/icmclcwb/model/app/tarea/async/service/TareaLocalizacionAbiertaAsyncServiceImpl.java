@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionAbiertaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionAbiertaService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 @Service
 public class TareaLocalizacionAbiertaAsyncServiceImpl implements TareaLocalizacionAbiertaAsyncService {
@@ -20,14 +20,14 @@ public class TareaLocalizacionAbiertaAsyncServiceImpl implements TareaLocalizaci
     private TareaLocalizacionAbiertaService tareaLocalizacionAbiertaService;
 
     @Override
-    public CompletableFuture<Void> saveAbierto(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
-        tareaLocalizacionAbiertaService.saveAbierto(tareaDto, trabajoDto);
+    public CompletableFuture<Void> saveAbierto(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDTO trabajoDto) {
+        this.tareaLocalizacionAbiertaService.saveAbierto(tareaDto, trabajoDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public CompletableFuture<Void> saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
-        tareaLocalizacionAbiertaService.saveCerrado(tareaDto, trabajoDto);
+    public CompletableFuture<Void> saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDTO trabajoDto) {
+        this.tareaLocalizacionAbiertaService.saveCerrado(tareaDto, trabajoDto);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

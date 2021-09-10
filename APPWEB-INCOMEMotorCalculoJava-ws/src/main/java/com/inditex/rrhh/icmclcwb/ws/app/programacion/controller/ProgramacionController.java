@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 import io.swagger.annotations.ApiOperation;
 
 // @Validated
@@ -30,8 +30,8 @@ public class ProgramacionController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "Crea una nueva programación", response = ProgramacionDto.class)
-    public @Valid ProgramacionDto create(@Valid @RequestBody final ProgramacionDto programacion) {
+    @ApiOperation(value = "Crea una nueva programación", response = ProgramacionDTO.class)
+    public @Valid ProgramacionDTO create(@Valid @RequestBody final ProgramacionDTO programacion) {
         return this.programacionService.create(programacion);
     }
 

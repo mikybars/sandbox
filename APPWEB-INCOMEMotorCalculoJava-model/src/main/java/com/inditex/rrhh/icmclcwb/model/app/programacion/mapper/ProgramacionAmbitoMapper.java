@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.programacion.mapper;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
@@ -37,7 +36,7 @@ public abstract class ProgramacionAmbitoMapper {
             ProgramacionAmbitoDTO srcProgramacionAmbito, ProgramacionDTO srcProgramacion);
 
     public List<ProgramacionAmbito> mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(
-            final List<ProgramacionAmbitoDTO> srcProgramacionAmbito, final ProgramacionDto srcProgramacion) {
+            final List<ProgramacionAmbitoDTO> srcProgramacionAmbito, final ProgramacionDTO srcProgramacion) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

@@ -4,6 +4,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
@@ -36,11 +37,6 @@ import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoLocalizacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoPersonaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateDto;
@@ -48,6 +44,11 @@ import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateRes
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.exception.SlrhorcomsIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercial.dto.RootHorarioComercialDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.service.SlrHorarioComercialService;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoLocalizacionDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoPersonaDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
@@ -268,7 +269,7 @@ public class TestServiceImpl implements TestService {
             final String origen = values[1];
             final String empresa = values[2];
             for (int x = 0; x < 70; x++) {
-                final TrabajoDto trabajo = new TrabajoDto();
+                final TrabajoDTO trabajo = new TrabajoDTO();
                 final LocalDate fechaInicio = TimeUtils.nowLocalDate()
                     .minusMonths(x)
                     .with(TemporalAdjusters.firstDayOfMonth())
@@ -278,13 +279,13 @@ public class TestServiceImpl implements TestService {
                     .with(TemporalAdjusters.lastDayOfMonth())
                     .with(ChronoField.NANO_OF_DAY, LocalTime.MIN.toNanoOfDay());
                 trabajo.setIcmIdPeriodo(0L);
-                trabajo.setFechaInicioPeriodo(fechaInicio);
-                trabajo.setFechaFinPeriodo(fechaFin);
+                trabajo.setFechaInicioPeriodo(fechaInicio.atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC));
+                trabajo.setFechaFinPeriodo(fechaFin.atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC));
                 trabajo.setIdOrganization(sociedad);
-                final TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
+                final TrabajoAmbitoOrigenDTO trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDTO();
                 trabajoAmbitoOrigenDto.setCclIdOrigen(origen);
                 trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
-                final TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
+                final TrabajoAmbitoEmpresaDTO trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDTO();
                 trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
                 trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
                 trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
@@ -307,7 +308,7 @@ public class TestServiceImpl implements TestService {
             final String persona = values[4];
             final String orPersona = values[5];
             final Integer tipo = 4;
-            final TrabajoDto trabajo = new TrabajoDto();
+            final TrabajoDTO trabajo = new TrabajoDTO();
             switch (tipo) {
                 case 1:
                     this.testSociedad(sociedad, trabajo);
@@ -342,33 +343,33 @@ public class TestServiceImpl implements TestService {
         return new BasicFormatterImpl().format(StringUtils.normalizeSpace(StringUtils.trim(sql)));
     }
 
-    private void testSociedad(final String sociedad, final TrabajoDto trabajo) {
+    private void testSociedad(final String sociedad, final TrabajoDTO trabajo) {
         trabajo.setIcmIdPeriodo(1L);
-        trabajo.setFechaInicioPeriodo(LocalDate.of(2015, 3, 1));
-        trabajo.setFechaFinPeriodo(LocalDate.of(2015, 3, 31));
+        trabajo.setFechaInicioPeriodo(LocalDate.of(2015, 3, 1).atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC));
+        trabajo.setFechaFinPeriodo(LocalDate.of(2015, 3, 31).atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC));
         trabajo.setIdOrganization(sociedad);
     }
 
-    private void testOrigen(final String sociedad, final String origen, final TrabajoDto trabajo) {
+    private void testOrigen(final String sociedad, final String origen, final TrabajoDTO trabajo) {
         this.testSociedad(sociedad, trabajo);
-        final TrabajoAmbitoOrigenDto trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDto();
+        final TrabajoAmbitoOrigenDTO trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDTO();
         trabajoAmbitoOrigenDto.setCclIdOrigen(origen);
         trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
     }
 
     private void testEmpresa(final String sociedad, final String origen, final String empresa,
-            final TrabajoDto trabajo) {
+            final TrabajoDTO trabajo) {
         this.testOrigen(sociedad, origen, trabajo);
-        final TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDto();
+        final TrabajoAmbitoEmpresaDTO trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDTO();
         trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
         trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
     }
 
     private void testLocalizacion(final String sociedad, final String origen, final String empresa,
             final String localizacion,
-            final TrabajoDto trabajo) {
+            final TrabajoDTO trabajo) {
         this.testEmpresa(sociedad, origen, empresa, trabajo);
-        final TrabajoAmbitoLocalizacionDto trabajoAmbitoLocalizacion = new TrabajoAmbitoLocalizacionDto();
+        final TrabajoAmbitoLocalizacionDTO trabajoAmbitoLocalizacion = new TrabajoAmbitoLocalizacionDTO();
         trabajoAmbitoLocalizacion.setStdIdWorkLocat(localizacion);
         trabajoAmbitoLocalizacion.setStdIdLegEnt(empresa);
         trabajoAmbitoLocalizacion.setCclIdOrigen(origen);
@@ -376,9 +377,9 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testPersona(final String sociedad, final String origen, final String empresa, final String persona,
-            final String orPersona, final TrabajoDto trabajo) {
+            final String orPersona, final TrabajoDTO trabajo) {
         this.testEmpresa(sociedad, origen, empresa, trabajo);
-        final TrabajoAmbitoPersonaDto trabajoAmbitoPersona = new TrabajoAmbitoPersonaDto();
+        final TrabajoAmbitoPersonaDTO trabajoAmbitoPersona = new TrabajoAmbitoPersonaDTO();
         trabajoAmbitoPersona.setCclIdPerson(persona);
         trabajoAmbitoPersona.setStdOrHrPeriod(orPersona);
         trabajoAmbitoPersona.setStdIdLegEnt(empresa);
@@ -402,7 +403,7 @@ public class TestServiceImpl implements TestService {
         final RunTareaDto runTareaDto = new RunTareaDto();
         final TareaDto tareaDto = new TareaDto();
         runTareaDto.setTarea(tareaDto);
-        final TrabajoDto trabajoDto = new TrabajoDto();
+        final TrabajoDTO trabajoDto = new TrabajoDTO();
         runTareaDto.setTrabajo(trabajoDto);
         final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
         tareaAmbitoDto.setCclIdOrigen("38");
@@ -414,7 +415,7 @@ public class TestServiceImpl implements TestService {
         final RunTareaDto runTareaDto = new RunTareaDto();
         final TareaDto tareaDto = new TareaDto();
         runTareaDto.setTarea(tareaDto);
-        final TrabajoDto trabajoDto = new TrabajoDto();
+        final TrabajoDTO trabajoDto = new TrabajoDTO();
         runTareaDto.setTrabajo(trabajoDto);
         final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
         tareaAmbitoDto.setCclIdOrigen("38");

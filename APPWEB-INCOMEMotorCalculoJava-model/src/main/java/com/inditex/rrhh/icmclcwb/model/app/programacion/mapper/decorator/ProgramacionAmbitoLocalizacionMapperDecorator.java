@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoLocalizacionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoLocalizacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionAmbitoLocalizacion;
@@ -18,14 +18,15 @@ public abstract class ProgramacionAmbitoLocalizacionMapperDecorator extends Prog
 
     @Override
     public List<ProgramacionAmbitoLocalizacion> mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
-            List<ProgramacionAmbitoLocalizacionDto> srcProgramacionAmbitoLocalizacion,
-            ProgramacionAmbitoDto srcProgramacionAmbito) {
-        List<ProgramacionAmbitoLocalizacion> result = new ArrayList<>();
+            final List<ProgramacionAmbitoLocalizacionDTO> srcProgramacionAmbitoLocalizacion,
+            final ProgramacionAmbitoDTO srcProgramacionAmbito) {
+        final List<ProgramacionAmbitoLocalizacion> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(srcProgramacionAmbitoLocalizacion)) {
             srcProgramacionAmbitoLocalizacion.forEach(item -> result
-                .add(delegate.mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
-                        item,
-                        srcProgramacionAmbito)));
+                .add(this.delegate
+                    .mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
+                            item,
+                            srcProgramacionAmbito)));
         }
         return result;
     }

@@ -1,5 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoEjecucionCalculoEnum;
@@ -11,11 +16,11 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoPersonaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.dto.PeriodoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 import org.mapstruct.DecoratedWith;
@@ -33,26 +38,26 @@ public abstract class TrabajoMapper {
     @Mapping(target = "empresa", ignore = true)
     @Mapping(target = "persona", ignore = true)
     @Mapping(target = "localizacion", ignore = true)
-    public abstract TrabajoDto trabajoToTrabajoDto(Trabajo src);
+    public abstract TrabajoDTO trabajoToTrabajoDto(Trabajo src);
 
     @Mapping(target = "programacion",
             expression = "java(src != null && src.getIdProgramacion() != null ? Programacion.builder().id(src.getIdProgramacion()).build() : null)")
-    @Mapping(target = "estado.id", source = "estado.id")
+    @Mapping(target = "estado.id", source = "estadoTrabajo.id")
     @Mapping(target = "estado.nombre", ignore = true)
     @Mapping(target = "estado.peso", ignore = true)
     @Mapping(target = "estado.estadoTarea", ignore = true)
     @Mapping(target = "tipoAmbito.nombre", ignore = true)
-    public abstract Trabajo trabajoDtoToTrabajo(TrabajoDto src);
+    public abstract Trabajo trabajoDtoToTrabajo(TrabajoDTO src);
 
-    public abstract List<TrabajoDto> trabajoToTrabajoDto(List<Trabajo> src);
+    public abstract List<TrabajoDTO> trabajoToTrabajoDto(List<Trabajo> src);
 
-    public abstract List<Trabajo> trabajoDtoToTrabajo(List<TrabajoDto> src);
+    public abstract List<Trabajo> trabajoDtoToTrabajo(List<TrabajoDTO> src);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "fechaHoraCreacion", ignore = true)
     @Mapping(target = "fechaHoraInicioTrabajo", ignore = true)
     @Mapping(target = "fechaHoraFinTrabajo", ignore = true)
-    @Mapping(target = "estado", ignore = true)
+    @Mapping(target = "estadoTrabajo", ignore = true)
     @Mapping(target = "idProgramacion", source = "srcProgramacion.id")
     @Mapping(target = "tipoAmbito", source = "srcProgramacion.tipoAmbito")
     @Mapping(target = "nombreUsuario", source = "srcProgramacion.nombreUsuario")
@@ -60,7 +65,7 @@ public abstract class TrabajoMapper {
     @Mapping(target = "fechaInicioPeriodo", source = "srcPeriodo.fechaInicioPeriodo")
     @Mapping(target = "fechaFinPeriodo", source = "srcPeriodo.fechaFinPeriodo")
     @Mapping(target = "idOrganization", source = "srcProgramacionAmbito.idOrganization")
-    public abstract TrabajoDto mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
+    public abstract TrabajoDTO mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
             ProgramacionAmbitoDTO srcProgramacionAmbito, ProgramacionDTO srcProgramacion, PeriodoDTO srcPeriodo);
 
     @Mapping(target = "id", ignore = true)
@@ -93,6 +98,30 @@ public abstract class TrabajoMapper {
     @Mapping(target = "idOrigen",
             expression = "java(trabajo.getOrigen() != null && !trabajo.getOrigen().isEmpty() ? trabajo.getOrigen().get(0).getCclIdOrigen() : null)")
     @Mapping(target = "item", ignore = true)
-    public abstract SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDto trabajo);
+    public abstract SaveProcesoDto trabajoDtoToSaveProcesoDto(TrabajoDTO trabajo);
+
+    OffsetDateTime map(final LocalDateTime value) {
+        return value.atOffset(ZoneOffset.UTC);
+    }
+
+    LocalDateTime map(final OffsetDateTime value) {
+        return value.toLocalDateTime();
+    }
+
+    OffsetDateTime map(final LocalDate value) {
+        return value.atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC);
+    }
+
+    LocalDate mapLocalDate(final OffsetDateTime value) {
+        return value.toLocalDate();
+    }
+
+    OffsetDateTime mapLocalTime(final LocalTime value) {
+        return OffsetDateTime.of(LocalDate.now(), value, ZoneOffset.UTC);
+    }
+
+    LocalTime mapLocalTime(final OffsetDateTime value) {
+        return value.toLocalTime();
+    }
 
 }

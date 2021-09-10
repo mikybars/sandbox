@@ -21,9 +21,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
@@ -102,7 +102,7 @@ public class TareaServiceImpl implements TareaService {
 
     // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo) {
+    public List<TareaDto> create(@Valid @NotNull final TrabajoDTO trabajo) {
         final List<TareaDto> result = new ArrayList<>();
         this.tareaMapper.mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(trabajo.getEmpresa(), trabajo)
             .forEach(item -> result.add(this.create(item)));

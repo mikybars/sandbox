@@ -15,7 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaCo
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
 import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
@@ -42,7 +42,7 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
             metricDescription = "RunTareaConsolidarService.run.counter")
     @Override
     public void run(@NotNull @Valid final RunTareaDto runTarea) {
-        final TrabajoDto trabajo = runTarea.getTrabajo();
+        final TrabajoDTO trabajo = runTarea.getTrabajo();
         if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
                 || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
                 || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {

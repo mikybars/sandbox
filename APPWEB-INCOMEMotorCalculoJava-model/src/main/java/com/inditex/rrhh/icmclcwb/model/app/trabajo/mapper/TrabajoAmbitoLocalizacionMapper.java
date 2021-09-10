@@ -2,10 +2,10 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoLocalizacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoParametersDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoLocalizacionDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoAmbitoLocalizacionMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoAmbitoLocalizacion;
 import org.mapstruct.DecoratedWith;
@@ -18,26 +18,26 @@ import org.mapstruct.Mapping;
 public abstract class TrabajoAmbitoLocalizacionMapper {
 
     @Mapping(target = "idTrabajo", source = "trabajo.id")
-    public abstract TrabajoAmbitoLocalizacionDto trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
+    public abstract TrabajoAmbitoLocalizacionDTO trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
             TrabajoAmbitoLocalizacion src);
 
     @InheritInverseConfiguration
     public abstract TrabajoAmbitoLocalizacion trabajoAmbitoLocalizacionDtoToTrabajoAmbitoLocalizacion(
-            TrabajoAmbitoLocalizacionDto src);
+            TrabajoAmbitoLocalizacionDTO src);
 
-    public abstract List<TrabajoAmbitoLocalizacionDto> trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
+    public abstract List<TrabajoAmbitoLocalizacionDTO> trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
             List<TrabajoAmbitoLocalizacion> src);
 
     public abstract List<TrabajoAmbitoLocalizacion> trabajoAmbitoLocalizacionDtoToTrabajoAmbitoLocalizacion(
-            List<TrabajoAmbitoLocalizacionDto> src);
+            List<TrabajoAmbitoLocalizacionDTO> src);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "trabajo.id", source = "srcTrabajo.id")
     public abstract TrabajoAmbitoLocalizacion mergeTrabajoAmbitoLocalizacionDtoAndTrabajoDtoToTrabajoAmbitoLocalizacion(
-            TrabajoAmbitoLocalizacionDto srcTrabajoAmbitoLocalizacion, TrabajoDto srcTrabajo);
+            TrabajoAmbitoLocalizacionDTO srcTrabajoAmbitoLocalizacion, TrabajoDTO srcTrabajo);
 
     public List<TrabajoAmbitoLocalizacion> mergeTrabajoAmbitoLocalizacionDtoAndTrabajoDtoToTrabajoAmbitoLocalizacion(
-            final List<TrabajoAmbitoLocalizacionDto> srcTrabajoAmbitoLocalizacion, final TrabajoDto srcTrabajo) {
+            final List<TrabajoAmbitoLocalizacionDTO> srcTrabajoAmbitoLocalizacion, final TrabajoDTO srcTrabajo) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
@@ -76,9 +76,9 @@ public abstract class TrabajoAmbitoLocalizacionMapper {
     @Mapping(target = "idEmpresa", source = "stdIdLegEnt")
     @Mapping(target = "idLugarTrabajo", source = "stdIdWorkLocat")
     public abstract SaveProcesoParametersDto trabajoAmbitoLocalizacionDtoToSaveProcesoParametersDto(
-            TrabajoAmbitoLocalizacionDto src);
+            TrabajoAmbitoLocalizacionDTO src);
 
     public abstract List<SaveProcesoParametersDto> trabajoAmbitoLocalizacionDtoToSaveProcesoParametersDto(
-            List<TrabajoAmbitoLocalizacionDto> src);
+            List<TrabajoAmbitoLocalizacionDTO> src);
 
 }
