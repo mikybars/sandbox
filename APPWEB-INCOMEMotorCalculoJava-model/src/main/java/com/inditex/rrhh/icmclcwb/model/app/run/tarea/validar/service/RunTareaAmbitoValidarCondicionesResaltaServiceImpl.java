@@ -77,6 +77,11 @@ public class RunTareaAmbitoValidarCondicionesResaltaServiceImpl
             this.primaryTemporaryTableRepositoryCustom.createTempComisResalta();
             this.primaryTemporaryTableRepositoryCustom.insertTempComisResalta(condicionesResalta);
 
+            this.primaryTemporaryTableRepositoryCustom
+                .mergeDateRangesSeccionNotEqualsTempComisResalta(runTareaDto.getTarea());
+            this.primaryTemporaryTableRepositoryCustom
+                .mergeDateRangesTempComisResalta(runTareaDto.getTarea());
+
             resaltaValidationResult = this.primaryTemporaryTableRepositoryCustom
                 .validateTempComisResalta(runTareaDto.getTarea());
 
