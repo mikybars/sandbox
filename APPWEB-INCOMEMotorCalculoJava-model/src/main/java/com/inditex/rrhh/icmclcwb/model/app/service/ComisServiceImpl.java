@@ -171,6 +171,21 @@ public class ComisServiceImpl implements ComisService {
     }
 
     @Override
+    public List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinPrimas(@Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        List<IdPersonaLocalCondicionesDto> resalta = null;
+        try {
+            this.setContext(runTareaDto, tareaAmbito);
+            resalta = this.comisRepositoryCustom
+                .findCondicionesResaltaSinPrimas(runTareaDto.getTarea());
+        } finally {
+            ClientDatabaseContextHolder.clear();
+        }
+
+        return resalta;
+    }
+
+    @Override
     public List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {
         List<IdPersonaLocalCondicionesDto> resalta = null;

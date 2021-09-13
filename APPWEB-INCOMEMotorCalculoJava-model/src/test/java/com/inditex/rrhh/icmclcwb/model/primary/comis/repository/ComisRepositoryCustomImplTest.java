@@ -59,6 +59,8 @@ public class ComisRepositoryCustomImplTest {
 
     private final static String SQL_FIND_CONDICIONES_RESALTA = "SQL FIND CONDICIONES RESALTA";
 
+    private final static String SQL_FIND_CONDICIONES_RESALTA_SIN_PRIMAS = "SQL FIND CONDICIONES RESALTA SIN PRIMA";
+
     private final static String SQL_FIND_CONDICIONES_RESALTA_ES = "SQL FIND CONDICIONES RESALTA ES";
 
     private final static String SQL_FIND_BAJAS_IT = "SQL FIND BAJAS IT";
@@ -119,6 +121,10 @@ public class ComisRepositoryCustomImplTest {
         FieldUtils.writeField(this.comisRepositoryCustom,
                 "sqlFindCondicionesResalta",
                 SQL_FIND_CONDICIONES_RESALTA,
+                true);
+        FieldUtils.writeField(this.comisRepositoryCustom,
+                "sqlFindCondicionesResaltaSinPrimas",
+                SQL_FIND_CONDICIONES_RESALTA_SIN_PRIMAS,
                 true);
         FieldUtils.writeField(this.comisRepositoryCustom,
                 "sqlFindCondicionesResaltaEs",
@@ -314,6 +320,26 @@ public class ComisRepositoryCustomImplTest {
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
                 ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
         assertEquals(SQL_FIND_CONDICIONES_RESALTA,
+                this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        // Parámetros de la consulta: fecha desde, fecha hasta
+        assertEquals(2, params.getValues().size());
+        // fecha desde
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+        // fecha hasta
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    }
+
+    @Test
+    public void findCondicionesResaltaSinPrimas() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setIdOrganization("1");
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findCondicionesResaltaSinPrimas(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
+        assertEquals(SQL_FIND_CONDICIONES_RESALTA_SIN_PRIMAS,
                 this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: fecha desde, fecha hasta

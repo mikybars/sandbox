@@ -59,6 +59,12 @@ public interface ComisRepositoryCustom {
      * @param tarea
      * @return
      */
+    List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinPrimas(TareaDto tarea);
+
+    /**
+     * @param tarea
+     * @return
+     */
     List<IdPersonaLocalCondicionesDto> findBajasIt(TareaDto tarea);
 
     /**
