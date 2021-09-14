@@ -3,14 +3,14 @@ package com.inditex.rrhh.icmclcwb.api.app.test.service;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
-import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
+import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
+import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
 
 public interface TestService {
 
-    RelojDto reloj();
+    RelojDTO reloj();
 
-    SsoDto sso();
+    SsoDTO sso();
 
     void errorSync();
 

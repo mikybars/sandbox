@@ -5,69 +5,62 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
-import io.swagger.annotations.ApiOperation;
+import com.inditex.rrhh.icmclcwb.service.ProgramacionApi;
 
-// @Validated
 @RestController
-@RequestMapping(path = "/programacion")
-// @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), value =
-// "ProgramacionController",
-// tags = { "ProgramacionController" })
-public class ProgramacionController {
+public class ProgramacionController implements ProgramacionApi {
 
     @Autowired
     private ProgramacionService programacionService;
 
-    @PostMapping
+    @Override
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "Crea una nueva programación", response = ProgramacionDTO.class)
-    public @Valid ProgramacionDTO create(@Valid @RequestBody final ProgramacionDTO programacion) {
-        return this.programacionService.create(programacion);
+    public @Valid ResponseEntity<ProgramacionDTO> create(@Valid @RequestBody final ProgramacionDTO programacion) {
+        return new ResponseEntity<>(this.programacionService.create(programacion), HttpStatus.OK);
     }
 
-    @GetMapping("/reset")
+    @Override
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "Resetea la fecha de siguiente ejecución de las programaciones")
-    public void reset() {
+    public ResponseEntity<Void> reset() {
         this.programacionService.reset();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/activa")
+    @Override
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "Activa las programaciones")
-    public void activa() {
+    public ResponseEntity<Void> activa() {
         this.programacionService.activa();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/activa/{id}")
+    @Override
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "Activa la programacion")
-    public void activa(@PathVariable @Positive @NotNull final Long id) {
+    public ResponseEntity<Void> activaById(@PathVariable @Positive @NotNull final Long id) {
         this.programacionService.activa(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/desactiva")
+    @Override
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "Desactiva las programaciones")
-    public void desactiva() {
+    public ResponseEntity<Void> desactiva() {
         this.programacionService.desactiva();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/desactiva/{id}")
+    @Override
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "Desactiva la programacion")
-    public void desactiva(@PathVariable @Positive @NotNull final Long id) {
+    public ResponseEntity<Void> desactivaById(@PathVariable @Positive @NotNull final Long id) {
         this.programacionService.desactiva(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

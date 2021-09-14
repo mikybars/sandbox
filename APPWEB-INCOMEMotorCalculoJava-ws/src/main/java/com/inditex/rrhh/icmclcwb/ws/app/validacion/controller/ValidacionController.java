@@ -8,35 +8,30 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaValidarService;
-import io.swagger.annotations.ApiOperation;
+import com.inditex.rrhh.icmclcwb.service.ValidacionApi;
 
-// @Validated
 @RestController
-@RequestMapping(path = "/validacion")
-// @Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = {
-// "ValidacionController" })
-public class ValidacionController {
+public class ValidacionController implements ValidacionApi {
 
     @Autowired
     private TareaValidarService tareaValidarService;
 
-    @GetMapping("/tarea/{idTarea}")
-    @ApiOperation("Realiza validaciones para una tarea")
-    public @Valid Map<String, Object> validateByIdTarea(@PathVariable @Valid @NotNull @Positive final Long idTarea) {
-        return this.tareaValidarService.validateByIdTarea(idTarea);
+    @Override
+    public @Valid ResponseEntity<Map<String, Object>> validateByIdTarea(
+            @PathVariable @Valid @NotNull @Positive final Long idTarea) {
+        return new ResponseEntity<>(this.tareaValidarService.validateByIdTarea(idTarea), HttpStatus.OK);
     }
 
-    @GetMapping("/trabajo/{idTrabajo}")
-    @ApiOperation("Realiza validaciones para un trabajo")
-    public @Valid List<Map<String, Object>> validateByIdTrabajo(
+    @Override
+    public @Valid ResponseEntity<List<Map<String, Object>>> validateByIdTrabajo(
             @PathVariable @Valid @NotNull @Positive final Long idTrabajo) {
-        return this.tareaValidarService.validateByIdTrabajo(idTrabajo);
+        return new ResponseEntity<>(this.tareaValidarService.validateByIdTrabajo(idTrabajo), HttpStatus.OK);
     }
 
 }

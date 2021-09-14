@@ -32,8 +32,6 @@ import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
 import com.inditex.rrhh.icmclcwb.api.app.service.PtrService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
-import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
@@ -43,7 +41,8 @@ import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateDto
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateResponseDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.exception.SlrhorcomsIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercial.dto.RootHorarioComercialDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.service.SlrHorarioComercialService;
+import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
+import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoLocalizacionDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
@@ -111,20 +110,19 @@ public class TestServiceImpl implements TestService {
     private RestClient slrhorcomsClient;
 
     @Autowired
-    private SlrHorarioComercialService slrHorarioComercialService;
-
-    @Autowired
     @Qualifier("meta4ClientPool")
     private Meta4ClientPool meta4ClientPool;
 
     @Override
-    public RelojDto reloj() {
-        return new RelojDto();
+    public RelojDTO reloj() {
+        return new RelojDTO();
     }
 
     @Override
-    public SsoDto sso() {
-        return SsoDto.builder().result(SsoUtils.getUserSSO().toString()).build();
+    public SsoDTO sso() {
+        final SsoDTO sso = new SsoDTO();
+        sso.setResult(SsoUtils.getUserSSO().toString());
+        return sso;
     }
 
     @Override

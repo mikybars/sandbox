@@ -9,39 +9,30 @@ import javax.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.service.AlgoritmoApi;
-import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(path = "/algoritmo")
 public class AlgoritmoController implements AlgoritmoApi {
 
     @Autowired
     private AlgoritmoService algoritmoService;
 
     @Override
-    @GetMapping
-    @ApiOperation("Devuelve el listado de algoritmos")
     public @Valid ResponseEntity<List<AlgoritmoDTO>> findAll() {
         return new ResponseEntity<>(this.algoritmoService.findAll(), HttpStatus.OK);
     }
 
     @Override
-    @GetMapping("/checkDuplicatedActives")
-    @ApiOperation("Comprueba si hay algoritmos activos solapandose")
     public @Valid ResponseEntity<Boolean> checkDuplicatedActives() {
         return new ResponseEntity<>(this.algoritmoService.checkDuplicatedActives(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    @ApiOperation("Obtiene un algoritmo")
+    @Override
     public @Valid ResponseEntity<AlgoritmoDTO> findById(@PathVariable @Valid @NotNull @Positive final Integer id) {
         return new ResponseEntity<>(this.algoritmoService.findById(id), HttpStatus.OK);
     }
