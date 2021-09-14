@@ -145,4 +145,12 @@ public interface ComisService {
     List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(@Valid RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito);
 
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
 }

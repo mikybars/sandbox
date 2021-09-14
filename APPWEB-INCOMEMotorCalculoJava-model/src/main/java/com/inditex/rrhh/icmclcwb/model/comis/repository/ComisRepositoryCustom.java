@@ -111,4 +111,10 @@ public interface ComisRepositoryCustom {
      */
     List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(TareaDto tarea);
 
+    /**
+     * @param tarea
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(TareaDto tarea);
+
 }

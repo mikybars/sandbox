@@ -120,6 +120,14 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
     }
 
     @Override
+    public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesPrimas(
+            @Valid final RunTareaDto runTareaDto,
+            @Valid final TareaAmbitoDto tareaAmbito) {
+        return CompletableFuture
+            .completedFuture(this.comisService.findCondicionesPrimas(runTareaDto, tareaAmbito));
+    }
+
+    @Override
     public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findBajasIt(
             @Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito) {

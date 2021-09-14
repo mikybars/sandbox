@@ -175,6 +175,19 @@ public class ComisServiceImplTest {
     }
 
     @Test
+    public void findCondicionesPrimas() {
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        runTareaDto.setTarea(tarea);
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+        this.comisServiceImpl.findCondicionesPrimas(runTareaDto, tareaAmbitoDto);
+        verify(this.comisRepositoryCustom, times(1))
+            .findCondicionesPrimas(any(TareaDto.class));
+    }
+
+    @Test
     public void findBajasIt() {
         final RunTareaDto runTareaDto = new RunTareaDto();
         final TareaDto tarea = new TareaDto();
