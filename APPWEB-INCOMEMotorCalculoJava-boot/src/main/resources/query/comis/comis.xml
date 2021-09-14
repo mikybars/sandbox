@@ -875,6 +875,10 @@ UNION
             ON PH.PERSONA = PR.PERSONA
             AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
           AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
+          INNER JOIN TablasPorcentajes TPH
+            ON TPH.TablaPorcentaje = PH.TablaPorcentaje
+          INNER JOIN GruposPorcentajes GPH
+            ON GPH.GrupoPorcentaje = TPH.GrupoPorcentaje
           LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT
             ON PCT.PERSONA = PR.PERSONA
             AND (PR.FechaHasta IS NULL OR PCT.FechaDesde <= PR.FechaHasta)
@@ -894,7 +898,7 @@ UNION
           AND PH.TABLAPORCENTAJE IS NOT NULL
           AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
           -- Filtro para excluir las PRIMAS
-          AND NOT (GP.GrupoPorcentaje IN (106,107) AND GP.TipoPorcentaje = 2)
+          AND NOT (GP.GrupoPorcentaje IN (106,107) AND GP.TipoPorcentaje = 2 AND GPH.TipoPorcentaje = 1)
           GROUP BY
             PCT.Persona,
             PCT.FechaDesde,
@@ -942,6 +946,10 @@ UNION
         ON PH.PERSONA = PR.PERSONA
         AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
         AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
+    INNER JOIN TablasPorcentajes TPH
+      ON TPH.TablaPorcentaje = PH.TablaPorcentaje
+    INNER JOIN GruposPorcentajes GPH
+      ON GPH.GrupoPorcentaje = TPH.GrupoPorcentaje
     INNER JOIN FECHAS_ESTRUCTURA F
       ON F.PERSONA = PH.PERSONA
       AND (F.FECHADESDE = PH.FECHADESDE OR F.FECHADESDE >= PH.FECHADESDE AND (PH.FECHAHASTA IS NULL OR F.FECHAHASTA <= PH.FECHAHASTA))
@@ -960,7 +968,7 @@ UNION
       AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
       AND PH.TABLAPORCENTAJE IS NOT NULL
       -- Filtro para excluir las PRIMAS
-      AND NOT (GP.GrupoPorcentaje IN (106,107) AND GP.TipoPorcentaje = 2)
+      AND NOT (GP.GrupoPorcentaje IN (106,107) AND GP.TipoPorcentaje = 2 AND GPH.TipoPorcentaje = 1)
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
     SELECT
@@ -990,6 +998,10 @@ UNION
         ON PH.PERSONA = PR.PERSONA
         AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
         AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
+    INNER JOIN TablasPorcentajes TPH
+      ON TPH.TablaPorcentaje = PH.TablaPorcentaje
+    INNER JOIN GruposPorcentajes GPH
+      ON GPH.GrupoPorcentaje = TPH.GrupoPorcentaje
     INNER JOIN DESPLAZAMIENTOS D
       ON PH.PERSONA = D.PERSONA
       AND D.ROW = 1
@@ -1011,7 +1023,7 @@ UNION
       AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
       AND PH.TABLAPORCENTAJE IS NOT NULL
       -- Filtro para excluir las PRIMAS
-      AND NOT (GP.GrupoPorcentaje IN (106,107) AND GP.TipoPorcentaje = 2)
+      AND NOT (GP.GrupoPorcentaje IN (106,107) AND GP.TipoPorcentaje = 2 AND GPH.TipoPorcentaje = 1)
     UNION
     -- Casos que no tienen desplazamientos en el período
  SELECT
@@ -1064,6 +1076,10 @@ UNION
                   ON PH.PERSONA = PR.PERSONA
                   AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
                   AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
+              INNER JOIN TablasPorcentajes TPH
+                ON TPH.TablaPorcentaje = PH.TablaPorcentaje
+              INNER JOIN GruposPorcentajes GPH
+                ON GPH.GrupoPorcentaje = TPH.GrupoPorcentaje
               LEFT JOIN TABLASPORCENTAJESCOMISION TPC
                 ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
               LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
@@ -1085,7 +1101,7 @@ UNION
                 AND PH.TABLAPORCENTAJE IS NOT NULL
                 AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
                 -- Filtro para excluir las PRIMAS
-                AND NOT (GP.GrupoPorcentaje IN (106,107) AND GP.TipoPorcentaje = 2)
+                AND NOT (GP.GrupoPorcentaje IN (106,107) AND GP.TipoPorcentaje = 2 AND GPH.TipoPorcentaje = 1)
           ) Groups
   ) Islands
   GROUP BY
