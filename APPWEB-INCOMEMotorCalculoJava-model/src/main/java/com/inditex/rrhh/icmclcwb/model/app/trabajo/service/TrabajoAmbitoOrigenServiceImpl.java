@@ -26,7 +26,6 @@ public class TrabajoAmbitoOrigenServiceImpl implements TrabajoAmbitoOrigenServic
     @Autowired
     private TrabajoAmbitoOrigenMapper trabajoAmbitoOrigenMapper;
 
-    // @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public List<TrabajoAmbitoOrigenDTO> create(
             @Valid @NotNull @NotEmpty final List<TrabajoAmbitoOrigenDTO> trabajoAmbitoOrigen,

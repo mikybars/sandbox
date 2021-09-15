@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -21,12 +22,15 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
@@ -82,6 +86,9 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisHistorico']}")
     private String sqlMergeDateRangesTempComisHistorico;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisHistorico']}")
+    private String sqlMergeDateRangesSeccionNotEqualsTempComisHistorico;
+
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisHistorico']}")
     private String sqlValidateTempComisHistorico;
 
@@ -105,6 +112,12 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
 
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisResalta']}")
     private String sqlInsertTempComisResalta;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisResalta']}")
+    private String sqlMergeDateRangesTempComisResalta;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisResalta']}")
+    private String sqlMergeDateRangesSeccionNotEqualsTempComisResalta;
 
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisResalta']}")
     private String sqlValidateTempComisResalta;
@@ -132,6 +145,57 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
 
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisCarencia']}")
     private String sqlValidateTempComisCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempAlgoritmo']}")
+    private String sqlCreateTempAlgoritmo;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempAlgoritmo']}")
+    private String sqlIndexTempAlgoritmo;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempAlgoritmo']}")
+    private String sqlDeleteTempAlgoritmo;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisAlgoritmo']}")
+    private String sqlInsertTempComisAlgoritmo;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempEstructura']}")
+    private String sqlCreateTempEstructura;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempEstructura']}")
+    private String sqlIndexTempEstructura;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempEstructura']}")
+    private String sqlDeleteTempEstructura;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempEstructura']}")
+    private String sqlInsertTempEstructura;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempPersonas']}")
+    private String sqlCreateTempPersonas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempPersonas']}")
+    private String sqlIndexTempPersonas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempPersonas']}")
+    private String sqlDeleteTempPersonas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempPersonas']}")
+    private String sqlInsertTempPersonas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempPresupuestos']}")
+    private String sqlCreateTempPresupuestos;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempPresupuestos']}")
+    private String sqlIndexTempPresupuestos;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempPresupuestos']}")
+    private String sqlDeleteTempPresupuestos;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempPresupuesto']}")
+    private String sqlInsertTempPresupuestos;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTareaLocalizacionPresupuestoTareaPersonaEstructura']}")
+    private String sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura;
 
     @Override
     public int deleteTempMotivoDesplazamientoComis() {
@@ -232,7 +296,6 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                             ps.setString(6, el.getBanda());
                             ps.setString(7, el.getImporte());
                             ps.setString(8, el.getCclIdSeccion());
-                            ps.setString(9, el.getSecciones());
                         }
 
                         @Override
@@ -247,7 +310,18 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     public void mergeDateRangesTempComisHistorico(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
         this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesTempComisHistorico, map);
+    }
+
+    @Override
+    public void mergeDateRangesSeccionNotEqualsTempComisHistorico(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesSeccionNotEqualsTempComisHistorico, map);
     }
 
     @Override
@@ -460,6 +534,138 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         .setIdPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON));
                     return idPersonaLocalCarenciaDto;
                 });
+    }
+
+    @Override
+    public int deleteTempAlgoritmo() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempAlgoritmo);
+    }
+
+    @Override
+    public int createTempAlgoritmo() {
+        return this.jdbcTemplate.update(this.sqlCreateTempAlgoritmo);
+    }
+
+    @Override
+    public int indexTempAlgoritmo() {
+        return this.jdbcTemplate.update(this.sqlIndexTempAlgoritmo);
+    }
+
+    @Override
+    public void insertTempAlgoritmo(@NotNull final List<GenericAlgoritmoPropertiesDto> algoritmoDto) {
+        for (final List<GenericAlgoritmoPropertiesDto> iter : StreamUtils.partition(algoritmoDto, this.batchSize)) {
+            this.jdbcTemplate.batchUpdate(this.sqlInsertTempComisAlgoritmo,
+                    new BatchPreparedStatementSetter() {
+                        @Override
+                        public void setValues(final PreparedStatement ps, final int i) throws SQLException {
+                            final GenericAlgoritmoPropertiesDto el = iter.get(i);
+                            ps.setString(1, el.getIdTipoCalculo());
+                            ps.setString(2, el.getIdTipoComision());
+                        }
+
+                        @Override
+                        public int getBatchSize() {
+                            return iter.size();
+                        }
+                    });
+        }
+    }
+
+    @Override
+    public int deleteTempEstructura() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempEstructura);
+    }
+
+    @Override
+    public int createTempEstructura() {
+        return this.jdbcTemplate.update(this.sqlCreateTempEstructura);
+    }
+
+    @Override
+    public int indexTempEstructura() {
+        return this.jdbcTemplate.update(this.sqlIndexTempEstructura);
+    }
+
+    @Override
+    public void insertTempEstructura(@NotNull final TareaDto tareaDto) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempEstructura, map);
+    }
+
+    @Override
+    public int deleteTempPersonas() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempPersonas);
+    }
+
+    @Override
+    public int createTempPersonas() {
+        return this.jdbcTemplate.update(this.sqlCreateTempPersonas);
+    }
+
+    @Override
+    public int indexTempPersonas() {
+        return this.jdbcTemplate.update(this.sqlIndexTempPersonas);
+    }
+
+    @Override
+    public void insertTempPersonas() {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempPersonas, map);
+    }
+
+    @Override
+    public int deleteTempPresupuestos() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempPresupuestos);
+    }
+
+    @Override
+    public int createTempPresupuestos() {
+        return this.jdbcTemplate.update(this.sqlCreateTempPresupuestos);
+    }
+
+    @Override
+    public int indexTempPresupuestos() {
+        return this.jdbcTemplate.update(this.sqlIndexTempPresupuestos);
+    }
+
+    @Override
+    public void insertTempPresupuestos(@NotNull final TareaDto tareaDto) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempPresupuestos, map);
+    }
+
+    @Override
+    public void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NotNull final TareaDto tareaDto) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION,
+                Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+                        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()));
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura, map);
+    }
+
+    @Override
+    public void mergeDateRangesTempComisResalta(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesTempComisResalta, map);
+    }
+
+    @Override
+    public void mergeDateRangesSeccionNotEqualsTempComisResalta(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesSeccionNotEqualsTempComisResalta, map);
     }
 
 }

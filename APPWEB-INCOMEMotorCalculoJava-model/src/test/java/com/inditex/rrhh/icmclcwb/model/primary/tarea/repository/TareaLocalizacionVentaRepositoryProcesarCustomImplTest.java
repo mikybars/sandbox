@@ -156,7 +156,7 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImplTest {
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
         // idTipoPresenciaLocalizacion
         assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
-        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId(),
+        assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOECOMMERCE.getId(),
                 params.getValue(SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
         // activo
         assertTrue(params.hasValue(SQL_PARAM_ACTIVO));

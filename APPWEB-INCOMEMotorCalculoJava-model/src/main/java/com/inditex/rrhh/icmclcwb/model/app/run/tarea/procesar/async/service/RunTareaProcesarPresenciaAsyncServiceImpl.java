@@ -175,4 +175,25 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> repartirPresenciasSindicalesLocalizacionSeccion(
+            final RunTareaDto runTarea) {
+        this.runTareaProcesarPresenciaService.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarEcommerceSeccion(
+            final RunTareaDto runTareaDto) {
+        this.runTareaProcesarPresenciaService.totalizarEcommerceSeccion(runTareaDto);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public CompletableFuture<Void> totalizarPresenciasSindicalesLocalizacion(
+            final RunTareaDto runTareaDto) {
+        this.runTareaProcesarPresenciaService.totalizarPresenciasSindicalesLocalizacion(runTareaDto);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

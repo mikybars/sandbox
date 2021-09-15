@@ -29,4 +29,10 @@ public interface TareaLocalizacionPresenciaService {
 
     void repartirPresenciasSindicalesLocalizacion(@Valid @NotNull RunTareaDto runTareaDto);
 
+    void repartirPresenciasSindicalesLocalizacionSeccion(@Valid @NotNull RunTareaDto runTareaDto);
+
+    void totalizarEcommerceSeccion(@Valid @NotNull final RunTareaDto runTarea);
+
+    void totalizarPresenciasSindicalesLocalizacion(@Valid @NotNull final RunTareaDto runTarea);
+
 }

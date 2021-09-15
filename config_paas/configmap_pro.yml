@@ -15,30 +15,35 @@ amiga:
       client:
         slrhorcoms:
           base-url: https://sscc.central.inditex.grp
+          #base-url: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont.svc.cluster.local.:8080/slrhorcoms
           username: srvcicmclcwbAX
         ptr-venta:
-          base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
+          #base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
+          base-url: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhvtimpwsd
           username: srvcicmclcwbAX
         ptr-presencia:
-          base-url: https://openshift.axinocp1.central.inditex.grp/rhpresnwsd
+          #base-url: https://openshift.axinocp1.central.inditex.grp/rhpresnwsd
+          base-url: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhpresnwsd
           username: srvcicmclcwbAX
   data:
+    jms:
+      connection-factory:
+        broker-escritura:
+          brokerURL: tcp://middleware-amq-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:61616
+        broker-lectura:
+          brokerURL: tcp://middleware-amq-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:61616
+
     jdbc:
       datasource:
         primary:
+          driverClassName: com.ibm.db2.jcc.DB2Driver
+          url: jdbc:db2://axindb22v1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
           user: uincome
-          url: jdbc:db2://axindb22v1.central.inditex.grp:50000/INDITEX
-#          xa-properties:
-#            serverName: axindb22v1.central.inditex.grp
-#            portNumber: 50000
-#            databaseName: INDITEX
-#            currentSchema: GESTION_COMISION
-#            user: uincome
         ptr:
           driverClassName: oracle.jdbc.OracleDriver
           url: jdbc:oracle:thin:@//axine6-scansrv.central.inditex.grp:11521/s_pdbin01rt_gener.central.inditex.grp
           user: uincome
-          defaultIsolationLevel: 8
+          defaultIsolationLevel: 2
 #        ptr:
 #          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
 #          xa-properties:
@@ -114,15 +119,17 @@ amiga:
           user: ncomis     
         comis11-11:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://NASQL1V1\\I1:11433;databaseName=Personal
+          url: jdbc:sqlserver://NASQL:11433;databaseName=Personal
           user: ncomis
         comis11-2:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://TOSQL55v3.TORDERA.INDITEX.GRP\\oysho:11433;databaseName=Personal
+          # Se mockea temporalmente hasta que se verifique la conexión
+          url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
           user: ncomis
         comis11-30:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://TOSQL66v2.TORDERA.INDITEX.GRP\\massimodutti:11433;databaseName=Personal
+          # Se mockea temporalmente hasta que se verifique la conexión          
+          url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
           user: ncomis      
         comis11-25:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -154,7 +161,8 @@ amiga:
           user: ncomis
         comis52:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          URL: JDBC:SQLSERVER://TRSQL.SEDES.INDITEX.GRP:1433;DATABASENAME=PERSONAL
+          # Se mockea temporalmente hasta que se verifique la conexión
+          url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
           user: ncomis
         comis60:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -270,11 +278,15 @@ amiga:
           user: ncomis
         comis740:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          # Se mockea temporalmente hasta que se verifique la conexión
+          #url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           user: ncomis
         comis743:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComisionMacao
+          # Se mockea temporalmente hasta que se verifique la conexión
+          #url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComisionMacao
+          url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           user: ncomis
         comis800:
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -297,8 +309,12 @@ app:
         credentials:
           user: SRVCICMCLCWSAX
       login:
+        server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/services/Login
+        #server: https://sscc.central.inditex.grp/icmclcws/services/Login
+        #server: https://icmclcws.axinocp1.central.inditex.grp/services/Login
         #server: https://openshift.axinocp1.central.inditex.grp/icmclcws/services/Login
-        server: https://icmclcws.axinocp1.central.inditex.grp/services/Login
       icmwscalcincome:
+        server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
+        #server: https://sscc.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+        #server: https://icmclcws.axinocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://openshift.axinocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
-        server: https://icmclcws.axinocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME

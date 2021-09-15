@@ -15,7 +15,6 @@ public class SenderLimpieza {
     @Qualifier("limpiezaJmsClient")
     private JmsClient limpiezaJmsClient;
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void send(final TareaLimpiezaDto limpieza) {
         this.limpiezaJmsClient.convertAndSend(limpieza);
     }

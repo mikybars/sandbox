@@ -14,7 +14,7 @@ paths:
           description: "Invalid input"
 info:
   description: REST API example for Decoupled Invocation
-  version: "2.9.6"
+  version: "3.2.5"
   title: APPWEB-INCOMEMotorCalculoJava
   contact:
     name: "Software Architecture"

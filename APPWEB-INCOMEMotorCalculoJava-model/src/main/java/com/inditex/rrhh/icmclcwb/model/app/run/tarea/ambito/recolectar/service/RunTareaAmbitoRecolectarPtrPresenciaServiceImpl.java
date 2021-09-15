@@ -22,7 +22,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -31,21 +30,17 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPe
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTipoHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTipoHoraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTipoHoraService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrAgruparSeccionEnum;
@@ -54,7 +49,6 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
 @Service
@@ -90,6 +84,9 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
     @Autowired
     private Meta4IcmWsCalcIncomeAsyncService meta4IcmWsCalcIncomeAsyncService;
 
+    @Autowired
+    private TareaTipoHoraService tareaTipoHoraService;
+
     @Override
     protected String getFechaInicioPeriodo(final TareaDto tarea) {
         return tarea.getFechaInicioPeriodo().format(DateTimeFormatter.ofPattern(PtrConstants.DATE_FORMAT));
@@ -102,54 +99,6 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
     @Autowired
     @Qualifier(value = "recolectarProperties")
     private RecolectarPropertiesDto recolectarProperties;
-
-    @Override
-    public void tiposHorasByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
-        final List<CompletableFuture<?>> cf = new ArrayList<>();
-        Integer idCatalogo = null;
-        try {
-            final TareaDto tarea = runTarea.getTarea();
-            // Si el origen es españa hay que obtener el id de catalogo y pasarlo al servicio PTR
-            if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
-                final CompletableFuture<CatalogoResponseDto> cfCatalogo = this.meta4IcmWsCalcIncomeAsyncService
-                    .getCatalogo(CatalogoRequestDto
-                        .builder()
-                        .cclIdOrigen(tareaAmbito.getCclIdOrigen())
-                        .items(Arrays
-                            .asList(CatalogoRequestItemDto
-                                .builder()
-                                .stdIdLegEnt(runTarea.getTarea().getStdIdLegEnt())
-                                .build()))
-                        .build());
-                AsyncUtils.exceptionally(cfCatalogo, cf);
-                final CatalogoResponseDto catalogo = AsyncUtils.get(cfCatalogo);
-                if ((catalogo != null) && CollectionUtils.isNotEmpty(catalogo.getItems())
-                        && StringUtils.isNotBlank(catalogo.getItems().get(0).getIdCatalogo())) {
-                    idCatalogo = Integer.parseInt(catalogo.getItems().get(0).getIdCatalogo());
-                } else {
-                    throw new IcmclcwbException("No se han podido recuperar tipos de hora");
-                }
-            }
-
-            final CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfData = this.ptrPresenciaAsyncService
-                .tiposHoras(PtrPresenciaTiposHorasRequestDto.builder()
-                    .origen(Integer.parseInt(tareaAmbito.getCclIdOrigen()))
-                    .idCatalogoAplicacion(idCatalogo)
-                    .build());
-            AsyncUtils.exceptionally(cfData, cf);
-            final PtrPresenciaTiposHorasResponseDto data = AsyncUtils.get(cfData);
-            if ((data != null) && CollectionUtils.isNotEmpty(data.getTiposHoras())) {
-                AsyncUtils.exceptionally(this.tareaTipoHoraAsyncSevice.save(data.getTiposHoras(), tarea), cf);
-            } else {
-                this.log.warn("No hay tipos de hora comisionables para el origen: {}", tareaAmbito.getCclIdOrigen());
-            }
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-        } catch (final Exception e) {
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-    }
 
     @Override
     public void presenciaDetallePersonaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
@@ -274,6 +223,79 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
             throw e;
         }
 
+    }
+
+    @Override
+    public void presenciaDetallePersonaHorasSindicalesByRunTareaAndTareaAmbito(
+            @NotNull @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            final TareaDto tarea = runTarea.getTarea();
+            final PtrFilterPropertiesDto filter = this.presenciasProperties
+                .get(PtrPropertiesConstants.PRESENCIA_DETALLE)
+                .getFilter();
+            final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .map(IdEmpresaDto::getStdIdLegEnt)
+                .collect(Collectors.toList());
+            // Obtencion de tipos de hora con flag repartido provincia
+            final List<TareaTipoHoraDto> tiposHoras = this.tareaTipoHoraService
+                .findByIdTareaAndExcluidoDenominadorYRepartidoProvincia(tarea);
+            // Obtencion de localizaciones que coincidan en cadena y provincia de las localizaciones del ambito
+            final List<IdLocalizacionLocalDto> localizaciones = this.tareaLocalizacionHistoricoService
+                .findIdLocalizacionLocalInCadenaAndProvinciaDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito(
+                        tarea.getId(),
+                        tareaAmbito.getCclIdOrigen(), empresasAmbito);
+            final List<PeriodoDto> periodos = this.tareaLocalizacionPresupuestoService
+                .findListaPeriodosPresupestoYTrabajo(
+                        tarea.getId(), filter, this.recolectarProperties);
+            if (CollectionUtils.isNotEmpty(tiposHoras) && CollectionUtils.isNotEmpty(localizaciones)) {
+                for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(localizaciones,
+                        filter.getMaxPageSize())) {
+                    for (final PeriodoDto periodo : periodos) {
+                        final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+                        // Obtencion de las presencias, unicamente las de tipo repartido provincia (horas
+                        // sindicales)
+                        final PtrPresenciaDetalleRequestDto paramPresenciasDetalle = this.tareaMapper
+                            .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(tarea,
+                                    tareaAmbito, periodo);
+                        paramPresenciasDetalle
+                            .setEmpresa(
+                                    empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
+                        paramPresenciasDetalle.setTienda(iter.stream()
+                            .map(IdLocalizacionLocalDto::getId)
+                            .map(Integer::valueOf)
+                            .collect(Collectors.toList()));
+                        paramPresenciasDetalle.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                        paramPresenciasDetalle.setTipo(tiposHoras.stream()
+                            .map(TareaTipoHoraDto::getIdTipoHora)
+                            .collect(Collectors.toList()));
+                        paramPresenciasDetalle
+                            .setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_TIPOHORA_SECCION.getValue());
+                        final CompletableFuture<PtrPresenciaDetalleResponseDto> cfData = this.ptrPresenciaAsyncService
+                            .presenciasDetalle(paramPresenciasDetalle);
+                        AsyncUtils.exceptionally(cfData, cf, cfPersist);
+
+                        final PtrPresenciaDetalleResponseDto data = AsyncUtils.get(cfData);
+                        if ((data != null) && CollectionUtils.isNotEmpty(data.getPresenciasDetalle())) {
+                            AsyncUtils.checkAsyncAvaliable(cfPersist, filter.getMaxPersistenceSize());
+                            AsyncUtils.exceptionally(this.tareaLocalizacionPersonaPresenciaAsyncService
+                                .savePtrPresenciaDetalle(data.getPresenciasDetalle(), tarea,
+                                        TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA_REPARTIDOPROVINCIA
+                                            .getId()),
+                                    cf, cfPersist);
+                        }
+
+                    }
+                }
+            }
+
+        } catch (final Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
     }
 
 }

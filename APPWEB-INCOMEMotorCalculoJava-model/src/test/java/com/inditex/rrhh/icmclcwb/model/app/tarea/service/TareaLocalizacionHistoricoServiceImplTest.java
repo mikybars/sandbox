@@ -80,37 +80,6 @@ public class TareaLocalizacionHistoricoServiceImplTest {
     }
 
     @Test
-    public void findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbitoTest() {
-        final TareaDto tarea = mock(TareaDto.class);
-        tarea.setIdTrabajo(1L);
-        final Long idTarea = 1L;
-        final String cclIdOrigen = "1";
-        final List<Integer> idsTipoDato = new ArrayList<>();
-
-        this.tareaLocalizacionHistoricoServiceImpl.findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(
-                idTarea,
-                cclIdOrigen, idsTipoDato);
-        verify(this.tareaLocalizacionHistoricoRepositoryCustom, times(1))
-            .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(any(Long.class), any(String.class),
-                    ArgumentMatchers.<List<Integer>>any());
-    }
-
-    @Test
-    public void findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbitoTest() {
-        final TareaDto tarea = mock(TareaDto.class);
-        tarea.setIdTrabajo(1L);
-        final Long idTarea = 1L;
-        final String cclIdOrigen = "1";
-        final List<Integer> idsTipoDato = new ArrayList<>();
-
-        this.tareaLocalizacionHistoricoServiceImpl
-            .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(idTarea, cclIdOrigen, idsTipoDato);
-        verify(this.tareaLocalizacionHistoricoRepositoryCustom, times(1))
-            .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoDatoInAmbito(any(Long.class), any(String.class),
-                    ArgumentMatchers.<List<Integer>>any());
-    }
-
-    @Test
     public void findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbitoTest() {
         final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);

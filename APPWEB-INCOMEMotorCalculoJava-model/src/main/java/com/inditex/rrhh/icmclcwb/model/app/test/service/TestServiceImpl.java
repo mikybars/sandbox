@@ -10,6 +10,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
@@ -59,6 +62,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametro
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
+import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
@@ -112,6 +116,12 @@ public class TestServiceImpl implements TestService {
     @Autowired
     @Qualifier("meta4ClientPool")
     private Meta4ClientPool meta4ClientPool;
+
+    @Autowired
+    private PtrRepositoryCustom ptrRepositoryCustom;
+
+    @Autowired
+    private PtrAsyncService ptrAsyncService;
 
     @Override
     public RelojDTO reloj() {
@@ -409,7 +419,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void ptrTest() {
+    public void ptrTestService() {
         final RunTareaDto runTareaDto = new RunTareaDto();
         final TareaDto tareaDto = new TareaDto();
         runTareaDto.setTarea(tareaDto);
@@ -420,6 +430,67 @@ public class TestServiceImpl implements TestService {
         tareaDto.setFechaInicioPeriodo(LocalDate.of(2015, 3, 1));
         tareaDto.setFechaFinPeriodo(LocalDate.of(2015, 3, 31));
         this.ptrService.findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+    }
+
+    @Override
+    public void ptrTestBbddSync() {
+        final TareaDto tareaDto = new TareaDto();
+        tareaDto.setFechaInicioPeriodo(LocalDate.of(2021, 8, 1));
+        tareaDto.setFechaFinPeriodo(LocalDate.of(2021, 8, 31));
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen("528");
+        this.ptrRepositoryCustom.findPresenciasOrigenAndFecha(tareaDto, tareaAmbitoDto);
+    }
+
+    @Override
+    public void ptrTestBbddAsync() {
+        final TrabajoDTO trabajoDto = new TrabajoDTO();
+        final TareaDto tareaDto = new TareaDto();
+        tareaDto.setFechaInicioPeriodo(LocalDate.of(2021, 8, 1));
+        tareaDto.setFechaFinPeriodo(LocalDate.of(2021, 8, 31));
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen("528");
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        runTareaDto.setTrabajo(trabajoDto);
+        runTareaDto.setTarea(tareaDto);
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            final CompletableFuture<PresenciaOrigenDto> cfPresenciaPtr1 = this.ptrAsyncService
+                .findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPresenciaPtr1, cf);
+            final CompletableFuture<PresenciaOrigenDto> cfPresenciaPtr2 = this.ptrAsyncService
+                .findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPresenciaPtr2, cf);
+            final CompletableFuture<PresenciaOrigenDto> cfPresenciaPtr3 = this.ptrAsyncService
+                .findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPresenciaPtr3, cf);
+            final CompletableFuture<PresenciaOrigenDto> cfPresenciaPtr4 = this.ptrAsyncService
+                .findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPresenciaPtr4, cf);
+            final CompletableFuture<PresenciaOrigenDto> cfPresenciaPtr5 = this.ptrAsyncService
+                .findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPresenciaPtr5, cf);
+            final CompletableFuture<PresenciaOrigenDto> cfPresenciaPtr6 = this.ptrAsyncService
+                .findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPresenciaPtr6, cf);
+            final CompletableFuture<PresenciaOrigenDto> cfPresenciaPtr7 = this.ptrAsyncService
+                .findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPresenciaPtr7, cf);
+            final CompletableFuture<PresenciaOrigenDto> cfPresenciaPtr8 = this.ptrAsyncService
+                .findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPresenciaPtr8, cf);
+            final CompletableFuture<PresenciaOrigenDto> cfPresenciaPtr9 = this.ptrAsyncService
+                .findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPresenciaPtr9, cf);
+            final CompletableFuture<PresenciaOrigenDto> cfPresenciaPtr10 = this.ptrAsyncService
+                .findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+            AsyncUtils.exceptionally(cfPresenciaPtr10, cf);
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } catch (final Exception e) {
+            this.log.error("ptrTestBbddAsync", e);
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
     }
 
     @Override
@@ -440,6 +511,8 @@ public class TestServiceImpl implements TestService {
     }
 
     private AuthenticateDto slrhorcomsAuthenticateTest() {
+
+        this.log.info("Client base url {}", this.slrhorcomsClient.getBaseUrl());
 
         final ResponseEntity<AuthenticateResponseDto> responseAuthenticate = this.slrhorcomsClient
             .postForEntity("/authenticate", null, AuthenticateResponseDto.class);

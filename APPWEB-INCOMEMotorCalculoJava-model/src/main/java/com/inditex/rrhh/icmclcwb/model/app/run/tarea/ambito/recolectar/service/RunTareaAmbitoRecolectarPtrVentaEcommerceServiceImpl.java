@@ -536,7 +536,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                     .stream()
                     .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
-                paramVentaOnlinePicking.setVentaPAT(PtrIncluirVentaPatEnum.FALSE.getValue());
+                paramVentaOnlinePicking.setVentaPAT(PtrIncluirVentaPatEnum.TRUE.getValue());
 
 
                 final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = this.ptrVentaEcommerceAsyncService

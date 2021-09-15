@@ -80,17 +80,6 @@ public class JmsConfig {
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "amiga.data.jms.listener-container-factory.tarea-prevalidar")
-    public JmsListenerContainerFactory tareaPrevalidarContainerFactoryListener(
-            @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
-            final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
-        return listenerContainerFactoryBuilder.additionalCustomizers(new JmsListenerContainerFactoryCustom())
-            .connectionFactory(cf)
-            .sessionTransacted(false)
-            .build();
-    }
-
-    @Bean
     @Qualifier("trabajoJmsClient")
     @ConfigurationProperties(prefix = "amiga.data.jms.client.trabajo")
     public JmsClient trabajoJmsClient(final JmsClientBuilder builder,
@@ -124,16 +113,6 @@ public class JmsConfig {
     @Qualifier("programacionJmsClient")
     @ConfigurationProperties(prefix = "amiga.data.jms.client.programacion")
     public JmsClient programacionJmsClient(final JmsClientBuilder builder,
-            @Qualifier("connectionFactoryEscritura") final ConnectionFactory cf) throws JMSException {
-        final JmsClient jmsClient = builder.additionalCustomizers(new JmsClientCustom()).build();
-        jmsClient.setConnectionFactory(cf);
-        return jmsClient;
-    }
-
-    @Bean
-    @Qualifier("tareaPreValidarJmsClient")
-    @ConfigurationProperties(prefix = "amiga.data.jms.client.tarea-prevalidar")
-    public JmsClient tareaPreValidarJmsClient(final JmsClientBuilder builder,
             @Qualifier("connectionFactoryEscritura") final ConnectionFactory cf) throws JMSException {
         final JmsClient jmsClient = builder.additionalCustomizers(new JmsClientCustom()).build();
         jmsClient.setConnectionFactory(cf);

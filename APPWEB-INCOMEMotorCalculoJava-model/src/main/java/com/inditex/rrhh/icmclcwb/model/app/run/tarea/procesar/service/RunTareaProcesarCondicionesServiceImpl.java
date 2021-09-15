@@ -1,14 +1,18 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraRepositoryCustom;
@@ -25,6 +29,10 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
 
     @Autowired
     private TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom;
+
+    @Autowired
+    private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+
 
     @Override
     public void updateActivoPresupuestosBandaExcepcion(final RunTareaDto runTarea) {
@@ -48,12 +56,6 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
     }
 
     @Override
-    public void relacionarPresupuestosEstructurasDesplazamiento(@Valid final TareaDto tarea) {
-        this.tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom
-            .relacionarEstructuraDesplazamiento(tarea);
-    }
-
-    @Override
     public void desactivarChallengeOpcionOrigen(@Valid final TareaDto tarea) {
         this.tareaPersonaEstructuraRepositoryCustom.desactivarChallengeOpcionOrigen(tarea);
     }
@@ -66,6 +68,28 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
     @Override
     public void crearChallengeOpcionOrigen(@Valid final TareaDto tarea) {
         this.tareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen(tarea);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void relacionarPresupuestosEstructurasDesplazamiento(
+            @Valid @NotNull final TareaDto tarea) {
+        try {
+            this.primaryTemporaryTableRepositoryCustom.createTempEstructura();
+            this.primaryTemporaryTableRepositoryCustom.indexTempEstructura();
+            this.primaryTemporaryTableRepositoryCustom.createTempPersonas();
+            this.primaryTemporaryTableRepositoryCustom.indexTempPersonas();
+            this.primaryTemporaryTableRepositoryCustom.createTempPresupuestos();
+            this.primaryTemporaryTableRepositoryCustom.indexTempPresupuestos();
+            this.primaryTemporaryTableRepositoryCustom.insertTempEstructura(tarea);
+            this.primaryTemporaryTableRepositoryCustom.insertTempPersonas();
+            this.primaryTemporaryTableRepositoryCustom.insertTempPresupuestos(tarea);
+            this.primaryTemporaryTableRepositoryCustom.insertTareaLocalizacionPresupuestoTareaPersonaEstructura(tarea);
+        } finally {
+            this.primaryTemporaryTableRepositoryCustom.deleteTempEstructura();
+            this.primaryTemporaryTableRepositoryCustom.deleteTempPersonas();
+            this.primaryTemporaryTableRepositoryCustom.deleteTempPresupuestos();
+        }
     }
 
 }

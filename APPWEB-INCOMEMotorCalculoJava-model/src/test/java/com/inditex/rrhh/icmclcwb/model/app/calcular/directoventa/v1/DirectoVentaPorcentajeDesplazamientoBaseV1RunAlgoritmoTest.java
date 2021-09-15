@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,18 +50,16 @@ public class DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
     @Test
     public void getSqlCalcularTest() {
         when(this.tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom
-            .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
+            .getSqlCalcular(any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
 
         final String result = this.directoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo
-            .getSqlCalcular(new AlgoritmoDto());
+            .getSqlCalcular(new AlgoritmoDTO());
 
         assertEquals(SQL_CALCULAR, result);
     }
 
     @Test
     public void calcularTest() {
-
-        when(this.runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(10);
 
         final List<IdPersonaLocalDto> personas = new ArrayList<>();
         final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
@@ -71,12 +69,12 @@ public class DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
         final IdPersonaLocalDto p3 = new IdPersonaLocalDto();
         personas.add(p3);
         when(this.tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom
-            .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
+            .ids(any(AlgoritmoDTO.class), any(TareaDto.class))).thenReturn(personas);
 
         final RunTareaDto runTarea = new RunTareaDto();
         final TareaDto tarea = new TareaDto();
         runTarea.setTarea(tarea);
-        final AlgoritmoDto algoritmo = new AlgoritmoDto();
+        final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         this.directoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
         verify(this.log, times(1)).info(
@@ -97,18 +95,17 @@ public class DirectoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
         final IdPersonaLocalDto p2 = new IdPersonaLocalDto();
         personas.add(p2);
         when(this.tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom
-            .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
+            .ids(any(AlgoritmoDTO.class), any(TareaDto.class))).thenReturn(personas);
 
-        when(this.runAlgoritmoPropertiesDto.getBatchSize()).thenReturn(2);
         final RuntimeException exception = new RuntimeException("EEEE");
         doThrow(exception).when(this.tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom)
-            .calcular(any(AlgoritmoDto.class), any(TareaDto.class),
+            .calcular(any(AlgoritmoDTO.class), any(TareaDto.class),
                     ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
         final RunTareaDto runTarea = new RunTareaDto();
         final TareaDto tarea = new TareaDto();
         runTarea.setTarea(tarea);
-        final AlgoritmoDto algoritmo = new AlgoritmoDto();
+        final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         this.directoVentaPorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
         verify(this.log, times(1))

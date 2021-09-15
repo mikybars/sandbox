@@ -76,8 +76,8 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AsyncUtils.exceptionally(cfAusencias, cf, cfWait);
 
             // Tipos hora para los origenes
-            final CompletableFuture<Void> cfTiposHoras = this.runTareaRecolectarPtrPresenciaAsyncService
-                .tiposHorasByRunTarea(runTarea);
+            final CompletableFuture<Void> cfTiposHoras = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+                .tiposHoraByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfTiposHoras, cf, cfWait);
 
             // Flag comisionable para las localizaciones del ambito
@@ -219,7 +219,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                 .ventaOnlineIpodLocalizacionPersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfVentaFisicaLocalizacionPersona, cf, cfWait);
 
-            // Persona
+            // Presencia Persona
             final CompletableFuture<Void> cfPresenciasDetalleComisionablePersona = this.runTareaRecolectarPtrPresenciaAsyncService
                 .presenciaDetalleComisionablePersonaByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciasDetalleComisionablePersona, cf, cfWait);
@@ -261,6 +261,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             final CompletableFuture<Void> cfFestivos = this.runTareaRecolectarSlrhorcomsAsyncService
                 .horarioComercialFestivoByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfFestivos, cf, cfWait);
+
+            // Presencias sindicales
+            final CompletableFuture<Void> cfHorasSindicales = this.runTareaRecolectarPtrPresenciaAsyncService
+                .presenciaDetallePersonaHorasSindicalesByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfHorasSindicales, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);

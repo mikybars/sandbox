@@ -4,6 +4,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -41,7 +42,7 @@ public class RunTareaValidarCondicionesDesplazamientoEsServiceImpl implements Ru
     private AccionService accionService;
 
     @Override
-    public List<ValidacionDto> execute(@NotNull @Valid final RunTareaDto runTarea,
+    public CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
         final TareaDto tareaDto = runTarea.getTarea();
         this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
@@ -58,7 +59,7 @@ public class RunTareaValidarCondicionesDesplazamientoEsServiceImpl implements Ru
         if (validaciones.isEmpty()) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
                     EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
-            return validaciones;
+            return CompletableFuture.completedFuture(validaciones);
         }
 
         if (validaciones.stream()
@@ -67,7 +68,7 @@ public class RunTareaValidarCondicionesDesplazamientoEsServiceImpl implements Ru
             .isEmpty()) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
         }
-        return validaciones;
+        return CompletableFuture.completedFuture(validaciones);
     }
 
 }

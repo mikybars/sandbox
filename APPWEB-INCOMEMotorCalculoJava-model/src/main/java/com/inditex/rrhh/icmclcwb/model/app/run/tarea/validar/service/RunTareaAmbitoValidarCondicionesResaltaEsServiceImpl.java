@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesResaltaEsService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
@@ -61,6 +62,7 @@ public class RunTareaAmbitoValidarCondicionesResaltaEsServiceImpl
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
+        final TareaDto tareaDto = runTareaDto.getTarea();
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<IdPersonaLocalDto> resaltaValidationResult;
         try {
@@ -75,6 +77,11 @@ public class RunTareaAmbitoValidarCondicionesResaltaEsServiceImpl
             this.primaryTemporaryTableRepositoryCustom.createTempComisResalta();
             this.primaryTemporaryTableRepositoryCustom.insertTempComisResalta(condicionesResalta);
 
+            this.primaryTemporaryTableRepositoryCustom
+                .mergeDateRangesSeccionNotEqualsTempComisResalta(runTareaDto.getTarea());
+            this.primaryTemporaryTableRepositoryCustom
+                .mergeDateRangesTempComisResalta(runTareaDto.getTarea());
+
             resaltaValidationResult = this.primaryTemporaryTableRepositoryCustom
                 .validateTempComisResalta(runTareaDto.getTarea());
 
@@ -87,7 +94,7 @@ public class RunTareaAmbitoValidarCondicionesResaltaEsServiceImpl
             throw e;
         }
         return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-                resaltaValidationResult, this.resaltaProperties);
+                resaltaValidationResult, this.resaltaProperties, tareaDto);
     }
 
 }

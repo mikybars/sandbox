@@ -23,6 +23,12 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
 
     void compensarLocalizacionManual(@NotNull RunTareaDto runTareaDto);
 
+    void repartirPresenciasSindicalesLocalizacion(@NotNull RunTareaDto runTareaDto);
+
     void repartirPresenciasSindicalesLocalizacionSeccion(@NotNull RunTareaDto runTareaDto);
+
+    void totalizarEcommerceSeccion(@NotNull RunTareaDto runTareaDto);
+
+    void totalizarPresenciasSindicalesLocalizacion(@NotNull RunTareaDto runTareaDto);
 
 }

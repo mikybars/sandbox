@@ -1,12 +1,18 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
@@ -18,8 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjusteFactory;
-import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Schedulers;
+import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
 import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
@@ -27,6 +32,10 @@ import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetri
 @Service
 @Validated
 public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
+
+    @Autowired
+    @Qualifier("runAjusteProperties")
+    private RunAjustePropertiesDto runAjusteProperties;
 
     @Autowired
     private AlgoritmoAjusteService algoritmoAjusteService;
@@ -49,20 +58,21 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
                         FaseEnum.AJUSTAR.getId()));
         final TareaDto tarea = runTarea.getTarea();
-        this.algoritmoAjusteService.customFindAjustePesosByTarea(tarea.getId())
-            .stream()
-            .forEach(a -> Flux
-                .fromIterable(this.algoritmoAjusteService.customFindAjusteIdsByTareaAndPeso(tarea.getId(), a))
-                .parallel()
-                .runOn(Schedulers.newElastic("async-reactor-ajustar"))
-                .map(algoritmo -> {
-                    final AlgoritmoAjusteDto ajuste = this.algoritmoAjusteService.findById(algoritmo);
-                    this.runAjusteFactory.getRunAjuste(ajuste.getNombre()).execute(runTarea, ajuste);
-                    return Flux.empty();
-                })
-                .sequential()
-                .collectList()
-                .block());
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+
+        for (final Long pesos : this.algoritmoAjusteService.customFindAjustePesosByTarea(tarea.getId())) {
+            for (final Integer id : this.algoritmoAjusteService.customFindAjusteIdsByTareaAndPeso(tarea.getId(),
+                    pesos)) {
+                AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getThreadSize());
+                final AlgoritmoAjusteDto algoritmo = this.algoritmoAjusteService.findById(id);
+                final CompletableFuture<Void> cfRun = this.runAjusteFactory.getRunAjuste(algoritmo.getNombre())
+                    .execute(runTarea, algoritmo);
+                AsyncUtils.exceptionally(cfRun, cf);
+            }
+        }
+
+        AsyncUtils.waitAllOfIsOk(cf, cf);
+
         this.tareaFaseService.updateFechaFinAndEstado(
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
                         FaseEnum.AJUSTAR.getId()),

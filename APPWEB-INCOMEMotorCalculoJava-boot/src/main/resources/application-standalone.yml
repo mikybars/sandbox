@@ -4,22 +4,24 @@ logging:
   level:
     root: WARN
     com.inditex.rrhh.icmclcwb: INFO
-    com.atomikos: WARN
     org.apache.activemq: WARN
     org.apache.cxf: WARN
     org.springframework.jdbc.core: WARN
     org.springframework.jdbc.core.StatementCreatorUtils: WARN
 metadata:
-  domain: core
+  domain: rhcompensa
+  service: income
+  tenant: global
   environment: local
-  jiracategory: sistemas-financiero-y-rrhh-core-rrhh
+  jiracategory: sistemas-rrhh-compensacion
   jirakey: ICMCLCWB
   jiraprojectname: APPWEB-INCOMEMotorCalculoJava
-  openshiftproject: icmclcwb
-  platform: Openshift-Intranet Arteixo
+  openshiftproject: sscc-global-rhcompensa
+  platform: Openshift-SSCC Arteixo
   slot: develop
-  tenant: global
-  version: 2.9.6
+  developModel: CORPORATE
+  layer: core
+  version: 3.2.5
 amiga:
   monitoring:
     metrics:
@@ -122,13 +124,13 @@ amiga:
           pubSubDomain: false
           receiveTimeout: 1000
       trabajo-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.trabajo-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-trabajo-queue-${metadata.slot}
       tarea-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.tarea-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-tarea-queue-${metadata.slot}
       limpieza-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.limpieza-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-limpieza-queue-${metadata.slot}
       programacion-queue:
-        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.programacion-queue-${metadata.slot}
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-programacion-queue-${metadata.slot}
     session:
       session-type: EMBEDDED
     aaa:
@@ -146,22 +148,20 @@ amiga:
           consumer:
             enable-dlq: false          
             send-original-payload-to-dlq: false  
-    jta:
-      allow-custom-isolation-levels: true
     jms:
       connection-factory:
         broker-escritura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: failover:(tcp://127.0.0.1:61616)
-          userName: root
-          password: V3ct0r1nd1t3x
+          brokerURL: ${qa.amq.brokerAmqCFWrite.url:tcp://localhost:61616}
+          userName: ${qa.amq.brokerAmqCFWrite.username:usr-write}
+          password: ${qa.amq.brokerAmqCFWrite.password:write}
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: failover:(tcp://127.0.0.1:61616)
-          userName: root
-          password: V3ct0r1nd1t3x
+          brokerURL: ${qa.amq.brokerAmqCFRead.url:tcp://localhost:61616}
+          userName: ${qa.amq.brokerAmqCFRead.username:usr-read}
+          password: ${qa.amq.brokerAmqCFRead.password:read}
       listener-container-factory:
         trabajo:
           concurrency: 1
@@ -205,12 +205,10 @@ amiga:
           pubSubDomain: false
           sessionTransacted: false
     jdbc:
-      configuration:
-        prop:
-          default-isolation-level: 1
-          max-pool-size: 10
+      pool:
+        hikari:
+          maximum-pool-size: 10
           query-timeout: 90s
-          borrow-connection-timeout: 600
       datasource:
         primary:
           #init-connection-sql: set schema GESTION_COMISION
@@ -219,7 +217,7 @@ amiga:
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
           username: uincome
           password: pzuUKBm1ppMGzzOn
-          jdbc-url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+          jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
           #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
 #          user: oincome
@@ -231,13 +229,6 @@ amiga:
 #          password:
 #          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
           #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][FIN]
-          driver-properties:
-            clientProgramName: ${metadata.jirakey}-${metadata.slot}
-            loginTimeout: 300
-            connectionTimeout: 300
-            commandTimeout: 300
-            interruptProcessingMode: 2
-            currentSchema: GESTION_COMISION
           #[BBDD][ITX][NON_XA][FIN]
           #[BBDD][ITX][XA][INICIO]
 #          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
@@ -298,7 +289,7 @@ amiga:
           jdbc-url: jdbc:oracle:thin:@//axine3-scansrv.central.inditex.grp:1521/s_pdbds01rt_gener.central.inditex.grp
           username: uincome
           password: pzuUKBm1ppMGzzOn
-          defaultIsolationLevel: 8
+          defaultIsolationLevel: 2    
         #[PTR][ITX][DES][NON_XA][FIN]
         #[PTR][ITX][DES][XA][INICIO]
 #        ptr:
@@ -684,11 +675,20 @@ app:
         exception: false
       calcular:
         algoritmo:
-          config:
+          thread-size: 2
+          calculo:
             batch-size: 25
-      ajuste:
-        config:
-          batch-size: 25
+            thread-size: 4
+      ajustar:
+        algoritmo:
+          thread-size: 2
+          ajuste:
+            batch-size: 25
+            thread-size: 4
+      regularizar:
+        thread-size: 4
+      prevalidacion:
+        thread-size: 4
     repository:
       batch-size:
         default: 100
@@ -866,13 +866,13 @@ app:
           connectTimeout: 300000
           receiveTimeout: 300000
       login:
-        server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
-        #server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
+        #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
+        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/Login
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
       icmwscalcincome:
-        server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        #server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
+        #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         service:
@@ -1164,3 +1164,12 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
+          getTiposHoras:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3              

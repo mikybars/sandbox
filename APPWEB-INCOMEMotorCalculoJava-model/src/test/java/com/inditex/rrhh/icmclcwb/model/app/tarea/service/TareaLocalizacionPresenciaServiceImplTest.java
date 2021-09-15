@@ -83,6 +83,15 @@ public class TareaLocalizacionPresenciaServiceImplTest {
 
         this.tareaLocalizacionPresenciaServiceImpl.repartirPresenciasSindicalesLocalizacion(runTarea);
         verify(this.tareaLocalizacionPresenciaRepositoryCustom, times(1))
+            .repartirPresenciasSindicalesLocalizacion(runTarea);
+    }
+
+    @Test
+    public void repartirPresenciasSindicalesLocalizacionSeccionTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPresenciaServiceImpl.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+        verify(this.tareaLocalizacionPresenciaRepositoryCustom, times(1))
             .repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
     }
 

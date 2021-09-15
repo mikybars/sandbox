@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesDesplazamientoEsService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
@@ -61,6 +62,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl
     public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
             @Valid final TareaAmbitoDto tareaAmbito,
             @Valid final TareaFaseAccionDto tareaFaseAccion) {
+        final TareaDto tareaDto = runTareaDto.getTarea();
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<IdPersonaLocalDto> desplazamientoValidationResult;
         try {
@@ -89,7 +91,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl
         }
 
         return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-                desplazamientoValidationResult, this.desplazamientoProperties);
+                desplazamientoValidationResult, this.desplazamientoProperties, tareaDto);
 
     }
 

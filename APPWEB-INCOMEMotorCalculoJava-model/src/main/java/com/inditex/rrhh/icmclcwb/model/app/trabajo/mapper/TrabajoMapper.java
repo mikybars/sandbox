@@ -109,11 +109,11 @@ public abstract class TrabajoMapper {
     }
 
     OffsetDateTime map(final LocalDate value) {
-        return value.atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC);
+        return value != null ? value.atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC) : null;
     }
 
     LocalDate mapLocalDate(final OffsetDateTime value) {
-        return value.toLocalDate();
+        return value != null ? value.toLocalDate() : null;
     }
 
     OffsetDateTime mapLocalTime(final LocalTime value) {

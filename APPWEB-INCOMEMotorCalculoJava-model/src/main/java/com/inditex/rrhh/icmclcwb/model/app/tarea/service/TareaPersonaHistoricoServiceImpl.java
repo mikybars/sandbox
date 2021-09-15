@@ -9,10 +9,11 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -21,7 +22,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaHistoricoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaHistoricoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaHistoricoRepositoryCustom;
 
 @Service
@@ -29,13 +30,13 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaHist
 public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoService {
 
     @Autowired
-    private TareaPersonaHistoricoRepository tareaPersonaHistoricoRepository;
-
-    @Autowired
     private TareaPersonaHistoricoRepositoryCustom tareaPersonaHistoricoRepositoryCustom;
 
     @Autowired
     private TareaPersonaHistoricoMapper tareaPersonaHistoricoMapper;
+
+    @Autowired
+    private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Override
     public List<TareaPersonaHistoricoDto> save(
@@ -54,15 +55,6 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
             .genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(genericEmpleadoResultItemDto, tarea);
     }
 
-    // TODO [COMUN] No se está usando.
-    @Override
-    @Cacheable(value = "itx.icmlcwb.id_persona_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
-    public List<IdPersonaDto> findIdPersonaByIdTareaAndIdOrigenInAmbito(@NotNull final Long idTarea,
-            @NotNull final String cclIdOrigen) {
-        return this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea,
-                cclIdOrigen);
-    }
-
     @Override
     @Cacheable(value = "itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(
@@ -72,14 +64,26 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
                 cclIdOrigen);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     @Cacheable(value = "itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato",
             key = "{#idTarea, #cclIdOrigen, #idsTipoDato}")
     public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
             @NotNull final Long idTarea,
             @NotNull final String cclIdOrigen, @NotNull final List<Integer> idsTipoDato) {
-        return this.tareaPersonaHistoricoRepositoryCustom
-            .findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, cclIdOrigen, idsTipoDato);
+        final List<IdPersonaHistoricoDto> personas;
+        try {
+            this.primaryTemporaryTableRepositoryCustom.createTempAlgoritmo();
+            this.primaryTemporaryTableRepositoryCustom.indexTempAlgoritmo();
+            this.primaryTemporaryTableRepositoryCustom.insertTempAlgoritmo(
+                    this.tareaPersonaHistoricoRepositoryCustom
+                        .findIdTipoCalculoAndIdTipoComisionByIdsTiposDato(idsTipoDato));
+            personas = this.tareaPersonaHistoricoRepositoryCustom
+                .findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea, cclIdOrigen, idsTipoDato);
+        } finally {
+            this.primaryTemporaryTableRepositoryCustom.deleteTempAlgoritmo();
+        }
+        return personas;
     }
 
     @Override
@@ -98,13 +102,6 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     public List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(
             @NotNull final Long idTarea) {
         return this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaLocalCompensacionChallengeByIdTarea(idTarea);
-    }
-
-    // TODO [COMUN] No se está usando.
-    @Override
-    public List<IdPersonaHistoricoDto> findIdPersonaHistoricoByIdTareaAndIdOrigen(@NotNull final Long idTarea,
-            @NotNull final String cclIdOrigen) {
-        return this.tareaPersonaHistoricoRepository.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
     }
 
     @Override

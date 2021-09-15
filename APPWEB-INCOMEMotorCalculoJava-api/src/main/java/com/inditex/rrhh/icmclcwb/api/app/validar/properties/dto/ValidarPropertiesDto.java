@@ -11,4 +11,6 @@ public class ValidarPropertiesDto {
 
     boolean exception;
 
+    int threadSize;
+
 }

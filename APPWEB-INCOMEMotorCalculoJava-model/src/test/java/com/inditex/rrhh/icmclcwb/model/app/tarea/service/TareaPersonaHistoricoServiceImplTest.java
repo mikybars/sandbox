@@ -1,16 +1,19 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaHistoricoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaHistoricoRepositoryCustom;
@@ -21,10 +24,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 public class TareaPersonaHistoricoServiceImplTest {
@@ -43,6 +47,9 @@ public class TareaPersonaHistoricoServiceImplTest {
 
     @Mock
     private TrabajoServiceImpl trabajoServiceImpl;
+
+    @Mock
+    private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
     @Test
     public void saveTest() {
@@ -68,16 +75,6 @@ public class TareaPersonaHistoricoServiceImplTest {
     }
 
     @Test
-    public void findIdPersonaByIdTareaAndIdOrigenInAmbitoTest() {
-        final String cclIdOrigen = "1";
-        final Long idTarea = 1L;
-
-        this.tareaPersonaHistoricoServiceImpl.findIdPersonaByIdTareaAndIdOrigenInAmbito(idTarea, cclIdOrigen);
-        verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
-            .findIdPersonaByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class));
-    }
-
-    @Test
     public void findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbitoTest() {
         final String cclIdOrigen = "1";
         final Long idTarea = 1L;
@@ -94,8 +91,16 @@ public class TareaPersonaHistoricoServiceImplTest {
         final Long idTarea = 1L;
         final List<Integer> idsTipoDato = new ArrayList<>();
 
+        final List<GenericAlgoritmoPropertiesDto> algoritmos = Arrays.asList(
+                new GenericAlgoritmoPropertiesDto());
+        when(this.tareaPersonaHistoricoRepositoryCustom.findIdTipoCalculoAndIdTipoComisionByIdsTiposDato(anyList()))
+            .thenReturn(algoritmos);
+
         this.tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(idTarea,
                 cclIdOrigen, idsTipoDato);
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempAlgoritmo();
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).indexTempAlgoritmo();
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).insertTempAlgoritmo(algoritmos);
         verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
             .findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(any(Long.class), any(String.class),
                     ArgumentMatchers.<List<Integer>>any());
@@ -125,16 +130,6 @@ public class TareaPersonaHistoricoServiceImplTest {
     }
 
     @Test
-    public void findIdPersonaHistoricoByIdTareaAndIdOrigenTest() {
-        final Long idTarea = 1L;
-        final String cclIdOrigen = "1";
-        this.tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoByIdTareaAndIdOrigen(idTarea, cclIdOrigen);
-        verify(this.tareaPersonaHistoricoRepository, times(1)).findIdPersonaHistoricoByIdTareaAndIdOrigen(
-                any(Long.class),
-                any(String.class));
-    }
-
-    @Test
     public void findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilioTest() {
         final Long idTarea = 1L;
         final String cclIdOrigen = "1";
@@ -142,7 +137,7 @@ public class TareaPersonaHistoricoServiceImplTest {
             .findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(idTarea, cclIdOrigen);
         verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
             .findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
-                    eq(idTarea), eq(cclIdOrigen), eq(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS));
+                    idTarea, cclIdOrigen, TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS);
 
 
     }

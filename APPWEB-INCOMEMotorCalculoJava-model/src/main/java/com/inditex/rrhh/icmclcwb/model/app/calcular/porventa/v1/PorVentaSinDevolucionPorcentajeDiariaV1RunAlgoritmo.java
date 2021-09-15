@@ -1,21 +1,25 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.porventa.v1;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
+import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaV1RepositoryCustom;
 import org.slf4j.Logger;
-import reactor.core.publisher.Flux;
-
-import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
 
 @Component("porVentaSinDevolucionPorcentajeDiariaV1")
 public class PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo implements RunAlgoritmo {
@@ -33,37 +37,56 @@ public class PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo implements RunA
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
+
     @Override
-    public void execute(RunTareaDto runTarea, AlgoritmoDTO algoritmo) {
-        Flux.fromIterable(StreamUtils.partition(
-                tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaV1RepositoryCustom.ids(algoritmo,
-                        runTarea.getTarea()),
-                runAlgoritmoProperties.getBatchSize()))
-            .parallel()
-            .runOn(ItxSchedulers.boundedElastic())
-            .map(personas -> {
-                log.info("Inicio :: PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}",
-                        personas.size());
-                try {
-                    tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaV1RepositoryCustom.calcular(algoritmo,
+    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
+        this.log.info(
+                "Trabajo[{}]Tarea[{}] :: Inicio :: PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo :: Ids",
+                runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
+        final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaV1RepositoryCustom
+            .ids(algoritmo, runTarea.getTarea());
+        this.log.info(
+                "Trabajo[{}]Tarea[{}] :: Fin :: PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo :: Ids: {}",
+                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
+
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+
+        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
+                ids,
+                this.runAlgoritmoProperties.getCalculo().getBatchSize())) {
+            AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
+
+            this.log.info(
+                    "Trabajo[{}]Tarea[{}] :: Inicio :: PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}",
+                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+            try {
+                final CompletableFuture<Void> cfCalc = this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaV1RepositoryCustom
+                    .calcular(algoritmo,
                             runTarea.getTarea(), personas);
-                } catch (Exception e) {
-                    log.error("PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo :: KO :: Personas: {}",
-                            personas.size(), e);
-                    tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                            EstadoTareaCalculoPersonaEnum.KO.getDto());
-                }
-                log.info("Fin :: PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", personas.size());
-                return Flux.empty();
-            })
-            .sequential()
-            .collectList()
-            .block();
+                AsyncUtils.exceptionally(cfCalc, cf);
+
+            } catch (final Exception e) {
+                AsyncUtils.cancel(cf);
+                this.log.error(
+                        "Trabajo[{}]Tarea[{}] :: PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo :: KO :: Personas: {}",
+                        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
+                this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                        EstadoTareaCalculoPersonaEnum.KO.getDto());
+            }
+            this.log.info(
+                    "Trabajo[{}]Tarea[{}] :: Fin :: PorVentaSinDevolucionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}",
+                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+        }
+        AsyncUtils.waitAllOfIsOk(cf, cf);
+
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+
     }
 
     @Override
-    public String getSqlCalcular(AlgoritmoDTO algoritmo) {
-        return tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaV1RepositoryCustom.getSqlCalcular(algoritmo);
+    public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
+        return this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaV1RepositoryCustom
+            .getSqlCalcular(algoritmo);
     }
 
 }

@@ -14,8 +14,6 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -66,7 +64,6 @@ public class TareaFaseAccionServiceImpl implements TareaFaseAccionService {
     }
 
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void create(@Valid @NotNull final RunTareaDto runTareaDto) {
         final TareaDto tareaDto = runTareaDto.getTarea();

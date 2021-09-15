@@ -7,7 +7,7 @@ amiga:
         bounded:
           factories:
             default:
-              name: async-bounded-executor
+              thread-prefix: async-bounded-executor
               max-threads: 20
               queued-task-cap: 100000
               keep-alive-time: 60000
@@ -15,30 +15,34 @@ amiga:
       client:
         slrhorcoms:
           base-url: https://sscc-pre.central.inditex.grp
+          #base-url: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont-pre.svc.cluster.local.:8080/slrhorcoms
           username: srvcicmclcwbpreAX
         ptr-venta:
-          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
+          #base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
+          base-url: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos-pre.svc.cluster.local.:8080/rhvtimpwsd
           username: srvcicmclcwbpreAX
         ptr-presencia:
-          base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
+          #base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
+          base-url: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos-pre.svc.cluster.local.:8080/rhpresnwsd
           username: srvcicmclcwbpreAX
   data:
+    jms:
+      connection-factory:
+        broker-escritura:
+          brokerURL: tcp://middleware-amq-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
+        broker-lectura:
+          brokerURL: tcp://middleware-amq-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
     jdbc:
       datasource:
         primary:
+          driverClassName: com.ibm.db2.jcc.DB2Driver
+          url: jdbc:db2://axpredb22.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
           user: uincome
-          url: jdbc:db2://axpredb22.central.inditex.grp:50000/INDITEX
-#          xa-properties:
-#            serverName: axpredb22.central.inditex.grp
-#            portNumber: 50000
-#            databaseName: INDITEX
-#            currentSchema: GESTION_COMISION
-#            user: uincome
         ptr:
           driverClassName: oracle.jdbc.OracleDriver
           url: jdbc:oracle:thin:@//axine5-scansrv.central.inditex.grp:11521/s_pdbpr01rt_gener.central.inditex.grp
           user: uincome
-          defaultIsolationLevel: 8
+          defaultIsolationLevel: 2
 #        ptr:
 #          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
 #          xa-properties:
@@ -345,8 +349,10 @@ app:
         credentials:
           user: SRVCICMCLCWSPREAX
       login:
-        #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/Login
-        server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/Login
+        #server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/icmclcws/services/Login
+        #server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
+        server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/Login
       icmwscalcincome:
-        #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
-        server: https://pre-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
+        #server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
+        #server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+        server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME

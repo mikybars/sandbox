@@ -98,7 +98,6 @@ public class TrabajoServiceImpl implements TrabajoService {
         return trabajo;
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public TrabajoDTO create(@Valid @TrabajoValidator final TrabajoDTO trabajo) {
         trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime().atOffset(ZoneOffset.UTC));
@@ -159,13 +158,11 @@ public class TrabajoServiceImpl implements TrabajoService {
                 programacion, periodo);
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateFechaFin(@NotNull final TrabajoDTO trabajo) {
         this.trabajoRepositoryCustom.updateFechaFin(trabajo);
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado) {
         trabajo.setEstadoTrabajo(estado);

@@ -1,7 +1,10 @@
+metadata:
+  domain: rhcompensa
+  service: income
+  tenant: global
+  developModel: CORPORATE
+  layer: core
 app:
-  limits:
-    cpu: 2
-    memory: 6144Mi
   context_path_builder:
     enabled: true
   readiness_probe:

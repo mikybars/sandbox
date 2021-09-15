@@ -93,7 +93,7 @@ public class TestController implements TestApi {
 
     @Override
     public ResponseEntity<Void> ptrTest() {
-        this.testService.ptrTest();
+        this.testService.ptrTestService();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -102,5 +102,7 @@ public class TestController implements TestApi {
         this.testService.slrhorcomsTest();
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    // TODO: Añadir los nuevos.
 
 }

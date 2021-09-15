@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.porventaindividual.v1;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class PorVentaIndividualPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoT
     @Test
     public void getSqlCalcularTest() {
         // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
-        final AlgoritmoDto algoritmo = new AlgoritmoDto();
+        final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         final String result = this.porVentaIndividualPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo
             .getSqlCalcular(algoritmo);
 
@@ -38,7 +38,7 @@ public class PorVentaIndividualPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoT
     @Test
     public void executeTest() {
         // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
-        final AlgoritmoDto algoritmo = new AlgoritmoDto();
+        final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         final RunTareaDto runTarea = new RunTareaDto();
         this.porVentaIndividualPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 

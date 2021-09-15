@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.globaltienda.v1;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class GlobalTiendaTopesDesplazamientoV1RunAlgoritmoTest {
     @Test
     public void getSqlCalcularTest() {
         // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
-        AlgoritmoDto algoritmo = new AlgoritmoDto();
+        AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         String result = globalTiendaTopesDesplazamientoV1RunAlgoritmo.getSqlCalcular(algoritmo);
 
         assertEquals(ErrorConstants.RUN_ALGORITMO_NOT_IMPLEMENTED_RESULT, result);
@@ -37,7 +37,7 @@ public class GlobalTiendaTopesDesplazamientoV1RunAlgoritmoTest {
     @Test
     public void executeTest() {
         // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
-        AlgoritmoDto algoritmo = new AlgoritmoDto();
+        AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         RunTareaDto runTarea = new RunTareaDto();
         globalTiendaTopesDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 

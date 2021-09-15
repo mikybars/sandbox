@@ -93,7 +93,7 @@ public class RunTareaAmbitoValidarCarenciaServiceImplTest {
         verify(this.validacionMapper, timeout(1000).times(1))
             .idPersonaLocalDtoTovalidacionDto(ArgumentMatchers.any(TareaAmbitoDto.class),
                     ArgumentMatchers.any(TareaFaseAccionDto.class), ArgumentMatchers.any(List.class),
-                    ArgumentMatchers.any(PrevalidarPropertiesDto.class));
+                    ArgumentMatchers.any(PrevalidarPropertiesDto.class), ArgumentMatchers.any(TareaDto.class));
     }
 
 }

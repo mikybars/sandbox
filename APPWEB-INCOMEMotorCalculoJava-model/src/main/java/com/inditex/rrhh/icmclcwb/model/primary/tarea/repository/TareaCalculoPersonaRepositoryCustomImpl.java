@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
@@ -47,6 +48,9 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
 
     @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.findByTareaAndIdEstado']}")
     private String sqlFindByTareaAndIdEstado;
+
+    @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.findIdTipoCalculoAndIdTipoComisionByIdAlgoritmo']}")
+    private String sqlFindIdTipoCalculoAndIdTipoComisionByIdAlgoritmo;
 
 
     @Override
@@ -141,6 +145,24 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO,
                 EstadoTareaCalculoPersonaEnum.KO.getId());
         this.update(this.sqlMergePersonaCalculoByAmbitoPersona, params);
+    }
+
+    @Override
+    public List<GenericAlgoritmoPropertiesDto> findIdTipoCalculoAndIdTipoComisionByIdAlgoritmo(
+            @NotBlank final AlgoritmoDTO algoritmo) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
+        return this.query(this.sqlFindIdTipoCalculoAndIdTipoComisionByIdAlgoritmo, parameters,
+                new RowMapper<GenericAlgoritmoPropertiesDto>() {
+                    @Override
+                    public GenericAlgoritmoPropertiesDto mapRow(final ResultSet rs, final int rowNum)
+                            throws SQLException {
+                        final GenericAlgoritmoPropertiesDto dto = new GenericAlgoritmoPropertiesDto();
+                        dto.setIdTipoCalculo(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_CALCULO));
+                        dto.setIdTipoComision(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_COMISION));
+                        return dto;
+                    }
+                });
     }
 
 }

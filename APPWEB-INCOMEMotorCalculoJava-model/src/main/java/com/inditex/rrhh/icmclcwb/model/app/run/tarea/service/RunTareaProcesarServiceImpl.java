@@ -62,9 +62,19 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
                 .desactivarChallengeOpcionOrigen(runTarea);
             AsyncUtils.exceptionally(cfDesactivarChallengeOpcionOrigen, cf, cfWait);
 
+            // Totalizar las presencias sindicales por localizacion
+            final CompletableFuture<Void> cfTotalzarPresenciasSindicales = this.runTareaProcesarPresenciaAsyncService
+                .totalizarPresenciasSindicalesLocalizacion(runTarea);
+            AsyncUtils.exceptionally(cfTotalzarPresenciasSindicales, cf, cfWait);
+
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
+
+            // Totalizar las presencias incluido commerce por seccion
+            final CompletableFuture<Void> cfTotalizarEcommerceSeccion = this.runTareaProcesarPresenciaAsyncService
+                .totalizarEcommerceSeccion(runTarea);
+            AsyncUtils.exceptionally(cfTotalizarEcommerceSeccion, cf, cfWait);
 
             final CompletableFuture<Void> cfDesactivarManualOrdinalDoble = this.runTareaProcesarCondicionesAsyncService
                 .desactivarManualOrdinalDoble(runTarea);
@@ -188,10 +198,19 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             AsyncUtils.waitAllOfIsOk(cf, cfWait);
             /*-------------------------------------------------------------*/
 
-            // Reparto de las presencias sindicales
+            // Reparto de las presencias sindicales a nivel de localizacion
             final CompletableFuture<Void> cfRepartoPresenciasSindicales = this.runTareaProcesarPresenciaAsyncService
                 .repartirPresenciasSindicalesLocalizacion(runTarea);
             AsyncUtils.exceptionally(cfRepartoPresenciasSindicales, cf, cfWait);
+
+            /*-------------------------------------------------------------*/
+            AsyncUtils.waitAllOfIsOk(cf, cfWait);
+            /*-------------------------------------------------------------*/
+
+            // Reparto de las presencias sindicales a nivel de localizacion seccion
+            final CompletableFuture<Void> cfRepartoPresenciasSindicalesSeccion = this.runTareaProcesarPresenciaAsyncService
+                .repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
+            AsyncUtils.exceptionally(cfRepartoPresenciasSindicalesSeccion, cf, cfWait);
 
             /*-------------------------------------------------------------*/
             AsyncUtils.waitAllOfIsOk(cf, cfWait);

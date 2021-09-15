@@ -15,14 +15,13 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
-import com.inditex.rrhh.icmclcwb.ms.app.tareaprevalidar.SenderTareaPreValidar;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -63,9 +62,6 @@ public class TareaServiceImplTest {
 
     @Mock
     private SenderTarea senderTarea;
-
-    @Mock
-    private SenderTareaPreValidar senderTareaPreValidar;
 
     @Mock
     private TareaFaseService tareaFaseService;
@@ -124,7 +120,7 @@ public class TareaServiceImplTest {
 
     @Test
     public void createTrabajoTest() {
-        final TrabajoDto trabajoDto = mock(TrabajoDto.class);
+        final TrabajoDTO trabajoDto = mock(TrabajoDTO.class);
         trabajoDto.setEmpresa(new ArrayList<>());
         this.tareaServiceImpl.create(trabajoDto);
         verify(this.tareaMapper, times(1)).mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(trabajoDto.getEmpresa(),

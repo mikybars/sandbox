@@ -1,11 +1,16 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular;
 
+import java.util.concurrent.CompletableFuture;
+
+import org.springframework.scheduling.annotation.Async;
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
 public interface RunAlgoritmo {
 
-    void execute(RunTareaDto runTarea, AlgoritmoDTO algoritmo);
+    @Async("algoritmoCalculoExecutor")
+    CompletableFuture<Void> execute(RunTareaDto runTarea, AlgoritmoDTO algoritmo);
 
     String getSqlCalcular(AlgoritmoDTO algoritmo);
 

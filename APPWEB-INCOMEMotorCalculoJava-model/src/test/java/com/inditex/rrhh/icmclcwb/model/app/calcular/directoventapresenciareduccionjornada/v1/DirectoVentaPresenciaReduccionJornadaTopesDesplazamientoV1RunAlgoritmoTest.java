@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventapresenciareducc
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class DirectoVentaPresenciaReduccionJornadaTopesDesplazamientoV1RunAlgori
     @Test
     public void getSqlCalcularTest() {
         // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
-        AlgoritmoDto algoritmo = new AlgoritmoDto();
+        AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         String result = directoVentaPresenciaReduccionJornadaTopesDesplazamientoV1RunAlgoritmo
             .getSqlCalcular(algoritmo);
 
@@ -38,7 +38,7 @@ public class DirectoVentaPresenciaReduccionJornadaTopesDesplazamientoV1RunAlgori
     @Test
     public void executeTest() {
         // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
-        AlgoritmoDto algoritmo = new AlgoritmoDto();
+        AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         RunTareaDto runTarea = new RunTareaDto();
         directoVentaPresenciaReduccionJornadaTopesDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 

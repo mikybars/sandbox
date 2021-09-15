@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
@@ -162,5 +163,105 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      * @return
      */
     List<IdPersonaLocalDto> validateTempComisResalta(TareaDto tarea);
+
+    /**
+     * @param tarea
+     */
+    void mergeDateRangesSeccionNotEqualsTempComisHistorico(TareaDto tarea);
+
+    /**
+     * @return
+     */
+    int deleteTempAlgoritmo();
+
+    /**
+     * @return
+     */
+    int createTempAlgoritmo();
+
+    /**
+     * @param algoritmoDto
+     */
+    void insertTempAlgoritmo(@NotNull List<GenericAlgoritmoPropertiesDto> algoritmoDto);
+
+    /**
+     * @return
+     */
+    int indexTempAlgoritmo();
+
+    /**
+     * @return
+     */
+    int deleteTempEstructura();
+
+    /**
+     * @return
+     */
+    int createTempEstructura();
+
+    /**
+     * @return
+     */
+    int indexTempEstructura();
+
+    /**
+     * @return
+     */
+    int deleteTempPersonas();
+
+    /**
+     * @return
+     */
+    int createTempPersonas();
+
+    /**
+     * @return
+     */
+    int indexTempPersonas();
+
+    /**
+     * @param algoritmoDto
+     */
+    void insertTempPersonas();
+
+    /**
+     * @return
+     */
+    int deleteTempPresupuestos();
+
+    /**
+     * @return
+     */
+    int createTempPresupuestos();
+
+    /**
+     * @return
+     */
+    int indexTempPresupuestos();
+
+    /**
+     * @param tareaDto
+     */
+    void insertTempPresupuestos(@NotNull TareaDto tareaDto);
+
+    /**
+     * @param tareaDto
+     */
+    void insertTempEstructura(@NotNull TareaDto tareaDto);
+
+    /**
+     * @param tareaDto
+     */
+    void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NotNull TareaDto tareaDto);
+
+    /**
+     * @param tarea
+     */
+    void mergeDateRangesSeccionNotEqualsTempComisResalta(TareaDto tarea);
+
+    /**
+     * @param tarea
+     */
+    void mergeDateRangesTempComisResalta(TareaDto tarea);
 
 }

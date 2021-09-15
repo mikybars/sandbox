@@ -116,7 +116,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCusto
                 .thenReturn(Arrays.asList(
                         new IdTipoDatoDto(
                                 TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId()),
-                        new IdTipoDatoDto(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId())));
+                        new IdTipoDatoDto(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOECOMMERCE.getId())));
 
         final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(1001);
@@ -174,7 +174,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCusto
         assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
         assertEquals(
                 Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId(),
-                        TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId()),
+                        TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOECOMMERCE.getId()),
                 result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
         // idAlgoritmo
         assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
@@ -226,7 +226,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCusto
                 .thenReturn(Arrays.asList(
                         new IdTipoDatoDto(
                                 TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId()),
-                        new IdTipoDatoDto(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId())));
+                        new IdTipoDatoDto(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOECOMMERCE.getId())));
 
         final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
         when(algoritmo.getId()).thenReturn(1001);
@@ -293,7 +293,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCusto
             assertTrue(value.hasValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
             assertEquals(
                     Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDODENOMINADOR.getId(),
-                            TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE.getId()),
+                            TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOECOMMERCE.getId()),
                     value.getValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
             // excluidoCalculo
             assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
