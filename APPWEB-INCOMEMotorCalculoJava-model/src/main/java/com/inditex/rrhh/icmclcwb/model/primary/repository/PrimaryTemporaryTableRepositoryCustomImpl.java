@@ -197,6 +197,21 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTareaLocalizacionPresupuestoTareaPersonaEstructura']}")
     private String sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisPrimas']}")
+    private String sqlCreateTempComisPrimas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisPrimas']}")
+    private String sqlDeleteTempComisPrimas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisPrimas']}")
+    private String sqlInsertTempComisPrimas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisPrimas']}")
+    private String sqlMergeDateRangesTempComisPrimas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisPrimas']}")
+    private String sqlMergeDateRangesSeccionNotEqualsTempComisPrimas;
+
     @Override
     public int deleteTempMotivoDesplazamientoComis() {
         return this.jdbcTemplate.update(this.sqlDeleteTempMotivoDesplazamientoComis);
@@ -666,6 +681,61 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
         map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
         this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesSeccionNotEqualsTempComisResalta, map);
+    }
+
+    @Override
+    public int createTempComisPrimas() {
+        return this.jdbcTemplate.update(this.sqlCreateTempComisPrimas);
+    }
+
+    @Override
+    public int deleteTempComisPrimas() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempComisPrimas);
+    }
+
+    @Override
+    public void insertTempComisPrimas(
+            final List<IdPersonaLocalCondicionesDto> listado) {
+        for (final List<IdPersonaLocalCondicionesDto> iter : StreamUtils.partition(listado, this.batchSize)) {
+            this.jdbcTemplate.batchUpdate(this.sqlInsertTempComisPrimas,
+                    new BatchPreparedStatementSetter() {
+                        @Override
+                        public void setValues(final PreparedStatement ps, final int i) throws SQLException {
+                            final IdPersonaLocalCondicionesDto el = iter.get(i);
+                            ps.setString(1, el.getIdPersonaLocal());
+                            ps.setDate(2, new Date(TimeUtils.toDate(el.getFechaDesde()).getTime()));
+                            ps.setDate(3, new Date(TimeUtils.toDate(el.getFechaHasta()).getTime()));
+                            ps.setString(4, el.getIdTipoCalculo());
+                            ps.setString(5, el.getPorcentaje());
+                            ps.setString(6, el.getBanda());
+                            ps.setString(7, el.getImporte());
+                            ps.setString(8, el.getCclIdSeccion());
+                        }
+
+                        @Override
+                        public int getBatchSize() {
+                            return iter.size();
+                        }
+                    });
+        }
+    }
+
+    @Override
+    public void mergeDateRangesSeccionNotEqualsTempComisPrimas(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesSeccionNotEqualsTempComisPrimas, map);
+    }
+
+    @Override
+    public void mergeDateRangesTempComisPrimas(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesTempComisPrimas, map);
     }
 
 }

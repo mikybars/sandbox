@@ -75,19 +75,19 @@ public class RunTareaAmbitoValidarCondicionesPrimasServiceImpl implements
             final List<IdPersonaLocalCondicionesDto> condicionesResalta = AsyncUtils.get(cfCondicionesResalta);
 
             // Se usa los mismas tablas temporales que resalta porque se obtienen los mismos datos
-            this.primaryTemporaryTableRepositoryCustom.createTempComisResalta();
-            this.primaryTemporaryTableRepositoryCustom.insertTempComisResalta(condicionesResalta);
+            this.primaryTemporaryTableRepositoryCustom.createTempComisPrimas();
+            this.primaryTemporaryTableRepositoryCustom.insertTempComisPrimas(condicionesResalta);
 
             this.primaryTemporaryTableRepositoryCustom
-                .mergeDateRangesSeccionNotEqualsTempComisResalta(runTareaDto.getTarea());
+                .mergeDateRangesSeccionNotEqualsTempComisPrimas(runTareaDto.getTarea());
             this.primaryTemporaryTableRepositoryCustom
-                .mergeDateRangesTempComisResalta(runTareaDto.getTarea());
+                .mergeDateRangesTempComisPrimas(runTareaDto.getTarea());
 
             // TODO [javierev] crear una validacion para prima en lugar de la resalta
-            resaltaValidationResult = this.primaryTemporaryTableRepositoryCustom
-                .validateTempComisResalta(runTareaDto.getTarea());
+            resaltaValidationResult = new ArrayList<>();
+            // this.primaryTemporaryTableRepositoryCustom .validateTempComisResalta(runTareaDto.getTarea());
 
-            this.primaryTemporaryTableRepositoryCustom.deleteTempComisResalta();
+            this.primaryTemporaryTableRepositoryCustom.deleteTempComisPrimas();
 
         } catch (final Exception e) {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,

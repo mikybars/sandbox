@@ -264,4 +264,29 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      */
     void mergeDateRangesTempComisResalta(TareaDto tarea);
 
+    /**
+     * @return
+     */
+    int createTempComisPrimas();
+
+    /**
+     * @return
+     */
+    int deleteTempComisPrimas();
+
+    /**
+     * @param listado
+     */
+    void insertTempComisPrimas(List<IdPersonaLocalCondicionesDto> listado);
+
+    /**
+     * @param tarea
+     */
+    void mergeDateRangesSeccionNotEqualsTempComisPrimas(TareaDto tarea);
+
+    /**
+     * @param tarea
+     */
+    void mergeDateRangesTempComisPrimas(TareaDto tarea);
+
 }
