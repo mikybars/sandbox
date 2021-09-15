@@ -54,7 +54,7 @@ public class RunTareaAmbitoValidarCondicionesPrimasServiceImpl implements
     private ValidacionMapper validacionMapper;
 
     @Autowired
-    @Qualifier("resaltaProperties")
+    @Qualifier("primasProperties")
     private PrevalidarPropertiesDto resaltaProperties;
 
     @Override
