@@ -661,6 +661,10 @@ app:
         sincronizacion:
           activo: true
           max-empleados: 10
+      primas:
+        sincronizacion:
+          activo: true
+          max-empleados: 30
     slrhorcoms:
       config:
         timeout: 86400000
