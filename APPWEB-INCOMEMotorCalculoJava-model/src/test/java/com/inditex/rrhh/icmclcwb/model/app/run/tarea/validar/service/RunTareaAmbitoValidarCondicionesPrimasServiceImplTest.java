@@ -88,14 +88,13 @@ public class RunTareaAmbitoValidarCondicionesPrimasServiceImplTest {
             .findCondicionesPrimas(
                     ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class));
         verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-            .createTempComisResalta();
+            .createTempComisPrimas();
         verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-            .insertTempComisResalta(ArgumentMatchers.any(List.class));
-        // TODO [javierev] cambiar esto por la validación buena
+            .insertTempComisPrimas(ArgumentMatchers.any(List.class));
         verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-            .validateTempComisResalta(ArgumentMatchers.any(TareaDto.class));
+            .validateTempComisPrimas(ArgumentMatchers.any(TareaDto.class));
         verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-            .deleteTempComisResalta();
+            .deleteTempComisPrimas();
         verify(this.validacionMapper, timeout(1000).times(1))
             .idPersonaLocalDtoTovalidacionDto(ArgumentMatchers.any(TareaAmbitoDto.class),
                     ArgumentMatchers.any(TareaFaseAccionDto.class), ArgumentMatchers.any(List.class),

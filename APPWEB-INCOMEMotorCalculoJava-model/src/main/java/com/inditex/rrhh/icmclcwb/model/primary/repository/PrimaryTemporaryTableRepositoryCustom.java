@@ -289,4 +289,10 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      */
     void mergeDateRangesTempComisPrimas(TareaDto tarea);
 
+    /**
+     * @param tarea
+     * @return lista de personas que no coinciden en COMIS e INCOME
+     */
+    List<IdPersonaLocalDto> validateTempComisPrimas(TareaDto tarea);
+
 }

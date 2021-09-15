@@ -83,9 +83,8 @@ public class RunTareaAmbitoValidarCondicionesPrimasServiceImpl implements
             this.primaryTemporaryTableRepositoryCustom
                 .mergeDateRangesTempComisPrimas(runTareaDto.getTarea());
 
-            // TODO [javierev] crear una validacion para prima en lugar de la resalta
-            resaltaValidationResult = new ArrayList<>();
-            // this.primaryTemporaryTableRepositoryCustom .validateTempComisResalta(runTareaDto.getTarea());
+            resaltaValidationResult = this.primaryTemporaryTableRepositoryCustom
+                .validateTempComisPrimas(runTareaDto.getTarea());
 
             this.primaryTemporaryTableRepositoryCustom.deleteTempComisPrimas();
 

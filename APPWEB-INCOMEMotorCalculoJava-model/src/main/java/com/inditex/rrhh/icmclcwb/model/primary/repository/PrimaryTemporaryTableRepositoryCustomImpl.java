@@ -212,6 +212,9 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisPrimas']}")
     private String sqlMergeDateRangesSeccionNotEqualsTempComisPrimas;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisPrimas']}")
+    private String sqlValidateTempComisPrimas;
+
     @Override
     public int deleteTempMotivoDesplazamientoComis() {
         return this.jdbcTemplate.update(this.sqlDeleteTempMotivoDesplazamientoComis);
@@ -736,6 +739,20 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
         map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
         this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesTempComisPrimas, map);
+    }
+
+    @Override
+    public List<IdPersonaLocalDto> validateTempComisPrimas(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisPrimas, map,
+                (rs, rowMap) -> {
+                    final IdPersonaLocalDto idPersonaLocalDto = new IdPersonaLocalDto();
+                    idPersonaLocalDto
+                        .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
+                    return idPersonaLocalDto;
+                });
     }
 
 }

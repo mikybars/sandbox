@@ -182,8 +182,8 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
                 "sqlCreateTempComisPrimas", SQL_CREATE_TEMP_COMIS_PRIMAS, true);
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
                 "sqlInsertTempComisPrimas", SQL_INSERT_TEMP_COMIS_PRIMAS, true);
-        // FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
-        // "sqlValidateTempComisPrimas", SQL_VALIDATE_TEMP_COMIS_PRIMAS, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlValidateTempComisPrimas", SQL_VALIDATE_TEMP_COMIS_PRIMAS, true);
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
                 "sqlDeleteTempComisPrimas", SQL_DELETE_TEMP_COMIS_PRIMAS, true);
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
@@ -499,6 +499,25 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
         // fecha hasta
         assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
         assertEquals(TimeUtils.toDate(fechaFinPeriodo), params.getValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    }
+
+    @Test
+    public void validateTempComisPrimasTest() {
+
+        final TareaDto tarea = mock(TareaDto.class);
+        final long idTarea = 1234L;
+        when(tarea.getId()).thenReturn(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.validateTempComisPrimas(tarea);
+        verify(this.namedParameterJdbcTemplate).query(eq(SQL_VALIDATE_TEMP_COMIS_PRIMAS),
+                this.paramsCaptor.capture(),
+                any(RowMapper.class));
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(1, params.getValues().size());
+        assertTrue(params.hasValue(ID_TAREA_PARAM));
+        assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
+
     }
 
     // Fin tests prima
