@@ -298,7 +298,7 @@ public class ProgramacionServiceImplTest {
         final ArgumentCaptor<List<IdProgramacionDto>> idsCaptor = ArgumentCaptor.forClass(List.class);
         final ArgumentCaptor<LocalDateTime> dateCaptor = ArgumentCaptor.forClass(LocalDateTime.class);
 
-        verify(this.programacionRepositoryCustom, times(2))
+        verify(this.programacionRepositoryCustom, times(3))
             .updateFechaSiguienteEjecucion(idsCaptor.capture(), dateCaptor.capture());
 
         final List<List<IdProgramacionDto>> allIds = idsCaptor.getAllValues();
