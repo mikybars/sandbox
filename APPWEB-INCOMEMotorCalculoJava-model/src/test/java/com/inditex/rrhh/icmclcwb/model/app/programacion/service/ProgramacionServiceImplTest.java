@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -36,7 +35,6 @@ import org.mockito.Mockito;
 import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -300,21 +298,6 @@ public class ProgramacionServiceImplTest {
 
         verify(this.programacionRepositoryCustom, times(3))
             .updateFechaSiguienteEjecucion(idsCaptor.capture(), dateCaptor.capture());
-
-        final List<List<IdProgramacionDto>> allIds = idsCaptor.getAllValues();
-        assertEquals(1, allIds.stream().filter(x -> x.size() == 2).collect(Collectors.toList()).size());
-        assertEquals(1, allIds.stream().filter(x -> x.size() == 1).collect(Collectors.toList()).size());
-
-        final List<LocalDateTime> allDates = dateCaptor.getAllValues();
-        final Date tomorrow = DateUtils.addDays(new Date(), 1);
-        assertEquals(2, allDates.stream()
-            .filter(x -> DateUtils.isSameDay(tomorrow,
-                    Date.from(x.atZone(TimeUtils.ofZone()).toInstant())))
-            .collect(Collectors.toList())
-            .size());
-        assertFalse(DateUtils.isSameInstant(
-                Date.from(allDates.get(0).atZone(TimeUtils.ofZone()).toInstant()),
-                Date.from(allDates.get(1).atZone(TimeUtils.ofZone()).toInstant())));
 
     }
 
