@@ -52,8 +52,14 @@ public class ComisRepositoryCustomImpl
     @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findCondicionesResalta']}")
     private String sqlFindCondicionesResalta;
 
+    @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findCondicionesResaltaSinPrimas']}")
+    private String sqlFindCondicionesResaltaSinPrimas;
+
     @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findCondicionesResaltaEs']}")
     private String sqlFindCondicionesResaltaEs;
+
+    @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findCondicionesPrimas']}")
+    private String sqlFindCondicionesPrimas;
 
     @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findBajasIt']}")
     private String sqlFindBajasIt;
@@ -259,6 +265,28 @@ public class ComisRepositoryCustomImpl
     }
 
     @Override
+    public List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinPrimas(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
+                TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+
+        return this.query(this.sqlFindCondicionesResaltaSinPrimas, map,
+                (rs, rowNum) -> IdPersonaLocalCondicionesDto
+                    .builder()
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
+                    .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
+                    .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
+                    .idTipoCalculo(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO))
+                    .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
+                    .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
+                    .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
+                    .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
+                    .build());
+    }
+
+    @Override
     public List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
@@ -267,6 +295,28 @@ public class ComisRepositoryCustomImpl
                 TimeUtils.toDate(tarea.getFechaFinPeriodo()));
 
         return this.query(this.sqlFindCondicionesResaltaEs, map,
+                (rs, rowNum) -> IdPersonaLocalCondicionesDto
+                    .builder()
+                    .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
+                    .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
+                    .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
+                    .idTipoCalculo(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO))
+                    .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
+                    .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
+                    .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
+                    .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
+                    .build());
+    }
+
+    @Override
+    public List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
+                TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
+                TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+
+        return this.query(this.sqlFindCondicionesPrimas, map,
                 (rs, rowNum) -> IdPersonaLocalCondicionesDto
                     .builder()
                     .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))

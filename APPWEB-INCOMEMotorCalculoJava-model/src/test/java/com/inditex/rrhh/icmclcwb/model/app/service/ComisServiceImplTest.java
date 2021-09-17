@@ -149,6 +149,19 @@ public class ComisServiceImplTest {
     }
 
     @Test
+    public void findCondicionesResaltaSinPrimas() {
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        runTareaDto.setTarea(tarea);
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+        this.comisServiceImpl.findCondicionesResaltaSinPrimas(runTareaDto, tareaAmbitoDto);
+        verify(this.comisRepositoryCustom, times(1))
+            .findCondicionesResaltaSinPrimas(any(TareaDto.class));
+    }
+
+    @Test
     public void findCondicionesResaltaEs() {
         final RunTareaDto runTareaDto = new RunTareaDto();
         final TareaDto tarea = new TareaDto();
@@ -159,6 +172,19 @@ public class ComisServiceImplTest {
         this.comisServiceImpl.findCondicionesResaltaEs(runTareaDto, tareaAmbitoDto);
         verify(this.comisRepositoryCustom, times(1))
             .findCondicionesResaltaEs(any(TareaDto.class));
+    }
+
+    @Test
+    public void findCondicionesPrimas() {
+        final RunTareaDto runTareaDto = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        runTareaDto.setTarea(tarea);
+        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+        tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+        this.comisServiceImpl.findCondicionesPrimas(runTareaDto, tareaAmbitoDto);
+        verify(this.comisRepositoryCustom, times(1))
+            .findCondicionesPrimas(any(TareaDto.class));
     }
 
     @Test

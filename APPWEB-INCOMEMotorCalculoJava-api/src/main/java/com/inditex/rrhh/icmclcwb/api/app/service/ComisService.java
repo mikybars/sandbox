@@ -78,6 +78,14 @@ public interface ComisService {
      * @param tareaAmbito
      * @return
      */
+    List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinPrimas(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
     List<IdPersonaLocalCondicionesDto> findBajasIt(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
 
     /**
@@ -135,6 +143,14 @@ public interface ComisService {
      * @return
      */
     List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(@Valid RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito);
 
 }

@@ -16,6 +16,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -106,6 +108,20 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
 
     private final static String SQL_DELETE_TEMP_COMIS_RESALTA = "SQL DELETE TEMP COMIS RESALTA";
 
+    // primas
+
+    private final static String SQL_CREATE_TEMP_COMIS_PRIMAS = "SQL CREATE TEMP COMIS PRIMAS";
+
+    private final static String SQL_INSERT_TEMP_COMIS_PRIMAS = "SQL INSERT TEMP COMIS PRIMAS";
+
+    private final static String SQL_VALIDATE_TEMP_COMIS_PRIMAS = "SQL VALDIATE TEMP COMIS PRIMAS";
+
+    private final static String SQL_DELETE_TEMP_COMIS_PRIMAS = "SQL DELETE TEMP COMIS PRIMAS";
+
+    private final static String SQL_MERGE_DATE_RANGES_SECCION_NOT_EQUALS_TEMP_COMIS_PRIMAS = "SQL MERGE DATE RANGES SECCION NOT EQUALS TEMP COMIS PRIMAS";
+
+    private final static String SQL_MERGE_DATE_RANGES_TEMP_COMIS_PRIMAS = "SQL MERGE DATE RANGES TEMP COMIS PRIMAS";
+
 
     @Before
     public void setup() throws IllegalAccessException {
@@ -151,7 +167,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
                 "sqlDeleteTempComisHistorico", SQL_DELETE_TEMP_COMIS_HISTORICO, true);
 
-        // historico
+        // resalta
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
                 "sqlCreateTempComisResalta", SQL_CREATE_TEMP_COMIS_RESALTA, true);
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
@@ -160,6 +176,21 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
                 "sqlValidateTempComisResalta", SQL_VALIDATE_TEMP_COMIS_RESALTA, true);
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
                 "sqlDeleteTempComisResalta", SQL_DELETE_TEMP_COMIS_RESALTA, true);
+
+        // primas
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlCreateTempComisPrimas", SQL_CREATE_TEMP_COMIS_PRIMAS, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlInsertTempComisPrimas", SQL_INSERT_TEMP_COMIS_PRIMAS, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlValidateTempComisPrimas", SQL_VALIDATE_TEMP_COMIS_PRIMAS, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlDeleteTempComisPrimas", SQL_DELETE_TEMP_COMIS_PRIMAS, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlMergeDateRangesTempComisPrimas", SQL_MERGE_DATE_RANGES_TEMP_COMIS_PRIMAS, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlMergeDateRangesSeccionNotEqualsTempComisPrimas",
+                SQL_MERGE_DATE_RANGES_SECCION_NOT_EQUALS_TEMP_COMIS_PRIMAS, true);
     }
 
     // Inicio tests baja it
@@ -400,5 +431,95 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     // Fin tests resalta
+
+    // Inicio tests prima
+
+    @Test
+    public void createTempComisPrimasTest() {
+        this.primaryTemporaryTableRepositoryCustom.createTempComisPrimas();
+        verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_COMIS_PRIMAS);
+    }
+
+    @Test
+    public void insertTempComisPrimasTest() {
+
+        final List<IdPersonaLocalCondicionesDto> condiciones = new ArrayList<>();
+        final IdPersonaLocalCondicionesDto persona = mock(IdPersonaLocalCondicionesDto.class);
+        condiciones.add(persona);
+
+        this.primaryTemporaryTableRepositoryCustom.insertTempComisPrimas(condiciones);
+        verify(this.jdbcTemplate).batchUpdate(eq(SQL_INSERT_TEMP_COMIS_PRIMAS),
+                any(BatchPreparedStatementSetter.class));
+
+    }
+
+    @Test
+    public void deleteTempComisPrimasTest() {
+        this.primaryTemporaryTableRepositoryCustom.deleteTempComisPrimas();
+        verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_PRIMAS);
+    }
+
+    @Test
+    public void mergeDateRangesSeccionNotEqualsTempComisPrimasTest() {
+        final TareaDto tarea = new TareaDto();
+        final long idTarea = 1919L;
+        tarea.setId(idTarea);
+        final LocalDate fechaFinPeriodo = LocalDate.of(2020, 8, 31);
+        tarea.setFechaFinPeriodo(fechaFinPeriodo);
+        this.primaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisPrimas(tarea);
+        verify(this.namedParameterJdbcTemplate).update(eq(SQL_MERGE_DATE_RANGES_SECCION_NOT_EQUALS_TEMP_COMIS_PRIMAS),
+                this.paramsCaptor.capture());
+        // parametros: id tarea, fechaHasta
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(2, params.getValues().size());
+        // id tarea
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, params.getValue(SqlComisConstants.SQL_PARAM_ID_TAREA));
+        // fecha hasta
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+        assertEquals(TimeUtils.toDate(fechaFinPeriodo), params.getValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    }
+
+    @Test
+    public void mergeDateRangesTempComisPrimasTest() {
+        final TareaDto tarea = new TareaDto();
+        final long idTarea = 1919L;
+        tarea.setId(idTarea);
+        final LocalDate fechaFinPeriodo = LocalDate.of(2020, 8, 31);
+        tarea.setFechaFinPeriodo(fechaFinPeriodo);
+        this.primaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisPrimas(tarea);
+        verify(this.namedParameterJdbcTemplate).update(eq(SQL_MERGE_DATE_RANGES_TEMP_COMIS_PRIMAS),
+                this.paramsCaptor.capture());
+        // parametros: id tarea, fechaHasta
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(2, params.getValues().size());
+        // id tarea
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(idTarea, params.getValue(SqlComisConstants.SQL_PARAM_ID_TAREA));
+        // fecha hasta
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+        assertEquals(TimeUtils.toDate(fechaFinPeriodo), params.getValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    }
+
+    @Test
+    public void validateTempComisPrimasTest() {
+
+        final TareaDto tarea = mock(TareaDto.class);
+        final long idTarea = 1234L;
+        when(tarea.getId()).thenReturn(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.validateTempComisPrimas(tarea);
+        verify(this.namedParameterJdbcTemplate).query(eq(SQL_VALIDATE_TEMP_COMIS_PRIMAS),
+                this.paramsCaptor.capture(),
+                any(RowMapper.class));
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(1, params.getValues().size());
+        assertTrue(params.hasValue(ID_TAREA_PARAM));
+        assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
+
+    }
+
+    // Fin tests prima
 
 }
