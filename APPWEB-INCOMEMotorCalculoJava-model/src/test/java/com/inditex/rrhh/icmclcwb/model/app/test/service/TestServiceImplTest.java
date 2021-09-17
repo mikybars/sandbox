@@ -13,8 +13,8 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionServic
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
@@ -144,7 +144,7 @@ public class TestServiceImplTest {
     @Test
     public void testBloqueos() {
         this.testServiceImpl.testBloqueos(2L);
-        verify(this.trabajoService, timeout(1000).times(2)).create(any(TrabajoDto.class));
+        verify(this.trabajoService, timeout(1000).times(2)).create(any(TrabajoDTO.class));
     }
 
     @Test

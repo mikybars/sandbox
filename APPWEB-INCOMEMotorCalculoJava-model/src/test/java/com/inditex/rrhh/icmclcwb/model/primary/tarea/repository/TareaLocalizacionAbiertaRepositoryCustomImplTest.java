@@ -11,8 +11,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -82,7 +82,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
     public void saveAbiertoTest() {
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(900L);
-        final TrabajoDto trabajo = mock(TrabajoDto.class);
+        final TrabajoDTO trabajo = mock(TrabajoDTO.class);
 
         this.tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(tarea, trabajo);
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
@@ -261,7 +261,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
     public void saveCerradoTest() {
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(6789L);
-        final TrabajoDto trabajo = mock(TrabajoDto.class);
+        final TrabajoDTO trabajo = mock(TrabajoDTO.class);
         final List<Integer> idTipoImporteVenta = Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId(),
                 TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId(),
                 TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId(),

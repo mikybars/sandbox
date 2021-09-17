@@ -10,12 +10,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,11 +76,11 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
         final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
         final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
         final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
-        when(this.tareaCalculoPersonaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
+        when(this.tareaCalculoPersonaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDTO.class)))
             .thenReturn(personas);
 
         final TareaDto tarea = mock(TareaDto.class);
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom.ids(algoritmo,
                 tarea);
 
@@ -92,12 +92,16 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
     @Test
     public void getMapValuesTest() {
 
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(1001);
+        final TipoCalculoDTO tipoCalculo = new TipoCalculoDTO();
+        tipoCalculo.setId(TipoCalculoEnum.NINGUNO.getId());
+        final TipoComisionDTO tipoComision = new TipoComisionDTO();
+        tipoComision.setId(TipoComisionEnum.RESALTA_MANUAL.getId());
         when(algoritmo.getTipoComision())
-            .thenReturn(Arrays.asList(TipoComisionDto.builder().id(TipoComisionEnum.RESALTA_MANUAL.getId()).build()));
+            .thenReturn(Arrays.asList(tipoComision));
         when(algoritmo.getTipoCalculo())
-            .thenReturn(Arrays.asList(TipoCalculoDto.builder().id(TipoCalculoEnum.NINGUNO.getId()).build()));
+            .thenReturn(Arrays.asList(tipoCalculo));
 
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
@@ -144,12 +148,16 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
     @Test
     public void calcularTest() {
 
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(1001);
+        final TipoCalculoDTO tipoCalculo = new TipoCalculoDTO();
+        tipoCalculo.setId(TipoCalculoEnum.NINGUNO.getId());
+        final TipoComisionDTO tipoComision = new TipoComisionDTO();
+        tipoComision.setId(TipoComisionEnum.RESALTA_MANUAL.getId());
         when(algoritmo.getTipoComision())
-            .thenReturn(Arrays.asList(TipoComisionDto.builder().id(TipoComisionEnum.RESALTA_MANUAL.getId()).build()));
+            .thenReturn(Arrays.asList(tipoComision));
         when(algoritmo.getTipoCalculo())
-            .thenReturn(Arrays.asList(TipoCalculoDto.builder().id(TipoCalculoEnum.NINGUNO.getId()).build()));
+            .thenReturn(Arrays.asList(tipoCalculo));
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(101L);
         final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
@@ -211,7 +219,7 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
 
     @Test
     public void getSqlCalcularTest() {
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(21);
 
         final String result = this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom

@@ -4,8 +4,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.EstadoTrabajoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,21 +41,22 @@ public class TrabajoRepositoryCustomImplTest {
 
     @BeforeEach
     public void setup() throws IllegalAccessException {
-        FieldUtils.writeField(trabajoRepositoryCustom, "sqlUpdateFechaInicioAndEstado", SQL_UPDATE_ESTADO, true);
+        FieldUtils.writeField(this.trabajoRepositoryCustom, "sqlUpdateFechaInicioAndEstado", SQL_UPDATE_ESTADO, true);
     }
 
     @Test
     public void updateEstadoTest() {
 
-        TrabajoDto trabajo = mock(TrabajoDto.class);
+        final TrabajoDTO trabajo = mock(TrabajoDTO.class);
         when(trabajo.getId()).thenReturn(100L);
-        EstadoTrabajoDto estado = mock(EstadoTrabajoDto.class);
+        final EstadoTrabajoDTO estado = mock(EstadoTrabajoDTO.class);
         when(estado.getId()).thenReturn(78);
 
-        trabajoRepositoryCustom.updateEstado(trabajo, estado);
-        verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), parametersCaptor.capture());
-        assertEquals(SQL_UPDATE_ESTADO, sqlCaptor.getValue());
-        MapSqlParameterSource params = parametersCaptor.getValue();
+        this.trabajoRepositoryCustom.updateEstado(trabajo, estado);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
+                this.parametersCaptor.capture());
+        assertEquals(SQL_UPDATE_ESTADO, this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.parametersCaptor.getValue();
 
         // Parámetros de la consulta: idTrabajo, nuevoIdEstado
         assertEquals(3, params.getValues().size());

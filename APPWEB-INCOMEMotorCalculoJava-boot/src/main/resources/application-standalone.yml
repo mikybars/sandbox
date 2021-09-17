@@ -209,6 +209,7 @@ amiga:
         hikari:
           maximum-pool-size: 10
           query-timeout: 90s
+          auto-commit: true
       datasource:
         primary:
           #init-connection-sql: set schema GESTION_COMISION

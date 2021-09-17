@@ -7,8 +7,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,7 +71,7 @@ public class PeriodoLocalizacionPersonaRepositoryCustomImplTest {
         final Long idTarea = 12345L;
         final RunTareaDto runTarea = mock(RunTareaDto.class);
         final TareaDto tarea = mock(TareaDto.class);
-        final TrabajoDto trabajo = mock(TrabajoDto.class);
+        final TrabajoDTO trabajo = mock(TrabajoDTO.class);
 
         when(tarea.getId()).thenReturn(idTarea);
         when(trabajo.getIcmIdPeriodo()).thenReturn(1L);

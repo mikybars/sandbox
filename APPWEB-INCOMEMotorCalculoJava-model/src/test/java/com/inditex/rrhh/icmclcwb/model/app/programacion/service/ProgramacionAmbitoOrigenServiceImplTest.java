@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoOrigenDto;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoOrigenDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoOrigenMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionAmbitoOrigen;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoOrigenRepository;
@@ -38,24 +38,24 @@ public class ProgramacionAmbitoOrigenServiceImplTest {
     public void create() {
         when(this.programacionAmbitooOrigenMapper
             .mergeProgramacionAmbitoOrigenDtoAndProgramacionDtoToProgramacionAmbitoOrigen(
-                    ArgumentMatchers.<List<ProgramacionAmbitoOrigenDto>>any(), any(ProgramacionAmbitoDto.class)))
+                    ArgumentMatchers.<List<ProgramacionAmbitoOrigenDTO>>any(), any(ProgramacionAmbitoDTO.class)))
                         .thenReturn(new ArrayList<ProgramacionAmbitoOrigen>());
         when(this.programacionAmbitooOrigenRepository.saveAll(ArgumentMatchers.<List<ProgramacionAmbitoOrigen>>any()))
             .thenReturn(new ArrayList<ProgramacionAmbitoOrigen>());
 
-        this.programacionAmbitoOrigenServiceImpl.create(Arrays.asList(new ProgramacionAmbitoOrigenDto()),
-                new ProgramacionAmbitoDto());
+        this.programacionAmbitoOrigenServiceImpl.create(Arrays.asList(new ProgramacionAmbitoOrigenDTO()),
+                new ProgramacionAmbitoDTO());
         verify(this.programacionAmbitooOrigenRepository, times(1))
             .saveAll(ArgumentMatchers.<List<ProgramacionAmbitoOrigen>>any());
     }
 
     @Test
     public void findByProgramacionAmbito() {
-        final ProgramacionAmbitoDto ambito = new ProgramacionAmbitoDto();
+        final ProgramacionAmbitoDTO ambito = new ProgramacionAmbitoDTO();
         ambito.setId(1L);
         when(this.programacionAmbitooOrigenMapper.programacionAmbitoOrigenToProgramacionAmbitoOrigenDto(
                 ArgumentMatchers.<List<ProgramacionAmbitoOrigen>>any()))
-                    .thenReturn(new ArrayList<ProgramacionAmbitoOrigenDto>());
+                    .thenReturn(new ArrayList<ProgramacionAmbitoOrigenDTO>());
         when(this.programacionAmbitooOrigenRepository.findByProgramacionAmbitoId(any(Long.class)))
             .thenReturn(new ArrayList<ProgramacionAmbitoOrigen>());
 

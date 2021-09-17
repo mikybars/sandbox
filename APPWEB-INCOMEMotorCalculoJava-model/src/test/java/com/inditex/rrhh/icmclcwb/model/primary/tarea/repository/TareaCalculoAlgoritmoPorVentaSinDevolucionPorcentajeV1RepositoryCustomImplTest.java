@@ -9,9 +9,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
@@ -19,6 +16,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -96,11 +96,11 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCus
         final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
         final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
         final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
-        when(this.tareaCalculoPerosnaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
+        when(this.tareaCalculoPerosnaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDTO.class)))
             .thenReturn(personas);
 
         final TareaDto tarea = mock(TareaDto.class);
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
 
         final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom
             .ids(algoritmo, tarea);
@@ -130,32 +130,24 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCus
                                         .getId())
                                     .build()));
 
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(8001);
+        final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
+        final TipoCalculoDTO tipoCalculo2 = new TipoCalculoDTO();
+        tipoCalculo1.setId("011");
+        tipoCalculo2.setId("012");
+        final TipoComisionDTO tipoComision1 = new TipoComisionDTO();
+        final TipoComisionDTO tipoComision2 = new TipoComisionDTO();
+        final TipoComisionDTO tipoComision3 = new TipoComisionDTO();
+        tipoComision1.setId("001");
+        tipoComision2.setId("002");
+        tipoComision3.setId("003");
         when(algoritmo.getTipoCalculo()).thenReturn(
                 Arrays.asList(
-                        TipoCalculoDto
-                            .builder()
-                            .id("011")
-                            .build(),
-                        TipoCalculoDto
-                            .builder()
-                            .id("012")
-                            .build()));
+                        tipoCalculo1,
+                        tipoCalculo2));
         when(algoritmo.getTipoComision()).thenReturn(
-                Arrays.asList(
-                        TipoComisionDto
-                            .builder()
-                            .id("001")
-                            .build(),
-                        TipoComisionDto
-                            .builder()
-                            .id("002")
-                            .build(),
-                        TipoComisionDto
-                            .builder()
-                            .id("003")
-                            .build()));
+                Arrays.asList(tipoComision1, tipoComision2, tipoComision3));
         when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         final TareaDto tarea = mock(TareaDto.class);
@@ -263,32 +255,24 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCus
                                         .getId())
                                     .build()));
 
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(1001);
+        final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
+        final TipoCalculoDTO tipoCalculo2 = new TipoCalculoDTO();
+        tipoCalculo1.setId("011");
+        tipoCalculo2.setId("012");
+        final TipoComisionDTO tipoComision1 = new TipoComisionDTO();
+        final TipoComisionDTO tipoComision2 = new TipoComisionDTO();
+        final TipoComisionDTO tipoComision3 = new TipoComisionDTO();
+        tipoComision1.setId("001");
+        tipoComision2.setId("002");
+        tipoComision3.setId("003");
         when(algoritmo.getTipoCalculo()).thenReturn(
                 Arrays.asList(
-                        TipoCalculoDto
-                            .builder()
-                            .id("011")
-                            .build(),
-                        TipoCalculoDto
-                            .builder()
-                            .id("012")
-                            .build()));
+                        tipoCalculo1,
+                        tipoCalculo2));
         when(algoritmo.getTipoComision()).thenReturn(
-                Arrays.asList(
-                        TipoComisionDto
-                            .builder()
-                            .id("001")
-                            .build(),
-                        TipoComisionDto
-                            .builder()
-                            .id("002")
-                            .build(),
-                        TipoComisionDto
-                            .builder()
-                            .id("003")
-                            .build()));
+                Arrays.asList(tipoComision1, tipoComision2, tipoComision3));
         when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         final TareaDto tarea = mock(TareaDto.class);
@@ -399,7 +383,7 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCus
     @Test
     public void getSqlCalcularTest() {
 
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(21);
 
         final String result = this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom

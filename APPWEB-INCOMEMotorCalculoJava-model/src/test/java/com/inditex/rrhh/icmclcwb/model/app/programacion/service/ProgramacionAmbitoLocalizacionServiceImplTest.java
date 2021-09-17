@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoLocalizacionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoLocalizacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionAmbitoLocalizacion;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoLocalizacionRepository;
@@ -38,26 +38,26 @@ public class ProgramacionAmbitoLocalizacionServiceImplTest {
     public void create() {
         when(this.programacionAmbitoLocalizacionMapper
             .mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
-                    ArgumentMatchers.<List<ProgramacionAmbitoLocalizacionDto>>any(), any(ProgramacionAmbitoDto.class)))
+                    ArgumentMatchers.<List<ProgramacionAmbitoLocalizacionDTO>>any(), any(ProgramacionAmbitoDTO.class)))
                         .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
         when(this.programacionAmbitoLocalizacionRepository
             .saveAll(ArgumentMatchers.<List<ProgramacionAmbitoLocalizacion>>any()))
                 .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
 
-        this.programacionAmbitoLocalizacionServiceImpl.create(Arrays.asList(new ProgramacionAmbitoLocalizacionDto()),
-                new ProgramacionAmbitoDto());
+        this.programacionAmbitoLocalizacionServiceImpl.create(Arrays.asList(new ProgramacionAmbitoLocalizacionDTO()),
+                new ProgramacionAmbitoDTO());
         verify(this.programacionAmbitoLocalizacionRepository, times(1))
             .saveAll(ArgumentMatchers.<List<ProgramacionAmbitoLocalizacion>>any());
     }
 
     @Test
     public void findByProgramacionAmbito() {
-        final ProgramacionAmbitoDto ambito = new ProgramacionAmbitoDto();
+        final ProgramacionAmbitoDTO ambito = new ProgramacionAmbitoDTO();
         ambito.setId(1L);
         when(this.programacionAmbitoLocalizacionMapper
             .programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
                     ArgumentMatchers.<List<ProgramacionAmbitoLocalizacion>>any()))
-                        .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacionDto>());
+                        .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacionDTO>());
         when(this.programacionAmbitoLocalizacionRepository.findByProgramacionAmbitoId(any(Long.class)))
             .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
 

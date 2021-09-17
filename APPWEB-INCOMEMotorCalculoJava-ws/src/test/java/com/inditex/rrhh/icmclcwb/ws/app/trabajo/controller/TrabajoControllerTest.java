@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.ws.app.trabajo.controller;
 
 import java.time.LocalDate;
+import java.time.OffsetTime;
 
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -14,8 +15,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -54,12 +55,12 @@ public class TrabajoControllerTest {
 
     @Test
     public void create() throws Exception {
-        final TrabajoDto trabajo = new TrabajoDto();
+        final TrabajoDTO trabajo = new TrabajoDTO();
         trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
         trabajo.setIcmIdPeriodo(1L);
         trabajo.setIdOrganization("AT");
-        trabajo.setFechaInicioPeriodo(LocalDate.parse("2017-03-01"));
-        trabajo.setFechaFinPeriodo(LocalDate.parse("2017-03-31"));
+        trabajo.setFechaInicioPeriodo(LocalDate.parse("2017-03-01").atTime(OffsetTime.now()));
+        trabajo.setFechaFinPeriodo(LocalDate.parse("2017-03-31").atTime(OffsetTime.now()));
 
         final ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
@@ -69,9 +70,9 @@ public class TrabajoControllerTest {
         final ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         final String requestJson = ow.writeValueAsString(trabajo);
 
-        when(this.trabajoServiceMock.create(any(TrabajoDto.class))).thenReturn(new TrabajoDto());
+        when(this.trabajoServiceMock.create(any(TrabajoDTO.class))).thenReturn(new TrabajoDTO());
         this.mockMvc.perform(post("/trabajo").contentType(MediaType.APPLICATION_JSON).content(requestJson)).andReturn();
-        verify(this.trabajoServiceMock, times(1)).create(any(TrabajoDto.class));
+        verify(this.trabajoServiceMock, times(1)).create(any(TrabajoDTO.class));
     }
 
 }

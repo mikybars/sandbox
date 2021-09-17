@@ -1,7 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.programacion.service;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -15,9 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
@@ -65,26 +66,33 @@ public class ProgramacionServiceImplTest {
     @Test
     public void createTest() {
 
-        final ProgramacionDto programacion = new ProgramacionDto();
+        final ProgramacionDTO programacion = new ProgramacionDTO();
         programacion.setProgramacionHuso(TimeUtils.ofZoneId());
         programacion.setNombreUsuario("aaaa");
         programacion.setAmbito(new ArrayList<>());
-        programacion.getAmbito().add(new ProgramacionAmbitoDto());
-        programacion.setHoraProgramacion(LocalTime.of(0, 0));
+        programacion.getAmbito().add(new ProgramacionAmbitoDTO());
+        programacion.setHoraProgramacion(OffsetDateTime.MAX);
 
-        when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class)))
+        when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDTO.class)))
             .thenReturn(new Programacion());
         when(this.programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
         when(this.programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
-        when(this.programacionAmbitoService.create(ArgumentMatchers.<List<ProgramacionAmbitoDto>>any(),
-                any(ProgramacionDto.class)))
+        when(this.programacionAmbitoService.create(ArgumentMatchers.<List<ProgramacionAmbitoDTO>>any(),
+                any(ProgramacionDTO.class)))
                     .thenReturn(new ArrayList<>());
 
-        final ProgramacionDto result = this.programacionService.create(programacion);
+        final ProgramacionDTO result = this.programacionService.create(programacion);
         assertNotNull(result);
         assertNotNull(result.getFechaHoraCreacion());
         assertEquals(DateUtils.truncate(TimeUtils.nowDate(), Calendar.SECOND),
-                DateUtils.truncate(Date.from(result.getFechaHoraCreacion().atZone(TimeUtils.ofZone()).toInstant()),
+                DateUtils.truncate(
+                        Date.from(
+                                result.getFechaHoraCreacion().toLocalDateTime().atZone(TimeUtils.ofZone()).toInstant()),
+                        Calendar.SECOND));
+        assertEquals(DateUtils.truncate(TimeUtils.nowDate(), Calendar.SECOND),
+                DateUtils.truncate(
+                        Date.from(
+                                result.getFechaHoraCreacion().toLocalDateTime().atZone(TimeUtils.ofZone()).toInstant()),
                         Calendar.SECOND));
         assertEquals(programacion.getProgramacionHuso(), result.getProgramacionHuso());
         assertEquals(programacion.getNombreUsuario(), result.getNombreUsuario());
@@ -103,25 +111,27 @@ public class ProgramacionServiceImplTest {
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
 
-        final ProgramacionDto programacion = new ProgramacionDto();
+        final ProgramacionDTO programacion = new ProgramacionDTO();
         programacion.setProgramacionHuso(TimeUtils.ofZoneId());
         programacion.setAmbito(new ArrayList<>());
-        programacion.getAmbito().add(new ProgramacionAmbitoDto());
-        programacion.setHoraProgramacion(LocalTime.of(0, 0));
+        programacion.getAmbito().add(new ProgramacionAmbitoDTO());
+        programacion.setHoraProgramacion(OffsetDateTime.MAX);
 
-        when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class)))
+        when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDTO.class)))
             .thenReturn(new Programacion());
         when(this.programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
         when(this.programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
-        when(this.programacionAmbitoService.create(ArgumentMatchers.<List<ProgramacionAmbitoDto>>any(),
-                any(ProgramacionDto.class)))
+        when(this.programacionAmbitoService.create(ArgumentMatchers.<List<ProgramacionAmbitoDTO>>any(),
+                any(ProgramacionDTO.class)))
                     .thenReturn(new ArrayList<>());
 
-        final ProgramacionDto result = this.programacionService.create(programacion);
+        final ProgramacionDTO result = this.programacionService.create(programacion);
         assertNotNull(result);
         assertNotNull(result.getFechaHoraCreacion());
         assertEquals(DateUtils.truncate(TimeUtils.nowDate(), Calendar.SECOND),
-                DateUtils.truncate(Date.from(result.getFechaHoraCreacion().atZone(TimeUtils.ofZone()).toInstant()),
+                DateUtils.truncate(
+                        Date.from(
+                                result.getFechaHoraCreacion().toLocalDateTime().atZone(TimeUtils.ofZone()).toInstant()),
                         Calendar.SECOND));
         assertEquals(programacion.getProgramacionHuso(), result.getProgramacionHuso());
         assertEquals(programacion.getNombreUsuario(), result.getNombreUsuario());
@@ -135,21 +145,21 @@ public class ProgramacionServiceImplTest {
     @Test
     public void createSinProgramacionHusoTest() {
 
-        final ProgramacionDto programacion = new ProgramacionDto();
+        final ProgramacionDTO programacion = new ProgramacionDTO();
         programacion.setNombreUsuario("aaaa");
         programacion.setAmbito(new ArrayList<>());
-        programacion.getAmbito().add(new ProgramacionAmbitoDto());
-        programacion.setHoraProgramacion(LocalTime.of(0, 0));
+        programacion.getAmbito().add(new ProgramacionAmbitoDTO());
+        programacion.setHoraProgramacion(OffsetDateTime.MAX);
 
-        when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class)))
+        when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDTO.class)))
             .thenReturn(new Programacion());
         when(this.programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
         when(this.programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
-        when(this.programacionAmbitoService.create(ArgumentMatchers.<List<ProgramacionAmbitoDto>>any(),
-                any(ProgramacionDto.class)))
+        when(this.programacionAmbitoService.create(ArgumentMatchers.<List<ProgramacionAmbitoDTO>>any(),
+                any(ProgramacionDTO.class)))
                     .thenReturn(new ArrayList<>());
 
-        final ProgramacionDto result = this.programacionService.create(programacion);
+        final ProgramacionDTO result = this.programacionService.create(programacion);
         assertNotNull(result);
         assertEquals(TimeUtils.ofZoneId(), result.getProgramacionHuso());
     }
@@ -157,13 +167,13 @@ public class ProgramacionServiceImplTest {
     @Test
     public void modifyTest() {
 
-        final ProgramacionDto programacion = mock(ProgramacionDto.class);
+        final ProgramacionDTO programacion = mock(ProgramacionDTO.class);
 
-        when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class)))
+        when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDTO.class)))
             .thenReturn(new Programacion());
         when(this.programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
         when(this.programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
-        when(this.programacionAmbitoService.findByProgramacion(any(ProgramacionDto.class)))
+        when(this.programacionAmbitoService.findByProgramacion(any(ProgramacionDTO.class)))
             .thenReturn(new ArrayList<>());
 
         this.programacionService.modify(programacion);
@@ -175,9 +185,9 @@ public class ProgramacionServiceImplTest {
     public void fechaSiguienteEjecucionAntesProgramacionTest() {
 
         // Si el momento actual es anterior a la hora de programación, la fecha resultado debería ser hoy
-        final ProgramacionDto programacion = mock(ProgramacionDto.class);
+        final ProgramacionDTO programacion = mock(ProgramacionDTO.class);
         when(programacion.getProgramacionHuso()).thenReturn(TimeUtils.ofZoneId());
-        when(programacion.getHoraProgramacion()).thenReturn(LocalTime.of(23, 59, 59));
+        when(programacion.getHoraProgramacion()).thenReturn(OffsetDateTime.MAX);
 
         final LocalDateTime result = this.programacionService.fechaSiguienteEjecucion(programacion);
         assertTrue(DateUtils.isSameDay(new Date(), Date.from(result.atZone(TimeUtils.ofZone()).toInstant())));
@@ -189,9 +199,9 @@ public class ProgramacionServiceImplTest {
 
         // Si el momento actual es posterior a la hora de programación, la fecha resultado debería ser
         // mañana
-        final ProgramacionDto programacion = mock(ProgramacionDto.class);
+        final ProgramacionDTO programacion = mock(ProgramacionDTO.class);
         when(programacion.getProgramacionHuso()).thenReturn(TimeUtils.ofZoneId());
-        when(programacion.getHoraProgramacion()).thenReturn(LocalTime.of(0, 0, 1));
+        when(programacion.getHoraProgramacion()).thenReturn(OffsetDateTime.now());
 
         final LocalDateTime result = this.programacionService.fechaSiguienteEjecucion(programacion);
         assertTrue(DateUtils.isSameDay(DateUtils.addDays(new Date(), 1),
@@ -216,21 +226,21 @@ public class ProgramacionServiceImplTest {
     @Test
     public void updateEjecucionTest() {
 
-        final ProgramacionDto programacion = new ProgramacionDto();
-        programacion.setHoraProgramacion(LocalTime.of(0, 0));
+        final ProgramacionDTO programacion = new ProgramacionDTO();
+        programacion.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
         programacion.setProgramacionHuso(TimeUtils.ofZoneId());
 
-        when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDto.class)))
+        when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDTO.class)))
             .thenReturn(new Programacion());
         when(this.programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
         when(this.programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
-        when(this.programacionAmbitoService.findByProgramacion(any(ProgramacionDto.class)))
+        when(this.programacionAmbitoService.findByProgramacion(any(ProgramacionDTO.class)))
             .thenReturn(new ArrayList<>());
 
         this.programacionService.updateEjecucion(programacion);
 
         assertTrue(DateUtils.isSameDay(new Date(),
-                Date.from(programacion.getFechaHoraUltimaEjecucion().atZone(TimeUtils.ofZone()).toInstant())));
+                Date.from(programacion.getFechaHoraUltimaEjecucion().toInstant())));
         verify(this.programacionRepository, times(1)).save(any(Programacion.class));
         verify(this.programacionMapper, times(1)).programacionDtoToProgramacion(programacion);
         verify(this.programacionMapper, times(1)).programacionToProgramacionDto(any(Programacion.class));
@@ -272,17 +282,17 @@ public class ProgramacionServiceImplTest {
     @Test
     public void updateFechaSiguienteEjecucionTest() {
 
-        final ProgramacionDto programacion1 = new ProgramacionDto();
-        programacion1.setHoraProgramacion(LocalTime.of(0, 0));
+        final ProgramacionDTO programacion1 = new ProgramacionDTO();
+        programacion1.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
         programacion1.setProgramacionHuso(TimeUtils.ofZoneId());
-        final ProgramacionDto programacion2 = new ProgramacionDto();
-        programacion2.setHoraProgramacion(LocalTime.of(0, 0));
+        final ProgramacionDTO programacion2 = new ProgramacionDTO();
+        programacion2.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
         programacion2.setProgramacionHuso(TimeUtils.ofZoneId());
-        final ProgramacionDto programacion3 = new ProgramacionDto();
-        programacion3.setHoraProgramacion(LocalTime.of(0, 1));
+        final ProgramacionDTO programacion3 = new ProgramacionDTO();
+        programacion3.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
         programacion3.setProgramacionHuso(TimeUtils.ofZoneId());
 
-        final List<ProgramacionDto> programaciones = Arrays.asList(programacion1, programacion2, programacion3);
+        final List<ProgramacionDTO> programaciones = Arrays.asList(programacion1, programacion2, programacion3);
         this.programacionService.updateFechaSiguienteEjecucion(programaciones);
 
         final ArgumentCaptor<List<IdProgramacionDto>> idsCaptor = ArgumentCaptor.forClass(List.class);

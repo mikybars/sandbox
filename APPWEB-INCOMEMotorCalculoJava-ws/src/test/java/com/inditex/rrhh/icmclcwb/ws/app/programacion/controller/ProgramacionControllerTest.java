@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.ws.app.programacion.controller;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,9 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,13 +55,13 @@ public class ProgramacionControllerTest {
 
     @Test
     public void create() throws Exception {
-        final ProgramacionDto programacion = new ProgramacionDto();
+        final ProgramacionDTO programacion = new ProgramacionDTO();
         programacion.setActivo(Boolean.TRUE);
-        programacion.setHoraProgramacion(LocalTime.parse("10:00"));
+        programacion.setHoraProgramacion(LocalTime.parse("10:00").atOffset(ZoneOffset.UTC).atDate(LocalDate.now()));
         programacion.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
-        final ProgramacionAmbitoDto ambito = new ProgramacionAmbitoDto();
-        ambito.setIdOrgenization("AT");
-        final List<ProgramacionAmbitoDto> programacionAmbito = new ArrayList<ProgramacionAmbitoDto>();
+        final ProgramacionAmbitoDTO ambito = new ProgramacionAmbitoDTO();
+        ambito.setIdOrganization("AT");
+        final List<ProgramacionAmbitoDTO> programacionAmbito = new ArrayList<ProgramacionAmbitoDTO>();
         programacionAmbito.add(ambito);
         programacion.setAmbito(programacionAmbito);
         final ObjectMapper mapper = new ObjectMapper();
@@ -70,10 +72,10 @@ public class ProgramacionControllerTest {
         final ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         final String requestJson = ow.writeValueAsString(programacion);
 
-        when(this.programacionServiceMock.create(any(ProgramacionDto.class))).thenReturn(new ProgramacionDto());
+        when(this.programacionServiceMock.create(any(ProgramacionDTO.class))).thenReturn(new ProgramacionDTO());
         this.mockMvc.perform(post("/programacion").contentType(MediaType.APPLICATION_JSON).content(requestJson))
             .andReturn();
-        verify(this.programacionServiceMock, times(1)).create(any(ProgramacionDto.class));
+        verify(this.programacionServiceMock, times(1)).create(any(ProgramacionDTO.class));
     }
 
     @Test

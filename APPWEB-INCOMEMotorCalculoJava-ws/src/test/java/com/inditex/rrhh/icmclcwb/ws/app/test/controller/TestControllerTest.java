@@ -5,9 +5,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
-import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
+import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
+import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,14 +43,14 @@ public class TestControllerTest {
 
     @Test
     public void reloj() throws Exception {
-        when(this.testServiceMock.reloj()).thenReturn(new RelojDto());
+        when(this.testServiceMock.reloj()).thenReturn(new RelojDTO());
         this.mockMvc.perform(get("/test/reloj/")).andReturn();
         verify(this.testServiceMock, times(1)).reloj();
     }
 
     @Test
     public void sso() throws Exception {
-        when(this.testServiceMock.sso()).thenReturn(SsoDto.builder().result("test").build());
+        when(this.testServiceMock.sso()).thenReturn(new SsoDTO());
         this.mockMvc.perform(get("/test/sso/")).andReturn();
         verify(this.testServiceMock, times(1)).sso();
     }
@@ -81,14 +81,14 @@ public class TestControllerTest {
 
     @Test
     public void testConcurrencia() throws Exception {
-        this.mockMvc.perform(post("/test/trabajo/test/{limit}", 1)).andReturn();
+        this.mockMvc.perform(post("/test/trabajo/{limit}", 1)).andReturn();
         verify(this.testServiceMock, times(1)).testBloqueos(1L);
     }
 
     @Test
     public void testUrl() throws Exception {
         when(this.testServiceMock.testUrl(any(String.class))).thenReturn(Boolean.TRUE);
-        this.mockMvc.perform(post("/test/test/url/").content("url")).andReturn();
+        this.mockMvc.perform(post("/test/url/").content("url")).andReturn();
         verify(this.testServiceMock, times(1)).testUrl(any(String.class));
     }
 

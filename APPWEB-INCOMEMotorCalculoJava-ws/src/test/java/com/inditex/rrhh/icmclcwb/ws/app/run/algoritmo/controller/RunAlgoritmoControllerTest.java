@@ -6,9 +6,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.calcular.dto.RunAlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.calcular.service.RunAlgoritmoService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+import com.inditex.rrhh.icmclcwb.dto.RunAlgoritmoDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,8 +43,8 @@ public class RunAlgoritmoControllerTest {
 
     @Test
     public void findById() throws Exception {
-        final RunAlgoritmoDto runAlgoritmo = new RunAlgoritmoDto();
-        final AlgoritmoDto algoritmo = new AlgoritmoDto();
+        final RunAlgoritmoDTO runAlgoritmo = new RunAlgoritmoDTO();
+        final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         algoritmo.setId(1);
         algoritmo.setActivo(Boolean.TRUE);
         algoritmo.setDesplazamiento(Boolean.FALSE);
@@ -60,8 +60,8 @@ public class RunAlgoritmoControllerTest {
 
     @Test
     public void findAll() throws Exception {
-        final RunAlgoritmoDto runAlgoritmo = new RunAlgoritmoDto();
-        final AlgoritmoDto algoritmo = new AlgoritmoDto();
+        final RunAlgoritmoDTO runAlgoritmo = new RunAlgoritmoDTO();
+        final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         algoritmo.setId(1);
         algoritmo.setActivo(Boolean.TRUE);
         algoritmo.setDesplazamiento(Boolean.FALSE);

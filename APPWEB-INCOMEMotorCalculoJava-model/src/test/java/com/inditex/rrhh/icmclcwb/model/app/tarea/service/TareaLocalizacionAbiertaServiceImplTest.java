@@ -7,7 +7,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.service.TipoDatoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionAbiertaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
@@ -47,13 +47,13 @@ public class TareaLocalizacionAbiertaServiceImplTest {
     public void saveCerradoTest() {
         final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
-        final TrabajoDto trabajo = mock(TrabajoDto.class);
+        final TrabajoDTO trabajo = mock(TrabajoDTO.class);
         final List<IdTipoDatoDto> tipoDato = new ArrayList<>();
         when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(tipoDato);
 
         this.tareaLocalizacionAbiertaServiceImpl.saveCerrado(tarea, trabajo);
         verify(this.tareaLocalizacionAbiertaRepositoryCustom, times(1)).saveCerrado(any(TareaDto.class),
-                any(TrabajoDto.class), ArgumentMatchers.<List<Integer>>any());
+                any(TrabajoDTO.class), ArgumentMatchers.<List<Integer>>any());
     }
 
 }

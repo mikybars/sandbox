@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -184,7 +185,7 @@ public class TareaRepositoryCustomImplTest {
                 new IdTareaDto(377L));
         when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
                 ArgumentMatchers.<RowMapper<IdTareaDto>>any())).thenReturn(idTareas);
-        final List<IdTareaDto> result = this.tareaRepositoryCustom.findLimpieza();
+        final List<IdTareaDTO> result = this.tareaRepositoryCustom.findLimpieza();
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
                 ArgumentMatchers.<RowMapper<IdTareaDto>>any());
 
@@ -250,7 +251,7 @@ public class TareaRepositoryCustomImplTest {
         final List<IdTareaDto> idTareas = Arrays.asList(new IdTareaDto(idTarea));
         when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
                 ArgumentMatchers.<RowMapper<IdTareaDto>>any())).thenReturn(idTareas);
-        final List<IdTareaDto> result = this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
+        final List<IdTareaDTO> result = this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
                 ArgumentMatchers.<RowMapper<IdTareaDto>>any());
 

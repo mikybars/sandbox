@@ -6,9 +6,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -22,7 +19,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
@@ -47,9 +43,6 @@ public abstract class AbstractRunTareaAmbitoRecolectarPtrPresenciaService {
     private TareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService tareaAmbitoGlobalLocalizacionPersonaPresenciaAsyncService;
 
     @Autowired
-    private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
-
-    @Autowired
     private TareaMapper tareaMapper;
 
     @Autowired
@@ -64,8 +57,8 @@ public abstract class AbstractRunTareaAmbitoRecolectarPtrPresenciaService {
 
     protected abstract String getFechaInicioPeriodo(TareaDto tarea);
 
-    public void presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+    public void presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(final RunTareaDto runTarea,
+            final TareaAmbitoDto tareaAmbito) {
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final TareaDto tarea = runTarea.getTarea();
         final PtrFilterPropertiesDto filter = this.presenciasProperties

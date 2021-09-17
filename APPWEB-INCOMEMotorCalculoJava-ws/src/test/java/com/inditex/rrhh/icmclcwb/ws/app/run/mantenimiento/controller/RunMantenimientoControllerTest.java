@@ -4,8 +4,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.dto.RunMantenimientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimientoService;
+import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,7 +39,7 @@ public class RunMantenimientoControllerTest {
 
     @Test
     public void run() throws Exception {
-        when(this.runMantenimientoServiceMock.run()).thenReturn(new RunMantenimientoDto());
+        when(this.runMantenimientoServiceMock.run()).thenReturn(new RunMantenimientoDTO());
         this.mockMvc.perform(get("/run/mantenimiento")).andReturn();
         verify(this.runMantenimientoServiceMock, times(1)).run();
     }

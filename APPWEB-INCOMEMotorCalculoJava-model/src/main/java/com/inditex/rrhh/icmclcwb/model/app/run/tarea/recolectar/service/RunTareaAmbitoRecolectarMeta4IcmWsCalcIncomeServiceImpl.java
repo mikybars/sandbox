@@ -37,7 +37,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaConfiguracionC
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaConfiguracionPrecioHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionCalcularAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionComisionHistoricoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionFestivoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionOnlineHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
@@ -161,9 +160,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
     @Autowired
     private TareaLocalizacionComisionHistoricoAsyncService tareaLocalizacionComisionHistoricoAsyncService;
-
-    @Autowired
-    private TareaLocalizacionFestivoAsyncService tareaLocalizacionFestivoAsyncService;
 
     @Autowired
     private TareaLocalizacionCalcularAsyncService tareaLocalizacionCalcularAsyncService;
@@ -1307,7 +1303,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                 .getTiposHora(request);
             AsyncUtils.exceptionally(cfData, cf, cfPersist);
             final TiposHoraResponseDto data = AsyncUtils.get(cfData);
-            if (data != null && CollectionUtils.isNotEmpty(data.getItems())) {
+            if ((data != null) && CollectionUtils.isNotEmpty(data.getItems())) {
                 AsyncUtils.checkAsyncAvaliable(cfPersist,
                         this.meta4Properties.get(Meta4PropertiesConstants.TIPOS_HORA)
                             .getFilter()

@@ -41,7 +41,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaSer
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4FilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
@@ -77,6 +76,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHo
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -196,7 +196,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = mock(TareaDto.class);
         final RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         final Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -250,7 +250,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = mock(TareaDto.class);
         final RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         final Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -292,7 +292,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final RunTareaDto runTarea = new RunTareaDto();
         final TareaDto tarea = mock(TareaDto.class);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         final Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -318,7 +318,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
                 any(Long.class),
                 any(Integer.class))).thenReturn(new PeriodoDto());
         when(this.tareaMapper
-            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class),
+            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDTO.class), any(TareaDto.class),
                     any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
 
 
@@ -353,7 +353,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -408,7 +408,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -467,7 +467,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -534,7 +534,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -564,7 +564,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
                         Arrays.asList(new IdPersonaHistoricoDto("1",
                                 "1"))));
         when(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToEstructurasComFilterDto(
-                any(TrabajoDto.class),
+                any(TrabajoDTO.class),
                 any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new EstructurasComFilterDto());
         when(this.meta4IcmWsCalcIncomeSessionAsyncService.getEstructurasCom(any(EstructurasComRequestDto.class)))
             .thenReturn(cf);
@@ -585,7 +585,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -610,7 +610,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
                         Arrays.asList(new IdPersonaHistoricoDto("1",
                                 "1"))));
         when(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToEstructurasComFilterDto(
-                any(TrabajoDto.class),
+                any(TrabajoDTO.class),
                 any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new EstructurasComFilterDto());
         when(this.meta4IcmWsCalcIncomeSessionAsyncService.getEstructurasCom(any(EstructurasComRequestDto.class)))
             .thenReturn(cf);
@@ -641,7 +641,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto();
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -691,7 +691,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto();
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -746,7 +746,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         final Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -791,7 +791,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(8902L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         final Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -840,7 +840,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -894,7 +894,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -954,7 +954,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         final Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -1003,7 +1003,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(89989L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         final Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -1058,7 +1058,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -1111,7 +1111,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -1166,7 +1166,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final RunTareaDto runTarea = new RunTareaDto();
         final TareaDto tarea = mock(TareaDto.class);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         final Meta4PropertiesDto properties = new Meta4PropertiesDto();
@@ -1195,7 +1195,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
                 any(Long.class),
                 any(Integer.class))).thenReturn(new PeriodoDto());
         when(this.tareaMapper
-            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class), any(TareaDto.class),
+            .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDTO.class), any(TareaDto.class),
                     any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
         when(this.meta4IcmWsCalcIncomeSessionAsyncService
             .getEmpleadosDesplazamiento(any(EmpleadosDesplazamientoRequestDto.class))).thenReturn(cf);
@@ -1216,7 +1216,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -1236,7 +1236,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
                 any(Long.class),
                 any(Integer.class))).thenReturn(new PeriodoDto());
 
-        when(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDto.class),
+        when(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToGenericFilterDto(any(TrabajoDTO.class),
                 any(TareaDto.class),
                 any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
 
@@ -1257,7 +1257,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -1323,7 +1323,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -1366,7 +1366,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
@@ -1431,7 +1431,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         final TareaDto tarea = new TareaDto();
         tarea.setId(1L);
         runTarea.setTarea(tarea);
-        runTarea.setTrabajo(new TrabajoDto());
+        runTarea.setTrabajo(new TrabajoDTO());
         final PageDto page = new PageDto(1, 100);
         final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
         tareaAmbito.setCclIdOrigen("38");
