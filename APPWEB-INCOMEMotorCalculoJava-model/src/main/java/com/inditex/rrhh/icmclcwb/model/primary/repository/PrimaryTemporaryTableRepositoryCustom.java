@@ -254,4 +254,14 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      */
     void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NotNull TareaDto tareaDto);
 
+    /**
+     * @param tarea
+     */
+    void mergeDateRangesSeccionNotEqualsTempComisResalta(TareaDto tarea);
+
+    /**
+     * @param tarea
+     */
+    void mergeDateRangesTempComisResalta(TareaDto tarea);
+
 }
