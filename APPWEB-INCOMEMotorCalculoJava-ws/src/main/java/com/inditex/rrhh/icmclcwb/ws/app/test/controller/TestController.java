@@ -103,6 +103,16 @@ public class TestController implements TestApi {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // TODO: Añadir los nuevos.
+    @Override
+    public ResponseEntity<Void> ptrTestBbddSync() {
+        this.testService.ptrTestBbddSync();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> ptrTestBbddAsync() {
+        this.testService.ptrTestBbddAsync();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

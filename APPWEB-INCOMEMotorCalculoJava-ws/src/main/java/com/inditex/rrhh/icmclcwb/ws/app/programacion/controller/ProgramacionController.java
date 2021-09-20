@@ -1,8 +1,6 @@
 package com.inditex.rrhh.icmclcwb.ws.app.programacion.controller;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +42,7 @@ public class ProgramacionController implements ProgramacionApi {
 
     @Override
     @PreAuthorize("hasAuthority('admin')")
-    public ResponseEntity<Void> activaById(@PathVariable @Positive @NotNull final Long id) {
+    public ResponseEntity<Void> activaById(@PathVariable final Long id) {
         this.programacionService.activa(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -58,7 +56,7 @@ public class ProgramacionController implements ProgramacionApi {
 
     @Override
     @PreAuthorize("hasAuthority('admin')")
-    public ResponseEntity<Void> desactivaById(@PathVariable @Positive @NotNull final Long id) {
+    public ResponseEntity<Void> desactivaById(@PathVariable final Long id) {
         this.programacionService.desactiva(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
