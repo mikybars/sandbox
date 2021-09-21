@@ -1,9 +1,5 @@
 package com.inditex.rrhh.icmclcwb.ws.app.run.mantenimiento.controller;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +25,7 @@ public class RunMantenimientoController implements RunMantenimientoApi {
 
     @Override
     @PreAuthorize("hasAuthority('admin')")
-    public ResponseEntity<RunMantenimientoDTO> runIdTarea(@PathVariable @Valid @NotNull @Positive final Long id) {
+    public ResponseEntity<RunMantenimientoDTO> runIdTarea(@PathVariable final Long id) {
         return new ResponseEntity<>(this.runMantenimientoService.runIdTarea(id), HttpStatus.OK);
     }
 
