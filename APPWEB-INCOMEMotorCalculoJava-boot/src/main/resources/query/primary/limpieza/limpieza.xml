@@ -84,6 +84,9 @@
   <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalPersona">
     <![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_PERSONA WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
   </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalFecha">
+    <![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_FECHA WHERE ID_TAREA = :idTarea]]>
+  </entry>
   <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionAbierta">
     <![CDATA[DELETE FROM TAREA_LOCALIZACION_ABIERTA WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
   </entry>
