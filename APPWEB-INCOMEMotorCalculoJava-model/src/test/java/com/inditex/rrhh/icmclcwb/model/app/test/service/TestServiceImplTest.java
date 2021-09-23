@@ -21,7 +21,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalt
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -136,8 +136,6 @@ public class TestServiceImplTest {
     @Test
     public void testUrl() throws IOException {
         assertFalse(this.testServiceImpl.testUrl("testUrl"));
-        // assertTrue(this.testServiceImpl.testUrl("http://www.test.com"));
-
     }
 
     @Test
