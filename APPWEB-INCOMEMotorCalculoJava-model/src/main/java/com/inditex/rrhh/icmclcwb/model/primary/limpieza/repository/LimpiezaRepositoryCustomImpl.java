@@ -122,6 +122,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalPersona']}")
     private String sqlLimpiezaTareaAmbitoGlobalPersona;
 
+    @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalFecha']}")
+    private String sqlLimpiezaTareaAmbitoGlobalFecha;
+
     @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaLocalizacionAbierta']}")
     private String sqlLimpiezaTareaLocalizacionAbierta;
 
@@ -248,6 +251,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         this.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(tarea);
 
         this.limpiezaTareaAmbitoGlobalPersona(tarea);
+
+        this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaAmbitoGlobalFecha,
+                idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
 
         this.limpiezaTareaPersonaExterna(tarea);
 
