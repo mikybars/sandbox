@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.ws.primary.controller;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class PrimaryController implements PrimaryApi {
     private PrimaryService primaryService;
 
     @Override
-    public @Valid ResponseEntity<Boolean> loadDML(@PathVariable @Valid @NotBlank final String path) {
+    public @Valid ResponseEntity<Boolean> loadDML(@PathVariable final String path) {
         return new ResponseEntity<>(this.primaryService.loadDML(path), HttpStatus.OK);
     }
 

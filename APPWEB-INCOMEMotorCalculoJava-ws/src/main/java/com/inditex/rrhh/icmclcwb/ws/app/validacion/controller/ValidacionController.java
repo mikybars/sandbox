@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,13 +22,13 @@ public class ValidacionController implements ValidacionApi {
 
     @Override
     public @Valid ResponseEntity<Map<String, Object>> validateByIdTarea(
-            @PathVariable @Valid @NotNull @Positive final Long idTarea) {
+            @PathVariable final Long idTarea) {
         return new ResponseEntity<>(this.tareaValidarService.validateByIdTarea(idTarea), HttpStatus.OK);
     }
 
     @Override
     public @Valid ResponseEntity<List<Map<String, Object>>> validateByIdTrabajo(
-            @PathVariable @Valid @NotNull @Positive final Long idTrabajo) {
+            @PathVariable final Long idTrabajo) {
         return new ResponseEntity<>(this.tareaValidarService.validateByIdTrabajo(idTrabajo), HttpStatus.OK);
     }
 

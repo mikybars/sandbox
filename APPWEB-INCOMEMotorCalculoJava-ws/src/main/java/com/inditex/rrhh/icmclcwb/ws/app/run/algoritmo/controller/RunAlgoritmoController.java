@@ -3,8 +3,6 @@ package com.inditex.rrhh.icmclcwb.ws.app.run.algoritmo.controller;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +21,7 @@ public class RunAlgoritmoController implements RunAlgoritmoApi {
     private RunAlgoritmoService runAlgoritmoService;
 
     @Override
-    public @Valid ResponseEntity<RunAlgoritmoDTO> findById(@PathVariable @Valid @NotNull @Positive final Integer id) {
+    public @Valid ResponseEntity<RunAlgoritmoDTO> findById(@PathVariable final Integer id) {
         return new ResponseEntity<>(this.runAlgoritmoService.findById(id), HttpStatus.OK);
     }
 

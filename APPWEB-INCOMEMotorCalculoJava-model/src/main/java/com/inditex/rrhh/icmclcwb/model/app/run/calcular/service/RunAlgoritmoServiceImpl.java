@@ -45,13 +45,17 @@ public class RunAlgoritmoServiceImpl implements RunAlgoritmoService {
     @Override
     public List<RunAlgoritmoDTO> findAll() {
         final List<RunAlgoritmoDTO> result = new ArrayList<>();
-        this.algoritmoMapper.algoritmoToAlgoritmoDTO(this.algoritmoRepository.findAll()).stream().forEach(item -> {
-            final RunAlgoritmoDTO runAlgoritmo = new RunAlgoritmoDTO();
-            final String sqlCalcular = this.runAlgoritmoFactory.getRunAlgoritmo(item.getNombre()).getSqlCalcular(item);
-            runAlgoritmo.setAlgoritmo(item);
-            runAlgoritmo.setSqlCalcular(sqlCalcular);
-            result.add(runAlgoritmo);
-        });
+        this.algoritmoMapper
+            .algoritmoToAlgoritmoDTO(new ArrayList<>(this.algoritmoRepository.findByActivo(Boolean.TRUE)))
+            .stream()
+            .forEach(item -> {
+                final RunAlgoritmoDTO runAlgoritmo = new RunAlgoritmoDTO();
+                final String sqlCalcular = this.runAlgoritmoFactory.getRunAlgoritmo(item.getNombre())
+                    .getSqlCalcular(item);
+                runAlgoritmo.setAlgoritmo(item);
+                runAlgoritmo.setSqlCalcular(sqlCalcular);
+                result.add(runAlgoritmo);
+            });
         return result;
     }
 

@@ -91,7 +91,7 @@ public class TareaValidarServiceImpl implements TareaValidarService {
     @Override
     public Map<String, Object> validateByIdTarea(@NotNull @Positive final Long idTarea) {
         try {
-            final Map<String, Object> objects = new HashMap<String, Object>();
+            final Map<String, Object> objects = new HashMap<>();
             final Method[] methods = TareaValidarRepositoryCustom.class.getMethods();
             for (final Method method : methods) {
                 objects.put(method.getName(), method.invoke(this.tareaValidarRepositoryCustom, idTarea));

@@ -49,6 +49,8 @@ public class AppConstants {
 
     public static final String OPERACION_DEVOLUCION_OTRAS_TIENDAS = "DO";
 
+    public static final String OPERACION_DEVOLUCION_VENTA_ORIGINAL_OTRA_TIENDA = "DT";
+
     public static final String EMPRESA_0 = "0";
 
     public static final String ID_ORIGEN_SPAIN = "11";

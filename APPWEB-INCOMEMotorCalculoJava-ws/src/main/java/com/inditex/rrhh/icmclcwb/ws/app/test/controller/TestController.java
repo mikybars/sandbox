@@ -1,10 +1,5 @@
 package com.inditex.rrhh.icmclcwb.ws.app.test.controller;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,13 +53,13 @@ public class TestController implements TestApi {
     }
 
     @Override
-    public ResponseEntity<Void> testConcurrencia(@PathVariable @Valid @NotNull @Positive final Long limit) {
+    public ResponseEntity<Void> testConcurrencia(@PathVariable final Long limit) {
         this.testService.testBloqueos(limit);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Boolean> testUrl(@RequestBody @NotBlank final String url) {
+    public ResponseEntity<Boolean> testUrl(@RequestBody final String url) {
         return new ResponseEntity<>(this.testService.testUrl(url), HttpStatus.OK);
     }
 
@@ -75,7 +70,7 @@ public class TestController implements TestApi {
     }
 
     @Override
-    public ResponseEntity<String> sqlFormatter(@RequestBody @NotBlank final String sql) {
+    public ResponseEntity<String> sqlFormatter(@RequestBody final String sql) {
         return new ResponseEntity<>(this.testService.sqlFormatter(sql), HttpStatus.OK);
     }
 
