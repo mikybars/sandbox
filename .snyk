@@ -3,64 +3,47 @@ version: v1.14.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JAVA-COMH2DATABASE-31685:
-    - '* > com.inditex.aqsw.framework.batch:batch-framework-starter@3.4.0 > com.inditex.aqsw.framework.batch:batch-framework-core@3.4.0 > com.h2database:h2@1.4.200':
+    - '* > com.inditex.aqsw.framework.batch:batch-framework-starter@4.2.5 > com.inditex.aqsw.framework.batch:batch-framework-core@4.2.5 > com.h2database:h2@1.4.200':
         reason: >-
           No remediation available.
-  SNYK-JAVA-ORGCODEHAUSJACKSON-534878:
-    - '* > com.inditex.aqsw.framework.service:service-framework-starter-stream-pipe@3.12.8 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@3.12.2 > org.springframework.cloud:spring-cloud-schema-registry-client@1.0.9.RELEASE > org.apache.avro:avro@1.8.1 > org.codehaus.jackson:jackson-mapper-asl@1.9.13':
-        reason: >- 
-          No remediation available
-    - '* > com.inditex.aqsw.framework.data:data-framework-starter-test-stream@3.12.2 > com.inditex.aqsw.framework.data:data-framework-test-stream@3.12.2 > io.confluent:kafka-avro-serializer@5.3.1 > org.apache.avro:avro@1.8.1 > org.codehaus.jackson:jackson-mapper-asl@1.9.13':
-        reason: >- 
-          No remediation available
   SNYK-JAVA-IONETTY-1042268:
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter-cache-datagrid-remote@3.12.5 > org.infinispan:infinispan-spring-boot-starter-remote@2.1.10.Final-redhat-00001 > org.infinispan:infinispan-client-hotrod@9.4.19.Final-redhat-00001 > io.netty:netty-handler@4.1.63.Final':
-        reason: >- 
-          No remediation available
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter-soap-client-cxf-reactive@3.12.5 > org.apache.cxf:cxf-rt-transports-http-netty-client@3.4.2 > io.netty:netty-codec-http@4.1.63.Final > io.netty:netty-handler@4.1.63.Final':
-        reason: >- 
-          No remediation available
-    - '* > com.inditex.aqsw.framework.service:service-framework-starter-session@3.12.8 > com.inditex.aqsw.framework.service:service-framework-session-infinispan@3.12.8 > org.infinispan:infinispan-client-hotrod@9.4.19.Final-redhat-00001 > io.netty:netty-handler@4.1.63.Final':
-        reason: >- 
-          No remediation available
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter@3.12.5 > com.inditex.aqsw.framework.common:common-framework-logging@3.12.5 > com.inditex.aqsw.framework.common:common-framework-graylog@3.12.5 > org.graylog2:gelfclient@1.4.1 > io.netty:netty-handler@4.1.63.Final':
-        reason: >- 
-          No remediation available
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter-s3-client-reactive@3.12.5 > software.amazon.awssdk:netty-nio-client@2.16.31 > io.netty:netty-handler@4.1.63.Final':
-        reason: >- 
-          No remediation available
-  SNYK-JAVA-NETMINIDEV-1078499:
-    - '* > org.springframework.boot:spring-boot-starter-test@2.2.13.RELEASE > com.jayway.jsonpath:json-path@2.4.0 > net.minidev:json-smart@2.3':
-        reason: >- 
-          No remediation available
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter-traffic-auditor@3.12.5 > com.inditex.aqsw.framework.common:common-framework-traffic-auditor@3.12.5 > com.jayway.jsonpath:json-path@2.4.0 > net.minidev:json-smart@2.3':
-        reason: >- 
-          No remediation available
-  SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1078232:
-    - '* > com.inditex.aqsw.framework.service:service-framework-starter-filemanager@3.12.8 > com.inditex.aqsw.framework.service:service-framework-filemanager@3.12.8 > org.springframework.security:spring-security-core@5.2.8.RELEASE':
+    - '* > com.inditex.aqsw.framework.common:common-framework-starter-cache-datagrid-remote@4.2.5 > org.infinispan:infinispan-spring-boot-starter-remote@2.1.10.Final-redhat-00001 > org.infinispan:infinispan-client-hotrod@9.4.19.Final-redhat-00001 > io.netty:netty-handler@4.1.67.Final':
         reason: >-
-          We ignore this until Spring Boot brings a fixed version of spring-security
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter-oauth2-client@3.12.5 > com.inditex.aqsw.framework.common:common-framework-oauth2-client@3.12.5 > org.springframework.boot:spring-boot-starter-oauth2-client@2.2.13.RELEASE > org.springframework.security:spring-security-core@5.2.8.RELEASE':
+          No remediation available
+    - '* > com.inditex.aqsw.framework.common:common-framework-starter-soap-client-cxf-reactive@4.2.5 > org.apache.cxf:cxf-rt-transports-http-netty-client@3.4.2 > io.netty:netty-codec-http@4.1.67.Final > io.netty:netty-handler@4.1.67.Final':
         reason: >-
-          We ignore this until Spring Boot brings a fixed version of spring-security
-    - '* > com.inditex.aqsw.framework.service:service-framework-starter-aaa-oidc-ldap-spnego@3.12.8 > com.inditex.aqsw.framework.service:service-framework-aaa-classic@3.12.8 > org.springframework.security.kerberos:spring-security-kerberos-core@1.0.1.RELEASE > org.springframework.security:spring-security-core@5.2.8.RELEASE':
+          No remediation available
+    - '* > com.inditex.aqsw.framework.service:service-framework-starter-session@4.2.5 > com.inditex.aqsw.framework.service:service-framework-session-infinispan@4.2.5 > org.infinispan:infinispan-client-hotrod@9.4.19.Final-redhat-00001 > io.netty:netty-handler@4.1.67.Final':
         reason: >-
-          We ignore this until Spring Boot brings a fixed version of spring-security
-    - '* >  com.inditex.aqsw.framework.service:service-framework-starter-aaa-oidc@3.12.8 > com.inditex.aqsw.framework.service:service-framework-aaa-oidc@3.12.8 > org.springframework.boot:spring-boot-starter-oauth2-resource-server@2.2.13.RELEASE > org.springframework.security:spring-security-core@5.2.8.RELEASE':
+          No remediation available
+    - '* > com.inditex.aqsw.framework.common:common-framework-starter-s3-client-reactive@4.2.5 > software.amazon.awssdk:netty-nio-client@2.16.31 > io.netty:netty-handler@4.1.67.Final':
         reason: >-
-          We ignore this until Spring Boot brings a fixed version of spring-security
-  SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1290497:
-    - '* > com.inditex.aqsw.framework.service:service-framework-starter-aaa-oidc-ldap-spnego@3.12.8 > com.inditex.aqsw.framework.service:service-framework-aaa-classic@3.12.8 > org.springframework.security.kerberos:spring-security-kerberos-web@1.0.1.RELEASE > org.springframework.security:spring-security-web@5.2.8.RELEASE':
+          No remediation available
+  SNYK-JAVA-ORGGLASSFISH-1297098:
+    - '* > com.inditex.aqsw.framework.common:common-framework-starter-api-validation@4.2.5 > com.inditex.aqsw.framework.common:common-framework-validation-api@4.2.5 > org.glassfish:jakarta.el@3.0.3':
         reason: >-
-          We ignore this until Spring Boot brings a fixed version of spring-security
-    - '* > com.inditex.aqsw.framework.service:service-framework-starter-aaa-oidc@3.12.8 > com.inditex.aqsw.framework.service:service-framework-aaa-oidc@3.12.8 > org.springframework.boot:spring-boot-starter-security@2.2.13.RELEASE > org.springframework.security:spring-security-web@5.2.8.RELEASE':
+          No remediation available
+    - '* > com.inditex.aqsw.framework.common:common-framework-starter@4.2.5 > com.inditex.aqsw.framework.common:common-framework-validation@4.2.5 > com.inditex.aqsw.framework.common:common-framework-validation-api@4.2.5 > org.glassfish:jakarta.el@3.0.3':
         reason: >-
-          We ignore this until Spring Boot brings a fixed version of spring-security
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter-oauth2-client@3.12.5 > com.inditex.aqsw.framework.common:common-framework-oauth2-client@3.12.5 > org.springframework.boot:spring-boot-starter-oauth2-client@2.2.13.RELEASE > org.springframework.security:spring-security-oauth2-client@5.2.8.RELEASE > org.springframework.security:spring-security-web@5.2.8.RELEASE':
+          No remediation available
+    - '* > com.inditex.aqsw.framework.common:common-framework-starter-validation@4.2.5 > com.inditex.aqsw.framework.common:common-framework-validation@4.2.5 > com.inditex.aqsw.framework.common:common-framework-validation-api@4.2.5 > org.glassfish:jakarta.el@3.0.3':
         reason: >-
-          We ignore this until Spring Boot brings a fixed version of spring-security
-  SNYK-JAVA-COMNIMBUSDS-1243767:
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter-oauth2-client@3.12.5 > com.inditex.aqsw.framework.common:common-framework-oauth2-client@3.12.5 > org.springframework.boot:spring-boot-starter-oauth2-client@2.2.13.RELEASE > org.springframework.security:spring-security-oauth2-client@5.2.8.RELEASE > com.nimbusds:oauth2-oidc-sdk@6.14':
-          reason: >-
-            We ignore this until Spring Boot brings a fixed version of spring-security
+          No remediation available
+  SNYK-JAVA-ORGAPACHECOMMONS-1316638:
+    - '* com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.2.5 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.2.5 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.3 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
+        reason: >-
+          This upgrade is blocked until software manufacturer confirms such upgraded version is compatible
+  SNYK-JAVA-ORGAPACHECOMMONS-1316639:
+    - '* com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.2.5 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.2.5 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.3 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
+        reason: >-
+          This upgrade is blocked until software manufacturer confirms such upgraded version is compatible
+  SNYK-JAVA-ORGAPACHECOMMONS-1316640:
+    - '* com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.2.5 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.2.5 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.3 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
+        reason: >-
+          This upgrade is blocked until software manufacturer confirms such upgraded version is compatible
+  SNYK-JAVA-ORGAPACHECOMMONS-1316641:
+    - '* com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.2.5 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.2.5 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.3 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
+        reason: >-
+          This upgrade is blocked until software manufacturer confirms such upgraded version is compatible
+
 patch: {}
