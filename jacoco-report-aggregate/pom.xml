@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.inditex.rrhh.icmclcwb</groupId>
+    <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
+    <version>3.4.0</version>
+  </parent>
+
+  <artifactId>jacoco-report-aggregate</artifactId>
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>JaCoCo report module</description>
+
+  <packaging>pom</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-boot</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-ws</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-ws-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <executions>
+          <execution>
+            <id>report-aggregate</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report-aggregate</goal>
+            </goals>
+            <configuration>
+              <dataFileIncludes>
+                <dataFileInclude>**/**/coverage-reports/jacoco.exec</dataFileInclude>
+              </dataFileIncludes>
+              <outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>report-aggregate-it</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report-aggregate</goal>
+            </goals>
+            <configuration>
+              <dataFileIncludes>
+                <dataFileInclude>**/**/coverage-reports/jacoco-it.exec</dataFileInclude>
+              </dataFileIncludes>
+              <outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate-it</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
