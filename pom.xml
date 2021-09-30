@@ -24,11 +24,6 @@
     <app.org.jvnet.jaxb2_commons.version>0.12.0</app.org.jvnet.jaxb2_commons.version>
     <app.org.codehaus.mojo.jaxws-maven-plugin.version>2.6</app.org.codehaus.mojo.jaxws-maven-plugin.version>
     <app.org.codehaus.mojo.wagon-maven-plugin.version>2.0.0</app.org.codehaus.mojo.wagon-maven-plugin.version>
-    <jacoco.version>0.8.5</jacoco.version>
-    <surefire.version>2.22.1</surefire.version>
-    <failsafe.version>2.15</failsafe.version>
-    <skip.unit.tests>false</skip.unit.tests>
-    <skip.integration.tests>false</skip.integration.tests>
   </properties>
 
   <dependencyManagement>

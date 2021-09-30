@@ -192,20 +192,21 @@ public class ProgramacionServiceImplTest {
 
     }
 
-    /*
-     * @Test // TODO: Revisar este test public void fechaSiguienteEjecucionDespuesProgramacionTest() {
-     *
-     * // Si el momento actual es posterior a la hora de programación, la fecha resultado debería ser //
-     * mañana final ProgramacionDTO programacion = mock(ProgramacionDTO.class);
-     * when(programacion.getProgramacionHuso()).thenReturn(TimeUtils.ofZoneId());
-     * when(programacion.getHoraProgramacion()).thenReturn(OffsetDateTime.now());
-     *
-     * final LocalDateTime result = this.programacionService.fechaSiguienteEjecucion(programacion);
-     * assertTrue(DateUtils.isSameDay(DateUtils.addDays(new Date(), 1),
-     * Date.from(result.atZone(TimeUtils.ofZone()).toInstant())));
-     *
-     * }
-     */
+    @Test
+    // TODO: Revisar este test
+    public void fechaSiguienteEjecucionDespuesProgramacionTest() {
+
+        // Si el momento actual es posterior a la hora de programación, la fecha resultado debería ser
+        // mañana
+        final ProgramacionDTO programacion = mock(ProgramacionDTO.class);
+        when(programacion.getProgramacionHuso()).thenReturn(TimeUtils.ofZoneId());
+        when(programacion.getHoraProgramacion()).thenReturn(OffsetDateTime.now());
+
+        final LocalDateTime result = this.programacionService.fechaSiguienteEjecucion(programacion);
+        assertTrue(DateUtils.isSameDay(DateUtils.addDays(new Date(), 1),
+            Date.from(result.atZone(TimeUtils.ofZone()).toInstant())));
+
+    }
 
     @Test
     public void findPendienteTest() {
@@ -277,29 +278,28 @@ public class ProgramacionServiceImplTest {
         verify(this.programacionRepositoryCustom, times(1)).desactiva(id);
     }
 
-    /*
-     * @Test public void updateFechaSiguienteEjecucionTest() {
-     *
-     * final ProgramacionDTO programacion1 = new ProgramacionDTO();
-     * programacion1.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
-     * programacion1.setProgramacionHuso(TimeUtils.ofZoneId()); final ProgramacionDTO programacion2 =
-     * new ProgramacionDTO();
-     * programacion2.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
-     * programacion2.setProgramacionHuso(TimeUtils.ofZoneId()); final ProgramacionDTO programacion3 =
-     * new ProgramacionDTO();
-     * programacion3.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
-     * programacion3.setProgramacionHuso(TimeUtils.ofZoneId());
-     *
-     * final List<ProgramacionDTO> programaciones = Arrays.asList(programacion1, programacion2,
-     * programacion3); this.programacionService.updateFechaSiguienteEjecucion(programaciones);
-     *
-     * final ArgumentCaptor<List<IdProgramacionDto>> idsCaptor = ArgumentCaptor.forClass(List.class);
-     * final ArgumentCaptor<LocalDateTime> dateCaptor = ArgumentCaptor.forClass(LocalDateTime.class);
-     *
-     * verify(this.programacionRepositoryCustom, times(2))
-     * .updateFechaSiguienteEjecucion(idsCaptor.capture(), dateCaptor.capture());
-     *
-     * }
-     */
+    @Test
+    public void updateFechaSiguienteEjecucionTest() {
+
+        final ProgramacionDTO programacion1 = new ProgramacionDTO();
+        programacion1.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
+        programacion1.setProgramacionHuso(TimeUtils.ofZoneId());
+        final ProgramacionDTO programacion2 = new ProgramacionDTO();
+        programacion2.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
+        programacion2.setProgramacionHuso(TimeUtils.ofZoneId());
+        final ProgramacionDTO programacion3 = new ProgramacionDTO();
+        programacion3.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
+        programacion3.setProgramacionHuso(TimeUtils.ofZoneId());
+
+        final List<ProgramacionDTO> programaciones = Arrays.asList(programacion1, programacion2, programacion3);
+        this.programacionService.updateFechaSiguienteEjecucion(programaciones);
+
+        final ArgumentCaptor<List<IdProgramacionDto>> idsCaptor = ArgumentCaptor.forClass(List.class);
+        final ArgumentCaptor<LocalDateTime> dateCaptor = ArgumentCaptor.forClass(LocalDateTime.class);
+
+        verify(this.programacionRepositoryCustom, times(2))
+            .updateFechaSiguienteEjecucion(idsCaptor.capture(), dateCaptor.capture());
+
+    }
 
 }
