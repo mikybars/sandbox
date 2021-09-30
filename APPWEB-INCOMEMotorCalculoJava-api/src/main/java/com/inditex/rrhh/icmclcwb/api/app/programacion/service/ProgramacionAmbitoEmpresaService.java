@@ -6,16 +6,16 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoEmpresaDto;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoEmpresaDTO;
 
 public interface ProgramacionAmbitoEmpresaService {
 
-    List<ProgramacionAmbitoEmpresaDto> create(
-            @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoEmpresaDto> programacionAmbitoEmpresa,
-            @NotNull final ProgramacionAmbitoDto programacionAmbito);
+    List<ProgramacionAmbitoEmpresaDTO> create(
+            @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoEmpresaDTO> programacionAmbitoEmpresa,
+            @NotNull final ProgramacionAmbitoDTO programacionAmbito);
 
-    List<ProgramacionAmbitoEmpresaDto> findByProgramacionAmbito(
-            @NotNull final ProgramacionAmbitoDto programacionAmbito);
+    List<ProgramacionAmbitoEmpresaDTO> findByProgramacionAmbito(
+            @NotNull final ProgramacionAmbitoDTO programacionAmbito);
 
 }

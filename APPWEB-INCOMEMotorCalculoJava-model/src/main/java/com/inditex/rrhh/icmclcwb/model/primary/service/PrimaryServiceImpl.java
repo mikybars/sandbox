@@ -4,7 +4,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -14,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryService;
 import com.inditex.rrhh.icmclcwb.model.app.util.FileUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryRepositoryCustom;
+import org.slf4j.Logger;
 
 @Service
 @Validated

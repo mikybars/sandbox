@@ -1,17 +1,18 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import lombok.Getter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+import lombok.Getter;
 
 @Repository
 public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1RepositoryCustomImpl
@@ -37,14 +38,14 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaV1Repository
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
-    protected Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea, IdPersonaLocalDto persona) {
+    protected Map<String, Object> getMapValues(AlgoritmoDTO algoritmo, TareaDto tarea, IdPersonaLocalDto persona) {
         // TODO [COMUN] Definir los parametros de la consulta para el cálculo
         // PorVentaIndividualPorcentajeDiaria
         return new HashMap<>();
     }
 
     @Override
-    public List<IdPersonaLocalDto> ids(AlgoritmoDto algoritmo, TareaDto tarea) {
+    public List<IdPersonaLocalDto> ids(AlgoritmoDTO algoritmo, TareaDto tarea) {
         return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
     }
 

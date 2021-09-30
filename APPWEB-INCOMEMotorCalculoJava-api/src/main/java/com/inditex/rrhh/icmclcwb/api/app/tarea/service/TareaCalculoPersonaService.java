@@ -6,12 +6,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
 public interface TareaCalculoPersonaService {
 
@@ -31,7 +31,7 @@ public interface TareaCalculoPersonaService {
     void mergePersonaCalculoByAmbitoPersona(@Valid @NotNull final RunTareaDto runTareaDto);
 
     List<IdPersonaLocalDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea,
-            @Valid @NotNull final AlgoritmoDto idAlgoritmo);
+            @Valid @NotNull final AlgoritmoDTO idAlgoritmo);
 
     List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@Valid @NotNull final TareaDto tarea,
             @Valid @NotNull final String idTipoPolitica);

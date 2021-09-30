@@ -1,11 +1,12 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 @Data
 public class TareaAgrupacionCadenaDto implements Serializable {

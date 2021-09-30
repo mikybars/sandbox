@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;

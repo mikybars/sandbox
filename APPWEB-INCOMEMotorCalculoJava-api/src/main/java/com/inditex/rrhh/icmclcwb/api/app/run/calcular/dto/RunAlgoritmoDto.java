@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.app.run.calcular.dto;
 import java.io.Serializable;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 

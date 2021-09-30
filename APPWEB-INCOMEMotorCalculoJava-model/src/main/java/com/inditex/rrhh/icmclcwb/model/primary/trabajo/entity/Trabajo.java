@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoAmbito;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
-
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTrabajo;
 import lombok.Data;
 

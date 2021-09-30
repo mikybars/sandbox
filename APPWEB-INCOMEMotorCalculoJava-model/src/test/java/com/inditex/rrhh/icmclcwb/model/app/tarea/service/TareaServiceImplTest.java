@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
@@ -13,18 +15,17 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -32,7 +33,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class TareaServiceImplTest {
 
     @Mock
@@ -119,7 +120,7 @@ public class TareaServiceImplTest {
 
     @Test
     public void createTrabajoTest() {
-        final TrabajoDto trabajoDto = mock(TrabajoDto.class);
+        final TrabajoDTO trabajoDto = mock(TrabajoDTO.class);
         trabajoDto.setEmpresa(new ArrayList<>());
         this.tareaServiceImpl.create(trabajoDto);
         verify(this.tareaMapper, times(1)).mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(trabajoDto.getEmpresa(),

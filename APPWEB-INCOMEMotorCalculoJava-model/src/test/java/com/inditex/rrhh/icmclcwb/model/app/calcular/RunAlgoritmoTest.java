@@ -6,7 +6,7 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoCalculoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 /**
  * Clase para contener ciertos métodos de creación de objetos comunes en los tests de algoritmos.
@@ -24,7 +24,7 @@ public interface RunAlgoritmoTest {
         final RunTareaDto runTarea = new RunTareaDto();
         final TareaDto tarea = new TareaDto();
         tarea.setId(idTarea);
-        final TrabajoDto trabajo = new TrabajoDto();
+        final TrabajoDTO trabajo = new TrabajoDTO();
         trabajo.setId(idTrabajo);
         runTarea.setTarea(tarea);
         runTarea.setTrabajo(trabajo);

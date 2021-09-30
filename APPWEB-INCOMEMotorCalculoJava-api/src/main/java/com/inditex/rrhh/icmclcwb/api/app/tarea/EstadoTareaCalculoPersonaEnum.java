@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

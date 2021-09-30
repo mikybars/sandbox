@@ -9,8 +9,8 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.scheduling.annotation.Async;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 
 /**
  * @author javierev
@@ -20,6 +20,6 @@ public interface TareaLimpiezaAsyncService {
 
     CompletableFuture<TareaLimpiezaDto> save(TareaLimpiezaDto tareaLimpieza);
 
-    CompletableFuture<List<TareaLimpiezaDto>> save(List<IdTareaDto> idTareas);
+    CompletableFuture<List<TareaLimpiezaDto>> save(List<IdTareaDTO> idTareas);
 
 }

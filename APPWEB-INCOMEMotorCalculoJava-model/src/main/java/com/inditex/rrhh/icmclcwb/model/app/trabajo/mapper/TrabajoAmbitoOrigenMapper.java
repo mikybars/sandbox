@@ -3,9 +3,10 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoParametersDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoAmbitoOrigenMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoAmbitoOrigen;
 import org.mapstruct.DecoratedWith;
@@ -18,24 +19,24 @@ import org.mapstruct.Mapping;
 public abstract class TrabajoAmbitoOrigenMapper {
 
     @Mapping(target = "idTrabajo", source = "trabajo.id")
-    public abstract TrabajoAmbitoOrigenDto trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(TrabajoAmbitoOrigen src);
+    public abstract TrabajoAmbitoOrigenDTO trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(TrabajoAmbitoOrigen src);
 
     @InheritInverseConfiguration
-    public abstract TrabajoAmbitoOrigen trabajoAmbitoOrigenDtoToTrabajoAmbitoOrigen(TrabajoAmbitoOrigenDto src);
+    public abstract TrabajoAmbitoOrigen trabajoAmbitoOrigenDtoToTrabajoAmbitoOrigen(TrabajoAmbitoOrigenDTO src);
 
-    public abstract List<TrabajoAmbitoOrigenDto> trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(
+    public abstract List<TrabajoAmbitoOrigenDTO> trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(
             List<TrabajoAmbitoOrigen> src);
 
     public abstract List<TrabajoAmbitoOrigen> trabajoAmbitoOrigenDtoToTrabajoAmbitoOrigen(
-            List<TrabajoAmbitoOrigenDto> src);
+            List<TrabajoAmbitoOrigenDTO> src);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "trabajo.id", source = "srcTrabajo.id")
     public abstract TrabajoAmbitoOrigen mergeTrabajoAmbitoOrigenDtoAndTrabajoDtoToTrabajoAmbitoOrigen(
-            TrabajoAmbitoOrigenDto srcTrabajoAmbitoOrigen, TrabajoDto srcTrabajo);
+            TrabajoAmbitoOrigenDTO srcTrabajoAmbitoOrigen, TrabajoDTO srcTrabajo);
 
     public List<TrabajoAmbitoOrigen> mergeTrabajoAmbitoOrigenDtoAndTrabajoDtoToTrabajoAmbitoOrigen(
-            final List<TrabajoAmbitoOrigenDto> srcTrabajoAmbitoOrigen, final TrabajoDto srcTrabajo) {
+            final List<TrabajoAmbitoOrigenDTO> srcTrabajoAmbitoOrigen, final TrabajoDTO srcTrabajo) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 

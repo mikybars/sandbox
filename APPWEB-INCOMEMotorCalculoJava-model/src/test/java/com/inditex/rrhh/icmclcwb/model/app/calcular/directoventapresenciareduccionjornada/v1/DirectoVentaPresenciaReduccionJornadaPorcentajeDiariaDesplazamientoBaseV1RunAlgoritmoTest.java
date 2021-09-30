@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -12,17 +13,17 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoTest;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doThrow;
@@ -30,7 +31,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest implements
         RunAlgoritmoTest {
 
@@ -54,10 +55,10 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
     @Test
     public void getSqlCalcularTest() {
         when(this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
-            .getSqlCalcular(any(AlgoritmoDto.class))).thenReturn(SQL_CALCULAR);
+            .getSqlCalcular(any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
         assertEquals(SQL_CALCULAR,
                 this.directoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo
-                    .getSqlCalcular(new AlgoritmoDto()));
+                    .getSqlCalcular(new AlgoritmoDTO()));
     }
 
     @Test
@@ -73,17 +74,17 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
         final IdPersonaLocalDto p3 = new IdPersonaLocalDto();
         personas.add(p3);
         when(this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
-            .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
+            .ids(any(AlgoritmoDTO.class), any(TareaDto.class))).thenReturn(personas);
         when(this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
             .calcular(
-                    any(AlgoritmoDto.class),
+                    any(AlgoritmoDTO.class),
                     any(TareaDto.class), anyList())).thenReturn(
                             CompletableFuture.completedFuture(AsyncConstants.NIL));
 
         final long idTarea = 123L;
         final long idTrabajo = 5675L;
         final RunTareaDto runTarea = this.createRunTareaDto(idTarea, idTrabajo);
-        final AlgoritmoDto algoritmo = new AlgoritmoDto();
+        final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         this.directoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.execute(runTarea,
                 algoritmo);
 
@@ -107,19 +108,19 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
         final IdPersonaLocalDto p2 = new IdPersonaLocalDto();
         personas.add(p2);
         when(this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
-            .ids(any(AlgoritmoDto.class), any(TareaDto.class))).thenReturn(personas);
+            .ids(any(AlgoritmoDTO.class), any(TareaDto.class))).thenReturn(personas);
 
         when(this.runAlgoritmoPropertiesDto.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(2));
         final RuntimeException exception = new RuntimeException("EEEE");
         doThrow(exception).when(
                 this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom)
-            .calcular(any(AlgoritmoDto.class), any(TareaDto.class),
+            .calcular(any(AlgoritmoDTO.class), any(TareaDto.class),
                     ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
         final long idTarea = 123L;
         final long idTrabajo = 5675L;
         final RunTareaDto runTarea = this.createRunTareaDto(idTarea, idTrabajo);
-        final AlgoritmoDto algoritmo = new AlgoritmoDto();
+        final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         this.directoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.execute(runTarea,
                 algoritmo);
 

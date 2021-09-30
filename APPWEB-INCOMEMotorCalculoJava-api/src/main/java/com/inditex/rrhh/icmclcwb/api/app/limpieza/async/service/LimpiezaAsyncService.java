@@ -1,11 +1,13 @@
 package com.inditex.rrhh.icmclcwb.api.app.limpieza.async.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import org.springframework.scheduling.annotation.Async;
+import java.util.concurrent.CompletableFuture;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.concurrent.CompletableFuture;
+
+import org.springframework.scheduling.annotation.Async;
+
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 @Async
 public interface LimpiezaAsyncService {

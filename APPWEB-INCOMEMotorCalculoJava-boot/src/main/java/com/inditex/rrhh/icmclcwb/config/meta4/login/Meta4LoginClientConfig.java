@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.config.meta4.login;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientAbstract;
 

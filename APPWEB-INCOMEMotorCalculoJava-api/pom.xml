@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>3.2.5</version>
+    <version>3.4.0</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
@@ -16,6 +16,12 @@
 
   <dependencies>
 
+    <!-- PROJECT DEPENDENCIES -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-ws-api</artifactId>
+    </dependency>
+        
     <!-- FWK DEPENDENCIES -->
     <dependency>
       <groupId>com.inditex.aqsw.framework.common</groupId>

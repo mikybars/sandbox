@@ -2,31 +2,31 @@ package com.inditex.rrhh.icmclcwb.model.primary.periodo.repository;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class PeriodoLocalizacionPersonaRepositoryCustomImplTest {
 
     @Mock
@@ -38,7 +38,7 @@ public class PeriodoLocalizacionPersonaRepositoryCustomImplTest {
     @Captor
     private ArgumentCaptor<MapSqlParameterSource> params;
 
-    @Before
+    @BeforeEach
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(this.periodoLocalizacionPersonaRepositoryCustom, "sqlMergePeriodoLocalizacionPersona", "",
                 true);
@@ -71,7 +71,7 @@ public class PeriodoLocalizacionPersonaRepositoryCustomImplTest {
         final Long idTarea = 12345L;
         final RunTareaDto runTarea = mock(RunTareaDto.class);
         final TareaDto tarea = mock(TareaDto.class);
-        final TrabajoDto trabajo = mock(TrabajoDto.class);
+        final TrabajoDTO trabajo = mock(TrabajoDTO.class);
 
         when(tarea.getId()).thenReturn(idTarea);
         when(trabajo.getIcmIdPeriodo()).thenReturn(1L);

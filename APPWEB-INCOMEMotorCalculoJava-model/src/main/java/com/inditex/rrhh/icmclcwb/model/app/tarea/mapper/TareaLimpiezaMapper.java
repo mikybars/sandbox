@@ -2,8 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLimpieza;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -31,9 +31,9 @@ public abstract class TareaLimpiezaMapper {
     @Mapping(target = "fechaHoraInicio", ignore = true)
     @Mapping(target = "fechaHoraFin", ignore = true)
     @Mapping(target = "estado", ignore = true)
-    public abstract TareaLimpiezaDto idTareaDtoToTareaLimpiezaDto(IdTareaDto src);
+    public abstract TareaLimpiezaDto idTareaDtoToTareaLimpiezaDto(IdTareaDTO src);
 
     public abstract List<TareaLimpiezaDto> idTareaDtoToTareaLimpiezaDto(
-            final List<IdTareaDto> srcIdTarea);
+            final List<IdTareaDTO> srcIdTarea);
 
 }

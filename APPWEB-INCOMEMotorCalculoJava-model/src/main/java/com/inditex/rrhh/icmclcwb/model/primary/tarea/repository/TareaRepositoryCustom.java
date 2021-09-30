@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 
 public interface TareaRepositoryCustom {
 
@@ -18,10 +18,10 @@ public interface TareaRepositoryCustom {
 
     void updateEstadoFinal(@NotNull final TareaDto tarea);
 
-    List<IdTareaDto> findLimpieza();
+    List<IdTareaDTO> findLimpieza();
 
     Integer totalLimpieza();
 
-    List<IdTareaDto> findLimpiezaByIdTarea(@NotNull final Long idTarea);
+    List<IdTareaDTO> findLimpiezaByIdTarea(@NotNull final Long idTarea);
 
 }

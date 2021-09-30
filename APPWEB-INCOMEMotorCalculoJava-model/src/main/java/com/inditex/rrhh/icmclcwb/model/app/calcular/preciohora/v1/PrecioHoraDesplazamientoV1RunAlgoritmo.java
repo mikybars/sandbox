@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -39,7 +39,7 @@ public class PrecioHoraDesplazamientoV1RunAlgoritmo implements RunAlgoritmo {
 
 
     @Override
-    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDto algoritmo) {
+    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
         this.log.info(
                 "Trabajo[{}]Tarea[{}] :: Inicio :: PrecioHoraDesplazamientoV1RunAlgoritmo :: Ids",
                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
@@ -84,7 +84,7 @@ public class PrecioHoraDesplazamientoV1RunAlgoritmo implements RunAlgoritmo {
     }
 
     @Override
-    public String getSqlCalcular(final AlgoritmoDto algoritmo) {
+    public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
         return this.tareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
 

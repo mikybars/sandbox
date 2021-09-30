@@ -1,9 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.scheduling.annotation.Async;
 
-import java.util.concurrent.CompletableFuture;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 @Async
 public interface RunTareaRecolectarPtrVentaEmpleadoAsyncService {

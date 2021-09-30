@@ -22,8 +22,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoOrigenDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 /**
  * @author mdelrio
@@ -83,7 +83,7 @@ public class MailServiceImpl implements MailService {
     @Override
     public void sendMail(final TareaFaseDto tareaFase, final List<ValidacionDto> fallidas, final RunTareaDto runTarea) {
         final TareaDto tarea = runTarea.getTarea();
-        final TrabajoDto trabajo = runTarea.getTrabajo();
+        final TrabajoDTO trabajo = runTarea.getTrabajo();
 
         final StringBuilder result = new StringBuilder();
         result.append(TITLE);
@@ -93,7 +93,7 @@ public class MailServiceImpl implements MailService {
         result.append(LINE_BREAK);
         result.append(ORIGIN);
         result.append(
-                trabajo.getOrigen().stream().map(TrabajoAmbitoOrigenDto::getCclIdOrigen).collect(Collectors.toList()));
+                trabajo.getOrigen().stream().map(TrabajoAmbitoOrigenDTO::getCclIdOrigen).collect(Collectors.toList()));
         result.append(LINE_BREAK);
         result.append(STD_ID_LEG_ENT);
         result.append(tarea.getStdIdLegEnt());

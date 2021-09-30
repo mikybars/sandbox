@@ -1,11 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.mapper;
 
+import java.util.List;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoOpcionCalculoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoOpcionCalculo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import java.util.List;
 
 @Mapper
 public abstract class TipoOpcionCalculoMapper {

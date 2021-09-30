@@ -179,6 +179,16 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                                 .id(TipoDatoEnum.VENTA_RANGO_FISICA_DEVOLUCION_LOCALIZACION_SECCION.getId())
                                 .build());
                         }
+                        if (item.getOperacion().equals(AppConstants.OPERACION_DEVOLUCION_VENTA_ORIGINAL_OTRA_TIENDA)) {
+                            tareaLocalizacionPresupuestoVenta
+                                .setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                                    .id(TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getId())
+                                    .build());
+                            tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                                .id(TipoDatoEnum.VENTA_RANGO_FISICA_DEVOLUCION_VENTA_ORIGINAL_OTRA_TIENDA_LOCALIZACION_SECCION
+                                    .getId())
+                                .build());
+                        }
                         dtoList.add(tareaLocalizacionPresupuestoVenta);
                     });
                     importeSinIva.getAndAdd(venta.getImporteSinIVA().doubleValue());
@@ -212,6 +222,16 @@ public abstract class TareaLocalizacionPresupuestoVentaDecorator extends TareaLo
                     if (item.getOperacion().equals(AppConstants.OPERACION_DEVOLUCION_OTRAS_TIENDAS)) {
                         tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
                             .id(TipoDatoEnum.VENTA_RANGO_FISICA_DEVOLUCION_LOCALIZACION.getId())
+                            .build());
+                        tareaLocalizacionPresupuestoVenta
+                            .setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()
+                                .id(TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getId())
+                                .build());
+                    }
+                    if (item.getOperacion().equals(AppConstants.OPERACION_DEVOLUCION_VENTA_ORIGINAL_OTRA_TIENDA)) {
+                        tareaLocalizacionPresupuestoVenta.setTipoDato(TipoDato.builder()
+                            .id(TipoDatoEnum.VENTA_RANGO_FISICA_DEVOLUCION_VENTA_ORIGINAL_OTRA_TIENDA_LOCALIZACION
+                                .getId())
                             .build());
                         tareaLocalizacionPresupuestoVenta
                             .setTipoVentaConceptoChallenge(TipoVentaConceptoChallenge.builder()

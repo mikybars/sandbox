@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.dto.RunMantenimientoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunMantenimientoLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLimpiezaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
+import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
 import com.inditex.rrhh.icmclcwb.ms.app.limpieza.SenderLimpieza;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -34,8 +34,8 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     private SenderLimpieza senderLimpieza;
 
     @Override
-    public RunMantenimientoLimpiezaDto run() {
-        final RunMantenimientoLimpiezaDto result = this.tareaService.findLimpieza();
+    public RunMantenimientoLimpiezaDTO run() {
+        final RunMantenimientoLimpiezaDTO result = this.tareaService.findLimpieza();
         final CompletableFuture<List<TareaLimpiezaDto>> future = this.tareaLimpiezaAsyncService
             .save(result.getIdTarea());
         Mono.fromFuture(future)
@@ -47,8 +47,8 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     }
 
     @Override
-    public RunMantenimientoLimpiezaDto runIdTarea(@NotNull final Long id) {
-        final RunMantenimientoLimpiezaDto result = this.tareaService.findLimpiezaByIdTarea(id);
+    public RunMantenimientoLimpiezaDTO runIdTarea(@NotNull final Long id) {
+        final RunMantenimientoLimpiezaDTO result = this.tareaService.findLimpiezaByIdTarea(id);
         final CompletableFuture<List<TareaLimpiezaDto>> future = this.tareaLimpiezaAsyncService
             .save(result.getIdTarea());
         Mono.fromFuture(future)

@@ -1,10 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto;
 
-import lombok.Builder;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import lombok.Builder;
+import lombok.Data;
 
 @Builder
 @Data

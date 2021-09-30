@@ -35,7 +35,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaServ
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
@@ -45,6 +45,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
@@ -127,7 +128,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
-                    .map(e -> e.getIdProducto())
+                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
 
                 final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
@@ -180,7 +181,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
-                    .map(e -> e.getIdProducto())
+                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
 
                 final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
@@ -210,7 +211,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
                 .findIdEmpresaByIdTarea(tarea.getId())
@@ -239,7 +240,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
-                    .map(e -> e.getIdProducto())
+                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
                 final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
                     .ventaTotalizado(request);
@@ -269,7 +270,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
                 .findIdEmpresaByIdTarea(tarea.getId())
@@ -299,7 +300,69 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
-                    .map(e -> e.getIdProducto())
+                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
+                    .collect(Collectors.toList()));
+                final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
+                    .ventaTotalizado(request);
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                final PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaGeneralProperties
+                    .get(PtrPropertiesConstants.VENTA_TOTALIZADO)
+                    .getFilter()
+                    .getMaxPersistenceSize());
+                AsyncUtils.exceptionally(
+                        this.tareaLocalizacionPresupuestoVentaAsyncService.savePtrVentaTotalizadoResponse(data,
+                                iter,
+                                tarea),
+                        cf, cfPersist);
+            }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+
+        } catch (final Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
+
+    @Override
+    public void devolucionVentaOriginalOtraTiendaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(
+            @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
+            final TareaDto tarea = runTarea.getTarea();
+            final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
+                .findIdEmpresaByIdTarea(tarea.getId())
+                .stream()
+                .map(IdEmpresaDto::getStdIdLegEnt)
+                .collect(Collectors.toList());
+            for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
+                .findTiendasPresupuestosByStdIdLegEntAndIdTarea(empresasAmbito, tarea.getId(),
+                        Arrays.asList(
+                                TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getId()))) {
+                final PtrVentaTotalizadoRequestDto request = this.tareaMapper
+                    .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
+                            trabajo, tarea,
+                            tareaAmbito, iter);
+                request
+                    .setTienda(this.tareaLocalizacionHistoricoService
+                        .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(tarea.getId(),
+                                iter.getIdTipoPresupuesto(),
+                                iter.getFechaInicio(), iter.getFechaFin())
+                        .stream()
+                        .map(x -> Integer.valueOf(x.getId()))
+                        .collect(Collectors.toList()));
+                request.setEmpresa(empresasAmbito.stream().map(Integer::valueOf).collect(Collectors.toList()));
+                request.setAgrupacion(PtrGroupTypeEnum.OPERACION_TIENDA_SECCION);
+                request.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+                request.setOperacion(PtrConstants.OPERACION_DEVOLUCION_VENTA_ORIGINAL_OTRA_TIENDA);
+                request.setProducto(this.meta4IcmWsCalcIncomeSessionService
+                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
+                    .stream()
+                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
                 final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
                     .ventaTotalizado(request);

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
@@ -26,13 +26,13 @@ public class PorVentaIndividualPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo 
 
 
     @Override
-    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDto algoritmo) {
+    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
         this.log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
-    public String getSqlCalcular(final AlgoritmoDto algoritmo) {
+    public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
         this.log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
         return ErrorConstants.RUN_ALGORITMO_NOT_IMPLEMENTED_RESULT;
     }

@@ -6,7 +6,6 @@ import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-
 import lombok.Data;
 
 @Data

@@ -3,12 +3,12 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionCalcularMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionCalcular;
 
 public abstract class TareaLocalizacionCalcularDecorator extends TareaLocalizacionCalcularMapper {

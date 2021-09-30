@@ -1,11 +1,12 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.async.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
-import org.springframework.scheduling.annotation.Async;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
+import org.springframework.scheduling.annotation.Async;
+
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
 
 @Async("repositoryPrimaryExecutor")
 public interface TareaConfiguracionAsyncService {

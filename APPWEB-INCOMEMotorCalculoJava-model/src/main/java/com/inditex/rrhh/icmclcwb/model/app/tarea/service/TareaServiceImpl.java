@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.dto.RunMantenimientoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -23,7 +21,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
+import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
@@ -100,7 +100,7 @@ public class TareaServiceImpl implements TareaService {
     }
 
     @Override
-    public List<TareaDto> create(@Valid @NotNull final TrabajoDto trabajo) {
+    public List<TareaDto> create(@Valid @NotNull final TrabajoDTO trabajo) {
         final List<TareaDto> result = new ArrayList<>();
         this.tareaMapper.mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(trabajo.getEmpresa(), trabajo)
             .forEach(item -> result.add(this.create(item)));
@@ -134,25 +134,27 @@ public class TareaServiceImpl implements TareaService {
     }
 
     @Override
-    public RunMantenimientoLimpiezaDto findLimpieza() {
-        final List<IdTareaDto> tareas = this.tareaRepositoryCustom.findLimpieza();
+    public RunMantenimientoLimpiezaDTO findLimpieza() {
+        final List<IdTareaDTO> tareas = this.tareaRepositoryCustom.findLimpieza();
         final Integer total = this.tareaRepositoryCustom.totalLimpieza();
-        return RunMantenimientoLimpiezaDto.builder()
-            .idTarea(tareas)
-            .tareasProcesadas(tareas.size())
-            .tareasPendientes(total)
-            .build();
+        final RunMantenimientoLimpiezaDTO limpieza = new RunMantenimientoLimpiezaDTO();
+        limpieza.idTarea(tareas);
+        limpieza.tareasProcesadas(tareas.size());
+        limpieza.tareasPendientes(total);
+
+        return limpieza;
     }
 
     @Override
-    public RunMantenimientoLimpiezaDto findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea) {
-        final List<IdTareaDto> tareas = this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
+    public RunMantenimientoLimpiezaDTO findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea) {
+        final List<IdTareaDTO> tareas = this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
         final Integer total = this.tareaRepositoryCustom.totalLimpieza();
-        return RunMantenimientoLimpiezaDto.builder()
-            .idTarea(tareas)
-            .tareasProcesadas(tareas.size())
-            .tareasPendientes(total)
-            .build();
+        final RunMantenimientoLimpiezaDTO limpieza = new RunMantenimientoLimpiezaDTO();
+        limpieza.idTarea(tareas);
+        limpieza.tareasProcesadas(tareas.size());
+        limpieza.tareasPendientes(total);
+
+        return limpieza;
     }
 
 }

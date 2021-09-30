@@ -5,18 +5,18 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.scheduling.annotation.Async;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
 public interface TareaCalculoAlgoritmoBaseRepositoryCustom {
 
-    List<IdPersonaLocalDto> ids(final AlgoritmoDto algoritmo, final TareaDto tarea);
+    List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea);
 
     @Async("calculoExecutor")
-    CompletableFuture<Void> calcular(final AlgoritmoDto algoritmo, final TareaDto tarea,
+    CompletableFuture<Void> calcular(final AlgoritmoDTO algoritmo, final TareaDto tarea,
             final List<IdPersonaLocalDto> personas);
 
-    String getSqlCalcular(final AlgoritmoDto algoritmo);
+    String getSqlCalcular(final AlgoritmoDTO algoritmo);
 
 }

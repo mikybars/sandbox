@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.programacion.async.service.ProgramacionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 
 /**
  * @author javierev
@@ -29,7 +29,7 @@ public class ProgamacionAsyncServiceImpl implements ProgramacionAsyncService {
 
     @Override
     public CompletableFuture<Void> updateFechaSiguienteEjecucion(
-            @NotNull @NotEmpty final List<ProgramacionDto> programacion) {
+            @NotNull @NotEmpty final List<ProgramacionDTO> programacion) {
         this.programacionService.updateFechaSiguienteEjecucion(programacion);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

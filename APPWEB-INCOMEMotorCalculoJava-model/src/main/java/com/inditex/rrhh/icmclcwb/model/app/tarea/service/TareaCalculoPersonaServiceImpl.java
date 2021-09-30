@@ -13,13 +13,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaCalculoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaCalculoPersonaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaRepository;
@@ -79,7 +79,7 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<IdPersonaLocalDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea,
-            @Valid @NotNull final AlgoritmoDto algoritmo) {
+            @Valid @NotNull final AlgoritmoDTO algoritmo) {
         final List<IdPersonaLocalDto> personas;
         try {
             this.primaryTemporaryTableRepositoryCustom.createTempAlgoritmo();

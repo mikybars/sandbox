@@ -5,9 +5,10 @@ import javax.jms.JMSException;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 
+import com.inditex.rrhh.icmclcwb.config.app.ObjectMapperCustom;
+
 import com.inditex.aqsw.framework.data.jms.JmsClient;
 import com.inditex.aqsw.framework.data.jms.JmsClientCustomizer;
-import com.inditex.rrhh.icmclcwb.config.app.ObjectMapperCustom;
 
 public class JmsClientCustom implements JmsClientCustomizer {
 

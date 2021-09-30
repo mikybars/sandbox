@@ -5,8 +5,9 @@ import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 
-import com.inditex.aqsw.framework.service.jms.JmsListenerContainerFactoryCustomizer;
 import com.inditex.rrhh.icmclcwb.config.app.ObjectMapperCustom;
+
+import com.inditex.aqsw.framework.service.jms.JmsListenerContainerFactoryCustomizer;
 
 public class JmsListenerContainerFactoryCustom implements JmsListenerContainerFactoryCustomizer {
 

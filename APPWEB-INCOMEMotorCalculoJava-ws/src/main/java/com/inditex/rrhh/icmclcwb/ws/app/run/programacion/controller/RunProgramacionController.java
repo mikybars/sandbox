@@ -3,32 +3,25 @@ package com.inditex.rrhh.icmclcwb.ws.app.run.programacion.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
+import com.inditex.rrhh.icmclcwb.dto.RunProgramacionDTO;
+import com.inditex.rrhh.icmclcwb.service.RunProgramacionApi;
 
-@Validated
 @RestController
-@RequestMapping(path = "/run/programacion")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "RunProgramacionController" })
-public class RunProgramacionController {
+public class RunProgramacionController implements RunProgramacionApi {
 
     @Autowired
     private RunProgramacionService runProgramacionService;
 
-    @GetMapping
+    @Override
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation("Revisa si hay programaciones pendientes de lanzar y en caso afirmativo genera las acciones necesarias")
-    public List<RunProgramacionDto> create() {
-        return this.runProgramacionService.create();
+    public ResponseEntity<List<RunProgramacionDTO>> create() {
+        return new ResponseEntity<>(this.runProgramacionService.create(), HttpStatus.OK);
     }
 
 }

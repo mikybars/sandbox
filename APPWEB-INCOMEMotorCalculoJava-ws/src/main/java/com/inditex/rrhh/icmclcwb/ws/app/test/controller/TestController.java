@@ -1,130 +1,113 @@
 package com.inditex.rrhh.icmclcwb.ws.app.test.controller;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.rrhh.icmclcwb.api.app.test.dto.RelojDto;
-import com.inditex.rrhh.icmclcwb.api.app.test.dto.SsoDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
+import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
+import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
+import com.inditex.rrhh.icmclcwb.service.TestApi;
 
-@Validated
 @RestController
-@RequestMapping(path = "/test")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "TestController" })
-public class TestController {
+public class TestController implements TestApi {
 
     @Autowired
     private TestService testService;
 
-    @GetMapping("/reloj/")
-    @ApiOperation("Transformaciones de fechas")
-    public RelojDto reloj() {
-        return this.testService.reloj();
+    @Override
+    public ResponseEntity<RelojDTO> reloj() {
+        return new ResponseEntity<>(this.testService.reloj(), HttpStatus.OK);
     }
 
-    @GetMapping("/sso/")
-    @ApiOperation("Datos del usuario conectado en el SSO")
-    public SsoDto sso() {
-        return this.testService.sso();
+    @Override
+    public ResponseEntity<SsoDTO> sso() {
+        return new ResponseEntity<>(this.testService.sso(), HttpStatus.OK);
     }
 
-    @GetMapping("/error/sync/")
-    @ApiOperation("Error en sincronía")
-    public void errorSync() {
+    @Override
+    public ResponseEntity<Void> errorSync() {
         this.testService.errorSync();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/error/async/")
-    @ApiOperation("Error en asincronía")
-    public void errorAsync() {
+    @Override
+    public ResponseEntity<Void> errorAsync() {
         this.testService.errorAsync();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/sesion/")
-    @ApiOperation("Validación de la sesión de Meta4")
-    public void sesion() {
+    @Override
+    public ResponseEntity<Void> sesion() {
         this.testService.sesion();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/programacion/batch")
-    @ApiOperation("Lanza todas las programaciones N veces")
-    public void programacionBatch() {
+    @Override
+    public ResponseEntity<Void> programacionBatch() {
         this.testService.programacionBatch();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(path = "/trabajo/test/{limit}")
-    @ApiOperation("Test bloqueos. Genera un número de trabajos para distintos tipos de ámbito (1 - 5) para AT/38/95/Localizacion/Persona en 03/2015")
-    public void testConcurrencia(@PathVariable @Valid @NotNull @Positive final Long limit) {
+    @Override
+    public ResponseEntity<Void> testConcurrencia(@PathVariable final Long limit) {
         this.testService.testBloqueos(limit);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(path = "/test/url")
-    @ApiOperation("Test urls")
-    public Boolean testUrl(@RequestBody @NotBlank final String url) {
-        return this.testService.testUrl(url);
+    @Override
+    public ResponseEntity<Boolean> testUrl(@RequestBody final String url) {
+        return new ResponseEntity<>(this.testService.testUrl(url), HttpStatus.OK);
     }
 
-    @GetMapping("/trabajo/fase1a")
-    @ApiOperation("Crea los trabajos para todos los origenes y empresas de la fase 1a")
-    public void trabajoFase1a() {
+    @Override
+    public ResponseEntity<Void> trabajoFase1a() {
         this.testService.trabajoFase1a();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(path = "/sql/formatter", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-    @ApiOperation("Formatea una consulta")
-    public String sqlformatter(@RequestBody @NotBlank final String sql) {
-        return this.testService.sqlFormatter(sql);
+    @Override
+    public ResponseEntity<String> sqlFormatter(@RequestBody final String sql) {
+        return new ResponseEntity<>(this.testService.sqlFormatter(sql), HttpStatus.OK);
     }
 
-    @GetMapping("/mail/send")
-    @ApiOperation("Envia un correo de prueba")
-    public void sendMail() {
+    @Override
+    public ResponseEntity<Void> sendMail() {
         this.testService.sendMail();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/comis/")
-    @ApiOperation("Prueba conexion comis")
-    public void comisTest() {
+    @Override
+    public ResponseEntity<Void> comisTest() {
         this.testService.comisTest();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/ptr/service")
-    @ApiOperation("Prueba conexion ptr servicio")
-    public void ptrTestService() {
+    @Override
+    public ResponseEntity<Void> ptrTest() {
         this.testService.ptrTestService();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/ptr/bbdd/sync")
-    @ApiOperation("Prueba conexion ptr bbdd sync")
-    public void ptrTestBbddSync() {
-        this.testService.ptrTestBbddSync();
-    }
-
-    @GetMapping("/ptr/bbdd/async")
-    @ApiOperation("Prueba conexion ptr bbdd async")
-    public void ptrTestBbddAsync() {
-        this.testService.ptrTestBbddAsync();
-    }
-
-    @GetMapping("/slrhorcoms/")
-    @ApiOperation("Prueba conexion slrhorcoms")
-    public void slrhorcomsTest() {
+    @Override
+    public ResponseEntity<Void> slrhorcomsTest() {
         this.testService.slrhorcomsTest();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> ptrTestBbddSync() {
+        this.testService.ptrTestBbddSync();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> ptrTestBbddAsync() {
+        this.testService.ptrTestBbddAsync();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

@@ -6,15 +6,15 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoPersonaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoPersonaDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 public interface TrabajoAmbitoPersonaService {
 
-    List<TrabajoAmbitoPersonaDto> findByTrabajo(@Valid @NotNull final TrabajoDto trabajo);
+    List<TrabajoAmbitoPersonaDTO> findByTrabajo(@Valid @NotNull final TrabajoDTO trabajo);
 
-    List<TrabajoAmbitoPersonaDto> create(
-            @Valid @NotNull @NotEmpty final List<TrabajoAmbitoPersonaDto> programacionAmbitoPersona,
-            @NotNull final TrabajoDto trabajo);
+    List<TrabajoAmbitoPersonaDTO> create(
+            @Valid @NotNull @NotEmpty final List<TrabajoAmbitoPersonaDTO> programacionAmbitoPersona,
+            @NotNull final TrabajoDTO trabajo);
 
 }

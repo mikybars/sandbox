@@ -25,8 +25,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.AccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
+import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
+import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
 
 @Service
 @Validated
@@ -148,6 +148,10 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             final CompletableFuture<Void> cfDevolucionReal = this.runTareaRecolectarPtrVentaGeneralAsyncService
                 .devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea);
             AsyncUtils.exceptionally(cfDevolucionReal, cf, cfWait);
+
+            final CompletableFuture<Void> cfDevolucionVentaOriginalOtraTienda = this.runTareaRecolectarPtrVentaGeneralAsyncService
+                .devolucionVentaOriginalOtraTiendaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea);
+            AsyncUtils.exceptionally(cfDevolucionVentaOriginalOtraTienda, cf, cfWait);
 
             final CompletableFuture<Void> cfVentaRangoOnlineIpodLocalizacionSeccion = this.runTareaRecolectarPtrVentaEcommerceAsyncService
                 .ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(runTarea);

@@ -1,12 +1,12 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoVentaConceptoDto;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Data
 public class TareaAgrupacionConfiguracionDto implements Serializable {

@@ -6,12 +6,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
 public interface TareaCalculoPersonaRepositoryCustom {
 
@@ -26,7 +26,7 @@ public interface TareaCalculoPersonaRepositoryCustom {
 
     void mergePersonaCalculoByAmbitoPersona(@NotNull RunTareaDto tareaDto);
 
-    List<IdPersonaLocalDto> findByAlgoritmo(@NotNull final TareaDto tarea, @NotBlank final AlgoritmoDto algoritmo);
+    List<IdPersonaLocalDto> findByAlgoritmo(@NotNull final TareaDto tarea, @NotBlank final AlgoritmoDTO algoritmo);
 
     List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@NotNull final TareaDto tarea,
             @NotNull @Positive String idTipoPolitica);
@@ -36,6 +36,6 @@ public interface TareaCalculoPersonaRepositoryCustom {
      * @return
      */
     List<GenericAlgoritmoPropertiesDto> findIdTipoCalculoAndIdTipoComisionByIdAlgoritmo(
-            @NotBlank AlgoritmoDto algoritmo);
+            @NotBlank AlgoritmoDTO algoritmo);
 
 }

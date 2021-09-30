@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResultItemDto;
@@ -26,17 +27,17 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametro
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class Meta4PageableServiceImplTest {
 
     @InjectMocks
@@ -57,17 +58,20 @@ public class Meta4PageableServiceImplTest {
     @Mock
     private Map<String, Meta4PropertiesDto> meta4Properties;
 
-    @Test(expected = Meta4IcmclcwbException.class)
+    @Test
     public void getResultItemException() throws NoSuchMethodException, SecurityException, IllegalAccessException,
             IllegalArgumentException, InvocationTargetException {
-        final PageableDto<Serializable> request = new PageableDto<>();
+        Assertions.assertThrows(Exception.class, () -> {
 
-        this.meta4PageableServiceImpl.getResultItem(request,
-                Meta4PropertiesConstants.FLAG_CALCULA, FlagCalculaResponseDto.class, FlagCalculaResultItemDto.class);
+            final PageableDto<Serializable> request = new PageableDto<>();
 
-        verify(this.meta4IcmWsCalcIncomeServiceImpl, timeout(1000).times(1))
-            .getFlagCalcula(ArgumentMatchers.any(FlagCalculaRequestDto.class));
+            this.meta4PageableServiceImpl.getResultItem(request,
+                    Meta4PropertiesConstants.FLAG_CALCULA, FlagCalculaResponseDto.class,
+                    FlagCalculaResultItemDto.class);
 
+            verify(this.meta4IcmWsCalcIncomeServiceImpl, timeout(1000).times(1))
+                .getFlagCalcula(ArgumentMatchers.any(FlagCalculaRequestDto.class));
+        });
     }
 
     @Test

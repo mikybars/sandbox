@@ -7,23 +7,23 @@ import org.springframework.util.CollectionUtils;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoValidator, Object> {
 
     @Override
-    public boolean isValid(Object object, ConstraintValidatorContext context) {
+    public boolean isValid(final Object object, final ConstraintValidatorContext context) {
 
         boolean isValid = true;
 
-        if (object instanceof TrabajoDto) {
-            TrabajoDto trabajo = (TrabajoDto) object;
-            isValid = validate(trabajo, context);
+        if (object instanceof TrabajoDTO) {
+            final TrabajoDTO trabajo = (TrabajoDTO) object;
+            isValid = this.validate(trabajo, context);
         }
 
         if (object instanceof RunTrabajoDto) {
-            TrabajoDto trabajo = ((RunTrabajoDto) object).getTrabajo();
-            isValid = validate(trabajo, context);
+            final TrabajoDTO trabajo = ((RunTrabajoDto) object).getTrabajo();
+            isValid = this.validate(trabajo, context);
         }
 
         if (!isValid) {
@@ -33,7 +33,7 @@ public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoVa
         return isValid;
     }
 
-    private boolean validate(TrabajoDto trabajo, ConstraintValidatorContext context) {
+    private boolean validate(final TrabajoDTO trabajo, final ConstraintValidatorContext context) {
         boolean isValid = true;
         if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
             if (!CollectionUtils.isEmpty(trabajo.getOrigen())) {
