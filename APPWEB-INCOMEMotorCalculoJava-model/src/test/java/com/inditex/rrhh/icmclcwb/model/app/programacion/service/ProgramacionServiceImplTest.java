@@ -204,7 +204,7 @@ public class ProgramacionServiceImplTest {
 
         final LocalDateTime result = this.programacionService.fechaSiguienteEjecucion(programacion);
         assertTrue(DateUtils.isSameDay(DateUtils.addDays(new Date(), 1),
-            Date.from(result.atZone(TimeUtils.ofZone()).toInstant())));
+                Date.from(result.atZone(TimeUtils.ofZone()).toInstant())));
 
     }
 
