@@ -181,7 +181,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
-                    .map(e -> e.getIdProducto())
+                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
 
                 final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
@@ -240,7 +240,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
-                    .map(e -> e.getIdProducto())
+                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
                 final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
                     .ventaTotalizado(request);
@@ -300,7 +300,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
-                    .map(e -> e.getIdProducto())
+                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
                 final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
                     .ventaTotalizado(request);
@@ -362,7 +362,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
                 request.setProducto(this.meta4IcmWsCalcIncomeSessionService
                     .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
                     .stream()
-                    .map(e -> e.getIdProducto())
+                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
                     .collect(Collectors.toList()));
                 final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
                     .ventaTotalizado(request);

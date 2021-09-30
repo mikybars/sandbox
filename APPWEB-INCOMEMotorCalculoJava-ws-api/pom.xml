@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>3.4.0</version>
+    <version>3.4.1</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-ws-api</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>com.inditex.sscc.api</groupId>
             <artifactId>icmclcwb-income-motor-calculo-java-api-v2-rest-stable</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.inditex.aqsw.framework.common</groupId>
