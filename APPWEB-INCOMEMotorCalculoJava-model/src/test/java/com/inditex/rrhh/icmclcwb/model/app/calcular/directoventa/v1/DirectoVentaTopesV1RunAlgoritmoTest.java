@@ -1,20 +1,21 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventa.v1;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class DirectoVentaTopesV1RunAlgoritmoTest {
 
     @Mock
@@ -26,7 +27,7 @@ public class DirectoVentaTopesV1RunAlgoritmoTest {
     @Test
     public void getSqlCalcularTest() {
         // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
-        AlgoritmoDto algoritmo = new AlgoritmoDto();
+        AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         String result = directoVentaTopesV1RunAlgoritmo.getSqlCalcular(algoritmo);
 
         assertEquals(ErrorConstants.RUN_ALGORITMO_NOT_IMPLEMENTED_RESULT, result);
@@ -36,7 +37,7 @@ public class DirectoVentaTopesV1RunAlgoritmoTest {
     @Test
     public void executeTest() {
         // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
-        AlgoritmoDto algoritmo = new AlgoritmoDto();
+        AlgoritmoDTO algoritmo = new AlgoritmoDTO();
         RunTareaDto runTarea = new RunTareaDto();
         directoVentaTopesV1RunAlgoritmo.execute(runTarea, algoritmo);
 

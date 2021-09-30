@@ -15,4 +15,7 @@ public interface RunTareaRecolectarPtrVentaGeneralService {
 
     void devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@NotNull @Valid RunTareaDto runTarea);
 
+    void devolucionVentaOriginalOtraTiendaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(
+            @NotNull @Valid RunTareaDto runTarea);
+
 }

@@ -1,12 +1,12 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto;
 
 import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

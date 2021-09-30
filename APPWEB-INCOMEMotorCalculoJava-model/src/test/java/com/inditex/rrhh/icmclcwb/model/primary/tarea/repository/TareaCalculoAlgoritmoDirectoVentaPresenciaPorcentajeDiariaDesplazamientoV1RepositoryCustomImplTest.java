@@ -6,25 +6,25 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
@@ -40,15 +40,15 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaDesplazamientoV1RepositoryCustomImplTest {
 
     private final static String SQL_BASE = "SQL CALCULAR BASE";
@@ -70,7 +70,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaDesplazam
     @InjectMocks
     private TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaDesplazamientoV1RepositoryCustomImpl tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaDesplazamientoV1RepositoryCustom;
 
-    @Before
+    @BeforeEach
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(
                 this.tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaDesplazamientoV1RepositoryCustom,
@@ -85,11 +85,11 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaDesplazam
         final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
         final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
         final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
-        when(this.tareaCalculoPersonaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
+        when(this.tareaCalculoPersonaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDTO.class)))
             .thenReturn(personas);
 
         final TareaDto tarea = mock(TareaDto.class);
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
 
         final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaDesplazamientoV1RepositoryCustom
             .ids(algoritmo, tarea);
@@ -103,20 +103,17 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaDesplazam
 
         when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(1001);
+        final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
+        tipoCalculo1.setId("004");
+        final TipoComisionDTO tipoComision1 = new TipoComisionDTO();
+        tipoComision1.setId("008");
         when(algoritmo.getTipoCalculo()).thenReturn(
                 Arrays.asList(
-                        TipoCalculoDto
-                            .builder()
-                            .id("004")
-                            .build()));
+                        tipoCalculo1));
         when(algoritmo.getTipoComision()).thenReturn(
-                Arrays.asList(
-                        TipoComisionDto
-                            .builder()
-                            .id("008")
-                            .build()));
+                Arrays.asList(tipoComision1));
         when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         final TareaDto tarea = mock(TareaDto.class);
@@ -176,20 +173,17 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaDesplazam
         when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
 
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(1001);
+        final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
+        tipoCalculo1.setId("004");
+        final TipoComisionDTO tipoComision1 = new TipoComisionDTO();
+        tipoComision1.setId("008");
         when(algoritmo.getTipoCalculo()).thenReturn(
                 Arrays.asList(
-                        TipoCalculoDto
-                            .builder()
-                            .id("004")
-                            .build()));
+                        tipoCalculo1));
         when(algoritmo.getTipoComision()).thenReturn(
-                Arrays.asList(
-                        TipoComisionDto
-                            .builder()
-                            .id("008")
-                            .build()));
+                Arrays.asList(tipoComision1));
         when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
         final TareaDto tarea = mock(TareaDto.class);
@@ -267,7 +261,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaDesplazam
 
     @Test
     public void getSqlCalcularTest() {
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(21);
         final String result = this.tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaDesplazamientoV1RepositoryCustom
             .getSqlCalcular(algoritmo);

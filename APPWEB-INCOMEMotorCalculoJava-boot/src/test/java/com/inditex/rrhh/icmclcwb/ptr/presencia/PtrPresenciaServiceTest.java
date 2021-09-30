@@ -1,6 +1,15 @@
 package com.inditex.rrhh.icmclcwb.ptr.presencia;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.Application;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
@@ -15,21 +24,14 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTo
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
 import org.apache.http.HttpStatus;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.util.Map;
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration

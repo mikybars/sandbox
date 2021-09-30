@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
@@ -21,24 +22,23 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustomImpl;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class ComisRepositoryCustomImplTest {
 
     private final static String SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA = "SQL FIND PRESENCIAS ORIGEN AND FECHA";
@@ -59,7 +59,11 @@ public class ComisRepositoryCustomImplTest {
 
     private final static String SQL_FIND_CONDICIONES_RESALTA = "SQL FIND CONDICIONES RESALTA";
 
+    private final static String SQL_FIND_CONDICIONES_RESALTA_SIN_PRIMAS = "SQL FIND CONDICIONES RESALTA SIN PRIMA";
+
     private final static String SQL_FIND_CONDICIONES_RESALTA_ES = "SQL FIND CONDICIONES RESALTA ES";
+
+    private final static String SQL_FIND_CONDICIONES_PRIMAS = "SQL FIND CONDICIONES PRIMA";
 
     private final static String SQL_FIND_BAJAS_IT = "SQL FIND BAJAS IT";
 
@@ -86,7 +90,7 @@ public class ComisRepositoryCustomImplTest {
     @Mock
     private PrevalidarPropertiesDto fechaProperties;
 
-    @Before
+    @BeforeEach
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(this.comisRepositoryCustom,
                 "sqlFindPresenciasOrigenAndFechaQuery",
@@ -121,8 +125,16 @@ public class ComisRepositoryCustomImplTest {
                 SQL_FIND_CONDICIONES_RESALTA,
                 true);
         FieldUtils.writeField(this.comisRepositoryCustom,
+                "sqlFindCondicionesResaltaSinPrimas",
+                SQL_FIND_CONDICIONES_RESALTA_SIN_PRIMAS,
+                true);
+        FieldUtils.writeField(this.comisRepositoryCustom,
                 "sqlFindCondicionesResaltaEs",
                 SQL_FIND_CONDICIONES_RESALTA_ES,
+                true);
+        FieldUtils.writeField(this.comisRepositoryCustom,
+                "sqlFindCondicionesPrimas",
+                SQL_FIND_CONDICIONES_PRIMAS,
                 true);
         FieldUtils.writeField(this.comisRepositoryCustom,
                 "sqlFindBajasIt",
@@ -325,6 +337,26 @@ public class ComisRepositoryCustomImplTest {
     }
 
     @Test
+    public void findCondicionesResaltaSinPrimas() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setIdOrganization("1");
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findCondicionesResaltaSinPrimas(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
+        assertEquals(SQL_FIND_CONDICIONES_RESALTA_SIN_PRIMAS,
+                this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        // Parámetros de la consulta: fecha desde, fecha hasta
+        assertEquals(2, params.getValues().size());
+        // fecha desde
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+        // fecha hasta
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    }
+
+    @Test
     public void findCondicionesResaltaEs() {
         final TareaDto tarea = new TareaDto();
         tarea.setIdOrganization("1");
@@ -334,6 +366,26 @@ public class ComisRepositoryCustomImplTest {
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
                 ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
         assertEquals(SQL_FIND_CONDICIONES_RESALTA_ES,
+                this.sqlCaptor.getValue());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        // Parámetros de la consulta: fecha desde, fecha hasta
+        assertEquals(2, params.getValues().size());
+        // fecha desde
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+        // fecha hasta
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    }
+
+    @Test
+    public void findCondicionesPrimas() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setIdOrganization("1");
+        tarea.setFechaInicioPeriodo(LocalDate.now());
+        tarea.setFechaFinPeriodo(LocalDate.now());
+        this.comisRepositoryCustom.findCondicionesPrimas(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
+        assertEquals(SQL_FIND_CONDICIONES_PRIMAS,
                 this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         // Parámetros de la consulta: fecha desde, fecha hasta

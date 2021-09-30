@@ -1,10 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
-import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
+import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TareaAgrupacionCadenaRepository extends BaseRepository<TareaAgrupacionCadena, Long> {
 

@@ -5,8 +5,6 @@ spring:
     #broker-url: vm://localhost:61616?broker.persistent=false&broker.useShutdownHook=false&broker.useJmx=false
     #broker-url: tcp://localhost:61616//embedded?broker.persistent=false&useShutdownHook=false&broker.useJmx=false
     in-memory: true
-  profiles:
-    active: test
 amiga:
   common:
     rest:

@@ -2,10 +2,10 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.mapper;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoDatoDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.Algoritmo;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoCalculo;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoComision;
@@ -17,19 +17,19 @@ import org.mapstruct.Mapping;
 @Mapper
 public abstract class AlgoritmoMapper {
 
-    public abstract AlgoritmoDto algoritmoToAlgoritmoDto(Algoritmo src);
+    public abstract AlgoritmoDTO algoritmoToAlgoritmoDTO(Algoritmo src);
 
     @InheritInverseConfiguration
     // @Mapping(target = "tipoComision.nombre", ignore = true)
     // @Mapping(target = "tipoComision.algoritmo", ignore = true)
     // @Mapping(target = "tipoDato.tipoPresencia", ignore = true)
     // @Mapping(target = "tipoDato.tipoVenta", ignore = true)
-    public abstract Algoritmo algoritmoDtoToAlgoritmo(AlgoritmoDto src);
+    public abstract Algoritmo AlgoritmoDTOToAlgoritmo(AlgoritmoDTO src);
 
-    public abstract List<AlgoritmoDto> algoritmoToAlgoritmoDto(List<Algoritmo> src);
+    public abstract List<AlgoritmoDTO> algoritmoToAlgoritmoDTO(List<Algoritmo> src);
 
     @InheritInverseConfiguration
-    public abstract List<Algoritmo> algoritmoDtoToAlgoritmo(List<AlgoritmoDto> src);
+    public abstract List<Algoritmo> AlgoritmoDTOToAlgoritmo(List<AlgoritmoDTO> src);
 
     public abstract TipoCalculoDto tipoCalculoToTipoCalculoDto(TipoCalculo src);
 

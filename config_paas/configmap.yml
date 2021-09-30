@@ -81,8 +81,6 @@ amiga:
           consumer:
             enable-dlq: false
             send-original-payload-to-dlq: false
-    jta:
-      allow-custom-isolation-levels: true  
     jms:
       connection-factory:
         broker-escritura:
@@ -136,10 +134,11 @@ amiga:
           pubSubDomain: false
           sessionTransacted: false
     jdbc:
-      query-timeout: 90s
-      configuration:
-        prop:
-          default-isolation-level: 1
+      pool:
+        hikari:
+          maximum-pool-size: 10
+          query-timeout: 90s
+          auto-commit: true
     jpa:
       properties:
         hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
@@ -207,6 +206,10 @@ app:
           activo: true
           max-empleados: 30
       historico:
+        sincronizacion:
+          activo: true
+          max-empleados: 30
+      primas:
         sincronizacion:
           activo: true
           max-empleados: 30

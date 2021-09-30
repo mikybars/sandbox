@@ -12,34 +12,25 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
+import com.inditex.rrhh.icmclcwb.service.TrabajoApi;
 
-@Validated
 @RestController
-@RequestMapping(path = "/trabajo")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "TrabajoController" })
-public class TrabajoController {
+public class TrabajoController implements TrabajoApi {
 
     @Autowired
     private TrabajoService trabajoService;
 
-    @PostMapping
+    @Override
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "Crea un nuevo trabajo", response = TrabajoDto.class)
-    public @Valid TrabajoDto create(@Valid @RequestBody final TrabajoDto trabajo) {
-        return this.trabajoService.create(trabajo);
+    public @Valid ResponseEntity<TrabajoDTO> create(@Valid @RequestBody final TrabajoDTO trabajo) {
+        return new ResponseEntity<>(this.trabajoService.create(trabajo), HttpStatus.OK);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -49,7 +40,7 @@ public class TrabajoController {
         for (final ConstraintViolation<?> a : ex.getConstraintViolations()) {
             exceptions.add(a.getPropertyPath().toString() + ": " + a.getMessage());
         }
-        return new ResponseEntity<Object>(exceptions, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptions, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
 }

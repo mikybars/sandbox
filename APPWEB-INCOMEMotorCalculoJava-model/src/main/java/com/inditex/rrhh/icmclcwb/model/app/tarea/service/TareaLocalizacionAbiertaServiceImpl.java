@@ -15,7 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionAbiertaService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
 
 @Service
@@ -29,15 +29,15 @@ public class TareaLocalizacionAbiertaServiceImpl implements TareaLocalizacionAbi
     private TipoDatoService tipoDatoService;
 
     @Override
-    public void saveAbierto(@Valid @NotNull final TareaDto tareaDto, @Valid @NotNull final TrabajoDto trabajoDto) {
-        tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(tareaDto, trabajoDto);
+    public void saveAbierto(@Valid @NotNull final TareaDto tareaDto, @Valid @NotNull final TrabajoDTO trabajoDto) {
+        this.tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(tareaDto, trabajoDto);
     }
 
     @Override
-    public void saveCerrado(@Valid @NotNull final TareaDto tareaDto, @Valid @NotNull final TrabajoDto trabajoDto) {
-        List<IdTipoDatoDto> ids = tipoDatoService
+    public void saveCerrado(@Valid @NotNull final TareaDto tareaDto, @Valid @NotNull final TrabajoDTO trabajoDto) {
+        final List<IdTipoDatoDto> ids = this.tipoDatoService
             .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
-        tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tareaDto, trabajoDto,
+        this.tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tareaDto, trabajoDto,
                 ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     }
 

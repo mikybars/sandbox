@@ -4,24 +4,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoEmpresaDto;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoEmpresaDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoEmpresaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionAmbitoEmpresa;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoEmpresaRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class ProgramacionAmbitoEmpresaServiceImplTest {
 
     @Mock
@@ -37,13 +38,13 @@ public class ProgramacionAmbitoEmpresaServiceImplTest {
     public void create() {
         when(this.programacionAmbitoEmpresaMapper
             .mergeProgramacionAmbitoEmpresaDtoAndProgramacionDtoToProgramacionAmbitoEmpresa(
-                    ArgumentMatchers.<List<ProgramacionAmbitoEmpresaDto>>any(), any(ProgramacionAmbitoDto.class)))
+                    ArgumentMatchers.<List<ProgramacionAmbitoEmpresaDTO>>any(), any(ProgramacionAmbitoDTO.class)))
                         .thenReturn(new ArrayList<ProgramacionAmbitoEmpresa>());
         when(this.programacionAmbitoEmpresaRepository.saveAll(ArgumentMatchers.<List<ProgramacionAmbitoEmpresa>>any()))
             .thenReturn(new ArrayList<ProgramacionAmbitoEmpresa>());
 
-        this.programacionAmbitoEmpresaServiceImpl.create(Arrays.asList(new ProgramacionAmbitoEmpresaDto()),
-                new ProgramacionAmbitoDto());
+        this.programacionAmbitoEmpresaServiceImpl.create(Arrays.asList(new ProgramacionAmbitoEmpresaDTO()),
+                new ProgramacionAmbitoDTO());
         verify(this.programacionAmbitoEmpresaRepository, times(1))
             .saveAll(ArgumentMatchers.<List<ProgramacionAmbitoEmpresa>>any());
     }
@@ -51,11 +52,11 @@ public class ProgramacionAmbitoEmpresaServiceImplTest {
 
     @Test
     public void findByProgramacionAmbito() {
-        final ProgramacionAmbitoDto ambito = new ProgramacionAmbitoDto();
+        final ProgramacionAmbitoDTO ambito = new ProgramacionAmbitoDTO();
         ambito.setId(1L);
         when(this.programacionAmbitoEmpresaMapper.programacionAmbitoEmpresaToProgramacionAmbitoEmpresaDto(
                 ArgumentMatchers.<List<ProgramacionAmbitoEmpresa>>any()))
-                    .thenReturn(new ArrayList<ProgramacionAmbitoEmpresaDto>());
+                    .thenReturn(new ArrayList<ProgramacionAmbitoEmpresaDTO>());
         when(this.programacionAmbitoEmpresaRepository.findByProgramacionAmbitoId(any(Long.class)))
             .thenReturn(new ArrayList<ProgramacionAmbitoEmpresa>());
 

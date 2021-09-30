@@ -1,27 +1,27 @@
 package com.inditex.rrhh.icmclcwb.model.app.programacion.service;
 
-import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoEmpresaService;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoLocalizacionService;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoOrigenService;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
-import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoMapper;
-import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoRepository;
-
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoEmpresaService;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoLocalizacionService;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoOrigenService;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
+import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoRepository;
 
 @Service
 @Validated
@@ -46,25 +46,25 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
     private ProgramacionAmbitoPersonaService programacionAmbitoPersonaService;
 
     @Override
-    public List<ProgramacionAmbitoDto> create(@Valid @NotNull final List<ProgramacionAmbitoDto> programacionAmbito,
-            @NotNull ProgramacionDto programacion) {
-        List<ProgramacionAmbitoDto> result = new ArrayList<>();
+    public List<ProgramacionAmbitoDTO> create(@Valid @NotNull final List<ProgramacionAmbitoDTO> programacionAmbito,
+            @NotNull final ProgramacionDTO programacion) {
+        final List<ProgramacionAmbitoDTO> result = new ArrayList<>();
         programacionAmbito.forEach(item -> {
-            ProgramacionAmbitoDto programacionAmbitoResult = programacionAmbitoMapper
-                .programacionAmbitoToProgramacionAmbitoDto(programacionAmbitoRepository.save(
-                        programacionAmbitoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(
+            final ProgramacionAmbitoDTO programacionAmbitoResult = this.programacionAmbitoMapper
+                .programacionAmbitoToProgramacionAmbitoDto(this.programacionAmbitoRepository.save(
+                        this.programacionAmbitoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(
                                 item, programacion)));
             if (CollectionUtils.isNotEmpty(item.getOrigen())) {
                 programacionAmbitoResult
-                    .setOrigen(programacionAmbitoOrigenService.create(item.getOrigen(), programacionAmbitoResult));
+                    .setOrigen(this.programacionAmbitoOrigenService.create(item.getOrigen(), programacionAmbitoResult));
             }
             if (CollectionUtils.isNotEmpty(item.getEmpresa())) {
                 programacionAmbitoResult.setEmpresa(
-                        programacionAmbitoEmpresaService.create(item.getEmpresa(), programacionAmbitoResult));
+                        this.programacionAmbitoEmpresaService.create(item.getEmpresa(), programacionAmbitoResult));
             }
             if (TipoAmbitoEnum.LOCALIZACION.getId().equals(programacion.getTipoAmbito().getId())) {
                 if (CollectionUtils.isNotEmpty(item.getLocalizacion())) {
-                    programacionAmbitoResult.setLocalizacion(programacionAmbitoLocalizacionService
+                    programacionAmbitoResult.setLocalizacion(this.programacionAmbitoLocalizacionService
                         .create(item.getLocalizacion(), programacionAmbitoResult));
                 } else {
                     throw new IcmclcwbException(
@@ -74,7 +74,7 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
             if (TipoAmbitoEnum.PERSONA.getId().equals(programacion.getTipoAmbito().getId())) {
                 if (CollectionUtils.isNotEmpty(item.getPersona())) {
                     programacionAmbitoResult.setPersona(
-                            programacionAmbitoPersonaService.create(item.getPersona(), programacionAmbitoResult));
+                            this.programacionAmbitoPersonaService.create(item.getPersona(), programacionAmbitoResult));
                 } else {
                     throw new IcmclcwbException("No se puede programar por tipo ambito persona y no definir personas");
                 }
@@ -85,14 +85,15 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
     }
 
     @Override
-    public List<ProgramacionAmbitoDto> findByProgramacion(@NotNull final ProgramacionDto programacion) {
-        List<ProgramacionAmbitoDto> result = programacionAmbitoMapper.programacionAmbitoToProgramacionAmbitoDto(
-                programacionAmbitoRepository.findByProgramacionId(programacion.getId()));
+    public List<ProgramacionAmbitoDTO> findByProgramacion(@NotNull final ProgramacionDTO programacion) {
+        final List<ProgramacionAmbitoDTO> result = this.programacionAmbitoMapper
+            .programacionAmbitoToProgramacionAmbitoDto(
+                    this.programacionAmbitoRepository.findByProgramacionId(programacion.getId()));
         result.forEach(item -> {
-            item.setOrigen(programacionAmbitoOrigenService.findByProgramacionAmbito(item));
-            item.setEmpresa(programacionAmbitoEmpresaService.findByProgramacionAmbito(item));
-            item.setLocalizacion(programacionAmbitoLocalizacionService.findByProgramacionAmbito(item));
-            item.setPersona(programacionAmbitoPersonaService.findByProgramacionAmbito(item));
+            item.setOrigen(this.programacionAmbitoOrigenService.findByProgramacionAmbito(item));
+            item.setEmpresa(this.programacionAmbitoEmpresaService.findByProgramacionAmbito(item));
+            item.setLocalizacion(this.programacionAmbitoLocalizacionService.findByProgramacionAmbito(item));
+            item.setPersona(this.programacionAmbitoPersonaService.findByProgramacionAmbito(item));
         });
         return result;
     }

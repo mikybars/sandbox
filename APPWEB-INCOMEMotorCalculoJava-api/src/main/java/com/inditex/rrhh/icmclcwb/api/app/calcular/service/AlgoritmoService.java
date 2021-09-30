@@ -5,18 +5,18 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
 public interface AlgoritmoService {
 
-    AlgoritmoDto findByTipoCalculoId(@NotNull @Positive Long id);
+    AlgoritmoDTO findByTipoCalculoId(@NotNull @Positive Long id);
 
-    AlgoritmoDto findByTipoCalculoIdAndTipoComisionId(@NotNull @Positive Long idTipoCalculo,
+    AlgoritmoDTO findByTipoCalculoIdAndTipoComisionId(@NotNull @Positive Long idTipoCalculo,
             @NotNull @Positive Long idTipoComision);
 
-    AlgoritmoDto findById(@NotNull @Positive Integer id);
+    AlgoritmoDTO findById(@NotNull @Positive Integer id);
 
-    List<AlgoritmoDto> findAll();
+    List<AlgoritmoDTO> findAll();
 
     List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive Long id);
 

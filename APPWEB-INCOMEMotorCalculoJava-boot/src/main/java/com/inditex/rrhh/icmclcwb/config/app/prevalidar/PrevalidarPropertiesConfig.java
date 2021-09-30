@@ -24,6 +24,8 @@ public class PrevalidarPropertiesConfig {
 
     private PrevalidarPropertiesDto historico;
 
+    private PrevalidarPropertiesDto primas;
+
     @Bean(name = "bajaProperties")
     public PrevalidarPropertiesDto baja() {
         return this.baja;
@@ -52,6 +54,11 @@ public class PrevalidarPropertiesConfig {
     @Bean(name = "historicoProperties")
     public PrevalidarPropertiesDto historico() {
         return this.historico;
+    }
+
+    @Bean(name = "primasProperties")
+    public PrevalidarPropertiesDto primas() {
+        return this.primas;
     }
 
 }

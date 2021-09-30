@@ -9,20 +9,15 @@ environments:
       - intranetarteixo
       - ssccarteixo
     prelt:
-      - intranetarteixo
       - ssccarteixo
     prepru:
-      - intranetarteixo
       - ssccarteixo
     preint:
-      - intranetarteixo
       - ssccarteixo
     preqa:
-      - intranetarteixo
       - ssccarteixo
   pro:
     pro:
-      - intranetarteixo
       - ssccarteixo
 tenants:
   - global

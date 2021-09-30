@@ -1,11 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import lombok.Data;
 import org.apache.cxf.transport.http.Cookie;
 
 @Data

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
 
@@ -35,7 +35,7 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
     }
 
     @Override
-    public void updateImporteEstructuraPoliticas(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto) {
+    public void updateImporteEstructuraPoliticas(@NotNull final TareaDto tarea, @NotNull final TrabajoDTO trabajoDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,

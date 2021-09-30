@@ -39,7 +39,7 @@ public class DataSourcePrimaryConfig {
             .persistenceUnit("primaryPersistenceUnit")
             .packages("com.inditex.rrhh.icmclcwb.model.primary")
             .properties(jpaProperties.getProperties())
-            .jta(true)
+            .jta(false)
             .build();
     }
 

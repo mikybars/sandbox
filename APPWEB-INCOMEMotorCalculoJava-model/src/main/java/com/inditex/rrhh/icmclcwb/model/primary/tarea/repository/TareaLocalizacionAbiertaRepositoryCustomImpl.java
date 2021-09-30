@@ -16,9 +16,9 @@ import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPro
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
@@ -65,7 +65,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     private RecolectarPropertiesDto recolectarProperties;
 
     @Override
-    public void saveAbierto(@NotNull final TareaDto tareaDto, final TrabajoDto trabajoDto) {
+    public void saveAbierto(@NotNull final TareaDto tareaDto, final TrabajoDTO trabajoDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -82,7 +82,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     }
 
     @Override
-    public void saveAbiertoSeccion(@NotNull final TareaDto tareaDto, final TrabajoDto trabajoDto) {
+    public void saveAbiertoSeccion(@NotNull final TareaDto tareaDto, final TrabajoDTO trabajoDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -98,12 +98,13 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     }
 
     @Override
-    public void compensarOnlineSeccionCerrada(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDto trabajoDto) {
+    public void compensarOnlineSeccionCerrada(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDTO trabajoDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
-                TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
+                TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo().toLocalDateTime()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN,
-                RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), this.recolectarProperties.getDaysNumber(),
+                RunUtils.addDays(trabajoDto.getFechaFinPeriodo().toLocalDateTime(),
+                        this.recolectarProperties.getDaysNumber(),
                         "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
@@ -228,7 +229,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     }
 
     @Override
-    public void saveCerrado(@NotNull final TareaDto tareaDto, final TrabajoDto trabajoDto,
+    public void saveCerrado(@NotNull final TareaDto tareaDto, final TrabajoDTO trabajoDto,
             @NotNull final List<Integer> idTipoImporteVenta) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
@@ -245,7 +246,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     }
 
     @Override
-    public void saveCerradoSeccion(@NotNull final TareaDto tareaDto, final TrabajoDto trabajoDto,
+    public void saveCerradoSeccion(@NotNull final TareaDto tareaDto, final TrabajoDTO trabajoDto,
             @NotNull final List<Integer> idTipoImporteVenta) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
@@ -261,12 +262,13 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     }
 
     @Override
-    public void updateActivoTrasladadasSeccion(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto) {
+    public void updateActivoTrasladadasSeccion(@NotNull final TareaDto tarea, @NotNull final TrabajoDTO trabajoDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO,
-                TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo()));
+                TimeUtils.toDate(trabajoDto.getFechaInicioPeriodo().toLocalDateTime()));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN,
-                RunUtils.addDays(trabajoDto.getFechaFinPeriodo(), this.recolectarProperties.getDaysNumber(),
+                RunUtils.addDays(trabajoDto.getFechaFinPeriodo().toLocalDateTime(),
+                        this.recolectarProperties.getDaysNumber(),
                         "yyyy-MM-dd"));
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -282,7 +284,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     }
 
     @Override
-    public void agruparOnlineSeccionDia(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto) {
+    public void agruparOnlineSeccionDia(@NotNull final TareaDto tarea, @NotNull final TrabajoDTO trabajoDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPO_GRUPO_DATO_TRASLADADOS,
@@ -308,7 +310,7 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     }
 
     @Override
-    public void updateActivoTrasladadasTotalizado(@NotNull final TareaDto tarea, @NotNull final TrabajoDto trabajoDto) {
+    public void updateActivoTrasladadasTotalizado(@NotNull final TareaDto tarea, @NotNull final TrabajoDTO trabajoDto) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);

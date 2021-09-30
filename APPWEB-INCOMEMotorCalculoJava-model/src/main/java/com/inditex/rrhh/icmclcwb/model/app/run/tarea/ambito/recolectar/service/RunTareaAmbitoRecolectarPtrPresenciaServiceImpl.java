@@ -27,7 +27,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.Run
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaTipoHoraAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTipoHoraDto;
@@ -35,7 +34,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaS
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaTipoHoraService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
@@ -49,7 +47,6 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import org.slf4j.Logger;
 
 @Service
 @Validated
@@ -58,13 +55,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
         implements RunTareaAmbitoRecolectarPtrPresenciaService {
 
     @Autowired
-    private Logger log;
-
-    @Autowired
     private PtrPresenciaAsyncService ptrPresenciaAsyncService;
-
-    @Autowired
-    private TareaTipoHoraAsyncService tareaTipoHoraAsyncSevice;
 
     @Autowired
     private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
@@ -80,9 +71,6 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
 
     @Autowired
     private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
-
-    @Autowired
-    private Meta4IcmWsCalcIncomeAsyncService meta4IcmWsCalcIncomeAsyncService;
 
     @Autowired
     private TareaTipoHoraService tareaTipoHoraService;

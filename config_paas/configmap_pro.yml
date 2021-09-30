@@ -7,7 +7,7 @@ amiga:
         bounded:
           factories:
             default:
-              thread-prefix: async-bounded-executor
+              name: async-bounded-executor
               max-threads: 20
               queued-task-cap: 100000
               keep-alive-time: 60000  
@@ -36,13 +36,13 @@ amiga:
     jdbc:
       datasource:
         primary:
-          driverClassName: com.ibm.db2.jcc.DB2Driver
-          url: jdbc:db2://axindb26finv1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
-          user: uincome
+          driver-class-name: com.ibm.db2.jcc.DB2Driver
+          jdbc-url: jdbc:db2://axindb26finv1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
+          username: uincome
         ptr:
-          driverClassName: oracle.jdbc.OracleDriver
-          url: jdbc:oracle:thin:@//axine6-scansrv.central.inditex.grp:11521/s_pdbin01rt_gener.central.inditex.grp
-          user: uincome
+          driver-class-name: oracle.jdbc.OracleDriver
+          jdbc-url: jdbc:oracle:thin:@//axine6-scansrv.central.inditex.grp:11521/s_pdbin01rt_gener.central.inditex.grp
+          username: uincome
           defaultIsolationLevel: 2
 #        ptr:
 #          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
@@ -54,244 +54,244 @@ amiga:
 #            password:
 #            driverType: thin
         comis1:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://FRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://FRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis2:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://BESQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://BESQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis3:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://NLSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://NLSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          username: ncomis
         comis4:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://DESQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://DESQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis5:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://ITSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://ITSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis6:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://UKSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://UKSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis7:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://UKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalIrlanda
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://UKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalIrlanda
+          username: ncomis
         comis8:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis9:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://GRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://GRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis10:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://PTSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://PTSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis11-8:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          username: ncomis
         comis11-20:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
-          user: ncomis  
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          username: ncomis  
         comis11-233:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
-          user: ncomis      
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          username: ncomis      
         comis11-28:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
-          user: ncomis      
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          username: ncomis      
         comis11-33:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
-          user: ncomis       
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          username: ncomis       
         comis11-101:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://SASQL1R1\\I1:11433;databaseName=Personal
-          user: ncomis     
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://SASQL1R1\\I1:11433;databaseName=Personal
+          username: ncomis     
         comis11-11:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://NASQL:11433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://NASQL:11433;databaseName=Personal
+          username: ncomis
         comis11-2:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           # Se mockea temporalmente hasta que se verifique la conexión
-          url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
-          user: ncomis
+          jdbc-url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
+          username: ncomis
         comis11-30:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           # Se mockea temporalmente hasta que se verifique la conexión          
-          url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
-          user: ncomis      
+          jdbc-url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
+          username: ncomis      
         comis11-25:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
-          user: ncomis                                                                                                  
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
+          username: ncomis                                                                                                  
         comis18:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://BESQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalLuxemburgo
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://BESQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalLuxemburgo
+          username: ncomis
         comis28:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalNoruega
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalNoruega
+          username: ncomis
         comis30:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalSuecia
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalSuecia
+          username: ncomis
         comis32:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalFinlandia
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalFinlandia
+          username: ncomis
         comis38:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://ATSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://ATSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis39:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis52:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           # Se mockea temporalmente hasta que se verifique la conexión
-          url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          jdbc-url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis60:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://PLSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://PLSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis61:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://CZSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://CZSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis63:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://CZSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalEslovaquia
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://CZSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalEslovaquia
+          username: ncomis
         comis64:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://HUSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://HUSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis66:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://ROSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://ROSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis68:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://BGSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://BGSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis72:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://UASQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://UASQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          username: ncomis
         comis75:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://RUSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://RUSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis79:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://KZSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://KZSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          username: ncomis
         comis92:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://HRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://HRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis93:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://BASQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalBosnia
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://BASQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalBosnia
+          username: ncomis
         comis96:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://MKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalMacedonia
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://MKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalMacedonia
+          username: ncomis
         comis97:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://RSSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalMontenegro
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://RSSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalMontenegro
+          username: ncomis
         comis98:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://RSSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://RSSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis139:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis388:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://ZAFSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://ZAFSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis400:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://USSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://USSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis404:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://CASQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://CASQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis412:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://MXSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://MXSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis508:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://BRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://BRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis512:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://CLSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://CLSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis524:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://UYSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://UYSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis528:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://ARSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://ARSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis664:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://INSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://INSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis720:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://CNSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://CNSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          username: ncomis
         comis728:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://KRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://KRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          username: ncomis
         comis732:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://JPSQL.SEDES.INDITEX.GRP:1433;databaseName=personalcomision
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://JPSQL.SEDES.INDITEX.GRP:1433;databaseName=personalcomision
+          username: ncomis
         comis736:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://TWSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://TWSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          username: ncomis
         comis740:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           # Se mockea temporalmente hasta que se verifique la conexión
-          #url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
-          url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
-          user: ncomis
+          #jdbc-url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          username: ncomis
         comis743:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           # Se mockea temporalmente hasta que se verifique la conexión
-          #url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComisionMacao
-          url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
-          user: ncomis
+          #jdbc-url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComisionMacao
+          jdbc-url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          username: ncomis
         comis800:
-          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
-          user: ncomis
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          username: ncomis
 app:
   envars:
     mail:

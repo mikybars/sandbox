@@ -3,18 +3,20 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLimpiezaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLimpieza;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -22,7 +24,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class TareaLimpiezaServiceImplTest {
 
     @Mock
@@ -54,9 +56,11 @@ public class TareaLimpiezaServiceImplTest {
 
     @Test
     public void saveSeveralTest() {
-
-        final List<IdTareaDto> ids = Arrays.asList(IdTareaDto.builder().id(32L).build(),
-                IdTareaDto.builder().id(789L).build());
+        final IdTareaDto idTareaDto1 = new IdTareaDto();
+        final IdTareaDto idTareaDto2 = new IdTareaDto();
+        idTareaDto1.setId(32L);
+        idTareaDto2.setId(789L);
+        final List<IdTareaDTO> ids = Arrays.asList();
         this.tareaLimpiezaServiceImpl.save(ids);
         verify(this.tareaLimpiezaMapper, times(1)).idTareaDtoToTareaLimpiezaDto(ids);
     }

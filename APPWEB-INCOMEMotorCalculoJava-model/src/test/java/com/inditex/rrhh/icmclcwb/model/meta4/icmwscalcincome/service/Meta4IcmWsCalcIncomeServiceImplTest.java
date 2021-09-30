@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaRequestDto;
@@ -134,11 +136,10 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Sincronizaci
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -146,7 +147,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class Meta4IcmWsCalcIncomeServiceImplTest {
 
     @Mock

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.SistemaDestinoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoAusenciaEnum;
@@ -23,22 +24,21 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCal
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
 
     private final static String SQL_AJUSTAR_BASE = "SQL CALCULAR BASE";
@@ -66,7 +66,7 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
     @InjectMocks
     private TareaCalculoAjusteBajaItRepositoryCustomImpl tareaCalculoAjusteBajaItRepositoryCustomImpl;
 
-    @Before
+    @BeforeEach
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(this.tareaCalculoAjusteBajaItRepositoryCustomImpl, "sqlAjustar", SQL_AJUSTAR, true);
         FieldUtils.writeField(this.tareaCalculoAjusteBajaItRepositoryCustomImpl, "sqlAjustarBase", SQL_AJUSTAR_BASE,

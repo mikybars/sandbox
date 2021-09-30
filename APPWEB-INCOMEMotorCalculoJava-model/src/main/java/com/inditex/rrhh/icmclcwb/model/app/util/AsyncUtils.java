@@ -1,13 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.util;
 
-import com.inditex.rrhh.icmclcwb.api.app.exception.AsyncIcmclcwbException;
-import org.apache.commons.lang3.ArrayUtils;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
+import org.springframework.stereotype.Component;
+
+import com.inditex.rrhh.icmclcwb.api.app.exception.AsyncIcmclcwbException;
+import org.apache.commons.lang3.ArrayUtils;
 
 @Component
 public class AsyncUtils {

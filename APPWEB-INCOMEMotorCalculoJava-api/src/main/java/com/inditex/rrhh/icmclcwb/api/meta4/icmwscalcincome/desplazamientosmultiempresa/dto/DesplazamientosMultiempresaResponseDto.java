@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto;
 
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
-
 import java.io.Serializable;
+
+import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 
 public class DesplazamientosMultiempresaResponseDto extends PageableListDto<DesplazamientosMultiempresaItemDto>
         implements Serializable {

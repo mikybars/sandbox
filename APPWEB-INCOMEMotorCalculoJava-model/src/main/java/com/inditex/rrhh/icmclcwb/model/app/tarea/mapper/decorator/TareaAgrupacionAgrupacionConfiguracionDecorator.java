@@ -1,5 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoVentaConceptoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoVentaConceptoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionConfiguracionDto;
@@ -8,10 +13,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAgrupacionConfiguracionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConcepto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionConfiguracion;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class TareaAgrupacionAgrupacionConfiguracionDecorator extends TareaAgrupacionConfiguracionMapper {
 

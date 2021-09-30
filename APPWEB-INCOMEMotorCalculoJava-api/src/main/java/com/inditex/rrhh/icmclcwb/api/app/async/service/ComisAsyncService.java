@@ -90,6 +90,15 @@ public interface ComisAsyncService {
      * @param tareaAmbito
      * @return
      */
+    CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesResaltaSinPrimas(
+            @Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
     CompletableFuture<List<IdPersonaLocalCondicionesDto>> findBajasIt(@Valid RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito);
 
@@ -150,6 +159,14 @@ public interface ComisAsyncService {
      * @return
      */
     CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesResaltaEs(@Valid RunTareaDto runTareaDto,
+            @Valid TareaAmbitoDto tareaAmbito);
+
+    /**
+     * @param runTareaDto
+     * @param tareaAmbito
+     * @return
+     */
+    CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesPrimas(@Valid RunTareaDto runTareaDto,
             @Valid TareaAmbitoDto tareaAmbito);
 
 }

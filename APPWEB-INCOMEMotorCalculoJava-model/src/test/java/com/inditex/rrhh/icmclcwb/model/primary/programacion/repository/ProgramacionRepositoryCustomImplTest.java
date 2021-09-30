@@ -1,30 +1,31 @@
 package com.inditex.rrhh.icmclcwb.model.primary.programacion.repository;
 
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import org.apache.commons.lang3.reflect.FieldUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class ProgramacionRepositoryCustomImplTest {
 
     @Mock
@@ -36,7 +37,7 @@ public class ProgramacionRepositoryCustomImplTest {
     @Captor
     private ArgumentCaptor<MapSqlParameterSource> params;
 
-    @Before
+    @BeforeEach
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(programacionRepositoryCustom, "sqlCustomReset", "", true);
         FieldUtils.writeField(programacionRepositoryCustom, "sqlCheckActiva", "", true);

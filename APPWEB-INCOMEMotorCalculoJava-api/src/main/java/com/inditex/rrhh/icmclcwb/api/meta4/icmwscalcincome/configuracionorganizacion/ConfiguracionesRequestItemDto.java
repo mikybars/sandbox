@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 @Data
 public class ConfiguracionesRequestItemDto implements Serializable {

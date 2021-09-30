@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.Algoritmo;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoCalculo;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoComision;
-
 import lombok.Data;
 
 @Entity

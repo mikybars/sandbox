@@ -1,11 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
+import lombok.Data;
 
 @Data
 public class Meta4ClientFactory implements Serializable {

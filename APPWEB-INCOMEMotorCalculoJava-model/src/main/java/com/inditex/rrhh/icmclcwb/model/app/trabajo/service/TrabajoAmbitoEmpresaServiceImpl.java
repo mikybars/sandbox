@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoEmpresaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoAmbitoEmpresaRepository;
 
@@ -27,9 +27,9 @@ public class TrabajoAmbitoEmpresaServiceImpl implements TrabajoAmbitoEmpresaServ
     private TrabajoAmbitoEmpresaMapper trabajoAmbitoEmpresaMapper;
 
     @Override
-    public List<TrabajoAmbitoEmpresaDto> create(
-            @Valid @NotNull @NotEmpty final List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresa,
-            @NotNull final TrabajoDto trabajo) {
+    public List<TrabajoAmbitoEmpresaDTO> create(
+            @Valid @NotNull @NotEmpty final List<TrabajoAmbitoEmpresaDTO> trabajoAmbitoEmpresa,
+            @NotNull final TrabajoDTO trabajo) {
         return this.trabajoAmbitoEmpresaMapper.trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(
                 this.trabajoAmbitoEmpresaRepository
                     .saveAll(this.trabajoAmbitoEmpresaMapper
@@ -38,7 +38,7 @@ public class TrabajoAmbitoEmpresaServiceImpl implements TrabajoAmbitoEmpresaServ
     }
 
     @Override
-    public List<TrabajoAmbitoEmpresaDto> findByTrabajo(@Valid @NotNull final TrabajoDto trabajo) {
+    public List<TrabajoAmbitoEmpresaDTO> findByTrabajo(@Valid @NotNull final TrabajoDTO trabajo) {
         return this.trabajoAmbitoEmpresaMapper.trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(
                 this.trabajoAmbitoEmpresaRepository.findByTrabajoId(trabajo.getId()));
     }

@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
@@ -17,7 +15,9 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.CadenaVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAgrupacionVentaMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionVenta;
+import org.slf4j.Logger;
 
 public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVentaMapper {
 

@@ -12,8 +12,8 @@ import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.service.RunLimpiezaService;
 
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
+import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
+import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
 
 @Service
 @Validated

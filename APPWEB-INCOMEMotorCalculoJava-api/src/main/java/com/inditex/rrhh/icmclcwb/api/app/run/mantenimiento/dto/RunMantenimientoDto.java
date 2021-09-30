@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.dto;
 
 import java.io.Serializable;
-import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.dto.RunMantenimientoLimpiezaDto;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.dto.RunMantenimientoLimpiezaDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

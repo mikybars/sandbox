@@ -7,7 +7,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

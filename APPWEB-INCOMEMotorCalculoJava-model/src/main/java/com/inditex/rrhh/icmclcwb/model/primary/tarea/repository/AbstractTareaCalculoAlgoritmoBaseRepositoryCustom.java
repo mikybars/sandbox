@@ -11,12 +11,13 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.SqlParamsUtils;
 import org.apache.commons.lang3.StringUtils;
+
 
 public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
         implements TareaCalculoAlgoritmoBaseRepositoryCustom {
@@ -29,16 +30,16 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
 
     protected abstract String getSqlCalcularBase();
 
-    protected abstract Map<String, Object> getMapValues(AlgoritmoDto algoritmo, TareaDto tarea,
+    protected abstract Map<String, Object> getMapValues(AlgoritmoDTO algoritmo, TareaDto tarea,
             IdPersonaLocalDto persona);
 
-    protected Map<String, Object> getMapValues(final AlgoritmoDto algoritmo) {
+    protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo) {
         return this.getMapValues(algoritmo, null, null);
     }
 
     @Auditoria
     @Override
-    public CompletableFuture<Void> calcular(final AlgoritmoDto algoritmo, final TareaDto tarea,
+    public CompletableFuture<Void> calcular(final AlgoritmoDTO algoritmo, final TareaDto tarea,
             final List<IdPersonaLocalDto> personas) {
         if (this.getSqlCalcular() != null) {
             final List<MapSqlParameterSource> batchArgs = new ArrayList<>();
@@ -55,7 +56,7 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
     }
 
     @Override
-    public String getSqlCalcular(final AlgoritmoDto algoritmo) {
+    public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
         String sql = this.getSqlCalcularBase();
         if (sql != null) {
             sql = SqlParamsUtils.replaceValues(sql, this.getMapValues(algoritmo));

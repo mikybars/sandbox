@@ -4,32 +4,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoEmpresaDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoOrigenDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoPersonaDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoOrigenService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoEmpresaDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoOrigenDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoPersonaDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionAmbito;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class ProgramacionAmbitoServiceImplTest {
 
     @Mock
@@ -55,14 +56,14 @@ public class ProgramacionAmbitoServiceImplTest {
 
     @Test
     public void create() {
-        final ProgramacionDto programacion = new ProgramacionDto();
-        final ProgramacionAmbitoDto programacionAmbito = new ProgramacionAmbitoDto();
-        final ProgramacionAmbitoOrigenDto programacionAmbitoOrigen = new ProgramacionAmbitoOrigenDto();
-        final ProgramacionAmbitoEmpresaDto programacionAmbitoEmpresa = new ProgramacionAmbitoEmpresaDto();
-        final ProgramacionAmbitoPersonaDto programacionAmbitoPersona = new ProgramacionAmbitoPersonaDto();
+        final ProgramacionDTO programacion = new ProgramacionDTO();
+        final ProgramacionAmbitoDTO programacionAmbito = new ProgramacionAmbitoDTO();
+        final ProgramacionAmbitoOrigenDTO programacionAmbitoOrigen = new ProgramacionAmbitoOrigenDTO();
+        final ProgramacionAmbitoEmpresaDTO programacionAmbitoEmpresa = new ProgramacionAmbitoEmpresaDTO();
+        final ProgramacionAmbitoPersonaDTO programacionAmbitoPersona = new ProgramacionAmbitoPersonaDTO();
 
         programacion.setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
-        programacionAmbito.setIdOrgenization("AT");
+        programacionAmbito.setIdOrganization("AT");
         programacionAmbitoOrigen.setCclIdOrigen("38");
         programacionAmbitoEmpresa.setStdIdLegEnt("95");
         programacionAmbitoPersona.setCclIdOrigen("38");
@@ -75,7 +76,7 @@ public class ProgramacionAmbitoServiceImplTest {
 
 
         when(this.programacionAmbitoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoToProgramacionAmbito(
-                any(ProgramacionAmbitoDto.class), any(ProgramacionDto.class))).thenReturn(new ProgramacionAmbito());
+                any(ProgramacionAmbitoDTO.class), any(ProgramacionDTO.class))).thenReturn(new ProgramacionAmbito());
         when(this.programacionAmbitoMapper.programacionAmbitoToProgramacionAmbitoDto(any(ProgramacionAmbito.class)))
             .thenReturn(programacionAmbito);
         when(this.programacionAmbitoRepository.save(any(ProgramacionAmbito.class)))
@@ -92,11 +93,11 @@ public class ProgramacionAmbitoServiceImplTest {
 
     @Test
     public void findByProgramacion() {
-        final ProgramacionDto programacion = new ProgramacionDto();
+        final ProgramacionDTO programacion = new ProgramacionDTO();
         programacion.setId(1L);
-        final List<ProgramacionAmbitoDto> programacionAmbito = new ArrayList<ProgramacionAmbitoDto>();
-        final ProgramacionAmbitoDto ambito = new ProgramacionAmbitoDto();
-        ambito.setIdOrgenization("test");
+        final List<ProgramacionAmbitoDTO> programacionAmbito = new ArrayList<ProgramacionAmbitoDTO>();
+        final ProgramacionAmbitoDTO ambito = new ProgramacionAmbitoDTO();
+        ambito.setIdOrganization("test");
         programacionAmbito.add(ambito);
         when(this.programacionAmbitoRepository.findByProgramacionId(any(Long.class)))
             .thenReturn(Arrays.asList(new ProgramacionAmbito()));
@@ -107,13 +108,13 @@ public class ProgramacionAmbitoServiceImplTest {
         this.programacionAmbitoServiceMock.findByProgramacion(programacion);
 
         verify(this.programacionAmbitoOrigenService, times(1))
-            .findByProgramacionAmbito(any(ProgramacionAmbitoDto.class));
+            .findByProgramacionAmbito(any(ProgramacionAmbitoDTO.class));
         verify(this.programacionAmbitoEmpresaService, times(1))
-            .findByProgramacionAmbito(any(ProgramacionAmbitoDto.class));
+            .findByProgramacionAmbito(any(ProgramacionAmbitoDTO.class));
         verify(this.programacionAmbitoPersonaService, times(1))
-            .findByProgramacionAmbito(any(ProgramacionAmbitoDto.class));
+            .findByProgramacionAmbito(any(ProgramacionAmbitoDTO.class));
         verify(this.programacionAmbitoLocalizacionService, times(1))
-            .findByProgramacionAmbito(any(ProgramacionAmbitoDto.class));
+            .findByProgramacionAmbito(any(ProgramacionAmbitoDTO.class));
 
     }
 

@@ -6,11 +6,13 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;

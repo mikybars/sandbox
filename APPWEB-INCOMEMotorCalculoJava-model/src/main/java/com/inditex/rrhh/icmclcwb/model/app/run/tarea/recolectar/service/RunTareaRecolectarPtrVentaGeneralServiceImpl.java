@@ -55,4 +55,15 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                 .devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
     }
 
+    @Override
+    public void devolucionVentaOriginalOtraTiendaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(
+            @NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaGeneralService
+                .devolucionVentaOriginalOtraTiendaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea,
+                        item));
+    }
+
 }

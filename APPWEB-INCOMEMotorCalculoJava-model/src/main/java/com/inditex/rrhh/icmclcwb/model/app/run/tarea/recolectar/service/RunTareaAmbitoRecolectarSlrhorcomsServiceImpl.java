@@ -24,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.ResponseDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
@@ -32,6 +31,7 @@ import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.Hora
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.service.SlrHorarioComercialAsyncService;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.service.SlrHorarioComercialService;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
@@ -77,7 +77,7 @@ public class RunTareaAmbitoRecolectarSlrhorcomsServiceImpl implements RunTareaAm
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
         try {
-            final TrabajoDto trabajo = runTarea.getTrabajo();
+            final TrabajoDTO trabajo = runTarea.getTrabajo();
             final TareaDto tarea = runTarea.getTarea();
             if (Boolean.TRUE.equals(this.tareaPersonaEstructuraService.calcularFestivos(tarea))) {
                 final List<String> empresasAmbito = this.tareaAmbitoGlobalEmpresaService

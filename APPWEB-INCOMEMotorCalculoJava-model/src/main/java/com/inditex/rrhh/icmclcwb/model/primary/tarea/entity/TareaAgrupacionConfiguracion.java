@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConcepto;
-import lombok.Data;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +16,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConcepto;
+import lombok.Data;
 
 @Entity
 @Table(name = "TAREA_AGRUPACION_CONFIGURACION")

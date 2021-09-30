@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
-
 import lombok.Data;
 
 @Data

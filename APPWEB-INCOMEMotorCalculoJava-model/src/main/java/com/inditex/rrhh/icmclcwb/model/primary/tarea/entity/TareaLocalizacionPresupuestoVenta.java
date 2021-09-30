@@ -19,7 +19,6 @@ import javax.validation.constraints.NotNull;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPresupuesto;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConceptoChallenge;
-
 import lombok.Data;
 
 @Entity

@@ -15,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -24,11 +23,12 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoFactory;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.CounterFunctionalMetric;
-import com.inditex.aqsw.libmonitoringcenter.functionalmetrics.aop.annotations.TimerFunctionalMetric;
+import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
+import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
 
 @Service
 @Validated
@@ -63,7 +63,7 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
 
         for (final Integer idAlgoritmo : this.algoritmoService.customFindAlgoritmosIdsByTarea(tarea.getId())) {
             AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getThreadSize());
-            final AlgoritmoDto algoritmo = this.algoritmoService.findById(idAlgoritmo);
+            final AlgoritmoDTO algoritmo = this.algoritmoService.findById(idAlgoritmo);
             final CompletableFuture<Void> cfRun = this.runAlgoritmoFactory.getRunAlgoritmo(algoritmo.getNombre())
                 .execute(runTarea, algoritmo);
             AsyncUtils.exceptionally(cfRun, cf);

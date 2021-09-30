@@ -4,25 +4,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaCalculoPersonaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaCalculoPersonaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersona;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaRepositoryCustom;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -30,7 +31,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class TareaCalculoPersonaServiceImplTest {
 
     @Mock
@@ -112,13 +113,13 @@ public class TareaCalculoPersonaServiceImplTest {
     @Test
     public void findByAlgoritmoTest() {
         final TareaDto tarea = mock(TareaDto.class);
-        final AlgoritmoDto algoritmoDto = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmoDto = mock(AlgoritmoDTO.class);
         final List<IdPersonaLocalDto> list = new ArrayList<IdPersonaLocalDto>();
-        when(this.tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
+        when(this.tareaCalculoPersonaRepositoryCustom.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDTO.class)))
             .thenReturn(list);
         final List<GenericAlgoritmoPropertiesDto> algoritmos = Arrays.asList(new GenericAlgoritmoPropertiesDto());
         when(this.tareaCalculoPersonaRepositoryCustom
-            .findIdTipoCalculoAndIdTipoComisionByIdAlgoritmo(any(AlgoritmoDto.class)))
+            .findIdTipoCalculoAndIdTipoComisionByIdAlgoritmo(any(AlgoritmoDTO.class)))
                 .thenReturn(algoritmos);
         this.tareaCalculoPersonaServiceImpl.findByAlgoritmo(tarea, algoritmoDto);
 
@@ -126,7 +127,7 @@ public class TareaCalculoPersonaServiceImplTest {
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).indexTempAlgoritmo();
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).insertTempAlgoritmo(algoritmos);
         verify(this.tareaCalculoPersonaRepositoryCustom, times(1)).findByAlgoritmo(any(TareaDto.class),
-                any(AlgoritmoDto.class));
+                any(AlgoritmoDTO.class));
     }
 
     @Test

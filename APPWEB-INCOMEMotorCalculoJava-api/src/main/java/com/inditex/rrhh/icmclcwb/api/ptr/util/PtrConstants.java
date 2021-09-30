@@ -1,9 +1,9 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.util;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.List;
+
+import lombok.Getter;
 
 public class PtrConstants {
 
@@ -23,6 +23,8 @@ public class PtrConstants {
     public static final String OPERACION_DEVOLUCION = "D";
 
     public static final String OPERACION_DEVOLUCION_OTRAS_TIENDAS = "DO";
+
+    public static final String OPERACION_DEVOLUCION_VENTA_ORIGINAL_OTRA_TIENDA = "DT";
 
     @Getter
     private static final List<Integer> VENDEDORES_0 = Arrays.asList(0, -1);

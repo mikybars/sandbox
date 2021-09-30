@@ -7,7 +7,6 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
-
 import lombok.Data;
 
 @Data

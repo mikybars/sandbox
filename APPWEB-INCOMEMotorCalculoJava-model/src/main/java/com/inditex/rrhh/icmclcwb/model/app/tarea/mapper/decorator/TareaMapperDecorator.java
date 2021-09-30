@@ -16,7 +16,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoGlobalEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaRequestDto;
@@ -24,6 +23,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVen
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
@@ -35,7 +36,7 @@ public abstract class TareaMapperDecorator extends TareaMapper {
 
     @Override
     public TareaDto mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(
-            final TrabajoAmbitoEmpresaDto srcTrabajoAmbitoEmpresa, final TrabajoDto srcTrabajo) {
+            final TrabajoAmbitoEmpresaDTO srcTrabajoAmbitoEmpresa, final TrabajoDTO srcTrabajo) {
         final TareaDto tarea = this.delegate.mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(
                 srcTrabajoAmbitoEmpresa,
                 srcTrabajo);
@@ -73,7 +74,7 @@ public abstract class TareaMapperDecorator extends TareaMapper {
 
     @Override
     public List<TareaDto> mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(
-            final List<TrabajoAmbitoEmpresaDto> srcTrabajoAmbitoEmpresa, final TrabajoDto srcTrabajo) {
+            final List<TrabajoAmbitoEmpresaDTO> srcTrabajoAmbitoEmpresa, final TrabajoDTO srcTrabajo) {
         final List<TareaDto> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(srcTrabajoAmbitoEmpresa)) {
             srcTrabajoAmbitoEmpresa.forEach(
@@ -170,7 +171,7 @@ public abstract class TareaMapperDecorator extends TareaMapper {
     private String horarioComercialFestivosRequestDtoToPaginationRequest(
             final HorarioComercialFestivosRequestDto request) {
         String pagination = "";
-        if (request != null && (request.getRows() != null || request.getStart() != null)) {
+        if ((request != null) && ((request.getRows() != null) || (request.getStart() != null))) {
             final StringBuilder sbPagination = new StringBuilder();
             sbPagination.append(HorarioComercialPropertiesConstants.AMPERSAND_SYMBOL);
             final List<String> filters = new ArrayList<>();
@@ -194,9 +195,9 @@ public abstract class TareaMapperDecorator extends TareaMapper {
 
     private String horarioComercialFestivosRequestDtoToSolrRequest(final HorarioComercialFestivosRequestDto request) {
         String query = HorarioComercialPropertiesConstants.ASTERISK_SYMBOL;
-        if (request != null
-                && (request.getIdPais() != null || request.getIdCadena() != null || request.getIdTienda() != null
-                        || (request.getFechaDesde() != null && request.getFechaHasta() != null))) {
+        if ((request != null)
+                && ((request.getIdPais() != null) || (request.getIdCadena() != null) || (request.getIdTienda() != null)
+                        || ((request.getFechaDesde() != null) && (request.getFechaHasta() != null)))) {
             final List<String> filters = new ArrayList<>();
             if (CollectionUtils.isNotEmpty(request.getIdTienda())) {
                 final List<String> filtrosTienda = request.getIdTienda()
@@ -225,7 +226,7 @@ public abstract class TareaMapperDecorator extends TareaMapper {
                     .append(request.getIdPais())
                     .toString());
             }
-            if (request.getFechaDesde() != null && request.getFechaHasta() != null) {
+            if ((request.getFechaDesde() != null) && (request.getFechaHasta() != null)) {
                 final SimpleDateFormat sdf = new SimpleDateFormat(
                         HorarioComercialPropertiesConstants.DATE_FORMAT_QUERY);
                 filters.add(new StringBuilder().append(HorarioComercialPropertiesConstants.FECHA)

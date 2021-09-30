@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoLocalizacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoLocalizacionService;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoLocalizacionDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoAmbitoLocalizacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoAmbitoLocalizacionRepository;
 
@@ -27,9 +27,9 @@ public class TrabajoAmbitoLocalizacionServiceImpl implements TrabajoAmbitoLocali
     private TrabajoAmbitoLocalizacionMapper trabajoAmbitoLocalizacionMapper;
 
     @Override
-    public List<TrabajoAmbitoLocalizacionDto> create(
-            @Valid @NotNull @NotEmpty final List<TrabajoAmbitoLocalizacionDto> trabajoAmbitoLocalizacion,
-            @NotNull final TrabajoDto trabajo) {
+    public List<TrabajoAmbitoLocalizacionDTO> create(
+            @Valid @NotNull @NotEmpty final List<TrabajoAmbitoLocalizacionDTO> trabajoAmbitoLocalizacion,
+            @NotNull final TrabajoDTO trabajo) {
         return this.trabajoAmbitoLocalizacionMapper.trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
                 this.trabajoAmbitoLocalizacionRepository.saveAll(this.trabajoAmbitoLocalizacionMapper
                     .mergeTrabajoAmbitoLocalizacionDtoAndTrabajoDtoToTrabajoAmbitoLocalizacion(
@@ -37,7 +37,7 @@ public class TrabajoAmbitoLocalizacionServiceImpl implements TrabajoAmbitoLocali
     }
 
     @Override
-    public List<TrabajoAmbitoLocalizacionDto> findByTrabajo(@Valid @NotNull final TrabajoDto trabajo) {
+    public List<TrabajoAmbitoLocalizacionDTO> findByTrabajo(@Valid @NotNull final TrabajoDTO trabajo) {
         return this.trabajoAmbitoLocalizacionMapper.trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
                 this.trabajoAmbitoLocalizacionRepository.findByTrabajoId(trabajo.getId()));
     }

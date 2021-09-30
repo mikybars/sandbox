@@ -1,13 +1,14 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 @Data
 public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {

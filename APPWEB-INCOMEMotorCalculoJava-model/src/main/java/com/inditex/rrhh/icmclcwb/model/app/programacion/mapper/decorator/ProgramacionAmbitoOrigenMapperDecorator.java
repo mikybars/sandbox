@@ -3,12 +3,12 @@ package com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.decorator;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoOrigenDto;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoOrigenDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoOrigenMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionAmbitoOrigen;
 
 public abstract class ProgramacionAmbitoOrigenMapperDecorator extends ProgramacionAmbitoOrigenMapper {
@@ -18,12 +18,12 @@ public abstract class ProgramacionAmbitoOrigenMapperDecorator extends Programaci
 
     @Override
     public List<ProgramacionAmbitoOrigen> mergeProgramacionAmbitoOrigenDtoAndProgramacionDtoToProgramacionAmbitoOrigen(
-            List<ProgramacionAmbitoOrigenDto> srcProgramacionAmbitoOrigen,
-            ProgramacionAmbitoDto srcProgramacionAmbito) {
-        List<ProgramacionAmbitoOrigen> result = new ArrayList<>();
+            final List<ProgramacionAmbitoOrigenDTO> srcProgramacionAmbitoOrigen,
+            final ProgramacionAmbitoDTO srcProgramacionAmbito) {
+        final List<ProgramacionAmbitoOrigen> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(srcProgramacionAmbitoOrigen)) {
             srcProgramacionAmbitoOrigen.forEach(item -> result
-                .add(delegate.mergeProgramacionAmbitoOrigenDtoAndProgramacionDtoToProgramacionAmbitoOrigen(item,
+                .add(this.delegate.mergeProgramacionAmbitoOrigenDtoAndProgramacionDtoToProgramacionAmbitoOrigen(item,
                         srcProgramacionAmbito)));
         }
         return result;

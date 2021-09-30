@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.AlgoritmoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepositoryCustom;
@@ -30,34 +30,34 @@ public class AlgoritmoServiceImpl implements AlgoritmoService {
 
     @Override
     public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long id) {
-        return algoritmoRepositoryCustom.customFindAlgoritmosIdsByTarea(id);
+        return this.algoritmoRepositoryCustom.customFindAlgoritmosIdsByTarea(id);
     }
 
     @Override
-    public AlgoritmoDto findByTipoCalculoId(@NotNull @Positive final Long id) {
-        return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findByTipoCalculoId(id));
+    public AlgoritmoDTO findByTipoCalculoId(@NotNull @Positive final Long id) {
+        return this.algoritmoMapper.algoritmoToAlgoritmoDTO(this.algoritmoRepository.findByTipoCalculoId(id));
     }
 
     @Override
-    public AlgoritmoDto findByTipoCalculoIdAndTipoComisionId(@NotNull @Positive final Long idTipoCalculo,
+    public AlgoritmoDTO findByTipoCalculoIdAndTipoComisionId(@NotNull @Positive final Long idTipoCalculo,
             @NotNull @Positive final Long idTipoComision) {
-        return algoritmoMapper.algoritmoToAlgoritmoDto(
-                algoritmoRepository.findByTipoCalculoIdAndTipoComisionId(idTipoCalculo, idTipoComision));
+        return this.algoritmoMapper.algoritmoToAlgoritmoDTO(
+                this.algoritmoRepository.findByTipoCalculoIdAndTipoComisionId(idTipoCalculo, idTipoComision));
     }
 
     @Override
-    public AlgoritmoDto findById(@NotNull @Positive final Integer id) {
-        return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findById(id).get());
+    public AlgoritmoDTO findById(@NotNull @Positive final Integer id) {
+        return this.algoritmoMapper.algoritmoToAlgoritmoDTO(this.algoritmoRepository.findById(id).get());
     }
 
     @Override
-    public List<AlgoritmoDto> findAll() {
-        return algoritmoMapper.algoritmoToAlgoritmoDto(algoritmoRepository.findAll());
+    public List<AlgoritmoDTO> findAll() {
+        return this.algoritmoMapper.algoritmoToAlgoritmoDTO(this.algoritmoRepository.findAll());
     }
 
     @Override
     public Boolean checkDuplicatedActives() {
-        return algoritmoRepositoryCustom.checkDuplicatedActives();
+        return this.algoritmoRepositoryCustom.checkDuplicatedActives();
     }
 
 }

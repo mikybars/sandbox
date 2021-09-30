@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.trabajo.dto;
 
+import java.io.Serializable;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -7,8 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.io.Serializable;
 
 @ApiModel(description = "Modelo EstadoTrabajoDto")
 @Data

@@ -2,10 +2,10 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoAmbitoEmpresaDto;
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoParametersDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.decorator.TrabajoAmbitoEmpresaMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.TrabajoAmbitoEmpresa;
 import org.mapstruct.DecoratedWith;
@@ -18,24 +18,24 @@ import org.mapstruct.Mapping;
 public abstract class TrabajoAmbitoEmpresaMapper {
 
     @Mapping(target = "idTrabajo", source = "trabajo.id")
-    public abstract TrabajoAmbitoEmpresaDto trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(TrabajoAmbitoEmpresa src);
+    public abstract TrabajoAmbitoEmpresaDTO trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(TrabajoAmbitoEmpresa src);
 
     @InheritInverseConfiguration
-    public abstract TrabajoAmbitoEmpresa trabajoAmbitoEmpresaDtoToTrabajoAmbitoEmpresa(TrabajoAmbitoEmpresaDto src);
+    public abstract TrabajoAmbitoEmpresa trabajoAmbitoEmpresaDtoToTrabajoAmbitoEmpresa(TrabajoAmbitoEmpresaDTO src);
 
-    public abstract List<TrabajoAmbitoEmpresaDto> trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(
+    public abstract List<TrabajoAmbitoEmpresaDTO> trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(
             List<TrabajoAmbitoEmpresa> src);
 
     public abstract List<TrabajoAmbitoEmpresa> trabajoAmbitoEmpresaDtoToTrabajoAmbitoEmpresa(
-            List<TrabajoAmbitoEmpresaDto> src);
+            List<TrabajoAmbitoEmpresaDTO> src);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "trabajo.id", source = "srcTrabajo.id")
     public abstract TrabajoAmbitoEmpresa mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTrabajoAmbitoEmpresa(
-            TrabajoAmbitoEmpresaDto srcTrabajoAmbitoEmpresa, TrabajoDto srcTrabajo);
+            TrabajoAmbitoEmpresaDTO srcTrabajoAmbitoEmpresa, TrabajoDTO srcTrabajo);
 
     public List<TrabajoAmbitoEmpresa> mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTrabajoAmbitoEmpresa(
-            final List<TrabajoAmbitoEmpresaDto> srcTrabajoAmbitoEmpresa, final TrabajoDto srcTrabajo) {
+            final List<TrabajoAmbitoEmpresaDTO> srcTrabajoAmbitoEmpresa, final TrabajoDTO srcTrabajo) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }
 
@@ -74,9 +74,9 @@ public abstract class TrabajoAmbitoEmpresaMapper {
     @Mapping(target = "fechaInicioExportacion", ignore = true)
     @Mapping(target = "idEmpresa", source = "stdIdLegEnt")
     public abstract SaveProcesoParametersDto trabajoAmbitoEmpresaDtoToSaveProcesoParametersDto(
-            TrabajoAmbitoEmpresaDto src);
+            TrabajoAmbitoEmpresaDTO src);
 
     public abstract List<SaveProcesoParametersDto> trabajoAmbitoEmpresaDtoToSaveProcesoParametersDto(
-            List<TrabajoAmbitoEmpresaDto> src);
+            List<TrabajoAmbitoEmpresaDTO> src);
 
 }

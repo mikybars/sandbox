@@ -8,19 +8,19 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 
 public interface ProgramacionService {
 
-    ProgramacionDto create(@Valid final ProgramacionDto programacion);
+    ProgramacionDTO create(@Valid final ProgramacionDTO programacion);
 
-    ProgramacionDto modify(final ProgramacionDto programacion);
+    ProgramacionDTO modify(final ProgramacionDTO programacion);
 
-    LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDto programacion);
+    LocalDateTime fechaSiguienteEjecucion(@Valid final ProgramacionDTO programacion);
 
-    List<ProgramacionDto> findPendiente();
+    List<ProgramacionDTO> findPendiente();
 
-    ProgramacionDto updateEjecucion(@Valid final ProgramacionDto programacion);
+    ProgramacionDTO updateEjecucion(@Valid final ProgramacionDTO programacion);
 
     void reset();
 
@@ -32,12 +32,12 @@ public interface ProgramacionService {
 
     void desactiva(@Positive @NotNull final Long id);
 
-    ProgramacionDto findById(@Positive @NotNull final Long id);
+    ProgramacionDTO findById(@Positive @NotNull final Long id);
 
-    ProgramacionDto findActivoById(@Positive @NotNull final Long id);
+    ProgramacionDTO findActivoById(@Positive @NotNull final Long id);
 
-    ProgramacionDto findPendienteById(@Positive @NotNull Long id);
+    ProgramacionDTO findPendienteById(@Positive @NotNull Long id);
 
-    void updateFechaSiguienteEjecucion(@NotNull @NotEmpty List<ProgramacionDto> programaciones);
+    void updateFechaSiguienteEjecucion(@NotNull @NotEmpty List<ProgramacionDTO> programaciones);
 
 }

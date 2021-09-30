@@ -15,7 +15,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
-
 import lombok.Data;
 
 @Entity

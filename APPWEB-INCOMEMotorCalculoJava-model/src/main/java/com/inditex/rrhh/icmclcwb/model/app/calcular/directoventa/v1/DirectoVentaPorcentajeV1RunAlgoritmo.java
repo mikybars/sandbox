@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
@@ -39,7 +39,7 @@ public class DirectoVentaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
 
 
     @Override
-    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDto algoritmo) {
+    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
         this.log.info(
                 "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPorcentajeV1RunAlgoritmo :: Ids",
                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
@@ -82,7 +82,7 @@ public class DirectoVentaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
     }
 
     @Override
-    public String getSqlCalcular(final AlgoritmoDto algoritmo) {
+    public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
         return this.tareaCalculoAlgoritmoDirectoVentaPorcentajeV1RepositoryCustom.getSqlCalcular(algoritmo);
     }
 

@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
+import java.util.List;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -10,8 +12,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCa
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import java.util.List;
 
 @Mapper
 @DecoratedWith(TareaAgrupacionCadenaMapperDecorator.class)

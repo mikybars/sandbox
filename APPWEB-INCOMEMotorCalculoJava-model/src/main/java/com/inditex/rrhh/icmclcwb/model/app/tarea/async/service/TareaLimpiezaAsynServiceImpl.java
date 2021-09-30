@@ -10,10 +10,10 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLimpiezaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
+import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 
 /**
  * @author javierev
@@ -33,7 +33,7 @@ public class TareaLimpiezaAsynServiceImpl implements TareaLimpiezaAsyncService {
 
     @Override
     public CompletableFuture<List<TareaLimpiezaDto>> save(
-            final List<IdTareaDto> idTareas) {
+            final List<IdTareaDTO> idTareas) {
         final List<TareaLimpiezaDto> limpiezas = this.tareaLimpiezaService.save(idTareas);
         return CompletableFuture.completedFuture(limpiezas);
     }

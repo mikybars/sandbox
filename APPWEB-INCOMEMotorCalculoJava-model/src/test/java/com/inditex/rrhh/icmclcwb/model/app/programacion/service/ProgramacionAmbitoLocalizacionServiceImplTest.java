@@ -4,24 +4,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoLocalizacionDto;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoLocalizacionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoLocalizacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionAmbitoLocalizacion;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoLocalizacionRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class ProgramacionAmbitoLocalizacionServiceImplTest {
 
     @Mock
@@ -37,26 +38,26 @@ public class ProgramacionAmbitoLocalizacionServiceImplTest {
     public void create() {
         when(this.programacionAmbitoLocalizacionMapper
             .mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
-                    ArgumentMatchers.<List<ProgramacionAmbitoLocalizacionDto>>any(), any(ProgramacionAmbitoDto.class)))
+                    ArgumentMatchers.<List<ProgramacionAmbitoLocalizacionDTO>>any(), any(ProgramacionAmbitoDTO.class)))
                         .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
         when(this.programacionAmbitoLocalizacionRepository
             .saveAll(ArgumentMatchers.<List<ProgramacionAmbitoLocalizacion>>any()))
                 .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
 
-        this.programacionAmbitoLocalizacionServiceImpl.create(Arrays.asList(new ProgramacionAmbitoLocalizacionDto()),
-                new ProgramacionAmbitoDto());
+        this.programacionAmbitoLocalizacionServiceImpl.create(Arrays.asList(new ProgramacionAmbitoLocalizacionDTO()),
+                new ProgramacionAmbitoDTO());
         verify(this.programacionAmbitoLocalizacionRepository, times(1))
             .saveAll(ArgumentMatchers.<List<ProgramacionAmbitoLocalizacion>>any());
     }
 
     @Test
     public void findByProgramacionAmbito() {
-        final ProgramacionAmbitoDto ambito = new ProgramacionAmbitoDto();
+        final ProgramacionAmbitoDTO ambito = new ProgramacionAmbitoDTO();
         ambito.setId(1L);
         when(this.programacionAmbitoLocalizacionMapper
             .programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
                     ArgumentMatchers.<List<ProgramacionAmbitoLocalizacion>>any()))
-                        .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacionDto>());
+                        .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacionDTO>());
         when(this.programacionAmbitoLocalizacionRepository.findByProgramacionAmbitoId(any(Long.class)))
             .thenReturn(new ArrayList<ProgramacionAmbitoLocalizacion>());
 

@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
+import java.util.List;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.LocalizacionOnlineDto;
@@ -9,8 +11,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionOnl
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import java.util.List;
 
 @Mapper
 @DecoratedWith(TareaLocalizacionOnlineHistoricoMapperDecorator.class)

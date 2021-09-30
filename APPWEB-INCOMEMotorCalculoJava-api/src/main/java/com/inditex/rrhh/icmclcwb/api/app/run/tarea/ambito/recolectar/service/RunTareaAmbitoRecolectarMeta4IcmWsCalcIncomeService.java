@@ -8,11 +8,11 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
 
-    void fechaAmbitoAndEmpresaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+    void fechaAmbitoAndEmpresaByRunTareaAndTareaAmbito(final RunTareaDto runTarea,
+            final TareaAmbitoDto tareaAmbito);
 
-    void personaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+    void personaByRunTareaAndTareaAmbito(final RunTareaDto runTarea,
+            final TareaAmbitoDto tareaAmbito);
 
     void localizacionCadenaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
@@ -20,11 +20,11 @@ public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
     void empleadosCadenaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
-    void localizacionByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+    void localizacionByRunTareaAndTareaAmbito(final RunTareaDto runTarea,
+            final TareaAmbitoDto tareaAmbito);
 
-    void empleadosPresenciaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+    void empleadosPresenciaByRunTareaAndTareaAmbito(final RunTareaDto runTarea,
+            final TareaAmbitoDto tareaAmbito);
 
     void coefJornadaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
@@ -47,8 +47,8 @@ public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
     void localizacionesOnlineByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
-    void empleadosDesplazamientoByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-            @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+    void empleadosDesplazamientoByRunTareaAndTareaAmbito(final RunTareaDto runTarea,
+            final TareaAmbitoDto tareaAmbito);
 
     void estructurasComByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
             @NotNull @Valid final TareaAmbitoDto tareaAmbito);

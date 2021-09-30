@@ -4,14 +4,14 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.scheduling.annotation.Async;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
 public interface RunAlgoritmo {
 
     @Async("algoritmoCalculoExecutor")
-    CompletableFuture<Void> execute(RunTareaDto runTarea, AlgoritmoDto algoritmo);
+    CompletableFuture<Void> execute(RunTareaDto runTarea, AlgoritmoDTO algoritmo);
 
-    String getSqlCalcular(AlgoritmoDto algoritmo);
+    String getSqlCalcular(AlgoritmoDTO algoritmo);
 
 }

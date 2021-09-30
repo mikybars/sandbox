@@ -7,10 +7,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoCalculoDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
@@ -18,15 +16,17 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
@@ -45,15 +45,15 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustomImplTest {
 
     private final static String SQL_BASE = "SQL CALCULAR BASE";
@@ -75,7 +75,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
     @InjectMocks
     private TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustomImpl tareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom;
 
-    @Before
+    @BeforeEach
     public void setup() throws IllegalAccessException {
         FieldUtils.writeField(
                 this.tareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom,
@@ -90,11 +90,11 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
         final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
         final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
         final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
-        when(this.tareaCalculoPersonaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDto.class)))
+        when(this.tareaCalculoPersonaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDTO.class)))
             .thenReturn(personas);
 
         final TareaDto tarea = mock(TareaDto.class);
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
 
         final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
             .ids(algoritmo, tarea);
@@ -110,7 +110,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -131,7 +131,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -151,7 +151,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -171,7 +171,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -192,7 +192,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -212,7 +212,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -232,7 +232,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -252,7 +252,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -272,7 +272,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -292,7 +292,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -312,7 +312,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -332,7 +332,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -352,7 +352,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -372,7 +372,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -392,7 +392,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -412,7 +412,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
             .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
         final List<String> tiposCalculo = Arrays.asList("011", "012");
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -434,7 +434,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -466,7 +466,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -500,7 +500,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -534,7 +534,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -569,7 +569,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -603,7 +603,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -637,7 +637,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -671,7 +671,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -705,7 +705,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -739,7 +739,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -773,7 +773,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -807,7 +807,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -841,7 +841,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -880,7 +880,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
         final List<String> tiposComision = Arrays.asList("001", "002", "003");
         final List<String> tiposCalculo = Arrays.asList("011", "012");
-        final AlgoritmoDto algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
+        final AlgoritmoDTO algoritmo = this.createAlgoritmoDtoMock(tiposCalculo, tiposComision);
         final Long idTarea = 101L;
         final TareaDto tarea = this.createTareaDtoMock(idTarea);
         final IdPersonaLocalDto persona1 = this.createIdPersonaLocalDtoMock("AT1001", "01");
@@ -924,7 +924,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
     @Test
     public void getSqlCalcularTest() {
 
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(21);
 
         final String result = this.tareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
@@ -946,20 +946,22 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
         return tarea;
     }
 
-    private AlgoritmoDto createAlgoritmoDtoMock(final List<String> tiposCalculo, final List<String> tiposComision) {
-        final AlgoritmoDto algoritmo = mock(AlgoritmoDto.class);
+    private AlgoritmoDTO createAlgoritmoDtoMock(final List<String> tiposCalculo, final List<String> tiposComision) {
+        final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(1001);
         when(algoritmo.getTipoCalculo()).thenReturn(tiposCalculo.stream()
-            .map(x -> TipoCalculoDto
-                .builder()
-                .id(x)
-                .build())
+            .map(x -> {
+                final TipoCalculoDTO tc = new TipoCalculoDTO();
+                tc.id(x);
+                return tc;
+            })
             .collect(Collectors.toList()));
         when(algoritmo.getTipoComision()).thenReturn(tiposComision.stream()
-            .map(x -> TipoComisionDto
-                .builder()
-                .id(x)
-                .build())
+            .map(x -> {
+                final TipoComisionDTO tc = new TipoComisionDTO();
+                tc.id(x);
+                return tc;
+            })
             .collect(Collectors.toList()));
         when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
         when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);

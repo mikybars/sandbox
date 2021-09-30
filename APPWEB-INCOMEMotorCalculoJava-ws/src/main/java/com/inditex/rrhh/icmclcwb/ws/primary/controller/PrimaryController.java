@@ -1,52 +1,36 @@
 package com.inditex.rrhh.icmclcwb.ws.primary.controller;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
+import com.inditex.rrhh.icmclcwb.service.PrimaryApi;
 
-@Validated
 @RestController
-@RequestMapping(path = "/primary")
-@Api(authorizations = @Authorization(value = "ItxApiKey", scopes = {}), tags = { "PrimaryController" })
-public class PrimaryController {
+public class PrimaryController implements PrimaryApi {
 
     @Autowired
     private PrimaryService primaryService;
 
-    @GetMapping("/load/dml/{path}")
-    @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation("Carga el script DML")
-    public @Valid Boolean loadDML(@PathVariable @Valid @NotBlank final String path) {
-        return this.primaryService.loadDML(path);
+    @Override
+    public @Valid ResponseEntity<Boolean> loadDML(@PathVariable final String path) {
+        return new ResponseEntity<>(this.primaryService.loadDML(path), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/changelog/dml", produces = MediaType.TEXT_MARKDOWN_VALUE)
-    @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "Muestra el registro de cambios del dml", produces = MediaType.TEXT_MARKDOWN_VALUE)
-    public @NotNull Resource changelogDML() {
-        return this.primaryService.changelogDML();
+    @Override
+    public @NotNull ResponseEntity<Object> changelogDML() {
+        return new ResponseEntity<>(this.primaryService.changelogDML(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/changelog/ddl", produces = MediaType.TEXT_MARKDOWN_VALUE)
-    @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "Muestra el registro de cambios del ddl", produces = MediaType.TEXT_MARKDOWN_VALUE)
-    public @NotNull Resource changelogDDL() {
-        return this.primaryService.changelogDDL();
+    @Override
+    public @NotNull ResponseEntity<Object> changelogDDL() {
+        return new ResponseEntity<>(this.primaryService.changelogDDL(), HttpStatus.OK);
     }
 
 }

@@ -1,19 +1,21 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoAjusteService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.AlgoritmoAjusteMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.OptionalUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoAjusteRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoAjusteRepositoryCustom;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Service

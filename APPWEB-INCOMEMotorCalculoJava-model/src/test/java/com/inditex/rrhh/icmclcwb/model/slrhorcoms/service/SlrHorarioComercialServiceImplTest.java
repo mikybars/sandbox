@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateResponseDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
@@ -13,24 +14,23 @@ import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.Hora
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class SlrHorarioComercialServiceImplTest {
 
     private static final String ENDPOINT_AUTHENTICATE = "/auth";
@@ -52,7 +52,7 @@ public class SlrHorarioComercialServiceImplTest {
     @InjectMocks
     private SlrHorarioComercialServiceImpl slrHorarioComercialService;
 
-    @Before
+    @BeforeEach
     public void setup() {
         final SlrhorcomsPropertiesDto propertiesAuthenticate = new SlrhorcomsPropertiesDto();
         propertiesAuthenticate.setEndpoint(ENDPOINT_AUTHENTICATE);
@@ -76,7 +76,7 @@ public class SlrHorarioComercialServiceImplTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void festivosTest() {
         final HorarioComercialFestivoDocDto result = HorarioComercialFestivoDocDto
             .builder()

@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.trabajo;
 
-import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.EstadoTrabajoDto;
+import com.inditex.rrhh.icmclcwb.dto.EstadoTrabajoDTO;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -8,11 +8,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum EstadoTrabajoEnum {
 
-    PENDIENTE(1, new EstadoTrabajoDto(1)), EN_CURSO(2, new EstadoTrabajoDto(2)), OK(3, new EstadoTrabajoDto(3)), KO(4,
-            new EstadoTrabajoDto(4));
+    PENDIENTE(1, new EstadoTrabajoDTO().id(1)), EN_CURSO(2, new EstadoTrabajoDTO().id(2)), OK(3,
+            new EstadoTrabajoDTO().id(3)), KO(4,
+                    new EstadoTrabajoDTO().id(4));
 
     private final Integer id;
 
-    private final EstadoTrabajoDto dto;
+    private final EstadoTrabajoDTO dto;
 
 }
