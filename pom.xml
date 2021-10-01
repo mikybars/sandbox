@@ -11,7 +11,7 @@
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
-  <version>3.4.2</version>
+  <version>3.4.3</version>
   <packaging>pom</packaging>
 
   <properties>
