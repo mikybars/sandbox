@@ -6,7 +6,6 @@ environments:
       - ssccarteixo
   pre:
     pre:
-      - intranetarteixo
       - ssccarteixo
     prelt:
       - ssccarteixo
