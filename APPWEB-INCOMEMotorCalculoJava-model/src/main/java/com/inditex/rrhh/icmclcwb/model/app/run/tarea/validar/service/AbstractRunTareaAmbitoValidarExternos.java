@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
@@ -32,9 +30,9 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
     protected abstract CompletableFuture<List<IdPersonaLocalExternaDto>> findExternos(final RunTareaDto runTarea,
             TareaAmbitoDto tareaAmbito);
 
-    public ValidacionDto execute(@Valid final RunTareaDto runTarea,
-            @Valid final TareaAmbitoDto tareaAmbito,
-            @Valid final TareaFaseAccionDto tareaFaseAccion) {
+    public ValidacionDto execute(final RunTareaDto runTarea,
+            final TareaAmbitoDto tareaAmbito,
+            final TareaFaseAccionDto tareaFaseAccion) {
         final List<CompletableFuture<?>> cf = new ArrayList<>();
         final CompletableFuture<List<IdPersonaLocalExternaDto>> cfExternos = this.findExternos(runTarea, tareaAmbito);
         AsyncUtils.exceptionally(cfExternos, cf);
