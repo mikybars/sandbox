@@ -69,9 +69,9 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
                     .execute(runTarea, algoritmo);
                 AsyncUtils.exceptionally(cfRun, cf);
             }
+            AsyncUtils.waitAllOfIsOk(cf, cf);
         }
 
-        AsyncUtils.waitAllOfIsOk(cf, cf);
 
         this.tareaFaseService.updateFechaFinAndEstado(
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
