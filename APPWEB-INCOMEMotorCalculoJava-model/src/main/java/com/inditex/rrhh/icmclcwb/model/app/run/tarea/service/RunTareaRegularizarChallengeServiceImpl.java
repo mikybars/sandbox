@@ -69,6 +69,8 @@ public class RunTareaRegularizarChallengeServiceImpl implements RunTareaRegulari
             AsyncUtils.exceptionally(cfRun, cf);
         }
 
+        AsyncUtils.waitAllOfIsOk(cf, cf);
+
         this.tareaFaseService.updateFechaFinAndEstado(
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
                         FaseEnum.REGULARIZAR_CHALLENGE.getId()),
