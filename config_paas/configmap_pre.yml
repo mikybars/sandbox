@@ -304,7 +304,8 @@ amiga:
           readOnly: true
         comis728:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalKR
+          #mock
+          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCN
           username: ncomis
           readOnly: true
         comis732:
