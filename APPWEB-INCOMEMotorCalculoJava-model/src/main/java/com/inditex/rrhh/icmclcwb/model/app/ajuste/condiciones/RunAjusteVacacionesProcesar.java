@@ -51,7 +51,7 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
 
         for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
                 ids,
-                this.runAjusteProperties.getThreadSize())) {
+                this.runAjusteProperties.getAjuste().getBatchSize())) {
             AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
 
             this.log.info(
