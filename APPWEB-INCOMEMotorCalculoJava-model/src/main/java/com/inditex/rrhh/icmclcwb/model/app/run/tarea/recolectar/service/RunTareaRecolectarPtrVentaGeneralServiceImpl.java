@@ -66,4 +66,14 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
                         item));
     }
 
+    @Override
+    public void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(
+            @NotNull @Valid final RunTareaDto runTarea) {
+        runTarea.getTarea()
+            .getAmbito()
+            .stream()
+            .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaGeneralService
+                .ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(runTarea, item));
+    }
+
 }

@@ -21,6 +21,10 @@ public interface TareaLocalizacionVentaService {
             @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
             @Valid @NotNull final TareaDto tarea);
 
+    List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponseRepartoOnline(
+            @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
+            @Valid @NotNull final TareaDto tarea);
+
     List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpodResponse(
             @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
             @Valid @NotNull final TareaDto tarea);

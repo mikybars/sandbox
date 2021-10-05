@@ -50,4 +50,12 @@ public class RunTareaRecolectarPtrVentaGeneralAsyncServiceImpl
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(
+            final RunTareaDto runTarea) {
+        this.tareaRecolectarPtrVentaService
+            .ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

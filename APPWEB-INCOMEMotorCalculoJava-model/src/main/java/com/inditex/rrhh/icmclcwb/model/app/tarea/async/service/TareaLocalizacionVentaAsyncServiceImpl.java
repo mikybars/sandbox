@@ -40,6 +40,13 @@ public class TareaLocalizacionVentaAsyncServiceImpl implements TareaLocalizacion
     }
 
     @Override
+    public CompletableFuture<Void> savePtrVentaTotalizadoResponseRepartoOnline(
+            final PtrVentaTotalizadoResponseDto dto, final TareaDto tarea) {
+        this.tareaLocalizacionVentaService.savePtrVentaTotalizadoResponseRepartoOnline(dto, tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
     public CompletableFuture<Void> savePtrVentaOnlineIpodResponse(final PtrVentaOnlineIpodResponseDto dto,
             final TareaDto tarea) {
         this.tareaLocalizacionVentaService.savePtrVentaOnlineIpodResponse(dto, tarea);

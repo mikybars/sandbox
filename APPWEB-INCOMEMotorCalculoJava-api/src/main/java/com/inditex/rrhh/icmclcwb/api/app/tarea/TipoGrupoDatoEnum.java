@@ -48,7 +48,8 @@ public enum TipoGrupoDatoEnum {
                             3006), PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA_INCLUIDOECOMMERCE(
                                     3007), PRESENCIA_LOCALIZACION_SECCION_PERSONA_DESACTIVAR_EXTERNOS(
                                             3008), PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA_REPARTIDOPROVINCIA(
-                                                    3009);
+                                                    3009), PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA_LOCALIZACIONABIERTA(
+                                                            3010);
 
     private final Integer id;
 
