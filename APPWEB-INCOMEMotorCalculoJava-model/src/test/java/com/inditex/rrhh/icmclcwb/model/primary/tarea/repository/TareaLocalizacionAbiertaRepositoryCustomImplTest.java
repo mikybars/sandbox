@@ -31,7 +31,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_SECCION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IMPORTE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO;
@@ -88,16 +88,12 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
         assertEquals(SQL_SAVE_ABIERTO, this.sql.getValue());
         // Parametros de la consulta:
-        // idTipoImporteVenta, idTipoPresencia, idTarea, importe, excluidoCalculo, activo, nuevoAbierto,
-        // idSeccion
+        // idTipoPresencia, idTarea, importe, excluidoCalculo, activo, nuevoAbierto,
+        // idSeccion, idTipoGrupoDato
         assertEquals(8, this.params.getValue().getValues().size());
-        // idTipoImporteVenta
-        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
-        assertEquals(TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId(),
-                this.params.getValue().getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA));
         // idTipoPresencia
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TIPO_MINUTOS));
-        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+        assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA_LOCALIZACIONABIERTA.getId(),
                 this.params.getValue().getValue(SQL_PARAM_ID_TIPO_MINUTOS));
         // nuevoAbierto
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_NUEVO_ABIERTO));
@@ -117,6 +113,10 @@ public class TareaLocalizacionAbiertaRepositoryCustomImplTest {
         // activo
         assertTrue(this.params.getValue().hasValue(SQL_PARAM_ACTIVO));
         assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_ACTIVO));
+        // idTipoGrupoDato
+        assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+        assertEquals(TipoGrupoDatoEnum.VENTA_FISICA_LOCALIZACION.getId(),
+                this.params.getValue().getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
     }
 
     @Test

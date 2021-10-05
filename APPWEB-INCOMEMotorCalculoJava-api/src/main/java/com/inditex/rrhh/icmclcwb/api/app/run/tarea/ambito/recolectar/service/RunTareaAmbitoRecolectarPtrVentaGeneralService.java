@@ -23,4 +23,7 @@ public interface RunTareaAmbitoRecolectarPtrVentaGeneralService {
     void devolucionVentaOriginalOtraTiendaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(
             @Valid RunTareaDto runTarea, @NotNull @Valid TareaAmbitoDto tareaAmbito);
 
+    void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(
+            @Valid RunTareaDto runTarea, @NotNull @Valid TareaAmbitoDto tareaAmbito);
+
 }

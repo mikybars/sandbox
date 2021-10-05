@@ -42,6 +42,14 @@ public abstract class TareaLocalizacionVentaDecorator extends TareaLocalizacionV
 
 
     @Override
+    public List<TareaLocalizacionVenta> ventaTotalizadoResponseItemDtoToTareaLocalizacionVenta(
+            final List<PtrVentaTotalizadoResultItemDto> src, final TareaDto tarea, final Integer tipoDatoLocalizacion) {
+        return src.stream()
+            .map(e -> this.delegate.responseItemDtoToTareaLocalizacionVenta(e, tarea, tipoDatoLocalizacion))
+            .collect(Collectors.toList());
+    }
+
+    @Override
     public List<TareaLocalizacionVenta> ventaOnlineIpodResponseItemDtoToTareaLocalizacionVenta(
             final List<PtrVentaOnlineIpodResultItemDto> src, final TareaDto tarea,
             final Integer tipoDatoLocalizacionSeccion,

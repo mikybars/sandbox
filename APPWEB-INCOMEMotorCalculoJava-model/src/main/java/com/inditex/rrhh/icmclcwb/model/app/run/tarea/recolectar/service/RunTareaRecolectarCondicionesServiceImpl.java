@@ -256,6 +256,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
                 .presenciaDetallePersonaIncluidoCommerceByRunTarea(runTarea);
             AsyncUtils.exceptionally(cfPresenciasDetalleIncluidoCommerce, cf, cfWait);
 
+            // Ventas fisicas para su uso en el reparto de la venta online
+            final CompletableFuture<Void> cfVentaFisicaRepartoOnline = this.runTareaRecolectarPtrVentaGeneralAsyncService
+                .ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(runTarea);
+            AsyncUtils.exceptionally(cfVentaFisicaRepartoOnline, cf, cfWait);
+
             // Politicas de los empleados de la agrupacion
             final CompletableFuture<Void> cfPoliticasAgrupacion = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
                 .estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(runTarea);

@@ -59,6 +59,19 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
     }
 
     @Override
+    public List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponseRepartoOnline(
+            @Valid @NotNull final PtrVentaTotalizadoResponseDto dto, @Valid @NotNull final TareaDto tarea) {
+        final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {
+            result.addAll(this.tareaLocalizacionVentaMapper.tareaLocalizacionVentaToTareaLocalizacionVentaDto(
+                    this.tareaLocalizacionVentaRepositoryCustom.save(this.tareaLocalizacionVentaMapper
+                        .ventaTotalizadoResponseItemDtoToTareaLocalizacionVenta(dto.getVentaTotalizado(), tarea,
+                                TipoDatoEnum.VENTA_FISICA_LOCALIZACION_REPARTO_ONLINE.getId()))));
+        }
+        return result;
+    }
+
+    @Override
     public List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpodResponse(
             @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
             @Valid @NotNull final TareaDto tarea) {

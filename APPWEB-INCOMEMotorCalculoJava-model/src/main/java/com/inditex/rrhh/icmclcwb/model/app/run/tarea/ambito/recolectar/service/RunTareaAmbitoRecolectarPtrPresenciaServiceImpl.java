@@ -186,7 +186,6 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
                             .map(Integer::valueOf)
                             .collect(Collectors.toList()));
                         paramPresenciasDetalle.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-                        paramPresenciasDetalle.setIncluidoEcommerce(Boolean.TRUE);
                         paramPresenciasDetalle
                             .setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_TIPOHORA_SECCION.getValue());
                         final CompletableFuture<PtrPresenciaDetalleResponseDto> cfData = this.ptrPresenciaAsyncService
