@@ -386,4 +386,54 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
         }
     }
 
+    @Override
+    public void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(
+            @Valid final RunTareaDto runTarea,
+            @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+        try {
+            final TareaDto tarea = runTarea.getTarea();
+            final PeriodoDto periodo = this.tareaLocalizacionPresupuestoService
+                .findPeriodoPresupuestoYTrabajo(tarea.getId());
+            final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService
+                .findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(), tareaAmbito.getCclIdOrigen(),
+                        TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId());
+            if (CollectionUtils.isNotEmpty(cadenas)) {
+
+                final PtrVentaTotalizadoRequestDto request = this.tareaMapper
+                    .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoIdCadenaDtoToPtrVentaTotalizadoRequestDto(
+                            tarea, tareaAmbito, periodo, this.recolectarProperties, cadenas);
+
+                request.setCadena(
+                        cadenas.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
+                request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
+                request.setAgruparSeccion(PtrAgruparSeccionEnum.FALSE.getValue());
+                request.setProducto(this.meta4IcmWsCalcIncomeSessionService
+                    .getConfiguracionProductoVenta(tarea.getId(), tareaAmbito.getCclIdOrigen())
+                    .stream()
+                    .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
+                    .collect(Collectors.toList()));
+
+                final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = this.ptrVentaGeneralAsyncService
+                    .ventaTotalizado(request);
+                AsyncUtils.exceptionally(cfData, cf, cfPersist);
+                final PtrVentaTotalizadoResponseDto data = AsyncUtils.get(cfData);
+                AsyncUtils.checkAsyncAvaliable(cfPersist, this.ventaGeneralProperties
+                    .get(PtrPropertiesConstants.VENTA_TOTALIZADO)
+                    .getFilter()
+                    .getMaxPersistenceSize());
+                AsyncUtils.exceptionally(
+                        this.tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponseRepartoOnline(data,
+                                tarea),
+                        cf,
+                        cfPersist);
+                AsyncUtils.waitAllOfIsOk(cf, cf);
+            }
+        } catch (final Exception e) {
+            AsyncUtils.cancel(cf);
+            throw e;
+        }
+    }
+
 }

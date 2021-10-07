@@ -20,6 +20,9 @@ public interface TareaLocalizacionVentaAsyncService {
 
     CompletableFuture<Void> savePtrVentaTotalizadoResponse(PtrVentaTotalizadoResponseDto dto, TareaDto tarea);
 
+    CompletableFuture<Void> savePtrVentaTotalizadoResponseRepartoOnline(PtrVentaTotalizadoResponseDto dto,
+            TareaDto tarea);
+
     CompletableFuture<Void> savePtrVentaOnlineIpodResponse(PtrVentaOnlineIpodResponseDto dto, TareaDto tarea);
 
     CompletableFuture<Void> savePtrVentaOnlinePickingResponse(PtrVentaOnlinePickingResponseDto dto, TareaDto tarea);

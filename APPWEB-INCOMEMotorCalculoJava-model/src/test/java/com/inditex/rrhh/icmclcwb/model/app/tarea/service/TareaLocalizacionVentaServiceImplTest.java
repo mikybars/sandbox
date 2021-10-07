@@ -2,13 +2,16 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
@@ -31,6 +34,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -149,6 +153,69 @@ public class TareaLocalizacionVentaServiceImplTest {
 
         verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).save(ArgumentMatchers
             .<List<TareaLocalizacionVenta>>any());
+    }
+
+    @Test
+    void savePtrVentaTotalizadoResponseRepartoOnlineEmptyResultTest() {
+        final PtrVentaTotalizadoResponseDto response = PtrVentaTotalizadoResponseDto
+            .builder()
+            .ventaTotalizado(new ArrayList<>())
+            .build();
+        final TareaDto tarea = new TareaDto();
+        this.tareaLocalizacionVentaServiceImpl.savePtrVentaTotalizadoResponseRepartoOnline(response, tarea);
+        verify(this.tareaLocalizacionVentaRepositoryCustom, times(0)).save(ArgumentMatchers
+            .<List<TareaLocalizacionVenta>>any());
+
+    }
+
+    @Test
+    void savePtrVentaTotalizadoResponseRepartoOnlineNullTest() {
+        final PtrVentaTotalizadoResponseDto response = new PtrVentaTotalizadoResponseDto();
+        final TareaDto tarea = new TareaDto();
+        this.tareaLocalizacionVentaServiceImpl.savePtrVentaTotalizadoResponseRepartoOnline(response, tarea);
+        verify(this.tareaLocalizacionVentaRepositoryCustom, times(0)).save(ArgumentMatchers
+            .<List<TareaLocalizacionVenta>>any());
+
+    }
+
+    @Test
+    void savePtrVentaTotalizadoResponseRepartoSaveTest() {
+        final List<PtrVentaTotalizadoResultItemDto> ventaTotalizado = Collections
+            .singletonList(new PtrVentaTotalizadoResultItemDto());
+        final PtrVentaTotalizadoResponseDto response = PtrVentaTotalizadoResponseDto
+            .builder()
+            .ventaTotalizado(ventaTotalizado)
+            .build();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(12345L);
+
+        final List<TareaLocalizacionVenta> tareaLocalizacionVentaFromMapper = Collections
+            .singletonList(new TareaLocalizacionVenta());
+        when(this.tareaLocalizacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaLocalizacionVenta(ArgumentMatchers
+            .<List<PtrVentaTotalizadoResultItemDto>>any(), any(TareaDto.class), any(Integer.class)))
+                .thenReturn(tareaLocalizacionVentaFromMapper);
+        final List<TareaLocalizacionVenta> tareaLocalizacionVentaFromSave = Collections
+            .singletonList(new TareaLocalizacionVenta());
+        when(this.tareaLocalizacionVentaRepositoryCustom.save(ArgumentMatchers.<List<TareaLocalizacionVenta>>any()))
+            .thenReturn(tareaLocalizacionVentaFromSave);
+        final List<TareaLocalizacionVentaDto> tareaLocalizacionVentaDtoFromMapper = Collections
+            .singletonList(new TareaLocalizacionVentaDto());
+        when(this.tareaLocalizacionVentaMapper
+            .tareaLocalizacionVentaToTareaLocalizacionVentaDto(ArgumentMatchers.<List<TareaLocalizacionVenta>>any()))
+                .thenReturn(tareaLocalizacionVentaDtoFromMapper);
+
+        final List<TareaLocalizacionVentaDto> result = this.tareaLocalizacionVentaServiceImpl
+            .savePtrVentaTotalizadoResponseRepartoOnline(response, tarea);
+
+        verify(this.tareaLocalizacionVentaMapper, times(1)).ventaTotalizadoResponseItemDtoToTareaLocalizacionVenta(
+                ventaTotalizado, tarea,
+                TipoDatoEnum.VENTA_FISICA_LOCALIZACION_REPARTO_ONLINE.getId());
+        verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).save(tareaLocalizacionVentaFromMapper);
+        verify(this.tareaLocalizacionVentaMapper, times(1))
+            .tareaLocalizacionVentaToTareaLocalizacionVentaDto(tareaLocalizacionVentaFromSave);
+
+        assertEquals(tareaLocalizacionVentaDtoFromMapper, result);
+
     }
 
 }

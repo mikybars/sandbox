@@ -5,6 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionVentaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
@@ -24,7 +25,7 @@ import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(imports = { TipoDato.class, TipoDatoEnum.class })
+@Mapper(imports = { TipoDato.class, TipoDatoEnum.class, AppConstants.class })
 @DecoratedWith(TareaLocalizacionVentaDecorator.class)
 public abstract class TareaLocalizacionVentaMapper {
 
@@ -61,9 +62,30 @@ public abstract class TareaLocalizacionVentaMapper {
     public abstract TareaLocalizacionVenta responseItemDtoToTareaLocalizacionVenta(Integer tienda, Integer cadena,
             String fecha, TareaDto tarea, PtrSeccionVentaOnlineGenericType seccionVenta, Integer idTipoDato);
 
+    @Mapping(target = "pk.id", ignore = true)
+    @Mapping(source = "tarea.id", target = "tarea.id")
+    @Mapping(source = "src.tienda", target = "cclIdCodOrigen")
+    @Mapping(source = "src.cadena", target = "cclIdCadena")
+    @Mapping(source = "src.fecha", target = "fecha", dateFormat = PtrConstants.DATE_FORMAT)
+    @Mapping(target = "cclIdSeccion",
+            expression = "java((src.getSeccion() != null ? src.getSeccion() : AppConstants.SECCION_4).toString())")
+    @Mapping(source = "src.importeSinIVA", target = "importeSinImpuestos")
+    @Mapping(source = "src.importeConIVA", target = "importeConImpuestos")
+    @Mapping(source = "idTipoDato", target = "tipoDato.id")
+    @Mapping(constant = "true", target = "activo")
+    @Mapping(source = "tarea.fechaInicioPeriodo", target = "pk.fechaInicioPeriodo")
+    public abstract TareaLocalizacionVenta responseItemDtoToTareaLocalizacionVenta(PtrVentaTotalizadoResultItemDto src,
+            TareaDto tarea, Integer idTipoDato);
+
     public List<TareaLocalizacionVenta> ventaTotalizadoResponseItemDtoToTareaLocalizacionVenta(
             final List<PtrVentaTotalizadoResultItemDto> src, final TareaDto tarea,
             final Integer tipoDatoLocalizacionSeccion,
+            final Integer tipoDatoLocalizacion) {
+        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    }
+
+    public List<TareaLocalizacionVenta> ventaTotalizadoResponseItemDtoToTareaLocalizacionVenta(
+            final List<PtrVentaTotalizadoResultItemDto> src, final TareaDto tarea,
             final Integer tipoDatoLocalizacion) {
         throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
     }

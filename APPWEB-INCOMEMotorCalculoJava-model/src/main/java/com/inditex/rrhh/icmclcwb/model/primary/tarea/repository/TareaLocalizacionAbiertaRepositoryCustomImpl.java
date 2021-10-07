@@ -70,12 +70,12 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IMPORTE, SqlPrimaryConstants.SQL_VALUE_IMPORTE_CERO);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA,
-                TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS,
-                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+                TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA_LOCALIZACIONABIERTA.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO,
                 SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+                TipoGrupoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
         this.namedParameterJdbcTemplate.update(this.sqlSaveAbierto, parameters);
