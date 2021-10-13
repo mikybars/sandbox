@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -34,8 +34,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-public class TareaServiceImplTest {
+@ExtendWith(MockitoExtension.class)
+class TareaServiceImplTest {
 
     @Mock
     private TareaRepositoryCustom tareaRepositoryCustom;
@@ -71,7 +71,7 @@ public class TareaServiceImplTest {
     private TareaFaseAccionService tareaFaseAccionService;
 
     @Test
-    public void saveTest() {
+    void saveTest() {
         final TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(1L);
         when(this.tareaMapper.tareaDtoToTarea(any(TareaDto.class))).thenReturn(new Tarea());
@@ -82,7 +82,7 @@ public class TareaServiceImplTest {
     }
 
     @Test
-    public void findTest() {
+    void findTest() {
         final Tarea tarea = mock(Tarea.class);
         final TareaDto tareaDto = mock(TareaDto.class);
         final Long idTarea = 1L;
@@ -103,7 +103,7 @@ public class TareaServiceImplTest {
     }
 
     @Test
-    public void findByIdWithStatesTest() {
+    void findByIdWithStatesTest() {
         final Tarea tarea = mock(Tarea.class);
         final TareaDto tareaDto = mock(TareaDto.class);
 
@@ -124,7 +124,7 @@ public class TareaServiceImplTest {
     }
 
     @Test
-    public void createTest() {
+    void createTest() {
         final TareaDto tareaDto = mock(TareaDto.class);
         tareaDto.setAmbito(new ArrayList<>());
         tareaDto.getAmbito().add(new TareaAmbitoDto());
@@ -141,7 +141,7 @@ public class TareaServiceImplTest {
     }
 
     @Test
-    public void createTrabajoTest() {
+    void createTrabajoTest() {
         final TrabajoDTO trabajoDto = mock(TrabajoDTO.class);
         trabajoDto.setEmpresa(new ArrayList<>());
         this.tareaServiceImpl.create(trabajoDto);
@@ -150,21 +150,21 @@ public class TareaServiceImplTest {
     }
 
     @Test
-    public void findByTrabajoIdTest() {
+    void findByTrabajoIdTest() {
         final Long idTrabajo = 1L;
         this.tareaServiceImpl.findByTrabajoId(idTrabajo);
         verify(this.tareaRepository, times(1)).findByTrabajoId(any(Long.class));
     }
 
     @Test
-    public void updateFechaFinTest() {
+    void updateFechaFinTest() {
         final TareaDto tarea = mock(TareaDto.class);
         this.tareaServiceImpl.updateFechaFin(tarea);
         verify(this.tareaRepositoryCustom, times(1)).updateFechaFin(any(TareaDto.class));
     }
 
     @Test
-    public void updateFechaInicioAndEstadoTest() {
+    void updateFechaInicioAndEstadoTest() {
         final TareaDto tarea = mock(TareaDto.class);
         final EstadoTareaDto estado = mock(EstadoTareaDto.class);
         this.tareaServiceImpl.updateFechaInicioAndEstado(tarea, estado);
@@ -173,7 +173,7 @@ public class TareaServiceImplTest {
     }
 
     @Test
-    public void updateEstadoTest() {
+    void updateEstadoTest() {
         final TareaDto tarea = mock(TareaDto.class);
         final EstadoTareaDto estado = mock(EstadoTareaDto.class);
         this.tareaServiceImpl.updateEstado(tarea, estado);
@@ -181,20 +181,20 @@ public class TareaServiceImplTest {
     }
 
     @Test
-    public void updateEstadoFinalTest() {
+    void updateEstadoFinalTest() {
         final TareaDto tarea = mock(TareaDto.class);
         this.tareaServiceImpl.updateEstadoFinal(tarea);
         verify(this.tareaRepositoryCustom, times(1)).updateEstadoFinal(any(TareaDto.class));
     }
 
     @Test
-    public void findLimpiezaTest() {
+    void findLimpiezaTest() {
         this.tareaServiceImpl.findLimpieza();
         verify(this.tareaRepositoryCustom, times(1)).findLimpieza();
     }
 
     @Test
-    public void findLimpiezaByIdTareaTest() {
+    void findLimpiezaByIdTareaTest() {
         final Long idTarea = 1L;
         this.tareaServiceImpl.findLimpiezaByIdTarea(idTarea);
         verify(this.tareaRepositoryCustom, times(1)).findLimpiezaByIdTarea(any(Long.class));

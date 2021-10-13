@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoLocalizacionService;
@@ -44,8 +44,8 @@ import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-public class TrabajoServiceImplTest {
+@ExtendWith(MockitoExtension.class)
+class TrabajoServiceImplTest {
 
     @Mock
     private SenderTrabajo senderTrabajo;
@@ -84,7 +84,7 @@ public class TrabajoServiceImplTest {
     private TrabajoServiceImpl trabajoServiceImpl;
 
     @Test
-    public void findWithStatesTest() {
+    void findWithStatesTest() {
         when(this.trabajoRepository.findByIdAndEstadoIdIn(any(Long.class), any(Collection.class)))
             .thenReturn(new Trabajo());
         when(this.trabajoMapper.trabajoToTrabajoDto(any(Trabajo.class))).thenReturn(new TrabajoDTO());
@@ -96,7 +96,7 @@ public class TrabajoServiceImplTest {
     }
 
     @Test
-    public void find() {
+    void find() {
         when(this.trabajoRepository.findById(any(Long.class))).thenReturn(Optional.of(new Trabajo()));
         when(this.trabajoMapper.trabajoToTrabajoDto(any(Trabajo.class))).thenReturn(new TrabajoDTO());
         this.trabajoServiceImpl.find(1L);
@@ -107,7 +107,7 @@ public class TrabajoServiceImplTest {
     }
 
     @Test
-    public void create() {
+    void create() {
         final TrabajoDTO trabajo = new TrabajoDTO();
         trabajo.setNombreUsuario("test");
         trabajo.setIcmIdPeriodo(1L);
@@ -136,7 +136,7 @@ public class TrabajoServiceImplTest {
     }
 
     @Test
-    public void merge() {
+    void merge() {
         final ProgramacionAmbitoDTO ambito = new ProgramacionAmbitoDTO();
         final ProgramacionDTO programacion = new ProgramacionDTO();
         final PeriodoDTO periodo = new PeriodoDTO();
