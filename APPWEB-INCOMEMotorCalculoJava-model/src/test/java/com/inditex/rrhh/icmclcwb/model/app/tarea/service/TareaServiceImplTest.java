@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-import org.mockito.junit.jupiter.MockitoExtension;
-
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
@@ -27,7 +25,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -106,21 +106,27 @@ class TareaServiceImplTest {
     void findByIdWithStatesTest() {
         final Tarea tarea = mock(Tarea.class);
         final TareaDto tareaDto = mock(TareaDto.class);
+        final Long idTarea = 1L;
+        final Collection<Integer> estados = new ArrayList<>();
+        estados.add(1);
+        estados.add(2);
+        estados.add(6);
 
-        when(this.tareaRepository.findByIdAndEstadoIdIn(any(Long.class), any(Collection.class))).thenReturn(tarea);
-        when(this.tareaAmbitoService.findByTarea(any(TareaDto.class))).thenReturn(new ArrayList<TareaAmbitoDto>());
-        when(this.tareaAmbitoLocalizacionService.findByTarea(any(TareaDto.class)))
-            .thenReturn(new ArrayList<TareaAmbitoLocalizacionDto>());
-        when(this.tareaAmbitoPersonaService.findByTarea(any(TareaDto.class)))
-            .thenReturn(new ArrayList<TareaAmbitoPersonaDto>());
-        when(this.tareaMapper.tareaToTareaDto(any(Tarea.class))).thenReturn(tareaDto);
+        when(this.tareaRepository.findByIdAndEstadoIdIn(idTarea, estados)).thenReturn(tarea);
+        when(this.tareaAmbitoService.findByTarea(tareaDto)).thenReturn(new ArrayList<>());
+        when(this.tareaAmbitoLocalizacionService.findByTarea(tareaDto))
+            .thenReturn(new ArrayList<>());
+        when(this.tareaAmbitoPersonaService.findByTarea(tareaDto))
+            .thenReturn(new ArrayList<>());
+        when(this.tareaMapper.tareaToTareaDto(tarea)).thenReturn(tareaDto);
 
-        this.tareaServiceImpl.findByIdWithStates(1L);
+        assertDoesNotThrow(() -> this.tareaServiceImpl.findByIdWithStates(idTarea));
 
-        verify(this.tareaRepository, times(1)).findByIdAndEstadoIdIn(any(Long.class), any(Collection.class));
-        verify(this.tareaAmbitoService, times(1)).findByTarea(any(TareaDto.class));
-        verify(this.tareaAmbitoLocalizacionService, times(1)).findByTarea(any(TareaDto.class));
-        verify(this.tareaAmbitoPersonaService, times(1)).findByTarea(any(TareaDto.class));
+        verify(this.tareaMapper, times(1)).tareaToTareaDto(tarea);
+        verify(this.tareaRepository, times(1)).findByIdAndEstadoIdIn(idTarea, estados);
+        verify(this.tareaAmbitoService, times(1)).findByTarea(tareaDto);
+        verify(this.tareaAmbitoLocalizacionService, times(1)).findByTarea(tareaDto);
+        verify(this.tareaAmbitoPersonaService, times(1)).findByTarea(tareaDto);
     }
 
     @Test
