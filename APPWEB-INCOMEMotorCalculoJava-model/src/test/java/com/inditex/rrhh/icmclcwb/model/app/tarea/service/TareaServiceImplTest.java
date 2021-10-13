@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -96,6 +97,27 @@ public class TareaServiceImplTest {
         this.tareaServiceImpl.find(idTarea);
 
         verify(this.tareaRepository, times(1)).findById(any(Long.class));
+        verify(this.tareaAmbitoService, times(1)).findByTarea(any(TareaDto.class));
+        verify(this.tareaAmbitoLocalizacionService, times(1)).findByTarea(any(TareaDto.class));
+        verify(this.tareaAmbitoPersonaService, times(1)).findByTarea(any(TareaDto.class));
+    }
+
+    @Test
+    public void findByIdWithStatesTest() {
+        final Tarea tarea = mock(Tarea.class);
+        final TareaDto tareaDto = mock(TareaDto.class);
+        final Long idTarea = 1L;
+        when(this.tareaRepository.findByIdAndEstadoIdIn(any(Long.class), any(Collection.class))).thenReturn(tarea);
+        when(this.tareaAmbitoService.findByTarea(any(TareaDto.class))).thenReturn(new ArrayList<TareaAmbitoDto>());
+        when(this.tareaAmbitoLocalizacionService.findByTarea(any(TareaDto.class)))
+            .thenReturn(new ArrayList<TareaAmbitoLocalizacionDto>());
+        when(this.tareaAmbitoPersonaService.findByTarea(any(TareaDto.class)))
+            .thenReturn(new ArrayList<TareaAmbitoPersonaDto>());
+        when(this.tareaMapper.tareaToTareaDto(any(Tarea.class))).thenReturn(tareaDto);
+
+        this.tareaServiceImpl.find(idTarea);
+
+        verify(this.tareaRepository, times(1)).findByIdAndEstadoIdIn(any(Long.class), any(Collection.class));
         verify(this.tareaAmbitoService, times(1)).findByTarea(any(TareaDto.class));
         verify(this.tareaAmbitoLocalizacionService, times(1)).findByTarea(any(TareaDto.class));
         verify(this.tareaAmbitoPersonaService, times(1)).findByTarea(any(TareaDto.class));

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -81,6 +82,18 @@ public class TrabajoServiceImplTest {
 
     @InjectMocks
     private TrabajoServiceImpl trabajoServiceImpl;
+
+    @Test
+    public void findWithStatesTest() {
+        when(this.trabajoRepository.findByIdAndEstadoIdIn(any(Long.class), any(Collection.class)))
+            .thenReturn(new Trabajo());
+        when(this.trabajoMapper.trabajoToTrabajoDto(any(Trabajo.class))).thenReturn(new TrabajoDTO());
+        this.trabajoServiceImpl.findByIdWithStates(1L);
+        verify(this.trabajoAmbitoOrigenService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
+        verify(this.trabajoAmbitoEmpresaService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
+        verify(this.trabajoAmbitoLocalizacionService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
+        verify(this.trabajoAmbitoPersonaService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
+    }
 
     @Test
     public void find() {

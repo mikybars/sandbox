@@ -10,7 +10,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -93,11 +92,8 @@ public class TrabajoServiceImpl implements TrabajoService {
     @Override
     public TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id) {
         // Lista de estados posibles en los que puede estar el trabajo para ser recuperado
-        Collection<Integer> estados = new ArrayList<>() {
-            {
-                add(1);
-            }
-        };
+        Collection<Integer> estados = new ArrayList<>();
+        estados.add(1);
 
         final TrabajoDTO trabajo = this.trabajoMapper
             .trabajoToTrabajoDto(this.trabajoRepository.findByIdAndEstadoIdIn(id, estados));
