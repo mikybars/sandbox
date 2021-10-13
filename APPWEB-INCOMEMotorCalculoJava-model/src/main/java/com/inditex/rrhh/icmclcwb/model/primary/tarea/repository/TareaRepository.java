@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -10,5 +11,7 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 public interface TareaRepository extends BaseRepository<Tarea, Long> {
 
     List<Tarea> findByTrabajoId(@NotNull final Long id);
+
+    Tarea findByIdAndEstadoIdIn(@NotNull final Long id, final Collection<Integer> estados);
 
 }

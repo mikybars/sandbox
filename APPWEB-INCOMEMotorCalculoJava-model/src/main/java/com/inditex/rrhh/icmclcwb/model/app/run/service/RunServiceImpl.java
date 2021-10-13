@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.run.service;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +26,9 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 public class RunServiceImpl implements RunService {
 
     @Autowired
+    private Logger log;
+
+    @Autowired
     private RunTrabajoService runTrabajoService;
 
     @Autowired
@@ -43,14 +48,26 @@ public class RunServiceImpl implements RunService {
 
     @Override
     public void runTrabajo(@NotNull @Positive final Long id) {
-        this.runTrabajoService.run(RunTrabajoDto.builder().trabajo(this.trabajoService.find(id)).build());
+        final TrabajoDTO trabajo = this.trabajoService.findByIdWithStates(id);
+
+        if (trabajo != null) {
+            this.runTrabajoService.run(RunTrabajoDto.builder().trabajo(trabajo).build());
+        } else {
+            this.log.warn("El Trabajo[{}] no existe o no se encuentra en una estado válido para procesar", id);
+        }
     }
 
     @Override
     public void runTarea(@NotNull @Positive final Long id) {
-        final TareaDto tarea = this.tareaService.find(id);
-        this.runTareaService
-            .run(RunTareaDto.builder().trabajo(this.trabajoService.find(tarea.getIdTrabajo())).tarea(tarea).build());
+        final TareaDto tarea = this.tareaService.findByIdWithStates(id);
+
+        if (tarea != null) {
+            final TrabajoDTO trabajo = this.trabajoService.find(tarea.getIdTrabajo());
+            this.runTareaService.run(RunTareaDto.builder().trabajo(trabajo).tarea(tarea).build());
+
+        } else {
+            this.log.warn("La Tarea[{}] no existe o no se encuentra en una estado válido para procesar", id);
+        }
     }
 
     @Override
