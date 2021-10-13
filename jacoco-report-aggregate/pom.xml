@@ -15,6 +15,10 @@
   <name>${project.groupId}:${project.artifactId}</name>
   <description/>
 
+  <properties>
+    <amiga.jacoco.excludes>**/*DTO.class,**/*dto.class,**/*Dto.class,**/*VO.class,**/*vo.class,**/*Vo.class,**/com/inditex/**/model/entity/*.class,**/com/inditex/**/model/entity/id/*.class,**/com/inditex/**/config/*Configuration.class**,**/com/inditex/**/config/*Configure.class**,/com/inditex/mypackage/*.class,**/com/inditex/**/Application.class,/com/inditex/mypackage/*.class,**/com/inditex/**/Constants.class,**/com/inditex/**/ApiErrorResponse.class</amiga.jacoco.excludes>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
