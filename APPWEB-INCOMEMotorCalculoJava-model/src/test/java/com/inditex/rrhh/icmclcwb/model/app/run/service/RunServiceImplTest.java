@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
 
 package com.inditex.rrhh.icmclcwb.model.app.run.service;
@@ -21,9 +21,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.*;
 
 /**
-*
-* @author <a href="mailto:davidtso@ext.inditex.com">agonzalezgui</a>
-*/
+ * @author <a href="mailto:davidtso@ext.inditex.com">agonzalezgui</a>
+ */
 
 @ExtendWith(MockitoExtension.class)
 class RunServiceImplTest {
@@ -44,7 +43,7 @@ class RunServiceImplTest {
     RunServiceImpl runService;
 
     @Test
-    void runTrabajoTest () {
+    void runTrabajoTest() {
         Long trabajoId = 1L;
         TrabajoDTO trabajo = mock(TrabajoDTO.class);
         RunTrabajoDto runTrabajo = mock(RunTrabajoDto.class);
@@ -59,7 +58,7 @@ class RunServiceImplTest {
     }
 
     @Test
-    void runTareaTest () {
+    void runTareaTest() {
         Long tareaId = 1L;
         TareaDto tarea = mock(TareaDto.class);
         tarea.setIdTrabajo(tareaId);
