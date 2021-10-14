@@ -215,6 +215,16 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisPrimas']}")
     private String sqlValidateTempComisPrimas;
 
+    // TODO [javierev] Consultas de tablas temporales
+    // @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempCalculoPorComision']}")
+    private String sqlCreateTempCalculoPorComision;
+
+    // @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempCalculoPorComision']}")
+    private String sqlDeleteTempCalculoPorComision;
+
+    // @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision']}")
+    private String sqlMergeCalculoTempCalculoPorComision;
+
     @Override
     public int deleteTempMotivoDesplazamientoComis() {
         return this.jdbcTemplate.update(this.sqlDeleteTempMotivoDesplazamientoComis);
@@ -753,6 +763,25 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
                     return idPersonaLocalDto;
                 });
+    }
+
+    @Override
+    public int createTempCalculoPorComision() {
+        return this.jdbcTemplate.update(this.sqlCreateTempCalculoPorComision);
+    }
+
+    @Override
+    public int deleteTempCalculoPorComision() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoPorComision);
+    }
+
+    @Override
+    public void mergeCalculoTempCalculoPorComision(final TareaDto tarea) {
+
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoTempCalculoPorComision, params);
     }
 
 }

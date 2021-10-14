@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.normalizar.service.RunTareaNormalizarAjusteComisionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteComisionRepositoryCustom;
 
 /**
@@ -22,11 +23,20 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjus
 public class RunTareaNormalizarAjusteComisionServiceImpl implements RunTareaNormalizarAjusteComisionService {
 
     @Autowired
+    private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+
+    @Autowired
     private TareaCalculoAjusteComisionRepositoryCustom tareaCalculoAjusteComisionRepositoryCustom;
 
     @Override
     public void normalizarAjusteComision(@Valid final TareaDto tarea) {
-        this.tareaCalculoAjusteComisionRepositoryCustom.normalizarAjusteComision(tarea);
+        try {
+            this.primaryTemporaryTableRepositoryCustom.createTempCalculoPorComision();
+            this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision(tarea);
+            this.tareaCalculoAjusteComisionRepositoryCustom.normalizarAjusteComision(tarea);
+        } finally {
+            this.primaryTemporaryTableRepositoryCustom.deleteTempCalculoPorComision();
+        }
     }
 
 }

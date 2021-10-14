@@ -295,4 +295,19 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      */
     List<IdPersonaLocalDto> validateTempComisPrimas(TareaDto tarea);
 
+    /**
+     * @return
+     */
+    int createTempCalculoPorComision();
+
+    /**
+     * @return
+     */
+    int deleteTempCalculoPorComision();
+
+    /**
+     * @param tarea
+     */
+    void mergeCalculoTempCalculoPorComision(TareaDto tarea);
+
 }
