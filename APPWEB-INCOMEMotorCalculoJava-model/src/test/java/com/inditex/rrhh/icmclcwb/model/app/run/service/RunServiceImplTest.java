@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
 
 import static org.mockito.Mockito.*;
 
@@ -39,6 +40,9 @@ class RunServiceImplTest {
     @Mock
     RunTareaService runTareaService;
 
+    @Mock
+    Logger log;
+
     @InjectMocks
     RunServiceImpl runService;
 
@@ -58,6 +62,19 @@ class RunServiceImplTest {
     }
 
     @Test
+    void runTrabajoTest2() {
+        Long trabajoId = 1L;
+
+        when(this.trabajoService.findByIdWithStates(trabajoId)).thenReturn(null);
+        doNothing().when(this.log).warn("El Trabajo[{}] no existe o no se encuentra en una estado válido para procesar", trabajoId);
+
+        this.runService.runTrabajo(trabajoId);
+
+        verify(this.trabajoService, times(1)).findByIdWithStates(trabajoId);
+        verify(this.log, times(1)).warn("El Trabajo[{}] no existe o no se encuentra en una estado válido para procesar", trabajoId);
+    }
+
+    @Test
     void runTareaTest() {
         Long tareaId = 1L;
         TareaDto tarea = mock(TareaDto.class);
@@ -73,6 +90,19 @@ class RunServiceImplTest {
         verify(this.trabajoService, times(1)).find(tarea.getIdTrabajo());
         verify(this.tareaService, times(1)).findByIdWithStates(tareaId);
         verify(this.runTareaService, times(1)).run(RunTareaDto.builder().trabajo(trabajo).tarea(tarea).build());
+    }
+
+    @Test
+    void runTareaTest2() {
+        Long tareaId = 1L;
+
+        when(this.tareaService.findByIdWithStates(tareaId)).thenReturn(null);
+        doNothing().when(this.log).warn("La Tarea[{}] no existe o no se encuentra en una estado válido para procesar", tareaId);
+
+        this.runService.runTarea(tareaId);
+
+        verify(this.tareaService, times(1)).findByIdWithStates(tareaId);
+        verify(this.log, times(1)).warn("La Tarea[{}] no existe o no se encuentra en una estado válido para procesar", tareaId);
     }
 
 }
