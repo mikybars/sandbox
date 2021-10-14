@@ -66,12 +66,14 @@ class RunServiceImplTest {
         Long trabajoId = 1L;
 
         when(this.trabajoService.findByIdWithStates(trabajoId)).thenReturn(null);
-        doNothing().when(this.log).warn("El Trabajo[{}] no existe o no se encuentra en una estado válido para procesar", trabajoId);
+        doNothing().when(this.log)
+            .warn("El Trabajo[{}] no existe o no se encuentra en una estado válido para procesar", trabajoId);
 
         this.runService.runTrabajo(trabajoId);
 
         verify(this.trabajoService, times(1)).findByIdWithStates(trabajoId);
-        verify(this.log, times(1)).warn("El Trabajo[{}] no existe o no se encuentra en una estado válido para procesar", trabajoId);
+        verify(this.log, times(1)).warn("El Trabajo[{}] no existe o no se encuentra en una estado válido para procesar",
+                trabajoId);
     }
 
     @Test
@@ -97,12 +99,14 @@ class RunServiceImplTest {
         Long tareaId = 1L;
 
         when(this.tareaService.findByIdWithStates(tareaId)).thenReturn(null);
-        doNothing().when(this.log).warn("La Tarea[{}] no existe o no se encuentra en una estado válido para procesar", tareaId);
+        doNothing().when(this.log)
+            .warn("La Tarea[{}] no existe o no se encuentra en una estado válido para procesar", tareaId);
 
         this.runService.runTarea(tareaId);
 
         verify(this.tareaService, times(1)).findByIdWithStates(tareaId);
-        verify(this.log, times(1)).warn("La Tarea[{}] no existe o no se encuentra en una estado válido para procesar", tareaId);
+        verify(this.log, times(1)).warn("La Tarea[{}] no existe o no se encuentra en una estado válido para procesar",
+                tareaId);
     }
 
 }
