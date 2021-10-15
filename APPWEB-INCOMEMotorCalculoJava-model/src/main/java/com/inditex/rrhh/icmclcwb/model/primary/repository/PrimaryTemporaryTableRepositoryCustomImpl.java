@@ -215,14 +215,13 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisPrimas']}")
     private String sqlValidateTempComisPrimas;
 
-    // TODO [javierev] Consultas de tablas temporales
-    // @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempCalculoPorComision']}")
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempCalculoPorComision']}")
     private String sqlCreateTempCalculoPorComision;
 
-    // @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempCalculoPorComision']}")
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempCalculoPorComision']}")
     private String sqlDeleteTempCalculoPorComision;
 
-    // @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision']}")
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision']}")
     private String sqlMergeCalculoTempCalculoPorComision;
 
     @Override
