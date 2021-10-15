@@ -87,9 +87,8 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
         doThrow(new RuntimeException("e")).when(this.tareaCalculoAjusteComisionRepositoryCustom)
             .normalizarAjusteComision(any(TareaDto.class));
 
-        assertThrows(RuntimeException.class, () -> {
-            this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
-        });
+        assertThrows(RuntimeException.class,
+                () -> this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea));
 
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoPorComision();
 
