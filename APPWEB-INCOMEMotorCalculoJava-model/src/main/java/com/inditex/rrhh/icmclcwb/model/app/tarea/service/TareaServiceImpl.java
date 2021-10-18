@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -83,14 +84,8 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     public TareaDto findByIdWithStates(@NotNull @Positive Long id) {
-        // Lista de estados posibles en los que puede estar la tarea para ser recuperada
-        Collection<Integer> estados = new ArrayList<>();
-        estados.add(1);
-        estados.add(2);
-        estados.add(6);
-
         final TareaDto tarea = this.tareaMapper
-            .tareaToTareaDto(this.tareaRepository.findByIdAndEstadoIdIn(id, estados));
+            .tareaToTareaDto(this.tareaRepository.findByIdAndEstadoIdIn(id, AppConstants.estadosTarea));
         tarea.setAmbito(this.tareaAmbitoService.findByTarea(tarea));
         tarea.setLocalizacion(this.tareaAmbitoLocalizacionService.findByTarea(tarea));
         tarea.setPersona(this.tareaAmbitoPersonaService.findByTarea(tarea));

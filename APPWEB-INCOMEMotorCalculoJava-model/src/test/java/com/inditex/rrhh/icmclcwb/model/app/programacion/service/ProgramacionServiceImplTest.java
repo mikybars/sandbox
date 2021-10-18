@@ -1,8 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.programacion.service;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -194,18 +192,22 @@ public class ProgramacionServiceImplTest {
 
     }
 
-    @Disabled("Revisar este test, da problemas")
+    private OffsetDateTime now(int i) {
+        Duration duration = Duration.ofSeconds(Long.valueOf(i));
+        return OffsetDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0).plus(duration), ZoneOffset.UTC);
+    }
+
     @Test
-    // TODO: Revisar este test
     public void fechaSiguienteEjecucionDespuesProgramacionTest() {
 
         // Si el momento actual es posterior a la hora de programación, la fecha resultado debería ser
         // mañana
         final ProgramacionDTO programacion = mock(ProgramacionDTO.class);
         when(programacion.getProgramacionHuso()).thenReturn(TimeUtils.ofZoneId());
-        when(programacion.getHoraProgramacion()).thenReturn(OffsetDateTime.now());
+        when(programacion.getHoraProgramacion()).thenReturn(now(0));
 
         final LocalDateTime result = this.programacionService.fechaSiguienteEjecucion(programacion);
+
         assertTrue(DateUtils.isSameDay(DateUtils.addDays(new Date(), 1),
                 Date.from(result.atZone(TimeUtils.ofZone()).toInstant())));
 

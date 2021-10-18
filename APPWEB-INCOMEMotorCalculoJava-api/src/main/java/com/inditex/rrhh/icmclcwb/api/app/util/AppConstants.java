@@ -1,8 +1,11 @@
 package com.inditex.rrhh.icmclcwb.api.app.util;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
 import lombok.Getter;
 
 public class AppConstants {
@@ -58,5 +61,10 @@ public class AppConstants {
     public static final String UNDERSCORE = "_";
 
     public static final Long MIN_ID_PERSONA_EXTERNO = 500000L;
+
+    public static final Collection<Integer> estadosTarea = Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(),
+            EstadoTareaEnum.EN_CURSO.getId(), EstadoTareaEnum.ERROR_VALIDANDO.getId());
+
+    public static final Collection<Integer> estadosTrabajo = Arrays.asList(EstadoTrabajoEnum.PENDIENTE.getId());
 
 }
