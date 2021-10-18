@@ -409,7 +409,6 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
-
         return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisDesplazamiento, map,
                 (rs, rowNum) -> {
                     final IdPersonaLocalDto idPersonaLocalCondicionesDto = new IdPersonaLocalDto();
