@@ -92,7 +92,7 @@ public class TrabajoServiceImpl implements TrabajoService {
     @Override
     public TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id) {
         final TrabajoDTO trabajo = this.trabajoMapper
-            .trabajoToTrabajoDto(this.trabajoRepository.findByIdAndEstadoIdIn(id, AppConstants.estadosTrabajo));
+            .trabajoToTrabajoDto(this.trabajoRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TRABAJO_OK));
         trabajo.setOrigen(this.trabajoAmbitoOrigenService.findByTrabajo(trabajo));
         trabajo.setEmpresa(this.trabajoAmbitoEmpresaService.findByTrabajo(trabajo));
         trabajo.setLocalizacion(this.trabajoAmbitoLocalizacionService.findByTrabajo(trabajo));

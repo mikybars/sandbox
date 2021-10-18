@@ -62,9 +62,9 @@ public class AppConstants {
 
     public static final Long MIN_ID_PERSONA_EXTERNO = 500000L;
 
-    public static final Collection<Integer> estadosTarea = Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(),
+    public static final Collection<Integer> ESTADOS_RUN_TAREA_OK = Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(),
             EstadoTareaEnum.EN_CURSO.getId(), EstadoTareaEnum.ERROR_VALIDANDO.getId());
 
-    public static final Collection<Integer> estadosTrabajo = Arrays.asList(EstadoTrabajoEnum.PENDIENTE.getId());
+    public static final Collection<Integer> ESTADOS_RUN_TRABAJO_OK = Arrays.asList(EstadoTrabajoEnum.PENDIENTE.getId());
 
 }

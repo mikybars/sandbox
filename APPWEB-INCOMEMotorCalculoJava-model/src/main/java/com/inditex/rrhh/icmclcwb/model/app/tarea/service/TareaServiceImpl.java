@@ -84,7 +84,7 @@ public class TareaServiceImpl implements TareaService {
     @Override
     public TareaDto findByIdWithStates(@NotNull @Positive Long id) {
         final TareaDto tarea = this.tareaMapper
-            .tareaToTareaDto(this.tareaRepository.findByIdAndEstadoIdIn(id, AppConstants.estadosTarea));
+            .tareaToTareaDto(this.tareaRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TAREA_OK));
         tarea.setAmbito(this.tareaAmbitoService.findByTarea(tarea));
         tarea.setLocalizacion(this.tareaAmbitoLocalizacionService.findByTarea(tarea));
         tarea.setPersona(this.tareaAmbitoPersonaService.findByTarea(tarea));
