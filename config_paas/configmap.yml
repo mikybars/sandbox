@@ -166,10 +166,10 @@ app:
             thread-size: 4
       ajustar:
         algoritmo:
-          thread-size: 1
+          thread-size: 2
           ajuste:
             batch-size: 25
-            thread-size: 1
+            thread-size: 4
       regularizar:
         thread-size: 4
       prevalidacion:
