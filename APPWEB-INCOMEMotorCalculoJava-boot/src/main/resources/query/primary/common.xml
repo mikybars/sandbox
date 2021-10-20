@@ -8345,4 +8345,49 @@ INSERT INTO SESSION.PRESUPUESTO (
     ]]>
   </entry>
 
+  <!-- JAVIEREV - Comienzo de normalización de tareas consolidadas (para borrar) -->
+
+  <entry key="TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.selectTotal">
+    <![CDATA[
+      SELECT COUNT(*) AS TOTAL FROM (
+    ]]>
+  </entry>
+
+  <entry key="TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.selectTarea">
+    <![CDATA[
+      SELECT ID_TAREA FROM (
+    ]]>
+  </entry>
+
+  <entry key="TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision">
+    <![CDATA[
+      SELECT
+        ROW_NUMBER() OVER () AS ROW,
+        PCP.ID_TAREA_ACTUAL AS ID_TAREA
+      FROM PERIODO_CALCULO_PERSONA PCP
+      INNER JOIN TAREA TAREA
+        ON TAREA.ID_TAREA = PCP.ID_TAREA_ACTUAL
+      INNER JOIN TAREA_CALCULO_AJUSTE AJUSTE
+        ON AJUSTE.FECHA_INICIO_PERIODO = TAREA.FECHA_INICIO_PERIODO
+        AND AJUSTE.ID_TAREA = TAREA.ID_TAREA
+        AND AJUSTE.CCL_ID_PERSON = PCP.CCL_ID_PERSON
+        AND AJUSTE.STD_OR_HR_PERIOD = PCP.STD_OR_HR_PERIOD
+      LEFT JOIN TAREA_CALCULO_AJUSTE_COMISION TAJC
+        ON TAJC.FECHA_INICIO_PERIODO = TAREA.FECHA_INICIO_PERIODO
+        AND TAJC.ID_TAREA = TAREA.ID_TAREA
+        AND TAJC.CCL_ID_PERSON = PCP.CCL_ID_PERSON
+        AND AJUSTE.STD_OR_HR_PERIOD = PCP.STD_OR_HR_PERIOD
+      WHERE TAJC.ID_TAREA_CALCULO_AJUSTE_COMISION IS NULL
+      GROUP BY PCP.ID_TAREA_ACTUAL
+    ]]>
+  </entry>
+
+  <entry key="TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.limit">
+    <![CDATA[
+      ) WHERE ROW <= :limit
+    ]]>
+  </entry>
+
+  <!-- JAVIEREV - Fin de normalización de tareas consolidadas (para borrar) -->
+
 </properties>

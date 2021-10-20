@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.jdbc.core.RowMapper;
@@ -28,13 +29,14 @@ import org.mockito.Mock;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class TareaRepositoryCustomImplTest {
+class TareaRepositoryCustomImplTest {
 
     private final static String SQL_UPDATE_FECHA_FIN = "SQL UPDATE FECHA FIN";
 
@@ -51,6 +53,10 @@ public class TareaRepositoryCustomImplTest {
     private final static String SQL_FIND_LIMPIEZA_BY_ID_TAREA = "SQL FIND LIMPIEZA BY ID TAREA";
 
     private final static Integer LIMIT = 10;
+
+    private final static String SQL_FIND_TOTAL_TAREAS_CONSOLIDADAS_SIN_AJUSTE_COMISION = "SQL FIND TOTAL TAREAS CONSOLIDADAS SIN AJUSTE COMISION";
+
+    private final static String SQL_FIND_TAREAS_CONSOLIDADAS_SIN_AJUSTE_COMISION = "SQL FIND TAREAS CONSOLIDADAS SIN AJUSTE COMISION";
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -81,10 +87,15 @@ public class TareaRepositoryCustomImplTest {
         FieldUtils.writeField(this.tareaRepositoryCustom,
                 "sqlTotalLimpieza", SQL_TOTAL_LIMPIEZA, true);
         FieldUtils.writeField(this.tareaRepositoryCustom, "limitLimpieza", LIMIT, true);
+        FieldUtils.writeField(this.tareaRepositoryCustom,
+                "sqlFindTareasConsolidadasSinAjusteComision", SQL_FIND_TAREAS_CONSOLIDADAS_SIN_AJUSTE_COMISION, true);
+        FieldUtils.writeField(this.tareaRepositoryCustom,
+                "sqlTotalTareasConsolidadasSinAjusteComision", SQL_FIND_TOTAL_TAREAS_CONSOLIDADAS_SIN_AJUSTE_COMISION,
+                true);
     }
 
     @Test
-    public void updateFechaFinTest() {
+    void updateFechaFinTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(9090L);
@@ -104,7 +115,7 @@ public class TareaRepositoryCustomImplTest {
     }
 
     @Test
-    public void updateFechaInicioAndEstadoTest() {
+    void updateFechaInicioAndEstadoTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(9090L);
@@ -129,7 +140,7 @@ public class TareaRepositoryCustomImplTest {
     }
 
     @Test
-    public void updateEstadoTest() {
+    void updateEstadoTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(9090L);
@@ -152,7 +163,7 @@ public class TareaRepositoryCustomImplTest {
     }
 
     @Test
-    public void updateEstadoFinalTest() {
+    void updateEstadoFinalTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
         when(tarea.getId()).thenReturn(9090L);
@@ -179,7 +190,7 @@ public class TareaRepositoryCustomImplTest {
     }
 
     @Test
-    public void findLimpiezaTest() {
+    void findLimpiezaTest() {
 
         final List<IdTareaDto> idTareas = Arrays.asList(new IdTareaDto(22L), new IdTareaDto(789L),
                 new IdTareaDto(377L));
@@ -213,7 +224,7 @@ public class TareaRepositoryCustomImplTest {
     }
 
     @Test
-    public void totalLimpiezaTest() {
+    void totalLimpiezaTest() {
 
         final Integer total = 1234;
         when(this.namedParameterJdbcTemplate.queryForObject(any(String.class), any(MapSqlParameterSource.class),
@@ -245,10 +256,10 @@ public class TareaRepositoryCustomImplTest {
     }
 
     @Test
-    public void findLimpiezaByIdTareaTest() {
+    void findLimpiezaByIdTareaTest() {
 
         final Long idTarea = 22L;
-        final List<IdTareaDto> idTareas = Arrays.asList(new IdTareaDto(idTarea));
+        final List<IdTareaDto> idTareas = Collections.singletonList(new IdTareaDto(idTarea));
         when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
                 ArgumentMatchers.<RowMapper<IdTareaDto>>any())).thenReturn(idTareas);
         final List<IdTareaDTO> result = this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
@@ -277,5 +288,52 @@ public class TareaRepositoryCustomImplTest {
         assertEquals(TipoLimpiezaEnum.COMPLETA.getId(), params.getValue("idTipoLimpieza"));
         assertEquals(idTarea, params.getValue("idTarea"));
     }
+
+    // Comienzo de tests de normalización de tareas consolidadas (para borrar)
+
+    @Test
+    void totalTareasConsolidadasSinAjusteComisionTest() {
+
+        final Integer total = 145;
+        when(this.namedParameterJdbcTemplate.queryForObject(any(String.class), any(MapSqlParameterSource.class),
+                ArgumentMatchers.<RowMapper<Integer>>any())).thenReturn(total);
+        final Integer result = this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision();
+
+        verify(this.namedParameterJdbcTemplate, times(1)).queryForObject(
+                eq(SQL_FIND_TOTAL_TAREAS_CONSOLIDADAS_SIN_AJUSTE_COMISION), this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdTareaDto>>any());
+        assertEquals(total, result);
+
+    }
+
+    @Test
+    void findTareasConsolidadasSinAjusteComisionTest() {
+
+        final Long idTarea = 22L;
+        final IdTareaDTO dto = new IdTareaDTO();
+        dto.setId(idTarea);
+        final List<IdTareaDTO> idTareas = Collections.singletonList(dto);
+        when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+                ArgumentMatchers.<RowMapper<IdTareaDTO>>any())).thenReturn(idTareas);
+
+        final int max = 199;
+        final List<IdTareaDTO> result = this.tareaRepositoryCustom
+            .findTareasConsolidadesSinAjusteComision(max);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_TAREAS_CONSOLIDADAS_SIN_AJUSTE_COMISION),
+                this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdTareaDTO>>any());
+        // Parámetros de la consulta: limit
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(1, params.getValues().size());
+
+        assertTrue(params.hasValue("limit"));
+        assertEquals(max, params.getValue("limit"));
+
+        assertEquals(idTareas, result);
+
+    }
+
+    // Fin de tests de normalización de tareas consolidadas (para borrar)
 
 }
