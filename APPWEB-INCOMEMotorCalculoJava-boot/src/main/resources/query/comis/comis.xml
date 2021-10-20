@@ -308,6 +308,8 @@
                     LEFT JOIN PersonasCambiosTemporales pct
                       ON pct.Persona = ph.Persona
                       AND pct.FechaDesde <= :fechaHasta
+                      AND PCT.FECHADESDE <= case when PH.fechaHasta is not null then ph.fechahasta else :fechaHasta end
+                      AND (PCT.FechaHasta IS NULL OR pct.FechaHasta >= PH.FechaDesde)                      
                       AND (pct.FechaHasta IS NULL OR pct.FechaHasta >= :fechaDesde)
                     WHERE
                       PH.FechaDesde <= :fechaHasta
@@ -501,6 +503,8 @@ WITH T AS (SELECT
           ON TPP.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
             WHERE PCT.FECHADESDE <= :fechaHasta
             AND PCT.FECHAHASTA >= :fechaDesde
+            AND PR.FECHADESDE <= :fechaHasta
+            AND PR.FECHAHASTA >= :fechaDesde            
             AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
             AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
             AND PCT.TIPOCALCULO <> 0
