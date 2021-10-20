@@ -6,6 +6,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -22,8 +23,7 @@ public class TareaCalculoAjusteComisionRepositoryCustomImpl
         extends JdbcBatchPrimaryRepositoryAbstract<TareaCalculoAjusteComision>
         implements TareaCalculoAjusteComisionRepositoryCustom {
 
-    // TODO [javierev] crear la consulta normalizar ajuste comision
-    // @Value("#{primaryQuery['TareaCalculoAjusteComisionRepositoryCustom.normalizarAjusteComision']}")
+    @Value("#{primaryQuery['TareaCalculoAjusteComisionRepositoryCustom.normalizarAjusteComision']}")
     private String sqlNormalizarAjusteComision;
 
     @Override
