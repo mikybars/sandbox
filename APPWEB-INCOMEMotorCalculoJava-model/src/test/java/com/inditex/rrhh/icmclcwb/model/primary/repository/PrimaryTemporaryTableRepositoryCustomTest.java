@@ -129,6 +129,8 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
     private final static String SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION = "SQL MERGE TEMP CALCULO POR COMISION";
 
+    private final static String SQL_MERGE_CALCULO_TEMP_CALCULO_SIN_COMISION = "SQL MERGE TEMP CALCULO SIN COMISION";
+
     private final static String SQL_DELETE_TEMP_CALCULO_POR_COMISION = "SQL DELETE TEMP CALCULO POR COMISION";
 
     // totalizacion tarea calculo ajuste
@@ -214,6 +216,8 @@ class PrimaryTemporaryTableRepositoryCustomTest {
                 "sqlCreateTempCalculoPorComision", SQL_CREATE_TEMP_CALCULO_POR_COMISION, true);
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
                 "sqlMergeCalculoTempCalculoPorComision", SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlMergeCalculoTempCalculoSinComision", SQL_MERGE_CALCULO_TEMP_CALCULO_SIN_COMISION, true);
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
                 "sqlDeleteTempCalculoPorComision", SQL_DELETE_TEMP_CALCULO_POR_COMISION, true);
 
@@ -575,6 +579,23 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
         this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision(tarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(1, params.getValues().size());
+        assertTrue(params.hasValue(ID_TAREA_PARAM));
+        assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
+
+    }
+
+    @Test
+    void mergeCalculoTempCalculoSinComisionTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoSinComision(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_SIN_COMISION),
                 this.paramsCaptor.capture());
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();

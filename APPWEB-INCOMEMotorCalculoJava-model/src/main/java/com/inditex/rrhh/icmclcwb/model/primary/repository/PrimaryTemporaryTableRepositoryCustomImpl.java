@@ -221,6 +221,9 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempCalculoPorComision']}")
     private String sqlDeleteTempCalculoPorComision;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoSinComision']}")
+    private String sqlMergeCalculoTempCalculoSinComision;
+
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision']}")
     private String sqlMergeCalculoTempCalculoPorComision;
 
@@ -789,6 +792,14 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
         this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoTempCalculoPorComision, params);
+    }
+
+    @Override
+    public void mergeCalculoTempCalculoSinComision(final TareaDto tarea) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoTempCalculoSinComision, params);
     }
 
     @Override

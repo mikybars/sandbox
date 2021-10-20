@@ -58,13 +58,24 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     }
 
     @Test
-    void normalizarAjusteComisionMergeCalculoTemporalTest() {
+    void normalizarAjusteComisionMergeCalculoTemporalPorComisionTest() {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(9039L);
 
         this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).mergeCalculoTempCalculoPorComision(tarea);
+
+    }
+
+    @Test
+    void normalizarAjusteComisionMergeCalculoTemporalSinComisionTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(9039L);
+
+        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).mergeCalculoTempCalculoSinComision(tarea);
 
     }
 
@@ -80,7 +91,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     }
 
     @Test
-    void normalizarAjusteComisionInsertTareaCalculoAjusteComisionExcepcionEliminaTablaTemporalCalculoPorComisionTest() {
+    void normalizarAjusteComisionInsertTareaCalculoAjusteComisionExcepcionEliminaTablasTemporalesTest() {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(9039L);
@@ -91,11 +102,12 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
                 () -> this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea));
 
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoPorComision();
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoAjusteTotalizado();
 
     }
 
     @Test
-    void normalizarAjusteComisionCrearTablaTemporalExcepcionEliminaTablaTemporalCalculoPorComisionTest() {
+    void normalizarAjusteComisionCrearTablaTemporalCalculoPorComisionExcepcionEliminaTablasTemporalesTest() {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(9039L);
@@ -107,11 +119,12 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
         });
 
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoPorComision();
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoAjusteTotalizado();
 
     }
 
     @Test
-    void normalizarAjusteComisionMergeCalculoExcepcionEliminaTablaTemporalCalculoPorComisionTest() {
+    void normalizarAjusteComisionMergeCalculoPorComisionExcepcionEliminaTablasTemporalesTest() {
 
         final TareaDto tarea = new TareaDto();
         tarea.setId(9039L);
@@ -123,6 +136,91 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
         });
 
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoPorComision();
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoAjusteTotalizado();
+
+    }
+
+    @Test
+    void normalizarAjusteComisionMergeCalculoSinComisionExcepcionEliminaTablasTemporalesTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(9039L);
+        doThrow(new RuntimeException("e")).when(this.primaryTemporaryTableRepositoryCustom)
+            .mergeCalculoTempCalculoSinComision(any(TareaDto.class));
+
+        assertThrows(RuntimeException.class, () -> {
+            this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+        });
+
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoPorComision();
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoAjusteTotalizado();
+
+    }
+
+    @Test
+    void normalizarAjusteComisionCreaTablaTemporalCalculoAjusteTotalizadoTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(9039L);
+
+        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempCalculoAjusteTotalizado();
+
+    }
+
+    @Test
+    void normalizarAjusteComisionMergeCalculoAjusteTotalizadoTemporalTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(9039L);
+
+        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).mergeCalculoTempCalculoAjusteTotalizado(tarea);
+
+    }
+
+    @Test
+    void normalizarAjusteComisionEliminaTablaTemporalCalculoAjusteTotalizadoTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(9039L);
+
+        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoAjusteTotalizado();
+
+    }
+
+    @Test
+    void normalizarAjusteComisionCrearTablaTemporalAjusteTotalizadoExcepcionEliminaTablasTemporalesTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(9039L);
+        doThrow(new RuntimeException("e")).when(this.primaryTemporaryTableRepositoryCustom)
+            .createTempCalculoAjusteTotalizado();
+
+        assertThrows(RuntimeException.class, () -> {
+            this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+        });
+
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoPorComision();
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoAjusteTotalizado();
+
+    }
+
+    @Test
+    void normalizarAjusteComisionMergeCalculoAjusteTotalizadoExcepcionEliminaTablasTemporalesTest() {
+
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(9039L);
+        doThrow(new RuntimeException("e")).when(this.primaryTemporaryTableRepositoryCustom)
+            .mergeCalculoTempCalculoAjusteTotalizado(any(TareaDto.class));
+
+        assertThrows(RuntimeException.class, () -> {
+            this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+        });
+
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoPorComision();
+        verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoAjusteTotalizado();
 
     }
 

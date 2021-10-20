@@ -32,10 +32,14 @@ public class RunTareaNormalizarAjusteComisionServiceImpl implements RunTareaNorm
     public void normalizarAjusteComision(@Valid final TareaDto tarea) {
         try {
             this.primaryTemporaryTableRepositoryCustom.createTempCalculoPorComision();
+            this.primaryTemporaryTableRepositoryCustom.createTempCalculoAjusteTotalizado();
+            this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoSinComision(tarea);
             this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision(tarea);
+            this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoAjusteTotalizado(tarea);
             this.tareaCalculoAjusteComisionRepositoryCustom.normalizarAjusteComision(tarea);
         } finally {
             this.primaryTemporaryTableRepositoryCustom.deleteTempCalculoPorComision();
+            this.primaryTemporaryTableRepositoryCustom.deleteTempCalculoAjusteTotalizado();
         }
     }
 
