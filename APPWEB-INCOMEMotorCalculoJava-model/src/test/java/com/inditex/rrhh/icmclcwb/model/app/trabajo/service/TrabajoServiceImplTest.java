@@ -39,6 +39,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -103,7 +104,7 @@ class TrabajoServiceImplTest {
 
         when(this.trabajoRepository.findByIdAndEstadoIdIn(idTarea, AppConstants.ESTADOS_RUN_TRABAJO_OK))
             .thenReturn(null);
-        this.trabajoServiceImpl.findByIdWithStates(1L);
+        assertNull(this.trabajoServiceImpl.findByIdWithStates(1L));
     }
 
     @Test

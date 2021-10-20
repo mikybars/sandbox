@@ -28,6 +28,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -130,7 +131,7 @@ class TareaServiceImplTest {
         final Long idTarea = 1L;
         when(this.tareaRepository.findByIdAndEstadoIdIn(idTarea, AppConstants.ESTADOS_RUN_TAREA_OK)).thenReturn(null);
 
-        this.tareaServiceImpl.findByIdWithStates(idTarea);
+        assertNull(this.tareaServiceImpl.findByIdWithStates(idTarea));
     }
 
     @Test
