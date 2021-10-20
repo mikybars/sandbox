@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -91,12 +92,19 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     @Override
     public TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id) {
+
+        Trabajo trabajoData = this.trabajoRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TRABAJO_OK);
+        if (trabajoData == null) {
+            return null;
+        }
+
         final TrabajoDTO trabajo = this.trabajoMapper
-            .trabajoToTrabajoDto(this.trabajoRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TRABAJO_OK));
+            .trabajoToTrabajoDto(trabajoData);
         trabajo.setOrigen(this.trabajoAmbitoOrigenService.findByTrabajo(trabajo));
         trabajo.setEmpresa(this.trabajoAmbitoEmpresaService.findByTrabajo(trabajo));
         trabajo.setLocalizacion(this.trabajoAmbitoLocalizacionService.findByTrabajo(trabajo));
         trabajo.setPersona(this.trabajoAmbitoPersonaService.findByTrabajo(trabajo));
+
         return trabajo;
     }
 
