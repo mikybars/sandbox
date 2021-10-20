@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -83,11 +84,18 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     public TareaDto findByIdWithStates(@NotNull @Positive Long id) {
+
+        Tarea tareaData = this.tareaRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TAREA_OK);
+        if (tareaData == null) {
+            return null;
+        }
+
         final TareaDto tarea = this.tareaMapper
-            .tareaToTareaDto(this.tareaRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TAREA_OK));
+            .tareaToTareaDto(tareaData);
         tarea.setAmbito(this.tareaAmbitoService.findByTarea(tarea));
         tarea.setLocalizacion(this.tareaAmbitoLocalizacionService.findByTarea(tarea));
         tarea.setPersona(this.tareaAmbitoPersonaService.findByTarea(tarea));
+
         return tarea;
     }
 
