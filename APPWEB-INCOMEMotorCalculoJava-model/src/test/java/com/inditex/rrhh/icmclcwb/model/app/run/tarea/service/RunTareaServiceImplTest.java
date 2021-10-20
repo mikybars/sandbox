@@ -18,6 +18,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarSer
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
@@ -30,6 +32,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -84,8 +89,7 @@ class RunTareaServiceImplTest {
     @InjectMocks
     private RunTareaServiceImpl runTareaService;
 
-    @Test
-    void runNormalizarTest() {
+    private RunTareaDto createRunTarea() {
         final RunTareaDto runTarea = new RunTareaDto();
         runTarea.setTarea(new TareaDto());
         final TrabajoDTO trabajoDto = new TrabajoDTO();
@@ -93,8 +97,26 @@ class RunTareaServiceImplTest {
         tipoAmbito.setId(TipoAmbitoEnum.SOCIEDAD.getId());
         trabajoDto.setTipoAmbito(tipoAmbito);
         runTarea.setTrabajo(trabajoDto);
+        return runTarea;
+    }
+
+    @Test
+    void runNormalizarTest() {
+        final RunTareaDto runTarea = this.createRunTarea();
         this.runTareaService.run(runTarea);
         verify(this.runTareaNormalizarService, times(1)).run(runTarea);
+        verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
+    }
+
+    @Test
+    void runNormalizarExceptionTest() {
+        final RunTareaDto runTarea = this.createRunTarea();
+        doThrow(new RuntimeException("e")).when(this.runTareaNormalizarService).run(any(RunTareaDto.class));
+        assertThrows(RuntimeException.class, () -> this.runTareaService.run(runTarea));
+        verify(this.tareaCalculoPersonaService, times(1)).updateWithEstado(runTarea,
+                EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(), EstadoTareaCalculoPersonaEnum.KO.getDto());
+        verify(this.tareaService, times(1)).updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
+        verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
     }
 
 }
