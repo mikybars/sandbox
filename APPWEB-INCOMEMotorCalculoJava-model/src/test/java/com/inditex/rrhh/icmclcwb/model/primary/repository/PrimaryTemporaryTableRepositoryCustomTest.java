@@ -127,9 +127,17 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
     private final static String SQL_CREATE_TEMP_CALCULO_POR_COMISION = "SQL CREATE TEMP CALCULO POR COMISION";
 
-    private final static String SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION = "SQL CREATE TEMP CALCULO POR COMISION";
+    private final static String SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION = "SQL MERGE TEMP CALCULO POR COMISION";
 
-    private final static String SQL_DELETE_TEMP_CALCULO_POR_COMISION = "SQL CREATE TEMP CALCULO POR COMISION";
+    private final static String SQL_DELETE_TEMP_CALCULO_POR_COMISION = "SQL DELETE TEMP CALCULO POR COMISION";
+
+    // totalizacion tarea calculo ajuste
+
+    private final static String SQL_CREATE_TEMP_CALCULO_AJUSTE_TOTALIZADO = "SQL CREATE TEMP CALCULO AJUSTE TOTALIZADO";
+
+    private final static String SQL_MERGE_CALCULO_TEMP_CALCULO_AJUSTE_TOTALIZADO = "SQL MERGE TEMP CALCULO AJUSTE TOTALIZADO";
+
+    private final static String SQL_DELETE_TEMP_CALCULO_AJUSTE_TOTALIZADO = "SQL DELETE TEMP CALCULO AJUSTE TOTALIZADO";
 
 
     @BeforeEach
@@ -208,6 +216,15 @@ class PrimaryTemporaryTableRepositoryCustomTest {
                 "sqlMergeCalculoTempCalculoPorComision", SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION, true);
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
                 "sqlDeleteTempCalculoPorComision", SQL_DELETE_TEMP_CALCULO_POR_COMISION, true);
+
+        // totalizacion calculo ajuste
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlCreateTempCalculoAjusteTotalizado", SQL_CREATE_TEMP_CALCULO_AJUSTE_TOTALIZADO, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlMergeCalculoAjusteTotalizado", SQL_MERGE_CALCULO_TEMP_CALCULO_AJUSTE_TOTALIZADO, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlDeleteTempCalculoAjusteTotalizado", SQL_DELETE_TEMP_CALCULO_AJUSTE_TOTALIZADO, true);
+
 
     }
 
@@ -551,7 +568,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    void mergeCalculoTempCalculoPorComision() {
+    void mergeCalculoTempCalculoPorComisionTest() {
         final long idTarea = 12L;
         final TareaDto tarea = new TareaDto();
         tarea.setId(idTarea);
@@ -568,7 +585,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    void deleteTempCalculoPorComision() {
+    void deleteTempCalculoPorComisionTest() {
         final int result = 90;
         when(this.jdbcTemplate.update(any(String.class))).thenReturn(result);
         assertEquals(result, this.primaryTemporaryTableRepositoryCustom.deleteTempCalculoPorComision());
@@ -577,5 +594,42 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
 
     // Fin tests totalizacion tarea calculo
+
+    // Tests totalizacion tarea calculo ajuste
+
+    @Test
+    void createTempCalculoAjusteTotalizadoTest() {
+        final int result = 10;
+        when(this.jdbcTemplate.update(any(String.class))).thenReturn(result);
+        assertEquals(result, this.primaryTemporaryTableRepositoryCustom.createTempCalculoAjusteTotalizado());
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALCULO_AJUSTE_TOTALIZADO);
+    }
+
+    @Test
+    void deleteTempCalculoAjusteTotalizadoTest() {
+        final int result = 90;
+        when(this.jdbcTemplate.update(any(String.class))).thenReturn(result);
+        assertEquals(result, this.primaryTemporaryTableRepositoryCustom.deleteTempCalculoAjusteTotalizado());
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_AJUSTE_TOTALIZADO);
+    }
+
+    @Test
+    void mergeCalculoTempCalculoAjusteTotalizadoTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoAjusteTotalizado(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_AJUSTE_TOTALIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(1, params.getValues().size());
+        assertTrue(params.hasValue(ID_TAREA_PARAM));
+        assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
+
+    }
+
+    // Fin tests totalizacion tarea calculo ajuste
 
 }

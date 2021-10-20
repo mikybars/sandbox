@@ -310,4 +310,19 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      */
     void mergeCalculoTempCalculoPorComision(TareaDto tarea);
 
+    /**
+     * @return
+     */
+    int createTempCalculoAjusteTotalizado();
+
+    /**
+     * @return
+     */
+    int deleteTempCalculoAjusteTotalizado();
+
+    /**
+     * @param tarea
+     */
+    void mergeCalculoTempCalculoAjusteTotalizado(TareaDto tarea);
+
 }

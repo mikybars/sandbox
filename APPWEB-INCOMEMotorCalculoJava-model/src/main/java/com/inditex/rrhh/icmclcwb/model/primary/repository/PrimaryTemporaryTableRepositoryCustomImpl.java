@@ -224,6 +224,15 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision']}")
     private String sqlMergeCalculoTempCalculoPorComision;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempCalculoAjusteTotalizado']}")
+    private String sqlCreateTempCalculoAjusteTotalizado;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempCalculoAjusteTotalizado']}")
+    private String sqlDeleteTempCalculoAjusteTotalizado;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoAjusteTotalizado']}")
+    private String sqlMergeCalculoAjusteTotalizado;
+
     @Override
     public int deleteTempMotivoDesplazamientoComis() {
         return this.jdbcTemplate.update(this.sqlDeleteTempMotivoDesplazamientoComis);
@@ -780,6 +789,23 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
         this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoTempCalculoPorComision, params);
+    }
+
+    @Override
+    public int createTempCalculoAjusteTotalizado() {
+        return this.jdbcTemplate.update(this.sqlCreateTempCalculoAjusteTotalizado);
+    }
+
+    @Override
+    public int deleteTempCalculoAjusteTotalizado() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoAjusteTotalizado);
+    }
+
+    @Override
+    public void mergeCalculoTempCalculoAjusteTotalizado(final TareaDto tarea) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoAjusteTotalizado, params);
     }
 
 }
