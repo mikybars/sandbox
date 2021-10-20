@@ -37,4 +37,6 @@ public interface TareaService {
 
     TareaDto findByIdLimpieza(@NotNull @Positive final Long idLimpieza);
 
+    TareaDto findByIdWithStates(@NotNull @Positive final Long id);
+
 }
