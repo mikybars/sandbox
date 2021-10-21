@@ -180,7 +180,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
         return this.namedParameterJdbcTemplate.query(this.sqlFindTareasConsolidadasSinAjusteComision, parameters,
                 (rs, rowNum) -> {
                     final IdTareaDTO dto = new IdTareaDTO();
-                    dto.setId(rs.getLong(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+                    dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
                     return dto;
                 });
     }

@@ -309,6 +309,28 @@ class TareaRepositoryCustomImplTest {
     }
 
     @Test
+    void totalTareasConsolidadasRowMapperTest() {
+
+        final Integer total = 234;
+        when(this.namedParameterJdbcTemplate.queryForObject(any(String.class), any(MapSqlParameterSource.class),
+                ArgumentMatchers.<RowMapper<Integer>>any())).thenAnswer((invocation) -> {
+
+                    final RowMapper<Integer> rowMapper = invocation.getArgument(2);
+                    final ResultSet rs = mock(ResultSet.class);
+
+                    when(rs.getInt(SqlPrimaryConstants.SQL_RESULT_TOTAL)).thenReturn(total);
+
+                    return rowMapper.mapRow(rs, 0);
+
+                });
+
+        final Integer result = this.tareaRepositoryCustom.totalLimpieza();
+
+        assertEquals(total, result);
+
+    }
+
+    @Test
     void findTareasConsolidadasSinAjusteComisionTest() {
 
         final Long idTarea = 22L;
@@ -348,7 +370,7 @@ class TareaRepositoryCustomImplTest {
                     final RowMapper<IdTareaDTO> rowMapper = invocation.getArgument(2);
                     final ResultSet rs = mock(ResultSet.class);
 
-                    when(rs.getLong(SqlPrimaryConstants.SQL_PARAM_ID_TAREA)).thenReturn(idTarea1, idTarea2);
+                    when(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA)).thenReturn(idTarea1, idTarea2);
 
                     return Arrays.asList(rowMapper.mapRow(rs, 0), rowMapper.mapRow(rs, 1));
 
