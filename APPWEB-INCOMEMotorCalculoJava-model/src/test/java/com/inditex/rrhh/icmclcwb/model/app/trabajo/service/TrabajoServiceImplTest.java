@@ -104,8 +104,7 @@ class TrabajoServiceImplTest {
         when(this.trabajoRepository.findByIdAndEstadoIdIn(idTarea, AppConstants.ESTADOS_RUN_TRABAJO_OK))
             .thenReturn(null);
 
-        // assertNull(this.trabajoServiceImpl.findByIdWithStates(1L));
-        this.trabajoServiceImpl.findByIdWithStates(1L);
+        assertNull(this.trabajoServiceImpl.findByIdWithStates(1L));
     }
 
     @Test
