@@ -324,7 +324,7 @@ class TareaRepositoryCustomImplTest {
 
                 });
 
-        final Integer result = this.tareaRepositoryCustom.totalLimpieza();
+        final Integer result = this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision();
 
         assertEquals(total, result);
 
