@@ -123,7 +123,9 @@ public enum TipoDatoEnum {
                                                                                                                                                     5019), PRESENCIA_LOCALIZACION_SECCION_INCLUIDOECOMMERCE(
                                                                                                                                                             5020), REPARTO_HORAS_SINDICALES_LOCALIZACION(
                                                                                                                                                                     5021), REPARTO_HORAS_SINDICALES_LOCALIZACION_SECCION(
-                                                                                                                                                                            5022),
+                                                                                                                                                                            5022), INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_CHALLENGE_IMPORTE(
+                                                                                                                                                                                    5023),
+
     /* 6000 (Localizacion) */
     LOCALIZACION_FESTIVO(6001),
     /* 7000 (Localizacion Procesado) *//* 8000 (Persona) */
