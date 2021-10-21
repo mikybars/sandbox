@@ -56,7 +56,7 @@ public class TareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoV1R
         map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO,
-                TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
+                TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_CHALLENGE_IMPORTE.getId());
 
         map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION,
                 algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
