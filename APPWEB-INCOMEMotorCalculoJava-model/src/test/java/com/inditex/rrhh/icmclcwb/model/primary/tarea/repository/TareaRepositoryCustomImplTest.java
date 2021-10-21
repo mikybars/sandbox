@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -331,6 +333,33 @@ class TareaRepositoryCustomImplTest {
         assertEquals(max, params.getValue("limit"));
 
         assertEquals(idTareas, result);
+
+    }
+
+    @Test
+    void findTareasConsolidadasSinAjusteComisionRowMapperTest() {
+
+        final long idTarea1 = 190L;
+        final long idTarea2 = 899L;
+
+        when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+                ArgumentMatchers.<RowMapper<IdTareaDTO>>any())).thenAnswer((invocation) -> {
+
+                    final RowMapper<IdTareaDTO> rowMapper = invocation.getArgument(2);
+                    final ResultSet rs = mock(ResultSet.class);
+
+                    when(rs.getLong(SqlPrimaryConstants.SQL_PARAM_ID_TAREA)).thenReturn(idTarea1, idTarea2);
+
+                    return Arrays.asList(rowMapper.mapRow(rs, 0), rowMapper.mapRow(rs, 1));
+
+                });
+
+        final List<IdTareaDTO> result = this.tareaRepositoryCustom
+            .findTareasConsolidadesSinAjusteComision(100);
+
+        assertEquals(2, result.size());
+        assertEquals(idTarea1, result.get(0).getId());
+        assertEquals(idTarea2, result.get(1).getId());
 
     }
 
