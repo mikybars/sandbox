@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
@@ -14,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
@@ -28,6 +28,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -107,12 +108,8 @@ class TareaServiceImplTest {
         final Tarea tarea = mock(Tarea.class);
         final TareaDto tareaDto = mock(TareaDto.class);
         final Long idTarea = 1L;
-        final Collection<Integer> estados = new ArrayList<>();
-        estados.add(1);
-        estados.add(2);
-        estados.add(6);
 
-        when(this.tareaRepository.findByIdAndEstadoIdIn(idTarea, estados)).thenReturn(tarea);
+        when(this.tareaRepository.findByIdAndEstadoIdIn(idTarea, AppConstants.ESTADOS_RUN_TAREA_OK)).thenReturn(tarea);
         when(this.tareaAmbitoService.findByTarea(tareaDto)).thenReturn(new ArrayList<>());
         when(this.tareaAmbitoLocalizacionService.findByTarea(tareaDto))
             .thenReturn(new ArrayList<>());
@@ -123,10 +120,18 @@ class TareaServiceImplTest {
         assertDoesNotThrow(() -> this.tareaServiceImpl.findByIdWithStates(idTarea));
 
         verify(this.tareaMapper, times(1)).tareaToTareaDto(tarea);
-        verify(this.tareaRepository, times(1)).findByIdAndEstadoIdIn(idTarea, estados);
+        verify(this.tareaRepository, times(1)).findByIdAndEstadoIdIn(idTarea, AppConstants.ESTADOS_RUN_TAREA_OK);
         verify(this.tareaAmbitoService, times(1)).findByTarea(tareaDto);
         verify(this.tareaAmbitoLocalizacionService, times(1)).findByTarea(tareaDto);
         verify(this.tareaAmbitoPersonaService, times(1)).findByTarea(tareaDto);
+    }
+
+    @Test
+    void findByIdWithStatesTest2() {
+        final Long idTarea = 1L;
+        when(this.tareaRepository.findByIdAndEstadoIdIn(idTarea, AppConstants.ESTADOS_RUN_TAREA_OK)).thenReturn(null);
+
+        assertNull(this.tareaServiceImpl.findByIdWithStates(idTarea));
     }
 
     @Test

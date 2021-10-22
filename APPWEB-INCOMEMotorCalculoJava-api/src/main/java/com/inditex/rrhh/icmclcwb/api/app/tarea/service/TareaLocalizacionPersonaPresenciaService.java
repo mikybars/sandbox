@@ -58,4 +58,6 @@ public interface TareaLocalizacionPersonaPresenciaService {
 
     void updateActivoPersonasExternas(@Valid @NotNull final RunTareaDto runTareaDto);
 
+    void indicadorDesplazamientoChallengeImporteTienda(@Valid @NotNull final RunTareaDto runTareaDto);
+
 }
