@@ -64,7 +64,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     @Value("#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.selectTarea']} #{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision']} #{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.limit']}")
     private String sqlFindTareasConsolidadasSinAjusteComision;
 
-    @Value("#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.selectTotal']} #{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision']} #{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.limit']}")
+    @Value("#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.selectTotal']} #{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision']}")
     private String sqlTotalTareasConsolidadasSinAjusteComision;
 
     // Fin de normalización de tareas consolidadas (para borrar)
@@ -174,9 +174,9 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
 
     @Override
     public List<IdTareaDTO> findTareasConsolidadesSinAjusteComision(
-            @NotNull final Integer maxTareas) {
+            @NotNull final Integer limit) {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_LIMIT, maxTareas);
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_LIMIT, limit);
         return this.namedParameterJdbcTemplate.query(this.sqlFindTareasConsolidadasSinAjusteComision, parameters,
                 (rs, rowNum) -> {
                     final IdTareaDTO dto = new IdTareaDTO();

@@ -26,7 +26,7 @@ public interface TareaRepositoryCustom {
 
     // Comienzo de normalización de tareas consolidadas (para borrar)
 
-    List<IdTareaDTO> findTareasConsolidadesSinAjusteComision(@NotNull final Integer maxTareas);
+    List<IdTareaDTO> findTareasConsolidadesSinAjusteComision(@NotNull final Integer limit);
 
     Integer totalTareasConsolidadesSinAjusteComision();
 

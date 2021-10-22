@@ -8378,13 +8378,13 @@ INSERT INTO SESSION.PRESUPUESTO (
         AND TAJC.CCL_ID_PERSON = PCP.CCL_ID_PERSON
         AND AJUSTE.STD_OR_HR_PERIOD = PCP.STD_OR_HR_PERIOD
       WHERE TAJC.ID_TAREA_CALCULO_AJUSTE_COMISION IS NULL
-      GROUP BY PCP.ID_TAREA_ACTUAL
+      GROUP BY PCP.ID_TAREA_ACTUAL)
     ]]>
   </entry>
 
   <entry key="TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.limit">
     <![CDATA[
-      ) WHERE ROW <= :limit
+      WHERE ROW <= :limit
     ]]>
   </entry>
 
