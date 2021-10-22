@@ -7,7 +7,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoLocalizacionService;
@@ -38,13 +39,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-public class TrabajoServiceImplTest {
+@ExtendWith(MockitoExtension.class)
+class TrabajoServiceImplTest {
 
     @Mock
     private SenderTrabajo senderTrabajo;
@@ -83,7 +85,30 @@ public class TrabajoServiceImplTest {
     private TrabajoServiceImpl trabajoServiceImpl;
 
     @Test
-    public void find() {
+    void findWithStatesTest() {
+        final Long idTarea = 1L;
+
+        when(this.trabajoRepository.findByIdAndEstadoIdIn(idTarea, AppConstants.ESTADOS_RUN_TRABAJO_OK))
+            .thenReturn(new Trabajo());
+        when(this.trabajoMapper.trabajoToTrabajoDto(any(Trabajo.class))).thenReturn(new TrabajoDTO());
+        this.trabajoServiceImpl.findByIdWithStates(idTarea);
+        verify(this.trabajoAmbitoOrigenService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
+        verify(this.trabajoAmbitoEmpresaService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
+        verify(this.trabajoAmbitoLocalizacionService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
+        verify(this.trabajoAmbitoPersonaService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
+    }
+
+    @Test
+    void findWithStatesTest2() {
+        final Long idTarea = 1L;
+        when(this.trabajoRepository.findByIdAndEstadoIdIn(idTarea, AppConstants.ESTADOS_RUN_TRABAJO_OK))
+            .thenReturn(null);
+
+        assertNull(this.trabajoServiceImpl.findByIdWithStates(1L));
+    }
+
+    @Test
+    void find() {
         when(this.trabajoRepository.findById(any(Long.class))).thenReturn(Optional.of(new Trabajo()));
         when(this.trabajoMapper.trabajoToTrabajoDto(any(Trabajo.class))).thenReturn(new TrabajoDTO());
         this.trabajoServiceImpl.find(1L);
@@ -94,7 +119,7 @@ public class TrabajoServiceImplTest {
     }
 
     @Test
-    public void create() {
+    void create() {
         final TrabajoDTO trabajo = new TrabajoDTO();
         trabajo.setNombreUsuario("test");
         trabajo.setIcmIdPeriodo(1L);
@@ -123,7 +148,7 @@ public class TrabajoServiceImplTest {
     }
 
     @Test
-    public void merge() {
+    void merge() {
         final ProgramacionAmbitoDTO ambito = new ProgramacionAmbitoDTO();
         final ProgramacionDTO programacion = new ProgramacionDTO();
         final PeriodoDTO periodo = new PeriodoDTO();

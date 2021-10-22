@@ -24,4 +24,6 @@ public interface TrabajoService {
 
     void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado);
 
+    TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id);
+
 }

@@ -19,9 +19,9 @@ metadata:
   openshiftproject: sscc-global-rhcompensa
   platform: Openshift-SSCC Arteixo
   slot: develop
-  developModel: CORPORATE
+  developModel: CORPORATE 
   layer: core
-  version: 3.4.7
+  version: 3.5.0
 amiga:
   monitoring:
     metrics:
@@ -1177,4 +1177,4 @@ app:
               campoOrden: idOrigen
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3              
+              maxPersistenceSize: 3

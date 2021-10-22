@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>3.4.7</version>
+    <version>3.5.0</version>
   </parent>
 
   <artifactId>jacoco-report-aggregate</artifactId>
@@ -43,11 +43,6 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>APPWEB-INCOMEMotorCalculoJava-ws</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>APPWEB-INCOMEMotorCalculoJava-ws-api</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
