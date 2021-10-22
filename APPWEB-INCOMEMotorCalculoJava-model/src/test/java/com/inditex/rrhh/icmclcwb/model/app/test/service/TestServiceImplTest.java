@@ -175,9 +175,9 @@ class TestServiceImplTest {
     // Comienzo de normalización de tareas consolidadas (para borrar)
 
     @Test
-    void testServiceNormalizarAjusteComisionTareasProcesadasLimitMenorQueTareasAProcesarTest() {
+    void testServiceNormalizarAjusteComisionTareasProcesadasLimitMayorQueTareasAProcesarTest() {
 
-        final int limit = 1;
+        final int limit = 10;
         final IdTareaDTO id1 = new IdTareaDTO();
         id1.setId(123L);
         final IdTareaDTO id2 = new IdTareaDTO();
@@ -191,7 +191,7 @@ class TestServiceImplTest {
         final AjusteComisionDTO result = this.testServiceImpl.normalizarAjusteComision(limit);
 
         assertNotNull(result);
-        assertEquals(limit, result.getTareasProcesadas());
+        assertEquals(2, result.getTareasProcesadas());
     }
 
     @Test
