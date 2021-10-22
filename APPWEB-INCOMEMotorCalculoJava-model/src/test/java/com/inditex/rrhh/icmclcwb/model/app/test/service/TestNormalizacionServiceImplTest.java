@@ -6,14 +6,12 @@ package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.normalizar.async.service.RunTareaNormalizarAjusteComisionAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.normalizar.service.RunTareaNormalizarAjusteComisionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,7 +32,7 @@ import static org.mockito.Mockito.when;
 class TestNormalizacionServiceImplTest {
 
     @Mock
-    private RunTareaNormalizarAjusteComisionAsyncService runTareaNormalizarAjusteComisionAsyncService;
+    private RunTareaNormalizarAjusteComisionService runTareaNormalizarAjusteComisionService;
 
     @Mock
     private TareaService tareaService;
@@ -58,19 +56,16 @@ class TestNormalizacionServiceImplTest {
             tarea.setId(idTarea);
             return tarea;
         });
-        when(this.runTareaNormalizarAjusteComisionAsyncService.normalizarAjusteComision(any(TareaDto.class)))
-            .thenReturn(
-                    CompletableFuture.completedFuture(AsyncConstants.NIL));
 
         this.testNormalizacionService.normalizarAjusteComision(tareas);
 
         final TareaDto tarea1 = new TareaDto();
         tarea1.setId(idTarea1);
-        verify(this.runTareaNormalizarAjusteComisionAsyncService, times(1)).normalizarAjusteComision(tarea1);
+        verify(this.runTareaNormalizarAjusteComisionService, times(1)).normalizarAjusteComision(tarea1);
 
         final TareaDto tarea2 = new TareaDto();
         tarea2.setId(idTarea2);
-        verify(this.runTareaNormalizarAjusteComisionAsyncService, times(1)).normalizarAjusteComision(tarea2);
+        verify(this.runTareaNormalizarAjusteComisionService, times(1)).normalizarAjusteComision(tarea2);
 
     }
 
