@@ -62,7 +62,7 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
     @Cacheable(value = "itx.icmlcwb.horario_comercial_festivos", key = "#request")
     public ResponseDto<HorarioComercialFestivoDocDto> horarioComercialFestivos(
             final HorarioComercialFestivosRequestDto request) {
-
+        //comentario
         final SlrhorcomsPropertiesDto properties = this.slrhorcomsProperties
             .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO);
         final String query = this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request);
