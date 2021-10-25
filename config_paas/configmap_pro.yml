@@ -14,9 +14,11 @@ amiga:
     rest:
       client:
         slrhorcoms:
-          base-url: https://sscc.central.inditex.grp
-          #base-url: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont.svc.cluster.local.:8080/slrhorcoms
-          username: srvcicmclcwbAX
+          #base-url: https://sscc.central.inditex.grp
+          #username: srvcicmclcwbAX
+          base-url: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont.svc.cluster.local.:8080/slrhorcoms
+          auth-method: BASIC
+          username: oauthincome
         ptr-venta:
           #base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
           base-url: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhvtimpwsd

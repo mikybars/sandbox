@@ -7,16 +7,16 @@ import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpMethod;
@@ -43,7 +43,6 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateResponseDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.exception.SlrhorcomsIcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercial.dto.RootHorarioComercialDto;
 import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
 import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
@@ -122,6 +121,10 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private PtrAsyncService ptrAsyncService;
+
+    @Autowired
+    @Qualifier("slrhorcomsProperties")
+    private Map<String, SlrhorcomsPropertiesDto> slrhorcomsProperties;
 
     @Override
     public RelojDTO reloj() {
@@ -495,36 +498,17 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void slrhorcomsTest() {
-        // Token datagrid -> OK -> Refrescar -> OK -> Guardar datagrid y Devolver
-        // Token datagrid -> OK -> Refrescar -> KO -> {/authenticate}
-        // Token datagrid -> KO -> /authenticate -> OK -> Devolver
-        // {/authenticate} -> OK -> Guardar datagrid y Devolver
-        // {&} -> /authenticate -> OK -> Excepción
-        final AuthenticateDto authenticateDto = this.slrhorcomsAuthenticateTest();
-        final ResponseEntity<RootHorarioComercialDto> responseHorarioComercial = this.slrhorcomsClient
-            .getForEntity("/slrhorcoms/openapi-rest/HorarioComercial/list?q=*&rows=100",
-                    RootHorarioComercialDto.class);
+
+        final String endpoint = this.slrhorcomsProperties
+            .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO).getEndpoint();
+
+        final ResponseEntity<HorarioComercialFestivoDocDto[]> responseHorarioComercial = this.slrhorcomsClient
+            .getForEntity(endpoint + "?q=*",
+                HorarioComercialFestivoDocDto[].class);
         this.log.info("responseHorarioComercial: {}",
                 responseHorarioComercial);
         this.log.info("responseHorarioComercial: {}",
                 responseHorarioComercial);
-    }
-
-    private AuthenticateDto slrhorcomsAuthenticateTest() {
-
-        this.log.info("Client base url {}", this.slrhorcomsClient.getBaseUrl());
-
-        final ResponseEntity<AuthenticateResponseDto> responseAuthenticate = this.slrhorcomsClient
-            .postForEntity("/authenticate", null, AuthenticateResponseDto.class);
-        this.log.info("responseAuthenticate: {}", responseAuthenticate);
-        if (responseAuthenticate.getStatusCode().value() != HttpStatus.SC_OK) {
-            throw new SlrhorcomsIcmclcwbException("Error en login slrhorcomsI");
-        }
-        return AuthenticateDto.builder()
-            .message(responseAuthenticate.getBody().getMessage())
-            .accessToken(responseAuthenticate.getHeaders().getFirst("access-token"))
-            .refreshToken(responseAuthenticate.getHeaders().getFirst("refresh-token"))
-            .build();
     }
 
 }

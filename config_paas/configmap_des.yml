@@ -8,15 +8,18 @@ amiga:
           factories:
             default:
               name: async-bounded-executor
-              max-threads: 10
+              max-threads: 100
               queued-task-cap: 100000
               keep-alive-time: 60000  
     rest:
       client:
         slrhorcoms:
-          base-url: https://sscc-pre.central.inditex.grp
-          #base-url: http://develop.slrhorcoms.svc.cluster.local.:8080/slrhorcoms
-          username: srvcicmclcwbpreAX
+          #base-url: https://sscc-pre.central.inditex.grp
+          #username: srvcicmclcwbpreAX
+          #http://develop.slrhorcoms.svc.cluster.local:8080/slrhorcoms-develop/HorarioComercialFestivos/list
+          base-url: http://develop.slrhorcoms.svc.cluster.local:8080/slrhorcoms-develop
+          auth-method: BASIC
+          username: oauthincomedes
         ptr-venta:
           base-url: http://develop.rhvtimpwsd.svc.cluster.local.:8080/rhvtimpwsd-develop
           username: srvcicmclcwbdes

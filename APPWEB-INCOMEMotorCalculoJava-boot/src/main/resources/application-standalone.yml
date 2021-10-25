@@ -60,10 +60,13 @@ amiga:
         #[HORARIOCOMERCIAL][DES][FIN]
         #[HORARIOCOMERCIAL][PRE][INICIO]
         slrhorcoms:
-          base-url: https://sscc-pre.central.inditex.grp
+          #base-url: https://sscc-pre.central.inditex.grp
+          base-url: http://apigw-sscc-des.axdesocp1.central.inditex.grp/slrhorcoms/openapi-rest/api
           auth-method: BASIC
-          username: srvcicmclcwbpreAX
-          password: xynEJHKK4bu)
+          #username: srvcicmclcwbpreAX
+          #password: xynEJHKK4bu)
+          username: oauthincomedes
+          password: thFHw*m7cDefUL
         #[HORARIOCOMERCIAL][PRE][FIN]
         #[PTR][DES][INICIO]
         ptr-venta:
@@ -734,17 +737,11 @@ app:
           max-empleados: 30
     slrhorcoms:
       config:
-        timeout: 86400000
-        refresh-timeout: 82800000
         max-attempts: 2
       service:
         slrhorcomsService:
-          authenticate:
-            endpoint: /authenticate
-          refresh:
-            endpoint: /authenticate/refresh
           festivos:
-            endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
+            endpoint: /HorarioComercialFestivos/list
             rows: 100
             maxFilterSize: 50
     ptr:
