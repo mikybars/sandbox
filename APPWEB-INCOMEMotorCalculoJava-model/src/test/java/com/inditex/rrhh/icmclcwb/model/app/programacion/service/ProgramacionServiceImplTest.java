@@ -1,6 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.programacion.service;
 
-import java.time.*;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -22,7 +28,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepositoryCustom;
 import org.apache.commons.lang3.time.DateUtils;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -126,11 +131,15 @@ public class ProgramacionServiceImplTest {
         final ProgramacionDTO result = this.programacionService.create(programacion);
         assertNotNull(result);
         assertNotNull(result.getFechaHoraCreacion());
-        assertEquals(DateUtils.truncate(TimeUtils.nowDate(), Calendar.SECOND),
-                DateUtils.truncate(
-                        Date.from(
-                                result.getFechaHoraCreacion().toLocalDateTime().atZone(TimeUtils.ofZone()).toInstant()),
-                        Calendar.SECOND));
+        // Como puede ocurrir que now y la fecha de creación varíe en un segundo, se comprueba que no pase
+        // de 2 segundos (2000 milisegundos)
+        final long ahoraMilisegundos = DateUtils.truncate(TimeUtils.nowDate(), Calendar.SECOND).getTime();
+
+        final long fechaCreacionMilisegundos = DateUtils
+            .truncate(Date.from(result.getFechaHoraCreacion().toLocalDateTime().atZone(TimeUtils.ofZone()).toInstant()),
+                    Calendar.SECOND)
+            .getTime();
+        assertTrue(ahoraMilisegundos - fechaCreacionMilisegundos < 2000L);
         assertEquals(programacion.getProgramacionHuso(), result.getProgramacionHuso());
         assertEquals(programacion.getNombreUsuario(), result.getNombreUsuario());
         assertEquals(programacion.getAmbito(), result.getAmbito());
@@ -192,8 +201,8 @@ public class ProgramacionServiceImplTest {
 
     }
 
-    private OffsetDateTime now(int i) {
-        Duration duration = Duration.ofSeconds(Long.valueOf(i));
+    private OffsetDateTime now(final int i) {
+        final Duration duration = Duration.ofSeconds(Long.valueOf(i));
         return OffsetDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0).plus(duration), ZoneOffset.UTC);
     }
 
@@ -204,7 +213,7 @@ public class ProgramacionServiceImplTest {
         // mañana
         final ProgramacionDTO programacion = mock(ProgramacionDTO.class);
         when(programacion.getProgramacionHuso()).thenReturn(TimeUtils.ofZoneId());
-        when(programacion.getHoraProgramacion()).thenReturn(now(0));
+        when(programacion.getHoraProgramacion()).thenReturn(this.now(0));
 
         final LocalDateTime result = this.programacionService.fechaSiguienteEjecucion(programacion);
 
