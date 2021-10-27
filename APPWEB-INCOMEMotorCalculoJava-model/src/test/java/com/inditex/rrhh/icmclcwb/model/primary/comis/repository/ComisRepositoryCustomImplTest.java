@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -402,18 +403,23 @@ public class ComisRepositoryCustomImplTest {
         tarea.setIdOrganization("1");
         tarea.setFechaInicioPeriodo(LocalDate.now());
         tarea.setFechaFinPeriodo(LocalDate.now());
-        this.comisRepositoryCustom.findBajasIt(tarea);
+        final PeriodoDto periodo = new PeriodoDto();
+        periodo.setFechaInicioPeriodo(LocalDate.now());
+
+        this.comisRepositoryCustom.findBajasIt(tarea, periodo);
         verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
                 ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
         assertEquals(SQL_FIND_BAJAS_IT,
                 this.sqlCaptor.getValue());
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        // Parámetros de la consulta: fecha desde, fecha hasta
-        assertEquals(2, params.getValues().size());
+        // Parámetros de la consulta: fecha desde, fecha hasta, fecha desde ampliado
+        assertEquals(3, params.getValues().size());
         // fecha desde
         assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
         // fecha hasta
         assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+        // fecha desde ampliado
+        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
     }
 
     @Test
