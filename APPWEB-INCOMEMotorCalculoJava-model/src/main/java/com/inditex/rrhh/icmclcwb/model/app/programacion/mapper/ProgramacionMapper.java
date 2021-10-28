@@ -26,11 +26,11 @@ public abstract class ProgramacionMapper {
     public abstract List<Programacion> programacionDtoToProgramacion(List<ProgramacionDTO> src);
 
     OffsetDateTime map(final LocalDateTime value) {
-        return value.atOffset(ZoneOffset.UTC);
+        return value != null ? value.atOffset(ZoneOffset.UTC) : null;
     }
 
     LocalDateTime map(final OffsetDateTime value) {
-        return value.toLocalDateTime();
+        return value != null ? value.toLocalDateTime() : null;
     }
 
     OffsetDateTime mapLocalTime(final LocalTime value) {
