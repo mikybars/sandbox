@@ -178,6 +178,7 @@
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)                
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -685,6 +686,7 @@ UNION
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)        
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -938,6 +940,7 @@ UNION
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)                
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -1221,6 +1224,7 @@ UNION
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)        
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -1984,6 +1988,7 @@ UNION
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)                
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -2220,6 +2225,7 @@ WITH FECHAS_ESTRUCTURA AS (
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)                
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
