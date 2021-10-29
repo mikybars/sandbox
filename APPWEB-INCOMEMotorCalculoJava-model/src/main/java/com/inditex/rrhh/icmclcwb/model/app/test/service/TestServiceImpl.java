@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.Hora
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
@@ -40,9 +41,6 @@ import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateResponseDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.exception.SlrhorcomsIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
 import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
@@ -369,7 +367,7 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testEmpresa(final String sociedad, final String origen, final String empresa,
-            final TrabajoDTO trabajo) {
+                             final TrabajoDTO trabajo) {
         this.testOrigen(sociedad, origen, trabajo);
         final TrabajoAmbitoEmpresaDTO trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDTO();
         trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
@@ -377,8 +375,8 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testLocalizacion(final String sociedad, final String origen, final String empresa,
-            final String localizacion,
-            final TrabajoDTO trabajo) {
+                                  final String localizacion,
+                                  final TrabajoDTO trabajo) {
         this.testEmpresa(sociedad, origen, empresa, trabajo);
         final TrabajoAmbitoLocalizacionDTO trabajoAmbitoLocalizacion = new TrabajoAmbitoLocalizacionDTO();
         trabajoAmbitoLocalizacion.setStdIdWorkLocat(localizacion);
@@ -388,7 +386,7 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testPersona(final String sociedad, final String origen, final String empresa, final String persona,
-            final String orPersona, final TrabajoDTO trabajo) {
+                             final String orPersona, final TrabajoDTO trabajo) {
         this.testEmpresa(sociedad, origen, empresa, trabajo);
         final TrabajoAmbitoPersonaDTO trabajoAmbitoPersona = new TrabajoAmbitoPersonaDTO();
         trabajoAmbitoPersona.setCclIdPerson(persona);
@@ -405,7 +403,7 @@ public class TestServiceImpl implements TestService {
         message.setTo("income-java@vectoritcgroup.com");
         message.setSubject("Lorem ipsum");
         message.setText(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
         this.mailSender.send(message);
     }
 
@@ -496,19 +494,27 @@ public class TestServiceImpl implements TestService {
         }
     }
 
+    @Value("${amiga.common.oauth2-client.default-client-config.uri-token:sinvaloroauthproperty}")
+    String oauthProperty;
+
     @Override
     public void slrhorcomsTest() {
 
+        this.log.info("URI-STRING: {}", oauthProperty);
+
         final String endpoint = this.slrhorcomsProperties
-            .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO).getEndpoint();
+            .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO)
+            .getEndpoint();
+
+        this.log.info("ENDPOINT: {}", endpoint);
 
         final ResponseEntity<HorarioComercialFestivoDocDto[]> responseHorarioComercial = this.slrhorcomsClient
             .getForEntity(endpoint + "?q=*",
                 HorarioComercialFestivoDocDto[].class);
         this.log.info("responseHorarioComercial: {}",
-                responseHorarioComercial);
+            responseHorarioComercial);
         this.log.info("responseHorarioComercial: {}",
-                responseHorarioComercial);
+            responseHorarioComercial);
     }
 
 }

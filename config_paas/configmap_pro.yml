@@ -1,24 +1,13 @@
 amiga:
   common:
-    reactor:
-      scheduler:
-        default:
-          enabled: true
-        bounded:
-          factories:
-            default:
-              name: async-bounded-executor
-              max-threads: 20
-              queued-task-cap: 100000
-              keep-alive-time: 60000  
+    oauth2-client:
+      clients:
+        client-income:
+          client-id: oauthincome
     rest:
       client:
         slrhorcoms:
-          #base-url: https://sscc.central.inditex.grp
-          #username: srvcicmclcwbAX
           base-url: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont.svc.cluster.local.:8080/slrhorcoms
-          auth-method: BASIC
-          username: oauthincome
         ptr-venta:
           #base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
           base-url: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhvtimpwsd
@@ -46,15 +35,15 @@ amiga:
           jdbc-url: jdbc:oracle:thin:@//axine6-scansrv.central.inditex.grp:11521/s_pdbin01rt_gener.central.inditex.grp
           username: uincome
           defaultIsolationLevel: 2
-#        ptr:
-#          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
-#          xa-properties:
-#            serverName:
-#            serviceName:
-#            portNumber:
-#            user: uincome
-#            password:
-#            driverType: thin
+        #        ptr:
+        #          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
+        #          xa-properties:
+        #            serverName:
+        #            serviceName:
+        #            portNumber:
+        #            user: uincome
+        #            password:
+        #            driverType: thin
         comis1:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://FRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
@@ -102,23 +91,23 @@ amiga:
         comis11-20:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
-          username: ncomis  
+          username: ncomis
         comis11-233:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
-          username: ncomis      
+          username: ncomis
         comis11-28:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
-          username: ncomis      
+          username: ncomis
         comis11-33:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
-          username: ncomis       
+          username: ncomis
         comis11-101:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://SASQL1R1\\I1:11433;databaseName=Personal
-          username: ncomis     
+          username: ncomis
         comis11-11:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://NASQL:11433;databaseName=Personal
@@ -130,13 +119,13 @@ amiga:
           username: ncomis
         comis11-30:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          # Se mockea temporalmente hasta que se verifique la conexión          
+          # Se mockea temporalmente hasta que se verifique la conexión
           jdbc-url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
-          username: ncomis      
+          username: ncomis
         comis11-25:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
-          username: ncomis                                                                                                  
+          username: ncomis
         comis18:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://BESQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalLuxemburgo

@@ -27,7 +27,8 @@ amiga:
         auth:
           method: BASIC
         slrhorcoms:
-          auth-method: BASIC
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
         ptr-venta:
           auth-method: BASIC
         ptr-presencia:
@@ -38,25 +39,25 @@ amiga:
           wait-duration-in-open-state: PT60S
           failure-rate-threshold: 50
           permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100 
+          sliding-window-size: 100
           sliding-window-type: COUNT_BASED
         tarea:
           wait-duration-in-open-state: PT60S
           failure-rate-threshold: 50
           permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100 
+          sliding-window-size: 100
           sliding-window-type: COUNT_BASED
         limpieza:
           wait-duration-in-open-state: PT60S
           failure-rate-threshold: 50
           permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100 
+          sliding-window-size: 100
           sliding-window-type: COUNT_BASED
         programacion:
           wait-duration-in-open-state: PT60S
           failure-rate-threshold: 50
           permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100 
+          sliding-window-size: 100
           sliding-window-type: COUNT_BASED
   service:
     jms:
@@ -148,7 +149,7 @@ app:
     calculo:
       cast: true
       precision: 'DECIMAL(23,8)'
-    proceso: 
+    proceso:
       cast: true
       precision: 'DECIMAL(23,8)'
     tarea:
@@ -213,21 +214,6 @@ app:
         sincronizacion:
           activo: true
           max-empleados: 30
-    slrhorcoms:
-      config:
-        timeout: 86400000
-        refresh-timeout: 82800000
-        max-attempts: 2
-      service:
-        slrhorcomsService:
-          authenticate:
-            endpoint: /authenticate
-          refresh:
-            endpoint: /authenticate/refresh
-          festivos:
-            endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
-            rows: 100
-            maxFilterSize: 50
     ptr:
       config:
         max-attempts: 2
@@ -299,7 +285,7 @@ app:
               endpoint: /ventaEcommerce/test
             getVersion:
               endpoint: /ventaEcommerce/getVersion
-          ventaEmpleado: 
+          ventaEmpleado:
             getVentaIndividualDetalle:
               endpoint: /ventaEmpleado/getVentaIndividualDetalle
               filter:
@@ -496,7 +482,7 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 25
-              maxPersistenceSize: 3              
+              maxPersistenceSize: 3
           getEmpleados:
             page:
               numeroPagina: 1
@@ -595,7 +581,7 @@ app:
               campoOrden: idOrigen
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3                                                       
+              maxPersistenceSize: 3
           getPresupuestosRango:
             page:
               numeroPagina: 1
@@ -632,7 +618,7 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-          getPresenciaManualWloc: 
+          getPresenciaManualWloc:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
@@ -641,7 +627,7 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-          getVentaManualWloc: 
+          getVentaManualWloc:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
@@ -668,4 +654,3 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-

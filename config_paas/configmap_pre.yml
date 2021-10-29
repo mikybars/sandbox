@@ -1,24 +1,13 @@
 amiga:
   common:
-    reactor:
-      scheduler:
-        default:
-          enabled: true
-        bounded:
-          factories:
-            default:
-              thread-prefix: async-bounded-executor
-              max-threads: 20
-              queued-task-cap: 100000
-              keep-alive-time: 60000
+    oauth2-client:
+      clients:
+        client-income:
+          client-id: oauthincomepre
     rest:
       client:
         slrhorcoms:
-          #base-url: https://sscc-pre.central.inditex.grp
-          #username: srvcicmclcwbpreAX
           base-url: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont-pre.svc.cluster.local.:8080/slrhorcoms
-          auth-method: BASIC
-          username: oauthincomepre
         ptr-venta:
           #base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
           base-url: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos-pre.svc.cluster.local.:8080/rhvtimpwsd
@@ -45,15 +34,15 @@ amiga:
           jdbc-url: jdbc:oracle:thin:@//axine5-scansrv.central.inditex.grp:11521/s_pdbpr01rt_gener.central.inditex.grp
           username: uincome
           defaultIsolationLevel: 2
-#        ptr:
-#          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
-#          xa-properties:
-#            serverName: axine5-scansrv.central.inditex.grp
-#            serviceName: s_pdbpr01rt_gener.central.inditex.grp
-#            portNumber: 11521
-#            user: uincome
-#            password: pzuUKBm1ppMGzzOn
-#            driverType: thin
+        #        ptr:
+        #          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
+        #          xa-properties:
+        #            serverName: axine5-scansrv.central.inditex.grp
+        #            serviceName: s_pdbpr01rt_gener.central.inditex.grp
+        #            portNumber: 11521
+        #            user: uincome
+        #            password: pzuUKBm1ppMGzzOn
+        #            driverType: thin
         comis1:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalFrancia
@@ -111,23 +100,23 @@ amiga:
         comis11-20:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
-          username: ncomis  
+          username: ncomis
         comis11-233:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
-          username: ncomis      
+          username: ncomis
         comis11-28:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
-          username: ncomis      
+          username: ncomis
         comis11-33:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
-          username: ncomis       
+          username: ncomis
         comis11-101:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
-          username: ncomis     
+          username: ncomis
         comis11-11:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalPull
@@ -139,11 +128,11 @@ amiga:
         comis11-30:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalDutti
-          username: ncomis      
+          username: ncomis
         comis11-25:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalBsk
-          username: ncomis                      
+          username: ncomis
         comis18:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalLuxemburgo
@@ -253,7 +242,7 @@ amiga:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
           username: ncomis
-          readOnly: true               
+          readOnly: true
         comis388:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
