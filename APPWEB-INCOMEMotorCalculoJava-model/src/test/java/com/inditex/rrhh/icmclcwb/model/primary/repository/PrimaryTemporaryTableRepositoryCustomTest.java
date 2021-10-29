@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -40,7 +41,7 @@ import static org.mockito.Mockito.when;
  * @author javierev
  */
 @ExtendWith(SpringExtension.class)
-public class PrimaryTemporaryTableRepositoryCustomTest {
+class PrimaryTemporaryTableRepositoryCustomTest {
 
     private final static String ID_TAREA_PARAM = "idTarea";
 
@@ -122,6 +123,24 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
 
     private final static String SQL_MERGE_DATE_RANGES_TEMP_COMIS_PRIMAS = "SQL MERGE DATE RANGES TEMP COMIS PRIMAS";
 
+    // totalizacion tarea calculo
+
+    private final static String SQL_CREATE_TEMP_CALCULO_POR_COMISION = "SQL CREATE TEMP CALCULO POR COMISION";
+
+    private final static String SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION = "SQL MERGE TEMP CALCULO POR COMISION";
+
+    private final static String SQL_MERGE_CALCULO_TEMP_CALCULO_SIN_COMISION = "SQL MERGE TEMP CALCULO SIN COMISION";
+
+    private final static String SQL_DELETE_TEMP_CALCULO_POR_COMISION = "SQL DELETE TEMP CALCULO POR COMISION";
+
+    // totalizacion tarea calculo ajuste
+
+    private final static String SQL_CREATE_TEMP_CALCULO_AJUSTE_TOTALIZADO = "SQL CREATE TEMP CALCULO AJUSTE TOTALIZADO";
+
+    private final static String SQL_MERGE_CALCULO_TEMP_CALCULO_AJUSTE_TOTALIZADO = "SQL MERGE TEMP CALCULO AJUSTE TOTALIZADO";
+
+    private final static String SQL_DELETE_TEMP_CALCULO_AJUSTE_TOTALIZADO = "SQL DELETE TEMP CALCULO AJUSTE TOTALIZADO";
+
 
     @BeforeEach
     public void setup() throws IllegalAccessException {
@@ -191,18 +210,38 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
                 "sqlMergeDateRangesSeccionNotEqualsTempComisPrimas",
                 SQL_MERGE_DATE_RANGES_SECCION_NOT_EQUALS_TEMP_COMIS_PRIMAS, true);
+
+        // totalizacion calculo por comision
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlCreateTempCalculoPorComision", SQL_CREATE_TEMP_CALCULO_POR_COMISION, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlMergeCalculoTempCalculoPorComision", SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlMergeCalculoTempCalculoSinComision", SQL_MERGE_CALCULO_TEMP_CALCULO_SIN_COMISION, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlDeleteTempCalculoPorComision", SQL_DELETE_TEMP_CALCULO_POR_COMISION, true);
+
+        // totalizacion calculo ajuste
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlCreateTempCalculoAjusteTotalizado", SQL_CREATE_TEMP_CALCULO_AJUSTE_TOTALIZADO, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlMergeCalculoAjusteTotalizado", SQL_MERGE_CALCULO_TEMP_CALCULO_AJUSTE_TOTALIZADO, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlDeleteTempCalculoAjusteTotalizado", SQL_DELETE_TEMP_CALCULO_AJUSTE_TOTALIZADO, true);
+
+
     }
 
     // Inicio tests baja it
 
     @Test
-    public void createTempComisBajaItTest() {
+    void createTempComisBajaItTest() {
         this.primaryTemporaryTableRepositoryCustom.createTempComisBajaIt();
         verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_COMIS_BAJA_IT);
     }
 
     @Test
-    public void insertTempComisBajaItTest() {
+    void insertTempComisBajaItTest() {
 
         final List<IdPersonaLocalCondicionesDto> condiciones = new ArrayList<>();
         final IdPersonaLocalCondicionesDto persona = mock(IdPersonaLocalCondicionesDto.class);
@@ -215,7 +254,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void validateTempComisBajaItTest() {
+    void validateTempComisBajaItTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
         final long idTarea = 1234L;
@@ -233,7 +272,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void deleteTempComisBajaItTest() {
+    void deleteTempComisBajaItTest() {
         this.primaryTemporaryTableRepositoryCustom.deleteTempComisBajaIt();
         verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_BAJA_IT);
     }
@@ -243,13 +282,13 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     // Inicio tests carencias
 
     @Test
-    public void createTempComisCarenciaTest() {
+    void createTempComisCarenciaTest() {
         this.primaryTemporaryTableRepositoryCustom.createTempComisCarencia();
         verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_COMIS_CARENCIA);
     }
 
     @Test
-    public void insertTempComisCarenciaTest() {
+    void insertTempComisCarenciaTest() {
 
         final List<IdPersonaLocalCarenciaDto> condiciones = new ArrayList<>();
         final IdPersonaLocalCarenciaDto persona = mock(IdPersonaLocalCarenciaDto.class);
@@ -262,7 +301,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void validateTempComisCarenciaTest() {
+    void validateTempComisCarenciaTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
         final long idTarea = 1234L;
@@ -280,7 +319,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void deleteTempComisCarenciaTest() {
+    void deleteTempComisCarenciaTest() {
         this.primaryTemporaryTableRepositoryCustom.deleteTempComisCarencia();
         verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_CARENCIA);
     }
@@ -290,13 +329,13 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     // Inicio tests desplazamientos
 
     @Test
-    public void createTempComisDesplazamientoTest() {
+    void createTempComisDesplazamientoTest() {
         this.primaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento();
         verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_COMIS_DESPLAZAMIENTOS);
     }
 
     @Test
-    public void insertTempComisDesplazamientoTest() {
+    void insertTempComisDesplazamientoTest() {
 
         final List<IdPersonaLocalCondicionesDto> condiciones = new ArrayList<>();
         final IdPersonaLocalCondicionesDto persona = mock(IdPersonaLocalCondicionesDto.class);
@@ -309,7 +348,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void validateTempComisDesplazamientoTest() {
+    void validateTempComisDesplazamientoTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
         final LocalDate fechaInicio = LocalDate.of(2020, 01, 01);
@@ -329,7 +368,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void deleteTempComisDesplazamientoTest() {
+    void deleteTempComisDesplazamientoTest() {
         this.primaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento();
         verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_DESPLAZAMIENTOS);
     }
@@ -339,13 +378,13 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     // Inicio tests historico
 
     @Test
-    public void createTempComisHistoricoTest() {
+    void createTempComisHistoricoTest() {
         this.primaryTemporaryTableRepositoryCustom.createTempComisHistorico();
         verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_COMIS_HISTORICO);
     }
 
     @Test
-    public void insertTempComisHistoricoTest() {
+    void insertTempComisHistoricoTest() {
 
         final List<IdPersonaLocalCondicionesDto> condiciones = new ArrayList<>();
         final IdPersonaLocalCondicionesDto persona = mock(IdPersonaLocalCondicionesDto.class);
@@ -358,7 +397,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void validateTempComisHistoricoTest() {
+    void validateTempComisHistoricoTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
         final long idTarea = 1234L;
@@ -377,7 +416,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void deleteTempComisHistoricoTest() {
+    void deleteTempComisHistoricoTest() {
         this.primaryTemporaryTableRepositoryCustom.deleteTempComisHistorico();
         verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_HISTORICO);
     }
@@ -387,13 +426,13 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     // Inicio tests resalta
 
     @Test
-    public void createTempComisResaltaTest() {
+    void createTempComisResaltaTest() {
         this.primaryTemporaryTableRepositoryCustom.createTempComisResalta();
         verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_COMIS_RESALTA);
     }
 
     @Test
-    public void insertTempComisResaltaTest() {
+    void insertTempComisResaltaTest() {
 
         final List<IdPersonaLocalCondicionesDto> condiciones = new ArrayList<>();
         final IdPersonaLocalCondicionesDto persona = mock(IdPersonaLocalCondicionesDto.class);
@@ -406,7 +445,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void validateTempComisResaltaTest() {
+    void validateTempComisResaltaTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
         final long idTarea = 1234L;
@@ -425,7 +464,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void deleteTempComisResaltaTest() {
+    void deleteTempComisResaltaTest() {
         this.primaryTemporaryTableRepositoryCustom.deleteTempComisResalta();
         verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_RESALTA);
     }
@@ -435,13 +474,13 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     // Inicio tests prima
 
     @Test
-    public void createTempComisPrimasTest() {
+    void createTempComisPrimasTest() {
         this.primaryTemporaryTableRepositoryCustom.createTempComisPrimas();
         verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_COMIS_PRIMAS);
     }
 
     @Test
-    public void insertTempComisPrimasTest() {
+    void insertTempComisPrimasTest() {
 
         final List<IdPersonaLocalCondicionesDto> condiciones = new ArrayList<>();
         final IdPersonaLocalCondicionesDto persona = mock(IdPersonaLocalCondicionesDto.class);
@@ -454,13 +493,13 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void deleteTempComisPrimasTest() {
+    void deleteTempComisPrimasTest() {
         this.primaryTemporaryTableRepositoryCustom.deleteTempComisPrimas();
         verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_PRIMAS);
     }
 
     @Test
-    public void mergeDateRangesSeccionNotEqualsTempComisPrimasTest() {
+    void mergeDateRangesSeccionNotEqualsTempComisPrimasTest() {
         final TareaDto tarea = new TareaDto();
         final long idTarea = 1919L;
         tarea.setId(idTarea);
@@ -481,7 +520,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void mergeDateRangesTempComisPrimasTest() {
+    void mergeDateRangesTempComisPrimasTest() {
         final TareaDto tarea = new TareaDto();
         final long idTarea = 1919L;
         tarea.setId(idTarea);
@@ -502,7 +541,7 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    public void validateTempComisPrimasTest() {
+    void validateTempComisPrimasTest() {
 
         final TareaDto tarea = mock(TareaDto.class);
         final long idTarea = 1234L;
@@ -521,5 +560,97 @@ public class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     // Fin tests prima
+
+    // Tests totalizacion tarea calculo
+
+    @Test
+    void createTempCalculoPorComisionTest() {
+        final int result = 10;
+        when(this.jdbcTemplate.update(any(String.class))).thenReturn(result);
+        assertEquals(result, this.primaryTemporaryTableRepositoryCustom.createTempCalculoPorComision());
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALCULO_POR_COMISION);
+    }
+
+    @Test
+    void mergeCalculoTempCalculoPorComisionTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(1, params.getValues().size());
+        assertTrue(params.hasValue(ID_TAREA_PARAM));
+        assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
+
+    }
+
+    @Test
+    void mergeCalculoTempCalculoSinComisionTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoSinComision(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_SIN_COMISION),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(1, params.getValues().size());
+        assertTrue(params.hasValue(ID_TAREA_PARAM));
+        assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
+
+    }
+
+    @Test
+    void deleteTempCalculoPorComisionTest() {
+        final int result = 90;
+        when(this.jdbcTemplate.update(any(String.class))).thenReturn(result);
+        assertEquals(result, this.primaryTemporaryTableRepositoryCustom.deleteTempCalculoPorComision());
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_POR_COMISION);
+    }
+
+
+    // Fin tests totalizacion tarea calculo
+
+    // Tests totalizacion tarea calculo ajuste
+
+    @Test
+    void createTempCalculoAjusteTotalizadoTest() {
+        final int result = 10;
+        when(this.jdbcTemplate.update(any(String.class))).thenReturn(result);
+        assertEquals(result, this.primaryTemporaryTableRepositoryCustom.createTempCalculoAjusteTotalizado());
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALCULO_AJUSTE_TOTALIZADO);
+    }
+
+    @Test
+    void deleteTempCalculoAjusteTotalizadoTest() {
+        final int result = 90;
+        when(this.jdbcTemplate.update(any(String.class))).thenReturn(result);
+        assertEquals(result, this.primaryTemporaryTableRepositoryCustom.deleteTempCalculoAjusteTotalizado());
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_AJUSTE_TOTALIZADO);
+    }
+
+    @Test
+    void mergeCalculoTempCalculoAjusteTotalizadoTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoAjusteTotalizado(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_AJUSTE_TOTALIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(1, params.getValues().size());
+        assertTrue(params.hasValue(ID_TAREA_PARAM));
+        assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
+
+    }
+
+    // Fin tests totalizacion tarea calculo ajuste
 
 }

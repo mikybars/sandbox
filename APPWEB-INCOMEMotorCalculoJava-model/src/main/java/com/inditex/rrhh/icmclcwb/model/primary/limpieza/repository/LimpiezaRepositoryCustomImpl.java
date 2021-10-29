@@ -85,6 +85,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.personas.tareaPersonaExterna']}")
     private String sqlPersonasTareaPersonaExterna;
 
+    @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.personas.tareaCalculoAjusteComision']}")
+    private String sqlPersonasTareaCalculoAjusteComision;
+
     // Consultas de limpieza
     @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaCalculo']}")
     private String sqlLimpiezaTareaCalculo;
@@ -197,6 +200,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaPersonaExterna']}")
     private String sqlLimpiezaTareaPersonaExterna;
 
+    @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaCalculoAjusteComision']}")
+    private String sqlLimpiezaTareaCalculoAjusteComision;
+
     @Value("${app.envars.limpieza.batch-size.default:1}")
     private int batchSize;
 
@@ -215,6 +221,8 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
             this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaCalculo,
                     iter.toArray(new MapSqlParameterSource[0]));
         }
+
+        this.limpiezaTareaCalculoAjusteComision(tarea);
 
         final List<MapSqlParameterSource> parametersPersonaTareaCalculoAjuste = this
             .getParametersPersonaLocalStdOrPeriod(tarea,
@@ -368,6 +376,17 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaAgrupacionConfiguracionChallengeTipoVenta,
                 idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
 
+    }
+
+    protected void limpiezaTareaCalculoAjusteComision(@NotNull @Valid final TareaDto tarea) {
+        final List<MapSqlParameterSource> parametersPersonaTareaCalculoAjusteComision = this
+            .getParametersPersonaLocalStdOrPeriod(tarea,
+                    this.sqlPersonasTareaCalculoAjusteComision);
+        for (final List<MapSqlParameterSource> iter : StreamUtils.partition(parametersPersonaTareaCalculoAjusteComision,
+                this.batchSize)) {
+            this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaCalculoAjusteComision,
+                    iter.toArray(new MapSqlParameterSource[0]));
+        }
     }
 
 

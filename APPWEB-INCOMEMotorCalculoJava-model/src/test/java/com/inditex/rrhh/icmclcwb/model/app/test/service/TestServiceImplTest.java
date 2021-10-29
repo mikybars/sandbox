@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.security.core.Authentication;
@@ -13,7 +15,11 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionServic
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.service.RunProgramacionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionService;
+import com.inditex.rrhh.icmclcwb.api.app.test.service.TestNormalizacionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.dto.AjusteComisionDTO;
+import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
@@ -22,8 +28,10 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalt
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -31,15 +39,17 @@ import org.slf4j.Logger;
 
 import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class TestServiceImplTest {
+class TestServiceImplTest {
 
     @Mock
     private Logger log;
@@ -68,17 +78,27 @@ public class TestServiceImplTest {
     @Mock
     private HttpURLConnection connection;
 
+    // Comienzo de normalización de tareas consolidadas (para borrar)
+
+    @Mock
+    private TareaRepositoryCustom tareaRepositoryCustom;
+
+    @Mock
+    private TestNormalizacionAsyncService testNormalizacionAsyncService;
+
+    // Fin de normalización de tareas consolidadas (para borrar)
+
     @InjectMocks
     private TestServiceImpl testServiceImpl;
 
     @Test
-    public void reloj() {
+    void reloj() {
         this.testServiceImpl.reloj();
         assertNotNull(this.testServiceImpl.reloj());
     }
 
     @Test
-    public void sso() {
+    void sso() {
         final UserSSO applicationUser = Mockito.mock(UserSSO.class);
         final Authentication authentication = Mockito.mock(Authentication.class);
         final SecurityContext securityContext = Mockito.mock(SecurityContext.class);
@@ -91,13 +111,13 @@ public class TestServiceImplTest {
     }
 
     @Test
-    public void errorSync() {
+    void errorSync() {
         this.testServiceImpl.errorSync();
         verify(this.testExceptionService, timeout(1000).times(1)).icmclcwbException();
     }
 
     @Test
-    public void errorAsync() {
+    void errorAsync() {
         final CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
             return null;
         });
@@ -108,7 +128,7 @@ public class TestServiceImplTest {
     }
 
     @Test
-    public void sesion() {
+    void sesion() {
         final GetempleadosOutput outputEmpleados = new GetempleadosOutput();
         final SearchtiendasOutput outputTiendas = new SearchtiendasOutput();
         outputEmpleados.setReturn(0.0);
@@ -126,7 +146,7 @@ public class TestServiceImplTest {
 
     @Test
     // TODO [COMUN] Rehacer este test
-    public void programacionBatch() {
+    void programacionBatch() {
         this.testServiceImpl.programacionBatch();
         verify(this.programacionService, timeout(1000).times(1)).activa();
         verify(this.programacionService, timeout(1000).times(100)).reset();
@@ -135,21 +155,101 @@ public class TestServiceImplTest {
 
     @Test
     // TODO: Revisar esto
-    public void testUrl() throws IOException {
+    void testUrl() throws IOException {
         assertFalse(this.testServiceImpl.testUrl("testUrl"));
         // assertTrue(this.testServiceImpl.testUrl("http://www.test.com"));
     }
 
     @Test
-    public void testBloqueos() {
+    void testBloqueos() {
         this.testServiceImpl.testBloqueos(2L);
         verify(this.trabajoService, timeout(1000).times(2)).create(any(TrabajoDTO.class));
     }
 
     @Test
-    public void sqlFormatter() {
+    void sqlFormatter() {
         this.testServiceImpl.sqlFormatter("test");
         assertNotNull(this.testServiceImpl.sqlFormatter("test"));
     }
+
+    // Comienzo de normalización de tareas consolidadas (para borrar)
+
+    @Test
+    void testServiceNormalizarAjusteComisionTareasProcesadasLimitMayorQueTareasAProcesarTest() {
+
+        final int limit = 10;
+        final IdTareaDTO id1 = new IdTareaDTO();
+        id1.setId(123L);
+        final IdTareaDTO id2 = new IdTareaDTO();
+        id2.setId(124L);
+        when(this.tareaRepositoryCustom.findTareasConsolidadesSinAjusteComision(any(Integer.class)))
+            .thenReturn(Arrays.asList(id1, id2));
+        when(this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision()).thenReturn(100);
+        when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.<List<IdTareaDTO>>any()))
+            .thenReturn(CompletableFuture.completedFuture(AsyncConstants.NIL));
+
+        final AjusteComisionDTO result = this.testServiceImpl.normalizarAjusteComision(limit);
+
+        assertNotNull(result);
+        assertEquals(2, result.getTareasProcesadas());
+    }
+
+    @Test
+    void testServiceNormalizarAjusteIdTareasTest() {
+
+        final IdTareaDTO id1 = new IdTareaDTO();
+        id1.setId(123L);
+        final IdTareaDTO id2 = new IdTareaDTO();
+        id2.setId(124L);
+        when(this.tareaRepositoryCustom.findTareasConsolidadesSinAjusteComision(any(Integer.class)))
+            .thenReturn(Arrays.asList(id1, id2));
+        when(this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision()).thenReturn(100);
+        when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.<List<IdTareaDTO>>any()))
+            .thenReturn(CompletableFuture.completedFuture(AsyncConstants.NIL));
+
+        final AjusteComisionDTO result = this.testServiceImpl.normalizarAjusteComision(2);
+        assertNotNull(result);
+        assertEquals(Arrays.asList(id1, id2), result.getIdTarea());
+    }
+
+    @Test
+    void testServiceNormalizarAjusteTareasPendientesTest() {
+
+        final IdTareaDTO id1 = new IdTareaDTO();
+        id1.setId(123L);
+        final IdTareaDTO id2 = new IdTareaDTO();
+        id2.setId(124L);
+        when(this.tareaRepositoryCustom.findTareasConsolidadesSinAjusteComision(any(Integer.class)))
+            .thenReturn(Arrays.asList(id1, id2));
+        when(this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision()).thenReturn(100);
+        when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.<List<IdTareaDTO>>any()))
+            .thenReturn(CompletableFuture.completedFuture(AsyncConstants.NIL));
+
+        final AjusteComisionDTO result = this.testServiceImpl.normalizarAjusteComision(2);
+        assertNotNull(result);
+        // 100 (total) - 2 (tareas que se procesan) = 98
+        assertEquals(98, result.getTareasPendientes());
+    }
+
+    @Test
+    void testServiceNormalizarAjusteNormalizarTest() {
+
+        final IdTareaDTO id1 = new IdTareaDTO();
+        id1.setId(123L);
+        final IdTareaDTO id2 = new IdTareaDTO();
+        id2.setId(124L);
+        when(this.tareaRepositoryCustom.findTareasConsolidadesSinAjusteComision(any(Integer.class)))
+            .thenReturn(Arrays.asList(id1, id2));
+        when(this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision()).thenReturn(100);
+        when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.<List<IdTareaDTO>>any()))
+            .thenReturn(CompletableFuture.completedFuture(AsyncConstants.NIL));
+
+        final AjusteComisionDTO result = this.testServiceImpl.normalizarAjusteComision(200);
+
+        verify(this.testNormalizacionAsyncService, times(1)).normalizarAjusteComision(Arrays.asList(id1, id2));
+
+    }
+
+    // Fin de normalización de tareas consolidadas (para borrar)
 
 }

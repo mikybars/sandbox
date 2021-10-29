@@ -167,5 +167,12 @@
         )]]>
   </entry>
 
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaCalculoAjusteComision">
+    <![CDATA[DELETE FROM TAREA_CALCULO_AJUSTE_COMISION WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
+  </entry>
+
+  <entry key="LimpiezaRepositoryCustom.personas.tareaCalculoAjuste">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_CALCULO_AJUSTE_COMISION WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
 
 </properties>
