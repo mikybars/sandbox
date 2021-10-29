@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -331,12 +332,14 @@ public class ComisRepositoryCustomImpl
     }
 
     @Override
-    public List<IdPersonaLocalCondicionesDto> findBajasIt(final TareaDto tarea) {
+    public List<IdPersonaLocalCondicionesDto> findBajasIt(final TareaDto tarea, final PeriodoDto periodoAmpliado) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
                 TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
         map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
                 TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+        map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO,
+                TimeUtils.toDate(periodoAmpliado.getFechaInicioPeriodo()));
 
         return this.query(this.sqlFindBajasIt, map,
                 (rs, rowNum) -> IdPersonaLocalCondicionesDto

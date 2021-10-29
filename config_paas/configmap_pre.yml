@@ -1,16 +1,5 @@
 amiga:
   common:
-    reactor:
-      scheduler:
-        default:
-          enabled: true
-        bounded:
-          factories:
-            default:
-              thread-prefix: async-bounded-executor
-              max-threads: 20
-              queued-task-cap: 100000
-              keep-alive-time: 60000
     rest:
       client:
         slrhorcoms:

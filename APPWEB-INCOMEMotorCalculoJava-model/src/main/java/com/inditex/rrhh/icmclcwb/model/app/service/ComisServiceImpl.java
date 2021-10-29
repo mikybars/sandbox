@@ -22,7 +22,9 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabase;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabaseContextHolder;
@@ -34,6 +36,9 @@ public class ComisServiceImpl implements ComisService {
 
     @Autowired
     private ComisRepositoryCustom comisRepositoryCustom;
+
+    @Autowired
+    private TareaAmbitoGlobalFechaService tareaAmbitoGlobalFechaService;
 
     @Override
     public PresenciaOrigenDto findPresenciasOrigenAndFecha(@Valid final RunTareaDto runTareaDto,
@@ -223,7 +228,10 @@ public class ComisServiceImpl implements ComisService {
         try {
             this.setContext(runTareaDto, tareaAmbito);
             bajasIt = this.comisRepositoryCustom
-                .findBajasIt(runTareaDto.getTarea());
+                .findBajasIt(runTareaDto.getTarea(),
+                        this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                                runTareaDto.getTarea().getId(),
+                                TipoDatoEnum.PERIODO_AMPLIADO.getId()));
         } finally {
             ClientDatabaseContextHolder.clear();
         }

@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
@@ -65,7 +66,7 @@ public interface ComisRepositoryCustom {
      * @param tarea
      * @return
      */
-    List<IdPersonaLocalCondicionesDto> findBajasIt(TareaDto tarea);
+    List<IdPersonaLocalCondicionesDto> findBajasIt(TareaDto tarea, PeriodoDto periodoAmpliado);
 
     /**
      * @param tarea

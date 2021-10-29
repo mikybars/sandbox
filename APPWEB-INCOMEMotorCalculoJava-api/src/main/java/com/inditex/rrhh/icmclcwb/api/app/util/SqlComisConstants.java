@@ -14,6 +14,8 @@ public class SqlComisConstants {
 
     public static final String SQL_PARAM_FECHA_DESDE = "fechaDesde";
 
+    public static final String SQL_PARAM_FECHA_DESDE_AMPLIADO = "fechaDesdeAmpliado";
+
     public static final String SQL_PARAM_FECHA_HASTA = "fechaHasta";
 
     public static final String SQL_PARAM_FECHA_INICIO_PERIODO = "fechaInicioPeriodo";
