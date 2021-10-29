@@ -6,18 +6,22 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 public class ComisServiceImplTest {
@@ -27,6 +31,9 @@ public class ComisServiceImplTest {
 
     @InjectMocks
     private ComisServiceImpl comisServiceImpl;
+
+    @Mock
+    private TareaAmbitoGlobalFechaService tareaAmbitoGlobalFechaService;
 
     private static final String ORIGEN = "1";
 
@@ -196,9 +203,13 @@ public class ComisServiceImplTest {
         runTareaDto.setTarea(tarea);
         final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
         tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+        when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
+                    .thenReturn(new PeriodoDto());
+
         this.comisServiceImpl.findBajasIt(runTareaDto, tareaAmbitoDto);
         verify(this.comisRepositoryCustom, times(1))
-            .findBajasIt(any(TareaDto.class));
+            .findBajasIt(any(TareaDto.class), any(PeriodoDto.class));
     }
 
     @Test
