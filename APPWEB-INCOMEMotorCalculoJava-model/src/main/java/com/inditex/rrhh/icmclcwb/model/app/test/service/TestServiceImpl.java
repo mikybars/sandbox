@@ -367,7 +367,7 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testEmpresa(final String sociedad, final String origen, final String empresa,
-                             final TrabajoDTO trabajo) {
+            final TrabajoDTO trabajo) {
         this.testOrigen(sociedad, origen, trabajo);
         final TrabajoAmbitoEmpresaDTO trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDTO();
         trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
@@ -375,8 +375,8 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testLocalizacion(final String sociedad, final String origen, final String empresa,
-                                  final String localizacion,
-                                  final TrabajoDTO trabajo) {
+            final String localizacion,
+            final TrabajoDTO trabajo) {
         this.testEmpresa(sociedad, origen, empresa, trabajo);
         final TrabajoAmbitoLocalizacionDTO trabajoAmbitoLocalizacion = new TrabajoAmbitoLocalizacionDTO();
         trabajoAmbitoLocalizacion.setStdIdWorkLocat(localizacion);
@@ -386,7 +386,7 @@ public class TestServiceImpl implements TestService {
     }
 
     private void testPersona(final String sociedad, final String origen, final String empresa, final String persona,
-                             final String orPersona, final TrabajoDTO trabajo) {
+            final String orPersona, final TrabajoDTO trabajo) {
         this.testEmpresa(sociedad, origen, empresa, trabajo);
         final TrabajoAmbitoPersonaDTO trabajoAmbitoPersona = new TrabajoAmbitoPersonaDTO();
         trabajoAmbitoPersona.setCclIdPerson(persona);
@@ -403,7 +403,7 @@ public class TestServiceImpl implements TestService {
         message.setTo("income-java@vectoritcgroup.com");
         message.setSubject("Lorem ipsum");
         message.setText(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
         this.mailSender.send(message);
     }
 
@@ -510,11 +510,11 @@ public class TestServiceImpl implements TestService {
 
         final ResponseEntity<HorarioComercialFestivoDocDto[]> responseHorarioComercial = this.slrhorcomsClient
             .getForEntity(endpoint + "?q=*",
-                HorarioComercialFestivoDocDto[].class);
+                    HorarioComercialFestivoDocDto[].class);
         this.log.info("responseHorarioComercial: {}",
-            responseHorarioComercial);
+                responseHorarioComercial);
         this.log.info("responseHorarioComercial: {}",
-            responseHorarioComercial);
+                responseHorarioComercial);
     }
 
 }

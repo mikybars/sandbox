@@ -49,7 +49,7 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
     @Retryable(maxAttemptsExpression = "${app.envars.slrhorcoms.config.max-attempts}")
     @Cacheable(value = "itx.icmlcwb.horario_comercial_festivos", key = "#request")
     public ResponseDto<HorarioComercialFestivoDocDto> horarioComercialFestivos(
-        final HorarioComercialFestivosRequestDto request) {
+            final HorarioComercialFestivosRequestDto request) {
 
         final SlrhorcomsPropertiesDto properties = this.slrhorcomsProperties
             .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO);
@@ -64,9 +64,9 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
 
         try {
             final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.slrhorcomsClient
-                    .getForEntity(url.toString(), HorarioComercialFestivoDocDto[].class),
-                this.slrhorcomsClient,
-                properties.getEndpoint(), request);
+                .getForEntity(url.toString(), HorarioComercialFestivoDocDto[].class),
+                    this.slrhorcomsClient,
+                    properties.getEndpoint(), request);
 
             final ResponseDto<HorarioComercialFestivoDocDto> result = new ResponseDto<>();
             result.setNext(request.getStart() + request.getRows());

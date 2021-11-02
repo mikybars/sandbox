@@ -35,15 +35,15 @@ amiga:
           jdbc-url: jdbc:oracle:thin:@//axine6-scansrv.central.inditex.grp:11521/s_pdbin01rt_gener.central.inditex.grp
           username: uincome
           defaultIsolationLevel: 2
-        #        ptr:
-        #          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
-        #          xa-properties:
-        #            serverName:
-        #            serviceName:
-        #            portNumber:
-        #            user: uincome
-        #            password:
-        #            driverType: thin
+#        ptr:
+#          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
+#          xa-properties:
+#            serverName:
+#            serviceName:
+#            portNumber:
+#            user: uincome
+#            password:
+#            driverType: thin
         comis1:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://FRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
