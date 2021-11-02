@@ -273,8 +273,9 @@ class TestServiceImplTest {
 
         when(this.slrhorcomsProperties.get("festivos")).thenReturn(slrhorcoms);
         when(slrhorcoms.getEndpoint()).thenReturn("/HorarioComercialFestivos/list");
-        when(this.slrhorcomsClient.getForEntity("/HorarioComercialFestivos/list?q=*", HorarioComercialFestivoDocDto[].class))
-            .thenReturn(any(ResponseEntity.class));
+        when(this.slrhorcomsClient.getForEntity("/HorarioComercialFestivos/list?q=*",
+                HorarioComercialFestivoDocDto[].class))
+                    .thenReturn(any(ResponseEntity.class));
 
         this.testServiceImpl.slrhorcomsTest();
     }
