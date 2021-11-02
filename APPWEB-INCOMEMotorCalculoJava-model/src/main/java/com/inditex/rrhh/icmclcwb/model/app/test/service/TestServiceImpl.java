@@ -44,10 +44,6 @@ import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
 
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateResponseDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.exception.SlrhorcomsIcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercial.dto.RootHorarioComercialDto;
 import com.inditex.rrhh.icmclcwb.dto.AjusteComisionDTO;
 import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
