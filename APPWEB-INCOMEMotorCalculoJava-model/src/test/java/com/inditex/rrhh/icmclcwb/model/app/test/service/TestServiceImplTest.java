@@ -49,10 +49,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 class TestServiceImplTest {
@@ -270,12 +267,12 @@ class TestServiceImplTest {
     void testSlrhorcomsTest() {
 
         final SlrhorcomsPropertiesDto slrhorcoms = new SlrhorcomsPropertiesDto();
+        slrhorcoms.setEndpoint("/HorarioComercialFestivos/list");
 
         when(this.slrhorcomsProperties.get("festivos")).thenReturn(slrhorcoms);
-        when(slrhorcoms.getEndpoint()).thenReturn("/HorarioComercialFestivos/list");
         when(this.slrhorcomsClient.getForEntity("/HorarioComercialFestivos/list?q=*",
                 HorarioComercialFestivoDocDto[].class))
-                    .thenReturn(any(ResponseEntity.class));
+                    .thenReturn(mock(ResponseEntity.class));
 
         this.testServiceImpl.slrhorcomsTest();
     }
