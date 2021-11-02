@@ -4,8 +4,14 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,10 +49,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 class TestServiceImplTest {
@@ -87,6 +90,14 @@ class TestServiceImplTest {
     private TestNormalizacionAsyncService testNormalizacionAsyncService;
 
     // Fin de normalización de tareas consolidadas (para borrar)
+
+    @Mock
+    @Qualifier("slrhorcomsProperties")
+    private Map<String, SlrhorcomsPropertiesDto> slrhorcomsProperties;
+
+    @Mock
+    @Qualifier("slrhorcomsClient")
+    private RestClient slrhorcomsClient;
 
     @InjectMocks
     private TestServiceImpl testServiceImpl;
@@ -251,5 +262,19 @@ class TestServiceImplTest {
     }
 
     // Fin de normalización de tareas consolidadas (para borrar)
+
+    @Test
+    void testSlrhorcomsTest() {
+
+        final SlrhorcomsPropertiesDto slrhorcoms = new SlrhorcomsPropertiesDto();
+        slrhorcoms.setEndpoint("/HorarioComercialFestivos/list");
+
+        when(this.slrhorcomsProperties.get("festivos")).thenReturn(slrhorcoms);
+        when(this.slrhorcomsClient.getForEntity("/HorarioComercialFestivos/list?q=*",
+                HorarioComercialFestivoDocDto[].class))
+                    .thenReturn(mock(ResponseEntity.class));
+
+        this.testServiceImpl.slrhorcomsTest();
+    }
 
 }

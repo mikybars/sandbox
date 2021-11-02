@@ -8,6 +8,16 @@ spring:
 app:
   id: ${spring.application.name}
   version: '@project.version@'
+  envars:
+    slrhorcoms:
+      config:
+        max-attempts: 2
+      service:
+        slrhorcomsService:
+          festivos:
+            endpoint: /HorarioComercialFestivos/list
+            rows: 100
+            maxFilterSize: 50
 amiga:
   common:
     cache:
@@ -36,7 +46,7 @@ amiga:
         maximum-pool-size: 100
         queue-size: 2000
         allow-core-thread-timeout: true
-        keep-alive-time: 60s        
+        keep-alive-time: 60s
       ptr-venta-executor:
         name: async-ptr-venta-executor
         name-format: async-ptr-venta-executor-%d
@@ -44,7 +54,7 @@ amiga:
         maximum-pool-size: 100
         queue-size: 2000
         allow-core-thread-timeout: true
-        keep-alive-time: 60s        
+        keep-alive-time: 60s
       ptr-presencia-executor:
         name: async-ptr-presencia-executor
         name-format: async-ptr-presencia-executor-%d
@@ -54,13 +64,13 @@ amiga:
         allow-core-thread-timeout: true
         keep-alive-time: 60s
       slrhorcoms-executor:
-          name: async-slrhorcoms-executor
-          name-format: async-slrhorcoms-executor-%d
-          core-pool-size: 10
-          maximum-pool-size: 100
-          queue-size: 2000
-          allow-core-thread-timeout: true
-          keep-alive-time: 60s
+        name: async-slrhorcoms-executor
+        name-format: async-slrhorcoms-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
       repository-primary-executor:
         name: async-repository-primary-executor
         name-format: async-repository-primary-executor-%d
@@ -116,7 +126,7 @@ amiga:
         maximum-pool-size: 100
         queue-size: 2000
         allow-core-thread-timeout: true
-        keep-alive-time: 60s                
+        keep-alive-time: 60s
   service:
     session:
       session-type: REMOTE
