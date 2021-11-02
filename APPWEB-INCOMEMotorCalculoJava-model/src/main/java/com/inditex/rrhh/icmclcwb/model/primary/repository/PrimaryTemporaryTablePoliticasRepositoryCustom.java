@@ -19,4 +19,12 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int createIndexTempFechasBajaIt();
 
+    int createTempFechasAcumuladasBajaIt();
+
+    int deleteTempFechasAcumuladasBajaIt();
+
+    void insertTempFechasAcumuladasBajaIt(final TareaDto tarea);
+
+    int createIndexTempFechasAcumuladasBajaIt();
+
 }

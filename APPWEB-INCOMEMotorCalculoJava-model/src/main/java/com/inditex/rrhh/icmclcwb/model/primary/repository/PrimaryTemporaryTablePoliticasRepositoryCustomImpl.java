@@ -58,6 +58,18 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasBajaIt']}")
     private String sqlIndexTempFechasBajaIt;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasBajaIt']}")
+    private String sqlCreateTempFechasAcumuladasBajaIt;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasBajaIt']}")
+    private String sqlDeleteTempFechasAcumuladasBajaIt;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasBajaIt']}")
+    private String sqlInsertTempFechasAcumuladasBajaIt;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasAcumuladasBajaIt']}")
+    private String sqlIndexTempFechasAcumuladasBajaIt;
+
     @Override
     public int createTempFechasBajaIt() {
         return this.jdbcTemplate.update(this.sqlCreateTempFechasBajaIt);
@@ -102,6 +114,37 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
                 SistemaDestinoEnum.SOLUCION_GLOBAL.getIdMeta4());
 
         this.namedParameterJdbcTemplate.update(this.sqlInsertTempFechasBajaIt, map);
+    }
+
+    @Override
+    public int createTempFechasAcumuladasBajaIt() {
+        return this.jdbcTemplate.update(this.sqlCreateTempFechasAcumuladasBajaIt);
+    }
+
+    @Override
+    public int deleteTempFechasAcumuladasBajaIt() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempFechasAcumuladasBajaIt);
+    }
+
+    @Override
+    public void insertTempFechasAcumuladasBajaIt(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        if (tarea != null) {
+            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.BAJA_IT.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempFechasAcumuladasBajaIt, map);
+    }
+
+    @Override
+    public int createIndexTempFechasAcumuladasBajaIt() {
+        return this.jdbcTemplate.update(this.sqlIndexTempFechasAcumuladasBajaIt);
     }
 
 }
