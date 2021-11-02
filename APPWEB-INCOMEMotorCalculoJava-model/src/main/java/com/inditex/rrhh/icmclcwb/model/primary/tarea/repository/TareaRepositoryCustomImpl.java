@@ -59,6 +59,16 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     @Value("#{primaryQuery['TareaRepositoryCustom.selectTarea']} #{primaryQuery['TareaRepositoryCustom.findLimpieza']} #{primaryQuery['TareaRepositoryCustom.findLimpieza.byIdTarea']}")
     private String sqlFindLimpiezaByIdTarea;
 
+    // Comienzo de normalización de tareas consolidadas (para borrar)
+
+    @Value("#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.selectTarea']} #{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision']} #{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.limit']}")
+    private String sqlFindTareasConsolidadasSinAjusteComision;
+
+    @Value("#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.selectTotal']} #{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision']}")
+    private String sqlTotalTareasConsolidadasSinAjusteComision;
+
+    // Fin de normalización de tareas consolidadas (para borrar)
+
 
     @Override
     public void updateFechaFin(@NotNull final TareaDto tarea) {
@@ -152,5 +162,29 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
             return dto;
         });
     }
+
+    // Comienzo de normalización de tareas consolidadas (para borrar)
+
+    @Override
+    public Integer totalTareasConsolidadesSinAjusteComision() {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        return this.namedParameterJdbcTemplate.queryForObject(this.sqlTotalTareasConsolidadasSinAjusteComision,
+                parameters, (rs, rowNum) -> rs.getInt(SqlPrimaryConstants.SQL_RESULT_TOTAL));
+    }
+
+    @Override
+    public List<IdTareaDTO> findTareasConsolidadesSinAjusteComision(
+            @NotNull final Integer limit) {
+        final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_LIMIT, limit);
+        return this.namedParameterJdbcTemplate.query(this.sqlFindTareasConsolidadasSinAjusteComision, parameters,
+                (rs, rowNum) -> {
+                    final IdTareaDTO dto = new IdTareaDTO();
+                    dto.setId(rs.getLong(SqlPrimaryConstants.SQL_RESULT_ID_TAREA));
+                    return dto;
+                });
+    }
+
+    // Fin de normalización de tareas consolidadas (para borrar)
 
 }

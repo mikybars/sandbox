@@ -140,6 +140,12 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
     }
 
     @Override
+    public void indicadorDesplazamientoChallengeImporteTienda(@Valid @NotNull final RunTareaDto runTareaDto) {
+        this.tareaLocalizacionPersonaPresenciaRepositoryCustom
+            .indicadorDesplazamientoChallengeImporteTienda(runTareaDto);
+    }
+
+    @Override
     public void updateActivoPersonasExternas(
             @Valid @NotNull final RunTareaDto runTareaDto) {
         this.tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoPersonasExternas(runTareaDto);

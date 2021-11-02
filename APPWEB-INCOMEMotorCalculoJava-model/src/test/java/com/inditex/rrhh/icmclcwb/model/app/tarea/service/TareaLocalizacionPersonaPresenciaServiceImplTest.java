@@ -96,6 +96,15 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
     }
 
     @Test
+    public void compensarChallengeTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPersonaPresenciaServiceImpl.compensarChallenge(runTarea);
+        verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .compensarChallenge(any(RunTareaDto.class));
+    }
+
+    @Test
     public void presenciasIncluidoVentaTest() {
         final RunTareaDto runTarea = mock(RunTareaDto.class);
 
@@ -195,6 +204,56 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
             .indicadorDesplazamientoDirectoVenta(runTarea);
         verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
             .indicadorDesplazamientoDirectoVenta(any(RunTareaDto.class));
+    }
+
+    @Test
+    public void indicadorDesplazamientoDirectoVentaSinPresenciasTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPersonaPresenciaServiceImpl
+            .indicadorDesplazamientoDirectoVentaSinPresencias(runTarea);
+        verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorDesplazamientoDirectoVentaSinPresencias(any(RunTareaDto.class));
+    }
+
+    @Test
+    public void indicadorDesplazamientoBaseDirectoVentaTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPersonaPresenciaServiceImpl
+            .indicadorDesplazamientoBaseDirectoVenta(runTarea);
+        verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorDesplazamientoBaseDirectoVenta(any(RunTareaDto.class));
+    }
+
+    @Test
+    public void indicadorDesplazamientoBaseDirectoVentaOtraTiendaTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPersonaPresenciaServiceImpl
+            .indicadorDesplazamientoBaseDirectoVentaOtraTienda(runTarea);
+        verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorDesplazamientoBaseDirectoVentaOtraTienda(any(RunTareaDto.class));
+    }
+
+    @Test
+    public void indicadorDesplazamientoDirectoVentaCambioFuncionTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPersonaPresenciaServiceImpl
+            .indicadorDesplazamientoDirectoVentaCambioFuncion(runTarea);
+        verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorDesplazamientoDirectoVentaCambioFuncion(any(RunTareaDto.class));
+    }
+
+    @Test
+    public void indicadorDesplazamientoChallengeImporteTiendaTest() {
+        final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+        this.tareaLocalizacionPersonaPresenciaServiceImpl
+            .indicadorDesplazamientoChallengeImporteTienda(runTarea);
+        verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+            .indicadorDesplazamientoChallengeImporteTienda(any(RunTareaDto.class));
     }
 
     @Test

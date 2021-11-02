@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
+import com.inditex.rrhh.icmclcwb.dto.AjusteComisionDTO;
 import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
 import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
 import com.inditex.rrhh.icmclcwb.service.TestApi;
@@ -109,5 +110,14 @@ public class TestController implements TestApi {
         this.testService.ptrTestBbddAsync();
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    // Comienzo de normalización de tareas consolidadas (para borrar)
+
+    @Override
+    public ResponseEntity<AjusteComisionDTO> normalizarAjusteComision(@PathVariable final Integer limit) {
+        return new ResponseEntity<>(this.testService.normalizarAjusteComision(limit), HttpStatus.OK);
+    }
+
+    // Fin de normalización de tareas consolidadas (para borrar)
 
 }
