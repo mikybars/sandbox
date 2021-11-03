@@ -4,6 +4,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,18 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasAcumuladasBajaIt']}")
     private String sqlIndexTempFechasAcumuladasBajaIt;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoBajaIt']}")
+    private String sqlCreateTempCalculoTotalizadoBajaIt;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoBajaIt']}")
+    private String sqlDeleteTempCalculoTotalizadoBajaIt;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt']}")
+    private String sqlInsertTempCalculoTotalizadoBajaIt;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempCalculoTotalizadoBajaIt']}")
+    private String sqlIndexTempCalculoTotalizadoBajaIt;
 
     @Override
     public int createTempFechasBajaIt() {
@@ -145,6 +158,33 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Override
     public int createIndexTempFechasAcumuladasBajaIt() {
         return this.jdbcTemplate.update(this.sqlIndexTempFechasAcumuladasBajaIt);
+    }
+
+    @Override
+    public int createTempCalculoTotalizadoBajaIt() {
+        return this.jdbcTemplate.update(this.sqlCreateTempCalculoTotalizadoBajaIt);
+    }
+
+    @Override
+    public int deleteTempCalculoTotalizadoBajaIt() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoTotalizadoBajaIt);
+    }
+
+    @Override
+    public void insertTempCalculoTotalizadoBajaIt(final TareaDto tarea) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        if (tarea != null) {
+            params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
+                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4()));
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoTotalizadoBajaIt, params);
+    }
+
+    @Override
+    public int createIndexTempCalculoTotalizadoBajaIt() {
+        return this.jdbcTemplate.update(this.sqlIndexTempCalculoTotalizadoBajaIt);
     }
 
 }

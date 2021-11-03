@@ -6,6 +6,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -33,6 +34,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -67,6 +69,14 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     private static final String SQL_INSERT_TEMP_FECHAS_ACUMULADAS_BAJA_IT = "SQL INSERT TEMP FECHAS ACUMULADAS BAJA IT";
 
     private static final String SQL_INDEX_TEMP_FECHAS_ACUMULADAS_BAJA_IT = "SQL INDEX TEMP FECHAS ACUMULADAS BAJA IT";
+
+    private static final String SQL_CREATE_TEMP_CALULO_TOTALIZADO_BAJA_IT = "SQL CREATE TEMP CALCULO TOTALIZADO BAJA IT";
+
+    private static final String SQL_DELETE_TEMP_CALCULO_TOTALIZADO_BAJA_IT = "SQL DELETE TEMP CALCULO TOTALIZADO BAJA IT";
+
+    private static final String SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT = "SQL INSERT TEMP CALCULO TOTALIZADO BAJA IT";
+
+    private static final String SQL_INDEX_TEMP_CALCULO_TOTALIZADO_BAJA_IT = "SQL INDEX TEMP CALCULO TOTALIZADO BAJA IT";
 
     @Mock
     private JdbcTemplate jdbcTemplate;
@@ -109,6 +119,14 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
                 "sqlInsertTempFechasAcumuladasBajaIt", SQL_INSERT_TEMP_FECHAS_ACUMULADAS_BAJA_IT, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlIndexTempFechasAcumuladasBajaIt", SQL_INDEX_TEMP_FECHAS_ACUMULADAS_BAJA_IT, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlCreateTempCalculoTotalizadoBajaIt", SQL_CREATE_TEMP_CALULO_TOTALIZADO_BAJA_IT, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlDeleteTempCalculoTotalizadoBajaIt", SQL_DELETE_TEMP_CALCULO_TOTALIZADO_BAJA_IT, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlInsertTempCalculoTotalizadoBajaIt", SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlIndexTempCalculoTotalizadoBajaIt", SQL_INDEX_TEMP_CALCULO_TOTALIZADO_BAJA_IT, true);
     }
 
     private TareaDto createTarea() {
@@ -427,6 +445,88 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
         assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
 
     }
+
+    @Test
+    void createTempCalculoTotalizadoBajaItTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoBajaIt();
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALULO_TOTALIZADO_BAJA_IT);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void deleteTempCalculoTotalizadoBajaItTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoBajaIt();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_TOTALIZADO_BAJA_IT);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void createIndexTempCalculoTotalizadoBajaItTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createIndexTempCalculoTotalizadoBajaIt();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_CALCULO_TOTALIZADO_BAJA_IT);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void insertTempCalculoTotalizadoBajaItNumArgumentosTareaNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(null);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
+                this.paramsCaptor.capture());
+        assertEquals(2, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempCalculoTotalizadoBajaItNumArgumentosTareaNotNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
+                this.paramsCaptor.capture());
+        assertEquals(3, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempCalculoTotalizadoBajaItBajaItIdTareaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
+    }
+
+    @Test
+    void insertTempCalculoTotalizadoBajaItBajaItInactivoTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+
+    }
+
+    @Test
+    void insertTempCalculoTotalizadoBajaItBajaItIdTipoPoliticaAjusteTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
+        assertNotNull(params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
+        assertTrue(params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE) instanceof List);
+        final List<?> param = (List<?>) params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE);
+        if (param != null) {
+            assertEquals(1, param.size());
+            assertEquals(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4(), param.get(0));
+        }
+
+    }
+
 
     // Fin tests baja it
 
