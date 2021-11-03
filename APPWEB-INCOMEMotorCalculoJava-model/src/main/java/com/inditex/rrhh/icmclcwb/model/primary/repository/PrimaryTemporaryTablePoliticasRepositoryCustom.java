@@ -11,6 +11,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
  */
 public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
+    // baja it
+
     int createTempFechasBajaIt();
 
     int deleteTempFechasBajaIt();
@@ -34,5 +36,27 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
     void insertTempCalculoTotalizadoBajaIt(final TareaDto tarea);
 
     int createIndexTempCalculoTotalizadoBajaIt();
+
+    // fin baja it
+
+    // antiguedad
+
+    int createTempFechasAntiguedad();
+
+    int deleteTempFechasAntiguedad();
+
+    void insertTempFechasAntiguedad(final TareaDto tarea);
+
+    int createIndexTempFechasAntiguedad();
+
+    int createTempFechasAcumuladasAntiguedad();
+
+    int deleteTempFechasAcumuladasAntiguedad();
+
+    void insertTempFechasAcumuladasAntiguedad(final TareaDto tarea);
+
+    int createIndexTempFechasAcumuladasAntiguedad();
+
+    // fin antiguedad
 
 }

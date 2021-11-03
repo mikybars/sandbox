@@ -78,6 +78,25 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     private static final String SQL_INDEX_TEMP_CALCULO_TOTALIZADO_BAJA_IT = "SQL INDEX TEMP CALCULO TOTALIZADO BAJA IT";
 
+    // Antiguedad
+
+    private static final String SQL_CREATE_TEMP_FECHAS_ANTIGUEDAD = "SQL CREATE TEMP FECHAS ANTIGUEDAD";
+
+    private static final String SQL_DELETE_TEMP_FECHAS_ANTIGUEDAD = "SQL DELETE TEMP FECHAS ANTIGUEDAD";
+
+    private static final String SQL_INSERT_TEMP_FECHAS_ANTIGUEDAD = "SQL INSERT TEMP FECHAS ANTIGUEDAD";
+
+    private static final String SQL_INDEX_TEMP_FECHAS_ANTIGUEDAD = "SQL INDEX TEMP FECHAS ANTIGUEDAD";
+
+    private static final String SQL_CREATE_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD = "SQL CREATE TEMP FECHAS ACUMULADAS ANTIGUEDAD";
+
+    private static final String SQL_DELETE_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD = "SQL DELETE TEMP FECHAS ACUMULADAS ANTIGUEDAD";
+
+    private static final String SQL_INSERT_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD = "SQL INSERT TEMP FECHAS ACUMULADAS ANTIGUEDAD";
+
+    private static final String SQL_INDEX_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD = "SQL INDEX TEMP FECHAS ACUMULADAS ANTIGUEDAD";
+
+
     @Mock
     private JdbcTemplate jdbcTemplate;
 
@@ -127,6 +146,23 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
                 "sqlInsertTempCalculoTotalizadoBajaIt", SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlIndexTempCalculoTotalizadoBajaIt", SQL_INDEX_TEMP_CALCULO_TOTALIZADO_BAJA_IT, true);
+        // Antiguedad
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlCreateTempFechasAntiguedad", SQL_CREATE_TEMP_FECHAS_ANTIGUEDAD, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlDeleteTempFechasAntiguedad", SQL_DELETE_TEMP_FECHAS_ANTIGUEDAD, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlInsertTempFechasAntiguedad", SQL_INSERT_TEMP_FECHAS_ANTIGUEDAD, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlIndexTempFechasAntiguedad", SQL_INDEX_TEMP_FECHAS_ANTIGUEDAD, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlCreateTempFechasAcumuladasAntiguedad", SQL_CREATE_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlDeleteTempFechasAcumuladasAntiguedad", SQL_DELETE_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlInsertTempFechasAcumuladasAntiguedad", SQL_INSERT_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlIndexTempFechasAcumuladasAntiguedad", SQL_INDEX_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD, true);
     }
 
     private TareaDto createTarea() {
@@ -527,7 +563,240 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     }
 
-
     // Fin tests baja it
+
+    // Inicio tests antiguedad
+
+    @Test
+    void createTempFechasAntiguedadTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAntiguedad();
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_FECHAS_ANTIGUEDAD);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void deleteTempFechasAntiguedadTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAntiguedad();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_FECHAS_ANTIGUEDAD);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void createIndexTempFechasAntiguedadTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createIndexTempFechasAntiguedad();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_FECHAS_ANTIGUEDAD);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void insertTempFechasAntiguedadNumArgumentosTareaNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad(null);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+        assertEquals(5, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempFechasAntiguedadNumArgumentosTareaNotNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+        assertEquals(6, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempFechasAntiguedadUnidadTiempoAnosTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
+        assertEquals(TipoUnidadTiempoEnum.ANOS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
+
+    }
+
+    @Test
+    void insertTempFechasAntiguedadUnidadTiempoMesesTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
+        assertEquals(TipoUnidadTiempoEnum.MESES.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
+
+    }
+
+    @Test
+    void insertTempFechasAntiguedadUnidadTiempoSemanasTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
+        assertEquals(TipoUnidadTiempoEnum.SEMANAS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
+
+    }
+
+    @Test
+    void insertTempFechasAntiguedadUnidadTiempoDiasTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+        assertEquals(TipoUnidadTiempoEnum.DIAS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+
+    }
+
+    @Test
+    void insertTempFechasAntiguedadIdTipoPoliticaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+        assertEquals(TipoPoliticaEnum.ANTIGUEDAD.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+
+    }
+
+    @Test
+    void insertTempFechasAntiguedadIdTareaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
+    }
+
+    @Test
+    void createTempFechasAcumuladasAntiguedadTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasAntiguedad();
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void deleteTempFechasAcumuladasAntiguedadTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasAntiguedad();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void createIndexTempFechasAcumuladasAntiguedadTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createIndexTempFechasAcumuladasAntiguedad();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void insertTempFechasAcumuladasAntiguedadNumArgumentosTareaNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasAntiguedad(null);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+        assertEquals(5, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempFechasAcumuladasAntiguedadNumArgumentosTareaNotNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+        assertEquals(6, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempFechasAcumuladasAntiguedadUnidadTiempoAnosTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
+        assertEquals(TipoUnidadTiempoEnum.ANOS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
+
+    }
+
+    @Test
+    void insertTempFechasAcumuladasAntiguedadUnidadTiempoMesesTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
+        assertEquals(TipoUnidadTiempoEnum.MESES.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
+
+    }
+
+    @Test
+    void insertTempFechasAcumuladasAntiguedadUnidadTiempoSemanasTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
+        assertEquals(TipoUnidadTiempoEnum.SEMANAS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
+
+    }
+
+    @Test
+    void insertTempFechasAcumuladasAntiguedadUnidadTiempoDiasTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+        assertEquals(TipoUnidadTiempoEnum.DIAS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+
+    }
+
+    @Test
+    void insertTempFechasAcumuladasAntiguedadIdTipoPoliticaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+        assertEquals(TipoPoliticaEnum.ANTIGUEDAD.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+
+    }
+
+    @Test
+    void insertTempFechasAcumuladasAntiguedadIdTareaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasAntiguedad(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_ANTIGUEDAD),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
+    }
+
+    // Fin tests antiguedad
 
 }

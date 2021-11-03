@@ -47,6 +47,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    // Baja it
+
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempFechasBajaIt']}")
     private String sqlCreateTempFechasBajaIt;
 
@@ -82,6 +84,32 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempCalculoTotalizadoBajaIt']}")
     private String sqlIndexTempCalculoTotalizadoBajaIt;
+
+    // Antiguedad
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAntiguedad']}")
+    private String sqlCreateTempFechasAntiguedad;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAntiguedad']}")
+    private String sqlDeleteTempFechasAntiguedad;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad']}")
+    private String sqlInsertTempFechasAntiguedad;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasAntiguedad']}")
+    private String sqlIndexTempFechasAntiguedad;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasAntiguedad']}")
+    private String sqlCreateTempFechasAcumuladasAntiguedad;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasAntiguedad']}")
+    private String sqlDeleteTempFechasAcumuladasAntiguedad;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasAntiguedad']}")
+    private String sqlInsertTempFechasAcumuladasAntiguedad;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasAcumuladasAntiguedad']}")
+    private String sqlIndexTempFechasAcumuladasAntiguedad;
 
     @Override
     public int createTempFechasBajaIt() {
@@ -185,6 +213,68 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Override
     public int createIndexTempCalculoTotalizadoBajaIt() {
         return this.jdbcTemplate.update(this.sqlIndexTempCalculoTotalizadoBajaIt);
+    }
+
+    @Override
+    public int createTempFechasAntiguedad() {
+        return this.jdbcTemplate.update(this.sqlCreateTempFechasAntiguedad);
+    }
+
+    @Override
+    public int deleteTempFechasAntiguedad() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempFechasAntiguedad);
+    }
+
+    @Override
+    public void insertTempFechasAntiguedad(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        if (tarea != null) {
+            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.ANTIGUEDAD.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempFechasAntiguedad, map);
+    }
+
+    @Override
+    public int createIndexTempFechasAntiguedad() {
+        return this.jdbcTemplate.update(this.sqlIndexTempFechasAntiguedad);
+    }
+
+    @Override
+    public int createTempFechasAcumuladasAntiguedad() {
+        return this.jdbcTemplate.update(this.sqlCreateTempFechasAcumuladasAntiguedad);
+    }
+
+    @Override
+    public int deleteTempFechasAcumuladasAntiguedad() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempFechasAcumuladasAntiguedad);
+    }
+
+    @Override
+    public void insertTempFechasAcumuladasAntiguedad(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        if (tarea != null) {
+            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.ANTIGUEDAD.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempFechasAcumuladasAntiguedad, map);
+    }
+
+    @Override
+    public int createIndexTempFechasAcumuladasAntiguedad() {
+        return this.jdbcTemplate.update(this.sqlIndexTempFechasAcumuladasAntiguedad);
     }
 
 }
