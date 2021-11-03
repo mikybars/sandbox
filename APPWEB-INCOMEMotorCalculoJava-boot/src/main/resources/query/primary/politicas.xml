@@ -346,7 +346,7 @@
     ]]>
   </entry>
 
-  <entry key="PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasBajaIt">
+  <entry key="PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt">
     <![CDATA[
           INSERT INTO SESSION.FECHAS_ACUMULADAS_AJUSTE_BAJA_IT (FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA, IMPORTE)
           SELECT FECHA_INICIO_PERIODO, ID_TAREA, CCL_ID_PERSON, STD_OR_HR_PERIOD, FECHA, SUM( /*(*/ IMPORTE /*)*/ ) AS IMPORTE
