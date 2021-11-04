@@ -55,6 +55,8 @@ amiga:
           client-secret: thFHw*m7cDefUL
     rest:
       client:
+        health:
+          ping-enabled: true
         http:
           connect-timeout: 300000
           read-timeout: 300000
@@ -69,6 +71,10 @@ amiga:
         slrhorcoms:
           #base-url: https://sscc-pre.central.inditex.grp
           base-url: http://apigw-sscc-des.axdesocp1.central.inditex.grp/slrhorcoms/openapi-rest/api
+          ping-query:
+            enabled: true
+            path: http://des-openshift-private.axdesocp1.central.inditex.grp/slrhorcoms-develop/amiga/health
+            timeout: 2s
           auth-method: BASIC
           #username: srvcicmclcwbpreAX
           #password: xynEJHKK4bu)
@@ -78,11 +84,19 @@ amiga:
         #[PTR][DES][INICIO]
         ptr-venta:
           base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
+          ping-query:
+            enabled: true
+            path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhvtimpwsd-develop/amiga/health
+            timeout: 2s
           auth-method: BASIC
           username: srvcicmclcwbdes
           password: q2ZB)XKFWdeA
         ptr-presencia:
           base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
+          ping-query:
+            enabled: true
+            path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhpresnwsd-develop/amiga/health
+            timeout: 2s
           auth-method: BASIC
           username: srvcicmclcwbdes
           password: q2ZB)XKFWdeA
@@ -99,32 +113,6 @@ amiga:
 #          username: srvcicmclcwbpreAX
 #          password: xynEJHKK4bu)
         #[PTR][PRE][INICIO]
-    resilience:
-      backends:
-        trabajo:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        tarea:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        limpieza:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        programacion:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
   service:
     jms:
       listener:
@@ -405,7 +393,7 @@ amiga:
           readOnly: true
         comis11-101:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXINSQLDES.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           username: ncomis
           password: j50lc9sL
           readOnly: true
@@ -417,7 +405,7 @@ amiga:
           readOnly: true
         comis11-2:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXINSQL10.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           username: ncomis
           password: j50lc9sL
           readOnly: true

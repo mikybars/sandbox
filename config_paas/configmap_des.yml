@@ -7,13 +7,22 @@ amiga:
     rest:
       client:
         slrhorcoms:
-          base-url: http://develop.slrhorcoms.svc.cluster.local:8080/slrhorcoms-develop
+          base-url: http://develop.slrhorcoms.svc.cluster.local.:8080/slrhorcoms-develop
+          ping-query:
+            enabled: true
+            path: http://develop.slrhorcoms.svc.cluster.local.:8081/slrhorcoms-develop/amiga/health
         ptr-venta:
           base-url: http://develop.rhvtimpwsd.svc.cluster.local.:8080/rhvtimpwsd-develop
           username: srvcicmclcwbdes
+          ping-query:
+            enabled: true
+            path: http://develop.rhvtimpwsd.svc.cluster.local.:8081/rhvtimpwsd-develop/amiga/health
         ptr-presencia:
           base-url: http://develop.rhpresnwsd.svc.cluster.local.:8080/rhpresnwsd-develop
           username: srvcicmclcwbdes
+          ping-query:
+            enabled: true
+            path: http://develop.rhpresnwsd.svc.cluster.local.:8081/rhpresnwsd-develop/amiga/health
   data:
     jms:
       connection-factory:

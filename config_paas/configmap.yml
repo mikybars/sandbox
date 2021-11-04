@@ -21,6 +21,8 @@ amiga:
       default-encoding: UTF-8
     rest:
       client:
+        health:
+          ping-enabled: true
         http:
           connect-timeout: 300000
           read-timeout: 300000
@@ -33,32 +35,6 @@ amiga:
           auth-method: BASIC
         ptr-presencia:
           auth-method: BASIC
-    resilience:
-      backends:
-        trabajo:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        tarea:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        limpieza:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        programacion:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
   service:
     jms:
       listener:
