@@ -45,6 +45,10 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
     private final static String ID_TAREA_PARAM = "idTarea";
 
+    private final static String INACTIVO_PARAM = "inactivo";
+
+    private final static Integer SQL_BOOLEAN_FALSE = 0;
+
     private final static String FECHA_INICIO_PERIODO_PARAM = "fechaInicioPeriodo";
 
     @Mock
@@ -572,7 +576,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    void mergeCalculoTempCalculoPorComisionTest() {
+    void mergeCalculoTempCalculoPorComisionNumParamsTest() {
         final long idTarea = 12L;
         final TareaDto tarea = new TareaDto();
         tarea.setId(idTarea);
@@ -582,14 +586,44 @@ class PrimaryTemporaryTableRepositoryCustomTest {
                 this.paramsCaptor.capture());
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertEquals(1, params.getValues().size());
+        assertEquals(2, params.getValues().size());
+
+    }
+
+    @Test
+    void mergeCalculoTempCalculoPorComisionIdTareaParamTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
         assertTrue(params.hasValue(ID_TAREA_PARAM));
         assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
 
     }
 
     @Test
-    void mergeCalculoTempCalculoSinComisionTest() {
+    void mergeCalculoTempCalculoPorComisionInactivoParamTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(INACTIVO_PARAM));
+        assertEquals(SQL_BOOLEAN_FALSE, params.getValue(INACTIVO_PARAM));
+
+    }
+
+    @Test
+    void mergeCalculoTempCalculoSinComisionNumParamsTest() {
         final long idTarea = 12L;
         final TareaDto tarea = new TareaDto();
         tarea.setId(idTarea);
@@ -599,9 +633,38 @@ class PrimaryTemporaryTableRepositoryCustomTest {
                 this.paramsCaptor.capture());
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertEquals(1, params.getValues().size());
+        assertEquals(2, params.getValues().size());
+    }
+
+    @Test
+    void mergeCalculoTempCalculoSinComisionIdTareaParamTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoSinComision(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_SIN_COMISION),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
         assertTrue(params.hasValue(ID_TAREA_PARAM));
         assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
+
+    }
+
+    @Test
+    void mergeCalculoTempCalculoSinComisionInactivoParamTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoSinComision(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_SIN_COMISION),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(INACTIVO_PARAM));
+        assertEquals(SQL_BOOLEAN_FALSE, params.getValue(INACTIVO_PARAM));
 
     }
 
