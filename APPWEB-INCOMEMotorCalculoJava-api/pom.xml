@@ -21,7 +21,7 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>APPWEB-INCOMEMotorCalculoJava-ws-api</artifactId>
     </dependency>
-        
+
     <!-- FWK DEPENDENCIES -->
     <dependency>
       <groupId>com.inditex.aqsw.framework.common</groupId>

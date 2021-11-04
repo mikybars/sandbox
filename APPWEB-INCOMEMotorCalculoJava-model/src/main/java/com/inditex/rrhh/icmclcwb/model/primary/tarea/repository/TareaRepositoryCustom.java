@@ -24,4 +24,12 @@ public interface TareaRepositoryCustom {
 
     List<IdTareaDTO> findLimpiezaByIdTarea(@NotNull final Long idTarea);
 
+    // Comienzo de normalización de tareas consolidadas (para borrar)
+
+    List<IdTareaDTO> findTareasConsolidadesSinAjusteComision(@NotNull final Integer limit);
+
+    Integer totalTareasConsolidadesSinAjusteComision();
+
+    // Fin de normalización de tareas consolidadas (para borrar)
+
 }
