@@ -215,6 +215,27 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisPrimas']}")
     private String sqlValidateTempComisPrimas;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempCalculoPorComision']}")
+    private String sqlCreateTempCalculoPorComision;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempCalculoPorComision']}")
+    private String sqlDeleteTempCalculoPorComision;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoSinComision']}")
+    private String sqlMergeCalculoTempCalculoSinComision;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision']}")
+    private String sqlMergeCalculoTempCalculoPorComision;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempCalculoAjusteTotalizado']}")
+    private String sqlCreateTempCalculoAjusteTotalizado;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempCalculoAjusteTotalizado']}")
+    private String sqlDeleteTempCalculoAjusteTotalizado;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoAjusteTotalizado']}")
+    private String sqlMergeCalculoAjusteTotalizado;
+
     @Override
     public int deleteTempMotivoDesplazamientoComis() {
         return this.jdbcTemplate.update(this.sqlDeleteTempMotivoDesplazamientoComis);
@@ -399,7 +420,6 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     public List<IdPersonaLocalDto> validateTempComisDesplazamiento(final TareaDto tarea) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-
 
         return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisDesplazamiento, map,
                 (rs, rowNum) -> {
@@ -753,6 +773,52 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
                         .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
                     return idPersonaLocalDto;
                 });
+    }
+
+    @Override
+    public int createTempCalculoPorComision() {
+        return this.jdbcTemplate.update(this.sqlCreateTempCalculoPorComision);
+    }
+
+    @Override
+    public int deleteTempCalculoPorComision() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoPorComision);
+    }
+
+    @Override
+    public void mergeCalculoTempCalculoPorComision(final TareaDto tarea) {
+
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+
+        this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoTempCalculoPorComision, params);
+    }
+
+    @Override
+    public void mergeCalculoTempCalculoSinComision(final TareaDto tarea) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+
+        this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoTempCalculoSinComision, params);
+    }
+
+    @Override
+    public int createTempCalculoAjusteTotalizado() {
+        return this.jdbcTemplate.update(this.sqlCreateTempCalculoAjusteTotalizado);
+    }
+
+    @Override
+    public int deleteTempCalculoAjusteTotalizado() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoAjusteTotalizado);
+    }
+
+    @Override
+    public void mergeCalculoTempCalculoAjusteTotalizado(final TareaDto tarea) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoAjusteTotalizado, params);
     }
 
 }

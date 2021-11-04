@@ -76,7 +76,6 @@ public class SlrHorarioComercialServiceImplTest {
     }
 
     @Test
-    @Disabled
     public void festivosTest() {
         final HorarioComercialFestivoDocDto result = HorarioComercialFestivoDocDto
             .builder()

@@ -1,11 +1,13 @@
 amiga:
   common:
+    oauth2-client:
+      clients:
+        client-income:
+          client-id: oauthincomedes
     rest:
       client:
         slrhorcoms:
-          base-url: https://sscc-pre.central.inditex.grp
-          #base-url: http://develop.slrhorcoms.svc.cluster.local.:8080/slrhorcoms
-          username: srvcicmclcwbpreAX
+          base-url: http://develop.slrhorcoms.svc.cluster.local:8080/slrhorcoms-develop
         ptr-venta:
           base-url: http://develop.rhvtimpwsd.svc.cluster.local.:8080/rhvtimpwsd-develop
           username: srvcicmclcwbdes
@@ -96,23 +98,23 @@ amiga:
         comis11-20:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis  
+          username: ncomis
         comis11-233:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis      
+          username: ncomis
         comis11-28:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis      
+          username: ncomis
         comis11-33:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis       
+          username: ncomis
         comis11-101:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis     
+          username: ncomis
         comis11-11:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
@@ -124,11 +126,11 @@ amiga:
         comis11-30:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis      
+          username: ncomis
         comis11-25:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis            
+          username: ncomis
         comis18:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
@@ -238,7 +240,7 @@ amiga:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           username: ncomis
-          readOnly: true                 
+          readOnly: true
         comis388:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
@@ -323,7 +325,7 @@ app:
   envars:
     mail:
       sender: 'noreply@inditex.com'
-      receiver: 'income-java@vectoritcgroup.com'  
+      receiver: 'income-java@vectoritcgroup.com'
     ptr:
       venta:
         service:
