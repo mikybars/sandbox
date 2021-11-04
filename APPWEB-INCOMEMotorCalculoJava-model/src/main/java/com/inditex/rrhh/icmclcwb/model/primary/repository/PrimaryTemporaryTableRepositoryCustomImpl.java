@@ -790,6 +790,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
 
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoTempCalculoPorComision, params);
     }
@@ -798,6 +799,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     public void mergeCalculoTempCalculoSinComision(final TareaDto tarea) {
         final MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoTempCalculoSinComision, params);
     }
