@@ -111,6 +111,44 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasAcumuladasAntiguedad']}")
     private String sqlIndexTempFechasAcumuladasAntiguedad;
 
+    // Vacaciones
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempFechasVacaciones']}")
+    private String sqlCreateTempFechasVacaciones;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasVacaciones']}")
+    private String sqlDeleteTempFechasVacaciones;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasVacaciones']}")
+    private String sqlInsertTempFechasVacaciones;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasVacaciones']}")
+    private String sqlIndexTempFechasVacaciones;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasVacaciones']}")
+    private String sqlCreateTempFechasAcumuladasVacaciones;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasVacaciones']}")
+    private String sqlDeleteTempFechasAcumuladasVacaciones;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasVacaciones']}")
+    private String sqlInsertTempFechasAcumuladasVacaciones;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasAcumuladasVacaciones']}")
+    private String sqlIndexTempFechasAcumuladasVacaciones;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoVacaciones']}")
+    private String sqlCreateTempCalculoTotalizadoVacaciones;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoVacaciones']}")
+    private String sqlDeleteTempCalculoTotalizadoVacaciones;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones']}")
+    private String sqlInsertTempCalculoTotalizadoVacaciones;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempCalculoTotalizadoVacaciones']}")
+    private String sqlIndexTempCalculoTotalizadoVacaciones;
+
     @Override
     public int createTempFechasBajaIt() {
         return this.jdbcTemplate.update(this.sqlCreateTempFechasBajaIt);
@@ -275,6 +313,96 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Override
     public int createIndexTempFechasAcumuladasAntiguedad() {
         return this.jdbcTemplate.update(this.sqlIndexTempFechasAcumuladasAntiguedad);
+    }
+
+    @Override
+    public int createTempFechasVacaciones() {
+        return this.jdbcTemplate.update(this.sqlCreateTempFechasVacaciones);
+    }
+
+    @Override
+    public int deleteTempFechasVacaciones() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempFechasVacaciones);
+    }
+
+    @Override
+    public void insertTempFechasVacaciones(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        if (tarea != null) {
+            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.VACACIONES.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_AUSENCIA, TipoAusenciaEnum.VACACIONES.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempFechasVacaciones, map);
+    }
+
+    @Override
+    public int createIndexTempFechasVacaciones() {
+        return this.jdbcTemplate.update(this.sqlIndexTempFechasVacaciones);
+    }
+
+    @Override
+    public int createTempFechasAcumuladasVacaciones() {
+        return this.jdbcTemplate.update(this.sqlCreateTempFechasAcumuladasVacaciones);
+    }
+
+    @Override
+    public int deleteTempFechasAcumuladasVacaciones() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempFechasAcumuladasVacaciones);
+    }
+
+    @Override
+    public void insertTempFechasAcumuladasVacaciones(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        if (tarea != null) {
+            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.VACACIONES.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempFechasAcumuladasVacaciones, map);
+    }
+
+    @Override
+    public int createIndexTempFechasAcumuladasVacaciones() {
+        return this.jdbcTemplate.update(this.sqlIndexTempFechasAcumuladasVacaciones);
+    }
+
+    @Override
+    public int createTempCalculoTotalizadoVacaciones() {
+        return this.jdbcTemplate.update(this.sqlCreateTempCalculoTotalizadoVacaciones);
+    }
+
+    @Override
+    public int deleteTempCalculoTotalizadoVacaciones() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoTotalizadoVacaciones);
+    }
+
+    @Override
+    public void insertTempCalculoTotalizadoVacaciones(final TareaDto tarea) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        if (tarea != null) {
+            params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
+                Arrays.asList(TipoPoliticaEnum.VACACIONES.getIdMeta4()));
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoTotalizadoVacaciones, params);
+    }
+
+    @Override
+    public int createIndexTempCalculoTotalizadoVacaciones() {
+        return this.jdbcTemplate.update(this.sqlIndexTempCalculoTotalizadoVacaciones);
     }
 
 }

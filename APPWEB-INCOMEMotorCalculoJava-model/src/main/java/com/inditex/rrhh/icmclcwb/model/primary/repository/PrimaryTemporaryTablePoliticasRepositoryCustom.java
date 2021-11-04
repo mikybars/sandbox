@@ -59,4 +59,32 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     // fin antiguedad
 
+    // vacaciones
+
+    int createTempFechasVacaciones();
+
+    int deleteTempFechasVacaciones();
+
+    void insertTempFechasVacaciones(final TareaDto tarea);
+
+    int createIndexTempFechasVacaciones();
+
+    int createTempFechasAcumuladasVacaciones();
+
+    int deleteTempFechasAcumuladasVacaciones();
+
+    void insertTempFechasAcumuladasVacaciones(final TareaDto tarea);
+
+    int createIndexTempFechasAcumuladasVacaciones();
+
+    int createTempCalculoTotalizadoVacaciones();
+
+    int deleteTempCalculoTotalizadoVacaciones();
+
+    void insertTempCalculoTotalizadoVacaciones(final TareaDto tarea);
+
+    int createIndexTempCalculoTotalizadoVacaciones();
+
+    // fin vacaciones
+
 }
