@@ -79,4 +79,19 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
                 EstadoTareaFaseEnum.OK.getDto());
     }
 
+    /**
+     * Este método crea las tablas temporales comunes de Máximo Garantizado y Mínimo Garantizado, así
+     * como sus índices y las llena de datos
+     */
+    protected void createMaxMinGarantizadoTemporaryTables() {
+        // TODO crear tablas, índices y rellenar
+    }
+
+    /**
+     * Este método borra las tablas temporales comunes de Máximo Garantizado y Mínimo Garantizado
+     */
+    protected void deleteMaxMinGarantizadoTemporaryTables() {
+        // TODO borrar tablas
+    }
+
 }

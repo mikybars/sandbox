@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraPoliticaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraPoliticaService;
@@ -32,19 +33,28 @@ public class TareaPersonaEstructuraPoliticaServiceImpl implements TareaPersonaEs
     public List<TareaPersonaEstructuraPoliticaDto> save(
             @Valid @NotNull @NotEmpty final List<ComisionEmpleadoResultItemDto> tareaEmpleadoEstructuraPolitica,
             @Valid @NotNull final TareaDto tarea) {
-        return tareaPersonaEstructuraPoliticaMapper.tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
-                tareaPersonaEstructuraPoliticaRepositoryCustom.save(tareaPersonaEstructuraPoliticaMapper
-                    .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(tareaEmpleadoEstructuraPolitica,
-                            tarea)));
+        return this.tareaPersonaEstructuraPoliticaMapper
+            .tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
+                    this.tareaPersonaEstructuraPoliticaRepositoryCustom.save(this.tareaPersonaEstructuraPoliticaMapper
+                        .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(tareaEmpleadoEstructuraPolitica,
+                                tarea)));
     }
 
     @Override
     public List<TareaPersonaEstructuraPoliticaDto> saveEstructurasPolResultItemDto(
             @Valid @NotNull @NotEmpty final List<EstructurasPolResultItemDto> estructurasPolResultItemDto,
             @Valid @NotNull final TareaDto tarea) {
-        return tareaPersonaEstructuraPoliticaMapper.tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
-                tareaPersonaEstructuraPoliticaRepositoryCustom.save(tareaPersonaEstructuraPoliticaMapper
-                    .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(estructurasPolResultItemDto, tarea)));
+        return this.tareaPersonaEstructuraPoliticaMapper
+            .tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
+                    this.tareaPersonaEstructuraPoliticaRepositoryCustom.save(this.tareaPersonaEstructuraPoliticaMapper
+                        .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(estructurasPolResultItemDto,
+                                tarea)));
+    }
+
+    @Override
+    public Boolean existePolitica(
+            @Valid @NotNull final TareaDto tarea, @Valid @NotNull @NotEmpty final List<TipoPoliticaEnum> politicas) {
+        return this.tareaPersonaEstructuraPoliticaRepositoryCustom.existePolitica(tarea, politicas);
     }
 
 }

@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -19,7 +18,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,22 +25,17 @@ import org.mockito.Mock;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
+class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
 
     private final static Long ID_TAREA = 9991L;
 
     private final static String SQL_AJUSTAR_BASE = "SQL CALCULAR BASE";
 
     private final static String SQL_AJUSTAR = "SQL CALCULAR";
-
-    private final static String SQL_EXISTENCIA = "SQL EXISTENCIA";
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPerosnaService;
@@ -65,8 +58,6 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
                 true);
         FieldUtils.writeField(this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl, "sqlAjustarBase",
                 SQL_AJUSTAR_BASE, true);
-        FieldUtils.writeField(this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl, "sqlExistencia",
-                SQL_EXISTENCIA, true);
     }
 
     private TareaDto createTarea() {
@@ -76,7 +67,7 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
     }
 
     @Test
-    public void idsTest() {
+    void idsTest() {
         final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
         final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
         final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
@@ -92,7 +83,7 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
     }
 
     @Test
-    public void getMapValuesTest() {
+    void getMapValuesTest() {
         final AlgoritmoAjusteDto algoritmoAjuste = mock(AlgoritmoAjusteDto.class);
         when(algoritmoAjuste.getId()).thenReturn(11003);
         final TareaDto tarea = mock(TareaDto.class);
@@ -130,51 +121,6 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
         // inactivo
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, result.get(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-    }
-
-    @Test
-    void existenciaNumParamsTest() {
-        this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
-            .existePoliticaMaxMinGarantizado(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).queryForObject(eq(SQL_EXISTENCIA),
-                this.paramsCaptor.capture(),
-                ArgumentMatchers.<RowMapper<Boolean>>any());
-        assertEquals(2, this.paramsCaptor.getValue().size());
-    }
-
-    @Test
-    void existenciaIdTareaParamTest() {
-        this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
-            .existePoliticaMaxMinGarantizado(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).queryForObject(eq(SQL_EXISTENCIA),
-                this.paramsCaptor.capture(),
-                ArgumentMatchers.<RowMapper<Boolean>>any());
-        final Map<String, ?> params = this.paramsCaptor.getValue();
-        assertTrue(params.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        assertEquals(ID_TAREA, params.get(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-    }
-
-    @Test
-    void existenciaIdTipoPoliticaTest() {
-        this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
-            .existePoliticaMaxMinGarantizado(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).queryForObject(eq(SQL_EXISTENCIA),
-                this.paramsCaptor.capture(),
-                ArgumentMatchers.<RowMapper<Boolean>>any());
-        final Map<String, ?> params = this.paramsCaptor.getValue();
-        assertTrue(params.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
-        assertEquals(Arrays.asList(TipoPoliticaEnum.MAXIMO_GARANTIZADO.getId(), TipoPoliticaEnum.MINIMO_GARANTIZADO
-            .getId()), params.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
-    }
-
-    @Test
-    void existenciaCuenta0Test() {
-        // when(this.namedParameterJdbcTemplate.queryForObject(eq(SQL_EXISTENCIA), ))
-    }
-
-    @Test
-    void existenciaCuentaMayor0Test() {
-
     }
 
 }

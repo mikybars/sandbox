@@ -31,9 +31,6 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
     @Getter
     private String sqlAjustarBase;
 
-    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.maxMinGarantizado.existencia']}")
-    private String sqlExistencia;
-
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
@@ -66,12 +63,6 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
         map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         return map;
-    }
-
-    @Override
-    public Boolean existePoliticaMaxMinGarantizado(final TareaDto tarea) {
-        // return this.namedParameterJdbcTemplate.queryForObject();
-        return false;
     }
 
 }

@@ -8480,4 +8480,16 @@ INSERT INTO SESSION.PRESUPUESTO (
 
   <!-- JAVIEREV - Fin de normalización de tareas consolidadas (para borrar) -->
 
+  <entry key="TareaPersonaEstructuraPolitica.existencia">
+    <![CDATA[
+      SELECT count(*) AS TOTAL
+      FROM TAREA T
+      INNER JOIN TAREA_PERSONA_ESTRUCTURA_POLITICA P
+      ON P.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
+      AND P.ID_TAREA = T.ID_TAREA
+      WHERE T.ID_TAREA = :idTarea
+      AND ID_TIPO_POLITICA IN (:idTipoPolitica)
+    ]]>
+  </entry>
+
 </properties>
