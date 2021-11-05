@@ -15,7 +15,7 @@ app:
       service:
         slrhorcomsService:
           festivos:
-            endpoint: /HorarioComercialFestivos/list
+            endpoint: /HorarioComercialFestivos/list?
             rows: 100
             maxFilterSize: 50
 amiga:

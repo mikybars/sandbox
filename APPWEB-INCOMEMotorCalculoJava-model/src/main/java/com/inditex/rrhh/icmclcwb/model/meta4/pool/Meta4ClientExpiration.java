@@ -30,7 +30,7 @@ public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
                     expired = false;
                 }
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             log.error("Meta4ClientExpiration :: Error no controlado :: hasExpired(): ", e);
         }
         if (login) {
