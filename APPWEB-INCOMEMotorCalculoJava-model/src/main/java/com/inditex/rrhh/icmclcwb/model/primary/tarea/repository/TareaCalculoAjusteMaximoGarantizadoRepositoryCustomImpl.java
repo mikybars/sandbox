@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
@@ -30,19 +31,25 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
     @Getter
     private String sqlAjustarBase;
 
+    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.maxMinGarantizado.existencia']}")
+    private String sqlExistencia;
+
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     @Override
-    public List<IdPersonaLocalDto> ids(TareaDto tarea) {
-        return tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
+    public List<IdPersonaLocalDto> ids(final TareaDto tarea) {
+        return this.tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
                 TipoPoliticaEnum.MAXIMO_GARANTIZADO.getIdMeta4());
     }
 
     @Override
-    protected Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
-            IdPersonaLocalDto persona) {
-        Map<String, Object> map = new HashMap<>();
+    protected Map<String, Object> getMapValues(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
+            final IdPersonaLocalDto persona) {
+        final Map<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         }
@@ -59,6 +66,12 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
         map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         return map;
+    }
+
+    @Override
+    public Boolean existePoliticaMaxMinGarantizado(final TareaDto tarea) {
+        // return this.namedParameterJdbcTemplate.queryForObject();
+        return false;
     }
 
 }
