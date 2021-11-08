@@ -153,6 +153,32 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     private static final String SQL_INSERT_TEMP_DATOS_MIN_GARANTIZADO = "SQL INSERT TEMP DATOS MIN GARANTIZADO";
 
+    // carencia
+
+    private static final String SQL_CREATE_TEMP_FECHAS_CARENCIA = "SQL CREATE TEMP FECHAS CARENCIA";
+
+    private static final String SQL_DELETE_TEMP_FECHAS_CARENCIA = "SQL DELETE TEMP FECHAS CARENCIA";
+
+    private static final String SQL_INSERT_TEMP_FECHAS_CARENCIA = "SQL INSERT TEMP FECHAS CARENCIA";
+
+    private static final String SQL_INDEX_TEMP_FECHAS_CARENCIA = "SQL INDEX TEMP FECHAS CARENCIA";
+
+    private static final String SQL_CREATE_TEMP_FECHAS_ACUMULADAS_CARENCIA = "SQL CREATE TEMP FECHAS ACUMULADAS CARENCIA";
+
+    private static final String SQL_DELETE_TEMP_FECHAS_ACUMULADAS_CARENCIA = "SQL DELETE TEMP FECHAS ACUMULADAS CARENCIA";
+
+    private static final String SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA = "SQL INSERT TEMP FECHAS ACUMULADAS CARENCIA";
+
+    private static final String SQL_INDEX_TEMP_FECHAS_ACUMULADAS_CARENCIA = "SQL INDEX TEMP FECHAS ACUMULADAS CARENCIA";
+
+    private static final String SQL_CREATE_TEMP_CALULO_TOTALIZADO_CARENCIA = "SQL CREATE TEMP CALCULO TOTALIZADO CARENCIA";
+
+    private static final String SQL_DELETE_TEMP_CALCULO_TOTALIZADO_CARENCIA = "SQL DELETE TEMP CALCULO TOTALIZADO CARENCIA";
+
+    private static final String SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA = "SQL INSERT TEMP CALCULO TOTALIZADO CARENCIA";
+
+    private static final String SQL_INDEX_TEMP_CALCULO_TOTALIZADO_CARENCIA = "SQL INDEX TEMP CALCULO TOTALIZADO CARENCIA";
+
 
     @Mock
     private JdbcTemplate jdbcTemplate;
@@ -284,6 +310,31 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
                 "sqlInsertTempDatosMaxGarantizado", SQL_INSERT_TEMP_DATOS_MAX_GARANTIZADO, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlIndexTempDatosMaxMinGarantizado", SQL_INDEX_TEMP_DATOS_MAX_MIN_GARANTIZADO, true);
+        // Carencia
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlCreateTempFechasCarencia", SQL_CREATE_TEMP_FECHAS_CARENCIA, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlDeleteTempFechasCarencia", SQL_DELETE_TEMP_FECHAS_CARENCIA, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlInsertTempFechasCarencia", SQL_INSERT_TEMP_FECHAS_CARENCIA, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlIndexTempFechasCarencia", SQL_INDEX_TEMP_FECHAS_CARENCIA, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlCreateTempFechasAcumuladasCarencia", SQL_CREATE_TEMP_FECHAS_ACUMULADAS_CARENCIA, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlDeleteTempFechasAcumuladasCarencia", SQL_DELETE_TEMP_FECHAS_ACUMULADAS_CARENCIA, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlInsertTempFechasAcumuladasCarencia", SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlIndexTempFechasAcumuladasCarencia", SQL_INDEX_TEMP_FECHAS_ACUMULADAS_CARENCIA, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlCreateTempCalculoTotalizadoCarencia", SQL_CREATE_TEMP_CALULO_TOTALIZADO_CARENCIA, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlDeleteTempCalculoTotalizadoCarencia", SQL_DELETE_TEMP_CALCULO_TOTALIZADO_CARENCIA, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlInsertTempCalculoTotalizadoCarencia", SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlIndexTempCalculoTotalizadoCarencia", SQL_INDEX_TEMP_CALCULO_TOTALIZADO_CARENCIA, true);
     }
 
     private TareaDto createTarea() {
@@ -1616,5 +1667,302 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     }
 
     // Fin tests mínimo garantizado
+
+    // Inicio tests baja it
+
+    @Test
+    void createTempFechasCarenciaTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasCarencia();
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_FECHAS_CARENCIA);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void deleteTempFechasCarenciaTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasCarencia();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_FECHAS_CARENCIA);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void createIndexTempFechasCarenciaTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createIndexTempFechasCarencia();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_FECHAS_CARENCIA);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void insertTempFechasCarenciaNumArgumentosTareaNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(null);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
+                this.paramsCaptor.capture());
+        assertEquals(5, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempFechasCarenciaNumArgumentosTareaNotNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
+                this.paramsCaptor.capture());
+        assertEquals(6, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempFechasCarenciaUnidadTiempoAnosTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
+        assertEquals(TipoUnidadTiempoEnum.ANOS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
+
+    }
+
+    @Test
+    void insertTempFechasCarenciaUnidadTiempoMesesTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
+        assertEquals(TipoUnidadTiempoEnum.MESES.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
+
+    }
+
+    @Test
+    void insertTempFechasCarenciaUnidadTiempoSemanasTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
+        assertEquals(TipoUnidadTiempoEnum.SEMANAS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
+
+    }
+
+    @Test
+    void insertTempFechasCarenciaUnidadTiempoDiasTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+        assertEquals(TipoUnidadTiempoEnum.DIAS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+
+    }
+
+    @Test
+    void insertTempFechasCarenciaIdTipoPoliticaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+        assertEquals(TipoPoliticaEnum.CARENCIA.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+
+    }
+
+    @Test
+    void insertTempFechasCarenciaIdTareaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
+    }
+
+    @Test
+    void createTempFechasAcumuladasCarenciaTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasCarencia();
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_FECHAS_ACUMULADAS_CARENCIA);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void deleteTempFechasAcumuladasCarenciaTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasCarencia();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_FECHAS_ACUMULADAS_CARENCIA);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void createIndexTempFechasAcumuladasCarenciaTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createIndexTempFechasAcumuladasCarencia();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_FECHAS_ACUMULADAS_CARENCIA);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void insertTempFechasAcumuladasCarenciaNumArgumentosTareaNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(null);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
+                this.paramsCaptor.capture());
+        assertEquals(5, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempFechasAcumuladasCarenciaNumArgumentosTareaNotNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
+                this.paramsCaptor.capture());
+        assertEquals(6, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempFechasAcumuladasCarenciaUnidadTiempoAnosTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
+        assertEquals(TipoUnidadTiempoEnum.ANOS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
+
+    }
+
+    @Test
+    void insertTempFechasAcumuladasCarenciaUnidadTiempoMesesTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
+        assertEquals(TipoUnidadTiempoEnum.MESES.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
+
+    }
+
+    @Test
+    void insertTempFechasAcumuladasCarenciaUnidadTiempoSemanasTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
+        assertEquals(TipoUnidadTiempoEnum.SEMANAS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
+
+    }
+
+    @Test
+    void insertTempFechasAcumuladasCarenciaUnidadTiempoDiasTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+        assertEquals(TipoUnidadTiempoEnum.DIAS.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+
+    }
+
+    @Test
+    void insertTempFechasAcumuladasCarenciaIdTipoPoliticaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+        assertEquals(TipoPoliticaEnum.CARENCIA.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+
+    }
+
+    @Test
+    void insertTempFechasAcumuladasCarenciaIdTareaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
+    }
+
+    @Test
+    void createTempCalculoTotalizadoCarenciaTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoCarencia();
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALULO_TOTALIZADO_CARENCIA);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void deleteTempCalculoTotalizadoCarenciaTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoCarencia();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_TOTALIZADO_CARENCIA);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void createIndexTempCalculoTotalizadoCarenciaTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createIndexTempCalculoTotalizadoCarencia();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_CALCULO_TOTALIZADO_CARENCIA);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void insertTempCalculoTotalizadoCarenciaNumArgumentosTareaNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia(null);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
+                this.paramsCaptor.capture());
+        assertEquals(1, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempCalculoTotalizadoCarenciaNumArgumentosTareaNotNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
+                this.paramsCaptor.capture());
+        assertEquals(2, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempCalculoTotalizadoCarenciaIdTareaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
+    }
+
+    @Test
+    void insertTempCalculoTotalizadoCarenciaInactivoTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+
+    }
+
+    // Fin tests carencia
 
 }

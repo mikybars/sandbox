@@ -193,6 +193,44 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempDatosMaxMinGarantizado']}")
     private String sqlIndexTempDatosMaxMinGarantizado;
 
+    // Carencia
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempFechasCarencia']}")
+    private String sqlCreateTempFechasCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasCarencia']}")
+    private String sqlDeleteTempFechasCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia']}")
+    private String sqlInsertTempFechasCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasCarencia']}")
+    private String sqlIndexTempFechasCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasCarencia']}")
+    private String sqlCreateTempFechasAcumuladasCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasCarencia']}")
+    private String sqlDeleteTempFechasAcumuladasCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia']}")
+    private String sqlInsertTempFechasAcumuladasCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasAcumuladasCarencia']}")
+    private String sqlIndexTempFechasAcumuladasCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoCarencia']}")
+    private String sqlCreateTempCalculoTotalizadoCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoCarencia']}")
+    private String sqlDeleteTempCalculoTotalizadoCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia']}")
+    private String sqlInsertTempCalculoTotalizadoCarencia;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempCalculoTotalizadoCarencia']}")
+    private String sqlIndexTempCalculoTotalizadoCarencia;
+
     @Override
     public int createTempFechasBajaIt() {
         return this.jdbcTemplate.update(this.sqlCreateTempFechasBajaIt);
@@ -549,6 +587,89 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.MINIMO_GARANTIZADO.getId());
         this.namedParameterJdbcTemplate.update(this.sqlInsertTempDatosMinGarantizado, map);
+    }
+
+    @Override
+    public int createTempFechasCarencia() {
+        return this.jdbcTemplate.update(this.sqlCreateTempFechasCarencia);
+    }
+
+    @Override
+    public int deleteTempFechasCarencia() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempFechasCarencia);
+    }
+
+    @Override
+    public void insertTempFechasCarencia(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        if (tarea != null) {
+            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.CARENCIA.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempFechasCarencia, map);
+    }
+
+    @Override
+    public int createIndexTempFechasCarencia() {
+        return this.jdbcTemplate.update(this.sqlIndexTempFechasCarencia);
+    }
+
+    @Override
+    public int createTempFechasAcumuladasCarencia() {
+        return this.jdbcTemplate.update(this.sqlCreateTempFechasAcumuladasCarencia);
+    }
+
+    @Override
+    public int deleteTempFechasAcumuladasCarencia() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempFechasAcumuladasCarencia);
+    }
+
+    @Override
+    public void insertTempFechasAcumuladasCarencia(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        if (tarea != null) {
+            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.CARENCIA.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempFechasAcumuladasCarencia, map);
+    }
+
+    @Override
+    public int createIndexTempFechasAcumuladasCarencia() {
+        return this.jdbcTemplate.update(this.sqlIndexTempFechasAcumuladasCarencia);
+    }
+
+    @Override
+    public int createTempCalculoTotalizadoCarencia() {
+        return this.jdbcTemplate.update(this.sqlCreateTempCalculoTotalizadoCarencia);
+    }
+
+    @Override
+    public int deleteTempCalculoTotalizadoCarencia() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoTotalizadoCarencia);
+    }
+
+    @Override
+    public void insertTempCalculoTotalizadoCarencia(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        if (tarea != null) {
+            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoTotalizadoCarencia, map);
+    }
+
+    @Override
+    public int createIndexTempCalculoTotalizadoCarencia() {
+        return this.jdbcTemplate.update(this.sqlIndexTempCalculoTotalizadoCarencia);
     }
 
 }

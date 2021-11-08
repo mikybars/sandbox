@@ -127,4 +127,32 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     // fin mínimo garantizado
 
+    // carencia
+
+    int createTempFechasCarencia();
+
+    int deleteTempFechasCarencia();
+
+    void insertTempFechasCarencia(final TareaDto tarea);
+
+    int createIndexTempFechasCarencia();
+
+    int createTempFechasAcumuladasCarencia();
+
+    int deleteTempFechasAcumuladasCarencia();
+
+    void insertTempFechasAcumuladasCarencia(final TareaDto tarea);
+
+    int createIndexTempFechasAcumuladasCarencia();
+
+    int createTempCalculoTotalizadoCarencia();
+
+    int deleteTempCalculoTotalizadoCarencia();
+
+    void insertTempCalculoTotalizadoCarencia(final TareaDto tarea);
+
+    int createIndexTempCalculoTotalizadoCarencia();
+
+    // fin carencia
+
 }
