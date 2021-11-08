@@ -5,6 +5,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -122,6 +123,36 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     private static final String SQL_INDEX_TEMP_CALCULO_TOTALIZADO_VACACIONES = "SQL INDEX TEMP CALCULO TOTALIZADO VACACIONES";
 
+    // Máximo / Mínimo garantizado (común)
+
+    private static final String SQL_CREATE_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO = "SQL CREATE TEMP AUSENCIAS DATE MAX MIN GARANTIZADO";
+
+    private static final String SQL_DELETE_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO = "SQL DELETE TEMP AUSENCIAS DATE MAX MIN GARANTIZADO";
+
+    private static final String SQL_INSERT_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO = "SQL INSERT TEMP AUSENCIAS DATE MAX MIN GARANTIZADO";
+
+    private static final String SQL_INDEX_TEMP_AUSENCIAS_DATE_MAX_GARANTIZADO = "SQL INDEX TEMP AUSENCIAS DATE MAX  GARANTIZADO";
+
+    private static final String SQL_INDEX_TEMP_AUSENCIAS_DATE_MIN_GARANTIZADO = "SQL INDEX TEMP AUSENCIAS DATE  MIN GARANTIZADO";
+
+    private static final String SQL_CREATE_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO = "SQL CREATE TEMP CALCULO CON AJUSTE MAX MIN GARANTIZADO";
+
+    private static final String SQL_DELETE_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO = "SQL DELETE TEMP CALCULO CON AJUSTE MAX MIN GARANTIZADO";
+
+    private static final String SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO = "SQL INSERT TEMP CALCULO CON AJUSTE MAX MIN GARANTIZADO";
+
+    private static final String SQL_INDEX_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO = "SQL INDEX TEMP CALCULO CON AJUSTE MAX MIN GARANTIZADO";
+
+    private static final String SQL_CREATE_TEMP_DATOS_MAX_MIN_GARANTIZADO = "SQL CREATE TEMP DATOS MAX MIN GARANTIZADO";
+
+    private static final String SQL_DELETE_TEMP_DATOS_MAX_MIN_GARANTIZADO = "SQL DELETE TEMP DATOS MAX MIN GARANTIZADO";
+
+    private static final String SQL_INDEX_TEMP_DATOS_MAX_MIN_GARANTIZADO = "SQL INDEX TEMP DATOS MAX MIN GARANTIZADO";
+
+    private static final String SQL_INSERT_TEMP_DATOS_MAX_GARANTIZADO = "SQL INSERT TEMP DATOS MAX GARANTIZADO";
+
+    private static final String SQL_INSERT_TEMP_DATOS_MIN_GARANTIZADO = "SQL INSERT TEMP DATOS MIN GARANTIZADO";
+
 
     @Mock
     private JdbcTemplate jdbcTemplate;
@@ -214,6 +245,45 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
                 "sqlInsertTempCalculoTotalizadoVacaciones", SQL_INSERT_TEMP_CALCULO_TOTALIZADO_VACACIONES, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlIndexTempCalculoTotalizadoVacaciones", SQL_INDEX_TEMP_CALCULO_TOTALIZADO_VACACIONES, true);
+        // Máximo / Mínimo garantizado
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlCreateTempAusenciasDateMaxMinGarantizado", SQL_CREATE_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO,
+                true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlDeleteTempAusenciasDateMaxMinGarantizado", SQL_DELETE_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO,
+                true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlInsertTempAusenciasDateMaxMinGarantizado", SQL_INSERT_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO,
+                true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlIndexTempAusenciasDateMinGarantizado", SQL_INDEX_TEMP_AUSENCIAS_DATE_MIN_GARANTIZADO, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlIndexTempAusenciasDateMaxGarantizado", SQL_INDEX_TEMP_AUSENCIAS_DATE_MAX_GARANTIZADO, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlCreateTempCalculoConAjusteMaxMinGarantizado",
+                SQL_CREATE_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO,
+                true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlDeleteTempCalculoConAjusteMaxMinGarantizado",
+                SQL_DELETE_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO,
+                true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlInsertTempCalculoConAjusteMaxMinGarantizado",
+                SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO,
+                true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlIndexTempCalculoConAjusteMaxMinGarantizado", SQL_INDEX_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO,
+                true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlCreateTempDatosMaxMinGarantizado", SQL_CREATE_TEMP_DATOS_MAX_MIN_GARANTIZADO, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlDeleteTempDatosMaxMinGarantizado", SQL_DELETE_TEMP_DATOS_MAX_MIN_GARANTIZADO, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlInsertTempDatosMinGarantizado", SQL_INSERT_TEMP_DATOS_MIN_GARANTIZADO, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlInsertTempDatosMaxGarantizado", SQL_INSERT_TEMP_DATOS_MAX_GARANTIZADO, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlIndexTempDatosMaxMinGarantizado", SQL_INDEX_TEMP_DATOS_MAX_MIN_GARANTIZADO, true);
     }
 
     private TareaDto createTarea() {
@@ -1177,5 +1247,374 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     }
 
     // Fin tests baja it
+
+    // Inicio tests máximo / mínimo garantizado (común)
+
+    @Test
+    void createTempAusenciasDateMaxMinGarantizadoTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createTempAusenciasDateMaxMinGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void deleteTempAusenciasDateMaxMinGarantizadoTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .deleteTempAusenciasDateMaxMinGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void createIndexTempAusenciasDateMaxGarantizadoTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createIndexTempAusenciasDateMaxGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_AUSENCIAS_DATE_MAX_GARANTIZADO);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void createIndexTempAusenciasDateMinGarantizadoTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createIndexTempAusenciasDateMinGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_AUSENCIAS_DATE_MIN_GARANTIZADO);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void insertTempAusenciasDateMaxMinGarantizadoNumArgumentosTareaNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempAusenciasDateMaxMinGarantizado(null);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+        assertEquals(2, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempAusenciasDateMaxMinGarantizadoNumArgumentosTareaNotNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempAusenciasDateMaxMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+        assertEquals(3, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempAusenciasDateMaxMinGarantizadoIdTipoPoliticaMaxGarantizadoTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempAusenciasDateMaxMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_MAXIMO_GARANTIZADO));
+        assertEquals(TipoPoliticaEnum.MAXIMO_GARANTIZADO.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_MAXIMO_GARANTIZADO));
+
+    }
+
+    @Test
+    void insertTempAusenciasDateMaxMinGarantizadoIdTipoPoliticaMinGarantizadoTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempAusenciasDateMaxMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_MINIMO_GARANTIZADO));
+        assertEquals(TipoPoliticaEnum.MINIMO_GARANTIZADO.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_MINIMO_GARANTIZADO));
+
+    }
+
+    @Test
+    void insertTempAusenciasDateMaxMinGarantizadoIdTareaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempAusenciasDateMaxMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_AUSENCIAS_DATE_MAX_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
+    }
+
+    @Test
+    void createTempCalculoConAjusteMaxMinGarantizadoTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createTempCalculoConAjusteMaxMinGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void deleteTempCalculoConAjusteMaxMinGarantizadoTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .deleteTempCalculoConAjusteMaxMinGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void createIndexTempCalculoConAjusteMaxMinGarantizadoTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createIndexTempCalculoConAjusteMaxMinGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void insertTempCalculoConAjusteMaxMinGarantizadoNumArgumentosTareaNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteMaxMinGarantizado(null);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+        assertEquals(2, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempCalculoConAjusteMaxMinGarantizadoNumArgumentosTareaNotNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempCalculoConAjusteMaxMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+        assertEquals(3, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempCalculoConAjusteMaxMinGarantizadoInactivoTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempCalculoConAjusteMaxMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+
+    }
+
+    @Test
+    void insertTempCalculoConAjusteMaxMinGarantizadoIdTipoPoliticaAjusteTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempCalculoConAjusteMaxMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
+        assertEquals(
+                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getId(), TipoPoliticaEnum.VACACIONES.getId(),
+                        TipoPoliticaEnum.BAJA_IT.getId()),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
+
+    }
+
+    @Test
+    void insertTempCalculoConAjusteMaxMinGarantizadoIdTareaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempCalculoConAjusteMaxMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAX_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
+    }
+
+    @Test
+    void createTempDatosMaxMinGarantizadoTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaxMinGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_DATOS_MAX_MIN_GARANTIZADO);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void deleteTempDatosMaxMinGarantizadoTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMaxMinGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_DATOS_MAX_MIN_GARANTIZADO);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    @Test
+    void createIndexTempDatosMaxMinGarantizadoTest() {
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
+            .createIndexTempDatosMaxMinGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_DATOS_MAX_MIN_GARANTIZADO);
+        assertEquals(UPDATE_RESULT, result);
+    }
+
+    // Fin tests máximo / mínimo garantizado (común)
+
+    // Inicio tests máximo garantizado
+
+    @Test
+    void insertTempDatosMaxGarantizadoNumArgumentosTareaNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMaxGarantizado(null);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MAX_GARANTIZADO),
+                this.paramsCaptor.capture());
+        assertEquals(3, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempDatosMaxGarantizadoNumArgumentosTareaNotNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempDatosMaxGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MAX_GARANTIZADO),
+                this.paramsCaptor.capture());
+        assertEquals(4, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempDatosMaxGarantizadoInactivoTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempDatosMaxGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MAX_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+
+    }
+
+    @Test
+    void insertTempDatosMaxGarantizadoActivoTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempDatosMaxGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MAX_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+
+    }
+
+    @Test
+    void insertTempDatosMaxGarantizadoIdTipoPoliticaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempDatosMaxGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MAX_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+        assertEquals(TipoPoliticaEnum.MAXIMO_GARANTIZADO.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+
+    }
+
+    @Test
+    void insertTempDatosMaxGarantizadoIdTareaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempDatosMaxGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MAX_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
+    }
+
+    // Fin tests máximo garantizado
+
+    // Inicio tests mínimo garantizado
+
+    @Test
+    void insertTempDatosMinGarantizadoNumArgumentosTareaNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMinGarantizado(null);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+        assertEquals(3, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempDatosMinGarantizadoNumArgumentosTareaNotNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempDatosMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+        assertEquals(4, this.paramsCaptor.getValue().getValues().size());
+    }
+
+    @Test
+    void insertTempDatosMinGarantizadoInactivoTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempDatosMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+
+    }
+
+    @Test
+    void insertTempDatosMinGarantizadoActivoTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempDatosMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+
+    }
+
+    @Test
+    void insertTempDatosMinGarantizadoIdTipoPoliticaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempDatosMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+        assertEquals(TipoPoliticaEnum.MINIMO_GARANTIZADO.getId(),
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+
+    }
+
+    @Test
+    void insertTempDatosMinGarantizadoIdTareaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempDatosMinGarantizado(this.createTarea());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_DATOS_MIN_GARANTIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
+    }
+
+    // Fin tests mínimo garantizado
 
 }
