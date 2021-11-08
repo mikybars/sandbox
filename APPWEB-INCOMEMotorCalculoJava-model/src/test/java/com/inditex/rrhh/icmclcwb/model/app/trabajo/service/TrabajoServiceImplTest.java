@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
@@ -39,6 +39,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -85,14 +86,25 @@ class TrabajoServiceImplTest {
 
     @Test
     void findWithStatesTest() {
-        when(this.trabajoRepository.findByIdAndEstadoIdIn(any(Long.class), any(Collection.class)))
+        final Long idTarea = 1L;
+
+        when(this.trabajoRepository.findByIdAndEstadoIdIn(idTarea, AppConstants.ESTADOS_RUN_TRABAJO_OK))
             .thenReturn(new Trabajo());
         when(this.trabajoMapper.trabajoToTrabajoDto(any(Trabajo.class))).thenReturn(new TrabajoDTO());
-        this.trabajoServiceImpl.findByIdWithStates(1L);
+        this.trabajoServiceImpl.findByIdWithStates(idTarea);
         verify(this.trabajoAmbitoOrigenService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
         verify(this.trabajoAmbitoEmpresaService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
         verify(this.trabajoAmbitoLocalizacionService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
         verify(this.trabajoAmbitoPersonaService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
+    }
+
+    @Test
+    void findWithStatesTest2() {
+        final Long idTarea = 1L;
+        when(this.trabajoRepository.findByIdAndEstadoIdIn(idTarea, AppConstants.ESTADOS_RUN_TRABAJO_OK))
+            .thenReturn(null);
+
+        assertNull(this.trabajoServiceImpl.findByIdWithStates(1L));
     }
 
     @Test

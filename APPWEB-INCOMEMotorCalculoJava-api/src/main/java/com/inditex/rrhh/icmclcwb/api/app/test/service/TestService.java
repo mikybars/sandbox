@@ -2,7 +2,9 @@ package com.inditex.rrhh.icmclcwb.api.app.test.service;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
+import com.inditex.rrhh.icmclcwb.dto.AjusteComisionDTO;
 import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
 import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
 
@@ -39,5 +41,11 @@ public interface TestService {
     void ptrTestBbddAsync();
 
     void slrhorcomsTest();
+
+    // Comienzo de normalización de tareas consolidadas (para borrar)
+
+    AjusteComisionDTO normalizarAjusteComision(@Positive @NotNull final Integer limit);
+
+    // Fin de normalización de tareas consolidadas (para borrar)
 
 }

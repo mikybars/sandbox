@@ -295,4 +295,42 @@ public interface PrimaryTemporaryTableRepositoryCustom {
      */
     List<IdPersonaLocalDto> validateTempComisPrimas(TareaDto tarea);
 
+    /**
+     * @return
+     */
+    int createTempCalculoPorComision();
+
+    /**
+     * @return
+     */
+    int deleteTempCalculoPorComision();
+
+    /**
+     * Totaliza los valores de TAREA_CALCULO del período por persona y tipo comisón.
+     * @param tarea
+     */
+    void mergeCalculoTempCalculoPorComision(TareaDto tarea);
+
+    /**
+     * Totaliza los valores de TAREA_CALCULO del período por persona. El tipo de comisión lo deja a
+     * nulo.
+     * @param tarea
+     */
+    void mergeCalculoTempCalculoSinComision(TareaDto tarea);
+
+    /**
+     * @return
+     */
+    int createTempCalculoAjusteTotalizado();
+
+    /**
+     * @return
+     */
+    int deleteTempCalculoAjusteTotalizado();
+
+    /**
+     * @param tarea
+     */
+    void mergeCalculoTempCalculoAjusteTotalizado(TareaDto tarea);
+
 }

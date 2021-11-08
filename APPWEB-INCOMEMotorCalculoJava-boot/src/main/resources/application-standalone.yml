@@ -20,8 +20,8 @@ metadata:
   platform: Openshift-SSCC Arteixo
   slot: develop
   developModel: CORPORATE
-  layer: core
-  version: 3.5.1
+  layer: core 
+  version: 3.5.2
 amiga:
   monitoring:
     metrics:
@@ -46,6 +46,13 @@ amiga:
       port: 25
       protocol: smtp
       default-encoding: UTF-8
+    oauth2-client:
+      default-client-config:
+        uri-token: https://sscc-int.axdesapigwlb.central.inditex.grp/private/authenticate
+      clients:
+        client-income:
+          client-id: oauthincomedes
+          client-secret: thFHw*m7cDefUL
     rest:
       client:
         http:
@@ -60,10 +67,13 @@ amiga:
         #[HORARIOCOMERCIAL][DES][FIN]
         #[HORARIOCOMERCIAL][PRE][INICIO]
         slrhorcoms:
-          base-url: https://sscc-pre.central.inditex.grp
+          #base-url: https://sscc-pre.central.inditex.grp
+          base-url: http://apigw-sscc-des.axdesocp1.central.inditex.grp/slrhorcoms/openapi-rest/api
           auth-method: BASIC
-          username: srvcicmclcwbpreAX
-          password: xynEJHKK4bu)
+          #username: srvcicmclcwbpreAX
+          #password: xynEJHKK4bu)
+          username: oauthincomedes
+          password: thFHw*m7cDefUL
         #[HORARIOCOMERCIAL][PRE][FIN]
         #[PTR][DES][INICIO]
         ptr-venta:
@@ -95,25 +105,25 @@ amiga:
           wait-duration-in-open-state: PT60S
           failure-rate-threshold: 50
           permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100 
+          sliding-window-size: 100
           sliding-window-type: COUNT_BASED
         tarea:
           wait-duration-in-open-state: PT60S
           failure-rate-threshold: 50
           permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100 
+          sliding-window-size: 100
           sliding-window-type: COUNT_BASED
         limpieza:
           wait-duration-in-open-state: PT60S
           failure-rate-threshold: 50
           permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100 
+          sliding-window-size: 100
           sliding-window-type: COUNT_BASED
         programacion:
           wait-duration-in-open-state: PT60S
           failure-rate-threshold: 50
           permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100 
+          sliding-window-size: 100
           sliding-window-type: COUNT_BASED
   service:
     jms:
@@ -146,8 +156,8 @@ amiga:
       jms-activemq:
         default:
           consumer:
-            enable-dlq: false          
-            send-original-payload-to-dlq: false  
+            enable-dlq: false
+            send-original-payload-to-dlq: false
     jms:
       connection-factory:
         broker-escritura:
@@ -219,19 +229,19 @@ amiga:
           username: uincome
           password: pzuUKBm1ppMGzzOn
           jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
-          #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
-          #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
+            #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
+            #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
 #          user: oincome
 #          password: aMJLp8ahF09w
 #          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
-          #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][FIN]
-          #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][INICIO]
+            #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][FIN]
+            #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][INICIO]
 #          user: uincome
 #          password:
 #          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
-          #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][FIN]
-          #[BBDD][ITX][NON_XA][FIN]
-          #[BBDD][ITX][XA][INICIO]
+            #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][FIN]
+            #[BBDD][ITX][NON_XA][FIN]
+            #[BBDD][ITX][XA][INICIO]
 #          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
 #          xa-properties:
             #[BBDD][ITX][XA][DES][GESTION_COMISION][INICIO]
@@ -264,13 +274,13 @@ amiga:
 #            databaseName: INDITEX
 #            currentSchema: GESTION_COMISION
 #            user: uincome
-#            password: 
+#            password:
             #[BBDD][ITX][XA][PRE][GESTION_COMISION][FIN]
 #            clientProgramName: ${metadata.jirakey}-${metadata.slot}
 #            driverType: 4
-              #            loginTimeout: 10
-              #            connectionTimeout: 10
-              #            commandTimeout: 5
+#            loginTimeout: 10
+#            connectionTimeout: 10
+#            commandTimeout: 5
 #            loginTimeout: 300
 #            connectionTimeout: 300
 #            commandTimeout: 300
@@ -290,7 +300,7 @@ amiga:
           jdbc-url: jdbc:oracle:thin:@//axine3-scansrv.central.inditex.grp:1521/s_pdbds01rt_gener.central.inditex.grp
           username: uincome
           password: pzuUKBm1ppMGzzOn
-          defaultIsolationLevel: 2    
+          defaultIsolationLevel: 2
         #[PTR][ITX][DES][NON_XA][FIN]
         #[PTR][ITX][DES][XA][INICIO]
 #        ptr:
@@ -367,62 +377,62 @@ amiga:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           username: ncomis
-          password: j50lc9sL          
-          readOnly: true       
+          password: j50lc9sL
+          readOnly: true
         comis11-20:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis  
-          password: j50lc9sL          
-          readOnly: true                 
+          username: ncomis
+          password: j50lc9sL
+          readOnly: true
         comis11-233:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis      
-          password: j50lc9sL          
-          readOnly: true                 
+          username: ncomis
+          password: j50lc9sL
+          readOnly: true
         comis11-28:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis      
-          password: j50lc9sL          
-          readOnly: true                 
+          username: ncomis
+          password: j50lc9sL
+          readOnly: true
         comis11-33:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis       
-          password: j50lc9sL          
-          readOnly: true                 
+          username: ncomis
+          password: j50lc9sL
+          readOnly: true
         comis11-101:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXINSQLDES.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis     
-          password: j50lc9sL          
-          readOnly: true                 
+          username: ncomis
+          password: j50lc9sL
+          readOnly: true
         comis11-11:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           username: ncomis
-          password: j50lc9sL          
-          readOnly: true                 
+          password: j50lc9sL
+          readOnly: true
         comis11-2:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXINSQL10.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           username: ncomis
-          password: j50lc9sL          
-          readOnly: true                 
+          password: j50lc9sL
+          readOnly: true
         comis11-30:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis     
-          password: j50lc9sL          
-          readOnly: true                  
+          username: ncomis
+          password: j50lc9sL
+          readOnly: true
         comis11-25:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
-          username: ncomis            
-          password: j50lc9sL          
-          readOnly: true               
+          username: ncomis
+          password: j50lc9sL
+          readOnly: true
         comis18:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
@@ -554,7 +564,7 @@ amiga:
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           username: ncomis
           password: j50lc9sL
-          readOnly: true        
+          readOnly: true
         comis388:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
@@ -664,7 +674,7 @@ app:
     calculo:
       cast: true
       precision: 'DECIMAL(23,8)'
-    proceso: 
+    proceso:
       cast: true
       precision: 'DECIMAL(23,8)'
     tarea:
@@ -732,21 +742,6 @@ app:
         sincronizacion:
           activo: true
           max-empleados: 30
-    slrhorcoms:
-      config:
-        timeout: 86400000
-        refresh-timeout: 82800000
-        max-attempts: 2
-      service:
-        slrhorcomsService:
-          authenticate:
-            endpoint: /authenticate
-          refresh:
-            endpoint: /authenticate/refresh
-          festivos:
-            endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
-            rows: 100
-            maxFilterSize: 50
     ptr:
       config:
         max-attempts: 2
@@ -1006,7 +1001,7 @@ app:
               campoOrden: idempleado
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3    
+              maxPersistenceSize: 3
           getEmpleados:
             page:
               numeroPagina: 1
@@ -1087,7 +1082,7 @@ app:
               campoOrden: idOrigen
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3      
+              maxPersistenceSize: 3
           getConfPrecioHora:
             page:
               numeroPagina: 1
@@ -1096,7 +1091,7 @@ app:
               campoOrden: idOrigen
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3    
+              maxPersistenceSize: 3
           getConfChallengeTpVenta:
             page:
               numeroPagina: 1
@@ -1105,7 +1100,7 @@ app:
               campoOrden: idOrigen
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3 
+              maxPersistenceSize: 3
           getPresupuestosRango:
             page:
               numeroPagina: 1
@@ -1177,4 +1172,4 @@ app:
               campoOrden: idOrigen
             filter:
               maxPageSize: 50
-              maxPersistenceSize: 3              
+              maxPersistenceSize: 3

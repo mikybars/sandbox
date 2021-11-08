@@ -1,31 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoField;
-import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
@@ -37,39 +13,47 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionService;
+import com.inditex.rrhh.icmclcwb.api.app.test.service.TestNormalizacionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.authenticate.dto.AuthenticateResponseDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.exception.SlrhorcomsIcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercial.dto.RootHorarioComercialDto;
-import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
-import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoLocalizacionDTO;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoPersonaDTO;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
+import com.inditex.rrhh.icmclcwb.dto.*;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.*;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAdjusters;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -122,6 +106,15 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private PtrAsyncService ptrAsyncService;
+
+    @Autowired
+    @Qualifier("slrhorcomsProperties")
+    private Map<String, SlrhorcomsPropertiesDto> slrhorcomsProperties;
+
+    private TareaRepositoryCustom tareaRepositoryCustom;
+
+    @Autowired
+    private TestNormalizacionAsyncService testNormalizacionAsyncService;
 
     @Override
     public RelojDTO reloj() {
@@ -493,38 +486,46 @@ public class TestServiceImpl implements TestService {
         }
     }
 
+    @Value("${amiga.common.oauth2-client.default-client-config.uri-token:sinvaloroauthproperty}")
+    String oauthProperty;
+
     @Override
     public void slrhorcomsTest() {
-        // Token datagrid -> OK -> Refrescar -> OK -> Guardar datagrid y Devolver
-        // Token datagrid -> OK -> Refrescar -> KO -> {/authenticate}
-        // Token datagrid -> KO -> /authenticate -> OK -> Devolver
-        // {/authenticate} -> OK -> Guardar datagrid y Devolver
-        // {&} -> /authenticate -> OK -> Excepción
-        final AuthenticateDto authenticateDto = this.slrhorcomsAuthenticateTest();
-        final ResponseEntity<RootHorarioComercialDto> responseHorarioComercial = this.slrhorcomsClient
-            .getForEntity("/slrhorcoms/openapi-rest/HorarioComercial/list?q=*&rows=100",
-                    RootHorarioComercialDto.class);
-        this.log.info("responseHorarioComercial: {}",
-                responseHorarioComercial);
+
+        this.log.info("URI-STRING: {}", oauthProperty);
+
+        final String endpoint = this.slrhorcomsProperties
+            .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO)
+            .getEndpoint();
+
+        this.log.info("ENDPOINT: {}", endpoint);
+
+        final ResponseEntity<HorarioComercialFestivoDocDto[]> responseHorarioComercial = this.slrhorcomsClient
+            .getForEntity(endpoint + "q=*",
+                    HorarioComercialFestivoDocDto[].class);
         this.log.info("responseHorarioComercial: {}",
                 responseHorarioComercial);
     }
 
-    private AuthenticateDto slrhorcomsAuthenticateTest() {
+    // Comienzo de normalización de tareas consolidadas (para borrar)
 
-        this.log.info("Client base url {}", this.slrhorcomsClient.getBaseUrl());
+    @Override
+    public AjusteComisionDTO normalizarAjusteComision(
+            @Positive @NotNull final Integer limit) {
 
-        final ResponseEntity<AuthenticateResponseDto> responseAuthenticate = this.slrhorcomsClient
-            .postForEntity("/authenticate", null, AuthenticateResponseDto.class);
-        this.log.info("responseAuthenticate: {}", responseAuthenticate);
-        if (responseAuthenticate.getStatusCode().value() != HttpStatus.SC_OK) {
-            throw new SlrhorcomsIcmclcwbException("Error en login slrhorcomsI");
-        }
-        return AuthenticateDto.builder()
-            .message(responseAuthenticate.getBody().getMessage())
-            .accessToken(responseAuthenticate.getHeaders().getFirst("access-token"))
-            .refreshToken(responseAuthenticate.getHeaders().getFirst("refresh-token"))
-            .build();
+        final AjusteComisionDTO result = new AjusteComisionDTO();
+        final List<IdTareaDTO> tareasAEjecutar = this.tareaRepositoryCustom
+            .findTareasConsolidadesSinAjusteComision(limit);
+        result.setIdTarea(tareasAEjecutar);
+        result.setTareasProcesadas(tareasAEjecutar.size());
+        result.setTareasPendientes(
+                this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision() - tareasAEjecutar.size());
+        final CompletableFuture<Void> cfNormalizar = this.testNormalizacionAsyncService
+            .normalizarAjusteComision(tareasAEjecutar);
+        AsyncUtils.exceptionally(cfNormalizar, new ArrayList<>());
+        return result;
     }
+
+    // Fin de normalización de tareas consolidadas (para borrar)
 
 }
