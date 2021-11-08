@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -15,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoAjusteService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -23,8 +25,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraPoliticaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjusteFactory;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 
 import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
 import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
@@ -46,6 +50,12 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
     @Autowired
     private TareaFaseService tareaFaseService;
 
+    @Autowired
+    private TareaPersonaEstructuraPoliticaService tareaPersonaEstructuraPoliticaService;
+
+    @Autowired
+    private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+
     @Auditoria
     @Validation(fase = 7)
     @TimerFunctionalMetric(metricName = "RunTareaAjustarService.run.timer",
@@ -59,19 +69,22 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
                         FaseEnum.AJUSTAR.getId()));
         final TareaDto tarea = runTarea.getTarea();
         final List<CompletableFuture<?>> cf = new ArrayList<>();
-
-        for (final Long pesos : this.algoritmoAjusteService.customFindAjustePesosByTarea(tarea.getId())) {
-            for (final Integer id : this.algoritmoAjusteService.customFindAjusteIdsByTareaAndPeso(tarea.getId(),
-                    pesos)) {
-                AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getThreadSize());
-                final AlgoritmoAjusteDto algoritmo = this.algoritmoAjusteService.findById(id);
-                final CompletableFuture<Void> cfRun = this.runAjusteFactory.getRunAjuste(algoritmo.getNombre())
-                    .execute(runTarea, algoritmo);
-                AsyncUtils.exceptionally(cfRun, cf);
+        try {
+            this.createMaxMinGarantizadoTemporaryTables(tarea);
+            for (final Long pesos : this.algoritmoAjusteService.customFindAjustePesosByTarea(tarea.getId())) {
+                for (final Integer id : this.algoritmoAjusteService.customFindAjusteIdsByTareaAndPeso(tarea.getId(),
+                        pesos)) {
+                    AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getThreadSize());
+                    final AlgoritmoAjusteDto algoritmo = this.algoritmoAjusteService.findById(id);
+                    final CompletableFuture<Void> cfRun = this.runAjusteFactory.getRunAjuste(algoritmo.getNombre())
+                        .execute(runTarea, algoritmo);
+                    AsyncUtils.exceptionally(cfRun, cf);
+                }
+                AsyncUtils.waitAllOfIsOk(cf, cf);
             }
-            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } finally {
+            this.deleteMaxMinGarantizadoTemporaryTables(tarea);
         }
-
 
         this.tareaFaseService.updateFechaFinAndEstado(
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
@@ -83,15 +96,31 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
      * Este método crea las tablas temporales comunes de Máximo Garantizado y Mínimo Garantizado, así
      * como sus índices y las llena de datos
      */
-    protected void createMaxMinGarantizadoTemporaryTables() {
-        // TODO crear tablas, índices y rellenar
+    protected void createMaxMinGarantizadoTemporaryTables(final TareaDto tarea) {
+        if (Boolean.TRUE.equals(this.tareaPersonaEstructuraPoliticaService.existePolitica(tarea,
+                Arrays.asList(TipoPoliticaEnum.MINIMO_GARANTIZADO, TipoPoliticaEnum.MAXIMO_GARANTIZADO)))) {
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createTempAusenciasDateMaxMinGarantizado();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempAusenciasDateMaxGarantizado();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempAusenciasDateMinGarantizado();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempAusenciasDateMaxMinGarantizado(tarea);
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjusteMaxMinGarantizado();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjusteMaxMinGarantizado();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteMaxMinGarantizado(tarea);
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaxMinGarantizado();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempDatosMaxMinGarantizado();
+        }
     }
 
     /**
      * Este método borra las tablas temporales comunes de Máximo Garantizado y Mínimo Garantizado
      */
-    protected void deleteMaxMinGarantizadoTemporaryTables() {
-        // TODO borrar tablas
+    protected void deleteMaxMinGarantizadoTemporaryTables(final TareaDto tarea) {
+        if (Boolean.TRUE.equals(this.tareaPersonaEstructuraPoliticaService.existePolitica(tarea,
+                Arrays.asList(TipoPoliticaEnum.MINIMO_GARANTIZADO, TipoPoliticaEnum.MAXIMO_GARANTIZADO)))) {
+            this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempAusenciasDateMaxMinGarantizado();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjusteMaxMinGarantizado();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMaxMinGarantizado();
+        }
     }
 
 }
