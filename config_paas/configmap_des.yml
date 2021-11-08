@@ -350,3 +350,9 @@ app:
         server: http://develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/Login
       icmwscalcincome:
         server: http://develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/ICM_WS_CALC_INCOME
+        ping-query-custom:
+          enabled: true
+          path: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/validationCheck
+          connect-timeout: 10s
+          read-timeout: 10s
+          type: 2
