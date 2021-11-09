@@ -2,7 +2,9 @@ package com.inditex.rrhh.icmclcwb.ws.health.utils;
 
 import com.inditex.rrhh.icmclcwb.api.utils.TypeHealthEnum;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.actuate.health.Health;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,13 +15,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HealthUtilTest {
+@ExtendWith(MockitoExtension.class)
+class HealthUtilTest {
 
     @InjectMocks
     HealthUtil healthUtil;
 
     @Test
-    public void callEndpointTest1() {
+    void callEndpointTest1() {
         Map<String, String> dataProject = new HashMap<>();
         dataProject.put("projectService", "ICMCLCWB");
 
@@ -31,7 +34,7 @@ public class HealthUtilTest {
     }
 
     @Test
-    public void callEndpointTest2() {
+    void callEndpointTest2() {
         Map<String, String> dataProject = new HashMap<>();
         dataProject.put("projectService", "ICMCLCWB");
         dataProject.put("usernameService", "user");
@@ -48,7 +51,7 @@ public class HealthUtilTest {
     }
 
     @Test
-    public void callEndpointTest3() {
+    void callEndpointTest3() {
         Map<String, String> dataProject = new HashMap<>();
         dataProject.put("projectService", "ICMCLCWB");
         dataProject.put("usernameService", "user");

@@ -5,18 +5,18 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class TypeHealthEnumTest {
+class TypeHealthEnumTest {
 
     @Test
-    public void getIdTest() {
-        assertEquals(TypeHealthEnum.AMIGA_HEALTH_STATUS_UP.getId(), 1);
-        assertEquals(TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK.getId(), 2);
+    void getIdTest() {
+        assertEquals(1, TypeHealthEnum.AMIGA_HEALTH_STATUS_UP.getId());
+        assertEquals(2, TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK.getId());
     }
 
     @Test
-    public void gtByIdTest() {
-        assertEquals(TypeHealthEnum.getById(1), TypeHealthEnum.AMIGA_HEALTH_STATUS_UP);
-        assertEquals(TypeHealthEnum.getById(2), TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK);
+    void gtByIdTest() {
+        assertEquals(TypeHealthEnum.AMIGA_HEALTH_STATUS_UP, TypeHealthEnum.getById(1));
+        assertEquals(TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK, TypeHealthEnum.getById(2));
         assertNull(TypeHealthEnum.getById(3));
     }
 
