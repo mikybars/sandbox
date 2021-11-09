@@ -19,19 +19,19 @@ public class HealthUtilTest {
     HealthUtil healthUtil;
 
     @Test
-    public void callEndpointTest1 () {
+    public void callEndpointTest1() {
         Map<String, String> dataProject = new HashMap<>();
         dataProject.put("projectService", "ICMCLCWB");
 
         Health health = this.healthUtil.callEndpoint(false, dataProject, null,
-            null, null, null);
+                null, null, null);
 
         assertNotNull(health);
         assertEquals(health, Health.unknown().withDetail("project", "ICMCLCWB").build());
     }
 
     @Test
-    public void callEndpointTest2 () {
+    public void callEndpointTest2() {
         Map<String, String> dataProject = new HashMap<>();
         dataProject.put("projectService", "ICMCLCWB");
         dataProject.put("usernameService", "user");
@@ -41,13 +41,14 @@ public class HealthUtilTest {
         List<String> urls = Arrays.asList("url1");
 
         Health health = this.healthUtil.callEndpoint(true, dataProject, urls,
-            TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK, Duration.ofHours(Long.valueOf(0)), Duration.ofHours(Long.valueOf(0)));
+                TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK, Duration.ofHours(Long.valueOf(0)),
+                Duration.ofHours(Long.valueOf(0)));
 
         assertNotNull(health);
     }
 
     @Test
-    public void callEndpointTest3 () {
+    public void callEndpointTest3() {
         Map<String, String> dataProject = new HashMap<>();
         dataProject.put("projectService", "ICMCLCWB");
         dataProject.put("usernameService", "user");
@@ -57,7 +58,8 @@ public class HealthUtilTest {
         List<String> urls = Arrays.asList("url1");
 
         Health health = this.healthUtil.callEndpoint(true, dataProject, urls,
-            TypeHealthEnum.AMIGA_HEALTH_STATUS_UP, Duration.ofHours(Long.valueOf(0)), Duration.ofHours(Long.valueOf(0)));
+                TypeHealthEnum.AMIGA_HEALTH_STATUS_UP, Duration.ofHours(Long.valueOf(0)),
+                Duration.ofHours(Long.valueOf(0)));
 
         assertNotNull(health);
     }

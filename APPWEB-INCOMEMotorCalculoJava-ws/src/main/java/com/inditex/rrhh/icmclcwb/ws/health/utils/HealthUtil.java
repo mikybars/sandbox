@@ -92,7 +92,6 @@ public class HealthUtil {
 
     }
 
-
     private static Health getHealth(final Health.Builder builder, final String project) {
         return builder.withDetail(PROJECT, project).build();
     }
