@@ -14,7 +14,7 @@ class TypeHealthEnumTest {
     }
 
     @Test
-    void gtByIdTest() {
+    void getByIdTest() {
         assertEquals(TypeHealthEnum.AMIGA_HEALTH_STATUS_UP, TypeHealthEnum.getById(1));
         assertEquals(TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK, TypeHealthEnum.getById(2));
         assertNull(TypeHealthEnum.getById(3));
