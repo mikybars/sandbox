@@ -73,6 +73,23 @@ class HealthUtilTest {
     }
 
     @Test
+    void callEndpointTest4() {
+        Map<String, String> dataProject = new HashMap<>();
+        dataProject.put("projectService", "ICMCLCWB");
+        dataProject.put("usernameService", "user");
+        dataProject.put("passwordService", "pass");
+        dataProject.put("authMethodService", "BASIC");
+
+        List<String> urls = Arrays.asList();
+
+        Health health = HealthUtil.callEndpoint(true, dataProject, urls,
+            TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK, Duration.ofHours(Long.valueOf(0)),
+            Duration.ofHours(Long.valueOf(0)));
+
+        assertNotNull(health);
+    }
+
+    @Test
     void callEndpointThrowTest() {
         Map<String, String> dataProject = new HashMap<>();
         dataProject.put("projectService", "ICMCLCWB");
