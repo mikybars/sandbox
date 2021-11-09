@@ -74,8 +74,8 @@ class HealthUtilTest {
         List<String> url = Arrays.asList("url");
 
         Health health = HealthUtil.callEndpoint(true, dataProject, url,
-            TypeHealthEnum.AMIGA_HEALTH_STATUS_UP, Duration.ofHours(Long.valueOf(0)),
-            Duration.ofHours(Long.valueOf(0)));
+                TypeHealthEnum.AMIGA_HEALTH_STATUS_UP, Duration.ofHours(Long.valueOf(0)),
+                Duration.ofHours(Long.valueOf(0)));
 
         assertNotNull(health);
     }
