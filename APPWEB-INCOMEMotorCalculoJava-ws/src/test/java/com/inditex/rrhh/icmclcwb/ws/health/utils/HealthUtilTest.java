@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.health.Health;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,6 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 class HealthUtilTest {
+
+    @Value("${app.envars.meta4.icmwscalcincome.ping-query-custom.path}")
+    private List<String> urls;
 
     @Test
     void callEndpointTest1() {
@@ -37,9 +41,7 @@ class HealthUtilTest {
         dataProject.put("passwordService", "pass");
         dataProject.put("authMethodService", "NONE");
 
-        List<String> urls = Arrays.asList("url1");
-
-        Health health = HealthUtil.callEndpoint(true, dataProject, urls,
+        Health health = HealthUtil.callEndpoint(true, dataProject, this.urls,
                 TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK, Duration.ofHours(Long.valueOf(0)),
                 Duration.ofHours(Long.valueOf(0)));
 
@@ -54,11 +56,26 @@ class HealthUtilTest {
         dataProject.put("passwordService", "pass");
         dataProject.put("authMethodService", "BASIC");
 
-        List<String> urls = Arrays.asList("url1");
-
-        Health health = HealthUtil.callEndpoint(true, dataProject, urls,
+        Health health = HealthUtil.callEndpoint(true, dataProject, this.urls,
                 TypeHealthEnum.AMIGA_HEALTH_STATUS_UP, Duration.ofHours(Long.valueOf(0)),
                 Duration.ofHours(Long.valueOf(0)));
+
+        assertNotNull(health);
+    }
+
+    @Test
+    void callEndpointTest4() {
+        Map<String, String> dataProject = new HashMap<>();
+        dataProject.put("projectService", "ICMCLCWB");
+        dataProject.put("usernameService", "user");
+        dataProject.put("passwordService", "pass");
+        dataProject.put("authMethodService", "BASIC");
+
+        List<String> url = Arrays.asList("url");
+
+        Health health = HealthUtil.callEndpoint(true, dataProject, url,
+            TypeHealthEnum.AMIGA_HEALTH_STATUS_UP, Duration.ofHours(Long.valueOf(0)),
+            Duration.ofHours(Long.valueOf(0)));
 
         assertNotNull(health);
     }
