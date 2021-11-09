@@ -15,18 +15,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ExtendWith(MockitoExtension.class)
 class HealthUtilTest {
-
-    @InjectMocks
-    HealthUtil healthUtil;
 
     @Test
     void callEndpointTest1() {
         Map<String, String> dataProject = new HashMap<>();
         dataProject.put("projectService", "ICMCLCWB");
 
-        Health health = this.healthUtil.callEndpoint(false, dataProject, null,
+        Health health = HealthUtil.callEndpoint(false, dataProject, null,
                 null, null, null);
 
         assertNotNull(health);
@@ -43,7 +39,7 @@ class HealthUtilTest {
 
         List<String> urls = Arrays.asList("url1");
 
-        Health health = this.healthUtil.callEndpoint(true, dataProject, urls,
+        Health health = HealthUtil.callEndpoint(true, dataProject, urls,
                 TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK, Duration.ofHours(Long.valueOf(0)),
                 Duration.ofHours(Long.valueOf(0)));
 
@@ -60,7 +56,7 @@ class HealthUtilTest {
 
         List<String> urls = Arrays.asList("url1");
 
-        Health health = this.healthUtil.callEndpoint(true, dataProject, urls,
+        Health health = HealthUtil.callEndpoint(true, dataProject, urls,
                 TypeHealthEnum.AMIGA_HEALTH_STATUS_UP, Duration.ofHours(Long.valueOf(0)),
                 Duration.ofHours(Long.valueOf(0)));
 
