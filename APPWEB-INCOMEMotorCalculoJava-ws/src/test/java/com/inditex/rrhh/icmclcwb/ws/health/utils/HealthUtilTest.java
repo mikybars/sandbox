@@ -70,12 +70,6 @@ class HealthUtilTest {
         assertNotNull(health);
         assertNotNull(health2);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            HealthUtil.callEndpoint(true, dataProject, urls,
-                    null, Duration.ofHours(Long.valueOf(0)),
-                    Duration.ofHours(Long.valueOf(0)));
-        });
-
     }
 
     @Test
@@ -91,14 +85,12 @@ class HealthUtilTest {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             HealthUtil.callEndpoint(true, dataProject, urls,
-                    null, Duration.ofHours(Long.valueOf(0)),
-                    Duration.ofHours(Long.valueOf(0)));
+                    null, null, null);
         });
 
         Assertions.assertThrows(NullPointerException.class, () -> {
             HealthUtil.callEndpoint(true, null, null,
-                    null, Duration.ofHours(Long.valueOf(0)),
-                    Duration.ofHours(Long.valueOf(0)));
+                null, null, null);
         });
 
     }
