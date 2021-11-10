@@ -21,10 +21,6 @@
 
     <!-- FWK DEPENDENCIES -->
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-resilience</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.inditex.aqsw.framework.data</groupId>
       <artifactId>data-framework-starter-jms-activemq</artifactId>
     </dependency>

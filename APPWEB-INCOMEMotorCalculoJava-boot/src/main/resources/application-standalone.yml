@@ -74,15 +74,23 @@ amiga:
           #password: xynEJHKK4bu)
           username: oauthincomedes
           password: thFHw*m7cDefUL
+          ping-query:
+            #Desactivado por problemas de funcionamiento. No establece conexión con el url correctamente en local.
+            enabled: false
+            path: http://des-openshift-private.axdesocp1.central.inditex.grp/slrhorcoms-develop/amiga/health
         #[HORARIOCOMERCIAL][PRE][FIN]
         #[PTR][DES][INICIO]
         ptr-venta:
           base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
+          ping-query:
+            path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhvtimpwsd-develop/amiga/health
           auth-method: BASIC
           username: srvcicmclcwbdes
           password: q2ZB)XKFWdeA
         ptr-presencia:
           base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
+          ping-query:
+            path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhpresnwsd-develop/amiga/health
           auth-method: BASIC
           username: srvcicmclcwbdes
           password: q2ZB)XKFWdeA
@@ -99,32 +107,6 @@ amiga:
 #          username: srvcicmclcwbpreAX
 #          password: xynEJHKK4bu)
         #[PTR][PRE][INICIO]
-    resilience:
-      backends:
-        trabajo:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        tarea:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        limpieza:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        programacion:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
   service:
     jms:
       listener:
@@ -405,7 +387,7 @@ amiga:
           readOnly: true
         comis11-101:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXINSQLDES.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           username: ncomis
           password: j50lc9sL
           readOnly: true
@@ -417,7 +399,7 @@ amiga:
           readOnly: true
         comis11-2:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXINSQL10.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
           username: ncomis
           password: j50lc9sL
           readOnly: true
@@ -865,6 +847,8 @@ app:
         timeout:
           connectTimeout: 300000
           receiveTimeout: 300000
+      ping-query-custom:
+        path: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/validationCheck
       login:
         #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
         server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
