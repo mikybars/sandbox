@@ -2,6 +2,6 @@ app:
   limits:
     cpu: 1
     memory: 1024Mi
-  replicas: 2
+  replicas: 1
 datagrid:
-  replicas: 2
+  replicas: 1
