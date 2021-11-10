@@ -74,6 +74,10 @@ amiga:
           #password: xynEJHKK4bu)
           username: oauthincomedes
           password: thFHw*m7cDefUL
+          ping-query:
+            #Desactivado por problemas de funcionamiento. No establece conexión con el url correctamente en local
+            enabled: false
+            path: http://des-openshift-private.axdesocp1.central.inditex.grp/slrhorcoms-develop/amiga/health
         #[HORARIOCOMERCIAL][PRE][FIN]
         #[PTR][DES][INICIO]
         ptr-venta:

@@ -30,6 +30,9 @@ amiga:
       health:
         ping-enabled: true
       client:
+        slrhorcoms:
+          ping-query:
+            enabled: true
         ptr-venta:
           ping-query:
             enabled: true
