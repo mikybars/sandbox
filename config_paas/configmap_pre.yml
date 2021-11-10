@@ -357,3 +357,9 @@ app:
         server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+        ping-query-custom:
+          enabled: true
+          path: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME/validationCheck
+          connect-timeout: 10s
+          read-timeout: 10s
+          type: 2
