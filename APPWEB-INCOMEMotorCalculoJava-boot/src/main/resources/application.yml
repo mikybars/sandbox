@@ -27,20 +27,9 @@ app:
 amiga:
   common:
     rest:
-      health:
-        ping-enabled: true
       client:
-        slrhorcoms:
-          ping-query:
-            enabled: true
-        ptr-venta:
-          ping-query:
-            enabled: true
-            timeout: 2s
-        ptr-presencia:
-          ping-query:
-            enabled: true
-            timeout: 2s
+        health:
+          ping-enabled: true
     cache:
       errorHandler:
         failOnError: false
