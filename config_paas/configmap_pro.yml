@@ -320,7 +320,7 @@ app:
         #server: https://openshift.axinocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         ping-query-custom:
           enabled: true
-          path: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME/validationCheck
+          path: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/validationCheck
           connect-timeout: 10s
           read-timeout: 10s
           type: 2
