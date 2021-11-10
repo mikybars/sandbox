@@ -83,8 +83,8 @@ class HealthUtilTest {
         List<String> urls = Arrays.asList();
 
         Health health = HealthUtil.callEndpoint(true, dataProject, urls,
-            TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK, Duration.ofHours(Long.valueOf(0)),
-            Duration.ofHours(Long.valueOf(0)));
+                TypeHealthEnum.VALIDATE_RESPONSE_STATUS_CODE_OK, Duration.ofHours(Long.valueOf(0)),
+                Duration.ofHours(Long.valueOf(0)));
 
         assertNotNull(health);
     }
@@ -107,7 +107,7 @@ class HealthUtilTest {
 
         Assertions.assertThrows(NullPointerException.class, () -> {
             HealthUtil.callEndpoint(true, null, null,
-                null, null, null);
+                    null, null, null);
         });
 
     }
