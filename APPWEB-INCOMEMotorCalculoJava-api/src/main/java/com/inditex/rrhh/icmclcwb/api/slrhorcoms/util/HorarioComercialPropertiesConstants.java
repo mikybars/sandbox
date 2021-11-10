@@ -20,16 +20,6 @@ public class HorarioComercialPropertiesConstants {
 
     public static final String AUTHENTICATE = "authenticate";
 
-    public static final String AUTHENTICATE_REFRESH = "refresh";
-
-    public static final String AUTHENTICATE_REVOKE = "/authenticate/revoke";
-
-    public static final String ACCESS_TOKEN_COOKIE = "access-token";
-
-    public static final String REFRESH_TOKEN_COOKIE = "refresh-token";
-
-    public static final String TOKEN_HEADER = "token";
-
     public static final String ID_TIENDA_FIELD = "idTienda";
 
     public static final String ID_CADENA_FIELD = "idCadena";

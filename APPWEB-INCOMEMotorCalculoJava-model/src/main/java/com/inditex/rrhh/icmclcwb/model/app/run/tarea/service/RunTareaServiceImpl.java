@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.Ru
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaNormalizarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
@@ -69,6 +70,9 @@ public class RunTareaServiceImpl implements RunTareaService {
     private RunTareaAjustarService runTareaAjustarService;
 
     @Autowired
+    private RunTareaNormalizarService runTareaNormalizarService;
+
+    @Autowired
     private TareaFaseService tareaFaseService;
 
     @Autowired
@@ -92,6 +96,7 @@ public class RunTareaServiceImpl implements RunTareaService {
             this.runTareaRegularizarChallengeService.run(runTarea);
             this.runTareaRegularizarService.run(runTarea);
             this.runTareaAjustarService.run(runTarea);
+            this.runTareaNormalizarService.run(runTarea);
             this.tareaFaseService.updateActivo(runTarea);
             this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
                     EstadoTareaCalculoPersonaEnum.OK.getDto());

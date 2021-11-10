@@ -34,16 +34,3 @@ app:
       config:
         pool:
           size: 1
-    slrhorcoms:
-      config:
-        timeout: 86400000
-        refresh-timeout: 82800000
-      service:
-        slrhorcomsService:
-          authenticate:
-            endpoint: /authenticate
-          refresh:
-            endpoint: /authenticate/refresh
-          festivos:
-            endpoint: /slrhorcoms/openapi-rest/HorarioComercialFestivos/list?
-            rows: 100
