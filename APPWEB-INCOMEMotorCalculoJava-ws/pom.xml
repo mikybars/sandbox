@@ -37,7 +37,6 @@
       <artifactId>service-framework-starter-aaa-userdetails-sso</artifactId>
     </dependency>
 
-
     <!-- OTHER DEPENDENCIES -->
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>
@@ -52,16 +51,18 @@
       <artifactId>jackson-datatype-jsr310</artifactId>
     </dependency>
 
+    <!-- COMPILE  -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- TEST -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
