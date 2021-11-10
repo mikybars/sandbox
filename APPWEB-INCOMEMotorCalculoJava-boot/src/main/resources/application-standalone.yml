@@ -55,8 +55,6 @@ amiga:
           client-secret: thFHw*m7cDefUL
     rest:
       client:
-        health:
-          ping-enabled: true
         http:
           connect-timeout: 300000
           read-timeout: 300000

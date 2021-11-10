@@ -21,8 +21,6 @@ amiga:
       default-encoding: UTF-8
     rest:
       client:
-        health:
-          ping-enabled: true
         http:
           connect-timeout: 300000
           read-timeout: 300000

@@ -27,6 +27,8 @@ app:
 amiga:
   common:
     rest:
+      health:
+        ping-enabled: true
       client:
         ptr-venta:
           ping-query:
