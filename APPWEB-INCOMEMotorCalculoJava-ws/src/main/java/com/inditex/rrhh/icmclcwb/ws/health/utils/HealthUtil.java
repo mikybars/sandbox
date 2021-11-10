@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.experimental.UtilityClass;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
@@ -19,13 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 import com.inditex.aqsw.framework.common.rest.client.authentication.AuthMethod;
 
 @Slf4j
+@UtilityClass
 public class HealthUtil {
 
     public static final String PROJECT = "project";
-
-    private HealthUtil() {
-        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
-    }
 
     public static Health callEndpoint(final Boolean enabled, final Map<String, String> dataService,
             final List<String> urls,

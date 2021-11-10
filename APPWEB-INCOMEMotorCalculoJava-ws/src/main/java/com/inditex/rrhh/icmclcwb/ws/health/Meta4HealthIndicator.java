@@ -18,19 +18,19 @@ public class Meta4HealthIndicator implements HealthIndicator {
     @Value("${spring.application.name:ICMCLCWB}")
     private String project;
 
-    @Value("${app.envars.meta4.icmwscalcincome.ping-query-custom.enabled:false}")
+    @Value("${app.envars.meta4.ping-query-custom.enabled:false}")
     private boolean enabled;
 
-    @Value("${app.envars.meta4.icmwscalcincome.ping-query-custom.path}")
+    @Value("${app.envars.meta4.ping-query-custom.path}")
     private List<String> urls;
 
-    @Value("${app.envars.meta4.icmwscalcincome.ping-query-custom.type}")
+    @Value("${app.envars.meta4.ping-query-custom.type}")
     private int type;
 
-    @Value("${app.envars.meta4.icmwscalcincome.ping-query-custom.connect-timeout}")
+    @Value("${app.envars.meta4.ping-query-custom.connect-timeout}")
     private Duration connectTimeout;
 
-    @Value("${app.envars.meta4.icmwscalcincome.ping-query-custom.read-timeout}")
+    @Value("${app.envars.meta4.ping-query-custom.read-timeout}")
     private Duration readTimeout;
 
     @Value("${app.envars.meta4.config.credentials.auth-method:NONE}")

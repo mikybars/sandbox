@@ -1,18 +1,15 @@
 package com.inditex.rrhh.icmclcwb.api.utils;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
 public enum TypeHealthEnum {
 
     AMIGA_HEALTH_STATUS_UP(1), VALIDATE_RESPONSE_STATUS_CODE_OK(2);
 
+    @Getter
     private final Integer id;
-
-    TypeHealthEnum(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
 
     public static TypeHealthEnum getById(Integer id) {
         for (TypeHealthEnum e : values()) {

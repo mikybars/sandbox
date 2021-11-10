@@ -18,8 +18,24 @@ app:
             endpoint: /HorarioComercialFestivos/list
             rows: 100
             maxFilterSize: 50
+    meta4:
+      ping-query-custom:
+        enabled: true
+        connect-timeout: 10s
+        read-timeout: 10s
+        type: 2
 amiga:
   common:
+    rest:
+      client:
+        ptr-venta:
+          ping-query:
+            enabled: true
+            timeout: 2s
+        ptr-presencia:
+          ping-query:
+            enabled: true
+            timeout: 2s
     cache:
       errorHandler:
         failOnError: false

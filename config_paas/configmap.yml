@@ -31,6 +31,8 @@ amiga:
         slrhorcoms:
           auth-method: OAUTH2-CLIENT-CREDENTIALS
           client-name: client-income
+          ping-query:
+            enabled: true
         ptr-venta:
           auth-method: BASIC
         ptr-presencia:

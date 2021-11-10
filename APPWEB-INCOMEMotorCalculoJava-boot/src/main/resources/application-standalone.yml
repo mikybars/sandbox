@@ -81,18 +81,14 @@ amiga:
         ptr-venta:
           base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
           ping-query:
-            enabled: true
             path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhvtimpwsd-develop/amiga/health
-            timeout: 2s
           auth-method: BASIC
           username: srvcicmclcwbdes
           password: q2ZB)XKFWdeA
         ptr-presencia:
           base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
           ping-query:
-            enabled: true
             path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhpresnwsd-develop/amiga/health
-            timeout: 2s
           auth-method: BASIC
           username: srvcicmclcwbdes
           password: q2ZB)XKFWdeA
@@ -849,6 +845,8 @@ app:
         timeout:
           connectTimeout: 300000
           receiveTimeout: 300000
+      ping-query-custom:
+        path: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/validationCheck
       login:
         #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
         server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
@@ -859,12 +857,6 @@ app:
         server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
-        ping-query-custom:
-          enabled: true
-          path: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/validationCheck
-          connect-timeout: 10s
-          read-timeout: 10s
-          type: 2
         service:
           getEmpresa:
             page:

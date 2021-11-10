@@ -9,20 +9,17 @@ amiga:
         slrhorcoms:
           base-url: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont.svc.cluster.local.:8080/slrhorcoms
           ping-query:
-            enabled: true
             path: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont.svc.cluster.local.:8081/slrhorcoms/amiga/health
         ptr-venta:
           #base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
           base-url: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhvtimpwsd
           ping-query:
-            enabled: true
             path: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8081/rhvtimpwsd/amiga/health
           username: srvcicmclcwbAX
         ptr-presencia:
           #base-url: https://openshift.axinocp1.central.inditex.grp/rhpresnwsd
           base-url: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhpresnwsd
           ping-query:
-            enabled: true
             path: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhpresnwsd/amiga/health
           username: srvcicmclcwbAX
   data:
@@ -308,6 +305,8 @@ app:
       config:
         credentials:
           user: SRVCICMCLCWSAX
+      ping-query-custom:
+        path: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/validationCheck
       login:
         server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/services/Login
         #server: https://sscc.central.inditex.grp/icmclcws/services/Login
@@ -318,9 +317,3 @@ app:
         #server: https://sscc.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://icmclcws.axinocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://openshift.axinocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
-        ping-query-custom:
-          enabled: true
-          path: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/icmclcws/validationCheck
-          connect-timeout: 10s
-          read-timeout: 10s
-          type: 2
