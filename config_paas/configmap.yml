@@ -29,10 +29,19 @@ amiga:
         slrhorcoms:
           auth-method: OAUTH2-CLIENT-CREDENTIALS
           client-name: client-income
+          ping-query:
+            enabled: true
+            timeout: 2s
         ptr-venta:
           auth-method: BASIC
+          ping-query:
+            enabled: true
+            timeout: 2s
         ptr-presencia:
           auth-method: BASIC
+          ping-query:
+            enabled: true
+            timeout: 2s
   service:
     jms:
       listener:
