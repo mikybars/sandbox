@@ -70,7 +70,7 @@ class TareaCalculoAjusteCarenciaRepositoryCustomImplTest {
     @Test
     void getMapValuesNumParamsTareaPersonaNullTest() {
         final Map<String, Object> result = this.tareaCalculoAjusteCarenciaRepositoryCustomImpl.getMapValues(
-            this.createAlgoritmoAjuste(), null, null);
+                this.createAlgoritmoAjuste(), null, null);
         assertEquals(2, result.size());
     }
 
