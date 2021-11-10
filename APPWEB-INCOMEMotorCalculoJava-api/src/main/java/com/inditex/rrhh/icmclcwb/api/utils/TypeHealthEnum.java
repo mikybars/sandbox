@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public enum TypeHealthEnum {
 
     AMIGA_HEALTH_STATUS_UP(1), VALIDATE_RESPONSE_STATUS_CODE_OK(2);
 
-    @Getter
     private final Integer id;
 
     public static TypeHealthEnum getById(Integer id) {
