@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,29 +32,16 @@ public class TareaCalculoAjusteMinimoGarantizadoRepositoryCustomImpl
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
-    public List<IdPersonaLocalDto> ids(TareaDto tarea) {
-        return tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
+    public List<IdPersonaLocalDto> ids(final TareaDto tarea) {
+        return this.tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
                 TipoPoliticaEnum.MINIMO_GARANTIZADO.getIdMeta4());
     }
 
     @Override
-    protected Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
-            IdPersonaLocalDto persona) {
-        Map<String, Object> map = new HashMap<>();
-        if (tarea != null) {
-            map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
-        if (persona != null) {
-            map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
-            map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
-        }
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());
+    protected Map<String, Object> getMapValues(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
+            final IdPersonaLocalDto persona) {
+        final Map<String, Object> map = super.getMapValues(algoritmoAjuste, tarea, persona);
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.MINIMO_GARANTIZADO.getId());
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
-                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4(),
-                        TipoPoliticaEnum.VACACIONES.getIdMeta4(),
-                        TipoPoliticaEnum.BAJA_IT.getIdMeta4()));
-        map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         return map;
     }
