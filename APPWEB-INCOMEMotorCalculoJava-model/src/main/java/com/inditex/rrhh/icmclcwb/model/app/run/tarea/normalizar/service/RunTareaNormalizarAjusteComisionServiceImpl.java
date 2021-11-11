@@ -4,11 +4,12 @@
 
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.normalizar.service;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.normalizar.service.RunTareaNormalizarAjusteComisionService;
@@ -34,7 +35,7 @@ public class RunTareaNormalizarAjusteComisionServiceImpl implements RunTareaNorm
     private TareaCalculoAjusteComisionRepositoryCustom tareaCalculoAjusteComisionRepositoryCustom;
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void normalizarAjusteComision(@Valid final TareaDto tarea) {
         try {
             this.log.info(
