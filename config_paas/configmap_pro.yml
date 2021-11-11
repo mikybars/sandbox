@@ -20,7 +20,7 @@ amiga:
           #base-url: https://openshift.axinocp1.central.inditex.grp/rhpresnwsd
           base-url: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhpresnwsd
           ping-query:
-            path: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhpresnwsd/amiga/health
+            path: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8081/rhpresnwsd/amiga/health
           username: srvcicmclcwbAX
   data:
     jms:
