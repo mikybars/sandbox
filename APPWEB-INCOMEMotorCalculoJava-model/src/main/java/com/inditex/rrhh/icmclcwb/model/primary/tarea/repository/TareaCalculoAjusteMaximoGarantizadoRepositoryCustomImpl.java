@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
@@ -31,9 +30,6 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
 
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public List<IdPersonaLocalDto> ids(final TareaDto tarea) {
