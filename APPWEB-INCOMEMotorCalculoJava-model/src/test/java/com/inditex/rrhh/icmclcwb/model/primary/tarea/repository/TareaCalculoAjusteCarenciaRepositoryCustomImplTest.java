@@ -1,9 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
@@ -15,13 +18,18 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -38,6 +46,12 @@ class TareaCalculoAjusteCarenciaRepositoryCustomImplTest {
     private final static String SQL_AJUSTAR = "SQL CALCULAR";
 
     public static final int ID_ALGORITMO = 11003;
+
+    @Mock
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Captor
+    private ArgumentCaptor<MapSqlParameterSource[]> paramsCaptor;
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPerosnaService;
@@ -133,6 +147,27 @@ class TareaCalculoAjusteCarenciaRepositoryCustomImplTest {
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, result.get(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
     }
+
+    @Test
+    void ajustarSqlNullTest() throws IllegalAccessException {
+        FieldUtils.writeField(this.tareaCalculoAjusteCarenciaRepositoryCustomImpl, "sqlAjustar", null, true);
+        this.tareaCalculoAjusteCarenciaRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste(), this.createTarea(),
+                Collections.singletonList(this.createPersonaLocal()));
+        verify(this.namedParameterJdbcTemplate, times(0)).batchUpdate(any(String.class),
+                any(MapSqlParameterSource[].class));
+    }
+
+    @Test
+    void ajustarNumParamsTest() {
+        this.tareaCalculoAjusteCarenciaRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste(), this.createTarea(),
+                Collections.singletonList(this.createPersonaLocal()));
+        verify(this.namedParameterJdbcTemplate, times(1)).batchUpdate(eq(SQL_AJUSTAR), this.paramsCaptor.capture());
+
+        final MapSqlParameterSource[] params = this.paramsCaptor.getValue();
+        assertEquals(1, params.length);
+        assertEquals(5, params[0].getValues().size());
+    }
+
 
     private AlgoritmoAjusteDto createAlgoritmoAjuste() {
         final AlgoritmoAjusteDto algoritmoAjuste = new AlgoritmoAjusteDto();
