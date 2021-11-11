@@ -1,33 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoField;
-import java.time.temporal.TemporalAdjusters;
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
+import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
@@ -43,26 +17,13 @@ import com.inditex.rrhh.icmclcwb.api.app.test.service.TestNormalizacionAsyncServ
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
-
-import com.inditex.rrhh.icmclcwb.dto.AjusteComisionDTO;
-import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
-import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
-import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoLocalizacionDTO;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoPersonaDTO;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
+import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
+import com.inditex.rrhh.icmclcwb.dto.*;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.*;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
@@ -70,9 +31,29 @@ import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAdjusters;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -520,10 +501,8 @@ public class TestServiceImpl implements TestService {
         this.log.info("ENDPOINT: {}", endpoint);
 
         final ResponseEntity<HorarioComercialFestivoDocDto[]> responseHorarioComercial = this.slrhorcomsClient
-            .getForEntity(endpoint + "?q=*",
+            .getForEntity(endpoint + "q=*",
                     HorarioComercialFestivoDocDto[].class);
-        this.log.info("responseHorarioComercial: {}",
-                responseHorarioComercial);
         this.log.info("responseHorarioComercial: {}",
                 responseHorarioComercial);
     }

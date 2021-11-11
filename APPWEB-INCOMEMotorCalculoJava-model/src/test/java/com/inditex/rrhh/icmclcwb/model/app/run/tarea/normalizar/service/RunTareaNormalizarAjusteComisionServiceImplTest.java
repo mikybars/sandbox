@@ -11,8 +11,11 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableR
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteComisionRepositoryCustom;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.slf4j.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,6 +29,11 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(SpringExtension.class)
 class RunTareaNormalizarAjusteComisionServiceImplTest {
 
+    private static final long ID_TAREA = 9039L;
+
+    @Mock
+    private Logger log;
+
     @Mock
     private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
@@ -35,12 +43,28 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @InjectMocks
     private RunTareaNormalizarAjusteComisionServiceImpl runTareaNormalizarAjusteComisionService;
 
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "Tarea[{}] :: Inicio :: RunTareaNormalizarAjusteComisionServiceImpl :: normalizarAjusteComision :: creacion tablas temporales",
+            "Tarea[{}] :: Fin :: RunTareaNormalizarAjusteComisionServiceImpl :: normalizarAjusteComision :: creacion tablas temporales",
+            "Tarea[{}] :: Inicio :: RunTareaNormalizarAjusteComisionServiceImpl :: normalizarAjusteComision :: insercion tablas temporales",
+            "Tarea[{}] :: Fin :: RunTareaNormalizarAjusteComisionServiceImpl :: normalizarAjusteComision :: insercion tablas temporales",
+            "Tarea[{}] :: Inicio :: RunTareaNormalizarAjusteComisionServiceImpl :: normalizarAjusteComision :: normalizar ajuste comision",
+            "Tarea[{}] :: Fin :: RunTareaNormalizarAjusteComisionServiceImpl :: normalizarAjusteComision :: normalizar ajuste comision",
+            "Tarea[{}] :: Inicio :: RunTareaNormalizarAjusteComisionServiceImpl :: normalizarAjusteComision :: borrado tablas temporales",
+            "Tarea[{}] :: Fin :: RunTareaNormalizarAjusteComisionServiceImpl :: normalizarAjusteComision :: borrado tablas temporales",
+    })
+    void normalizarAjusteComisionLogTest(final String logText) {
+
+        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(this.createTarea());
+        verify(this.log, times(1)).info(logText, ID_TAREA);
+
+    }
+
     @Test
     void normalizarAjusteComisionInsertTareaCalculoAjusteComisionTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
-
+        final TareaDto tarea = this.createTarea();
         this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
         verify(this.tareaCalculoAjusteComisionRepositoryCustom, times(1)).normalizarAjusteComision(tarea);
 
@@ -49,10 +73,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionCreaTablaTemporalCalculoPorComisionTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
-
-        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(this.createTarea());
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempCalculoPorComision();
 
     }
@@ -60,9 +81,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionMergeCalculoTemporalPorComisionTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
-
+        final TareaDto tarea = this.createTarea();
         this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).mergeCalculoTempCalculoPorComision(tarea);
 
@@ -71,9 +90,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionMergeCalculoTemporalSinComisionTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
-
+        final TareaDto tarea = this.createTarea();
         this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).mergeCalculoTempCalculoSinComision(tarea);
 
@@ -82,10 +99,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionEliminaTablaTemporalCalculoPorComisionTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
-
-        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(this.createTarea());
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoPorComision();
 
     }
@@ -93,8 +107,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionInsertTareaCalculoAjusteComisionExcepcionEliminaTablasTemporalesTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
+        final TareaDto tarea = this.createTarea();
         doThrow(new RuntimeException("e")).when(this.tareaCalculoAjusteComisionRepositoryCustom)
             .normalizarAjusteComision(any(TareaDto.class));
 
@@ -109,8 +122,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionCrearTablaTemporalCalculoPorComisionExcepcionEliminaTablasTemporalesTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
+        final TareaDto tarea = this.createTarea();
         doThrow(new RuntimeException("e")).when(this.primaryTemporaryTableRepositoryCustom)
             .createTempCalculoPorComision();
 
@@ -126,8 +138,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionMergeCalculoPorComisionExcepcionEliminaTablasTemporalesTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
+        final TareaDto tarea = this.createTarea();
         doThrow(new RuntimeException("e")).when(this.primaryTemporaryTableRepositoryCustom)
             .mergeCalculoTempCalculoPorComision(any(TareaDto.class));
 
@@ -143,8 +154,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionMergeCalculoSinComisionExcepcionEliminaTablasTemporalesTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
+        final TareaDto tarea = this.createTarea();
         doThrow(new RuntimeException("e")).when(this.primaryTemporaryTableRepositoryCustom)
             .mergeCalculoTempCalculoSinComision(any(TareaDto.class));
 
@@ -160,10 +170,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionCreaTablaTemporalCalculoAjusteTotalizadoTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
-
-        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(this.createTarea());
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempCalculoAjusteTotalizado();
 
     }
@@ -171,9 +178,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionMergeCalculoAjusteTotalizadoTemporalTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
-
+        final TareaDto tarea = this.createTarea();
         this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).mergeCalculoTempCalculoAjusteTotalizado(tarea);
 
@@ -182,10 +187,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionEliminaTablaTemporalCalculoAjusteTotalizadoTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
-
-        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(this.createTarea());
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoAjusteTotalizado();
 
     }
@@ -193,8 +195,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionCrearTablaTemporalAjusteTotalizadoExcepcionEliminaTablasTemporalesTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
+        final TareaDto tarea = this.createTarea();
         doThrow(new RuntimeException("e")).when(this.primaryTemporaryTableRepositoryCustom)
             .createTempCalculoAjusteTotalizado();
 
@@ -210,8 +211,7 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
     @Test
     void normalizarAjusteComisionMergeCalculoAjusteTotalizadoExcepcionEliminaTablasTemporalesTest() {
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(9039L);
+        final TareaDto tarea = this.createTarea();
         doThrow(new RuntimeException("e")).when(this.primaryTemporaryTableRepositoryCustom)
             .mergeCalculoTempCalculoAjusteTotalizado(any(TareaDto.class));
 
@@ -222,6 +222,12 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoPorComision();
         verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempCalculoAjusteTotalizado();
 
+    }
+
+    private TareaDto createTarea() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        return tarea;
     }
 
 }

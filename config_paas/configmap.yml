@@ -29,36 +29,19 @@ amiga:
         slrhorcoms:
           auth-method: OAUTH2-CLIENT-CREDENTIALS
           client-name: client-income
+          ping-query:
+            enabled: true
+            timeout: 2s
         ptr-venta:
           auth-method: BASIC
+          ping-query:
+            enabled: true
+            timeout: 2s
         ptr-presencia:
           auth-method: BASIC
-    resilience:
-      backends:
-        trabajo:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        tarea:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        limpieza:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
-        programacion:
-          wait-duration-in-open-state: PT60S
-          failure-rate-threshold: 50
-          permitted-number-of-calls-in-half-open-state: 10
-          sliding-window-size: 100
-          sliding-window-type: COUNT_BASED
+          ping-query:
+            enabled: true
+            timeout: 2s
   service:
     jms:
       listener:

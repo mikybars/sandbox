@@ -1,22 +1,20 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.validar.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service.RunTareaRecolectarValidarLocalizacionVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaValidarAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Validated
@@ -39,7 +37,7 @@ public class RunTareaRecolectarValidarLocalizacionVentaServiceImpl
                 .type(TareaLocalizacionVenta.class.getSimpleName())
                 .count(AsyncUtils.get(cfData))
                 .build());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             AsyncUtils.cancel(cf);
             throw e;
         }
