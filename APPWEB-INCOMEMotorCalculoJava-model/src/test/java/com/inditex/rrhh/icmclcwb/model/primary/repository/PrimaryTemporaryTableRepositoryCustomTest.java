@@ -47,7 +47,9 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
     private final static String INACTIVO_PARAM = "inactivo";
 
-    private final static Integer SQL_BOOLEAN_FALSE = 0;
+    private final static String IMPORTE_PARAM = "importe";
+
+    private final static Integer SQL_ZERO_VALUE = 0;
 
     private final static String FECHA_INICIO_PERIODO_PARAM = "fechaInicioPeriodo";
 
@@ -586,7 +588,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
                 this.paramsCaptor.capture());
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertEquals(2, params.getValues().size());
+        assertEquals(3, params.getValues().size());
 
     }
 
@@ -618,7 +620,23 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         assertTrue(params.hasValue(INACTIVO_PARAM));
-        assertEquals(SQL_BOOLEAN_FALSE, params.getValue(INACTIVO_PARAM));
+        assertEquals(SQL_ZERO_VALUE, params.getValue(INACTIVO_PARAM));
+
+    }
+
+    @Test
+    void mergeCalculoTempCalculoPorComisionImporteParamTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_POR_COMISION),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(IMPORTE_PARAM));
+        assertEquals(SQL_ZERO_VALUE, params.getValue(IMPORTE_PARAM));
 
     }
 
@@ -633,7 +651,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
                 this.paramsCaptor.capture());
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertEquals(2, params.getValues().size());
+        assertEquals(3, params.getValues().size());
     }
 
     @Test
@@ -664,7 +682,23 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
         assertTrue(params.hasValue(INACTIVO_PARAM));
-        assertEquals(SQL_BOOLEAN_FALSE, params.getValue(INACTIVO_PARAM));
+        assertEquals(SQL_ZERO_VALUE, params.getValue(INACTIVO_PARAM));
+
+    }
+
+    @Test
+    void mergeCalculoTempCalculoSinComisionImporteParamTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoSinComision(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_SIN_COMISION),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(IMPORTE_PARAM));
+        assertEquals(SQL_ZERO_VALUE, params.getValue(IMPORTE_PARAM));
 
     }
 
@@ -698,7 +732,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     @Test
-    void mergeCalculoTempCalculoAjusteTotalizadoTest() {
+    void mergeCalculoTempCalculoAjusteTotalizadoNumParamsTest() {
         final long idTarea = 12L;
         final TareaDto tarea = new TareaDto();
         tarea.setId(idTarea);
@@ -708,9 +742,38 @@ class PrimaryTemporaryTableRepositoryCustomTest {
                 this.paramsCaptor.capture());
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertEquals(1, params.getValues().size());
+        assertEquals(2, params.getValues().size());
+
+    }
+
+    @Test
+    void mergeCalculoTempCalculoAjusteTotalizadoIdTareaParamTest() {
+        final long idTarea = 12L;
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(idTarea);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoAjusteTotalizado(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_AJUSTE_TOTALIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
         assertTrue(params.hasValue(ID_TAREA_PARAM));
         assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
+
+    }
+
+    @Test
+    void mergeCalculoTempCalculoAjusteTotalizadoImporteParamTest() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(8989L);
+
+        this.primaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoAjusteTotalizado(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_CALCULO_TEMP_CALCULO_AJUSTE_TOTALIZADO),
+                this.paramsCaptor.capture());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(IMPORTE_PARAM));
+        assertEquals(SQL_ZERO_VALUE, params.getValue(IMPORTE_PARAM));
 
     }
 
