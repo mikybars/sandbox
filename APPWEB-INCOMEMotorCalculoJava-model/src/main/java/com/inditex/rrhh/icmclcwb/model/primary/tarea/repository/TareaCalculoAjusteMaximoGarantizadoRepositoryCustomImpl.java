@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,15 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
     @Override
     protected Map<String, Object> getMapValues(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
             final IdPersonaLocalDto persona) {
-        final Map<String, Object> map = super.getMapValues(algoritmoAjuste, tarea, persona);
+        final Map<String, Object> map = new HashMap<>();
+        if (tarea != null) {
+            map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+        if (persona != null) {
+            map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
+            map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
+        }
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.MAXIMO_GARANTIZADO.getId());
         return map;
     }

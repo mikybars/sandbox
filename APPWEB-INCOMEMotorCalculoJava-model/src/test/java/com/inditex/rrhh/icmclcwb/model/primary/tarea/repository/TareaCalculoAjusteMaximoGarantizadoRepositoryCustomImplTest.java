@@ -94,28 +94,28 @@ class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
     void getMapValuesNumParamsTareaPersonaNullTest() {
         final Map<String, Object> result = this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl.getMapValues(
                 this.createAlgoritmoAjuste(), null, null);
-        assertEquals(3, result.size());
+        assertEquals(2, result.size());
     }
 
     @Test
     void getMapValuesNumParamsTareaNotNullPersonaNullTest() {
         final Map<String, Object> result = this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl.getMapValues(
                 this.createAlgoritmoAjuste(), this.createTarea(), null);
-        assertEquals(4, result.size());
+        assertEquals(3, result.size());
     }
 
     @Test
     void getMapValuesNumParamsTareaNullPersonaNotNullTest() {
         final Map<String, Object> result = this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl.getMapValues(
                 this.createAlgoritmoAjuste(), null, this.createPersonaLocal());
-        assertEquals(5, result.size());
+        assertEquals(4, result.size());
     }
 
     @Test
     void getMapValuesNumParamsTareaPersonaNotNullTest() {
         final Map<String, Object> result = this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl.getMapValues(
                 this.createAlgoritmoAjuste(), this.createTarea(), this.createPersonaLocal());
-        assertEquals(6, result.size());
+        assertEquals(5, result.size());
     }
 
     @Test
@@ -161,16 +161,6 @@ class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
         assertEquals(TipoPoliticaEnum.MAXIMO_GARANTIZADO.getId(),
                 result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
-    }
-
-    @Test
-    void getMapValuesParamInactivoTest() {
-        final Map<String, Object> result = this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl.getMapValues(
-                this.createAlgoritmoAjuste(), this.createTarea(), this.createPersonaLocal());
-        // idPolitica
-        assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
-                result.get(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
     }
 
 }
