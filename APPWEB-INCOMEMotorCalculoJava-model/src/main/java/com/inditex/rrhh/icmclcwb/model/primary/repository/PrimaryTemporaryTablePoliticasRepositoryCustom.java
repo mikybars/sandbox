@@ -87,43 +87,59 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     // fin vacaciones
 
-    // inicio máximo / mínimo garantizado (común)
+    // inicio máximo garantizado (común)
 
-    int createTempAusenciasDateMaxMinGarantizado();
+    int createTempAusenciasDateMaximoGarantizado();
 
-    int deleteTempAusenciasDateMaxMinGarantizado();
+    int deleteTempAusenciasDateMaximoGarantizado();
 
-    int createIndexTempAusenciasDateMaxGarantizado();
+    int createIndexTempAusenciasDateMaximoGarantizado();
 
-    int createIndexTempAusenciasDateMinGarantizado();
+    void insertTempAusenciasDateMaximoGarantizado(final TareaDto tarea);
 
-    void insertTempAusenciasDateMaxMinGarantizado(final TareaDto tarea);
+    int createTempCalculoConAjusteMaximoGarantizado();
 
-    int createTempCalculoConAjusteMaxMinGarantizado();
+    int deleteTempCalculoConAjusteMaximoGarantizado();
 
-    int deleteTempCalculoConAjusteMaxMinGarantizado();
+    int createIndexTempCalculoConAjusteMaximoGarantizado();
 
-    int createIndexTempCalculoConAjusteMaxMinGarantizado();
+    void insertTempCalculoConAjusteMaximoGarantizado(final TareaDto tarea);
 
-    void insertTempCalculoConAjusteMaxMinGarantizado(final TareaDto tarea);
+    int createTempDatosMaximoGarantizado();
 
-    int createTempDatosMaxMinGarantizado();
+    int deleteTempDatosMaximoGarantizado();
 
-    int deleteTempDatosMaxMinGarantizado();
+    int createIndexTempDatosMaximoGarantizado();
 
-    int createIndexTempDatosMaxMinGarantizado();
-
-    // fin máximo / mínimo garantizado (común)
-
-    // inicio máximo garantizado
-
-    void insertTempDatosMaxGarantizado(final TareaDto tarea);
+    void insertTempDatosMaximoGarantizado(final TareaDto tarea);
 
     // fin máximo garantizado
 
     // inicio mínimo garantizado
 
-    void insertTempDatosMinGarantizado(final TareaDto tarea);
+    int createTempAusenciasDateMinimoGarantizado();
+
+    int deleteTempAusenciasDateMinimoGarantizado();
+
+    int createIndexTempAusenciasDateMinimoGarantizado();
+
+    void insertTempAusenciasDateMinimoGarantizado(final TareaDto tarea);
+
+    int createTempCalculoConAjusteMinimoGarantizado();
+
+    int deleteTempCalculoConAjusteMinimoGarantizado();
+
+    int createIndexTempCalculoConAjusteMinimoGarantizado();
+
+    void insertTempCalculoConAjusteMinimoGarantizado(final TareaDto tarea);
+
+    int createTempDatosMinimoGarantizado();
+
+    int deleteTempDatosMinimoGarantizado();
+
+    int createIndexTempDatosMinimoGarantizado();
+
+    void insertTempDatosMininimoGarantizado(final TareaDto tarea);
 
     // fin mínimo garantizado
 

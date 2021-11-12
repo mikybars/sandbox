@@ -6,13 +6,11 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoAjusteService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -29,13 +27,10 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableP
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -193,169 +188,6 @@ class RunTareaAjustarServiceImplTest {
         when(this.algoritmoAjusteService.findById(any(Integer.class))).thenReturn(ajuste);
         this.runTareaAjustarService.run(runTarea);
         verify(this.runAjuste, times(1)).execute(runTarea, ajuste);
-
-    }
-
-    @Test
-    void createMaxMinGarantizadoTemporaryTablesExistePoliticaTest() {
-
-        final TareaDto tarea = this.createTarea();
-        this.runTareaAjustarService.createMaxMinGarantizadoTemporaryTables(tarea);
-        verify(this.tareaPersonaEstructuraPoliticaService, times(1)).existePolitica(tarea,
-                Arrays.asList(TipoPoliticaEnum.MINIMO_GARANTIZADO, TipoPoliticaEnum.MAXIMO_GARANTIZADO));
-
-    }
-
-    @Test
-    void createMaxMinGarantizadoTemporaryTablesAusenciasDateExisteTest() {
-
-        final TareaDto tarea = this.createTarea();
-        when(this.tareaPersonaEstructuraPoliticaService.existePolitica(any(TareaDto.class),
-                ArgumentMatchers.<List<TipoPoliticaEnum>>any())).thenReturn(true);
-        this.runTareaAjustarService.createMaxMinGarantizadoTemporaryTables(tarea);
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).createTempAusenciasDateMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).createIndexTempAusenciasDateMaxGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).insertTempAusenciasDateMaxMinGarantizado(tarea);
-
-    }
-
-    @Test
-    void createMaxMinGarantizadoTemporaryTablesAusenciasDateNoExisteTest() {
-
-        final TareaDto tarea = this.createTarea();
-        when(this.tareaPersonaEstructuraPoliticaService.existePolitica(any(TareaDto.class),
-                ArgumentMatchers.<List<TipoPoliticaEnum>>any())).thenReturn(false);
-        this.runTareaAjustarService.createMaxMinGarantizadoTemporaryTables(tarea);
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(0)).createTempAusenciasDateMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(0)).createIndexTempAusenciasDateMaxGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(0)).insertTempAusenciasDateMaxMinGarantizado(any(TareaDto.class));
-
-    }
-
-    @Test
-    void createMaxMinGarantizadoTemporaryTablesCalculoConAjusteExisteTest() {
-
-        final TareaDto tarea = this.createTarea();
-        when(this.tareaPersonaEstructuraPoliticaService.existePolitica(any(TareaDto.class),
-                ArgumentMatchers.<List<TipoPoliticaEnum>>any())).thenReturn(true);
-        this.runTareaAjustarService.createMaxMinGarantizadoTemporaryTables(tarea);
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).createTempCalculoConAjusteMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).createIndexTempCalculoConAjusteMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).insertTempCalculoConAjusteMaxMinGarantizado(tarea);
-
-    }
-
-    @Test
-    void createMaxMinGarantizadoTemporaryTablesCalculoConAjusteNoExisteTest() {
-
-        final TareaDto tarea = this.createTarea();
-        when(this.tareaPersonaEstructuraPoliticaService.existePolitica(any(TareaDto.class),
-                ArgumentMatchers.<List<TipoPoliticaEnum>>any())).thenReturn(false);
-        this.runTareaAjustarService.createMaxMinGarantizadoTemporaryTables(tarea);
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(0)).createTempCalculoConAjusteMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(0)).createIndexTempCalculoConAjusteMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(0)).insertTempCalculoConAjusteMaxMinGarantizado(any(TareaDto.class));
-
-    }
-
-    @Test
-    void createMaxMinGarantizadoTemporaryTablesDatosExisteTest() {
-
-        final TareaDto tarea = this.createTarea();
-        when(this.tareaPersonaEstructuraPoliticaService.existePolitica(any(TareaDto.class),
-                ArgumentMatchers.<List<TipoPoliticaEnum>>any())).thenReturn(true);
-        this.runTareaAjustarService.createMaxMinGarantizadoTemporaryTables(tarea);
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).createTempDatosMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).createIndexTempDatosMaxMinGarantizado();
-
-    }
-
-    @Test
-    void createMaxMinGarantizadoTemporaryTablesDatosNoExisteTest() {
-
-        final TareaDto tarea = this.createTarea();
-        when(this.tareaPersonaEstructuraPoliticaService.existePolitica(any(TareaDto.class),
-                ArgumentMatchers.<List<TipoPoliticaEnum>>any())).thenReturn(false);
-        this.runTareaAjustarService.createMaxMinGarantizadoTemporaryTables(tarea);
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(0)).createTempDatosMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(0)).createIndexTempDatosMaxMinGarantizado();
-
-    }
-
-    @Test
-    void deleteMaxMinGarantizadoTemporaryTablesExistePoliticaTest() {
-
-        final TareaDto tarea = this.createTarea();
-        this.runTareaAjustarService.deleteMaxMinGarantizadoTemporaryTables(tarea);
-        verify(this.tareaPersonaEstructuraPoliticaService, times(1)).existePolitica(tarea,
-                Arrays.asList(TipoPoliticaEnum.MINIMO_GARANTIZADO, TipoPoliticaEnum.MAXIMO_GARANTIZADO));
-
-    }
-
-    @Test
-    void deleteMaxMinGarantizadoTemporaryTablesDatosExisteTest() {
-
-        final TareaDto tarea = this.createTarea();
-        when(this.tareaPersonaEstructuraPoliticaService.existePolitica(any(TareaDto.class),
-                ArgumentMatchers.<List<TipoPoliticaEnum>>any())).thenReturn(true);
-        this.runTareaAjustarService.deleteMaxMinGarantizadoTemporaryTables(tarea);
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).deleteTempAusenciasDateMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).deleteTempCalculoConAjusteMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).deleteTempDatosMaxMinGarantizado();
-
-    }
-
-    @Test
-    void deleteMaxMinGarantizadoTemporaryTablesDatosNoExisteTest() {
-
-        final TareaDto tarea = this.createTarea();
-        when(this.tareaPersonaEstructuraPoliticaService.existePolitica(any(TareaDto.class),
-                ArgumentMatchers.<List<TipoPoliticaEnum>>any())).thenReturn(false);
-        this.runTareaAjustarService.deleteMaxMinGarantizadoTemporaryTables(tarea);
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(0)).deleteTempAusenciasDateMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(0)).deleteTempCalculoConAjusteMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(0)).deleteTempDatosMaxMinGarantizado();
-
-    }
-
-    @Test
-    void deleteMaxMinGarantizadoTemporaryTablesDatosExcepcionTest() {
-
-        final RunTareaDto runTarea = this.createRunTarea();
-        when(this.tareaPersonaEstructuraPoliticaService.existePolitica(any(TareaDto.class),
-                ArgumentMatchers.<List<TipoPoliticaEnum>>any())).thenReturn(true);
-        doThrow(new RuntimeException("Excepcion al ejecutar el ajuste"))
-            .when(this.runAjuste)
-            .execute(any(RunTareaDto.class), any(AlgoritmoAjusteDto.class));
-        assertThrows(RuntimeException.class, () -> this.runTareaAjustarService.run(runTarea));
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).deleteTempAusenciasDateMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).deleteTempCalculoConAjusteMaxMinGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                times(1)).deleteTempDatosMaxMinGarantizado();
 
     }
 

@@ -220,7 +220,7 @@ class RunAjusteMinimoGarantizadoProcesarTest {
         this.runAjusteMinimoGarantizadoProcesar.execute(runTarea, algoritmoAjuste);
 
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempDatosMinGarantizado(runTarea.getTarea());
+            .insertTempDatosMininimoGarantizado(runTarea.getTarea());
     }
 
 }

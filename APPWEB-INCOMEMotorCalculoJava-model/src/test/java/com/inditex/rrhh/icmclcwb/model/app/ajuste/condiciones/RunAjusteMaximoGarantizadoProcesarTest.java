@@ -220,7 +220,7 @@ class RunAjusteMaximoGarantizadoProcesarTest {
         this.runAjusteMaximoGarantizadoProcesar.execute(runTarea, algoritmoAjuste);
 
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempDatosMaxGarantizado(runTarea.getTarea());
+            .insertTempDatosMaximoGarantizado(runTarea.getTarea());
     }
 
 }
