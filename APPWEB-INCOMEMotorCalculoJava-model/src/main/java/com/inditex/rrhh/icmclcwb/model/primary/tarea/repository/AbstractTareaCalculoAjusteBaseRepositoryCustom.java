@@ -26,7 +26,7 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
-    protected NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     protected abstract String getSqlAjustar();
 
