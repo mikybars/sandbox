@@ -23,6 +23,9 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
     @Value("#{primaryQuery['TareaCalculoRepositoryCustom.regularizarMejorOpcionSinFechas']}")
     private String sqlRegularizarMejorOpcionSinFechas;
 
+    @Value("#{primaryQuery['TareaCalculoRepositoryCustom.regularizarMejorOpcionSinFechasTodoPeriodo']}")
+    private String sqlRegularizarMejorOpcionSinFechasTodoPeriodo;
+
     @Value("#{primaryQuery['TareaCalculoRepositoryCustom.regularizarChallenge']}")
     private String sqlRegularizarChallenge;
 
@@ -44,6 +47,16 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
                 TimeUtils.toDate(tareaDto.getFechaInicioPeriodo()));
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
         this.update(this.sqlRegularizarMejorOpcionSinFechas, params);
+    }
+
+    @Override
+    public void regularizarMejorOpcionSinFechasTodoPeriodo(@NotNull final TareaDto tareaDto) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+                TimeUtils.toDate(tareaDto.getFechaInicioPeriodo()));
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        this.update(this.sqlRegularizarMejorOpcionSinFechasTodoPeriodo, params);
     }
 
     @Override
