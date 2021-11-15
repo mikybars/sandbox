@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraPoliticaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.comisionempleado.dto.ComisionEmpleadoResultItemDto;
@@ -20,5 +21,8 @@ public interface TareaPersonaEstructuraPoliticaService {
     List<TareaPersonaEstructuraPoliticaDto> saveEstructurasPolResultItemDto(
             @Valid @NotNull @NotEmpty final List<EstructurasPolResultItemDto> estructurasPolResultItemDto,
             @Valid @NotNull final TareaDto tarea);
+
+    Boolean existePolitica(@Valid @NotNull final TareaDto tarea,
+            @Valid @NotNull @NotEmpty final List<TipoPoliticaEnum> politicas);
 
 }

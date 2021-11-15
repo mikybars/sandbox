@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteVacacionesRepositoryCustom;
 import org.slf4j.Logger;
 
@@ -37,6 +38,9 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
+    @Autowired
+    private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+
     @Override
     public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
         this.log.info(
@@ -48,30 +52,48 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
         final List<CompletableFuture<?>> cf = new ArrayList<>();
+        try {
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasVacaciones();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasVacaciones();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoVacaciones();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasVacaciones();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasVacaciones();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoTotalizadoVacaciones();
 
-        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
-                ids,
-                this.runAjusteProperties.getAjuste().getBatchSize())) {
-            AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
+            this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasVacaciones(runTarea.getTarea());
+            this.primaryTemporaryTablePoliticasRepositoryCustom
+                .insertTempFechasAcumuladasVacaciones(runTarea.getTarea());
+            this.primaryTemporaryTablePoliticasRepositoryCustom
+                .insertTempCalculoTotalizadoVacaciones(runTarea.getTarea());
 
-            this.log.info(
-                    "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteVacacionesProcesar :: Personas: {}",
-                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
-            try {
-                final CompletableFuture<Void> cfAjuste = this.tareaCalculoAjusteVacacionesRepositoryCustom.ajustar(
-                        algoritmoAjuste, runTarea.getTarea(),
-                        personas);
-                AsyncUtils.exceptionally(cfAjuste, cf);
-            } catch (final Exception e) {
-                AsyncUtils.cancel(cf);
-                this.log.error("RunAjusteVacacionesProcesar :: KO :: Personas: {}", personas.size(), e);
-                this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                        EstadoTareaCalculoPersonaEnum.KO.getDto());
+            for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
+                    ids,
+                    this.runAjusteProperties.getAjuste().getBatchSize())) {
+                AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
+
+                this.log.info(
+                        "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteVacacionesProcesar :: Personas: {}",
+                        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+                try {
+                    final CompletableFuture<Void> cfAjuste = this.tareaCalculoAjusteVacacionesRepositoryCustom.ajustar(
+                            algoritmoAjuste, runTarea.getTarea(),
+                            personas);
+                    AsyncUtils.exceptionally(cfAjuste, cf);
+                } catch (final Exception e) {
+                    AsyncUtils.cancel(cf);
+                    this.log.error("RunAjusteVacacionesProcesar :: KO :: Personas: {}", personas.size(), e);
+                    this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                this.log.info("Fin :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
+
             }
-            this.log.info("Fin :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
-
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } finally {
+            this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasVacaciones();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasVacaciones();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoVacaciones();
         }
-        AsyncUtils.waitAllOfIsOk(cf, cf);
 
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

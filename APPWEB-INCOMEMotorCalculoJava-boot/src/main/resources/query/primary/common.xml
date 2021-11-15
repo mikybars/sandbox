@@ -2931,22 +2931,6 @@ VALUES(:fechaFin, :fechaInicio, :stdIdHr, :cclIdPerson, :idEstructuraPolitica, :
     ]]>
   </entry>
 
-  <entry key="RunTareaAjustarService.customFindAjustePesosByTarea">
-    <![CDATA[
-    SELECT A.PESO
-    FROM ALGORITMO_AJUSTE A
-    INNER JOIN TAREA_PERSONA_ESTRUCTURA_POLITICA PEEP
-    ON PEEP.ID_TIPO_POLITICA = A.ID_TIPO_POLITICA
-    INNER JOIN TAREA_CALCULO_PERSONA TCP
-    ON TCP.CCL_ID_PERSON = PEEP.CCL_ID_PERSON
-    AND TCP.ID_TAREA = PEEP.ID_TAREA
-    WHERE PEEP.ID_TAREA = :idTarea
-    AND A.ES_ACTIVO = :activo
-    GROUP BY A.PESO
-    ORDER BY A.PESO
-    ]]>
-  </entry>
-
   <entry key="RunTareaAjustarService.customFindAjusteIdsByTareaAndPeso">
     <![CDATA[
     SELECT A.ID_ALGORITMO_AJUSTE
@@ -8498,5 +8482,17 @@ INSERT INTO SESSION.PRESUPUESTO (
   </entry>
 
   <!-- JAVIEREV - Fin de normalización de tareas consolidadas (para borrar) -->
+
+  <entry key="TareaPersonaEstructuraPolitica.existencia">
+    <![CDATA[
+      SELECT count(*) AS TOTAL
+      FROM TAREA T
+      INNER JOIN TAREA_PERSONA_ESTRUCTURA_POLITICA P
+      ON P.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
+      AND P.ID_TAREA = T.ID_TAREA
+      WHERE T.ID_TAREA = :idTarea
+      AND ID_TIPO_POLITICA IN (:idTipoPolitica)
+    ]]>
+  </entry>
 
 </properties>
