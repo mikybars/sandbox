@@ -27,4 +27,9 @@ public class RunTareaRegularizarCalculoServiceImpl implements RunTareaRegulariza
         this.tareaCalculoRepositoryCustom.regularizarMejorOpcionSinFechas(runTarea.getTarea());
     }
 
+    @Override
+    public void regularizarMejorOpcionSinFechasTodoPeriodo(@Valid final RunTareaDto runTarea) {
+        this.tareaCalculoRepositoryCustom.regularizarMejorOpcionSinFechasTodoPeriodo(runTarea.getTarea());
+    }
+
 }

@@ -32,6 +32,8 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
 
     private static final String SQL_REGULARIZAR_MEJOR_OPCION_SIN_FECHAS = "REGULARIZAR MEJOR OPCION SIN FECHAS TEST";
 
+    private static final String SQL_REGULARIZAR_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO = "REGULARIZAR MEJOR OPCION SIN FECHAS TODO PERIODO TEST";
+
     private static final String SQL_REGULARIZAR_CHALLENGE = "REGULARIZAR CHALLENGE TEST";
 
     @Mock
@@ -82,6 +84,21 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
         this.tareaCalculoRepositoryCustom.regularizarMejorOpcionSinFechas(tarea);
         verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
         assertEquals(SQL_REGULARIZAR_MEJOR_OPCION_SIN_FECHAS, this.sql.getValue());
+        // parametros de la consulta: idTarea
+        assertEquals(3, this.params.getValue().getValues().size());
+        assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(tarea.getId(), this.params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    }
+
+    @Test
+    public void regularizarMejorOpcionSinFechasTodoPeriodoTest() {
+        final TareaDto tarea = mock(TareaDto.class);
+        when(tarea.getId()).thenReturn(12L);
+        when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.now());
+
+        this.tareaCalculoRepositoryCustom.regularizarMejorOpcionSinFechasTodoPeriodo(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
+        assertEquals(SQL_REGULARIZAR_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO, this.sql.getValue());
         // parametros de la consulta: idTarea
         assertEquals(3, this.params.getValue().getValues().size());
         assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
