@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>3.5.2</version>
+    <version>3.5.3</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
@@ -20,10 +20,6 @@
     </dependency>
 
     <!-- FWK DEPENDENCIES -->
-    <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-resilience</artifactId>
-    </dependency>
     <dependency>
       <groupId>com.inditex.aqsw.framework.data</groupId>
       <artifactId>data-framework-starter-jms-activemq</artifactId>
