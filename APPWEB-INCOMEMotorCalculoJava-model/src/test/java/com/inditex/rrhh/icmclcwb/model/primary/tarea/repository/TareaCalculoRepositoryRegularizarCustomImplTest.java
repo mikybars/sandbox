@@ -56,6 +56,11 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
         FieldUtils.writeField(this.tareaCalculoRepositoryCustom, "sqlRegularizarMejorOpcionSinFechas",
                 SQL_REGULARIZAR_MEJOR_OPCION_SIN_FECHAS,
                 true);
+
+        FieldUtils.writeField(this.tareaCalculoRepositoryCustom, "sqlRegularizarMejorOpcionSinFechasTodoPeriodo",
+                SQL_REGULARIZAR_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO,
+                true);
+
         FieldUtils.writeField(this.tareaCalculoRepositoryCustom, "sqlRegularizarChallenge", SQL_REGULARIZAR_CHALLENGE,
                 true);
     }
