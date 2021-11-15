@@ -28,4 +28,10 @@ public class RunTareaRegularizarCalculoAsyncServiceImpl implements RunTareaRegul
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
+    @Override
+    public CompletableFuture<Void> regularizarMejorOpcionSinFechasTodoPeriodo(final RunTareaDto runTarea) {
+        this.runTareaRegularizarService.regularizarMejorOpcionSinFechasTodoPeriodo(runTarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
 }

@@ -10,4 +10,6 @@ public interface RunTareaRegularizarCalculoService {
 
     void regularizarMejorOpcionSinFechas(@Valid RunTareaDto runTarea);
 
+    void regularizarMejorOpcionSinFechasTodoPeriodo(@Valid RunTareaDto runTarea);
+
 }

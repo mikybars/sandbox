@@ -35,6 +35,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterParametersDto;
@@ -157,7 +158,8 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
                         .map(
                                 f -> SincronizacionFilterParametersDto.builder()
                                     .idOrigen(e.getCclIdOrigen())
-                                    .idEmpresa(e.getStdIdLegEnt())
+                                    .idEmpresa(AppConstants.ID_ORIGEN_SPAIN.equals(e.getCclIdOrigen())
+                                            ? e.getStdIdLegEnt() : null)
                                     .idEmpleado(f)
                                     .fechaInicio(tareaDto.getFechaInicioPeriodo())
                                     .fechaFin(tareaDto.getFechaFinPeriodo())
