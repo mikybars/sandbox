@@ -8,9 +8,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
@@ -43,9 +41,6 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCu
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPersonaService;
-
-    @Mock
-    private TipoDatoService tipoDatoService;
 
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -85,16 +80,6 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCu
 
     @Test
     public void getMapValuesTest() {
-        when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(Arrays.asList(
-                IdTipoDatoDto.builder()
-                    .id(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
-                    .build(),
-                IdTipoDatoDto.builder()
-                    .id(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
-                    .build(),
-                IdTipoDatoDto.builder()
-                    .id(TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
-                    .build()));
         final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(1001);
         final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
@@ -163,25 +148,13 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCu
                 result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
         // tipoDatoLocalizacionPersonaPresencia
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
-        assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-                TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-                TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()),
+        assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId()),
                 result.get(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
     }
 
 
     @Test
     public void calcularTest() {
-        when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(Arrays.asList(
-                IdTipoDatoDto.builder()
-                    .id(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
-                    .build(),
-                IdTipoDatoDto.builder()
-                    .id(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
-                    .build(),
-                IdTipoDatoDto.builder()
-                    .id(TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
-                    .build()));
         final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
         when(algoritmo.getId()).thenReturn(1001);
         final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
@@ -259,9 +232,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCu
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD));
             // tipoDatoLocalizacionPersonaPresencia
             assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
-            assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-                    TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-                    TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()),
+            assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId()),
                     value.getValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
 
         }
