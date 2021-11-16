@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 

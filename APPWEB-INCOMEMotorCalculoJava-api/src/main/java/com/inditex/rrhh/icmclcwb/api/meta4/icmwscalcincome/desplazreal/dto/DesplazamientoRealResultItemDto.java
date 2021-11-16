@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto;
 
 import java.io.Serializable;

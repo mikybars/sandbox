@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
 import java.util.List;

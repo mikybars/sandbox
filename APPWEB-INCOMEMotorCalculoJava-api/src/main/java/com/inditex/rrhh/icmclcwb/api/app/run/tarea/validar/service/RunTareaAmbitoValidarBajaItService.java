@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
@@ -11,9 +10,11 @@ import javax.validation.Valid;
 public interface RunTareaAmbitoValidarBajaItService {
 
   /**
-   * @param runTarea
-   * @param tareaAmbito
-   * @return
+   * Some javadoc. Some javadoc.
+   *
+   * @param runTarea Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   ValidacionDto execute(@Valid RunTareaDto runTarea, @Valid TareaAmbitoDto tareaAmbito,
       @Valid final TareaFaseAccionDto tareaFaseAccion);

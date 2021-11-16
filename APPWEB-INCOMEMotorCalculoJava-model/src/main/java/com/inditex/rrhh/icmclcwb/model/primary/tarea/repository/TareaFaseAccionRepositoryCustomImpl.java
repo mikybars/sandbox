@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.sql.ResultSet;

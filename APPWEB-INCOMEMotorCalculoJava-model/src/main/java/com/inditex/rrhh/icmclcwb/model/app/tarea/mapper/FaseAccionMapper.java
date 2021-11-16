@@ -18,12 +18,12 @@ public abstract class FaseAccionMapper {
   public abstract FaseAccionDto faseAccionToFaseAccionDto(
       FaseAccion src);
 
+  public abstract List<FaseAccionDto> faseAccionToFaseAccionDto(
+      List<FaseAccion> src);
+
   @InheritInverseConfiguration
   public abstract FaseAccion faseAccionDtoToFaseAccion(
       FaseAccionDto src);
-
-  public abstract List<FaseAccionDto> faseAccionToFaseAccionDto(
-      List<FaseAccion> src);
 
   public abstract List<FaseAccion> faseAccionDtoToFaseAccion(
       List<FaseAccionDto> src);

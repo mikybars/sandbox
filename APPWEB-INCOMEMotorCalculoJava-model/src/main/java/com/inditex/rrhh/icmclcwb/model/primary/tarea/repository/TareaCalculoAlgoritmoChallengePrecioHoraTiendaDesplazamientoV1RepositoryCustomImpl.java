@@ -25,11 +25,14 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoV1Repos
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
     implements TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoV1RepositoryCustom {
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} ")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']}"
+      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoV1RepositoryCustom.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} ")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoV1RepositoryCustom.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} ")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoV1RepositoryCustom.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} ")
   @Getter
   private String sqlCalcularBase;
 

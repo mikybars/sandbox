@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.ptr.util;
 
 public class PtrPropertiesConstants {
 
-  private PtrPropertiesConstants() {
-  }
-
   public static final Integer BOOLEAN_INTEGER_TRUE = 1;
 
   public static final Integer BOOLEAN_INTEGER_FALSE = 0;
@@ -36,5 +33,8 @@ public class PtrPropertiesConstants {
   public static final String PRESENCIA_EMPLEADOS_TIENDA = "getPresenciasEmpleadosTienda";
 
   public static final String PRESENCIA_TIPOS_HORAS = "getTiposHoras";
+
+  private PtrPropertiesConstants() {
+  }
 
 }

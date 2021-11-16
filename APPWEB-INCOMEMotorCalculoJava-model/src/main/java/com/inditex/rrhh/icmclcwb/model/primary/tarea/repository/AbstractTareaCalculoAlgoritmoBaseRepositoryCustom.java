@@ -27,6 +27,15 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
 
   protected abstract String getSqlCalcular();
 
+  @Override
+  public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
+    String sql = this.getSqlCalcularBase();
+    if (sql != null) {
+      sql = SqlParamsUtils.replaceValues(sql, this.getMapValues(algoritmo));
+    }
+    return StringUtils.normalizeSpace(sql);
+  }
+
   protected abstract String getSqlCalcularBase();
 
   protected abstract Map<String, Object> getMapValues(AlgoritmoDTO algoritmo, TareaDto tarea,
@@ -52,15 +61,6 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
           batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
     }
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
-  }
-
-  @Override
-  public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
-    String sql = this.getSqlCalcularBase();
-    if (sql != null) {
-      sql = SqlParamsUtils.replaceValues(sql, this.getMapValues(algoritmo));
-    }
-    return StringUtils.normalizeSpace(sql);
   }
 
 }

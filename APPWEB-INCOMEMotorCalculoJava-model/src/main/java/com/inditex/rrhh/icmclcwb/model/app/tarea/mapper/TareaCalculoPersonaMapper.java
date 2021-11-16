@@ -21,14 +21,14 @@ public abstract class TareaCalculoPersonaMapper {
   public abstract TareaCalculoPersonaDto tareaCalculoPersonaToTareaCalculoPersonaDto(
       TareaCalculoPersona src);
 
+  public abstract List<TareaCalculoPersonaDto> tareaCalculoPersonaToTareaCalculoPersonaDto(
+      List<TareaCalculoPersona> src);
+
   @InheritInverseConfiguration
   @Mapping(target = "estado.nombre", ignore = true)
   @Mapping(target = "estado.peso", ignore = true)
   public abstract TareaCalculoPersona tareaCalculoPersonaDtoToTareaCalculoPersona(
       TareaCalculoPersonaDto src);
-
-  public abstract List<TareaCalculoPersonaDto> tareaCalculoPersonaToTareaCalculoPersonaDto(
-      List<TareaCalculoPersona> src);
 
   public abstract List<TareaCalculoPersona> tareaCalculoPersonaDtoToTareaCalculoPersona(
       List<TareaCalculoPersonaDto> src);

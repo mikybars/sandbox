@@ -46,7 +46,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito']}")
   private String sqlFindIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito;
 
-  @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalInCadenaAndProvinciaDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito']}")
+  @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom."
+      + "findIdLocalizacionLocalInCadenaAndProvinciaDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito']}")
   private String sqlFindIdLocalizacionLocalInCadenaAndProvinciaDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito;
 
   @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito']}")
@@ -262,6 +263,16 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
   }
 
   @Override
+  public List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+    return this.query(this.sqlCadenas, parameters, (rs, rowNum) -> IdCadenaDto.builder()
+        .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
+        .build());
+  }
+
+  @Override
   public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(final Long idTarea,
       final String cclIdOrigen,
       final List<Long> idVentaConcepto) {
@@ -275,16 +286,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         (rs, rowNum) -> IdCadenaDto.builder()
             .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
             .build());
-  }
-
-  @Override
-  public List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen) {
-    final MapSqlParameterSource parameters = new MapSqlParameterSource();
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-    return this.query(this.sqlCadenas, parameters, (rs, rowNum) -> IdCadenaDto.builder()
-        .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
-        .build());
   }
 
   @Override

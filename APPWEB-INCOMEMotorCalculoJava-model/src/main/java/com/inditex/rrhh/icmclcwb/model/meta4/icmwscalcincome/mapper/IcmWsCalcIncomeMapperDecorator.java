@@ -539,6 +539,22 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     return result;
   }
 
+  @Override
+  public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final PresenciaManualWlocFilterDto src) {
+    final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+    final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+    result.getIcmParamcaltiendasRecordSet().addAll(list);
+    return result;
+  }
+
+  @Override
+  public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final VentaManualWlocFilterDto src) {
+    final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+    final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+    result.getIcmParamcaltiendasRecordSet().addAll(list);
+    return result;
+  }
+
   private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final SearchTiendasFilterDto src) {
     final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
     if (src != null) {
@@ -735,14 +751,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     return result;
   }
 
-  @Override
-  public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final PresenciaManualWlocFilterDto src) {
-    final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
-    final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
-    result.getIcmParamcaltiendasRecordSet().addAll(list);
-    return result;
-  }
-
   private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final PresenciaManualWlocFilterDto src) {
     final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
     if (src != null) {
@@ -780,14 +788,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
       }
     }
     return list;
-  }
-
-  @Override
-  public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final VentaManualWlocFilterDto src) {
-    final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
-    final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
-    result.getIcmParamcaltiendasRecordSet().addAll(list);
-    return result;
   }
 
   private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final VentaManualWlocFilterDto src) {

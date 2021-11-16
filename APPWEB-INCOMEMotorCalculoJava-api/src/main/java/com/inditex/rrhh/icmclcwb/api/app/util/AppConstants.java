@@ -11,9 +11,6 @@ import lombok.Getter;
 
 public class AppConstants {
 
-  private AppConstants() {
-  }
-
   public static final String LOCAL_TIME_PATTERN = "([01][0-9]|2[0-3]):[0-5][0-9]";
 
   public static final String LOCAL_TIME_JSON = "HH:mm";
@@ -33,15 +30,6 @@ public class AppConstants {
   public static final String ID_TIPO_VENTA_DEFAULT = "01";
 
   public static final Integer TOPE_DEFAULT = 0;
-
-  @Getter
-  private static final Integer[] SECCIONES = {SECCION_1, SECCION_2, SECCION_3};
-
-  @Getter
-  private static final List<String> SECCIONES_STRING = Arrays.asList("1", "2", "3");
-
-  @Getter
-  private static final List<Integer> PRODUCTOS_COMISIONABLES = Arrays.asList(1, 2, 3, 4, 5);
 
   public static final Float PORCENTAJE_COMISION = 0.01F;
 
@@ -67,5 +55,17 @@ public class AppConstants {
       EstadoTareaEnum.EN_CURSO.getId(), EstadoTareaEnum.ERROR_VALIDANDO.getId());
 
   public static final Collection<Integer> ESTADOS_RUN_TRABAJO_OK = Arrays.asList(EstadoTrabajoEnum.PENDIENTE.getId());
+
+  @Getter
+  private static final Integer[] SECCIONES = {SECCION_1, SECCION_2, SECCION_3};
+
+  @Getter
+  private static final List<String> SECCIONES_STRING = Arrays.asList("1", "2", "3");
+
+  @Getter
+  private static final List<Integer> PRODUCTOS_COMISIONABLES = Arrays.asList(1, 2, 3, 4, 5);
+
+  private AppConstants() {
+  }
 
 }

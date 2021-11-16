@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.app.util;
 
 public class SqlPtrConstants {
 
-  private SqlPtrConstants() {
-  }
-
   // PARAMETROS DE FILTROS
   public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
@@ -23,5 +20,8 @@ public class SqlPtrConstants {
   public static final String SQL_RESULT_HORAS_SECCION_3 = "HORAS_SECCION_3";
 
   public static final String SQL_RESULT_HORAS_SECCION_4 = "HORAS_SECCION_4";
+
+  private SqlPtrConstants() {
+  }
 
 }

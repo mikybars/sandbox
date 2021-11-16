@@ -28,11 +28,14 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentaj
     implements
     TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom {
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular']}"
+      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular']}"
+      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcularBase;
 

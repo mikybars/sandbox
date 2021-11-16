@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.app.test.service;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.app.test.service;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -12,7 +11,9 @@ import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import org.springframework.scheduling.annotation.Async;
 
 /**
- * Nota: esta clase se deberá borrar cuando se haya hecho la normalización de tareas consolidadas
+ * Some javadoc.
+ *
+ * <p>Nota: esta clase se deberá borrar cuando se haya hecho la normalización de tareas consolidadas</p>
  *
  */
 @Async

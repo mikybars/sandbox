@@ -21,7 +21,9 @@ public class TareaCalculoAjusteAntiguedadRepositoryCustomImpl
     extends AbstractTareaCalculoAjusteBaseRepositoryCustom
     implements TareaCalculoAjusteAntiguedadRepositoryCustom {
 
-  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad.group']} ")
+  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad']} "
+      + "#{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad.group'"
+      + "]} ")
   @Getter
   private String sqlAjustar;
 

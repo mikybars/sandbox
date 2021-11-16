@@ -18,10 +18,10 @@ public abstract class TareaLimpiezaMapper {
   @Mapping(target = "tipo.id", source = "tipo.id")
   public abstract TareaLimpiezaDto tareaLimpiezaToTareaLimpiezaDto(TareaLimpieza src);
 
+  public abstract List<TareaLimpiezaDto> tareaLimpiezaToTareaLimpiezaDto(List<TareaLimpieza> src);
+
   @InheritInverseConfiguration
   public abstract TareaLimpieza tareaLimpiezaDtoToTareaLimpieza(TareaLimpiezaDto src);
-
-  public abstract List<TareaLimpiezaDto> tareaLimpiezaToTareaLimpiezaDto(List<TareaLimpieza> src);
 
   public abstract List<TareaLimpieza> tareaLimpiezaDtoToTareaLimpieza(List<TareaLimpiezaDto> src);
 

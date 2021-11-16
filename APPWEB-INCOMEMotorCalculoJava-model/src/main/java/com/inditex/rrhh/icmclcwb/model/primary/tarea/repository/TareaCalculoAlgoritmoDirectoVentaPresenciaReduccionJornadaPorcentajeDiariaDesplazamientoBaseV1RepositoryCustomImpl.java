@@ -28,11 +28,20 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentaj
     implements
     TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom {
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDiariaVentaRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']}"
+      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1Repository"
+      + ".calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDiariaVentaRepository.calcular.where']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDiariaVentaRepository.calcular.where']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1Repository"
+      + ".calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDiariaVentaRepository.calcular.where']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcularBase;
 

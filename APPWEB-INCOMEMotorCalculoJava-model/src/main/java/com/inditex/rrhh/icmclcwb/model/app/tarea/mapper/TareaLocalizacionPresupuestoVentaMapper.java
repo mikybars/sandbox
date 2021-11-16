@@ -63,6 +63,11 @@ public abstract class TareaLocalizacionPresupuestoVentaMapper {
   public abstract TareaLocalizacionPresupuestoVenta ventaCongeladaResultItemDtoToTareaLocalizacionPresupuestoVenta(
       VentaCongeladaResultItemDto src, TareaDto tarea);
 
+  public List<TareaLocalizacionPresupuestoVenta> ventaCongeladaResultItemDtoToTareaLocalizacionPresupuestoVenta(
+      final List<VentaCongeladaResultItemDto> src, final TareaDto tarea) {
+    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  }
+
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "cclIdSeccion", ignore = true)
   @Mapping(target = "ordinal", ignore = true)
@@ -152,11 +157,6 @@ public abstract class TareaLocalizacionPresupuestoVentaMapper {
   @Mapping(target = "cclIdCodOrigen", source = "src.tienda")
   public abstract TareaLocalizacionPresupuestoVenta responseItemDtoToTareaLocalizacionPresupuestoVenta(
       PtrVentaOnlineEntregaDomicilioResultItemDto src, IdLocalizacionLocalPresupuestoDto iter, TareaDto tarea);
-
-  public List<TareaLocalizacionPresupuestoVenta> ventaCongeladaResultItemDtoToTareaLocalizacionPresupuestoVenta(
-      final List<VentaCongeladaResultItemDto> src, final TareaDto tarea) {
-    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-  }
 
   public List<TareaLocalizacionPresupuestoVenta> ventaTotalizadoResponseItemDtoToTareaLocalizacionPresupuestoVenta(
       final List<PtrVentaTotalizadoResultItemDto> src, final IdLocalizacionLocalPresupuestoDto iter,

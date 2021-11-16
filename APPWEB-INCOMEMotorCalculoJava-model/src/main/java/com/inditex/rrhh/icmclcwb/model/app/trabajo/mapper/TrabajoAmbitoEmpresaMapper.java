@@ -21,11 +21,11 @@ public abstract class TrabajoAmbitoEmpresaMapper {
   @Mapping(target = "idTrabajo", source = "trabajo.id")
   public abstract TrabajoAmbitoEmpresaDTO trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(TrabajoAmbitoEmpresa src);
 
-  @InheritInverseConfiguration
-  public abstract TrabajoAmbitoEmpresa trabajoAmbitoEmpresaDtoToTrabajoAmbitoEmpresa(TrabajoAmbitoEmpresaDTO src);
-
   public abstract List<TrabajoAmbitoEmpresaDTO> trabajoAmbitoEmpresaToTrabajoAmbitoEmpresaDto(
       List<TrabajoAmbitoEmpresa> src);
+
+  @InheritInverseConfiguration
+  public abstract TrabajoAmbitoEmpresa trabajoAmbitoEmpresaDtoToTrabajoAmbitoEmpresa(TrabajoAmbitoEmpresaDTO src);
 
   public abstract List<TrabajoAmbitoEmpresa> trabajoAmbitoEmpresaDtoToTrabajoAmbitoEmpresa(
       List<TrabajoAmbitoEmpresaDTO> src);

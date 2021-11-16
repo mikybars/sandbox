@@ -21,7 +21,8 @@ public class TareaCalculoAjusteVacacionesRepositoryCustomImpl
     extends AbstractTareaCalculoAjusteBaseRepositoryCustom
     implements TareaCalculoAjusteVacacionesRepositoryCustom {
 
-  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.vacaciones']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
+  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.vacaciones']} "
+      + "#{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
   @Getter
   private String sqlAjustar;
 

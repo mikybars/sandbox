@@ -32,8 +32,10 @@ public interface TareaCalculoPersonaRepositoryCustom {
       @NotNull @Positive String idTipoPolitica);
 
   /**
-   * @param algoritmo
-   * @return
+   * Some javadoc.
+   *
+   * @param algoritmo Some javadoc.
+   * @return Some javadoc.
    */
   List<GenericAlgoritmoPropertiesDto> findIdTipoCalculoAndIdTipoComisionByIdAlgoritmo(
       @NotBlank AlgoritmoDTO algoritmo);

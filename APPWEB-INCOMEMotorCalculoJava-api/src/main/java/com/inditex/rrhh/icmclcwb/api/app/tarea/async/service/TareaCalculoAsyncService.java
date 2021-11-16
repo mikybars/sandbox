@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.tarea.async.service;
 
 import java.util.concurrent.CompletableFuture;
@@ -11,9 +10,11 @@ import org.springframework.scheduling.annotation.Async;
 public interface TareaCalculoAsyncService {
 
   /**
-   * @param runTareaDto
-   * @param idPersonaLocalChallengeDto
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param idPersonaLocalChallengeDto Some javadoc.
+   * @return Some javadoc.
    */
   @Async("regularizarExecutor")
   CompletableFuture<Void> regularizarChallenge(RunTareaDto runTareaDto,

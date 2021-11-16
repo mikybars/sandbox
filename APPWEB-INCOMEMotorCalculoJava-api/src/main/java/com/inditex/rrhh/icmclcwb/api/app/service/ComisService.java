@@ -19,94 +19,117 @@ import javax.validation.constraints.Positive;
 public interface ComisService {
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param runTarea Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   PresenciaOrigenDto findPresenciasOrigenAndFecha(@Valid final RunTareaDto runTarea,
       @Valid final TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdMotivoDesplazamientoDto> findMotivoDesplazamiento(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(@Valid final RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(@Valid final RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesHistorico(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamiento(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesResalta(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinPrimas(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findBajasIt(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCarenciaDto> findCarencia(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @param clase
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @param clase Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalExternaDto> findExternosByClase(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito, ComisClaseEmpleadoEnum clase);
 
   /**
    * Obtiene los empleados externos en base a los que tengan un id superior al dado.
-   * 
+   *
    * @param runTareaDto runtarea
    * @param tareaAmbito tareaAmbito
    * @param minIdPersona el id de persona que debe ser superado para ser considerado externo.
@@ -116,40 +139,50 @@ public interface ComisService {
       @Valid TareaAmbitoDto tareaAmbito, @NotNull @Positive Long minIdPersona);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findBajasItEs(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoEs(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);

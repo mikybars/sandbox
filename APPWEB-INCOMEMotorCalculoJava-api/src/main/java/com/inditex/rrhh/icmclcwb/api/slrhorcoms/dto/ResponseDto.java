@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto;
-
 import java.io.Serializable;
 import java.util.List;
 

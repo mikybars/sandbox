@@ -22,12 +22,12 @@ public abstract class TrabajoAmbitoLocalizacionMapper {
   public abstract TrabajoAmbitoLocalizacionDTO trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
       TrabajoAmbitoLocalizacion src);
 
+  public abstract List<TrabajoAmbitoLocalizacionDTO> trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
+      List<TrabajoAmbitoLocalizacion> src);
+
   @InheritInverseConfiguration
   public abstract TrabajoAmbitoLocalizacion trabajoAmbitoLocalizacionDtoToTrabajoAmbitoLocalizacion(
       TrabajoAmbitoLocalizacionDTO src);
-
-  public abstract List<TrabajoAmbitoLocalizacionDTO> trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
-      List<TrabajoAmbitoLocalizacion> src);
 
   public abstract List<TrabajoAmbitoLocalizacion> trabajoAmbitoLocalizacionDtoToTrabajoAmbitoLocalizacion(
       List<TrabajoAmbitoLocalizacionDTO> src);

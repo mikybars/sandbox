@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
 import java.util.List;
@@ -15,66 +14,85 @@ import javax.validation.constraints.NotNull;
 public interface TareaFaseService {
 
   /**
-   * @param tareaFase
-   * @return
+   * Some javadoc.
+   *
+   * @param tareaFase Some javadoc.
+   * @return Some javadoc.
    */
   List<TareaFaseDto> save(@Valid @NotNull @NotEmpty List<TareaFaseDto> tareaFase);
 
   /**
-   * @param tareaDto
-   * @param tareaFase
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @return Some javadoc.
    */
   List<TareaFaseDto> create(@Valid @NotNull RunTareaDto runTareaDto);
 
   /**
-   * @param tarea
-   * @param estado
+   * Some javadoc.
+   *
+   * @param tareaFaseDto Some javadoc.
    */
   void updateFechaInicio(@Valid @NotNull TareaFaseDto tareaFaseDto);
 
   /**
-   * @param idTarea
-   * @param idFase
-   * @return
+   * Some javadoc.
+   *
+   * @param idTarea Some javadoc.
+   * @param idFase Some javadoc.
+   * @return Some javadoc.
    */
   TareaFaseDto findTareaFaseDtoByIdTareaAndIdFase(@NotNull Long idTarea, @NotNull Integer idFase);
 
   /**
-   * @param tareaFaseDto
-   * @param estadoTareaFaseDto
+   * Some javadoc.
+   *
+   * @param tareaDto Some javadoc.
+   * @param estadoTareaFaseActualDto Some javadoc.
+   * @param estadoTareaFaseDto Some javadoc.
    */
   void updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(@Valid @NotNull TareaDto tareaDto,
       @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseActualDto,
       @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
   /**
-   * @param idTarea
-   * @return
+   * Some javadoc.
+   *
+   * @param idTarea Some javadoc.
+   * @return Some javadoc.
    */
   List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NotNull Long idTarea);
 
   /**
-   * @param tareaFaseDto
-   * @param estadoTareaFaseDto
+   * Some javadoc.
+   *
+   * @param tareaFaseDto Some javadoc.
+   * @param estadoTareaFaseDto Some javadoc.
    */
   void updateFechaFinAndEstado(@Valid @NotNull TareaFaseDto tareaFaseDto,
       @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
   /**
-   * @param tareaFaseDto
-   * @param estadoTareaFaseDto
+   * Some javadoc.
+   *
+   * @param tareaFaseDto Some javadoc.
+   * @param estadoTareaFaseDto Some javadoc.
    */
   void updateFechaInicioAndFechaFinAndEstado(@Valid @NotNull TareaFaseDto tareaFaseDto,
       @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
   /**
-   * @param runTareaDto
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
    */
   void updateActivo(@Valid @NotNull RunTareaDto runTareaDto);
 
   /**
-   * @param tareaFaseDto
+   * Some javadoc.
+   *
+   * @param tareaFaseDto Some javadoc.
    */
   void updateActivoByIdTareaFase(@Valid @NotNull TareaFaseDto tareaFaseDto);
 

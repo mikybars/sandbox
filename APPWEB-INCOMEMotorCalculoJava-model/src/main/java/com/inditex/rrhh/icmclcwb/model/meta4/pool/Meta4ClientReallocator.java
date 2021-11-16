@@ -22,9 +22,9 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
 
   private static final Logger log = LoggerFactory.getLogger(Meta4ClientReallocator.class);
 
-  private final Meta4ClientFactory meta4ClientFactory;
-
   private static final AtomicLong count = new AtomicLong(0);
+
+  private final Meta4ClientFactory meta4ClientFactory;
 
   public Meta4ClientReallocator(final Meta4ClientFactory meta4ClientFactory) {
     this.meta4ClientFactory = meta4ClientFactory;

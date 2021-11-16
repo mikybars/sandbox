@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import io.swagger.annotations.ApiModel;

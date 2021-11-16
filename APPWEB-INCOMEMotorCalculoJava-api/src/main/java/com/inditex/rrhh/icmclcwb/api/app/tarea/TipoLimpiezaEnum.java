@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.app.tarea;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.app.tarea;
-
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoLimpiezaDto;
 
 import lombok.Getter;

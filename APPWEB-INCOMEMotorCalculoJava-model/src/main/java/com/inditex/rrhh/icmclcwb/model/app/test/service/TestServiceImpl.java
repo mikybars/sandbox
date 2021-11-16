@@ -89,6 +89,9 @@ public class TestServiceImpl implements TestService {
 
   private static final String KO = "KO";
 
+  @Value("${amiga.common.oauth2-client.default-client-config.uri-token:sinvaloroauthproperty}")
+  String oauthProperty;
+
   @Autowired
   private Logger log;
 
@@ -416,7 +419,10 @@ public class TestServiceImpl implements TestService {
     message.setTo("income-java@vectoritcgroup.com");
     message.setSubject("Lorem ipsum");
     message.setText(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+            + "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure"
+            + " dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat"
+            + " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
     this.mailSender.send(message);
   }
 
@@ -506,9 +512,6 @@ public class TestServiceImpl implements TestService {
       throw e;
     }
   }
-
-  @Value("${amiga.common.oauth2-client.default-client-config.uri-token:sinvaloroauthproperty}")
-  String oauthProperty;
 
   @Override
   public void slrhorcomsTest() {

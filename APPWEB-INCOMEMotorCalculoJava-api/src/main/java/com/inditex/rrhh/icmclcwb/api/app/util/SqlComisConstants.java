@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.app.util;
 
 public class SqlComisConstants {
 
-  private SqlComisConstants() {
-  }
-
   // PARAMETROS DE FILTROS
   public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
@@ -73,5 +70,8 @@ public class SqlComisConstants {
   public static final String SQL_RESULT_PUESTO = "PUESTO";
 
   public static final String SQL_RESULT_SECCIONES = "SECCIONES";
+
+  private SqlComisConstants() {
+  }
 
 }

@@ -22,12 +22,12 @@ public abstract class TareaPersonaCoeficienteMapper {
   public abstract TareaPersonaCoeficienteDto tareaPersonaCoeficienteToTareaPersonaCoeficienteDto(
       TareaPersonaCoeficiente src);
 
+  public abstract List<TareaPersonaCoeficienteDto> tareaPersonaCoeficienteToTareaPersonaCoeficienteDto(
+      List<TareaPersonaCoeficiente> src);
+
   @InheritInverseConfiguration
   public abstract TareaPersonaCoeficiente tareaPersonaCoeficienteDtoToTareaPersonaCoeficiente(
       TareaPersonaCoeficienteDto src);
-
-  public abstract List<TareaPersonaCoeficienteDto> tareaPersonaCoeficienteToTareaPersonaCoeficienteDto(
-      List<TareaPersonaCoeficiente> src);
 
   public abstract List<TareaPersonaCoeficiente> tareaPersonaCoeficienteDtoToPersonaCoeficiente(
       List<TareaPersonaCoeficienteDto> src);

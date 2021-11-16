@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.app.dto;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.app.dto;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 

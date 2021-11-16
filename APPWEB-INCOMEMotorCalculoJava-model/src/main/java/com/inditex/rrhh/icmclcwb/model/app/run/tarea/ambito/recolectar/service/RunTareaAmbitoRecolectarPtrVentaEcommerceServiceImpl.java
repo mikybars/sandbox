@@ -70,6 +70,10 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
     implements RunTareaAmbitoRecolectarPtrVentaEcommerceService {
 
   @Autowired
+  @Qualifier("ventaEcommerceProperties")
+  protected Map<String, PtrPropertiesDto> ventaEcommerceProperties;
+
+  @Autowired
   private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
 
   @Autowired
@@ -101,10 +105,6 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
 
   @Autowired
   private TareaMapper tareaMapper;
-
-  @Autowired
-  @Qualifier("ventaEcommerceProperties")
-  protected Map<String, PtrPropertiesDto> ventaEcommerceProperties;
 
   @Autowired
   @Qualifier(value = "recolectarProperties")

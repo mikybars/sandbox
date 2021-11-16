@@ -1,8 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;

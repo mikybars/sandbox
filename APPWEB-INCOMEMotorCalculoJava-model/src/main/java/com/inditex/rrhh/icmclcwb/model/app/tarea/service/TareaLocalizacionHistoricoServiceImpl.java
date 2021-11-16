@@ -139,6 +139,13 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   }
 
   @Override
+  @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
+  public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(@NotNull final Long idTarea,
+      @NotBlank final String cclIdOrigen) {
+    return this.tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen(idTarea, cclIdOrigen);
+  }
+
+  @Override
   @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato_not_in_ambito",
       key = "{#idTarea, #cclIdOrigen, #idVentaConcepto}")
   public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(
@@ -148,13 +155,6 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
         .findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(idTarea,
             cclIdOrigen,
             idVentaConcepto);
-  }
-
-  @Override
-  @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
-  public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(@NotNull final Long idTarea,
-      @NotBlank final String cclIdOrigen) {
-    return this.tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen(idTarea, cclIdOrigen);
   }
 
   @Override

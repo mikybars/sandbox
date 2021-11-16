@@ -1,13 +1,10 @@
+package com.inditex.rrhh.icmclcwb.api.slrhorcoms.util;
+
 /*
  * Copyright (c) 2021. Inditex
  */
 
-package com.inditex.rrhh.icmclcwb.api.slrhorcoms.util;
-
 public class HorarioComercialPropertiesConstants {
-
-  private HorarioComercialPropertiesConstants() {
-  }
 
   // ejemplo: Sun May 24 02:00:00 CEST 2020 (solo funciona en DES)
   public static final String DATE_FORMAT_RESULT_DES = "EEE MMM dd HH:mm:ss 'CEST' yyyy";
@@ -55,5 +52,8 @@ public class HorarioComercialPropertiesConstants {
   public static final String EQUALS_SYMBOL = "=";
 
   public static final String ASTERISK_SYMBOL = "*";
+
+  private HorarioComercialPropertiesConstants() {
+  }
 
 }

@@ -19,12 +19,12 @@ public abstract class TareaFaseMapper {
   public abstract TareaFaseDto tareaFaseToTareaFaseDto(
       TareaFase src);
 
+  public abstract List<TareaFaseDto> tareaFaseToTareaFaseDto(
+      List<TareaFase> src);
+
   @InheritInverseConfiguration
   public abstract TareaFase tareaFaseDtoToTareaFase(
       TareaFaseDto src);
-
-  public abstract List<TareaFaseDto> tareaFaseToTareaFaseDto(
-      List<TareaFase> src);
 
   public abstract List<TareaFase> tareaFaseDtoToTareaFase(
       List<TareaFaseDto> src);

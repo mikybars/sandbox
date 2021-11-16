@@ -27,11 +27,14 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Re
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
     implements TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1RepositoryCustom {
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} ")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} ")
   @Getter
   private String sqlCalcularBase;
 
@@ -44,8 +47,6 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Re
   @Override
   protected Map<String, Object> getMapValues(AlgoritmoDTO algoritmo, TareaDto tarea, IdPersonaLocalDto persona) {
 
-    List<IdTipoDatoDto> tiposDatoVenta = tipoDatoService
-        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId());
     HashMap<String, Object> map = new HashMap<>();
     if (algoritmo != null) {
       map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
@@ -68,6 +69,9 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Re
       map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
     }
     map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+    List<IdTipoDatoDto> tiposDatoVenta = tipoDatoService
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
         tiposDatoVenta.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     map.put(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

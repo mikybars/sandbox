@@ -22,12 +22,12 @@ public abstract class TareaLocalizacionCalcularMapper {
   public abstract TareaLocalizacionCalcularDto tareaLocalizacionCalcularToTareaLocalizacionCalcularDto(
       TareaLocalizacionCalcular src);
 
+  public abstract List<TareaLocalizacionCalcularDto> tareaLocalizacionCalcularToTareaLocalizacionCalcularDto(
+      List<TareaLocalizacionCalcular> src);
+
   @InheritInverseConfiguration
   public abstract TareaLocalizacionCalcular tareaLocalizacionCalcularDtoToTareaLocalizacionCalcular(
       TareaLocalizacionCalcularDto src);
-
-  public abstract List<TareaLocalizacionCalcularDto> tareaLocalizacionCalcularToTareaLocalizacionCalcularDto(
-      List<TareaLocalizacionCalcular> src);
 
   public abstract List<TareaLocalizacionCalcular> tareaLocalizacionCalcularDtoToLocalizacionCalcular(
       List<TareaLocalizacionCalcularDto> src);

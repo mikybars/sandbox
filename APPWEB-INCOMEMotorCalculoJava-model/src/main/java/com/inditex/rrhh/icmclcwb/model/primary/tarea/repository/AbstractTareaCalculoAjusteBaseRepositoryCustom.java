@@ -28,6 +28,15 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
 
   protected abstract String getSqlAjustar();
 
+  @Override
+  public String getSqlAjustar(final AlgoritmoAjusteDto algoritmoAjuste) {
+    String sql = this.getSqlAjustarBase();
+    if (sql != null) {
+      sql = SqlParamsUtils.replaceValues(sql, this.getMapValues(algoritmoAjuste, null, null));
+    }
+    return StringUtils.normalizeSpace(sql);
+  }
+
   protected abstract String getSqlAjustarBase();
 
   protected abstract Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
@@ -49,15 +58,6 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
           batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
     }
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
-  }
-
-  @Override
-  public String getSqlAjustar(final AlgoritmoAjusteDto algoritmoAjuste) {
-    String sql = this.getSqlAjustarBase();
-    if (sql != null) {
-      sql = SqlParamsUtils.replaceValues(sql, this.getMapValues(algoritmoAjuste, null, null));
-    }
-    return StringUtils.normalizeSpace(sql);
   }
 
 }

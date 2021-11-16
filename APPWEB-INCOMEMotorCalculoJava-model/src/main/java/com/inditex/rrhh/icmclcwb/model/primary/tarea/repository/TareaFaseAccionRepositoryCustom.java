@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
@@ -14,72 +13,90 @@ import javax.validation.constraints.Positive;
 public interface TareaFaseAccionRepositoryCustom {
 
   /**
-   * @param src
-   * @return
+   * Some javadoc.
+   *
+   * @param src Some javadoc.
+   * @return Some javadoc.
    */
   List<TareaFaseAccion> save(List<TareaFaseAccion> src);
 
   /**
-   * @param idTarea
-   * @param idFase
-   * @param idPuntoEjecucion
-   * @param peso
-   * @return
+   * Some javadoc.
+   *
+   * @param idTarea Some javadoc.
+   * @param idFase Some javadoc.
+   * @param idPuntoEjecucion Some javadoc.
+   * @return Some javadoc.
    */
   List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
       @NotNull @Positive Long idTarea, @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion);
 
   /**
-   * @param idTarea
-   * @param idFase
-   * @param idPuntoEjecucion
-   * @return
+   * Some javadoc.
+   *
+   * @param idTarea Some javadoc.
+   * @param idFase Some javadoc.
+   * @param idPuntoEjecucion Some javadoc.
+   * @return Some javadoc.
    */
   List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(@NotNull @Positive Long idTarea,
       @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion);
 
   /**
-   * @param tareaFaseAccionDto
+   * Some javadoc.
+   *
+   * @param tareaFaseAccionDto Some javadoc.
    */
   void updateFechaInicio(@NotNull TareaFaseAccionDto tareaFaseAccionDto);
 
   /**
-   * @param tareaFaseAccionDto
-   * @param estadoTareaFaseAccionDto
+   * Some javadoc.
+   *
+   * @param tareaFaseAccionDto Some javadoc.
+   * @param estadoTareaFaseAccionDto Some javadoc.
    */
   void updateFechaFinAndEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
       @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
   /**
-   * @param tareaFaseAccionDto
-   * @param estadoTareaFaseAccionDto
+   * Some javadoc.
+   *
+   * @param tareaFaseDto Some javadoc.
+   * @param estadoTareaFaseAccionActualDto Some javadoc.
+   * @param estadoTareaFaseAccionDto Some javadoc.
    */
   void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(@NotNull TareaFaseDto tareaFaseDto,
       @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
       @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
   /**
-   * @param idTarea
-   * @param idFase
-   * @param idAccion
-   * @param idPuntoEjecucion
-   * @param peso
-   * @return
+   * Some javadoc.
+   *
+   * @param idTarea Some javadoc.
+   * @param idFase Some javadoc.
+   * @param idAccion Some javadoc.
+   * @param idPuntoEjecucion Some javadoc.
+   * @return Some javadoc.
    */
   List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
       @NotNull @Positive Long idTarea, @NotNull Integer idFase, @NotNull Integer idAccion,
       @NotNull Integer idPuntoEjecucion);
 
   /**
-   * @param tareaFaseAccionDto
-   * @return
+   * Some javadoc.
+   *
+   * @param tareaFaseAccionDto Some javadoc.
+   * @param tareaFaseDto Some javadoc.
+   * @return Some javadoc.
    */
   Integer countReintentosByIdTareaAndIdAccionAndIdEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
       @NotNull TareaFaseDto tareaFaseDto);
 
   /**
-   * @param idTareaFaseAccion
-   * @return
+   * Some javadoc.
+   *
+   * @param idTareaFaseAccion Some javadoc.
+   * @return Some javadoc.
    */
   TareaFaseAccionDto findById(@NotNull @Positive Long idTareaFaseAccion);
 

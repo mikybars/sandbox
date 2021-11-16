@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.aop.annotation;
 
 import java.lang.annotation.ElementType;

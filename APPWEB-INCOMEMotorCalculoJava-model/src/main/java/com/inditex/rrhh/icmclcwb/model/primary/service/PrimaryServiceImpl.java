@@ -29,11 +29,12 @@ public class PrimaryServiceImpl implements PrimaryService {
 
   @Override
   public Boolean loadDML(@Valid @NotBlank final String path) {
-    Boolean result = Boolean.FALSE;
     log.info("Inicio carga path {}", path);
     Resource resource = FileUtils.getResource(resourceLoader, path);
     log.info("Fin carga path {}", path);
     log.info("Inicio load path {}", path);
+
+    Boolean result = Boolean.FALSE;
     result = primaryRepositoryCustom.load(resource);
     log.info("Fin load path {} con resultado {}", path, result);
     return result;

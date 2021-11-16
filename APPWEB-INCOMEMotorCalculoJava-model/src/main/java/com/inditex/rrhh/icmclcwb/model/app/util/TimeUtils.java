@@ -37,12 +37,12 @@ public class TimeUtils {
     return ZonedDateTime.now(zone).toLocalDate();
   }
 
-  public static LocalDateTime toLocalDateTime(LocalDate localDate) {
-    return LocalDateTime.of(localDate, LocalTime.MIDNIGHT);
-  }
-
   public static LocalDate nowLocalDate() {
     return TimeUtils.nowLocalDate(ZoneId.systemDefault());
+  }
+
+  public static LocalDateTime toLocalDateTime(LocalDate localDate) {
+    return LocalDateTime.of(localDate, LocalTime.MIDNIGHT);
   }
 
   public static LocalDateTime nowLocalDateTime(ZoneId zone) {

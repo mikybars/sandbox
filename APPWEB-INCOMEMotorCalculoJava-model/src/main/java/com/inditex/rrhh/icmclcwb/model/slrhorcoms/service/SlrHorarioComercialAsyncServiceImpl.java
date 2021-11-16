@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.slrhorcoms.service;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.slrhorcoms.service;
-
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.ResponseDto;

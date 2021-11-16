@@ -23,11 +23,11 @@ import org.springframework.stereotype.Service;
 public class Meta4PageableServiceImpl implements Meta4PageableService {
 
   @Autowired
-  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
-
-  @Autowired
   @Qualifier("meta4Properties")
   protected Map<String, Meta4PropertiesDto> meta4Properties;
+
+  @Autowired
+  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @Override
   public <T extends PageableDto<?>, Z extends Object, U extends PageableListDto<?>> List<Z> getResultItem(

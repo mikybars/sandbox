@@ -25,7 +25,8 @@ public class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamien
   // #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamientoV1Repository.calcular']}
   // #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}
   // #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamientoV1Repository.calcular']}")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDiariaDesplazamientoV1Repository.calcular']}")
   @Getter
   private String sqlCalcular;
 

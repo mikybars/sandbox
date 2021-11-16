@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,8 @@ public interface ValidacionMapper {
 
   @Mapping(target = "result", expression = "java(CollectionUtils.isEmpty(personas))")
   @Mapping(target = "sincronizacion",
-      expression = "java((properties.getSincronizacion() != null) && properties.getSincronizacion().isActivo() && (properties.getSincronizacion().getMaxEmpleados() >= personas.size()) )")
+      expression = "java((properties.getSincronizacion() != null) && properties.getSincronizacion().isActivo() && "
+          + "(properties.getSincronizacion().getMaxEmpleados() >= personas.size()) )")
   @Mapping(target = "idTareaFaseAccion", source = "accion.id")
   @Mapping(target = "reaccionPeso", source = "accion.reaccionPeso")
   @Mapping(target = "cclIdOrigen", source = "ambito.cclIdOrigen")

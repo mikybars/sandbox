@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.app.calcular;
 
 import java.util.List;
@@ -15,7 +14,10 @@ import org.springframework.scheduling.annotation.Async;
 public interface RunPrevalidar {
 
   /**
-   * @param runTarea
+   * Some javadoc.
+   *
+   * @param runTarea Some javadoc.
+   * @param tareaFaseAccion Some javadoc.
    */
   @Async("validacionExecutor")
   CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid RunTareaDto runTarea,

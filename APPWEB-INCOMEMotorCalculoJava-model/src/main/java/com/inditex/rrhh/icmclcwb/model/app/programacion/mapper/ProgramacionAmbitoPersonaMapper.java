@@ -21,12 +21,12 @@ public abstract class ProgramacionAmbitoPersonaMapper {
   public abstract ProgramacionAmbitoPersonaDTO programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
       ProgramacionAmbitoPersona src);
 
+  public abstract List<ProgramacionAmbitoPersonaDTO> programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
+      List<ProgramacionAmbitoPersona> src);
+
   @InheritInverseConfiguration
   public abstract ProgramacionAmbitoPersona programacionAmbitoPersonaDtoToProgramacionAmbitoPersona(
       ProgramacionAmbitoPersonaDTO src);
-
-  public abstract List<ProgramacionAmbitoPersonaDTO> programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
-      List<ProgramacionAmbitoPersona> src);
 
   public abstract List<ProgramacionAmbitoPersona> programacionAmbitoPersonaDtoToProgramacionAmbitoPersona(
       List<ProgramacionAmbitoPersonaDTO> src);

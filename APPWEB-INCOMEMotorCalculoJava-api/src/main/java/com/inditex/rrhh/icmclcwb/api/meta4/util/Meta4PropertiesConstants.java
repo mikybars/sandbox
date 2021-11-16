@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.meta4.util;
 
 public class Meta4PropertiesConstants {
 
-  private Meta4PropertiesConstants() {
-  }
-
   /* CONSTANTES PARA LA LECTURA DE PROPIEDADES DE META4 */
   public static final String SEARCH_TIENDAS = "searchTiendas";
 
@@ -71,5 +68,8 @@ public class Meta4PropertiesConstants {
   public static final String SINCRONIZACION = "sincronizacion";
 
   public static final String TIPOS_HORA = "getTiposHoras";
+
+  private Meta4PropertiesConstants() {
+  }
 
 }

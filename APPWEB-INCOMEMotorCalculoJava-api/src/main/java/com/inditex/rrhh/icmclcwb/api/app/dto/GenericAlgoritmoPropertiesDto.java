@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.dto;
 
 import java.io.Serializable;

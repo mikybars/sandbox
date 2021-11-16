@@ -49,6 +49,30 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
 
   }
 
+  private void totalizarVentaPersonaSeccion(final TareaDto tarea, final TipoDatoEnum nuevoTipoDato,
+      final List<Integer> tiposDato) {
+
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    // Parámetros filtro
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, tiposDato);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    // Parámetros que establecen valores
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, nuevoTipoDato.getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+    this.update(this.sqlTotalizarVentaPersonaSeccion, parameters);
+
+  }
+
+  private void totalizarVentaPersonaSeccion(final TareaDto tarea, final List<IdTipoDatoDto> tiposDato,
+      final TipoDatoEnum nuevoTipoDato) {
+
+    this.totalizarVentaPersonaSeccion(tarea, nuevoTipoDato,
+        tiposDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+
+  }
+
   @Override
   public void totalizarVentaSinDevolucionPersonaSeccion(final TareaDto tarea) {
 
@@ -99,30 +123,6 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
 
     this.totalizarVentaPersonaSeccion(tarea, TipoDatoEnum.DEVOLUCION_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_SECCION,
         Collections.singletonList(TipoDatoEnum.OPERACION_DEVOLUCION_ONLINE_IPOD_LOCALIZACION_SECCION.getId()));
-
-  }
-
-  private void totalizarVentaPersonaSeccion(final TareaDto tarea, final TipoDatoEnum nuevoTipoDato,
-      final List<Integer> tiposDato) {
-
-    final MapSqlParameterSource parameters = new MapSqlParameterSource();
-    // Parámetros filtro
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, tiposDato);
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-    // Parámetros que establecen valores
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, nuevoTipoDato.getId());
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-
-    this.update(this.sqlTotalizarVentaPersonaSeccion, parameters);
-
-  }
-
-  private void totalizarVentaPersonaSeccion(final TareaDto tarea, final List<IdTipoDatoDto> tiposDato,
-      final TipoDatoEnum nuevoTipoDato) {
-
-    this.totalizarVentaPersonaSeccion(tarea, nuevoTipoDato,
-        tiposDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
 
   }
 

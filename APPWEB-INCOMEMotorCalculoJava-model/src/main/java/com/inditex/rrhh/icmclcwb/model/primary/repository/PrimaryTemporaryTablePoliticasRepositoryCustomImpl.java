@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.primary.repository;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.primary.repository;
-
 import java.util.Arrays;
 import java.util.List;
 

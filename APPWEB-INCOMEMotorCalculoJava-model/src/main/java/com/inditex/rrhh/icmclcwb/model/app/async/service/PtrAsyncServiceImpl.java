@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.app.async.service;
 
 import java.util.concurrent.CompletableFuture;

@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto;
-
 import java.io.Serializable;
 import java.util.List;
 

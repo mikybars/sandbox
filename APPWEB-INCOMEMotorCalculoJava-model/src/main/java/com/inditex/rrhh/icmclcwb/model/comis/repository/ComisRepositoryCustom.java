@@ -15,74 +15,96 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 public interface ComisRepositoryCustom {
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   PresenciaOrigenDto findPresenciasOrigenAndFecha(TareaDto tarea);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdMotivoDesplazamientoDto> findMotivoDesplazamiento(TareaDto tarea);
 
   /**
-   * @param fechaDesde
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(TareaDto tarea);
 
   /**
-   * @param fechaDesde
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(TareaDto tarea);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesHistorico(TareaDto tarea);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamiento(TareaDto tarea);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesResalta(TareaDto tarea);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinPrimas(TareaDto tarea);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findBajasIt(TareaDto tarea, PeriodoDto periodoAmpliado);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCarenciaDto> findCarencia(TareaDto tarea);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalExternaDto> findExternosByClase(TareaDto tarea, ComisClaseEmpleadoEnum clase);
 
   /**
    * Obtiene los empleados externos en base a los que tengan un id superior al dado.
-   * 
+   *
    * @param tarea tarea
    * @param minIdPersona el id de persona que debe ser superado para ser considerado externo.
    * @return lista de externos
@@ -90,32 +112,42 @@ public interface ComisRepositoryCustom {
   List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(final TareaDto tarea, final Long minIdPersona);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findBajasItEs(TareaDto tarea);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoEs(TareaDto tarea);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(TareaDto tarea);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(TareaDto tarea);
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(TareaDto tarea);
 

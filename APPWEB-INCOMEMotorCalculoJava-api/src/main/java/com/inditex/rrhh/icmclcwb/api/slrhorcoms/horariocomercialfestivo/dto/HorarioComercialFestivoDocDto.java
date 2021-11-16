@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto;
-
 import java.io.Serializable;
 
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.DocDto;

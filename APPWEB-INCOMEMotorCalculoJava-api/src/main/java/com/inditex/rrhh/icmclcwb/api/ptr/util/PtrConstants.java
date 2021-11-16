@@ -7,9 +7,6 @@ import lombok.Getter;
 
 public class PtrConstants {
 
-  private PtrConstants() {
-  }
-
   public static final String DATE_FORMAT = "yyyy-MM-dd";
 
   public static final String AGRUPAR_SECCION_TRUE = "1";
@@ -26,13 +23,16 @@ public class PtrConstants {
 
   public static final String OPERACION_DEVOLUCION_VENTA_ORIGINAL_OTRA_TIENDA = "DT";
 
-  @Getter
-  private static final List<Integer> VENDEDORES_0 = Arrays.asList(0, -1);
-
   public static final Integer VENDEDOR_0 = 0;
 
   public static final String EMPRESA_0 = "0";
 
   public static final String LOCALIZACION_11 = "11";
+
+  @Getter
+  private static final List<Integer> VENDEDORES_0 = Arrays.asList(0, -1);
+
+  private PtrConstants() {
+  }
 
 }

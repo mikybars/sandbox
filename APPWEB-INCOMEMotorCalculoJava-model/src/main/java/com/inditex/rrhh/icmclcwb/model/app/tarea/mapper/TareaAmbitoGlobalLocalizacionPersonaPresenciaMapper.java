@@ -22,12 +22,12 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper {
   public abstract TareaAmbitoGlobalLocalizacionPersonaPresenciaDto tareaLocalizacionPersonaPresenciaToTareaLocalizacionPersonaPresenciaDto(
       TareaAmbitoGlobalLocalizacionPersonaPresencia src);
 
+  public abstract List<TareaAmbitoGlobalLocalizacionPersonaPresenciaDto> tareaLocalizacionPersonaPresenciaToTareaLocalizacionPersonaPresenciaDto(
+      List<TareaAmbitoGlobalLocalizacionPersonaPresencia> src);
+
   @InheritInverseConfiguration
   public abstract TareaAmbitoGlobalLocalizacionPersonaPresencia tareaLocalizacionPersonaPresenciaDtoToTareaLocalizacionPersonaPresencia(
       TareaAmbitoGlobalLocalizacionPersonaPresenciaDto src);
-
-  public abstract List<TareaAmbitoGlobalLocalizacionPersonaPresenciaDto> tareaLocalizacionPersonaPresenciaToTareaLocalizacionPersonaPresenciaDto(
-      List<TareaAmbitoGlobalLocalizacionPersonaPresencia> src);
 
   public abstract List<TareaAmbitoGlobalLocalizacionPersonaPresencia> tareaLocalizacionPersonaPresenciaDtoToTareaLocalizacionPersonaPresencia(
       List<TareaAmbitoGlobalLocalizacionPersonaPresenciaDto> src);

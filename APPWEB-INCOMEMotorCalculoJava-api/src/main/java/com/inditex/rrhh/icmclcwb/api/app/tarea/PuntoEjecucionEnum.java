@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.tarea;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.PuntoEjecucionDto;

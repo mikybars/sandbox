@@ -24,12 +24,12 @@ public abstract class TareaPersonaHistoricoMapper {
   public abstract TareaPersonaHistoricoDto tareaPersonaHistoricoToTareaPersonaHistoricoDto(
       TareaPersonaHistorico src);
 
+  public abstract List<TareaPersonaHistoricoDto> tareaPersonaHistoricoToTareaPersonaHistoricoDto(
+      List<TareaPersonaHistorico> src);
+
   @InheritInverseConfiguration
   public abstract TareaPersonaHistorico tareaPersonaHistoricoDtoToTareaPersonaHistorico(
       TareaPersonaHistoricoDto src);
-
-  public abstract List<TareaPersonaHistoricoDto> tareaPersonaHistoricoToTareaPersonaHistoricoDto(
-      List<TareaPersonaHistorico> src);
 
   public abstract List<TareaPersonaHistorico> tareaPersonaHistoricoDtoToTareaPersonaHistorico(
       List<TareaPersonaHistoricoDto> src);

@@ -46,6 +46,10 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
     implements RunTareaAmbitoRecolectarPtrVentaEmpleadoService {
 
   @Autowired
+  @Qualifier("ventaEmpleadoProperties")
+  protected Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
+
+  @Autowired
   private PtrVentaEmpleadoAsyncService ptrVentaEmpleadoAsyncService;
 
   @Autowired
@@ -66,10 +70,6 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
 
   @Autowired
   private TareaMapper tareaMapper;
-
-  @Autowired
-  @Qualifier("ventaEmpleadoProperties")
-  protected Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
 
   @Override
   public void ventaFisicaLocalizacionPersonaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,

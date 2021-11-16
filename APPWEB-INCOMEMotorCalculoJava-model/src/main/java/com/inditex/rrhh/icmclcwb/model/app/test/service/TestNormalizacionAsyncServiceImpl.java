@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.app.test.service;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.app.test.service;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -16,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Nota: esta clase se deberá borrar cuando se haya hecho la normalización de tareas consolidadas
+ * Some Javadoc.
+ *
+ * <p>Nota: esta clase se deberá borrar cuando se haya hecho la normalización de tareas consolidadas</p>
  *
  */
 @Service

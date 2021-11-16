@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.ambito.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;

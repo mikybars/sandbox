@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -11,8 +10,10 @@ import javax.validation.constraints.NotNull;
 public interface RunTareaPrevalidarDuranteService {
 
   /**
-   * @param runTareaDto
-   * @param faseDto
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param faseDto Some javadoc.
    */
   void run(@NotNull @Valid RunTareaDto runTareaDto,
       @NotNull @Valid FaseDto faseDto,

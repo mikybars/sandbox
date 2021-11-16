@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.comis.repository;
 
 import lombok.Getter;
@@ -113,8 +112,9 @@ public enum ClientDatabase {
 
   public static ClientDatabase getClient(String value) {
     for (ClientDatabase e : ClientDatabase.values()) {
-      if (e.id.equals(value))
+      if (e.id.equals(value)) {
         return e;
+      }
     }
     return null;
   }

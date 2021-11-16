@@ -22,11 +22,11 @@ public abstract class TrabajoAmbitoOrigenMapper {
   @Mapping(target = "idTrabajo", source = "trabajo.id")
   public abstract TrabajoAmbitoOrigenDTO trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(TrabajoAmbitoOrigen src);
 
-  @InheritInverseConfiguration
-  public abstract TrabajoAmbitoOrigen trabajoAmbitoOrigenDtoToTrabajoAmbitoOrigen(TrabajoAmbitoOrigenDTO src);
-
   public abstract List<TrabajoAmbitoOrigenDTO> trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(
       List<TrabajoAmbitoOrigen> src);
+
+  @InheritInverseConfiguration
+  public abstract TrabajoAmbitoOrigen trabajoAmbitoOrigenDtoToTrabajoAmbitoOrigen(TrabajoAmbitoOrigenDTO src);
 
   public abstract List<TrabajoAmbitoOrigen> trabajoAmbitoOrigenDtoToTrabajoAmbitoOrigen(
       List<TrabajoAmbitoOrigenDTO> src);

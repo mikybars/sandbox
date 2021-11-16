@@ -44,16 +44,16 @@ public abstract class TareaPersonaEstructuraPoliticaMapper {
   public abstract TareaPersonaEstructuraPolitica tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(
       TareaPersonaEstructuraPoliticaDto src);
 
+  public List<TareaPersonaEstructuraPolitica> tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(
+      final List<TareaPersonaEstructuraPoliticaDto> src) {
+    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  }
+
   @InheritInverseConfiguration
   @Mapping(target = "id", source = "pk.id")
   @Mapping(target = "idTipoPolitica", source = "tipoPolitica.id")
   public abstract TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
       TareaPersonaEstructuraPolitica src);
-
-  public List<TareaPersonaEstructuraPolitica> tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(
-      final List<TareaPersonaEstructuraPoliticaDto> src) {
-    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-  }
 
   public List<TareaPersonaEstructuraPoliticaDto> tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
       final List<TareaPersonaEstructuraPolitica> src) {

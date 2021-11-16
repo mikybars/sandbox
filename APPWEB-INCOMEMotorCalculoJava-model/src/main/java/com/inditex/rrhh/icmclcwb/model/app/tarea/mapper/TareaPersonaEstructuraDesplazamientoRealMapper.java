@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
@@ -34,12 +33,12 @@ public abstract class TareaPersonaEstructuraDesplazamientoRealMapper {
   public abstract TareaPersonaEstructuraDesplazamientoRealDto tareaPersonaEstructuraDesplazamientoRealToTareaPersonaEstructuraDesplazamientoRealDto(
       TareaPersonaEstructuraDesplazamientoReal src);
 
+  public abstract List<TareaPersonaEstructuraDesplazamientoRealDto> tareaPersonaEstructuraDesplazamientoRealToTareaPersonaEstructuraDesplazamientoRealDto(
+      List<TareaPersonaEstructuraDesplazamientoReal> src);
+
   @InheritInverseConfiguration
   public abstract TareaPersonaEstructuraDesplazamientoReal tareaPersonaEstructuraDesplazamientoRealDtoToTareaPersonaEstructuraDesplazamientoReal(
       TareaPersonaEstructuraDesplazamientoRealDto src);
-
-  public abstract List<TareaPersonaEstructuraDesplazamientoRealDto> tareaPersonaEstructuraDesplazamientoRealToTareaPersonaEstructuraDesplazamientoRealDto(
-      List<TareaPersonaEstructuraDesplazamientoReal> src);
 
   public abstract List<TareaPersonaEstructuraDesplazamientoReal> tareaPersonaEstructuraDesplazamientoRealDtoToTareaPersonaEstructuraDesplazamientoReal(
       List<TareaPersonaEstructuraDesplazamientoRealDto> src);

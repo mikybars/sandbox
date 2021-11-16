@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;

@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import java.util.List;
@@ -18,12 +17,12 @@ public abstract class AccionMapper {
   public abstract AccionDto accionToAccionDto(
       Accion src);
 
+  public abstract List<AccionDto> accionToAccionDto(
+      List<Accion> src);
+
   @InheritInverseConfiguration
   public abstract Accion accionDtoToAccion(
       AccionDto src);
-
-  public abstract List<AccionDto> accionToAccionDto(
-      List<Accion> src);
 
   public abstract List<Accion> accionDtoToAccion(
       List<AccionDto> src);

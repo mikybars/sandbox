@@ -60,22 +60,22 @@ public class CxfUtils {
   }
 
   public static String getJSessionID(final List<String> list) {
-    String jSessionID = null;
+    String jsessionID = null;
     if (CollectionUtils.isNotEmpty(list)) {
       for (final String item : list) {
         if (item.contains(CxfConstants.JSESSIONID)) {
-          jSessionID = item.substring(CxfConstants.JSESSIONID.length() + 1, item.length());
+          jsessionID = item.substring(CxfConstants.JSESSIONID.length() + 1, item.length());
           break;
         }
       }
     }
-    return jSessionID;
+    return jsessionID;
   }
 
-  public static Map<String, List<String>> mapJSessionID(final String jSessionID) {
+  public static Map<String, List<String>> mapJSessionID(final String jsessionID) {
     return CxfUtils.mapCookie(Collections.singletonList(new StringBuilder(CxfConstants.JSESSIONID)
         .append(CxfConstants.SEPARADOR)
-        .append(jSessionID)
+        .append(jsessionID)
         .toString()));
   }
 
@@ -84,9 +84,9 @@ public class CxfUtils {
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
-  public static Map<String, Cookie> cookieJSessionID(final String jSessionID) {
+  public static Map<String, Cookie> cookieJSessionID(final String jsessionID) {
     return Stream
-        .of(new AbstractMap.SimpleEntry<>(CxfConstants.COOKIE, new Cookie(CxfConstants.JSESSIONID, jSessionID)))
+        .of(new AbstractMap.SimpleEntry<>(CxfConstants.COOKIE, new Cookie(CxfConstants.JSESSIONID, jsessionID)))
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
@@ -95,11 +95,11 @@ public class CxfUtils {
     http.getCookies().putAll(cookies);
   }
 
-  public static void putCookie(final Object service, final String jSessionID) {
+  public static void putCookie(final Object service, final String jsessionID) {
     final HTTPConduit http = CxfUtils.getHTTPConduit(service);
     http.getClient()
         .setCookie(new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.SEPARADOR)
-            .append(jSessionID)
+            .append(jsessionID)
             .toString());
   }
 

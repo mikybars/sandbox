@@ -16,12 +16,12 @@ public abstract class TareaLocalizacionMapper {
   public abstract TareaAmbitoGlobalLocalizacionDto tareaLocalizacionToTareaLocalizacionDto(
       TareaAmbitoGlobalLocalizacion src);
 
+  public abstract List<TareaAmbitoGlobalLocalizacionDto> tareaLocalizacionToTareaLocalizacionDto(
+      List<TareaAmbitoGlobalLocalizacion> src);
+
   @InheritInverseConfiguration
   public abstract TareaAmbitoGlobalLocalizacion tareaLocalizacionDtoToTareaLocalizacion(
       TareaAmbitoGlobalLocalizacionDto src);
-
-  public abstract List<TareaAmbitoGlobalLocalizacionDto> tareaLocalizacionToTareaLocalizacionDto(
-      List<TareaAmbitoGlobalLocalizacion> src);
 
   public abstract List<TareaAmbitoGlobalLocalizacion> tareaLocalizacionDtoToTareaLocalizacion(
       List<TareaAmbitoGlobalLocalizacionDto> src);

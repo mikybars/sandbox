@@ -217,6 +217,20 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         ConfiguracionProductoVentaResultItemDto.class);
   }
 
+  @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea,#cclIdOrigen}")
+  @Override
+  public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(final Long idTarea,
+      final String cclIdOrigen) {
+    final GenericFilterDto filter = new GenericFilterDto();
+    filter.setIdOrigen(cclIdOrigen);
+    final ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
+    productoRequest.setData(filter);
+    productoRequest.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getPage());
+    return this.getResultItem(productoRequest,
+        Meta4PropertiesConstants.CONF_PRODUCTO_VENTA, ConfiguracionProductoVentaResponseDto.class,
+        ConfiguracionProductoVentaResultItemDto.class);
+  }
+
   @Override
   public List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(
       final EmpleadosDesplazamientoRequestDto request) {
@@ -273,20 +287,6 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
     return this.getResultItem(request,
         Meta4PropertiesConstants.MULTIEMPRESA,
         DesplazamientosMultiempresaResponseDto.class, DesplazamientosMultiempresaItemDto.class);
-  }
-
-  @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea,#cclIdOrigen}")
-  @Override
-  public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(final Long idTarea,
-      final String cclIdOrigen) {
-    final GenericFilterDto filter = new GenericFilterDto();
-    filter.setIdOrigen(cclIdOrigen);
-    final ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
-    productoRequest.setData(filter);
-    productoRequest.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getPage());
-    return this.getResultItem(productoRequest,
-        Meta4PropertiesConstants.CONF_PRODUCTO_VENTA, ConfiguracionProductoVentaResponseDto.class,
-        ConfiguracionProductoVentaResultItemDto.class);
   }
 
   @Override

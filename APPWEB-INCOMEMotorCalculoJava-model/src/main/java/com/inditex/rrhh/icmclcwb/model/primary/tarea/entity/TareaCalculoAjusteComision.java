@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
-
 import java.math.BigDecimal;
 import java.util.Date;
 

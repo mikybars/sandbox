@@ -23,12 +23,12 @@ public abstract class TareaLocalizacionFestivoMapper {
   public abstract TareaLocalizacionFestivoDto tareaLocalizacionFestivoToTareaLocalizacionFestivoDto(
       TareaLocalizacionFestivo src);
 
+  public abstract List<TareaLocalizacionFestivoDto> tareaLocalizacionFestivoToTareaLocalizacionFestivoDto(
+      List<TareaLocalizacionFestivo> src);
+
   @InheritInverseConfiguration
   public abstract TareaLocalizacionFestivo tareaLocalizacionFestivoDtoToTareaLocalizacionFestivo(
       TareaLocalizacionFestivoDto src);
-
-  public abstract List<TareaLocalizacionFestivoDto> tareaLocalizacionFestivoToTareaLocalizacionFestivoDto(
-      List<TareaLocalizacionFestivo> src);
 
   public abstract List<TareaLocalizacionFestivo> tareaLocalizacionFestivoDtoToLocalizacionFestivo(
       List<TareaLocalizacionFestivoDto> src);

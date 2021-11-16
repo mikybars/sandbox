@@ -27,11 +27,14 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImpl
   // El calculo es el mismo que el de ajuste manual, por lo que se utiliza el mismo SQL, aunque los
   // parámetros varían
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
   @Getter
   private String sqlCalcularBase;
 

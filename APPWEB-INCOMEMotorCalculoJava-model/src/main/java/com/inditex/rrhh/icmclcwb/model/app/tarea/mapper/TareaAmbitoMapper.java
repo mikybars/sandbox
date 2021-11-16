@@ -20,11 +20,11 @@ public abstract class TareaAmbitoMapper {
   @Mapping(target = "idTarea", source = "tarea.id")
   public abstract TareaAmbitoDto tareaAmbitoToTareaAmbitoDto(TareaAmbito src);
 
-  @InheritInverseConfiguration
-  public abstract TareaAmbito tareaAmbitoDtoToTareaAmbito(TareaAmbitoDto src);
-
   public abstract List<TareaAmbitoDto> tareaAmbitoToTareaAmbitoDto(
       List<TareaAmbito> src);
+
+  @InheritInverseConfiguration
+  public abstract TareaAmbito tareaAmbitoDtoToTareaAmbito(TareaAmbitoDto src);
 
   public abstract List<TareaAmbito> tareaAmbitoDtoToTareaAmbito(
       List<TareaAmbitoDto> src);

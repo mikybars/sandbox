@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.primary.calcular.entity;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.primary.calcular.entity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

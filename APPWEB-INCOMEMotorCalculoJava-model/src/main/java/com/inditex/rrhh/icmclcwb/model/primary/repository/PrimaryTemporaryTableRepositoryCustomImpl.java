@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
 import java.sql.Date;

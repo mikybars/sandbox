@@ -9,16 +9,21 @@ import javax.validation.Valid;
 public interface PtrService {
 
   /**
-   * @param tarea
-   * @return
+   * Some javadoc.
+   *
+   * @param runTarea Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   PresenciaOrigenDto findPresenciasOrigenAndFecha(@Valid final RunTareaDto runTarea,
       @Valid final TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   PresenciaOrigenDto findPresenciasOrigenAndFechaEs(@Valid final RunTareaDto runTareaDto,
       @Valid final TareaAmbitoDto tareaAmbito);

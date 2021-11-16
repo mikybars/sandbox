@@ -7,9 +7,6 @@ import lombok.Getter;
 
 public class AppTestConstants {
 
-  private AppTestConstants() {
-  }
-
   @Getter
   private static final List<String> FASE_1A = Arrays.asList("AT,38,135", "AT,38,251", "AT,38,315", "AT,38,329",
       "AT,38,340", "AT,38,425", "AT,38,468", "AT,38,95", "CA,404,362", "CA,404,395", "CA,404,97", "CH,39,100",
@@ -183,5 +180,8 @@ public class AppTestConstants {
 
   @Getter
   private static final List<Integer> MESES_CON_DATOS = Arrays.asList(3, 4, 5, 6, 7);
+
+  private AppTestConstants() {
+  }
 
 }

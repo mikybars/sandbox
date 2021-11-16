@@ -86,6 +86,34 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
         recolectarProperties.getDaysNumber());
   }
 
+  private List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(final Long idTarea,
+      @NotNull final PtrFilterPropertiesDto filterProperties, final Integer daysToAdd) {
+    final PeriodoDto periodo = this.tareaLocalizacionPresupuestoRepositoryCustom
+        .findPeriodoPresupuestoYTrabajo(idTarea);
+
+    List<PeriodoDto> periodos = Collections.singletonList(periodo);
+    if (filterProperties.getPeriodSize() > 0) {
+      switch (filterProperties.getPeriodType()) {
+        case DAYS:
+          periodos = this.findListaPeriodosPresupestoYTrabajoDays(periodo, filterProperties.getPeriodSize());
+          break;
+        case MONTHS:
+          periodos = this.findListaPeriodosPresupestoYTrabajoMonths(periodo,
+              filterProperties.getPeriodSize());
+          break;
+        default:
+      }
+    }
+
+    // Al último período se le añaden los días extra
+    if (CollectionUtils.isNotEmpty(periodos)) {
+      final PeriodoDto ultimoTramo = periodos.get(periodos.size() - 1);
+      ultimoTramo.setFechaFinPeriodo(RunUtils.addDays(ultimoTramo.getFechaFinPeriodo(), daysToAdd));
+    }
+
+    return periodos;
+  }
+
   private List<PeriodoDto> findListaPeriodosPresupestoYTrabajoMonths(final PeriodoDto periodo,
       final Integer numMonths) {
     final List<PeriodoDto> periodos = new ArrayList<>();
@@ -118,34 +146,6 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
           .build());
       fecha = fecha.plusDays(numDays);
     }
-    return periodos;
-  }
-
-  private List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(final Long idTarea,
-      @NotNull final PtrFilterPropertiesDto filterProperties, final Integer daysToAdd) {
-    final PeriodoDto periodo = this.tareaLocalizacionPresupuestoRepositoryCustom
-        .findPeriodoPresupuestoYTrabajo(idTarea);
-
-    List<PeriodoDto> periodos = Collections.singletonList(periodo);
-    if (filterProperties.getPeriodSize() > 0) {
-      switch (filterProperties.getPeriodType()) {
-        case DAYS:
-          periodos = this.findListaPeriodosPresupestoYTrabajoDays(periodo, filterProperties.getPeriodSize());
-          break;
-        case MONTHS:
-          periodos = this.findListaPeriodosPresupestoYTrabajoMonths(periodo,
-              filterProperties.getPeriodSize());
-          break;
-        default:
-      }
-    }
-
-    // Al último período se le añaden los días extra
-    if (CollectionUtils.isNotEmpty(periodos)) {
-      final PeriodoDto ultimoTramo = periodos.get(periodos.size() - 1);
-      ultimoTramo.setFechaFinPeriodo(RunUtils.addDays(ultimoTramo.getFechaFinPeriodo(), daysToAdd));
-    }
-
     return periodos;
   }
 

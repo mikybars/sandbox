@@ -63,6 +63,17 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
     return result;
   }
 
+  @Override
+  public List<TareaLocalizacionPersonaVenta> ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
+      final List<PtrVentaIndividualDetalleResultItemDto> src, final TareaDto tarea) {
+    final List<TareaLocalizacionPersonaVenta> result = new ArrayList<>();
+    if (CollectionUtils.isNotEmpty(src)) {
+      src.forEach(x -> result
+          .addAll(this.ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(x, tarea)));
+    }
+    return result;
+  }
+
   private List<TareaLocalizacionPersonaVenta> ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(
       final PtrVentaIndividualDetalleResultItemDto src, final TareaDto tarea) {
     final List<TareaLocalizacionPersonaVenta> result = new ArrayList<>();
@@ -89,17 +100,6 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
         }
       }
     });
-    return result;
-  }
-
-  @Override
-  public List<TareaLocalizacionPersonaVenta> ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-      final List<PtrVentaIndividualDetalleResultItemDto> src, final TareaDto tarea) {
-    final List<TareaLocalizacionPersonaVenta> result = new ArrayList<>();
-    if (CollectionUtils.isNotEmpty(src)) {
-      src.forEach(x -> result
-          .addAll(this.ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaList(x, tarea)));
-    }
     return result;
   }
 

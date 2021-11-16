@@ -75,9 +75,9 @@ public class SqlParamsUtils {
   @AllArgsConstructor
   private static class StringValueCreator implements ValueCreator {
 
-    private String value;
-
     private static final String SIMPLE_QUOTE = "'";
+
+    private String value;
 
     @Override
     public String createValue() {

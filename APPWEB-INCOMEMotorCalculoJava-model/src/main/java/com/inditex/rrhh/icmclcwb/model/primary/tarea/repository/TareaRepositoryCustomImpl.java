@@ -49,21 +49,26 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
   @Value("#{primaryQuery['TareaRepositoryCustom.updateEstadoFinal']}")
   private String sqlUpdateEstadoFinal;
 
-  @Value("#{primaryQuery['TareaRepositoryCustom.selectLimit']} #{primaryQuery['TareaRepositoryCustom.findLimpieza']} #{primaryQuery['TareaRepositoryCustom.findLimpieza.limit']}")
+  @Value("#{primaryQuery['TareaRepositoryCustom.selectLimit']} #{primaryQuery['TareaRepositoryCustom.findLimpieza']} "
+      + "#{primaryQuery['TareaRepositoryCustom.findLimpieza.limit']}")
   private String sqlFindLimpieza;
 
   @Value("#{primaryQuery['TareaRepositoryCustom.selectTotal']} #{primaryQuery['TareaRepositoryCustom.findLimpieza']}")
   private String sqlTotalLimpieza;
 
-  @Value("#{primaryQuery['TareaRepositoryCustom.selectTarea']} #{primaryQuery['TareaRepositoryCustom.findLimpieza']} #{primaryQuery['TareaRepositoryCustom.findLimpieza.byIdTarea']}")
+  @Value("#{primaryQuery['TareaRepositoryCustom.selectTarea']} #{primaryQuery['TareaRepositoryCustom.findLimpieza']} "
+      + "#{primaryQuery['TareaRepositoryCustom.findLimpieza.byIdTarea']}")
   private String sqlFindLimpiezaByIdTarea;
 
   // Comienzo de normalización de tareas consolidadas (para borrar)
 
-  @Value("#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.selectTarea']} #{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision']} #{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.limit']}")
+  @Value("#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.selectTarea']} "
+      + "#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision']} "
+      + "#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.limit']}")
   private String sqlFindTareasConsolidadasSinAjusteComision;
 
-  @Value("#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.selectTotal']} #{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision']}")
+  @Value("#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision.selectTotal']} "
+      + "#{primaryQuery['TareaRepositoryCustom.findTareasConsolidadesSinAjusteComision']}")
   private String sqlTotalTareasConsolidadasSinAjusteComision;
 
   // Fin de normalización de tareas consolidadas (para borrar)

@@ -22,7 +22,8 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
     extends AbstractTareaCalculoAjusteBaseRepositoryCustom
     implements TareaCalculoAjusteMaximoGarantizadoRepositoryCustom {
 
-  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.maxGarantizado']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
+  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.maxGarantizado']}"
+      + " #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
   @Getter
   private String sqlAjustar;
 

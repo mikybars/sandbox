@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.service;
 
 import java.util.List;
@@ -12,9 +11,11 @@ public interface MailService {
   void sendMailMotivos(final RunTareaDto runTarea);
 
   /**
-   * @param tareaFase
-   * @param fallidas
-   * @param tarea
+   * Some javadoc.
+   *
+   * @param tareaFase Some javadoc.
+   * @param fallidas Some javadoc.
+   * @param runTarea Some javadoc.
    */
   void sendMail(TareaFaseDto tareaFase, List<ValidacionDto> fallidas, RunTareaDto runTarea);
 

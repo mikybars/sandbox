@@ -28,14 +28,14 @@ public abstract class TareaLocalizacionPersonaPresenciaMapper {
   public abstract TareaLocalizacionPersonaPresenciaDto tareaLocalizacionPersonaPresenciaToTareaLocalizacionPersonaPresenciaDto(
       TareaLocalizacionPersonaPresencia src);
 
+  public abstract List<TareaLocalizacionPersonaPresenciaDto> tareaLocalizacionPersonaPresenciaToTareaLocalizacionPersonaPresenciaDto(
+      List<TareaLocalizacionPersonaPresencia> src);
+
   @InheritInverseConfiguration
   @Mapping(target = "cclIdCadena", ignore = true)
   @Mapping(target = "tipoDato", ignore = true)
   public abstract TareaLocalizacionPersonaPresencia tareaLocalizacionPersonaPresenciaDtoToTareaLocalizacionPersonaPresencia(
       TareaLocalizacionPersonaPresenciaDto src);
-
-  public abstract List<TareaLocalizacionPersonaPresenciaDto> tareaLocalizacionPersonaPresenciaToTareaLocalizacionPersonaPresenciaDto(
-      List<TareaLocalizacionPersonaPresencia> src);
 
   public abstract List<TareaLocalizacionPersonaPresencia> tareaLocalizacionPersonaPresenciaDtoToLocalizacionPersonaPresencia(
       List<TareaLocalizacionPersonaPresenciaDto> src);

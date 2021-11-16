@@ -56,11 +56,11 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
     implements RunTareaAmbitoRecolectarPtrVentaGeneralService {
 
   @Autowired
-  private TareaMapper tareaMapper;
-
-  @Autowired
   @Qualifier("ventaGeneralProperties")
   protected Map<String, PtrPropertiesDto> ventaGeneralProperties;
+
+  @Autowired
+  private TareaMapper tareaMapper;
 
   @Autowired
   @Qualifier("recolectarProperties")

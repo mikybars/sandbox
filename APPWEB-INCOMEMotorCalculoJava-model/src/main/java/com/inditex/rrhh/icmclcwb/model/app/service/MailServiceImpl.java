@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.List;
@@ -27,24 +26,6 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class MailServiceImpl implements MailService {
 
-  @Value("${app.envars.mail.sender}")
-  private String sender;
-
-  @Value("${app.envars.mail.receiver}")
-  private String receiver;
-
-  @Value("${metadata.environment}")
-  private String environment;
-
-  @Autowired
-  private MailSender mailSender;
-
-  @Autowired
-  private AccionService accionService;
-
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
-
   private static final String LINE_BREAK = " \n";
 
   private static final String DOUBLE_LINE_BREAK = " \n\n";
@@ -72,6 +53,24 @@ public class MailServiceImpl implements MailService {
   private static final String ERROR_LIST = "List of errors: ";
 
   private static final String TITLE_MOTIVOS = "There are unsynchronized displacement reasons";
+
+  @Value("${app.envars.mail.sender}")
+  private String sender;
+
+  @Value("${app.envars.mail.receiver}")
+  private String receiver;
+
+  @Value("${metadata.environment}")
+  private String environment;
+
+  @Autowired
+  private MailSender mailSender;
+
+  @Autowired
+  private AccionService accionService;
+
+  @Autowired
+  private TareaFaseAccionService tareaFaseAccionService;
 
   @Override
   public void sendMail(final TareaFaseDto tareaFase, final List<ValidacionDto> fallidas, final RunTareaDto runTarea) {

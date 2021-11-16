@@ -21,12 +21,12 @@ public abstract class ProgramacionAmbitoEmpresaMapper {
   public abstract ProgramacionAmbitoEmpresaDTO programacionAmbitoEmpresaToProgramacionAmbitoEmpresaDto(
       ProgramacionAmbitoEmpresa src);
 
+  public abstract List<ProgramacionAmbitoEmpresaDTO> programacionAmbitoEmpresaToProgramacionAmbitoEmpresaDto(
+      List<ProgramacionAmbitoEmpresa> src);
+
   @InheritInverseConfiguration
   public abstract ProgramacionAmbitoEmpresa programacionAmbitoEmpresaDtoToProgramacionAmbitoEmpresa(
       ProgramacionAmbitoEmpresaDTO src);
-
-  public abstract List<ProgramacionAmbitoEmpresaDTO> programacionAmbitoEmpresaToProgramacionAmbitoEmpresaDto(
-      List<ProgramacionAmbitoEmpresa> src);
 
   public abstract List<ProgramacionAmbitoEmpresa> programacionAmbitoEmpresaDtoToProgramacionAmbitoEmpresa(
       List<ProgramacionAmbitoEmpresaDTO> src);

@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.async.service;
 
 import java.util.concurrent.CompletableFuture;
@@ -14,17 +13,21 @@ import org.springframework.scheduling.annotation.Async;
 public interface PtrAsyncService {
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   CompletableFuture<PresenciaOrigenDto> findPresenciasOrigenAndFecha(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
   /**
-   * @param runTareaDto
-   * @param tareaAmbito
-   * @return
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
    */
   CompletableFuture<PresenciaOrigenDto> findPresenciasOrigenAndFechaEs(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);

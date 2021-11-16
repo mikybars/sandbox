@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.meta4.util;
 
 public class Meta4TestConstants {
 
-  private Meta4TestConstants() {
-  }
-
   public static final String FECHA_INICIO = "2017-12-01";
 
   public static final String FECHA_FIN = "2017-12-31";
@@ -24,5 +21,8 @@ public class Meta4TestConstants {
   public static final String NUM_REGISTROS_PAGINA = "10";
 
   public static final String NUM_PAGINA = "1";
+
+  private Meta4TestConstants() {
+  }
 
 }

@@ -22,12 +22,12 @@ public abstract class TareaLocalizacionComisionHistoricoMapper {
   public abstract TareaLocalizacionComisionHistoricoDto tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(
       TareaLocalizacionComisionHistorico src);
 
+  public abstract List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(
+      List<TareaLocalizacionComisionHistorico> src);
+
   @InheritInverseConfiguration
   public abstract TareaLocalizacionComisionHistorico tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(
       TareaLocalizacionComisionHistoricoDto src);
-
-  public abstract List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(
-      List<TareaLocalizacionComisionHistorico> src);
 
   @InheritInverseConfiguration
   public abstract List<TareaLocalizacionComisionHistorico> tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(

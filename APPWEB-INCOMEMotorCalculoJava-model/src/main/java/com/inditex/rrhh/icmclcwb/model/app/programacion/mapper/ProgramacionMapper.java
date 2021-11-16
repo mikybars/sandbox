@@ -19,10 +19,10 @@ public abstract class ProgramacionMapper {
   @Mapping(target = "ambito", ignore = true)
   public abstract ProgramacionDTO programacionToProgramacionDto(Programacion src);
 
+  public abstract List<ProgramacionDTO> programacionToProgramacionDto(List<Programacion> src);
+
   @Mapping(target = "tipoAmbito.nombre", ignore = true)
   public abstract Programacion programacionDtoToProgramacion(ProgramacionDTO src);
-
-  public abstract List<ProgramacionDTO> programacionToProgramacionDto(List<Programacion> src);
 
   public abstract List<Programacion> programacionDtoToProgramacion(List<ProgramacionDTO> src);
 

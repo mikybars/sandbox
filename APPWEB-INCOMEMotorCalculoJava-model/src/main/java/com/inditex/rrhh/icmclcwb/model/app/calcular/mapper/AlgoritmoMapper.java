@@ -20,17 +20,17 @@ public abstract class AlgoritmoMapper {
 
   public abstract AlgoritmoDTO algoritmoToAlgoritmoDTO(Algoritmo src);
 
+  public abstract List<AlgoritmoDTO> algoritmoToAlgoritmoDTO(List<Algoritmo> src);
+
   @InheritInverseConfiguration
   // @Mapping(target = "tipoComision.nombre", ignore = true)
   // @Mapping(target = "tipoComision.algoritmo", ignore = true)
   // @Mapping(target = "tipoDato.tipoPresencia", ignore = true)
   // @Mapping(target = "tipoDato.tipoVenta", ignore = true)
-  public abstract Algoritmo AlgoritmoDTOToAlgoritmo(AlgoritmoDTO src);
-
-  public abstract List<AlgoritmoDTO> algoritmoToAlgoritmoDTO(List<Algoritmo> src);
+  public abstract Algoritmo algoritmoDTOToAlgoritmo(AlgoritmoDTO src);
 
   @InheritInverseConfiguration
-  public abstract List<Algoritmo> AlgoritmoDTOToAlgoritmo(List<AlgoritmoDTO> src);
+  public abstract List<Algoritmo> algoritmoDTOToAlgoritmo(List<AlgoritmoDTO> src);
 
   public abstract TipoCalculoDto tipoCalculoToTipoCalculoDto(TipoCalculo src);
 

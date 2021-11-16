@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
@@ -11,8 +10,10 @@ import javax.validation.constraints.Positive;
 public interface FaseAccionRepositoryCustom {
 
   /**
-   * @param idFase
-   * @return
+   * Some javadoc.
+   *
+   * @param idFase Some javadoc.
+   * @return Some javadoc.
    */
   List<FaseAccionDto> findByIdFase(@NotNull @Positive Integer idFase);
 

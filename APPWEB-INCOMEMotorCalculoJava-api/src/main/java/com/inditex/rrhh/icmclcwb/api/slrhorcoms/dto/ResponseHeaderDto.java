@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto;
-
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,7 +18,7 @@ public class ResponseHeaderDto implements Serializable {
   private int status;
 
   @JsonProperty("QTime")
-  private int qTime;
+  private int qtime;
 
   private ParamsDto params;
 

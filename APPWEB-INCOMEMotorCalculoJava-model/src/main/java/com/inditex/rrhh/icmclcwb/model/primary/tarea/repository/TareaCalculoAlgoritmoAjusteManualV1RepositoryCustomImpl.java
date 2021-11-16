@@ -24,11 +24,14 @@ public class TareaCalculoAlgoritmoAjusteManualV1RepositoryCustomImpl
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
     implements TareaCalculoAlgoritmoAjusteManualV1RepositoryCustom {
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
   @Getter
   private String sqlCalcularBase;
 

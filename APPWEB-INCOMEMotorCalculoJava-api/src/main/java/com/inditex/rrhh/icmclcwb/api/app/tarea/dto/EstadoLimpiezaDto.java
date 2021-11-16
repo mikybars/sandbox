@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
-
 import java.io.Serializable;
 
 import io.swagger.annotations.ApiModel;

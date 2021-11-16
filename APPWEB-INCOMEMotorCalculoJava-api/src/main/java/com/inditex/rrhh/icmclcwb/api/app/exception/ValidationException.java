@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.exception;
 
 public class ValidationException extends IcmclcwbException {

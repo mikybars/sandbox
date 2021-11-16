@@ -21,7 +21,8 @@ public class TareaCalculoAjusteCarenciaRepositoryCustomImpl
     extends AbstractTareaCalculoAjusteBaseRepositoryCustom
     implements TareaCalculoAjusteCarenciaRepositoryCustom {
 
-  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.carencia']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
+  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.carencia']} "
+      + "#{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
   @Getter
   private String sqlAjustar;
 

@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.api.app.util;
 
 public class SqlPrimaryConstants {
 
-  private SqlPrimaryConstants() {
-  }
-
   // PARAMETROS DE FILTROS
 
   public static final String SQL_PARAM_IDS_TIPOS_DATO = "tiposDato";
@@ -448,5 +445,8 @@ public class SqlPrimaryConstants {
   public static final String SQL_RESULT_REACCION_PESO = "REACCION_PESO";
 
   public static final String CALCULAR_FESTIVOS = "CALCULAR_FESTIVOS";
+
+  private SqlPrimaryConstants() {
+  }
 
 }

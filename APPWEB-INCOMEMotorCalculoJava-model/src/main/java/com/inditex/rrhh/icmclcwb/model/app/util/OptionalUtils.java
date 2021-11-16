@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.app.util;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.app.util;
-
 import java.util.Optional;
 
 public class OptionalUtils {

@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercial.dto;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercial.dto;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -56,7 +55,7 @@ public class HorarioComercialDocDto extends DocDto implements Serializable {
 
   private Date ultimaFechaModificacion;
 
-  private Object _version_;
+  private Object version;
 
   private String franja1Fin;
 

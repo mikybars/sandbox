@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.decorator;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.decorator;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

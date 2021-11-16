@@ -19,13 +19,13 @@ public abstract class Meta4ClientAbstract<T> implements Serializable {
 
   private static final long serialVersionUID = -4381434626162543493L;
 
-  protected String server;
-
   @Value("${app.envars.meta4.config.timeout.connectTimeout}")
   public long connectTimeout;
 
   @Value("${app.envars.meta4.config.timeout.receiveTimeout}")
   public long receiveTimeout;
+
+  protected String server;
 
   protected abstract void setServer(String server);
 

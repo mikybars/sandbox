@@ -24,10 +24,10 @@ public abstract class ProgramacionAmbitoMapper {
   @Mapping(target = "idProgramacion", source = "programacion.id")
   public abstract ProgramacionAmbitoDTO programacionAmbitoToProgramacionAmbitoDto(ProgramacionAmbito src);
 
+  public abstract List<ProgramacionAmbitoDTO> programacionAmbitoToProgramacionAmbitoDto(List<ProgramacionAmbito> src);
+
   @InheritInverseConfiguration
   public abstract ProgramacionAmbito programacionAmbitoDtoToProgramacionAmbito(ProgramacionAmbitoDTO src);
-
-  public abstract List<ProgramacionAmbitoDTO> programacionAmbitoToProgramacionAmbitoDto(List<ProgramacionAmbito> src);
 
   public abstract List<ProgramacionAmbito> programacionAmbitoDtoToProgramacionAmbito(List<ProgramacionAmbitoDTO> src);
 

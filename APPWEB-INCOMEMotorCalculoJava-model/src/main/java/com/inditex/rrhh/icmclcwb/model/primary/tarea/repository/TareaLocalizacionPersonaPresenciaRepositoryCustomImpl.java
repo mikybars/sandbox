@@ -55,7 +55,8 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBase']}")
   private String sqlIndicadorPresenciaDesplazamientoBase;
 
-  @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion']}")
+  @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom."
+      + "indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion']}")
   private String sqlIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion;
 
   @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.procesarPresenciasHorasFijas']}")

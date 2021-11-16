@@ -74,11 +74,6 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
   @Autowired
   private TareaTipoHoraService tareaTipoHoraService;
 
-  @Override
-  protected String getFechaInicioPeriodo(final TareaDto tarea) {
-    return tarea.getFechaInicioPeriodo().format(DateTimeFormatter.ofPattern(PtrConstants.DATE_FORMAT));
-  }
-
   @Autowired
   @Qualifier("presenciasProperties")
   private Map<String, PtrPropertiesDto> presenciasProperties;
@@ -86,6 +81,11 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
   @Autowired
   @Qualifier(value = "recolectarProperties")
   private RecolectarPropertiesDto recolectarProperties;
+
+  @Override
+  protected String getFechaInicioPeriodo(final TareaDto tarea) {
+    return tarea.getFechaInicioPeriodo().format(DateTimeFormatter.ofPattern(PtrConstants.DATE_FORMAT));
+  }
 
   @Override
   public void presenciaDetallePersonaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,

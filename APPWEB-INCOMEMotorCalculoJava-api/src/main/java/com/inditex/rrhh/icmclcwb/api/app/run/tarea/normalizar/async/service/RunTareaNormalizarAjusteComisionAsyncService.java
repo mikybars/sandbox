@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.app.run.tarea.normalizar.async.service;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.app.run.tarea.normalizar.async.service;
-
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;

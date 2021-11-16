@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
 import java.util.List;
@@ -11,8 +10,10 @@ import javax.validation.constraints.Positive;
 public interface FaseAccionService {
 
   /**
-   * @param idFase
-   * @return
+   * Some javadoc.
+   *
+   * @param idFase Some javadoc.
+   * @return Some javadoc.
    */
   List<FaseAccionDto> findByIdFase(@NotNull @Positive Integer idFase);
 
