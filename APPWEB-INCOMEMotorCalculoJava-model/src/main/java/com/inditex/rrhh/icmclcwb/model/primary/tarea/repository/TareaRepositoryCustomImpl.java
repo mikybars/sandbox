@@ -168,6 +168,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
     @Override
     public Integer totalTareasConsolidadesSinAjusteComision() {
         final MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getId());
         return this.namedParameterJdbcTemplate.queryForObject(this.sqlTotalTareasConsolidadasSinAjusteComision,
                 parameters, (rs, rowNum) -> rs.getInt(SqlPrimaryConstants.SQL_RESULT_TOTAL));
     }
