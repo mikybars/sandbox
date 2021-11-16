@@ -7,6 +7,6 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TrabajoAmbitoLocalizacionRepository extends BaseRepository<TrabajoAmbitoLocalizacion, Long> {
 
-    List<TrabajoAmbitoLocalizacion> findByTrabajoId(Long trabajoId);
+  List<TrabajoAmbitoLocalizacion> findByTrabajoId(Long trabajoId);
 
 }

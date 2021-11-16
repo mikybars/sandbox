@@ -14,7 +14,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Entity
@@ -22,23 +21,23 @@ import lombok.Data;
 @Data
 public class TareaLocalizacionFestivo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_LOCALIZACION_FESTIVO")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID_TAREA_LOCALIZACION_FESTIVO")
+  private Long id;
 
-    @NotBlank
-    @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
-    private String cclIdCodOrigen;
+  @NotBlank
+  @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
+  private String cclIdCodOrigen;
 
-    @NotNull
-    @Column(name = "FECHA", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+  @NotNull
+  @Column(name = "FECHA", nullable = false)
+  @Temporal(TemporalType.DATE)
+  private Date fecha;
 
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "ID_TAREA", nullable = false)
-    private Tarea tarea;
+  @NotNull
+  @OneToOne
+  @JoinColumn(name = "ID_TAREA", nullable = false)
+  private Tarea tarea;
 
 }

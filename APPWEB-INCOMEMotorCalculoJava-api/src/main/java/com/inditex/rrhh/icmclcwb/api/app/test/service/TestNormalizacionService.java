@@ -11,10 +11,9 @@ import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 /**
  * Nota: esta clase se deberá borrar cuando se haya hecho la normalización de tareas consolidadas
  *
- * @author javierev
  */
 public interface TestNormalizacionService {
 
-    void normalizarAjusteComision(List<IdTareaDTO> tareas);
+  void normalizarAjusteComision(List<IdTareaDTO> tareas);
 
 }

@@ -1,51 +1,51 @@
 package com.inditex.rrhh.icmclcwb.api.app.test.service;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
 import com.inditex.rrhh.icmclcwb.dto.AjusteComisionDTO;
 import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
 import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 public interface TestService {
 
-    RelojDTO reloj();
+  RelojDTO reloj();
 
-    SsoDTO sso();
+  SsoDTO sso();
 
-    void errorSync();
+  void errorSync();
 
-    void errorAsync();
+  void errorAsync();
 
-    void sesion();
+  void sesion();
 
-    void programacionBatch();
+  void programacionBatch();
 
-    void testBloqueos(@NotNull final Long limit);
+  void testBloqueos(@NotNull final Long limit);
 
-    void trabajoFase1a();
+  void trabajoFase1a();
 
-    String sqlFormatter(@NotBlank String sql);
+  String sqlFormatter(@NotBlank String sql);
 
-    Boolean testUrl(@NotBlank String sql);
+  Boolean testUrl(@NotBlank String sql);
 
-    void sendMail();
+  void sendMail();
 
-    void comisTest();
+  void comisTest();
 
-    void ptrTestService();
+  void ptrTestService();
 
-    void ptrTestBbddSync();
+  void ptrTestBbddSync();
 
-    void ptrTestBbddAsync();
+  void ptrTestBbddAsync();
 
-    void slrhorcomsTest();
+  void slrhorcomsTest();
 
-    // Comienzo de normalización de tareas consolidadas (para borrar)
+  // Comienzo de normalización de tareas consolidadas (para borrar)
 
-    AjusteComisionDTO normalizarAjusteComision(@Positive @NotNull final Integer limit);
+  AjusteComisionDTO normalizarAjusteComision(@Positive @NotNull final Integer limit);
 
-    // Fin de normalización de tareas consolidadas (para borrar)
+  // Fin de normalización de tareas consolidadas (para borrar)
 
 }

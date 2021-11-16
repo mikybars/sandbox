@@ -11,10 +11,10 @@ import lombok.Data;
 @Data
 public abstract class SlrhorcomsPageRequestDto implements Serializable {
 
-    private static final long serialVersionUID = -3226737743371414553L;
+  private static final long serialVersionUID = -3226737743371414553L;
 
-    private Integer rows;
+  private Integer rows;
 
-    private Integer start;
+  private Integer start;
 
 }

@@ -6,20 +6,20 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface PtrRepositoryCustom {
 
-    /**
-     * @param tarea
-     * @param ambito
-     * @return
-     */
-    PresenciaOrigenDto findPresenciasOrigenAndFecha(TareaDto tarea, TareaAmbitoDto ambito);
+  /**
+   * @param tarea
+   * @param ambito
+   * @return
+   */
+  PresenciaOrigenDto findPresenciasOrigenAndFecha(TareaDto tarea, TareaAmbitoDto ambito);
 
-    /**
-     * @param tarea
-     * @param ambito
-     * @param idCatalogoAplicacion
-     * @return
-     */
-    PresenciaOrigenDto findPresenciasOrigenAndFechaEs(TareaDto tarea, TareaAmbitoDto ambito,
-            Integer idCatalogoAplicacion);
+  /**
+   * @param tarea
+   * @param ambito
+   * @param idCatalogoAplicacion
+   * @return
+   */
+  PresenciaOrigenDto findPresenciasOrigenAndFechaEs(TareaDto tarea, TareaAmbitoDto ambito,
+      Integer idCatalogoAplicacion);
 
 }

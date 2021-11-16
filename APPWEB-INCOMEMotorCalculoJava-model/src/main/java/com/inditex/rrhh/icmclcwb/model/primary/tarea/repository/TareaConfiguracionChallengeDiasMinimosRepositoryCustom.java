@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaConfiguracionCh
 
 public interface TareaConfiguracionChallengeDiasMinimosRepositoryCustom {
 
-    List<TareaConfiguracionChallengeDiasMinimos> save(List<TareaConfiguracionChallengeDiasMinimos> src);
+  List<TareaConfiguracionChallengeDiasMinimos> save(List<TareaConfiguracionChallengeDiasMinimos> src);
 
 }

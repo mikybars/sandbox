@@ -14,9 +14,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-/**
- * @author javierev
- */
 @ApiModel(description = "Modelo EstadoLimpiezaDto")
 @Data
 @AllArgsConstructor
@@ -25,9 +22,9 @@ import lombok.ToString;
 @ToString
 public class EstadoLimpiezaDto implements Serializable {
 
-    private static final long serialVersionUID = 5812871987442400781L;
+  private static final long serialVersionUID = 5812871987442400781L;
 
-    @ApiModelProperty(value = "Identificador del estado de la limpieza", required = true)
-    private Integer id;
+  @ApiModelProperty(value = "Identificador del estado de la limpieza", required = true)
+  private Integer id;
 
 }

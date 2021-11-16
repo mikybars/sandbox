@@ -10,14 +10,14 @@ import lombok.Data;
 @Builder
 public class AuthenticateDto implements Serializable {
 
-    private static final long serialVersionUID = 900712075147219381L;
+  private static final long serialVersionUID = 900712075147219381L;
 
-    private String message;
+  private String message;
 
-    private String accessToken;
+  private String accessToken;
 
-    private String refreshToken;
+  private String refreshToken;
 
-    private LocalDateTime creationDate;
+  private LocalDateTime creationDate;
 
 }

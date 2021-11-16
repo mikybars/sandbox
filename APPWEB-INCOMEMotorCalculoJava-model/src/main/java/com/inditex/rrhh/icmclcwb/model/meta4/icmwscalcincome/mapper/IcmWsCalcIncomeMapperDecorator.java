@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
@@ -102,894 +99,896 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametro
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
+
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeMapper {
 
-    @Autowired
-    @Qualifier("delegate")
-    private IcmWsCalcIncomeMapper delegate;
+  @Autowired
+  @Qualifier("delegate")
+  private IcmWsCalcIncomeMapper delegate;
 
-    @Override
-    public IcmParametrosentradaBlock asIcmParametrosentradaBlock(final GenericFilterDto src) {
-        final IcmParametrosentradaBlock result = this.delegate.asIcmParametrosentradaBlock(src);
-        if (CollectionUtils.isEmpty(result.getIcmParametrosentradaRecordSet())) {
-            result.getIcmParametrosentradaRecordSet().add(new IcmParametrosentradaRecord());
-        }
-        return result;
+  @Override
+  public IcmParametrosentradaBlock asIcmParametrosentradaBlock(final GenericFilterDto src) {
+    final IcmParametrosentradaBlock result = this.delegate.asIcmParametrosentradaBlock(src);
+    if (CollectionUtils.isEmpty(result.getIcmParametrosentradaRecordSet())) {
+      result.getIcmParametrosentradaRecordSet().add(new IcmParametrosentradaRecord());
     }
+    return result;
+  }
 
-    @Override
-    public IcmParametrospaginacionBlock asIcmParametrospaginacionBlock(final PageDto src) {
-        final IcmParametrospaginacionBlock result = this.delegate.asIcmParametrospaginacionBlock(src);
-        if (CollectionUtils.isEmpty(result.getIcmParametrospaginacionRecordSet())) {
-            result.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
-        }
-        return result;
+  @Override
+  public IcmParametrospaginacionBlock asIcmParametrospaginacionBlock(final PageDto src) {
+    final IcmParametrospaginacionBlock result = this.delegate.asIcmParametrospaginacionBlock(src);
+    if (CollectionUtils.isEmpty(result.getIcmParametrospaginacionRecordSet())) {
+      result.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
     }
+    return result;
+  }
 
-    @Override
-    public IcmParamcalconfchdiasBlock asIcmParamcalconfchdiasBlock(final ConfChDiasMinimosFilterDto src) {
-        final IcmParamcalconfchdiasBlock result = this.delegate.asIcmParamcalconfchdiasBlock(src);
-        if (CollectionUtils.isEmpty(result.getIcmParamcalconfchdiasRecordSet())) {
-            result.getIcmParamcalconfchdiasRecordSet().add(new IcmParamcalconfchdiasRecord());
-        }
-        return result;
+  @Override
+  public IcmParamcalconfchdiasBlock asIcmParamcalconfchdiasBlock(final ConfChDiasMinimosFilterDto src) {
+    final IcmParamcalconfchdiasBlock result = this.delegate.asIcmParamcalconfchdiasBlock(src);
+    if (CollectionUtils.isEmpty(result.getIcmParamcalconfchdiasRecordSet())) {
+      result.getIcmParamcalconfchdiasRecordSet().add(new IcmParamcalconfchdiasRecord());
     }
+    return result;
+  }
 
-    @Override
-    public IcmParamcalconfpreciohoraBlock asIcmParamcalconfpreciohoraBlock(final ConfPrecioHoraFilterDto src) {
-        final IcmParamcalconfpreciohoraBlock result = this.delegate.asIcmParamcalconfpreciohoraBlock(src);
-        if (CollectionUtils.isEmpty(result.getIcmParamcalconfpreciohoraRecordSet())) {
-            result.getIcmParamcalconfpreciohoraRecordSet().add(new IcmParamcalconfpreciohoraRecord());
-        }
-        return result;
+  @Override
+  public IcmParamcalconfpreciohoraBlock asIcmParamcalconfpreciohoraBlock(final ConfPrecioHoraFilterDto src) {
+    final IcmParamcalconfpreciohoraBlock result = this.delegate.asIcmParamcalconfpreciohoraBlock(src);
+    if (CollectionUtils.isEmpty(result.getIcmParamcalconfpreciohoraRecordSet())) {
+      result.getIcmParamcalconfpreciohoraRecordSet().add(new IcmParamcalconfpreciohoraRecord());
     }
+    return result;
+  }
 
-    @Override
-    public IcmParamcalconfchventaBlock asIcmParamcalconfchventaBlock(final ConfChTpVentaFilterDto src) {
-        final IcmParamcalconfchventaBlock result = this.delegate.asIcmParamcalconfchventaBlock(src);
-        if (CollectionUtils.isEmpty(result.getIcmParamcalconfchventaRecordSet())) {
-            result.getIcmParamcalconfchventaRecordSet().add(new IcmParamcalconfchventaRecord());
-        }
-        return result;
+  @Override
+  public IcmParamcalconfchventaBlock asIcmParamcalconfchventaBlock(final ConfChTpVentaFilterDto src) {
+    final IcmParamcalconfchventaBlock result = this.delegate.asIcmParamcalconfchventaBlock(src);
+    if (CollectionUtils.isEmpty(result.getIcmParamcalconfchventaRecordSet())) {
+      result.getIcmParamcalconfchventaRecordSet().add(new IcmParamcalconfchventaRecord());
     }
+    return result;
+  }
 
-    @Override
-    public IcmParamcalpresupuestosrangoBlock asIcmParamcalpresupuestosrangoBlock(final PresupuestosRangoFilterDto src) {
-        final IcmParamcalpresupuestosrangoBlock result = this.delegate.asIcmParamcalpresupuestosrangoBlock(src);
-        if (CollectionUtils.isEmpty(result.getIcmParamcalpresupuestosrangoRecordSet())) {
-            result.getIcmParamcalpresupuestosrangoRecordSet().add(new IcmParamcalpresupuestosrangoRecord());
-        }
-        return result;
+  @Override
+  public IcmParamcalpresupuestosrangoBlock asIcmParamcalpresupuestosrangoBlock(final PresupuestosRangoFilterDto src) {
+    final IcmParamcalpresupuestosrangoBlock result = this.delegate.asIcmParamcalpresupuestosrangoBlock(src);
+    if (CollectionUtils.isEmpty(result.getIcmParamcalpresupuestosrangoRecordSet())) {
+      result.getIcmParamcalpresupuestosrangoRecordSet().add(new IcmParamcalpresupuestosrangoRecord());
     }
+    return result;
+  }
 
-    @Override
-    public GenericTiendaResultItemDto asGenericTiendaResultItemDto(final IcmListatiendasRecord src) {
-        final GenericTiendaResultItemDto mappedEntity = this.delegate.asGenericTiendaResultItemDto(src);
-        mappedEntity.setEsComisionable(Meta4Constants.TRUE.equalsIgnoreCase(src.getEscomisionable().trim()));
-        mappedEntity.setCalcula(Meta4Constants.TRUE.equalsIgnoreCase(src.getCalcula().trim()));
+  @Override
+  public GenericTiendaResultItemDto asGenericTiendaResultItemDto(final IcmListatiendasRecord src) {
+    final GenericTiendaResultItemDto mappedEntity = this.delegate.asGenericTiendaResultItemDto(src);
+    mappedEntity.setEsComisionable(Meta4Constants.TRUE.equalsIgnoreCase(src.getEscomisionable().trim()));
+    mappedEntity.setCalcula(Meta4Constants.TRUE.equalsIgnoreCase(src.getCalcula().trim()));
 
-        if (StringUtils.isNotEmpty(src.getFechainicio())) {
-            mappedEntity.setFechaInicio(LocalDateTime.parse(src.getFechainicio(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(src.getFechafin())) {
-            mappedEntity.setFechaFin(LocalDateTime.parse(src.getFechafin(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        return mappedEntity;
+    if (StringUtils.isNotEmpty(src.getFechainicio())) {
+      mappedEntity.setFechaInicio(LocalDateTime.parse(src.getFechainicio(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public List<ConfPrecioHoraResultItemDto> asConfPrecioHoraResultItemDto(
-            final List<IcmListaconfpreciohoraRecord> src) {
-        final List<ConfPrecioHoraResultItemDto> list = new ArrayList<>();
-        for (final IcmListaconfpreciohoraRecord item : src) {
-            final ConfPrecioHoraResultItemDto mappedEntity = this.delegate.asConfPrecioHoraResultItemDto(item);
-            mappedEntity.setIdTipoHoraComis(Meta4Constants.TRUE.equalsIgnoreCase(item.getTipohoracomis().trim()));
-            mappedEntity.setIdTipoHoraIncptpo(Meta4Constants.TRUE.equalsIgnoreCase(item.getTipohoraincptpo().trim()));
-            list.add(mappedEntity);
-
-        }
-        return list;
+    if (StringUtils.isNotEmpty(src.getFechafin())) {
+      mappedEntity.setFechaFin(LocalDateTime.parse(src.getFechafin(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
+    return mappedEntity;
+  }
 
-    @Override
-    public List<GenericTiendaResultItemDto> asGenericTiendaResultItemDtos(final List<IcmListatiendasRecord> src) {
-        final List<GenericTiendaResultItemDto> list = new ArrayList<>();
-        for (final IcmListatiendasRecord item : src) {
-            final GenericTiendaResultItemDto mappedEntity = this.delegate.asGenericTiendaResultItemDto(item);
-            mappedEntity.setEsComisionable(Meta4Constants.TRUE.equalsIgnoreCase(item.getEscomisionable().trim()));
-            mappedEntity.setCalcula(Meta4Constants.TRUE.equalsIgnoreCase(item.getCalcula().trim()));
+  @Override
+  public List<ConfPrecioHoraResultItemDto> asConfPrecioHoraResultItemDto(
+      final List<IcmListaconfpreciohoraRecord> src) {
+    final List<ConfPrecioHoraResultItemDto> list = new ArrayList<>();
+    for (final IcmListaconfpreciohoraRecord item : src) {
+      final ConfPrecioHoraResultItemDto mappedEntity = this.delegate.asConfPrecioHoraResultItemDto(item);
+      mappedEntity.setIdTipoHoraComis(Meta4Constants.TRUE.equalsIgnoreCase(item.getTipohoracomis().trim()));
+      mappedEntity.setIdTipoHoraIncptpo(Meta4Constants.TRUE.equalsIgnoreCase(item.getTipohoraincptpo().trim()));
+      list.add(mappedEntity);
 
-            if (StringUtils.isNotEmpty(item.getFechainicio())) {
-                mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechafin())) {
-                mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            list.add(mappedEntity);
-        }
-        return list;
     }
+    return list;
+  }
 
-    @Override
-    public GenericEmpleadoResultItemDto asGenericEmpleadoResultItemDto(final IcmListaempleadosRecord src) {
-        final GenericEmpleadoResultItemDto mappedEntity = this.delegate.asGenericEmpleadoResultItemDto(src);
-        if (StringUtils.isNotEmpty(src.getFechainicio())) {
-            mappedEntity.setFechaInicio(LocalDateTime.parse(src.getFechainicio(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(src.getFechafin())) {
-            mappedEntity.setFechaFin(LocalDateTime.parse(src.getFechafin(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(src.getFechainiciosec())) {
-            mappedEntity.setFechaInicioSec(LocalDateTime.parse(src.getFechainiciosec(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(src.getFechafinsec())) {
-            mappedEntity.setFechaFinSec(LocalDateTime.parse(src.getFechafinsec(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(src.getFechainiciocom())) {
-            mappedEntity.setFechaInicioCom(LocalDateTime.parse(src.getFechainiciocom(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(src.getFechafincom())) {
-            mappedEntity.setFechaFinCom(LocalDateTime.parse(src.getFechafincom(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(src.getFechafinpar())) {
-            mappedEntity.setFechaFinPar(LocalDateTime.parse(src.getFechafinpar(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(src.getFechainiciopar())) {
-            mappedEntity.setFechaInicioPar(LocalDateTime.parse(src.getFechainiciopar(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(src.getFecha())) {
-            mappedEntity.setFecha(
-                    LocalDateTime.parse(src.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        return mappedEntity;
+  @Override
+  public List<GenericTiendaResultItemDto> asGenericTiendaResultItemDtos(final List<IcmListatiendasRecord> src) {
+    final List<GenericTiendaResultItemDto> list = new ArrayList<>();
+    for (final IcmListatiendasRecord item : src) {
+      final GenericTiendaResultItemDto mappedEntity = this.delegate.asGenericTiendaResultItemDto(item);
+      mappedEntity.setEsComisionable(Meta4Constants.TRUE.equalsIgnoreCase(item.getEscomisionable().trim()));
+      mappedEntity.setCalcula(Meta4Constants.TRUE.equalsIgnoreCase(item.getCalcula().trim()));
+
+      if (StringUtils.isNotEmpty(item.getFechainicio())) {
+        mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
+            DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+      }
+      if (StringUtils.isNotEmpty(item.getFechafin())) {
+        mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
+            DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+      }
+      list.add(mappedEntity);
     }
+    return list;
+  }
 
-    @Override
-    public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtos(final List<IcmListaempleadosRecord> src) {
-        final List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
-        for (final IcmListaempleadosRecord item : src) {
-
-            if (CollectionUtils.isNotEmpty(item.getIcmListasecciones().getIcmListaseccionesRecordSet())) {
-                item.getIcmListasecciones().getIcmListaseccionesRecordSet().forEach(x -> {
-                    final GenericEmpleadoResultItemDto presencia = this.delegate.asGenericEmpleadoResultItemDto(item);
-                    presencia.setIdSeccion(x.getIdseccion());
-                    presencia.setMinutos(x.getMinutos());
-                    this.setDates(item, presencia);
-                    list.add(presencia);
-                });
-            } else {
-                final GenericEmpleadoResultItemDto mappedEntity = this.delegate.asGenericEmpleadoResultItemDto(item);
-                this.setDates(item, mappedEntity);
-                list.add(mappedEntity);
-            }
-        }
-        return list;
+  @Override
+  public GenericEmpleadoResultItemDto asGenericEmpleadoResultItemDto(final IcmListaempleadosRecord src) {
+    final GenericEmpleadoResultItemDto mappedEntity = this.delegate.asGenericEmpleadoResultItemDto(src);
+    if (StringUtils.isNotEmpty(src.getFechainicio())) {
+      mappedEntity.setFechaInicio(LocalDateTime.parse(src.getFechainicio(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public List<AusenciasResultItemDto> asAusenciasResultItemDtos(final List<IcmListaausenciasRecord> src) {
-        final List<AusenciasResultItemDto> list = new ArrayList<>();
-        for (final IcmListaausenciasRecord item : src) {
-            final AusenciasResultItemDto mappedEntity = this.delegate.asAusenciasResultItemDto(item);
-            if (StringUtils.isNotEmpty(item.getFechainicio())) {
-                mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechafin())) {
-                mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            list.add(mappedEntity);
-        }
-        return list;
+    if (StringUtils.isNotEmpty(src.getFechafin())) {
+      mappedEntity.setFechaFin(LocalDateTime.parse(src.getFechafin(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtosSearchEmpleados(
-            final List<IcmListaempleadoRecord> src) {
-        final List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
-        for (final IcmListaempleadoRecord item : src) {
-            final GenericEmpleadoResultItemDto presencia = this.delegate
-                .asGenericEmpleadoResultItemDtosSearchEmpleados(item);
-            if (StringUtils.isNotEmpty(item.getFechainicio())) {
-                presencia.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechafin())) {
-                presencia.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
-                presencia.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechafinsec())) {
-                presencia.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechainicioloc())) {
-                presencia.setFechaInicioLoc(LocalDateTime.parse(item.getFechainicioloc(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechafinloc())) {
-                presencia.setFechaFinLoc(LocalDateTime.parse(item.getFechafinloc(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            if (StringUtils.isNotEmpty(item.getFechaantiguedad())) {
-                presencia.setFechaAntiguedad(LocalDateTime.parse(item.getFechaantiguedad(),
-                        DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-            }
-            list.add(presencia);
-        }
-        return list;
+    if (StringUtils.isNotEmpty(src.getFechainiciosec())) {
+      mappedEntity.setFechaInicioSec(LocalDateTime.parse(src.getFechainiciosec(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-
-    private void setDates(final IcmListaempleadosRecord item, final GenericEmpleadoResultItemDto presencia) {
-        if (StringUtils.isNotEmpty(item.getFechainicio())) {
-            presencia.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(item.getFechafin())) {
-            presencia.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
-            presencia.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(item.getFechafinsec())) {
-            presencia.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(item.getFechainiciocom())) {
-            presencia.setFechaInicioCom(LocalDateTime.parse(item.getFechainiciocom(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(item.getFechafincom())) {
-            presencia.setFechaFinCom(LocalDateTime.parse(item.getFechafincom(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(item.getFechafinpar())) {
-            presencia.setFechaFinPar(LocalDateTime.parse(item.getFechafinpar(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(item.getFechainiciopar())) {
-            presencia.setFechaInicioPar(LocalDateTime.parse(item.getFechainiciopar(),
-                    DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
-        if (StringUtils.isNotEmpty(item.getFecha())) {
-            presencia.setFecha(
-                    LocalDateTime.parse(item.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
-        }
+    if (StringUtils.isNotEmpty(src.getFechafinsec())) {
+      mappedEntity.setFechaFinSec(LocalDateTime.parse(src.getFechafinsec(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public List<TiendaOnlineResultItemDto> asTiendaOnlineResultItemDto(final List<IcmListatiendasRecord> src) {
-        final List<TiendaOnlineResultItemDto> tiendas = new ArrayList<>();
-        if (src != null) {
-            src.forEach(x -> tiendas.add(this.asTiendaOnlineResultItemDto(x)));
-        }
-        return tiendas;
+    if (StringUtils.isNotEmpty(src.getFechainiciocom())) {
+      mappedEntity.setFechaInicioCom(LocalDateTime.parse(src.getFechainiciocom(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public IcmParamcalprocesoBlock asIcmParamcalprocesoBlock(final SaveProcesoDto src) {
-        final IcmParamcalprocesoBlock result = this.delegate.asIcmParamcalprocesoBlock(src);
-        if (CollectionUtils.isEmpty(result.getIcmParamcalprocesoRecordSet())) {
-            result.getIcmParamcalprocesoRecordSet().add(new IcmParamcalprocesoRecord());
-        }
-        return result;
+    if (StringUtils.isNotEmpty(src.getFechafincom())) {
+      mappedEntity.setFechaFinCom(LocalDateTime.parse(src.getFechafincom(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public SaveResultDto asSaveResultDto(final IcmResultadoguardadoBlock src) {
-        final SaveResultDto result = this.delegate.asSaveResultDto(src);
-        result.setResultadoOk(
-                !src.getIcmResultadoguardadoRecordSet()
-                    .stream()
-                    .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmAvisosguardado().getResultado())));
-        result.setResultadoError(
-                src.getIcmResultadoguardadoRecordSet()
-                    .stream()
-                    .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmErroresguardado().getResultado())));
-        return result;
+    if (StringUtils.isNotEmpty(src.getFechafinpar())) {
+      mappedEntity.setFechaFinPar(LocalDateTime.parse(src.getFechafinpar(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public IcmParamcalconforigenBlock asIcmParamconfBlock(final ConfiguracionesRequestDto src) {
-        final IcmParamcalconforigenBlock result = this.delegate.asIcmParamconfBlock(src);
-        if (CollectionUtils.isEmpty(result.getIcmParamcalconforigenRecordSet())) {
-            result.getIcmParamcalconforigenRecordSet().add(new IcmParamcalconforigenRecord());
-        }
-        return result;
+    if (StringUtils.isNotEmpty(src.getFechainiciopar())) {
+      mappedEntity.setFechaInicioPar(LocalDateTime.parse(src.getFechainiciopar(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public ConfiguracionesResponseDto asConfiguracionesResponseDto(final GetconfiguracionOutput src,
-            final String idOrigen) {
-        final ConfiguracionesResponseDto result = this.delegate.asConfiguracionesResponseDto(src, idOrigen);
-        if ((src.getIcmListaconforigen() != null)
-                && CollectionUtils.isNotEmpty(src.getIcmListaconforigen().getIcmListaconforigenRecordSet())) {
-            final ArrayList<ConfiguracionItemDto> items = new ArrayList<>();
-            src.getIcmListaconforigen()
-                .getIcmListaconforigenRecordSet()
-                .forEach(x -> {
-                    final ConfiguracionItemDto mappedEntity = this.delegate.asConfiguracionItemDto(x, idOrigen);
-                    mappedEntity
-                        .setIcmCkIncIvaEvalPtpo(Meta4Constants.TRUE.equalsIgnoreCase(x.getChkevalpres().trim()));
-                    mappedEntity
-                        .setIcmCkVentaImpuestos(Meta4Constants.TRUE.equalsIgnoreCase(x.getChkventaimpuestos().trim()));
-                    items.add(mappedEntity);
-                });
-            result.setItems(items);
-        }
-        return result;
+    if (StringUtils.isNotEmpty(src.getFecha())) {
+      mappedEntity.setFecha(
+          LocalDateTime.parse(src.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
+    return mappedEntity;
+  }
 
-    @Override
-    public IcmParamcalcadenaBlock asIcmParamcalcadenaBlock(final GenericFilterDto src) {
-        final List<IcmParamcalcadenaRecord> list = this.asIcmParamcalcadenaRecordList(src);
-        final IcmParamcalcadenaBlock result = new IcmParamcalcadenaBlock();
-        result.getIcmParamcalcadenaRecordSet().addAll(list);
-        return result;
+  @Override
+  public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtos(final List<IcmListaempleadosRecord> src) {
+    final List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
+    for (final IcmListaempleadosRecord item : src) {
+
+      if (CollectionUtils.isNotEmpty(item.getIcmListasecciones().getIcmListaseccionesRecordSet())) {
+        item.getIcmListasecciones().getIcmListaseccionesRecordSet().forEach(x -> {
+          final GenericEmpleadoResultItemDto presencia = this.delegate.asGenericEmpleadoResultItemDto(item);
+          presencia.setIdSeccion(x.getIdseccion());
+          presencia.setMinutos(x.getMinutos());
+          this.setDates(item, presencia);
+          list.add(presencia);
+        });
+      } else {
+        final GenericEmpleadoResultItemDto mappedEntity = this.delegate.asGenericEmpleadoResultItemDto(item);
+        this.setDates(item, mappedEntity);
+        list.add(mappedEntity);
+      }
     }
+    return list;
+  }
 
-
-    private List<IcmParamcalcadenaRecord> asIcmParamcalcadenaRecordList(final GenericFilterDto src) {
-        final List<IcmParamcalcadenaRecord> result = new ArrayList<>();
-        if (src != null) {
-            src.getIdsEmpresa().forEach(empresa -> {
-                if (CollectionUtils.isNotEmpty(src.getItem())) {
-                    src.getItem().forEach(x -> {
-                        final IcmParamcalcadenaRecord record = this.delegate.asIcmParamcalcadenaRecord(src);
-                        record.setIdempresa(empresa);
-                        result.add(record);
-                    });
-                } else {
-                    final IcmParamcalcadenaRecord record = this.delegate.asIcmParamcalcadenaRecord(src);
-                    record.setIdempresa(empresa);
-                    result.add(record);
-                }
-            });
-        }
-        return result;
+  @Override
+  public List<AusenciasResultItemDto> asAusenciasResultItemDtos(final List<IcmListaausenciasRecord> src) {
+    final List<AusenciasResultItemDto> list = new ArrayList<>();
+    for (final IcmListaausenciasRecord item : src) {
+      final AusenciasResultItemDto mappedEntity = this.delegate.asAusenciasResultItemDto(item);
+      if (StringUtils.isNotEmpty(item.getFechainicio())) {
+        mappedEntity.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
+            DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+      }
+      if (StringUtils.isNotEmpty(item.getFechafin())) {
+        mappedEntity.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
+            DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+      }
+      list.add(mappedEntity);
     }
+    return list;
+  }
 
-    @Override
-    public IcmParamcalempleadosdesplazBlock asIcmParamcalempleadosdesplazBlock(final GenericFilterDto src) {
-        final List<IcmParamcalempleadosdesplazRecord> list = this.asIcmParamcalempleadosdesplazRecordList(src);
-        final IcmParamcalempleadosdesplazBlock result = new IcmParamcalempleadosdesplazBlock();
-        result.getIcmParamcalempleadosdesplazRecordSet().addAll(list);
-        return result;
+  @Override
+  public List<GenericEmpleadoResultItemDto> asGenericEmpleadoResultItemDtosSearchEmpleados(
+      final List<IcmListaempleadoRecord> src) {
+    final List<GenericEmpleadoResultItemDto> list = new ArrayList<>();
+    for (final IcmListaempleadoRecord item : src) {
+      final GenericEmpleadoResultItemDto presencia = this.delegate
+          .asGenericEmpleadoResultItemDtosSearchEmpleados(item);
+      if (StringUtils.isNotEmpty(item.getFechainicio())) {
+        presencia.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
+            DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+      }
+      if (StringUtils.isNotEmpty(item.getFechafin())) {
+        presencia.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
+            DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+      }
+      if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
+        presencia.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
+            DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+      }
+      if (StringUtils.isNotEmpty(item.getFechafinsec())) {
+        presencia.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
+            DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+      }
+      if (StringUtils.isNotEmpty(item.getFechainicioloc())) {
+        presencia.setFechaInicioLoc(LocalDateTime.parse(item.getFechainicioloc(),
+            DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+      }
+      if (StringUtils.isNotEmpty(item.getFechafinloc())) {
+        presencia.setFechaFinLoc(LocalDateTime.parse(item.getFechafinloc(),
+            DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+      }
+      if (StringUtils.isNotEmpty(item.getFechaantiguedad())) {
+        presencia.setFechaAntiguedad(LocalDateTime.parse(item.getFechaantiguedad(),
+            DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
+      }
+      list.add(presencia);
     }
+    return list;
+  }
 
-    private List<IcmParamcalempleadosdesplazRecord> asIcmParamcalempleadosdesplazRecordList(
-            final GenericFilterDto src) {
-        final List<IcmParamcalempleadosdesplazRecord> result = new ArrayList<>();
-        if (src != null) {
-            src.getIdsEmpresa().forEach(empresa -> {
-                final IcmParamcalempleadosdesplazRecord record = this.delegate.asIcmParamcalempleadosdesplazRecord(src);
-                record.setIdempresa(empresa);
-                result.add(record);
-            });
-        }
-        return result;
+  private void setDates(final IcmListaempleadosRecord item, final GenericEmpleadoResultItemDto presencia) {
+    if (StringUtils.isNotEmpty(item.getFechainicio())) {
+      presencia.setFechaInicio(LocalDateTime.parse(item.getFechainicio(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public IcmParamcalempleadospresenciaBlock asIcmParamcalempleadospresenciaBlock(final GenericFilterDto src) {
-        final List<IcmParamcalempleadospresenciaRecord> list = this.asIcmParamcalempleadospresenciaRecordList(src);
-        final IcmParamcalempleadospresenciaBlock result = new IcmParamcalempleadospresenciaBlock();
-        result.getIcmParamcalempleadospresenciaRecordSet().addAll(list);
-        return result;
+    if (StringUtils.isNotEmpty(item.getFechafin())) {
+      presencia.setFechaFin(java.time.LocalDateTime.parse(item.getFechafin(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    private List<IcmParamcalempleadospresenciaRecord> asIcmParamcalempleadospresenciaRecordList(
-            final GenericFilterDto src) {
-        final List<IcmParamcalempleadospresenciaRecord> result = new ArrayList<>();
-        if (src != null) {
-            src.getIdsEmpresa().forEach(empresa -> {
-                final IcmParamcalempleadospresenciaRecord record = this.delegate
-                    .asIcmParamcalempleadospresenciaRecord(src);
-                record.setIdempresa(empresa);
-                result.add(record);
-            });
-        }
-        return result;
+    if (StringUtils.isNotEmpty(item.getFechainiciosec())) {
+      presencia.setFechaInicioSec(LocalDateTime.parse(item.getFechainiciosec(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final GenericFilterDto src) {
-        final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
-        final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
-        result.getIcmParamcaltiendasRecordSet().addAll(list);
-        return result;
+    if (StringUtils.isNotEmpty(item.getFechafinsec())) {
+      presencia.setFechaFinSec(LocalDateTime.parse(item.getFechafinsec(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final GenericFilterDto src) {
-        final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
-        if (src != null) {
-            src.getIdsEmpresa().forEach(empresa -> {
-                final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
-                record.setIdempresa(empresa);
-                result.add(record);
-            });
-        }
-        return result;
+    if (StringUtils.isNotEmpty(item.getFechainiciocom())) {
+      presencia.setFechaInicioCom(LocalDateTime.parse(item.getFechainiciocom(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final SearchTiendasFilterDto src) {
-        final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
-        final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
-        result.getIcmParamcaltiendasRecordSet().addAll(list);
-        return result;
+    if (StringUtils.isNotEmpty(item.getFechafincom())) {
+      presencia.setFechaFinCom(LocalDateTime.parse(item.getFechafincom(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final SearchTiendasFilterDto src) {
-        final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
-        if (src != null) {
-            if (CollectionUtils.isNotEmpty(src.getIdsEmpresa())) {
-                src.getIdsEmpresa().forEach(empresa -> {
-                    final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
-                    record.setIdempresa(empresa);
-                    result.add(record);
-                });
-            }
-            if (CollectionUtils.isNotEmpty(src.getIdsCadena())) {
-                src.getIdsCadena().forEach(cadena -> {
-                    final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
-                    record.setIdcadena(cadena);
-                    result.add(record);
-                });
-            }
-
-        }
-        return result;
+    if (StringUtils.isNotEmpty(item.getFechafinpar())) {
+      presencia.setFechaFinPar(LocalDateTime.parse(item.getFechafinpar(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    @Override
-    public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(final SearchEmpleadosFilterDto src) {
-        final List<IcmParamcalempleadoRecord> list = this.asIcmParamcalempleadosRecordList(src);
-        final IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
-        result.getIcmParamcalempleadoRecordSet().addAll(list);
-        return result;
+    if (StringUtils.isNotEmpty(item.getFechainiciopar())) {
+      presencia.setFechaInicioPar(LocalDateTime.parse(item.getFechainiciopar(),
+          DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
-
-    private List<IcmParamcalempleadoRecord> asIcmParamcalempleadosRecordList(final SearchEmpleadosFilterDto src) {
-        final List<IcmParamcalempleadoRecord> result = new ArrayList<>();
-        if (src != null) {
-            if (CollectionUtils.isNotEmpty(src.getIdsEmpresa())) {
-                src.getIdsEmpresa().forEach(empresa -> {
-                    final IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
-                    record.setIdempresa(empresa);
-                    result.add(record);
-                });
-            }
-            if (CollectionUtils.isNotEmpty(src.getIdsCadena())) {
-                src.getIdsCadena().forEach(cadena -> {
-                    final IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
-                    record.setIdcadena(cadena);
-                    result.add(record);
-                });
-            }
-
-        }
-        return result;
+    if (StringUtils.isNotEmpty(item.getFecha())) {
+      presencia.setFecha(
+          LocalDateTime.parse(item.getFecha(), DateTimeFormatter.ofPattern(Meta4Constants.META4_DATE_FULL)));
     }
+  }
 
-
-    @Override
-    public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(final GenericFilterDto src) {
-        final List<IcmParamcalempleadoRecord> list = this.asIcmParamcalempleadoRecordList(src);
-        final IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
-        result.getIcmParamcalempleadoRecordSet().addAll(list);
-        return result;
+  @Override
+  public List<TiendaOnlineResultItemDto> asTiendaOnlineResultItemDto(final List<IcmListatiendasRecord> src) {
+    final List<TiendaOnlineResultItemDto> tiendas = new ArrayList<>();
+    if (src != null) {
+      src.forEach(x -> tiendas.add(this.asTiendaOnlineResultItemDto(x)));
     }
+    return tiendas;
+  }
 
-    private List<IcmParamcalempleadoRecord> asIcmParamcalempleadoRecordList(final GenericFilterDto src) {
-        final List<IcmParamcalempleadoRecord> result = new ArrayList<>();
-        if (src != null) {
-            src.getIdsEmpresa().forEach(empresa -> {
-                final IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
-                record.setIdempresa(empresa);
-                result.add(record);
-            });
-        }
-        return result;
+  @Override
+  public IcmParamcalprocesoBlock asIcmParamcalprocesoBlock(final SaveProcesoDto src) {
+    final IcmParamcalprocesoBlock result = this.delegate.asIcmParamcalprocesoBlock(src);
+    if (CollectionUtils.isEmpty(result.getIcmParamcalprocesoRecordSet())) {
+      result.getIcmParamcalprocesoRecordSet().add(new IcmParamcalprocesoRecord());
     }
+    return result;
+  }
 
-    @Override
-    public IcmParamcalempleadosBlock asIcmParamcalempleadosBlock(final GenericFilterDto src) {
-        final List<IcmParamcalempleadosRecord> list = this.asIcmParamcalempleadosRecordList(src);
-        final IcmParamcalempleadosBlock result = new IcmParamcalempleadosBlock();
-        result.getIcmParamcalempleadosRecordSet().addAll(list);
-        return result;
+  @Override
+  public SaveResultDto asSaveResultDto(final IcmResultadoguardadoBlock src) {
+    final SaveResultDto result = this.delegate.asSaveResultDto(src);
+    result.setResultadoOk(
+        !src.getIcmResultadoguardadoRecordSet()
+            .stream()
+            .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmAvisosguardado().getResultado())));
+    result.setResultadoError(
+        src.getIcmResultadoguardadoRecordSet()
+            .stream()
+            .anyMatch(x -> !Meta4Constants.RESULTADO_OK.equals(x.getIcmErroresguardado().getResultado())));
+    return result;
+  }
+
+  @Override
+  public IcmParamcalconforigenBlock asIcmParamconfBlock(final ConfiguracionesRequestDto src) {
+    final IcmParamcalconforigenBlock result = this.delegate.asIcmParamconfBlock(src);
+    if (CollectionUtils.isEmpty(result.getIcmParamcalconforigenRecordSet())) {
+      result.getIcmParamcalconforigenRecordSet().add(new IcmParamcalconforigenRecord());
     }
+    return result;
+  }
 
-    private List<IcmParamcalempleadosRecord> asIcmParamcalempleadosRecordList(final GenericFilterDto src) {
-        final List<IcmParamcalempleadosRecord> result = new ArrayList<>();
-        if (src != null) {
-            src.getIdsEmpresa().forEach(empresa -> {
-                if (CollectionUtils.isNotEmpty(src.getItem())) {
-                    src.getItem().forEach(x -> {
-                        final IcmParamcalempleadosRecord record = this.delegate.asIcmParamcalempleadosRecord(src);
-                        record.setIdempleado(x.getIdEmpleado());
-                        record.setIdempleadolocal(x.getIdEmpleadoLocal());
-                        record.setIdlugartrabajo(x.getIdLugarTrabajo());
-                        record.setIdlugartrabajomtu(x.getIdLugarTrabajoMtu());
-                        record.setIdempresa(empresa);
-                    });
-                } else {
-                    final IcmParamcalempleadosRecord record = this.delegate.asIcmParamcalempleadosRecord(src);
-                    record.setIdempresa(empresa);
-                    result.add(record);
-                }
-            });
-        }
-        return result;
+  @Override
+  public ConfiguracionesResponseDto asConfiguracionesResponseDto(final GetconfiguracionOutput src,
+      final String idOrigen) {
+    final ConfiguracionesResponseDto result = this.delegate.asConfiguracionesResponseDto(src, idOrigen);
+    if ((src.getIcmListaconforigen() != null)
+        && CollectionUtils.isNotEmpty(src.getIcmListaconforigen().getIcmListaconforigenRecordSet())) {
+      final ArrayList<ConfiguracionItemDto> items = new ArrayList<>();
+      src.getIcmListaconforigen()
+          .getIcmListaconforigenRecordSet()
+          .forEach(x -> {
+            final ConfiguracionItemDto mappedEntity = this.delegate.asConfiguracionItemDto(x, idOrigen);
+            mappedEntity
+                .setIcmCkIncIvaEvalPtpo(Meta4Constants.TRUE.equalsIgnoreCase(x.getChkevalpres().trim()));
+            mappedEntity
+                .setIcmCkVentaImpuestos(Meta4Constants.TRUE.equalsIgnoreCase(x.getChkventaimpuestos().trim()));
+            items.add(mappedEntity);
+          });
+      result.setItems(items);
     }
+    return result;
+  }
 
-    @Override
-    public IcmParamcaldesplazrealBlock asIcmParamcaldesplazrealBlock(final DesplazamientoRealFilterDto src) {
-        final List<IcmParamcaldesplazrealRecord> list = this.asIcmParamcaldesplazrealRecordList(src);
-        final IcmParamcaldesplazrealBlock result = new IcmParamcaldesplazrealBlock();
-        result.getIcmParamcaldesplazrealRecordSet().addAll(list);
-        return result;
-    }
+  @Override
+  public IcmParamcalcadenaBlock asIcmParamcalcadenaBlock(final GenericFilterDto src) {
+    final List<IcmParamcalcadenaRecord> list = this.asIcmParamcalcadenaRecordList(src);
+    final IcmParamcalcadenaBlock result = new IcmParamcalcadenaBlock();
+    result.getIcmParamcalcadenaRecordSet().addAll(list);
+    return result;
+  }
 
-    private List<IcmParamcaldesplazrealRecord> asIcmParamcaldesplazrealRecordList(
-            final DesplazamientoRealFilterDto src) {
-        final List<IcmParamcaldesplazrealRecord> result = new ArrayList<>();
-        if (src != null) {
-            if (CollectionUtils.isNotEmpty(src.getItem())) {
-                src.getItem().forEach(x -> {
-                    final IcmParamcaldesplazrealRecord record = this.delegate.asIcmParamcaldesplazrealRecord(x);
-                    result.add(record);
-                });
-            } else {
-                result.add(new IcmParamcaldesplazrealRecord());
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public IcmParamcalpresupuestoswlocBlock asIcmParamcalpresupuestoswlocBlock(final PresupuestosWlocFilterDto src) {
-        final List<IcmParamcalpresupuestoswlocRecord> list = this.asIcmParamcalpresupuestoswlocRecordList(src);
-        final IcmParamcalpresupuestoswlocBlock result = this.delegate.asIcmParamcalpresupuestoswlocBlock(src);
-        result.getIcmParamcalpresupuestoswlocRecordSet().addAll(list);
-        return result;
-    }
-
-    private List<IcmParamcalpresupuestoswlocRecord> asIcmParamcalpresupuestoswlocRecordList(
-            final PresupuestosWlocFilterDto src) {
-        final List<IcmParamcalpresupuestoswlocRecord> result = new ArrayList<>();
-        if (src != null) {
-            if (CollectionUtils.isNotEmpty(src.getItem())) {
-                src.getItem().forEach(x -> {
-                    final IcmParamcalpresupuestoswlocRecord record = this.delegate
-                        .asIcmParamcalpresupuestoswlocRecord(x);
-                    result.add(record);
-                });
-            } else {
-                result.add(new IcmParamcalpresupuestoswlocRecord());
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public IcmParamcalflagcalculaBlock asIcmParamcalflagcalculaBlock(final GenericFilterDto src) {
-        final List<IcmParamcalflagcalculaRecord> list = this.asIcmParamcalflagcalculaRecordList(src);
-        final IcmParamcalflagcalculaBlock result = this.delegate.asIcmParamcalflagcalculaBlock(src);
-        result.getIcmParamcalflagcalculaRecordSet().addAll(list);
-        return result;
-    }
-
-    private List<IcmParamcalflagcalculaRecord> asIcmParamcalflagcalculaRecordList(final GenericFilterDto src) {
-        final List<IcmParamcalflagcalculaRecord> result = new ArrayList<>();
-        if (src != null) {
-            src.getItem().forEach(item -> {
-                final IcmParamcalflagcalculaRecord record = this.delegate.asIcmParamcalflagcalculaRecord(src);
-                record.setIdlugartrabajo(item.getIdLugarTrabajo());
-                result.add(record);
-            });
+  private List<IcmParamcalcadenaRecord> asIcmParamcalcadenaRecordList(final GenericFilterDto src) {
+    final List<IcmParamcalcadenaRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getIdsEmpresa().forEach(empresa -> {
+        if (CollectionUtils.isNotEmpty(src.getItem())) {
+          src.getItem().forEach(x -> {
+            final IcmParamcalcadenaRecord record = this.delegate.asIcmParamcalcadenaRecord(src);
+            record.setIdempresa(empresa);
+            result.add(record);
+          });
         } else {
-            result.add(new IcmParamcalflagcalculaRecord());
+          final IcmParamcalcadenaRecord record = this.delegate.asIcmParamcalcadenaRecord(src);
+          record.setIdempresa(empresa);
+          result.add(record);
         }
-        return result;
+      });
     }
+    return result;
+  }
 
-    @Override
-    public IcmParamcalpresenciamanualBlock asIcmParamcalpresenciamanualBlock(final GenericFilterDto src) {
-        final List<IcmParamcalpresenciamanualRecord> list = this.asIcmParamcalpresenciamanualRecordList(src);
-        final IcmParamcalpresenciamanualBlock result = this.delegate.asIcmParamcalpresenciamanualBlock(src);
-        result.getIcmParamcalpresenciamanualRecordSet().addAll(list);
-        return result;
+  @Override
+  public IcmParamcalempleadosdesplazBlock asIcmParamcalempleadosdesplazBlock(final GenericFilterDto src) {
+    final List<IcmParamcalempleadosdesplazRecord> list = this.asIcmParamcalempleadosdesplazRecordList(src);
+    final IcmParamcalempleadosdesplazBlock result = new IcmParamcalempleadosdesplazBlock();
+    result.getIcmParamcalempleadosdesplazRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcalempleadosdesplazRecord> asIcmParamcalempleadosdesplazRecordList(
+      final GenericFilterDto src) {
+    final List<IcmParamcalempleadosdesplazRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getIdsEmpresa().forEach(empresa -> {
+        final IcmParamcalempleadosdesplazRecord record = this.delegate.asIcmParamcalempleadosdesplazRecord(src);
+        record.setIdempresa(empresa);
+        result.add(record);
+      });
     }
+    return result;
+  }
 
-    private List<IcmParamcalpresenciamanualRecord> asIcmParamcalpresenciamanualRecordList(final GenericFilterDto src) {
-        final List<IcmParamcalpresenciamanualRecord> result = new ArrayList<>();
-        if (src != null) {
-            src.getItem().forEach(item -> {
-                final IcmParamcalpresenciamanualRecord record = this.delegate.asIcmParamcalpresenciamanualRecord(src);
-                record.setIdlugartrabajo(item.getIdLugarTrabajo());
-                result.add(record);
-            });
+  @Override
+  public IcmParamcalempleadospresenciaBlock asIcmParamcalempleadospresenciaBlock(final GenericFilterDto src) {
+    final List<IcmParamcalempleadospresenciaRecord> list = this.asIcmParamcalempleadospresenciaRecordList(src);
+    final IcmParamcalempleadospresenciaBlock result = new IcmParamcalempleadospresenciaBlock();
+    result.getIcmParamcalempleadospresenciaRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcalempleadospresenciaRecord> asIcmParamcalempleadospresenciaRecordList(
+      final GenericFilterDto src) {
+    final List<IcmParamcalempleadospresenciaRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getIdsEmpresa().forEach(empresa -> {
+        final IcmParamcalempleadospresenciaRecord record = this.delegate
+            .asIcmParamcalempleadospresenciaRecord(src);
+        record.setIdempresa(empresa);
+        result.add(record);
+      });
+    }
+    return result;
+  }
+
+  @Override
+  public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final GenericFilterDto src) {
+    final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+    final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+    result.getIcmParamcaltiendasRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final GenericFilterDto src) {
+    final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getIdsEmpresa().forEach(empresa -> {
+        final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+        record.setIdempresa(empresa);
+        result.add(record);
+      });
+    }
+    return result;
+  }
+
+  @Override
+  public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final SearchTiendasFilterDto src) {
+    final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+    final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+    result.getIcmParamcaltiendasRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final SearchTiendasFilterDto src) {
+    final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+    if (src != null) {
+      if (CollectionUtils.isNotEmpty(src.getIdsEmpresa())) {
+        src.getIdsEmpresa().forEach(empresa -> {
+          final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+          record.setIdempresa(empresa);
+          result.add(record);
+        });
+      }
+      if (CollectionUtils.isNotEmpty(src.getIdsCadena())) {
+        src.getIdsCadena().forEach(cadena -> {
+          final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+          record.setIdcadena(cadena);
+          result.add(record);
+        });
+      }
+
+    }
+    return result;
+  }
+
+  @Override
+  public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(final SearchEmpleadosFilterDto src) {
+    final List<IcmParamcalempleadoRecord> list = this.asIcmParamcalempleadosRecordList(src);
+    final IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
+    result.getIcmParamcalempleadoRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcalempleadoRecord> asIcmParamcalempleadosRecordList(final SearchEmpleadosFilterDto src) {
+    final List<IcmParamcalempleadoRecord> result = new ArrayList<>();
+    if (src != null) {
+      if (CollectionUtils.isNotEmpty(src.getIdsEmpresa())) {
+        src.getIdsEmpresa().forEach(empresa -> {
+          final IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
+          record.setIdempresa(empresa);
+          result.add(record);
+        });
+      }
+      if (CollectionUtils.isNotEmpty(src.getIdsCadena())) {
+        src.getIdsCadena().forEach(cadena -> {
+          final IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
+          record.setIdcadena(cadena);
+          result.add(record);
+        });
+      }
+
+    }
+    return result;
+  }
+
+  @Override
+  public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(final GenericFilterDto src) {
+    final List<IcmParamcalempleadoRecord> list = this.asIcmParamcalempleadoRecordList(src);
+    final IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
+    result.getIcmParamcalempleadoRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcalempleadoRecord> asIcmParamcalempleadoRecordList(final GenericFilterDto src) {
+    final List<IcmParamcalempleadoRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getIdsEmpresa().forEach(empresa -> {
+        final IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
+        record.setIdempresa(empresa);
+        result.add(record);
+      });
+    }
+    return result;
+  }
+
+  @Override
+  public IcmParamcalempleadosBlock asIcmParamcalempleadosBlock(final GenericFilterDto src) {
+    final List<IcmParamcalempleadosRecord> list = this.asIcmParamcalempleadosRecordList(src);
+    final IcmParamcalempleadosBlock result = new IcmParamcalempleadosBlock();
+    result.getIcmParamcalempleadosRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcalempleadosRecord> asIcmParamcalempleadosRecordList(final GenericFilterDto src) {
+    final List<IcmParamcalempleadosRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getIdsEmpresa().forEach(empresa -> {
+        if (CollectionUtils.isNotEmpty(src.getItem())) {
+          src.getItem().forEach(x -> {
+            final IcmParamcalempleadosRecord record = this.delegate.asIcmParamcalempleadosRecord(src);
+            record.setIdempleado(x.getIdEmpleado());
+            record.setIdempleadolocal(x.getIdEmpleadoLocal());
+            record.setIdlugartrabajo(x.getIdLugarTrabajo());
+            record.setIdlugartrabajomtu(x.getIdLugarTrabajoMtu());
+            record.setIdempresa(empresa);
+          });
         } else {
-            result.add(new IcmParamcalpresenciamanualRecord());
+          final IcmParamcalempleadosRecord record = this.delegate.asIcmParamcalempleadosRecord(src);
+          record.setIdempresa(empresa);
+          result.add(record);
         }
-        return result;
+      });
     }
+    return result;
+  }
 
-    @Override
-    public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final PresenciaManualWlocFilterDto src) {
-        final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
-        final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
-        result.getIcmParamcaltiendasRecordSet().addAll(list);
-        return result;
+  @Override
+  public IcmParamcaldesplazrealBlock asIcmParamcaldesplazrealBlock(final DesplazamientoRealFilterDto src) {
+    final List<IcmParamcaldesplazrealRecord> list = this.asIcmParamcaldesplazrealRecordList(src);
+    final IcmParamcaldesplazrealBlock result = new IcmParamcaldesplazrealBlock();
+    result.getIcmParamcaldesplazrealRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcaldesplazrealRecord> asIcmParamcaldesplazrealRecordList(
+      final DesplazamientoRealFilterDto src) {
+    final List<IcmParamcaldesplazrealRecord> result = new ArrayList<>();
+    if (src != null) {
+      if (CollectionUtils.isNotEmpty(src.getItem())) {
+        src.getItem().forEach(x -> {
+          final IcmParamcaldesplazrealRecord record = this.delegate.asIcmParamcaldesplazrealRecord(x);
+          result.add(record);
+        });
+      } else {
+        result.add(new IcmParamcaldesplazrealRecord());
+      }
     }
+    return result;
+  }
 
-    private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final PresenciaManualWlocFilterDto src) {
-        final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
-        if (src != null) {
-            src.getItem().forEach(item -> {
-                final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
-                record.setIdempresa(item.getIdEmpresa());
-                record.setIdorigen(item.getIdOrigen());
-                record.setIdlugartrabajo(item.getIdLugarTrabajo());
-                record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
-                result.add(record);
-            });
-        }
-        return result;
+  @Override
+  public IcmParamcalpresupuestoswlocBlock asIcmParamcalpresupuestoswlocBlock(final PresupuestosWlocFilterDto src) {
+    final List<IcmParamcalpresupuestoswlocRecord> list = this.asIcmParamcalpresupuestoswlocRecordList(src);
+    final IcmParamcalpresupuestoswlocBlock result = this.delegate.asIcmParamcalpresupuestoswlocBlock(src);
+    result.getIcmParamcalpresupuestoswlocRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcalpresupuestoswlocRecord> asIcmParamcalpresupuestoswlocRecordList(
+      final PresupuestosWlocFilterDto src) {
+    final List<IcmParamcalpresupuestoswlocRecord> result = new ArrayList<>();
+    if (src != null) {
+      if (CollectionUtils.isNotEmpty(src.getItem())) {
+        src.getItem().forEach(x -> {
+          final IcmParamcalpresupuestoswlocRecord record = this.delegate
+              .asIcmParamcalpresupuestoswlocRecord(x);
+          result.add(record);
+        });
+      } else {
+        result.add(new IcmParamcalpresupuestoswlocRecord());
+      }
     }
+    return result;
+  }
 
-    @Override
-    public List<PresenciaManualWlocResultItemDto> asPresenciaManualWlocResultItemDto(
-            final List<IcmListapresenciamanwlocRecord> src) {
-        final List<PresenciaManualWlocResultItemDto> list = new ArrayList<>();
-        for (final IcmListapresenciamanwlocRecord item : src) {
+  @Override
+  public IcmParamcalflagcalculaBlock asIcmParamcalflagcalculaBlock(final GenericFilterDto src) {
+    final List<IcmParamcalflagcalculaRecord> list = this.asIcmParamcalflagcalculaRecordList(src);
+    final IcmParamcalflagcalculaBlock result = this.delegate.asIcmParamcalflagcalculaBlock(src);
+    result.getIcmParamcalflagcalculaRecordSet().addAll(list);
+    return result;
+  }
 
-            if (CollectionUtils
-                .isNotEmpty(item.getIcmListaseccionespresencias().getIcmListaseccionespresenciasRecordSet())) {
-                item.getIcmListaseccionespresencias().getIcmListaseccionespresenciasRecordSet().forEach(x -> {
-                    final PresenciaManualWlocResultItemDto presencia = this.delegate
-                        .asPresenciaManualWlocResultItemDto(item);
-                    presencia.setIdSeccion(x.getIdseccion());
-                    presencia.setMinutos(x.getMinutos());
-                    list.add(presencia);
-                });
-            } else {
-                final PresenciaManualWlocResultItemDto mappedEntity = this.delegate
-                    .asPresenciaManualWlocResultItemDto(item);
-                list.add(mappedEntity);
-            }
-        }
-        return list;
+  private List<IcmParamcalflagcalculaRecord> asIcmParamcalflagcalculaRecordList(final GenericFilterDto src) {
+    final List<IcmParamcalflagcalculaRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getItem().forEach(item -> {
+        final IcmParamcalflagcalculaRecord record = this.delegate.asIcmParamcalflagcalculaRecord(src);
+        record.setIdlugartrabajo(item.getIdLugarTrabajo());
+        result.add(record);
+      });
+    } else {
+      result.add(new IcmParamcalflagcalculaRecord());
     }
+    return result;
+  }
 
-    @Override
-    public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final VentaManualWlocFilterDto src) {
-        final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
-        final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
-        result.getIcmParamcaltiendasRecordSet().addAll(list);
-        return result;
+  @Override
+  public IcmParamcalpresenciamanualBlock asIcmParamcalpresenciamanualBlock(final GenericFilterDto src) {
+    final List<IcmParamcalpresenciamanualRecord> list = this.asIcmParamcalpresenciamanualRecordList(src);
+    final IcmParamcalpresenciamanualBlock result = this.delegate.asIcmParamcalpresenciamanualBlock(src);
+    result.getIcmParamcalpresenciamanualRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcalpresenciamanualRecord> asIcmParamcalpresenciamanualRecordList(final GenericFilterDto src) {
+    final List<IcmParamcalpresenciamanualRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getItem().forEach(item -> {
+        final IcmParamcalpresenciamanualRecord record = this.delegate.asIcmParamcalpresenciamanualRecord(src);
+        record.setIdlugartrabajo(item.getIdLugarTrabajo());
+        result.add(record);
+      });
+    } else {
+      result.add(new IcmParamcalpresenciamanualRecord());
     }
+    return result;
+  }
 
-    private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final VentaManualWlocFilterDto src) {
-        final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
-        if (src != null) {
-            src.getItem().forEach(item -> {
-                final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
-                record.setIdempresa(item.getIdEmpresa());
-                record.setIdorigen(item.getIdOrigen());
-                record.setIdlugartrabajo(item.getIdLugarTrabajo());
-                record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
-                result.add(record);
-            });
-        }
-        return result;
+  @Override
+  public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final PresenciaManualWlocFilterDto src) {
+    final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+    final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+    result.getIcmParamcaltiendasRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final PresenciaManualWlocFilterDto src) {
+    final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getItem().forEach(item -> {
+        final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+        record.setIdempresa(item.getIdEmpresa());
+        record.setIdorigen(item.getIdOrigen());
+        record.setIdlugartrabajo(item.getIdLugarTrabajo());
+        record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
+        result.add(record);
+      });
     }
+    return result;
+  }
 
-    @Override
-    public List<VentaManualWlocResultItemDto> asVentaManualWlocResultItemDto(
-            final List<IcmListaventamanwlocRecord> src) {
-        final List<VentaManualWlocResultItemDto> list = new ArrayList<>();
-        for (final IcmListaventamanwlocRecord item : src) {
+  @Override
+  public List<PresenciaManualWlocResultItemDto> asPresenciaManualWlocResultItemDto(
+      final List<IcmListapresenciamanwlocRecord> src) {
+    final List<PresenciaManualWlocResultItemDto> list = new ArrayList<>();
+    for (final IcmListapresenciamanwlocRecord item : src) {
 
-            if (CollectionUtils
-                .isNotEmpty(item.getIcmListaseccionesventa().getIcmListaseccionesventaRecordSet())) {
-                item.getIcmListaseccionesventa().getIcmListaseccionesventaRecordSet().forEach(x -> {
-                    final VentaManualWlocResultItemDto venta = this.delegate
-                        .asVentaManualWlocResultItemDto(item);
-                    venta.setIdSeccion(x.getIdseccion());
-                    venta.setImporte(x.getImporte());
-                    list.add(venta);
-                });
-            } else {
-                final VentaManualWlocResultItemDto mappedEntity = this.delegate
-                    .asVentaManualWlocResultItemDto(item);
-                list.add(mappedEntity);
-            }
-        }
-        return list;
+      if (CollectionUtils
+          .isNotEmpty(item.getIcmListaseccionespresencias().getIcmListaseccionespresenciasRecordSet())) {
+        item.getIcmListaseccionespresencias().getIcmListaseccionespresenciasRecordSet().forEach(x -> {
+          final PresenciaManualWlocResultItemDto presencia = this.delegate
+              .asPresenciaManualWlocResultItemDto(item);
+          presencia.setIdSeccion(x.getIdseccion());
+          presencia.setMinutos(x.getMinutos());
+          list.add(presencia);
+        });
+      } else {
+        final PresenciaManualWlocResultItemDto mappedEntity = this.delegate
+            .asPresenciaManualWlocResultItemDto(item);
+        list.add(mappedEntity);
+      }
     }
+    return list;
+  }
 
-    @Override
-    public IcmParamcalsincroBlock asIcmParamcalsincroBlock(final SincronizacionFilterDto src) {
-        final List<IcmParamcalsincroRecord> list = this.asIcmParamcalsincroRecordList(src);
-        final IcmParamcalsincroBlock result = new IcmParamcalsincroBlock();
-        result.getIcmParamcalsincroRecordSet().addAll(list);
-        return result;
+  @Override
+  public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final VentaManualWlocFilterDto src) {
+    final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+    final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+    result.getIcmParamcaltiendasRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final VentaManualWlocFilterDto src) {
+    final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getItem().forEach(item -> {
+        final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+        record.setIdempresa(item.getIdEmpresa());
+        record.setIdorigen(item.getIdOrigen());
+        record.setIdlugartrabajo(item.getIdLugarTrabajo());
+        record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
+        result.add(record);
+      });
     }
+    return result;
+  }
 
-    private List<IcmParamcalsincroRecord> asIcmParamcalsincroRecordList(final SincronizacionFilterDto src) {
-        final List<IcmParamcalsincroRecord> result = new ArrayList<>();
-        if (src != null) {
-            src.getItems().forEach(item -> {
-                final IcmParamcalsincroRecord record = this.delegate.asIcmParamcalsincroRecord(item);
-                record.setIdempleado(item.getIdEmpleado());
-                record.setIdorigen(item.getIdOrigen());
-                result.add(record);
-            });
-        }
-        return result;
+  @Override
+  public List<VentaManualWlocResultItemDto> asVentaManualWlocResultItemDto(
+      final List<IcmListaventamanwlocRecord> src) {
+    final List<VentaManualWlocResultItemDto> list = new ArrayList<>();
+    for (final IcmListaventamanwlocRecord item : src) {
+
+      if (CollectionUtils
+          .isNotEmpty(item.getIcmListaseccionesventa().getIcmListaseccionesventaRecordSet())) {
+        item.getIcmListaseccionesventa().getIcmListaseccionesventaRecordSet().forEach(x -> {
+          final VentaManualWlocResultItemDto venta = this.delegate
+              .asVentaManualWlocResultItemDto(item);
+          venta.setIdSeccion(x.getIdseccion());
+          venta.setImporte(x.getImporte());
+          list.add(venta);
+        });
+      } else {
+        final VentaManualWlocResultItemDto mappedEntity = this.delegate
+            .asVentaManualWlocResultItemDto(item);
+        list.add(mappedEntity);
+      }
     }
+    return list;
+  }
 
-    @Override
-    public IcmParamcalsistdestinoBlock asIcmParamcalsistdestinoBlock(
-            final SistemaDestinoRequestDto src) {
-        final IcmParamcalsistdestinoBlock result = this.delegate.asIcmParamcalsistdestinoBlock(src);
-        result.getIcmParamcalsistdestinoRecordSet().add(new IcmParamcalsistdestinoRecord());
-        return result;
+  @Override
+  public IcmParamcalsincroBlock asIcmParamcalsincroBlock(final SincronizacionFilterDto src) {
+    final List<IcmParamcalsincroRecord> list = this.asIcmParamcalsincroRecordList(src);
+    final IcmParamcalsincroBlock result = new IcmParamcalsincroBlock();
+    result.getIcmParamcalsincroRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcalsincroRecord> asIcmParamcalsincroRecordList(final SincronizacionFilterDto src) {
+    final List<IcmParamcalsincroRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getItems().forEach(item -> {
+        final IcmParamcalsincroRecord record = this.delegate.asIcmParamcalsincroRecord(item);
+        record.setIdempleado(item.getIdEmpleado());
+        record.setIdorigen(item.getIdOrigen());
+        result.add(record);
+      });
     }
+    return result;
+  }
 
-    @Override
-    public SistemaDestinoResponseDto asSistemaDestinoResponseDto(
-            final GetsistdestinoOutput src) {
-        final SistemaDestinoResponseDto result = this.delegate.asSistemaDestinoResponseDto(src);
-        if ((src.getIcmListasistdestino() != null)
-                && CollectionUtils.isNotEmpty(src.getIcmListasistdestino().getIcmListasistdestinoRecordSet())) {
-            result.setIdSistemaDestino(
-                    src.getIcmListasistdestino().getIcmListasistdestinoRecordSet().get(0).getIdsistema());
-        }
-        return result;
+  @Override
+  public IcmParamcalsistdestinoBlock asIcmParamcalsistdestinoBlock(
+      final SistemaDestinoRequestDto src) {
+    final IcmParamcalsistdestinoBlock result = this.delegate.asIcmParamcalsistdestinoBlock(src);
+    result.getIcmParamcalsistdestinoRecordSet().add(new IcmParamcalsistdestinoRecord());
+    return result;
+  }
+
+  @Override
+  public SistemaDestinoResponseDto asSistemaDestinoResponseDto(
+      final GetsistdestinoOutput src) {
+    final SistemaDestinoResponseDto result = this.delegate.asSistemaDestinoResponseDto(src);
+    if ((src.getIcmListasistdestino() != null)
+        && CollectionUtils.isNotEmpty(src.getIcmListasistdestino().getIcmListasistdestinoRecordSet())) {
+      result.setIdSistemaDestino(
+          src.getIcmListasistdestino().getIcmListasistdestinoRecordSet().get(0).getIdsistema());
     }
+    return result;
+  }
 
-    @Override
-    public CatalogoResponseDto asCatalogoResponseDto(
-            final GetcatalogoOutput src) {
-        final CatalogoResponseDto result = this.delegate.asCatalogoResponseDto(src);
-        if ((src.getIcmListacatalogo() != null)
-                && CollectionUtils.isNotEmpty(src.getIcmListacatalogo().getIcmListacatalogoRecordSet())) {
-            result.setItems(src.getIcmListacatalogo()
-                .getIcmListacatalogoRecordSet()
-                .stream()
-                .map(record -> this.delegate.asCatalogoResponseItemDto(record))
-                .collect(Collectors.toList()));
-        }
-        return result;
+  @Override
+  public CatalogoResponseDto asCatalogoResponseDto(
+      final GetcatalogoOutput src) {
+    final CatalogoResponseDto result = this.delegate.asCatalogoResponseDto(src);
+    if ((src.getIcmListacatalogo() != null)
+        && CollectionUtils.isNotEmpty(src.getIcmListacatalogo().getIcmListacatalogoRecordSet())) {
+      result.setItems(src.getIcmListacatalogo()
+          .getIcmListacatalogoRecordSet()
+          .stream()
+          .map(record -> this.delegate.asCatalogoResponseItemDto(record))
+          .collect(Collectors.toList()));
     }
+    return result;
+  }
 
-    @Override
-    public ListaCondicionesBaseResultItemDto asListaCondicionesBaseResultItemDto(
-            final IcmListacondicionesbaseRecord src) {
+  @Override
+  public ListaCondicionesBaseResultItemDto asListaCondicionesBaseResultItemDto(
+      final IcmListacondicionesbaseRecord src) {
 
-        final ListaCondicionesBaseResultItemDto condiciones = this.delegate
-            .asListaCondicionesBaseResultItemDto(src);
-        if ((src.getIcmListavaloresbaseman() != null) &&
-                CollectionUtils.isNotEmpty(src.getIcmListavaloresbaseman().getIcmListavaloresbasemanRecordSet())) {
-            condiciones.getIcmListaValoresBase()
-                .addAll(this.delegate
-                    .asListaValoresBaseResultItemDtoFromIcmListavaloresbasemanRecord(
-                            src.getIcmListavaloresbaseman().getIcmListavaloresbasemanRecordSet()));
-        }
-        return condiciones;
-
+    final ListaCondicionesBaseResultItemDto condiciones = this.delegate
+        .asListaCondicionesBaseResultItemDto(src);
+    if ((src.getIcmListavaloresbaseman() != null)
+        &&
+        CollectionUtils.isNotEmpty(src.getIcmListavaloresbaseman().getIcmListavaloresbasemanRecordSet())) {
+      condiciones.getIcmListaValoresBase()
+          .addAll(this.delegate
+              .asListaValoresBaseResultItemDtoFromIcmListavaloresbasemanRecord(
+                  src.getIcmListavaloresbaseman().getIcmListavaloresbasemanRecordSet()));
     }
+    return condiciones;
 
-    @Override
-    public ListaCondicionesDestinoResultItemDto asListaCondicionesDestinoResultItemDto(
-            final IcmListacondicionesdestinoRecord src) {
+  }
 
-        final ListaCondicionesDestinoResultItemDto condiciones = this.delegate
-            .asListaCondicionesDestinoResultItemDto(src);
-        if ((src.getIcmListavaloresdestinoman() != null) &&
-                CollectionUtils
-                    .isNotEmpty(src.getIcmListavaloresdestinoman().getIcmListavaloresdestinomanRecordSet())) {
-            condiciones.getIcmListaValoresDestino()
-                .addAll(this.delegate.asListaValoresDestinoResultItemDtoFromIcmListavaloresdestinomanRecord(
-                        src.getIcmListavaloresdestinoman().getIcmListavaloresdestinomanRecordSet()));
-        }
-        return condiciones;
+  @Override
+  public ListaCondicionesDestinoResultItemDto asListaCondicionesDestinoResultItemDto(
+      final IcmListacondicionesdestinoRecord src) {
 
+    final ListaCondicionesDestinoResultItemDto condiciones = this.delegate
+        .asListaCondicionesDestinoResultItemDto(src);
+    if ((src.getIcmListavaloresdestinoman() != null)
+        &&
+        CollectionUtils
+            .isNotEmpty(src.getIcmListavaloresdestinoman().getIcmListavaloresdestinomanRecordSet())) {
+      condiciones.getIcmListaValoresDestino()
+          .addAll(this.delegate.asListaValoresDestinoResultItemDtoFromIcmListavaloresdestinomanRecord(
+              src.getIcmListavaloresdestinoman().getIcmListavaloresdestinomanRecordSet()));
     }
+    return condiciones;
 
-    @Override
-    public List<ListaCondicionesBaseResultItemDto> asListaCondicionesBaseResultItemDto(
-            final List<IcmListacondicionesbaseRecord> src) {
-        final List<ListaCondicionesBaseResultItemDto> result = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(x -> result.add(this.asListaCondicionesBaseResultItemDto(x)));
-        }
-        return result;
-    }
+  }
 
-    @Override
-    public List<ListaCondicionesDestinoResultItemDto> asListaCondicionesDestinoResultItemDto(
-            final List<IcmListacondicionesdestinoRecord> src) {
-        final List<ListaCondicionesDestinoResultItemDto> result = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(x -> result.add(this.asListaCondicionesDestinoResultItemDto(x)));
-        }
-        return result;
+  @Override
+  public List<ListaCondicionesBaseResultItemDto> asListaCondicionesBaseResultItemDto(
+      final List<IcmListacondicionesbaseRecord> src) {
+    final List<ListaCondicionesBaseResultItemDto> result = new ArrayList<>();
+    if (CollectionUtils.isNotEmpty(src)) {
+      src.forEach(x -> result.add(this.asListaCondicionesBaseResultItemDto(x)));
     }
+    return result;
+  }
 
-    @Override
-    public EstructurasComResultItemDto asEstructurasComResultItemDto(final IcmListaestructuraRecord src) {
-        final EstructurasComResultItemDto result = this.delegate.asEstructurasComResultItemDto(src);
-        result.setIcmListaCondicionesBase(this.asListaCondicionesBaseResultItemDto(
-                src.getIcmListacondicionesbase().getIcmListacondicionesbaseRecordSet()));
-        result.setIcmListaCondicionesDestino(this.asListaCondicionesDestinoResultItemDto(
-                src.getIcmListacondicionesdestino().getIcmListacondicionesdestinoRecordSet()));
-        return result;
+  @Override
+  public List<ListaCondicionesDestinoResultItemDto> asListaCondicionesDestinoResultItemDto(
+      final List<IcmListacondicionesdestinoRecord> src) {
+    final List<ListaCondicionesDestinoResultItemDto> result = new ArrayList<>();
+    if (CollectionUtils.isNotEmpty(src)) {
+      src.forEach(x -> result.add(this.asListaCondicionesDestinoResultItemDto(x)));
     }
+    return result;
+  }
 
-    @Override
-    public List<EstructurasComResultItemDto> asEstructurasComResultItemDtos(final List<IcmListaestructuraRecord> src) {
-        final List<EstructurasComResultItemDto> result = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(src)) {
-            src.forEach(x -> result.add(this.asEstructurasComResultItemDto(x)));
-        }
-        return result;
-    }
+  @Override
+  public EstructurasComResultItemDto asEstructurasComResultItemDto(final IcmListaestructuraRecord src) {
+    final EstructurasComResultItemDto result = this.delegate.asEstructurasComResultItemDto(src);
+    result.setIcmListaCondicionesBase(this.asListaCondicionesBaseResultItemDto(
+        src.getIcmListacondicionesbase().getIcmListacondicionesbaseRecordSet()));
+    result.setIcmListaCondicionesDestino(this.asListaCondicionesDestinoResultItemDto(
+        src.getIcmListacondicionesdestino().getIcmListacondicionesdestinoRecordSet()));
+    return result;
+  }
 
-    @Override
-    public IcmParamcaltiposhoraBlock asIcmParamcaltiposhoraBlock(
-            final TiposHoraRequestDto request) {
-        final IcmParamcaltiposhoraBlock result = this.delegate.asIcmParamcaltiposhoraBlock(request);
-        if (CollectionUtils.isNotEmpty(request.getIdsEmpresa())) {
-            result.getIcmParamcaltiposhoraRecordSet().addAll(request.getIdsEmpresa().stream().map(empresa -> {
-                final IcmParamcaltiposhoraRecord record = new IcmParamcaltiposhoraRecord();
-                record.setIdempresa(empresa);
-                return record;
-            }).collect(Collectors.toList()));
-        } else {
-            result.getIcmParamcaltiposhoraRecordSet().add(new IcmParamcaltiposhoraRecord());
-        }
-        return result;
+  @Override
+  public List<EstructurasComResultItemDto> asEstructurasComResultItemDtos(final List<IcmListaestructuraRecord> src) {
+    final List<EstructurasComResultItemDto> result = new ArrayList<>();
+    if (CollectionUtils.isNotEmpty(src)) {
+      src.forEach(x -> result.add(this.asEstructurasComResultItemDto(x)));
     }
+    return result;
+  }
 
-    @Override
-    public TiposHoraResponseDto asTiposHoraResponseDto(
-            final GettiposhoraOutput tiposhora) {
-        final TiposHoraResponseDto result = this.delegate.asTiposHoraResponseDto(tiposhora);
-        final List<TiposHoraResultItemDto> items = new ArrayList<>();
-        if (tiposhora.getIcmListatiposhora() != null
-                && CollectionUtils.isNotEmpty(tiposhora.getIcmListatiposhora().getIcmListatiposhoraRecordSet())) {
-            tiposhora.getIcmListatiposhora()
-                .getIcmListatiposhoraRecordSet()
-                .forEach(x -> items.add(this.delegate.asTiposHoraResultItemDto(x)));
-        }
-        result.setItems(items);
-        return result;
+  @Override
+  public IcmParamcaltiposhoraBlock asIcmParamcaltiposhoraBlock(
+      final TiposHoraRequestDto request) {
+    final IcmParamcaltiposhoraBlock result = this.delegate.asIcmParamcaltiposhoraBlock(request);
+    if (CollectionUtils.isNotEmpty(request.getIdsEmpresa())) {
+      result.getIcmParamcaltiposhoraRecordSet().addAll(request.getIdsEmpresa().stream().map(empresa -> {
+        final IcmParamcaltiposhoraRecord record = new IcmParamcaltiposhoraRecord();
+        record.setIdempresa(empresa);
+        return record;
+      }).collect(Collectors.toList()));
+    } else {
+      result.getIcmParamcaltiposhoraRecordSet().add(new IcmParamcaltiposhoraRecord());
     }
+    return result;
+  }
+
+  @Override
+  public TiposHoraResponseDto asTiposHoraResponseDto(
+      final GettiposhoraOutput tiposhora) {
+    final TiposHoraResponseDto result = this.delegate.asTiposHoraResponseDto(tiposhora);
+    final List<TiposHoraResultItemDto> items = new ArrayList<>();
+    if (tiposhora.getIcmListatiposhora() != null
+        && CollectionUtils.isNotEmpty(tiposhora.getIcmListatiposhora().getIcmListatiposhoraRecordSet())) {
+      tiposhora.getIcmListatiposhora()
+          .getIcmListatiposhoraRecordSet()
+          .forEach(x -> items.add(this.delegate.asTiposHoraResultItemDto(x)));
+    }
+    result.setItems(items);
+    return result;
+  }
 
 }

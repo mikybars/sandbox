@@ -6,15 +6,12 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 
-/**
- * @author javierev
- */
 @Data
 @Builder
 public class MotivosDesplazamientoRequestDto implements Serializable {
 
-    private static final long serialVersionUID = -693259473153416287L;
+  private static final long serialVersionUID = -693259473153416287L;
 
-    private List<MotivosDesplazamientoRequestItemDto> items;
+  private List<MotivosDesplazamientoRequestItemDto> items;
 
 }

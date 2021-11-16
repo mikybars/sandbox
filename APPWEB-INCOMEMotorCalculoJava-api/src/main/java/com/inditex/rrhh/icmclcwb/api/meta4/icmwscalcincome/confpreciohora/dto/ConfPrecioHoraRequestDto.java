@@ -6,8 +6,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.Pageable;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
 
 public class ConfPrecioHoraRequestDto extends PageableDto<ConfPrecioHoraFilterDto>
-        implements Pageable<ConfPrecioHoraFilterDto>, Serializable {
+    implements Pageable<ConfPrecioHoraFilterDto>, Serializable {
 
-    private static final long serialVersionUID = -4642090076190514380L;
+  private static final long serialVersionUID = -4642090076190514380L;
 
 }

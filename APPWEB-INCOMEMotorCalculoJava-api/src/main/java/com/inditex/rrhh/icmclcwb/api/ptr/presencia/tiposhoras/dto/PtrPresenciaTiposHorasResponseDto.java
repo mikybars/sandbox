@@ -16,8 +16,8 @@ import lombok.ToString;
 @ToString
 public class PtrPresenciaTiposHorasResponseDto implements Serializable {
 
-    private static final long serialVersionUID = 2859649142501610924L;
+  private static final long serialVersionUID = 2859649142501610924L;
 
-    private List<PtrPresenciaTiposHorasResultItemDto> tiposHoras;
+  private List<PtrPresenciaTiposHorasResultItemDto> tiposHoras;
 
 }

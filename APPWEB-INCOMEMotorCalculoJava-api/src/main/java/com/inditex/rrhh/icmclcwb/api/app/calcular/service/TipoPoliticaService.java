@@ -4,8 +4,8 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoPoliticaDto;
 
 public interface TipoPoliticaService {
 
-    TipoPoliticaDto findByIdMeta4(String idMeta4);
+  TipoPoliticaDto findByIdMeta4(String idMeta4);
 
-    TipoPoliticaDto findById(Integer id);
+  TipoPoliticaDto findById(Integer id);
 
 }

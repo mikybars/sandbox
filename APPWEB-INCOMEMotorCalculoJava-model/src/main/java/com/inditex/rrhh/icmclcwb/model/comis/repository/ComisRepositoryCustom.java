@@ -14,108 +14,109 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface ComisRepositoryCustom {
 
-    /**
-     * @param tarea
-     * @return
-     */
-    PresenciaOrigenDto findPresenciasOrigenAndFecha(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  PresenciaOrigenDto findPresenciasOrigenAndFecha(TareaDto tarea);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdMotivoDesplazamientoDto> findMotivoDesplazamiento(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdMotivoDesplazamientoDto> findMotivoDesplazamiento(TareaDto tarea);
 
-    /**
-     * @param fechaDesde
-     * @return
-     */
-    List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(TareaDto tarea);
+  /**
+   * @param fechaDesde
+   * @return
+   */
+  List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(TareaDto tarea);
 
-    /**
-     * @param fechaDesde
-     * @return
-     */
-    List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(TareaDto tarea);
+  /**
+   * @param fechaDesde
+   * @return
+   */
+  List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(TareaDto tarea);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> findCondicionesHistorico(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesHistorico(TareaDto tarea);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamiento(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamiento(TareaDto tarea);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> findCondicionesResalta(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesResalta(TareaDto tarea);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinPrimas(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinPrimas(TareaDto tarea);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> findBajasIt(TareaDto tarea, PeriodoDto periodoAmpliado);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalCondicionesDto> findBajasIt(TareaDto tarea, PeriodoDto periodoAmpliado);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalCarenciaDto> findCarencia(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalCarenciaDto> findCarencia(TareaDto tarea);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalExternaDto> findExternosByClase(TareaDto tarea, ComisClaseEmpleadoEnum clase);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalExternaDto> findExternosByClase(TareaDto tarea, ComisClaseEmpleadoEnum clase);
 
-    /**
-     * Obtiene los empleados externos en base a los que tengan un id superior al dado.
-     * @param tarea tarea
-     * @param minIdPersona el id de persona que debe ser superado para ser considerado externo.
-     * @return lista de externos
-     */
-    List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(final TareaDto tarea, final Long minIdPersona);
+  /**
+   * Obtiene los empleados externos en base a los que tengan un id superior al dado.
+   * 
+   * @param tarea tarea
+   * @param minIdPersona el id de persona que debe ser superado para ser considerado externo.
+   * @return lista de externos
+   */
+  List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(final TareaDto tarea, final Long minIdPersona);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> findBajasItEs(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalCondicionesDto> findBajasItEs(TareaDto tarea);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoEs(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoEs(TareaDto tarea);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(TareaDto tarea);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(TareaDto tarea);
 
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(TareaDto tarea);
+  /**
+   * @param tarea
+   * @return
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(TareaDto tarea);
 
 }

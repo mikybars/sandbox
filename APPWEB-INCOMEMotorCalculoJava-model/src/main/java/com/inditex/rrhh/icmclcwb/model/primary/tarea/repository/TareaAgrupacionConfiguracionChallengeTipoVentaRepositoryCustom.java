@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionConfi
 
 public interface TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom {
 
-    List<TareaAgrupacionConfiguracionChallengeTipoVenta> save(List<TareaAgrupacionConfiguracionChallengeTipoVenta> src);
+  List<TareaAgrupacionConfiguracionChallengeTipoVenta> save(List<TareaAgrupacionConfiguracionChallengeTipoVenta> src);
 
 }

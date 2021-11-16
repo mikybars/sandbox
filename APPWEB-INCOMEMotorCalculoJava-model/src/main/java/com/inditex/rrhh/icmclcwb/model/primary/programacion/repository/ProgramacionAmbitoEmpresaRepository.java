@@ -7,6 +7,6 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface ProgramacionAmbitoEmpresaRepository extends BaseRepository<ProgramacionAmbitoEmpresa, Long> {
 
-    List<ProgramacionAmbitoEmpresa> findByProgramacionAmbitoId(Long programacionAmbitoId);
+  List<ProgramacionAmbitoEmpresa> findByProgramacionAmbitoId(Long programacionAmbitoId);
 
 }

@@ -6,25 +6,25 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarSlrhorcomsAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarSlrhorcomsService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class RunTareaRecolectarSlrhorcomsAsyncServiceImpl implements RunTareaRecolectarSlrhorcomsAsyncService {
 
-    @Autowired
-    private RunTareaRecolectarSlrhorcomsService runTareaRecolectarSlrhorcomsService;
+  @Autowired
+  private RunTareaRecolectarSlrhorcomsService runTareaRecolectarSlrhorcomsService;
 
-    @Override
-    public CompletableFuture<Void> horarioComercialFestivoByRunTarea(
-            final RunTareaDto runTarea) {
-        this.runTareaRecolectarSlrhorcomsService.horarioComercialFestivoByRunTarea(runTarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
+  @Override
+  public CompletableFuture<Void> horarioComercialFestivoByRunTarea(
+      final RunTareaDto runTarea) {
+    this.runTareaRecolectarSlrhorcomsService.horarioComercialFestivoByRunTarea(runTarea);
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
 
 }

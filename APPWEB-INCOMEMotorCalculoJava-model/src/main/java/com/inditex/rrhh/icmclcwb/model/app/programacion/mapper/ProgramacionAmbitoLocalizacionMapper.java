@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoLocalizacionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.decorator.ProgramacionAmbitoLocalizacionMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.ProgramacionAmbitoLocalizacion;
+
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -16,30 +17,30 @@ import org.mapstruct.Mapping;
 @DecoratedWith(value = ProgramacionAmbitoLocalizacionMapperDecorator.class)
 public abstract class ProgramacionAmbitoLocalizacionMapper {
 
-    @Mapping(target = "idProgramacionAmbito", source = "programacionAmbito.id")
-    public abstract ProgramacionAmbitoLocalizacionDTO programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
-            ProgramacionAmbitoLocalizacion src);
+  @Mapping(target = "idProgramacionAmbito", source = "programacionAmbito.id")
+  public abstract ProgramacionAmbitoLocalizacionDTO programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
+      ProgramacionAmbitoLocalizacion src);
 
-    @InheritInverseConfiguration
-    public abstract ProgramacionAmbitoLocalizacion programacionAmbitoLocalizacionDtoToProgramacionAmbitoLocalizacion(
-            ProgramacionAmbitoLocalizacionDTO src);
+  @InheritInverseConfiguration
+  public abstract ProgramacionAmbitoLocalizacion programacionAmbitoLocalizacionDtoToProgramacionAmbitoLocalizacion(
+      ProgramacionAmbitoLocalizacionDTO src);
 
-    public abstract List<ProgramacionAmbitoLocalizacionDTO> programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
-            List<ProgramacionAmbitoLocalizacion> src);
+  public abstract List<ProgramacionAmbitoLocalizacionDTO> programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
+      List<ProgramacionAmbitoLocalizacion> src);
 
-    public abstract List<ProgramacionAmbitoLocalizacion> programacionAmbitoLocalizacionDtoToProgramacionAmbitoLocalizacion(
-            List<ProgramacionAmbitoLocalizacionDTO> src);
+  public abstract List<ProgramacionAmbitoLocalizacion> programacionAmbitoLocalizacionDtoToProgramacionAmbitoLocalizacion(
+      List<ProgramacionAmbitoLocalizacionDTO> src);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "programacionAmbito.id", source = "srcProgramacionAmbito.id")
-    public abstract ProgramacionAmbitoLocalizacion mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
-            ProgramacionAmbitoLocalizacionDTO srcProgramacionAmbitoLocalizacion,
-            ProgramacionAmbitoDTO srcProgramacionAmbito);
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "programacionAmbito.id", source = "srcProgramacionAmbito.id")
+  public abstract ProgramacionAmbitoLocalizacion mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
+      ProgramacionAmbitoLocalizacionDTO srcProgramacionAmbitoLocalizacion,
+      ProgramacionAmbitoDTO srcProgramacionAmbito);
 
-    public List<ProgramacionAmbitoLocalizacion> mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
-            final List<ProgramacionAmbitoLocalizacionDTO> srcProgramacionAmbitoLocalizacion,
-            final ProgramacionAmbitoDTO srcProgramacionAmbito) {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
+  public List<ProgramacionAmbitoLocalizacion> mergeProgramacionAmbitoLocalizacionDtoAndProgramacionDtoToProgramacionAmbitoLocalizacion(
+      final List<ProgramacionAmbitoLocalizacionDTO> srcProgramacionAmbitoLocalizacion,
+      final ProgramacionAmbitoDTO srcProgramacionAmbito) {
+    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  }
 
 }

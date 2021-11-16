@@ -5,17 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
@@ -23,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoLocalizaci
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoOrigenService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
@@ -40,153 +32,158 @@ import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import org.apache.commons.lang3.StringUtils;
-
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
 public class TrabajoServiceImpl implements TrabajoService {
 
-    @Autowired
-    private TrabajoRepository trabajoRepository;
+  @Autowired
+  private TrabajoRepository trabajoRepository;
 
-    @Autowired
-    private TrabajoRepositoryCustom trabajoRepositoryCustom;
+  @Autowired
+  private TrabajoRepositoryCustom trabajoRepositoryCustom;
 
-    @Autowired
-    private TrabajoMapper trabajoMapper;
+  @Autowired
+  private TrabajoMapper trabajoMapper;
 
-    @Autowired
-    private PeriodoMapper periodoMapper;
+  @Autowired
+  private PeriodoMapper periodoMapper;
 
-    @Autowired
-    private TrabajoAmbitoOrigenService trabajoAmbitoOrigenService;
+  @Autowired
+  private TrabajoAmbitoOrigenService trabajoAmbitoOrigenService;
 
-    @Autowired
-    private TrabajoAmbitoEmpresaService trabajoAmbitoEmpresaService;
+  @Autowired
+  private TrabajoAmbitoEmpresaService trabajoAmbitoEmpresaService;
 
-    @Autowired
-    private TrabajoAmbitoLocalizacionService trabajoAmbitoLocalizacionService;
+  @Autowired
+  private TrabajoAmbitoLocalizacionService trabajoAmbitoLocalizacionService;
 
-    @Autowired
-    private TrabajoAmbitoPersonaService trabajoAmbitoPersonaService;
+  @Autowired
+  private TrabajoAmbitoPersonaService trabajoAmbitoPersonaService;
 
-    @Autowired
-    private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+  @Autowired
+  private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
-    @Autowired
-    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+  @Autowired
+  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
-    @Autowired
-    private SenderTrabajo senderTrabajo;
+  @Autowired
+  private SenderTrabajo senderTrabajo;
 
-    @Autowired
-    @Qualifier("meta4Properties")
-    private Map<String, Meta4PropertiesDto> meta4Properties;
+  @Autowired
+  @Qualifier("meta4Properties")
+  private Map<String, Meta4PropertiesDto> meta4Properties;
 
-    @Override
-    public TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id) {
+  @Override
+  public TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id) {
 
-        Trabajo trabajoData = this.trabajoRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TRABAJO_OK);
-        if (trabajoData == null) {
-            return null;
-        }
-
-        final TrabajoDTO trabajo = this.trabajoMapper
-            .trabajoToTrabajoDto(trabajoData);
-        trabajo.setOrigen(this.trabajoAmbitoOrigenService.findByTrabajo(trabajo));
-        trabajo.setEmpresa(this.trabajoAmbitoEmpresaService.findByTrabajo(trabajo));
-        trabajo.setLocalizacion(this.trabajoAmbitoLocalizacionService.findByTrabajo(trabajo));
-        trabajo.setPersona(this.trabajoAmbitoPersonaService.findByTrabajo(trabajo));
-
-        return trabajo;
+    Trabajo trabajoData = this.trabajoRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TRABAJO_OK);
+    if (trabajoData == null) {
+      return null;
     }
 
-    @Override
-    public TrabajoDTO find(@NotNull @Positive final Long id) {
-        final TrabajoDTO trabajo = this.trabajoMapper.trabajoToTrabajoDto(this.trabajoRepository.findById(id).get());
-        trabajo.setOrigen(this.trabajoAmbitoOrigenService.findByTrabajo(trabajo));
-        trabajo.setEmpresa(this.trabajoAmbitoEmpresaService.findByTrabajo(trabajo));
-        trabajo.setLocalizacion(this.trabajoAmbitoLocalizacionService.findByTrabajo(trabajo));
-        trabajo.setPersona(this.trabajoAmbitoPersonaService.findByTrabajo(trabajo));
-        return trabajo;
+    final TrabajoDTO trabajo = this.trabajoMapper
+        .trabajoToTrabajoDto(trabajoData);
+    trabajo.setOrigen(this.trabajoAmbitoOrigenService.findByTrabajo(trabajo));
+    trabajo.setEmpresa(this.trabajoAmbitoEmpresaService.findByTrabajo(trabajo));
+    trabajo.setLocalizacion(this.trabajoAmbitoLocalizacionService.findByTrabajo(trabajo));
+    trabajo.setPersona(this.trabajoAmbitoPersonaService.findByTrabajo(trabajo));
+
+    return trabajo;
+  }
+
+  @Override
+  public TrabajoDTO find(@NotNull @Positive final Long id) {
+    final TrabajoDTO trabajo = this.trabajoMapper.trabajoToTrabajoDto(this.trabajoRepository.findById(id).get());
+    trabajo.setOrigen(this.trabajoAmbitoOrigenService.findByTrabajo(trabajo));
+    trabajo.setEmpresa(this.trabajoAmbitoEmpresaService.findByTrabajo(trabajo));
+    trabajo.setLocalizacion(this.trabajoAmbitoLocalizacionService.findByTrabajo(trabajo));
+    trabajo.setPersona(this.trabajoAmbitoPersonaService.findByTrabajo(trabajo));
+    return trabajo;
+  }
+
+  @Override
+  public TrabajoDTO create(@Valid @TrabajoValidator final TrabajoDTO trabajo) {
+    trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime().atOffset(ZoneOffset.UTC));
+    trabajo.setEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE.getDto());
+    if (StringUtils.isBlank(trabajo.getNombreUsuario())) {
+      final UserSSO userSSO = SsoUtils.getUserSSO();
+      if (StringUtils.isNotBlank(userSSO.getUser())) {
+        trabajo.setNombreUsuario(userSSO.getUser());
+      }
     }
 
-    @Override
-    public TrabajoDTO create(@Valid @TrabajoValidator final TrabajoDTO trabajo) {
-        trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime().atOffset(ZoneOffset.UTC));
-        trabajo.setEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE.getDto());
-        if (StringUtils.isBlank(trabajo.getNombreUsuario())) {
-            final UserSSO userSSO = SsoUtils.getUserSSO();
-            if (StringUtils.isNotBlank(userSSO.getUser())) {
-                trabajo.setNombreUsuario(userSSO.getUser());
-            }
-        }
+    final PeriodosRequestDto request = new PeriodosRequestDto();
+    request.setData(new GenericFilterDto());
+    request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
+    request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getPage());
+    request.getData()
+        .getItem()
+        .add(GenericFilterParametersDto.builder()
+            .idSociedadReg(trabajo.getIdOrganization())
+            .abierto(Meta4Constants.TRUE)
+            .vigente(Meta4Constants.TRUE)
+            .idPeriodo(trabajo.getIcmIdPeriodo().toString())
+            .build());
 
-        final PeriodosRequestDto request = new PeriodosRequestDto();
-        request.setData(new GenericFilterDto());
-        request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
-        request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getPage());
-        request.getData()
-            .getItem()
-            .add(GenericFilterParametersDto.builder()
-                .idSociedadReg(trabajo.getIdOrganization())
-                .abierto(Meta4Constants.TRUE)
-                .vigente(Meta4Constants.TRUE)
-                .idPeriodo(trabajo.getIcmIdPeriodo().toString())
-                .build());
-
-        final List<PeriodoDTO> periodos = this.periodoMapper
-            .periodoResultItemDtoToPeriodoDto(this.meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
-        if (CollectionUtils.isNotEmpty(periodos)) {
-            trabajo
-                .setFechaInicioPeriodo(periodos.get(0).getFechaInicioPeriodo().atStartOfDay().atOffset(ZoneOffset.UTC));
-            trabajo.setFechaFinPeriodo(periodos.get(0).getFechaFinPeriodo().atStartOfDay().atOffset(ZoneOffset.UTC));
-        }
-        final TrabajoDTO result = this.trabajoMapper
-            .trabajoToTrabajoDto(this.trabajoRepository.save(this.trabajoMapper.trabajoDtoToTrabajo(trabajo)));
-        if (CollectionUtils.isNotEmpty(trabajo.getOrigen())) {
-            result.setOrigen(this.trabajoAmbitoOrigenService.create(trabajo.getOrigen(), result));
-        }
-        if (CollectionUtils.isNotEmpty(trabajo.getEmpresa())) {
-            result.setEmpresa(this.trabajoAmbitoEmpresaService.create(trabajo.getEmpresa(), result));
-        }
-        if (CollectionUtils.isNotEmpty(trabajo.getLocalizacion())) {
-            result.setLocalizacion(this.trabajoAmbitoLocalizacionService.create(trabajo.getLocalizacion(), result));
-        }
-        if (CollectionUtils.isNotEmpty(trabajo.getPersona())) {
-            result.setPersona(this.trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
-        }
-        // Guardado del trabajo en Meta4
-        this.meta4IcmWsCalcIncomeService.saveProceso(this.trabajoMapper.trabajoDtoToSaveProcesoDto(result));
-        // Envío del trabajo a la cola
-        this.senderTrabajo.send(result);
-        return result;
+    final List<PeriodoDTO> periodos = this.periodoMapper
+        .periodoResultItemDtoToPeriodoDto(this.meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
+    if (CollectionUtils.isNotEmpty(periodos)) {
+      trabajo
+          .setFechaInicioPeriodo(periodos.get(0).getFechaInicioPeriodo().atStartOfDay().atOffset(ZoneOffset.UTC));
+      trabajo.setFechaFinPeriodo(periodos.get(0).getFechaFinPeriodo().atStartOfDay().atOffset(ZoneOffset.UTC));
     }
-
-    @Override
-    public TrabajoDTO merge(@Valid @NotNull final ProgramacionDTO programacion,
-            @Valid @NotNull final ProgramacionAmbitoDTO programacionAmbito, @Valid @NotNull final PeriodoDTO periodo) {
-        return this.trabajoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
-                programacionAmbito,
-                programacion, periodo);
+    final TrabajoDTO result = this.trabajoMapper
+        .trabajoToTrabajoDto(this.trabajoRepository.save(this.trabajoMapper.trabajoDtoToTrabajo(trabajo)));
+    if (CollectionUtils.isNotEmpty(trabajo.getOrigen())) {
+      result.setOrigen(this.trabajoAmbitoOrigenService.create(trabajo.getOrigen(), result));
     }
-
-    @Override
-    public void updateFechaFin(@NotNull final TrabajoDTO trabajo) {
-        this.trabajoRepositoryCustom.updateFechaFin(trabajo);
+    if (CollectionUtils.isNotEmpty(trabajo.getEmpresa())) {
+      result.setEmpresa(this.trabajoAmbitoEmpresaService.create(trabajo.getEmpresa(), result));
     }
-
-    @Override
-    public void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado) {
-        trabajo.setEstadoTrabajo(estado);
-        this.trabajoRepositoryCustom.updateEstado(trabajo, estado);
+    if (CollectionUtils.isNotEmpty(trabajo.getLocalizacion())) {
+      result.setLocalizacion(this.trabajoAmbitoLocalizacionService.create(trabajo.getLocalizacion(), result));
     }
+    if (CollectionUtils.isNotEmpty(trabajo.getPersona())) {
+      result.setPersona(this.trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
+    }
+    // Guardado del trabajo en Meta4
+    this.meta4IcmWsCalcIncomeService.saveProceso(this.trabajoMapper.trabajoDtoToSaveProcesoDto(result));
+    // Envío del trabajo a la cola
+    this.senderTrabajo.send(result);
+    return result;
+  }
+
+  @Override
+  public TrabajoDTO merge(@Valid @NotNull final ProgramacionDTO programacion,
+      @Valid @NotNull final ProgramacionAmbitoDTO programacionAmbito, @Valid @NotNull final PeriodoDTO periodo) {
+    return this.trabajoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
+        programacionAmbito,
+        programacion, periodo);
+  }
+
+  @Override
+  public void updateFechaFin(@NotNull final TrabajoDTO trabajo) {
+    this.trabajoRepositoryCustom.updateFechaFin(trabajo);
+  }
+
+  @Override
+  public void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado) {
+    trabajo.setEstadoTrabajo(estado);
+    this.trabajoRepositoryCustom.updateEstado(trabajo, estado);
+  }
 
 }

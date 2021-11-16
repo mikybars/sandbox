@@ -6,29 +6,26 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.normalizar.async.service;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.normalizar.async.service.RunTareaNormalizarAjusteComisionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.normalizar.service.RunTareaNormalizarAjusteComisionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-/**
- * @author javierev
- */
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class RunTareaNormalizarAjusteComisionAsyncServiceImpl implements
-        RunTareaNormalizarAjusteComisionAsyncService {
+    RunTareaNormalizarAjusteComisionAsyncService {
 
-    @Autowired
-    private RunTareaNormalizarAjusteComisionService runTareaNormalizarAjusteComisionService;
+  @Autowired
+  private RunTareaNormalizarAjusteComisionService runTareaNormalizarAjusteComisionService;
 
-    @Override
-    public CompletableFuture<Void> normalizarAjusteComision(
-            final TareaDto tarea) {
-        this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
+  @Override
+  public CompletableFuture<Void> normalizarAjusteComision(
+      final TareaDto tarea) {
+    this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(tarea);
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
 
 }

@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaConfiguracionPr
 
 public interface TareaConfiguracionPrecioHoraRepositoryCustom {
 
-    List<TareaConfiguracionPrecioHora> save(List<TareaConfiguracionPrecioHora> src);
+  List<TareaConfiguracionPrecioHora> save(List<TareaConfiguracionPrecioHora> src);
 
 }

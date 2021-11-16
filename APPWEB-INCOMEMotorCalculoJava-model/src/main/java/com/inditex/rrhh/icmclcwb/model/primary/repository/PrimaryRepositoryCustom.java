@@ -4,6 +4,6 @@ import org.springframework.core.io.Resource;
 
 public interface PrimaryRepositoryCustom {
 
-    Boolean load(Resource... resource);
+  Boolean load(Resource... resource);
 
 }

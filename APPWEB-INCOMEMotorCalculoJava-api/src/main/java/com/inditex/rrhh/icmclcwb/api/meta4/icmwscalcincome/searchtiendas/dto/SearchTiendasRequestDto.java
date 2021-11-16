@@ -6,8 +6,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.Pageable;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
 
 public class SearchTiendasRequestDto extends PageableDto<SearchTiendasFilterDto>
-        implements Pageable<SearchTiendasFilterDto>, Serializable {
+    implements Pageable<SearchTiendasFilterDto>, Serializable {
 
-    private static final long serialVersionUID = -6594522575407115739L;
+  private static final long serialVersionUID = -6594522575407115739L;
 
 }

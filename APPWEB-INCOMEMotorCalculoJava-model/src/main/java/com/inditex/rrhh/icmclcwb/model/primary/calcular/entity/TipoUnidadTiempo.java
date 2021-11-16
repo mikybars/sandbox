@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-
 import lombok.Data;
 
 @Entity
@@ -13,16 +12,16 @@ import lombok.Data;
 @Data
 public class TipoUnidadTiempo {
 
-    @Id
-    @Column(name = "ID_TIPO_UNIDAD_TIEMPO")
-    private Integer id;
+  @Id
+  @Column(name = "ID_TIPO_UNIDAD_TIEMPO")
+  private Integer id;
 
-    @NotBlank
-    @Column(name = "ICM_ID_UNIDAD_TIEMPO", nullable = false, length = 48)
-    private String icmIdUnidadTiempo;
+  @NotBlank
+  @Column(name = "ICM_ID_UNIDAD_TIEMPO", nullable = false, length = 48)
+  private String icmIdUnidadTiempo;
 
-    @NotBlank
-    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
-    private String nombre;
+  @NotBlank
+  @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
+  private String nombre;
 
 }

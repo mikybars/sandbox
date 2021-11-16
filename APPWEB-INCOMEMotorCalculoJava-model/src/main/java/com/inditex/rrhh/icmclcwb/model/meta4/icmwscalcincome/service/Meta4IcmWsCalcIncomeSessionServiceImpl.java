@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import java.util.List;
 
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
-
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
@@ -92,222 +89,225 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.meta4.service.Meta4PageableServiceImpl;
 
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
 @Service
 public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableServiceImpl
-        implements Meta4IcmWsCalcIncomeSessionService {
+    implements Meta4IcmWsCalcIncomeSessionService {
 
-    @Override
-    public List<GenericTiendaResultItemDto> getFlagCalcula(final FlagCalculaRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.FLAG_CALCULA,
-                FlagCalculaResponseDto.class, GenericTiendaResultItemDto.class);
-    }
+  @Override
+  public List<GenericTiendaResultItemDto> getFlagCalcula(final FlagCalculaRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.FLAG_CALCULA,
+        FlagCalculaResponseDto.class, GenericTiendaResultItemDto.class);
+  }
 
-    @Override
-    public List<GenericTiendaResultItemDto> getFestivos(final FestivosRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.FESTIVOS,
-                FestivosResponseDto.class, GenericTiendaResultItemDto.class);
-    }
+  @Override
+  public List<GenericTiendaResultItemDto> getFestivos(final FestivosRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.FESTIVOS,
+        FestivosResponseDto.class, GenericTiendaResultItemDto.class);
+  }
 
-    @Override
-    public List<GenericEmpleadoResultItemDto> getCoefJornada(final CoefJornadaRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.COEF_JORNADA,
-                CoefJornadaResponseDto.class, GenericEmpleadoResultItemDto.class);
-    }
+  @Override
+  public List<GenericEmpleadoResultItemDto> getCoefJornada(final CoefJornadaRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.COEF_JORNADA,
+        CoefJornadaResponseDto.class, GenericEmpleadoResultItemDto.class);
+  }
 
-    @Override
-    public List<GenericEmpleadoResultItemDto> getPresenciaManual(final PresenciaManualRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.PRESENCIA_MANUAL,
-                PresenciaManualResponseDto.class, GenericEmpleadoResultItemDto.class);
-    }
+  @Override
+  public List<GenericEmpleadoResultItemDto> getPresenciaManual(final PresenciaManualRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.PRESENCIA_MANUAL,
+        PresenciaManualResponseDto.class, GenericEmpleadoResultItemDto.class);
+  }
 
-    @Override
-    public List<GenericEmpleadoResultItemDto> getEmpleadosPresencia(final EmpleadosPresenciaRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.EMPLEADOS_PRESENCIA,
-                EmpleadosPresenciaResponseDto.class, GenericEmpleadoResultItemDto.class);
-    }
+  @Override
+  public List<GenericEmpleadoResultItemDto> getEmpleadosPresencia(final EmpleadosPresenciaRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.EMPLEADOS_PRESENCIA,
+        EmpleadosPresenciaResponseDto.class, GenericEmpleadoResultItemDto.class);
+  }
 
-    @Override
-    public List<PeriodosResultItemDto> getPeriodos(final PeriodosRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.PERIODOS,
-                PeriodosResponseDto.class, PeriodosResultItemDto.class);
-    }
+  @Override
+  public List<PeriodosResultItemDto> getPeriodos(final PeriodosRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.PERIODOS,
+        PeriodosResponseDto.class, PeriodosResultItemDto.class);
+  }
 
-    @Override
-    public List<GenericTiendaResultItemDto> searchTiendas(final SearchTiendasRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.SEARCH_TIENDAS,
-                SearchTiendasResponseDto.class, GenericTiendaResultItemDto.class);
-    }
+  @Override
+  public List<GenericTiendaResultItemDto> searchTiendas(final SearchTiendasRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.SEARCH_TIENDAS,
+        SearchTiendasResponseDto.class, GenericTiendaResultItemDto.class);
+  }
 
-    @Override
-    public List<GenericTiendaResultItemDto> getTiendas(final TiendasRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.TIENDAS,
-                TiendasResponseDto.class, GenericTiendaResultItemDto.class);
-    }
+  @Override
+  public List<GenericTiendaResultItemDto> getTiendas(final TiendasRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.TIENDAS,
+        TiendasResponseDto.class, GenericTiendaResultItemDto.class);
+  }
 
-    @Override
-    public List<GenericEmpleadoResultItemDto> searchEmpleados(final SearchEmpleadosRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.SEARCH_EMPLEADOS,
-                SearchEmpleadosResponseDto.class, GenericEmpleadoResultItemDto.class);
-    }
+  @Override
+  public List<GenericEmpleadoResultItemDto> searchEmpleados(final SearchEmpleadosRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.SEARCH_EMPLEADOS,
+        SearchEmpleadosResponseDto.class, GenericEmpleadoResultItemDto.class);
+  }
 
-    @Override
-    public List<EstructurasComResultItemDto> getEstructurasCom(final EstructurasComRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.ESTRUCTURAS_COM,
-                EstructurasComResponseDto.class, EstructurasComResultItemDto.class);
-    }
+  @Override
+  public List<EstructurasComResultItemDto> getEstructurasCom(final EstructurasComRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.ESTRUCTURAS_COM,
+        EstructurasComResponseDto.class, EstructurasComResultItemDto.class);
+  }
 
-    @Override
-    public List<EstructurasPolResultItemDto> getEstructurasPol(final EstructurasPolRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.ESTRUCTURAS_POL,
-                EstructurasPolResponseDto.class, EstructurasPolResultItemDto.class);
-    }
+  @Override
+  public List<EstructurasPolResultItemDto> getEstructurasPol(final EstructurasPolRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.ESTRUCTURAS_POL,
+        EstructurasPolResponseDto.class, EstructurasPolResultItemDto.class);
+  }
 
-    @Override
-    public List<GenericEmpleadoResultItemDto> getEmpleados(final EmpleadosRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.EMPLEADOS,
-                EmpleadosResponseDto.class, GenericEmpleadoResultItemDto.class);
-    }
+  @Override
+  public List<GenericEmpleadoResultItemDto> getEmpleados(final EmpleadosRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.EMPLEADOS,
+        EmpleadosResponseDto.class, GenericEmpleadoResultItemDto.class);
+  }
 
-    @Override
-    public List<ConfiguracionVentaOnlineResultItemDto> getConfiguracionVentaOnline(
-            final ConfiguracionVentaOnlineRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.CONF_VENTA_ONLINE,
-                ConfiguracionVentaOnlineResponseDto.class, ConfiguracionVentaOnlineResultItemDto.class);
-    }
+  @Override
+  public List<ConfiguracionVentaOnlineResultItemDto> getConfiguracionVentaOnline(
+      final ConfiguracionVentaOnlineRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.CONF_VENTA_ONLINE,
+        ConfiguracionVentaOnlineResponseDto.class, ConfiguracionVentaOnlineResultItemDto.class);
+  }
 
-    @Override
-    public List<AgrupOnlineResultItemDto> getAgrupacionesOnline(final AgrupOnlineRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.AGRUPACION_ONLINE,
-                AgrupOnlineResponseDto.class, AgrupOnlineResultItemDto.class);
-    }
+  @Override
+  public List<AgrupOnlineResultItemDto> getAgrupacionesOnline(final AgrupOnlineRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.AGRUPACION_ONLINE,
+        AgrupOnlineResponseDto.class, AgrupOnlineResultItemDto.class);
+  }
 
-    @Override
-    public List<TiendaOnlineResultItemDto> tiendaOnline(final TiendaOnlineRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.TIENDAS_ONLINE,
-                TiendaOnlineResponseDto.class, TiendaOnlineResultItemDto.class);
-    }
+  @Override
+  public List<TiendaOnlineResultItemDto> tiendaOnline(final TiendaOnlineRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.TIENDAS_ONLINE,
+        TiendaOnlineResponseDto.class, TiendaOnlineResultItemDto.class);
+  }
 
-    @Override
-    public List<EmpresaResultItemDto> getEmpresa(final EmpresaRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.EMPRESA, EmpresaResponseDto.class, EmpresaResultItemDto.class);
-    }
+  @Override
+  public List<EmpresaResultItemDto> getEmpresa(final EmpresaRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.EMPRESA, EmpresaResponseDto.class, EmpresaResultItemDto.class);
+  }
 
-    @Override
-    public List<OrigenResultItemDto> getOrigen(final OrigenRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.ORIGEN, OrigenResponseDto.class, OrigenResultItemDto.class);
-    }
+  @Override
+  public List<OrigenResultItemDto> getOrigen(final OrigenRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.ORIGEN, OrigenResponseDto.class, OrigenResultItemDto.class);
+  }
 
-    @Override
-    public List<AusenciasResultItemDto> getAusencias(final AusenciasRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.AUSENCIAS, AusenciasResponseDto.class, AusenciasResultItemDto.class);
-    }
+  @Override
+  public List<AusenciasResultItemDto> getAusencias(final AusenciasRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.AUSENCIAS, AusenciasResponseDto.class, AusenciasResultItemDto.class);
+  }
 
-    @Override
-    public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(
-            final ConfiguracionProductoVentaRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.CONF_PRODUCTO_VENTA, ConfiguracionProductoVentaResponseDto.class,
-                ConfiguracionProductoVentaResultItemDto.class);
-    }
+  @Override
+  public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(
+      final ConfiguracionProductoVentaRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.CONF_PRODUCTO_VENTA, ConfiguracionProductoVentaResponseDto.class,
+        ConfiguracionProductoVentaResultItemDto.class);
+  }
 
-    @Override
-    public List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(
-            final EmpleadosDesplazamientoRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO,
-                EmpleadosDesplazamientoResponseDto.class, GenericEmpleadoResultItemDto.class);
-    }
+  @Override
+  public List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(
+      final EmpleadosDesplazamientoRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.EMPLEADOS_DESPLAZAMIENTO,
+        EmpleadosDesplazamientoResponseDto.class, GenericEmpleadoResultItemDto.class);
+  }
 
-    @Override
-    public List<ConfChDiasMinimosResultItemDto> getConfChallengeDiasMinimos(final ConfChDiasMinimosRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS,
-                ConfChDiasMinimosResponseDto.class, ConfChDiasMinimosResultItemDto.class);
-    }
+  @Override
+  public List<ConfChDiasMinimosResultItemDto> getConfChallengeDiasMinimos(final ConfChDiasMinimosRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.CONFCHALLENGEDIASMINIMOS,
+        ConfChDiasMinimosResponseDto.class, ConfChDiasMinimosResultItemDto.class);
+  }
 
-    @Override
-    public List<PresupuestosWlocResultItemDto> getPresupuestosWloc(final PresupuestosWlocRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.PRESUPUESTOSWLOC,
-                PresupuestosWlocResponseDto.class, PresupuestosWlocResultItemDto.class);
-    }
+  @Override
+  public List<PresupuestosWlocResultItemDto> getPresupuestosWloc(final PresupuestosWlocRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.PRESUPUESTOSWLOC,
+        PresupuestosWlocResponseDto.class, PresupuestosWlocResultItemDto.class);
+  }
 
-    @Override
-    public List<ConfPrecioHoraResultItemDto> getConfPrecioHora(final ConfPrecioHoraRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.CONFPRECIOHORA,
-                ConfPrecioHoraResponseDto.class, ConfPrecioHoraResultItemDto.class);
-    }
+  @Override
+  public List<ConfPrecioHoraResultItemDto> getConfPrecioHora(final ConfPrecioHoraRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.CONFPRECIOHORA,
+        ConfPrecioHoraResponseDto.class, ConfPrecioHoraResultItemDto.class);
+  }
 
-    @Override
-    public List<ConfChTpVentaResultItemDto> getConfChallengeTpVenta(final ConfChTpVentaRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.CONFCHALLENGETPVENTA,
-                ConfChTpVentaResponseDto.class, ConfChTpVentaResultItemDto.class);
-    }
+  @Override
+  public List<ConfChTpVentaResultItemDto> getConfChallengeTpVenta(final ConfChTpVentaRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.CONFCHALLENGETPVENTA,
+        ConfChTpVentaResponseDto.class, ConfChTpVentaResultItemDto.class);
+  }
 
-    @Override
-    public List<PresupuestosRangoResultItemDto> getPresupuestosRango(final PresupuestosRangoRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.PRESUPUESTOSRANGO,
-                PresupuestosRangoResponseDto.class, PresupuestosRangoResultItemDto.class);
-    }
+  @Override
+  public List<PresupuestosRangoResultItemDto> getPresupuestosRango(final PresupuestosRangoRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.PRESUPUESTOSRANGO,
+        PresupuestosRangoResponseDto.class, PresupuestosRangoResultItemDto.class);
+  }
 
-    @Override
-    public List<VentaCongeladaResultItemDto> getVentaCongelada(final VentaCongeladaRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.VENTACONGELADA,
-                VentaCongeladaResponseDto.class, VentaCongeladaResultItemDto.class);
-    }
+  @Override
+  public List<VentaCongeladaResultItemDto> getVentaCongelada(final VentaCongeladaRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.VENTACONGELADA,
+        VentaCongeladaResponseDto.class, VentaCongeladaResultItemDto.class);
+  }
 
-    @Override
-    public List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(
-            final DesplazamientosMultiempresaRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.MULTIEMPRESA,
-                DesplazamientosMultiempresaResponseDto.class, DesplazamientosMultiempresaItemDto.class);
-    }
+  @Override
+  public List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(
+      final DesplazamientosMultiempresaRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.MULTIEMPRESA,
+        DesplazamientosMultiempresaResponseDto.class, DesplazamientosMultiempresaItemDto.class);
+  }
 
-    @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea,#cclIdOrigen}")
-    @Override
-    public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(final Long idTarea,
-            final String cclIdOrigen) {
-        final GenericFilterDto filter = new GenericFilterDto();
-        filter.setIdOrigen(cclIdOrigen);
-        final ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
-        productoRequest.setData(filter);
-        productoRequest.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getPage());
-        return this.getResultItem(productoRequest,
-                Meta4PropertiesConstants.CONF_PRODUCTO_VENTA, ConfiguracionProductoVentaResponseDto.class,
-                ConfiguracionProductoVentaResultItemDto.class);
-    }
+  @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea,#cclIdOrigen}")
+  @Override
+  public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(final Long idTarea,
+      final String cclIdOrigen) {
+    final GenericFilterDto filter = new GenericFilterDto();
+    filter.setIdOrigen(cclIdOrigen);
+    final ConfiguracionProductoVentaRequestDto productoRequest = new ConfiguracionProductoVentaRequestDto();
+    productoRequest.setData(filter);
+    productoRequest.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONF_PRODUCTO_VENTA).getPage());
+    return this.getResultItem(productoRequest,
+        Meta4PropertiesConstants.CONF_PRODUCTO_VENTA, ConfiguracionProductoVentaResponseDto.class,
+        ConfiguracionProductoVentaResultItemDto.class);
+  }
 
-    @Override
-    public List<DesplazamientoRealResultItemDto> getDesplazReal(final DesplazamientoRealRequestDto request) {
-        return this.getResultItem(request,
-                Meta4PropertiesConstants.DESPLAZAMIENTO_REAL,
-                DesplazamientoRealResponseDto.class, DesplazamientoRealResultItemDto.class);
-    }
+  @Override
+  public List<DesplazamientoRealResultItemDto> getDesplazReal(final DesplazamientoRealRequestDto request) {
+    return this.getResultItem(request,
+        Meta4PropertiesConstants.DESPLAZAMIENTO_REAL,
+        DesplazamientoRealResponseDto.class, DesplazamientoRealResultItemDto.class);
+  }
 
-    @Override
-    public List<PresenciaManualWlocResultItemDto> getPresenciaManualWloc(
-            final PresenciaManualWlocRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.PRESENCIA_MANUAL_WLOC,
-                PresenciaManualWlocResponseDto.class, PresenciaManualWlocResultItemDto.class);
-    }
+  @Override
+  public List<PresenciaManualWlocResultItemDto> getPresenciaManualWloc(
+      final PresenciaManualWlocRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.PRESENCIA_MANUAL_WLOC,
+        PresenciaManualWlocResponseDto.class, PresenciaManualWlocResultItemDto.class);
+  }
 
-    @Override
-    public List<VentaManualWlocResultItemDto> getVentaManualWloc(
-            final VentaManualWlocRequestDto request) {
-        return this.getResultItem(request, Meta4PropertiesConstants.VENTA_MANUAL_WLOC,
-                VentaManualWlocResponseDto.class, VentaManualWlocResultItemDto.class);
-    }
+  @Override
+  public List<VentaManualWlocResultItemDto> getVentaManualWloc(
+      final VentaManualWlocRequestDto request) {
+    return this.getResultItem(request, Meta4PropertiesConstants.VENTA_MANUAL_WLOC,
+        VentaManualWlocResponseDto.class, VentaManualWlocResultItemDto.class);
+  }
 
 }

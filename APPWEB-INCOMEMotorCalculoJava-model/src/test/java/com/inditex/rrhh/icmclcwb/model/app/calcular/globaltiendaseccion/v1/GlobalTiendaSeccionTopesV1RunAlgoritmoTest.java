@@ -1,47 +1,47 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.globaltiendaseccion.v1;
 
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 public class GlobalTiendaSeccionTopesV1RunAlgoritmoTest {
 
-    @Mock
-    private Logger log;
+  @Mock
+  private Logger log;
 
-    @InjectMocks
-    GlobalTiendaSeccionTopesV1RunAlgoritmo globalTiendaSeccionTopesV1RunAlgoritmo;
+  @InjectMocks
+  GlobalTiendaSeccionTopesV1RunAlgoritmo globalTiendaSeccionTopesV1RunAlgoritmo;
 
-    @Test
-    public void getSqlCalcularTest() {
-        // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
-        AlgoritmoDTO algoritmo = new AlgoritmoDTO();
-        String result = globalTiendaSeccionTopesV1RunAlgoritmo.getSqlCalcular(algoritmo);
+  @Test
+  public void getSqlCalcularTest() {
+    // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+    AlgoritmoDTO algoritmo = new AlgoritmoDTO();
+    String result = globalTiendaSeccionTopesV1RunAlgoritmo.getSqlCalcular(algoritmo);
 
-        assertEquals(ErrorConstants.RUN_ALGORITMO_NOT_IMPLEMENTED_RESULT, result);
-        verify(log, times(1)).warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
-    }
+    assertEquals(ErrorConstants.RUN_ALGORITMO_NOT_IMPLEMENTED_RESULT, result);
+    verify(log, times(1)).warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
+  }
 
-    @Test
-    public void executeTest() {
-        // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
-        AlgoritmoDTO algoritmo = new AlgoritmoDTO();
-        RunTareaDto runTarea = new RunTareaDto();
-        globalTiendaSeccionTopesV1RunAlgoritmo.execute(runTarea, algoritmo);
+  @Test
+  public void executeTest() {
+    // El algoritmo no esta desarrollado, por lo que de momento se comprueba que lanza el warning
+    AlgoritmoDTO algoritmo = new AlgoritmoDTO();
+    RunTareaDto runTarea = new RunTareaDto();
+    globalTiendaSeccionTopesV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(log, times(1)).warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
-    }
+    verify(log, times(1)).warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
+  }
 
 }

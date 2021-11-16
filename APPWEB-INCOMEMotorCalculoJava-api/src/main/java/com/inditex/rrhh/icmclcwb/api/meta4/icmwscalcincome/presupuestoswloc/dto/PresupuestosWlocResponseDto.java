@@ -5,8 +5,8 @@ import java.io.Serializable;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 
 public class PresupuestosWlocResponseDto extends PageableListDto<PresupuestosWlocResultItemDto>
-        implements Serializable {
+    implements Serializable {
 
-    private static final long serialVersionUID = 8663061781167175036L;
+  private static final long serialVersionUID = 8663061781167175036L;
 
 }

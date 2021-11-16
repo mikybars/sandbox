@@ -9,16 +9,16 @@ import lombok.Data;
 @Data
 public class SearchTiendasFilterDto implements Serializable {
 
-    private LocalDateTime fechaInicio;
+  private LocalDateTime fechaInicio;
 
-    private LocalDateTime fechaFin;
+  private LocalDateTime fechaFin;
 
-    private String idOrigen;
+  private String idOrigen;
 
-    private List<String> idsEmpresa;
+  private List<String> idsEmpresa;
 
-    private List<String> idsCadena;
+  private List<String> idsCadena;
 
-    private List<SearchTiendasFilterParametersDto> item;
+  private List<SearchTiendasFilterParametersDto> item;
 
 }

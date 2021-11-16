@@ -9,16 +9,16 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Auditoria {
 
-    boolean logStart() default true;
+  boolean logStart() default true;
 
-    boolean logEnd() default true;
+  boolean logEnd() default true;
 
-    boolean logArgs() default false;
+  boolean logArgs() default false;
 
-    Class<?>[] argsLogClass() default {};
+  Class<?>[] argsLogClass() default {};
 
-    boolean logResult() default false;
+  boolean logResult() default false;
 
-    boolean logException() default true;
+  boolean logException() default true;
 
 }

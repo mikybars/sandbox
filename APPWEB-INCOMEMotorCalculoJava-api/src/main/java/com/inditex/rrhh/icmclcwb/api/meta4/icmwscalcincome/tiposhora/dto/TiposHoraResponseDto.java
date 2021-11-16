@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TiposHoraResponseDto implements Serializable {
 
-    private static final long serialVersionUID = -6831979255668938533L;
+  private static final long serialVersionUID = -6831979255668938533L;
 
-    private List<TiposHoraResultItemDto> items;
+  private List<TiposHoraResultItemDto> items;
 
 }

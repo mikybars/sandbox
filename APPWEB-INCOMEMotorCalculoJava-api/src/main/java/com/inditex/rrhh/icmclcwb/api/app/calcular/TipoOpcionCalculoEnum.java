@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum TipoOpcionCalculoEnum {
 
-    ORIGEN(1, "01"), DESTINO(2, "02"), MEJOR_OPCION(3, "03"), SIN_COMISION_VARIABLE(4, "04");
+  ORIGEN(1, "01"), DESTINO(2, "02"), MEJOR_OPCION(3, "03"), SIN_COMISION_VARIABLE(4, "04");
 
-    private final Integer id;
+  private final Integer id;
 
-    private final String idMeta4;
+  private final String idMeta4;
 
 }

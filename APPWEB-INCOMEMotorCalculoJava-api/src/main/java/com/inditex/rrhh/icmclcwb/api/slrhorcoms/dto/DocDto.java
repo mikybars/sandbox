@@ -11,6 +11,6 @@ import lombok.Data;
 @Data
 public class DocDto implements Serializable {
 
-    private static final long serialVersionUID = 4232659811133655433L;
+  private static final long serialVersionUID = 4232659811133655433L;
 
 }

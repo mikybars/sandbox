@@ -11,12 +11,12 @@ import lombok.Data;
 @Data
 public class ParamsDto implements Serializable {
 
-    private static final long serialVersionUID = 2532481813163215854L;
+  private static final long serialVersionUID = 2532481813163215854L;
 
-    private String q;
+  private String q;
 
-    private String rows;
+  private String rows;
 
-    private String wt;
+  private String wt;
 
 }

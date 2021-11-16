@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
@@ -9,8 +7,8 @@
     <version>3.5.4</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-boot</artifactId>
-  <name>${project.groupId}:${project.artifactId}</name>
   <packaging>jar</packaging>
+  <name>${project.groupId}:${project.artifactId}</name>
 
   <dependencies>
     <!-- PROJECT DEPENDENCIES -->
@@ -90,8 +88,8 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
-          <artifactId>xmlparserv2</artifactId>
           <groupId>com.oracle.jdbc</groupId>
+          <artifactId>xmlparserv2</artifactId>
         </exclusion>
       </exclusions>
     </dependency>

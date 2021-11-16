@@ -1,6 +1,4 @@
-/**
- *
- */
+
 package com.inditex.rrhh.icmclcwb.api.app.aop.annotation;
 
 import java.lang.annotation.ElementType;
@@ -12,6 +10,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Validation {
 
-    int fase() default 0;
+  int fase() default 0;
 
 }

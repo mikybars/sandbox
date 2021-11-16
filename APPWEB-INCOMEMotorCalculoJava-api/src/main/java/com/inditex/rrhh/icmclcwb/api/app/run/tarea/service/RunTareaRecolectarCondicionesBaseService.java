@@ -1,12 +1,12 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.service;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-
 public interface RunTareaRecolectarCondicionesBaseService {
 
-    void run(@NotNull @Valid RunTareaDto runTarea);
+  void run(@NotNull @Valid RunTareaDto runTarea);
 
 }

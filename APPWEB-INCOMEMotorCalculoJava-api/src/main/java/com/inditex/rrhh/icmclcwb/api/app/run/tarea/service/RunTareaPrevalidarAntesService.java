@@ -1,24 +1,18 @@
-/**
- *
- */
-package com.inditex.rrhh.icmclcwb.api.app.run.tarea.service;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+package com.inditex.rrhh.icmclcwb.api.app.run.tarea.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 
-/**
- * @author mdelrio
- *
- */
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 public interface RunTareaPrevalidarAntesService {
 
-    /**
-     * @param runTareaDto
-     * @param faseDto
-     */
-    void run(@NotNull @Valid RunTareaDto runTareaDto, @NotNull @Valid FaseDto faseDto);
+  /**
+   * @param runTareaDto
+   * @param faseDto
+   */
+  void run(@NotNull @Valid RunTareaDto runTareaDto, @NotNull @Valid FaseDto faseDto);
 
 }

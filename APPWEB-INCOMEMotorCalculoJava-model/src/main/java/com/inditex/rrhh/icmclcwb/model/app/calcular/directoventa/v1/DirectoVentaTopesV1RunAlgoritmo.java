@@ -2,39 +2,38 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventa.v1;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-
-import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
+
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 @Component("directoVentaTopesV1")
 public class DirectoVentaTopesV1RunAlgoritmo implements RunAlgoritmo {
 
-    @Autowired
-    private Logger log;
+  @Autowired
+  private Logger log;
 
-    @Autowired
-    @Qualifier("runAlgoritmoProperties")
-    private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
+  @Autowired
+  @Qualifier("runAlgoritmoProperties")
+  private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
+  @Override
+  public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
+    this.log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
 
-    @Override
-    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
-        this.log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
-    public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
-        this.log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
-        return ErrorConstants.RUN_ALGORITMO_NOT_IMPLEMENTED_RESULT;
-    }
+  @Override
+  public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
+    this.log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
+    return ErrorConstants.RUN_ALGORITMO_NOT_IMPLEMENTED_RESULT;
+  }
 
 }

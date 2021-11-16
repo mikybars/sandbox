@@ -7,8 +7,9 @@ package com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercial.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.DocDto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,49 +17,49 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class HorarioComercialDocDto extends DocDto implements Serializable {
 
-    private static final long serialVersionUID = 4232659811133655433L;
+  private static final long serialVersionUID = 4232659811133655433L;
 
-    private String excepcion;
+  private String excepcion;
 
-    private String tienda;
+  private String tienda;
 
-    private Date fecha;
+  private Date fecha;
 
-    private String festivo;
+  private String festivo;
 
-    private boolean apertura;
+  private boolean apertura;
 
-    private Date inicio;
+  private Date inicio;
 
-    private String idTipoTemporadaComercial;
+  private String idTipoTemporadaComercial;
 
-    private String temporada;
+  private String temporada;
 
-    private int idTienda;
+  private int idTienda;
 
-    @JsonProperty("final")
-    private Date finald;
+  @JsonProperty("final")
+  private Date finald;
 
-    private String tipoExcepcion;
+  private String tipoExcepcion;
 
-    private String horario;
+  private String horario;
 
-    private String idExcepcion;
+  private String idExcepcion;
 
-    private String idCadena;
+  private String idCadena;
 
-    private String cadena;
+  private String cadena;
 
-    private String id;
+  private String id;
 
-    private int diaSemana;
+  private int diaSemana;
 
-    private Date ultimaFechaModificacion;
+  private Date ultimaFechaModificacion;
 
-    private Object _version_;
+  private Object _version_;
 
-    private String franja1Fin;
+  private String franja1Fin;
 
-    private String franja1Inicio;
+  private String franja1Inicio;
 
 }

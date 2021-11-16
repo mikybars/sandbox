@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 public class DesplazamientoRealFilterDto implements Serializable {
 
-
-    private List<DesplazamientoRealFilterParametersDto> item;
+  private List<DesplazamientoRealFilterParametersDto> item;
 
 }

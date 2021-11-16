@@ -14,7 +14,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Entity
@@ -22,28 +21,28 @@ import lombok.Data;
 @Data
 public class TareaPersonaExterna {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_PERSONA_EXTERNA")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID_TAREA_PERSONA_EXTERNA")
+  private Long id;
 
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "ID_TAREA", nullable = false)
-    private Tarea tarea;
+  @NotNull
+  @OneToOne
+  @JoinColumn(name = "ID_TAREA", nullable = false)
+  private Tarea tarea;
 
-    @NotBlank
-    @Column(name = "CCL_ID_PERSON", nullable = false)
-    private String cclIdPerson;
+  @NotBlank
+  @Column(name = "CCL_ID_PERSON", nullable = false)
+  private String cclIdPerson;
 
-    @NotNull
-    @Column(name = "FECHA_INICIO", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+  @NotNull
+  @Column(name = "FECHA_INICIO", nullable = false)
+  @Temporal(TemporalType.DATE)
+  private Date fechaInicio;
 
-    @NotNull
-    @Column(name = "FECHA_FIN", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fechaFin;
+  @NotNull
+  @Column(name = "FECHA_FIN", nullable = false)
+  @Temporal(TemporalType.DATE)
+  private Date fechaFin;
 
 }

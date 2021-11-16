@@ -8,6 +8,6 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface AlgoritmoAjusteRepository extends BaseRepository<AlgoritmoAjuste, Integer> {
 
-    public Optional<List<AlgoritmoAjuste>> findByPeso(Long id);
+  public Optional<List<AlgoritmoAjuste>> findByPeso(Long id);
 
 }

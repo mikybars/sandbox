@@ -1,7 +1,10 @@
 package com.inditex.rrhh.icmclcwb.config.app.data;
 
-import javax.sql.DataSource;
+import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceBuilder;
+import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceType;
+import com.inditex.aqsw.framework.data.jpa.annotations.AmigaEnableJpaRepositories;
 
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,47 +16,43 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceBuilder;
-import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceType;
-import com.inditex.aqsw.framework.data.jpa.annotations.AmigaEnableJpaRepositories;
-
 @Configuration
 @AmigaEnableJpaRepositories(entityManagerFactoryRef = "primaryEntityManagerFactory", basePackages = {
-        "com.inditex.rrhh.icmclcwb.model.primary" })
+    "com.inditex.rrhh.icmclcwb.model.primary"})
 public class DataSourcePrimaryConfig {
 
-    @Bean(name = "primaryDataSource")
-    @Primary
-    @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.primary")
-    public DataSource primaryDataSource(final DataSourceBuilder dataSourceBuilder) {
-        return dataSourceBuilder.build(DataSourceType.NONXA);
-    }
+  @Bean(name = "primaryDataSource")
+  @Primary
+  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.primary")
+  public DataSource primaryDataSource(final DataSourceBuilder dataSourceBuilder) {
+    return dataSourceBuilder.build(DataSourceType.NONXA);
+  }
 
-    @Bean(name = "primaryEntityManagerFactory")
-    @Primary
-    public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
-            final EntityManagerFactoryBuilder entityManagerFactoryBuilder,
-            final JpaProperties jpaProperties,
-            @Qualifier("primaryDataSource") final DataSource dataSource) {
-        return entityManagerFactoryBuilder.dataSource(dataSource)
-            .persistenceUnit("primaryPersistenceUnit")
-            .packages("com.inditex.rrhh.icmclcwb.model.primary")
-            .properties(jpaProperties.getProperties())
-            .jta(false)
-            .build();
-    }
+  @Bean(name = "primaryEntityManagerFactory")
+  @Primary
+  public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
+      final EntityManagerFactoryBuilder entityManagerFactoryBuilder,
+      final JpaProperties jpaProperties,
+      @Qualifier("primaryDataSource") final DataSource dataSource) {
+    return entityManagerFactoryBuilder.dataSource(dataSource)
+        .persistenceUnit("primaryPersistenceUnit")
+        .packages("com.inditex.rrhh.icmclcwb.model.primary")
+        .properties(jpaProperties.getProperties())
+        .jta(false)
+        .build();
+  }
 
-    @Bean(name = "primaryJdbcTemplate")
-    @Primary
-    public JdbcTemplate primaryJdbcTemplate(@Qualifier("primaryDataSource") final DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
-    }
+  @Bean(name = "primaryJdbcTemplate")
+  @Primary
+  public JdbcTemplate primaryJdbcTemplate(@Qualifier("primaryDataSource") final DataSource dataSource) {
+    return new JdbcTemplate(dataSource);
+  }
 
-    @Bean(name = "primaryNamedParameterJdbcTemplate")
-    @Primary
-    public NamedParameterJdbcTemplate primaryNamedParameterJdbcTemplate(
-            @Qualifier("primaryJdbcTemplate") final JdbcTemplate jdbcTemplate) {
-        return new NamedParameterJdbcTemplate(jdbcTemplate);
-    }
+  @Bean(name = "primaryNamedParameterJdbcTemplate")
+  @Primary
+  public NamedParameterJdbcTemplate primaryNamedParameterJdbcTemplate(
+      @Qualifier("primaryJdbcTemplate") final JdbcTemplate jdbcTemplate) {
+    return new NamedParameterJdbcTemplate(jdbcTemplate);
+  }
 
 }

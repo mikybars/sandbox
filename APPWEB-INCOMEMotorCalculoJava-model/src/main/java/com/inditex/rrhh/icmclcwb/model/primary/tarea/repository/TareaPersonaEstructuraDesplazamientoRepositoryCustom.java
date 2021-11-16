@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructu
 
 public interface TareaPersonaEstructuraDesplazamientoRepositoryCustom {
 
-    List<TareaPersonaEstructuraDesplazamiento> save(List<TareaPersonaEstructuraDesplazamiento> src);
+  List<TareaPersonaEstructuraDesplazamiento> save(List<TareaPersonaEstructuraDesplazamiento> src);
 
 }

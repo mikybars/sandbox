@@ -1,11 +1,12 @@
-/**
- *
- */
+
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
-import java.util.concurrent.CompletableFuture;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
@@ -21,80 +22,75 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 public class RunTareaAmbitoValidarPresenciasServiceImplTest {
 
-    @Mock
-    private ComisAsyncService comisAsyncService;
+  @Mock
+  private ComisAsyncService comisAsyncService;
 
-    @Mock
-    private PtrAsyncService ptrAsyncService;
+  @Mock
+  private PtrAsyncService ptrAsyncService;
 
-    @Mock
-    private TareaFaseAccionService tareaFaseAccionService;
+  @Mock
+  private TareaFaseAccionService tareaFaseAccionService;
 
-    @Mock
-    private AccionService accionService;
+  @Mock
+  private AccionService accionService;
 
-    @Mock
-    private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  @Mock
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
-    @Mock
-    private ValidacionMapper validacionMapper;
+  @Mock
+  private ValidacionMapper validacionMapper;
 
-    @Mock
-    private PrevalidarPropertiesDto fechaProperties;
+  @Mock
+  private PrevalidarPropertiesDto fechaProperties;
 
-    @InjectMocks
-    private RunTareaAmbitoValidarPresenciasServiceImpl runTareaAmbitoValidarPresenciasServiceImpl;
+  @InjectMocks
+  private RunTareaAmbitoValidarPresenciasServiceImpl runTareaAmbitoValidarPresenciasServiceImpl;
 
+  @Test
+  public void execute() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runTareaDto.setTarea(tareaDto);
+    final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+    final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
+    final FaseDto faseDto = new FaseDto();
+    faseDto.setId(1);
+    final AccionDto accionDto = new AccionDto();
+    accionDto.setId(1);
 
-    @Test
-    public void execute() {
-        final RunTareaDto runTareaDto = new RunTareaDto();
-        final TareaDto tareaDto = new TareaDto();
-        tareaDto.setId(1L);
-        runTareaDto.setTarea(tareaDto);
-        final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
-        final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
-        final FaseDto faseDto = new FaseDto();
-        faseDto.setId(1);
-        final AccionDto accionDto = new AccionDto();
-        accionDto.setId(1);
+    final PresenciaOrigenDto lista = new PresenciaOrigenDto();
+    lista.setHorasSeccion4(1);
+    final CompletableFuture<PresenciaOrigenDto> cf = new CompletableFuture<>();
+    cf.complete(lista);
 
-        final PresenciaOrigenDto lista = new PresenciaOrigenDto();
-        lista.setHorasSeccion4(1);
-        final CompletableFuture<PresenciaOrigenDto> cf = new CompletableFuture<>();
-        cf.complete(lista);
+    when(this.comisAsyncService.findPresenciasOrigenAndFecha(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
+        .thenReturn(cf);
 
-        when(this.comisAsyncService.findPresenciasOrigenAndFecha(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
-            .thenReturn(cf);
+    when(this.ptrAsyncService.findPresenciasOrigenAndFecha(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
+        .thenReturn(cf);
 
-        when(this.ptrAsyncService.findPresenciasOrigenAndFecha(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
-            .thenReturn(cf);
+    this.runTareaAmbitoValidarPresenciasServiceImpl.execute(runTareaDto, tareaAmbitoDto,
+        tareaFaseAccionDto);
 
-        this.runTareaAmbitoValidarPresenciasServiceImpl.execute(runTareaDto, tareaAmbitoDto,
-                tareaFaseAccionDto);
+    verify(this.comisAsyncService, timeout(1000).times(1))
+        .findPresenciasOrigenAndFecha(
+            ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class));
+    verify(this.ptrAsyncService, timeout(1000).times(1))
+        .findPresenciasOrigenAndFecha(
+            ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class));
 
-        verify(this.comisAsyncService, timeout(1000).times(1))
-            .findPresenciasOrigenAndFecha(
-                    ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class));
-        verify(this.ptrAsyncService, timeout(1000).times(1))
-            .findPresenciasOrigenAndFecha(
-                    ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class));
-
-
-    }
+  }
 
 }

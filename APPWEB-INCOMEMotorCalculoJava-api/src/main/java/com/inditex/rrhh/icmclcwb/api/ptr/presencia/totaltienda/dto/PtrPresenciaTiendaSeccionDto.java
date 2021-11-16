@@ -13,8 +13,8 @@ import lombok.ToString;
 @ToString
 public class PtrPresenciaTiendaSeccionDto {
 
-    private Integer tienda;
+  private Integer tienda;
 
-    private Integer seccion;
+  private Integer seccion;
 
 }

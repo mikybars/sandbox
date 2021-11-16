@@ -7,6 +7,6 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TareaAmbitoPersonaRepository extends BaseRepository<TareaAmbitoPersona, Long> {
 
-    List<TareaAmbitoPersona> findByTareaId(Long tareaId);
+  List<TareaAmbitoPersona> findByTareaId(Long tareaId);
 
 }

@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaAusencia
 
 public interface TareaPersonaAusenciaHistoricoRepositoryCustom {
 
-    List<TareaPersonaAusenciaHistorico> save(List<TareaPersonaAusenciaHistorico> src);
+  List<TareaPersonaAusenciaHistorico> save(List<TareaPersonaAusenciaHistorico> src);
 
 }

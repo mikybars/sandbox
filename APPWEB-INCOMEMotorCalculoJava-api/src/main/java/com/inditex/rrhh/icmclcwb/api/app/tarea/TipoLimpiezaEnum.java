@@ -5,21 +5,19 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoLimpiezaDto;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-/**
- *
- * @author javierev
- */
+
 public enum TipoLimpiezaEnum {
 
-    COMPLETA(1, new TipoLimpiezaDto(1)), PARCIAL(2, new TipoLimpiezaDto(2));
+  COMPLETA(1, new TipoLimpiezaDto(1)), PARCIAL(2, new TipoLimpiezaDto(2));
 
-    private final Integer id;
+  private final Integer id;
 
-    private final TipoLimpiezaDto dto;
+  private final TipoLimpiezaDto dto;
 
 }

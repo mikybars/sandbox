@@ -9,20 +9,20 @@ import lombok.Data;
 @Data
 public class PresupuestosWlocFilterDto implements Serializable {
 
-    private static final long serialVersionUID = 5924519730735658156L;
+  private static final long serialVersionUID = 5924519730735658156L;
 
-    private LocalDateTime fechaInicio;
+  private LocalDateTime fechaInicio;
 
-    private LocalDateTime fechaFin;
+  private LocalDateTime fechaFin;
 
-    private String idOrigen;
+  private String idOrigen;
 
-    private String idSeccion;
+  private String idSeccion;
 
-    private String banda;
+  private String banda;
 
-    private String ordinal;
+  private String ordinal;
 
-    private List<PresupuestosWlocFilterParametersDto> item;
+  private List<PresupuestosWlocFilterParametersDto> item;
 
 }

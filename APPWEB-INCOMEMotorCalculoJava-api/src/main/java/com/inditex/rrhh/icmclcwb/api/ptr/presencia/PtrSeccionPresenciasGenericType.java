@@ -15,10 +15,10 @@ import lombok.ToString;
 @ToString
 public class PtrSeccionPresenciasGenericType implements Serializable {
 
-    private static final long serialVersionUID = -457548242622897810L;
+  private static final long serialVersionUID = -457548242622897810L;
 
-    private Integer seccion;
+  private Integer seccion;
 
-    private Integer minutos;
+  private Integer minutos;
 
 }

@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TiposHoraRequestDto implements Serializable {
 
-    private static final long serialVersionUID = -947192660099861683L;
+  private static final long serialVersionUID = -947192660099861683L;
 
-    private String idOrigen;
+  private String idOrigen;
 
-    private List<String> idsEmpresa;
+  private List<String> idsEmpresa;
 
 }

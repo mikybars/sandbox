@@ -1,9 +1,5 @@
 package com.inditex.rrhh.icmclcwb.api.app.trabajo.service;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 import com.inditex.rrhh.icmclcwb.dto.EstadoTrabajoDTO;
 import com.inditex.rrhh.icmclcwb.dto.PeriodoDTO;
@@ -11,19 +7,23 @@ import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 public interface TrabajoService {
 
-    TrabajoDTO find(@NotNull @Positive final Long id);
+  TrabajoDTO find(@NotNull @Positive final Long id);
 
-    TrabajoDTO create(@Valid @TrabajoValidator final TrabajoDTO trabajo);
+  TrabajoDTO create(@Valid @TrabajoValidator final TrabajoDTO trabajo);
 
-    TrabajoDTO merge(@Valid @NotNull final ProgramacionDTO programacion,
-            @Valid @NotNull final ProgramacionAmbitoDTO programacionAmbito, @Valid @NotNull final PeriodoDTO periodo);
+  TrabajoDTO merge(@Valid @NotNull final ProgramacionDTO programacion,
+      @Valid @NotNull final ProgramacionAmbitoDTO programacionAmbito, @Valid @NotNull final PeriodoDTO periodo);
 
-    void updateFechaFin(@NotNull final TrabajoDTO trabajo);
+  void updateFechaFin(@NotNull final TrabajoDTO trabajo);
 
-    void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado);
+  void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado);
 
-    TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id);
+  TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id);
 
 }

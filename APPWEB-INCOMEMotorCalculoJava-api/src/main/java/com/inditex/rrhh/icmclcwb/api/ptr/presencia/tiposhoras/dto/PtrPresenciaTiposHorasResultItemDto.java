@@ -15,22 +15,22 @@ import lombok.ToString;
 @ToString
 public class PtrPresenciaTiposHorasResultItemDto implements Serializable {
 
-    private static final long serialVersionUID = -4840963129306061376L;
+  private static final long serialVersionUID = -4840963129306061376L;
 
-    private Integer origen;
+  private Integer origen;
 
-    private Integer tipoHora;
+  private Integer tipoHora;
 
-    private Integer idCatalogoAplicacion;
+  private Integer idCatalogoAplicacion;
 
-    private Boolean excluidoDenom;
+  private Boolean excluidoDenom;
 
-    private Boolean excluidoCalculo;
+  private Boolean excluidoCalculo;
 
-    private Boolean incluidoVenta;
+  private Boolean incluidoVenta;
 
-    private Boolean incluidoChallenge;
+  private Boolean incluidoChallenge;
 
-    private Boolean incluidoEcommerce;
+  private Boolean incluidoEcommerce;
 
 }

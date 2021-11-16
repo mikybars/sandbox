@@ -20,15 +20,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-/**
- *
- * @author javierev
- */
+
 public class TipoLimpiezaDto implements Serializable {
 
-    private static final long serialVersionUID = -8639414587126123438L;
+  private static final long serialVersionUID = -8639414587126123438L;
 
-    @ApiModelProperty(value = "Identificador del tipo de limpieza", required = true)
-    private Integer id;
+  @ApiModelProperty(value = "Identificador del tipo de limpieza", required = true)
+  private Integer id;
 
 }

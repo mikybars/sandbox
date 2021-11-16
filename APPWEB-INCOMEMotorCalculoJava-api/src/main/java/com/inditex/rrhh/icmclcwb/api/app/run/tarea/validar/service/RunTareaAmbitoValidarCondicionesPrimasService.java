@@ -4,25 +4,21 @@
 
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service;
 
-import javax.validation.Valid;
-
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 
-/**
- * @author javierev
- */
+import javax.validation.Valid;
 
 public interface RunTareaAmbitoValidarCondicionesPrimasService {
 
-    /**
-     * @param runTarea
-     * @param tareaAmbito
-     * @return
-     */
-    ValidacionDto execute(@Valid RunTareaDto runTarea, @Valid TareaAmbitoDto tareaAmbito,
-            @Valid final TareaFaseAccionDto tareaFaseAccion);
+  /**
+   * @param runTarea
+   * @param tareaAmbito
+   * @return
+   */
+  ValidacionDto execute(@Valid RunTareaDto runTarea, @Valid TareaAmbitoDto tareaAmbito,
+      @Valid final TareaFaseAccionDto tareaFaseAccion);
 
 }

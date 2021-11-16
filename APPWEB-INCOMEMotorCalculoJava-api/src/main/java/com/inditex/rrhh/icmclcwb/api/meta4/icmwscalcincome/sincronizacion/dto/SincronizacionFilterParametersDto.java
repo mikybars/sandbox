@@ -14,16 +14,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SincronizacionFilterParametersDto implements Serializable {
 
-    private static final long serialVersionUID = -1L;
+  private static final long serialVersionUID = -1L;
 
-    private String idEmpleado;
+  private String idEmpleado;
 
-    private String idOrigen;
+  private String idOrigen;
 
-    private String idEmpresa;
+  private String idEmpresa;
 
-    private LocalDate fechaInicio;
+  private LocalDate fechaInicio;
 
-    private LocalDate fechaFin;
+  private LocalDate fechaFin;
 
 }

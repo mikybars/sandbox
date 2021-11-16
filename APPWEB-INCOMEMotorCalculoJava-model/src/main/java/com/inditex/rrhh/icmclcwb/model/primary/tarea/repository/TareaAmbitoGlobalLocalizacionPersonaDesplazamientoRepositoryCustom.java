@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLoc
 
 public interface TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom {
 
-    List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> save(
-            List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> src);
+  List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> save(
+      List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> src);
 
 }

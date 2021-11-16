@@ -12,12 +12,12 @@ import lombok.Data;
 @Data
 public class ResponseDto<T extends DocDto> implements Serializable {
 
-    private static final long serialVersionUID = 2693622743316270172L;
+  private static final long serialVersionUID = 2693622743316270172L;
 
-    private boolean hasNext;
+  private boolean hasNext;
 
-    private int next;
+  private int next;
 
-    private List<T> docs;
+  private List<T> docs;
 
 }

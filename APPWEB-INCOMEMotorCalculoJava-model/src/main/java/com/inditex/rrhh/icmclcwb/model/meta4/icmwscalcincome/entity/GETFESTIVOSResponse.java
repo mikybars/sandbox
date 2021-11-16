@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;
@@ -28,13 +27,10 @@ import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
-
 /**
- * <p>
- * Clase Java para anonymous complex type.
+ * <p> Clase Java para anonymous complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -52,138 +48,140 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "getfestivosReturn"
+    "getfestivosReturn"
 })
 @XmlRootElement(name = "GETFESTIVOSResponse")
 public class GETFESTIVOSResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
-    private final static long serialVersionUID = 1L;
+  private final static long serialVersionUID = 1L;
 
-    @XmlElement(name = "GETFESTIVOSReturn", required = true)
-    protected GetfestivosOutput getfestivosReturn;
+  @XmlElement(name = "GETFESTIVOSReturn", required = true)
+  protected GetfestivosOutput getfestivosReturn;
 
-    /**
-     * Obtiene el valor de la propiedad getfestivosReturn.
-     * @return possible object is {@link GetfestivosOutput }
-     *
-     */
-    public GetfestivosOutput getGETFESTIVOSReturn() {
-        return getfestivosReturn;
+  /**
+   * Obtiene el valor de la propiedad getfestivosReturn.
+   * 
+   * @return possible object is {@link GetfestivosOutput }
+   *
+   */
+  public GetfestivosOutput getGETFESTIVOSReturn() {
+    return getfestivosReturn;
+  }
+
+  /**
+   * Define el valor de la propiedad getfestivosReturn.
+   * 
+   * @param value allowed object is {@link GetfestivosOutput }
+   *
+   */
+  public void setGETFESTIVOSReturn(GetfestivosOutput value) {
+    this.getfestivosReturn = value;
+  }
+
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+      EqualsStrategy2 strategy) {
+    if ((object == null) || (this.getClass() != object.getClass())) {
+      return false;
     }
-
-    /**
-     * Define el valor de la propiedad getfestivosReturn.
-     * @param value allowed object is {@link GetfestivosOutput }
-     *
-     */
-    public void setGETFESTIVOSReturn(GetfestivosOutput value) {
-        this.getfestivosReturn = value;
+    if (this == object) {
+      return true;
     }
+    final GETFESTIVOSResponse that = ((GETFESTIVOSResponse) object);
+    {
+      GetfestivosOutput lhsGETFESTIVOSReturn;
+      lhsGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
+      GetfestivosOutput rhsGETFESTIVOSReturn;
+      rhsGETFESTIVOSReturn = that.getGETFESTIVOSReturn();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "getfestivosReturn", lhsGETFESTIVOSReturn),
+          LocatorUtils.property(thatLocator, "getfestivosReturn", rhsGETFESTIVOSReturn), lhsGETFESTIVOSReturn,
+          rhsGETFESTIVOSReturn, (this.getfestivosReturn != null), (that.getfestivosReturn != null))) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
-            return false;
+  public boolean equals(Object object) {
+    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+    return equals(null, null, object, strategy);
+  }
+
+  public String toString() {
+    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+    final StringBuilder buffer = new StringBuilder();
+    append(null, buffer, strategy);
+    return buffer.toString();
+  }
+
+  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    strategy.appendStart(locator, this, buffer);
+    appendFields(locator, buffer, strategy);
+    strategy.appendEnd(locator, this, buffer);
+    return buffer;
+  }
+
+  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    {
+      GetfestivosOutput theGETFESTIVOSReturn;
+      theGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
+      strategy.appendField(locator, this, "getfestivosReturn", buffer, theGETFESTIVOSReturn,
+          (this.getfestivosReturn != null));
+    }
+    return buffer;
+  }
+
+  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+    int currentHashCode = 1;
+    {
+      GetfestivosOutput theGETFESTIVOSReturn;
+      theGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
+      currentHashCode = strategy.hashCode(
+          LocatorUtils.property(locator, "getfestivosReturn", theGETFESTIVOSReturn), currentHashCode,
+          theGETFESTIVOSReturn, (this.getfestivosReturn != null));
+    }
+    return currentHashCode;
+  }
+
+  public int hashCode() {
+    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+    return this.hashCode(null, strategy);
+  }
+
+  public Object clone() {
+    return copyTo(createNewInstance());
+  }
+
+  public Object copyTo(Object target) {
+    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+    return copyTo(null, target, strategy);
+  }
+
+  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+    if (draftCopy instanceof GETFESTIVOSResponse) {
+      final GETFESTIVOSResponse copy = ((GETFESTIVOSResponse) draftCopy);
+      {
+        Boolean getfestivosReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+            (this.getfestivosReturn != null));
+        if (getfestivosReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+          GetfestivosOutput sourceGETFESTIVOSReturn;
+          sourceGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
+          GetfestivosOutput copyGETFESTIVOSReturn = ((GetfestivosOutput) strategy.copy(
+              LocatorUtils.property(locator, "getfestivosReturn", sourceGETFESTIVOSReturn),
+              sourceGETFESTIVOSReturn, (this.getfestivosReturn != null)));
+          copy.setGETFESTIVOSReturn(copyGETFESTIVOSReturn);
+        } else {
+          if (getfestivosReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.getfestivosReturn = null;
+          }
         }
-        if (this == object) {
-            return true;
-        }
-        final GETFESTIVOSResponse that = ((GETFESTIVOSResponse) object);
-        {
-            GetfestivosOutput lhsGETFESTIVOSReturn;
-            lhsGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
-            GetfestivosOutput rhsGETFESTIVOSReturn;
-            rhsGETFESTIVOSReturn = that.getGETFESTIVOSReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getfestivosReturn", lhsGETFESTIVOSReturn),
-                    LocatorUtils.property(thatLocator, "getfestivosReturn", rhsGETFESTIVOSReturn), lhsGETFESTIVOSReturn,
-                    rhsGETFESTIVOSReturn, (this.getfestivosReturn != null), (that.getfestivosReturn != null))) {
-                return false;
-            }
-        }
-        return true;
+      }
     }
+    return draftCopy;
+  }
 
-    public boolean equals(Object object) {
-        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return equals(null, null, object, strategy);
-    }
-
-    public String toString() {
-        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-        final StringBuilder buffer = new StringBuilder();
-        append(null, buffer, strategy);
-        return buffer.toString();
-    }
-
-    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        strategy.appendStart(locator, this, buffer);
-        appendFields(locator, buffer, strategy);
-        strategy.appendEnd(locator, this, buffer);
-        return buffer;
-    }
-
-    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        {
-            GetfestivosOutput theGETFESTIVOSReturn;
-            theGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
-            strategy.appendField(locator, this, "getfestivosReturn", buffer, theGETFESTIVOSReturn,
-                    (this.getfestivosReturn != null));
-        }
-        return buffer;
-    }
-
-    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-        int currentHashCode = 1;
-        {
-            GetfestivosOutput theGETFESTIVOSReturn;
-            theGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "getfestivosReturn", theGETFESTIVOSReturn), currentHashCode,
-                    theGETFESTIVOSReturn, (this.getfestivosReturn != null));
-        }
-        return currentHashCode;
-    }
-
-    public int hashCode() {
-        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-        return this.hashCode(null, strategy);
-    }
-
-    public Object clone() {
-        return copyTo(createNewInstance());
-    }
-
-    public Object copyTo(Object target) {
-        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return copyTo(null, target, strategy);
-    }
-
-    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
-        if (draftCopy instanceof GETFESTIVOSResponse) {
-            final GETFESTIVOSResponse copy = ((GETFESTIVOSResponse) draftCopy);
-            {
-                Boolean getfestivosReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.getfestivosReturn != null));
-                if (getfestivosReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    GetfestivosOutput sourceGETFESTIVOSReturn;
-                    sourceGETFESTIVOSReturn = this.getGETFESTIVOSReturn();
-                    GetfestivosOutput copyGETFESTIVOSReturn = ((GetfestivosOutput) strategy.copy(
-                            LocatorUtils.property(locator, "getfestivosReturn", sourceGETFESTIVOSReturn),
-                            sourceGETFESTIVOSReturn, (this.getfestivosReturn != null)));
-                    copy.setGETFESTIVOSReturn(copyGETFESTIVOSReturn);
-                } else {
-                    if (getfestivosReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.getfestivosReturn = null;
-                    }
-                }
-            }
-        }
-        return draftCopy;
-    }
-
-    public Object createNewInstance() {
-        return new GETFESTIVOSResponse();
-    }
+  public Object createNewInstance() {
+    return new GETFESTIVOSResponse();
+  }
 
 }

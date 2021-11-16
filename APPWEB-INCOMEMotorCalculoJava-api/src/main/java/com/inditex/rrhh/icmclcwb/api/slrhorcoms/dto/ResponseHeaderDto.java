@@ -12,15 +12,15 @@ import lombok.Data;
 @Data
 public class ResponseHeaderDto implements Serializable {
 
-    private static final long serialVersionUID = 2532481813163215854L;
+  private static final long serialVersionUID = 2532481813163215854L;
 
-    private boolean zkConnected;
+  private boolean zkConnected;
 
-    private int status;
+  private int status;
 
-    @JsonProperty("QTime")
-    private int qTime;
+  @JsonProperty("QTime")
+  private int qTime;
 
-    private ParamsDto params;
+  private ParamsDto params;
 
 }

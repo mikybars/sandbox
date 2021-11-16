@@ -9,10 +9,10 @@ import lombok.Data;
 @Data
 public class SlrhorcomsPropertiesDto {
 
-    private String endpoint;
+  private String endpoint;
 
-    private Integer rows;
+  private Integer rows;
 
-    private Integer maxFilterSize;
+  private Integer maxFilterSize;
 
 }

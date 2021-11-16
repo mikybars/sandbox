@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaAmbitoGlobalLocalizacionPersonaPresenciaDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalLocalizacionPersonaPresencia;
+
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -17,32 +18,32 @@ import org.mapstruct.Mapping;
 @DecoratedWith(TareaAmbitoGlobalLocalizacionPersonaPresenciaDecorator.class)
 public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaMapper {
 
-    @Mapping(target = "idTarea", source = "tarea.id")
-    public abstract TareaAmbitoGlobalLocalizacionPersonaPresenciaDto tareaLocalizacionPersonaPresenciaToTareaLocalizacionPersonaPresenciaDto(
-            TareaAmbitoGlobalLocalizacionPersonaPresencia src);
+  @Mapping(target = "idTarea", source = "tarea.id")
+  public abstract TareaAmbitoGlobalLocalizacionPersonaPresenciaDto tareaLocalizacionPersonaPresenciaToTareaLocalizacionPersonaPresenciaDto(
+      TareaAmbitoGlobalLocalizacionPersonaPresencia src);
 
-    @InheritInverseConfiguration
-    public abstract TareaAmbitoGlobalLocalizacionPersonaPresencia tareaLocalizacionPersonaPresenciaDtoToTareaLocalizacionPersonaPresencia(
-            TareaAmbitoGlobalLocalizacionPersonaPresenciaDto src);
+  @InheritInverseConfiguration
+  public abstract TareaAmbitoGlobalLocalizacionPersonaPresencia tareaLocalizacionPersonaPresenciaDtoToTareaLocalizacionPersonaPresencia(
+      TareaAmbitoGlobalLocalizacionPersonaPresenciaDto src);
 
-    public abstract List<TareaAmbitoGlobalLocalizacionPersonaPresenciaDto> tareaLocalizacionPersonaPresenciaToTareaLocalizacionPersonaPresenciaDto(
-            List<TareaAmbitoGlobalLocalizacionPersonaPresencia> src);
+  public abstract List<TareaAmbitoGlobalLocalizacionPersonaPresenciaDto> tareaLocalizacionPersonaPresenciaToTareaLocalizacionPersonaPresenciaDto(
+      List<TareaAmbitoGlobalLocalizacionPersonaPresencia> src);
 
-    public abstract List<TareaAmbitoGlobalLocalizacionPersonaPresencia> tareaLocalizacionPersonaPresenciaDtoToTareaLocalizacionPersonaPresencia(
-            List<TareaAmbitoGlobalLocalizacionPersonaPresenciaDto> src);
+  public abstract List<TareaAmbitoGlobalLocalizacionPersonaPresencia> tareaLocalizacionPersonaPresenciaDtoToTareaLocalizacionPersonaPresencia(
+      List<TareaAmbitoGlobalLocalizacionPersonaPresenciaDto> src);
 
-    @Mapping(source = "src.origen", target = "cclIdOrigen")
-    @Mapping(source = "src.tienda", target = "cclIdCodOrigen")
-    @Mapping(source = "src.empresa", target = "stdIdLegEnt")
-    @Mapping(source = "tareaDto.id", target = "tarea.id")
-    @Mapping(source = "personas", target = "cclIdPerson")
-    @Mapping(target = "id", ignore = true)
-    public abstract TareaAmbitoGlobalLocalizacionPersonaPresencia presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
-            Integer personas, PtrPresenciaEmpleadosTiendaResultItemDto src, TareaDto tareaDto);
+  @Mapping(source = "src.origen", target = "cclIdOrigen")
+  @Mapping(source = "src.tienda", target = "cclIdCodOrigen")
+  @Mapping(source = "src.empresa", target = "stdIdLegEnt")
+  @Mapping(source = "tareaDto.id", target = "tarea.id")
+  @Mapping(source = "personas", target = "cclIdPerson")
+  @Mapping(target = "id", ignore = true)
+  public abstract TareaAmbitoGlobalLocalizacionPersonaPresencia presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
+      Integer personas, PtrPresenciaEmpleadosTiendaResultItemDto src, TareaDto tareaDto);
 
-    public List<TareaAmbitoGlobalLocalizacionPersonaPresencia> presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
-            List<PtrPresenciaEmpleadosTiendaResultItemDto> src, TareaDto tareaDto) {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
+  public List<TareaAmbitoGlobalLocalizacionPersonaPresencia> presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
+      List<PtrPresenciaEmpleadosTiendaResultItemDto> src, TareaDto tareaDto) {
+    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  }
 
 }

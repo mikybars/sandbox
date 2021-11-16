@@ -11,8 +11,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 
 public interface RunTareaAmbitoValidarExternosBrasilService {
 
-    ValidacionDto execute(final RunTareaDto runTarea,
-            final TareaAmbitoDto tareaAmbito,
-            final TareaFaseAccionDto tareaFaseAccion);
+  ValidacionDto execute(final RunTareaDto runTarea,
+      final TareaAmbitoDto tareaAmbito,
+      final TareaFaseAccionDto tareaFaseAccion);
 
 }

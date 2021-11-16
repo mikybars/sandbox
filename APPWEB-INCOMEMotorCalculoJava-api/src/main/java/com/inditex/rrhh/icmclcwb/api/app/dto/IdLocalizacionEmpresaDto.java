@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,10 +14,10 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class IdLocalizacionEmpresaDto implements Serializable {
 
-    @NotBlank
-    private String id;
+  @NotBlank
+  private String id;
 
-    @NotBlank
-    private String stdIdLegEnt;
+  @NotBlank
+  private String stdIdLegEnt;
 
 }

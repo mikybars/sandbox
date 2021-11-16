@@ -5,41 +5,42 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
+
 import lombok.Data;
 
 @Data
 public class PtrVentaIndividualDetalleResultItemDto implements Serializable {
 
-    private static final long serialVersionUID = -801740758955645983L;
+  private static final long serialVersionUID = -801740758955645983L;
 
-    private String fecha;
+  private String fecha;
 
-    private Integer pais;
+  private Integer pais;
 
-    private Integer cadena;
+  private Integer cadena;
 
-    private Integer empresa;
+  private Integer empresa;
 
-    private Integer tienda;
+  private Integer tienda;
 
-    private Integer seccion;
+  private Integer seccion;
 
-    private Integer temporada;
+  private Integer temporada;
 
-    private Integer producto;
+  private Integer producto;
 
-    private BigDecimal importeSinIVA;
+  private BigDecimal importeSinIVA;
 
-    private BigDecimal importeConIVA;
+  private BigDecimal importeConIVA;
 
-    private Integer vendedor;
+  private Integer vendedor;
 
-    private String fechaVentaInicial;
+  private String fechaVentaInicial;
 
-    private Integer cajero;
+  private Integer cajero;
 
-    private String operacion;
+  private String operacion;
 
-    private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
+  private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
 
 }

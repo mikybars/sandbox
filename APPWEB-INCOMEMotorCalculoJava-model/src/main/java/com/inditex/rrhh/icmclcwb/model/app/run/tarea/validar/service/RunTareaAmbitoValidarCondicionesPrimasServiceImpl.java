@@ -8,15 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
-
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
@@ -33,69 +24,74 @@ import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMa
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
-/**
- * @author javierev
- */
+import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
 @Service
 @Validated
 public class RunTareaAmbitoValidarCondicionesPrimasServiceImpl implements
-        RunTareaAmbitoValidarCondicionesPrimasService {
+    RunTareaAmbitoValidarCondicionesPrimasService {
 
-    @Autowired
-    private ComisAsyncService comisAsyncService;
+  @Autowired
+  private ComisAsyncService comisAsyncService;
 
-    @Autowired
-    private TareaFaseAccionService tareaFaseAccionService;
+  @Autowired
+  private TareaFaseAccionService tareaFaseAccionService;
 
-    @Autowired
-    private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  @Autowired
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
-    @Autowired
-    private ValidacionMapper validacionMapper;
+  @Autowired
+  private ValidacionMapper validacionMapper;
 
-    @Autowired
-    @Qualifier("primasProperties")
-    private PrevalidarPropertiesDto resaltaProperties;
+  @Autowired
+  @Qualifier("primasProperties")
+  private PrevalidarPropertiesDto resaltaProperties;
 
-    @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito,
-            @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final TareaDto tareaDto = runTareaDto.getTarea();
-        final List<CompletableFuture<?>> cf = new ArrayList<>();
-        final List<IdPersonaLocalDto> resaltaValidationResult;
-        try {
-            final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesResalta = this.comisAsyncService
-                .findCondicionesPrimas(runTareaDto, tareaAmbito);
-            AsyncUtils.exceptionally(cfCondicionesResalta, cf);
+  @Override
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito,
+      @Valid final TareaFaseAccionDto tareaFaseAccion) {
+    final TareaDto tareaDto = runTareaDto.getTarea();
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
+    final List<IdPersonaLocalDto> resaltaValidationResult;
+    try {
+      final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesResalta = this.comisAsyncService
+          .findCondicionesPrimas(runTareaDto, tareaAmbito);
+      AsyncUtils.exceptionally(cfCondicionesResalta, cf);
 
-            AsyncUtils.waitAllOfIsOk(cf, cf);
+      AsyncUtils.waitAllOfIsOk(cf, cf);
 
-            final List<IdPersonaLocalCondicionesDto> condicionesResalta = AsyncUtils.get(cfCondicionesResalta);
+      final List<IdPersonaLocalCondicionesDto> condicionesResalta = AsyncUtils.get(cfCondicionesResalta);
 
-            // Se usa los mismas tablas temporales que resalta porque se obtienen los mismos datos
-            this.primaryTemporaryTableRepositoryCustom.createTempComisPrimas();
-            this.primaryTemporaryTableRepositoryCustom.insertTempComisPrimas(condicionesResalta);
+      // Se usa los mismas tablas temporales que resalta porque se obtienen los mismos datos
+      this.primaryTemporaryTableRepositoryCustom.createTempComisPrimas();
+      this.primaryTemporaryTableRepositoryCustom.insertTempComisPrimas(condicionesResalta);
 
-            this.primaryTemporaryTableRepositoryCustom
-                .mergeDateRangesSeccionNotEqualsTempComisPrimas(runTareaDto.getTarea());
-            this.primaryTemporaryTableRepositoryCustom
-                .mergeDateRangesTempComisPrimas(runTareaDto.getTarea());
+      this.primaryTemporaryTableRepositoryCustom
+          .mergeDateRangesSeccionNotEqualsTempComisPrimas(runTareaDto.getTarea());
+      this.primaryTemporaryTableRepositoryCustom
+          .mergeDateRangesTempComisPrimas(runTareaDto.getTarea());
 
-            resaltaValidationResult = this.primaryTemporaryTableRepositoryCustom
-                .validateTempComisPrimas(runTareaDto.getTarea());
+      resaltaValidationResult = this.primaryTemporaryTableRepositoryCustom
+          .validateTempComisPrimas(runTareaDto.getTarea());
 
-            this.primaryTemporaryTableRepositoryCustom.deleteTempComisPrimas();
+      this.primaryTemporaryTableRepositoryCustom.deleteTempComisPrimas();
 
-        } catch (final Exception e) {
-            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
-                    EstadoTareaFaseAccionEnum.ERROR.getDto());
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-        return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-                resaltaValidationResult, this.resaltaProperties, tareaDto);
+    } catch (final Exception e) {
+      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+          EstadoTareaFaseAccionEnum.ERROR.getDto());
+      AsyncUtils.cancel(cf);
+      throw e;
     }
+    return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
+        resaltaValidationResult, this.resaltaProperties, tareaDto);
+  }
 
 }

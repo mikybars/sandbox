@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class PtrPropertiesDto {
 
-    private String endpoint;
+  private String endpoint;
 
-    private PtrFilterPropertiesDto filter;
+  private PtrFilterPropertiesDto filter;
 
 }

@@ -4,15 +4,12 @@
 
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.normalizar.service;
 
-import javax.validation.Valid;
-
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-/**
- * @author javierev
- */
+import javax.validation.Valid;
+
 public interface RunTareaNormalizarAjusteComisionService {
 
-    void normalizarAjusteComision(@Valid final TareaDto tarea);
+  void normalizarAjusteComision(@Valid final TareaDto tarea);
 
 }

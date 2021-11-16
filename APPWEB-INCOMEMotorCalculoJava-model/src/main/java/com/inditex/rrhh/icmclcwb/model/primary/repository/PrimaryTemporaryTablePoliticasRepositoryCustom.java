@@ -6,169 +6,166 @@ package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-/**
- * @author javierev
- */
 public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
-    // baja it
+  // baja it
 
-    int createTempFechasBajaIt();
+  int createTempFechasBajaIt();
 
-    int deleteTempFechasBajaIt();
+  int deleteTempFechasBajaIt();
 
-    void insertTempFechasBajaIt(final TareaDto tarea);
+  void insertTempFechasBajaIt(final TareaDto tarea);
 
-    int createIndexTempFechasBajaIt();
+  int createIndexTempFechasBajaIt();
 
-    int createTempFechasAcumuladasBajaIt();
+  int createTempFechasAcumuladasBajaIt();
 
-    int deleteTempFechasAcumuladasBajaIt();
+  int deleteTempFechasAcumuladasBajaIt();
 
-    void insertTempFechasAcumuladasBajaIt(final TareaDto tarea);
+  void insertTempFechasAcumuladasBajaIt(final TareaDto tarea);
 
-    int createIndexTempFechasAcumuladasBajaIt();
+  int createIndexTempFechasAcumuladasBajaIt();
 
-    int createTempCalculoTotalizadoBajaIt();
+  int createTempCalculoTotalizadoBajaIt();
 
-    int deleteTempCalculoTotalizadoBajaIt();
+  int deleteTempCalculoTotalizadoBajaIt();
 
-    void insertTempCalculoTotalizadoBajaIt(final TareaDto tarea);
+  void insertTempCalculoTotalizadoBajaIt(final TareaDto tarea);
 
-    int createIndexTempCalculoTotalizadoBajaIt();
+  int createIndexTempCalculoTotalizadoBajaIt();
 
-    // fin baja it
+  // fin baja it
 
-    // antiguedad
+  // antiguedad
 
-    int createTempFechasAntiguedad();
+  int createTempFechasAntiguedad();
 
-    int deleteTempFechasAntiguedad();
+  int deleteTempFechasAntiguedad();
 
-    void insertTempFechasAntiguedad(final TareaDto tarea);
+  void insertTempFechasAntiguedad(final TareaDto tarea);
 
-    int createIndexTempFechasAntiguedad();
+  int createIndexTempFechasAntiguedad();
 
-    int createTempFechasAcumuladasAntiguedad();
+  int createTempFechasAcumuladasAntiguedad();
 
-    int deleteTempFechasAcumuladasAntiguedad();
+  int deleteTempFechasAcumuladasAntiguedad();
 
-    void insertTempFechasAcumuladasAntiguedad(final TareaDto tarea);
+  void insertTempFechasAcumuladasAntiguedad(final TareaDto tarea);
 
-    int createIndexTempFechasAcumuladasAntiguedad();
+  int createIndexTempFechasAcumuladasAntiguedad();
 
-    // fin antiguedad
+  // fin antiguedad
 
-    // vacaciones
+  // vacaciones
 
-    int createTempFechasVacaciones();
+  int createTempFechasVacaciones();
 
-    int deleteTempFechasVacaciones();
+  int deleteTempFechasVacaciones();
 
-    void insertTempFechasVacaciones(final TareaDto tarea);
+  void insertTempFechasVacaciones(final TareaDto tarea);
 
-    int createIndexTempFechasVacaciones();
+  int createIndexTempFechasVacaciones();
 
-    int createTempFechasAcumuladasVacaciones();
+  int createTempFechasAcumuladasVacaciones();
 
-    int deleteTempFechasAcumuladasVacaciones();
+  int deleteTempFechasAcumuladasVacaciones();
 
-    void insertTempFechasAcumuladasVacaciones(final TareaDto tarea);
+  void insertTempFechasAcumuladasVacaciones(final TareaDto tarea);
 
-    int createIndexTempFechasAcumuladasVacaciones();
+  int createIndexTempFechasAcumuladasVacaciones();
 
-    int createTempCalculoTotalizadoVacaciones();
+  int createTempCalculoTotalizadoVacaciones();
 
-    int deleteTempCalculoTotalizadoVacaciones();
+  int deleteTempCalculoTotalizadoVacaciones();
 
-    void insertTempCalculoTotalizadoVacaciones(final TareaDto tarea);
+  void insertTempCalculoTotalizadoVacaciones(final TareaDto tarea);
 
-    int createIndexTempCalculoTotalizadoVacaciones();
+  int createIndexTempCalculoTotalizadoVacaciones();
 
-    // fin vacaciones
+  // fin vacaciones
 
-    // inicio máximo garantizado (común)
+  // inicio máximo garantizado (común)
 
-    int createTempAusenciasDateMaximoGarantizado();
+  int createTempAusenciasDateMaximoGarantizado();
 
-    int deleteTempAusenciasDateMaximoGarantizado();
+  int deleteTempAusenciasDateMaximoGarantizado();
 
-    int createIndexTempAusenciasDateMaximoGarantizado();
+  int createIndexTempAusenciasDateMaximoGarantizado();
 
-    void insertTempAusenciasDateMaximoGarantizado(final TareaDto tarea);
+  void insertTempAusenciasDateMaximoGarantizado(final TareaDto tarea);
 
-    int createTempCalculoConAjusteMaximoGarantizado();
+  int createTempCalculoConAjusteMaximoGarantizado();
 
-    int deleteTempCalculoConAjusteMaximoGarantizado();
+  int deleteTempCalculoConAjusteMaximoGarantizado();
 
-    int createIndexTempCalculoConAjusteMaximoGarantizado();
+  int createIndexTempCalculoConAjusteMaximoGarantizado();
 
-    void insertTempCalculoConAjusteMaximoGarantizado(final TareaDto tarea);
+  void insertTempCalculoConAjusteMaximoGarantizado(final TareaDto tarea);
 
-    int createTempDatosMaximoGarantizado();
+  int createTempDatosMaximoGarantizado();
 
-    int deleteTempDatosMaximoGarantizado();
+  int deleteTempDatosMaximoGarantizado();
 
-    int createIndexTempDatosMaximoGarantizado();
+  int createIndexTempDatosMaximoGarantizado();
 
-    void insertTempDatosMaximoGarantizado(final TareaDto tarea);
+  void insertTempDatosMaximoGarantizado(final TareaDto tarea);
 
-    // fin máximo garantizado
+  // fin máximo garantizado
 
-    // inicio mínimo garantizado
+  // inicio mínimo garantizado
 
-    int createTempAusenciasDateMinimoGarantizado();
+  int createTempAusenciasDateMinimoGarantizado();
 
-    int deleteTempAusenciasDateMinimoGarantizado();
+  int deleteTempAusenciasDateMinimoGarantizado();
 
-    int createIndexTempAusenciasDateMinimoGarantizado();
+  int createIndexTempAusenciasDateMinimoGarantizado();
 
-    void insertTempAusenciasDateMinimoGarantizado(final TareaDto tarea);
+  void insertTempAusenciasDateMinimoGarantizado(final TareaDto tarea);
 
-    int createTempCalculoConAjusteMinimoGarantizado();
+  int createTempCalculoConAjusteMinimoGarantizado();
 
-    int deleteTempCalculoConAjusteMinimoGarantizado();
+  int deleteTempCalculoConAjusteMinimoGarantizado();
 
-    int createIndexTempCalculoConAjusteMinimoGarantizado();
+  int createIndexTempCalculoConAjusteMinimoGarantizado();
 
-    void insertTempCalculoConAjusteMinimoGarantizado(final TareaDto tarea);
+  void insertTempCalculoConAjusteMinimoGarantizado(final TareaDto tarea);
 
-    int createTempDatosMinimoGarantizado();
+  int createTempDatosMinimoGarantizado();
 
-    int deleteTempDatosMinimoGarantizado();
+  int deleteTempDatosMinimoGarantizado();
 
-    int createIndexTempDatosMinimoGarantizado();
+  int createIndexTempDatosMinimoGarantizado();
 
-    void insertTempDatosMininimoGarantizado(final TareaDto tarea);
+  void insertTempDatosMininimoGarantizado(final TareaDto tarea);
 
-    // fin mínimo garantizado
+  // fin mínimo garantizado
 
-    // carencia
+  // carencia
 
-    int createTempFechasCarencia();
+  int createTempFechasCarencia();
 
-    int deleteTempFechasCarencia();
+  int deleteTempFechasCarencia();
 
-    void insertTempFechasCarencia(final TareaDto tarea);
+  void insertTempFechasCarencia(final TareaDto tarea);
 
-    int createIndexTempFechasCarencia();
+  int createIndexTempFechasCarencia();
 
-    int createTempFechasAcumuladasCarencia();
+  int createTempFechasAcumuladasCarencia();
 
-    int deleteTempFechasAcumuladasCarencia();
+  int deleteTempFechasAcumuladasCarencia();
 
-    void insertTempFechasAcumuladasCarencia(final TareaDto tarea);
+  void insertTempFechasAcumuladasCarencia(final TareaDto tarea);
 
-    int createIndexTempFechasAcumuladasCarencia();
+  int createIndexTempFechasAcumuladasCarencia();
 
-    int createTempCalculoTotalizadoCarencia();
+  int createTempCalculoTotalizadoCarencia();
 
-    int deleteTempCalculoTotalizadoCarencia();
+  int deleteTempCalculoTotalizadoCarencia();
 
-    void insertTempCalculoTotalizadoCarencia(final TareaDto tarea);
+  void insertTempCalculoTotalizadoCarencia(final TareaDto tarea);
 
-    int createIndexTempCalculoTotalizadoCarencia();
+  int createIndexTempCalculoTotalizadoCarencia();
 
-    // fin carencia
+  // fin carencia
 
 }

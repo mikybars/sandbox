@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionFes
 
 public interface TareaLocalizacionFestivoRepositoryCustom {
 
-    List<TareaLocalizacionFestivo> save(List<TareaLocalizacionFestivo> src);
+  List<TareaLocalizacionFestivo> save(List<TareaLocalizacionFestivo> src);
 
 }

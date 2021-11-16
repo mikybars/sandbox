@@ -10,7 +10,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Entity
@@ -18,24 +17,24 @@ import lombok.Data;
 @Data
 public class LocalizacionFicticiaHistorico {
 
-    @EmbeddedId
-    private LocalizacionFicticiaHistoricoPk pk;
+  @EmbeddedId
+  private LocalizacionFicticiaHistoricoPk pk;
 
-    @NotNull
-    @Column(name = "FECHA_FIN", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fechaFin;
+  @NotNull
+  @Column(name = "FECHA_FIN", nullable = false)
+  @Temporal(TemporalType.DATE)
+  private Date fechaFin;
 
-    @NotBlank
-    @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
-    private String stdIdWorkLocat;
+  @NotBlank
+  @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
+  private String stdIdWorkLocat;
 
-    @NotBlank
-    @Column(name = "CCL_ID_CADENA", nullable = false, length = 24)
-    private String cclIdCadena;
+  @NotBlank
+  @Column(name = "CCL_ID_CADENA", nullable = false, length = 24)
+  private String cclIdCadena;
 
-    @NotBlank
-    @Column(name = "STD_ID_COUNTRY", nullable = false, length = 8)
-    private String stdIdCountry;
+  @NotBlank
+  @Column(name = "STD_ID_COUNTRY", nullable = false, length = 8)
+  private String stdIdCountry;
 
 }
