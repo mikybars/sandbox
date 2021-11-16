@@ -326,6 +326,11 @@ class TareaRepositoryCustomImplTest {
 
         final Integer result = this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision();
 
+        // Parámetros de la consulta: limit, idEstado
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue("idEstado"));
+        assertEquals(EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getId(), params.getValue("idEstado"));
+
         assertEquals(total, result);
 
     }
