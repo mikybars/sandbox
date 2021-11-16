@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
@@ -34,7 +32,6 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
             IdPersonaLocalDto persona);
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public CompletableFuture<Void> ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
             final List<IdPersonaLocalDto> personas) {
         if (this.getSqlAjustar() != null) {
