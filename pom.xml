@@ -73,15 +73,6 @@
         <groupId>com.inditex.aqsw.amiga.javaformat</groupId>
         <artifactId>amiga-javaformat-maven-plugin</artifactId>
         <version>${amiga-javaformat.version}</version>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <inherited>true</inherited>
-            <goals>
-              <goal>validate</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
