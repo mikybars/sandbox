@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component("minimoGarantizadoV1")
 public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
@@ -42,6 +44,7 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
   private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
 
   @Override
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
   public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
     this.log.info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Ids",
