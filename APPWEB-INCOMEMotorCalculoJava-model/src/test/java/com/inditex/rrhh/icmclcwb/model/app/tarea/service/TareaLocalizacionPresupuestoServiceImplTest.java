@@ -2,16 +2,22 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPageEnum;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPresupuestoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoRepositoryCustomImpl;
 
 import org.junit.jupiter.api.Test;
@@ -25,6 +31,9 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
 
   @Mock
   private TareaLocalizacionPresupuestoRepositoryCustomImpl tareaLocalizacionPresupuestoRepositoryCustom;
+
+  @Mock
+  private TareaLocalizacionPresupuestoMapper tareaLocalizacionPresupuestoMapper;
 
   @InjectMocks
   private TareaLocalizacionPresupuestoServiceImpl tareaLocalizacionPresupuestoService;
@@ -167,6 +176,43 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
     // 6: 30/1/2020 - 3/2/2020
     assertEquals(LocalDate.of(2020, 1, 30), periodos.get(6).getFechaInicioPeriodo());
     assertEquals(LocalDate.of(2020, 2, 3), periodos.get(6).getFechaFinPeriodo());
+  }
+
+  @Test
+  void saveTest() {
+    List<PresupuestosWlocResultItemDto> src = Arrays.asList(new PresupuestosWlocResultItemDto());
+    TareaDto tarea = new TareaDto();
+
+    List<TareaLocalizacionPresupuesto> result1 = Arrays.asList(new TareaLocalizacionPresupuesto());
+
+    doReturn(result1).when(this.tareaLocalizacionPresupuestoMapper)
+        .presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(src, tarea);
+    doReturn(result1).when(this.tareaLocalizacionPresupuestoRepositoryCustom).save(result1);
+
+    this.tareaLocalizacionPresupuestoService.save(src, tarea);
+
+  }
+
+  @Test
+  void findLocalizacionOrdinalTarea() {
+
+    final Long idTarea = 1L;
+    final Integer cclIdCodOrigen = 1;
+    final Integer cclIdSeccion = 2;
+    final LocalDate fechaInicio = LocalDate.of(1990, 2, 2);
+    final LocalDate fechaFin = LocalDate.of(1990, 2, 3);
+    final Integer idTipoPresupuesto = 3;
+
+    List<String> stringList = Arrays.asList("");
+
+    doReturn(stringList).when(this.tareaLocalizacionPresupuestoRepositoryCustom).findLocalizacionOrdinalTarea(idTarea, cclIdCodOrigen,
+        cclIdSeccion, fechaInicio, fechaFin, idTipoPresupuesto);
+
+    final List<String> result = this.tareaLocalizacionPresupuestoService.findLocalizacionOrdinalTarea(idTarea, cclIdCodOrigen,
+        cclIdSeccion, fechaInicio, fechaFin, idTipoPresupuesto);
+
+    assertEquals(stringList, result);
+
   }
 
 }
