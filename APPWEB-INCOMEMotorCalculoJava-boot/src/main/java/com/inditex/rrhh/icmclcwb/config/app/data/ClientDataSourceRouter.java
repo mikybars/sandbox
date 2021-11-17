@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.config.app.data;
 
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabaseContextHolder;

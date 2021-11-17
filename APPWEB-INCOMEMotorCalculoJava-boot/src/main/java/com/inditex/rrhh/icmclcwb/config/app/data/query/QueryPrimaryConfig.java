@@ -16,18 +16,6 @@ import org.springframework.core.io.support.ResourcePatternUtils;
 @Configuration
 public class QueryPrimaryConfig {
 
-  @Value("${app.envars.calculo.cast}")
-  private boolean castCalculo;
-
-  @Value("${app.envars.calculo.precision}")
-  private String precisionCalculo;
-
-  @Value("${app.envars.proceso.cast}")
-  private boolean castProceso;
-
-  @Value("${app.envars.proceso.precision}")
-  private String precisionProceso;
-
   private static final String RESOURCE_COMMON = "classpath*:/query/primary/*.xml";
 
   private static final String RESOURCE_CALCULO = "classpath*:/query/primary/calculo/*.xml";
@@ -49,6 +37,18 @@ public class QueryPrimaryConfig {
   private static final String CAST_RESULT_FIN = "AS ${precision})";
 
   private static final String CAST_VAR_PRECISION = "${precision}";
+
+  @Value("${app.envars.calculo.cast}")
+  private boolean castCalculo;
+
+  @Value("${app.envars.calculo.precision}")
+  private String precisionCalculo;
+
+  @Value("${app.envars.proceso.cast}")
+  private boolean castProceso;
+
+  @Value("${app.envars.proceso.precision}")
+  private String precisionProceso;
 
   @Bean(name = "primaryQuery")
   public PropertiesFactoryBean primaryQuery(final ResourceLoader resourceLoader) throws IOException {

@@ -519,18 +519,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     return result;
   }
 
-  private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final GenericFilterDto src) {
-    final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
-    if (src != null) {
-      src.getIdsEmpresa().forEach(empresa -> {
-        final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
-        record.setIdempresa(empresa);
-        result.add(record);
-      });
-    }
-    return result;
-  }
-
   @Override
   public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final SearchTiendasFilterDto src) {
     final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
@@ -552,6 +540,18 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
     final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
     result.getIcmParamcaltiendasRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final GenericFilterDto src) {
+    final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getIdsEmpresa().forEach(empresa -> {
+        final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+        record.setIdempresa(empresa);
+        result.add(record);
+      });
+    }
     return result;
   }
 
@@ -577,9 +577,47 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     return result;
   }
 
+  private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final PresenciaManualWlocFilterDto src) {
+    final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getItem().forEach(item -> {
+        final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+        record.setIdempresa(item.getIdEmpresa());
+        record.setIdorigen(item.getIdOrigen());
+        record.setIdlugartrabajo(item.getIdLugarTrabajo());
+        record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
+        result.add(record);
+      });
+    }
+    return result;
+  }
+
+  private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final VentaManualWlocFilterDto src) {
+    final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getItem().forEach(item -> {
+        final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+        record.setIdempresa(item.getIdEmpresa());
+        record.setIdorigen(item.getIdOrigen());
+        record.setIdlugartrabajo(item.getIdLugarTrabajo());
+        record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
+        result.add(record);
+      });
+    }
+    return result;
+  }
+
   @Override
   public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(final SearchEmpleadosFilterDto src) {
     final List<IcmParamcalempleadoRecord> list = this.asIcmParamcalempleadosRecordList(src);
+    final IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
+    result.getIcmParamcalempleadoRecordSet().addAll(list);
+    return result;
+  }
+
+  @Override
+  public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(final GenericFilterDto src) {
+    final List<IcmParamcalempleadoRecord> list = this.asIcmParamcalempleadoRecordList(src);
     final IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
     result.getIcmParamcalempleadoRecordSet().addAll(list);
     return result;
@@ -607,34 +645,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     return result;
   }
 
-  @Override
-  public IcmParamcalempleadoBlock asIcmParamcalempleadoBlock(final GenericFilterDto src) {
-    final List<IcmParamcalempleadoRecord> list = this.asIcmParamcalempleadoRecordList(src);
-    final IcmParamcalempleadoBlock result = this.delegate.asIcmParamcalempleadoBlock(src);
-    result.getIcmParamcalempleadoRecordSet().addAll(list);
-    return result;
-  }
-
-  private List<IcmParamcalempleadoRecord> asIcmParamcalempleadoRecordList(final GenericFilterDto src) {
-    final List<IcmParamcalempleadoRecord> result = new ArrayList<>();
-    if (src != null) {
-      src.getIdsEmpresa().forEach(empresa -> {
-        final IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
-        record.setIdempresa(empresa);
-        result.add(record);
-      });
-    }
-    return result;
-  }
-
-  @Override
-  public IcmParamcalempleadosBlock asIcmParamcalempleadosBlock(final GenericFilterDto src) {
-    final List<IcmParamcalempleadosRecord> list = this.asIcmParamcalempleadosRecordList(src);
-    final IcmParamcalempleadosBlock result = new IcmParamcalempleadosBlock();
-    result.getIcmParamcalempleadosRecordSet().addAll(list);
-    return result;
-  }
-
   private List<IcmParamcalempleadosRecord> asIcmParamcalempleadosRecordList(final GenericFilterDto src) {
     final List<IcmParamcalempleadosRecord> result = new ArrayList<>();
     if (src != null) {
@@ -655,6 +665,26 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
         }
       });
     }
+    return result;
+  }
+
+  private List<IcmParamcalempleadoRecord> asIcmParamcalempleadoRecordList(final GenericFilterDto src) {
+    final List<IcmParamcalempleadoRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getIdsEmpresa().forEach(empresa -> {
+        final IcmParamcalempleadoRecord record = this.delegate.asIcmParamcalempleadoRecord(src);
+        record.setIdempresa(empresa);
+        result.add(record);
+      });
+    }
+    return result;
+  }
+
+  @Override
+  public IcmParamcalempleadosBlock asIcmParamcalempleadosBlock(final GenericFilterDto src) {
+    final List<IcmParamcalempleadosRecord> list = this.asIcmParamcalempleadosRecordList(src);
+    final IcmParamcalempleadosBlock result = new IcmParamcalempleadosBlock();
+    result.getIcmParamcalempleadosRecordSet().addAll(list);
     return result;
   }
 
@@ -751,21 +781,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     return result;
   }
 
-  private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final PresenciaManualWlocFilterDto src) {
-    final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
-    if (src != null) {
-      src.getItem().forEach(item -> {
-        final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
-        record.setIdempresa(item.getIdEmpresa());
-        record.setIdorigen(item.getIdOrigen());
-        record.setIdlugartrabajo(item.getIdLugarTrabajo());
-        record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
-        result.add(record);
-      });
-    }
-    return result;
-  }
-
   @Override
   public List<PresenciaManualWlocResultItemDto> asPresenciaManualWlocResultItemDto(
       final List<IcmListapresenciamanwlocRecord> src) {
@@ -788,21 +803,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
       }
     }
     return list;
-  }
-
-  private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final VentaManualWlocFilterDto src) {
-    final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
-    if (src != null) {
-      src.getItem().forEach(item -> {
-        final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
-        record.setIdempresa(item.getIdEmpresa());
-        record.setIdorigen(item.getIdOrigen());
-        record.setIdlugartrabajo(item.getIdLugarTrabajo());
-        record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
-        result.add(record);
-      });
-    }
-    return result;
   }
 
   @Override
@@ -904,6 +904,16 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
   }
 
   @Override
+  public List<ListaCondicionesBaseResultItemDto> asListaCondicionesBaseResultItemDto(
+      final List<IcmListacondicionesbaseRecord> src) {
+    final List<ListaCondicionesBaseResultItemDto> result = new ArrayList<>();
+    if (CollectionUtils.isNotEmpty(src)) {
+      src.forEach(x -> result.add(this.asListaCondicionesBaseResultItemDto(x)));
+    }
+    return result;
+  }
+
+  @Override
   public ListaCondicionesDestinoResultItemDto asListaCondicionesDestinoResultItemDto(
       final IcmListacondicionesdestinoRecord src) {
 
@@ -919,16 +929,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     }
     return condiciones;
 
-  }
-
-  @Override
-  public List<ListaCondicionesBaseResultItemDto> asListaCondicionesBaseResultItemDto(
-      final List<IcmListacondicionesbaseRecord> src) {
-    final List<ListaCondicionesBaseResultItemDto> result = new ArrayList<>();
-    if (CollectionUtils.isNotEmpty(src)) {
-      src.forEach(x -> result.add(this.asListaCondicionesBaseResultItemDto(x)));
-    }
-    return result;
   }
 
   @Override

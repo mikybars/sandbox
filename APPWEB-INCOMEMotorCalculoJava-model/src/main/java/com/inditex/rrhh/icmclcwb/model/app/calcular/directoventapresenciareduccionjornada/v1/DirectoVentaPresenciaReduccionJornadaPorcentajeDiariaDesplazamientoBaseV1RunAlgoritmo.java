@@ -58,7 +58,8 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
       AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
 
       this.log.info(
-          "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+          "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: "
+              + "Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
       try {
         final CompletableFuture<Void> cfCalc =
@@ -70,13 +71,15 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
       } catch (final Exception e) {
         AsyncUtils.cancel(cf);
         this.log.error(
-            "Trabajo[{}]Tarea[{}] :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
+            "Trabajo[{}]Tarea[{}] :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: KO :: "
+                + "Personas: {}",
             runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
         this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
       }
       this.log.info(
-          "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+          "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: "
+              + "Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
     }
     AsyncUtils.waitAllOfIsOk(cf, cf);

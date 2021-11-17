@@ -57,7 +57,8 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1
       AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
 
       this.log.info(
-          "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+          "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas:"
+              + " {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
       try {
         final CompletableFuture<Void> cfCalc =
