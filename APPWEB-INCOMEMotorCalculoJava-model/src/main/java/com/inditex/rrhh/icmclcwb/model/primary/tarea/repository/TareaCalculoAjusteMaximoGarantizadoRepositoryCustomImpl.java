@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,12 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl
         }
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.MAXIMO_GARANTIZADO.getId());
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
+                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4(),
+                        TipoPoliticaEnum.VACACIONES.getIdMeta4(),
+                        TipoPoliticaEnum.BAJA_IT.getIdMeta4()));
+        map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+
         return map;
     }
 
