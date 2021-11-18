@@ -241,14 +241,14 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBase
     assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId(),
         result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE));
 
-      // Para cobertura
-      algoritmo2.setDesplazamientoBase(Boolean.TRUE);
-      final Map<String, Object> result2 = this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom
-          .getMapValues(algoritmo2, tarea, persona1);
+    // Para cobertura
+    algoritmo2.setDesplazamientoBase(Boolean.TRUE);
+    final Map<String, Object> result2 = this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoBaseV1RepositoryCustom
+        .getMapValues(algoritmo2, tarea, persona1);
 
-      assertNotNull(result2);
-      assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-      assertEquals(SQL_VALUE_BOOLEAN_TRUE, result2.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+    assertNotNull(result2);
+    assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result2.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
 
   }
 
