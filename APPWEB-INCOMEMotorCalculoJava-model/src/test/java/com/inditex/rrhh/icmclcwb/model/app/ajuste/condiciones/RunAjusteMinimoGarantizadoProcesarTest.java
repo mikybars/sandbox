@@ -213,6 +213,7 @@ class RunAjusteMinimoGarantizadoProcesarTest {
 
     }
 
+    @Test
     void executeInsertTemporaryTableDatosTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();

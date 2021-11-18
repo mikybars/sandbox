@@ -7,6 +7,8 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
@@ -43,6 +45,7 @@ public class RunAjusteCarenciaProcesar implements RunAjuste {
     private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
         final TareaDto tarea = runTarea.getTarea();
         this.log.info(
@@ -55,46 +58,47 @@ public class RunAjusteCarenciaProcesar implements RunAjuste {
                 runTarea.getTrabajo().getId(), tarea.getId(), ids);
 
         final List<CompletableFuture<?>> cf = new ArrayList<>();
-        /*
-         * try { this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasCarencia();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasCarencia();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoCarencia();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasCarencia();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasCarencia();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoTotalizadoCarencia();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(tarea);
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(tarea);
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia(tarea);
-         */
-        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
-                ids,
-                this.runAjusteProperties.getAjuste().getBatchSize())) {
-            AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
+        try {
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasCarencia();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasCarencia();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoCarencia();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasCarencia();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasCarencia();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoTotalizadoCarencia();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(tarea);
+            this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(tarea);
+            this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia(tarea);
 
-            this.log.info(
-                    "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteCarenciaProcesar :: Personas: {}",
-                    runTarea.getTrabajo().getId(), tarea.getId(), personas.size());
-            try {
-                final CompletableFuture<Void> cfAjuste = this.tareaCalculoAjusteCarenciaRepositoryCustom
-                    .ajustar(
-                            algoritmoAjuste, tarea,
-                            personas);
-                AsyncUtils.exceptionally(cfAjuste, cf);
-            } catch (final Exception e) {
-                AsyncUtils.cancel(cf);
-                this.log.error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), e);
-                this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                        EstadoTareaCalculoPersonaEnum.KO.getDto());
+            for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
+                    ids,
+                    this.runAjusteProperties.getAjuste().getBatchSize())) {
+                AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
+
+                this.log.info(
+                        "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteCarenciaProcesar :: Personas: {}",
+                        runTarea.getTrabajo().getId(), tarea.getId(), personas.size());
+                try {
+                    final CompletableFuture<Void> cfAjuste = this.tareaCalculoAjusteCarenciaRepositoryCustom
+                        .ajustar(
+                                algoritmoAjuste, tarea,
+                                personas);
+                    AsyncUtils.exceptionally(cfAjuste, cf);
+                } catch (final Exception e) {
+                    AsyncUtils.cancel(cf);
+                    this.log.error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), e);
+                    this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                this.log.info("Fin :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
+
             }
-            this.log.info("Fin :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
-
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } finally {
+            this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasCarencia();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasCarencia();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoCarencia();
         }
-        AsyncUtils.waitAllOfIsOk(cf, cf);
-        /*
-         * } finally { this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasCarencia();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasCarencia();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoCarencia(); }
-         */
+
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

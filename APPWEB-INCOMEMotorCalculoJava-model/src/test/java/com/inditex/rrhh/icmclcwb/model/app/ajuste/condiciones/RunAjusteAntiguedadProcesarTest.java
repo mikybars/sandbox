@@ -209,13 +209,12 @@ class RunAjusteAntiguedadProcesarTest {
                 exception);
         verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
                 EstadoTareaCalculoPersonaEnum.KO.getDto());
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempFechasAntiguedad();
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempFechasAcumuladasAntiguedad();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAntiguedad();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasAntiguedad();
 
     }
 
+    @Test
     void executeCreateTemporaryTablesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -225,6 +224,7 @@ class RunAjusteAntiguedadProcesarTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasAcumuladasAntiguedad();
     }
 
+    @Test
     void executeCreateTemporaryTablesIndexesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -235,6 +235,7 @@ class RunAjusteAntiguedadProcesarTest {
             .createIndexTempFechasAcumuladasAntiguedad();
     }
 
+    @Test
     void executeDropTemporaryTablesIndexesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -244,6 +245,7 @@ class RunAjusteAntiguedadProcesarTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasAntiguedad();
     }
 
+    @Test
     void executeInsertTemporaryTableFechasTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -253,6 +255,7 @@ class RunAjusteAntiguedadProcesarTest {
             .insertTempFechasAntiguedad(runTarea.getTarea());
     }
 
+    @Test
     void executeInsertTemporaryTableFechasAcumuladasTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();

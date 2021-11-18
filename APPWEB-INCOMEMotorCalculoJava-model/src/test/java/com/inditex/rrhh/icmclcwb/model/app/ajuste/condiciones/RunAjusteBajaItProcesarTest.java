@@ -205,16 +205,13 @@ class RunAjusteBajaItProcesarTest {
         verify(this.log, times(1)).error("RunAjusteBajaItProcesar :: KO :: Personas: {}", personas.size(), exception);
         verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
                 EstadoTareaCalculoPersonaEnum.KO.getDto());
-        /*
-         * verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasBajaIt();
-         * verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-         * times(1)).deleteTempFechasAcumuladasBajaIt();
-         * verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-         * times(1)).deleteTempCalculoTotalizadoBajaIt();
-         */
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasBajaIt();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasBajaIt();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoBajaIt();
 
     }
 
+    @Test
     void executeCreateTemporaryTablesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -225,6 +222,7 @@ class RunAjusteBajaItProcesarTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempCalculoTotalizadoBajaIt();
     }
 
+    @Test
     void executeCreateTemporaryTablesIndexesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -235,6 +233,7 @@ class RunAjusteBajaItProcesarTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempCalculoTotalizadoBajaIt();
     }
 
+    @Test
     void executeDropTemporaryTablesIndexesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -245,6 +244,7 @@ class RunAjusteBajaItProcesarTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoBajaIt();
     }
 
+    @Test
     void executeInsertTemporaryTableFechasTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -254,6 +254,7 @@ class RunAjusteBajaItProcesarTest {
             .insertTempFechasBajaIt(runTarea.getTarea());
     }
 
+    @Test
     void executeInsertTemporaryTableFechasAcumuladasTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -263,6 +264,7 @@ class RunAjusteBajaItProcesarTest {
                 runTarea.getTarea());
     }
 
+    @Test
     void executeInsertTemporaryTableCalculoTotalizadoTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();

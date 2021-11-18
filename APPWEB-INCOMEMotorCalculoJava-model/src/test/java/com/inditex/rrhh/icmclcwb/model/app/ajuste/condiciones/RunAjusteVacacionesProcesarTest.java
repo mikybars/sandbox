@@ -209,15 +209,13 @@ class RunAjusteVacacionesProcesarTest {
                 exception);
         verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
                 EstadoTareaCalculoPersonaEnum.KO.getDto());
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempFechasVacaciones();
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempFechasAcumuladasVacaciones();
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempCalculoTotalizadoVacaciones();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasVacaciones();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasVacaciones();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoVacaciones();
 
     }
 
+    @Test
     void executeCreateTemporaryTablesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -228,6 +226,7 @@ class RunAjusteVacacionesProcesarTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempCalculoTotalizadoVacaciones();
     }
 
+    @Test
     void executeCreateTemporaryTablesIndexesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -240,6 +239,7 @@ class RunAjusteVacacionesProcesarTest {
             .createIndexTempCalculoTotalizadoVacaciones();
     }
 
+    @Test
     void executeDropTemporaryTablesIndexesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -250,6 +250,7 @@ class RunAjusteVacacionesProcesarTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoVacaciones();
     }
 
+    @Test
     void executeInsertTemporaryTableFechasTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -259,6 +260,7 @@ class RunAjusteVacacionesProcesarTest {
             .insertTempFechasVacaciones(runTarea.getTarea());
     }
 
+    @Test
     void executeInsertTemporaryTableFechasAcumuladasTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -268,6 +270,7 @@ class RunAjusteVacacionesProcesarTest {
                 runTarea.getTarea());
     }
 
+    @Test
     void executeInsertTemporaryTableCalculoTotalizadoTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();

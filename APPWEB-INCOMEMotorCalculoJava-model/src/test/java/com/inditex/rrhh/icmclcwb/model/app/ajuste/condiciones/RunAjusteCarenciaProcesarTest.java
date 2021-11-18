@@ -207,14 +207,13 @@ class RunAjusteCarenciaProcesarTest {
         verify(this.log, times(1)).error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), exception);
         verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
                 EstadoTareaCalculoPersonaEnum.KO.getDto());
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasCarencia();
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempFechasAcumuladasCarencia();
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempCalculoTotalizadoCarencia();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasCarencia();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasCarencia();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoCarencia();
 
     }
 
+    @Test
     void executeCreateTemporaryTablesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -225,6 +224,7 @@ class RunAjusteCarenciaProcesarTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempCalculoTotalizadoCarencia();
     }
 
+    @Test
     void executeCreateTemporaryTablesIndexesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -236,6 +236,7 @@ class RunAjusteCarenciaProcesarTest {
             .createIndexTempCalculoTotalizadoCarencia();
     }
 
+    @Test
     void executeDropTemporaryTablesIndexesTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -246,6 +247,7 @@ class RunAjusteCarenciaProcesarTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoCarencia();
     }
 
+    @Test
     void executeInsertTemporaryTableFechasTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -255,6 +257,7 @@ class RunAjusteCarenciaProcesarTest {
             .insertTempFechasCarencia(runTarea.getTarea());
     }
 
+    @Test
     void executeInsertTemporaryTableFechasAcumuladasTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
@@ -264,6 +267,7 @@ class RunAjusteCarenciaProcesarTest {
                 runTarea.getTarea());
     }
 
+    @Test
     void executeInsertTemporaryTableCalculoTotalizadoTest() {
         final RunTareaDto runTarea = this.createRunTarea();
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();

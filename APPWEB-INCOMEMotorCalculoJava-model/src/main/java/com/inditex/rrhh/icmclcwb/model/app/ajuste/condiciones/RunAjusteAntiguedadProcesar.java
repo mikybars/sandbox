@@ -7,6 +7,8 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
@@ -42,6 +44,7 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
     private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
         this.log.info(
                 "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteAntiguedadProcesar :: Ids",
@@ -53,46 +56,47 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
         final List<CompletableFuture<?>> cf = new ArrayList<>();
-        /*
-         * try { // Creación de tablas temporales y sus índices para la baja it
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAntiguedad();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAntiguedad();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasAntiguedad();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasAntiguedad();
-         *
-         * // Inserción en tablas temporales
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad(runTarea.getTarea(
-         * )); this.primaryTemporaryTablePoliticasRepositoryCustom
-         * .insertTempFechasAcumuladasAntiguedad(runTarea.getTarea());
-         */
-        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
-                ids,
-                this.runAjusteProperties.getAjuste().getBatchSize())) {
-            AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
 
-            this.log.info(
-                    "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteAntiguedadProcesar :: Personas: {}",
-                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
-            try {
-                final CompletableFuture<Void> cfAjuste = this.tareaCalculoAjusteAntiguedadRepositoryCustom
-                    .ajustar(
-                            algoritmoAjuste, runTarea.getTarea(),
-                            personas);
-                AsyncUtils.exceptionally(cfAjuste, cf);
-            } catch (final Exception e) {
-                AsyncUtils.cancel(cf);
-                this.log.error("RunAjusteAntiguedadProcesar :: KO :: Personas: {}", personas.size(), e);
-                this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                        EstadoTareaCalculoPersonaEnum.KO.getDto());
+        try {
+            // Creación de tablas temporales y sus índices para la baja it
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAntiguedad();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAntiguedad();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasAntiguedad();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasAntiguedad();
+
+            // Inserción en tablas temporales
+            this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad(runTarea.getTarea());
+            this.primaryTemporaryTablePoliticasRepositoryCustom
+                .insertTempFechasAcumuladasAntiguedad(runTarea.getTarea());
+
+            for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
+                    ids,
+                    this.runAjusteProperties.getAjuste().getBatchSize())) {
+                AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
+
+                this.log.info(
+                        "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteAntiguedadProcesar :: Personas: {}",
+                        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+                try {
+                    final CompletableFuture<Void> cfAjuste = this.tareaCalculoAjusteAntiguedadRepositoryCustom
+                        .ajustar(
+                                algoritmoAjuste, runTarea.getTarea(),
+                                personas);
+                    AsyncUtils.exceptionally(cfAjuste, cf);
+                } catch (final Exception e) {
+                    AsyncUtils.cancel(cf);
+                    this.log.error("RunAjusteAntiguedadProcesar :: KO :: Personas: {}", personas.size(), e);
+                    this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+                            EstadoTareaCalculoPersonaEnum.KO.getDto());
+                }
+                this.log.info("Fin :: RunAjusteAntiguedadProcesar :: Personas: {}", personas.size());
+
             }
-            this.log.info("Fin :: RunAjusteAntiguedadProcesar :: Personas: {}", personas.size());
-
+            AsyncUtils.waitAllOfIsOk(cf, cf);
+        } finally {
+            this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAntiguedad();
+            this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasAntiguedad();
         }
-        AsyncUtils.waitAllOfIsOk(cf, cf);
-        /*
-         * } finally { this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAntiguedad();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasAntiguedad(); }
-         */
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
