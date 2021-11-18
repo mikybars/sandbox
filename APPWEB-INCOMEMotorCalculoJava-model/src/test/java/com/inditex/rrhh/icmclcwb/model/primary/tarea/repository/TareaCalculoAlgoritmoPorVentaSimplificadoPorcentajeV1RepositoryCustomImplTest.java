@@ -18,6 +18,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VAL
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -28,6 +29,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
@@ -51,7 +54,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCustomImplTest {
 
   private final static String SQL_CALCULAR_BASE = "SQL CALCULAR BASE";
@@ -103,7 +106,7 @@ public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCust
   }
 
   @Test
-  public void getMapValuesTest() {
+  public void getMapValuesTest(@Random AlgoritmoDTO algoritmo2) {
 
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
@@ -185,6 +188,15 @@ public class TareaCalculoAlgoritmoPorVentaSimplificadoPorcentajeV1RepositoryCust
     // esDesplazamientoBase
     assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+
+    // Para cobertura
+    algoritmo2.setDesplazamientoBase(Boolean.TRUE);
+    final Map<String, Object> result2 = this.tareaCalculoAlgoritmoPorVentaV1RepositoryCustom
+        .getMapValues(algoritmo2, tarea, persona1);
+
+    assertNotNull(result2);
+    assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result2.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
 
   }
 

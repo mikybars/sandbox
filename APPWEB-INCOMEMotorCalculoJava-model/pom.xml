@@ -91,6 +91,12 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.test</groupId>
+      <artifactId>test-framework-randomizer</artifactId>
+      <version>3.3.0</version>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
 

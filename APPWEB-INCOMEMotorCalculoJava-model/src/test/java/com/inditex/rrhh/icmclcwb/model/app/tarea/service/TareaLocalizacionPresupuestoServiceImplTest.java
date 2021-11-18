@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -8,11 +10,16 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPageEnum;
@@ -26,7 +33,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class TareaLocalizacionPresupuestoServiceImplTest {
 
   @Mock
@@ -194,16 +201,11 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
   }
 
   @Test
-  void findLocalizacionOrdinalTarea() {
+  void findLocalizacionOrdinalTarea(@Random Long idTarea, @Random Integer cclIdCodOrigen, @Random Integer cclIdSeccion,
+      @Random Integer idTipoPresupuesto, @Random(type = String.class, size = 2) List<String> stringList) {
 
-    final Long idTarea = 1L;
-    final Integer cclIdCodOrigen = 1;
-    final Integer cclIdSeccion = 2;
     final LocalDate fechaInicio = LocalDate.of(1990, 2, 2);
     final LocalDate fechaFin = LocalDate.of(1990, 2, 3);
-    final Integer idTipoPresupuesto = 3;
-
-    List<String> stringList = Arrays.asList("");
 
     doReturn(stringList).when(this.tareaLocalizacionPresupuestoRepositoryCustom).findLocalizacionOrdinalTarea(idTarea, cclIdCodOrigen,
         cclIdSeccion, fechaInicio, fechaFin, idTipoPresupuesto);
@@ -211,8 +213,49 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
     final List<String> result = this.tareaLocalizacionPresupuestoService.findLocalizacionOrdinalTarea(idTarea, cclIdCodOrigen,
         cclIdSeccion, fechaInicio, fechaFin, idTipoPresupuesto);
 
+    assertNotNull(result);
+    assertTrue(!result.isEmpty());
+
     assertEquals(stringList, result);
 
+  }
+
+  @Test
+  void findPresupuestosTest(@Random TareaDto tarea,
+      @Random(type = TareaLocalizacionPresupuestoDto.class, size = 2) List<TareaLocalizacionPresupuestoDto> listTareas) {
+
+    doReturn(listTareas).when(this.tareaLocalizacionPresupuestoRepositoryCustom).findPresupuestos(tarea);
+
+    final TareaLocalizacionPresupuestoListDto result = this.tareaLocalizacionPresupuestoService.findPresupuestos(tarea);
+
+    assertNotNull(result);
+    assertEquals(listTareas, result.getPresupuestos());
+  }
+
+  @Test
+  void findPeriodoPresupuestoYTrabajoTest(@Random Long idTarea, @Random PeriodoDto periodo) {
+    doReturn(periodo).when(this.tareaLocalizacionPresupuestoRepositoryCustom).findPeriodoPresupuestoYTrabajo(idTarea);
+
+    final PeriodoDto result = this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(idTarea);
+
+    assertNotNull(result);
+    assertEquals(periodo, result);
+  }
+
+  @Test
+  void indListaPeriodosPresupestoYTrabajoTest(@Random Long idTarea, @Random PtrFilterPropertiesDto filterProperties,
+      @Random PeriodoDto periodo) {
+
+    filterProperties.setPeriodSize(0);
+
+    doReturn(periodo).when(this.tareaLocalizacionPresupuestoRepositoryCustom).findPeriodoPresupuestoYTrabajo(idTarea);
+
+    final List<PeriodoDto> result = this.tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(idTarea,
+        filterProperties);
+
+    assertNotNull(result);
+    assertTrue(!result.isEmpty());
+    assertEquals(Collections.singletonList(periodo), result);
   }
 
 }
