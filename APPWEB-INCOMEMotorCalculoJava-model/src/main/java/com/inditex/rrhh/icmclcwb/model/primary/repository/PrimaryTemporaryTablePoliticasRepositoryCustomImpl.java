@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -36,6 +37,7 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
         implements PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     @Autowired
+    @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -45,6 +47,7 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
     @Autowired
+    @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     // Baja it
