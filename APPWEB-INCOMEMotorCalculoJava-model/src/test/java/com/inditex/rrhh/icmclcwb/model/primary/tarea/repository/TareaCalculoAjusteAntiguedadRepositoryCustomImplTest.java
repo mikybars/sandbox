@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
@@ -19,8 +17,6 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
@@ -31,23 +27,22 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class TareaCalculoAjusteAntiguedadRepositoryCustomImplTest {
+class TareaCalculoAjusteAntiguedadRepositoryCustomImplTest {
+
+    private final static Long ID_TAREA = 8919L;
+
+    private final static String ID_PERSONA = "AT1001";
+
+    private final static String OR_PERSONA = "01";
 
     private final static String SQL_AJUSTAR_BASE = "SQL CALCULAR BASE";
 
     private final static String SQL_AJUSTAR = "SQL CALCULAR";
 
+    public static final int ID_ALGORITMO = 11003;
+
     @Mock
     private TareaCalculoPersonaService tareaCalculoPerosnaService;
-
-    @Mock
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Captor
-    private ArgumentCaptor<MapSqlParameterSource[]> params;
-
-    @Captor
-    private ArgumentCaptor<String> sqlCaptor;
 
     @InjectMocks
     private TareaCalculoAjusteAntiguedadRepositoryCustomImpl tareaCalculoAjusteAntiguedadRepositoryCustomImpl;
@@ -60,14 +55,13 @@ public class TareaCalculoAjusteAntiguedadRepositoryCustomImplTest {
     }
 
     @Test
-    public void idsTest() {
+    void idsTest() {
         final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
         final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
         final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
         when(this.tareaCalculoPerosnaService.findByTareaAndIdEstadoAndIdTipoPolitica(any(TareaDto.class),
                 any(String.class)))
                     .thenReturn(personas);
-
         final TareaDto tarea = mock(TareaDto.class);
         final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteAntiguedadRepositoryCustomImpl.ids(tarea);
 
@@ -75,7 +69,7 @@ public class TareaCalculoAjusteAntiguedadRepositoryCustomImplTest {
     }
 
     @Test
-    public void getMapValuesTest() {
+    void getMapValuesTest() {
         final AlgoritmoAjusteDto algoritmoAjuste = mock(AlgoritmoAjusteDto.class);
         when(algoritmoAjuste.getId()).thenReturn(11003);
         final TareaDto tarea = mock(TareaDto.class);

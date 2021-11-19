@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteBajaItRepositoryCustom;
 import org.slf4j.Logger;
 
@@ -37,6 +38,9 @@ public class RunAjusteBajaItProcesar implements RunAjuste {
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
+    @Autowired
+    private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+
     @Override
     public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
         this.log.info(
@@ -49,6 +53,22 @@ public class RunAjusteBajaItProcesar implements RunAjuste {
                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
         final List<CompletableFuture<?>> cf = new ArrayList<>();
+        /*
+         * try { // Creación de tablas temporales y sus índices para la baja it
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasBajaIt();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasBajaIt();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasBajaIt();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasBajaIt();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoBajaIt();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoTotalizadoBajaIt();
+         *
+         * // Inserción en tablas temporales
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(runTarea.getTarea());
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasBajaIt(runTarea.
+         * getTarea());
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(runTarea.
+         * getTarea());
+         */
 
         for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
                 ids,
@@ -60,9 +80,7 @@ public class RunAjusteBajaItProcesar implements RunAjuste {
                     runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
             try {
                 final CompletableFuture<Void> cfAjuste = this.tareaCalculoAjusteBajaItRepositoryCustom
-                    .ajustar(
-                            algoritmoAjuste, runTarea.getTarea(),
-                            personas);
+                    .ajustar(algoritmoAjuste, runTarea.getTarea(), personas);
                 AsyncUtils.exceptionally(cfAjuste, cf);
             } catch (final Exception e) {
                 AsyncUtils.cancel(cf);
@@ -74,7 +92,11 @@ public class RunAjusteBajaItProcesar implements RunAjuste {
 
         }
         AsyncUtils.waitAllOfIsOk(cf, cf);
-
+        /*
+         * } finally { this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasBajaIt();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasBajaIt();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoBajaIt(); }
+         */
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

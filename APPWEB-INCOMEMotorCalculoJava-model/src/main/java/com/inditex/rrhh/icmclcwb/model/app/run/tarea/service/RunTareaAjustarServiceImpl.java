@@ -23,8 +23,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraPoliticaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjusteFactory;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 
 import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
 import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
@@ -46,6 +48,12 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
     @Autowired
     private TareaFaseService tareaFaseService;
 
+    @Autowired
+    private TareaPersonaEstructuraPoliticaService tareaPersonaEstructuraPoliticaService;
+
+    @Autowired
+    private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+
     @Auditoria
     @Validation(fase = 7)
     @TimerFunctionalMetric(metricName = "RunTareaAjustarService.run.timer",
@@ -59,7 +67,6 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
                         FaseEnum.AJUSTAR.getId()));
         final TareaDto tarea = runTarea.getTarea();
         final List<CompletableFuture<?>> cf = new ArrayList<>();
-
         for (final Long pesos : this.algoritmoAjusteService.customFindAjustePesosByTarea(tarea.getId())) {
             for (final Integer id : this.algoritmoAjusteService.customFindAjusteIdsByTareaAndPeso(tarea.getId(),
                     pesos)) {
@@ -71,7 +78,6 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
             }
             AsyncUtils.waitAllOfIsOk(cf, cf);
         }
-
 
         this.tareaFaseService.updateFechaFinAndEstado(
                 this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),

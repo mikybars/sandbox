@@ -306,6 +306,11 @@ class TareaRepositoryCustomImplTest {
                 ArgumentMatchers.<RowMapper<IdTareaDto>>any());
         assertEquals(total, result);
 
+        // Parámetros de la consulta: limit, idEstado
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue("idEstado"));
+        assertEquals(EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getId(), params.getValue("idEstado"));
+
     }
 
     @Test
@@ -325,13 +330,12 @@ class TareaRepositoryCustomImplTest {
                 });
 
         final Integer result = this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision();
-
         assertEquals(total, result);
 
     }
 
     @Test
-    void findTareasConsolidadasSinAjusteComisionTest() {
+    void findTareasConsolidadasSinAjusteComisionNumParamsTest() {
 
         final Long idTarea = 22L;
         final IdTareaDTO dto = new IdTareaDTO();
@@ -347,12 +351,58 @@ class TareaRepositoryCustomImplTest {
         verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_TAREAS_CONSOLIDADAS_SIN_AJUSTE_COMISION),
                 this.paramsCaptor.capture(),
                 ArgumentMatchers.<RowMapper<IdTareaDTO>>any());
-        // Parámetros de la consulta: limit
+        // Parámetros de la consulta: limit, idEstado
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertEquals(1, params.getValues().size());
+        assertEquals(2, params.getValues().size());
+    }
 
+    @Test
+    void findTareasConsolidadasSinAjusteComisionLimitParamTest() {
+
+        final Long idTarea = 22L;
+        final IdTareaDTO dto = new IdTareaDTO();
+        dto.setId(idTarea);
+        final List<IdTareaDTO> idTareas = Collections.singletonList(dto);
+        when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+                ArgumentMatchers.<RowMapper<IdTareaDTO>>any())).thenReturn(idTareas);
+
+        final int max = 199;
+        final List<IdTareaDTO> result = this.tareaRepositoryCustom
+            .findTareasConsolidadesSinAjusteComision(max);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_TAREAS_CONSOLIDADAS_SIN_AJUSTE_COMISION),
+                this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdTareaDTO>>any());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
         assertTrue(params.hasValue("limit"));
         assertEquals(max, params.getValue("limit"));
+
+        assertEquals(idTareas, result);
+
+    }
+
+    @Test
+    void findTareasConsolidadasSinAjusteComisionIdEstadoParamTest() {
+
+        final Long idTarea = 22L;
+        final IdTareaDTO dto = new IdTareaDTO();
+        dto.setId(idTarea);
+        final List<IdTareaDTO> idTareas = Collections.singletonList(dto);
+        when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+                ArgumentMatchers.<RowMapper<IdTareaDTO>>any())).thenReturn(idTareas);
+
+        final int max = 199;
+        final List<IdTareaDTO> result = this.tareaRepositoryCustom
+            .findTareasConsolidadesSinAjusteComision(max);
+
+        verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_TAREAS_CONSOLIDADAS_SIN_AJUSTE_COMISION),
+                this.paramsCaptor.capture(),
+                ArgumentMatchers.<RowMapper<IdTareaDTO>>any());
+
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue("idEstado"));
+        assertEquals(EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getId(), params.getValue("idEstado"));
 
         assertEquals(idTareas, result);
 

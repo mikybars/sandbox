@@ -99,6 +99,10 @@ public class SqlPrimaryConstants {
 
     public static final String SQL_PARAM_ID_TIPO_POLITICA = "idTipoPolitica";
 
+    public static final String SQL_PARAM_ID_TIPO_POLITICA_MAXIMO_GARANTIZADO = "idTipoPoliticaMaxGarantizado";
+
+    public static final String SQL_PARAM_ID_TIPO_POLITICA_MINIMO_GARANTIZADO = "idTipoPoliticaMinGarantizado";
+
     public static final String SQL_PARAM_ID_TIPO_POLITICA_AJUSTE = "idTipoPoliticaAjuste";
 
     public static final String SQL_PARAM_ID_TIPO_AUSENCIA = "idTipoAusencia";

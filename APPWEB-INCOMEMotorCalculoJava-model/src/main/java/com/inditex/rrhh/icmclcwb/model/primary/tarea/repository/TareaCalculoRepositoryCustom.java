@@ -14,4 +14,6 @@ public interface TareaCalculoRepositoryCustom {
 
     void regularizarMejorOpcionSinFechas(@NotNull final TareaDto tareaDto);
 
+    void regularizarMejorOpcionSinFechasTodoPeriodo(@NotNull final TareaDto tareaDto);
+
 }

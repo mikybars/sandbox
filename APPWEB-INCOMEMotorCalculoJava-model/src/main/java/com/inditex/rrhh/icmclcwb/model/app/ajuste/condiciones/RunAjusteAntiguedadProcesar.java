@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteAntiguedadRepositoryCustom;
 import org.slf4j.Logger;
 
@@ -37,6 +38,9 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
+    @Autowired
+    private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+
     @Override
     public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
         this.log.info(
@@ -49,8 +53,18 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
         final List<CompletableFuture<?>> cf = new ArrayList<>();
-
-
+        /*
+         * try { // Creación de tablas temporales y sus índices para la baja it
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAntiguedad();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAntiguedad();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasAntiguedad();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasAntiguedad();
+         *
+         * // Inserción en tablas temporales
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAntiguedad(runTarea.getTarea(
+         * )); this.primaryTemporaryTablePoliticasRepositoryCustom
+         * .insertTempFechasAcumuladasAntiguedad(runTarea.getTarea());
+         */
         for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
                 ids,
                 this.runAjusteProperties.getAjuste().getBatchSize())) {
@@ -75,7 +89,10 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
 
         }
         AsyncUtils.waitAllOfIsOk(cf, cf);
-
+        /*
+         * } finally { this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAntiguedad();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasAntiguedad(); }
+         */
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

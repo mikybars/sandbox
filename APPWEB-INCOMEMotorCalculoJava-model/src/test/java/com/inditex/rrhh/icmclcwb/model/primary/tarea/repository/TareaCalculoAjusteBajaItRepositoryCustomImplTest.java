@@ -39,11 +39,19 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
+class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
+
+    private final static Long ID_TAREA = 8919L;
+
+    private final static String ID_PERSONA = "AT1001";
+
+    private final static String OR_PERSONA = "01";
 
     private final static String SQL_AJUSTAR_BASE = "SQL CALCULAR BASE";
 
     private final static String SQL_AJUSTAR = "SQL CALCULAR";
+
+    public static final int ID_ALGORITMO = 11003;
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPerosnaService;
@@ -74,7 +82,7 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
     }
 
     @Test
-    public void idsTest() {
+    void idsTest() {
         final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
         final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
         final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
@@ -88,7 +96,7 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
     }
 
     @Test
-    public void getMapValuesTest() {
+    void getMapValuesTest() {
         final AlgoritmoAjusteDto algoritmoAjuste = mock(AlgoritmoAjusteDto.class);
         when(algoritmoAjuste.getId()).thenReturn(11003);
         final TareaDto tarea = mock(TareaDto.class);

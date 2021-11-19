@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteMaximoGarantizadoRepositoryCustom;
 import org.slf4j.Logger;
 
@@ -37,6 +38,9 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
     @Autowired
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
+    @Autowired
+    private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+
     @Override
     public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
         this.log.info(
@@ -49,7 +53,22 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
         final List<CompletableFuture<?>> cf = new ArrayList<>();
-
+        /*
+         * try {
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempAusenciasDateMaximoGarantizado();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempAusenciasDateMaximoGarantizado
+         * (); this.primaryTemporaryTablePoliticasRepositoryCustom
+         * .insertTempAusenciasDateMaximoGarantizado(runTarea.getTarea());
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjusteMaximoGarantizado()
+         * ; this.primaryTemporaryTablePoliticasRepositoryCustom.
+         * createIndexTempCalculoConAjusteMaximoGarantizado();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom
+         * .insertTempCalculoConAjusteMaximoGarantizado(runTarea.getTarea());
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaximoGarantizado();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempDatosMaximoGarantizado();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMaximoGarantizado(runTarea.
+         * getTarea());
+         */
         for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
                 ids,
                 this.runAjusteProperties.getAjuste().getBatchSize())) {
@@ -74,7 +93,12 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
 
         }
         AsyncUtils.waitAllOfIsOk(cf, cf);
-
+        /*
+         * } finally {
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempAusenciasDateMaximoGarantizado();
+         * this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjusteMaximoGarantizado()
+         * ; this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMaximoGarantizado(); }
+         */
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 

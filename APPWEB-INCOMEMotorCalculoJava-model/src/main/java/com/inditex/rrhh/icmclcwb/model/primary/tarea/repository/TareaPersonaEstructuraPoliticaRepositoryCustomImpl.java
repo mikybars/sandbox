@@ -1,11 +1,17 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
@@ -29,6 +35,12 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
     @Value("#{primaryQuery['TareaPersonaEstructuraPoliticaRepositoryCustom.updateImporteEstructuraPoliticas']}")
     private String sqlUpdateImporteEstructuraPoliticas;
 
+    @Value("#{primaryQuery['TareaPersonaEstructuraPolitica.existencia']}")
+    private String sqlExistencia;
+
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     @Override
     public List<TareaPersonaEstructuraPolitica> save(final List<TareaPersonaEstructuraPolitica> src) {
         return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -42,6 +54,20 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
                 TipoPoliticaEnum.MINIMO_GARANTIZADO.getId());
         parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         this.update(this.sqlUpdateImporteEstructuraPoliticas, parameters);
+    }
+
+    @Override
+    public Boolean existePolitica(@NotNull final TareaDto tarea,
+            @NotNull @NotEmpty final List<TipoPoliticaEnum> politicas) {
+        final Map<String, Object> parameters = new HashMap<>();
+        parameters.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        parameters.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
+                politicas.stream()
+                    .map(TipoPoliticaEnum::getId)
+                    .collect(
+                            Collectors.toList()));
+        return this.namedParameterJdbcTemplate.queryForObject(this.sqlExistencia, parameters,
+                (rs, rowNum) -> rs.getInt(SqlPrimaryConstants.SQL_RESULT_TOTAL) > 0);
     }
 
 }

@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
@@ -18,8 +16,6 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
@@ -30,7 +26,15 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
+class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
+
+    private final static Long ID_TAREA = 8919L;
+
+    private final static String ID_PERSONA = "AT1001";
+
+    private final static String OR_PERSONA = "01";
+
+    public static final int ID_ALGORITMO = 11003;
 
     private final static String SQL_AJUSTAR_BASE = "SQL CALCULAR BASE";
 
@@ -38,15 +42,6 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPerosnaService;
-
-    @Mock
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Captor
-    private ArgumentCaptor<MapSqlParameterSource[]> params;
-
-    @Captor
-    private ArgumentCaptor<String> sqlCaptor;
 
     @InjectMocks
     private TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl tareaCalculoAjusteMaximoGarantizadoRepositoryCustomImpl;
@@ -59,8 +54,28 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
                 SQL_AJUSTAR_BASE, true);
     }
 
+    private AlgoritmoAjusteDto createAlgoritmoAjuste() {
+        final AlgoritmoAjusteDto algoritmoAjuste = new AlgoritmoAjusteDto();
+        algoritmoAjuste.setId(ID_ALGORITMO);
+        return algoritmoAjuste;
+    }
+
+    private TareaDto createTarea() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        return tarea;
+    }
+
+    private IdPersonaLocalDto createPersonaLocal() {
+        return IdPersonaLocalDto
+            .builder()
+            .idPersonaLocal(ID_PERSONA)
+            .stdOrHrPeriod(OR_PERSONA)
+            .build();
+    }
+
     @Test
-    public void idsTest() {
+    void idsTest() {
         final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
         final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
         final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
@@ -76,7 +91,7 @@ public class TareaCalculoAjusteMaximoGarantizadoRepositoryCustomImplTest {
     }
 
     @Test
-    public void getMapValuesTest() {
+    void getMapValuesTest() {
         final AlgoritmoAjusteDto algoritmoAjuste = mock(AlgoritmoAjusteDto.class);
         when(algoritmoAjuste.getId()).thenReturn(11003);
         final TareaDto tarea = mock(TareaDto.class);
