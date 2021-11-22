@@ -120,13 +120,11 @@ amiga:
           username: ncomis
         comis11-2:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          # Se mockea temporalmente hasta que se verifique la conexión
-          jdbc-url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://TOSQL55v3.TORDERA.INDITEX.GRP\\oysho:31433;databaseName=Personal
           username: ncomis
         comis11-30:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          # Se mockea temporalmente hasta que se verifique la conexión
-          jdbc-url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://TOSQL66v2.TORDERA.INDITEX.GRP\\massimodutti:21433;databaseName=Personal
           username: ncomis
         comis11-25:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -158,8 +156,7 @@ amiga:
           username: ncomis
         comis52:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          # Se mockea temporalmente hasta que se verifique la conexión
-          jdbc-url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://TRSQL.SEDES.INDITEX.GRP:1433;databaseName=PERSONAL
           username: ncomis
         comis60:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -275,15 +272,11 @@ amiga:
           username: ncomis
         comis740:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          # Se mockea temporalmente hasta que se verifique la conexión
-          #jdbc-url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
-          jdbc-url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
           username: ncomis
         comis743:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          # Se mockea temporalmente hasta que se verifique la conexión
-          #jdbc-url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComisionMacao
-          jdbc-url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComisionMacao
           username: ncomis
         comis800:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
