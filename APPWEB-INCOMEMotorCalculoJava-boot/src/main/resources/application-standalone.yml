@@ -708,7 +708,7 @@ app:
           activo: true
           max-empleados: 10
       fechas:
-        meses: 24
+        meses: 2
         sincronizacion:
           activo: true
           max-empleados: 10

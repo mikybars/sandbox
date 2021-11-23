@@ -1434,7 +1434,6 @@ UNION
         SELECT
             Persona AS CCL_ID_PERSON,
             (100 - (CODIGOINCIDENCIA - 7000))/100.0 AS PORCENTAJE,
-            Tienda AS CCL_ID_COD_ORIGEN,
             MIN(FechaInicio) AS FECHA_INICIO,
             MAX(FechaFin) AS FECHA_FIN
         FROM
@@ -1442,7 +1441,7 @@ UNION
                     SELECT
                        *,
                        CASE WHEN Groups.PreviousEndDate >= FechaInicio THEN 0 ELSE 1 END AS IslandStartInd,
-                       SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FechaInicio) THEN 0 ELSE 1 END) OVER (PARTITION BY PERSONA, CodigoIncidencia, Tienda ORDER BY Groups.RN) AS IslandId
+                       SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FechaInicio) THEN 0 ELSE 1 END) OVER (PARTITION BY PERSONA, CodigoIncidencia ORDER BY Groups.RN) AS IslandId
                        FROM
                        (
                         SELECT
@@ -1461,8 +1460,8 @@ UNION
                                   END AS FechaFin,
                             i.CodigoIncidencia,
                             i.Tienda,
-                            ROW_NUMBER() OVER(PARTITION BY i.PERSONA, i.CodigoIncidencia, i.Tienda ORDER BY i.FechaInicio, i.FechaFin) AS RN,
-                            LAG(i.FechaFin,1) OVER (PARTITION BY i.PERSONA, i.CodigoIncidencia, i.Tienda ORDER BY i.FechaInicio, i.FechaFin) AS PreviousEndDate
+                            ROW_NUMBER() OVER(PARTITION BY i.PERSONA, i.CodigoIncidencia ORDER BY i.FechaInicio, i.FechaFin) AS RN,
+                            LAG(i.FechaFin,1) OVER (PARTITION BY i.PERSONA, i.CodigoIncidencia ORDER BY i.FechaInicio, i.FechaFin) AS PreviousEndDate
                           FROM IncidenciasSil i
                            INNER JOIN PERSONASHISTORICO PH
                            ON i.PERSONA = PH.PERSONA
@@ -1488,14 +1487,12 @@ UNION
         ) Islands
         GROUP BY
         Persona,
-        Tienda,
         CodigoIncidencia,
         IslandId
         UNION
         SELECT
             Persona AS CCL_ID_PERSON,
             (100 - (CODIGOINCIDENCIA - 7000))/100.0 AS PORCENTAJE,
-            Tienda AS CCL_ID_COD_ORIGEN,
             MIN(FechaInicio) AS FECHA_INICIO,
             MAX(FechaFin) AS FECHA_FIN
         FROM
@@ -1503,7 +1500,7 @@ UNION
                     SELECT
                        *,
                        CASE WHEN Groups.PreviousEndDate >= FechaInicio THEN 0 ELSE 1 END AS IslandStartInd,
-                       SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FechaInicio) THEN 0 ELSE 1 END) OVER (PARTITION BY PERSONA, CodigoIncidencia, Tienda ORDER BY Groups.RN) AS IslandId
+                       SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FechaInicio) THEN 0 ELSE 1 END) OVER (PARTITION BY PERSONA, CodigoIncidencia ORDER BY Groups.RN) AS IslandId
                        FROM
                        (
                         SELECT
@@ -1522,8 +1519,8 @@ UNION
                                   END AS FechaFin,
                             i.CodigoIncidencia,
                             i.Tienda,
-                            ROW_NUMBER() OVER(PARTITION BY i.PERSONA, i.CodigoIncidencia, i.Tienda ORDER BY i.FechaInicio, i.FechaFin) AS RN,
-                            LAG(i.FechaFin,1) OVER (PARTITION BY i.PERSONA, i.CodigoIncidencia, i.Tienda ORDER BY i.FechaInicio, i.FechaFin) AS PreviousEndDate
+                            ROW_NUMBER() OVER(PARTITION BY i.PERSONA, i.CodigoIncidencia ORDER BY i.FechaInicio, i.FechaFin) AS RN,
+                            LAG(i.FechaFin,1) OVER (PARTITION BY i.PERSONA, i.CodigoIncidencia ORDER BY i.FechaInicio, i.FechaFin) AS PreviousEndDate
                           FROM IncidenciasSil i
                            INNER JOIN PERSONASHISTORICO PH
                            ON i.PERSONA = PH.PERSONA
@@ -1549,7 +1546,6 @@ UNION
         ) Islands
         GROUP BY
         Persona,
-        Tienda,
         CodigoIncidencia,
         IslandId
       ]]>
@@ -1617,7 +1613,6 @@ UNION
   SELECT
       PERSONA AS CCL_ID_PERSON,
       PORCENTAJE AS PORCENTAJE,
-      TIENDA AS CCL_ID_COD_ORIGEN,
       MIN(FECHAINICIO) AS FECHA_INICIO,
       MAX(FECHAFIN) AS FECHA_FIN
         FROM
@@ -1625,7 +1620,7 @@ UNION
             SELECT
                *,
                CASE WHEN GROUPS.PREVIOUSENDDATE >= FECHAINICIO THEN 0 ELSE 1 END AS ISLANDSTARTIND,
-               SUM(CASE WHEN GROUPS.PREVIOUSENDDATE >= DATEADD(DAY, -1, FECHAINICIO) THEN 0 ELSE 1 END) OVER (PARTITION BY PERSONA, PORCENTAJE, TIENDA ORDER BY GROUPS.RN) AS ISLANDID
+               SUM(CASE WHEN GROUPS.PREVIOUSENDDATE >= DATEADD(DAY, -1, FECHAINICIO) THEN 0 ELSE 1 END) OVER (PARTITION BY PERSONA, PORCENTAJE ORDER BY GROUPS.RN) AS ISLANDID
                FROM
                (
               SELECT
@@ -1645,8 +1640,8 @@ UNION
                            I.PERSONA,
                            I.TIENDA,
                            I.SECCION,
-                       ROW_NUMBER() OVER(PARTITION BY I.PERSONA, I.PORCENTAJEAJUSTE, I.TIENDA ORDER BY I.FECHADESDE, I.FECHAHASTA) AS RN,
-                      LAG(I.FECHAHASTA,1) OVER (PARTITION BY I.PERSONA, I.PORCENTAJEAJUSTE, I.TIENDA ORDER BY I.FECHADESDE, I.FECHAHASTA) AS PREVIOUSENDDATE
+                       ROW_NUMBER() OVER(PARTITION BY I.PERSONA, I.PORCENTAJEAJUSTE ORDER BY I.FECHADESDE, I.FECHAHASTA) AS RN,
+                      LAG(I.FECHAHASTA,1) OVER (PARTITION BY I.PERSONA, I.PORCENTAJEAJUSTE ORDER BY I.FECHADESDE, I.FECHAHASTA) AS PREVIOUSENDDATE
                     FROM PERSONASINCIDENCIAS I
                     INNER JOIN PERSONASHISTORICO PH
                     ON I.PERSONA = PH.PERSONA
@@ -1660,7 +1655,6 @@ UNION
         ) ISLANDS
         GROUP BY
         PERSONA,
-        TIENDA,
         PORCENTAJE,
         ISLANDID
       ]]>
