@@ -522,6 +522,7 @@ WITH T AS (SELECT
                             AND PCT.TIPOCALCULO <> 0
                             AND PR.TIPOCALCULO = 0
                             AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+                            AND PH.TIPOCALCULO IS NOT NULL                            
                             AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                           GROUP BY
                             PCT.PERSONA,
