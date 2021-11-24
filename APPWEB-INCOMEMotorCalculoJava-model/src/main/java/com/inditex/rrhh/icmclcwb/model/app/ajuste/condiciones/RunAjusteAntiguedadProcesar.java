@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +16,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
@@ -24,7 +23,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableP
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteAntiguedadRepositoryCustom;
 import org.slf4j.Logger;
 
-@Component("antiguedadV1")
+@Service
 public class RunAjusteAntiguedadProcesar implements RunAjuste {
 
     @Autowired
@@ -45,7 +44,7 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
+    public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
         this.log.info(
                 "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteAntiguedadProcesar :: Ids",
                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
@@ -97,7 +96,6 @@ public class RunAjusteAntiguedadProcesar implements RunAjuste {
             this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAntiguedad();
             this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasAntiguedad();
         }
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override

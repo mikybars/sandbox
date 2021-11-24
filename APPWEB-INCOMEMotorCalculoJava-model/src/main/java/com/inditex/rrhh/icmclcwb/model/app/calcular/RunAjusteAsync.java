@@ -4,16 +4,17 @@
 
 package com.inditex.rrhh.icmclcwb.model.app.calcular;
 
+import java.util.concurrent.CompletableFuture;
+
+import org.springframework.scheduling.annotation.Async;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
-/**
- * @author javierev
- */
+public interface RunAjusteAsync {
 
-public interface RunAjuste {
-
-    void execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste);
+    @Async("algoritmoAjusteExecutor")
+    CompletableFuture<Void> execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste);
 
     String getSqlCalcular(AlgoritmoAjusteDto algoritmoAjuste);
 
