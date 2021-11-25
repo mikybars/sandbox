@@ -204,7 +204,7 @@ amiga:
           username: ncomis
         comis91:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://SISQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://SISQL.SEDES.INDITEX.GRP:11433;databaseName=PersonalComision
           username: ncomis          
         comis92:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
