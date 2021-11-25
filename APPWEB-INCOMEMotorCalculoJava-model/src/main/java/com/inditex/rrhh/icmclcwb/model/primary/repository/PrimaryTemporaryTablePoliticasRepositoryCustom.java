@@ -4,12 +4,28 @@
 
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 /**
  * @author javierev
  */
 public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
+
+    // comun
+
+    int createTempPersonas();
+
+    int deleteTempPersonas();
+
+    void insertTempPersonas(final TareaDto tarea, List<IdPersonaLocalDto> personas, TipoPoliticaEnum tipoPolitica);
+
+    int createIndexTempPersonas();
+
+    // fin comun
 
     // baja it
 
@@ -45,7 +61,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasAntiguedad();
 
-    void insertTempFechasAntiguedad(final TareaDto tarea);
+    void insertTempFechasAntiguedad();
 
     int createIndexTempFechasAntiguedad();
 
@@ -53,7 +69,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasAcumuladasAntiguedad();
 
-    void insertTempFechasAcumuladasAntiguedad(final TareaDto tarea);
+    void insertTempFechasAcumuladasAntiguedad();
 
     int createIndexTempFechasAcumuladasAntiguedad();
 

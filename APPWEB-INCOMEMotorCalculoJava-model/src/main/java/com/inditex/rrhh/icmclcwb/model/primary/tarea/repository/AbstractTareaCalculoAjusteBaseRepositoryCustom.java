@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.SqlParamsUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -31,6 +32,7 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
     protected abstract Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
             IdPersonaLocalDto persona);
 
+    @Deprecated
     @Override
     public CompletableFuture<Void> ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
             final List<IdPersonaLocalDto> personas) {
@@ -46,6 +48,16 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
                     batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
         }
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    @Override
+    public void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
+        if (this.getSqlAjustar() != null) {
+            final MapSqlParameterSource params = new MapSqlParameterSource();
+            params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());
+            params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+            this.namedParameterJdbcTemplate.update(this.getSqlAjustar(), params);
+        }
     }
 
     @Override

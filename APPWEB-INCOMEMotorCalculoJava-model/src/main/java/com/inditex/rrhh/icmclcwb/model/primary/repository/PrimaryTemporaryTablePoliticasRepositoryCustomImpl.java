@@ -4,6 +4,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.SistemaDestinoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoAusenciaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
@@ -49,6 +51,20 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    // Comun
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempPersonas']}")
+    private String sqlCreateTempPersonas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempPersonas']}")
+    private String sqlDeleteTempPersonas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonas']}")
+    private String sqlInsertTempPersonas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempPersonas']}")
+    private String sqlIndexTempPersonas;
 
     // Baja it
 
@@ -267,6 +283,38 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     private String sqlIndexTempCalculoTotalizadoCarencia;
 
     @Override
+    public int createTempPersonas() {
+        return this.jdbcTemplate.update(this.sqlCreateTempPersonas);
+    }
+
+    @Override
+    public int deleteTempPersonas() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempPersonas);
+    }
+
+    @Override
+    public void insertTempPersonas(final TareaDto tarea,
+            final List<IdPersonaLocalDto> personas,
+            final TipoPoliticaEnum tipoPolitica) {
+        final List<MapSqlParameterSource> batchArgs = new ArrayList<>();
+        personas.forEach(persona -> {
+            final MapSqlParameterSource arg = new MapSqlParameterSource();
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
+            arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, tipoPolitica.getId());
+            batchArgs.add(arg);
+        });
+        this.namedParameterJdbcTemplate.batchUpdate(this.sqlInsertTempPersonas,
+                batchArgs.toArray(new MapSqlParameterSource[0]));
+    }
+
+    @Override
+    public int createIndexTempPersonas() {
+        return this.jdbcTemplate.update(this.sqlIndexTempPersonas);
+    }
+
+    @Override
     public int createTempFechasBajaIt() {
         return this.jdbcTemplate.update(this.sqlCreateTempFechasBajaIt);
     }
@@ -381,13 +429,9 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempFechasAntiguedad(final TareaDto tarea) {
+    public void insertTempFechasAntiguedad() {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
 
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.ANTIGUEDAD.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
@@ -412,13 +456,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempFechasAcumuladasAntiguedad(final TareaDto tarea) {
+    public void insertTempFechasAcumuladasAntiguedad() {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
-
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.ANTIGUEDAD.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());

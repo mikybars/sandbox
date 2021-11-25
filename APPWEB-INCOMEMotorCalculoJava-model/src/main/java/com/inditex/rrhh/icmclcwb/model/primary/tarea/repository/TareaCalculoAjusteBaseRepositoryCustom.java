@@ -13,9 +13,12 @@ public interface TareaCalculoAjusteBaseRepositoryCustom {
 
     List<IdPersonaLocalDto> ids(final TareaDto tarea);
 
+    @Deprecated
     @Async("ajusteExecutor")
     CompletableFuture<Void> ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
             final List<IdPersonaLocalDto> personas);
+
+    void ajustar(AlgoritmoAjusteDto algoritmoAjuste);
 
     String getSqlAjustar(final AlgoritmoAjusteDto algoritmoAjuste);
 
