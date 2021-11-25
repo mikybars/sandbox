@@ -204,11 +204,21 @@ amiga:
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBG
           username: ncomis
           readOnly: true
+        comis70:
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionAL
+          username: ncomis
+          readOnly: true          
         comis72:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionUA
           username: ncomis
           readOnly: true
+        comis73:
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionBY
+          username: ncomis
+          readOnly: true          
         comis75:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRU
@@ -219,6 +229,11 @@ amiga:
           jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionKZ
           username: ncomis
           readOnly: true
+        comis91:
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionSI
+          username: ncomis
+          readOnly: true          
         comis92:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalHR
@@ -229,6 +244,11 @@ amiga:
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBosnia
           username: ncomis
           readOnly: true
+        comis95:
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionXK
+          username: ncomis
+          readOnly: true          
         comis96:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMacedonia
