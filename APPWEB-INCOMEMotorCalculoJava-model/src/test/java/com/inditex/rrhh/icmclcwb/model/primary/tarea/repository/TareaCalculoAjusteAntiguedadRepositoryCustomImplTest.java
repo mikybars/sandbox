@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
@@ -15,13 +17,18 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -41,6 +48,12 @@ class TareaCalculoAjusteAntiguedadRepositoryCustomImplTest {
 
     @Mock
     private TareaCalculoPersonaService tareaCalculoPerosnaService;
+
+    @Mock
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Captor
+    private ArgumentCaptor<MapSqlParameterSource> paramsCaptor;
 
     @InjectMocks
     private TareaCalculoAjusteAntiguedadRepositoryCustomImpl tareaCalculoAjusteAntiguedadRepositoryCustomImpl;
@@ -165,6 +178,33 @@ class TareaCalculoAjusteAntiguedadRepositoryCustomImplTest {
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, result.get(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
     }
 
+    @Test
+    void ajustarNumParamsTest() {
+        this.tareaCalculoAjusteAntiguedadRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_AJUSTAR), this.paramsCaptor.capture());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertEquals(2, params.getValues().size());
+    }
+
+    @Test
+    void ajustarIdAlgoritmoAjusteParamsTest() {
+        this.tareaCalculoAjusteAntiguedadRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_AJUSTAR), this.paramsCaptor.capture());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE));
+        assertEquals(ID_ALGORITMO, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE));
+    }
+
+    @Test
+    void ajustarInactivoParamsTest() {
+        this.tareaCalculoAjusteAntiguedadRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste());
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_AJUSTAR), this.paramsCaptor.capture());
+        final MapSqlParameterSource params = this.paramsCaptor.getValue();
+        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+    }
+
     private AlgoritmoAjusteDto createAlgoritmoAjuste() {
         final AlgoritmoAjusteDto algoritmoAjuste = new AlgoritmoAjusteDto();
         algoritmoAjuste.setId(ID_ALGORITMO);
@@ -178,12 +218,11 @@ class TareaCalculoAjusteAntiguedadRepositoryCustomImplTest {
     }
 
     private IdPersonaLocalDto createPersonaLocal() {
-        final IdPersonaLocalDto persona1 = IdPersonaLocalDto
+        return IdPersonaLocalDto
             .builder()
             .idPersonaLocal(ID_PERSONA)
             .stdOrHrPeriod(OR_PERSONA)
             .build();
-        return persona1;
     }
 
 }
