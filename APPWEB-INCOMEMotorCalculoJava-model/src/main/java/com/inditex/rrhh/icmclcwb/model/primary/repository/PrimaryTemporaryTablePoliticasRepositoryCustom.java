@@ -33,7 +33,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasBajaIt();
 
-    void insertTempFechasBajaIt(final TareaDto tarea);
+    void insertTempFechasBajaIt(final TareaDto tarea, String sistemaDestino);
 
     int createIndexTempFechasBajaIt();
 
@@ -41,7 +41,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasAcumuladasBajaIt();
 
-    void insertTempFechasAcumuladasBajaIt(final TareaDto tarea);
+    void insertTempFechasAcumuladasBajaIt();
 
     int createIndexTempFechasAcumuladasBajaIt();
 

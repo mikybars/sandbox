@@ -26,7 +26,7 @@ public abstract class AbstractCalculoAjusteBaseService {
     protected abstract void postcondiciones();
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
+    public final void ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
             final List<IdPersonaLocalDto> personas) {
         try {
             this.precondiciones(tarea, personas);

@@ -21,15 +21,8 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoAusenciaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
-import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author javierev
@@ -41,12 +34,6 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Autowired
     @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    private TareaAmbitoService tareaAmbitoService;
-
-    @Autowired
-    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
     @Autowired
     @Qualifier("primaryNamedParameterJdbcTemplate")
@@ -330,30 +317,14 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempFechasBajaIt(final TareaDto tarea) {
+    public void insertTempFechasBajaIt(final TareaDto tarea, final String sistemaDestino) {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        String cclIdOrigen = null;
-        SistemaDestinoResponseDto sistemaDestino = SistemaDestinoResponseDto.builder()
-            .idSistemaDestino(
-                    SistemaDestinoEnum.NONE.getIdMeta4())
-            .build();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-            final List<TareaAmbitoDto> byTarea = this.tareaAmbitoService.findByTarea(tarea);
-            cclIdOrigen = CollectionUtils.isNotEmpty(byTarea) ? byTarea.get(0).getCclIdOrigen() : null;
-        }
-        if (StringUtils.isNotBlank(cclIdOrigen)) {
-            sistemaDestino = this.meta4IcmWsCalcIncomeService
-                .getSistemaDestino(SistemaDestinoRequestDto.builder().cclIdOrigen(cclIdOrigen).build());
-        }
-
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.BAJA_IT.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_AUSENCIA, TipoAusenciaEnum.BAJA_IT.getId());
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO, sistemaDestino.getIdSistemaDestino());
+        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO, sistemaDestino);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO_SOLUCION_GLOBAL,
                 SistemaDestinoEnum.SOLUCION_GLOBAL.getIdMeta4());
 
@@ -371,13 +342,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempFechasAcumuladasBajaIt(final TareaDto tarea) {
+    public void insertTempFechasAcumuladasBajaIt() {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
-
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.BAJA_IT.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
