@@ -111,7 +111,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int createIndexTempAusenciasDateMaximoGarantizado();
 
-    void insertTempAusenciasDateMaximoGarantizado(final TareaDto tarea);
+    void insertTempAusenciasDateMaximoGarantizado();
 
     int createTempCalculoConAjusteMaximoGarantizado();
 
@@ -119,7 +119,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int createIndexTempCalculoConAjusteMaximoGarantizado();
 
-    void insertTempCalculoConAjusteMaximoGarantizado(final TareaDto tarea);
+    void insertTempCalculoConAjusteMaximoGarantizado();
 
     int createTempDatosMaximoGarantizado();
 
@@ -127,7 +127,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int createIndexTempDatosMaximoGarantizado();
 
-    void insertTempDatosMaximoGarantizado(final TareaDto tarea);
+    void insertTempDatosMaximoGarantizado();
 
     // fin máximo garantizado
 

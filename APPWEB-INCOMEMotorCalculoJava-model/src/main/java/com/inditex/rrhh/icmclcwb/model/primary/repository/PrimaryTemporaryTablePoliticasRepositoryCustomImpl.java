@@ -533,14 +533,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempAusenciasDateMaximoGarantizado(final TareaDto tarea) {
-        final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
-                TipoPoliticaEnum.MAXIMO_GARANTIZADO.getId());
-        this.namedParameterJdbcTemplate.update(this.sqlInsertTempAusenciasDateMaximoGarantizado, map);
+    public void insertTempAusenciasDateMaximoGarantizado() {
+        this.jdbcTemplate.update(this.sqlInsertTempAusenciasDateMaximoGarantizado);
     }
 
     @Override
@@ -559,12 +553,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempCalculoConAjusteMaximoGarantizado(
-            final TareaDto tarea) {
+    public void insertTempCalculoConAjusteMaximoGarantizado() {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
         map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
                 Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getId(),
@@ -589,15 +579,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempDatosMaximoGarantizado(final TareaDto tarea) {
-        final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.MAXIMO_GARANTIZADO.getId());
-        this.namedParameterJdbcTemplate.update(this.sqlInsertTempDatosMaximoGarantizado, map);
+    public void insertTempDatosMaximoGarantizado() {
+        this.jdbcTemplate.update(this.sqlInsertTempDatosMaximoGarantizado);
     }
 
     @Override
