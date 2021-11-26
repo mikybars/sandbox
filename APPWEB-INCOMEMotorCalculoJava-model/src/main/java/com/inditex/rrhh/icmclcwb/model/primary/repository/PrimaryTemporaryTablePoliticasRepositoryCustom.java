@@ -81,7 +81,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasVacaciones();
 
-    void insertTempFechasVacaciones(final TareaDto tarea);
+    void insertTempFechasVacaciones();
 
     int createIndexTempFechasVacaciones();
 
@@ -89,7 +89,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasAcumuladasVacaciones();
 
-    void insertTempFechasAcumuladasVacaciones(final TareaDto tarea);
+    void insertTempFechasAcumuladasVacaciones();
 
     int createIndexTempFechasAcumuladasVacaciones();
 
