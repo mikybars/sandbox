@@ -21,7 +21,7 @@ metadata:
   slot: develop
   developModel: CORPORATE
   layer: core 
-  version: 3.5.4
+  version: 3.5.5
 amiga:
   monitoring:
     metrics:
@@ -708,7 +708,7 @@ app:
           activo: true
           max-empleados: 10
       fechas:
-        meses: 24
+        meses: 2
         sincronizacion:
           activo: true
           max-empleados: 10
