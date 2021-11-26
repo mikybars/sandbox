@@ -27,7 +27,7 @@ import static org.mockito.Mockito.verify;
  * @author javierev
  */
 @ExtendWith(SpringExtension.class)
-class CalculoAjusteCarenciaAsyncserviceImplTest {
+class CalculoAjusteCarenciaAsyncServiceImplTest {
 
     @Mock
     private CalculoAjusteCarenciaService calculoAjusteCarenciaService;

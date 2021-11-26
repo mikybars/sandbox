@@ -30,7 +30,7 @@ import static org.mockito.Mockito.verify;
 class CalculoAjusteBajaItAsyncServiceImplTest {
 
     @Mock
-    private CalculoAjusteBajaItService calculoAjusteAntiguedadService;
+    private CalculoAjusteBajaItService calculoAjusteBajaItService;
 
     @InjectMocks
     private CalculoAjusteBajaItAsyncServiceImpl calculoAjusteBajaItAsyncService;
@@ -48,7 +48,7 @@ class CalculoAjusteBajaItAsyncServiceImplTest {
                     .stdOrHrPeriod("OR PERSONA")
                     .build());
         final CompletableFuture<Void> cf = this.calculoAjusteBajaItAsyncService.ajustar(algoritmo, tarea, personas);
-        verify(this.calculoAjusteAntiguedadService, times(1)).ajustar(algoritmo, tarea, personas);
+        verify(this.calculoAjusteBajaItService, times(1)).ajustar(algoritmo, tarea, personas);
         assertNotNull(cf);
     }
 
