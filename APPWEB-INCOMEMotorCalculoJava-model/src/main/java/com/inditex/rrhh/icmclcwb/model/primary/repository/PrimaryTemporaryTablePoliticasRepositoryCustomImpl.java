@@ -704,12 +704,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempFechasCarencia(final TareaDto tarea) {
+    public void insertTempFechasCarencia() {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.CARENCIA.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
@@ -733,12 +729,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempFechasAcumuladasCarencia(final TareaDto tarea) {
+    public void insertTempFechasAcumuladasCarencia() {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.CARENCIA.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());

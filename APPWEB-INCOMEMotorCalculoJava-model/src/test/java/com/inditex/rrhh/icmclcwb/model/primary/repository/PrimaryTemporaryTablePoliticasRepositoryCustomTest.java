@@ -1814,24 +1814,16 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     }
 
     @Test
-    void insertTempFechasCarenciaNumArgumentosTareaNullTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(null);
+    void insertTempFechasCarenciaNumArgumentosNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
                 this.paramsCaptor.capture());
-        assertEquals(5, this.paramsCaptor.getValue().getValues().size());
-    }
-
-    @Test
-    void insertTempFechasCarenciaNumArgumentosTareaNotNullTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
-                this.paramsCaptor.capture());
-        assertEquals(6, this.paramsCaptor.getValue().getValues().size());
+        assertEquals(4, this.paramsCaptor.getValue().getValues().size());
     }
 
     @Test
     void insertTempFechasCarenciaUnidadTiempoAnosTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
                 this.paramsCaptor.capture());
 
@@ -1844,7 +1836,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void insertTempFechasCarenciaUnidadTiempoMesesTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
                 this.paramsCaptor.capture());
 
@@ -1857,7 +1849,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void insertTempFechasCarenciaUnidadTiempoSemanasTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
                 this.paramsCaptor.capture());
 
@@ -1870,7 +1862,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void insertTempFechasCarenciaUnidadTiempoDiasTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
                 this.paramsCaptor.capture());
 
@@ -1878,31 +1870,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
         assertEquals(TipoUnidadTiempoEnum.DIAS.getId(),
                 params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
-
-    }
-
-    @Test
-    void insertTempFechasCarenciaIdTipoPoliticaTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
-        assertEquals(TipoPoliticaEnum.CARENCIA.getId(),
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
-
-    }
-
-    @Test
-    void insertTempFechasCarenciaIdTareaTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_CARENCIA),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
 
     }
 
@@ -1929,24 +1896,16 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     }
 
     @Test
-    void insertTempFechasAcumuladasCarenciaNumArgumentosTareaNullTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(null);
+    void insertTempFechasAcumuladasCarenciaNumArgumentosTareaTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
                 this.paramsCaptor.capture());
-        assertEquals(5, this.paramsCaptor.getValue().getValues().size());
-    }
-
-    @Test
-    void insertTempFechasAcumuladasCarenciaNumArgumentosTareaNotNullTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
-                this.paramsCaptor.capture());
-        assertEquals(6, this.paramsCaptor.getValue().getValues().size());
+        assertEquals(4, this.paramsCaptor.getValue().getValues().size());
     }
 
     @Test
     void insertTempFechasAcumuladasCarenciaUnidadTiempoAnosTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
                 this.paramsCaptor.capture());
 
@@ -1959,7 +1918,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void insertTempFechasAcumuladasCarenciaUnidadTiempoMesesTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
                 this.paramsCaptor.capture());
 
@@ -1972,7 +1931,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void insertTempFechasAcumuladasCarenciaUnidadTiempoSemanasTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
                 this.paramsCaptor.capture());
 
@@ -1985,7 +1944,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void insertTempFechasAcumuladasCarenciaUnidadTiempoDiasTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
                 this.paramsCaptor.capture());
 
@@ -1993,31 +1952,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
         assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
         assertEquals(TipoUnidadTiempoEnum.DIAS.getId(),
                 params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
-
-    }
-
-    @Test
-    void insertTempFechasAcumuladasCarenciaIdTipoPoliticaTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
-        assertEquals(TipoPoliticaEnum.CARENCIA.getId(),
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
-
-    }
-
-    @Test
-    void insertTempFechasAcumuladasCarenciaIdTareaTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_ACUMULADAS_CARENCIA),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
 
     }
 
