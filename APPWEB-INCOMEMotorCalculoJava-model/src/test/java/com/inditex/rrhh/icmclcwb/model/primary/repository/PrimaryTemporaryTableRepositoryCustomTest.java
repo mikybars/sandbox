@@ -147,6 +147,36 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
     private final static String SQL_DELETE_TEMP_CALCULO_AJUSTE_TOTALIZADO = "SQL DELETE TEMP CALCULO AJUSTE TOTALIZADO";
 
+    // mejor opcion
+
+    private final static String SQL_CREATE_TEMP_MEJOR_OPCION = "SQL CREATE TEMP MEJOR OPCION";
+
+    private final static String SQL_INSERT_TEMP_MEJOR_OPCION = "SQL MERGE TEMP MEJOR OPCION";
+
+    private final static String SQL_INDEX_TEMP_MEJOR_OPCION = "SQL INDEX TEMP MEJOR OPCION";
+
+    private final static String SQL_DELETE_TEMP_MEJOR_OPCION = "SQL DELETE TEMP MEJOR OPCION";
+
+    // mejor opcion sin fechas
+
+    private final static String SQL_CREATE_TEMP_MEJOR_OPCION_SIN_FECHAS = "SQL CREATE TEMP MEJOR OPCION SIN FECHAS";
+
+    private final static String SQL_INSERT_TEMP_MEJOR_OPCION_SIN_FECHAS = "SQL MERGE TEMP MEJOR OPCION SIN FECHAS";
+
+    private final static String SQL_INDEX_TEMP_MEJOR_OPCION_SIN_FECHAS = "SQL INDEX TEMP MEJOR OPCION SIN FECHAS";
+
+    private final static String SQL_DELETE_TEMP_MEJOR_OPCION_SIN_FECHAS = "SQL DELETE TEMP MEJOR OPCION SIN FECHAS";
+
+    // mejor opcion sin fechas todo periodo
+
+    private final static String SQL_CREATE_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO = "SQL CREATE TEMP MEJOR OPCION SIN FECHAS TODO PERIODO";
+
+    private final static String SQL_INSERT_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO = "SQL MERGE TEMP MEJOR OPCION SIN FECHAS TODO PERIODO";
+
+    private final static String SQL_INDEX_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO = "SQL INDEX TEMP MEJOR OPCION SIN FECHAS TODO PERIODO";
+
+    private final static String SQL_DELETE_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO = "SQL DELETE TEMP MEJOR OPCION SIN FECHAS TODO PERIODO";
+
 
     @BeforeEach
     public void setup() throws IllegalAccessException {
@@ -234,6 +264,40 @@ class PrimaryTemporaryTableRepositoryCustomTest {
                 "sqlMergeCalculoAjusteTotalizado", SQL_MERGE_CALCULO_TEMP_CALCULO_AJUSTE_TOTALIZADO, true);
         FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
                 "sqlDeleteTempCalculoAjusteTotalizado", SQL_DELETE_TEMP_CALCULO_AJUSTE_TOTALIZADO, true);
+
+        // mejor opcion
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlCreateTempMejorOpcion", SQL_CREATE_TEMP_MEJOR_OPCION, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlIndexTempMejorOpcion", SQL_INDEX_TEMP_MEJOR_OPCION, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlInsertTempMejorOpcion", SQL_INSERT_TEMP_MEJOR_OPCION, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlDeleteTempMejorOpcion", SQL_DELETE_TEMP_MEJOR_OPCION, true);
+
+        // mejor opcion fechas
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlCreateTempMejorOpcionSinFechas", SQL_CREATE_TEMP_MEJOR_OPCION_SIN_FECHAS, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlIndexTempMejorOpcionSinFechas", SQL_INDEX_TEMP_MEJOR_OPCION_SIN_FECHAS, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlInsertTempMejorOpcionSinFechas", SQL_INSERT_TEMP_MEJOR_OPCION_SIN_FECHAS, true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlDeleteTempMejorOpcionSinFechas", SQL_DELETE_TEMP_MEJOR_OPCION_SIN_FECHAS, true);
+
+        // mejor opcion fechas periodo
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlCreateTempMejorOpcionSinFechasTodoPeriodo", SQL_CREATE_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO,
+                true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlIndexTempMejorOpcionSinFechasTodoPeriodo", SQL_INDEX_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO,
+                true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlInsertTempMejorOpcionSinFechasTodoPeriodo", SQL_INSERT_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO,
+                true);
+        FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+                "sqlDeleteTempMejorOpcionSinFechasTodoPeriodo", SQL_DELETE_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO,
+                true);
 
 
     }
@@ -778,5 +842,110 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     }
 
     // Fin tests totalizacion tarea calculo ajuste
+
+
+    // Inicio tests mejor opcion
+
+    @Test
+    void createTempMejorOpcionTest() {
+        this.primaryTemporaryTableRepositoryCustom.createTempMejorOpcion();
+        verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_MEJOR_OPCION);
+    }
+
+    @Test
+    void insertTempMejorOpcionTest() {
+
+        final TareaDto tarea = new TareaDto();
+        this.primaryTemporaryTableRepositoryCustom.insertTempMejorOpcion(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_MEJOR_OPCION),
+                this.paramsCaptor.capture());
+    }
+
+    @Test
+    void deleteTempMejorOpcionTest() {
+
+        this.primaryTemporaryTableRepositoryCustom.deleteTempMejorOpcion();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_MEJOR_OPCION);
+    }
+
+    @Test
+    void indexTempMejorOpcionTest() {
+        this.primaryTemporaryTableRepositoryCustom.indexTempMejorOpcion();
+        verify(this.jdbcTemplate).update(SQL_INDEX_TEMP_MEJOR_OPCION);
+    }
+
+    // Fin tests mejoropcion
+
+
+    // Inicio tests mejor opcion sin fechas
+
+    @Test
+    void createTempMejorOpcionSinFechasTest() {
+        this.primaryTemporaryTableRepositoryCustom.createTempMejorOpcionSinFechas();
+        verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_MEJOR_OPCION_SIN_FECHAS);
+    }
+
+    @Test
+    void insertTempMejorOpcionSinFechasTest() {
+
+        final TareaDto tarea = new TareaDto();
+        this.primaryTemporaryTableRepositoryCustom.insertTempMejorOpcionSinFechas(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_MEJOR_OPCION_SIN_FECHAS),
+                this.paramsCaptor.capture());
+    }
+
+    @Test
+    void deleteTempMejorOpcionSinFechasTest() {
+
+        this.primaryTemporaryTableRepositoryCustom.deleteTempMejorOpcionSinFechas();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_MEJOR_OPCION_SIN_FECHAS);
+
+    }
+
+    @Test
+    void indexTempMejorOpcionSinFechasTest() {
+        this.primaryTemporaryTableRepositoryCustom.indexTempMejorOpcionSinFechas();
+        verify(this.jdbcTemplate).update(SQL_INDEX_TEMP_MEJOR_OPCION_SIN_FECHAS);
+    }
+
+    // Fin tests mejoropcion
+
+    // Inicio tests mejor opcion sin fechas
+
+    @Test
+    void createTempMejorOpcionSinFechasTodoPeriodoTest() {
+        this.primaryTemporaryTableRepositoryCustom.createTempMejorOpcionSinFechasTodoPeriodo();
+        verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO);
+    }
+
+    @Test
+    void insertTempMejorOpcionSinFechasTodoPeriodoTest() {
+
+        final TareaDto tarea = new TareaDto();
+        this.primaryTemporaryTableRepositoryCustom.insertTempMejorOpcionSinFechasTodoPeriodo(tarea);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(
+                eq(SQL_INSERT_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO),
+                this.paramsCaptor.capture());
+    }
+
+    @Test
+    void deleteTempMejorOpcionSinFechasTodoPeriodoTest() {
+
+        this.primaryTemporaryTableRepositoryCustom.deleteTempMejorOpcionSinFechasTodoPeriodo();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO);
+
+        // verify(this.jdbcTemplate).update(eq(SQL_DELETE_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO),
+        // any(BatchPreparedStatementSetter.class));
+
+    }
+
+    @Test
+    void indexTempMejorOpcionSinFechasTodoPeriodoTest() {
+        this.primaryTemporaryTableRepositoryCustom.indexTempMejorOpcionSinFechasTodoPeriodo();
+        verify(this.jdbcTemplate).update(SQL_INDEX_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO);
+    }
+
+    // Fin tests mejoropcion
 
 }
