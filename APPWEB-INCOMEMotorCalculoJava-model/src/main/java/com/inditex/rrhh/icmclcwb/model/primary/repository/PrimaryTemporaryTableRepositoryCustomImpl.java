@@ -155,6 +155,42 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempAlgoritmo']}")
     private String sqlDeleteTempAlgoritmo;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMejorOpcion']}")
+    private String sqlCreateTempMejorOpcion;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempMejorOpcion']}")
+    private String sqlIndexTempMejorOpcion;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMejorOpcion']}")
+    private String sqlInsertTempMejorOpcion;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMejorOpcion']}")
+    private String sqlDeleteTempMejorOpcion;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMejorOpcionSinFechas']}")
+    private String sqlCreateTempMejorOpcionSinFechas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempMejorOpcionSinFechas']}")
+    private String sqlIndexTempMejorOpcionSinFechas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMejorOpcionSinFechas']}")
+    private String sqlInsertTempMejorOpcionSinFechas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMejorOpcionSinFechas']}")
+    private String sqlDeleteTempMejorOpcionSinFechas;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMejorOpcionSinFechasTodoPeriodo']}")
+    private String sqlCreateTempMejorOpcionSinFechasTodoPeriodo;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempMejorOpcionSinFechasTodoPeriodo']}")
+    private String sqlIndexTempMejorOpcionSinFechasTodoPeriodo;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMejorOpcionSinFechasTodoPeriodo']}")
+    private String sqlInsertTempMejorOpcionSinFechasTodoPeriodo;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMejorOpcionSinFechasTodoPeriodo']}")
+    private String sqlDeleteTempMejorOpcionSinFechasTodoPeriodo;
+
     @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisAlgoritmo']}")
     private String sqlInsertTempComisAlgoritmo;
 
@@ -821,6 +857,75 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         params.addValue(SqlPrimaryConstants.SQL_PARAM_IMPORTE, SqlPrimaryConstants.SQL_VALUE_IMPORTE_CERO);
         this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoAjusteTotalizado, params);
+    }
+
+    @Override
+    public int deleteTempMejorOpcion() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempMejorOpcion);
+    }
+
+    @Override
+    public int createTempMejorOpcion() {
+        return this.jdbcTemplate.update(this.sqlCreateTempMejorOpcion);
+    }
+
+    @Override
+    public int indexTempMejorOpcion() {
+        return this.jdbcTemplate.update(this.sqlIndexTempMejorOpcion);
+    }
+
+    @Override
+    public void insertTempMejorOpcion(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempMejorOpcion, map);
+    }
+
+    @Override
+    public int deleteTempMejorOpcionSinFechas() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempMejorOpcionSinFechas);
+    }
+
+    @Override
+    public int createTempMejorOpcionSinFechas() {
+        return this.jdbcTemplate.update(this.sqlCreateTempMejorOpcionSinFechas);
+    }
+
+    @Override
+    public int indexTempMejorOpcionSinFechas() {
+        return this.jdbcTemplate.update(this.sqlIndexTempMejorOpcionSinFechas);
+    }
+
+    @Override
+    public void insertTempMejorOpcionSinFechas(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempMejorOpcionSinFechas, map);
+    }
+
+    @Override
+    public int deleteTempMejorOpcionSinFechasTodoPeriodo() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempMejorOpcionSinFechasTodoPeriodo);
+    }
+
+    @Override
+    public int createTempMejorOpcionSinFechasTodoPeriodo() {
+        return this.jdbcTemplate.update(this.sqlCreateTempMejorOpcionSinFechasTodoPeriodo);
+    }
+
+    @Override
+    public int indexTempMejorOpcionSinFechasTodoPeriodo() {
+        return this.jdbcTemplate.update(this.sqlIndexTempMejorOpcionSinFechasTodoPeriodo);
+    }
+
+    @Override
+    public void insertTempMejorOpcionSinFechasTodoPeriodo(final TareaDto tarea) {
+        final MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempMejorOpcionSinFechasTodoPeriodo, map);
     }
 
 }
