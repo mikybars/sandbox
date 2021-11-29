@@ -1318,9 +1318,9 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     }
 
     @Test
-    void insertTempAusenciasDateMinimoGarantizadoNumArgumentosTareaNotNullTest() {
+    void insertTempAusenciasDateMinimoGarantizadoNumArgumentosTest() {
         this.primaryTemporaryTablePoliticasRepositoryCustom
-            .insertTempAusenciasDateMinimoGarantizado(this.createTarea());
+            .insertTempAusenciasDateMinimoGarantizado();
         verify(this.jdbcTemplate, times(1)).update(SQL_INSERT_TEMP_AUSENCIAS_DATE_MINIMO_GARANTIZADO);
     }
 
@@ -1647,18 +1647,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
                 this.paramsCaptor.capture());
         assertEquals(1, this.paramsCaptor.getValue().getValues().size());
-    }
-
-    @Test
-    void insertTempCalculoTotalizadoCarenciaIdTareaTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-
     }
 
     @Test

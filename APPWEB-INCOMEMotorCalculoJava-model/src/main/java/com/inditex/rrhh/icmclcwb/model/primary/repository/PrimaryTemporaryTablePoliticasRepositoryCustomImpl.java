@@ -593,7 +593,7 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempAusenciasDateMinimoGarantizado(final TareaDto tarea) {
+    public void insertTempAusenciasDateMinimoGarantizado() {
         this.jdbcTemplate.update(this.sqlInsertTempAusenciasDateMinimoGarantizado);
     }
 

@@ -139,7 +139,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int createIndexTempAusenciasDateMinimoGarantizado();
 
-    void insertTempAusenciasDateMinimoGarantizado(final TareaDto tarea);
+    void insertTempAusenciasDateMinimoGarantizado();
 
     int createTempCalculoConAjusteMinimoGarantizado();
 
