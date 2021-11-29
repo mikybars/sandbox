@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAlgoritmoAjustePropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.async.ajustar.personas.CalculoAjusteMinimoGarantizadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -20,7 +21,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteMinimoGarantizadoRepositoryCustom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,7 +63,7 @@ class RunAjusteMinimoGarantizadoProcesarTest {
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Mock
-    private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+    private CalculoAjusteMinimoGarantizadoAsyncService calculoAjusteMinimoGarantizadoAsyncService;
 
     @InjectMocks
     private RunAjusteMinimoGarantizadoProcesar runAjusteMinimoGarantizadoProcesar;
@@ -76,7 +76,7 @@ class RunAjusteMinimoGarantizadoProcesarTest {
         properties.setThreadSize(THREAD_SIZE);
         properties.setBatchSize(BATCH_SIZE);
         when(this.runAjusteProperties.getAjuste()).thenReturn(properties);
-        when(this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ajustar(any(AlgoritmoAjusteDto.class),
+        when(this.calculoAjusteMinimoGarantizadoAsyncService.ajustar(any(AlgoritmoAjusteDto.class),
                 any(TareaDto.class),
                 ArgumentMatchers.<List<IdPersonaLocalDto>>any())).thenReturn(CompletableFuture.completedFuture(
                         AsyncConstants.NIL));
@@ -187,7 +187,7 @@ class RunAjusteMinimoGarantizadoProcesarTest {
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
         this.runAjusteMinimoGarantizadoProcesar.execute(runTarea, algoritmoAjuste);
 
-        verify(this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom, times(1))
+        verify(this.calculoAjusteMinimoGarantizadoAsyncService, times(1))
             .ajustar(algoritmoAjuste, runTarea.getTarea(), this.createPersonaIds());
     }
 
@@ -199,7 +199,7 @@ class RunAjusteMinimoGarantizadoProcesarTest {
 
         final RuntimeException exception = new RuntimeException("Exception");
         doThrow(exception)
-            .when(this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom)
+            .when(this.calculoAjusteMinimoGarantizadoAsyncService)
             .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
                     ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
@@ -211,16 +211,6 @@ class RunAjusteMinimoGarantizadoProcesarTest {
         verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
                 EstadoTareaCalculoPersonaEnum.KO.getDto());
 
-    }
-
-    @Test
-    void executeInsertTemporaryTableDatosTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteMinimoGarantizadoProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempDatosMininimoGarantizado(runTarea.getTarea());
     }
 
 }
