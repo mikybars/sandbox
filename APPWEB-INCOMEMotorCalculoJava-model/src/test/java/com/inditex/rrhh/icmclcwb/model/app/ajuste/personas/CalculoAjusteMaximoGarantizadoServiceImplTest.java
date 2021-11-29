@@ -57,8 +57,9 @@ class CalculoAjusteMaximoGarantizadoServiceImplTest {
             .createTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .createIndexTempCalculoConAjuste();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempDatosMaximoGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempDatosMaximoGarantizado();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempDatosMaximoMinimoGarantizado();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
+            .createIndexTempDatosMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempPersonas(tarea, personas,
                 TipoPoliticaEnum.MAXIMO_GARANTIZADO);
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
@@ -84,7 +85,7 @@ class CalculoAjusteMaximoGarantizadoServiceImplTest {
             .deleteTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .deleteTempCalculoConAjuste();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempDatosMaximoGarantizado();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempDatosMaximoMinimoGarantizado();
     }
 
     @Test
@@ -104,7 +105,7 @@ class CalculoAjusteMaximoGarantizadoServiceImplTest {
             .deleteTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .deleteTempCalculoConAjuste();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempDatosMaximoGarantizado();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempDatosMaximoMinimoGarantizado();
     }
 
     private AlgoritmoAjusteDto createAlgoritmoAjuste() {

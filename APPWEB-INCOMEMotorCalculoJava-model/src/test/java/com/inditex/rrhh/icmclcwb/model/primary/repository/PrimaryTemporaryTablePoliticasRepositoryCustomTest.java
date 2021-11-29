@@ -126,39 +126,27 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     private static final String SQL_INDEX_TEMP_FECHAS_ACUMULADAS_VACACIONES = "SQL INDEX TEMP FECHAS ACUMULADAS VACACIONES";
 
-    // Máximo garantizado (común)
+    // Máximo / Mínimo garantizado (común)
 
-    private static final String SQL_CREATE_TEMP_AUSENCIAS_DATE_MAXIMO_MINIMO_GARANTIZADO = "SQL CREATE TEMP AUSENCIAS DATE MAXIMO GARANTIZADO";
+    private static final String SQL_CREATE_TEMP_AUSENCIAS_DATE_MAXIMO_MINIMO_GARANTIZADO = "SQL CREATE TEMP AUSENCIAS DATE MAXIMO / MINIMO GARANTIZADO";
 
-    private static final String SQL_DELETE_TEMP_AUSENCIAS_DATE_MAXIMO_MINIMO_GARANTIZADO = "SQL DELETE TEMP AUSENCIAS DATE MAXIMO GARANTIZADO";
+    private static final String SQL_DELETE_TEMP_AUSENCIAS_DATE_MAXIMO_MINIMO_GARANTIZADO = "SQL DELETE TEMP AUSENCIAS DATE MAXIMO / MINIMO GARANTIZADO";
 
-    private static final String SQL_INSERT_TEMP_AUSENCIAS_DATE_MAXIMO_MINIMO_GARANTIZADO = "SQL INSERT TEMP AUSENCIAS DATE MAXIMO GARANTIZADO";
+    private static final String SQL_INSERT_TEMP_AUSENCIAS_DATE_MAXIMO_MINIMO_GARANTIZADO = "SQL INSERT TEMP AUSENCIAS DATE MAXIMO / MINIMO GARANTIZADO";
 
-    private static final String SQL_INDEX_TEMP_AUSENCIAS_DATE_MAXIMO_MINIMO_GARANTIZADO = "SQL INDEX TEMP AUSENCIAS DATE MAXIMO  GARANTIZADO";
+    private static final String SQL_INDEX_TEMP_AUSENCIAS_DATE_MAXIMO_MINIMO_GARANTIZADO = "SQL INDEX TEMP AUSENCIAS DATE MAXIMO / MINIMO GARANTIZADO";
 
-    private static final String SQL_CREATE_TEMP_DATOS_MAXIMO_GARANTIZADO = "SQL CREATE TEMP DATOS MAXIMO GARANTIZADO";
+    private static final String SQL_CREATE_TEMP_DATOS_MAXIMO_MINIMO_GARANTIZADO = "SQL CREATE TEMP DATOS MAXIMO / MINIMO GARANTIZADO";
 
-    private static final String SQL_DELETE_TEMP_DATOS_MAXIMO_GARANTIZADO = "SQL DELETE TEMP DATOS MAXIMO GARANTIZADO";
+    private static final String SQL_DELETE_TEMP_DATOS_MAXIMO_MINIMO_GARANTIZADO = "SQL DELETE TEMP DATOS MAXIMO / MINIMO GARANTIZADO";
 
-    private static final String SQL_INDEX_TEMP_DATOS_MAXIMO_GARANTIZADO = "SQL INDEX TEMP DATOS MAXIMO GARANTIZADO";
+    private static final String SQL_INDEX_TEMP_DATOS_MAXIMO_MINIMO_GARANTIZADO = "SQL INDEX TEMP DATOS MAXIMO / MINIMO GARANTIZADO";
+
+    // Máximo garantizado
 
     private static final String SQL_INSERT_TEMP_DATOS_MAXIMO_GARANTIZADO = "SQL INSERT TEMP DATOS MAXIMO GARANTIZADO";
 
-    // Mínimo garantizado (común)
-
-    private static final String SQL_CREATE_TEMP_AUSENCIAS_DATE_MINIMO_GARANTIZADO = "SQL CREATE TEMP AUSENCIAS DATE MINIMO GARANTIZADO";
-
-    private static final String SQL_DELETE_TEMP_AUSENCIAS_DATE_MINIMO_GARANTIZADO = "SQL DELETE TEMP AUSENCIAS DATE MINIMO GARANTIZADO";
-
-    private static final String SQL_INSERT_TEMP_AUSENCIAS_DATE_MINIMO_GARANTIZADO = "SQL INSERT TEMP AUSENCIAS DATE MINIMO GARANTIZADO";
-
-    private static final String SQL_INDEX_TEMP_AUSENCIAS_DATE_MINIMO_GARANTIZADO = "SQL INDEX TEMP AUSENCIAS DATE MINIMO  GARANTIZADO";
-
-    private static final String SQL_CREATE_TEMP_DATOS_MINIMO_GARANTIZADO = "SQL CREATE TEMP DATOS MINIMO GARANTIZADO";
-
-    private static final String SQL_DELETE_TEMP_DATOS_MINIMO_GARANTIZADO = "SQL DELETE TEMP DATOS MINIMO GARANTIZADO";
-
-    private static final String SQL_INDEX_TEMP_DATOS_MINIMO_GARANTIZADO = "SQL INDEX TEMP DATOS MINIMO GARANTIZADO";
+    // Mínimo garantizado
 
     private static final String SQL_INSERT_TEMP_DATOS_MINIMO_GARANTIZADO = "SQL INSERT TEMP DATOS MINIMO GARANTIZADO";
 
@@ -269,7 +257,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
                 "sqlInsertTempFechasAcumuladasVacaciones", SQL_INSERT_TEMP_FECHAS_ACUMULADAS_VACACIONES, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlIndexTempFechasAcumuladasVacaciones", SQL_INDEX_TEMP_FECHAS_ACUMULADAS_VACACIONES, true);
-        // Máximo garantizado
+        // Máximo / mínimo garantizado
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlCreateTempAusenciasDateMaximoMinimoGarantizado",
                 SQL_CREATE_TEMP_AUSENCIAS_DATE_MAXIMO_MINIMO_GARANTIZADO,
@@ -286,26 +274,17 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
                 "sqlIndexTempAusenciasDateMaximoMinimoGarantizado",
                 SQL_INDEX_TEMP_AUSENCIAS_DATE_MAXIMO_MINIMO_GARANTIZADO, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlCreateTempDatosMaximoGarantizado", SQL_CREATE_TEMP_DATOS_MAXIMO_GARANTIZADO, true);
+                "sqlCreateTempDatosMaximoMinimoGarantizado", SQL_CREATE_TEMP_DATOS_MAXIMO_MINIMO_GARANTIZADO, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlDeleteTempDatosMaximoGarantizado", SQL_DELETE_TEMP_DATOS_MAXIMO_GARANTIZADO, true);
+                "sqlDeleteTempDatosMaximoMinimoGarantizado", SQL_DELETE_TEMP_DATOS_MAXIMO_MINIMO_GARANTIZADO, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlInsertTempDatosMinimoGarantizado", SQL_INSERT_TEMP_DATOS_MINIMO_GARANTIZADO, true);
+                "sqlIndexTempDatosMaximoMinimoGarantizado", SQL_INDEX_TEMP_DATOS_MAXIMO_MINIMO_GARANTIZADO, true);
+        // Máximo garantizado
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlInsertTempDatosMaximoGarantizado", SQL_INSERT_TEMP_DATOS_MAXIMO_GARANTIZADO, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlIndexTempDatosMaximoGarantizado", SQL_INDEX_TEMP_DATOS_MAXIMO_GARANTIZADO, true);
         // Mínimo garantizado
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlCreateTempDatosMinimoGarantizado", SQL_CREATE_TEMP_DATOS_MINIMO_GARANTIZADO, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlDeleteTempDatosMinimoGarantizado", SQL_DELETE_TEMP_DATOS_MINIMO_GARANTIZADO, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlInsertTempDatosMinimoGarantizado", SQL_INSERT_TEMP_DATOS_MINIMO_GARANTIZADO, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlInsertTempDatosMinimoGarantizado", SQL_INSERT_TEMP_DATOS_MINIMO_GARANTIZADO, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlIndexTempDatosMinimoGarantizado", SQL_INDEX_TEMP_DATOS_MINIMO_GARANTIZADO, true);
         // Carencia
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlCreateTempFechasCarencia", SQL_CREATE_TEMP_FECHAS_CARENCIA, true);
@@ -1061,8 +1040,8 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void createTempDatosMaximoGarantizadoTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaximoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_DATOS_MAXIMO_GARANTIZADO);
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaximoMinimoGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_DATOS_MAXIMO_MINIMO_GARANTIZADO);
         assertEquals(UPDATE_RESULT, result);
     }
 
@@ -1072,16 +1051,16 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void deleteTempDatosMaximoGarantizadoTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMaximoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_DATOS_MAXIMO_GARANTIZADO);
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMaximoMinimoGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_DATOS_MAXIMO_MINIMO_GARANTIZADO);
         assertEquals(UPDATE_RESULT, result);
     }
 
     @Test
     void createIndexTempDatosMaximoGarantizadoTest() {
         final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
-            .createIndexTempDatosMaximoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_DATOS_MAXIMO_GARANTIZADO);
+            .createIndexTempDatosMaximoMinimoGarantizado();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_DATOS_MAXIMO_MINIMO_GARANTIZADO);
         assertEquals(UPDATE_RESULT, result);
     }
 
@@ -1097,64 +1076,9 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     // Inicio tests mínimo garantizado
 
     @Test
-    void createTempDatosMinimoGarantizadoTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMinimoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_DATOS_MINIMO_GARANTIZADO);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void deleteTempDatosMinimoGarantizadoTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMinimoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_DATOS_MINIMO_GARANTIZADO);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void createIndexTempDatosMinimoGarantizadoTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
-            .createIndexTempDatosMinimoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_DATOS_MINIMO_GARANTIZADO);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void insertTempDatosMinimoGarantizadoNumArgumentosTest() {
+    void insertTempDatosMinimoGarantizadoTest() {
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMininimoGarantizado();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(
-                eq(SQL_INSERT_TEMP_DATOS_MINIMO_GARANTIZADO),
-                this.paramsCaptor.capture());
-        assertEquals(2, this.paramsCaptor.getValue().getValues().size());
-    }
-
-    @Test
-    void insertTempDatosMinimoGarantizadoInactivoTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom
-            .insertTempDatosMininimoGarantizado();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(
-                eq(SQL_INSERT_TEMP_DATOS_MINIMO_GARANTIZADO),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-
-    }
-
-    @Test
-    void insertTempDatosMinimoGarantizadoActivoTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom
-            .insertTempDatosMininimoGarantizado();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(
-                eq(SQL_INSERT_TEMP_DATOS_MINIMO_GARANTIZADO),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-
+        verify(this.jdbcTemplate, times(1)).update(SQL_INSERT_TEMP_DATOS_MINIMO_GARANTIZADO);
     }
 
     // Fin tests mínimo garantizado

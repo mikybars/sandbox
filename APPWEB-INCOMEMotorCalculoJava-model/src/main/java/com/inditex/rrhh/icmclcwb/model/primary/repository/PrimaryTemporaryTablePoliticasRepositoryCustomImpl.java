@@ -157,33 +157,24 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempAusenciasDateMaximoMinimoGarantizado']}")
     private String sqlIndexTempAusenciasDateMaximoMinimoGarantizado;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaximoMinimoGarantizado']}")
+    private String sqlCreateTempDatosMaximoMinimoGarantizado;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMaximoMinimoGarantizado']}")
+    private String sqlDeleteTempDatosMaximoMinimoGarantizado;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempDatosMaximoMinimoGarantizado']}")
+    private String sqlIndexTempDatosMaximoMinimoGarantizado;
+
     // Máximo garantizado
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaximoGarantizado']}")
-    private String sqlCreateTempDatosMaximoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMaximoGarantizado']}")
-    private String sqlDeleteTempDatosMaximoGarantizado;
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMaximoGarantizado']}")
     private String sqlInsertTempDatosMaximoGarantizado;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempDatosMaximoGarantizado']}")
-    private String sqlIndexTempDatosMaximoGarantizado;
-
     // Mínimo garantizado
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMinimoGarantizado']}")
-    private String sqlCreateTempDatosMinimoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMinimoGarantizado']}")
-    private String sqlDeleteTempDatosMinimoGarantizado;
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMinimoGarantizado']}")
     private String sqlInsertTempDatosMinimoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempDatosMinimoGarantizado']}")
-    private String sqlIndexTempDatosMinimoGarantizado;
 
     // Carencia
 
@@ -453,18 +444,18 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public int createTempDatosMaximoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlCreateTempDatosMaximoGarantizado);
+    public int createTempDatosMaximoMinimoGarantizado() {
+        return this.jdbcTemplate.update(this.sqlCreateTempDatosMaximoMinimoGarantizado);
     }
 
     @Override
-    public int deleteTempDatosMaximoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempDatosMaximoGarantizado);
+    public int deleteTempDatosMaximoMinimoGarantizado() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempDatosMaximoMinimoGarantizado);
     }
 
     @Override
-    public int createIndexTempDatosMaximoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlIndexTempDatosMaximoGarantizado);
+    public int createIndexTempDatosMaximoMinimoGarantizado() {
+        return this.jdbcTemplate.update(this.sqlIndexTempDatosMaximoMinimoGarantizado);
     }
 
     @Override
@@ -473,26 +464,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public int createTempDatosMinimoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlCreateTempDatosMinimoGarantizado);
-    }
-
-    @Override
-    public int deleteTempDatosMinimoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempDatosMinimoGarantizado);
-    }
-
-    @Override
-    public int createIndexTempDatosMinimoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlIndexTempDatosMinimoGarantizado);
-    }
-
-    @Override
     public void insertTempDatosMininimoGarantizado() {
-        final MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        this.namedParameterJdbcTemplate.update(this.sqlInsertTempDatosMinimoGarantizado, map);
+        this.jdbcTemplate.update(this.sqlInsertTempDatosMinimoGarantizado);
     }
 
     @Override

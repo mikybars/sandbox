@@ -55,8 +55,9 @@ class CalculoAjusteMinimoGarantizadoServiceImplTest {
             .createTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .createIndexTempCalculoConAjuste();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempDatosMinimoGarantizado();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempDatosMinimoGarantizado();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempDatosMaximoMinimoGarantizado();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
+            .createIndexTempDatosMaximoMinimoGarantizado();
 
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempPersonas(tarea, personas,
                 TipoPoliticaEnum.MINIMO_GARANTIZADO);
@@ -84,7 +85,7 @@ class CalculoAjusteMinimoGarantizadoServiceImplTest {
             .deleteTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .deleteTempCalculoConAjuste();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempDatosMinimoGarantizado();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempDatosMaximoMinimoGarantizado();
     }
 
     private AlgoritmoAjusteDto createAlgoritmoAjuste() {

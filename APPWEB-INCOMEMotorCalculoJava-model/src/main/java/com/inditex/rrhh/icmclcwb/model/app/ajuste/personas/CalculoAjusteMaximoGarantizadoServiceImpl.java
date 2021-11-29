@@ -45,8 +45,8 @@ public class CalculoAjusteMaximoGarantizadoServiceImpl extends AbstractCalculoAj
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjuste();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjuste(
                 Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES, TipoPoliticaEnum.BAJA_IT));
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaximoGarantizado();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempDatosMaximoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaximoMinimoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempDatosMaximoMinimoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMaximoGarantizado();
     }
 
@@ -60,7 +60,7 @@ public class CalculoAjusteMaximoGarantizadoServiceImpl extends AbstractCalculoAj
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempAusenciasDateMaximoMinimoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjuste();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMaximoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMaximoMinimoGarantizado();
     }
 
 }
