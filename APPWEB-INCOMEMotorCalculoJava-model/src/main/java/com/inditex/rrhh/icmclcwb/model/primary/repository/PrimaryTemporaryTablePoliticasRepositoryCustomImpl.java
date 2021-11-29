@@ -368,11 +368,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempCalculoTotalizadoBajaIt(final TareaDto tarea) {
+    public void insertTempCalculoTotalizadoBajaIt() {
         final MapSqlParameterSource params = new MapSqlParameterSource();
-        if (tarea != null) {
-            params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
         params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
                 Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4()));
@@ -501,11 +498,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempCalculoTotalizadoVacaciones(final TareaDto tarea) {
+    public void insertTempCalculoTotalizadoVacaciones() {
         final MapSqlParameterSource params = new MapSqlParameterSource();
-        if (tarea != null) {
-            params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
         params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
                 Arrays.asList(TipoPoliticaEnum.VACACIONES.getIdMeta4()));
@@ -713,11 +707,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempCalculoTotalizadoCarencia(final TareaDto tarea) {
+    public void insertTempCalculoTotalizadoCarencia() {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
         map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoTotalizadoCarencia, map);
     }

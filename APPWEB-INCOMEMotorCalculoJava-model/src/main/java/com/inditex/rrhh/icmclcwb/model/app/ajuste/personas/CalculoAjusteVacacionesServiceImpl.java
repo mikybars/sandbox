@@ -45,7 +45,7 @@ public class CalculoAjusteVacacionesServiceImpl extends AbstractCalculoAjusteBas
                 TipoPoliticaEnum.VACACIONES);
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasVacaciones();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasVacaciones();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones(tarea);
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones();
     }
 
     @Override

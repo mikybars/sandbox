@@ -86,7 +86,7 @@ class CalculoAjusteBajaItServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasBajaIt(tarea,
                 SISTEMA_DESITNO);
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasAcumuladasBajaIt();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempCalculoTotalizadoBajaIt(tarea);
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempCalculoTotalizadoBajaIt();
     }
 
     @Test

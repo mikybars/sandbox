@@ -45,7 +45,7 @@ public class CalculoAjusteCarenciaServiceImpl extends AbstractCalculoAjusteBaseS
                 TipoPoliticaEnum.CARENCIA);
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia(tarea);
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia();
     }
 
     @Override

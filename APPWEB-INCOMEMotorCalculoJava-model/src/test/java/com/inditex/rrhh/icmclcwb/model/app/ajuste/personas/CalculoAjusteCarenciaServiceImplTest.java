@@ -60,7 +60,7 @@ class CalculoAjusteCarenciaServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasCarencia();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasAcumuladasCarencia();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempCalculoTotalizadoCarencia(tarea);
+            .insertTempCalculoTotalizadoCarencia();
     }
 
     @Test

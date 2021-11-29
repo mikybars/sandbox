@@ -62,7 +62,7 @@ class CalculoAjusteVacacionesServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .insertTempFechasAcumuladasVacaciones();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempCalculoTotalizadoVacaciones(tarea);
+            .insertTempCalculoTotalizadoVacaciones();
     }
 
     @Test

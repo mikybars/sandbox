@@ -711,36 +711,16 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     }
 
     @Test
-    void insertTempCalculoTotalizadoBajaItNumArgumentosTareaNullTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(null);
+    void insertTempCalculoTotalizadoBajaItNumArgumentosTareaNotNullTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
                 this.paramsCaptor.capture());
         assertEquals(2, this.paramsCaptor.getValue().getValues().size());
     }
 
     @Test
-    void insertTempCalculoTotalizadoBajaItNumArgumentosTareaNotNullTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
-                this.paramsCaptor.capture());
-        assertEquals(3, this.paramsCaptor.getValue().getValues().size());
-    }
-
-    @Test
-    void insertTempCalculoTotalizadoBajaItIdTareaTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-
-    }
-
-    @Test
     void insertTempCalculoTotalizadoBajaItInactivoTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
                 this.paramsCaptor.capture());
 
@@ -753,7 +733,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void insertTempCalculoTotalizadoBajaItIdTipoPoliticaAjusteTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
                 this.paramsCaptor.capture());
 
@@ -1141,36 +1121,16 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     }
 
     @Test
-    void insertTempCalculoTotalizadoVacacionesNumArgumentosTareaNullTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones(null);
+    void insertTempCalculoTotalizadoVacacionesNumArgumentosTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_VACACIONES),
                 this.paramsCaptor.capture());
         assertEquals(2, this.paramsCaptor.getValue().getValues().size());
     }
 
     @Test
-    void insertTempCalculoTotalizadoVacacionesNumArgumentosTareaNotNullTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_VACACIONES),
-                this.paramsCaptor.capture());
-        assertEquals(3, this.paramsCaptor.getValue().getValues().size());
-    }
-
-    @Test
-    void insertTempCalculoTotalizadoVacacionesIdTareaTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_VACACIONES),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        assertEquals(ID_TAREA, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-
-    }
-
-    @Test
     void insertTempCalculoTotalizadoVacacionesInactivoTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_VACACIONES),
                 this.paramsCaptor.capture());
 
@@ -1183,7 +1143,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void insertTempCalculoTotalizadoVacacionesIdTipoPoliticaAjusteTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_VACACIONES),
                 this.paramsCaptor.capture());
 
@@ -1682,24 +1642,16 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     }
 
     @Test
-    void insertTempCalculoTotalizadoCarenciaNumArgumentosTareaNullTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia(null);
+    void insertTempCalculoTotalizadoCarenciaNumArgumentosTest() {
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
                 this.paramsCaptor.capture());
         assertEquals(1, this.paramsCaptor.getValue().getValues().size());
     }
 
     @Test
-    void insertTempCalculoTotalizadoCarenciaNumArgumentosTareaNotNullTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia(this.createTarea());
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
-                this.paramsCaptor.capture());
-        assertEquals(2, this.paramsCaptor.getValue().getValues().size());
-    }
-
-    @Test
     void insertTempCalculoTotalizadoCarenciaIdTareaTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
                 this.paramsCaptor.capture());
 
@@ -1711,7 +1663,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void insertTempCalculoTotalizadoCarenciaInactivoTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia(this.createTarea());
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia();
         verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
                 this.paramsCaptor.capture());
 

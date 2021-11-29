@@ -49,7 +49,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempCalculoTotalizadoBajaIt();
 
-    void insertTempCalculoTotalizadoBajaIt(final TareaDto tarea);
+    void insertTempCalculoTotalizadoBajaIt();
 
     int createIndexTempCalculoTotalizadoBajaIt();
 
@@ -97,7 +97,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempCalculoTotalizadoVacaciones();
 
-    void insertTempCalculoTotalizadoVacaciones(final TareaDto tarea);
+    void insertTempCalculoTotalizadoVacaciones();
 
     int createIndexTempCalculoTotalizadoVacaciones();
 
@@ -181,7 +181,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempCalculoTotalizadoCarencia();
 
-    void insertTempCalculoTotalizadoCarencia(final TareaDto tarea);
+    void insertTempCalculoTotalizadoCarencia();
 
     int createIndexTempCalculoTotalizadoCarencia();
 

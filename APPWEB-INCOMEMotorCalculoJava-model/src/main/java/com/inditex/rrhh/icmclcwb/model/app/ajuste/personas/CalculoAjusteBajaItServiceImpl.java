@@ -75,7 +75,7 @@ public class CalculoAjusteBajaItServiceImpl extends AbstractCalculoAjusteBaseSer
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(tarea,
                 sistemaDestino.getIdSistemaDestino());
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt(tarea);
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt();
     }
 
     @Override
