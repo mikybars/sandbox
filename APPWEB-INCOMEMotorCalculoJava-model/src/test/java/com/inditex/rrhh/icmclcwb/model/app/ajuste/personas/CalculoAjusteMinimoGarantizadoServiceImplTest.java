@@ -62,8 +62,8 @@ class CalculoAjusteMinimoGarantizadoServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .insertTempAusenciasDateMinimoGarantizado(tarea);
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempCalculoConAjusteMinimoGarantizado(tarea);
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempDatosMininimoGarantizado(tarea);
+            .insertTempCalculoConAjusteMinimoGarantizado();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempDatosMininimoGarantizado();
 
     }
 

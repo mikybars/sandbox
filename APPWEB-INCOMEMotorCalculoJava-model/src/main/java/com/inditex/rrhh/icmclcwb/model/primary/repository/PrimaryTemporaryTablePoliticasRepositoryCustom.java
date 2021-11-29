@@ -147,7 +147,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int createIndexTempCalculoConAjusteMinimoGarantizado();
 
-    void insertTempCalculoConAjusteMinimoGarantizado(final TareaDto tarea);
+    void insertTempCalculoConAjusteMinimoGarantizado();
 
     int createTempDatosMinimoGarantizado();
 
@@ -155,7 +155,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int createIndexTempDatosMinimoGarantizado();
 
-    void insertTempDatosMininimoGarantizado(final TareaDto tarea);
+    void insertTempDatosMininimoGarantizado();
 
     // fin mínimo garantizado
 

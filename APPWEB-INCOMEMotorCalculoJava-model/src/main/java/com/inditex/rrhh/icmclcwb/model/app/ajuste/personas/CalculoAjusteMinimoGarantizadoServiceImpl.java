@@ -43,11 +43,10 @@ public class CalculoAjusteMinimoGarantizadoServiceImpl extends AbstractCalculoAj
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjusteMinimoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonas(tarea, personas,
                 TipoPoliticaEnum.MINIMO_GARANTIZADO);
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteMinimoGarantizado(
-                tarea);
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteMinimoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMinimoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempDatosMinimoGarantizado();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMininimoGarantizado(tarea);
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMininimoGarantizado();
     }
 
     @Override

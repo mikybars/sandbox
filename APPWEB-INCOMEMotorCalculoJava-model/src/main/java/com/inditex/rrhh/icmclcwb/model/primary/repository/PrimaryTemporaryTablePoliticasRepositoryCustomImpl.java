@@ -600,13 +600,7 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
 
     @Override
     public void insertTempAusenciasDateMinimoGarantizado(final TareaDto tarea) {
-        final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
-                TipoPoliticaEnum.MINIMO_GARANTIZADO.getId());
-        this.namedParameterJdbcTemplate.update(this.sqlInsertTempAusenciasDateMinimoGarantizado, map);
+        this.jdbcTemplate.update(this.sqlInsertTempAusenciasDateMinimoGarantizado);
     }
 
     @Override
@@ -625,12 +619,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempCalculoConAjusteMinimoGarantizado(
-            final TareaDto tarea) {
+    public void insertTempCalculoConAjusteMinimoGarantizado() {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
         map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
                 Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getId(),
@@ -655,14 +645,10 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public void insertTempDatosMininimoGarantizado(final TareaDto tarea) {
+    public void insertTempDatosMininimoGarantizado() {
         final MapSqlParameterSource map = new MapSqlParameterSource();
-        if (tarea != null) {
-            map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
         map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.MINIMO_GARANTIZADO.getId());
         this.namedParameterJdbcTemplate.update(this.sqlInsertTempDatosMinimoGarantizado, map);
     }
 
