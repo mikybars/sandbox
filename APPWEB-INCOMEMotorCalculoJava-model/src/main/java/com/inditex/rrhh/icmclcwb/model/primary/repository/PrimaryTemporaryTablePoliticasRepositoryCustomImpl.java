@@ -143,19 +143,21 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasAcumuladasVacaciones']}")
     private String sqlIndexTempFechasAcumuladasVacaciones;
 
+    // Máixmo/Mínimo garantizado
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempAusenciasDateMaximoMinimoGarantizado']}")
+    private String sqlCreateTempAusenciasDateMaximoMinimoGarantizado;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempAusenciasDateMaximoMinimoGarantizado']}")
+    private String sqlDeleteTempAusenciasDateMaximoMinimoGarantizado;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempAusenciasDateMaximoMinimoGarantizado']}")
+    private String sqlInsertTempAusenciasDateMaximoMinimoGarantizado;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempAusenciasDateMaximoMinimoGarantizado']}")
+    private String sqlIndexTempAusenciasDateMaximoMinimoGarantizado;
+
     // Máximo garantizado
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempAusenciasDateMaximoGarantizado']}")
-    private String sqlCreateTempAusenciasDateMaximoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempAusenciasDateMaximoGarantizado']}")
-    private String sqlDeleteTempAusenciasDateMaximoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempAusenciasDateMaximoGarantizado']}")
-    private String sqlInsertTempAusenciasDateMaximoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempAusenciasDateMaximoGarantizado']}")
-    private String sqlIndexTempAusenciasDateMaximoGarantizado;
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaximoGarantizado']}")
     private String sqlCreateTempDatosMaximoGarantizado;
@@ -170,18 +172,6 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     private String sqlIndexTempDatosMaximoGarantizado;
 
     // Mínimo garantizado
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempAusenciasDateMinimoGarantizado']}")
-    private String sqlCreateTempAusenciasDateMinimoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempAusenciasDateMinimoGarantizado']}")
-    private String sqlDeleteTempAusenciasDateMinimoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempAusenciasDateMinimoGarantizado']}")
-    private String sqlInsertTempAusenciasDateMinimoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempAusenciasDateMinimoGarantizado']}")
-    private String sqlIndexTempAusenciasDateMinimoGarantizado;
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMinimoGarantizado']}")
     private String sqlCreateTempDatosMinimoGarantizado;
@@ -443,23 +433,23 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public int createTempAusenciasDateMaximoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlCreateTempAusenciasDateMaximoGarantizado);
+    public int createTempAusenciasDateMaximoMinimoGarantizado() {
+        return this.jdbcTemplate.update(this.sqlCreateTempAusenciasDateMaximoMinimoGarantizado);
     }
 
     @Override
-    public int deleteTempAusenciasDateMaximoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempAusenciasDateMaximoGarantizado);
+    public int deleteTempAusenciasDateMaximoMinimoGarantizado() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempAusenciasDateMaximoMinimoGarantizado);
     }
 
     @Override
-    public int createIndexTempAusenciasDateMaximoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlIndexTempAusenciasDateMaximoGarantizado);
+    public int createIndexTempAusenciasDateMaximoMinimoGarantizado() {
+        return this.jdbcTemplate.update(this.sqlIndexTempAusenciasDateMaximoMinimoGarantizado);
     }
 
     @Override
-    public void insertTempAusenciasDateMaximoGarantizado() {
-        this.jdbcTemplate.update(this.sqlInsertTempAusenciasDateMaximoGarantizado);
+    public void insertTempAusenciasDateMaximoMinimoGarantizado() {
+        this.jdbcTemplate.update(this.sqlInsertTempAusenciasDateMaximoMinimoGarantizado);
     }
 
     @Override
@@ -480,26 +470,6 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Override
     public void insertTempDatosMaximoGarantizado() {
         this.jdbcTemplate.update(this.sqlInsertTempDatosMaximoGarantizado);
-    }
-
-    @Override
-    public int createTempAusenciasDateMinimoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlCreateTempAusenciasDateMinimoGarantizado);
-    }
-
-    @Override
-    public int deleteTempAusenciasDateMinimoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempAusenciasDateMinimoGarantizado);
-    }
-
-    @Override
-    public int createIndexTempAusenciasDateMinimoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlIndexTempAusenciasDateMinimoGarantizado);
-    }
-
-    @Override
-    public void insertTempAusenciasDateMinimoGarantizado() {
-        this.jdbcTemplate.update(this.sqlInsertTempAusenciasDateMinimoGarantizado);
     }
 
     @Override

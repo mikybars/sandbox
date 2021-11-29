@@ -95,15 +95,15 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     // fin vacaciones
 
-    // inicio máximo garantizado (común)
+    // inicio máximo / mínimo garantizado (común)
 
-    int createTempAusenciasDateMaximoGarantizado();
+    int createTempAusenciasDateMaximoMinimoGarantizado();
 
-    int deleteTempAusenciasDateMaximoGarantizado();
+    int deleteTempAusenciasDateMaximoMinimoGarantizado();
 
-    int createIndexTempAusenciasDateMaximoGarantizado();
+    int createIndexTempAusenciasDateMaximoMinimoGarantizado();
 
-    void insertTempAusenciasDateMaximoGarantizado();
+    void insertTempAusenciasDateMaximoMinimoGarantizado();
 
     int createTempDatosMaximoGarantizado();
 
@@ -113,17 +113,13 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     void insertTempDatosMaximoGarantizado();
 
+    // fin máximo / mínimo garantizado (común)
+
+    // inicio máximo garantizado
+
     // fin máximo garantizado
 
     // inicio mínimo garantizado
-
-    int createTempAusenciasDateMinimoGarantizado();
-
-    int deleteTempAusenciasDateMinimoGarantizado();
-
-    int createIndexTempAusenciasDateMinimoGarantizado();
-
-    void insertTempAusenciasDateMinimoGarantizado();
 
     int createTempDatosMinimoGarantizado();
 

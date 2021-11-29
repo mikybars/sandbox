@@ -36,9 +36,9 @@ public class CalculoAjusteMinimoGarantizadoServiceImpl extends AbstractCalculoAj
             final List<IdPersonaLocalDto> personas) {
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempPersonas();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempAusenciasDateMinimoGarantizado();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempAusenciasDateMinimoGarantizado();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempAusenciasDateMinimoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempAusenciasDateMaximoMinimoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempAusenciasDateMaximoMinimoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempAusenciasDateMaximoMinimoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjuste();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonas(tarea, personas,
@@ -58,7 +58,7 @@ public class CalculoAjusteMinimoGarantizadoServiceImpl extends AbstractCalculoAj
     @Override
     protected void postcondiciones() {
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempPersonas();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempAusenciasDateMinimoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempAusenciasDateMaximoMinimoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjuste();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMinimoGarantizado();
     }

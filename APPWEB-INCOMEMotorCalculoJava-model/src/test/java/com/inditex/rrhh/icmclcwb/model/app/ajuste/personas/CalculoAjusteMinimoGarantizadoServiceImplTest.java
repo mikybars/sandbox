@@ -48,9 +48,9 @@ class CalculoAjusteMinimoGarantizadoServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .createTempAusenciasDateMinimoGarantizado();
+            .createTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .createIndexTempAusenciasDateMinimoGarantizado();
+            .createIndexTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .createTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
@@ -61,7 +61,7 @@ class CalculoAjusteMinimoGarantizadoServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempPersonas(tarea, personas,
                 TipoPoliticaEnum.MINIMO_GARANTIZADO);
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempAusenciasDateMinimoGarantizado();
+            .insertTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .insertTempCalculoConAjuste(
                     Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES, TipoPoliticaEnum.BAJA_IT));
@@ -81,7 +81,7 @@ class CalculoAjusteMinimoGarantizadoServiceImplTest {
         this.calculoAjusteMinimoGarantizadoService.postcondiciones();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .deleteTempAusenciasDateMinimoGarantizado();
+            .deleteTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .deleteTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempDatosMinimoGarantizado();

@@ -50,9 +50,9 @@ class CalculoAjusteMaximoGarantizadoServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .createTempAusenciasDateMaximoGarantizado();
+            .createTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .createIndexTempAusenciasDateMaximoGarantizado();
+            .createIndexTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .createTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
@@ -62,7 +62,7 @@ class CalculoAjusteMaximoGarantizadoServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempPersonas(tarea, personas,
                 TipoPoliticaEnum.MAXIMO_GARANTIZADO);
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempAusenciasDateMaximoGarantizado();
+            .insertTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .insertTempCalculoConAjuste(
                     Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES, TipoPoliticaEnum.BAJA_IT));
@@ -81,7 +81,7 @@ class CalculoAjusteMaximoGarantizadoServiceImplTest {
         this.calculoAjusteMaximoGarantizadoService.postcondiciones();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .deleteTempAusenciasDateMaximoGarantizado();
+            .deleteTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .deleteTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempDatosMaximoGarantizado();
@@ -101,7 +101,7 @@ class CalculoAjusteMaximoGarantizadoServiceImplTest {
                 });
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .deleteTempAusenciasDateMaximoGarantizado();
+            .deleteTempAusenciasDateMaximoMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .deleteTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempDatosMaximoGarantizado();
