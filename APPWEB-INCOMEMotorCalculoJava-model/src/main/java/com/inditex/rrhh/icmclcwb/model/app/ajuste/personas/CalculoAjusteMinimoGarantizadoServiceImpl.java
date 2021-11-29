@@ -4,6 +4,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,12 @@ public class CalculoAjusteMinimoGarantizadoServiceImpl extends AbstractCalculoAj
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempAusenciasDateMinimoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempAusenciasDateMinimoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempAusenciasDateMinimoGarantizado();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjusteMinimoGarantizado();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjusteMinimoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjuste();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonas(tarea, personas,
                 TipoPoliticaEnum.MINIMO_GARANTIZADO);
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteMinimoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjuste(
+                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES, TipoPoliticaEnum.BAJA_IT));
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMinimoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempDatosMinimoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMininimoGarantizado();
@@ -57,7 +59,7 @@ public class CalculoAjusteMinimoGarantizadoServiceImpl extends AbstractCalculoAj
     protected void postcondiciones() {
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempAusenciasDateMinimoGarantizado();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjusteMinimoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjuste();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMinimoGarantizado();
     }
 

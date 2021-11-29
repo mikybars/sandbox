@@ -4,6 +4,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,9 +52,9 @@ class CalculoAjusteMinimoGarantizadoServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .createIndexTempAusenciasDateMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .createTempCalculoConAjusteMinimoGarantizado();
+            .createTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .createIndexTempCalculoConAjusteMinimoGarantizado();
+            .createIndexTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempDatosMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempDatosMinimoGarantizado();
 
@@ -62,7 +63,8 @@ class CalculoAjusteMinimoGarantizadoServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .insertTempAusenciasDateMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempCalculoConAjusteMinimoGarantizado();
+            .insertTempCalculoConAjuste(
+                    Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES, TipoPoliticaEnum.BAJA_IT));
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempDatosMininimoGarantizado();
 
     }
@@ -81,7 +83,7 @@ class CalculoAjusteMinimoGarantizadoServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .deleteTempAusenciasDateMinimoGarantizado();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .deleteTempCalculoConAjusteMinimoGarantizado();
+            .deleteTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempDatosMinimoGarantizado();
     }
 

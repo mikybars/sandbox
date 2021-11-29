@@ -53,16 +53,16 @@ class CalculoAjusteVacacionesServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasAcumuladasVacaciones();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .createIndexTempFechasAcumuladasVacaciones();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempCalculoTotalizadoVacaciones();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .createIndexTempCalculoTotalizadoVacaciones();
+            .createIndexTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempPersonas(tarea, personas,
                 TipoPoliticaEnum.VACACIONES);
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasVacaciones();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
             .insertTempFechasAcumuladasVacaciones();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempCalculoTotalizadoVacaciones();
+            .insertTempCalculoConAjuste(Collections.singletonList(TipoPoliticaEnum.VACACIONES));
     }
 
     @Test
@@ -78,7 +78,7 @@ class CalculoAjusteVacacionesServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasVacaciones();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasVacaciones();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoVacaciones();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoConAjuste();
     }
 
     @Test
@@ -96,7 +96,7 @@ class CalculoAjusteVacacionesServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasVacaciones();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasVacaciones();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoVacaciones();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoConAjuste();
     }
 
     private AlgoritmoAjusteDto createAlgoritmoAjuste() {

@@ -64,6 +64,14 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     private static final String SQL_INDEX_TEMP_PERSONAS = "SQL INDEX TEMP PERSONAS";
 
+    private static final String SQL_CREATE_TEMP_CALULO_CON_AJUSTE = "SQL CREATE TEMP CALCULO CON AJUSTE";
+
+    private static final String SQL_DELETE_TEMP_CALCULO_CON_AJUSTE = "SQL DELETE TEMP CALCULO CON AJUSTE";
+
+    private static final String SQL_INSERT_TEMP_CALCULO_CON_AJUSTE = "SQL INSERT TEMP CALCULO CON AJUSTE";
+
+    private static final String SQL_INDEX_TEMP_CALCULO_CON_AJUSTE = "SQL INDEX TEMP CALCULO CON AJUSTE";
+
     // baja it
 
     private static final String SQL_CREATE_TEMP_FECHAS_BAJA_IT = "SQL CREATE TEMP FECHAS BAJA IT";
@@ -81,14 +89,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     private static final String SQL_INSERT_TEMP_FECHAS_ACUMULADAS_BAJA_IT = "SQL INSERT TEMP FECHAS ACUMULADAS BAJA IT";
 
     private static final String SQL_INDEX_TEMP_FECHAS_ACUMULADAS_BAJA_IT = "SQL INDEX TEMP FECHAS ACUMULADAS BAJA IT";
-
-    private static final String SQL_CREATE_TEMP_CALULO_TOTALIZADO_BAJA_IT = "SQL CREATE TEMP CALCULO TOTALIZADO BAJA IT";
-
-    private static final String SQL_DELETE_TEMP_CALCULO_TOTALIZADO_BAJA_IT = "SQL DELETE TEMP CALCULO TOTALIZADO BAJA IT";
-
-    private static final String SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT = "SQL INSERT TEMP CALCULO TOTALIZADO BAJA IT";
-
-    private static final String SQL_INDEX_TEMP_CALCULO_TOTALIZADO_BAJA_IT = "SQL INDEX TEMP CALCULO TOTALIZADO BAJA IT";
 
     // Antiguedad
 
@@ -126,14 +126,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     private static final String SQL_INDEX_TEMP_FECHAS_ACUMULADAS_VACACIONES = "SQL INDEX TEMP FECHAS ACUMULADAS VACACIONES";
 
-    private static final String SQL_CREATE_TEMP_CALULO_TOTALIZADO_VACACIONES = "SQL CREATE TEMP CALCULO TOTALIZADO VACACIONES";
-
-    private static final String SQL_DELETE_TEMP_CALCULO_TOTALIZADO_VACACIONES = "SQL DELETE TEMP CALCULO TOTALIZADO VACACIONES";
-
-    private static final String SQL_INSERT_TEMP_CALCULO_TOTALIZADO_VACACIONES = "SQL INSERT TEMP CALCULO TOTALIZADO VACACIONES";
-
-    private static final String SQL_INDEX_TEMP_CALCULO_TOTALIZADO_VACACIONES = "SQL INDEX TEMP CALCULO TOTALIZADO VACACIONES";
-
     // Máximo garantizado (común)
 
     private static final String SQL_CREATE_TEMP_AUSENCIAS_DATE_MAXIMO_GARANTIZADO = "SQL CREATE TEMP AUSENCIAS DATE MAXIMO GARANTIZADO";
@@ -143,14 +135,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     private static final String SQL_INSERT_TEMP_AUSENCIAS_DATE_MAXIMO_GARANTIZADO = "SQL INSERT TEMP AUSENCIAS DATE MAXIMO GARANTIZADO";
 
     private static final String SQL_INDEX_TEMP_AUSENCIAS_DATE_MAXIMO_GARANTIZADO = "SQL INDEX TEMP AUSENCIAS DATE MAXIMO  GARANTIZADO";
-
-    private static final String SQL_CREATE_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO = "SQL CREATE TEMP CALCULO CON AJUSTE MAXIMO GARANTIZADO";
-
-    private static final String SQL_DELETE_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO = "SQL DELETE TEMP CALCULO CON AJUSTE MAXIMO GARANTIZADO";
-
-    private static final String SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO = "SQL INSERT TEMP CALCULO CON AJUSTE MAXIMO GARANTIZADO";
-
-    private static final String SQL_INDEX_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO = "SQL INDEX TEMP CALCULO CON AJUSTE MAXIMO GARANTIZADO";
 
     private static final String SQL_CREATE_TEMP_DATOS_MAXIMO_GARANTIZADO = "SQL CREATE TEMP DATOS MAXIMO GARANTIZADO";
 
@@ -169,14 +153,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     private static final String SQL_INSERT_TEMP_AUSENCIAS_DATE_MINIMO_GARANTIZADO = "SQL INSERT TEMP AUSENCIAS DATE MINIMO GARANTIZADO";
 
     private static final String SQL_INDEX_TEMP_AUSENCIAS_DATE_MINIMO_GARANTIZADO = "SQL INDEX TEMP AUSENCIAS DATE MINIMO  GARANTIZADO";
-
-    private static final String SQL_CREATE_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO = "SQL CREATE TEMP CALCULO CON AJUSTE MINIMO GARANTIZADO";
-
-    private static final String SQL_DELETE_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO = "SQL DELETE TEMP CALCULO CON AJUSTE MINIMO GARANTIZADO";
-
-    private static final String SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO = "SQL INSERT TEMP CALCULO CON AJUSTE MINIMO GARANTIZADO";
-
-    private static final String SQL_INDEX_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO = "SQL INDEX TEMP CALCULO CON AJUSTE MINIMO GARANTIZADO";
 
     private static final String SQL_CREATE_TEMP_DATOS_MINIMO_GARANTIZADO = "SQL CREATE TEMP DATOS MINIMO GARANTIZADO";
 
@@ -204,13 +180,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     private static final String SQL_INDEX_TEMP_FECHAS_ACUMULADAS_CARENCIA = "SQL INDEX TEMP FECHAS ACUMULADAS CARENCIA";
 
-    private static final String SQL_CREATE_TEMP_CALULO_TOTALIZADO_CARENCIA = "SQL CREATE TEMP CALCULO TOTALIZADO CARENCIA";
-
-    private static final String SQL_DELETE_TEMP_CALCULO_TOTALIZADO_CARENCIA = "SQL DELETE TEMP CALCULO TOTALIZADO CARENCIA";
-
-    private static final String SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA = "SQL INSERT TEMP CALCULO TOTALIZADO CARENCIA";
-
-    private static final String SQL_INDEX_TEMP_CALCULO_TOTALIZADO_CARENCIA = "SQL INDEX TEMP CALCULO TOTALIZADO CARENCIA";
+    private static final String SQL_INSERT_TEMP_CALCULO_CAON_AJUSTE_CARENCIA = "SQL INSERT TEMP CALCULO CON AJUSTE CARENCIA";
 
 
     @Mock
@@ -240,6 +210,14 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
                 "sqlInsertTempPersonas", SQL_INSERT_TEMP_PERSONAS, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlIndexTempPersonas", SQL_INDEX_TEMP_PERSONAS, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlCreateTempCalculoConAjuste", SQL_CREATE_TEMP_CALULO_CON_AJUSTE, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlDeleteTempCalculoConAjuste", SQL_DELETE_TEMP_CALCULO_CON_AJUSTE, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlInsertTempCalculoConAjuste", SQL_INSERT_TEMP_CALCULO_CON_AJUSTE, true);
+        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+                "sqlIndexTempCalculoConAjuste", SQL_INDEX_TEMP_CALCULO_CON_AJUSTE, true);
         // baja it
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlCreateTempFechasBajaIt", SQL_CREATE_TEMP_FECHAS_BAJA_IT, true);
@@ -257,14 +235,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
                 "sqlInsertTempFechasAcumuladasBajaIt", SQL_INSERT_TEMP_FECHAS_ACUMULADAS_BAJA_IT, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlIndexTempFechasAcumuladasBajaIt", SQL_INDEX_TEMP_FECHAS_ACUMULADAS_BAJA_IT, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlCreateTempCalculoTotalizadoBajaIt", SQL_CREATE_TEMP_CALULO_TOTALIZADO_BAJA_IT, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlDeleteTempCalculoTotalizadoBajaIt", SQL_DELETE_TEMP_CALCULO_TOTALIZADO_BAJA_IT, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlInsertTempCalculoTotalizadoBajaIt", SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlIndexTempCalculoTotalizadoBajaIt", SQL_INDEX_TEMP_CALCULO_TOTALIZADO_BAJA_IT, true);
         // Antiguedad
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlCreateTempFechasAntiguedad", SQL_CREATE_TEMP_FECHAS_ANTIGUEDAD, true);
@@ -299,14 +269,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
                 "sqlInsertTempFechasAcumuladasVacaciones", SQL_INSERT_TEMP_FECHAS_ACUMULADAS_VACACIONES, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlIndexTempFechasAcumuladasVacaciones", SQL_INDEX_TEMP_FECHAS_ACUMULADAS_VACACIONES, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlCreateTempCalculoTotalizadoVacaciones", SQL_CREATE_TEMP_CALULO_TOTALIZADO_VACACIONES, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlDeleteTempCalculoTotalizadoVacaciones", SQL_DELETE_TEMP_CALCULO_TOTALIZADO_VACACIONES, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlInsertTempCalculoTotalizadoVacaciones", SQL_INSERT_TEMP_CALCULO_TOTALIZADO_VACACIONES, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlIndexTempCalculoTotalizadoVacaciones", SQL_INDEX_TEMP_CALCULO_TOTALIZADO_VACACIONES, true);
         // Máximo garantizado
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlCreateTempAusenciasDateMaximoGarantizado", SQL_CREATE_TEMP_AUSENCIAS_DATE_MAXIMO_GARANTIZADO,
@@ -321,21 +283,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
                 "sqlIndexTempAusenciasDateMinimoGarantizado", SQL_INDEX_TEMP_AUSENCIAS_DATE_MINIMO_GARANTIZADO, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlIndexTempAusenciasDateMaximoGarantizado", SQL_INDEX_TEMP_AUSENCIAS_DATE_MAXIMO_GARANTIZADO, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlCreateTempCalculoConAjusteMaximoGarantizado",
-                SQL_CREATE_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO,
-                true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlDeleteTempCalculoConAjusteMaximoGarantizado",
-                SQL_DELETE_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO,
-                true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlInsertTempCalculoConAjusteMaximoGarantizado",
-                SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO,
-                true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlIndexTempCalculoConAjusteMaximoGarantizado", SQL_INDEX_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO,
-                true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlCreateTempDatosMaximoGarantizado", SQL_CREATE_TEMP_DATOS_MAXIMO_GARANTIZADO, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
@@ -358,21 +305,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
                 true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlIndexTempAusenciasDateMinimoGarantizado", SQL_INDEX_TEMP_AUSENCIAS_DATE_MINIMO_GARANTIZADO, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlCreateTempCalculoConAjusteMinimoGarantizado",
-                SQL_CREATE_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO,
-                true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlDeleteTempCalculoConAjusteMinimoGarantizado",
-                SQL_DELETE_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO,
-                true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlInsertTempCalculoConAjusteMinimoGarantizado",
-                SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO,
-                true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlIndexTempCalculoConAjusteMinimoGarantizado", SQL_INDEX_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO,
-                true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlCreateTempDatosMinimoGarantizado", SQL_CREATE_TEMP_DATOS_MINIMO_GARANTIZADO, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
@@ -401,13 +333,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
                 "sqlIndexTempFechasAcumuladasCarencia", SQL_INDEX_TEMP_FECHAS_ACUMULADAS_CARENCIA, true);
         FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlCreateTempCalculoTotalizadoCarencia", SQL_CREATE_TEMP_CALULO_TOTALIZADO_CARENCIA, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlDeleteTempCalculoTotalizadoCarencia", SQL_DELETE_TEMP_CALCULO_TOTALIZADO_CARENCIA, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlInsertTempCalculoTotalizadoCarencia", SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA, true);
-        FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
-                "sqlIndexTempCalculoTotalizadoCarencia", SQL_INDEX_TEMP_CALCULO_TOTALIZADO_CARENCIA, true);
+                "sqlInsertTempCalculoTotalizadoCarencia", SQL_INSERT_TEMP_CALCULO_CAON_AJUSTE_CARENCIA, true);
     }
 
     private TareaDto createTarea() {
@@ -690,38 +616,42 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void createTempCalculoTotalizadoBajaItTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoBajaIt();
-        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALULO_TOTALIZADO_BAJA_IT);
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste();
+        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALULO_CON_AJUSTE);
         assertEquals(UPDATE_RESULT, result);
     }
 
     @Test
     void deleteTempCalculoTotalizadoBajaItTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoBajaIt();
-        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_TOTALIZADO_BAJA_IT);
+        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjuste();
+        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_CON_AJUSTE);
         assertEquals(UPDATE_RESULT, result);
     }
 
     @Test
     void createIndexTempCalculoTotalizadoBajaItTest() {
         final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
-            .createIndexTempCalculoTotalizadoBajaIt();
-        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_CALCULO_TOTALIZADO_BAJA_IT);
+            .createIndexTempCalculoConAjuste();
+        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_CALCULO_CON_AJUSTE);
         assertEquals(UPDATE_RESULT, result);
     }
 
     @Test
     void insertTempCalculoTotalizadoBajaItNumArgumentosTareaNotNullTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
+        final List<TipoPoliticaEnum> politicas = Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES,
+                TipoPoliticaEnum.BAJA_IT);
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjuste(politicas);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE),
                 this.paramsCaptor.capture());
         assertEquals(2, this.paramsCaptor.getValue().getValues().size());
     }
 
     @Test
     void insertTempCalculoTotalizadoBajaItInactivoTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
+        final List<TipoPoliticaEnum> politicas = Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES,
+                TipoPoliticaEnum.BAJA_IT);
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjuste(politicas);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE),
                 this.paramsCaptor.capture());
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
@@ -733,8 +663,10 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     @Test
     void insertTempCalculoTotalizadoBajaItIdTipoPoliticaAjusteTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_BAJA_IT),
+        final List<TipoPoliticaEnum> politicas = Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES,
+                TipoPoliticaEnum.BAJA_IT);
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjuste(politicas);
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE),
                 this.paramsCaptor.capture());
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();
@@ -743,8 +675,10 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
         assertTrue(params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE) instanceof List);
         final List<?> param = (List<?>) params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE);
         if (param != null) {
-            assertEquals(1, param.size());
-            assertEquals(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4(), param.get(0));
+            assertEquals(3, param.size());
+            assertTrue(param.contains(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4()));
+            assertTrue(param.contains(TipoPoliticaEnum.VACACIONES.getIdMeta4()));
+            assertTrue(param.contains(TipoPoliticaEnum.BAJA_IT.getIdMeta4()));
         }
 
     }
@@ -1098,68 +1032,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
     }
 
-    @Test
-    void createTempCalculoTotalizadoVacacionesTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoVacaciones();
-        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALULO_TOTALIZADO_VACACIONES);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void deleteTempCalculoTotalizadoVacacionesTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoVacaciones();
-        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_TOTALIZADO_VACACIONES);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void createIndexTempCalculoTotalizadoVacacionesTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
-            .createIndexTempCalculoTotalizadoVacaciones();
-        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_CALCULO_TOTALIZADO_VACACIONES);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void insertTempCalculoTotalizadoVacacionesNumArgumentosTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_VACACIONES),
-                this.paramsCaptor.capture());
-        assertEquals(2, this.paramsCaptor.getValue().getValues().size());
-    }
-
-    @Test
-    void insertTempCalculoTotalizadoVacacionesInactivoTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_VACACIONES),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-
-    }
-
-    @Test
-    void insertTempCalculoTotalizadoVacacionesIdTipoPoliticaAjusteTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_VACACIONES),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
-        assertNotNull(params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
-        assertTrue(params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE) instanceof List);
-        final List<?> param = (List<?>) params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE);
-        if (param != null) {
-            assertEquals(1, param.size());
-            assertEquals(TipoPoliticaEnum.VACACIONES.getIdMeta4(), param.get(0));
-        }
-
-    }
-
-    // Fin tests baja it
+    // Fin tests vacaciones
 
     // Inicio tests máximo garantizado (común)
 
@@ -1192,71 +1065,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
         this.primaryTemporaryTablePoliticasRepositoryCustom
             .insertTempAusenciasDateMaximoGarantizado();
         verify(this.jdbcTemplate, times(1)).update(SQL_INSERT_TEMP_AUSENCIAS_DATE_MAXIMO_GARANTIZADO);
-    }
-
-    @Test
-    void createTempCalculoConAjusteMaximoGarantizadoTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
-            .createTempCalculoConAjusteMaximoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void deleteTempCalculoConAjusteMaximoGarantizadoTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
-            .deleteTempCalculoConAjusteMaximoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void createIndexTempCalculoConAjusteMaximoGarantizadoTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
-            .createIndexTempCalculoConAjusteMaximoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void insertTempCalculoConAjusteMaximoGarantizadoNumArgumentosTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom
-            .insertTempCalculoConAjusteMaximoGarantizado();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(
-                eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO),
-                this.paramsCaptor.capture());
-        assertEquals(2, this.paramsCaptor.getValue().getValues().size());
-    }
-
-    @Test
-    void insertTempCalculoConAjusteMaximoGarantizadoInactivoTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom
-            .insertTempCalculoConAjusteMaximoGarantizado();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(
-                eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-
-    }
-
-    @Test
-    void insertTempCalculoConAjusteMaximoGarantizadoIdTipoPoliticaAjusteTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom
-            .insertTempCalculoConAjusteMaximoGarantizado();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(
-                eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MAXIMO_GARANTIZADO),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
-        assertEquals(
-                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getId(), TipoPoliticaEnum.VACACIONES.getId(),
-                        TipoPoliticaEnum.BAJA_IT.getId()),
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
 
     }
 
@@ -1322,72 +1130,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
         this.primaryTemporaryTablePoliticasRepositoryCustom
             .insertTempAusenciasDateMinimoGarantizado();
         verify(this.jdbcTemplate, times(1)).update(SQL_INSERT_TEMP_AUSENCIAS_DATE_MINIMO_GARANTIZADO);
-    }
-
-    @Test
-    void createTempCalculoConAjusteMinimoGarantizadoTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
-            .createTempCalculoConAjusteMinimoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void deleteTempCalculoConAjusteMinimoGarantizadoTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
-            .deleteTempCalculoConAjusteMinimoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void createIndexTempCalculoConAjusteMinimoGarantizadoTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
-            .createIndexTempCalculoConAjusteMinimoGarantizado();
-        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void insertTempCalculoConAjusteMinimoGarantizadoNumArgumentosTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom
-            .insertTempCalculoConAjusteMinimoGarantizado();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(
-                eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO),
-                this.paramsCaptor.capture());
-        assertEquals(2, this.paramsCaptor.getValue().getValues().size());
-    }
-
-    @Test
-    void insertTempCalculoConAjusteMinimoGarantizadoInactivoTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom
-            .insertTempCalculoConAjusteMinimoGarantizado();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(
-                eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-        assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-
-    }
-
-    @Test
-    void insertTempCalculoConAjusteMinimoGarantizadoIdTipoPoliticaAjusteTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom
-            .insertTempCalculoConAjusteMinimoGarantizado();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(
-                eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_MINIMO_GARANTIZADO),
-                this.paramsCaptor.capture());
-
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
-        assertEquals(
-                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getId(), TipoPoliticaEnum.VACACIONES.getId(),
-                        TipoPoliticaEnum.BAJA_IT.getId()),
-                params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE));
-
     }
 
     @Test
@@ -1620,39 +1362,17 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     }
 
     @Test
-    void createTempCalculoTotalizadoCarenciaTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoCarencia();
-        verify(this.jdbcTemplate, times(1)).update(SQL_CREATE_TEMP_CALULO_TOTALIZADO_CARENCIA);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void deleteTempCalculoTotalizadoCarenciaTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoCarencia();
-        verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_CALCULO_TOTALIZADO_CARENCIA);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
-    void createIndexTempCalculoTotalizadoCarenciaTest() {
-        final int result = this.primaryTemporaryTablePoliticasRepositoryCustom
-            .createIndexTempCalculoTotalizadoCarencia();
-        verify(this.jdbcTemplate, times(1)).update(SQL_INDEX_TEMP_CALCULO_TOTALIZADO_CARENCIA);
-        assertEquals(UPDATE_RESULT, result);
-    }
-
-    @Test
     void insertTempCalculoTotalizadoCarenciaNumArgumentosTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteCarencia();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_CAON_AJUSTE_CARENCIA),
                 this.paramsCaptor.capture());
         assertEquals(1, this.paramsCaptor.getValue().getValues().size());
     }
 
     @Test
     void insertTempCalculoTotalizadoCarenciaInactivoTest() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia();
-        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_TOTALIZADO_CARENCIA),
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteCarencia();
+        verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_CAON_AJUSTE_CARENCIA),
                 this.paramsCaptor.capture());
 
         final MapSqlParameterSource params = this.paramsCaptor.getValue();

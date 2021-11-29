@@ -39,13 +39,13 @@ public class CalculoAjusteCarenciaServiceImpl extends AbstractCalculoAjusteBaseS
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasCarencia();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasCarencia();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasCarencia();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoCarencia();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoTotalizadoCarencia();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjuste();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonas(tarea, personas,
                 TipoPoliticaEnum.CARENCIA);
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasCarencia();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasCarencia();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteCarencia();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CalculoAjusteCarenciaServiceImpl extends AbstractCalculoAjusteBaseS
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasCarencia();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasCarencia();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoCarencia();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjuste();
     }
 
 }

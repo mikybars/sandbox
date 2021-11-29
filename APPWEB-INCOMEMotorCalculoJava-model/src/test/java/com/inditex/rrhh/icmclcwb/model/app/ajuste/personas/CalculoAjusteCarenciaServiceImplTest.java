@@ -50,17 +50,17 @@ class CalculoAjusteCarenciaServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasCarencia();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasAcumuladasCarencia();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempCalculoTotalizadoCarencia();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempFechasCarencia();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempFechasAcumuladasCarencia();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .createIndexTempCalculoTotalizadoCarencia();
+            .createIndexTempCalculoConAjuste();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempPersonas(tarea, personas,
                 TipoPoliticaEnum.CARENCIA);
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasCarencia();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasAcumuladasCarencia();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempCalculoTotalizadoCarencia();
+            .insertTempCalculoConAjusteCarencia();
     }
 
     @Test
@@ -76,7 +76,7 @@ class CalculoAjusteCarenciaServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasCarencia();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasCarencia();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoCarencia();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoConAjuste();
     }
 
     @Test
@@ -94,7 +94,7 @@ class CalculoAjusteCarenciaServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasCarencia();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasCarencia();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoCarencia();
+        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoConAjuste();
     }
 
     private AlgoritmoAjusteDto createAlgoritmoAjuste() {

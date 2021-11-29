@@ -4,6 +4,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,10 @@ public class CalculoAjusteMaximoGarantizadoServiceImpl extends AbstractCalculoAj
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempAusenciasDateMaximoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempAusenciasDateMaximoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempAusenciasDateMaximoGarantizado();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjusteMaximoGarantizado();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjusteMaximoGarantizado();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteMaximoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjuste();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjuste(
+                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES, TipoPoliticaEnum.BAJA_IT));
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaximoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempDatosMaximoGarantizado();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMaximoGarantizado();
@@ -57,7 +59,7 @@ public class CalculoAjusteMaximoGarantizadoServiceImpl extends AbstractCalculoAj
     protected void postcondiciones() {
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempAusenciasDateMaximoGarantizado();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjusteMaximoGarantizado();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjuste();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMaximoGarantizado();
     }
 

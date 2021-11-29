@@ -4,6 +4,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,14 +69,15 @@ public class CalculoAjusteBajaItServiceImpl extends AbstractCalculoAjusteBaseSer
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasBajaIt();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasBajaIt();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoTotalizadoBajaIt();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjuste();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonas(tarea, personas,
                 TipoPoliticaEnum.BAJA_IT);
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(tarea,
                 sistemaDestino.getIdSistemaDestino());
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt();
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempCalculoConAjuste(Collections.singletonList(TipoPoliticaEnum.ANTIGUEDAD));
     }
 
     @Override
@@ -88,7 +90,7 @@ public class CalculoAjusteBajaItServiceImpl extends AbstractCalculoAjusteBaseSer
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasBajaIt();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoBajaIt();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjuste();
     }
 
 }

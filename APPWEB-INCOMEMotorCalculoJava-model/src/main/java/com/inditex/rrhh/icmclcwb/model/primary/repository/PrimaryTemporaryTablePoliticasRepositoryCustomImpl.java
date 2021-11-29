@@ -5,8 +5,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -53,6 +53,18 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempPersonas']}")
     private String sqlIndexTempPersonas;
 
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste']}")
+    private String sqlCreateTempCalculoConAjuste;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjuste']}")
+    private String sqlDeleteTempCalculoConAjuste;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjuste']}")
+    private String sqlInsertTempCalculoConAjuste;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempCalculoConAjuste']}")
+    private String sqlIndexTempCalculoConAjuste;
+
     // Baja it
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempFechasBajaIt']}")
@@ -78,18 +90,6 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasAcumuladasBajaIt']}")
     private String sqlIndexTempFechasAcumuladasBajaIt;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoBajaIt']}")
-    private String sqlCreateTempCalculoTotalizadoBajaIt;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoBajaIt']}")
-    private String sqlDeleteTempCalculoTotalizadoBajaIt;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoBajaIt']}")
-    private String sqlInsertTempCalculoTotalizadoBajaIt;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempCalculoTotalizadoBajaIt']}")
-    private String sqlIndexTempCalculoTotalizadoBajaIt;
 
     // Antiguedad
 
@@ -143,18 +143,6 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasAcumuladasVacaciones']}")
     private String sqlIndexTempFechasAcumuladasVacaciones;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoVacaciones']}")
-    private String sqlCreateTempCalculoTotalizadoVacaciones;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoVacaciones']}")
-    private String sqlDeleteTempCalculoTotalizadoVacaciones;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones']}")
-    private String sqlInsertTempCalculoTotalizadoVacaciones;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempCalculoTotalizadoVacaciones']}")
-    private String sqlIndexTempCalculoTotalizadoVacaciones;
-
     // Máximo garantizado
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempAusenciasDateMaximoGarantizado']}")
@@ -168,18 +156,6 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempAusenciasDateMaximoGarantizado']}")
     private String sqlIndexTempAusenciasDateMaximoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjusteMaximoGarantizado']}")
-    private String sqlCreateTempCalculoConAjusteMaximoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjusteMaximoGarantizado']}")
-    private String sqlDeleteTempCalculoConAjusteMaximoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteMaximoGarantizado']}")
-    private String sqlInsertTempCalculoConAjusteMaximoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempCalculoConAjusteMaximoGarantizado']}")
-    private String sqlIndexTempCalculoConAjusteMaximoGarantizado;
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMaximoGarantizado']}")
     private String sqlCreateTempDatosMaximoGarantizado;
@@ -206,18 +182,6 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempAusenciasDateMinimoGarantizado']}")
     private String sqlIndexTempAusenciasDateMinimoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjusteMinimoGarantizado']}")
-    private String sqlCreateTempCalculoConAjusteMinimoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjusteMinimoGarantizado']}")
-    private String sqlDeleteTempCalculoConAjusteMinimoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteMinimoGarantizado']}")
-    private String sqlInsertTempCalculoConAjusteMinimoGarantizado;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempCalculoConAjusteMinimoGarantizado']}")
-    private String sqlIndexTempCalculoConAjusteMinimoGarantizado;
 
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMinimoGarantizado']}")
     private String sqlCreateTempDatosMinimoGarantizado;
@@ -257,17 +221,8 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempFechasAcumuladasCarencia']}")
     private String sqlIndexTempFechasAcumuladasCarencia;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoCarencia']}")
-    private String sqlCreateTempCalculoTotalizadoCarencia;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoCarencia']}")
-    private String sqlDeleteTempCalculoTotalizadoCarencia;
-
     @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoCarencia']}")
     private String sqlInsertTempCalculoTotalizadoCarencia;
-
-    @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempCalculoTotalizadoCarencia']}")
-    private String sqlIndexTempCalculoTotalizadoCarencia;
 
     @Override
     public int createTempPersonas() {
@@ -309,6 +264,30 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Override
     public int deleteTempFechasBajaIt() {
         return this.jdbcTemplate.update(this.sqlDeleteTempFechasBajaIt);
+    }
+
+    @Override
+    public int createTempCalculoConAjuste() {
+        return this.jdbcTemplate.update(this.sqlCreateTempCalculoConAjuste);
+    }
+
+    @Override
+    public int deleteTempCalculoConAjuste() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoConAjuste);
+    }
+
+    @Override
+    public void insertTempCalculoConAjuste(final List<TipoPoliticaEnum> politicas) {
+        final MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
+                politicas.stream().map(TipoPoliticaEnum::getIdMeta4).collect(Collectors.toList()));
+        this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoConAjuste, params);
+    }
+
+    @Override
+    public int createIndexTempCalculoConAjuste() {
+        return this.jdbcTemplate.update(this.sqlIndexTempCalculoConAjuste);
     }
 
     @Override
@@ -355,30 +334,6 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Override
     public int createIndexTempFechasAcumuladasBajaIt() {
         return this.jdbcTemplate.update(this.sqlIndexTempFechasAcumuladasBajaIt);
-    }
-
-    @Override
-    public int createTempCalculoTotalizadoBajaIt() {
-        return this.jdbcTemplate.update(this.sqlCreateTempCalculoTotalizadoBajaIt);
-    }
-
-    @Override
-    public int deleteTempCalculoTotalizadoBajaIt() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoTotalizadoBajaIt);
-    }
-
-    @Override
-    public void insertTempCalculoTotalizadoBajaIt() {
-        final MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
-                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4()));
-        this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoTotalizadoBajaIt, params);
-    }
-
-    @Override
-    public int createIndexTempCalculoTotalizadoBajaIt() {
-        return this.jdbcTemplate.update(this.sqlIndexTempCalculoTotalizadoBajaIt);
     }
 
     @Override
@@ -488,30 +443,6 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public int createTempCalculoTotalizadoVacaciones() {
-        return this.jdbcTemplate.update(this.sqlCreateTempCalculoTotalizadoVacaciones);
-    }
-
-    @Override
-    public int deleteTempCalculoTotalizadoVacaciones() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoTotalizadoVacaciones);
-    }
-
-    @Override
-    public void insertTempCalculoTotalizadoVacaciones() {
-        final MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
-                Arrays.asList(TipoPoliticaEnum.VACACIONES.getIdMeta4()));
-        this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoTotalizadoVacaciones, params);
-    }
-
-    @Override
-    public int createIndexTempCalculoTotalizadoVacaciones() {
-        return this.jdbcTemplate.update(this.sqlIndexTempCalculoTotalizadoVacaciones);
-    }
-
-    @Override
     public int createTempAusenciasDateMaximoGarantizado() {
         return this.jdbcTemplate.update(this.sqlCreateTempAusenciasDateMaximoGarantizado);
     }
@@ -529,32 +460,6 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Override
     public void insertTempAusenciasDateMaximoGarantizado() {
         this.jdbcTemplate.update(this.sqlInsertTempAusenciasDateMaximoGarantizado);
-    }
-
-    @Override
-    public int createTempCalculoConAjusteMaximoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlCreateTempCalculoConAjusteMaximoGarantizado);
-    }
-
-    @Override
-    public int deleteTempCalculoConAjusteMaximoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoConAjusteMaximoGarantizado);
-    }
-
-    @Override
-    public int createIndexTempCalculoConAjusteMaximoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlIndexTempCalculoConAjusteMaximoGarantizado);
-    }
-
-    @Override
-    public void insertTempCalculoConAjusteMaximoGarantizado() {
-        final MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
-                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getId(),
-                        TipoPoliticaEnum.VACACIONES.getId(),
-                        TipoPoliticaEnum.BAJA_IT.getId()));
-        this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoConAjusteMaximoGarantizado, map);
     }
 
     @Override
@@ -595,32 +500,6 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     @Override
     public void insertTempAusenciasDateMinimoGarantizado() {
         this.jdbcTemplate.update(this.sqlInsertTempAusenciasDateMinimoGarantizado);
-    }
-
-    @Override
-    public int createTempCalculoConAjusteMinimoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlCreateTempCalculoConAjusteMinimoGarantizado);
-    }
-
-    @Override
-    public int deleteTempCalculoConAjusteMinimoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoConAjusteMinimoGarantizado);
-    }
-
-    @Override
-    public int createIndexTempCalculoConAjusteMinimoGarantizado() {
-        return this.jdbcTemplate.update(this.sqlIndexTempCalculoConAjusteMinimoGarantizado);
-    }
-
-    @Override
-    public void insertTempCalculoConAjusteMinimoGarantizado() {
-        final MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
-                Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD.getId(),
-                        TipoPoliticaEnum.VACACIONES.getId(),
-                        TipoPoliticaEnum.BAJA_IT.getId()));
-        this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoConAjusteMinimoGarantizado, map);
     }
 
     @Override
@@ -697,25 +576,10 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     }
 
     @Override
-    public int createTempCalculoTotalizadoCarencia() {
-        return this.jdbcTemplate.update(this.sqlCreateTempCalculoTotalizadoCarencia);
-    }
-
-    @Override
-    public int deleteTempCalculoTotalizadoCarencia() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempCalculoTotalizadoCarencia);
-    }
-
-    @Override
-    public void insertTempCalculoTotalizadoCarencia() {
+    public void insertTempCalculoConAjusteCarencia() {
         final MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoTotalizadoCarencia, map);
-    }
-
-    @Override
-    public int createIndexTempCalculoTotalizadoCarencia() {
-        return this.jdbcTemplate.update(this.sqlIndexTempCalculoTotalizadoCarencia);
     }
 
 }

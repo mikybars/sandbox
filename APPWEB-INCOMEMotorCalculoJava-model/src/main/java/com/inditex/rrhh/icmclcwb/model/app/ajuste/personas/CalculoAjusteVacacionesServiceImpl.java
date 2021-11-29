@@ -4,6 +4,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +37,17 @@ public class CalculoAjusteVacacionesServiceImpl extends AbstractCalculoAjusteBas
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasVacaciones();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasVacaciones();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoTotalizadoVacaciones();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasVacaciones();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasVacaciones();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoTotalizadoVacaciones();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjuste();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonas(tarea, personas,
                 TipoPoliticaEnum.VACACIONES);
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasVacaciones();
         this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasVacaciones();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoTotalizadoVacaciones();
+        this.primaryTemporaryTablePoliticasRepositoryCustom
+            .insertTempCalculoConAjuste(Collections.singletonList(TipoPoliticaEnum.VACACIONES));
     }
 
     @Override
@@ -58,7 +60,7 @@ public class CalculoAjusteVacacionesServiceImpl extends AbstractCalculoAjusteBas
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasVacaciones();
         this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasVacaciones();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoTotalizadoVacaciones();
+        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjuste();
     }
 
 }

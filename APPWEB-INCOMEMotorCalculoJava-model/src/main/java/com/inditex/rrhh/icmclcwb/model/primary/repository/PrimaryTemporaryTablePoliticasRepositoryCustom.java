@@ -25,6 +25,14 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int createIndexTempPersonas();
 
+    int createTempCalculoConAjuste();
+
+    int deleteTempCalculoConAjuste();
+
+    void insertTempCalculoConAjuste(List<TipoPoliticaEnum> politicas);
+
+    int createIndexTempCalculoConAjuste();
+
     // fin comun
 
     // baja it
@@ -44,14 +52,6 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
     void insertTempFechasAcumuladasBajaIt();
 
     int createIndexTempFechasAcumuladasBajaIt();
-
-    int createTempCalculoTotalizadoBajaIt();
-
-    int deleteTempCalculoTotalizadoBajaIt();
-
-    void insertTempCalculoTotalizadoBajaIt();
-
-    int createIndexTempCalculoTotalizadoBajaIt();
 
     // fin baja it
 
@@ -93,14 +93,6 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int createIndexTempFechasAcumuladasVacaciones();
 
-    int createTempCalculoTotalizadoVacaciones();
-
-    int deleteTempCalculoTotalizadoVacaciones();
-
-    void insertTempCalculoTotalizadoVacaciones();
-
-    int createIndexTempCalculoTotalizadoVacaciones();
-
     // fin vacaciones
 
     // inicio máximo garantizado (común)
@@ -112,14 +104,6 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
     int createIndexTempAusenciasDateMaximoGarantizado();
 
     void insertTempAusenciasDateMaximoGarantizado();
-
-    int createTempCalculoConAjusteMaximoGarantizado();
-
-    int deleteTempCalculoConAjusteMaximoGarantizado();
-
-    int createIndexTempCalculoConAjusteMaximoGarantizado();
-
-    void insertTempCalculoConAjusteMaximoGarantizado();
 
     int createTempDatosMaximoGarantizado();
 
@@ -140,14 +124,6 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
     int createIndexTempAusenciasDateMinimoGarantizado();
 
     void insertTempAusenciasDateMinimoGarantizado();
-
-    int createTempCalculoConAjusteMinimoGarantizado();
-
-    int deleteTempCalculoConAjusteMinimoGarantizado();
-
-    int createIndexTempCalculoConAjusteMinimoGarantizado();
-
-    void insertTempCalculoConAjusteMinimoGarantizado();
 
     int createTempDatosMinimoGarantizado();
 
@@ -177,13 +153,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int createIndexTempFechasAcumuladasCarencia();
 
-    int createTempCalculoTotalizadoCarencia();
-
-    int deleteTempCalculoTotalizadoCarencia();
-
-    void insertTempCalculoTotalizadoCarencia();
-
-    int createIndexTempCalculoTotalizadoCarencia();
+    void insertTempCalculoConAjusteCarencia();
 
     // fin carencia
 
