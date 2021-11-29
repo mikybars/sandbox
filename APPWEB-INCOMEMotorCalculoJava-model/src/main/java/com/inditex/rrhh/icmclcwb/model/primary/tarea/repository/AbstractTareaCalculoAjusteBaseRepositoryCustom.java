@@ -1,9 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,7 +10,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.SqlParamsUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -31,24 +27,6 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
 
     protected abstract Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
             IdPersonaLocalDto persona);
-
-    @Deprecated
-    @Override
-    public CompletableFuture<Void> ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
-            final List<IdPersonaLocalDto> personas) {
-        if (this.getSqlAjustar() != null) {
-            final List<MapSqlParameterSource> batchArgs = new ArrayList<>();
-            personas.forEach(persona -> {
-                final Map<String, Object> values = this.getMapValues(algoritmoAjuste, tarea, persona);
-                final MapSqlParameterSource arg = new MapSqlParameterSource();
-                values.forEach((paramName, value) -> arg.addValue(paramName, value));
-                batchArgs.add(arg);
-            });
-            this.namedParameterJdbcTemplate.batchUpdate(this.getSqlAjustar(),
-                    batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
-        }
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
 
     @Override
     public void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
