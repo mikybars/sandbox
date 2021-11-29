@@ -32,9 +32,4 @@ public class RunAjusteAsyncBajaItProcesar implements RunAjusteAsync {
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Override
-    public String getSqlCalcular(final AlgoritmoAjusteDto algoritmoAjuste) {
-        return this.runAjusteBajaItProcesar.getSqlCalcular(algoritmoAjuste);
-    }
-
 }

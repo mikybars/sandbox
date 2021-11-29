@@ -16,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones.RunAjusteAntigueda
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjusteAsync;
 
 /**
- * @author <a href="mailto:">javierev</a>
+ * @author javierev
  */
 @Component("antiguedadV1")
 public class RunAjusteAsyncAntiguedadProcesar implements RunAjusteAsync {
@@ -30,11 +30,6 @@ public class RunAjusteAsyncAntiguedadProcesar implements RunAjusteAsync {
             final AlgoritmoAjusteDto algoritmoAjuste) {
         this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
-    }
-
-    @Override
-    public String getSqlCalcular(final AlgoritmoAjusteDto algoritmoAjuste) {
-        return this.runAjusteAntiguedadProcesar.getSqlCalcular(algoritmoAjuste);
     }
 
 }

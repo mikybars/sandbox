@@ -16,6 +16,4 @@ public interface RunAjusteAsync {
     @Async("algoritmoAjusteExecutor")
     CompletableFuture<Void> execute(RunTareaDto runTarea, AlgoritmoAjusteDto algoritmoAjuste);
 
-    String getSqlCalcular(AlgoritmoAjusteDto algoritmoAjuste);
-
 }

@@ -32,9 +32,4 @@ public class RunAjusteAsyncVacacionesProcesar implements RunAjusteAsync {
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
-    @Override
-    public String getSqlCalcular(final AlgoritmoAjusteDto algoritmoAjuste) {
-        return this.runAjusteVacacionesProcesar.getSqlCalcular(algoritmoAjuste);
-    }
-
 }
