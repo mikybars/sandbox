@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAlgoritmoAjustePropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.async.ajustar.personas.CalculoAjusteAntiguedadAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -65,6 +66,9 @@ class RunAjusteAntiguedadProcesarTest {
     @Mock
     private PrimaryTemporaryTablePoliticasRepositoryCustomImpl primaryTemporaryTablePoliticasRepositoryCustom;
 
+    @Mock
+    private CalculoAjusteAntiguedadAsyncService calculoAjusteAntiguedadAsyncService;
+
     @InjectMocks
     private RunAjusteAntiguedadProcesar runAjusteAntiguedadProcesar;
 
@@ -76,7 +80,7 @@ class RunAjusteAntiguedadProcesarTest {
         properties.setThreadSize(THREAD_SIZE);
         properties.setBatchSize(BATCH_SIZE);
         when(this.runAjusteProperties.getAjuste()).thenReturn(properties);
-        when(this.tareaCalculoAjusteAntiguedadRepositoryCustom.ajustar(any(AlgoritmoAjusteDto.class),
+        when(this.calculoAjusteAntiguedadAsyncService.ajustar(any(AlgoritmoAjusteDto.class),
                 any(TareaDto.class),
                 ArgumentMatchers.<List<IdPersonaLocalDto>>any())).thenReturn(CompletableFuture.completedFuture(
                         AsyncConstants.NIL));
@@ -186,7 +190,7 @@ class RunAjusteAntiguedadProcesarTest {
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
         this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
 
-        verify(this.tareaCalculoAjusteAntiguedadRepositoryCustom, times(1))
+        verify(this.calculoAjusteAntiguedadAsyncService, times(1))
             .ajustar(algoritmoAjuste, runTarea.getTarea(), this.createPersonaIds());
     }
 
@@ -198,7 +202,7 @@ class RunAjusteAntiguedadProcesarTest {
 
         final RuntimeException exception = new RuntimeException("Exception");
         doThrow(exception)
-            .when(this.tareaCalculoAjusteAntiguedadRepositoryCustom)
+            .when(this.calculoAjusteAntiguedadAsyncService)
             .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
                     ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
@@ -209,57 +213,7 @@ class RunAjusteAntiguedadProcesarTest {
                 exception);
         verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
                 EstadoTareaCalculoPersonaEnum.KO.getDto());
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempFechasAntiguedad();
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempFechasAcumuladasAntiguedad();
 
-    }
-
-    void executeCreateTemporaryTablesTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasAntiguedad();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasAcumuladasAntiguedad();
-    }
-
-    void executeCreateTemporaryTablesIndexesTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempFechasAntiguedad();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .createIndexTempFechasAcumuladasAntiguedad();
-    }
-
-    void executeDropTemporaryTablesIndexesTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAntiguedad();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasAntiguedad();
-    }
-
-    void executeInsertTemporaryTableFechasTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempFechasAntiguedad(runTarea.getTarea());
-    }
-
-    void executeInsertTemporaryTableFechasAcumuladasTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasAcumuladasAntiguedad(
-                runTarea.getTarea());
     }
 
 }

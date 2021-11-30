@@ -1,0 +1,55 @@
+/*
+ * Copyright (c) 2021. Inditex
+ */
+
+package com.inditex.rrhh.icmclcwb.model.app.async.ajuste.personas;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.inditex.rrhh.icmclcwb.api.app.ajuste.personas.CalculoAjusteAntiguedadService;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+/**
+ * @author javierev
+ */
+@ExtendWith(SpringExtension.class)
+class CalculoAjusteAntiguedadAsyncServiceImplTest {
+
+    @Mock
+    private CalculoAjusteAntiguedadService calculoAjusteAntiguedadService;
+
+    @InjectMocks
+    private CalculoAjusteAntiguedadAsyncServiceImpl calculoAjusteAntiguedadAsyncService;
+
+    @Test
+    void ajustarTest() {
+        final AlgoritmoAjusteDto algoritmo = new AlgoritmoAjusteDto();
+        algoritmo.setId(89);
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(23L);
+        final List<IdPersonaLocalDto> personas = Collections.singletonList(
+                IdPersonaLocalDto
+                    .builder()
+                    .idPersonaLocal("ID PERSONA")
+                    .stdOrHrPeriod("OR PERSONA")
+                    .build());
+        final CompletableFuture<Void> cf = this.calculoAjusteAntiguedadAsyncService.ajustar(algoritmo, tarea, personas);
+        verify(this.calculoAjusteAntiguedadService, times(1)).ajustar(algoritmo, tarea, personas);
+        assertNotNull(cf);
+    }
+
+}

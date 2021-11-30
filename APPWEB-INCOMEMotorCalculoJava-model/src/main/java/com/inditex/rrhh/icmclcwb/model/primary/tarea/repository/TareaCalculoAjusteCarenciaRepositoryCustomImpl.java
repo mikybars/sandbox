@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -22,11 +21,11 @@ public class TareaCalculoAjusteCarenciaRepositoryCustomImpl
         extends AbstractTareaCalculoAjusteBaseRepositoryCustom
         implements TareaCalculoAjusteCarenciaRepositoryCustom {
 
-    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.carencia']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
+    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.carencia']}")
     @Getter
     private String sqlAjustar;
 
-    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.carencia']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
+    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.carencia']}")
     @Getter
     private String sqlAjustarBase;
 
@@ -51,11 +50,6 @@ public class TareaCalculoAjusteCarenciaRepositoryCustomImpl
             map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
         }
         map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, TipoPoliticaEnum.CARENCIA.getId());
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
         map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
         return map;

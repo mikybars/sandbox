@@ -6,23 +6,24 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.async.ajustar.personas.CalculoAjusteMinimoGarantizadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteMinimoGarantizadoRepositoryCustom;
 import org.slf4j.Logger;
 
-@Component("minimoGarantizadoV1")
+@Service
 public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
 
     @Autowired
@@ -39,10 +40,11 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Autowired
-    private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+    private CalculoAjusteMinimoGarantizadoAsyncService calculoAjusteMinimoGarantizadoAsyncService;
 
     @Override
-    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
         this.log.info(
                 "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Ids",
                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
@@ -53,22 +55,6 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
         final List<CompletableFuture<?>> cf = new ArrayList<>();
-        /*
-         * try {
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempAusenciasDateMinimoGarantizado();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempAusenciasDateMinimoGarantizado
-         * (); this.primaryTemporaryTablePoliticasRepositoryCustom
-         * .insertTempAusenciasDateMinimoGarantizado(runTarea.getTarea());
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjusteMinimoGarantizado()
-         * ; this.primaryTemporaryTablePoliticasRepositoryCustom.
-         * createIndexTempCalculoConAjusteMinimoGarantizado();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteMinimoGarantizado(
-         * runTarea.getTarea());
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createTempDatosMinimoGarantizado();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempDatosMinimoGarantizado();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempDatosMininimoGarantizado(runTarea.
-         * getTarea());
-         */
         for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
                 ids,
                 this.runAjusteProperties.getAjuste().getBatchSize())) {
@@ -78,7 +64,7 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
                     "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}",
                     runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
             try {
-                final CompletableFuture<Void> cfAjuste = this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom
+                final CompletableFuture<Void> cfAjuste = this.calculoAjusteMinimoGarantizadoAsyncService
                     .ajustar(
                             algoritmoAjuste, runTarea.getTarea(),
                             personas);
@@ -93,13 +79,6 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
 
         }
         AsyncUtils.waitAllOfIsOk(cf, cf);
-        /*
-         * } finally {
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempAusenciasDateMinimoGarantizado();
-         * this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjusteMinimoGarantizado()
-         * ; this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempDatosMinimoGarantizado(); }
-         */
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
