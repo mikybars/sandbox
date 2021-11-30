@@ -49,15 +49,12 @@ public class CalculoAjusteBajaItServiceImpl extends AbstractCalculoAjusteBaseSer
     protected void precondiciones(final TareaDto tarea,
             final List<IdPersonaLocalDto> personas) {
 
-        String cclIdOrigen = null;
         SistemaDestinoResponseDto sistemaDestino = SistemaDestinoResponseDto.builder()
             .idSistemaDestino(
                     SistemaDestinoEnum.NONE.getIdMeta4())
             .build();
-        if (tarea != null) {
-            final List<TareaAmbitoDto> byTarea = this.tareaAmbitoService.findByTarea(tarea);
-            cclIdOrigen = CollectionUtils.isNotEmpty(byTarea) ? byTarea.get(0).getCclIdOrigen() : null;
-        }
+        final List<TareaAmbitoDto> byTarea = this.tareaAmbitoService.findByTarea(tarea);
+        final String cclIdOrigen = CollectionUtils.isNotEmpty(byTarea) ? byTarea.get(0).getCclIdOrigen() : null;
         if (StringUtils.isNotBlank(cclIdOrigen)) {
             sistemaDestino = this.meta4IcmWsCalcIncomeService
                 .getSistemaDestino(SistemaDestinoRequestDto.builder().cclIdOrigen(cclIdOrigen).build());
