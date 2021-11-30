@@ -23,7 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 public interface CalculoAjusteAntiguedadAsyncService {
 
     @Async("ajusteExecutor")
-    CompletableFuture<Void> ajustar(@NotNull final AlgoritmoAjusteDto algoritmoAjusteDto, @NotNull final TareaDto tarea,
+    CompletableFuture<Void> ajustar(@NotNull final AlgoritmoAjusteDto algoritmoAjuste, @NotNull final TareaDto tarea,
             @NotNull @NotEmpty final List<IdPersonaLocalDto> personas);
 
 }

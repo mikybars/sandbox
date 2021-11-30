@@ -7,12 +7,8 @@ package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 import java.util.Collections;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.personas.CalculoAjusteVacacionesService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
@@ -26,7 +22,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjus
  * @author javierev
  */
 @Service
-@Validated
 public class CalculoAjusteVacacionesServiceImpl extends AbstractCalculoAjusteBaseService implements
         CalculoAjusteVacacionesService {
 
@@ -37,8 +32,8 @@ public class CalculoAjusteVacacionesServiceImpl extends AbstractCalculoAjusteBas
     private TareaCalculoAjusteVacacionesRepositoryCustom tareaCalculoAjusteVacacionesRepositoryCustom;
 
     @Override
-    protected void precondiciones(@NotNull final TareaDto tarea,
-            @NotNull @NotEmpty final List<IdPersonaLocalDto> personas) {
+    protected void precondiciones(final TareaDto tarea,
+            final List<IdPersonaLocalDto> personas) {
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasVacaciones();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasVacaciones();
@@ -56,7 +51,7 @@ public class CalculoAjusteVacacionesServiceImpl extends AbstractCalculoAjusteBas
     }
 
     @Override
-    protected void ajustar(@NotNull final AlgoritmoAjusteDto algoritmoAjuste) {
+    protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
         this.tareaCalculoAjusteVacacionesRepositoryCustom.ajustar(algoritmoAjuste);
     }
 
