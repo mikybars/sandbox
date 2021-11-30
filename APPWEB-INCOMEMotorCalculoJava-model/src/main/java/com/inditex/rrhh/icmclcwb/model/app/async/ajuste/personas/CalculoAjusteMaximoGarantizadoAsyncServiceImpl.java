@@ -7,6 +7,9 @@ package com.inditex.rrhh.icmclcwb.model.app.async.ajuste.personas;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +31,9 @@ public class CalculoAjusteMaximoGarantizadoAsyncServiceImpl implements CalculoAj
 
     @Override
     public CompletableFuture<Void> ajustar(
-            final AlgoritmoAjusteDto algoritmoAjusteDto,
-            final TareaDto tarea,
-            final List<IdPersonaLocalDto> personas) {
+            @NotNull final AlgoritmoAjusteDto algoritmoAjusteDto,
+            @NotNull final TareaDto tarea,
+            @NotNull @NotEmpty final List<IdPersonaLocalDto> personas) {
         this.calculoAjusteMaximoGarantizadoService.ajustar(algoritmoAjusteDto, tarea, personas);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

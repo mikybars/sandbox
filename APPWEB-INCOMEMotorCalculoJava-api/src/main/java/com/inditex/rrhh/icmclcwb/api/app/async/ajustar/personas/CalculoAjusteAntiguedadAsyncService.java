@@ -7,6 +7,9 @@ package com.inditex.rrhh.icmclcwb.api.app.async.ajustar.personas;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
@@ -20,7 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 public interface CalculoAjusteAntiguedadAsyncService {
 
     @Async("ajusteExecutor")
-    CompletableFuture<Void> ajustar(final AlgoritmoAjusteDto algoritmoAjusteDto, final TareaDto tarea,
-            final List<IdPersonaLocalDto> personas);
+    CompletableFuture<Void> ajustar(@NotNull final AlgoritmoAjusteDto algoritmoAjusteDto, @NotNull final TareaDto tarea,
+            @NotNull @NotEmpty final List<IdPersonaLocalDto> personas);
 
 }

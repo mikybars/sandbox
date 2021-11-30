@@ -6,8 +6,12 @@ package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.personas.CalculoAjusteAntiguedadService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
@@ -21,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjus
  * @author javierev
  */
 @Service
+@Validated
 public class CalculoAjusteAntiguedadServiceImpl extends AbstractCalculoAjusteBaseService implements
         CalculoAjusteAntiguedadService {
 
@@ -31,7 +36,8 @@ public class CalculoAjusteAntiguedadServiceImpl extends AbstractCalculoAjusteBas
     private TareaCalculoAjusteAntiguedadRepositoryCustom tareaCalculoAjusteAntiguedadRepositoryCustom;
 
     @Override
-    protected void precondiciones(final TareaDto tarea, final List<IdPersonaLocalDto> personas) {
+    protected void precondiciones(@NotNull final TareaDto tarea,
+            @NotNull @NotEmpty final List<IdPersonaLocalDto> personas) {
 
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempPersonas();
@@ -48,7 +54,7 @@ public class CalculoAjusteAntiguedadServiceImpl extends AbstractCalculoAjusteBas
     }
 
     @Override
-    protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
+    protected void ajustar(@NotNull final AlgoritmoAjusteDto algoritmoAjuste) {
         this.tareaCalculoAjusteAntiguedadRepositoryCustom.ajustar(algoritmoAjuste);
     }
 
