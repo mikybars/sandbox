@@ -7,9 +7,6 @@ package com.inditex.rrhh.icmclcwb.model.app.async.ajuste.personas;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +28,9 @@ public class CalculoAjusteVacacionesAsyncServiceImpl implements CalculoAjusteVac
 
     @Override
     public CompletableFuture<Void> ajustar(
-            @NotNull final AlgoritmoAjusteDto algoritmoAjusteDto,
-            @NotNull final TareaDto tarea,
-            @NotNull @NotEmpty final List<IdPersonaLocalDto> personas) {
+            final AlgoritmoAjusteDto algoritmoAjusteDto,
+            final TareaDto tarea,
+            final List<IdPersonaLocalDto> personas) {
         this.calculoAjusteVacacionesService.ajustar(algoritmoAjusteDto, tarea, personas);
         return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }

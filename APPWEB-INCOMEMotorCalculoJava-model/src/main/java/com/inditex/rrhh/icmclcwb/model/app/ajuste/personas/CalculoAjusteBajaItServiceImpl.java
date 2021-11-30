@@ -7,12 +7,8 @@ package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 import java.util.Collections;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.personas.CalculoAjusteBajaItService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.SistemaDestinoEnum;
@@ -34,7 +30,6 @@ import org.apache.commons.lang3.StringUtils;
  * @author javierev
  */
 @Service
-@Validated
 public class CalculoAjusteBajaItServiceImpl extends AbstractCalculoAjusteBaseService implements
         CalculoAjusteBajaItService {
 
@@ -51,15 +46,18 @@ public class CalculoAjusteBajaItServiceImpl extends AbstractCalculoAjusteBaseSer
     private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
     @Override
-    protected void precondiciones(@NotNull final TareaDto tarea,
-            @NotNull @NotEmpty final List<IdPersonaLocalDto> personas) {
+    protected void precondiciones(final TareaDto tarea,
+            final List<IdPersonaLocalDto> personas) {
 
+        String cclIdOrigen = null;
         SistemaDestinoResponseDto sistemaDestino = SistemaDestinoResponseDto.builder()
             .idSistemaDestino(
                     SistemaDestinoEnum.NONE.getIdMeta4())
             .build();
-        final List<TareaAmbitoDto> byTarea = this.tareaAmbitoService.findByTarea(tarea);
-        final String cclIdOrigen = CollectionUtils.isNotEmpty(byTarea) ? byTarea.get(0).getCclIdOrigen() : null;
+        if (tarea != null) {
+            final List<TareaAmbitoDto> byTarea = this.tareaAmbitoService.findByTarea(tarea);
+            cclIdOrigen = CollectionUtils.isNotEmpty(byTarea) ? byTarea.get(0).getCclIdOrigen() : null;
+        }
         if (StringUtils.isNotBlank(cclIdOrigen)) {
             sistemaDestino = this.meta4IcmWsCalcIncomeService
                 .getSistemaDestino(SistemaDestinoRequestDto.builder().cclIdOrigen(cclIdOrigen).build());
@@ -83,7 +81,7 @@ public class CalculoAjusteBajaItServiceImpl extends AbstractCalculoAjusteBaseSer
     }
 
     @Override
-    protected void ajustar(@NotNull final AlgoritmoAjusteDto algoritmoAjuste) {
+    protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
         this.tareaCalculoAjusteBajaItRepositoryCustom.ajustar(algoritmoAjuste);
     }
 
