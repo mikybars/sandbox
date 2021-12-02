@@ -1,9 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
-import org.springframework.scheduling.annotation.Async;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
@@ -13,9 +10,7 @@ public interface TareaCalculoAjusteBaseRepositoryCustom {
 
     List<IdPersonaLocalDto> ids(final TareaDto tarea);
 
-    @Async("ajusteExecutor")
-    CompletableFuture<Void> ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
-            final List<IdPersonaLocalDto> personas);
+    void ajustar(AlgoritmoAjusteDto algoritmoAjuste);
 
     String getSqlAjustar(final AlgoritmoAjusteDto algoritmoAjuste);
 

@@ -4,6 +4,10 @@
 
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 /**
@@ -11,13 +15,33 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
  */
 public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
+    // comun
+
+    int createTempPersonas();
+
+    int deleteTempPersonas();
+
+    void insertTempPersonas(final TareaDto tarea, List<IdPersonaLocalDto> personas, TipoPoliticaEnum tipoPolitica);
+
+    int createIndexTempPersonas();
+
+    int createTempCalculoConAjuste();
+
+    int deleteTempCalculoConAjuste();
+
+    void insertTempCalculoConAjuste(List<TipoPoliticaEnum> politicas);
+
+    int createIndexTempCalculoConAjuste();
+
+    // fin comun
+
     // baja it
 
     int createTempFechasBajaIt();
 
     int deleteTempFechasBajaIt();
 
-    void insertTempFechasBajaIt(final TareaDto tarea);
+    void insertTempFechasBajaIt(final TareaDto tarea, String sistemaDestino);
 
     int createIndexTempFechasBajaIt();
 
@@ -25,17 +49,9 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasAcumuladasBajaIt();
 
-    void insertTempFechasAcumuladasBajaIt(final TareaDto tarea);
+    void insertTempFechasAcumuladasBajaIt();
 
     int createIndexTempFechasAcumuladasBajaIt();
-
-    int createTempCalculoTotalizadoBajaIt();
-
-    int deleteTempCalculoTotalizadoBajaIt();
-
-    void insertTempCalculoTotalizadoBajaIt(final TareaDto tarea);
-
-    int createIndexTempCalculoTotalizadoBajaIt();
 
     // fin baja it
 
@@ -45,7 +61,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasAntiguedad();
 
-    void insertTempFechasAntiguedad(final TareaDto tarea);
+    void insertTempFechasAntiguedad();
 
     int createIndexTempFechasAntiguedad();
 
@@ -53,7 +69,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasAcumuladasAntiguedad();
 
-    void insertTempFechasAcumuladasAntiguedad(final TareaDto tarea);
+    void insertTempFechasAcumuladasAntiguedad();
 
     int createIndexTempFechasAcumuladasAntiguedad();
 
@@ -65,7 +81,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasVacaciones();
 
-    void insertTempFechasVacaciones(final TareaDto tarea);
+    void insertTempFechasVacaciones();
 
     int createIndexTempFechasVacaciones();
 
@@ -73,73 +89,39 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasAcumuladasVacaciones();
 
-    void insertTempFechasAcumuladasVacaciones(final TareaDto tarea);
+    void insertTempFechasAcumuladasVacaciones();
 
     int createIndexTempFechasAcumuladasVacaciones();
 
-    int createTempCalculoTotalizadoVacaciones();
-
-    int deleteTempCalculoTotalizadoVacaciones();
-
-    void insertTempCalculoTotalizadoVacaciones(final TareaDto tarea);
-
-    int createIndexTempCalculoTotalizadoVacaciones();
-
     // fin vacaciones
 
-    // inicio máximo garantizado (común)
+    // inicio máximo / mínimo garantizado (común)
 
-    int createTempAusenciasDateMaximoGarantizado();
+    int createTempAusenciasDateMaximoMinimoGarantizado();
 
-    int deleteTempAusenciasDateMaximoGarantizado();
+    int deleteTempAusenciasDateMaximoMinimoGarantizado();
 
-    int createIndexTempAusenciasDateMaximoGarantizado();
+    int createIndexTempAusenciasDateMaximoMinimoGarantizado();
 
-    void insertTempAusenciasDateMaximoGarantizado(final TareaDto tarea);
+    void insertTempAusenciasDateMaximoMinimoGarantizado();
 
-    int createTempCalculoConAjusteMaximoGarantizado();
+    int createTempDatosMaximoMinimoGarantizado();
 
-    int deleteTempCalculoConAjusteMaximoGarantizado();
+    int deleteTempDatosMaximoMinimoGarantizado();
 
-    int createIndexTempCalculoConAjusteMaximoGarantizado();
+    int createIndexTempDatosMaximoMinimoGarantizado();
 
-    void insertTempCalculoConAjusteMaximoGarantizado(final TareaDto tarea);
+    void insertTempDatosMaximoGarantizado();
 
-    int createTempDatosMaximoGarantizado();
+    // fin máximo / mínimo garantizado (común)
 
-    int deleteTempDatosMaximoGarantizado();
-
-    int createIndexTempDatosMaximoGarantizado();
-
-    void insertTempDatosMaximoGarantizado(final TareaDto tarea);
+    // inicio máximo garantizado
 
     // fin máximo garantizado
 
     // inicio mínimo garantizado
 
-    int createTempAusenciasDateMinimoGarantizado();
-
-    int deleteTempAusenciasDateMinimoGarantizado();
-
-    int createIndexTempAusenciasDateMinimoGarantizado();
-
-    void insertTempAusenciasDateMinimoGarantizado(final TareaDto tarea);
-
-    int createTempCalculoConAjusteMinimoGarantizado();
-
-    int deleteTempCalculoConAjusteMinimoGarantizado();
-
-    int createIndexTempCalculoConAjusteMinimoGarantizado();
-
-    void insertTempCalculoConAjusteMinimoGarantizado(final TareaDto tarea);
-
-    int createTempDatosMinimoGarantizado();
-
-    int deleteTempDatosMinimoGarantizado();
-
-    int createIndexTempDatosMinimoGarantizado();
-
-    void insertTempDatosMininimoGarantizado(final TareaDto tarea);
+    void insertTempDatosMininimoGarantizado();
 
     // fin mínimo garantizado
 
@@ -149,7 +131,7 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasCarencia();
 
-    void insertTempFechasCarencia(final TareaDto tarea);
+    void insertTempFechasCarencia();
 
     int createIndexTempFechasCarencia();
 
@@ -157,17 +139,11 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
     int deleteTempFechasAcumuladasCarencia();
 
-    void insertTempFechasAcumuladasCarencia(final TareaDto tarea);
+    void insertTempFechasAcumuladasCarencia();
 
     int createIndexTempFechasAcumuladasCarencia();
 
-    int createTempCalculoTotalizadoCarencia();
-
-    int deleteTempCalculoTotalizadoCarencia();
-
-    void insertTempCalculoTotalizadoCarencia(final TareaDto tarea);
-
-    int createIndexTempCalculoTotalizadoCarencia();
+    void insertTempCalculoConAjusteCarencia();
 
     // fin carencia
 
