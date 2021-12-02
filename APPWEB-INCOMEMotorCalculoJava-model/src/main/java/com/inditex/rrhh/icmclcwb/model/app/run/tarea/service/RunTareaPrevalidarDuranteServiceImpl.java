@@ -20,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
@@ -232,6 +233,7 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
                 } else {
                     this.senderTarea.send(runTareaDto.getTarea());
                 }
+                throw new ValidationReintentoException("Error validando");
             }
             throw new ValidationException("Error validando");
         }

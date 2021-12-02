@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.RunTareaLimpiarConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
@@ -107,20 +108,23 @@ public class RunTareaServiceImpl implements RunTareaService {
             }
             this.runTareaConsolidarService.run(runTarea);
             this.tareaService.updateEstadoFinal(runTarea.getTarea());
+            this.tareaService.updateFechaFin(runTarea.getTarea());
         } catch (final ValidationException e) {
             this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
                     EstadoTareaCalculoPersonaEnum.KO.getDto());
             this.runTareaConsolidarService.run(runTarea);
             this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR_VALIDANDO.getDto());
+            this.tareaService.updateFechaFin(runTarea.getTarea());
+            throw e;
+        } catch (final ValidationReintentoException e) {
             throw e;
         } catch (final Exception e) {
             this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
                     EstadoTareaCalculoPersonaEnum.KO.getDto());
             this.runTareaConsolidarService.run(runTarea);
             this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
-            throw e;
-        } finally {
             this.tareaService.updateFechaFin(runTarea.getTarea());
+            throw e;
         }
     }
 
