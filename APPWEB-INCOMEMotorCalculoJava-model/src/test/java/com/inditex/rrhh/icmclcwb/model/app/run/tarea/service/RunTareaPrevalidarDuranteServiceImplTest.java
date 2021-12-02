@@ -37,6 +37,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.slf4j.Logger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -50,6 +51,9 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
 
     @Mock
     private LimpiezaService limpiezaService;
+
+    @Mock
+    private Logger log;
 
     @Mock
     private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
