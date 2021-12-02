@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -27,12 +28,16 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
+import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.slf4j.Logger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -46,6 +51,9 @@ public class RunTareaPrevalidarDespuesServiceImplTest {
 
     @Mock
     private LimpiezaService limpiezaService;
+
+    @Mock
+    private Logger log;
 
     @Mock
     private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
@@ -68,8 +76,19 @@ public class RunTareaPrevalidarDespuesServiceImplTest {
     @Mock
     private MailSender mailSender;
 
+    @Mock
+    private MailService mailService;
+
+    @Mock
+    private AsyncUtils asyncUtils;
+
     @InjectMocks
     private RunTareaPrevalidarDespuesServiceImpl runTareaPrevalidarDespuesServiceImpl;
+
+    @BeforeEach
+    public void setup() throws IllegalAccessException {
+        FieldUtils.writeField(this.runTareaPrevalidarDespuesServiceImpl, "threadSize", 1, true);
+    }
 
     @Test
     public void run()

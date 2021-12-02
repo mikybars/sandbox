@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -27,7 +28,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
+import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -68,8 +72,19 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     @Mock
     private MailSender mailSender;
 
+    @Mock
+    private MailService mailService;
+
+    @Mock
+    private AsyncUtils asyncUtils;
+
     @InjectMocks
     private RunTareaPrevalidarDuranteServiceImpl runTareaPrevalidarDuranteServiceImpl;
+
+    @BeforeEach
+    public void setup() throws IllegalAccessException {
+        FieldUtils.writeField(this.runTareaPrevalidarDuranteServiceImpl, "threadSize", 1, true);
+    }
 
     @Test
     public void run()
@@ -180,7 +195,6 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
         when(service.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class))).thenReturn(cfValid);
         when(this.tareaFaseAccionService.findById(any(Long.class)))
             .thenReturn(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
-
 
         try {
             this.runTareaPrevalidarDuranteServiceImpl.run(runTareaDto, faseDto, accionDto);
