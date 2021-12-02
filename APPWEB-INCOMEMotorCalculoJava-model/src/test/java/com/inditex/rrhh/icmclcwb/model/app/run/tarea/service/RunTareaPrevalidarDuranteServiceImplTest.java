@@ -126,8 +126,9 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
         final List<TareaFaseAccionDto> tareaFaseAccion = Arrays
             .asList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
 
-        when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(any(Long.class),
-                any(Integer.class), any(Integer.class))).thenReturn(tareaFaseAccion);
+        when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
+                any(Long.class),
+                any(Integer.class), any(Integer.class), any(Integer.class))).thenReturn(tareaFaseAccion);
         when(this.accionService.findAccionDtoById(any(Integer.class)))
             .thenReturn(AccionDto.builder().id(1).nombre("Nombre").peso(100).build());
 
@@ -167,8 +168,9 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
         final List<TareaFaseAccionDto> tareaFaseAccion = Arrays
             .asList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
 
-        when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(any(Long.class),
-                any(Integer.class), any(Integer.class))).thenReturn(tareaFaseAccion);
+        when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
+                any(Long.class),
+                any(Integer.class), any(Integer.class), any(Integer.class))).thenReturn(tareaFaseAccion);
         when(this.tareaFaseAccionService.countReintentosByIdTareaAndIdAccionAndIdEstado(any(TareaFaseAccionDto.class),
                 any(TareaFaseDto.class))).thenReturn(1);
         when(this.accionService.findAccionDtoById(any(Integer.class)))
