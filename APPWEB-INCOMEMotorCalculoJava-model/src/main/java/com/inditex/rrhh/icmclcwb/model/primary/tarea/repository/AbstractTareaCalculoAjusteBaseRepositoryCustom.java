@@ -1,21 +1,16 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.SqlParamsUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -34,21 +29,13 @@ public abstract class AbstractTareaCalculoAjusteBaseRepositoryCustom
             IdPersonaLocalDto persona);
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public CompletableFuture<Void> ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
-            final List<IdPersonaLocalDto> personas) {
+    public void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
         if (this.getSqlAjustar() != null) {
-            final List<MapSqlParameterSource> batchArgs = new ArrayList<>();
-            personas.forEach(persona -> {
-                final Map<String, Object> values = this.getMapValues(algoritmoAjuste, tarea, persona);
-                final MapSqlParameterSource arg = new MapSqlParameterSource();
-                values.forEach((paramName, value) -> arg.addValue(paramName, value));
-                batchArgs.add(arg);
-            });
-            this.namedParameterJdbcTemplate.batchUpdate(this.getSqlAjustar(),
-                    batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
+            final MapSqlParameterSource params = new MapSqlParameterSource();
+            params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());
+            params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+            this.namedParameterJdbcTemplate.update(this.getSqlAjustar(), params);
         }
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
     }
 
     @Override
