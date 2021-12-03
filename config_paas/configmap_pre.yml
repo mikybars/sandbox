@@ -61,7 +61,7 @@ amiga:
           readOnly: true
         comis3:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionNL
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: ncomis
           readOnly: true
         comis4:
@@ -206,12 +206,12 @@ amiga:
           readOnly: true
         comis70:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionAL
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: ncomis
           readOnly: true          
         comis72:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionUA
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: ncomis
           readOnly: true
         comis73:
@@ -226,12 +226,12 @@ amiga:
           readOnly: true
         comis79:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionKZ
+          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: ncomis
           readOnly: true
         comis91:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionSI
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: ncomis
           readOnly: true          
         comis92:
@@ -316,7 +316,7 @@ amiga:
           readOnly: true
         comis720:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionCN
+          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: ncomis
           readOnly: true
         comis728:
@@ -337,17 +337,17 @@ amiga:
           readOnly: true
         comis740:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionHK
+          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: ncomis
           readOnly: true
         comis743:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionMacao
+          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: ncomis
           readOnly: true
         comis800:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionAU
+          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: ncomis
           readOnly: true
 app:
