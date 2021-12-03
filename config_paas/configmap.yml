@@ -152,7 +152,7 @@ app:
         algoritmo:
           thread-size: 1
           ajuste:
-            batch-size: 25
+            batch-size: 200
             thread-size: 1
       regularizar:
         thread-size: 4
