@@ -243,7 +243,7 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
   }
 
   @Test
-  void indListaPeriodosPresupestoYTrabajoTest(@Random Long idTarea, @Random PtrFilterPropertiesDto filterProperties,
+  void findListaPeriodosPresupestoYTrabajoTest(@Random Long idTarea, @Random PtrFilterPropertiesDto filterProperties,
       @Random PeriodoDto periodo) {
 
     filterProperties.setPeriodSize(0);

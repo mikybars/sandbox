@@ -1,21 +1,46 @@
 
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.PuntoEjecucionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResponseDto;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
+import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 
 import org.junit.jupiter.api.Test;
@@ -23,10 +48,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.slf4j.Logger;
 import org.springframework.mail.MailSender;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class RunTareaPrevalidarAntesServiceImplTest {
 
   @Mock
@@ -53,8 +81,23 @@ public class RunTareaPrevalidarAntesServiceImplTest {
   @Mock
   private MailSender mailSender;
 
+  @Mock
+  private MailService mailService;
+
+  @Mock
+  private Logger log;
+
   @InjectMocks
   private RunTareaPrevalidarAntesServiceImpl runTareaPrevalidarAntesServiceImpl;
+
+  @Random
+  private RunTareaDto runTareaDto;
+
+  @Random
+  private FaseDto faseDto;
+
+  @Mock
+  private RunPrevalidar runPrevalidar;
 
   @Test
   public void run()
@@ -77,4 +120,84 @@ public class RunTareaPrevalidarAntesServiceImplTest {
 
   }
 
+  @Test
+  void runExceptionTest(@Random TareaFaseDto tareaFase, @Random AccionDto accionDto,
+      @Random(type = TareaFaseAccionDto.class, size = 2) List<TareaFaseAccionDto> tareaFaseAccionDtoList,
+      @Random(type = ValidacionDto.class, size = 2) List<ValidacionDto> validacionDtoList,
+      @Random TareaFaseAccionDto tareaFaseAccionDto,
+      @Random CompletableFuture<List<ValidacionDto>> cfRun,
+      @Random SincronizacionResponseDto sincronizacionResponseDto,
+      @Random AccionDto accion) {
+
+    try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+      doReturn(tareaFase).when(this.tareaFaseService)
+          .findTareaFaseDtoByIdTareaAndIdFase(this.runTareaDto.getTarea().getId(), this.faseDto.getId());
+
+      doReturn(tareaFaseAccionDtoList).when(this.tareaFaseAccionService)
+          .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(this.runTareaDto.getTarea().getId(), this.faseDto.getId(),
+              PuntoEjecucionEnum.ANTES.getId());
+      Map<Integer, List<TareaFaseAccionDto>> fases = tareaFaseAccionDtoList.stream()
+          .sorted(Comparator.comparingInt(TareaFaseAccionDto::getPeso).reversed())
+          .collect(Collectors.groupingBy(TareaFaseAccionDto::getPeso));
+
+      final List<ValidacionDto> validaciones = new ArrayList<>();
+      for (final Integer pesos : fases.keySet()) {
+        for (final TareaFaseAccionDto tareaFaseAccion : fases.get(pesos)) {
+          doReturn(accionDto).when(this.accionService).findAccionDtoById(tareaFaseAccion.getIdAccion());
+
+          doReturn(this.runPrevalidar).when(this.runPrevalidarFactory).getRunPrevalidar(accionDto.getNombre());
+          doReturn(cfRun).when(this.runPrevalidar).execute(this.runTareaDto, tareaFaseAccion);
+
+          utilities.when(() -> AsyncUtils.get(cfRun)).thenReturn(validacionDtoList);
+          validaciones.addAll(validacionDtoList);
+        }
+      }
+
+      List<ValidacionDto> fallidas = validaciones.stream().filter(e -> Boolean.FALSE.equals(e.getResult()))
+          .sorted(Comparator.comparingInt(ValidacionDto::getReaccionPeso).reversed()).map(e -> {
+            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccionDto,
+                EstadoTareaFaseAccionEnum.KO.getDto());
+            this.tareaFaseService.updateFechaInicioAndFechaFinAndEstado(tareaFase,
+                EstadoTareaFaseEnum.KO.getDto());
+            return e;
+          }).collect(Collectors.toList());
+      for (ValidacionDto e : fallidas) {
+        doReturn(tareaFaseAccionDto).when(this.tareaFaseAccionService).findById(e.getIdTareaFaseAccion());
+      }
+
+      // Preparacion de datos para la ejecucion del siguiente doReturn
+      fallidas.stream().forEach(e -> {
+        final List<SincronizacionFilterParametersDto> filterParameters = e
+            .getIdPersonaLocal()
+            .stream()
+            .map(
+                f -> SincronizacionFilterParametersDto.builder()
+                    .idOrigen(e.getCclIdOrigen())
+                    .idEmpresa(AppConstants.ID_ORIGEN_SPAIN.equals(e.getCclIdOrigen())
+                        ? e.getStdIdLegEnt()
+                        : null)
+                    .idEmpleado(f)
+                    .fechaInicio(this.runTareaDto.getTarea().getFechaInicioPeriodo())
+                    .fechaFin(this.runTareaDto.getTarea().getFechaFinPeriodo())
+                    .build())
+            .collect(Collectors.toList());
+        final SincronizacionFilterDto filter = SincronizacionFilterDto.builder()
+            .items(filterParameters)
+            .build();
+        final SincronizacionRequestDto request = new SincronizacionRequestDto();
+        request.setData(filter);
+
+        doReturn(sincronizacionResponseDto).when(this.meta4IcmWsCalcIncomeService).sincronizacion(request);
+      });
+
+      doReturn(tareaFaseAccionDto).when(this.tareaFaseAccionService).findById(fallidas.get(0).getIdTareaFaseAccion());
+      doReturn(accion).when(this.accionService).findAccionDtoById(tareaFaseAccionDto.getIdAccion());
+      doReturn(2).when(this.tareaFaseAccionService).countReintentosByIdTareaAndIdAccionAndIdEstado(
+          tareaFaseAccionDto, tareaFase);
+
+      assertThrows(ValidationException.class, () -> {
+        this.runTareaPrevalidarAntesServiceImpl.run(this.runTareaDto, this.faseDto);
+      });
+    }
+  }
 }

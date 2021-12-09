@@ -16,6 +16,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VAL
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -27,12 +28,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
@@ -49,7 +53,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaV1RepositoryCustomImplTest {
 
   private final static String SQL_BASE = "SQL CALCULAR BASE";
@@ -70,6 +74,15 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaV1Reposit
 
   @InjectMocks
   private TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaV1RepositoryCustomImpl tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaV1RepositoryCustom;
+
+    @Random
+    private AlgoritmoDTO algoritmo;
+
+    @Random
+    private TareaDto tarea;
+
+    @Random
+    private IdPersonaLocalDto persona;
 
   @BeforeEach
   public void setup() throws IllegalAccessException {
@@ -270,5 +283,18 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaV1Reposit
     assertEquals(SQL_BASE, result);
 
   }
+
+    @Test
+    void getMapValuesTest2 () {
+        this.algoritmo.setDesplazamientoBase(true);
+        this.algoritmo.setDesplazamiento(true);
+
+        final Map<String, Object> result = this.tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDiariaV1RepositoryCustom
+            .getMapValues(this.algoritmo, this.tarea, this.persona);
+
+        assertNotNull(result);
+        assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    }
 
 }

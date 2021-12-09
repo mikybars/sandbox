@@ -1,18 +1,25 @@
 
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
@@ -25,7 +32,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class PtrServiceImplTest {
 
   @Mock
@@ -36,6 +43,12 @@ public class PtrServiceImplTest {
 
   @InjectMocks
   private PtrServiceImpl ptrServiceImpl;
+
+  @Random
+  private RunTareaDto runTareaDto;
+
+  @Random
+  private TareaAmbitoDto tareaAmbito;
 
   private static final String ORIGEN = "11";
 
@@ -76,6 +89,22 @@ public class PtrServiceImplTest {
 
     verify(this.ptrRepositoryCustom, times(1))
         .findPresenciasOrigenAndFechaEs(any(TareaDto.class), any(TareaAmbitoDto.class), any(Integer.class));
+  }
+
+  @Test
+  void findPresenciasOrigenAndFechaEsExceptionTest () {
+
+      this.tareaAmbito.setCclIdOrigen("11");
+
+      doReturn(null).when(this.meta4IcmWsCalcIncomeService).getCatalogo(CatalogoRequestDto
+          .builder().cclIdOrigen(tareaAmbito.getCclIdOrigen())
+          .items(Arrays.asList(CatalogoRequestItemDto
+              .builder().stdIdLegEnt(runTareaDto.getTarea().getStdIdLegEnt()).build()))
+          .build());
+
+      assertThrows(IcmclcwbException.class, () -> {
+          this.ptrServiceImpl.findPresenciasOrigenAndFechaEs(this.runTareaDto, this.tareaAmbito);
+      });
   }
 
 }

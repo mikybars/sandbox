@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -11,6 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
@@ -33,7 +36,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImplTest {
 
   private final static String SQL_BASE = "SQL CALCULAR BASE";
@@ -54,6 +57,15 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
 
   @InjectMocks
   private TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImpl tareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImpl;
+
+  @Random
+  private AlgoritmoDTO algoritmo;
+
+  @Random
+  private TareaDto tarea;
+
+  @Random
+  private IdPersonaLocalDto persona;
 
   @BeforeEach
   public void setup() throws IllegalAccessException {
@@ -268,6 +280,19 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
         .getSqlCalcular(algoritmo);
     assertEquals(SQL_BASE, result);
 
+  }
+
+  @Test
+  void getMapValuesTest2 () {
+      this.algoritmo.setDesplazamientoBase(true);
+      this.algoritmo.setDesplazamiento(true);
+
+      final Map<String, Object> result = this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImpl
+          .getMapValues(this.algoritmo, this.tarea, this.persona);
+
+      assertNotNull(result);
+      assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+      assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
   }
 
 }
