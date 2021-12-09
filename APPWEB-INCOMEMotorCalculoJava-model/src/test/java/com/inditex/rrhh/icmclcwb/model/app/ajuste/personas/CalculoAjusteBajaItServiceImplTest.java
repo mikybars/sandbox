@@ -76,7 +76,8 @@ class CalculoAjusteBajaItServiceImplTest {
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempPersonas();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasBajaIt();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempFechasBajaIt();
+        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
+        // times(1)).createIndexTempFechasBajaIt();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasAcumuladasBajaIt();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempFechasAcumuladasBajaIt();
         verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempCalculoConAjuste();

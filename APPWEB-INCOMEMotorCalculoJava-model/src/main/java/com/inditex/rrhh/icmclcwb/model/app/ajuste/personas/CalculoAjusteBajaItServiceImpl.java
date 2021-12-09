@@ -63,7 +63,7 @@ public class CalculoAjusteBajaItServiceImpl extends AbstractCalculoAjusteBaseSer
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempPersonas();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasBajaIt();
+        // this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasBajaIt();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasBajaIt();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasBajaIt();
         this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste();
