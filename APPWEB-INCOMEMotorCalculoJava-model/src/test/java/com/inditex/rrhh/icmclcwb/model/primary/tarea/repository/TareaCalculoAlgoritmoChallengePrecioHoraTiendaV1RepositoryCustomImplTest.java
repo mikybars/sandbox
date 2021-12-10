@@ -283,16 +283,16 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
   }
 
   @Test
-  void getMapValuesTest2 () {
-      this.algoritmo.setDesplazamientoBase(true);
-      this.algoritmo.setDesplazamiento(true);
+  void getMapValuesTest2() {
+    this.algoritmo.setDesplazamientoBase(true);
+    this.algoritmo.setDesplazamiento(true);
 
-      final Map<String, Object> result = this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImpl
-          .getMapValues(this.algoritmo, this.tarea, this.persona);
+    final Map<String, Object> result = this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImpl
+        .getMapValues(this.algoritmo, this.tarea, this.persona);
 
-      assertNotNull(result);
-      assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-      assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    assertNotNull(result);
+    assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
   }
 
 }

@@ -60,14 +60,14 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaV1RepositoryCustom
   @InjectMocks
   private TareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaV1RepositoryCustomImpl tareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaV1RepositoryCustom;
 
-    @Random
-    private AlgoritmoDTO algoritmo;
+  @Random
+  private AlgoritmoDTO algoritmo;
 
-    @Random
-    private TareaDto tarea;
+  @Random
+  private TareaDto tarea;
 
-    @Random
-    private IdPersonaLocalDto persona;
+  @Random
+  private IdPersonaLocalDto persona;
 
   @BeforeEach
   public void setup() throws IllegalAccessException {
@@ -285,17 +285,17 @@ public class TareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaV1RepositoryCustom
 
   }
 
-    @Test
-    void getMapValuesTest2 () {
-        this.algoritmo.setDesplazamientoBase(true);
-        this.algoritmo.setDesplazamiento(true);
+  @Test
+  void getMapValuesTest2() {
+    this.algoritmo.setDesplazamientoBase(true);
+    this.algoritmo.setDesplazamiento(true);
 
-        final Map<String, Object> result = this.tareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaV1RepositoryCustom
-            .getMapValues(this.algoritmo, this.tarea, this.persona);
+    final Map<String, Object> result = this.tareaCalculoAlgoritmoDirectoVentaPorcentajeDiariaV1RepositoryCustom
+        .getMapValues(this.algoritmo, this.tarea, this.persona);
 
-        assertNotNull(result);
-        assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    }
+    assertNotNull(result);
+    assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+  }
 
 }

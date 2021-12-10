@@ -22,7 +22,6 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.Algoritmo;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -274,16 +273,16 @@ public class TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCusto
   }
 
   @Test
-  void getMapValues2 () {
-      this.algoritmo.setDesplazamiento(true);
-      this.algoritmo.setDesplazamientoBase(true);
+  void getMapValues2() {
+    this.algoritmo.setDesplazamiento(true);
+    this.algoritmo.setDesplazamientoBase(true);
 
-      final Map<String, Object> result = this.tareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustomImpl
-          .getMapValues(this.algoritmo, this.tarea, this.persona);
+    final Map<String, Object> result = this.tareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustomImpl
+        .getMapValues(this.algoritmo, this.tarea, this.persona);
 
-      assertNotNull(result);
-      assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-      assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    assertNotNull(result);
+    assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
   }
 
 }

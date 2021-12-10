@@ -92,19 +92,19 @@ public class PtrServiceImplTest {
   }
 
   @Test
-  void findPresenciasOrigenAndFechaEsExceptionTest () {
+  void findPresenciasOrigenAndFechaEsExceptionTest() {
 
-      this.tareaAmbito.setCclIdOrigen("11");
+    this.tareaAmbito.setCclIdOrigen("11");
 
-      doReturn(null).when(this.meta4IcmWsCalcIncomeService).getCatalogo(CatalogoRequestDto
-          .builder().cclIdOrigen(tareaAmbito.getCclIdOrigen())
-          .items(Arrays.asList(CatalogoRequestItemDto
-              .builder().stdIdLegEnt(runTareaDto.getTarea().getStdIdLegEnt()).build()))
-          .build());
+    doReturn(null).when(this.meta4IcmWsCalcIncomeService).getCatalogo(CatalogoRequestDto
+        .builder().cclIdOrigen(tareaAmbito.getCclIdOrigen())
+        .items(Arrays.asList(CatalogoRequestItemDto
+            .builder().stdIdLegEnt(runTareaDto.getTarea().getStdIdLegEnt()).build()))
+        .build());
 
-      assertThrows(IcmclcwbException.class, () -> {
-          this.ptrServiceImpl.findPresenciasOrigenAndFechaEs(this.runTareaDto, this.tareaAmbito);
-      });
+    assertThrows(IcmclcwbException.class, () -> {
+      this.ptrServiceImpl.findPresenciasOrigenAndFechaEs(this.runTareaDto, this.tareaAmbito);
+    });
   }
 
 }

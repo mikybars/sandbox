@@ -1,9 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
@@ -18,7 +17,6 @@ import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
@@ -33,88 +31,87 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImplTest {
 
-    @Mock
-    private TareaCalculoPersonaService tareaCalculoPersonaService;
+  @Mock
+  private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-    @Mock
-    private TipoDatoService tipoDatoService;
+  @Mock
+  private TipoDatoService tipoDatoService;
 
-    @Spy
-    @InjectMocks
-    TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl
-        tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl;
+  @Spy
+  @InjectMocks
+  TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl;
 
-    @Random
-    private AlgoritmoDTO algoritmo;
+  @Random
+  private AlgoritmoDTO algoritmo;
 
-    @Random
-    private TareaDto tarea;
+  @Random
+  private TareaDto tarea;
 
-    @Random
-    private IdPersonaLocalDto persona;
+  @Random
+  private IdPersonaLocalDto persona;
 
-    @Test
-    void idsTest (@Random(type = IdPersonaLocalDto.class, size = 2) List<IdPersonaLocalDto> idPersonaLocalDtoList) {
+  @Test
+  void idsTest(@Random(type = IdPersonaLocalDto.class, size = 2) List<IdPersonaLocalDto> idPersonaLocalDtoList) {
 
-        doReturn(idPersonaLocalDtoList).when(this.tareaCalculoPersonaService).findByAlgoritmo(this.tarea, this.algoritmo);
+    doReturn(idPersonaLocalDtoList).when(this.tareaCalculoPersonaService).findByAlgoritmo(this.tarea, this.algoritmo);
 
-        final List<IdPersonaLocalDto> result =
-            this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl
-                .ids(this.algoritmo, this.tarea);
-
-        assertNotNull(result);
-        assertTrue(!result.isEmpty());
-        for (IdPersonaLocalDto item : result) {
-            assertNotNull(item);
-        }
-    }
-
-    @Test
-    void getMapvaluesTest (@Random(type = IdTipoDatoDto.class, size = 2) List<IdTipoDatoDto> idTipoDatoDtoList) {
-
-        final Map<String, Object> result = this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl
-            .getMapValues(this.algoritmo, this.tarea, this.persona);
-
-        assertNotNull(result);
-        assertTrue(!result.isEmpty());
-        for (Object obj : result.values()) {
-            assertNotNull(obj);
-        }
-    }
-
-    @Test
-    void getMapvaluesTest2 (@Random(type = IdTipoDatoDto.class, size = 2) List<IdTipoDatoDto> idTipoDatoDtoList) {
-
-        AlgoritmoDTO alg = this.algoritmo;
-        alg.setDesplazamiento(true);
-        alg.setDesplazamientoBase(false);
-
-        final Map<String, Object> result = this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl
-            .getMapValues(alg, this.tarea, this.persona);
-
-        assertNotNull(result);
-        assertTrue(!result.isEmpty());
-        for (Object obj : result.values()) {
-            assertNotNull(obj);
-        }
-    }
-
-    @Test
-    void getSqlCalcularTest () {
+    final List<IdPersonaLocalDto> result =
         this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl
-            .getSqlCalcular();
+            .ids(this.algoritmo, this.tarea);
 
-        verify(this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl,
-            times(1)).getSqlCalcular();
+    assertNotNull(result);
+    assertTrue(!result.isEmpty());
+    for (IdPersonaLocalDto item : result) {
+      assertNotNull(item);
     }
+  }
 
-    @Test
-    void getSqlCalcularBaseTest () {
-        this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl
-            .getSqlCalcularBase();
+  @Test
+  void getMapvaluesTest(@Random(type = IdTipoDatoDto.class, size = 2) List<IdTipoDatoDto> idTipoDatoDtoList) {
 
-        verify(this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl,
-            times(1)).getSqlCalcularBase();
+    final Map<String, Object> result = this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl
+        .getMapValues(this.algoritmo, this.tarea, this.persona);
+
+    assertNotNull(result);
+    assertTrue(!result.isEmpty());
+    for (Object obj : result.values()) {
+      assertNotNull(obj);
     }
+  }
+
+  @Test
+  void getMapvaluesTest2(@Random(type = IdTipoDatoDto.class, size = 2) List<IdTipoDatoDto> idTipoDatoDtoList) {
+
+    AlgoritmoDTO alg = this.algoritmo;
+    alg.setDesplazamiento(true);
+    alg.setDesplazamientoBase(false);
+
+    final Map<String, Object> result = this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl
+        .getMapValues(alg, this.tarea, this.persona);
+
+    assertNotNull(result);
+    assertTrue(!result.isEmpty());
+    for (Object obj : result.values()) {
+      assertNotNull(obj);
+    }
+  }
+
+  @Test
+  void getSqlCalcularTest() {
+    this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl
+        .getSqlCalcular();
+
+    verify(this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl,
+        times(1)).getSqlCalcular();
+  }
+
+  @Test
+  void getSqlCalcularBaseTest() {
+    this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl
+        .getSqlCalcularBase();
+
+    verify(this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustomImpl,
+        times(1)).getSqlCalcularBase();
+  }
 
 }

@@ -1907,7 +1907,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
   }
 
   @Test
-  void getAgrupOnlineTest2 () {
+  void getAgrupOnlineTest2() {
 
   }
 

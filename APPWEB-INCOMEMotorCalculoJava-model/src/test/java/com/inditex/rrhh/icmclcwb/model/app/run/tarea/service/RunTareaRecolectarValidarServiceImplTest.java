@@ -1,14 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
 /*
- * Copyright (c) 2021.  Inditex
+ * Copyright (c) 2021. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -43,125 +40,124 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class RunTareaRecolectarValidarServiceImplTest {
 
-    @Mock
-    private RunTareaRecolectarValidarEstructurasAsyncService runTareaRecolectarValidarEstructurasAsyncService;
+  @Mock
+  private RunTareaRecolectarValidarEstructurasAsyncService runTareaRecolectarValidarEstructurasAsyncService;
 
-    @Mock
-    private RunTareaRecolectarValidarLocalizacionHistoricoAsyncService runTareaRecolectarValidarLocalizacionHistoricoAsyncService;
+  @Mock
+  private RunTareaRecolectarValidarLocalizacionHistoricoAsyncService runTareaRecolectarValidarLocalizacionHistoricoAsyncService;
 
-    @Mock
-    private RunTareaRecolectarValidarTiposHoraAsyncService runTareaRecolectarValidarTiposHoraAsyncService;
+  @Mock
+  private RunTareaRecolectarValidarTiposHoraAsyncService runTareaRecolectarValidarTiposHoraAsyncService;
 
-    @Mock
-    private RunTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService
-        runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService;
+  @Mock
+  private RunTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService;
 
-    @Mock
-    private RunTareaRecolectarValidarLocalizacionPresenciaAsyncService runTareaRecolectarValidarLocalizacionPresenciaAsyncService;
+  @Mock
+  private RunTareaRecolectarValidarLocalizacionPresenciaAsyncService runTareaRecolectarValidarLocalizacionPresenciaAsyncService;
 
-    @Mock
-    private RunTareaRecolectarValidarLocalizacionVentaAsyncService runTareaRecolectarValidarLocalizacionVentaAsyncService;
+  @Mock
+  private RunTareaRecolectarValidarLocalizacionVentaAsyncService runTareaRecolectarValidarLocalizacionVentaAsyncService;
 
-    @Mock
-    private RunTareaRecolectarValidarAmbitoAsyncService runTareaRecolectarValidarAmbitoAsyncService;
+  @Mock
+  private RunTareaRecolectarValidarAmbitoAsyncService runTareaRecolectarValidarAmbitoAsyncService;
 
-    @Mock
-    @Qualifier("validarProperties")
-    private ValidarPropertiesDto validarProperties;
+  @Mock
+  @Qualifier("validarProperties")
+  private ValidarPropertiesDto validarProperties;
 
-    @Mock
-    private Logger log;
+  @Mock
+  private Logger log;
 
-    @Mock
-    private TareaFaseService tareaFaseService;
+  @Mock
+  private TareaFaseService tareaFaseService;
 
-    @InjectMocks
-    private RunTareaRecolectarValidarServiceImpl runTareaRecolectarValidarServiceImpl;
+  @InjectMocks
+  private RunTareaRecolectarValidarServiceImpl runTareaRecolectarValidarServiceImpl;
 
-    @Random
-    private RunTareaDto runTarea;
+  @Random
+  private RunTareaDto runTarea;
 
-    @Test
-    void runTest (@Random TareaFaseDto tareaFaseDto,
-        @Random CompletableFuture<List<RunTareaValidarDto>> completableFuture,
-        @Random(type = RunTareaValidarDto.class, size = 2) List<RunTareaValidarDto> runTareaValidarDtoList) {
+  @Test
+  void runTest(@Random TareaFaseDto tareaFaseDto,
+      @Random CompletableFuture<List<RunTareaValidarDto>> completableFuture,
+      @Random(type = RunTareaValidarDto.class, size = 2) List<RunTareaValidarDto> runTareaValidarDtoList) {
 
-        try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+    try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
 
-            doReturn(tareaFaseDto).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase
-                (this.runTarea.getTrabajo().getId(), FaseEnum.VALIDAR_RECOLECCION.getId());
+      doReturn(tareaFaseDto).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase(this.runTarea.getTrabajo().getId(),
+          FaseEnum.VALIDAR_RECOLECCION.getId());
 
-            doReturn(true).when(this.validarProperties).isEnabled();
-            doReturn(true).when(this.validarProperties).isLogging();
+      doReturn(true).when(this.validarProperties).isEnabled();
+      doReturn(true).when(this.validarProperties).isLogging();
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarEstructurasAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarEstructurasAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionHistoricoAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionHistoricoAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarTiposHoraAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarTiposHoraAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionPresenciaAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionPresenciaAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionVentaAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionVentaAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarAmbitoAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarAmbitoAsyncService).run(this.runTarea);
 
-            utilities.when(() -> AsyncUtils.get(completableFuture)).thenReturn(runTareaValidarDtoList);
+      utilities.when(() -> AsyncUtils.get(completableFuture)).thenReturn(runTareaValidarDtoList);
 
-            this.runTareaRecolectarValidarServiceImpl.run(this.runTarea);
-        }
+      this.runTareaRecolectarValidarServiceImpl.run(this.runTarea);
     }
+  }
 
-    @Test
-    void runExceptionTest (@Random TareaFaseDto tareaFaseDto,
-        @Random CompletableFuture<List<RunTareaValidarDto>> completableFuture,
-        @Random(type = RunTareaValidarDto.class, size = 2) List<RunTareaValidarDto> runTareaValidarDtoList) {
+  @Test
+  void runExceptionTest(@Random TareaFaseDto tareaFaseDto,
+      @Random CompletableFuture<List<RunTareaValidarDto>> completableFuture,
+      @Random(type = RunTareaValidarDto.class, size = 2) List<RunTareaValidarDto> runTareaValidarDtoList) {
 
-        try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+    try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
 
-            doReturn(tareaFaseDto).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase
-                (this.runTarea.getTrabajo().getId(), FaseEnum.VALIDAR_RECOLECCION.getId());
+      doReturn(tareaFaseDto).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase(this.runTarea.getTrabajo().getId(),
+          FaseEnum.VALIDAR_RECOLECCION.getId());
 
-            doReturn(true).when(this.validarProperties).isEnabled();
-            doReturn(false).when(this.validarProperties).isLogging();
-            doReturn(true).when(this.validarProperties).isException();
+      doReturn(true).when(this.validarProperties).isEnabled();
+      doReturn(false).when(this.validarProperties).isLogging();
+      doReturn(true).when(this.validarProperties).isException();
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarEstructurasAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarEstructurasAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionHistoricoAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionHistoricoAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarTiposHoraAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarTiposHoraAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionPersonaPresenciaAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionPresenciaAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionPresenciaAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionVentaAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarLocalizacionVentaAsyncService).run(this.runTarea);
 
-            doReturn(completableFuture).when(this.runTareaRecolectarValidarAmbitoAsyncService).run(this.runTarea);
+      doReturn(completableFuture).when(this.runTareaRecolectarValidarAmbitoAsyncService).run(this.runTarea);
 
-            utilities.when(() -> AsyncUtils.get(completableFuture)).thenReturn(runTareaValidarDtoList);
+      utilities.when(() -> AsyncUtils.get(completableFuture)).thenReturn(runTareaValidarDtoList);
 
-            assertThrows(IcmclcwbException.class, () -> {
-                this.runTareaRecolectarValidarServiceImpl.run(this.runTarea);
-            });
-        }
+      assertThrows(IcmclcwbException.class, () -> {
+        this.runTareaRecolectarValidarServiceImpl.run(this.runTarea);
+      });
     }
+  }
 
-//    @Test
-//    void runExceptionTest (@Random TareaFaseDto tareaFaseDto) {
-//
-//        doThrow(new RuntimeException()).when(this.validarProperties).isEnabled();;
-//
-//        doReturn(tareaFaseDto).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase
-//            (this.runTarea.getTrabajo().getId(), FaseEnum.VALIDAR_RECOLECCION.getId());
-//
-//        assertThrows(RuntimeException.class, () -> {
-//            this.runTareaRecolectarValidarServiceImpl.run(this.runTarea);
-//        });
-//
-//    }
+  // @Test
+  // void runExceptionTest (@Random TareaFaseDto tareaFaseDto) {
+  //
+  // doThrow(new RuntimeException()).when(this.validarProperties).isEnabled();;
+  //
+  // doReturn(tareaFaseDto).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase
+  // (this.runTarea.getTrabajo().getId(), FaseEnum.VALIDAR_RECOLECCION.getId());
+  //
+  // assertThrows(RuntimeException.class, () -> {
+  // this.runTareaRecolectarValidarServiceImpl.run(this.runTarea);
+  // });
+  //
+  // }
 
 }

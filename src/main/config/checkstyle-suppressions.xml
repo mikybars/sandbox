@@ -17,14 +17,14 @@
   <suppress checks="RegexpHeader" files="package-info.java"/>
 
   <!-- Clases autogeneradas del wsdl -->
-  <!-- <suppress checks="." files="com[\\/]inditex[\\/]rrhh[\\/]icmclcwb[\\/]model[\\/]meta4[\\/]icmwscalcincome[\\/]entity[\\/]"/>-->
-  <!-- <suppress checks="." files="com[\\/]inditex[\\/]rrhh[\\/]icmclcwb[\\/]model[\\/]meta4[\\/]login[\\/]entity[\\/]"/>-->
+   <suppress checks="." files="com[\\/]inditex[\\/]rrhh[\\/]icmclcwb[\\/]model[\\/]meta4[\\/]icmwscalcincome[\\/]entity[\\/]"/>
+   <suppress checks="." files="com[\\/]inditex[\\/]rrhh[\\/]icmclcwb[\\/]model[\\/]meta4[\\/]login[\\/]entity[\\/]"/>
 
   <!-- Método getHTTPConduit no de problemas por tener más de 4 mayus seguidas -->
   <!--<suppress checks="AbbreviationAsWordInName" files="com[\\/]inditex[\\/]rrhh[\\/]icmclcwb[\\/]model[\\/]app[\\/]util[\\/]CxfUtils.java"/>-->
 
   <!-- LineLength -> Se pasa de las columnas permitidas. Son nombres de variables y llamadas a métodos con nombres largos -->
-  <!--<suppress checks="LineLength" files="com[\\/]inditex[\\/]rrhh[\\/]icmclcwb[\\/]model[\\/]app[\\/]"/>-->
+  <suppress checks="LineLength" files="com[\\/]inditex[\\/]rrhh[\\/]icmclcwb[\\/]model[\\/]app[\\/]"/>
 
   <!-- ParameterName -> Nombres de comis no siguen el patron debido a la _ -->
   <!--<suppress checks="ParameterName" files="com[\\/]inditex[\\/]rrhh[\\/]icmclcwb[\\/]config[\\/]app[\\/]data[\\/]DataSourceComisConfig.java"/>-->

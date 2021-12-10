@@ -45,7 +45,7 @@ public abstract class Meta4ClientAbstract<T> implements Serializable {
     ((BindingProvider) result).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
     ((BindingProvider) result).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, this.server);
 
-    final HTTPConduit httpConduit = CxfUtils.getHTTPConduit(result);
+    final HTTPConduit httpConduit = CxfUtils.getHttpConduit(result);
 
     final HTTPClientPolicy httpClientPolicy = new HTTPClientPolicy();
     httpClientPolicy.setContentType(CxfConstants.CONTENT_TYPE);

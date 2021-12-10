@@ -91,12 +91,12 @@ public class CxfUtils {
   }
 
   public static void putCookies(final Object service, final Map<String, Cookie> cookies) {
-    final HTTPConduit http = CxfUtils.getHTTPConduit(service);
+    final HTTPConduit http = CxfUtils.getHttpConduit(service);
     http.getCookies().putAll(cookies);
   }
 
   public static void putCookie(final Object service, final String jsessionID) {
-    final HTTPConduit http = CxfUtils.getHTTPConduit(service);
+    final HTTPConduit http = CxfUtils.getHttpConduit(service);
     http.getClient()
         .setCookie(new StringBuilder(CxfConstants.JSESSIONID).append(CxfConstants.SEPARADOR)
             .append(jsessionID)
@@ -104,19 +104,19 @@ public class CxfUtils {
   }
 
   public static Map<String, Cookie> getCookies(final Object service) {
-    final HTTPConduit httpConduit = CxfUtils.getHTTPConduit(service);
+    final HTTPConduit httpConduit = CxfUtils.getHttpConduit(service);
     return httpConduit.getCookies();
   }
 
   public static void setCookies(final Object service, final Map<String, Cookie> cookies) {
-    final HTTPConduit httpConduit = CxfUtils.getHTTPConduit(service);
+    final HTTPConduit httpConduit = CxfUtils.getHttpConduit(service);
     httpConduit.getCookies().clear();
     httpConduit.getCookies().putAll(cookies);
   }
 
   public static void cloneHeaders(final Object serviceLogin, final Object service) {
-    final HTTPConduit httpConduitLogin = CxfUtils.getHTTPConduit(serviceLogin);
-    final HTTPConduit httpConduitService = CxfUtils.getHTTPConduit(service);
+    final HTTPConduit httpConduitLogin = CxfUtils.getHttpConduit(serviceLogin);
+    final HTTPConduit httpConduitService = CxfUtils.getHttpConduit(service);
     httpConduitService.getCookies().clear();
     httpConduitService.getCookies().putAll(httpConduitLogin.getCookies());
   }
@@ -136,12 +136,12 @@ public class CxfUtils {
     }
   }
 
-  public static HTTPConduit getHTTPConduit(final Client client) {
+  public static HTTPConduit getHttpConduit(final Client client) {
     return (HTTPConduit) client.getConduit();
   }
 
-  public static HTTPConduit getHTTPConduit(final Object o) {
-    return CxfUtils.getHTTPConduit(CxfUtils.getClient(o));
+  public static HTTPConduit getHttpConduit(final Object o) {
+    return CxfUtils.getHttpConduit(CxfUtils.getClient(o));
   }
 
 }
