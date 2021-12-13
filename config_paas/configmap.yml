@@ -152,7 +152,7 @@ app:
         algoritmo:
           thread-size: 1
           ajuste:
-            batch-size: 25
+            batch-size: 200
             thread-size: 1
       regularizar:
         thread-size: 4
@@ -177,7 +177,7 @@ app:
           activo: true
           max-empleados: 30
       fechas:
-        meses: 24
+        meses: 2
         sincronizacion:
           activo: true
           max-empleados: 30

@@ -18,43 +18,41 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TareaCalculoAjusteAntiguedadRepositoryCustomImpl
-    extends AbstractTareaCalculoAjusteBaseRepositoryCustom
-    implements TareaCalculoAjusteAntiguedadRepositoryCustom {
+        extends AbstractTareaCalculoAjusteBaseRepositoryCustom
+        implements TareaCalculoAjusteAntiguedadRepositoryCustom {
 
-  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad']} "
-      + "#{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad.group'"
-      + "]} ")
-  @Getter
-  private String sqlAjustar;
+    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad.group']} ")
+    @Getter
+    private String sqlAjustar;
 
-  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
-  @Getter
-  private String sqlAjustarBase;
+    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.antiguedad']}")
+    @Getter
+    private String sqlAjustarBase;
 
-  @Autowired
-  private TareaCalculoPersonaService tareaCalculoPersonaService;
+    @Autowired
+    private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-  @Override
-  public List<IdPersonaLocalDto> ids(final TareaDto tarea) {
-    return this.tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
-        TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4());
-  }
-
-  @Override
-  protected Map<String, Object> getMapValues(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
-      final IdPersonaLocalDto persona) {
-    final Map<String, Object> map = new HashMap<>();
-    if (tarea != null) {
-      map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    @Override
+    public List<IdPersonaLocalDto> ids(final TareaDto tarea) {
+        return this.tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
+                TipoPoliticaEnum.ANTIGUEDAD.getIdMeta4());
     }
-    if (persona != null) {
-      map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
-      map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
-    }
-    map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());
-    map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
-    return map;
-  }
+    @Override
+    protected Map<String, Object> getMapValues(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
+            final IdPersonaLocalDto persona) {
+        final Map<String, Object> map = new HashMap<>();
+        if (tarea != null) {
+            map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        }
+        if (persona != null) {
+            map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
+            map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
+        }
+        map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());
+        map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+
+        return map;
+    }
 
 }

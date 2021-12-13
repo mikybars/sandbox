@@ -1,8 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -16,6 +16,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAlgoritmoAjustePropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.async.ajustar.personas.CalculoAjusteBajaItAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -39,236 +40,173 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 class RunAjusteBajaItProcesarTest {
 
-  private final static Long ID_TAREA = 19191L;
+    private final static Long ID_TAREA = 19191L;
 
-  private final static Long ID_TRABAJO = 3232L;
+    private final static Long ID_TRABAJO = 3232L;
 
-  private final static Integer THREAD_SIZE = 15;
+    private final static Integer THREAD_SIZE = 15;
 
-  private final static Integer BATCH_SIZE = 5;
+    private final static Integer BATCH_SIZE = 5;
 
-  @Mock
-  private Logger log;
+    @Mock
+    private Logger log;
 
-  @Mock
-  private RunAjustePropertiesDto runAjusteProperties;
+    @Mock
+    private RunAjustePropertiesDto runAjusteProperties;
 
-  @Mock
-  private TareaCalculoAjusteBajaItRepositoryCustom tareaCalculoAjusteBajaItRepositoryCustom;
+    @Mock
+    private TareaCalculoAjusteBajaItRepositoryCustom tareaCalculoAjusteBajaItRepositoryCustom;
 
-  @Mock
-  private TareaCalculoPersonaService tareaCalculoPersonaService;
+    @Mock
+    private CalculoAjusteBajaItAsyncService calculoAjusteBajaItAsyncService;
 
-  @Mock
-  private PrimaryTemporaryTablePoliticasRepositoryCustomImpl primaryTemporaryTablePoliticasRepositoryCustom;
+    @Mock
+    private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-  @InjectMocks
-  private RunAjusteBajaItProcesar runAjusteBajaItProcesar;
+    @Mock
+    private PrimaryTemporaryTablePoliticasRepositoryCustomImpl primaryTemporaryTablePoliticasRepositoryCustom;
 
-  @BeforeEach
-  public void setup() {
-    when(this.tareaCalculoAjusteBajaItRepositoryCustom.ids(any(TareaDto.class)))
-        .thenReturn(this.createPersonaIds());
-    final RunAlgoritmoAjustePropertiesDto properties = new RunAlgoritmoAjustePropertiesDto();
-    properties.setThreadSize(THREAD_SIZE);
-    properties.setBatchSize(BATCH_SIZE);
-    when(this.runAjusteProperties.getAjuste()).thenReturn(properties);
-    when(this.tareaCalculoAjusteBajaItRepositoryCustom.ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
-        ArgumentMatchers.<List<IdPersonaLocalDto>>any())).thenReturn(CompletableFuture.completedFuture(
-            AsyncConstants.NIL));
-  }
+    @InjectMocks
+    private RunAjusteBajaItProcesar runAjusteBajaItProcesar;
 
-  private RunTareaDto createRunTarea() {
-    final RunTareaDto runTarea = new RunTareaDto();
-    final TareaDto tarea = new TareaDto();
-    tarea.setId(ID_TAREA);
-    final TrabajoDTO trabajo = new TrabajoDTO();
-    trabajo.setId(ID_TRABAJO);
-    runTarea.setTarea(tarea);
-    runTarea.setTrabajo(trabajo);
-    return runTarea;
-  }
+    @BeforeEach
+    public void setup() {
+        when(this.tareaCalculoAjusteBajaItRepositoryCustom.ids(any(TareaDto.class)))
+            .thenReturn(this.createPersonaIds());
+        final RunAlgoritmoAjustePropertiesDto properties = new RunAlgoritmoAjustePropertiesDto();
+        properties.setThreadSize(THREAD_SIZE);
+        properties.setBatchSize(BATCH_SIZE);
+        when(this.runAjusteProperties.getAjuste()).thenReturn(properties);
+        when(this.calculoAjusteBajaItAsyncService.ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
+                ArgumentMatchers.<List<IdPersonaLocalDto>>any())).thenReturn(CompletableFuture.completedFuture(
+                        AsyncConstants.NIL));
+    }
 
-  private AlgoritmoAjusteDto createAlgoritmoAjuste() {
-    final AlgoritmoAjusteDto algoritmoAjuste = new AlgoritmoAjusteDto();
-    algoritmoAjuste.setId(1919);
-    return algoritmoAjuste;
-  }
+    private RunTareaDto createRunTarea() {
+        final RunTareaDto runTarea = new RunTareaDto();
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        final TrabajoDTO trabajo = new TrabajoDTO();
+        trabajo.setId(ID_TRABAJO);
+        runTarea.setTarea(tarea);
+        runTarea.setTrabajo(trabajo);
+        return runTarea;
+    }
 
-  private List<IdPersonaLocalDto> createPersonaIds() {
-    return Arrays.asList(
-        IdPersonaLocalDto
-            .builder()
-            .stdOrHrPeriod("1")
-            .idPersonaLocal("767676")
-            .build(),
-        IdPersonaLocalDto
-            .builder()
-            .stdOrHrPeriod("2")
-            .idPersonaLocal("121212")
-            .build());
-  }
+    private AlgoritmoAjusteDto createAlgoritmoAjuste() {
+        final AlgoritmoAjusteDto algoritmoAjuste = new AlgoritmoAjusteDto();
+        algoritmoAjuste.setId(1919);
+        return algoritmoAjuste;
+    }
 
-  @Test
-  void getSqlCalcularTest() {
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.getSqlCalcular(algoritmoAjuste);
-    verify(this.tareaCalculoAjusteBajaItRepositoryCustom, times(1)).getSqlAjustar(algoritmoAjuste);
-  }
+    private List<IdPersonaLocalDto> createPersonaIds() {
+        return Arrays.asList(
+                IdPersonaLocalDto
+                    .builder()
+                    .stdOrHrPeriod("1")
+                    .idPersonaLocal("767676")
+                    .build(),
+                IdPersonaLocalDto
+                    .builder()
+                    .stdOrHrPeriod("2")
+                    .idPersonaLocal("121212")
+                    .build());
+    }
 
-  @Test
-  void executeLogIdsTareaTrabajoInicioTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
+    @Test
+    void getSqlCalcularTest() {
+        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
+        this.runAjusteBajaItProcesar.getSqlCalcular(algoritmoAjuste);
+        verify(this.tareaCalculoAjusteBajaItRepositoryCustom, times(1)).getSqlAjustar(algoritmoAjuste);
+    }
 
-    verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteBajaItProcesar :: Ids", ID_TRABAJO,
-        ID_TAREA);
-  }
+    @Test
+    void executeLogIdsTareaTrabajoInicioTest() {
+        final RunTareaDto runTarea = this.createRunTarea();
+        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
+        this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-  @Test
-  void executeLogIdsTareaTrabajoFinTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
+        verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteBajaItProcesar :: Ids", ID_TRABAJO,
+                ID_TAREA);
+    }
 
-    verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteBajaItProcesar :: Ids: {}", ID_TRABAJO,
-        ID_TAREA, this.createPersonaIds());
-  }
+    @Test
+    void executeLogIdsTareaTrabajoFinTest() {
+        final RunTareaDto runTarea = this.createRunTarea();
+        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
+        this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-  @Test
-  void executeLogInicioTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
+        verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteBajaItProcesar :: Ids: {}", ID_TRABAJO,
+                ID_TAREA, this.createPersonaIds());
+    }
 
-    verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteBajaItProcesar :: Personas: {}",
-        ID_TRABAJO, ID_TAREA, this.createPersonaIds().size());
-  }
+    @Test
+    void executeLogInicioTest() {
+        final RunTareaDto runTarea = this.createRunTarea();
+        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
+        this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-  @Test
-  void executeLogFinTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
+        verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteBajaItProcesar :: Personas: {}",
+                ID_TRABAJO, ID_TAREA, this.createPersonaIds().size());
+    }
 
-    verify(this.log, times(1)).info("Fin :: RunAjusteBajaItProcesar :: Personas: {}",
-        this.createPersonaIds().size());
-  }
+    @Test
+    void executeLogFinTest() {
+        final RunTareaDto runTarea = this.createRunTarea();
+        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
+        this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-  @Test
-  void executeIdsPersonaTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
+        verify(this.log, times(1)).info("Fin :: RunAjusteBajaItProcesar :: Personas: {}",
+                this.createPersonaIds().size());
+    }
 
-    verify(this.tareaCalculoAjusteBajaItRepositoryCustom, times(1)).ids(runTarea.getTarea());
-  }
+    @Test
+    void executeIdsPersonaTest() {
+        final RunTareaDto runTarea = this.createRunTarea();
+        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
+        this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-  @Test
-  void executeAjustePropertiesTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
+        verify(this.tareaCalculoAjusteBajaItRepositoryCustom, times(1)).ids(runTarea.getTarea());
+    }
 
-    verify(this.runAjusteProperties, times(2)).getAjuste();
-  }
+    @Test
+    void executeAjustePropertiesTest() {
+        final RunTareaDto runTarea = this.createRunTarea();
+        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
+        this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-  @Test
-  void executeAjustarTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
+        verify(this.runAjusteProperties, times(2)).getAjuste();
+    }
 
-    verify(this.tareaCalculoAjusteBajaItRepositoryCustom, times(1))
-        .ajustar(algoritmoAjuste, runTarea.getTarea(), this.createPersonaIds());
-  }
+    @Test
+    void executeAjustarTest() {
+        final RunTareaDto runTarea = this.createRunTarea();
+        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
+        this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-  @Test
-  void executeExceptionTest() {
+        verify(this.calculoAjusteBajaItAsyncService, times(1))
+            .ajustar(algoritmoAjuste, runTarea.getTarea(), this.createPersonaIds());
+    }
 
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
+    @Test
+    void executeExceptionTest() {
 
-    final RuntimeException exception = new RuntimeException("Exception");
-    doThrow(exception)
-        .when(this.tareaCalculoAjusteBajaItRepositoryCustom)
-        .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
-            ArgumentMatchers.<List<IdPersonaLocalDto>>any());
+        final RunTareaDto runTarea = this.createRunTarea();
+        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
 
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
+        final RuntimeException exception = new RuntimeException("Exception");
+        doThrow(exception)
+            .when(this.calculoAjusteBajaItAsyncService)
+            .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
+                    ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
-    final List<IdPersonaLocalDto> personas = this.createPersonaIds();
-    verify(this.log, times(1)).error("RunAjusteBajaItProcesar :: KO :: Personas: {}", personas.size(), exception);
-    verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
-        EstadoTareaCalculoPersonaEnum.KO.getDto());
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasBajaIt();
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasBajaIt();
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoBajaIt();
+        this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-  }
+        final List<IdPersonaLocalDto> personas = this.createPersonaIds();
+        verify(this.log, times(1)).error("RunAjusteBajaItProcesar :: KO :: Personas: {}", personas.size(), exception);
+        verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
+                EstadoTareaCalculoPersonaEnum.KO.getDto());
 
-  @Test
-  void executeCreateTemporaryTablesTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
-
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasBajaIt();
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasAcumuladasBajaIt();
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempCalculoTotalizadoBajaIt();
-  }
-
-  @Test
-  void executeCreateTemporaryTablesIndexesTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
-
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempFechasBajaIt();
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempFechasAcumuladasBajaIt();
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempCalculoTotalizadoBajaIt();
-  }
-
-  @Test
-  void executeDropTemporaryTablesIndexesTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
-
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasBajaIt();
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasBajaIt();
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoBajaIt();
-  }
-
-  @Test
-  void executeInsertTemporaryTableFechasTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
-
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-        .insertTempFechasBajaIt(runTarea.getTarea());
-  }
-
-  @Test
-  void executeInsertTemporaryTableFechasAcumuladasTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
-
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasAcumuladasBajaIt(
-        runTarea.getTarea());
-  }
-
-  @Test
-  void executeInsertTemporaryTableCalculoTotalizadoTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
-
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempCalculoTotalizadoBajaIt(
-        runTarea.getTarea());
-  }
+    }
 
 }

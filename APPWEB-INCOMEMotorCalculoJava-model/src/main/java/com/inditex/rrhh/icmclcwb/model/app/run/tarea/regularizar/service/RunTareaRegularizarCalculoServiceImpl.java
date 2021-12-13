@@ -2,11 +2,14 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.regularizar.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.regularizar.service.RunTareaRegularizarCalculoService;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepositoryCustom;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 @Service
@@ -16,19 +19,46 @@ public class RunTareaRegularizarCalculoServiceImpl implements RunTareaRegulariza
   @Autowired
   private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
 
-  @Override
-  public void regularizarCalculoMejorOpcion(@Valid final RunTareaDto runTarea) {
-    this.tareaCalculoRepositoryCustom.regularizarMejorOpcion(runTarea.getTarea());
-  }
+    @Autowired
+    private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
-  @Override
-  public void regularizarMejorOpcionSinFechas(@Valid final RunTareaDto runTarea) {
-    this.tareaCalculoRepositoryCustom.regularizarMejorOpcionSinFechas(runTarea.getTarea());
-  }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void regularizarCalculoMejorOpcion(@Valid final RunTareaDto runTarea) {
+        try {
+            this.primaryTemporaryTableRepositoryCustom.createTempMejorOpcion();
+            this.primaryTemporaryTableRepositoryCustom.indexTempMejorOpcion();
+            this.primaryTemporaryTableRepositoryCustom.insertTempMejorOpcion(runTarea.getTarea());
+            this.tareaCalculoRepositoryCustom.regularizarMejorOpcion(runTarea.getTarea());
+        } finally {
+            this.primaryTemporaryTableRepositoryCustom.deleteTempMejorOpcion();
+        }
+    }
 
-  @Override
-  public void regularizarMejorOpcionSinFechasTodoPeriodo(@Valid final RunTareaDto runTarea) {
-    this.tareaCalculoRepositoryCustom.regularizarMejorOpcionSinFechasTodoPeriodo(runTarea.getTarea());
-  }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void regularizarMejorOpcionSinFechas(@Valid final RunTareaDto runTarea) {
+        try {
+            this.primaryTemporaryTableRepositoryCustom.createTempMejorOpcionSinFechas();
+            this.primaryTemporaryTableRepositoryCustom.indexTempMejorOpcionSinFechas();
+            this.primaryTemporaryTableRepositoryCustom.insertTempMejorOpcionSinFechas(runTarea.getTarea());
+            this.tareaCalculoRepositoryCustom.regularizarMejorOpcionSinFechas(runTarea.getTarea());
+        } finally {
+            this.primaryTemporaryTableRepositoryCustom.deleteTempMejorOpcionSinFechas();
+        }
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void regularizarMejorOpcionSinFechasTodoPeriodo(@Valid final RunTareaDto runTarea) {
+        try {
+            this.primaryTemporaryTableRepositoryCustom.createTempMejorOpcionSinFechasTodoPeriodo();
+            this.primaryTemporaryTableRepositoryCustom.indexTempMejorOpcionSinFechasTodoPeriodo();
+            this.primaryTemporaryTableRepositoryCustom.insertTempMejorOpcionSinFechasTodoPeriodo(runTarea.getTarea());
+            this.tareaCalculoRepositoryCustom.regularizarMejorOpcionSinFechasTodoPeriodo(runTarea.getTarea());
+        } finally {
+            this.primaryTemporaryTableRepositoryCustom.deleteTempMejorOpcionSinFechasTodoPeriodo();
+        }
+    }
 
 }

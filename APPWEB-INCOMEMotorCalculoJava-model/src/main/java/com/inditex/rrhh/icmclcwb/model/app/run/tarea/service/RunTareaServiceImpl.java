@@ -5,6 +5,7 @@ import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetri
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.RunTareaLimpiarConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
@@ -34,92 +35,95 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaServiceImpl implements RunTareaService {
 
-  @Autowired
-  private TareaService tareaService;
+    @Autowired
+    private TareaService tareaService;
 
-  @Autowired
-  private TareaCalculoPersonaService tareaCalculoPersonaService;
+    @Autowired
+    private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-  @Autowired
-  private RunTareaRecolectarService runTareaRecolectarService;
+    @Autowired
+    private RunTareaRecolectarService runTareaRecolectarService;
 
-  @Autowired
-  private RunTareaProcesarService runTareaProcesarService;
+    @Autowired
+    private RunTareaProcesarService runTareaProcesarService;
 
-  @Autowired
-  private RunTareaCalcularService runTareaCalcularService;
+    @Autowired
+    private RunTareaCalcularService runTareaCalcularService;
 
-  @Autowired
-  private RunTareaConsolidarService runTareaConsolidarService;
+    @Autowired
+    private RunTareaConsolidarService runTareaConsolidarService;
 
-  @Autowired
-  private RunTareaRecolectarValidarService runTareaRecolectarValidarService;
+    @Autowired
+    private RunTareaRecolectarValidarService runTareaRecolectarValidarService;
 
-  @Autowired
-  private RunTareaRegularizarService runTareaRegularizarService;
+    @Autowired
+    private RunTareaRegularizarService runTareaRegularizarService;
 
-  @Autowired
-  private RunTareaRegularizarChallengeService runTareaRegularizarChallengeService;
+    @Autowired
+    private RunTareaRegularizarChallengeService runTareaRegularizarChallengeService;
 
-  @Autowired
-  private RunTareaLimpiarConsolidarByAmbitoService runTareaLimpiarConsolidarByAmbitoService;
+    @Autowired
+    private RunTareaLimpiarConsolidarByAmbitoService runTareaLimpiarConsolidarByAmbitoService;
 
-  @Autowired
-  private RunTareaAjustarService runTareaAjustarService;
+    @Autowired
+    private RunTareaAjustarService runTareaAjustarService;
 
-  @Autowired
-  private RunTareaNormalizarService runTareaNormalizarService;
+    @Autowired
+    private RunTareaNormalizarService runTareaNormalizarService;
 
-  @Autowired
-  private TareaFaseService tareaFaseService;
+    @Autowired
+    private TareaFaseService tareaFaseService;
 
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
+    @Autowired
+    private TareaFaseAccionService tareaFaseAccionService;
 
-  @Auditoria
-  @TimerFunctionalMetric(metricName = "RunTareaService.run.timer", metricGroupName = "RunTareaServiceGroup",
-      metricDescription = "RunTareaService.run.timer")
-  @CounterFunctionalMetric(metricName = "RunTareaService.run.counter", metricGroupName = "RunTareaServiceGroup",
-      metricDescription = "RunTareaService.run.counter")
-  @Override
-  public void run(@NotNull @Valid final RunTareaDto runTarea) {
-    try {
-      this.tareaService.updateFechaInicioAndEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
-      this.tareaFaseService.create(runTarea);
-      this.tareaFaseAccionService.create(runTarea);
-      this.runTareaRecolectarService.run(runTarea);
-      this.runTareaRecolectarValidarService.run(runTarea);
-      this.runTareaProcesarService.run(runTarea);
-      this.runTareaCalcularService.run(runTarea);
-      this.runTareaRegularizarChallengeService.run(runTarea);
-      this.runTareaRegularizarService.run(runTarea);
-      this.runTareaAjustarService.run(runTarea);
-      this.runTareaNormalizarService.run(runTarea);
-      this.tareaFaseService.updateActivo(runTarea);
-      this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
-          EstadoTareaCalculoPersonaEnum.OK.getDto());
-      if (TipoAmbitoEnum.SOCIEDAD.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
-          || TipoAmbitoEnum.ORIGEN.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
-          || TipoAmbitoEnum.EMPRESA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
-        this.runTareaLimpiarConsolidarByAmbitoService.run(runTarea);
-      }
-      this.runTareaConsolidarService.run(runTarea);
-      this.tareaService.updateEstadoFinal(runTarea.getTarea());
-    } catch (final ValidationException e) {
-      this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
-          EstadoTareaCalculoPersonaEnum.KO.getDto());
-      this.runTareaConsolidarService.run(runTarea);
-      this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR_VALIDANDO.getDto());
-      throw e;
-    } catch (final Exception e) {
-      this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
-          EstadoTareaCalculoPersonaEnum.KO.getDto());
-      this.runTareaConsolidarService.run(runTarea);
-      this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
-      throw e;
-    } finally {
-      this.tareaService.updateFechaFin(runTarea.getTarea());
+    @Auditoria
+    @TimerFunctionalMetric(metricName = "RunTareaService.run.timer", metricGroupName = "RunTareaServiceGroup",
+            metricDescription = "RunTareaService.run.timer")
+    @CounterFunctionalMetric(metricName = "RunTareaService.run.counter", metricGroupName = "RunTareaServiceGroup",
+            metricDescription = "RunTareaService.run.counter")
+    @Override
+    public void run(@NotNull @Valid final RunTareaDto runTarea) {
+        try {
+            this.tareaService.updateFechaInicioAndEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
+            this.tareaFaseService.create(runTarea);
+            this.tareaFaseAccionService.create(runTarea);
+            this.runTareaRecolectarService.run(runTarea);
+            this.runTareaRecolectarValidarService.run(runTarea);
+            this.runTareaProcesarService.run(runTarea);
+            this.runTareaCalcularService.run(runTarea);
+            this.runTareaRegularizarChallengeService.run(runTarea);
+            this.runTareaRegularizarService.run(runTarea);
+            this.runTareaAjustarService.run(runTarea);
+            this.runTareaNormalizarService.run(runTarea);
+            this.tareaFaseService.updateActivo(runTarea);
+            this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
+                    EstadoTareaCalculoPersonaEnum.OK.getDto());
+            if (TipoAmbitoEnum.SOCIEDAD.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
+                    || TipoAmbitoEnum.ORIGEN.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
+                    || TipoAmbitoEnum.EMPRESA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
+                this.runTareaLimpiarConsolidarByAmbitoService.run(runTarea);
+            }
+            this.runTareaConsolidarService.run(runTarea);
+            this.tareaService.updateEstadoFinal(runTarea.getTarea());
+            this.tareaService.updateFechaFin(runTarea.getTarea());
+        } catch (final ValidationException e) {
+            this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
+                    EstadoTareaCalculoPersonaEnum.KO.getDto());
+            this.runTareaConsolidarService.run(runTarea);
+            this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR_VALIDANDO.getDto());
+            this.tareaService.updateFechaFin(runTarea.getTarea());
+            throw e;
+        } catch (final ValidationReintentoException e) {
+            throw e;
+        } catch (final Exception e) {
+            this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
+                    EstadoTareaCalculoPersonaEnum.KO.getDto());
+            this.runTareaConsolidarService.run(runTarea);
+            this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
+            this.tareaService.updateFechaFin(runTarea.getTarea());
+            throw e;
+        }
     }
-  }
 
 }

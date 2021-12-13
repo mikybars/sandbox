@@ -442,4 +442,64 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    */
   void mergeCalculoTempCalculoAjusteTotalizado(TareaDto tarea);
 
+    /**
+     * @return
+     */
+    int deleteTempMejorOpcion();
+
+    /**
+     * @return
+     */
+    int createTempMejorOpcion();
+
+    /**
+     * @return
+     */
+    int indexTempMejorOpcion();
+
+    /**
+     * @param tarea
+     */
+    void insertTempMejorOpcion(TareaDto tarea);
+
+    /**
+     * @return
+     */
+    int deleteTempMejorOpcionSinFechas();
+
+    /**
+     * @return
+     */
+    int createTempMejorOpcionSinFechas();
+
+    /**
+     * @return
+     */
+    int indexTempMejorOpcionSinFechas();
+
+    /**
+     * @param tarea
+     */
+    void insertTempMejorOpcionSinFechas(TareaDto tarea);
+
+    /**
+     * @return
+     */
+    int deleteTempMejorOpcionSinFechasTodoPeriodo();
+
+    /**
+     * @return
+     */
+    int createTempMejorOpcionSinFechasTodoPeriodo();
+
+    /**
+     * @return
+     */
+    int indexTempMejorOpcionSinFechasTodoPeriodo();
+
+    /**
+     * @param tarea
+     */
+    void insertTempMejorOpcionSinFechasTodoPeriodo(TareaDto tarea);
+
 }
