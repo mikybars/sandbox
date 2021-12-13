@@ -21,7 +21,7 @@ metadata:
   slot: develop
   developModel: CORPORATE
   layer: core 
-  version: 3.5.8
+  version: 3.5.9
 amiga:
   monitoring:
     metrics:
@@ -127,6 +127,8 @@ amiga:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-limpieza-queue-${metadata.slot}
       programacion-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-programacion-queue-${metadata.slot}
+      consolidacion-queue:
+        destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-consolidacion-queue-${metadata.slot}
     session:
       session-type: EMBEDDED
     aaa:
@@ -200,6 +202,10 @@ amiga:
           destinationName: ${amiga.service.jms.programacion-queue.destination-fqdn}
           pubSubDomain: false
           sessionTransacted: false
+        consolidacion:
+          destinationName: ${amiga.service.jms.programacion-queue.consolidacion-fqdn}
+          pubSubDomain: false
+          sessionTransacted: false          
     jdbc:
       pool:
         hikari:
@@ -680,7 +686,7 @@ app:
         algoritmo:
           thread-size: 2
           ajuste:
-            batch-size: 200
+            batch-size: 25
             thread-size: 4
       regularizar:
         thread-size: 4
