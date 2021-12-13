@@ -228,7 +228,7 @@ public abstract class TareaMapperDecorator extends TareaMapper {
             }
             if ((request.getFechaDesde() != null) && (request.getFechaHasta() != null)) {
                 final SimpleDateFormat sdf = new SimpleDateFormat(
-                        HorarioComercialPropertiesConstants.DATE_FORMAT_QUERY);
+                        HorarioComercialPropertiesConstants.DATE_FORMAT);
                 filters.add(new StringBuilder().append(HorarioComercialPropertiesConstants.FECHA)
                     .append(HorarioComercialPropertiesConstants.SOLR_VALUE_SEPARATOR)
                     .append(HorarioComercialPropertiesConstants.SOLR_RANGE_BEGIN)
