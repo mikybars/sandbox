@@ -37,44 +37,44 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
   @Autowired
   private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-    @Autowired
-    private CalculoAjusteMaximoGarantizadoAsyncService calculoAjusteMaximoGarantizadoAsyncService;
+  @Autowired
+  private CalculoAjusteMaximoGarantizadoAsyncService calculoAjusteMaximoGarantizadoAsyncService;
 
-    @Override
-    public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
-        this.log.info(
-                "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMaximoGarantizadoProcesar :: Ids",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
-        final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom
-            .ids(runTarea.getTarea());
-        this.log.info(
-                "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteMaximoGarantizadoProcesar :: Ids: {}",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
+  @Override
+  public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
+    this.log.info(
+        "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMaximoGarantizadoProcesar :: Ids",
+        runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
+    final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom
+        .ids(runTarea.getTarea());
+    this.log.info(
+        "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteMaximoGarantizadoProcesar :: Ids: {}",
+        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
-        final List<CompletableFuture<?>> cf = new ArrayList<>();
-        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
-                ids,
-                this.runAjusteProperties.getAjuste().getBatchSize())) {
-            AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
+    for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
+        ids,
+        this.runAjusteProperties.getAjuste().getBatchSize())) {
+      AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
 
-            this.log.info(
-                    "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}",
-                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
-            try {
-                final CompletableFuture<Void> cfAjuste = this.calculoAjusteMaximoGarantizadoAsyncService
-                    .ajustar(
-                            algoritmoAjuste, runTarea.getTarea(),
-                            personas);
-                AsyncUtils.exceptionally(cfAjuste, cf);
-            } catch (final Exception e) {
-                AsyncUtils.cancel(cf);
-                this.log.error("RunAjusteMaximoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
-                this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                        EstadoTareaCalculoPersonaEnum.KO.getDto());
-            }
-            this.log.info("Fin :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
+      this.log.info(
+          "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}",
+          runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+      try {
+        final CompletableFuture<Void> cfAjuste = this.calculoAjusteMaximoGarantizadoAsyncService
+            .ajustar(
+                algoritmoAjuste, runTarea.getTarea(),
+                personas);
+        AsyncUtils.exceptionally(cfAjuste, cf);
+      } catch (final Exception e) {
+        AsyncUtils.cancel(cf);
+        this.log.error("RunAjusteMaximoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
+        this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+            EstadoTareaCalculoPersonaEnum.KO.getDto());
+      }
+      this.log.info("Fin :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
 
-        AsyncUtils.waitAllOfIsOk(cf, cf);
+      AsyncUtils.waitAllOfIsOk(cf, cf);
     }
   }
 

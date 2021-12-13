@@ -110,125 +110,128 @@ public class RunTareaPrevalidarDuranteServiceImpl implements RunTareaPrevalidarD
       }
     }
 
-        final TareaFaseDto tareaFase = this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(
-                runTareaDto.getTarea().getId(), faseDto.getId());
+    final TareaFaseDto tareaFase = this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(
+        runTareaDto.getTarea().getId(), faseDto.getId());
 
-        final List<ValidacionDto> fallidas = validaciones.stream()
-            .filter(e -> Boolean.FALSE.equals(e.getResult()))
-            .sorted(Comparator.comparingInt(ValidacionDto::getReaccionPeso)
-                .reversed())
-            .map(e -> {
-                final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
-                    .findById(e.getIdTareaFaseAccion());
+    final List<ValidacionDto> fallidas = validaciones.stream()
+        .filter(e -> Boolean.FALSE.equals(e.getResult()))
+        .sorted(Comparator.comparingInt(ValidacionDto::getReaccionPeso)
+            .reversed())
+        .map(e -> {
+          final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
+              .findById(e.getIdTareaFaseAccion());
 
-                this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
-                        EstadoTareaFaseAccionEnum.KO.getDto());
-                this.tareaFaseService.updateFechaFinAndEstado(tareaFase,
-                        EstadoTareaFaseEnum.KO.getDto());
+          this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+              EstadoTareaFaseAccionEnum.KO.getDto());
+          this.tareaFaseService.updateFechaFinAndEstado(tareaFase,
+              EstadoTareaFaseEnum.KO.getDto());
 
-                return e;
-            })
-            .collect(Collectors.toList());
+          return e;
+        })
+        .collect(Collectors.toList());
 
-        if (!fallidas.isEmpty()) {
-            this.tareaFaseAccionService
-                .updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
-                    tareaFase,
-                    EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
-                    EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
-            this.tareaFaseService
-                .updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(
-                    runTareaDto.getTarea(),
-                    EstadoTareaFaseEnum.PENDIENTE.getDto(),
-                    EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
-            this.tareaFaseService.updateActivo(runTareaDto);
-            this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
+    if (!fallidas.isEmpty()) {
+      this.tareaFaseAccionService
+          .updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
+              tareaFase,
+              EstadoTareaFaseAccionEnum.PENDIENTE.getDto(),
+              EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
+      this.tareaFaseService
+          .updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(
+              runTareaDto.getTarea(),
+              EstadoTareaFaseEnum.PENDIENTE.getDto(),
+              EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
+      this.tareaFaseService.updateActivo(runTareaDto);
+      this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
 
-            this.mailService.sendMail(tareaFase, fallidas, runTareaDto);
+      this.mailService.sendMail(tareaFase, fallidas, runTareaDto);
 
-            fallidas.stream().forEach(e -> {
-                if (Boolean.TRUE.equals(e.getSincronizacion()) && (e.getIdPersonaLocal() != null)
-                    && !e.getIdPersonaLocal().isEmpty()) {
-                    final List<SincronizacionFilterParametersDto> filterParameters = e
-                        .getIdPersonaLocal()
-                        .stream()
-                        .map(
-                            f -> SincronizacionFilterParametersDto.builder()
-                                .idOrigen(e.getCclIdOrigen())
-                                .idEmpresa(AppConstants.ID_ORIGEN_SPAIN.equals(e.getCclIdOrigen())
-                                    ? e.getStdIdLegEnt() : null)
-                                .idEmpleado(f)
-                                .fechaInicio(tareaDto.getFechaInicioPeriodo())
-                                .fechaFin(tareaDto.getFechaFinPeriodo())
-                                .build())
-                        .collect(Collectors.toList());
-                    final SincronizacionFilterDto filter = SincronizacionFilterDto.builder()
-                        .items(filterParameters)
-                        .build();
-                    final SincronizacionRequestDto request = new SincronizacionRequestDto();
-                    request.setData(filter);
-                    this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: Sincronizacion :: Personas: {}",
-                        tareaDto.getIdTrabajo(),
-                        tareaDto.getId(),
-                        e
-                            .getIdPersonaLocal()
-                            .size());
-                    try {
-                        final SincronizacionResponseDto result = this.meta4IcmWsCalcIncomeService
-                            .sincronizacion(request);
-                        this.log.info(
-                            "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Ok :: Personas: {}",
-                            tareaDto.getIdTrabajo(),
-                            tareaDto.getId(),
-                            result.getData()
-                                .stream()
-                                .filter(a -> a.getResultado().equals(Meta4Constants.RESULTADO_OK))
-                                .map(SincronizacionResultItemDto::getIdEmpleado)
-                                .collect(Collectors.toList()));
-                        this.log.info(
-                            "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Ko :: Personas: {}",
-                            tareaDto.getIdTrabajo(),
-                            tareaDto.getId(),
-                            result.getData()
-                                .stream()
-                                .filter(a -> a.getResultado().equals(Meta4Constants.RESULTADO_ERROR))
-                                .map(SincronizacionResultItemDto::getIdEmpleado)
-                                .collect(Collectors.toList()));
-                    } catch (final Exception e1) {
-                        this.log.error(
-                            "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Error :: Personas: {}",
-                            tareaDto.getIdTrabajo(),
-                            tareaDto.getId(),
-                            e
-                                .getIdPersonaLocal());
-                    }
-                    this.log.info("Trabajo[{}]Tarea[{}] :: Fin :: Sincronizacion :: Personas: {}",
-                        tareaDto.getIdTrabajo(),
-                        tareaDto.getId(),
-                        e
-                            .getIdPersonaLocal()
-                            .size());
-                }
-            });
-
-            final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
-                .findById(fallidas.get(0).getIdTareaFaseAccion());
-            final AccionDto accion = this.accionService
-                .findAccionDtoById(tareaFaseAccion.getIdAccion());
-
-            if (Boolean.TRUE.equals(accion.getEsReaccionReintento()) && (this.tareaFaseAccionService
-                .countReintentosByIdTareaAndIdAccionAndIdEstado(
-                    tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {
-                if (Boolean.TRUE.equals(accion.getEsReaccionEsperar())) {
-                    this.senderTarea.sendWithDelay(runTareaDto.getTarea(),
-                        accion.getReintentoDelay());
-                } else {
-                    this.senderTarea.send(runTareaDto.getTarea());
-                }
-                throw new ValidationReintentoException("Error validando");
-            }
-            throw new ValidationException("Error validando");
+      fallidas.stream().forEach(e -> {
+        if (Boolean.TRUE.equals(e.getSincronizacion())
+            && (e.getIdPersonaLocal() != null)
+            && !e.getIdPersonaLocal().isEmpty()) {
+          final List<SincronizacionFilterParametersDto> filterParameters = e
+              .getIdPersonaLocal()
+              .stream()
+              .map(
+                  f -> SincronizacionFilterParametersDto.builder()
+                      .idOrigen(e.getCclIdOrigen())
+                      .idEmpresa(AppConstants.ID_ORIGEN_SPAIN.equals(e.getCclIdOrigen())
+                          ? e.getStdIdLegEnt()
+                          : null)
+                      .idEmpleado(f)
+                      .fechaInicio(tareaDto.getFechaInicioPeriodo())
+                      .fechaFin(tareaDto.getFechaFinPeriodo())
+                      .build())
+              .collect(Collectors.toList());
+          final SincronizacionFilterDto filter = SincronizacionFilterDto.builder()
+              .items(filterParameters)
+              .build();
+          final SincronizacionRequestDto request = new SincronizacionRequestDto();
+          request.setData(filter);
+          this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: Sincronizacion :: Personas: {}",
+              tareaDto.getIdTrabajo(),
+              tareaDto.getId(),
+              e
+                  .getIdPersonaLocal()
+                  .size());
+          try {
+            final SincronizacionResponseDto result = this.meta4IcmWsCalcIncomeService
+                .sincronizacion(request);
+            this.log.info(
+                "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Ok :: Personas: {}",
+                tareaDto.getIdTrabajo(),
+                tareaDto.getId(),
+                result.getData()
+                    .stream()
+                    .filter(a -> a.getResultado().equals(Meta4Constants.RESULTADO_OK))
+                    .map(SincronizacionResultItemDto::getIdEmpleado)
+                    .collect(Collectors.toList()));
+            this.log.info(
+                "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Ko :: Personas: {}",
+                tareaDto.getIdTrabajo(),
+                tareaDto.getId(),
+                result.getData()
+                    .stream()
+                    .filter(a -> a.getResultado().equals(Meta4Constants.RESULTADO_ERROR))
+                    .map(SincronizacionResultItemDto::getIdEmpleado)
+                    .collect(Collectors.toList()));
+          } catch (final Exception e1) {
+            this.log.error(
+                "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Error :: Personas: {}",
+                tareaDto.getIdTrabajo(),
+                tareaDto.getId(),
+                e
+                    .getIdPersonaLocal());
+          }
+          this.log.info("Trabajo[{}]Tarea[{}] :: Fin :: Sincronizacion :: Personas: {}",
+              tareaDto.getIdTrabajo(),
+              tareaDto.getId(),
+              e
+                  .getIdPersonaLocal()
+                  .size());
         }
+      });
+
+      final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
+          .findById(fallidas.get(0).getIdTareaFaseAccion());
+      final AccionDto accion = this.accionService
+          .findAccionDtoById(tareaFaseAccion.getIdAccion());
+
+      if (Boolean.TRUE.equals(accion.getEsReaccionReintento())
+          && (this.tareaFaseAccionService
+              .countReintentosByIdTareaAndIdAccionAndIdEstado(
+                  tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {
+        if (Boolean.TRUE.equals(accion.getEsReaccionEsperar())) {
+          this.senderTarea.sendWithDelay(runTareaDto.getTarea(),
+              accion.getReintentoDelay());
+        } else {
+          this.senderTarea.send(runTareaDto.getTarea());
+        }
+        throw new ValidationReintentoException("Error validando");
+      }
+      throw new ValidationException("Error validando");
+    }
 
   }
 

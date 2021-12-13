@@ -34,235 +34,235 @@ import org.springframework.stereotype.Repository;
 public class PrimaryTemporaryTableRepositoryCustomImpl
     implements PrimaryTemporaryTableRepositoryCustom {
 
-    @Autowired
-    @Qualifier("primaryJdbcTemplate")
-    private JdbcTemplate jdbcTemplate;
+  @Autowired
+  @Qualifier("primaryJdbcTemplate")
+  private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    @Qualifier("primaryNamedParameterJdbcTemplate")
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+  @Autowired
+  @Qualifier("primaryNamedParameterJdbcTemplate")
+  private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("${app.envars.repository.batch-size.default}")
-    private int batchSize;
+  @Value("${app.envars.repository.batch-size.default}")
+  private int batchSize;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoComis']}")
-    private String sqlCreateTempMotivoDesplazamientoComis;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoComis']}")
+  private String sqlCreateTempMotivoDesplazamientoComis;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoComis']}")
-    private String sqlDeleteTempMotivoDesplazamientoComis;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoComis']}")
+  private String sqlDeleteTempMotivoDesplazamientoComis;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoComis']}")
-    private String sqlInsertTempMotivoDesplazamientoComis;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoComis']}")
+  private String sqlInsertTempMotivoDesplazamientoComis;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoMeta4']}")
-    private String sqlCreateTempMotivoDesplazamientoMeta4;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoMeta4']}")
+  private String sqlCreateTempMotivoDesplazamientoMeta4;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoMeta4']}")
-    private String sqlDeleteTempMotivoDesplazamientoMeta4;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoMeta4']}")
+  private String sqlDeleteTempMotivoDesplazamientoMeta4;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoMeta4']}")
-    private String sqlInsertTempMotivoDesplazamientoMeta4;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoMeta4']}")
+  private String sqlInsertTempMotivoDesplazamientoMeta4;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempMotivoDesplazamiento']}")
-    private String sqlValidateTempMotivoDesplazamiento;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempMotivoDesplazamiento']}")
+  private String sqlValidateTempMotivoDesplazamiento;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisHistorico']}")
-    private String sqlCreateTempComisHistorico;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisHistorico']}")
+  private String sqlCreateTempComisHistorico;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisHistorico']}")
-    private String sqlDeleteTempComisHistorico;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisHistorico']}")
+  private String sqlDeleteTempComisHistorico;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisHistorico']}")
-    private String sqlInsertTempComisHistorico;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisHistorico']}")
+  private String sqlInsertTempComisHistorico;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisHistorico']}")
-    private String sqlMergeDateRangesTempComisHistorico;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisHistorico']}")
+  private String sqlMergeDateRangesTempComisHistorico;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisHistorico']}")
-    private String sqlMergeDateRangesSeccionNotEqualsTempComisHistorico;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisHistorico']}")
+  private String sqlMergeDateRangesSeccionNotEqualsTempComisHistorico;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisHistorico']}")
-    private String sqlValidateTempComisHistorico;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisHistorico']}")
+  private String sqlValidateTempComisHistorico;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento']}")
-    private String sqlCreateTempComisDesplazamiento;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento']}")
+  private String sqlCreateTempComisDesplazamiento;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento']}")
-    private String sqlDeleteTempComisDesplazamiento;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento']}")
+  private String sqlDeleteTempComisDesplazamiento;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento']}")
-    private String sqlInsertTempComisDesplazamiento;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento']}")
+  private String sqlInsertTempComisDesplazamiento;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisDesplazamiento']}")
-    private String sqlValidateTempComisDesplazamiento;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisDesplazamiento']}")
+  private String sqlValidateTempComisDesplazamiento;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisResalta']}")
-    private String sqlCreateTempComisResalta;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisResalta']}")
+  private String sqlCreateTempComisResalta;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisResalta']}")
-    private String sqlDeleteTempComisResalta;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisResalta']}")
+  private String sqlDeleteTempComisResalta;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisResalta']}")
-    private String sqlInsertTempComisResalta;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisResalta']}")
+  private String sqlInsertTempComisResalta;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisResalta']}")
-    private String sqlMergeDateRangesTempComisResalta;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisResalta']}")
+  private String sqlMergeDateRangesTempComisResalta;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisResalta']}")
-    private String sqlMergeDateRangesSeccionNotEqualsTempComisResalta;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisResalta']}")
+  private String sqlMergeDateRangesSeccionNotEqualsTempComisResalta;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisResalta']}")
-    private String sqlValidateTempComisResalta;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisResalta']}")
+  private String sqlValidateTempComisResalta;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisBajaIt']}")
-    private String sqlCreateTempComisBajaIt;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisBajaIt']}")
+  private String sqlCreateTempComisBajaIt;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisBajaIt']}")
-    private String sqlDeleteTempComisBajaIt;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisBajaIt']}")
+  private String sqlDeleteTempComisBajaIt;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisBajaIt']}")
-    private String sqlInsertTempComisBajaIt;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisBajaIt']}")
+  private String sqlInsertTempComisBajaIt;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisBajaIt']}")
-    private String sqlValidateTempComisBajaIt;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisBajaIt']}")
+  private String sqlValidateTempComisBajaIt;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisCarencia']}")
-    private String sqlCreateTempComisCarencia;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisCarencia']}")
+  private String sqlCreateTempComisCarencia;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisCarencia']}")
-    private String sqlDeleteTempComisCarencia;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisCarencia']}")
+  private String sqlDeleteTempComisCarencia;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisCarencia']}")
-    private String sqlInsertTempComisCarencia;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisCarencia']}")
+  private String sqlInsertTempComisCarencia;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisCarencia']}")
-    private String sqlValidateTempComisCarencia;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisCarencia']}")
+  private String sqlValidateTempComisCarencia;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempAlgoritmo']}")
-    private String sqlCreateTempAlgoritmo;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempAlgoritmo']}")
+  private String sqlCreateTempAlgoritmo;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempAlgoritmo']}")
-    private String sqlIndexTempAlgoritmo;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempAlgoritmo']}")
+  private String sqlIndexTempAlgoritmo;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempAlgoritmo']}")
-    private String sqlDeleteTempAlgoritmo;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempAlgoritmo']}")
+  private String sqlDeleteTempAlgoritmo;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMejorOpcion']}")
-    private String sqlCreateTempMejorOpcion;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMejorOpcion']}")
+  private String sqlCreateTempMejorOpcion;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempMejorOpcion']}")
-    private String sqlIndexTempMejorOpcion;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempMejorOpcion']}")
+  private String sqlIndexTempMejorOpcion;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMejorOpcion']}")
-    private String sqlInsertTempMejorOpcion;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMejorOpcion']}")
+  private String sqlInsertTempMejorOpcion;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMejorOpcion']}")
-    private String sqlDeleteTempMejorOpcion;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMejorOpcion']}")
+  private String sqlDeleteTempMejorOpcion;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMejorOpcionSinFechas']}")
-    private String sqlCreateTempMejorOpcionSinFechas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMejorOpcionSinFechas']}")
+  private String sqlCreateTempMejorOpcionSinFechas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempMejorOpcionSinFechas']}")
-    private String sqlIndexTempMejorOpcionSinFechas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempMejorOpcionSinFechas']}")
+  private String sqlIndexTempMejorOpcionSinFechas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMejorOpcionSinFechas']}")
-    private String sqlInsertTempMejorOpcionSinFechas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMejorOpcionSinFechas']}")
+  private String sqlInsertTempMejorOpcionSinFechas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMejorOpcionSinFechas']}")
-    private String sqlDeleteTempMejorOpcionSinFechas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMejorOpcionSinFechas']}")
+  private String sqlDeleteTempMejorOpcionSinFechas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMejorOpcionSinFechasTodoPeriodo']}")
-    private String sqlCreateTempMejorOpcionSinFechasTodoPeriodo;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMejorOpcionSinFechasTodoPeriodo']}")
+  private String sqlCreateTempMejorOpcionSinFechasTodoPeriodo;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempMejorOpcionSinFechasTodoPeriodo']}")
-    private String sqlIndexTempMejorOpcionSinFechasTodoPeriodo;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempMejorOpcionSinFechasTodoPeriodo']}")
+  private String sqlIndexTempMejorOpcionSinFechasTodoPeriodo;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMejorOpcionSinFechasTodoPeriodo']}")
-    private String sqlInsertTempMejorOpcionSinFechasTodoPeriodo;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMejorOpcionSinFechasTodoPeriodo']}")
+  private String sqlInsertTempMejorOpcionSinFechasTodoPeriodo;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMejorOpcionSinFechasTodoPeriodo']}")
-    private String sqlDeleteTempMejorOpcionSinFechasTodoPeriodo;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMejorOpcionSinFechasTodoPeriodo']}")
+  private String sqlDeleteTempMejorOpcionSinFechasTodoPeriodo;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisAlgoritmo']}")
-    private String sqlInsertTempComisAlgoritmo;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisAlgoritmo']}")
+  private String sqlInsertTempComisAlgoritmo;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempEstructura']}")
-    private String sqlCreateTempEstructura;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempEstructura']}")
+  private String sqlCreateTempEstructura;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempEstructura']}")
-    private String sqlIndexTempEstructura;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempEstructura']}")
+  private String sqlIndexTempEstructura;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempEstructura']}")
-    private String sqlDeleteTempEstructura;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempEstructura']}")
+  private String sqlDeleteTempEstructura;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempEstructura']}")
-    private String sqlInsertTempEstructura;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempEstructura']}")
+  private String sqlInsertTempEstructura;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempPersonas']}")
-    private String sqlCreateTempPersonas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempPersonas']}")
+  private String sqlCreateTempPersonas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempPersonas']}")
-    private String sqlIndexTempPersonas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempPersonas']}")
+  private String sqlIndexTempPersonas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempPersonas']}")
-    private String sqlDeleteTempPersonas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempPersonas']}")
+  private String sqlDeleteTempPersonas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempPersonas']}")
-    private String sqlInsertTempPersonas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempPersonas']}")
+  private String sqlInsertTempPersonas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempPresupuestos']}")
-    private String sqlCreateTempPresupuestos;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempPresupuestos']}")
+  private String sqlCreateTempPresupuestos;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempPresupuestos']}")
-    private String sqlIndexTempPresupuestos;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempPresupuestos']}")
+  private String sqlIndexTempPresupuestos;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempPresupuestos']}")
-    private String sqlDeleteTempPresupuestos;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempPresupuestos']}")
+  private String sqlDeleteTempPresupuestos;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempPresupuesto']}")
-    private String sqlInsertTempPresupuestos;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempPresupuesto']}")
+  private String sqlInsertTempPresupuestos;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTareaLocalizacionPresupuestoTareaPersonaEstructura']}")
-    private String sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTareaLocalizacionPresupuestoTareaPersonaEstructura']}")
+  private String sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisPrimas']}")
-    private String sqlCreateTempComisPrimas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisPrimas']}")
+  private String sqlCreateTempComisPrimas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisPrimas']}")
-    private String sqlDeleteTempComisPrimas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisPrimas']}")
+  private String sqlDeleteTempComisPrimas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisPrimas']}")
-    private String sqlInsertTempComisPrimas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisPrimas']}")
+  private String sqlInsertTempComisPrimas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisPrimas']}")
-    private String sqlMergeDateRangesTempComisPrimas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisPrimas']}")
+  private String sqlMergeDateRangesTempComisPrimas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisPrimas']}")
-    private String sqlMergeDateRangesSeccionNotEqualsTempComisPrimas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisPrimas']}")
+  private String sqlMergeDateRangesSeccionNotEqualsTempComisPrimas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisPrimas']}")
-    private String sqlValidateTempComisPrimas;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisPrimas']}")
+  private String sqlValidateTempComisPrimas;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempCalculoPorComision']}")
-    private String sqlCreateTempCalculoPorComision;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempCalculoPorComision']}")
+  private String sqlCreateTempCalculoPorComision;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempCalculoPorComision']}")
-    private String sqlDeleteTempCalculoPorComision;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempCalculoPorComision']}")
+  private String sqlDeleteTempCalculoPorComision;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoSinComision']}")
-    private String sqlMergeCalculoTempCalculoSinComision;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoSinComision']}")
+  private String sqlMergeCalculoTempCalculoSinComision;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision']}")
-    private String sqlMergeCalculoTempCalculoPorComision;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoTempCalculoPorComision']}")
+  private String sqlMergeCalculoTempCalculoPorComision;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempCalculoAjusteTotalizado']}")
-    private String sqlCreateTempCalculoAjusteTotalizado;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempCalculoAjusteTotalizado']}")
+  private String sqlCreateTempCalculoAjusteTotalizado;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempCalculoAjusteTotalizado']}")
-    private String sqlDeleteTempCalculoAjusteTotalizado;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempCalculoAjusteTotalizado']}")
+  private String sqlDeleteTempCalculoAjusteTotalizado;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoAjusteTotalizado']}")
-    private String sqlMergeCalculoAjusteTotalizado;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoAjusteTotalizado']}")
+  private String sqlMergeCalculoAjusteTotalizado;
 
   @Override
   public int deleteTempMotivoDesplazamientoComis() {
@@ -852,73 +852,73 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     this.namedParameterJdbcTemplate.update(this.sqlMergeCalculoAjusteTotalizado, params);
   }
 
-    @Override
-    public int deleteTempMejorOpcion() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempMejorOpcion);
-    }
+  @Override
+  public int deleteTempMejorOpcion() {
+    return this.jdbcTemplate.update(this.sqlDeleteTempMejorOpcion);
+  }
 
-    @Override
-    public int createTempMejorOpcion() {
-        return this.jdbcTemplate.update(this.sqlCreateTempMejorOpcion);
-    }
+  @Override
+  public int createTempMejorOpcion() {
+    return this.jdbcTemplate.update(this.sqlCreateTempMejorOpcion);
+  }
 
-    @Override
-    public int indexTempMejorOpcion() {
-        return this.jdbcTemplate.update(this.sqlIndexTempMejorOpcion);
-    }
+  @Override
+  public int indexTempMejorOpcion() {
+    return this.jdbcTemplate.update(this.sqlIndexTempMejorOpcion);
+  }
 
-    @Override
-    public void insertTempMejorOpcion(final TareaDto tarea) {
-        final MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+  @Override
+  public void insertTempMejorOpcion(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
-        this.namedParameterJdbcTemplate.update(this.sqlInsertTempMejorOpcion, map);
-    }
+    this.namedParameterJdbcTemplate.update(this.sqlInsertTempMejorOpcion, map);
+  }
 
-    @Override
-    public int deleteTempMejorOpcionSinFechas() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempMejorOpcionSinFechas);
-    }
+  @Override
+  public int deleteTempMejorOpcionSinFechas() {
+    return this.jdbcTemplate.update(this.sqlDeleteTempMejorOpcionSinFechas);
+  }
 
-    @Override
-    public int createTempMejorOpcionSinFechas() {
-        return this.jdbcTemplate.update(this.sqlCreateTempMejorOpcionSinFechas);
-    }
+  @Override
+  public int createTempMejorOpcionSinFechas() {
+    return this.jdbcTemplate.update(this.sqlCreateTempMejorOpcionSinFechas);
+  }
 
-    @Override
-    public int indexTempMejorOpcionSinFechas() {
-        return this.jdbcTemplate.update(this.sqlIndexTempMejorOpcionSinFechas);
-    }
+  @Override
+  public int indexTempMejorOpcionSinFechas() {
+    return this.jdbcTemplate.update(this.sqlIndexTempMejorOpcionSinFechas);
+  }
 
-    @Override
-    public void insertTempMejorOpcionSinFechas(final TareaDto tarea) {
-        final MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+  @Override
+  public void insertTempMejorOpcionSinFechas(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
-        this.namedParameterJdbcTemplate.update(this.sqlInsertTempMejorOpcionSinFechas, map);
-    }
+    this.namedParameterJdbcTemplate.update(this.sqlInsertTempMejorOpcionSinFechas, map);
+  }
 
-    @Override
-    public int deleteTempMejorOpcionSinFechasTodoPeriodo() {
-        return this.jdbcTemplate.update(this.sqlDeleteTempMejorOpcionSinFechasTodoPeriodo);
-    }
+  @Override
+  public int deleteTempMejorOpcionSinFechasTodoPeriodo() {
+    return this.jdbcTemplate.update(this.sqlDeleteTempMejorOpcionSinFechasTodoPeriodo);
+  }
 
-    @Override
-    public int createTempMejorOpcionSinFechasTodoPeriodo() {
-        return this.jdbcTemplate.update(this.sqlCreateTempMejorOpcionSinFechasTodoPeriodo);
-    }
+  @Override
+  public int createTempMejorOpcionSinFechasTodoPeriodo() {
+    return this.jdbcTemplate.update(this.sqlCreateTempMejorOpcionSinFechasTodoPeriodo);
+  }
 
-    @Override
-    public int indexTempMejorOpcionSinFechasTodoPeriodo() {
-        return this.jdbcTemplate.update(this.sqlIndexTempMejorOpcionSinFechasTodoPeriodo);
-    }
+  @Override
+  public int indexTempMejorOpcionSinFechasTodoPeriodo() {
+    return this.jdbcTemplate.update(this.sqlIndexTempMejorOpcionSinFechasTodoPeriodo);
+  }
 
-    @Override
-    public void insertTempMejorOpcionSinFechasTodoPeriodo(final TareaDto tarea) {
-        final MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+  @Override
+  public void insertTempMejorOpcionSinFechasTodoPeriodo(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
-        this.namedParameterJdbcTemplate.update(this.sqlInsertTempMejorOpcionSinFechasTodoPeriodo, map);
-    }
+    this.namedParameterJdbcTemplate.update(this.sqlInsertTempMejorOpcionSinFechasTodoPeriodo, map);
+  }
 
 }

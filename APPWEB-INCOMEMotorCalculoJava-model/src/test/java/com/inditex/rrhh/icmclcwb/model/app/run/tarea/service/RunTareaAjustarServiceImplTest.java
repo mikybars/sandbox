@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -54,8 +53,8 @@ class RunTareaAjustarServiceImplTest {
   @Mock
   private TareaFaseService tareaFaseService;
 
-    @Mock
-    private RunAjusteAsync runAjuste;
+  @Mock
+  private RunAjusteAsync runAjuste;
 
   @Mock
   private TareaPersonaEstructuraPoliticaService tareaPersonaEstructuraPoliticaService;

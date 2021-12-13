@@ -18,41 +18,41 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TareaCalculoAjusteCarenciaRepositoryCustomImpl
-        extends AbstractTareaCalculoAjusteBaseRepositoryCustom
-        implements TareaCalculoAjusteCarenciaRepositoryCustom {
+    extends AbstractTareaCalculoAjusteBaseRepositoryCustom
+    implements TareaCalculoAjusteCarenciaRepositoryCustom {
 
-    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.carencia']}")
-    @Getter
-    private String sqlAjustar;
+  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.carencia']}")
+  @Getter
+  private String sqlAjustar;
 
-    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.carencia']}")
-    @Getter
-    private String sqlAjustarBase;
+  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.carencia']}")
+  @Getter
+  private String sqlAjustarBase;
 
-    @Autowired
-    private TareaCalculoPersonaService tareaCalculoPersonaService;
+  @Autowired
+  private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-    @Override
-    public List<IdPersonaLocalDto> ids(final TareaDto tarea) {
-        return this.tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
-                TipoPoliticaEnum.CARENCIA.getIdMeta4());
+  @Override
+  public List<IdPersonaLocalDto> ids(final TareaDto tarea) {
+    return this.tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
+        TipoPoliticaEnum.CARENCIA.getIdMeta4());
+  }
+
+  @Override
+  protected Map<String, Object> getMapValues(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
+      final IdPersonaLocalDto persona) {
+    final Map<String, Object> map = new HashMap<>();
+    if (tarea != null) {
+      map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     }
-
-    @Override
-    protected Map<String, Object> getMapValues(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
-            final IdPersonaLocalDto persona) {
-        final Map<String, Object> map = new HashMap<>();
-        if (tarea != null) {
-            map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
-        if (persona != null) {
-            map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
-            map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
-        }
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());
-        map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-
-        return map;
+    if (persona != null) {
+      map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
+      map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
     }
+    map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());
+    map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+
+    return map;
+  }
 
 }

@@ -14,59 +14,55 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-/**
- * @author mdelrio
- *
- */
 @ExtendWith(SpringExtension.class)
 public class RunTareaRegularizarCalculoServiceImplTest {
 
-    @Mock
-    private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
+  @Mock
+  private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
 
-    @InjectMocks
-    private RunTareaRegularizarCalculoServiceImpl runTareaRegularizarCalculoServiceImpl;
+  @InjectMocks
+  private RunTareaRegularizarCalculoServiceImpl runTareaRegularizarCalculoServiceImpl;
 
-    @Test
-    public void regularizarCalculoMejorOpcion() {
-        final RunTareaDto runTareaDto = new RunTareaDto();
-        final TareaDto tareaDto = new TareaDto();
-        tareaDto.setId(1L);
-        runTareaDto.setTarea(tareaDto);
+  @Test
+  public void regularizarCalculoMejorOpcion() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runTareaDto.setTarea(tareaDto);
 
-        this.runTareaRegularizarCalculoServiceImpl.regularizarCalculoMejorOpcion(runTareaDto);
+    this.runTareaRegularizarCalculoServiceImpl.regularizarCalculoMejorOpcion(runTareaDto);
 
-        verify(this.tareaCalculoRepositoryCustom, timeout(1000).times(1))
-            .regularizarMejorOpcion(
-                    ArgumentMatchers.any(TareaDto.class));
-    }
+    verify(this.tareaCalculoRepositoryCustom, timeout(1000).times(1))
+        .regularizarMejorOpcion(
+            ArgumentMatchers.any(TareaDto.class));
+  }
 
-    @Test
-    public void regularizarMejorOpcionSinFechas() {
-        final RunTareaDto runTareaDto = new RunTareaDto();
-        final TareaDto tareaDto = new TareaDto();
-        tareaDto.setId(1L);
-        runTareaDto.setTarea(tareaDto);
+  @Test
+  public void regularizarMejorOpcionSinFechas() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runTareaDto.setTarea(tareaDto);
 
-        this.runTareaRegularizarCalculoServiceImpl.regularizarMejorOpcionSinFechas(runTareaDto);
+    this.runTareaRegularizarCalculoServiceImpl.regularizarMejorOpcionSinFechas(runTareaDto);
 
-        verify(this.tareaCalculoRepositoryCustom, timeout(1000).times(1))
-            .regularizarMejorOpcionSinFechas(
-                    ArgumentMatchers.any(TareaDto.class));
-    }
+    verify(this.tareaCalculoRepositoryCustom, timeout(1000).times(1))
+        .regularizarMejorOpcionSinFechas(
+            ArgumentMatchers.any(TareaDto.class));
+  }
 
-    @Test
-    public void regularizarMejorOpcionSinFechasTodoPeriodo() {
-        final RunTareaDto runTareaDto = new RunTareaDto();
-        final TareaDto tareaDto = new TareaDto();
-        tareaDto.setId(1L);
-        runTareaDto.setTarea(tareaDto);
+  @Test
+  public void regularizarMejorOpcionSinFechasTodoPeriodo() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runTareaDto.setTarea(tareaDto);
 
-        this.runTareaRegularizarCalculoServiceImpl.regularizarMejorOpcionSinFechasTodoPeriodo(runTareaDto);
+    this.runTareaRegularizarCalculoServiceImpl.regularizarMejorOpcionSinFechasTodoPeriodo(runTareaDto);
 
-        verify(this.tareaCalculoRepositoryCustom, timeout(1000).times(1))
-            .regularizarMejorOpcionSinFechasTodoPeriodo(
-                    ArgumentMatchers.any(TareaDto.class));
-    }
+    verify(this.tareaCalculoRepositoryCustom, timeout(1000).times(1))
+        .regularizarMejorOpcionSinFechasTodoPeriodo(
+            ArgumentMatchers.any(TareaDto.class));
+  }
 
 }

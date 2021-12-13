@@ -19,16 +19,17 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TareaCalculoAjusteMinimoGarantizadoRepositoryCustomImpl
-        extends AbstractTareaCalculoAjusteBaseRepositoryCustom
-        implements TareaCalculoAjusteMinimoGarantizadoRepositoryCustom {
+    extends AbstractTareaCalculoAjusteBaseRepositoryCustom
+    implements TareaCalculoAjusteMinimoGarantizadoRepositoryCustom {
 
-    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.minGarantizado']}")
-    @Getter
-    private String sqlAjustar;
+  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} "
+      + "#{primaryQuery['TareaCalculoAjusteRepositoryCustom.minGarantizado']}")
+  @Getter
+  private String sqlAjustar;
 
-    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.minGarantizado']}")
-    @Getter
-    private String sqlAjustarBase;
+  @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.minGarantizado']}")
+  @Getter
+  private String sqlAjustarBase;
 
   @Autowired
   private TareaCalculoPersonaService tareaCalculoPersonaService;

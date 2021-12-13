@@ -63,11 +63,11 @@ public class RunTareaPrevalidarAntesServiceImplTest {
   @Mock
   private LimpiezaService limpiezaService;
 
-    @Mock
-    private MailService mailService;
+  @Mock
+  private MailService mailService;
 
-    @Mock
-    private SenderTarea senderTarea;
+  @Mock
+  private SenderTarea senderTarea;
 
   @Mock
   private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
@@ -99,121 +99,119 @@ public class RunTareaPrevalidarAntesServiceImplTest {
   @Mock
   private RunPrevalidar runPrevalidar;
 
-    @Test
-    public void run()
-        throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
-        final RunTareaDto runTareaDto = new RunTareaDto();
-        final TareaDto tareaDto = new TareaDto();
-        tareaDto.setId(1L);
-        runTareaDto.setTarea(tareaDto);
-        final FaseDto faseDto = new FaseDto();
-        faseDto.setId(1);
-        final AccionDto accionDto = new AccionDto();
-        accionDto.setId(1);
+  @Test
+  public void run()
+      throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runTareaDto.setTarea(tareaDto);
+    final FaseDto faseDto = new FaseDto();
+    faseDto.setId(1);
+    final AccionDto accionDto = new AccionDto();
+    accionDto.setId(1);
 
-        this.runTareaPrevalidarAntesServiceImpl.run(runTareaDto, faseDto);
+    this.runTareaPrevalidarAntesServiceImpl.run(runTareaDto, faseDto);
 
-        verify(this.tareaFaseAccionService, timeout(1000).times(1))
-            .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
-                any(Long.class), any(Integer.class),
-                any(Integer.class));
+    verify(this.tareaFaseAccionService, timeout(1000).times(1))
+        .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
+            any(Long.class), any(Integer.class),
+            any(Integer.class));
 
+  }
+
+  @Test
+  public void runFasesOK()
+      throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runTareaDto.setTarea(tareaDto);
+    final FaseDto faseDto = new FaseDto();
+    faseDto.setId(1);
+    final AccionDto accionDto = new AccionDto();
+    accionDto.setId(1);
+
+    final List<TareaFaseAccionDto> tareaFaseAccion = Arrays
+        .asList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
+
+    when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(any(Long.class),
+        any(Integer.class), any(Integer.class))).thenReturn(tareaFaseAccion);
+    when(this.accionService.findAccionDtoById(any(Integer.class)))
+        .thenReturn(AccionDto.builder().id(1).nombre("Nombre").peso(100).build());
+
+    final RunPrevalidar service = mock(RunPrevalidar.class);
+
+    final CompletableFuture<List<ValidacionDto>> cfValid = new CompletableFuture<>();
+    final ValidacionDto validacion = new ValidacionDto();
+    validacion.setResult(Boolean.TRUE);
+    validacion.setIdTareaFaseAccion(1L);
+    cfValid.complete(Arrays.asList(validacion));
+
+    when(this.runPrevalidarFactory.getRunPrevalidar(any(String.class))).thenReturn(service);
+    when(service.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class))).thenReturn(cfValid);
+    when(this.tareaFaseAccionService.findById(any(Long.class)))
+        .thenReturn(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
+
+    try {
+      this.runTareaPrevalidarAntesServiceImpl.run(runTareaDto, faseDto);
+    } catch (final Exception e) {
+      assertThat(e instanceof ValidationException);
     }
 
-    @Test
-    public void runFasesOK()
-        throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
-        final RunTareaDto runTareaDto = new RunTareaDto();
-        final TareaDto tareaDto = new TareaDto();
-        tareaDto.setId(1L);
-        runTareaDto.setTarea(tareaDto);
-        final FaseDto faseDto = new FaseDto();
-        faseDto.setId(1);
-        final AccionDto accionDto = new AccionDto();
-        accionDto.setId(1);
+  }
 
+  @Test
+  public void runFasesKO()
+      throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runTareaDto.setTarea(tareaDto);
+    final FaseDto faseDto = new FaseDto();
+    faseDto.setId(1);
+    final AccionDto accionDto = new AccionDto();
+    accionDto.setId(1);
 
-        final List<TareaFaseAccionDto> tareaFaseAccion = Arrays
-            .asList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
+    final List<TareaFaseAccionDto> tareaFaseAccion = Arrays
+        .asList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
 
-        when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(any(Long.class),
-            any(Integer.class), any(Integer.class))).thenReturn(tareaFaseAccion);
-        when(this.accionService.findAccionDtoById(any(Integer.class)))
-            .thenReturn(AccionDto.builder().id(1).nombre("Nombre").peso(100).build());
+    when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(any(Long.class),
+        any(Integer.class), any(Integer.class))).thenReturn(tareaFaseAccion);
+    when(this.tareaFaseAccionService.countReintentosByIdTareaAndIdAccionAndIdEstado(any(TareaFaseAccionDto.class),
+        any(TareaFaseDto.class))).thenReturn(1);
+    when(this.accionService.findAccionDtoById(any(Integer.class)))
+        .thenReturn(AccionDto.builder()
+            .id(1)
+            .nombre("Nombre")
+            .esReaccionReintento(Boolean.TRUE)
+            .esReaccionEsperar(Boolean.FALSE)
+            .reintentoMax(2)
+            .peso(100)
+            .build());
 
-        final RunPrevalidar service = mock(RunPrevalidar.class);
+    final RunPrevalidar service = mock(RunPrevalidar.class);
 
-        final CompletableFuture<List<ValidacionDto>> cfValid = new CompletableFuture<>();
-        final ValidacionDto validacion = new ValidacionDto();
-        validacion.setResult(Boolean.TRUE);
-        validacion.setIdTareaFaseAccion(1L);
-        cfValid.complete(Arrays.asList(validacion));
+    final CompletableFuture<List<ValidacionDto>> cfValid = new CompletableFuture<>();
+    final ValidacionDto validacion = new ValidacionDto();
+    validacion.setResult(Boolean.FALSE);
+    validacion.setIdTareaFaseAccion(1L);
+    validacion.setSincronizacion(Boolean.TRUE);
+    validacion.setIdPersonaLocal(Arrays.asList("111"));
+    cfValid.complete(Arrays.asList(validacion));
 
-        when(this.runPrevalidarFactory.getRunPrevalidar(any(String.class))).thenReturn(service);
-        when(service.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class))).thenReturn(cfValid);
-        when(this.tareaFaseAccionService.findById(any(Long.class)))
-            .thenReturn(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
+    when(this.runPrevalidarFactory.getRunPrevalidar(any(String.class))).thenReturn(service);
+    when(service.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class))).thenReturn(cfValid);
+    when(this.tareaFaseAccionService.findById(any(Long.class)))
+        .thenReturn(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
 
-        try {
-            this.runTareaPrevalidarAntesServiceImpl.run(runTareaDto, faseDto);
-        } catch (final Exception e) {
-            assertThat(e instanceof ValidationException);
-        }
-
+    try {
+      this.runTareaPrevalidarAntesServiceImpl.run(runTareaDto, faseDto);
+    } catch (final Exception e) {
+      assertThat(e instanceof ValidationReintentoException);
     }
 
-    @Test
-    public void runFasesKO()
-        throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
-        final RunTareaDto runTareaDto = new RunTareaDto();
-        final TareaDto tareaDto = new TareaDto();
-        tareaDto.setId(1L);
-        runTareaDto.setTarea(tareaDto);
-        final FaseDto faseDto = new FaseDto();
-        faseDto.setId(1);
-        final AccionDto accionDto = new AccionDto();
-        accionDto.setId(1);
-
-        final List<TareaFaseAccionDto> tareaFaseAccion = Arrays
-            .asList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
-
-        when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(any(Long.class),
-            any(Integer.class), any(Integer.class))).thenReturn(tareaFaseAccion);
-        when(this.tareaFaseAccionService.countReintentosByIdTareaAndIdAccionAndIdEstado(any(TareaFaseAccionDto.class),
-            any(TareaFaseDto.class))).thenReturn(1);
-        when(this.accionService.findAccionDtoById(any(Integer.class)))
-            .thenReturn(AccionDto.builder()
-                .id(1)
-                .nombre("Nombre")
-                .esReaccionReintento(Boolean.TRUE)
-                .esReaccionEsperar(Boolean.FALSE)
-                .reintentoMax(2)
-                .peso(100)
-                .build());
-
-        final RunPrevalidar service = mock(RunPrevalidar.class);
-
-        final CompletableFuture<List<ValidacionDto>> cfValid = new CompletableFuture<>();
-        final ValidacionDto validacion = new ValidacionDto();
-        validacion.setResult(Boolean.FALSE);
-        validacion.setIdTareaFaseAccion(1L);
-        validacion.setSincronizacion(Boolean.TRUE);
-        validacion.setIdPersonaLocal(Arrays.asList("111"));
-        cfValid.complete(Arrays.asList(validacion));
-
-        when(this.runPrevalidarFactory.getRunPrevalidar(any(String.class))).thenReturn(service);
-        when(service.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class))).thenReturn(cfValid);
-        when(this.tareaFaseAccionService.findById(any(Long.class)))
-            .thenReturn(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
-
-
-        try {
-            this.runTareaPrevalidarAntesServiceImpl.run(runTareaDto, faseDto);
-        } catch (final Exception e) {
-            assertThat(e instanceof ValidationReintentoException);
-        }
-
-    }
+  }
 
   @Test
   void runExceptionTest(@Random TareaFaseDto tareaFase, @Random AccionDto accionDto,
@@ -295,9 +293,9 @@ public class RunTareaPrevalidarAntesServiceImplTest {
       });
 
       accion.setEsReaccionReintento(false);
-        assertThrows(ValidationException.class, () -> {
-            this.runTareaPrevalidarAntesServiceImpl.run(this.runTareaDto, this.faseDto);
-        });
+      assertThrows(ValidationException.class, () -> {
+        this.runTareaPrevalidarAntesServiceImpl.run(this.runTareaDto, this.faseDto);
+      });
     }
   }
 

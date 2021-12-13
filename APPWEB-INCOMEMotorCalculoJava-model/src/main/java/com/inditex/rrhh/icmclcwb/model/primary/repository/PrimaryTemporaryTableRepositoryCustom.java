@@ -442,64 +442,88 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    */
   void mergeCalculoTempCalculoAjusteTotalizado(TareaDto tarea);
 
-    /**
-     * @return
-     */
-    int deleteTempMejorOpcion();
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempMejorOpcion();
 
-    /**
-     * @return
-     */
-    int createTempMejorOpcion();
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempMejorOpcion();
 
-    /**
-     * @return
-     */
-    int indexTempMejorOpcion();
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempMejorOpcion();
 
-    /**
-     * @param tarea
-     */
-    void insertTempMejorOpcion(TareaDto tarea);
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void insertTempMejorOpcion(TareaDto tarea);
 
-    /**
-     * @return
-     */
-    int deleteTempMejorOpcionSinFechas();
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempMejorOpcionSinFechas();
 
-    /**
-     * @return
-     */
-    int createTempMejorOpcionSinFechas();
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempMejorOpcionSinFechas();
 
-    /**
-     * @return
-     */
-    int indexTempMejorOpcionSinFechas();
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempMejorOpcionSinFechas();
 
-    /**
-     * @param tarea
-     */
-    void insertTempMejorOpcionSinFechas(TareaDto tarea);
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void insertTempMejorOpcionSinFechas(TareaDto tarea);
 
-    /**
-     * @return
-     */
-    int deleteTempMejorOpcionSinFechasTodoPeriodo();
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempMejorOpcionSinFechasTodoPeriodo();
 
-    /**
-     * @return
-     */
-    int createTempMejorOpcionSinFechasTodoPeriodo();
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempMejorOpcionSinFechasTodoPeriodo();
 
-    /**
-     * @return
-     */
-    int indexTempMejorOpcionSinFechasTodoPeriodo();
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempMejorOpcionSinFechasTodoPeriodo();
 
-    /**
-     * @param tarea
-     */
-    void insertTempMejorOpcionSinFechasTodoPeriodo(TareaDto tarea);
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void insertTempMejorOpcionSinFechasTodoPeriodo(TareaDto tarea);
 
 }

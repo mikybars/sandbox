@@ -39,46 +39,46 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
   @Autowired
   private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-    @Autowired
-    private CalculoAjusteMinimoGarantizadoAsyncService calculoAjusteMinimoGarantizadoAsyncService;
+  @Autowired
+  private CalculoAjusteMinimoGarantizadoAsyncService calculoAjusteMinimoGarantizadoAsyncService;
 
-    @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
-        this.log.info(
-                "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Ids",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
-        final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom
-            .ids(runTarea.getTarea());
-        this.log.info(
-                "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteMinimoGarantizadoProcesar :: Ids: {}",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
+  @Override
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
+    this.log.info(
+        "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Ids",
+        runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
+    final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom
+        .ids(runTarea.getTarea());
+    this.log.info(
+        "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteMinimoGarantizadoProcesar :: Ids: {}",
+        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
-        final List<CompletableFuture<?>> cf = new ArrayList<>();
-        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
-                ids,
-                this.runAjusteProperties.getAjuste().getBatchSize())) {
-            AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
+    for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
+        ids,
+        this.runAjusteProperties.getAjuste().getBatchSize())) {
+      AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
 
-            this.log.info(
-                "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
-            try {
-                final CompletableFuture<Void> cfAjuste = this.calculoAjusteMinimoGarantizadoAsyncService
-                    .ajustar(
-                        algoritmoAjuste, runTarea.getTarea(),
-                        personas);
-                AsyncUtils.exceptionally(cfAjuste, cf);
-            } catch (final Exception e) {
-                AsyncUtils.cancel(cf);
-                this.log.error("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
-                this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                    EstadoTareaCalculoPersonaEnum.KO.getDto());
-            }
-            this.log.info("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
+      this.log.info(
+          "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}",
+          runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+      try {
+        final CompletableFuture<Void> cfAjuste = this.calculoAjusteMinimoGarantizadoAsyncService
+            .ajustar(
+                algoritmoAjuste, runTarea.getTarea(),
+                personas);
+        AsyncUtils.exceptionally(cfAjuste, cf);
+      } catch (final Exception e) {
+        AsyncUtils.cancel(cf);
+        this.log.error("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
+        this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+            EstadoTareaCalculoPersonaEnum.KO.getDto());
+      }
+      this.log.info("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
 
-            AsyncUtils.waitAllOfIsOk(cf, cf);
-        }
+      AsyncUtils.waitAllOfIsOk(cf, cf);
+    }
   }
 
   @Override

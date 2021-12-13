@@ -32,52 +32,52 @@ public class RunAjusteCarenciaProcesar implements RunAjuste {
   @Qualifier("runAjusteProperties")
   private RunAjustePropertiesDto runAjusteProperties;
 
-    @Autowired
-    private CalculoAjusteCarenciaAsyncService calculoAjusteCarenciaAsyncService;
+  @Autowired
+  private CalculoAjusteCarenciaAsyncService calculoAjusteCarenciaAsyncService;
 
-    @Autowired
-    private TareaCalculoAjusteCarenciaRepositoryCustom tareaCalculoAjusteCarenciaRepositoryCustom;
+  @Autowired
+  private TareaCalculoAjusteCarenciaRepositoryCustom tareaCalculoAjusteCarenciaRepositoryCustom;
 
-    @Autowired
-    private TareaCalculoPersonaService tareaCalculoPersonaService;
+  @Autowired
+  private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-    @Override
-    public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
-        final TareaDto tarea = runTarea.getTarea();
-        this.log.info(
-                "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteCarenciaProcesar :: Ids",
-                runTarea.getTrabajo().getId(), tarea.getId());
-        final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteCarenciaRepositoryCustom
-            .ids(tarea);
-        this.log.info(
-                "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteCarenciaProcesar :: Ids: {}",
-                runTarea.getTrabajo().getId(), tarea.getId(), ids);
+  @Override
+  public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
+    final TareaDto tarea = runTarea.getTarea();
+    this.log.info(
+        "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteCarenciaProcesar :: Ids",
+        runTarea.getTrabajo().getId(), tarea.getId());
+    final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteCarenciaRepositoryCustom
+        .ids(tarea);
+    this.log.info(
+        "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteCarenciaProcesar :: Ids: {}",
+        runTarea.getTrabajo().getId(), tarea.getId(), ids);
 
-        final List<CompletableFuture<?>> cf = new ArrayList<>();
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
 
-        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
-                ids,
-                this.runAjusteProperties.getAjuste().getBatchSize())) {
-            AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
+    for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
+        ids,
+        this.runAjusteProperties.getAjuste().getBatchSize())) {
+      AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
 
-            this.log.info(
-                    "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteCarenciaProcesar :: Personas: {}",
-                    runTarea.getTrabajo().getId(), tarea.getId(), personas.size());
-            try {
-                final CompletableFuture<Void> cfAjuste = this.calculoAjusteCarenciaAsyncService
-                    .ajustar(
-                            algoritmoAjuste, tarea,
-                            personas);
-                AsyncUtils.exceptionally(cfAjuste, cf);
-            } catch (final Exception e) {
-                AsyncUtils.cancel(cf);
-                this.log.error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), e);
-                this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                        EstadoTareaCalculoPersonaEnum.KO.getDto());
-            }
-            this.log.info("Fin :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
+      this.log.info(
+          "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteCarenciaProcesar :: Personas: {}",
+          runTarea.getTrabajo().getId(), tarea.getId(), personas.size());
+      try {
+        final CompletableFuture<Void> cfAjuste = this.calculoAjusteCarenciaAsyncService
+            .ajustar(
+                algoritmoAjuste, tarea,
+                personas);
+        AsyncUtils.exceptionally(cfAjuste, cf);
+      } catch (final Exception e) {
+        AsyncUtils.cancel(cf);
+        this.log.error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), e);
+        this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+            EstadoTareaCalculoPersonaEnum.KO.getDto());
+      }
+      this.log.info("Fin :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
 
-        AsyncUtils.waitAllOfIsOk(cf, cf);
+      AsyncUtils.waitAllOfIsOk(cf, cf);
     }
   }
 
