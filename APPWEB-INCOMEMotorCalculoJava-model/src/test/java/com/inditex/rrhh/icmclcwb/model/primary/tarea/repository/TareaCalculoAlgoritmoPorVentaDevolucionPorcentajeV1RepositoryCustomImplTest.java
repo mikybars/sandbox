@@ -60,7 +60,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustomImplTest {
+class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustomImplTest {
 
   private final static String SQL_BASE = "SQL CALCULAR BASE";
 

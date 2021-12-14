@@ -6,6 +6,8 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -23,10 +25,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class RunTareaProcesarServiceImplTest {
+class RunTareaProcesarServiceImplTest {
 
   @Mock
   private RunTareaProcesarVentaAsyncService runTareaProcesarVentaAsyncService;
@@ -40,6 +43,7 @@ public class RunTareaProcesarServiceImplTest {
   @Mock
   private TareaFaseService tareaFaseService;
 
+  @Spy
   @InjectMocks
   private RunTareaProcesarServiceImpl runTareaProcesarServiceImpl;
 
@@ -270,6 +274,9 @@ public class RunTareaProcesarServiceImplTest {
         .findTareaFaseDtoByIdTareaAndIdFase(this.runTarea.getTarea().getId(), FaseEnum.PROCESAR.getId());
 
     this.runTareaProcesarServiceImpl.run(this.runTarea);
+
+    verify(this.runTareaProcesarServiceImpl, times(1))
+        .run(this.runTarea);
   }
 
   @Test

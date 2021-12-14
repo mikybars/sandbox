@@ -71,6 +71,12 @@
         <groupId>com.inditex.aqsw.amiga.javaformat</groupId>
         <artifactId>amiga-javaformat-maven-plugin</artifactId>
         <version>${amiga-javaformat.version}</version>
+        <configuration>
+          <checkstyle>
+            <excludes>com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.*</excludes>
+            <excludes>com.inditex.rrhh.icmclcwb.model.meta4.login.entity.*</excludes>
+          </checkstyle>
+        </configuration>
       </plugin>
     </plugins>
   </build>

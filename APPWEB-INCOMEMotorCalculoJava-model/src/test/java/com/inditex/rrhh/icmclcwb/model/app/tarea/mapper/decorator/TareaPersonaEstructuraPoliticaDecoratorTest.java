@@ -32,7 +32,7 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class TareaPersonaEstructuraPoliticaDecoratorTest {
+class TareaPersonaEstructuraPoliticaDecoratorTest {
 
   @Mock
   private TareaPersonaEstructuraPoliticaMapper delegate;

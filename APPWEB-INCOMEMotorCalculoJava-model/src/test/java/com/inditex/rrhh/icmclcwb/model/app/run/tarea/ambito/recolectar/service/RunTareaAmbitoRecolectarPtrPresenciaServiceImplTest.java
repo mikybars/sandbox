@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
 import java.util.List;
@@ -52,11 +54,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
+class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
 
   @Mock
   private PtrPresenciaAsyncService ptrPresenciaAsyncService;
@@ -87,6 +90,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
   @Qualifier(value = "recolectarProperties")
   private RecolectarPropertiesDto recolectarProperties;
 
+  @Spy
   @InjectMocks
   RunTareaAmbitoRecolectarPtrPresenciaServiceImpl runTareaAmbitoRecolectarPtrPresenciaServiceImpl;
 
@@ -162,6 +166,10 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
 
       this.runTareaAmbitoRecolectarPtrPresenciaServiceImpl
           .presenciaDetallePersonaByRunTareaAndTareaAmbito(this.runTarea, this.tareaAmbitoDto);
+
+      verify(this.runTareaAmbitoRecolectarPtrPresenciaServiceImpl, times(1))
+          .presenciaDetallePersonaByRunTareaAndTareaAmbito(this.runTarea, this.tareaAmbitoDto);
+
     }
   }
 
@@ -226,6 +234,9 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
       doReturn(cfData).when(this.ptrPresenciaAsyncService).presenciasDetalle(paramPresenciasDetalle);
 
       this.runTareaAmbitoRecolectarPtrPresenciaServiceImpl
+          .presenciaDetallePersonaIncluidoEcommerceByRunTareaAndTareaAmbito(this.runTarea, this.tareaAmbitoDto);
+
+      verify(this.runTareaAmbitoRecolectarPtrPresenciaServiceImpl, times(1))
           .presenciaDetallePersonaIncluidoEcommerceByRunTareaAndTareaAmbito(this.runTarea, this.tareaAmbitoDto);
     }
   }
@@ -303,6 +314,9 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
 
       this.runTareaAmbitoRecolectarPtrPresenciaServiceImpl.presenciaDetallePersonaHorasSindicalesByRunTareaAndTareaAmbito(this.runTarea,
           this.tareaAmbitoDto);
+
+      verify(this.runTareaAmbitoRecolectarPtrPresenciaServiceImpl, times(1))
+          .presenciaDetallePersonaHorasSindicalesByRunTareaAndTareaAmbito(this.runTarea, this.tareaAmbitoDto);
     }
   }
 

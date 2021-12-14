@@ -24,7 +24,7 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class TareaPersonaEstructuraPoliticaMapperTest {
+class TareaPersonaEstructuraPoliticaMapperTest {
 
   @InjectMocks
   private TareaPersonaEstructuraPoliticaMapper tareaPersonaEstructuraPoliticaMapper = getClassMock();

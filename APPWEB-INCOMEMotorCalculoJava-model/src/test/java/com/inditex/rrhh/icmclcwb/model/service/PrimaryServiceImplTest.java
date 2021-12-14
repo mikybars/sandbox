@@ -23,7 +23,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class PrimaryServiceImplTest {
+class PrimaryServiceImplTest {
 
   @Mock
   private Logger log;

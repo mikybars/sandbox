@@ -3,12 +3,15 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.Mockito.doReturn;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
@@ -21,6 +24,10 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPer
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -28,7 +35,7 @@ import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class TareaLocalizacionPersonaVentaDecoratorTest {
+class TareaLocalizacionPersonaVentaDecoratorTest {
 
   @Mock
   private Logger log;
@@ -61,48 +68,22 @@ public class TareaLocalizacionPersonaVentaDecoratorTest {
     return Mockito.mock(TareaLocalizacionPersonaVentaDecorator.class, Mockito.CALLS_REAL_METHODS);
   }
 
-  @Test
-  void ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest(
-      @Random TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
-
-    PtrVentaIndividualDetalleResultItemDto ptrVentaIndividualDetalleResult = this.ptrVentaIndividualDetalleResultItemDto;
-    ptrVentaIndividualDetalleResult.setOperacion("V");
-
-    tareaLocalizacionPersonaVenta.setCclIdPerson("1");
-    doReturn(tareaLocalizacionPersonaVenta).when(this.delegate)
-        .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(ptrVentaIndividualDetalleResult, this.tarea);
-
-    final TareaLocalizacionPersonaVenta result = this.tareaLocalizacionPersonaVentaDecorator
-        .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(ptrVentaIndividualDetalleResult, this.tarea);
-
-    assertNotNull(result);
+  private static Stream<Arguments> parameters() {
+    return Stream.of(
+        arguments("V", 1),
+        arguments("D", 1),
+        arguments("", 0));
   }
 
-  @Test
-  void ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest2(
+  @ParameterizedTest
+  @MethodSource("parameters")
+  void ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest(String arg, int intArgs,
       @Random TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
 
     PtrVentaIndividualDetalleResultItemDto ptrVentaIndividualDetalleResult = this.ptrVentaIndividualDetalleResultItemDto;
-    ptrVentaIndividualDetalleResult.setOperacion("D");
+    ptrVentaIndividualDetalleResult.setOperacion(arg);
 
-    tareaLocalizacionPersonaVenta.setCclIdPerson("1");
-    doReturn(tareaLocalizacionPersonaVenta).when(this.delegate)
-        .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(ptrVentaIndividualDetalleResult, this.tarea);
-
-    final TareaLocalizacionPersonaVenta result = this.tareaLocalizacionPersonaVentaDecorator
-        .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(ptrVentaIndividualDetalleResult, this.tarea);
-
-    assertNotNull(result);
-  }
-
-  @Test
-  void ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest3(
-      @Random TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
-
-    PtrVentaIndividualDetalleResultItemDto ptrVentaIndividualDetalleResult = this.ptrVentaIndividualDetalleResultItemDto;
-    ptrVentaIndividualDetalleResult.setOperacion("");
-
-    tareaLocalizacionPersonaVenta.setCclIdPerson("0");
+    tareaLocalizacionPersonaVenta.setCclIdPerson("" + intArgs);
     doReturn(tareaLocalizacionPersonaVenta).when(this.delegate)
         .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(ptrVentaIndividualDetalleResult, this.tarea);
 
@@ -136,11 +117,12 @@ public class TareaLocalizacionPersonaVentaDecoratorTest {
     assertTrue(!result.isEmpty());
   }
 
-  @Test
-  void ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest(
+  @ParameterizedTest
+  @ValueSource(strings = {"V", "D", ""})
+  void ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest(String arg,
       @Random TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
 
-    this.ptrVentaOnlineIpodIndividualDetalleResultItemDto.setOperacion("V");
+    this.ptrVentaOnlineIpodIndividualDetalleResultItemDto.setOperacion(arg);
 
     doReturn(tareaLocalizacionPersonaVenta).when(this.delegate)
         .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
@@ -155,40 +137,6 @@ public class TareaLocalizacionPersonaVentaDecoratorTest {
 
   @Test
   void ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest2(
-      @Random TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
-
-    this.ptrVentaOnlineIpodIndividualDetalleResultItemDto.setOperacion("D");
-
-    doReturn(tareaLocalizacionPersonaVenta).when(this.delegate)
-        .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-            this.ptrVentaOnlineIpodIndividualDetalleResultItemDto, this.tarea);
-
-    final TareaLocalizacionPersonaVenta result = this.tareaLocalizacionPersonaVentaDecorator
-        .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-            this.ptrVentaOnlineIpodIndividualDetalleResultItemDto, this.tarea);
-
-    assertNotNull(result);
-  }
-
-  @Test
-  void ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest3(
-      @Random TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
-
-    this.ptrVentaOnlineIpodIndividualDetalleResultItemDto.setOperacion("");
-
-    doReturn(tareaLocalizacionPersonaVenta).when(this.delegate)
-        .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-            this.ptrVentaOnlineIpodIndividualDetalleResultItemDto, this.tarea);
-
-    final TareaLocalizacionPersonaVenta result = this.tareaLocalizacionPersonaVentaDecorator
-        .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-            this.ptrVentaOnlineIpodIndividualDetalleResultItemDto, this.tarea);
-
-    assertNotNull(result);
-  }
-
-  @Test
-  void ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest4(
       @Random TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
 
     PtrSeccionVentaOnlineGenericType seccion4 = PtrSeccionVentaOnlineGenericType.builder().build();

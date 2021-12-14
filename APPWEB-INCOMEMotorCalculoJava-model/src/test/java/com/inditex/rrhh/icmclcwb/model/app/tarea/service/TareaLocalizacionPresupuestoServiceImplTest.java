@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -31,6 +33,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
@@ -42,6 +45,7 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
   @Mock
   private TareaLocalizacionPresupuestoMapper tareaLocalizacionPresupuestoMapper;
 
+  @Spy
   @InjectMocks
   private TareaLocalizacionPresupuestoServiceImpl tareaLocalizacionPresupuestoService;
 
@@ -198,6 +202,8 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
 
     this.tareaLocalizacionPresupuestoService.save(src, tarea);
 
+    verify(this.tareaLocalizacionPresupuestoService, times(1))
+        .save(src, tarea);
   }
 
   @Test

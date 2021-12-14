@@ -107,7 +107,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class IcmWsCalcIncomeMapperDecoratorTest {
+class IcmWsCalcIncomeMapperDecoratorTest {
 
   @Mock
   @Qualifier("delegate")

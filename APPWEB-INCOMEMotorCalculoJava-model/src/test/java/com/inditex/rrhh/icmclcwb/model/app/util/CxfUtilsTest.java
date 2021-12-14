@@ -20,7 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class CxfUtilsTest {
+class CxfUtilsTest {
 
   // TODO [albertoggu] Tests: Parámetros recuperados a null fallanº - Lista de métodos:
   // getResponseHeaders, getRequestHeaders, putRequestHeaders, replaceRequestHeaders, putCookies,

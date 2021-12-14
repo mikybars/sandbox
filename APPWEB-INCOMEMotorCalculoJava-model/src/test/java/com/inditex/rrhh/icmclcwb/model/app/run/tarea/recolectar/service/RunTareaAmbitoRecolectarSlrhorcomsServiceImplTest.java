@@ -6,6 +6,8 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.List;
 import java.util.Map;
@@ -39,12 +41,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class RunTareaAmbitoRecolectarSlrhorcomsServiceImplTest {
+class RunTareaAmbitoRecolectarSlrhorcomsServiceImplTest {
 
   @Mock
   private Logger log;
@@ -74,6 +77,7 @@ public class RunTareaAmbitoRecolectarSlrhorcomsServiceImplTest {
   @Qualifier("slrhorcomsProperties")
   private Map<String, SlrhorcomsPropertiesDto> slrhorcomsProperties;
 
+  @Spy
   @InjectMocks
   RunTareaAmbitoRecolectarSlrhorcomsServiceImpl runTareaAmbitoRecolectarSlrhorcomsServiceImpl;
 
@@ -126,6 +130,9 @@ public class RunTareaAmbitoRecolectarSlrhorcomsServiceImplTest {
       doReturn(cfSave).when(this.tareaLocalizacionFestivoAsyncService).save(data.getDocs(), this.runTarea.getTarea());
 
       this.runTareaAmbitoRecolectarSlrhorcomsServiceImpl
+          .horarioComercialFestivoByRunTareaAndTareaAmbito(this.runTarea, this.tareaAmbito);
+
+      verify(this.runTareaAmbitoRecolectarSlrhorcomsServiceImpl, times(1))
           .horarioComercialFestivoByRunTareaAndTareaAmbito(this.runTarea, this.tareaAmbito);
     }
   }

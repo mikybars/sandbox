@@ -32,7 +32,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class ChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RunAlgoritmoTest {
+class ChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RunAlgoritmoTest {
 
   @Mock
   Logger log;

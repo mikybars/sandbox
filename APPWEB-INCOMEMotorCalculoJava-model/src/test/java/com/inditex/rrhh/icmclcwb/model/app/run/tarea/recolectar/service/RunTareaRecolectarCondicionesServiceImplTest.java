@@ -6,6 +6,8 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -24,10 +26,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class RunTareaRecolectarCondicionesServiceImplTest {
+class RunTareaRecolectarCondicionesServiceImplTest {
 
   @Mock
   private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
@@ -50,6 +53,7 @@ public class RunTareaRecolectarCondicionesServiceImplTest {
   @Mock
   private RunTareaPrevalidarDuranteService runTareaPrevalidarDuranteService;
 
+  @Spy
   @InjectMocks
   private RunTareaRecolectarCondicionesServiceImpl RunTareaRecolectarCondicionesServiceImpl;
 
@@ -195,6 +199,9 @@ public class RunTareaRecolectarCondicionesServiceImplTest {
         .updateActivoVentaOnlineEntregaDomicilioByRunTarea(this.runTarea);
 
     this.RunTareaRecolectarCondicionesServiceImpl.run(this.runTarea);
+
+    verify(this.RunTareaRecolectarCondicionesServiceImpl, times(1))
+        .run(this.runTarea);
   }
 
   @Test

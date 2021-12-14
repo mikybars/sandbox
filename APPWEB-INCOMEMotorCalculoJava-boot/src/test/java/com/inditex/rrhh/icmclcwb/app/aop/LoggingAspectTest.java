@@ -5,6 +5,8 @@ package com.inditex.rrhh.icmclcwb.app.aop;
  */
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.Collections;
 
@@ -22,7 +24,7 @@ import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class LoggingAspectTest {
+class LoggingAspectTest {
 
   @Mock
   Logger log;
@@ -74,12 +76,18 @@ public class LoggingAspectTest {
     doReturn(this.signature).when(this.jp).getSignature();
     doReturn("").when(this.signature).toShortString();
     doReturn(Collections.emptyList().toArray()).when(this.jp).getArgs();
-    this.loggingAspect.genericAfterThrowing(this.jp, new Exception());
+    Exception exception = new Exception();
+    this.loggingAspect.genericAfterThrowing(this.jp, exception);
+
+    verify(this.loggingAspect, times(1)).genericAfterThrowing(this.jp, exception);
   }
 
   @Test
   void genericAfterThrowingTest2() {
-    this.loggingAspect.genericAfterThrowing(this.jp, new Exception());
+    Exception exception = new Exception();
+    this.loggingAspect.genericAfterThrowing(this.jp, exception);
+
+    verify(this.loggingAspect, times(1)).genericAfterThrowing(this.jp, exception);
   }
 
 }

@@ -30,7 +30,7 @@ import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaV1RepositoryCustomImplTest {
+class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaV1RepositoryCustomImplTest {
 
   @Mock
   private TareaCalculoPersonaService tareaCalculoPersonaService;

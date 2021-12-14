@@ -5,6 +5,8 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
  */
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -33,12 +35,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class RunTareaRecolectarValidarServiceImplTest {
+class RunTareaRecolectarValidarServiceImplTest {
 
   @Mock
   private RunTareaRecolectarValidarEstructurasAsyncService runTareaRecolectarValidarEstructurasAsyncService;
@@ -71,6 +74,7 @@ public class RunTareaRecolectarValidarServiceImplTest {
   @Mock
   private TareaFaseService tareaFaseService;
 
+  @Spy
   @InjectMocks
   private RunTareaRecolectarValidarServiceImpl runTareaRecolectarValidarServiceImpl;
 
@@ -107,6 +111,9 @@ public class RunTareaRecolectarValidarServiceImplTest {
       utilities.when(() -> AsyncUtils.get(completableFuture)).thenReturn(runTareaValidarDtoList);
 
       this.runTareaRecolectarValidarServiceImpl.run(this.runTarea);
+
+      verify(this.runTareaRecolectarValidarServiceImpl, times(1))
+          .run(this.runTarea);
     }
   }
 

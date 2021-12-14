@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class AcccionEnumTest {
+class AcccionEnumTest {
 
   @Test
   void getIdTest() {
