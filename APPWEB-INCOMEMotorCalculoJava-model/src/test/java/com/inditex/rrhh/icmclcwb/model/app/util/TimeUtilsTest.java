@@ -5,6 +5,7 @@ package com.inditex.rrhh.icmclcwb.model.app.util;
  */
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
@@ -45,6 +46,20 @@ class TimeUtilsTest {
     final Date result = TimeUtils.toDate(LocalDateTime.of(2021, 12, 07, 00, 00));
 
     assertNotNull(result);
+  }
+
+  @Test
+  void nowLocalDateTest () {
+      final LocalDate result = TimeUtils.nowLocalDate();
+
+      assertNotNull(result);
+  }
+
+  @Test
+  void toLocalDateTimeTest () {
+      final LocalDateTime result = TimeUtils.toLocalDateTime(LocalDate.now());
+
+      assertNotNull(result);
   }
 
 }

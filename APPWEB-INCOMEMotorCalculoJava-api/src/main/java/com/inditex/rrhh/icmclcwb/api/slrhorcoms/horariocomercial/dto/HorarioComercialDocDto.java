@@ -55,7 +55,7 @@ public class HorarioComercialDocDto extends DocDto implements Serializable {
 
   private Date ultimaFechaModificacion;
 
-  private Object version;
+  private transient Object version;
 
   private String franja1Fin;
 
