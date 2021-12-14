@@ -15,6 +15,8 @@ public class HorarioComercialPropertiesConstants {
 
   public static final String HORARIO_COMERCIAL_FESTIVO = "festivos";
 
+  public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+
   public static final String AUTHENTICATE = "authenticate";
 
   public static final String ID_TIENDA_FIELD = "idTienda";

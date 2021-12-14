@@ -37,7 +37,7 @@ public abstract class TareaLocalizacionFestivoMapper {
   @Mapping(source = "src.idTienda", target = "cclIdCodOrigen")
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "fecha", source = "src.fecha",
-      dateFormat = HorarioComercialPropertiesConstants.DATE_FORMAT_RESULT)
+      dateFormat = HorarioComercialPropertiesConstants.DATE_FORMAT)
   public abstract TareaLocalizacionFestivo horarioComercialFestivoDocDtoToTareaLocalizacionFestivo(
       HorarioComercialFestivoDocDto src, TareaDto tareaDto);
 
