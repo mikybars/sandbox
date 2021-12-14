@@ -49,17 +49,17 @@ class TimeUtilsTest {
   }
 
   @Test
-  void nowLocalDateTest () {
-      final LocalDate result = TimeUtils.nowLocalDate();
+  void nowLocalDateTest() {
+    final LocalDate result = TimeUtils.nowLocalDate();
 
-      assertNotNull(result);
+    assertNotNull(result);
   }
 
   @Test
-  void toLocalDateTimeTest () {
-      final LocalDateTime result = TimeUtils.toLocalDateTime(LocalDate.now());
+  void toLocalDateTimeTest() {
+    final LocalDateTime result = TimeUtils.toLocalDateTime(LocalDate.now());
 
-      assertNotNull(result);
+    assertNotNull(result);
   }
 
 }

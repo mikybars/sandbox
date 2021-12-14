@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
-/*
- * Copyright (c) 2021.  Inditex
- */
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.doReturn;
@@ -23,44 +23,44 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
 class AbstractTareaCalculoAjusteBaseRepositoryCustomTest {
 
-    @Spy
-    @InjectMocks
-    private AbstractTareaCalculoAjusteBaseRepositoryCustom abstractTareaCalculoAjusteBaseRepositoryCustom = getClassMock();
+  @Spy
+  @InjectMocks
+  private AbstractTareaCalculoAjusteBaseRepositoryCustom abstractTareaCalculoAjusteBaseRepositoryCustom = getClassMock();
 
-    private AbstractTareaCalculoAjusteBaseRepositoryCustom getClassMock() {
-        return Mockito.mock(AbstractTareaCalculoAjusteBaseRepositoryCustom.class, Mockito.CALLS_REAL_METHODS);
-    }
+  private AbstractTareaCalculoAjusteBaseRepositoryCustom getClassMock() {
+    return Mockito.mock(AbstractTareaCalculoAjusteBaseRepositoryCustom.class, Mockito.CALLS_REAL_METHODS);
+  }
 
-    @Test
-    void ajustarSqlAjustarNullTest (@Random final AlgoritmoAjusteDto algoritmoAjuste) {
+  @Test
+  void ajustarSqlAjustarNullTest(@Random final AlgoritmoAjusteDto algoritmoAjuste) {
 
-        doReturn(null).when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustar();
+    doReturn(null).when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustar();
 
-        this.abstractTareaCalculoAjusteBaseRepositoryCustom.ajustar(algoritmoAjuste);
+    this.abstractTareaCalculoAjusteBaseRepositoryCustom.ajustar(algoritmoAjuste);
 
-        verify(this.abstractTareaCalculoAjusteBaseRepositoryCustom, times(1)).ajustar(algoritmoAjuste);
+    verify(this.abstractTareaCalculoAjusteBaseRepositoryCustom, times(1)).ajustar(algoritmoAjuste);
 
-    }
+  }
 
-    @Test
-    void getSqlAjustarTest (@Random final AlgoritmoAjusteDto algoritmoAjuste) {
+  @Test
+  void getSqlAjustarTest(@Random final AlgoritmoAjusteDto algoritmoAjuste) {
 
-        doReturn("sql").when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustarBase();
+    doReturn("sql").when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustarBase();
 
-        final String result = this.abstractTareaCalculoAjusteBaseRepositoryCustom.getSqlAjustar(algoritmoAjuste);
+    final String result = this.abstractTareaCalculoAjusteBaseRepositoryCustom.getSqlAjustar(algoritmoAjuste);
 
-        assertNotNull(result);
-    }
+    assertNotNull(result);
+  }
 
-    @Test
-    void getSqlAjustarSqlAjustarBaseNullTest (@Random final AlgoritmoAjusteDto algoritmoAjuste) {
+  @Test
+  void getSqlAjustarSqlAjustarBaseNullTest(@Random final AlgoritmoAjusteDto algoritmoAjuste) {
 
-        doReturn(null).when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustarBase();
+    doReturn(null).when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustarBase();
 
-        final String result = this.abstractTareaCalculoAjusteBaseRepositoryCustom.getSqlAjustar(algoritmoAjuste);
+    final String result = this.abstractTareaCalculoAjusteBaseRepositoryCustom.getSqlAjustar(algoritmoAjuste);
 
-        assertNull(result);
-        verify(this.abstractTareaCalculoAjusteBaseRepositoryCustom, times(1)).getSqlAjustar(algoritmoAjuste);
-    }
+    assertNull(result);
+    verify(this.abstractTareaCalculoAjusteBaseRepositoryCustom, times(1)).getSqlAjustar(algoritmoAjuste);
+  }
 
 }
