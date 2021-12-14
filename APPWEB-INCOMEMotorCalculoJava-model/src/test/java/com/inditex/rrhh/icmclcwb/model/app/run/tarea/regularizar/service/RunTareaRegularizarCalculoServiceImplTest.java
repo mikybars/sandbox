@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepositoryCustom;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,9 @@ public class RunTareaRegularizarCalculoServiceImplTest {
 
   @Mock
   private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
+
+  @Mock
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;;
 
   @InjectMocks
   private RunTareaRegularizarCalculoServiceImpl runTareaRegularizarCalculoServiceImpl;

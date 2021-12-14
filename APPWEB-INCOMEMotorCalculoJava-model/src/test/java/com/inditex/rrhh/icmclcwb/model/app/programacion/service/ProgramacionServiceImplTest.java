@@ -84,14 +84,15 @@ class ProgramacionServiceImplTest {
             .thenReturn(new ArrayList<>());
 
     final ProgramacionDTO result = this.programacionService.create(programacion);
+    Date date = TimeUtils.nowDate(); // Generado aquí para que no se diferencien las fechas en los equals por 1 segudno
     assertNotNull(result);
     assertNotNull(result.getFechaHoraCreacion());
-    assertEquals(DateUtils.truncate(TimeUtils.nowDate(), Calendar.SECOND),
+    assertEquals(DateUtils.truncate(date, Calendar.SECOND),
         DateUtils.truncate(
             Date.from(
                 result.getFechaHoraCreacion().toLocalDateTime().atZone(TimeUtils.ofZone()).toInstant()),
             Calendar.SECOND));
-    assertEquals(DateUtils.truncate(TimeUtils.nowDate(), Calendar.SECOND),
+    assertEquals(DateUtils.truncate(date, Calendar.SECOND),
         DateUtils.truncate(
             Date.from(
                 result.getFechaHoraCreacion().toLocalDateTime().atZone(TimeUtils.ofZone()).toInstant()),
