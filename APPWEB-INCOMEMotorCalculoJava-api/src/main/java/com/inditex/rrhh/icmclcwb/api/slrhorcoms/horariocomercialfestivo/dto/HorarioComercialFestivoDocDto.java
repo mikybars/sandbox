@@ -5,9 +5,9 @@ package com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto;
  */
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.DocDto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
