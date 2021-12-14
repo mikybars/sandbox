@@ -73,8 +73,8 @@
         <version>${amiga-javaformat.version}</version>
         <configuration>
           <checkstyle>
-            <excludes>com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.*</excludes>
-            <excludes>com.inditex.rrhh.icmclcwb.model.meta4.login.entity.*</excludes>
+            <excludes>com/inditex/rrhh/icmclcwb/model/meta4/icmwscalcincome/entity/**,
+              com/inditex/rrhh/icmclcwb/model/meta4/login/entity/**</excludes>
           </checkstyle>
         </configuration>
       </plugin>
