@@ -90,11 +90,11 @@ amiga:
           username: srvcicmclcwbdes
           password: q2ZB)XKFWdeA
         ptr-presencia:
-          base-url: https://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
+          base-url: http://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
           ping-query:
             enabled: true
             timeout: 2s
-            path: https://des-openshift-private.axdesocp1.central.inditex.grp/rhpresnwsd-develop/amiga/health
+            path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhpresnwsd-develop/amiga/health
           auth-method: BASIC
           username: srvcicmclcwbdes
           password: q2ZB)XKFWdeA
