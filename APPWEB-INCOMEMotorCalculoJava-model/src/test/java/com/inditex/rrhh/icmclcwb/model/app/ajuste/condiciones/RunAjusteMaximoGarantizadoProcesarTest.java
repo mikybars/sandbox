@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAlgoritmoAjustePropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.async.ajustar.personas.CalculoAjusteMaximoGarantizadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -20,7 +21,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteMaximoGarantizadoRepositoryCustom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,7 +63,7 @@ class RunAjusteMaximoGarantizadoProcesarTest {
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Mock
-    private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+    private CalculoAjusteMaximoGarantizadoAsyncService calculoAjusteMaximoGarantizadoAsyncService;
 
     @InjectMocks
     private RunAjusteMaximoGarantizadoProcesar runAjusteMaximoGarantizadoProcesar;
@@ -76,7 +76,7 @@ class RunAjusteMaximoGarantizadoProcesarTest {
         properties.setThreadSize(THREAD_SIZE);
         properties.setBatchSize(BATCH_SIZE);
         when(this.runAjusteProperties.getAjuste()).thenReturn(properties);
-        when(this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.ajustar(any(AlgoritmoAjusteDto.class),
+        when(this.calculoAjusteMaximoGarantizadoAsyncService.ajustar(any(AlgoritmoAjusteDto.class),
                 any(TareaDto.class),
                 ArgumentMatchers.<List<IdPersonaLocalDto>>any())).thenReturn(CompletableFuture.completedFuture(
                         AsyncConstants.NIL));
@@ -187,7 +187,7 @@ class RunAjusteMaximoGarantizadoProcesarTest {
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
         this.runAjusteMaximoGarantizadoProcesar.execute(runTarea, algoritmoAjuste);
 
-        verify(this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom, times(1))
+        verify(this.calculoAjusteMaximoGarantizadoAsyncService, times(1))
             .ajustar(algoritmoAjuste, runTarea.getTarea(), this.createPersonaIds());
     }
 
@@ -199,7 +199,7 @@ class RunAjusteMaximoGarantizadoProcesarTest {
 
         final RuntimeException exception = new RuntimeException("Exception");
         doThrow(exception)
-            .when(this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom)
+            .when(this.calculoAjusteMaximoGarantizadoAsyncService)
             .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
                     ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
@@ -211,15 +211,6 @@ class RunAjusteMaximoGarantizadoProcesarTest {
         verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
                 EstadoTareaCalculoPersonaEnum.KO.getDto());
 
-    }
-
-    void executeInsertTemporaryTableDatosTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteMaximoGarantizadoProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempDatosMaximoGarantizado(runTarea.getTarea());
     }
 
 }

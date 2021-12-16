@@ -6,8 +6,6 @@ import java.util.Map;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -70,54 +68,90 @@ class TareaCalculoAjusteCarenciaRepositoryCustomImplTest {
     }
 
     @Test
-    void getMapValuesTest() {
-        final AlgoritmoAjusteDto algoritmoAjuste = mock(AlgoritmoAjusteDto.class);
-        when(algoritmoAjuste.getId()).thenReturn(11003);
-        final TareaDto tarea = mock(TareaDto.class);
-        when(tarea.getId()).thenReturn(101L);
-        final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
-        when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
-        when(persona1.getStdOrHrPeriod()).thenReturn("01");
-
+    void getMapValuesNumParamsTareaPersonaNullTest() {
         final Map<String, Object> result = this.tareaCalculoAjusteCarenciaRepositoryCustomImpl.getMapValues(
-                algoritmoAjuste, tarea,
-                persona1);
-        assertEquals(10, result.size());
+                this.createAlgoritmoAjuste(), null, null);
+        assertEquals(2, result.size());
+    }
 
+    @Test
+    void getMapValuesNumParamsTareaNotNullPersonaNullTest() {
+        final Map<String, Object> result = this.tareaCalculoAjusteCarenciaRepositoryCustomImpl.getMapValues(
+                this.createAlgoritmoAjuste(), this.createTarea(), null);
+        assertEquals(3, result.size());
+    }
+
+    @Test
+    void getMapValuesNumParamsTareaNullPersonaNotNullTest() {
+        final Map<String, Object> result = this.tareaCalculoAjusteCarenciaRepositoryCustomImpl.getMapValues(
+                this.createAlgoritmoAjuste(), null, this.createPersonaLocal());
+        assertEquals(4, result.size());
+    }
+
+    @Test
+    void getMapValuesNumParamsTareaPersonaNotNullTest() {
+        final Map<String, Object> result = this.tareaCalculoAjusteCarenciaRepositoryCustomImpl.getMapValues(
+                this.createAlgoritmoAjuste(), this.createTarea(), this.createPersonaLocal());
+        assertEquals(5, result.size());
+    }
+
+    @Test
+    void getMapValuesParamIdTareaTest() {
+        final Map<String, Object> result = this.tareaCalculoAjusteCarenciaRepositoryCustomImpl.getMapValues(
+                this.createAlgoritmoAjuste(), this.createTarea(), this.createPersonaLocal());
         // idTarea
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-        assertEquals(tarea.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+        assertEquals(ID_TAREA, result.get(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    }
+
+    @Test
+    void getMapValuesParamPersonaTest() {
+        final Map<String, Object> result = this.tareaCalculoAjusteCarenciaRepositoryCustomImpl.getMapValues(
+                this.createAlgoritmoAjuste(), this.createTarea(), this.createPersonaLocal());
         // cclIdPerson
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON));
-        assertEquals(persona1.getIdPersonaLocal(), result.get(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON));
+        assertEquals(ID_PERSONA, result.get(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON));
         // stdOrHrPeriod
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD));
-        assertEquals(persona1.getStdOrHrPeriod(), result.get(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD));
-        // idAlgoritmo
+        assertEquals(OR_PERSONA, result.get(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD));
+    }
+
+    @Test
+    void getMapValuesParamIdAlgoritmoAjusteTest() {
+        final Map<String, Object> result = this.tareaCalculoAjusteCarenciaRepositoryCustomImpl.getMapValues(
+                this.createAlgoritmoAjuste(), this.createTarea(), this.createPersonaLocal());
+        // idAlgoritmoAjuste
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE));
-        assertEquals(algoritmoAjuste.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE));
-        // idTipoPolitica
-        assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
-        assertEquals(TipoPoliticaEnum.CARENCIA.getId(), result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA));
+        assertEquals(ID_ALGORITMO, result.get(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE));
+    }
+
+    @Test
+    void getMapValuesParamInactivoTest() {
+        final Map<String, Object> result = this.tareaCalculoAjusteCarenciaRepositoryCustomImpl.getMapValues(
+                this.createAlgoritmoAjuste(), this.createTarea(), this.createPersonaLocal());
         // inactivo
         assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
         assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, result.get(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
-        // idTipoUnidadtiempoAnos
-        assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
-        assertEquals(TipoUnidadTiempoEnum.ANOS.getId(),
-                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS));
-        // idTipoUnidadtiempoMeses
-        assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
-        assertEquals(TipoUnidadTiempoEnum.MESES.getId(),
-                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES));
-        // idTipoUnidadtiempoSemanas
-        assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
-        assertEquals(TipoUnidadTiempoEnum.SEMANAS.getId(),
-                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS));
-        // idTipoUnidadtiempoDias
-        assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
-        assertEquals(TipoUnidadTiempoEnum.DIAS.getId(),
-                result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
+    }
+
+    private AlgoritmoAjusteDto createAlgoritmoAjuste() {
+        final AlgoritmoAjusteDto algoritmoAjuste = new AlgoritmoAjusteDto();
+        algoritmoAjuste.setId(ID_ALGORITMO);
+        return algoritmoAjuste;
+    }
+
+    private TareaDto createTarea() {
+        final TareaDto tarea = new TareaDto();
+        tarea.setId(ID_TAREA);
+        return tarea;
+    }
+
+    private IdPersonaLocalDto createPersonaLocal() {
+        return IdPersonaLocalDto
+            .builder()
+            .idPersonaLocal(ID_PERSONA)
+            .stdOrHrPeriod(OR_PERSONA)
+            .build();
     }
 
 }

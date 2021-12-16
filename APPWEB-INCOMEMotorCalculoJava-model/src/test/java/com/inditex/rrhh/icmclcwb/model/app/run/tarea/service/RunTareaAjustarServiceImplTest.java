@@ -21,7 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraPoliticaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjusteAsync;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjusteFactory;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,7 +58,7 @@ class RunTareaAjustarServiceImplTest {
     private TareaFaseService tareaFaseService;
 
     @Mock
-    private RunAjuste runAjuste;
+    private RunAjusteAsync runAjuste;
 
     @Mock
     private TareaPersonaEstructuraPoliticaService tareaPersonaEstructuraPoliticaService;

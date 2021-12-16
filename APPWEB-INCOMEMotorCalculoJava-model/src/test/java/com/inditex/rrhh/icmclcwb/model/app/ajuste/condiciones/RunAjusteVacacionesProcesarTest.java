@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAlgoritmoAjustePropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.async.ajustar.personas.CalculoAjusteVacacionesAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -20,7 +21,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustomImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteVacacionesRepositoryCustom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,7 +63,7 @@ class RunAjusteVacacionesProcesarTest {
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Mock
-    private PrimaryTemporaryTablePoliticasRepositoryCustomImpl primaryTemporaryTablePoliticasRepositoryCustom;
+    private CalculoAjusteVacacionesAsyncService calculoAjusteVacacionesAsyncService;
 
     @InjectMocks
     private RunAjusteVacacionesProcesar runAjusteVacacionesProcesar;
@@ -76,7 +76,7 @@ class RunAjusteVacacionesProcesarTest {
         properties.setThreadSize(THREAD_SIZE);
         properties.setBatchSize(BATCH_SIZE);
         when(this.runAjusteProperties.getAjuste()).thenReturn(properties);
-        when(this.tareaCalculoAjusteVacacionesRepositoryCustom.ajustar(any(AlgoritmoAjusteDto.class),
+        when(this.calculoAjusteVacacionesAsyncService.ajustar(any(AlgoritmoAjusteDto.class),
                 any(TareaDto.class),
                 ArgumentMatchers.<List<IdPersonaLocalDto>>any())).thenReturn(CompletableFuture.completedFuture(
                         AsyncConstants.NIL));
@@ -186,7 +186,7 @@ class RunAjusteVacacionesProcesarTest {
         final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
         this.runAjusteVacacionesProcesar.execute(runTarea, algoritmoAjuste);
 
-        verify(this.tareaCalculoAjusteVacacionesRepositoryCustom, times(1))
+        verify(this.calculoAjusteVacacionesAsyncService, times(1))
             .ajustar(algoritmoAjuste, runTarea.getTarea(), this.createPersonaIds());
     }
 
@@ -198,7 +198,7 @@ class RunAjusteVacacionesProcesarTest {
 
         final RuntimeException exception = new RuntimeException("Exception");
         doThrow(exception)
-            .when(this.tareaCalculoAjusteVacacionesRepositoryCustom)
+            .when(this.calculoAjusteVacacionesAsyncService)
             .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
                     ArgumentMatchers.<List<IdPersonaLocalDto>>any());
 
@@ -209,72 +209,7 @@ class RunAjusteVacacionesProcesarTest {
                 exception);
         verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
                 EstadoTareaCalculoPersonaEnum.KO.getDto());
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempFechasVacaciones();
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempFechasAcumuladasVacaciones();
-        // verify(this.primaryTemporaryTablePoliticasRepositoryCustom,
-        // times(1)).deleteTempCalculoTotalizadoVacaciones();
 
-    }
-
-    void executeCreateTemporaryTablesTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteVacacionesProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasVacaciones();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasAcumuladasVacaciones();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempCalculoTotalizadoVacaciones();
-    }
-
-    void executeCreateTemporaryTablesIndexesTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteVacacionesProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempFechasVacaciones();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .createIndexTempFechasAcumuladasVacaciones();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .createIndexTempCalculoTotalizadoVacaciones();
-    }
-
-    void executeDropTemporaryTablesIndexesTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteVacacionesProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasVacaciones();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempFechasAcumuladasVacaciones();
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).deleteTempCalculoTotalizadoVacaciones();
-    }
-
-    void executeInsertTemporaryTableFechasTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteVacacionesProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-            .insertTempFechasVacaciones(runTarea.getTarea());
-    }
-
-    void executeInsertTemporaryTableFechasAcumuladasTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteVacacionesProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasAcumuladasVacaciones(
-                runTarea.getTarea());
-    }
-
-    void executeInsertTemporaryTableCalculoTotalizadoTest() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-        this.runAjusteVacacionesProcesar.execute(runTarea, algoritmoAjuste);
-
-        verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempCalculoTotalizadoVacaciones(
-                runTarea.getTarea());
     }
 
 }

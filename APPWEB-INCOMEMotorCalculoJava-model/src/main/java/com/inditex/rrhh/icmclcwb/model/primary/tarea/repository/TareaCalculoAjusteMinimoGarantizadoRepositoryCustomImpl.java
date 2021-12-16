@@ -22,11 +22,11 @@ public class TareaCalculoAjusteMinimoGarantizadoRepositoryCustomImpl
         extends AbstractTareaCalculoAjusteBaseRepositoryCustom
         implements TareaCalculoAjusteMinimoGarantizadoRepositoryCustom {
 
-    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.minGarantizado']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
+    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.insert']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.minGarantizado']}")
     @Getter
     private String sqlAjustar;
 
-    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.minGarantizado']} #{primaryQuery['TareaCalculoAjusteRepositoryCustom.where']}")
+    @Value("#{primaryQuery['TareaCalculoAjusteRepositoryCustom.minGarantizado']}")
     @Getter
     private String sqlAjustarBase;
 
@@ -34,15 +34,15 @@ public class TareaCalculoAjusteMinimoGarantizadoRepositoryCustomImpl
     private TareaCalculoPersonaService tareaCalculoPersonaService;
 
     @Override
-    public List<IdPersonaLocalDto> ids(TareaDto tarea) {
-        return tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
+    public List<IdPersonaLocalDto> ids(final TareaDto tarea) {
+        return this.tareaCalculoPersonaService.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
                 TipoPoliticaEnum.MINIMO_GARANTIZADO.getIdMeta4());
     }
 
     @Override
-    protected Map<String, Object> getMapValues(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea,
-            IdPersonaLocalDto persona) {
-        Map<String, Object> map = new HashMap<>();
+    protected Map<String, Object> getMapValues(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
+            final IdPersonaLocalDto persona) {
+        final Map<String, Object> map = new HashMap<>();
         if (tarea != null) {
             map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
         }
