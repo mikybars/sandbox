@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -67,8 +68,11 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalc
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconforigenBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconforigenRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
@@ -84,9 +88,11 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalf
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsistdestinoBlock;
@@ -94,7 +100,9 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalt
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiposhoraBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -309,7 +317,34 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @Test
+  void asIcmParametrosentradaBlockGetIcmParametrosentradaRecordSetIsEmptyTest(@Random IcmParametrosentradaBlock icmParametrosentradaBlock) {
+
+    IcmParametrosentradaBlock spiedVar = Mockito.spy(icmParametrosentradaBlock);
+
+    doReturn(spiedVar).when(this.delegate).asIcmParametrosentradaBlock(this.genericFilterDto);
+    doReturn(new ArrayList<IcmParametrosentradaRecord>()).when(spiedVar).getIcmParametrosentradaRecordSet();
+
+    final IcmParametrosentradaBlock result = this.icmWsCalcIncomeMapperDecorator.asIcmParametrosentradaBlock(this.genericFilterDto);
+
+    assertNotNull(result);
+  }
+
+  @Test
   void asIcmParametrospaginacionBlockTest() {
+    final IcmParametrospaginacionBlock result = this.icmWsCalcIncomeMapperDecorator.asIcmParametrospaginacionBlock(this.pageDto);
+
+    assertNotNull(result);
+  }
+
+  @Test
+  void asIcmParametrospaginacionBlockGetIcmParametrospaginacionRecordSetIsNullTest(
+      @Random IcmParametrospaginacionBlock icmParametrospaginacionBlock) {
+
+    IcmParametrospaginacionBlock spìedVar = Mockito.spy(icmParametrospaginacionBlock);
+
+    doReturn(spìedVar).when(this.delegate).asIcmParametrospaginacionBlock(this.pageDto);
+    doReturn(new ArrayList<IcmParametrospaginacionRecord>()).when(spìedVar).getIcmParametrospaginacionRecordSet();
+
     final IcmParametrospaginacionBlock result = this.icmWsCalcIncomeMapperDecorator.asIcmParametrospaginacionBlock(this.pageDto);
 
     assertNotNull(result);
@@ -324,7 +359,37 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @Test
+  void asIcmParamcalconfchdiasBlockGetIcmParametrospaginacionRecordSetIsNullTest(
+      @Random IcmParamcalconfchdiasBlock cmParamcalconfchdiasBlock) {
+
+    IcmParamcalconfchdiasBlock spìedVar = Mockito.spy(cmParamcalconfchdiasBlock);
+
+    doReturn(spìedVar).when(this.delegate).asIcmParamcalconfchdiasBlock(this.confChDiasMinimosFilterDto);
+    doReturn(new ArrayList<IcmParamcalconfpreciohoraRecord>()).when(spìedVar).getIcmParamcalconfchdiasRecordSet();
+
+    final IcmParamcalconfchdiasBlock result =
+        this.icmWsCalcIncomeMapperDecorator.asIcmParamcalconfchdiasBlock(this.confChDiasMinimosFilterDto);
+
+    assertNotNull(result);
+  }
+
+  @Test
   void asIcmParamcalconfpreciohoraBlockTest() {
+    final IcmParamcalconfpreciohoraBlock result = this.icmWsCalcIncomeMapperDecorator
+        .asIcmParamcalconfpreciohoraBlock(this.confPrecioHoraFilterDto);
+
+    assertNotNull(result);
+  }
+
+  @Test
+  void asIcmParamcalconfpreciohoraBlockGetIcmParametrospaginacionRecordSetIsNullTest(
+      @Random IcmParamcalconfpreciohoraBlock icmParamcalconfpreciohoraBlock) {
+
+    IcmParamcalconfpreciohoraBlock spìedVar = Mockito.spy(icmParamcalconfpreciohoraBlock);
+
+    doReturn(spìedVar).when(this.delegate).asIcmParamcalconfpreciohoraBlock(this.confPrecioHoraFilterDto);
+    doReturn(new ArrayList<IcmParamcalconfpreciohoraRecord>()).when(spìedVar).getIcmParamcalconfpreciohoraRecordSet();
+
     final IcmParamcalconfpreciohoraBlock result = this.icmWsCalcIncomeMapperDecorator
         .asIcmParamcalconfpreciohoraBlock(this.confPrecioHoraFilterDto);
 
@@ -340,6 +405,21 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @Test
+  void asIcmParamcalpresupuestosrangoBlockGetIcmParametrospaginacionRecordSetIsNullTest(
+      @Random IcmParamcalconfchventaBlock icmParamcalconfchventaBlock) {
+
+    IcmParamcalconfchventaBlock spìedVar = Mockito.spy(icmParamcalconfchventaBlock);
+
+    doReturn(spìedVar).when(this.delegate).asIcmParamcalconfchventaBlock(this.confChTpVentaFilterDto);
+    doReturn(new ArrayList<IcmParamcalconfchventaRecord>()).when(spìedVar).getIcmParamcalconfchventaRecordSet();
+
+    final IcmParamcalconfchventaBlock result = this.icmWsCalcIncomeMapperDecorator
+        .asIcmParamcalconfchventaBlock(this.confChTpVentaFilterDto);
+
+    assertNotNull(result);
+  }
+
+  @Test
   void asIcmParamcalpresupuestosrangoBlockTest() {
     final IcmParamcalpresupuestosrangoBlock result = this.icmWsCalcIncomeMapperDecorator
         .asIcmParamcalpresupuestosrangoBlock(this.presupuestosRangoFilterDto);
@@ -348,7 +428,34 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @Test
+  void asIcmParamcalpresupuestosrangoBlockGetIcmParametrospaginacionRecordSetIsNullTest(
+      @Random IcmParamcalpresupuestosrangoBlock icmParamcalpresupuestosrangoBlock) {
+
+    IcmParamcalpresupuestosrangoBlock spìedVar = Mockito.spy(icmParamcalpresupuestosrangoBlock);
+
+    doReturn(spìedVar).when(this.delegate).asIcmParamcalpresupuestosrangoBlock(this.presupuestosRangoFilterDto);
+    doReturn(new ArrayList<IcmParamcalpresupuestosrangoRecord>()).when(spìedVar).getIcmParamcalpresupuestosrangoRecordSet();
+
+    final IcmParamcalpresupuestosrangoBlock result = this.icmWsCalcIncomeMapperDecorator
+        .asIcmParamcalpresupuestosrangoBlock(this.presupuestosRangoFilterDto);
+
+    assertNotNull(result);
+  }
+
+  @Test
   void asGenericTiendaResultItemDtoTest() {
+    final GenericTiendaResultItemDto result = this.icmWsCalcIncomeMapperDecorator
+        .asGenericTiendaResultItemDto(this.icmListatiendasRecord);
+
+    assertNotNull(result);
+  }
+
+  @Test
+  void asGenericTiendaResultItemDtoFechasNullTest() {
+
+      this.icmListatiendasRecord.setFechainicio("");
+      this.icmListatiendasRecord.setFechafin("");
+
     final GenericTiendaResultItemDto result = this.icmWsCalcIncomeMapperDecorator
         .asGenericTiendaResultItemDto(this.icmListatiendasRecord);
 
@@ -391,6 +498,21 @@ class IcmWsCalcIncomeMapperDecoratorTest {
     assertTrue(!result.isEmpty());
   }
 
+  @Test
+  void asGenericTiendaResultItemDtosFechaIniFinEmptyTest () {
+
+      this.icmListatiendasRecordList.get(0).setFechainicio("");
+      this.icmListatiendasRecordList.get(0).setFechafin("");
+      this.icmListatiendasRecordList.get(1).setFechainicio("");
+      this.icmListatiendasRecordList.get(1).setFechafin("");
+
+      final List<GenericTiendaResultItemDto> result = this.icmWsCalcIncomeMapperDecorator
+          .asGenericTiendaResultItemDtos(this.icmListatiendasRecordList);
+
+      assertNotNull(result);
+      assertTrue(!result.isEmpty());
+  }
+
   @BeforeEach
   void initAsGenericTiendaResultItemDtosTest(@Random GenericEmpleadoResultItemDto genericEmpleadoResultItemDto) {
     // Instanciamos estas variables con un valor que concuerde en el converter a fecha
@@ -414,6 +536,24 @@ class IcmWsCalcIncomeMapperDecoratorTest {
 
     assertNotNull(result);
   }
+
+    @Test
+    void asGenericEmpleadoResultItemDtoFechasEmptyTest() {
+        this.icmListaempleadosRecord.setFechainicio("");
+        this.icmListaempleadosRecord.setFechafin("");
+        this.icmListaempleadosRecord.setFechainiciosec("");
+        this.icmListaempleadosRecord.setFechafinsec("");
+        this.icmListaempleadosRecord.setFechainiciocom("");
+        this.icmListaempleadosRecord.setFechafincom("");
+        this.icmListaempleadosRecord.setFechainiciopar("");
+        this.icmListaempleadosRecord.setFechafinpar("");
+        this.icmListaempleadosRecord.setFecha("");
+
+        final GenericEmpleadoResultItemDto result = this.icmWsCalcIncomeMapperDecorator
+            .asGenericEmpleadoResultItemDto(this.icmListaempleadosRecord);
+
+        assertNotNull(result);
+    }
 
   @BeforeEach
   void initAsGenericEmpleadoResultItemDtos(@Random GenericEmpleadoResultItemDto genericEmpleadoResultItemDto) {
@@ -493,6 +633,21 @@ class IcmWsCalcIncomeMapperDecoratorTest {
     assertTrue(!result.isEmpty());
   }
 
+    @Test
+    void asAusenciasResultItemDtosFechasEmptyTest() {
+
+        this.icmListaausenciasRecordList.get(0).setFechainicio("");
+        this.icmListaausenciasRecordList.get(0).setFechafin("");
+        this.icmListaausenciasRecordList.get(1).setFechainicio("");
+        this.icmListaausenciasRecordList.get(1).setFechafin("");
+
+        final List<AusenciasResultItemDto> result = this.icmWsCalcIncomeMapperDecorator
+            .asAusenciasResultItemDtos(this.icmListaausenciasRecordList);
+
+        assertNotNull(result);
+        assertTrue(!result.isEmpty());
+    }
+
   @BeforeEach
   void initAsGenericEmpleadoResultItemDtosSearchEmpleadosTest(@Random GenericEmpleadoResultItemDto genericEmpleadoResultItemDto) {
     // Instanciamos estas variables con un valor que concuerde en el converter a fecha
@@ -504,13 +659,13 @@ class IcmWsCalcIncomeMapperDecoratorTest {
     this.icmListaempleadoRecordList.get(0).setFechafinloc("2000-02-01T00:00:00.000Z");
     this.icmListaempleadoRecordList.get(0).setFechaantiguedad("2000-01-01T00:00:00.000Z");
 
-    this.icmListaempleadoRecordList.get(1).setFechainicio("2000-01-01T00:00:00.000Z");
-    this.icmListaempleadoRecordList.get(1).setFechafin("2000-02-01T00:00:00.000Z");
-    this.icmListaempleadoRecordList.get(1).setFechainiciosec("2000-01-01T00:00:00.000Z");
-    this.icmListaempleadoRecordList.get(1).setFechafinsec("2000-02-01T00:00:00.000Z");
-    this.icmListaempleadoRecordList.get(1).setFechainicioloc("2000-01-01T00:00:00.000Z");
-    this.icmListaempleadoRecordList.get(1).setFechafinloc("2000-02-01T00:00:00.000Z");
-    this.icmListaempleadoRecordList.get(1).setFechaantiguedad("2000-01-01T00:00:00.000Z");
+    this.icmListaempleadoRecordList.get(1).setFechainicio("");
+    this.icmListaempleadoRecordList.get(1).setFechafin("");
+    this.icmListaempleadoRecordList.get(1).setFechainiciosec("");
+    this.icmListaempleadoRecordList.get(1).setFechafinsec("");
+    this.icmListaempleadoRecordList.get(1).setFechainicioloc("");
+    this.icmListaempleadoRecordList.get(1).setFechafinloc("");
+    this.icmListaempleadoRecordList.get(1).setFechaantiguedad("");
 
     doReturn(genericEmpleadoResultItemDto).when(this.delegate)
         .asGenericEmpleadoResultItemDtosSearchEmpleados(this.icmListaempleadoRecordList.get(0));
@@ -536,6 +691,15 @@ class IcmWsCalcIncomeMapperDecoratorTest {
     assertTrue(!result.isEmpty());
   }
 
+    @Test
+    void asTiendaOnlineResultItemDtoNullTest() {
+        final List<TiendaOnlineResultItemDto> result = this.icmWsCalcIncomeMapperDecorator
+            .asTiendaOnlineResultItemDto((List<IcmListatiendasRecord>) null);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
   @Test
   void asIcmParamcalprocesoBlockTest() {
     final IcmParamcalprocesoBlock result = this.icmWsCalcIncomeMapperDecorator
@@ -543,6 +707,19 @@ class IcmWsCalcIncomeMapperDecoratorTest {
 
     assertNotNull(result);
   }
+
+    @Test
+    void asIcmParamcalprocesoBlockGetIcmParamcalprocesoRecordSetIsEmptyTest(@Random IcmParamcalprocesoBlock icmParamcalprocesoBlock) {
+
+        IcmParamcalprocesoBlock spiedVar = Mockito.spy(icmParamcalprocesoBlock);
+        doReturn(spiedVar).when(this.delegate).asIcmParamcalprocesoBlock(this.saveProcesoDto);
+        doReturn(new ArrayList<IcmParamcalprocesoRecord>()).when(spiedVar).getIcmParamcalprocesoRecordSet();
+
+        final IcmParamcalprocesoBlock result = this.icmWsCalcIncomeMapperDecorator
+            .asIcmParamcalprocesoBlock(this.saveProcesoDto);
+
+        assertNotNull(result);
+    }
 
   @Test
   void asSaveResultDtoTest() {
@@ -559,6 +736,19 @@ class IcmWsCalcIncomeMapperDecoratorTest {
 
     assertNotNull(result);
   }
+
+    @Test
+    void asIcmParamconfBlockGetIcmParamcalconforigenRecordSetIsEmptyTest(@Random IcmParamcalconforigenBlock icmParamcalconforigenBlock) {
+
+        IcmParamcalconforigenBlock spiedVar = Mockito.spy(icmParamcalconforigenBlock);
+      doReturn(spiedVar).when(this.delegate).asIcmParamconfBlock(this.configuracionesRequestDto);
+      doReturn(new ArrayList<IcmParamcalconforigenRecord>()).when(spiedVar).getIcmParamcalconforigenRecordSet();
+
+        final IcmParamcalconforigenBlock result = this.icmWsCalcIncomeMapperDecorator
+            .asIcmParamconfBlock(this.configuracionesRequestDto);
+
+        assertNotNull(result);
+    }
 
   @BeforeEach
   void initAsConfiguracionesResponseDtoTest(@Random ConfiguracionesResponseDto configuracionesResponseDto,
@@ -581,6 +771,17 @@ class IcmWsCalcIncomeMapperDecoratorTest {
 
     assertNotNull(result);
   }
+
+    @Test
+    void asConfiguracionesResponseDtoGetIcmListaconforigenIsNullTest() {
+
+        this.getconfiguracionOutput.setIcmListaconforigen(null);
+
+        final ConfiguracionesResponseDto result = this.icmWsCalcIncomeMapperDecorator
+            .asConfiguracionesResponseDto(this.getconfiguracionOutput, this.idOrigen);
+
+        assertNotNull(result);
+    }
 
   @Test
   void asIcmParamcalcadenaBlockTest() {
@@ -630,6 +831,14 @@ class IcmWsCalcIncomeMapperDecoratorTest {
     assertNotNull(result);
   }
 
+    @Test
+    void asIcmParamcaltiendasBlockNullTest3() {
+        final IcmParamcaltiendasBlock result = this.icmWsCalcIncomeMapperDecorator
+            .asIcmParamcaltiendasBlock((PresenciaManualWlocFilterDto) null);
+
+        assertNotNull(result);
+    }
+
   @Test
   void asIcmParamcaltiendasBlockTest4() {
     final IcmParamcaltiendasBlock result = this.icmWsCalcIncomeMapperDecorator
@@ -637,6 +846,23 @@ class IcmWsCalcIncomeMapperDecoratorTest {
 
     assertNotNull(result);
   }
+
+    @Test
+    void asIcmParamcaltiendasBlockNullTest4() {
+        final IcmParamcaltiendasBlock result = this.icmWsCalcIncomeMapperDecorator
+            .asIcmParamcaltiendasBlock((VentaManualWlocFilterDto) null);
+
+        assertNotNull(result);
+    }
+
+
+    @Test
+    void asIcmParamcaltiendasBlockNullTest() {
+        final IcmParamcaltiendasBlock result = this.icmWsCalcIncomeMapperDecorator
+            .asIcmParamcaltiendasBlock((GenericFilterDto) null);
+
+        assertNotNull(result);
+    }
 
   @BeforeEach
   void initAsIcmParamcalempleadoBlockTest(@Random IcmParamcalempleadoRecord icmParamcalempleadoRecord,
@@ -667,6 +893,17 @@ class IcmWsCalcIncomeMapperDecoratorTest {
 
     assertNotNull(result);
   }
+
+    @Test
+    void asIcmParamcalempleadoBlockNullTest(@Random IcmParamcalempleadoBlock icmParamcalempleadoBlock) {
+
+      doReturn(icmParamcalempleadoBlock).when(this.delegate).asIcmParamcalempleadoBlock((GenericFilterDto) null);
+
+        final IcmParamcalempleadoBlock result = this.icmWsCalcIncomeMapperDecorator
+            .asIcmParamcalempleadoBlock((GenericFilterDto) null);
+
+        assertNotNull(result);
+    }
 
   @Test
   void asIcmParamcalempleadosBlock() {
@@ -880,12 +1117,34 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @Test
+  void asListaCondicionesBaseResultItemDtoGetIcmListavaloresbasemanIsNullTest () {
+
+      this.icmListacondicionesbaseRecord.setIcmListavaloresbaseman(null);
+
+      final ListaCondicionesBaseResultItemDto result = this.icmWsCalcIncomeMapperDecorator
+          .asListaCondicionesBaseResultItemDto(this.icmListacondicionesbaseRecord);
+
+      assertNotNull(result);
+  }
+
+  @Test
   void asListaCondicionesDestinoResultItemDtoTest() {
     final ListaCondicionesDestinoResultItemDto result = this.icmWsCalcIncomeMapperDecorator
         .asListaCondicionesDestinoResultItemDto(this.icmListacondicionesdestinoRecord);
 
     assertNotNull(result);
   }
+
+    @Test
+    void asListaCondicionesDestinoResultItemDtoGetIcmListavaloresdestinomanIsNullTest() {
+
+      this.icmListacondicionesdestinoRecord.setIcmListavaloresdestinoman(null);
+
+        final ListaCondicionesDestinoResultItemDto result = this.icmWsCalcIncomeMapperDecorator
+            .asListaCondicionesDestinoResultItemDto(this.icmListacondicionesdestinoRecord);
+
+        assertNotNull(result);
+    }
 
   @BeforeEach
   void initAsListaCondicionesDestinoResultItemDtoTest2(
