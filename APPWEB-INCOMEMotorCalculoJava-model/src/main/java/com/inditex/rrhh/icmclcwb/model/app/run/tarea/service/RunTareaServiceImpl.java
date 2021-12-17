@@ -85,7 +85,11 @@ public class RunTareaServiceImpl implements RunTareaService {
   @Override
   public void run(@NotNull @Valid final RunTareaDto runTarea) {
     try {
-      this.tareaService.updateFechaInicioAndEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
+      if (runTarea.getTarea().getFechaHoraInicioTarea() != null) {
+        this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
+      } else {
+        this.tareaService.updateFechaInicioAndEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());
+      }
       this.tareaFaseService.create(runTarea);
       this.tareaFaseAccionService.create(runTarea);
       this.runTareaRecolectarService.run(runTarea);
