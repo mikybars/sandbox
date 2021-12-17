@@ -2,40 +2,40 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.inditex.rrhh.icmclcwb</groupId>
-        <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-        <version>3.6.0</version>
-    </parent>
-    <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
-    <name>${project.groupId}:${project.artifactId}</name>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.inditex.rrhh.icmclcwb</groupId>
+    <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
+    <version>3.6.0</version>
+  </parent>
+  <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
+  <name>${project.groupId}:${project.artifactId}</name>
 
-    <dependencies>
+  <dependencies>
 
-        <!-- PROJECT DEPENDENCIES -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
-        </dependency>
+    <!-- PROJECT DEPENDENCIES -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
+    </dependency>
 
-        <!-- FWK DEPENDENCIES -->
-        <dependency>
-            <groupId>com.inditex.aqsw.framework.data</groupId>
-            <artifactId>data-framework-starter-jms-activemq</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.inditex.aqsw.framework.service</groupId>
-            <artifactId>service-framework-starter-jms-activemq</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-broker</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-kahadb-store</artifactId>
-        </dependency>
+    <!-- FWK DEPENDENCIES -->
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.data</groupId>
+      <artifactId>data-framework-starter-jms-activemq</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.service</groupId>
+      <artifactId>service-framework-starter-jms-activemq</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-broker</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-kahadb-store</artifactId>
+    </dependency>
 
-    </dependencies>
+  </dependencies>
 </project>
