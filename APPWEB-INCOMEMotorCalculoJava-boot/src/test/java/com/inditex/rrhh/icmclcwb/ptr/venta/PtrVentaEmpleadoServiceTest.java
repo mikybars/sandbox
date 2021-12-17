@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { Application.class })
 @ActiveProfiles({ "standalone", "test" })
 @EnableAutoConfiguration
+@Disabled
 public class PtrVentaEmpleadoServiceTest {
 
     @Autowired
