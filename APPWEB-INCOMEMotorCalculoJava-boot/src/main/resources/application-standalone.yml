@@ -21,7 +21,7 @@ metadata:
   slot: develop
   developModel: CORPORATE
   layer: core 
-  version: 4.10.2
+  version: 4.10.3
 amiga:
   monitoring:
     metrics:
