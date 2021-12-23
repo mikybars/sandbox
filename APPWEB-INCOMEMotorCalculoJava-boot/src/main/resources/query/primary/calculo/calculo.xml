@@ -1426,7 +1426,7 @@
             AND INDICADOR_DESPLAZAMIENTO_BASE.CCL_ID_COD_ORIGEN = LOCALIZACION_SECCION_VENTA.CCL_ID_COD_ORIGEN
             AND INDICADOR_DESPLAZAMIENTO_BASE.ID_TIPO_DATO = :idTipoDatoIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion
             AND INDICADOR_DESPLAZAMIENTO_BASE.ES_ACTIVO = :activo
-]]>
+  ]]>
   </entry>
 
   <entry key="TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamientoV1Repository.calcular">
