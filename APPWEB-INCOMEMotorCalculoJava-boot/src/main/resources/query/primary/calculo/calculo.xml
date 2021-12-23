@@ -1308,7 +1308,7 @@
             AND LOCALIZACION_PRESENCIA.CCL_ID_SECCION = LOCALIZACION_SECCION_VENTA.CCL_ID_SECCION
             AND LOCALIZACION_SECCION_VENTA.ES_ACTIVO = :activo
             AND LOCALIZACION_SECCION_VENTA.ID_TIPO_DATO IN (:tipoDatoLocalizacionVentaSeccion)
-]]>
+  ]]>
   </entry>
 
   <entry key="TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamientoBaseV1Repository.calcular">
