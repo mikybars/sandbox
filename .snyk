@@ -2,44 +2,48 @@
 version: v1.14.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
+  SNYK-JAVA-COMH2DATABASE-1769238:
+    - '* > com.inditex.aqsw.framework.batch:batch-framework-starter@4.4.1 > com.inditex.aqsw.framework.batch:batch-framework-core@4.4.1 > com.h2database:h2@1.4.200':
+        reason: >-
+          No remediation available
   SNYK-JAVA-IONETTY-1042268:
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter-cache-datagrid-remote@4.3.0 > org.infinispan:infinispan-spring-boot-starter-remote@2.1.10.Final-redhat-00001 > org.infinispan:infinispan-client-hotrod@9.4.19.Final-redhat-00001 > io.netty:netty-handler@4.1.68.Final':
-        reason: >- 
+    - '* > com.inditex.aqsw.framework.common:common-framework-starter-cache-datagrid-remote@4.4.1 > org.infinispan:infinispan-spring-boot-starter-remote@2.1.10.Final-redhat-00001 > org.infinispan:infinispan-client-hotrod@9.4.19.Final-redhat-00001 > io.netty:netty-handler@4.1.70.Final':
+        reason: >-
           No remediation available
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter-soap-client-cxf-reactive@4.3.0 > org.apache.cxf:cxf-rt-transports-http-netty-client@3.4.2 > io.netty:netty-codec-http@4.1.68.Final > io.netty:netty-handler@4.1.68.Final':
-        reason: >- 
+    - '* > com.inditex.aqsw.framework.common:common-framework-starter-soap-client-cxf-reactive@4.4.1 > org.apache.cxf:cxf-rt-transports-http-netty-client@3.4.2 > io.netty:netty-codec-http@4.1.70.Final > io.netty:netty-handler@4.1.70.Final':
+        reason: >-
           No remediation available
-    - '* > com.inditex.aqsw.framework.service:service-framework-starter-session@4.3.0 > com.inditex.aqsw.framework.service:service-framework-session-infinispan@4.3.0 > org.infinispan:infinispan-client-hotrod@9.4.19.Final-redhat-00001 > io.netty:netty-handler@4.1.68.Final':
-        reason: >- 
+    - '* > com.inditex.aqsw.framework.service:service-framework-starter-session@4.4.1 > com.inditex.aqsw.framework.service:service-framework-session-infinispan@4.4.1 > org.infinispan:infinispan-client-hotrod@9.4.19.Final-redhat-00001 > io.netty:netty-handler@4.1.70.Final':
+        reason: >-
           No remediation available
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter-s3-client-reactive@4.3.0 > software.amazon.awssdk:netty-nio-client@2.17.42 > io.netty:netty-handler@4.1.68.Final':
-        reason: >- 
+    - '* > com.inditex.aqsw.framework.common:common-framework-starter-s3-client-reactive@4.4.1 > software.amazon.awssdk:netty-nio-client@2.17.84 > io.netty:netty-handler@4.1.70.Final':
+        reason: >-
           No remediation available
   SNYK-JAVA-CHQOSLOGBACK-1726923:
-    - '* > com.inditex.aqsw.framework.common:common-framework-starter-application-insights@4.3.0 > com.inditex.aqsw.framework.common:common-framework-application-insights@4.3.0 > com.microsoft.azure:applicationinsights-logging-logback@2.6.3 > ch.qos.logback:logback-core@1.2.6':
+    - '* > com.inditex.aqsw.framework.common:common-framework-starter-application-insights@4.4.1 > com.inditex.aqsw.framework.common:common-framework-application-insights@4.4.1 > com.microsoft.azure:applicationinsights-logging-logback@2.6.3 > ch.qos.logback:logback-core@1.2.6':
         reason: >-
           No remediation available.
-    - '* > com.inditex.aqsw.framework.common:common-framework-logging@4.3.0 > org.springframework.boot:spring-boot-starter-logging@2.5.5 > ch.qos.logback:logback-classic@1.2.6 > ch.qos.logback:logback-core@1.2.6':
+    - '* > com.inditex.aqsw.framework.common:common-framework-logging@4.4.1 > org.springframework.boot:spring-boot-starter-logging@2.5.5 > ch.qos.logback:logback-classic@1.2.6 > ch.qos.logback:logback-core@1.2.6':
         reason: >-
           No remediation available.
   SNYK-JAVA-ORGAPACHECOMMONS-1316638:
-    - '* > com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.3.0 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.3.0 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.4 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
-        reason: >- 
+    - '* > com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.4.1 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.4.1 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.4 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
+        reason: >-
           This upgrade is blocked until software manufacturer confirms such upgraded version is compatible
   SNYK-JAVA-ORGAPACHECOMMONS-1316639:
-    - '* > com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.3.0 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.3.0 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.4 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
-        reason: >- 
+    - '* > com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.4.1 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.4.1 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.4 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
+        reason: >-
           This upgrade is blocked until software manufacturer confirms such upgraded version is compatible
   SNYK-JAVA-ORGAPACHECOMMONS-1316640:
-    - '* > com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.3.0 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.3.0 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.4 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
-        reason: >- 
+    - '* > com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.4.1 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.4.1 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.4 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
+        reason: >-
           This upgrade is blocked until software manufacturer confirms such upgraded version is compatible
   SNYK-JAVA-ORGAPACHECOMMONS-1316641:
-    - '* > com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.3.0 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.3.0 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.4 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
-        reason: >- 
+    - '* > com.inditex.aqsw.framework.data:data-framework-starter-stream-pipe@4.4.1 > com.inditex.aqsw.framework.data:data-framework-stream-pipe@4.4.1 > org.springframework.cloud:spring-cloud-schema-registry-client@1.1.4 > org.apache.avro:avro@1.9.2 > org.apache.commons:commons-compress@1.19':
+        reason: >-
           This upgrade is blocked until software manufacturer confirms such upgraded version is compatible
   SNYK-JAVA-ORGAPACHEKAFKA-1540737:
-    - '* > com.inditex.aqsw.framework.data:data-framework-starter-stream-kafka@4.3.0 > org.springframework.cloud:spring-cloud-stream-binder-kafka@3.1.4 > org.apache.kafka:kafka-clients@2.7.1':
+    - '* > com.inditex.aqsw.framework.data:data-framework-starter-stream-kafka@4.4.1 > org.springframework.cloud:spring-cloud-stream-binder-kafka@3.1.4 > org.apache.kafka:kafka-clients@2.7.1':
         reason: >- 
           We ignore this until Spring Boot brings a fixed version of kafka-clients
   
