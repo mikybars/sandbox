@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public enum PtrAgruparSeccionEnum {
 
-    TRUE(1), FALSE(0);
+  TRUE(1), FALSE(0);
 
-    private Integer value;
+  private Integer value;
 
 }

@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class PrevalidarPropertiesDto {
 
-    SincronizacionDto sincronizacion;
+  SincronizacionDto sincronizacion;
 
-    private int meses;
+  private int meses;
 
 }

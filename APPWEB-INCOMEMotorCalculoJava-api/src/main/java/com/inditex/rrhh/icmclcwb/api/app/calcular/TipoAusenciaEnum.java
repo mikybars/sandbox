@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum TipoAusenciaEnum {
 
-    BAJA_IT(1, "1"), VACACIONES(2, "2");
+  BAJA_IT(1, "1"), VACACIONES(2, "2");
 
-    private final Integer id;
+  private final Integer id;
 
-    private final String idMeta4;
+  private final String idMeta4;
 
 }

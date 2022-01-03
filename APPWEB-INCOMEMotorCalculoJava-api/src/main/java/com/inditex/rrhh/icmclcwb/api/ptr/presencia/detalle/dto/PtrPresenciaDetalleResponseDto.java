@@ -15,6 +15,6 @@ import lombok.ToString;
 @ToString
 public class PtrPresenciaDetalleResponseDto {
 
-    private List<PtrPresenciaDetalleResultItemDto> presenciasDetalle;
+  private List<PtrPresenciaDetalleResultItemDto> presenciasDetalle;
 
 }

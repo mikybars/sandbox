@@ -5,6 +5,6 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TipoVentaConceptoRepository extends BaseRepository<TipoVentaConcepto, Long> {
 
-    TipoVentaConcepto findByIcmIdConceptoVenta(String icmIdConceptoVenta);
+  TipoVentaConcepto findByIcmIdConceptoVenta(String icmIdConceptoVenta);
 
 }

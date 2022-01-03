@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public enum AuthenticateEnum {
 
-    OK("Authenticated OK");
+  OK("Authenticated OK");
 
-    private final String value;
+  private final String value;
 
 }

@@ -4,38 +4,38 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 import lombok.Data;
 
 @Data
 public class PtrVentaOnlinePickingResultItemDto implements Serializable {
 
-    private static final long serialVersionUID = 6070689891574921909L;
+  private static final long serialVersionUID = 6070689891574921909L;
 
-    @NotBlank
-    private String fecha;
+  @NotBlank
+  private String fecha;
 
-    private Integer pais;
+  private Integer pais;
 
-    private Integer cadena;
+  private Integer cadena;
 
-    private Integer empresa;
+  private Integer empresa;
 
-    private Integer seccion;
+  private Integer seccion;
 
-    private Integer tienda;
+  private Integer tienda;
 
-    @NotNull
-    private BigDecimal importeSinIVA;
+  @NotNull
+  private BigDecimal importeSinIVA;
 
-    @NotNull
-    private BigDecimal importeConIVA;
+  @NotNull
+  private BigDecimal importeConIVA;
 
-    private String ano;
+  private String ano;
 
-    private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
+  private List<PtrSeccionVentaOnlineGenericType> listaSeccion;
 
 }

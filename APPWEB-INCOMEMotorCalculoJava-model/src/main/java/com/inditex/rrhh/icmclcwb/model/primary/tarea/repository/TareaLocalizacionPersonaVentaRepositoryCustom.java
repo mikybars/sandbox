@@ -7,20 +7,20 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPer
 
 public interface TareaLocalizacionPersonaVentaRepositoryCustom {
 
-    List<TareaLocalizacionPersonaVenta> save(List<TareaLocalizacionPersonaVenta> src);
+  List<TareaLocalizacionPersonaVenta> save(List<TareaLocalizacionPersonaVenta> src);
 
-    void totalizarVentaPersonaSeccion(TareaDto tarea);
+  void totalizarVentaPersonaSeccion(TareaDto tarea);
 
-    void totalizarDevolucionPersonaSeccion(TareaDto tarea);
+  void totalizarDevolucionPersonaSeccion(TareaDto tarea);
 
-    void totalizarVentaSinDevolucionPersonaSeccion(TareaDto tarea);
+  void totalizarVentaSinDevolucionPersonaSeccion(TareaDto tarea);
 
-    void totalizarVentaFisicaSinDevolucionPersonaSeccion(TareaDto tarea);
+  void totalizarVentaFisicaSinDevolucionPersonaSeccion(TareaDto tarea);
 
-    void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(TareaDto tarea);
+  void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(TareaDto tarea);
 
-    void totalizarDevolucionFisicaPersonaSeccion(TareaDto tarea);
+  void totalizarDevolucionFisicaPersonaSeccion(TareaDto tarea);
 
-    void totalizarDevolucionOnlineIpodPersonaSeccion(TareaDto tarea);
+  void totalizarDevolucionOnlineIpodPersonaSeccion(TareaDto tarea);
 
 }

@@ -4,6 +4,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface TareaAgrupacionPresenciaRepositoryCustom {
 
-    void calcularPresenciasTotalesAgrupacion(TareaDto tarea);
+  void calcularPresenciasTotalesAgrupacion(TareaDto tarea);
 
 }

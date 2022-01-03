@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,15 +16,15 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class IdPersonaLocalCarenciaDto implements Serializable {
 
-    @NotBlank
-    private String idPersonaLocal;
+  @NotBlank
+  private String idPersonaLocal;
 
-    @NotNull
-    private LocalDate fechaInicioCalculo;
+  @NotNull
+  private LocalDate fechaInicioCalculo;
 
-    @NotNull
-    private LocalDate fechaAlta;
+  @NotNull
+  private LocalDate fechaAlta;
 
-    private String cclIdCodOrigen;
+  private String cclIdCodOrigen;
 
 }

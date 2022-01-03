@@ -8,8 +8,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructu
 
 public interface TareaPersonaEstructuraDesplazamientoRealRepositoryCustom {
 
-    List<TareaPersonaEstructuraDesplazamientoReal> save(List<TareaPersonaEstructuraDesplazamientoReal> src);
+  List<TareaPersonaEstructuraDesplazamientoReal> save(List<TareaPersonaEstructuraDesplazamientoReal> src);
 
-    List<DesplazamientoRealDto> findDesplazamientoReal(TareaDto tarea);
+  List<DesplazamientoRealDto> findDesplazamientoReal(TareaDto tarea);
 
 }

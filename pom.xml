@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.inditex.aqsw.framework.amiga</groupId>
@@ -10,15 +8,25 @@
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-  <name>${project.groupId}:${project.artifactId}</name>
   <version>4.10.3</version>
   <packaging>pom</packaging>
+  <name>${project.groupId}:${project.artifactId}</name>
+
+  <modules>
+    <module>APPWEB-INCOMEMotorCalculoJava-api</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-model</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-ws</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-ms</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-boot</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-ws-api</module>
+    <module>jacoco-report-aggregate</module>
+  </modules>
 
   <properties>
     <maven.test.skip>false</maven.test.skip>
     <!-- TODO [javierev] se excluyen ficheros markdown porque sonar los confunde con otra cosa (¿MetaDapper?) -->
     <sonar.exclusions>**/model/meta4/icmwscalcincome/entity/**,**/model/meta4/login/entity/**,**/resources/*.md,**/resources/*.sql</sonar.exclusions>
-    <amiga-javaformat.version>1.6.0</amiga-javaformat.version>
+    <amiga-javaformat.version>2.0.3</amiga-javaformat.version>
     <app.github.chrisvest.version>3.1</app.github.chrisvest.version>
     <app.org.jvnet.jaxb2_commons.version>0.12.0</app.org.jvnet.jaxb2_commons.version>
     <app.org.codehaus.mojo.jaxws-maven-plugin.version>2.6</app.org.codehaus.mojo.jaxws-maven-plugin.version>
@@ -57,31 +65,18 @@
     </dependencies>
   </dependencyManagement>
 
-  <modules>
-    <module>APPWEB-INCOMEMotorCalculoJava-api</module>
-    <module>APPWEB-INCOMEMotorCalculoJava-model</module>
-    <module>APPWEB-INCOMEMotorCalculoJava-ws</module>
-    <module>APPWEB-INCOMEMotorCalculoJava-ms</module>
-    <module>APPWEB-INCOMEMotorCalculoJava-boot</module>
-    <module>APPWEB-INCOMEMotorCalculoJava-ws-api</module>
-    <module>jacoco-report-aggregate</module>
-  </modules>
-
   <build>
     <plugins>
       <plugin>
         <groupId>com.inditex.aqsw.amiga.javaformat</groupId>
         <artifactId>amiga-javaformat-maven-plugin</artifactId>
         <version>${amiga-javaformat.version}</version>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <inherited>true</inherited>
-            <goals>
-              <goal>validate</goal>
-            </goals>
-          </execution>
-        </executions>
+        <configuration>
+          <checkstyle>
+            <excludes>com/inditex/rrhh/icmclcwb/model/meta4/icmwscalcincome/entity/**,
+              com/inditex/rrhh/icmclcwb/model/meta4/login/entity/**</excludes>
+          </checkstyle>
+        </configuration>
       </plugin>
     </plugins>
   </build>

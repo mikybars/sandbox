@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,10 +17,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TiposHoraRequestDto implements Serializable {
 
-    private static final long serialVersionUID = -947192660099861683L;
+  private static final long serialVersionUID = -947192660099861683L;
 
-    private String idOrigen;
+  private String idOrigen;
 
-    private List<String> idsEmpresa;
+  private List<String> idsEmpresa;
 
 }

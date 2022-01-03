@@ -79,81 +79,81 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 
 public interface Meta4IcmWsCalcIncomeService {
 
-    SearchTiendasResponseDto searchTiendas(SearchTiendasRequestDto request);
+  SearchTiendasResponseDto searchTiendas(SearchTiendasRequestDto request);
 
-    TiendasResponseDto getTiendas(TiendasRequestDto request);
+  TiendasResponseDto getTiendas(TiendasRequestDto request);
 
-    SearchEmpleadosResponseDto searchEmpleados(SearchEmpleadosRequestDto request);
+  SearchEmpleadosResponseDto searchEmpleados(SearchEmpleadosRequestDto request);
 
-    EmpleadosResponseDto getEmpleados(EmpleadosRequestDto request);
+  EmpleadosResponseDto getEmpleados(EmpleadosRequestDto request);
 
-    PresenciaManualResponseDto getPresenciaManual(PresenciaManualRequestDto request);
+  PresenciaManualResponseDto getPresenciaManual(PresenciaManualRequestDto request);
 
-    EmpleadosPresenciaResponseDto getEmpleadosPresencia(EmpleadosPresenciaRequestDto request);
+  EmpleadosPresenciaResponseDto getEmpleadosPresencia(EmpleadosPresenciaRequestDto request);
 
-    PeriodosResponseDto getPeriodos(PeriodosRequestDto request);
+  PeriodosResponseDto getPeriodos(PeriodosRequestDto request);
 
-    FestivosResponseDto getFestivos(FestivosRequestDto request);
+  FestivosResponseDto getFestivos(FestivosRequestDto request);
 
-    CoefJornadaResponseDto getCoefJornada(CoefJornadaRequestDto request);
+  CoefJornadaResponseDto getCoefJornada(CoefJornadaRequestDto request);
 
-    FlagCalculaResponseDto getFlagCalcula(FlagCalculaRequestDto request);
+  FlagCalculaResponseDto getFlagCalcula(FlagCalculaRequestDto request);
 
-    AgrupOnlineResponseDto getAgrupOnline(AgrupOnlineRequestDto request);
+  AgrupOnlineResponseDto getAgrupOnline(AgrupOnlineRequestDto request);
 
-    ConfiguracionVentaOnlineResponseDto getConfVentaOnline(ConfiguracionVentaOnlineRequestDto request);
+  ConfiguracionVentaOnlineResponseDto getConfVentaOnline(ConfiguracionVentaOnlineRequestDto request);
 
-    TiendaOnlineResponseDto getTiendasOnline(TiendaOnlineRequestDto request);
+  TiendaOnlineResponseDto getTiendasOnline(TiendaOnlineRequestDto request);
 
-    ConfiguracionProductoVentaResponseDto getConfiguracionProductoVenta(ConfiguracionProductoVentaRequestDto request);
+  ConfiguracionProductoVentaResponseDto getConfiguracionProductoVenta(ConfiguracionProductoVentaRequestDto request);
 
-    CadenaResponseDto getCadena(CadenaRequestDto request);
+  CadenaResponseDto getCadena(CadenaRequestDto request);
 
-    EmpresaResponseDto getEmpresa(EmpresaRequestDto request);
+  EmpresaResponseDto getEmpresa(EmpresaRequestDto request);
 
-    OrigenResponseDto getOrigen(OrigenRequestDto request);
+  OrigenResponseDto getOrigen(OrigenRequestDto request);
 
-    EmpleadosDesplazamientoResponseDto getEmpleadosDesplazamiento(EmpleadosDesplazamientoRequestDto request);
+  EmpleadosDesplazamientoResponseDto getEmpleadosDesplazamiento(EmpleadosDesplazamientoRequestDto request);
 
-    SaveResultDto saveProceso(SaveProcesoDto request);
+  SaveResultDto saveProceso(SaveProcesoDto request);
 
-    EstructurasComResponseDto getEstructurasCom(EstructurasComRequestDto request);
+  EstructurasComResponseDto getEstructurasCom(EstructurasComRequestDto request);
 
-    EstructurasPolResponseDto getEstructurasPol(EstructurasPolRequestDto request);
+  EstructurasPolResponseDto getEstructurasPol(EstructurasPolRequestDto request);
 
-    AusenciasResponseDto getAusencias(AusenciasRequestDto request);
+  AusenciasResponseDto getAusencias(AusenciasRequestDto request);
 
-    ConfiguracionesResponseDto getConfiguracion(ConfiguracionesRequestDto request);
+  ConfiguracionesResponseDto getConfiguracion(ConfiguracionesRequestDto request);
 
-    ConfChDiasMinimosResponseDto getConfChallengeDiasMinimos(ConfChDiasMinimosRequestDto request);
+  ConfChDiasMinimosResponseDto getConfChallengeDiasMinimos(ConfChDiasMinimosRequestDto request);
 
-    PresupuestosWlocResponseDto getPresupuestosWloc(PresupuestosWlocRequestDto request);
+  PresupuestosWlocResponseDto getPresupuestosWloc(PresupuestosWlocRequestDto request);
 
-    ConfPrecioHoraResponseDto getConfPrecioHora(ConfPrecioHoraRequestDto request);
+  ConfPrecioHoraResponseDto getConfPrecioHora(ConfPrecioHoraRequestDto request);
 
-    ConfChTpVentaResponseDto getConfChallengeTpVenta(ConfChTpVentaRequestDto request);
+  ConfChTpVentaResponseDto getConfChallengeTpVenta(ConfChTpVentaRequestDto request);
 
-    PresupuestosRangoResponseDto getPresupuestosRango(PresupuestosRangoRequestDto request);
+  PresupuestosRangoResponseDto getPresupuestosRango(PresupuestosRangoRequestDto request);
 
-    VentaCongeladaResponseDto getVentaCongelada(VentaCongeladaRequestDto request);
+  VentaCongeladaResponseDto getVentaCongelada(VentaCongeladaRequestDto request);
 
-    DesplazamientoRealResponseDto getDesplazReal(DesplazamientoRealRequestDto request);
+  DesplazamientoRealResponseDto getDesplazReal(DesplazamientoRealRequestDto request);
 
-    DesplazamientosMultiempresaResponseDto getDesplazamientosMultiempresa(
-            DesplazamientosMultiempresaRequestDto request);
+  DesplazamientosMultiempresaResponseDto getDesplazamientosMultiempresa(
+      DesplazamientosMultiempresaRequestDto request);
 
-    PresenciaManualWlocResponseDto getPresenciaManualWloc(PresenciaManualWlocRequestDto request);
+  PresenciaManualWlocResponseDto getPresenciaManualWloc(PresenciaManualWlocRequestDto request);
 
-    VentaManualWlocResponseDto getVentaManualWloc(VentaManualWlocRequestDto request);
+  VentaManualWlocResponseDto getVentaManualWloc(VentaManualWlocRequestDto request);
 
-    SincronizacionResponseDto sincronizacion(SincronizacionRequestDto request);
+  SincronizacionResponseDto sincronizacion(SincronizacionRequestDto request);
 
-    MotivosDesplazamientoResponseDto getMotivosDesplazamiento(MotivosDesplazamientoRequestDto request);
+  MotivosDesplazamientoResponseDto getMotivosDesplazamiento(MotivosDesplazamientoRequestDto request);
 
-    SistemaDestinoResponseDto getSistemaDestino(SistemaDestinoRequestDto request);
+  SistemaDestinoResponseDto getSistemaDestino(SistemaDestinoRequestDto request);
 
-    CatalogoResponseDto getCatalogo(CatalogoRequestDto request);
+  CatalogoResponseDto getCatalogo(CatalogoRequestDto request);
 
-    TiposHoraResponseDto getTiposHora(TiposHoraRequestDto request);
+  TiposHoraResponseDto getTiposHora(TiposHoraRequestDto request);
 
 }

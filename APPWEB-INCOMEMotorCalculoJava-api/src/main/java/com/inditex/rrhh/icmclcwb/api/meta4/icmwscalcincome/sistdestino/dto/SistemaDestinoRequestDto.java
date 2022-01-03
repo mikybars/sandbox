@@ -5,15 +5,12 @@ import java.io.Serializable;
 import lombok.Builder;
 import lombok.Data;
 
-/**
- * @author javierev
- */
 @Data
 @Builder
 public class SistemaDestinoRequestDto implements Serializable {
 
-    private static final long serialVersionUID = -696560080258051258L;
+  private static final long serialVersionUID = -696560080258051258L;
 
-    private String cclIdOrigen;
+  private String cclIdOrigen;
 
 }

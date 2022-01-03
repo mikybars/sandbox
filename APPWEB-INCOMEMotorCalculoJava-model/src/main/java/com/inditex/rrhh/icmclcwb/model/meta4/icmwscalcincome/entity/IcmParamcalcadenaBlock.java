@@ -13,7 +13,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;
@@ -29,13 +28,10 @@ import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
-
 /**
- * <p>
- * Clase Java para Icm_ParamcalcadenaBlock complex type.
+ * <p> Clase Java para Icm_ParamcalcadenaBlock complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType name="Icm_ParamcalcadenaBlock"&gt;
@@ -53,165 +49,161 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalcadenaBlock", propOrder = {
-        "icmParamcalcadenaRecordSet"
+    "icmParamcalcadenaRecordSet"
 })
 public class IcmParamcalcadenaBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
-    private final static long serialVersionUID = 1L;
+  private final static long serialVersionUID = 1L;
 
-    @XmlElement(name = "Icm_ParamcalcadenaRecordSet", nillable = true)
-    protected List<IcmParamcalcadenaRecord> icmParamcalcadenaRecordSet;
+  @XmlElement(name = "Icm_ParamcalcadenaRecordSet", nillable = true)
+  protected List<IcmParamcalcadenaRecord> icmParamcalcadenaRecordSet;
 
-    /**
-     * Gets the value of the icmParamcalcadenaRecordSet property.
-     *
-     * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is why
-     * there is not a <CODE>set</CODE> method for the icmParamcalcadenaRecordSet property.
-     *
-     * <p>
-     * For example, to add a new item, do as follows:
-     *
-     * <pre>
-     * getIcmParamcalcadenaRecordSet().add(newItem);
-     * </pre>
-     *
-     *
-     * <p>
-     * Objects of the following type(s) are allowed in the list {@link IcmParamcalcadenaRecord }
-     *
-     *
-     */
-    public List<IcmParamcalcadenaRecord> getIcmParamcalcadenaRecordSet() {
-        if (icmParamcalcadenaRecordSet == null) {
-            icmParamcalcadenaRecordSet = new ArrayList<IcmParamcalcadenaRecord>();
+  /**
+   * Gets the value of the icmParamcalcadenaRecordSet property.
+   *
+   * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+   * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmParamcalcadenaRecordSet property.
+   *
+   * <p> For example, to add a new item, do as follows:
+   *
+   * <pre>
+   * getIcmParamcalcadenaRecordSet().add(newItem);
+   * </pre>
+   *
+   *
+   * <p> Objects of the following type(s) are allowed in the list {@link IcmParamcalcadenaRecord }
+   *
+   *
+   */
+  public List<IcmParamcalcadenaRecord> getIcmParamcalcadenaRecordSet() {
+    if (icmParamcalcadenaRecordSet == null) {
+      icmParamcalcadenaRecordSet = new ArrayList<IcmParamcalcadenaRecord>();
+    }
+    return this.icmParamcalcadenaRecordSet;
+  }
+
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+      EqualsStrategy2 strategy) {
+    if ((object == null) || (this.getClass() != object.getClass())) {
+      return false;
+    }
+    if (this == object) {
+      return true;
+    }
+    final IcmParamcalcadenaBlock that = ((IcmParamcalcadenaBlock) object);
+    {
+      List<IcmParamcalcadenaRecord> lhsIcmParamcalcadenaRecordSet;
+      lhsIcmParamcalcadenaRecordSet = (((this.icmParamcalcadenaRecordSet != null)
+          && (!this.icmParamcalcadenaRecordSet.isEmpty())) ? this.getIcmParamcalcadenaRecordSet() : null);
+      List<IcmParamcalcadenaRecord> rhsIcmParamcalcadenaRecordSet;
+      rhsIcmParamcalcadenaRecordSet = (((that.icmParamcalcadenaRecordSet != null)
+          && (!that.icmParamcalcadenaRecordSet.isEmpty())) ? that.getIcmParamcalcadenaRecordSet() : null);
+      if (!strategy.equals(
+          LocatorUtils.property(thisLocator, "icmParamcalcadenaRecordSet", lhsIcmParamcalcadenaRecordSet),
+          LocatorUtils.property(thatLocator, "icmParamcalcadenaRecordSet", rhsIcmParamcalcadenaRecordSet),
+          lhsIcmParamcalcadenaRecordSet, rhsIcmParamcalcadenaRecordSet,
+          ((this.icmParamcalcadenaRecordSet != null) && (!this.icmParamcalcadenaRecordSet.isEmpty())),
+          ((that.icmParamcalcadenaRecordSet != null) && (!that.icmParamcalcadenaRecordSet.isEmpty())))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public boolean equals(Object object) {
+    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+    return equals(null, null, object, strategy);
+  }
+
+  public String toString() {
+    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+    final StringBuilder buffer = new StringBuilder();
+    append(null, buffer, strategy);
+    return buffer.toString();
+  }
+
+  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    strategy.appendStart(locator, this, buffer);
+    appendFields(locator, buffer, strategy);
+    strategy.appendEnd(locator, this, buffer);
+    return buffer;
+  }
+
+  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    {
+      List<IcmParamcalcadenaRecord> theIcmParamcalcadenaRecordSet;
+      theIcmParamcalcadenaRecordSet = (((this.icmParamcalcadenaRecordSet != null)
+          && (!this.icmParamcalcadenaRecordSet.isEmpty())) ? this.getIcmParamcalcadenaRecordSet() : null);
+      strategy.appendField(locator, this, "icmParamcalcadenaRecordSet", buffer, theIcmParamcalcadenaRecordSet,
+          ((this.icmParamcalcadenaRecordSet != null) && (!this.icmParamcalcadenaRecordSet.isEmpty())));
+    }
+    return buffer;
+  }
+
+  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+    int currentHashCode = 1;
+    {
+      List<IcmParamcalcadenaRecord> theIcmParamcalcadenaRecordSet;
+      theIcmParamcalcadenaRecordSet = (((this.icmParamcalcadenaRecordSet != null)
+          && (!this.icmParamcalcadenaRecordSet.isEmpty())) ? this.getIcmParamcalcadenaRecordSet() : null);
+      currentHashCode = strategy.hashCode(
+          LocatorUtils.property(locator, "icmParamcalcadenaRecordSet", theIcmParamcalcadenaRecordSet),
+          currentHashCode, theIcmParamcalcadenaRecordSet,
+          ((this.icmParamcalcadenaRecordSet != null) && (!this.icmParamcalcadenaRecordSet.isEmpty())));
+    }
+    return currentHashCode;
+  }
+
+  public int hashCode() {
+    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+    return this.hashCode(null, strategy);
+  }
+
+  public Object clone() {
+    return copyTo(createNewInstance());
+  }
+
+  public Object copyTo(Object target) {
+    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+    return copyTo(null, target, strategy);
+  }
+
+  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+    if (draftCopy instanceof IcmParamcalcadenaBlock) {
+      final IcmParamcalcadenaBlock copy = ((IcmParamcalcadenaBlock) draftCopy);
+      {
+        Boolean icmParamcalcadenaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+            ((this.icmParamcalcadenaRecordSet != null) && (!this.icmParamcalcadenaRecordSet.isEmpty())));
+        if (icmParamcalcadenaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
+          List<IcmParamcalcadenaRecord> sourceIcmParamcalcadenaRecordSet;
+          sourceIcmParamcalcadenaRecordSet = (((this.icmParamcalcadenaRecordSet != null)
+              && (!this.icmParamcalcadenaRecordSet.isEmpty())) ? this.getIcmParamcalcadenaRecordSet()
+                  : null);
+          @SuppressWarnings("unchecked")
+          List<IcmParamcalcadenaRecord> copyIcmParamcalcadenaRecordSet = ((List<IcmParamcalcadenaRecord>) strategy
+              .copy(LocatorUtils.property(locator, "icmParamcalcadenaRecordSet",
+                  sourceIcmParamcalcadenaRecordSet), sourceIcmParamcalcadenaRecordSet,
+                  ((this.icmParamcalcadenaRecordSet != null)
+                      && (!this.icmParamcalcadenaRecordSet.isEmpty()))));
+          copy.icmParamcalcadenaRecordSet = null;
+          if (copyIcmParamcalcadenaRecordSet != null) {
+            List<IcmParamcalcadenaRecord> uniqueIcmParamcalcadenaRecordSetl = copy
+                .getIcmParamcalcadenaRecordSet();
+            uniqueIcmParamcalcadenaRecordSetl.addAll(copyIcmParamcalcadenaRecordSet);
+          }
+        } else {
+          if (icmParamcalcadenaRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmParamcalcadenaRecordSet = null;
+          }
         }
-        return this.icmParamcalcadenaRecordSet;
+      }
     }
+    return draftCopy;
+  }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
-            return false;
-        }
-        if (this == object) {
-            return true;
-        }
-        final IcmParamcalcadenaBlock that = ((IcmParamcalcadenaBlock) object);
-        {
-            List<IcmParamcalcadenaRecord> lhsIcmParamcalcadenaRecordSet;
-            lhsIcmParamcalcadenaRecordSet = (((this.icmParamcalcadenaRecordSet != null)
-                    && (!this.icmParamcalcadenaRecordSet.isEmpty())) ? this.getIcmParamcalcadenaRecordSet() : null);
-            List<IcmParamcalcadenaRecord> rhsIcmParamcalcadenaRecordSet;
-            rhsIcmParamcalcadenaRecordSet = (((that.icmParamcalcadenaRecordSet != null)
-                    && (!that.icmParamcalcadenaRecordSet.isEmpty())) ? that.getIcmParamcalcadenaRecordSet() : null);
-            if (!strategy.equals(
-                    LocatorUtils.property(thisLocator, "icmParamcalcadenaRecordSet", lhsIcmParamcalcadenaRecordSet),
-                    LocatorUtils.property(thatLocator, "icmParamcalcadenaRecordSet", rhsIcmParamcalcadenaRecordSet),
-                    lhsIcmParamcalcadenaRecordSet, rhsIcmParamcalcadenaRecordSet,
-                    ((this.icmParamcalcadenaRecordSet != null) && (!this.icmParamcalcadenaRecordSet.isEmpty())),
-                    ((that.icmParamcalcadenaRecordSet != null) && (!that.icmParamcalcadenaRecordSet.isEmpty())))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean equals(Object object) {
-        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return equals(null, null, object, strategy);
-    }
-
-    public String toString() {
-        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-        final StringBuilder buffer = new StringBuilder();
-        append(null, buffer, strategy);
-        return buffer.toString();
-    }
-
-    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        strategy.appendStart(locator, this, buffer);
-        appendFields(locator, buffer, strategy);
-        strategy.appendEnd(locator, this, buffer);
-        return buffer;
-    }
-
-    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        {
-            List<IcmParamcalcadenaRecord> theIcmParamcalcadenaRecordSet;
-            theIcmParamcalcadenaRecordSet = (((this.icmParamcalcadenaRecordSet != null)
-                    && (!this.icmParamcalcadenaRecordSet.isEmpty())) ? this.getIcmParamcalcadenaRecordSet() : null);
-            strategy.appendField(locator, this, "icmParamcalcadenaRecordSet", buffer, theIcmParamcalcadenaRecordSet,
-                    ((this.icmParamcalcadenaRecordSet != null) && (!this.icmParamcalcadenaRecordSet.isEmpty())));
-        }
-        return buffer;
-    }
-
-    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-        int currentHashCode = 1;
-        {
-            List<IcmParamcalcadenaRecord> theIcmParamcalcadenaRecordSet;
-            theIcmParamcalcadenaRecordSet = (((this.icmParamcalcadenaRecordSet != null)
-                    && (!this.icmParamcalcadenaRecordSet.isEmpty())) ? this.getIcmParamcalcadenaRecordSet() : null);
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmParamcalcadenaRecordSet", theIcmParamcalcadenaRecordSet),
-                    currentHashCode, theIcmParamcalcadenaRecordSet,
-                    ((this.icmParamcalcadenaRecordSet != null) && (!this.icmParamcalcadenaRecordSet.isEmpty())));
-        }
-        return currentHashCode;
-    }
-
-    public int hashCode() {
-        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-        return this.hashCode(null, strategy);
-    }
-
-    public Object clone() {
-        return copyTo(createNewInstance());
-    }
-
-    public Object copyTo(Object target) {
-        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return copyTo(null, target, strategy);
-    }
-
-    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
-        if (draftCopy instanceof IcmParamcalcadenaBlock) {
-            final IcmParamcalcadenaBlock copy = ((IcmParamcalcadenaBlock) draftCopy);
-            {
-                Boolean icmParamcalcadenaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        ((this.icmParamcalcadenaRecordSet != null) && (!this.icmParamcalcadenaRecordSet.isEmpty())));
-                if (icmParamcalcadenaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
-                    List<IcmParamcalcadenaRecord> sourceIcmParamcalcadenaRecordSet;
-                    sourceIcmParamcalcadenaRecordSet = (((this.icmParamcalcadenaRecordSet != null)
-                            && (!this.icmParamcalcadenaRecordSet.isEmpty())) ? this.getIcmParamcalcadenaRecordSet()
-                                    : null);
-                    @SuppressWarnings("unchecked")
-                    List<IcmParamcalcadenaRecord> copyIcmParamcalcadenaRecordSet = ((List<IcmParamcalcadenaRecord>) strategy
-                        .copy(LocatorUtils.property(locator, "icmParamcalcadenaRecordSet",
-                                sourceIcmParamcalcadenaRecordSet), sourceIcmParamcalcadenaRecordSet,
-                                ((this.icmParamcalcadenaRecordSet != null)
-                                        && (!this.icmParamcalcadenaRecordSet.isEmpty()))));
-                    copy.icmParamcalcadenaRecordSet = null;
-                    if (copyIcmParamcalcadenaRecordSet != null) {
-                        List<IcmParamcalcadenaRecord> uniqueIcmParamcalcadenaRecordSetl = copy
-                            .getIcmParamcalcadenaRecordSet();
-                        uniqueIcmParamcalcadenaRecordSetl.addAll(copyIcmParamcalcadenaRecordSet);
-                    }
-                } else {
-                    if (icmParamcalcadenaRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmParamcalcadenaRecordSet = null;
-                    }
-                }
-            }
-        }
-        return draftCopy;
-    }
-
-    public Object createNewInstance() {
-        return new IcmParamcalcadenaBlock();
-    }
+  public Object createNewInstance() {
+    return new IcmParamcalcadenaBlock();
+  }
 
 }

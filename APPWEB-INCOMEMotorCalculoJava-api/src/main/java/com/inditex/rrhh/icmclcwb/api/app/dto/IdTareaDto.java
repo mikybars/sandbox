@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class IdTareaDto implements Serializable {
 
-    private static final long serialVersionUID = -2999803240189313755L;
+  private static final long serialVersionUID = -2999803240189313755L;
 
-    @NotNull
-    private Long id;
+  @NotNull
+  private Long id;
 
 }

@@ -9,9 +9,6 @@ import java.util.Optional;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletionException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
@@ -23,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -32,199 +30,202 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
 public class LoggingAspect {
 
-    @Autowired
-    private Logger log;
+  @Autowired
+  private Logger log;
 
-    @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria)")
-    public void auditoriaPointcut() {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria)")
+  public void auditoriaPointcut() {
+    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  }
+
+  @Pointcut(value = "within(com.inditex.rrhh.icmclcwb..service..*)")
+  public void servicePointcut() {
+    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  }
+
+  @Pointcut(value = "within(com.inditex.rrhh.icmclcwb..controller..*)")
+  public void controllerPointcut() {
+    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  }
+
+  @Pointcut(value = "within(com.inditex.rrhh.icmclcwb..repository..*)")
+  public void repositoryPointcut() {
+    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  }
+
+  @Around(value = "auditoriaPointcut()")
+  public Object auditoriaAround(final ProceedingJoinPoint pjp) throws Throwable {
+    final Auditoria auditoria = Optional.of(pjp.getSignature())
+        .map(signature -> (MethodSignature) signature)
+        .map(MethodSignature::getMethod)
+        .map(method -> method.getAnnotation(Auditoria.class))
+        .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación Auditoria"));
+
+    List<Object> args = Arrays.asList(pjp.getArgs());
+    if (auditoria.logArgs()) {
+      final List<Class<?>> argsLogClass = Arrays.asList(auditoria.argsLogClass());
+      if (CollectionUtils.isNotEmpty(argsLogClass)) {
+        final List<Object> argsLog = new ArrayList<>();
+        for (final Object o : args) {
+          for (final Class<?> c : argsLogClass) {
+            if (c.isAssignableFrom(o.getClass())) {
+              argsLog.add(o);
+              break;
+            }
+          }
+        }
+        args = argsLog;
+      }
     }
 
-    @Pointcut(value = "within(com.inditex.rrhh.icmclcwb..service..*)")
-    public void servicePointcut() {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    String id = StringUtils.EMPTY;
+    for (final Object obj : args) {
+      final Class<? extends Object> objClass = obj.getClass();
+      if (RunProgramacionDto.class.isAssignableFrom(objClass)) {
+        id = new StringBuilder("Programacion[").append(((RunProgramacionDto) obj).getProgramacion().getId())
+            .append("] :: ")
+            .toString();
+        break;
+      } else if (RunTrabajoDto.class.isAssignableFrom(objClass)) {
+        id = new StringBuilder("Trabajo[").append(((RunTrabajoDto) obj).getTrabajo().getId())
+            .append("] :: ")
+            .toString();
+        break;
+      } else if (RunTareaDto.class.isAssignableFrom(objClass)) {
+        id = new StringBuilder("Trabajo[").append(((RunTareaDto) obj).getTarea().getIdTrabajo())
+            .append("]")
+            .append("Tarea[")
+            .append(((RunTareaDto) obj).getTarea().getId())
+            .append("] :: ")
+            .toString();
+        break;
+      } else if (ProgramacionDto.class.isAssignableFrom(objClass)) {
+        id = new StringBuilder("Programacion[").append(((ProgramacionDto) obj).getId())
+            .append("] :: ")
+            .toString();
+        break;
+      } else if (TrabajoDto.class.isAssignableFrom(objClass)) {
+        id = new StringBuilder("Trabajo[").append(((TrabajoDto) obj).getId()).append("] :: ").toString();
+        break;
+      } else if (TareaDto.class.isAssignableFrom(objClass)) {
+        id = new StringBuilder("Trabajo[").append(((TareaDto) obj).getIdTrabajo())
+            .append("]")
+            .append("Tarea[")
+            .append(((TareaDto) obj).getId())
+            .append("] :: ")
+            .toString();
+        break;
+      } else if (RunLimpiezaDto.class.isAssignableFrom(objClass)) {
+        id = new StringBuilder("Limpieza[]Tarea[").append(((RunLimpiezaDto) obj).getTarea().getId())
+            .append("] :: ")
+            .toString();
+        break;
+      }
     }
-
-    @Pointcut(value = "within(com.inditex.rrhh.icmclcwb..controller..*)")
-    public void controllerPointcut() {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    final Instant start = Instant.now();
+    if (auditoria.logStart() && this.log.isInfoEnabled()) {
+      this.log.info(new StringBuilder(id).append("AuditoriaAround :: Inicio :: {}").toString(),
+          pjp.getSignature().toShortString());
     }
-
-    @Pointcut(value = "within(com.inditex.rrhh.icmclcwb..repository..*)")
-    public void repositoryPointcut() {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    if (auditoria.logArgs() && this.log.isInfoEnabled()) {
+      for (final Object o : args) {
+        this.log.info(new StringBuilder(id).append("AuditoriaAround :: Inicio :: Args :: {} :: {}").toString(),
+            pjp.getSignature().toShortString(), o);
+      }
     }
-
-    @Around(value = "auditoriaPointcut()")
-    public Object auditoriaAround(final ProceedingJoinPoint pjp) throws Throwable {
-        final Auditoria auditoria = Optional.of(pjp.getSignature())
-            .map(signature -> (MethodSignature) signature)
-            .map(MethodSignature::getMethod)
-            .map(method -> method.getAnnotation(Auditoria.class))
-            .orElseThrow(() -> new IcmclcwbException("No se ha configurado la anotación Auditoria"));
-
-        List<Object> args = Arrays.asList(pjp.getArgs());
-        if (auditoria.logArgs()) {
-            final List<Class<?>> argsLogClass = Arrays.asList(auditoria.argsLogClass());
-            if (CollectionUtils.isNotEmpty(argsLogClass)) {
-                final List<Object> argsLog = new ArrayList<>();
-                for (final Object o : args) {
-                    for (final Class<?> c : argsLogClass) {
-                        if (c.isAssignableFrom(o.getClass())) {
-                            argsLog.add(o);
-                            break;
-                        }
-                    }
-                }
-                args = argsLog;
-            }
-        }
-
-        String id = StringUtils.EMPTY;
-        for (final Object obj : args) {
-            final Class<? extends Object> objClass = obj.getClass();
-            if (RunProgramacionDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Programacion[").append(((RunProgramacionDto) obj).getProgramacion().getId())
-                    .append("] :: ")
-                    .toString();
-                break;
-            } else if (RunTrabajoDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Trabajo[").append(((RunTrabajoDto) obj).getTrabajo().getId())
-                    .append("] :: ")
-                    .toString();
-                break;
-            } else if (RunTareaDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Trabajo[").append(((RunTareaDto) obj).getTarea().getIdTrabajo())
-                    .append("]")
-                    .append("Tarea[")
-                    .append(((RunTareaDto) obj).getTarea().getId())
-                    .append("] :: ")
-                    .toString();
-                break;
-            } else if (ProgramacionDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Programacion[").append(((ProgramacionDto) obj).getId())
-                    .append("] :: ")
-                    .toString();
-                break;
-            } else if (TrabajoDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Trabajo[").append(((TrabajoDto) obj).getId()).append("] :: ").toString();
-                break;
-            } else if (TareaDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Trabajo[").append(((TareaDto) obj).getIdTrabajo())
-                    .append("]")
-                    .append("Tarea[")
-                    .append(((TareaDto) obj).getId())
-                    .append("] :: ")
-                    .toString();
-                break;
-            } else if (RunLimpiezaDto.class.isAssignableFrom(objClass)) {
-                id = new StringBuilder("Limpieza[]Tarea[").append(((RunLimpiezaDto) obj).getTarea().getId())
-                    .append("] :: ")
-                    .toString();
-                break;
-            }
-        }
-        final Instant start = Instant.now();
-        if (auditoria.logStart() && this.log.isInfoEnabled()) {
-            this.log.info(new StringBuilder(id).append("AuditoriaAround :: Inicio :: {}").toString(),
-                    pjp.getSignature().toShortString());
-        }
-        if (auditoria.logArgs() && this.log.isInfoEnabled()) {
-            for (final Object o : args) {
-                this.log.info(new StringBuilder(id).append("AuditoriaAround :: Inicio :: Args :: {} :: {}").toString(),
-                        pjp.getSignature().toShortString(), o);
-            }
-        }
-        Object result;
-        try {
-            result = pjp.proceed();
-            if (auditoria.logResult() && this.log.isInfoEnabled()) {
-                this.log.info(new StringBuilder(id).append("AuditoriaAround :: Result[{}] :: {}").toString(), result,
-                        pjp.getSignature().toShortString());
-            }
-        } catch (final Throwable e) {
-            if (auditoria.logException() && this.log.isErrorEnabled()) {
-                final Instant end = Instant.now();
-                this.log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Duration[")
-                    .append(Duration.between(start, end))
-                    .append("] :: ")
-                    .append(pjp.getSignature().toShortString())
-                    .toString(), e);
-                for (final Object o : args) {
-                    this.log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Args :: {} :: {}")
-                        .toString(), pjp.getSignature().toShortString(), o);
-                }
-            }
-            throw e;
-        }
-        if (auditoria.logEnd() && this.log.isInfoEnabled()) {
-            final Instant end = Instant.now();
-            this.log.info(new StringBuilder(id).append("AuditoriaAround :: Fin :: Ok :: Duration[{}] :: {}").toString(),
-                    Duration.between(start, end), pjp.getSignature().toShortString());
-        }
-        return result;
-    }
-
-    @Around(value = "controllerPointcut() || servicePointcut() || repositoryPointcut()")
-    public Object genericAround(final ProceedingJoinPoint pjp) throws Throwable {
-        final Instant start = Instant.now();
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("GenericAround :: Inicio :: {} :: {}", pjp.getSignature().toShortString(),
-                    Arrays.asList(pjp.getArgs()));
-        }
-        Object result;
-        try {
-            result = pjp.proceed();
-        } catch (final Throwable e) {
-            if (this.log.isErrorEnabled()) {
-                final Instant end = Instant.now();
-                final String msg = new StringBuilder("GenericAround :: Fin :: Error :: Duration[")
-                    .append(Duration.between(start, end))
-                    .append("] :: ")
-                    .append(pjp.getSignature().toShortString())
-                    .toString();
-                this.log.error(msg, e);
-            }
-            throw e;
-        }
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("GenericAround :: Fin :: {} :: {}", pjp.getSignature().toShortString(), result);
-        }
-
+    Object result;
+    try {
+      result = pjp.proceed();
+      if (auditoria.logResult() && this.log.isInfoEnabled()) {
+        this.log.info(new StringBuilder(id).append("AuditoriaAround :: Result[{}] :: {}").toString(), result,
+            pjp.getSignature().toShortString());
+      }
+    } catch (final Throwable e) {
+      if (auditoria.logException() && this.log.isErrorEnabled()) {
         final Instant end = Instant.now();
-        final Duration duration = Duration.between(start, end);
-        if (duration.compareTo(Duration.ofSeconds(60)) > 0) {
-            this.log.warn("GenericAround :: Lento :: Lento60 :: Duration[{}] :: {}", duration,
-                    pjp.getSignature().toShortString());
-        } else if (duration.compareTo(Duration.ofSeconds(30)) > 0) {
-            this.log.warn("GenericAround :: Lento :: Lento30 :: Duration[{}] :: {}", duration,
-                    pjp.getSignature().toShortString());
-        } else if (duration.compareTo(Duration.ofSeconds(15)) > 0) {
-            this.log.warn("GenericAround :: Lento :: Lento15 :: Duration[{}] :: {}", duration,
-                    pjp.getSignature().toShortString());
+        this.log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Duration[")
+            .append(Duration.between(start, end))
+            .append("] :: ")
+            .append(pjp.getSignature().toShortString())
+            .toString(), e);
+        for (final Object o : args) {
+          this.log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Args :: {} :: {}")
+              .toString(), pjp.getSignature().toShortString(), o);
         }
+      }
+      throw e;
+    }
+    if (auditoria.logEnd() && this.log.isInfoEnabled()) {
+      final Instant end = Instant.now();
+      this.log.info(new StringBuilder(id).append("AuditoriaAround :: Fin :: Ok :: Duration[{}] :: {}").toString(),
+          Duration.between(start, end), pjp.getSignature().toShortString());
+    }
+    return result;
+  }
 
-        return result;
+  @Around(value = "controllerPointcut() || servicePointcut() || repositoryPointcut()")
+  public Object genericAround(final ProceedingJoinPoint pjp) throws Throwable {
+    final Instant start = Instant.now();
+    if (this.log.isDebugEnabled()) {
+      this.log.debug("GenericAround :: Inicio :: {} :: {}", pjp.getSignature().toShortString(),
+          Arrays.asList(pjp.getArgs()));
+    }
+    Object result;
+    try {
+      result = pjp.proceed();
+    } catch (final Throwable e) {
+      if (this.log.isErrorEnabled()) {
+        final Instant end = Instant.now();
+        final String msg = new StringBuilder("GenericAround :: Fin :: Error :: Duration[")
+            .append(Duration.between(start, end))
+            .append("] :: ")
+            .append(pjp.getSignature().toShortString())
+            .toString();
+        this.log.error(msg, e);
+      }
+      throw e;
+    }
+    if (this.log.isDebugEnabled()) {
+      this.log.debug("GenericAround :: Fin :: {} :: {}", pjp.getSignature().toShortString(), result);
     }
 
-    @AfterThrowing(
-            pointcut = "auditoriaPointcut() || controllerPointcut() || servicePointcut() || repositoryPointcut()",
-            throwing = "e")
-    public void genericAfterThrowing(final JoinPoint jp, final Exception e) {
-        if (this.log.isErrorEnabled() && !(CompletionException.class.equals(e.getClass())
-                && CancellationException.class.equals(e.getCause().getClass()))) {
-            final String msg = new StringBuilder("GenericAfterThrowing :: Error :: ")
-                .append(jp.getSignature().toShortString())
-                .append(" :: ")
-                .append(Arrays.asList(jp.getArgs()))
-                .toString();
-            this.log.error(msg, e);
-        }
+    final Instant end = Instant.now();
+    final Duration duration = Duration.between(start, end);
+    if (duration.compareTo(Duration.ofSeconds(60)) > 0) {
+      this.log.warn("GenericAround :: Lento :: Lento60 :: Duration[{}] :: {}", duration,
+          pjp.getSignature().toShortString());
+    } else if (duration.compareTo(Duration.ofSeconds(30)) > 0) {
+      this.log.warn("GenericAround :: Lento :: Lento30 :: Duration[{}] :: {}", duration,
+          pjp.getSignature().toShortString());
+    } else if (duration.compareTo(Duration.ofSeconds(15)) > 0) {
+      this.log.warn("GenericAround :: Lento :: Lento15 :: Duration[{}] :: {}", duration,
+          pjp.getSignature().toShortString());
     }
+
+    return result;
+  }
+
+  @AfterThrowing(
+      pointcut = "auditoriaPointcut() || controllerPointcut() || servicePointcut() || repositoryPointcut()",
+      throwing = "e")
+  public void genericAfterThrowing(final JoinPoint jp, final Exception e) {
+    if (this.log.isErrorEnabled()
+        && !(CompletionException.class.equals(e.getClass())
+            && CancellationException.class.equals(e.getCause().getClass()))) {
+      final String msg = new StringBuilder("GenericAfterThrowing :: Error :: ")
+          .append(jp.getSignature().toShortString())
+          .append(" :: ")
+          .append(Arrays.asList(jp.getArgs()))
+          .toString();
+      this.log.error(msg, e);
+    }
+  }
 
 }

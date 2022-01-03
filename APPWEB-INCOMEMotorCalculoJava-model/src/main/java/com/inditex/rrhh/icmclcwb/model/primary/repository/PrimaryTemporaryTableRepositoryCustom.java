@@ -1,11 +1,6 @@
-/**
- *
- */
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
 import java.util.List;
-
-import javax.validation.constraints.NotNull;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
@@ -14,383 +9,521 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-/**
- * @author mdelrio
- *
- */
+import javax.validation.constraints.NotNull;
+
 public interface PrimaryTemporaryTableRepositoryCustom {
 
-    /**
-     * @return
-     */
-    int createTempComisHistorico();
-
-    /**
-     * @return
-     */
-    int deleteTempComisHistorico();
-
-    /**
-     * @param listado
-     */
-    void insertTempComisHistorico(List<IdPersonaLocalCondicionesDto> listado);
-
-    /**
-     * @param tarea
-     * @return
-     */
-    void mergeDateRangesTempComisHistorico(final TareaDto tarea);
-
-    /**
-     * @return
-     */
-    int createTempComisDesplazamiento();
-
-    /**
-     * @return
-     */
-    int deleteTempComisDesplazamiento();
-
-    /**
-     * @param listado
-     */
-    void insertTempComisDesplazamiento(List<IdPersonaLocalCondicionesDto> listado);
-
-    /**
-     * @return
-     */
-    int createTempComisResalta();
-
-    /**
-     * @return
-     */
-    int deleteTempComisResalta();
-
-    /**
-     * @param listado
-     */
-    void insertTempComisResalta(List<IdPersonaLocalCondicionesDto> listado);
-
-    /**
-     * @return
-     */
-    int createTempComisBajaIt();
-
-    /**
-     * @return
-     */
-    int deleteTempComisBajaIt();
-
-    /**
-     * @param listado
-     */
-    void insertTempComisBajaIt(List<IdPersonaLocalCondicionesDto> listado);
-
-    /**
-     * @return
-     */
-    int createTempComisCarencia();
-
-    /**
-     * @return
-     */
-    int deleteTempComisCarencia();
-
-    /**
-     * @param listado
-     */
-    void insertTempComisCarencia(List<IdPersonaLocalCarenciaDto> listado);
-
-    /**
-     * @return
-     */
-    int createTempMotivoDesplazamientoComis();
-
-    /**
-     * @return
-     */
-    int deleteTempMotivoDesplazamientoComis();
-
-    /**
-     * @param listado
-     */
-    void insertTempMotivoDesplazamientoComis(List<IdMotivoDesplazamientoDto> listado);
-
-    /**
-     * @return
-     */
-    int deleteTempMotivoDesplazamientoMeta4();
-
-    /**
-     * @return
-     */
-    int createTempMotivoDesplazamientoMeta4();
-
-    /**
-     * @param listado
-     */
-    void insertTempMotivoDesplazamientoMeta4(List<IdMotivoDesplazamientoDto> listado);
-
-    /**
-     * @return
-     */
-    List<IdMotivoDesplazamientoDto> validateTempMotivoDesplazamiento();
-
-    /**
-     * @return
-     */
-    List<IdPersonaLocalDto> validateTempComisBajaIt(@NotNull TareaDto tarea);
-
-    /**
-     * @return
-     */
-    List<IdPersonaLocalDto> validateTempComisCarencia(@NotNull TareaDto tarea);
-
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalDto> validateTempComisHistorico(TareaDto tarea);
-
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalDto> validateTempComisDesplazamiento(TareaDto tarea);
-
-    /**
-     * @param tarea
-     * @return
-     */
-    List<IdPersonaLocalDto> validateTempComisResalta(TareaDto tarea);
-
-    /**
-     * @param tarea
-     */
-    void mergeDateRangesSeccionNotEqualsTempComisHistorico(TareaDto tarea);
-
-    /**
-     * @return
-     */
-    int deleteTempAlgoritmo();
-
-    /**
-     * @return
-     */
-    int createTempAlgoritmo();
-
-    /**
-     * @param algoritmoDto
-     */
-    void insertTempAlgoritmo(@NotNull List<GenericAlgoritmoPropertiesDto> algoritmoDto);
-
-    /**
-     * @return
-     */
-    int indexTempAlgoritmo();
-
-    /**
-     * @return
-     */
-    int deleteTempEstructura();
-
-    /**
-     * @return
-     */
-    int createTempEstructura();
-
-    /**
-     * @return
-     */
-    int indexTempEstructura();
-
-    /**
-     * @return
-     */
-    int deleteTempPersonas();
-
-    /**
-     * @return
-     */
-    int createTempPersonas();
-
-    /**
-     * @return
-     */
-    int indexTempPersonas();
-
-    /**
-     * @param algoritmoDto
-     */
-    void insertTempPersonas();
-
-    /**
-     * @return
-     */
-    int deleteTempPresupuestos();
-
-    /**
-     * @return
-     */
-    int createTempPresupuestos();
-
-    /**
-     * @return
-     */
-    int indexTempPresupuestos();
-
-    /**
-     * @param tareaDto
-     */
-    void insertTempPresupuestos(@NotNull TareaDto tareaDto);
-
-    /**
-     * @param tareaDto
-     */
-    void insertTempEstructura(@NotNull TareaDto tareaDto);
-
-    /**
-     * @param tareaDto
-     */
-    void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NotNull TareaDto tareaDto);
-
-    /**
-     * @param tarea
-     */
-    void mergeDateRangesSeccionNotEqualsTempComisResalta(TareaDto tarea);
-
-    /**
-     * @param tarea
-     */
-    void mergeDateRangesTempComisResalta(TareaDto tarea);
-
-    /**
-     * @return
-     */
-    int createTempComisPrimas();
-
-    /**
-     * @return
-     */
-    int deleteTempComisPrimas();
-
-    /**
-     * @param listado
-     */
-    void insertTempComisPrimas(List<IdPersonaLocalCondicionesDto> listado);
-
-    /**
-     * @param tarea
-     */
-    void mergeDateRangesSeccionNotEqualsTempComisPrimas(TareaDto tarea);
-
-    /**
-     * @param tarea
-     */
-    void mergeDateRangesTempComisPrimas(TareaDto tarea);
-
-    /**
-     * @param tarea
-     * @return lista de personas que no coinciden en COMIS e INCOME
-     */
-    List<IdPersonaLocalDto> validateTempComisPrimas(TareaDto tarea);
-
-    /**
-     * @return
-     */
-    int createTempCalculoPorComision();
-
-    /**
-     * @return
-     */
-    int deleteTempCalculoPorComision();
-
-    /**
-     * Totaliza los valores de TAREA_CALCULO del período por persona y tipo comisón.
-     * @param tarea
-     */
-    void mergeCalculoTempCalculoPorComision(TareaDto tarea);
-
-    /**
-     * Totaliza los valores de TAREA_CALCULO del período por persona. El tipo de comisión lo deja a
-     * nulo.
-     * @param tarea
-     */
-    void mergeCalculoTempCalculoSinComision(TareaDto tarea);
-
-    /**
-     * @return
-     */
-    int createTempCalculoAjusteTotalizado();
-
-    /**
-     * @return
-     */
-    int deleteTempCalculoAjusteTotalizado();
-
-    /**
-     * @param tarea
-     */
-    void mergeCalculoTempCalculoAjusteTotalizado(TareaDto tarea);
-
-    /**
-     * @return
-     */
-    int deleteTempMejorOpcion();
-
-    /**
-     * @return
-     */
-    int createTempMejorOpcion();
-
-    /**
-     * @return
-     */
-    int indexTempMejorOpcion();
-
-    /**
-     * @param tarea
-     */
-    void insertTempMejorOpcion(TareaDto tarea);
-
-    /**
-     * @return
-     */
-    int deleteTempMejorOpcionSinFechas();
-
-    /**
-     * @return
-     */
-    int createTempMejorOpcionSinFechas();
-
-    /**
-     * @return
-     */
-    int indexTempMejorOpcionSinFechas();
-
-    /**
-     * @param tarea
-     */
-    void insertTempMejorOpcionSinFechas(TareaDto tarea);
-
-    /**
-     * @return
-     */
-    int deleteTempMejorOpcionSinFechasTodoPeriodo();
-
-    /**
-     * @return
-     */
-    int createTempMejorOpcionSinFechasTodoPeriodo();
-
-    /**
-     * @return
-     */
-    int indexTempMejorOpcionSinFechasTodoPeriodo();
-
-    /**
-     * @param tarea
-     */
-    void insertTempMejorOpcionSinFechasTodoPeriodo(TareaDto tarea);
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempComisHistorico();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempComisHistorico();
+
+  /**
+   * Some javadoc.
+   *
+   * @param listado Some javadoc.
+   */
+  void insertTempComisHistorico(List<IdPersonaLocalCondicionesDto> listado);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void mergeDateRangesTempComisHistorico(final TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempComisDesplazamiento();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempComisDesplazamiento();
+
+  /**
+   * Some javadoc.
+   *
+   * @param listado Some javadoc.
+   */
+  void insertTempComisDesplazamiento(List<IdPersonaLocalCondicionesDto> listado);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempComisResalta();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempComisResalta();
+
+  /**
+   * Some javadoc.
+   *
+   * @param listado Some javadoc.
+   */
+  void insertTempComisResalta(List<IdPersonaLocalCondicionesDto> listado);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempComisBajaIt();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempComisBajaIt();
+
+  /**
+   * Some javadoc.
+   *
+   * @param listado Some javadoc.
+   */
+  void insertTempComisBajaIt(List<IdPersonaLocalCondicionesDto> listado);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempComisCarencia();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempComisCarencia();
+
+  /**
+   * Some javadoc.
+   *
+   * @param listado Some javadoc.
+   */
+  void insertTempComisCarencia(List<IdPersonaLocalCarenciaDto> listado);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempMotivoDesplazamientoComis();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempMotivoDesplazamientoComis();
+
+  /**
+   * Some javadoc.
+   *
+   * @param listado Some javadoc.
+   */
+  void insertTempMotivoDesplazamientoComis(List<IdMotivoDesplazamientoDto> listado);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempMotivoDesplazamientoMeta4();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempMotivoDesplazamientoMeta4();
+
+  /**
+   * Some javadoc.
+   *
+   * @param listado Some javadoc.
+   */
+  void insertTempMotivoDesplazamientoMeta4(List<IdMotivoDesplazamientoDto> listado);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  List<IdMotivoDesplazamientoDto> validateTempMotivoDesplazamiento();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  List<IdPersonaLocalDto> validateTempComisBajaIt(@NotNull TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  List<IdPersonaLocalDto> validateTempComisCarencia(@NotNull TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
+   */
+  List<IdPersonaLocalDto> validateTempComisHistorico(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
+   */
+  List<IdPersonaLocalDto> validateTempComisDesplazamiento(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
+   */
+  List<IdPersonaLocalDto> validateTempComisResalta(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void mergeDateRangesSeccionNotEqualsTempComisHistorico(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempAlgoritmo();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempAlgoritmo();
+
+  /**
+   * Some javadoc.
+   *
+   * @param algoritmoDto Some javadoc.
+   */
+  void insertTempAlgoritmo(@NotNull List<GenericAlgoritmoPropertiesDto> algoritmoDto);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempAlgoritmo();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempEstructura();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempEstructura();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempEstructura();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempPersonas();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempPersonas();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempPersonas();
+
+  /**
+   * Some javadoc.
+   */
+  void insertTempPersonas();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempPresupuestos();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempPresupuestos();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempPresupuestos();
+
+  /**
+   * Some javadoc.
+   *
+   * @param tareaDto Some javadoc.
+   */
+  void insertTempPresupuestos(@NotNull TareaDto tareaDto);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tareaDto Some javadoc.
+   */
+  void insertTempEstructura(@NotNull TareaDto tareaDto);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tareaDto Some javadoc.
+   */
+  void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NotNull TareaDto tareaDto);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void mergeDateRangesSeccionNotEqualsTempComisResalta(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void mergeDateRangesTempComisResalta(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempComisPrimas();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempComisPrimas();
+
+  /**
+   * Some javadoc.
+   *
+   * @param listado Some javadoc.
+   */
+  void insertTempComisPrimas(List<IdPersonaLocalCondicionesDto> listado);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void mergeDateRangesSeccionNotEqualsTempComisPrimas(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void mergeDateRangesTempComisPrimas(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return lista de personas que no coinciden en COMIS e INCOME
+   */
+  List<IdPersonaLocalDto> validateTempComisPrimas(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempCalculoPorComision();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempCalculoPorComision();
+
+  /**
+   * Totaliza los valores de TAREA_CALCULO del período por persona y tipo comisón.
+   *
+   * @param tarea Some javadoc.
+   */
+  void mergeCalculoTempCalculoPorComision(TareaDto tarea);
+
+  /**
+   * Totaliza los valores de TAREA_CALCULO del período por persona. El tipo de comisión lo deja a nulo.
+   *
+   * @param tarea Some javadoc.
+   */
+  void mergeCalculoTempCalculoSinComision(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempCalculoAjusteTotalizado();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempCalculoAjusteTotalizado();
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void mergeCalculoTempCalculoAjusteTotalizado(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempMejorOpcion();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempMejorOpcion();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempMejorOpcion();
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void insertTempMejorOpcion(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempMejorOpcionSinFechas();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempMejorOpcionSinFechas();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempMejorOpcionSinFechas();
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void insertTempMejorOpcionSinFechas(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempMejorOpcionSinFechasTodoPeriodo();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempMejorOpcionSinFechasTodoPeriodo();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempMejorOpcionSinFechasTodoPeriodo();
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void insertTempMejorOpcionSinFechasTodoPeriodo(TareaDto tarea);
 
 }

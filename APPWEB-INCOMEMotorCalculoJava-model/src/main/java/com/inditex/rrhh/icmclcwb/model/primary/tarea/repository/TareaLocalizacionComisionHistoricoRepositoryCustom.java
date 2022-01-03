@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionCom
 
 public interface TareaLocalizacionComisionHistoricoRepositoryCustom {
 
-    List<TareaLocalizacionComisionHistorico> save(List<TareaLocalizacionComisionHistorico> src);
+  List<TareaLocalizacionComisionHistorico> save(List<TareaLocalizacionComisionHistorico> src);
 
 }

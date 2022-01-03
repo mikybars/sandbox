@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CatalogoRequestDto implements Serializable {
 
-    private static final long serialVersionUID = -2377342242871575415L;
+  private static final long serialVersionUID = -2377342242871575415L;
 
-    private String cclIdOrigen;
+  private String cclIdOrigen;
 
-    private List<CatalogoRequestItemDto> items;
+  private List<CatalogoRequestItemDto> items;
 
 }

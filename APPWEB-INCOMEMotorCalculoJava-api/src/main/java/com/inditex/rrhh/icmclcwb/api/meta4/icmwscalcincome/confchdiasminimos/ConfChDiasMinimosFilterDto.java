@@ -9,14 +9,14 @@ import lombok.Data;
 @Data
 public class ConfChDiasMinimosFilterDto implements Serializable {
 
-    private static final long serialVersionUID = -496921289540066156L;
+  private static final long serialVersionUID = -496921289540066156L;
 
-    private LocalDateTime fechaInicio;
+  private LocalDateTime fechaInicio;
 
-    private LocalDateTime fechaFin;
+  private LocalDateTime fechaFin;
 
-    private String idOrigen;
+  private String idOrigen;
 
-    private List<ConfChDiasMinimosFilterParametersDto> item;
+  private List<ConfChDiasMinimosFilterParametersDto> item;
 
 }

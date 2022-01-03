@@ -2,11 +2,11 @@ package com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
+
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,14 +18,14 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class RunProgramacionPeriodoDto implements Serializable {
 
-    private static final long serialVersionUID = 8443425889094187729L;
+  private static final long serialVersionUID = 8443425889094187729L;
 
-    @NotNull
-    private ProgramacionAmbitoDto programacionAmbito;
+  @NotNull
+  private ProgramacionAmbitoDto programacionAmbito;
 
-    @NotNull
-    private PeriodoDto periodo;
+  @NotNull
+  private PeriodoDto periodo;
 
-    private TrabajoDto trabajo;
+  private TrabajoDto trabajo;
 
 }

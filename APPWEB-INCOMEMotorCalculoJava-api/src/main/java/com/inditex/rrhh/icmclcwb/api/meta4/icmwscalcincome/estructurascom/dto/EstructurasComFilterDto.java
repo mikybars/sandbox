@@ -9,14 +9,14 @@ import lombok.Data;
 @Data
 public class EstructurasComFilterDto implements Serializable {
 
-    private static final long serialVersionUID = -5790863324236725001L;
+  private static final long serialVersionUID = -5790863324236725001L;
 
-    private LocalDateTime fechaInicio;
+  private LocalDateTime fechaInicio;
 
-    private LocalDateTime fechaFin;
+  private LocalDateTime fechaFin;
 
-    private String idOrigen;
+  private String idOrigen;
 
-    private List<EstructurasComFilterParametersDto> item;
+  private List<EstructurasComFilterParametersDto> item;
 
 }

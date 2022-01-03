@@ -10,7 +10,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Entity
@@ -18,18 +17,18 @@ import lombok.Data;
 @Data
 public class ProgramacionAmbito {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_PROGRAMACION_AMBITO")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID_PROGRAMACION_AMBITO")
+  private Long id;
 
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "ID_PROGRAMACION", nullable = false)
-    private Programacion programacion;
+  @NotNull
+  @OneToOne
+  @JoinColumn(name = "ID_PROGRAMACION", nullable = false)
+  private Programacion programacion;
 
-    @NotBlank
-    @Column(name = "ID_ORGANIZATION", length = 48, nullable = false)
-    private String idOrganization;
+  @NotBlank
+  @Column(name = "ID_ORGANIZATION", length = 48, nullable = false)
+  private String idOrganization;
 
 }

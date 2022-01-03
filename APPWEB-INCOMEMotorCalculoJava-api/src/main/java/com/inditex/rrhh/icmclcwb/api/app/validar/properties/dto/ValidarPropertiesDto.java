@@ -5,12 +5,12 @@ import lombok.Data;
 @Data
 public class ValidarPropertiesDto {
 
-    boolean enabled;
+  boolean enabled;
 
-    boolean logging;
+  boolean logging;
 
-    boolean exception;
+  boolean exception;
 
-    int threadSize;
+  int threadSize;
 
 }

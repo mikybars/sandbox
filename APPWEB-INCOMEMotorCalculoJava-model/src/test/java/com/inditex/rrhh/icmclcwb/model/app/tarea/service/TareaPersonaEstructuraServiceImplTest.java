@@ -1,9 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
@@ -12,62 +15,59 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraMa
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraRepositoryCustom;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 public class TareaPersonaEstructuraServiceImplTest {
 
-    @Mock
-    private TareaPersonaEstructuraRepositoryCustom tareaPersonaEstructuraRepositoryCustom;
+  @Mock
+  private TareaPersonaEstructuraRepositoryCustom tareaPersonaEstructuraRepositoryCustom;
 
-    @InjectMocks
-    private TareaPersonaEstructuraServiceImpl tareaPersonaEstructuraServiceImpl;
+  @InjectMocks
+  private TareaPersonaEstructuraServiceImpl tareaPersonaEstructuraServiceImpl;
 
-    @Mock
-    private TareaPersonaEstructuraMapper tareaPersonaEstructuraMapper;
+  @Mock
+  private TareaPersonaEstructuraMapper tareaPersonaEstructuraMapper;
 
-    @Mock
-    private TrabajoServiceImpl trabajoServiceImpl;
+  @Mock
+  private TrabajoServiceImpl trabajoServiceImpl;
 
-    @Test
-    public void saveTest() {
-        final TareaDto tarea = mock(TareaDto.class);
-        tarea.setIdTrabajo(1L);
-        final List<TareaPersonaEstructuraDto> estructuras = new ArrayList<>();
+  @Test
+  public void saveTest() {
+    final TareaDto tarea = mock(TareaDto.class);
+    tarea.setIdTrabajo(1L);
+    final List<TareaPersonaEstructuraDto> estructuras = new ArrayList<>();
 
-        this.tareaPersonaEstructuraServiceImpl.save(estructuras, tarea);
-        verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).save(ArgumentMatchers
-            .<List<TareaPersonaEstructura>>any());
-    }
+    this.tareaPersonaEstructuraServiceImpl.save(estructuras, tarea);
+    verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).save(ArgumentMatchers
+        .<List<TareaPersonaEstructura>>any());
+  }
 
-    @Test
-    public void mergeEstructurasComResultItemDtoTest() {
-        final TareaDto tarea = mock(TareaDto.class);
-        tarea.setIdTrabajo(1L);
-        final List<EstructurasComResultItemDto> estructuras = new ArrayList<>();
+  @Test
+  public void mergeEstructurasComResultItemDtoTest() {
+    final TareaDto tarea = mock(TareaDto.class);
+    tarea.setIdTrabajo(1L);
+    final List<EstructurasComResultItemDto> estructuras = new ArrayList<>();
 
-        this.tareaPersonaEstructuraServiceImpl.mergeEstructurasComResultItemDto(estructuras, tarea);
-        verify(this.tareaPersonaEstructuraMapper, times(1))
-            .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(
-                    ArgumentMatchers.<List<EstructurasComResultItemDto>>any(), any(TareaDto.class));
-    }
+    this.tareaPersonaEstructuraServiceImpl.mergeEstructurasComResultItemDto(estructuras, tarea);
+    verify(this.tareaPersonaEstructuraMapper, times(1))
+        .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(
+            ArgumentMatchers.<List<EstructurasComResultItemDto>>any(), any(TareaDto.class));
+  }
 
-    @Test
-    public void findPersonasChallengeTest() {
-        final TareaDto tarea = mock(TareaDto.class);
-        tarea.setIdTrabajo(1L);
+  @Test
+  public void findPersonasChallengeTest() {
+    final TareaDto tarea = mock(TareaDto.class);
+    tarea.setIdTrabajo(1L);
 
-        this.tareaPersonaEstructuraServiceImpl.findPersonasChallenge(tarea);
-        verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).findPersonasChallenge(any(TareaDto.class));
-    }
+    this.tareaPersonaEstructuraServiceImpl.findPersonasChallenge(tarea);
+    verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).findPersonasChallenge(any(TareaDto.class));
+  }
 
 }

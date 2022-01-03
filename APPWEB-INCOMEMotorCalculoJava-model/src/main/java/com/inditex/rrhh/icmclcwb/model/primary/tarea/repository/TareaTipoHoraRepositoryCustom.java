@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTipoHora;
 
 public interface TareaTipoHoraRepositoryCustom {
 
-    List<TareaTipoHora> save(List<TareaTipoHora> src);
+  List<TareaTipoHora> save(List<TareaTipoHora> src);
 
 }

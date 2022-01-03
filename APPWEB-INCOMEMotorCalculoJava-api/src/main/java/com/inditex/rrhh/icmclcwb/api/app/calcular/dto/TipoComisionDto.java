@@ -12,9 +12,9 @@ import lombok.Data;
 @Builder
 public class TipoComisionDto implements Serializable {
 
-    private static final long serialVersionUID = -3656530078406256961L;
+  private static final long serialVersionUID = -3656530078406256961L;
 
-    @ApiModelProperty(value = "Identificador del tipo de comision", required = true)
-    private String id;
+  @ApiModelProperty(value = "Identificador del tipo de comision", required = true)
+  private String id;
 
 }

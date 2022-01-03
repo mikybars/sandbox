@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.properties.dto.RunAjustePropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.async.ajustar.personas.CalculoAjusteMaximoGarantizadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
@@ -19,68 +15,72 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjuste;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteMaximoGarantizadoRepositoryCustom;
+
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 @Service
 public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
 
-    @Autowired
-    private Logger log;
+  @Autowired
+  private Logger log;
 
-    @Autowired
-    @Qualifier("runAjusteProperties")
-    private RunAjustePropertiesDto runAjusteProperties;
+  @Autowired
+  @Qualifier("runAjusteProperties")
+  private RunAjustePropertiesDto runAjusteProperties;
 
-    @Autowired
-    private TareaCalculoAjusteMaximoGarantizadoRepositoryCustom tareaCalculoAjusteMaximoGarantizadoRepositoryCustom;
+  @Autowired
+  private TareaCalculoAjusteMaximoGarantizadoRepositoryCustom tareaCalculoAjusteMaximoGarantizadoRepositoryCustom;
 
-    @Autowired
-    private TareaCalculoPersonaService tareaCalculoPersonaService;
+  @Autowired
+  private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-    @Autowired
-    private CalculoAjusteMaximoGarantizadoAsyncService calculoAjusteMaximoGarantizadoAsyncService;
+  @Autowired
+  private CalculoAjusteMaximoGarantizadoAsyncService calculoAjusteMaximoGarantizadoAsyncService;
 
-    @Override
-    public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
-        this.log.info(
-                "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMaximoGarantizadoProcesar :: Ids",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
-        final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom
-            .ids(runTarea.getTarea());
-        this.log.info(
-                "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteMaximoGarantizadoProcesar :: Ids: {}",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
+  @Override
+  public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
+    this.log.info(
+        "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMaximoGarantizadoProcesar :: Ids",
+        runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
+    final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom
+        .ids(runTarea.getTarea());
+    this.log.info(
+        "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteMaximoGarantizadoProcesar :: Ids: {}",
+        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
-        final List<CompletableFuture<?>> cf = new ArrayList<>();
-        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
-                ids,
-                this.runAjusteProperties.getAjuste().getBatchSize())) {
-            AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
+    for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
+        ids,
+        this.runAjusteProperties.getAjuste().getBatchSize())) {
+      AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
 
-            this.log.info(
-                    "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}",
-                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
-            try {
-                final CompletableFuture<Void> cfAjuste = this.calculoAjusteMaximoGarantizadoAsyncService
-                    .ajustar(
-                            algoritmoAjuste, runTarea.getTarea(),
-                            personas);
-                AsyncUtils.exceptionally(cfAjuste, cf);
-            } catch (final Exception e) {
-                AsyncUtils.cancel(cf);
-                this.log.error("RunAjusteMaximoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
-                this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                        EstadoTareaCalculoPersonaEnum.KO.getDto());
-            }
-            this.log.info("Fin :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
+      this.log.info(
+          "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}",
+          runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+      try {
+        final CompletableFuture<Void> cfAjuste = this.calculoAjusteMaximoGarantizadoAsyncService
+            .ajustar(
+                algoritmoAjuste, runTarea.getTarea(),
+                personas);
+        AsyncUtils.exceptionally(cfAjuste, cf);
+      } catch (final Exception e) {
+        AsyncUtils.cancel(cf);
+        this.log.error("RunAjusteMaximoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
+        this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+            EstadoTareaCalculoPersonaEnum.KO.getDto());
+      }
+      this.log.info("Fin :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
 
-        }
-        AsyncUtils.waitAllOfIsOk(cf, cf);
+      AsyncUtils.waitAllOfIsOk(cf, cf);
     }
+  }
 
-    @Override
-    public String getSqlCalcular(final AlgoritmoAjusteDto algoritmoAjuste) {
-        return this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.getSqlAjustar(algoritmoAjuste);
-    }
+  @Override
+  public String getSqlCalcular(final AlgoritmoAjusteDto algoritmoAjuste) {
+    return this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.getSqlAjustar(algoritmoAjuste);
+  }
 
 }

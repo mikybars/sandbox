@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -19,73 +15,79 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom;
+
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 @Component("directoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1")
 public class DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo implements RunAlgoritmo {
 
-    @Autowired
-    private Logger log;
+  @Autowired
+  private Logger log;
 
-    @Autowired
-    @Qualifier("runAlgoritmoProperties")
-    private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
+  @Autowired
+  @Qualifier("runAlgoritmoProperties")
+  private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
-    @Autowired
-    private TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom;
+  @Autowired
+  private TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom;
 
-    @Autowired
-    private TareaCalculoPersonaService tareaCalculoPersonaService;
+  @Autowired
+  private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-
-    @Override
-    public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
-        this.log.info(
-                "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Ids",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
-        final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
+  @Override
+  public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
+    this.log.info(
+        "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Ids",
+        runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
+    final List<IdPersonaLocalDto> ids =
+        this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
             .ids(algoritmo, runTarea.getTarea());
-        this.log.info(
-                "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Ids: {}",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
+    this.log.info(
+        "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Ids: {}",
+        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
-        final List<CompletableFuture<?>> cf = new ArrayList<>();
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
 
-        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
-                ids,
-                this.runAlgoritmoProperties.getCalculo().getBatchSize())) {
-            AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
+    for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(
+        ids,
+        this.runAlgoritmoProperties.getCalculo().getBatchSize())) {
+      AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
 
-            this.log.info(
-                    "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
-                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
-            try {
-                final CompletableFuture<Void> cfCalc = this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
-                    .calcular(algoritmo,
-                            runTarea.getTarea(), personas);
-                AsyncUtils.exceptionally(cfCalc, cf);
+      this.log.info(
+          "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas:"
+              + " {}",
+          runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+      try {
+        final CompletableFuture<Void> cfCalc =
+            this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
+                .calcular(algoritmo,
+                    runTarea.getTarea(), personas);
+        AsyncUtils.exceptionally(cfCalc, cf);
 
-            } catch (final Exception e) {
-                AsyncUtils.cancel(cf);
-                this.log.error(
-                        "Trabajo[{}]Tarea[{}] :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
-                        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
-                this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
-                        EstadoTareaCalculoPersonaEnum.KO.getDto());
-            }
-            this.log.info(
-                    "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
-                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
-        }
-        AsyncUtils.waitAllOfIsOk(cf, cf);
-
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+      } catch (final Exception e) {
+        AsyncUtils.cancel(cf);
+        this.log.error(
+            "Trabajo[{}]Tarea[{}] :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
+            runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
+        this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
+            EstadoTareaCalculoPersonaEnum.KO.getDto());
+      }
+      this.log.info(
+          "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+          runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
     }
+    AsyncUtils.waitAllOfIsOk(cf, cf);
 
-    @Override
-    public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
-        return this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
-            .getSqlCalcular(algoritmo);
-    }
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
+
+  @Override
+  public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
+    return this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom
+        .getSqlCalcular(algoritmo);
+  }
 
 }

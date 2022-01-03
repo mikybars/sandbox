@@ -5,10 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
-
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -17,53 +13,62 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
+
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class TareaCalculoAlgoritmoAjusteManualV1RepositoryCustomImpl
-        extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
-        implements TareaCalculoAlgoritmoAjusteManualV1RepositoryCustom {
+    extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
+    implements TareaCalculoAlgoritmoAjusteManualV1RepositoryCustom {
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
-    @Getter
-    private String sqlCalcular;
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
+  @Getter
+  private String sqlCalcular;
 
-    @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
-    @Getter
-    private String sqlCalcularBase;
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoAjusteManualV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseAjusteRepository.calcular.where']}")
+  @Getter
+  private String sqlCalcularBase;
 
-    @Autowired
-    private TareaCalculoPersonaService tareaCalculoPersonaService;
+  @Autowired
+  private TareaCalculoPersonaService tareaCalculoPersonaService;
 
-    @Override
-    public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
-        return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
+  @Override
+  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
+    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
+  }
+
+  @Override
+  protected Map<String, Object> getMapValues(
+      final AlgoritmoDTO algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
+    final Map<String, Object> map = new HashMap<>();
+    if (tarea != null) {
+      map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     }
-
-    @Override
-    protected Map<String, Object> getMapValues(
-            final AlgoritmoDTO algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
-        final Map<String, Object> map = new HashMap<>();
-        if (tarea != null) {
-            map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-        }
-        if (persona != null) {
-            map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
-            map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
-        }
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-        map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_COMISION, TipoComisionEnum.AJUSTE_MANUAL.getId());
-        map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION,
-                algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
-        map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO,
-                algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).collect(Collectors.toList()));
-        map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO, algoritmo.getDesplazamiento()
-                ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-        map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, algoritmo.getDesplazamientoBase()
-                ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-
-        return map;
-
+    if (persona != null) {
+      map.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
+      map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
     }
+    map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
+    map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_COMISION, TipoComisionEnum.AJUSTE_MANUAL.getId());
+    map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION,
+        algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
+    map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO,
+        algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).collect(Collectors.toList()));
+    map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO, algoritmo.getDesplazamiento()
+        ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
+        : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, algoritmo.getDesplazamientoBase()
+        ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
+        : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+
+    return map;
+
+  }
 
 }

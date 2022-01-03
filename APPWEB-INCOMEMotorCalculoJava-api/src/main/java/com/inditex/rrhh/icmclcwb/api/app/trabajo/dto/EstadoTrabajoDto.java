@@ -18,9 +18,9 @@ import lombok.ToString;
 @ToString
 public class EstadoTrabajoDto implements Serializable {
 
-    private static final long serialVersionUID = -7864441917446430800L;
+  private static final long serialVersionUID = -7864441917446430800L;
 
-    @ApiModelProperty(value = "Identificador del estado del trabajo", required = true)
-    private Integer id;
+  @ApiModelProperty(value = "Identificador del estado del trabajo", required = true)
+  private Integer id;
 
 }

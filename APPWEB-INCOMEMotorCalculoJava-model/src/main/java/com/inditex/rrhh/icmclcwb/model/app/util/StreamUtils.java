@@ -14,17 +14,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class StreamUtils {
 
-    private StreamUtils() {
-    }
+  private StreamUtils() {
+  }
 
-    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
-        Set<Object> seen = ConcurrentHashMap.newKeySet();
-        return t -> seen.add(keyExtractor.apply(t));
-    }
+  public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+    Set<Object> seen = ConcurrentHashMap.newKeySet();
+    return t -> seen.add(keyExtractor.apply(t));
+  }
 
-    public static <T> Collection<List<T>> partition(Collection<T> collection, int size) {
-        final AtomicInteger counter = new AtomicInteger(0);
-        return collection.stream().collect(Collectors.groupingBy(item -> counter.getAndIncrement() / size)).values();
-    }
+  public static <T> Collection<List<T>> partition(Collection<T> collection, int size) {
+    final AtomicInteger counter = new AtomicInteger(0);
+    return collection.stream().collect(Collectors.groupingBy(item -> counter.getAndIncrement() / size)).values();
+  }
 
 }

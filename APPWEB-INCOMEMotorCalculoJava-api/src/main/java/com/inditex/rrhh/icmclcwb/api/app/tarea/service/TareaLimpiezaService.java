@@ -7,10 +7,10 @@ import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 
 public interface TareaLimpiezaService {
 
-    TareaLimpiezaDto save(TareaLimpiezaDto tareaLimpieza);
+  TareaLimpiezaDto save(TareaLimpiezaDto tareaLimpieza);
 
-    List<TareaLimpiezaDto> save(List<IdTareaDTO> idTareas);
+  List<TareaLimpiezaDto> save(List<IdTareaDTO> idTareas);
 
-    TareaLimpiezaDto find(Long id);
+  TareaLimpiezaDto find(Long id);
 
 }

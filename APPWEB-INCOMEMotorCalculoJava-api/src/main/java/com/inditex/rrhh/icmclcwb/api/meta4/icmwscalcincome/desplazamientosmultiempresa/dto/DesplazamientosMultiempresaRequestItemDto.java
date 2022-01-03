@@ -10,14 +10,14 @@ import lombok.Data;
 @Data
 public class DesplazamientosMultiempresaRequestItemDto implements Serializable {
 
-    private static final long serialVersionUID = -1791994449980402147L;
+  private static final long serialVersionUID = -1791994449980402147L;
 
-    private LocalDate fechaInicio;
+  private LocalDate fechaInicio;
 
-    private LocalDate fechaFin;
+  private LocalDate fechaFin;
 
-    private String idOrigen;
+  private String idOrigen;
 
-    private String idEmpresa;
+  private String idEmpresa;
 
 }

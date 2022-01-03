@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;
@@ -28,13 +27,10 @@ import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
-
 /**
- * <p>
- * Clase Java para anonymous complex type.
+ * <p> Clase Java para anonymous complex type.
  *
- * <p>
- * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -52,139 +48,141 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "icmparamcalestructura"
+    "icmparamcalestructura"
 })
 @XmlRootElement(name = "GETESTRUCTURASCOM")
 public class GETESTRUCTURASCOM implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
-    private final static long serialVersionUID = 1L;
+  private final static long serialVersionUID = 1L;
 
-    @XmlElement(name = "ICM_PARAMCALESTRUCTURA", required = true)
-    protected IcmParamcalestructuraBlock icmparamcalestructura;
+  @XmlElement(name = "ICM_PARAMCALESTRUCTURA", required = true)
+  protected IcmParamcalestructuraBlock icmparamcalestructura;
 
-    /**
-     * Obtiene el valor de la propiedad icmparamcalestructura.
-     * @return possible object is {@link IcmParamcalestructuraBlock }
-     *
-     */
-    public IcmParamcalestructuraBlock getICMPARAMCALESTRUCTURA() {
-        return icmparamcalestructura;
+  /**
+   * Obtiene el valor de la propiedad icmparamcalestructura.
+   * 
+   * @return possible object is {@link IcmParamcalestructuraBlock }
+   *
+   */
+  public IcmParamcalestructuraBlock getICMPARAMCALESTRUCTURA() {
+    return icmparamcalestructura;
+  }
+
+  /**
+   * Define el valor de la propiedad icmparamcalestructura.
+   * 
+   * @param value allowed object is {@link IcmParamcalestructuraBlock }
+   *
+   */
+  public void setICMPARAMCALESTRUCTURA(IcmParamcalestructuraBlock value) {
+    this.icmparamcalestructura = value;
+  }
+
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
+      EqualsStrategy2 strategy) {
+    if ((object == null) || (this.getClass() != object.getClass())) {
+      return false;
     }
-
-    /**
-     * Define el valor de la propiedad icmparamcalestructura.
-     * @param value allowed object is {@link IcmParamcalestructuraBlock }
-     *
-     */
-    public void setICMPARAMCALESTRUCTURA(IcmParamcalestructuraBlock value) {
-        this.icmparamcalestructura = value;
+    if (this == object) {
+      return true;
     }
+    final GETESTRUCTURASCOM that = ((GETESTRUCTURASCOM) object);
+    {
+      IcmParamcalestructuraBlock lhsICMPARAMCALESTRUCTURA;
+      lhsICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
+      IcmParamcalestructuraBlock rhsICMPARAMCALESTRUCTURA;
+      rhsICMPARAMCALESTRUCTURA = that.getICMPARAMCALESTRUCTURA();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalestructura", lhsICMPARAMCALESTRUCTURA),
+          LocatorUtils.property(thatLocator, "icmparamcalestructura", rhsICMPARAMCALESTRUCTURA),
+          lhsICMPARAMCALESTRUCTURA, rhsICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null),
+          (that.icmparamcalestructura != null))) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-            EqualsStrategy2 strategy) {
-        if ((object == null) || (this.getClass() != object.getClass())) {
-            return false;
+  public boolean equals(Object object) {
+    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+    return equals(null, null, object, strategy);
+  }
+
+  public String toString() {
+    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+    final StringBuilder buffer = new StringBuilder();
+    append(null, buffer, strategy);
+    return buffer.toString();
+  }
+
+  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    strategy.appendStart(locator, this, buffer);
+    appendFields(locator, buffer, strategy);
+    strategy.appendEnd(locator, this, buffer);
+    return buffer;
+  }
+
+  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    {
+      IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
+      theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
+      strategy.appendField(locator, this, "icmparamcalestructura", buffer, theICMPARAMCALESTRUCTURA,
+          (this.icmparamcalestructura != null));
+    }
+    return buffer;
+  }
+
+  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+    int currentHashCode = 1;
+    {
+      IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
+      theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
+      currentHashCode = strategy.hashCode(
+          LocatorUtils.property(locator, "icmparamcalestructura", theICMPARAMCALESTRUCTURA), currentHashCode,
+          theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null));
+    }
+    return currentHashCode;
+  }
+
+  public int hashCode() {
+    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+    return this.hashCode(null, strategy);
+  }
+
+  public Object clone() {
+    return copyTo(createNewInstance());
+  }
+
+  public Object copyTo(Object target) {
+    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+    return copyTo(null, target, strategy);
+  }
+
+  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+    if (draftCopy instanceof GETESTRUCTURASCOM) {
+      final GETESTRUCTURASCOM copy = ((GETESTRUCTURASCOM) draftCopy);
+      {
+        Boolean icmparamcalestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+            (this.icmparamcalestructura != null));
+        if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
+          IcmParamcalestructuraBlock sourceICMPARAMCALESTRUCTURA;
+          sourceICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
+          IcmParamcalestructuraBlock copyICMPARAMCALESTRUCTURA = ((IcmParamcalestructuraBlock) strategy.copy(
+              LocatorUtils.property(locator, "icmparamcalestructura", sourceICMPARAMCALESTRUCTURA),
+              sourceICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null)));
+          copy.setICMPARAMCALESTRUCTURA(copyICMPARAMCALESTRUCTURA);
+        } else {
+          if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmparamcalestructura = null;
+          }
         }
-        if (this == object) {
-            return true;
-        }
-        final GETESTRUCTURASCOM that = ((GETESTRUCTURASCOM) object);
-        {
-            IcmParamcalestructuraBlock lhsICMPARAMCALESTRUCTURA;
-            lhsICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-            IcmParamcalestructuraBlock rhsICMPARAMCALESTRUCTURA;
-            rhsICMPARAMCALESTRUCTURA = that.getICMPARAMCALESTRUCTURA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalestructura", lhsICMPARAMCALESTRUCTURA),
-                    LocatorUtils.property(thatLocator, "icmparamcalestructura", rhsICMPARAMCALESTRUCTURA),
-                    lhsICMPARAMCALESTRUCTURA, rhsICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null),
-                    (that.icmparamcalestructura != null))) {
-                return false;
-            }
-        }
-        return true;
+      }
     }
+    return draftCopy;
+  }
 
-    public boolean equals(Object object) {
-        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return equals(null, null, object, strategy);
-    }
-
-    public String toString() {
-        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-        final StringBuilder buffer = new StringBuilder();
-        append(null, buffer, strategy);
-        return buffer.toString();
-    }
-
-    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        strategy.appendStart(locator, this, buffer);
-        appendFields(locator, buffer, strategy);
-        strategy.appendEnd(locator, this, buffer);
-        return buffer;
-    }
-
-    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        {
-            IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
-            theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-            strategy.appendField(locator, this, "icmparamcalestructura", buffer, theICMPARAMCALESTRUCTURA,
-                    (this.icmparamcalestructura != null));
-        }
-        return buffer;
-    }
-
-    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-        int currentHashCode = 1;
-        {
-            IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
-            theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-            currentHashCode = strategy.hashCode(
-                    LocatorUtils.property(locator, "icmparamcalestructura", theICMPARAMCALESTRUCTURA), currentHashCode,
-                    theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null));
-        }
-        return currentHashCode;
-    }
-
-    public int hashCode() {
-        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-        return this.hashCode(null, strategy);
-    }
-
-    public Object clone() {
-        return copyTo(createNewInstance());
-    }
-
-    public Object copyTo(Object target) {
-        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return copyTo(null, target, strategy);
-    }
-
-    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null) ? createNewInstance() : target);
-        if (draftCopy instanceof GETESTRUCTURASCOM) {
-            final GETESTRUCTURASCOM copy = ((GETESTRUCTURASCOM) draftCopy);
-            {
-                Boolean icmparamcalestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-                        (this.icmparamcalestructura != null));
-                if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParamcalestructuraBlock sourceICMPARAMCALESTRUCTURA;
-                    sourceICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-                    IcmParamcalestructuraBlock copyICMPARAMCALESTRUCTURA = ((IcmParamcalestructuraBlock) strategy.copy(
-                            LocatorUtils.property(locator, "icmparamcalestructura", sourceICMPARAMCALESTRUCTURA),
-                            sourceICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null)));
-                    copy.setICMPARAMCALESTRUCTURA(copyICMPARAMCALESTRUCTURA);
-                } else {
-                    if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparamcalestructura = null;
-                    }
-                }
-            }
-        }
-        return draftCopy;
-    }
-
-    public Object createNewInstance() {
-        return new GETESTRUCTURASCOM();
-    }
+  public Object createNewInstance() {
+    return new GETESTRUCTURASCOM();
+  }
 
 }

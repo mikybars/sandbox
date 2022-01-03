@@ -4,16 +4,16 @@ import java.math.BigDecimal;
 
 public interface CadenaVentaResultItemDto {
 
-    Integer getCadena();
+  Integer getCadena();
 
-    BigDecimal getImporteSinIVA();
+  BigDecimal getImporteSinIVA();
 
-    BigDecimal getImporteConIVA();
+  BigDecimal getImporteConIVA();
 
-    String getFecha();
+  String getFecha();
 
-    Integer getSeccion();
+  Integer getSeccion();
 
-    Integer getPais();
+  Integer getPais();
 
 }

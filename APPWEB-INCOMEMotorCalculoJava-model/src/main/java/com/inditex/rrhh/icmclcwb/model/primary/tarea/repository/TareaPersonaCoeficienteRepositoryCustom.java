@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaCoeficie
 
 public interface TareaPersonaCoeficienteRepositoryCustom {
 
-    List<TareaPersonaCoeficiente> save(List<TareaPersonaCoeficiente> src);
+  List<TareaPersonaCoeficiente> save(List<TareaPersonaCoeficiente> src);
 
 }

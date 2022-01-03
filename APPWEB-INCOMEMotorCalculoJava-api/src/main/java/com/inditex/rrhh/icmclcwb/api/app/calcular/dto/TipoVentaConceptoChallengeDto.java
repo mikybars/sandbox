@@ -9,14 +9,14 @@ import lombok.Data;
 @Data
 public class TipoVentaConceptoChallengeDto implements Serializable {
 
-    private static final long serialVersionUID = -1442619013808761570L;
+  private static final long serialVersionUID = -1442619013808761570L;
 
-    private Long id;
+  private Long id;
 
-    private String nombre;
+  private String nombre;
 
-    private String descripcion;
+  private String descripcion;
 
-    private String icmIdConceptoVenta;
+  private String icmIdConceptoVenta;
 
 }
