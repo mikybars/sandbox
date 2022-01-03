@@ -21,7 +21,7 @@ metadata:
   slot: develop
   developModel: CORPORATE
   layer: core 
-  version: 4.10.2
+  version: 4.10.3
 amiga:
   monitoring:
     metrics:
@@ -842,8 +842,8 @@ app:
       config:
         max-attempts: 20
         credentials:
-          user: SRVCICMCLCWSAX
-          password: sAQmtSsIDJ2X-Z
+          user: INCOME_CALC
+          password: 123
 #          user: SRVCICMCLCWSDESAX
 #          password: kUZaIucw>WVIO9x
 #          user: SRVCICMCLCWSPREAX
@@ -861,12 +861,12 @@ app:
         path: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/validationCheck
       login:
         #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
-        server: https://sscc.central.inditex.grp/icmclcws/services/Login
+        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/Login
         #server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
       icmwscalcincome:
         #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        server: https://sscc.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         service:
