@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
@@ -12,18 +9,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author mdelrio
- *
- */
 @ApiModel(description = "Modelo FaseDto")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class FaseDto implements Serializable {
 
-    @ApiModelProperty(value = "Identificador de fase", required = false, accessMode = AccessMode.READ_ONLY,
-            hidden = true)
-    private Integer id;
+  @ApiModelProperty(value = "Identificador de fase", required = false, accessMode = AccessMode.READ_ONLY,
+      hidden = true)
+  private Integer id;
 
 }

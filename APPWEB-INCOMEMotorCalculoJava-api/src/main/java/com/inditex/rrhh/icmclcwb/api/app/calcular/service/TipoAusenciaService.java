@@ -4,8 +4,8 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoAusenciaDto;
 
 public interface TipoAusenciaService {
 
-    TipoAusenciaDto findByIcmTpAbsence(String icmTpAbsence);
+  TipoAusenciaDto findByIcmTpAbsence(String icmTpAbsence);
 
-    TipoAusenciaDto findById(Integer id);
+  TipoAusenciaDto findById(Integer id);
 
 }

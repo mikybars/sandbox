@@ -9,14 +9,14 @@ import lombok.Data;
 @Data
 public class ConfPrecioHoraFilterDto implements Serializable {
 
-    private static final long serialVersionUID = -1696271383981290890L;
+  private static final long serialVersionUID = -1696271383981290890L;
 
-    private LocalDateTime fechaInicio;
+  private LocalDateTime fechaInicio;
 
-    private LocalDateTime fechaFin;
+  private LocalDateTime fechaFin;
 
-    private String idOrigen;
+  private String idOrigen;
 
-    private List<ConfPrecioHoraFilterParametersDto> item;
+  private List<ConfPrecioHoraFilterParametersDto> item;
 
 }

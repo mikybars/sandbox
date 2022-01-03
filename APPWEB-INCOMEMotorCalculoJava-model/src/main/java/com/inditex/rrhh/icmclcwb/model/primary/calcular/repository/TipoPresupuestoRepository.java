@@ -5,6 +5,6 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TipoPresupuestoRepository extends BaseRepository<TipoPresupuesto, Integer> {
 
-    TipoPresupuesto findByIcmIdTpPresupuesto(String icmIdTpPresupuesto);
+  TipoPresupuesto findByIcmIdTpPresupuesto(String icmIdTpPresupuesto);
 
 }

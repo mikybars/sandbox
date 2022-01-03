@@ -6,7 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,16 +21,16 @@ import lombok.ToString;
 @ToString
 public class EstadoPeriodoCalculoPersona {
 
-    @Id
-    @Column(name = "ID_ESTADO_PERIODO_CALCULO_PERSONA")
-    private Integer id;
+  @Id
+  @Column(name = "ID_ESTADO_PERIODO_CALCULO_PERSONA")
+  private Integer id;
 
-    @NotBlank
-    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
-    private String nombre;
+  @NotBlank
+  @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
+  private String nombre;
 
-    @NotNull
-    @Column(name = "PESO", nullable = false)
-    private Integer peso;
+  @NotNull
+  @Column(name = "PESO", nullable = false)
+  private Integer peso;
 
 }

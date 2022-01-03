@@ -14,7 +14,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Entity
@@ -22,36 +21,36 @@ import lombok.Data;
 @Data
 public class TareaConfiguracionPrecioHora {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_CONFIGURACION_PRECIO_HORA")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID_TAREA_CONFIGURACION_PRECIO_HORA")
+  private Long id;
 
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "ID_TAREA", nullable = false)
-    private Tarea tarea;
+  @NotNull
+  @OneToOne
+  @JoinColumn(name = "ID_TAREA", nullable = false)
+  private Tarea tarea;
 
-    @NotNull
-    @Column(name = "ICM_CK_TP_HORA_COMIS", nullable = false)
-    private Boolean icmCkTpHoraComis;
+  @NotNull
+  @Column(name = "ICM_CK_TP_HORA_COMIS", nullable = false)
+  private Boolean icmCkTpHoraComis;
 
-    @NotNull
-    @Column(name = "ICM_CK_TP_HORA_INC_PTPO", nullable = false)
-    private Boolean icmCkTpHoraIncPtpo;
+  @NotNull
+  @Column(name = "ICM_CK_TP_HORA_INC_PTPO", nullable = false)
+  private Boolean icmCkTpHoraIncPtpo;
 
-    @NotNull
-    @Column(name = "FECHA_INICIO", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+  @NotNull
+  @Column(name = "FECHA_INICIO", nullable = false)
+  @Temporal(TemporalType.DATE)
+  private Date fechaInicio;
 
-    @NotNull
-    @Column(name = "FECHA_FIN", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fechaFin;
+  @NotNull
+  @Column(name = "FECHA_FIN", nullable = false)
+  @Temporal(TemporalType.DATE)
+  private Date fechaFin;
 
-    @NotBlank
-    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String cclIdOrigen;
+  @NotBlank
+  @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
+  private String cclIdOrigen;
 
 }

@@ -16,10 +16,10 @@ import lombok.ToString;
 @ToString
 public class PageableListDto<T extends Serializable> implements PageableList<T>, Serializable {
 
-    private static final long serialVersionUID = -1674424926992562719L;
+  private static final long serialVersionUID = -1674424926992562719L;
 
-    private List<T> data;
+  private List<T> data;
 
-    private PageDto page;
+  private PageDto page;
 
 }

@@ -4,8 +4,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom {
 
-    void relacionarEstructuraSinDesplazamiento(TareaDto tarea);
+  void relacionarEstructuraSinDesplazamiento(TareaDto tarea);
 
-    void relacionarEstructuraDesplazamiento(TareaDto tarea);
+  void relacionarEstructuraDesplazamiento(TareaDto tarea);
 
 }

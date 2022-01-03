@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface PageableList<T extends Serializable> {
 
-    public List<T> getData();
+  public List<T> getData();
 
-    public PageDto getPage();
+  public PageDto getPage();
 
 }

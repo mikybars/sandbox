@@ -12,9 +12,9 @@ import lombok.Data;
 @Builder
 public class TipoCalculoDto implements Serializable {
 
-    private static final long serialVersionUID = -5773205858357489594L;
+  private static final long serialVersionUID = -5773205858357489594L;
 
-    @ApiModelProperty(value = "Identificador del tipo de calculo", required = true)
-    private String id;
+  @ApiModelProperty(value = "Identificador del tipo de calculo", required = true)
+  private String id;
 
 }

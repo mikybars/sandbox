@@ -1,14 +1,10 @@
+package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
-
 import java.util.Collections;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.personas.CalculoAjusteBajaItService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.SistemaDestinoEnum;
@@ -24,70 +20,70 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.Siste
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteBajaItRepositoryCustom;
-import org.apache.commons.lang3.StringUtils;
 
-/**
- * @author javierev
- */
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class CalculoAjusteBajaItServiceImpl extends AbstractCalculoAjusteBaseService implements
-        CalculoAjusteBajaItService {
+    CalculoAjusteBajaItService {
 
-    @Autowired
-    private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+  @Autowired
+  private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
 
-    @Autowired
-    private TareaCalculoAjusteBajaItRepositoryCustom tareaCalculoAjusteBajaItRepositoryCustom;
+  @Autowired
+  private TareaCalculoAjusteBajaItRepositoryCustom tareaCalculoAjusteBajaItRepositoryCustom;
 
-    @Autowired
-    private TareaAmbitoService tareaAmbitoService;
+  @Autowired
+  private TareaAmbitoService tareaAmbitoService;
 
-    @Autowired
-    private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+  @Autowired
+  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
-    @Override
-    protected void precondiciones(final TareaDto tarea,
-            final List<IdPersonaLocalDto> personas) {
+  @Override
+  protected void precondiciones(final TareaDto tarea,
+      final List<IdPersonaLocalDto> personas) {
 
-        SistemaDestinoResponseDto sistemaDestino = SistemaDestinoResponseDto.builder()
-            .idSistemaDestino(
-                    SistemaDestinoEnum.NONE.getIdMeta4())
-            .build();
-        final List<TareaAmbitoDto> byTarea = this.tareaAmbitoService.findByTarea(tarea);
-        final String cclIdOrigen = CollectionUtils.isNotEmpty(byTarea) ? byTarea.get(0).getCclIdOrigen() : null;
-        if (StringUtils.isNotBlank(cclIdOrigen)) {
-            sistemaDestino = this.meta4IcmWsCalcIncomeService
-                .getSistemaDestino(SistemaDestinoRequestDto.builder().cclIdOrigen(cclIdOrigen).build());
-        }
-
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempPersonas();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempPersonas();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjuste();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonas(tarea, personas,
-                TipoPoliticaEnum.BAJA_IT);
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(tarea,
-                sistemaDestino.getIdSistemaDestino());
-        this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom
-            .insertTempCalculoConAjuste(Collections.singletonList(TipoPoliticaEnum.ANTIGUEDAD));
+    SistemaDestinoResponseDto sistemaDestino = SistemaDestinoResponseDto.builder()
+        .idSistemaDestino(
+            SistemaDestinoEnum.NONE.getIdMeta4())
+        .build();
+    final List<TareaAmbitoDto> byTarea = this.tareaAmbitoService.findByTarea(tarea);
+    final String cclIdOrigen = CollectionUtils.isNotEmpty(byTarea) ? byTarea.get(0).getCclIdOrigen() : null;
+    if (StringUtils.isNotBlank(cclIdOrigen)) {
+      sistemaDestino = this.meta4IcmWsCalcIncomeService
+          .getSistemaDestino(SistemaDestinoRequestDto.builder().cclIdOrigen(cclIdOrigen).build());
     }
 
-    @Override
-    protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
-        this.tareaCalculoAjusteBajaItRepositoryCustom.ajustar(algoritmoAjuste);
-    }
+    this.primaryTemporaryTablePoliticasRepositoryCustom.createTempPersonas();
+    this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempPersonas();
+    this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasBajaIt();
+    this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasBajaIt();
+    this.primaryTemporaryTablePoliticasRepositoryCustom.createTempFechasAcumuladasBajaIt();
+    this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasBajaIt();
+    this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste();
+    this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjuste();
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonas(tarea, personas,
+        TipoPoliticaEnum.BAJA_IT);
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(tarea,
+        sistemaDestino.getIdSistemaDestino());
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasBajaIt();
+    this.primaryTemporaryTablePoliticasRepositoryCustom
+        .insertTempCalculoConAjuste(Collections.singletonList(TipoPoliticaEnum.ANTIGUEDAD));
+  }
 
-    @Override
-    protected void postcondiciones() {
-        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempPersonas();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasBajaIt();
-        this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjuste();
-    }
+  @Override
+  protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
+    this.tareaCalculoAjusteBajaItRepositoryCustom.ajustar(algoritmoAjuste);
+  }
+
+  @Override
+  protected void postcondiciones() {
+    this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempPersonas();
+    this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasBajaIt();
+    this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempFechasAcumuladasBajaIt();
+    this.primaryTemporaryTablePoliticasRepositoryCustom.deleteTempCalculoConAjuste();
+  }
 
 }

@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class CollectionUtils {
 
-    private CollectionUtils() {
-    }
+  private CollectionUtils() {
+  }
 
-    public static boolean isEmpty(final Collection<? extends Object> coll) {
-        return ((coll == null) || coll.isEmpty());
-    }
+  public static boolean isEmpty(final Collection<? extends Object> coll) {
+    return ((coll == null) || coll.isEmpty());
+  }
 
-    public static boolean isNotEmpty(final Collection<? extends Object> coll) {
-        return !CollectionUtils.isEmpty(coll);
-    }
+  public static boolean isNotEmpty(final Collection<? extends Object> coll) {
+    return !CollectionUtils.isEmpty(coll);
+  }
 
 }

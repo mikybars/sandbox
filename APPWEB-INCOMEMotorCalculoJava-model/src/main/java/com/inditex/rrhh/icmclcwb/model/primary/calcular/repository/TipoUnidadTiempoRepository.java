@@ -5,6 +5,6 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TipoUnidadTiempoRepository extends BaseRepository<TipoUnidadTiempo, Integer> {
 
-    TipoUnidadTiempo findByIcmIdUnidadTiempo(String icmIdUnidadTiempo);
+  TipoUnidadTiempo findByIcmIdUnidadTiempo(String icmIdUnidadTiempo);
 
 }

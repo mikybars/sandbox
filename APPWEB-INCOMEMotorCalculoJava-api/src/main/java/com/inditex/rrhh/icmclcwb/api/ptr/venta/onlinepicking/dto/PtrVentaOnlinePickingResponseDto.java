@@ -4,15 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
 import lombok.Data;
 
 @XmlRootElement(name = "VentaOnlineTiendaResponse")
 @Data
 public class PtrVentaOnlinePickingResponseDto implements Serializable {
 
-    private static final long serialVersionUID = 2127587419294640434L;
+  private static final long serialVersionUID = 2127587419294640434L;
 
-    private List<PtrVentaOnlinePickingResultItemDto> ventaOnline;
+  private List<PtrVentaOnlinePickingResultItemDto> ventaOnline;
 
 }

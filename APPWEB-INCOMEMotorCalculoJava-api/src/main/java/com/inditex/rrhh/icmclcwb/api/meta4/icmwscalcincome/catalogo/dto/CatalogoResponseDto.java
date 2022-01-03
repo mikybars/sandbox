@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CatalogoResponseDto implements Serializable {
 
-    private static final long serialVersionUID = 8369468264518702285L;
+  private static final long serialVersionUID = 8369468264518702285L;
 
-    private List<CatalogoResultItemDto> items;
+  private List<CatalogoResultItemDto> items;
 
 }

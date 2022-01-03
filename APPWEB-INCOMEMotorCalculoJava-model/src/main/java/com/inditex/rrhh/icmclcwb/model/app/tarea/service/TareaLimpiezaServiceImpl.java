@@ -3,10 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
+import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
@@ -17,51 +15,52 @@ import com.inditex.rrhh.icmclcwb.model.app.util.OptionalUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLimpieza;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepository;
-import org.apache.commons.lang3.StringUtils;
 
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
 public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
 
-    @Autowired
-    private TareaLimpiezaRepository tareaLimpiezaRepository;
+  @Autowired
+  private TareaLimpiezaRepository tareaLimpiezaRepository;
 
-    @Autowired
-    private TareaLimpiezaMapper tareaLimpiezaMapper;
+  @Autowired
+  private TareaLimpiezaMapper tareaLimpiezaMapper;
 
-    @Override
-    public TareaLimpiezaDto save(final TareaLimpiezaDto tareaLimpieza) {
-        if (StringUtils.isBlank(tareaLimpieza.getNombreUsuario())) {
-            final UserSSO userSSO = SsoUtils.getUserSSO();
-            if (StringUtils.isNotBlank(userSSO.getUser())) {
-                tareaLimpieza.setNombreUsuario(userSSO.getUser());
-            }
-        }
-        tareaLimpieza.setEstado(EstadoLimpiezaEnum.PENDIENTE.getDto());
-        tareaLimpieza.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
-        // TODO [javierev] cuando se implemente la limpieza parcial esta línea se debe retirar
-        tareaLimpieza.setTipo(TipoLimpiezaEnum.COMPLETA.getDto());
-        final TareaLimpieza result = this.tareaLimpiezaRepository
-            .save(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(tareaLimpieza));
-        return this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(result);
-
+  @Override
+  public TareaLimpiezaDto save(final TareaLimpiezaDto tareaLimpieza) {
+    if (StringUtils.isBlank(tareaLimpieza.getNombreUsuario())) {
+      final UserSSO userSSO = SsoUtils.getUserSSO();
+      if (StringUtils.isNotBlank(userSSO.getUser())) {
+        tareaLimpieza.setNombreUsuario(userSSO.getUser());
+      }
     }
+    tareaLimpieza.setEstado(EstadoLimpiezaEnum.PENDIENTE.getDto());
+    tareaLimpieza.setFechaHoraCreacion(TimeUtils.nowLocalDateTime());
+    // TODO [javierev] cuando se implemente la limpieza parcial esta línea se debe retirar
+    tareaLimpieza.setTipo(TipoLimpiezaEnum.COMPLETA.getDto());
+    final TareaLimpieza result = this.tareaLimpiezaRepository
+        .save(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(tareaLimpieza));
+    return this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(result);
 
-    @Override
-    public List<TareaLimpiezaDto> save(
-            final List<IdTareaDTO> idTareas) {
-        final List<TareaLimpiezaDto> result = new ArrayList<>();
-        this.tareaLimpiezaMapper.idTareaDtoToTareaLimpiezaDto(idTareas).forEach(item -> result.add(this.save(item)));
-        return result;
-    }
+  }
 
-    @Override
-    public TareaLimpiezaDto find(final Long id) {
-        return this.tareaLimpiezaMapper
-            .tareaLimpiezaToTareaLimpiezaDto(OptionalUtils.get(this.tareaLimpiezaRepository.findById(id)));
-    }
+  @Override
+  public List<TareaLimpiezaDto> save(
+      final List<IdTareaDTO> idTareas) {
+    final List<TareaLimpiezaDto> result = new ArrayList<>();
+    this.tareaLimpiezaMapper.idTareaDtoToTareaLimpiezaDto(idTareas).forEach(item -> result.add(this.save(item)));
+    return result;
+  }
+
+  @Override
+  public TareaLimpiezaDto find(final Long id) {
+    return this.tareaLimpiezaMapper
+        .tareaLimpiezaToTareaLimpiezaDto(OptionalUtils.get(this.tareaLimpiezaRepository.findById(id)));
+  }
 
 }

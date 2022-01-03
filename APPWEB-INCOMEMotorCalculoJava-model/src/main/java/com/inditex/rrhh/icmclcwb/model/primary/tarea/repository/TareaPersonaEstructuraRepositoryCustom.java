@@ -8,18 +8,18 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructu
 
 public interface TareaPersonaEstructuraRepositoryCustom {
 
-    List<TareaPersonaEstructura> save(List<TareaPersonaEstructura> src);
+  List<TareaPersonaEstructura> save(List<TareaPersonaEstructura> src);
 
-    void updateActivoTopes(TareaDto tarea);
+  void updateActivoTopes(TareaDto tarea);
 
-    List<IdPersonaLocalDto> findPersonasChallenge(TareaDto tarea);
+  List<IdPersonaLocalDto> findPersonasChallenge(TareaDto tarea);
 
-    void desactivarChallengeOpcionOrigen(final TareaDto tarea);
+  void desactivarChallengeOpcionOrigen(final TareaDto tarea);
 
-    void crearChallengeOpcionOrigen(final TareaDto tarea);
+  void crearChallengeOpcionOrigen(final TareaDto tarea);
 
-    Boolean calcularFestivos(final TareaDto tarea);
+  Boolean calcularFestivos(final TareaDto tarea);
 
-    void desactivarManualOrdinalDoble(final TareaDto tarea);
+  void desactivarManualOrdinalDoble(final TareaDto tarea);
 
 }

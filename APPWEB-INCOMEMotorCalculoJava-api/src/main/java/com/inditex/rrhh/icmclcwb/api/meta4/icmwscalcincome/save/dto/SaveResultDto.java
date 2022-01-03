@@ -8,12 +8,12 @@ import lombok.Data;
 @Data
 public class SaveResultDto implements Serializable {
 
-    private static final long serialVersionUID = 1973154739591645146L;
+  private static final long serialVersionUID = 1973154739591645146L;
 
-    private Boolean resultadoOk;
+  private Boolean resultadoOk;
 
-    private Boolean resultadoError;
+  private Boolean resultadoError;
 
-    private List<SaveResultErrorDto> data;
+  private List<SaveResultErrorDto> data;
 
 }

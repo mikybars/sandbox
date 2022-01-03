@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,26 +16,26 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class DesplazamientoRealDto implements Serializable {
 
-    @NotNull
-    private LocalDate fechaInicio;
+  @NotNull
+  private LocalDate fechaInicio;
 
-    @NotNull
-    private LocalDate fechaFin;
+  @NotNull
+  private LocalDate fechaFin;
 
-    private String cclIdOrigen;
+  private String cclIdOrigen;
 
-    private String idEstructura;
+  private String idEstructura;
 
-    private String idEstructuraBase;
+  private String idEstructuraBase;
 
-    private String idEstructuraPadre;
+  private String idEstructuraPadre;
 
-    private String idEstructuraAmbito;
+  private String idEstructuraAmbito;
 
-    @NotBlank
-    private String stdIdHr;
+  @NotBlank
+  private String stdIdHr;
 
-    @NotBlank
-    private String stdOrHrPeriod;
+  @NotBlank
+  private String stdOrHrPeriod;
 
 }

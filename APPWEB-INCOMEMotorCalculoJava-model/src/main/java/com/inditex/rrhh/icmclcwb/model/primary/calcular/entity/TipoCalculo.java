@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-
 import lombok.Data;
 
 @Entity
@@ -17,15 +16,15 @@ import lombok.Data;
 @Data
 public class TipoCalculo {
 
-    @Id
-    @Column(name = "ID_TIPO_CALCULO", length = 24)
-    private String id;
+  @Id
+  @Column(name = "ID_TIPO_CALCULO", length = 24)
+  private String id;
 
-    @NotBlank
-    @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
-    private String nombre;
+  @NotBlank
+  @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
+  private String nombre;
 
-    @ManyToMany(mappedBy = "tipoCalculo")
-    private List<Algoritmo> algoritmo = new ArrayList<Algoritmo>();
+  @ManyToMany(mappedBy = "tipoCalculo")
+  private List<Algoritmo> algoritmo = new ArrayList<Algoritmo>();
 
 }

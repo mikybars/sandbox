@@ -10,10 +10,10 @@ import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 @Configuration
 public class PscfTareaTiendaVentaSeccionRepositoryConfig {
 
-    @Bean(name = "pscfTareaTiendaVentaSeccionRepositorySave")
-    public PreparedStatementCreatorFactory pscfTareaTiendaVentaSeccionRepositorySave(
-            @Value("#{primaryQuery['TareaTiendaVentaSeccionRepository.save']}") final String sql) {
-        return new PreparedStatementCreatorFactory(sql, Types.BIGINT);
-    }
+  @Bean(name = "pscfTareaTiendaVentaSeccionRepositorySave")
+  public PreparedStatementCreatorFactory pscfTareaTiendaVentaSeccionRepositorySave(
+      @Value("#{primaryQuery['TareaTiendaVentaSeccionRepository.save']}") final String sql) {
+    return new PreparedStatementCreatorFactory(sql, Types.BIGINT);
+  }
 
 }

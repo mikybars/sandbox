@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaConfiguracion;
 
 public interface TareaConfiguracionRepositoryCustom {
 
-    List<TareaConfiguracion> save(final List<TareaConfiguracion> src);
+  List<TareaConfiguracion> save(final List<TareaConfiguracion> src);
 
 }

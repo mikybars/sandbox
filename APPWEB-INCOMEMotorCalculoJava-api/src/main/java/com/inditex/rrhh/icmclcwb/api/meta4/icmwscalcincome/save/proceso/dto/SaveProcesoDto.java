@@ -8,22 +8,22 @@ import lombok.Data;
 @Data
 public class SaveProcesoDto implements Serializable {
 
-    private static final long serialVersionUID = -5223418179902973150L;
+  private static final long serialVersionUID = -5223418179902973150L;
 
-    private String idAmbito;
+  private String idAmbito;
 
-    private String idOrigen;
+  private String idOrigen;
 
-    private String nombreUsuario;
+  private String nombreUsuario;
 
-    private String idOrganization;
+  private String idOrganization;
 
-    private Long idPeriodo;
+  private Long idPeriodo;
 
-    private Long idTrabajo;
+  private Long idTrabajo;
 
-    private String idTipoEjecucionCalculo;
+  private String idTipoEjecucionCalculo;
 
-    private List<SaveProcesoParametersDto> item;
+  private List<SaveProcesoParametersDto> item;
 
 }

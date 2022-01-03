@@ -3,10 +3,10 @@ package com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,13 +18,13 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class RunProgramacionDto implements Serializable {
 
-    private static final long serialVersionUID = 8443425889094187729L;
+  private static final long serialVersionUID = 8443425889094187729L;
 
-    @NotNull
-    private ProgramacionDto programacion;
+  @NotNull
+  private ProgramacionDto programacion;
 
-    @NotNull
-    @NotEmpty
-    private List<RunProgramacionPeriodoDto> runProgramacionPeriodo;
+  @NotNull
+  @NotEmpty
+  private List<RunProgramacionPeriodoDto> runProgramacionPeriodo;
 
 }

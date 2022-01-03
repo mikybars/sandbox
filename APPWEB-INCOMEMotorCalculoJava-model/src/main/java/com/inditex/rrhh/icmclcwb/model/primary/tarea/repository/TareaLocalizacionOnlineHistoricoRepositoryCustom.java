@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionOnl
 
 public interface TareaLocalizacionOnlineHistoricoRepositoryCustom {
 
-    List<TareaLocalizacionOnlineHistorico> save(List<TareaLocalizacionOnlineHistorico> tiendas);
+  List<TareaLocalizacionOnlineHistorico> save(List<TareaLocalizacionOnlineHistorico> tiendas);
 
 }

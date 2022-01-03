@@ -2,45 +2,44 @@ package com.inditex.rrhh.icmclcwb.model.app.programacion.service;
 
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoPersonaDTO;
 import com.inditex.rrhh.icmclcwb.model.app.programacion.mapper.ProgramacionAmbitoPersonaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoPersonaRepository;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 @Service
 @Validated
 public class ProgramacionAmbitoPersonaServiceImpl implements ProgramacionAmbitoPersonaService {
 
-    @Autowired
-    private ProgramacionAmbitoPersonaRepository programacionAmbitoPersonaRepository;
+  @Autowired
+  private ProgramacionAmbitoPersonaRepository programacionAmbitoPersonaRepository;
 
-    @Autowired
-    private ProgramacionAmbitoPersonaMapper programacionAmbitoPersonaMapper;
+  @Autowired
+  private ProgramacionAmbitoPersonaMapper programacionAmbitoPersonaMapper;
 
-    @Override
-    public List<ProgramacionAmbitoPersonaDTO> create(
-            @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoPersonaDTO> programacionAmbitoPersona,
-            @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
-        return this.programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
-                this.programacionAmbitoPersonaRepository.saveAll(this.programacionAmbitoPersonaMapper
-                    .mergeProgramacionAmbitoPersonaDtoAndProgramacionDtoToProgramacionAmbitoPersona(
-                            programacionAmbitoPersona, programacionAmbito)));
-    }
+  @Override
+  public List<ProgramacionAmbitoPersonaDTO> create(
+      @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoPersonaDTO> programacionAmbitoPersona,
+      @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
+    return this.programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
+        this.programacionAmbitoPersonaRepository.saveAll(this.programacionAmbitoPersonaMapper
+            .mergeProgramacionAmbitoPersonaDtoAndProgramacionDtoToProgramacionAmbitoPersona(
+                programacionAmbitoPersona, programacionAmbito)));
+  }
 
-    @Override
-    public List<ProgramacionAmbitoPersonaDTO> findByProgramacionAmbito(
-            @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
-        return this.programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
-                this.programacionAmbitoPersonaRepository.findByProgramacionAmbitoId(programacionAmbito.getId()));
-    }
+  @Override
+  public List<ProgramacionAmbitoPersonaDTO> findByProgramacionAmbito(
+      @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
+    return this.programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
+        this.programacionAmbitoPersonaRepository.findByProgramacionAmbitoId(programacionAmbito.getId()));
+  }
 
 }

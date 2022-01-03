@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class AuthenticateResponseDto implements Serializable {
 
-    private static final long serialVersionUID = 900712075147219381L;
+  private static final long serialVersionUID = 900712075147219381L;
 
-    private String message;
+  private String message;
 
 }

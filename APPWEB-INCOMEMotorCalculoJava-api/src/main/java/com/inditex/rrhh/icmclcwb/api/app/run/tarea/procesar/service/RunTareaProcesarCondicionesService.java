@@ -1,28 +1,27 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-
 public interface RunTareaProcesarCondicionesService {
 
-    void updateActivoPresupuestosBandaExcepcion(RunTareaDto runTarea);
+  void updateActivoPresupuestosBandaExcepcion(RunTareaDto runTarea);
 
-    void updateActivoPresupuestosBandasSinExcepcion(RunTareaDto runTarea);
+  void updateActivoPresupuestosBandasSinExcepcion(RunTareaDto runTarea);
 
-    void updateActivoEstructuraTopes(@Valid final TareaDto tarea);
+  void updateActivoEstructuraTopes(@Valid final TareaDto tarea);
 
-    void relacionarPresupuestosEstructurasSinDesplazamiento(@Valid final TareaDto tarea);
+  void relacionarPresupuestosEstructurasSinDesplazamiento(@Valid final TareaDto tarea);
 
-    void relacionarPresupuestosEstructurasDesplazamiento(@Valid @NotNull final TareaDto tarea);
+  void relacionarPresupuestosEstructurasDesplazamiento(@Valid @NotNull final TareaDto tarea);
 
-    void desactivarChallengeOpcionOrigen(@Valid TareaDto tarea);
+  void desactivarChallengeOpcionOrigen(@Valid TareaDto tarea);
 
-    void crearChallengeOpcionOrigen(@Valid TareaDto tarea);
+  void crearChallengeOpcionOrigen(@Valid TareaDto tarea);
 
-    void desactivarManualOrdinalDoble(@Valid TareaDto tarea);
+  void desactivarManualOrdinalDoble(@Valid TareaDto tarea);
 
 }

@@ -14,7 +14,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Entity
@@ -22,39 +21,39 @@ import lombok.Data;
 @Data
 public class TareaConfiguracion {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREA_CONFIGURACION")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID_TAREA_CONFIGURACION")
+  private Long id;
 
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "ID_TAREA", nullable = false)
-    private Tarea tarea;
+  @NotNull
+  @OneToOne
+  @JoinColumn(name = "ID_TAREA", nullable = false)
+  private Tarea tarea;
 
-    @NotBlank
-    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String cclIdOrigen;
+  @NotBlank
+  @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
+  private String cclIdOrigen;
 
-    @NotNull
-    @Column(name = "FECHA_INICIO", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+  @NotNull
+  @Column(name = "FECHA_INICIO", nullable = false)
+  @Temporal(TemporalType.DATE)
+  private Date fechaInicio;
 
-    @NotNull
-    @Column(name = "FECHA_FIN", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fechaFin;
+  @NotNull
+  @Column(name = "FECHA_FIN", nullable = false)
+  @Temporal(TemporalType.DATE)
+  private Date fechaFin;
 
-    @Column(name = "COD_TIPO_HORA", nullable = true)
-    private Integer codTipoHora;
+  @Column(name = "COD_TIPO_HORA", nullable = true)
+  private Integer codTipoHora;
 
-    @NotNull
-    @Column(name = "ICM_CK_VENTA_IMPUESTOS", nullable = false)
-    private Boolean icmCkVentaImpuestos;
+  @NotNull
+  @Column(name = "ICM_CK_VENTA_IMPUESTOS", nullable = false)
+  private Boolean icmCkVentaImpuestos;
 
-    @NotNull
-    @Column(name = "ICM_CK_INC_IVA_EVAL_PTPO", nullable = false)
-    private Boolean icmCkIncIvaEvalPtpo;
+  @NotNull
+  @Column(name = "ICM_CK_INC_IVA_EVAL_PTPO", nullable = false)
+  private Boolean icmCkIncIvaEvalPtpo;
 
 }

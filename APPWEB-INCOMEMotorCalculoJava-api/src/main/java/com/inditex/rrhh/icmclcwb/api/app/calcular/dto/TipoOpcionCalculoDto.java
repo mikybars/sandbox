@@ -9,12 +9,12 @@ import lombok.Data;
 @Data
 public class TipoOpcionCalculoDto implements Serializable {
 
-    private static final long serialVersionUID = -3238295465162517018L;
+  private static final long serialVersionUID = -3238295465162517018L;
 
-    private String idMeta4;
+  private String idMeta4;
 
-    private Integer id;
+  private Integer id;
 
-    private String nombre;
+  private String nombre;
 
 }

@@ -4,8 +4,8 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoVentaConceptoChallenge
 
 public interface TipoVentaConceptoChallengeService {
 
-    TipoVentaConceptoChallengeDto findByIcmIdConceptoVenta(String icmIdConceptoVenta);
+  TipoVentaConceptoChallengeDto findByIcmIdConceptoVenta(String icmIdConceptoVenta);
 
-    TipoVentaConceptoChallengeDto findById(Long id);
+  TipoVentaConceptoChallengeDto findById(Long id);
 
 }

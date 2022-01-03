@@ -8,16 +8,16 @@ import lombok.Data;
 @Data
 public class PtrObtenerVentaAcumuladaDiaRequestDto implements Serializable {
 
-    private static final long serialVersionUID = 3377217196984804178L;
+  private static final long serialVersionUID = 3377217196984804178L;
 
-    private String fecha;
+  private String fecha;
 
-    private List<Integer> cadena;
+  private List<Integer> cadena;
 
-    private List<Integer> pais;
+  private List<Integer> pais;
 
-    private Integer online;
+  private Integer online;
 
-    private Integer ventaComercial;
+  private Integer ventaComercial;
 
 }

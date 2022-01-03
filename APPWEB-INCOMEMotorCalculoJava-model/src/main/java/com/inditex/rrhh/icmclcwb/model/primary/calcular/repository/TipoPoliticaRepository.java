@@ -5,6 +5,6 @@ import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TipoPoliticaRepository extends BaseRepository<TipoPolitica, Integer> {
 
-    TipoPolitica findByIcmIdTpPolitica(String icmIdTpPolitica);
+  TipoPolitica findByIcmIdTpPolitica(String icmIdTpPolitica);
 
 }

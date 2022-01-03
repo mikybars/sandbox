@@ -7,14 +7,14 @@ import lombok.Data;
 @Builder
 public class TareaAgrupacion {
 
-    private String fecha;
+  private String fecha;
 
-    private Long idAgrupacion;
+  private Long idAgrupacion;
 
-    private Integer idSeccion;
+  private Integer idSeccion;
 
-    private Long idTarea;
+  private Long idTarea;
 
-    private Integer idPais;
+  private Integer idPais;
 
 }
