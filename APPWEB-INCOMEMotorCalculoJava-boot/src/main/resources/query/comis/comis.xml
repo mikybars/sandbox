@@ -409,6 +409,7 @@ WITH T AS (SELECT
                             AND PCT.TIPOCALCULO <> 0
                             AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
                             AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+                            AND PH.TABLAPORCENTAJE IS NOT NULL                            
                           GROUP BY
                             PCT.PERSONA,
                             PCT.FECHADESDE,
@@ -523,6 +524,7 @@ WITH T AS (SELECT
                             AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
                             AND PH.TIPOCALCULO IS NOT NULL                            
                             AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+                            AND PH.TABLAPORCENTAJE IS NOT NULL
                           GROUP BY
                             PCT.PERSONA,
                             PCT.FECHADESDE,
@@ -819,7 +821,7 @@ UNION
               FROM PersonasResaltas PR
               INNER JOIN PERSONASHISTORICO PH
                   ON PH.PERSONA = PR.PERSONA
-                  AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
+                  AND (PR.FechaHasta IS NULL OR (PH.FechaDesde <= PR.FechaDesde OR PH.FechaDesde <= :fechaDesde))
                   AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
               LEFT JOIN TABLASPORCENTAJESCOMISION TPC
                 ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
@@ -1099,7 +1101,7 @@ UNION
               	ON TPR.GrupoPorcentaje = GP.GrupoPorcentaje
               INNER JOIN PERSONASHISTORICO PH
                   ON PH.PERSONA = PR.PERSONA
-                  AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
+                  AND (PR.FechaHasta IS NULL OR (PH.FechaDesde <= PR.FechaDesde OR PH.FechaDesde <= :fechaDesde))
                   AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
               INNER JOIN TablasPorcentajes TPH
                 ON TPH.TablaPorcentaje = PH.TablaPorcentaje
