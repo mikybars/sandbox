@@ -15,22 +15,17 @@ public class SenderTarea {
   @Qualifier("tareaJmsClient")
   private JmsClient tareaJmsClient;
 
-  public void send(final TareaDto tarea) {
-    this.tareaJmsClient.convertAndSend(tarea);
-  }
-
-  public void sendWithDelay(final TareaDto tarea, final long delay) {
+  public void sendWithDelayWithPriority(final TareaDto tarea, final long delay, final TareaPriorityEnum priority) {
+    this.tareaJmsClient.setPriority(priority.getPriority());
     this.tareaJmsClient.convertAndSend(tarea, message -> {
       message.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
       return message;
     });
   }
 
-  public void sendWithPriority(final TareaDto tarea, final int priority) {
-    this.tareaJmsClient.convertAndSend(tarea, message -> {
-      message.setJMSPriority(priority);
-      return message;
-    });
+  public void sendWithPriority(final TareaDto tarea, final TareaPriorityEnum priority) {
+    this.tareaJmsClient.setPriority(priority.getPriority());
+    this.tareaJmsClient.convertAndSend(tarea);
   }
 
 }
