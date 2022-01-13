@@ -469,8 +469,9 @@ public class Meta4ServiceTest {
     assertEquals(NumberUtils.DOUBLE_ZERO, Double.valueOf(getventacongeladaOutput.getReturn()));
   }
 
-  @Disabled("Deshabilitado por errores en la llamada pendientes de resolver")
+  // TODO Mirar este test
   @Test
+  @Disabled
   public void getConfiguracion() {
     final IcmParamcalconforigenRecord record = new IcmParamcalconforigenRecord();
     final IcmParamcalconforigenBlock param1 = new IcmParamcalconforigenBlock();
