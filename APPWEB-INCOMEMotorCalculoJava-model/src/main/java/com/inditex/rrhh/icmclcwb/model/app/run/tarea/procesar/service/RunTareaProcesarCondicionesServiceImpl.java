@@ -6,6 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraDesplazamientoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraRepositoryCustom;
 
 import javax.validation.Valid;
@@ -25,6 +26,9 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
 
   @Autowired
   private TareaPersonaEstructuraRepositoryCustom tareaPersonaEstructuraRepositoryCustom;
+
+  @Autowired
+  private TareaPersonaEstructuraDesplazamientoRepositoryCustom tareaPersonaEstructuraDesplazamientoRepositoryCustom;
 
   @Autowired
   private TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom;
@@ -66,6 +70,12 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
   @Override
   public void crearChallengeOpcionOrigen(@Valid final TareaDto tarea) {
     this.tareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen(tarea);
+  }
+
+  @Override
+  public void crearChallengeOpcionOrigenIgualarBandas(
+    @Valid @NotNull final TareaDto tarea) {
+    this.tareaPersonaEstructuraDesplazamientoRepositoryCustom.crearChallengeOpcionOrigenIgualarBandas(tarea);
   }
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)

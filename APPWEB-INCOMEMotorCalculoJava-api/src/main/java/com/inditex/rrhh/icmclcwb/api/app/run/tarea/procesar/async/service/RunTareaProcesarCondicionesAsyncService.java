@@ -26,6 +26,8 @@ public interface RunTareaProcesarCondicionesAsyncService {
 
   CompletableFuture<Void> crearChallengeOpcionOrigen(final RunTareaDto runTarea);
 
+  CompletableFuture<Void> crearChallengeOpcionOrigenIgualarBandas(final RunTareaDto runTarea);
+
   CompletableFuture<Void> desactivarManualOrdinalDoble(final RunTareaDto runTarea);
 
 }

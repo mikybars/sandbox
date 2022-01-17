@@ -56,9 +56,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
               FaseEnum.PROCESAR.getId()));
 
-      final CompletableFuture<Void> cfDesactivarChallengeOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
-          .desactivarChallengeOpcionOrigen(runTarea);
-      AsyncUtils.exceptionally(cfDesactivarChallengeOpcionOrigen, cf, cfWait);
+      // Generar bandas challenge extra en caso de que en el destino de desplazamiento haya menos que en origen en opcion origen / mejor
+      final CompletableFuture<Void> cfCrearChallengeOpcionOrigenIgualarBandas =
+        this.runTareaProcesarCondicionesAsyncService.crearChallengeOpcionOrigenIgualarBandas(runTarea);
+      AsyncUtils.exceptionally(cfCrearChallengeOpcionOrigenIgualarBandas, cf, cfWait);
 
       // Totalizar las presencias sindicales por localizacion
       final CompletableFuture<Void> cfTotalzarPresenciasSindicales = this.runTareaProcesarPresenciaAsyncService
@@ -68,6 +69,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/
+
+      final CompletableFuture<Void> cfDesactivarChallengeOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
+        .desactivarChallengeOpcionOrigen(runTarea);
+      AsyncUtils.exceptionally(cfDesactivarChallengeOpcionOrigen, cf, cfWait);
 
       // Totalizar las presencias incluido commerce por seccion
       final CompletableFuture<Void> cfTotalizarEcommerceSeccion = this.runTareaProcesarPresenciaAsyncService

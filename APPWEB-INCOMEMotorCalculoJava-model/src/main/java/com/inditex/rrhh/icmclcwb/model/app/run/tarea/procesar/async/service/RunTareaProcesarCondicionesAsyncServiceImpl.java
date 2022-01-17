@@ -75,4 +75,10 @@ public class RunTareaProcesarCondicionesAsyncServiceImpl implements RunTareaProc
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
+  @Override
+  public CompletableFuture<Void> crearChallengeOpcionOrigenIgualarBandas(final RunTareaDto runTarea) {
+    this.tareaProcesarCondicionesService.crearChallengeOpcionOrigenIgualarBandas(runTarea.getTarea());
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
+
 }
