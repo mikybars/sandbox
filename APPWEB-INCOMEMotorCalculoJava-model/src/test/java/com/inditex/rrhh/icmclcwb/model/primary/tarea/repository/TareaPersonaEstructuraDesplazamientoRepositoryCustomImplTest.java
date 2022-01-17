@@ -52,7 +52,7 @@ class TareaPersonaEstructuraDesplazamientoRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaPersonaEstructuraDesplazamientoRepositoryCustom,
         "batchSize", 100, true);
     FieldUtils.writeField(this.tareaPersonaEstructuraDesplazamientoRepositoryCustom,
-      "sqlCrearChallengeOpcionOrigenIgualarBandas", SQL_CREAR_CHALLENGE_OPCION_ORIGEN_IGUALAR_BANDAS, true);
+        "sqlCrearChallengeOpcionOrigenIgualarBandas", SQL_CREAR_CHALLENGE_OPCION_ORIGEN_IGUALAR_BANDAS, true);
   }
 
   @Test
@@ -77,7 +77,7 @@ class TareaPersonaEstructuraDesplazamientoRepositoryCustomImplTest {
     verify(this.namedParameterJdbcTemplate).update(eq(SQL_CREAR_CHALLENGE_OPCION_ORIGEN_IGUALAR_BANDAS), paramsCaptor.capture());
     final MapSqlParameterSource params = paramsCaptor.getValue();
 
-    final Map<String, Object> expected = new HashMap<String,Object>() {
+    final Map<String, Object> expected = new HashMap<String, Object>() {
       private static final long serialVersionUID = -8705967666979364371L;
 
       {

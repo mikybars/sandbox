@@ -1,7 +1,6 @@
-package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.async.service;/*
- * Copyright (c) 2022.  Inditex
+/*
+ * Copyright (c) 2022. Inditex
  */
-
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -34,7 +33,7 @@ class RunTareaProcesarCondicionesAsyncServiceImplTest {
     runTarea.setTarea(tarea);
 
     final CompletableFuture<Void> result =
-      this.runTareaProcesarCondicionesAsyncService.crearChallengeOpcionOrigenIgualarBandas(runTarea);
+        this.runTareaProcesarCondicionesAsyncService.crearChallengeOpcionOrigenIgualarBandas(runTarea);
 
     verify(this.tareaProcesarCondicionesService, times(1)).crearChallengeOpcionOrigenIgualarBandas(tarea);
   }

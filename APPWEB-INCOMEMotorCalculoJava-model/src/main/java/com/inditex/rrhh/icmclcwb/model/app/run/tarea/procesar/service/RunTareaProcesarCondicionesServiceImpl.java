@@ -74,7 +74,7 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
 
   @Override
   public void crearChallengeOpcionOrigenIgualarBandas(
-    @Valid @NotNull final TareaDto tarea) {
+      @Valid @NotNull final TareaDto tarea) {
     this.tareaPersonaEstructuraDesplazamientoRepositoryCustom.crearChallengeOpcionOrigenIgualarBandas(tarea);
   }
 

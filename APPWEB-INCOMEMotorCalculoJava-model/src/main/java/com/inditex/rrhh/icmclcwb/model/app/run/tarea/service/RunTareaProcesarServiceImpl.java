@@ -58,7 +58,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
       // Generar bandas challenge extra en caso de que en el destino de desplazamiento haya menos que en origen en opcion origen / mejor
       final CompletableFuture<Void> cfCrearChallengeOpcionOrigenIgualarBandas =
-        this.runTareaProcesarCondicionesAsyncService.crearChallengeOpcionOrigenIgualarBandas(runTarea);
+          this.runTareaProcesarCondicionesAsyncService.crearChallengeOpcionOrigenIgualarBandas(runTarea);
       AsyncUtils.exceptionally(cfCrearChallengeOpcionOrigenIgualarBandas, cf, cfWait);
 
       // Totalizar las presencias sindicales por localizacion
@@ -71,7 +71,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       /*-------------------------------------------------------------*/
 
       final CompletableFuture<Void> cfDesactivarChallengeOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
-        .desactivarChallengeOpcionOrigen(runTarea);
+          .desactivarChallengeOpcionOrigen(runTarea);
       AsyncUtils.exceptionally(cfDesactivarChallengeOpcionOrigen, cf, cfWait);
 
       // Totalizar las presencias incluido commerce por seccion
