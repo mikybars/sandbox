@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ParamcalmultiempresaBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ParamcalmultiempresaBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ParamcalmultiempresaBlock"&gt;
  *   &lt;complexContent&gt;
@@ -44,8 +40,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalmultiempresaBlock", propOrder = {
@@ -60,21 +56,21 @@ public class IcmParamcalmultiempresaBlock implements Serializable, Cloneable, Co
 
   /**
    * Gets the value of the icmParamcalmultiempresaRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmParamcalmultiempresaRecordSet
    * property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmParamcalmultiempresaRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmParamcalmultiempresaRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmParamcalmultiempresaRecord> getIcmParamcalmultiempresaRecordSet() {
     if (icmParamcalmultiempresaRecordSet == null) {
@@ -83,8 +79,7 @@ public class IcmParamcalmultiempresaBlock implements Serializable, Cloneable, Co
     return this.icmParamcalmultiempresaRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -94,23 +89,20 @@ public class IcmParamcalmultiempresaBlock implements Serializable, Cloneable, Co
     final IcmParamcalmultiempresaBlock that = ((IcmParamcalmultiempresaBlock) object);
     {
       List<IcmParamcalmultiempresaRecord> lhsIcmParamcalmultiempresaRecordSet;
-      lhsIcmParamcalmultiempresaRecordSet = (((this.icmParamcalmultiempresaRecordSet != null)
-          && (!this.icmParamcalmultiempresaRecordSet.isEmpty())) ? this.getIcmParamcalmultiempresaRecordSet()
+      lhsIcmParamcalmultiempresaRecordSet =
+          (((this.icmParamcalmultiempresaRecordSet != null) && (!this.icmParamcalmultiempresaRecordSet.isEmpty()))
+              ? this.getIcmParamcalmultiempresaRecordSet()
               : null);
       List<IcmParamcalmultiempresaRecord> rhsIcmParamcalmultiempresaRecordSet;
-      rhsIcmParamcalmultiempresaRecordSet = (((that.icmParamcalmultiempresaRecordSet != null)
-          && (!that.icmParamcalmultiempresaRecordSet.isEmpty())) ? that.getIcmParamcalmultiempresaRecordSet()
+      rhsIcmParamcalmultiempresaRecordSet =
+          (((that.icmParamcalmultiempresaRecordSet != null) && (!that.icmParamcalmultiempresaRecordSet.isEmpty()))
+              ? that.getIcmParamcalmultiempresaRecordSet()
               : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmParamcalmultiempresaRecordSet",
-              lhsIcmParamcalmultiempresaRecordSet),
-          LocatorUtils.property(thatLocator, "icmParamcalmultiempresaRecordSet",
-              rhsIcmParamcalmultiempresaRecordSet),
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalmultiempresaRecordSet", lhsIcmParamcalmultiempresaRecordSet),
+          LocatorUtils.property(thatLocator, "icmParamcalmultiempresaRecordSet", rhsIcmParamcalmultiempresaRecordSet),
           lhsIcmParamcalmultiempresaRecordSet, rhsIcmParamcalmultiempresaRecordSet,
-          ((this.icmParamcalmultiempresaRecordSet != null)
-              && (!this.icmParamcalmultiempresaRecordSet.isEmpty())),
-          ((that.icmParamcalmultiempresaRecordSet != null)
-              && (!that.icmParamcalmultiempresaRecordSet.isEmpty())))) {
+          ((this.icmParamcalmultiempresaRecordSet != null) && (!this.icmParamcalmultiempresaRecordSet.isEmpty())),
+          ((that.icmParamcalmultiempresaRecordSet != null) && (!that.icmParamcalmultiempresaRecordSet.isEmpty())))) {
         return false;
       }
     }
@@ -139,12 +131,12 @@ public class IcmParamcalmultiempresaBlock implements Serializable, Cloneable, Co
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
       List<IcmParamcalmultiempresaRecord> theIcmParamcalmultiempresaRecordSet;
-      theIcmParamcalmultiempresaRecordSet = (((this.icmParamcalmultiempresaRecordSet != null)
-          && (!this.icmParamcalmultiempresaRecordSet.isEmpty())) ? this.getIcmParamcalmultiempresaRecordSet()
+      theIcmParamcalmultiempresaRecordSet =
+          (((this.icmParamcalmultiempresaRecordSet != null) && (!this.icmParamcalmultiempresaRecordSet.isEmpty()))
+              ? this.getIcmParamcalmultiempresaRecordSet()
               : null);
-      strategy.appendField(locator, this, "icmParamcalmultiempresaRecordSet", buffer,
-          theIcmParamcalmultiempresaRecordSet, ((this.icmParamcalmultiempresaRecordSet != null)
-              && (!this.icmParamcalmultiempresaRecordSet.isEmpty())));
+      strategy.appendField(locator, this, "icmParamcalmultiempresaRecordSet", buffer, theIcmParamcalmultiempresaRecordSet,
+          ((this.icmParamcalmultiempresaRecordSet != null) && (!this.icmParamcalmultiempresaRecordSet.isEmpty())));
     }
     return buffer;
   }
@@ -153,15 +145,14 @@ public class IcmParamcalmultiempresaBlock implements Serializable, Cloneable, Co
     int currentHashCode = 1;
     {
       List<IcmParamcalmultiempresaRecord> theIcmParamcalmultiempresaRecordSet;
-      theIcmParamcalmultiempresaRecordSet = (((this.icmParamcalmultiempresaRecordSet != null)
-          && (!this.icmParamcalmultiempresaRecordSet.isEmpty())) ? this.getIcmParamcalmultiempresaRecordSet()
+      theIcmParamcalmultiempresaRecordSet =
+          (((this.icmParamcalmultiempresaRecordSet != null) && (!this.icmParamcalmultiempresaRecordSet.isEmpty()))
+              ? this.getIcmParamcalmultiempresaRecordSet()
               : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmParamcalmultiempresaRecordSet",
-              theIcmParamcalmultiempresaRecordSet),
-          currentHashCode, theIcmParamcalmultiempresaRecordSet,
-          ((this.icmParamcalmultiempresaRecordSet != null)
-              && (!this.icmParamcalmultiempresaRecordSet.isEmpty())));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmParamcalmultiempresaRecordSet", theIcmParamcalmultiempresaRecordSet),
+              currentHashCode, theIcmParamcalmultiempresaRecordSet,
+              ((this.icmParamcalmultiempresaRecordSet != null) && (!this.icmParamcalmultiempresaRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -186,24 +177,21 @@ public class IcmParamcalmultiempresaBlock implements Serializable, Cloneable, Co
       final IcmParamcalmultiempresaBlock copy = ((IcmParamcalmultiempresaBlock) draftCopy);
       {
         Boolean icmParamcalmultiempresaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmParamcalmultiempresaRecordSet != null)
-                && (!this.icmParamcalmultiempresaRecordSet.isEmpty())));
+            ((this.icmParamcalmultiempresaRecordSet != null) && (!this.icmParamcalmultiempresaRecordSet.isEmpty())));
         if (icmParamcalmultiempresaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmParamcalmultiempresaRecord> sourceIcmParamcalmultiempresaRecordSet;
-          sourceIcmParamcalmultiempresaRecordSet = (((this.icmParamcalmultiempresaRecordSet != null)
-              && (!this.icmParamcalmultiempresaRecordSet.isEmpty()))
+          sourceIcmParamcalmultiempresaRecordSet =
+              (((this.icmParamcalmultiempresaRecordSet != null) && (!this.icmParamcalmultiempresaRecordSet.isEmpty()))
                   ? this.getIcmParamcalmultiempresaRecordSet()
                   : null);
           @SuppressWarnings("unchecked")
-          List<IcmParamcalmultiempresaRecord> copyIcmParamcalmultiempresaRecordSet = ((List<IcmParamcalmultiempresaRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmParamcalmultiempresaRecordSet",
-                  sourceIcmParamcalmultiempresaRecordSet), sourceIcmParamcalmultiempresaRecordSet,
-                  ((this.icmParamcalmultiempresaRecordSet != null)
-                      && (!this.icmParamcalmultiempresaRecordSet.isEmpty()))));
+          List<IcmParamcalmultiempresaRecord> copyIcmParamcalmultiempresaRecordSet = ((List<IcmParamcalmultiempresaRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmParamcalmultiempresaRecordSet", sourceIcmParamcalmultiempresaRecordSet),
+              sourceIcmParamcalmultiempresaRecordSet,
+              ((this.icmParamcalmultiempresaRecordSet != null) && (!this.icmParamcalmultiempresaRecordSet.isEmpty()))));
           copy.icmParamcalmultiempresaRecordSet = null;
           if (copyIcmParamcalmultiempresaRecordSet != null) {
-            List<IcmParamcalmultiempresaRecord> uniqueIcmParamcalmultiempresaRecordSetl = copy
-                .getIcmParamcalmultiempresaRecordSet();
+            List<IcmParamcalmultiempresaRecord> uniqueIcmParamcalmultiempresaRecordSetl = copy.getIcmParamcalmultiempresaRecordSet();
             uniqueIcmParamcalmultiempresaRecordSetl.addAll(copyIcmParamcalmultiempresaRecordSet);
           }
         } else {

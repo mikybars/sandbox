@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETTIPOSHORAResponse implements Serializable, Cloneable, CopyTo2, E
    * Obtiene el valor de la propiedad gettiposhoraReturn.
    * 
    * @return possible object is {@link GettiposhoraOutput }
-   *
+   * 
    */
   public GettiposhoraOutput getGETTIPOSHORAReturn() {
     return gettiposhoraReturn;
@@ -72,14 +68,13 @@ public class GETTIPOSHORAResponse implements Serializable, Cloneable, CopyTo2, E
    * Define el valor de la propiedad gettiposhoraReturn.
    * 
    * @param value allowed object is {@link GettiposhoraOutput }
-   *
+   * 
    */
   public void setGETTIPOSHORAReturn(GettiposhoraOutput value) {
     this.gettiposhoraReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,9 +88,8 @@ public class GETTIPOSHORAResponse implements Serializable, Cloneable, CopyTo2, E
       GettiposhoraOutput rhsGETTIPOSHORAReturn;
       rhsGETTIPOSHORAReturn = that.getGETTIPOSHORAReturn();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "gettiposhoraReturn", lhsGETTIPOSHORAReturn),
-          LocatorUtils.property(thatLocator, "gettiposhoraReturn", rhsGETTIPOSHORAReturn),
-          lhsGETTIPOSHORAReturn, rhsGETTIPOSHORAReturn, (this.gettiposhoraReturn != null),
-          (that.gettiposhoraReturn != null))) {
+          LocatorUtils.property(thatLocator, "gettiposhoraReturn", rhsGETTIPOSHORAReturn), lhsGETTIPOSHORAReturn, rhsGETTIPOSHORAReturn,
+          (this.gettiposhoraReturn != null), (that.gettiposhoraReturn != null))) {
         return false;
       }
     }
@@ -125,8 +119,7 @@ public class GETTIPOSHORAResponse implements Serializable, Cloneable, CopyTo2, E
     {
       GettiposhoraOutput theGETTIPOSHORAReturn;
       theGETTIPOSHORAReturn = this.getGETTIPOSHORAReturn();
-      strategy.appendField(locator, this, "gettiposhoraReturn", buffer, theGETTIPOSHORAReturn,
-          (this.gettiposhoraReturn != null));
+      strategy.appendField(locator, this, "gettiposhoraReturn", buffer, theGETTIPOSHORAReturn, (this.gettiposhoraReturn != null));
     }
     return buffer;
   }
@@ -136,8 +129,7 @@ public class GETTIPOSHORAResponse implements Serializable, Cloneable, CopyTo2, E
     {
       GettiposhoraOutput theGETTIPOSHORAReturn;
       theGETTIPOSHORAReturn = this.getGETTIPOSHORAReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "gettiposhoraReturn", theGETTIPOSHORAReturn), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "gettiposhoraReturn", theGETTIPOSHORAReturn), currentHashCode,
           theGETTIPOSHORAReturn, (this.gettiposhoraReturn != null));
     }
     return currentHashCode;
@@ -162,14 +154,13 @@ public class GETTIPOSHORAResponse implements Serializable, Cloneable, CopyTo2, E
     if (draftCopy instanceof GETTIPOSHORAResponse) {
       final GETTIPOSHORAResponse copy = ((GETTIPOSHORAResponse) draftCopy);
       {
-        Boolean gettiposhoraReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.gettiposhoraReturn != null));
+        Boolean gettiposhoraReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.gettiposhoraReturn != null));
         if (gettiposhoraReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GettiposhoraOutput sourceGETTIPOSHORAReturn;
           sourceGETTIPOSHORAReturn = this.getGETTIPOSHORAReturn();
-          GettiposhoraOutput copyGETTIPOSHORAReturn = ((GettiposhoraOutput) strategy.copy(
-              LocatorUtils.property(locator, "gettiposhoraReturn", sourceGETTIPOSHORAReturn),
-              sourceGETTIPOSHORAReturn, (this.gettiposhoraReturn != null)));
+          GettiposhoraOutput copyGETTIPOSHORAReturn =
+              ((GettiposhoraOutput) strategy.copy(LocatorUtils.property(locator, "gettiposhoraReturn", sourceGETTIPOSHORAReturn),
+                  sourceGETTIPOSHORAReturn, (this.gettiposhoraReturn != null)));
           copy.setGETTIPOSHORAReturn(copyGETTIPOSHORAReturn);
         } else {
           if (gettiposhoraReturnShouldBeCopiedAndSet == Boolean.FALSE) {

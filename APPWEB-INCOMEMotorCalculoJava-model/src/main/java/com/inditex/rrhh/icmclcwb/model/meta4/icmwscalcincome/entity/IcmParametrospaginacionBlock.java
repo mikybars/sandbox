@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ParametrospaginacionBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ParametrospaginacionBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ParametrospaginacionBlock"&gt;
  *   &lt;complexContent&gt;
@@ -51,8 +47,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParametrospaginacionBlock", propOrder = {
@@ -97,7 +93,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Obtiene el valor de la propiedad tipoorden.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getTipoorden() {
     return tipoorden;
@@ -107,7 +103,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Define el valor de la propiedad tipoorden.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setTipoorden(String value) {
     this.tipoorden = value;
@@ -117,7 +113,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Obtiene el valor de la propiedad campoorden.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getCampoorden() {
     return campoorden;
@@ -127,7 +123,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Define el valor de la propiedad campoorden.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setCampoorden(String value) {
     this.campoorden = value;
@@ -137,7 +133,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Obtiene el valor de la propiedad idbusqueda.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getIdbusqueda() {
     return idbusqueda;
@@ -147,7 +143,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Define el valor de la propiedad idbusqueda.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setIdbusqueda(String value) {
     this.idbusqueda = value;
@@ -157,7 +153,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Obtiene el valor de la propiedad numeropagina.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getNumeropagina() {
     return numeropagina;
@@ -167,7 +163,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Define el valor de la propiedad numeropagina.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setNumeropagina(String value) {
     this.numeropagina = value;
@@ -177,7 +173,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Obtiene el valor de la propiedad numerototalpaginas.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getNumerototalpaginas() {
     return numerototalpaginas;
@@ -187,7 +183,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Define el valor de la propiedad numerototalpaginas.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setNumerototalpaginas(String value) {
     this.numerototalpaginas = value;
@@ -197,7 +193,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Obtiene el valor de la propiedad numeroregistrospagina.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getNumeroregistrospagina() {
     return numeroregistrospagina;
@@ -207,7 +203,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Define el valor de la propiedad numeroregistrospagina.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setNumeroregistrospagina(String value) {
     this.numeroregistrospagina = value;
@@ -217,7 +213,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Obtiene el valor de la propiedad numerototalresultados.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getNumerototalresultados() {
     return numerototalresultados;
@@ -227,7 +223,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * Define el valor de la propiedad numerototalresultados.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setNumerototalresultados(String value) {
     this.numerototalresultados = value;
@@ -235,21 +231,21 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Gets the value of the icmParametrospaginacionRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmParametrospaginacionRecordSet
    * property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmParametrospaginacionRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmParametrospaginacionRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmParametrospaginacionRecord> getIcmParametrospaginacionRecordSet() {
     if (icmParametrospaginacionRecordSet == null) {
@@ -258,8 +254,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
     return this.icmParametrospaginacionRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -273,8 +268,8 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
       String rhsTipoorden;
       rhsTipoorden = that.getTipoorden();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "tipoorden", lhsTipoorden),
-          LocatorUtils.property(thatLocator, "tipoorden", rhsTipoorden), lhsTipoorden, rhsTipoorden,
-          (this.tipoorden != null), (that.tipoorden != null))) {
+          LocatorUtils.property(thatLocator, "tipoorden", rhsTipoorden), lhsTipoorden, rhsTipoorden, (this.tipoorden != null),
+          (that.tipoorden != null))) {
         return false;
       }
     }
@@ -284,8 +279,8 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
       String rhsCampoorden;
       rhsCampoorden = that.getCampoorden();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "campoorden", lhsCampoorden),
-          LocatorUtils.property(thatLocator, "campoorden", rhsCampoorden), lhsCampoorden, rhsCampoorden,
-          (this.campoorden != null), (that.campoorden != null))) {
+          LocatorUtils.property(thatLocator, "campoorden", rhsCampoorden), lhsCampoorden, rhsCampoorden, (this.campoorden != null),
+          (that.campoorden != null))) {
         return false;
       }
     }
@@ -295,8 +290,8 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
       String rhsIdbusqueda;
       rhsIdbusqueda = that.getIdbusqueda();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "idbusqueda", lhsIdbusqueda),
-          LocatorUtils.property(thatLocator, "idbusqueda", rhsIdbusqueda), lhsIdbusqueda, rhsIdbusqueda,
-          (this.idbusqueda != null), (that.idbusqueda != null))) {
+          LocatorUtils.property(thatLocator, "idbusqueda", rhsIdbusqueda), lhsIdbusqueda, rhsIdbusqueda, (this.idbusqueda != null),
+          (that.idbusqueda != null))) {
         return false;
       }
     }
@@ -306,8 +301,8 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
       String rhsNumeropagina;
       rhsNumeropagina = that.getNumeropagina();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "numeropagina", lhsNumeropagina),
-          LocatorUtils.property(thatLocator, "numeropagina", rhsNumeropagina), lhsNumeropagina,
-          rhsNumeropagina, (this.numeropagina != null), (that.numeropagina != null))) {
+          LocatorUtils.property(thatLocator, "numeropagina", rhsNumeropagina), lhsNumeropagina, rhsNumeropagina,
+          (this.numeropagina != null), (that.numeropagina != null))) {
         return false;
       }
     }
@@ -317,9 +312,8 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
       String rhsNumerototalpaginas;
       rhsNumerototalpaginas = that.getNumerototalpaginas();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "numerototalpaginas", lhsNumerototalpaginas),
-          LocatorUtils.property(thatLocator, "numerototalpaginas", rhsNumerototalpaginas),
-          lhsNumerototalpaginas, rhsNumerototalpaginas, (this.numerototalpaginas != null),
-          (that.numerototalpaginas != null))) {
+          LocatorUtils.property(thatLocator, "numerototalpaginas", rhsNumerototalpaginas), lhsNumerototalpaginas, rhsNumerototalpaginas,
+          (this.numerototalpaginas != null), (that.numerototalpaginas != null))) {
         return false;
       }
     }
@@ -329,9 +323,8 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
       String rhsNumeroregistrospagina;
       rhsNumeroregistrospagina = that.getNumeroregistrospagina();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "numeroregistrospagina", lhsNumeroregistrospagina),
-          LocatorUtils.property(thatLocator, "numeroregistrospagina", rhsNumeroregistrospagina),
-          lhsNumeroregistrospagina, rhsNumeroregistrospagina, (this.numeroregistrospagina != null),
-          (that.numeroregistrospagina != null))) {
+          LocatorUtils.property(thatLocator, "numeroregistrospagina", rhsNumeroregistrospagina), lhsNumeroregistrospagina,
+          rhsNumeroregistrospagina, (this.numeroregistrospagina != null), (that.numeroregistrospagina != null))) {
         return false;
       }
     }
@@ -341,31 +334,27 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
       String rhsNumerototalresultados;
       rhsNumerototalresultados = that.getNumerototalresultados();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "numerototalresultados", lhsNumerototalresultados),
-          LocatorUtils.property(thatLocator, "numerototalresultados", rhsNumerototalresultados),
-          lhsNumerototalresultados, rhsNumerototalresultados, (this.numerototalresultados != null),
-          (that.numerototalresultados != null))) {
+          LocatorUtils.property(thatLocator, "numerototalresultados", rhsNumerototalresultados), lhsNumerototalresultados,
+          rhsNumerototalresultados, (this.numerototalresultados != null), (that.numerototalresultados != null))) {
         return false;
       }
     }
     {
       List<IcmParametrospaginacionRecord> lhsIcmParametrospaginacionRecordSet;
-      lhsIcmParametrospaginacionRecordSet = (((this.icmParametrospaginacionRecordSet != null)
-          && (!this.icmParametrospaginacionRecordSet.isEmpty())) ? this.getIcmParametrospaginacionRecordSet()
+      lhsIcmParametrospaginacionRecordSet =
+          (((this.icmParametrospaginacionRecordSet != null) && (!this.icmParametrospaginacionRecordSet.isEmpty()))
+              ? this.getIcmParametrospaginacionRecordSet()
               : null);
       List<IcmParametrospaginacionRecord> rhsIcmParametrospaginacionRecordSet;
-      rhsIcmParametrospaginacionRecordSet = (((that.icmParametrospaginacionRecordSet != null)
-          && (!that.icmParametrospaginacionRecordSet.isEmpty())) ? that.getIcmParametrospaginacionRecordSet()
+      rhsIcmParametrospaginacionRecordSet =
+          (((that.icmParametrospaginacionRecordSet != null) && (!that.icmParametrospaginacionRecordSet.isEmpty()))
+              ? that.getIcmParametrospaginacionRecordSet()
               : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmParametrospaginacionRecordSet",
-              lhsIcmParametrospaginacionRecordSet),
-          LocatorUtils.property(thatLocator, "icmParametrospaginacionRecordSet",
-              rhsIcmParametrospaginacionRecordSet),
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacionRecordSet", lhsIcmParametrospaginacionRecordSet),
+          LocatorUtils.property(thatLocator, "icmParametrospaginacionRecordSet", rhsIcmParametrospaginacionRecordSet),
           lhsIcmParametrospaginacionRecordSet, rhsIcmParametrospaginacionRecordSet,
-          ((this.icmParametrospaginacionRecordSet != null)
-              && (!this.icmParametrospaginacionRecordSet.isEmpty())),
-          ((that.icmParametrospaginacionRecordSet != null)
-              && (!that.icmParametrospaginacionRecordSet.isEmpty())))) {
+          ((this.icmParametrospaginacionRecordSet != null) && (!this.icmParametrospaginacionRecordSet.isEmpty())),
+          ((that.icmParametrospaginacionRecordSet != null) && (!that.icmParametrospaginacionRecordSet.isEmpty())))) {
         return false;
       }
     }
@@ -415,29 +404,26 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
     {
       String theNumerototalpaginas;
       theNumerototalpaginas = this.getNumerototalpaginas();
-      strategy.appendField(locator, this, "numerototalpaginas", buffer, theNumerototalpaginas,
-          (this.numerototalpaginas != null));
+      strategy.appendField(locator, this, "numerototalpaginas", buffer, theNumerototalpaginas, (this.numerototalpaginas != null));
     }
     {
       String theNumeroregistrospagina;
       theNumeroregistrospagina = this.getNumeroregistrospagina();
-      strategy.appendField(locator, this, "numeroregistrospagina", buffer, theNumeroregistrospagina,
-          (this.numeroregistrospagina != null));
+      strategy.appendField(locator, this, "numeroregistrospagina", buffer, theNumeroregistrospagina, (this.numeroregistrospagina != null));
     }
     {
       String theNumerototalresultados;
       theNumerototalresultados = this.getNumerototalresultados();
-      strategy.appendField(locator, this, "numerototalresultados", buffer, theNumerototalresultados,
-          (this.numerototalresultados != null));
+      strategy.appendField(locator, this, "numerototalresultados", buffer, theNumerototalresultados, (this.numerototalresultados != null));
     }
     {
       List<IcmParametrospaginacionRecord> theIcmParametrospaginacionRecordSet;
-      theIcmParametrospaginacionRecordSet = (((this.icmParametrospaginacionRecordSet != null)
-          && (!this.icmParametrospaginacionRecordSet.isEmpty())) ? this.getIcmParametrospaginacionRecordSet()
+      theIcmParametrospaginacionRecordSet =
+          (((this.icmParametrospaginacionRecordSet != null) && (!this.icmParametrospaginacionRecordSet.isEmpty()))
+              ? this.getIcmParametrospaginacionRecordSet()
               : null);
-      strategy.appendField(locator, this, "icmParametrospaginacionRecordSet", buffer,
-          theIcmParametrospaginacionRecordSet, ((this.icmParametrospaginacionRecordSet != null)
-              && (!this.icmParametrospaginacionRecordSet.isEmpty())));
+      strategy.appendField(locator, this, "icmParametrospaginacionRecordSet", buffer, theIcmParametrospaginacionRecordSet,
+          ((this.icmParametrospaginacionRecordSet != null) && (!this.icmParametrospaginacionRecordSet.isEmpty())));
     }
     return buffer;
   }
@@ -447,59 +433,55 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
     {
       String theTipoorden;
       theTipoorden = this.getTipoorden();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "tipoorden", theTipoorden),
-          currentHashCode, theTipoorden, (this.tipoorden != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "tipoorden", theTipoorden), currentHashCode, theTipoorden,
+          (this.tipoorden != null));
     }
     {
       String theCampoorden;
       theCampoorden = this.getCampoorden();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "campoorden", theCampoorden),
-          currentHashCode, theCampoorden, (this.campoorden != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "campoorden", theCampoorden), currentHashCode, theCampoorden,
+          (this.campoorden != null));
     }
     {
       String theIdbusqueda;
       theIdbusqueda = this.getIdbusqueda();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idbusqueda", theIdbusqueda),
-          currentHashCode, theIdbusqueda, (this.idbusqueda != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idbusqueda", theIdbusqueda), currentHashCode, theIdbusqueda,
+          (this.idbusqueda != null));
     }
     {
       String theNumeropagina;
       theNumeropagina = this.getNumeropagina();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "numeropagina", theNumeropagina),
-          currentHashCode, theNumeropagina, (this.numeropagina != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "numeropagina", theNumeropagina), currentHashCode, theNumeropagina,
+          (this.numeropagina != null));
     }
     {
       String theNumerototalpaginas;
       theNumerototalpaginas = this.getNumerototalpaginas();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "numerototalpaginas", theNumerototalpaginas), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "numerototalpaginas", theNumerototalpaginas), currentHashCode,
           theNumerototalpaginas, (this.numerototalpaginas != null));
     }
     {
       String theNumeroregistrospagina;
       theNumeroregistrospagina = this.getNumeroregistrospagina();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "numeroregistrospagina", theNumeroregistrospagina), currentHashCode,
-          theNumeroregistrospagina, (this.numeroregistrospagina != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "numeroregistrospagina", theNumeroregistrospagina),
+          currentHashCode, theNumeroregistrospagina, (this.numeroregistrospagina != null));
     }
     {
       String theNumerototalresultados;
       theNumerototalresultados = this.getNumerototalresultados();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "numerototalresultados", theNumerototalresultados), currentHashCode,
-          theNumerototalresultados, (this.numerototalresultados != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "numerototalresultados", theNumerototalresultados),
+          currentHashCode, theNumerototalresultados, (this.numerototalresultados != null));
     }
     {
       List<IcmParametrospaginacionRecord> theIcmParametrospaginacionRecordSet;
-      theIcmParametrospaginacionRecordSet = (((this.icmParametrospaginacionRecordSet != null)
-          && (!this.icmParametrospaginacionRecordSet.isEmpty())) ? this.getIcmParametrospaginacionRecordSet()
+      theIcmParametrospaginacionRecordSet =
+          (((this.icmParametrospaginacionRecordSet != null) && (!this.icmParametrospaginacionRecordSet.isEmpty()))
+              ? this.getIcmParametrospaginacionRecordSet()
               : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmParametrospaginacionRecordSet",
-              theIcmParametrospaginacionRecordSet),
-          currentHashCode, theIcmParametrospaginacionRecordSet,
-          ((this.icmParametrospaginacionRecordSet != null)
-              && (!this.icmParametrospaginacionRecordSet.isEmpty())));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacionRecordSet", theIcmParametrospaginacionRecordSet),
+              currentHashCode, theIcmParametrospaginacionRecordSet,
+              ((this.icmParametrospaginacionRecordSet != null) && (!this.icmParametrospaginacionRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -523,13 +505,11 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
     if (draftCopy instanceof IcmParametrospaginacionBlock) {
       final IcmParametrospaginacionBlock copy = ((IcmParametrospaginacionBlock) draftCopy);
       {
-        Boolean tipoordenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.tipoorden != null));
+        Boolean tipoordenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.tipoorden != null));
         if (tipoordenShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceTipoorden;
           sourceTipoorden = this.getTipoorden();
-          String copyTipoorden = ((String) strategy.copy(
-              LocatorUtils.property(locator, "tipoorden", sourceTipoorden), sourceTipoorden,
+          String copyTipoorden = ((String) strategy.copy(LocatorUtils.property(locator, "tipoorden", sourceTipoorden), sourceTipoorden,
               (this.tipoorden != null)));
           copy.setTipoorden(copyTipoorden);
         } else {
@@ -539,13 +519,11 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
         }
       }
       {
-        Boolean campoordenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.campoorden != null));
+        Boolean campoordenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.campoorden != null));
         if (campoordenShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceCampoorden;
           sourceCampoorden = this.getCampoorden();
-          String copyCampoorden = ((String) strategy.copy(
-              LocatorUtils.property(locator, "campoorden", sourceCampoorden), sourceCampoorden,
+          String copyCampoorden = ((String) strategy.copy(LocatorUtils.property(locator, "campoorden", sourceCampoorden), sourceCampoorden,
               (this.campoorden != null)));
           copy.setCampoorden(copyCampoorden);
         } else {
@@ -555,13 +533,11 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
         }
       }
       {
-        Boolean idbusquedaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.idbusqueda != null));
+        Boolean idbusquedaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idbusqueda != null));
         if (idbusquedaShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceIdbusqueda;
           sourceIdbusqueda = this.getIdbusqueda();
-          String copyIdbusqueda = ((String) strategy.copy(
-              LocatorUtils.property(locator, "idbusqueda", sourceIdbusqueda), sourceIdbusqueda,
+          String copyIdbusqueda = ((String) strategy.copy(LocatorUtils.property(locator, "idbusqueda", sourceIdbusqueda), sourceIdbusqueda,
               (this.idbusqueda != null)));
           copy.setIdbusqueda(copyIdbusqueda);
         } else {
@@ -571,14 +547,12 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
         }
       }
       {
-        Boolean numeropaginaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.numeropagina != null));
+        Boolean numeropaginaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.numeropagina != null));
         if (numeropaginaShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceNumeropagina;
           sourceNumeropagina = this.getNumeropagina();
-          String copyNumeropagina = ((String) strategy.copy(
-              LocatorUtils.property(locator, "numeropagina", sourceNumeropagina), sourceNumeropagina,
-              (this.numeropagina != null)));
+          String copyNumeropagina = ((String) strategy.copy(LocatorUtils.property(locator, "numeropagina", sourceNumeropagina),
+              sourceNumeropagina, (this.numeropagina != null)));
           copy.setNumeropagina(copyNumeropagina);
         } else {
           if (numeropaginaShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -587,14 +561,13 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
         }
       }
       {
-        Boolean numerototalpaginasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.numerototalpaginas != null));
+        Boolean numerototalpaginasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.numerototalpaginas != null));
         if (numerototalpaginasShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceNumerototalpaginas;
           sourceNumerototalpaginas = this.getNumerototalpaginas();
-          String copyNumerototalpaginas = ((String) strategy.copy(
-              LocatorUtils.property(locator, "numerototalpaginas", sourceNumerototalpaginas),
-              sourceNumerototalpaginas, (this.numerototalpaginas != null)));
+          String copyNumerototalpaginas =
+              ((String) strategy.copy(LocatorUtils.property(locator, "numerototalpaginas", sourceNumerototalpaginas),
+                  sourceNumerototalpaginas, (this.numerototalpaginas != null)));
           copy.setNumerototalpaginas(copyNumerototalpaginas);
         } else {
           if (numerototalpaginasShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -603,14 +576,13 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
         }
       }
       {
-        Boolean numeroregistrospaginaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.numeroregistrospagina != null));
+        Boolean numeroregistrospaginaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.numeroregistrospagina != null));
         if (numeroregistrospaginaShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceNumeroregistrospagina;
           sourceNumeroregistrospagina = this.getNumeroregistrospagina();
-          String copyNumeroregistrospagina = ((String) strategy.copy(
-              LocatorUtils.property(locator, "numeroregistrospagina", sourceNumeroregistrospagina),
-              sourceNumeroregistrospagina, (this.numeroregistrospagina != null)));
+          String copyNumeroregistrospagina =
+              ((String) strategy.copy(LocatorUtils.property(locator, "numeroregistrospagina", sourceNumeroregistrospagina),
+                  sourceNumeroregistrospagina, (this.numeroregistrospagina != null)));
           copy.setNumeroregistrospagina(copyNumeroregistrospagina);
         } else {
           if (numeroregistrospaginaShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -619,14 +591,13 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
         }
       }
       {
-        Boolean numerototalresultadosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.numerototalresultados != null));
+        Boolean numerototalresultadosShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.numerototalresultados != null));
         if (numerototalresultadosShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceNumerototalresultados;
           sourceNumerototalresultados = this.getNumerototalresultados();
-          String copyNumerototalresultados = ((String) strategy.copy(
-              LocatorUtils.property(locator, "numerototalresultados", sourceNumerototalresultados),
-              sourceNumerototalresultados, (this.numerototalresultados != null)));
+          String copyNumerototalresultados =
+              ((String) strategy.copy(LocatorUtils.property(locator, "numerototalresultados", sourceNumerototalresultados),
+                  sourceNumerototalresultados, (this.numerototalresultados != null)));
           copy.setNumerototalresultados(copyNumerototalresultados);
         } else {
           if (numerototalresultadosShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -636,24 +607,21 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
       }
       {
         Boolean icmParametrospaginacionRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmParametrospaginacionRecordSet != null)
-                && (!this.icmParametrospaginacionRecordSet.isEmpty())));
+            ((this.icmParametrospaginacionRecordSet != null) && (!this.icmParametrospaginacionRecordSet.isEmpty())));
         if (icmParametrospaginacionRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmParametrospaginacionRecord> sourceIcmParametrospaginacionRecordSet;
-          sourceIcmParametrospaginacionRecordSet = (((this.icmParametrospaginacionRecordSet != null)
-              && (!this.icmParametrospaginacionRecordSet.isEmpty()))
+          sourceIcmParametrospaginacionRecordSet =
+              (((this.icmParametrospaginacionRecordSet != null) && (!this.icmParametrospaginacionRecordSet.isEmpty()))
                   ? this.getIcmParametrospaginacionRecordSet()
                   : null);
           @SuppressWarnings("unchecked")
-          List<IcmParametrospaginacionRecord> copyIcmParametrospaginacionRecordSet = ((List<IcmParametrospaginacionRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmParametrospaginacionRecordSet",
-                  sourceIcmParametrospaginacionRecordSet), sourceIcmParametrospaginacionRecordSet,
-                  ((this.icmParametrospaginacionRecordSet != null)
-                      && (!this.icmParametrospaginacionRecordSet.isEmpty()))));
+          List<IcmParametrospaginacionRecord> copyIcmParametrospaginacionRecordSet = ((List<IcmParametrospaginacionRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmParametrospaginacionRecordSet", sourceIcmParametrospaginacionRecordSet),
+              sourceIcmParametrospaginacionRecordSet,
+              ((this.icmParametrospaginacionRecordSet != null) && (!this.icmParametrospaginacionRecordSet.isEmpty()))));
           copy.icmParametrospaginacionRecordSet = null;
           if (copyIcmParametrospaginacionRecordSet != null) {
-            List<IcmParametrospaginacionRecord> uniqueIcmParametrospaginacionRecordSetl = copy
-                .getIcmParametrospaginacionRecordSet();
+            List<IcmParametrospaginacionRecord> uniqueIcmParametrospaginacionRecordSetl = copy.getIcmParametrospaginacionRecordSet();
             uniqueIcmParametrospaginacionRecordSetl.addAll(copyIcmParametrospaginacionRecordSet);
           }
         } else {

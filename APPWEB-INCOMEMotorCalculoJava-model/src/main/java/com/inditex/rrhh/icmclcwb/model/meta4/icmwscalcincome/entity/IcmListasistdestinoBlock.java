@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ListasistdestinoBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ListasistdestinoBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ListasistdestinoBlock"&gt;
  *   &lt;complexContent&gt;
@@ -44,8 +40,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListasistdestinoBlock", propOrder = {
@@ -60,21 +56,21 @@ public class IcmListasistdestinoBlock implements Serializable, Cloneable, CopyTo
 
   /**
    * Gets the value of the icmListasistdestinoRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListasistdestinoRecordSet
    * property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmListasistdestinoRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmListasistdestinoRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmListasistdestinoRecord> getIcmListasistdestinoRecordSet() {
     if (icmListasistdestinoRecordSet == null) {
@@ -83,8 +79,7 @@ public class IcmListasistdestinoBlock implements Serializable, Cloneable, CopyTo
     return this.icmListasistdestinoRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -94,13 +89,14 @@ public class IcmListasistdestinoBlock implements Serializable, Cloneable, CopyTo
     final IcmListasistdestinoBlock that = ((IcmListasistdestinoBlock) object);
     {
       List<IcmListasistdestinoRecord> lhsIcmListasistdestinoRecordSet;
-      lhsIcmListasistdestinoRecordSet = (((this.icmListasistdestinoRecordSet != null)
-          && (!this.icmListasistdestinoRecordSet.isEmpty())) ? this.getIcmListasistdestinoRecordSet() : null);
+      lhsIcmListasistdestinoRecordSet = (((this.icmListasistdestinoRecordSet != null) && (!this.icmListasistdestinoRecordSet.isEmpty()))
+          ? this.getIcmListasistdestinoRecordSet()
+          : null);
       List<IcmListasistdestinoRecord> rhsIcmListasistdestinoRecordSet;
-      rhsIcmListasistdestinoRecordSet = (((that.icmListasistdestinoRecordSet != null)
-          && (!that.icmListasistdestinoRecordSet.isEmpty())) ? that.getIcmListasistdestinoRecordSet() : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmListasistdestinoRecordSet", lhsIcmListasistdestinoRecordSet),
+      rhsIcmListasistdestinoRecordSet = (((that.icmListasistdestinoRecordSet != null) && (!that.icmListasistdestinoRecordSet.isEmpty()))
+          ? that.getIcmListasistdestinoRecordSet()
+          : null);
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListasistdestinoRecordSet", lhsIcmListasistdestinoRecordSet),
           LocatorUtils.property(thatLocator, "icmListasistdestinoRecordSet", rhsIcmListasistdestinoRecordSet),
           lhsIcmListasistdestinoRecordSet, rhsIcmListasistdestinoRecordSet,
           ((this.icmListasistdestinoRecordSet != null) && (!this.icmListasistdestinoRecordSet.isEmpty())),
@@ -133,8 +129,9 @@ public class IcmListasistdestinoBlock implements Serializable, Cloneable, CopyTo
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
       List<IcmListasistdestinoRecord> theIcmListasistdestinoRecordSet;
-      theIcmListasistdestinoRecordSet = (((this.icmListasistdestinoRecordSet != null)
-          && (!this.icmListasistdestinoRecordSet.isEmpty())) ? this.getIcmListasistdestinoRecordSet() : null);
+      theIcmListasistdestinoRecordSet = (((this.icmListasistdestinoRecordSet != null) && (!this.icmListasistdestinoRecordSet.isEmpty()))
+          ? this.getIcmListasistdestinoRecordSet()
+          : null);
       strategy.appendField(locator, this, "icmListasistdestinoRecordSet", buffer, theIcmListasistdestinoRecordSet,
           ((this.icmListasistdestinoRecordSet != null) && (!this.icmListasistdestinoRecordSet.isEmpty())));
     }
@@ -145,10 +142,10 @@ public class IcmListasistdestinoBlock implements Serializable, Cloneable, CopyTo
     int currentHashCode = 1;
     {
       List<IcmListasistdestinoRecord> theIcmListasistdestinoRecordSet;
-      theIcmListasistdestinoRecordSet = (((this.icmListasistdestinoRecordSet != null)
-          && (!this.icmListasistdestinoRecordSet.isEmpty())) ? this.getIcmListasistdestinoRecordSet() : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmListasistdestinoRecordSet", theIcmListasistdestinoRecordSet),
+      theIcmListasistdestinoRecordSet = (((this.icmListasistdestinoRecordSet != null) && (!this.icmListasistdestinoRecordSet.isEmpty()))
+          ? this.getIcmListasistdestinoRecordSet()
+          : null);
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListasistdestinoRecordSet", theIcmListasistdestinoRecordSet),
           currentHashCode, theIcmListasistdestinoRecordSet,
           ((this.icmListasistdestinoRecordSet != null) && (!this.icmListasistdestinoRecordSet.isEmpty())));
     }
@@ -175,23 +172,21 @@ public class IcmListasistdestinoBlock implements Serializable, Cloneable, CopyTo
       final IcmListasistdestinoBlock copy = ((IcmListasistdestinoBlock) draftCopy);
       {
         Boolean icmListasistdestinoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmListasistdestinoRecordSet != null)
-                && (!this.icmListasistdestinoRecordSet.isEmpty())));
+            ((this.icmListasistdestinoRecordSet != null) && (!this.icmListasistdestinoRecordSet.isEmpty())));
         if (icmListasistdestinoRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmListasistdestinoRecord> sourceIcmListasistdestinoRecordSet;
-          sourceIcmListasistdestinoRecordSet = (((this.icmListasistdestinoRecordSet != null)
-              && (!this.icmListasistdestinoRecordSet.isEmpty())) ? this.getIcmListasistdestinoRecordSet()
+          sourceIcmListasistdestinoRecordSet =
+              (((this.icmListasistdestinoRecordSet != null) && (!this.icmListasistdestinoRecordSet.isEmpty()))
+                  ? this.getIcmListasistdestinoRecordSet()
                   : null);
           @SuppressWarnings("unchecked")
-          List<IcmListasistdestinoRecord> copyIcmListasistdestinoRecordSet = ((List<IcmListasistdestinoRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmListasistdestinoRecordSet",
-                  sourceIcmListasistdestinoRecordSet), sourceIcmListasistdestinoRecordSet,
-                  ((this.icmListasistdestinoRecordSet != null)
-                      && (!this.icmListasistdestinoRecordSet.isEmpty()))));
+          List<IcmListasistdestinoRecord> copyIcmListasistdestinoRecordSet = ((List<IcmListasistdestinoRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmListasistdestinoRecordSet", sourceIcmListasistdestinoRecordSet),
+              sourceIcmListasistdestinoRecordSet,
+              ((this.icmListasistdestinoRecordSet != null) && (!this.icmListasistdestinoRecordSet.isEmpty()))));
           copy.icmListasistdestinoRecordSet = null;
           if (copyIcmListasistdestinoRecordSet != null) {
-            List<IcmListasistdestinoRecord> uniqueIcmListasistdestinoRecordSetl = copy
-                .getIcmListasistdestinoRecordSet();
+            List<IcmListasistdestinoRecord> uniqueIcmListasistdestinoRecordSetl = copy.getIcmListasistdestinoRecordSet();
             uniqueIcmListasistdestinoRecordSetl.addAll(copyIcmListasistdestinoRecordSet);
           }
         } else {

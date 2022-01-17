@@ -116,7 +116,7 @@
     <profile>
       <id>generateWSClients</id>
       <properties>
-        <urlServidor>http://develop-icmclcws.axdesocp1.central.inditex.grp/services</urlServidor>
+        <urlServidor>https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services</urlServidor>
         <bindingDirectory>${basedir}/src/main/resources/bindings</bindingDirectory>
         <sourceDestDir>src/main/java</sourceDestDir>
         <sourceDestDirWsdl>src/main/resources/wsdls</sourceDestDirWsdl>

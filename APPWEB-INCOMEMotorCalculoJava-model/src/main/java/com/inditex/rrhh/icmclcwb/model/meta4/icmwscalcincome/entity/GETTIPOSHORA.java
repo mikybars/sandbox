@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETTIPOSHORA implements Serializable, Cloneable, CopyTo2, Equals2, 
    * Obtiene el valor de la propiedad icmparamcaltiposhora.
    * 
    * @return possible object is {@link IcmParamcaltiposhoraBlock }
-   *
+   * 
    */
   public IcmParamcaltiposhoraBlock getICMPARAMCALTIPOSHORA() {
     return icmparamcaltiposhora;
@@ -72,14 +68,13 @@ public class GETTIPOSHORA implements Serializable, Cloneable, CopyTo2, Equals2, 
    * Define el valor de la propiedad icmparamcaltiposhora.
    * 
    * @param value allowed object is {@link IcmParamcaltiposhoraBlock }
-   *
+   * 
    */
   public void setICMPARAMCALTIPOSHORA(IcmParamcaltiposhoraBlock value) {
     this.icmparamcaltiposhora = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,9 +88,8 @@ public class GETTIPOSHORA implements Serializable, Cloneable, CopyTo2, Equals2, 
       IcmParamcaltiposhoraBlock rhsICMPARAMCALTIPOSHORA;
       rhsICMPARAMCALTIPOSHORA = that.getICMPARAMCALTIPOSHORA();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcaltiposhora", lhsICMPARAMCALTIPOSHORA),
-          LocatorUtils.property(thatLocator, "icmparamcaltiposhora", rhsICMPARAMCALTIPOSHORA),
-          lhsICMPARAMCALTIPOSHORA, rhsICMPARAMCALTIPOSHORA, (this.icmparamcaltiposhora != null),
-          (that.icmparamcaltiposhora != null))) {
+          LocatorUtils.property(thatLocator, "icmparamcaltiposhora", rhsICMPARAMCALTIPOSHORA), lhsICMPARAMCALTIPOSHORA,
+          rhsICMPARAMCALTIPOSHORA, (this.icmparamcaltiposhora != null), (that.icmparamcaltiposhora != null))) {
         return false;
       }
     }
@@ -125,8 +119,7 @@ public class GETTIPOSHORA implements Serializable, Cloneable, CopyTo2, Equals2, 
     {
       IcmParamcaltiposhoraBlock theICMPARAMCALTIPOSHORA;
       theICMPARAMCALTIPOSHORA = this.getICMPARAMCALTIPOSHORA();
-      strategy.appendField(locator, this, "icmparamcaltiposhora", buffer, theICMPARAMCALTIPOSHORA,
-          (this.icmparamcaltiposhora != null));
+      strategy.appendField(locator, this, "icmparamcaltiposhora", buffer, theICMPARAMCALTIPOSHORA, (this.icmparamcaltiposhora != null));
     }
     return buffer;
   }
@@ -136,8 +129,7 @@ public class GETTIPOSHORA implements Serializable, Cloneable, CopyTo2, Equals2, 
     {
       IcmParamcaltiposhoraBlock theICMPARAMCALTIPOSHORA;
       theICMPARAMCALTIPOSHORA = this.getICMPARAMCALTIPOSHORA();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmparamcaltiposhora", theICMPARAMCALTIPOSHORA), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcaltiposhora", theICMPARAMCALTIPOSHORA), currentHashCode,
           theICMPARAMCALTIPOSHORA, (this.icmparamcaltiposhora != null));
     }
     return currentHashCode;
@@ -162,14 +154,13 @@ public class GETTIPOSHORA implements Serializable, Cloneable, CopyTo2, Equals2, 
     if (draftCopy instanceof GETTIPOSHORA) {
       final GETTIPOSHORA copy = ((GETTIPOSHORA) draftCopy);
       {
-        Boolean icmparamcaltiposhoraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmparamcaltiposhora != null));
+        Boolean icmparamcaltiposhoraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcaltiposhora != null));
         if (icmparamcaltiposhoraShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmParamcaltiposhoraBlock sourceICMPARAMCALTIPOSHORA;
           sourceICMPARAMCALTIPOSHORA = this.getICMPARAMCALTIPOSHORA();
-          IcmParamcaltiposhoraBlock copyICMPARAMCALTIPOSHORA = ((IcmParamcaltiposhoraBlock) strategy.copy(
-              LocatorUtils.property(locator, "icmparamcaltiposhora", sourceICMPARAMCALTIPOSHORA),
-              sourceICMPARAMCALTIPOSHORA, (this.icmparamcaltiposhora != null)));
+          IcmParamcaltiposhoraBlock copyICMPARAMCALTIPOSHORA =
+              ((IcmParamcaltiposhoraBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcaltiposhora", sourceICMPARAMCALTIPOSHORA),
+                  sourceICMPARAMCALTIPOSHORA, (this.icmparamcaltiposhora != null)));
           copy.setICMPARAMCALTIPOSHORA(copyICMPARAMCALTIPOSHORA);
         } else {
           if (icmparamcaltiposhoraShouldBeCopiedAndSet == Boolean.FALSE) {

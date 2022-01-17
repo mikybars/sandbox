@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETDESPLAZREAL implements Serializable, Cloneable, CopyTo2, Equals2
    * Obtiene el valor de la propiedad icmparamcaldesplazreal.
    * 
    * @return possible object is {@link IcmParamcaldesplazrealBlock }
-   *
+   * 
    */
   public IcmParamcaldesplazrealBlock getICMPARAMCALDESPLAZREAL() {
     return icmparamcaldesplazreal;
@@ -72,14 +68,13 @@ public class GETDESPLAZREAL implements Serializable, Cloneable, CopyTo2, Equals2
    * Define el valor de la propiedad icmparamcaldesplazreal.
    * 
    * @param value allowed object is {@link IcmParamcaldesplazrealBlock }
-   *
+   * 
    */
   public void setICMPARAMCALDESPLAZREAL(IcmParamcaldesplazrealBlock value) {
     this.icmparamcaldesplazreal = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -92,11 +87,9 @@ public class GETDESPLAZREAL implements Serializable, Cloneable, CopyTo2, Equals2
       lhsICMPARAMCALDESPLAZREAL = this.getICMPARAMCALDESPLAZREAL();
       IcmParamcaldesplazrealBlock rhsICMPARAMCALDESPLAZREAL;
       rhsICMPARAMCALDESPLAZREAL = that.getICMPARAMCALDESPLAZREAL();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmparamcaldesplazreal", lhsICMPARAMCALDESPLAZREAL),
-          LocatorUtils.property(thatLocator, "icmparamcaldesplazreal", rhsICMPARAMCALDESPLAZREAL),
-          lhsICMPARAMCALDESPLAZREAL, rhsICMPARAMCALDESPLAZREAL, (this.icmparamcaldesplazreal != null),
-          (that.icmparamcaldesplazreal != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcaldesplazreal", lhsICMPARAMCALDESPLAZREAL),
+          LocatorUtils.property(thatLocator, "icmparamcaldesplazreal", rhsICMPARAMCALDESPLAZREAL), lhsICMPARAMCALDESPLAZREAL,
+          rhsICMPARAMCALDESPLAZREAL, (this.icmparamcaldesplazreal != null), (that.icmparamcaldesplazreal != null))) {
         return false;
       }
     }
@@ -137,8 +130,7 @@ public class GETDESPLAZREAL implements Serializable, Cloneable, CopyTo2, Equals2
     {
       IcmParamcaldesplazrealBlock theICMPARAMCALDESPLAZREAL;
       theICMPARAMCALDESPLAZREAL = this.getICMPARAMCALDESPLAZREAL();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmparamcaldesplazreal", theICMPARAMCALDESPLAZREAL),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcaldesplazreal", theICMPARAMCALDESPLAZREAL),
           currentHashCode, theICMPARAMCALDESPLAZREAL, (this.icmparamcaldesplazreal != null));
     }
     return currentHashCode;
@@ -163,14 +155,13 @@ public class GETDESPLAZREAL implements Serializable, Cloneable, CopyTo2, Equals2
     if (draftCopy instanceof GETDESPLAZREAL) {
       final GETDESPLAZREAL copy = ((GETDESPLAZREAL) draftCopy);
       {
-        Boolean icmparamcaldesplazrealShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmparamcaldesplazreal != null));
+        Boolean icmparamcaldesplazrealShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcaldesplazreal != null));
         if (icmparamcaldesplazrealShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmParamcaldesplazrealBlock sourceICMPARAMCALDESPLAZREAL;
           sourceICMPARAMCALDESPLAZREAL = this.getICMPARAMCALDESPLAZREAL();
-          IcmParamcaldesplazrealBlock copyICMPARAMCALDESPLAZREAL = ((IcmParamcaldesplazrealBlock) strategy
-              .copy(LocatorUtils.property(locator, "icmparamcaldesplazreal", sourceICMPARAMCALDESPLAZREAL),
-                  sourceICMPARAMCALDESPLAZREAL, (this.icmparamcaldesplazreal != null)));
+          IcmParamcaldesplazrealBlock copyICMPARAMCALDESPLAZREAL = ((IcmParamcaldesplazrealBlock) strategy.copy(
+              LocatorUtils.property(locator, "icmparamcaldesplazreal", sourceICMPARAMCALDESPLAZREAL), sourceICMPARAMCALDESPLAZREAL,
+              (this.icmparamcaldesplazreal != null)));
           copy.setICMPARAMCALDESPLAZREAL(copyICMPARAMCALDESPLAZREAL);
         } else {
           if (icmparamcaldesplazrealShouldBeCopiedAndSet == Boolean.FALSE) {
