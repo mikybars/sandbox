@@ -22,4 +22,6 @@ public interface TareaPersonaEstructuraRepositoryCustom {
 
   void desactivarManualOrdinalDoble(final TareaDto tarea);
 
+  void crearEstructurasOrigenIgualarBandas();
+
 }

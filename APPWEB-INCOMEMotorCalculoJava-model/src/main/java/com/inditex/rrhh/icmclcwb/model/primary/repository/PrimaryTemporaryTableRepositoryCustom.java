@@ -526,4 +526,25 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    */
   void insertTempMejorOpcionSinFechasTodoPeriodo(TareaDto tarea);
 
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempBandasOrigenSinBandaDesplazamiento();
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void insertBandasOrigenSinBandaDesplazamiento(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempBandasOrigenSinBandaDesplazamiento();
+
 }
