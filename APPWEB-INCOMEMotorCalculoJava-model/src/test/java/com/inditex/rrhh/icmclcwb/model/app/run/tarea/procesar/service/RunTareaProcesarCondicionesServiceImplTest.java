@@ -1,3 +1,5 @@
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
+
 /*
  * Copyright (c) 2022. Inditex
  */
