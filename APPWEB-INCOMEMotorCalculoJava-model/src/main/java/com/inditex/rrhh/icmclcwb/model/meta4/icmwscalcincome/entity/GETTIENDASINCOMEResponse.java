@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETTIENDASINCOMEResponse implements Serializable, Cloneable, CopyTo
    * Obtiene el valor de la propiedad gettiendasincomeReturn.
    * 
    * @return possible object is {@link GettiendasincomeOutput }
-   *
+   * 
    */
   public GettiendasincomeOutput getGETTIENDASINCOMEReturn() {
     return gettiendasincomeReturn;
@@ -72,14 +68,13 @@ public class GETTIENDASINCOMEResponse implements Serializable, Cloneable, CopyTo
    * Define el valor de la propiedad gettiendasincomeReturn.
    * 
    * @param value allowed object is {@link GettiendasincomeOutput }
-   *
+   * 
    */
   public void setGETTIENDASINCOMEReturn(GettiendasincomeOutput value) {
     this.gettiendasincomeReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -92,11 +87,9 @@ public class GETTIENDASINCOMEResponse implements Serializable, Cloneable, CopyTo
       lhsGETTIENDASINCOMEReturn = this.getGETTIENDASINCOMEReturn();
       GettiendasincomeOutput rhsGETTIENDASINCOMEReturn;
       rhsGETTIENDASINCOMEReturn = that.getGETTIENDASINCOMEReturn();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "gettiendasincomeReturn", lhsGETTIENDASINCOMEReturn),
-          LocatorUtils.property(thatLocator, "gettiendasincomeReturn", rhsGETTIENDASINCOMEReturn),
-          lhsGETTIENDASINCOMEReturn, rhsGETTIENDASINCOMEReturn, (this.gettiendasincomeReturn != null),
-          (that.gettiendasincomeReturn != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "gettiendasincomeReturn", lhsGETTIENDASINCOMEReturn),
+          LocatorUtils.property(thatLocator, "gettiendasincomeReturn", rhsGETTIENDASINCOMEReturn), lhsGETTIENDASINCOMEReturn,
+          rhsGETTIENDASINCOMEReturn, (this.gettiendasincomeReturn != null), (that.gettiendasincomeReturn != null))) {
         return false;
       }
     }
@@ -137,8 +130,7 @@ public class GETTIENDASINCOMEResponse implements Serializable, Cloneable, CopyTo
     {
       GettiendasincomeOutput theGETTIENDASINCOMEReturn;
       theGETTIENDASINCOMEReturn = this.getGETTIENDASINCOMEReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "gettiendasincomeReturn", theGETTIENDASINCOMEReturn),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "gettiendasincomeReturn", theGETTIENDASINCOMEReturn),
           currentHashCode, theGETTIENDASINCOMEReturn, (this.gettiendasincomeReturn != null));
     }
     return currentHashCode;
@@ -163,14 +155,13 @@ public class GETTIENDASINCOMEResponse implements Serializable, Cloneable, CopyTo
     if (draftCopy instanceof GETTIENDASINCOMEResponse) {
       final GETTIENDASINCOMEResponse copy = ((GETTIENDASINCOMEResponse) draftCopy);
       {
-        Boolean gettiendasincomeReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.gettiendasincomeReturn != null));
+        Boolean gettiendasincomeReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.gettiendasincomeReturn != null));
         if (gettiendasincomeReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GettiendasincomeOutput sourceGETTIENDASINCOMEReturn;
           sourceGETTIENDASINCOMEReturn = this.getGETTIENDASINCOMEReturn();
           GettiendasincomeOutput copyGETTIENDASINCOMEReturn = ((GettiendasincomeOutput) strategy.copy(
-              LocatorUtils.property(locator, "gettiendasincomeReturn", sourceGETTIENDASINCOMEReturn),
-              sourceGETTIENDASINCOMEReturn, (this.gettiendasincomeReturn != null)));
+              LocatorUtils.property(locator, "gettiendasincomeReturn", sourceGETTIENDASINCOMEReturn), sourceGETTIENDASINCOMEReturn,
+              (this.gettiendasincomeReturn != null)));
           copy.setGETTIENDASINCOMEReturn(copyGETTIENDASINCOMEReturn);
         } else {
           if (gettiendasincomeReturnShouldBeCopiedAndSet == Boolean.FALSE) {

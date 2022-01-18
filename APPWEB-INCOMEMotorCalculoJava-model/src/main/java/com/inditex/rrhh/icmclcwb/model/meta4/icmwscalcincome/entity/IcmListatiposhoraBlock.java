@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ListatiposhoraBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ListatiposhoraBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ListatiposhoraBlock"&gt;
  *   &lt;complexContent&gt;
@@ -44,8 +40,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListatiposhoraBlock", propOrder = {
@@ -60,20 +56,20 @@ public class IcmListatiposhoraBlock implements Serializable, Cloneable, CopyTo2,
 
   /**
    * Gets the value of the icmListatiposhoraRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListatiposhoraRecordSet property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmListatiposhoraRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmListatiposhoraRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmListatiposhoraRecord> getIcmListatiposhoraRecordSet() {
     if (icmListatiposhoraRecordSet == null) {
@@ -82,8 +78,7 @@ public class IcmListatiposhoraBlock implements Serializable, Cloneable, CopyTo2,
     return this.icmListatiposhoraRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,16 +88,16 @@ public class IcmListatiposhoraBlock implements Serializable, Cloneable, CopyTo2,
     final IcmListatiposhoraBlock that = ((IcmListatiposhoraBlock) object);
     {
       List<IcmListatiposhoraRecord> lhsIcmListatiposhoraRecordSet;
-      lhsIcmListatiposhoraRecordSet = (((this.icmListatiposhoraRecordSet != null)
-          && (!this.icmListatiposhoraRecordSet.isEmpty())) ? this.getIcmListatiposhoraRecordSet() : null);
+      lhsIcmListatiposhoraRecordSet = (((this.icmListatiposhoraRecordSet != null) && (!this.icmListatiposhoraRecordSet.isEmpty()))
+          ? this.getIcmListatiposhoraRecordSet()
+          : null);
       List<IcmListatiposhoraRecord> rhsIcmListatiposhoraRecordSet;
-      rhsIcmListatiposhoraRecordSet = (((that.icmListatiposhoraRecordSet != null)
-          && (!that.icmListatiposhoraRecordSet.isEmpty())) ? that.getIcmListatiposhoraRecordSet() : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmListatiposhoraRecordSet", lhsIcmListatiposhoraRecordSet),
-          LocatorUtils.property(thatLocator, "icmListatiposhoraRecordSet", rhsIcmListatiposhoraRecordSet),
-          lhsIcmListatiposhoraRecordSet, rhsIcmListatiposhoraRecordSet,
-          ((this.icmListatiposhoraRecordSet != null) && (!this.icmListatiposhoraRecordSet.isEmpty())),
+      rhsIcmListatiposhoraRecordSet = (((that.icmListatiposhoraRecordSet != null) && (!that.icmListatiposhoraRecordSet.isEmpty()))
+          ? that.getIcmListatiposhoraRecordSet()
+          : null);
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListatiposhoraRecordSet", lhsIcmListatiposhoraRecordSet),
+          LocatorUtils.property(thatLocator, "icmListatiposhoraRecordSet", rhsIcmListatiposhoraRecordSet), lhsIcmListatiposhoraRecordSet,
+          rhsIcmListatiposhoraRecordSet, ((this.icmListatiposhoraRecordSet != null) && (!this.icmListatiposhoraRecordSet.isEmpty())),
           ((that.icmListatiposhoraRecordSet != null) && (!that.icmListatiposhoraRecordSet.isEmpty())))) {
         return false;
       }
@@ -132,8 +127,9 @@ public class IcmListatiposhoraBlock implements Serializable, Cloneable, CopyTo2,
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
       List<IcmListatiposhoraRecord> theIcmListatiposhoraRecordSet;
-      theIcmListatiposhoraRecordSet = (((this.icmListatiposhoraRecordSet != null)
-          && (!this.icmListatiposhoraRecordSet.isEmpty())) ? this.getIcmListatiposhoraRecordSet() : null);
+      theIcmListatiposhoraRecordSet = (((this.icmListatiposhoraRecordSet != null) && (!this.icmListatiposhoraRecordSet.isEmpty()))
+          ? this.getIcmListatiposhoraRecordSet()
+          : null);
       strategy.appendField(locator, this, "icmListatiposhoraRecordSet", buffer, theIcmListatiposhoraRecordSet,
           ((this.icmListatiposhoraRecordSet != null) && (!this.icmListatiposhoraRecordSet.isEmpty())));
     }
@@ -144,12 +140,12 @@ public class IcmListatiposhoraBlock implements Serializable, Cloneable, CopyTo2,
     int currentHashCode = 1;
     {
       List<IcmListatiposhoraRecord> theIcmListatiposhoraRecordSet;
-      theIcmListatiposhoraRecordSet = (((this.icmListatiposhoraRecordSet != null)
-          && (!this.icmListatiposhoraRecordSet.isEmpty())) ? this.getIcmListatiposhoraRecordSet() : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmListatiposhoraRecordSet", theIcmListatiposhoraRecordSet),
-          currentHashCode, theIcmListatiposhoraRecordSet,
-          ((this.icmListatiposhoraRecordSet != null) && (!this.icmListatiposhoraRecordSet.isEmpty())));
+      theIcmListatiposhoraRecordSet = (((this.icmListatiposhoraRecordSet != null) && (!this.icmListatiposhoraRecordSet.isEmpty()))
+          ? this.getIcmListatiposhoraRecordSet()
+          : null);
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmListatiposhoraRecordSet", theIcmListatiposhoraRecordSet), currentHashCode,
+              theIcmListatiposhoraRecordSet, ((this.icmListatiposhoraRecordSet != null) && (!this.icmListatiposhoraRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -177,19 +173,17 @@ public class IcmListatiposhoraBlock implements Serializable, Cloneable, CopyTo2,
             ((this.icmListatiposhoraRecordSet != null) && (!this.icmListatiposhoraRecordSet.isEmpty())));
         if (icmListatiposhoraRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmListatiposhoraRecord> sourceIcmListatiposhoraRecordSet;
-          sourceIcmListatiposhoraRecordSet = (((this.icmListatiposhoraRecordSet != null)
-              && (!this.icmListatiposhoraRecordSet.isEmpty())) ? this.getIcmListatiposhoraRecordSet()
-                  : null);
+          sourceIcmListatiposhoraRecordSet = (((this.icmListatiposhoraRecordSet != null) && (!this.icmListatiposhoraRecordSet.isEmpty()))
+              ? this.getIcmListatiposhoraRecordSet()
+              : null);
           @SuppressWarnings("unchecked")
-          List<IcmListatiposhoraRecord> copyIcmListatiposhoraRecordSet = ((List<IcmListatiposhoraRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmListatiposhoraRecordSet",
-                  sourceIcmListatiposhoraRecordSet), sourceIcmListatiposhoraRecordSet,
-                  ((this.icmListatiposhoraRecordSet != null)
-                      && (!this.icmListatiposhoraRecordSet.isEmpty()))));
+          List<IcmListatiposhoraRecord> copyIcmListatiposhoraRecordSet = ((List<IcmListatiposhoraRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmListatiposhoraRecordSet", sourceIcmListatiposhoraRecordSet),
+              sourceIcmListatiposhoraRecordSet,
+              ((this.icmListatiposhoraRecordSet != null) && (!this.icmListatiposhoraRecordSet.isEmpty()))));
           copy.icmListatiposhoraRecordSet = null;
           if (copyIcmListatiposhoraRecordSet != null) {
-            List<IcmListatiposhoraRecord> uniqueIcmListatiposhoraRecordSetl = copy
-                .getIcmListatiposhoraRecordSet();
+            List<IcmListatiposhoraRecord> uniqueIcmListatiposhoraRecordSetl = copy.getIcmListatiposhoraRecordSet();
             uniqueIcmListatiposhoraRecordSetl.addAll(copyIcmListatiposhoraRecordSet);
           }
         } else {

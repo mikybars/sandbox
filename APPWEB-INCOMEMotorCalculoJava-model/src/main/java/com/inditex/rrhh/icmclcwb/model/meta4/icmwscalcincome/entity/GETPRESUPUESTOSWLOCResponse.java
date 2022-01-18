@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETPRESUPUESTOSWLOCResponse implements Serializable, Cloneable, Cop
    * Obtiene el valor de la propiedad getpresupuestoswlocReturn.
    * 
    * @return possible object is {@link GetpresupuestoswlocOutput }
-   *
+   * 
    */
   public GetpresupuestoswlocOutput getGETPRESUPUESTOSWLOCReturn() {
     return getpresupuestoswlocReturn;
@@ -72,14 +68,13 @@ public class GETPRESUPUESTOSWLOCResponse implements Serializable, Cloneable, Cop
    * Define el valor de la propiedad getpresupuestoswlocReturn.
    * 
    * @param value allowed object is {@link GetpresupuestoswlocOutput }
-   *
+   * 
    */
   public void setGETPRESUPUESTOSWLOCReturn(GetpresupuestoswlocOutput value) {
     this.getpresupuestoswlocReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -92,11 +87,9 @@ public class GETPRESUPUESTOSWLOCResponse implements Serializable, Cloneable, Cop
       lhsGETPRESUPUESTOSWLOCReturn = this.getGETPRESUPUESTOSWLOCReturn();
       GetpresupuestoswlocOutput rhsGETPRESUPUESTOSWLOCReturn;
       rhsGETPRESUPUESTOSWLOCReturn = that.getGETPRESUPUESTOSWLOCReturn();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "getpresupuestoswlocReturn", lhsGETPRESUPUESTOSWLOCReturn),
-          LocatorUtils.property(thatLocator, "getpresupuestoswlocReturn", rhsGETPRESUPUESTOSWLOCReturn),
-          lhsGETPRESUPUESTOSWLOCReturn, rhsGETPRESUPUESTOSWLOCReturn,
-          (this.getpresupuestoswlocReturn != null), (that.getpresupuestoswlocReturn != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "getpresupuestoswlocReturn", lhsGETPRESUPUESTOSWLOCReturn),
+          LocatorUtils.property(thatLocator, "getpresupuestoswlocReturn", rhsGETPRESUPUESTOSWLOCReturn), lhsGETPRESUPUESTOSWLOCReturn,
+          rhsGETPRESUPUESTOSWLOCReturn, (this.getpresupuestoswlocReturn != null), (that.getpresupuestoswlocReturn != null))) {
         return false;
       }
     }
@@ -137,8 +130,7 @@ public class GETPRESUPUESTOSWLOCResponse implements Serializable, Cloneable, Cop
     {
       GetpresupuestoswlocOutput theGETPRESUPUESTOSWLOCReturn;
       theGETPRESUPUESTOSWLOCReturn = this.getGETPRESUPUESTOSWLOCReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "getpresupuestoswlocReturn", theGETPRESUPUESTOSWLOCReturn),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getpresupuestoswlocReturn", theGETPRESUPUESTOSWLOCReturn),
           currentHashCode, theGETPRESUPUESTOSWLOCReturn, (this.getpresupuestoswlocReturn != null));
     }
     return currentHashCode;
@@ -163,15 +155,14 @@ public class GETPRESUPUESTOSWLOCResponse implements Serializable, Cloneable, Cop
     if (draftCopy instanceof GETPRESUPUESTOSWLOCResponse) {
       final GETPRESUPUESTOSWLOCResponse copy = ((GETPRESUPUESTOSWLOCResponse) draftCopy);
       {
-        Boolean getpresupuestoswlocReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.getpresupuestoswlocReturn != null));
+        Boolean getpresupuestoswlocReturnShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.getpresupuestoswlocReturn != null));
         if (getpresupuestoswlocReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GetpresupuestoswlocOutput sourceGETPRESUPUESTOSWLOCReturn;
           sourceGETPRESUPUESTOSWLOCReturn = this.getGETPRESUPUESTOSWLOCReturn();
-          GetpresupuestoswlocOutput copyGETPRESUPUESTOSWLOCReturn = ((GetpresupuestoswlocOutput) strategy
-              .copy(LocatorUtils.property(locator, "getpresupuestoswlocReturn",
-                  sourceGETPRESUPUESTOSWLOCReturn), sourceGETPRESUPUESTOSWLOCReturn,
-                  (this.getpresupuestoswlocReturn != null)));
+          GetpresupuestoswlocOutput copyGETPRESUPUESTOSWLOCReturn = ((GetpresupuestoswlocOutput) strategy.copy(
+              LocatorUtils.property(locator, "getpresupuestoswlocReturn", sourceGETPRESUPUESTOSWLOCReturn), sourceGETPRESUPUESTOSWLOCReturn,
+              (this.getpresupuestoswlocReturn != null)));
           copy.setGETPRESUPUESTOSWLOCReturn(copyGETPRESUPUESTOSWLOCReturn);
         } else {
           if (getpresupuestoswlocReturnShouldBeCopiedAndSet == Boolean.FALSE) {

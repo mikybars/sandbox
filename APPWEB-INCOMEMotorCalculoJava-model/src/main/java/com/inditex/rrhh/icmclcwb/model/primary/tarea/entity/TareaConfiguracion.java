@@ -56,4 +56,8 @@ public class TareaConfiguracion {
   @Column(name = "ICM_CK_INC_IVA_EVAL_PTPO", nullable = false)
   private Boolean icmCkIncIvaEvalPtpo;
 
+  @NotNull
+  @Column(name = "ICM_CK_RED_JORNADA", nullable = false)
+  private Boolean icmCkRedJornada;
+
 }

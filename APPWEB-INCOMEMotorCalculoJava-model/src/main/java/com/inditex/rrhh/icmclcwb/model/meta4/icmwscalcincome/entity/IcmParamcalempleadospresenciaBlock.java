@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ParamcalempleadospresenciaBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ParamcalempleadospresenciaBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ParamcalempleadospresenciaBlock"&gt;
  *   &lt;complexContent&gt;
@@ -44,15 +40,14 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalempleadospresenciaBlock", propOrder = {
     "icmParamcalempleadospresenciaRecordSet"
 })
-public class IcmParamcalempleadospresenciaBlock
-    implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmParamcalempleadospresenciaBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
   private final static long serialVersionUID = 1L;
 
@@ -61,21 +56,21 @@ public class IcmParamcalempleadospresenciaBlock
 
   /**
    * Gets the value of the icmParamcalempleadospresenciaRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the
    * icmParamcalempleadospresenciaRecordSet property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmParamcalempleadospresenciaRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmParamcalempleadospresenciaRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmParamcalempleadospresenciaRecord> getIcmParamcalempleadospresenciaRecordSet() {
     if (icmParamcalempleadospresenciaRecordSet == null) {
@@ -84,8 +79,7 @@ public class IcmParamcalempleadospresenciaBlock
     return this.icmParamcalempleadospresenciaRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -95,25 +89,21 @@ public class IcmParamcalempleadospresenciaBlock
     final IcmParamcalempleadospresenciaBlock that = ((IcmParamcalempleadospresenciaBlock) object);
     {
       List<IcmParamcalempleadospresenciaRecord> lhsIcmParamcalempleadospresenciaRecordSet;
-      lhsIcmParamcalempleadospresenciaRecordSet = (((this.icmParamcalempleadospresenciaRecordSet != null)
-          && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty()))
+      lhsIcmParamcalempleadospresenciaRecordSet =
+          (((this.icmParamcalempleadospresenciaRecordSet != null) && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty()))
               ? this.getIcmParamcalempleadospresenciaRecordSet()
               : null);
       List<IcmParamcalempleadospresenciaRecord> rhsIcmParamcalempleadospresenciaRecordSet;
-      rhsIcmParamcalempleadospresenciaRecordSet = (((that.icmParamcalempleadospresenciaRecordSet != null)
-          && (!that.icmParamcalempleadospresenciaRecordSet.isEmpty()))
+      rhsIcmParamcalempleadospresenciaRecordSet =
+          (((that.icmParamcalempleadospresenciaRecordSet != null) && (!that.icmParamcalempleadospresenciaRecordSet.isEmpty()))
               ? that.getIcmParamcalempleadospresenciaRecordSet()
               : null);
       if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmParamcalempleadospresenciaRecordSet",
-              lhsIcmParamcalempleadospresenciaRecordSet),
-          LocatorUtils.property(thatLocator, "icmParamcalempleadospresenciaRecordSet",
-              rhsIcmParamcalempleadospresenciaRecordSet),
+          LocatorUtils.property(thisLocator, "icmParamcalempleadospresenciaRecordSet", lhsIcmParamcalempleadospresenciaRecordSet),
+          LocatorUtils.property(thatLocator, "icmParamcalempleadospresenciaRecordSet", rhsIcmParamcalempleadospresenciaRecordSet),
           lhsIcmParamcalempleadospresenciaRecordSet, rhsIcmParamcalempleadospresenciaRecordSet,
-          ((this.icmParamcalempleadospresenciaRecordSet != null)
-              && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty())),
-          ((that.icmParamcalempleadospresenciaRecordSet != null)
-              && (!that.icmParamcalempleadospresenciaRecordSet.isEmpty())))) {
+          ((this.icmParamcalempleadospresenciaRecordSet != null) && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty())),
+          ((that.icmParamcalempleadospresenciaRecordSet != null) && (!that.icmParamcalempleadospresenciaRecordSet.isEmpty())))) {
         return false;
       }
     }
@@ -142,13 +132,12 @@ public class IcmParamcalempleadospresenciaBlock
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
       List<IcmParamcalempleadospresenciaRecord> theIcmParamcalempleadospresenciaRecordSet;
-      theIcmParamcalempleadospresenciaRecordSet = (((this.icmParamcalempleadospresenciaRecordSet != null)
-          && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty()))
+      theIcmParamcalempleadospresenciaRecordSet =
+          (((this.icmParamcalempleadospresenciaRecordSet != null) && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty()))
               ? this.getIcmParamcalempleadospresenciaRecordSet()
               : null);
-      strategy.appendField(locator, this, "icmParamcalempleadospresenciaRecordSet", buffer,
-          theIcmParamcalempleadospresenciaRecordSet, ((this.icmParamcalempleadospresenciaRecordSet != null)
-              && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty())));
+      strategy.appendField(locator, this, "icmParamcalempleadospresenciaRecordSet", buffer, theIcmParamcalempleadospresenciaRecordSet,
+          ((this.icmParamcalempleadospresenciaRecordSet != null) && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty())));
     }
     return buffer;
   }
@@ -157,16 +146,14 @@ public class IcmParamcalempleadospresenciaBlock
     int currentHashCode = 1;
     {
       List<IcmParamcalempleadospresenciaRecord> theIcmParamcalempleadospresenciaRecordSet;
-      theIcmParamcalempleadospresenciaRecordSet = (((this.icmParamcalempleadospresenciaRecordSet != null)
-          && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty()))
+      theIcmParamcalempleadospresenciaRecordSet =
+          (((this.icmParamcalempleadospresenciaRecordSet != null) && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty()))
               ? this.getIcmParamcalempleadospresenciaRecordSet()
               : null);
       currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmParamcalempleadospresenciaRecordSet",
-              theIcmParamcalempleadospresenciaRecordSet),
+          LocatorUtils.property(locator, "icmParamcalempleadospresenciaRecordSet", theIcmParamcalempleadospresenciaRecordSet),
           currentHashCode, theIcmParamcalempleadospresenciaRecordSet,
-          ((this.icmParamcalempleadospresenciaRecordSet != null)
-              && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty())));
+          ((this.icmParamcalempleadospresenciaRecordSet != null) && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -190,29 +177,25 @@ public class IcmParamcalempleadospresenciaBlock
     if (draftCopy instanceof IcmParamcalempleadospresenciaBlock) {
       final IcmParamcalempleadospresenciaBlock copy = ((IcmParamcalempleadospresenciaBlock) draftCopy);
       {
-        Boolean icmParamcalempleadospresenciaRecordSetShouldBeCopiedAndSet = strategy
-            .shouldBeCopiedAndSet(locator, ((this.icmParamcalempleadospresenciaRecordSet != null)
-                && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty())));
+        Boolean icmParamcalempleadospresenciaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+            ((this.icmParamcalempleadospresenciaRecordSet != null) && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty())));
         if (icmParamcalempleadospresenciaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmParamcalempleadospresenciaRecord> sourceIcmParamcalempleadospresenciaRecordSet;
-          sourceIcmParamcalempleadospresenciaRecordSet = (((this.icmParamcalempleadospresenciaRecordSet != null)
-              && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty()))
+          sourceIcmParamcalempleadospresenciaRecordSet =
+              (((this.icmParamcalempleadospresenciaRecordSet != null) && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty()))
                   ? this.getIcmParamcalempleadospresenciaRecordSet()
                   : null);
           @SuppressWarnings("unchecked")
           List<IcmParamcalempleadospresenciaRecord> copyIcmParamcalempleadospresenciaRecordSet =
-              ((List<IcmParamcalempleadospresenciaRecord>) strategy
-                  .copy(LocatorUtils.property(locator, "icmParamcalempleadospresenciaRecordSet",
-                      sourceIcmParamcalempleadospresenciaRecordSet),
-                      sourceIcmParamcalempleadospresenciaRecordSet,
-                      ((this.icmParamcalempleadospresenciaRecordSet != null)
-                          && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty()))));
+              ((List<IcmParamcalempleadospresenciaRecord>) strategy.copy(
+                  LocatorUtils.property(locator, "icmParamcalempleadospresenciaRecordSet", sourceIcmParamcalempleadospresenciaRecordSet),
+                  sourceIcmParamcalempleadospresenciaRecordSet,
+                  ((this.icmParamcalempleadospresenciaRecordSet != null) && (!this.icmParamcalempleadospresenciaRecordSet.isEmpty()))));
           copy.icmParamcalempleadospresenciaRecordSet = null;
           if (copyIcmParamcalempleadospresenciaRecordSet != null) {
-            List<IcmParamcalempleadospresenciaRecord> uniqueIcmParamcalempleadospresenciaRecordSetl = copy
-                .getIcmParamcalempleadospresenciaRecordSet();
-            uniqueIcmParamcalempleadospresenciaRecordSetl
-                .addAll(copyIcmParamcalempleadospresenciaRecordSet);
+            List<IcmParamcalempleadospresenciaRecord> uniqueIcmParamcalempleadospresenciaRecordSetl =
+                copy.getIcmParamcalempleadospresenciaRecordSet();
+            uniqueIcmParamcalempleadospresenciaRecordSetl.addAll(copyIcmParamcalempleadospresenciaRecordSet);
           }
         } else {
           if (icmParamcalempleadospresenciaRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para GetdesplazmultiempresaOutput complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para GetdesplazmultiempresaOutput complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="GetdesplazmultiempresaOutput"&gt;
  *   &lt;complexContent&gt;
@@ -46,8 +42,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GetdesplazmultiempresaOutput", propOrder = {
@@ -70,7 +66,7 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
 
   /**
    * Obtiene el valor de la propiedad return.
-   *
+   * 
    */
   public double getReturn() {
     return _return;
@@ -78,7 +74,7 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
 
   /**
    * Define el valor de la propiedad return.
-   *
+   * 
    */
   public void setReturn(double value) {
     this._return = value;
@@ -86,20 +82,20 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
 
   /**
    * Gets the value of the logMessage property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the logMessage property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getLogMessage().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link LogMessage }
-   *
-   *
+   * 
+   * 
    */
   public List<LogMessage> getLogMessage() {
     if (logMessage == null) {
@@ -112,7 +108,7 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
    * Obtiene el valor de la propiedad icmListamultiempresa.
    * 
    * @return possible object is {@link IcmListamultiempresaBlock }
-   *
+   * 
    */
   public IcmListamultiempresaBlock getIcmListamultiempresa() {
     return icmListamultiempresa;
@@ -122,14 +118,13 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
    * Define el valor de la propiedad icmListamultiempresa.
    * 
    * @param value allowed object is {@link IcmListamultiempresaBlock }
-   *
+   * 
    */
   public void setIcmListamultiempresa(IcmListamultiempresaBlock value) {
     this.icmListamultiempresa = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -154,8 +149,7 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
       rhsLogMessage = (((that.logMessage != null) && (!that.logMessage.isEmpty())) ? that.getLogMessage() : null);
       if (!strategy.equals(LocatorUtils.property(thisLocator, "logMessage", lhsLogMessage),
           LocatorUtils.property(thatLocator, "logMessage", rhsLogMessage), lhsLogMessage, rhsLogMessage,
-          ((this.logMessage != null) && (!this.logMessage.isEmpty())),
-          ((that.logMessage != null) && (!that.logMessage.isEmpty())))) {
+          ((this.logMessage != null) && (!this.logMessage.isEmpty())), ((that.logMessage != null) && (!that.logMessage.isEmpty())))) {
         return false;
       }
     }
@@ -165,9 +159,8 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
       IcmListamultiempresaBlock rhsIcmListamultiempresa;
       rhsIcmListamultiempresa = that.getIcmListamultiempresa();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListamultiempresa", lhsIcmListamultiempresa),
-          LocatorUtils.property(thatLocator, "icmListamultiempresa", rhsIcmListamultiempresa),
-          lhsIcmListamultiempresa, rhsIcmListamultiempresa, (this.icmListamultiempresa != null),
-          (that.icmListamultiempresa != null))) {
+          LocatorUtils.property(thatLocator, "icmListamultiempresa", rhsIcmListamultiempresa), lhsIcmListamultiempresa,
+          rhsIcmListamultiempresa, (this.icmListamultiempresa != null), (that.icmListamultiempresa != null))) {
         return false;
       }
     }
@@ -202,14 +195,12 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
     {
       List<LogMessage> theLogMessage;
       theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
-      strategy.appendField(locator, this, "logMessage", buffer, theLogMessage,
-          ((this.logMessage != null) && (!this.logMessage.isEmpty())));
+      strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
     }
     {
       IcmListamultiempresaBlock theIcmListamultiempresa;
       theIcmListamultiempresa = this.getIcmListamultiempresa();
-      strategy.appendField(locator, this, "icmListamultiempresa", buffer, theIcmListamultiempresa,
-          (this.icmListamultiempresa != null));
+      strategy.appendField(locator, this, "icmListamultiempresa", buffer, theIcmListamultiempresa, (this.icmListamultiempresa != null));
     }
     return buffer;
   }
@@ -219,20 +210,18 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
     {
       double theReturn;
       theReturn = this.getReturn();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode,
-          theReturn, true);
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode, theReturn, true);
     }
     {
       List<LogMessage> theLogMessage;
       theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage),
-          currentHashCode, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage,
+          ((this.logMessage != null) && (!this.logMessage.isEmpty())));
     }
     {
       IcmListamultiempresaBlock theIcmListamultiempresa;
       theIcmListamultiempresa = this.getIcmListamultiempresa();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmListamultiempresa", theIcmListamultiempresa), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListamultiempresa", theIcmListamultiempresa), currentHashCode,
           theIcmListamultiempresa, (this.icmListamultiempresa != null));
     }
     return currentHashCode;
@@ -261,8 +250,7 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
         if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
           double sourceReturn;
           sourceReturn = this.getReturn();
-          double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn),
-              sourceReturn, true);
+          double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn), sourceReturn, true);
           copy.setReturn(copyReturn);
         } else {
           if (_returnShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -270,17 +258,15 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
         }
       }
       {
-        Boolean logMessageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.logMessage != null) && (!this.logMessage.isEmpty())));
+        Boolean logMessageShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         if (logMessageShouldBeCopiedAndSet == Boolean.TRUE) {
           List<LogMessage> sourceLogMessage;
-          sourceLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty()))
-              ? this.getLogMessage()
-              : null);
+          sourceLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
           @SuppressWarnings("unchecked")
-          List<LogMessage> copyLogMessage = ((List<LogMessage>) strategy.copy(
-              LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage,
-              ((this.logMessage != null) && (!this.logMessage.isEmpty()))));
+          List<LogMessage> copyLogMessage =
+              ((List<LogMessage>) strategy.copy(LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage,
+                  ((this.logMessage != null) && (!this.logMessage.isEmpty()))));
           copy.logMessage = null;
           if (copyLogMessage != null) {
             List<LogMessage> uniqueLogMessagel = copy.getLogMessage();
@@ -293,14 +279,13 @@ public class GetdesplazmultiempresaOutput implements Serializable, Cloneable, Co
         }
       }
       {
-        Boolean icmListamultiempresaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmListamultiempresa != null));
+        Boolean icmListamultiempresaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListamultiempresa != null));
         if (icmListamultiempresaShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmListamultiempresaBlock sourceIcmListamultiempresa;
           sourceIcmListamultiempresa = this.getIcmListamultiempresa();
-          IcmListamultiempresaBlock copyIcmListamultiempresa = ((IcmListamultiempresaBlock) strategy.copy(
-              LocatorUtils.property(locator, "icmListamultiempresa", sourceIcmListamultiempresa),
-              sourceIcmListamultiempresa, (this.icmListamultiempresa != null)));
+          IcmListamultiempresaBlock copyIcmListamultiempresa =
+              ((IcmListamultiempresaBlock) strategy.copy(LocatorUtils.property(locator, "icmListamultiempresa", sourceIcmListamultiempresa),
+                  sourceIcmListamultiempresa, (this.icmListamultiempresa != null)));
           copy.setIcmListamultiempresa(copyIcmListamultiempresa);
         } else {
           if (icmListamultiempresaShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class M4LoadObjectResponse implements Serializable, Cloneable, CopyTo2, E
    * Obtiene el valor de la propiedad m4LoadObjectReturn.
    * 
    * @return possible object is {@link M4LoadobjectOutput }
-   *
+   * 
    */
   public M4LoadobjectOutput getM4LoadObjectReturn() {
     return m4LoadObjectReturn;
@@ -72,14 +68,13 @@ public class M4LoadObjectResponse implements Serializable, Cloneable, CopyTo2, E
    * Define el valor de la propiedad m4LoadObjectReturn.
    * 
    * @param value allowed object is {@link M4LoadobjectOutput }
-   *
+   * 
    */
   public void setM4LoadObjectReturn(M4LoadobjectOutput value) {
     this.m4LoadObjectReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,9 +88,8 @@ public class M4LoadObjectResponse implements Serializable, Cloneable, CopyTo2, E
       M4LoadobjectOutput rhsM4LoadObjectReturn;
       rhsM4LoadObjectReturn = that.getM4LoadObjectReturn();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "m4LoadObjectReturn", lhsM4LoadObjectReturn),
-          LocatorUtils.property(thatLocator, "m4LoadObjectReturn", rhsM4LoadObjectReturn),
-          lhsM4LoadObjectReturn, rhsM4LoadObjectReturn, (this.m4LoadObjectReturn != null),
-          (that.m4LoadObjectReturn != null))) {
+          LocatorUtils.property(thatLocator, "m4LoadObjectReturn", rhsM4LoadObjectReturn), lhsM4LoadObjectReturn, rhsM4LoadObjectReturn,
+          (this.m4LoadObjectReturn != null), (that.m4LoadObjectReturn != null))) {
         return false;
       }
     }
@@ -125,8 +119,7 @@ public class M4LoadObjectResponse implements Serializable, Cloneable, CopyTo2, E
     {
       M4LoadobjectOutput theM4LoadObjectReturn;
       theM4LoadObjectReturn = this.getM4LoadObjectReturn();
-      strategy.appendField(locator, this, "m4LoadObjectReturn", buffer, theM4LoadObjectReturn,
-          (this.m4LoadObjectReturn != null));
+      strategy.appendField(locator, this, "m4LoadObjectReturn", buffer, theM4LoadObjectReturn, (this.m4LoadObjectReturn != null));
     }
     return buffer;
   }
@@ -136,8 +129,7 @@ public class M4LoadObjectResponse implements Serializable, Cloneable, CopyTo2, E
     {
       M4LoadobjectOutput theM4LoadObjectReturn;
       theM4LoadObjectReturn = this.getM4LoadObjectReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "m4LoadObjectReturn", theM4LoadObjectReturn), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "m4LoadObjectReturn", theM4LoadObjectReturn), currentHashCode,
           theM4LoadObjectReturn, (this.m4LoadObjectReturn != null));
     }
     return currentHashCode;
@@ -162,14 +154,13 @@ public class M4LoadObjectResponse implements Serializable, Cloneable, CopyTo2, E
     if (draftCopy instanceof M4LoadObjectResponse) {
       final M4LoadObjectResponse copy = ((M4LoadObjectResponse) draftCopy);
       {
-        Boolean m4LoadObjectReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.m4LoadObjectReturn != null));
+        Boolean m4LoadObjectReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.m4LoadObjectReturn != null));
         if (m4LoadObjectReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           M4LoadobjectOutput sourceM4LoadObjectReturn;
           sourceM4LoadObjectReturn = this.getM4LoadObjectReturn();
-          M4LoadobjectOutput copyM4LoadObjectReturn = ((M4LoadobjectOutput) strategy.copy(
-              LocatorUtils.property(locator, "m4LoadObjectReturn", sourceM4LoadObjectReturn),
-              sourceM4LoadObjectReturn, (this.m4LoadObjectReturn != null)));
+          M4LoadobjectOutput copyM4LoadObjectReturn =
+              ((M4LoadobjectOutput) strategy.copy(LocatorUtils.property(locator, "m4LoadObjectReturn", sourceM4LoadObjectReturn),
+                  sourceM4LoadObjectReturn, (this.m4LoadObjectReturn != null)));
           copy.setM4LoadObjectReturn(copyM4LoadObjectReturn);
         } else {
           if (m4LoadObjectReturnShouldBeCopiedAndSet == Boolean.FALSE) {

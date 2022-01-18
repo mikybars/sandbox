@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ParamcalventacongeladaBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ParamcalventacongeladaBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ParamcalventacongeladaBlock"&gt;
  *   &lt;complexContent&gt;
@@ -46,8 +42,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalventacongeladaBlock", propOrder = {
@@ -72,7 +68,7 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
    * Obtiene el valor de la propiedad fechafin.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getFechafin() {
     return fechafin;
@@ -82,7 +78,7 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
    * Define el valor de la propiedad fechafin.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setFechafin(String value) {
     this.fechafin = value;
@@ -92,7 +88,7 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
    * Obtiene el valor de la propiedad fechainicio.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getFechainicio() {
     return fechainicio;
@@ -102,7 +98,7 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
    * Define el valor de la propiedad fechainicio.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setFechainicio(String value) {
     this.fechainicio = value;
@@ -110,21 +106,21 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
 
   /**
    * Gets the value of the icmParamcalventacongeladaRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmParamcalventacongeladaRecordSet
    * property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmParamcalventacongeladaRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmParamcalventacongeladaRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmParamcalventacongeladaRecord> getIcmParamcalventacongeladaRecordSet() {
     if (icmParamcalventacongeladaRecordSet == null) {
@@ -133,8 +129,7 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
     return this.icmParamcalventacongeladaRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -148,8 +143,8 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
       String rhsFechafin;
       rhsFechafin = that.getFechafin();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "fechafin", lhsFechafin),
-          LocatorUtils.property(thatLocator, "fechafin", rhsFechafin), lhsFechafin, rhsFechafin,
-          (this.fechafin != null), (that.fechafin != null))) {
+          LocatorUtils.property(thatLocator, "fechafin", rhsFechafin), lhsFechafin, rhsFechafin, (this.fechafin != null),
+          (that.fechafin != null))) {
         return false;
       }
     }
@@ -159,32 +154,27 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
       String rhsFechainicio;
       rhsFechainicio = that.getFechainicio();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "fechainicio", lhsFechainicio),
-          LocatorUtils.property(thatLocator, "fechainicio", rhsFechainicio), lhsFechainicio, rhsFechainicio,
-          (this.fechainicio != null), (that.fechainicio != null))) {
+          LocatorUtils.property(thatLocator, "fechainicio", rhsFechainicio), lhsFechainicio, rhsFechainicio, (this.fechainicio != null),
+          (that.fechainicio != null))) {
         return false;
       }
     }
     {
       List<IcmParamcalventacongeladaRecord> lhsIcmParamcalventacongeladaRecordSet;
-      lhsIcmParamcalventacongeladaRecordSet = (((this.icmParamcalventacongeladaRecordSet != null)
-          && (!this.icmParamcalventacongeladaRecordSet.isEmpty()))
+      lhsIcmParamcalventacongeladaRecordSet =
+          (((this.icmParamcalventacongeladaRecordSet != null) && (!this.icmParamcalventacongeladaRecordSet.isEmpty()))
               ? this.getIcmParamcalventacongeladaRecordSet()
               : null);
       List<IcmParamcalventacongeladaRecord> rhsIcmParamcalventacongeladaRecordSet;
-      rhsIcmParamcalventacongeladaRecordSet = (((that.icmParamcalventacongeladaRecordSet != null)
-          && (!that.icmParamcalventacongeladaRecordSet.isEmpty()))
+      rhsIcmParamcalventacongeladaRecordSet =
+          (((that.icmParamcalventacongeladaRecordSet != null) && (!that.icmParamcalventacongeladaRecordSet.isEmpty()))
               ? that.getIcmParamcalventacongeladaRecordSet()
               : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmParamcalventacongeladaRecordSet",
-              lhsIcmParamcalventacongeladaRecordSet),
-          LocatorUtils.property(thatLocator, "icmParamcalventacongeladaRecordSet",
-              rhsIcmParamcalventacongeladaRecordSet),
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalventacongeladaRecordSet", lhsIcmParamcalventacongeladaRecordSet),
+          LocatorUtils.property(thatLocator, "icmParamcalventacongeladaRecordSet", rhsIcmParamcalventacongeladaRecordSet),
           lhsIcmParamcalventacongeladaRecordSet, rhsIcmParamcalventacongeladaRecordSet,
-          ((this.icmParamcalventacongeladaRecordSet != null)
-              && (!this.icmParamcalventacongeladaRecordSet.isEmpty())),
-          ((that.icmParamcalventacongeladaRecordSet != null)
-              && (!that.icmParamcalventacongeladaRecordSet.isEmpty())))) {
+          ((this.icmParamcalventacongeladaRecordSet != null) && (!this.icmParamcalventacongeladaRecordSet.isEmpty())),
+          ((that.icmParamcalventacongeladaRecordSet != null) && (!that.icmParamcalventacongeladaRecordSet.isEmpty())))) {
         return false;
       }
     }
@@ -223,13 +213,12 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
     }
     {
       List<IcmParamcalventacongeladaRecord> theIcmParamcalventacongeladaRecordSet;
-      theIcmParamcalventacongeladaRecordSet = (((this.icmParamcalventacongeladaRecordSet != null)
-          && (!this.icmParamcalventacongeladaRecordSet.isEmpty()))
+      theIcmParamcalventacongeladaRecordSet =
+          (((this.icmParamcalventacongeladaRecordSet != null) && (!this.icmParamcalventacongeladaRecordSet.isEmpty()))
               ? this.getIcmParamcalventacongeladaRecordSet()
               : null);
-      strategy.appendField(locator, this, "icmParamcalventacongeladaRecordSet", buffer,
-          theIcmParamcalventacongeladaRecordSet, ((this.icmParamcalventacongeladaRecordSet != null)
-              && (!this.icmParamcalventacongeladaRecordSet.isEmpty())));
+      strategy.appendField(locator, this, "icmParamcalventacongeladaRecordSet", buffer, theIcmParamcalventacongeladaRecordSet,
+          ((this.icmParamcalventacongeladaRecordSet != null) && (!this.icmParamcalventacongeladaRecordSet.isEmpty())));
     }
     return buffer;
   }
@@ -239,27 +228,25 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
     {
       String theFechafin;
       theFechafin = this.getFechafin();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechafin", theFechafin),
-          currentHashCode, theFechafin, (this.fechafin != null));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "fechafin", theFechafin), currentHashCode, theFechafin, (this.fechafin != null));
     }
     {
       String theFechainicio;
       theFechainicio = this.getFechainicio();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio),
-          currentHashCode, theFechainicio, (this.fechainicio != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "fechainicio", theFechainicio), currentHashCode, theFechainicio,
+          (this.fechainicio != null));
     }
     {
       List<IcmParamcalventacongeladaRecord> theIcmParamcalventacongeladaRecordSet;
-      theIcmParamcalventacongeladaRecordSet = (((this.icmParamcalventacongeladaRecordSet != null)
-          && (!this.icmParamcalventacongeladaRecordSet.isEmpty()))
+      theIcmParamcalventacongeladaRecordSet =
+          (((this.icmParamcalventacongeladaRecordSet != null) && (!this.icmParamcalventacongeladaRecordSet.isEmpty()))
               ? this.getIcmParamcalventacongeladaRecordSet()
               : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmParamcalventacongeladaRecordSet",
-              theIcmParamcalventacongeladaRecordSet),
-          currentHashCode, theIcmParamcalventacongeladaRecordSet,
-          ((this.icmParamcalventacongeladaRecordSet != null)
-              && (!this.icmParamcalventacongeladaRecordSet.isEmpty())));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmParamcalventacongeladaRecordSet", theIcmParamcalventacongeladaRecordSet),
+              currentHashCode, theIcmParamcalventacongeladaRecordSet,
+              ((this.icmParamcalventacongeladaRecordSet != null) && (!this.icmParamcalventacongeladaRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -287,9 +274,8 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
         if (fechafinShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceFechafin;
           sourceFechafin = this.getFechafin();
-          String copyFechafin = ((String) strategy.copy(
-              LocatorUtils.property(locator, "fechafin", sourceFechafin), sourceFechafin,
-              (this.fechafin != null)));
+          String copyFechafin =
+              ((String) strategy.copy(LocatorUtils.property(locator, "fechafin", sourceFechafin), sourceFechafin, (this.fechafin != null)));
           copy.setFechafin(copyFechafin);
         } else {
           if (fechafinShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -298,14 +284,12 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
         }
       }
       {
-        Boolean fechainicioShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.fechainicio != null));
+        Boolean fechainicioShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.fechainicio != null));
         if (fechainicioShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceFechainicio;
           sourceFechainicio = this.getFechainicio();
-          String copyFechainicio = ((String) strategy.copy(
-              LocatorUtils.property(locator, "fechainicio", sourceFechainicio), sourceFechainicio,
-              (this.fechainicio != null)));
+          String copyFechainicio = ((String) strategy.copy(LocatorUtils.property(locator, "fechainicio", sourceFechainicio),
+              sourceFechainicio, (this.fechainicio != null)));
           copy.setFechainicio(copyFechainicio);
         } else {
           if (fechainicioShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -315,24 +299,21 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
       }
       {
         Boolean icmParamcalventacongeladaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmParamcalventacongeladaRecordSet != null)
-                && (!this.icmParamcalventacongeladaRecordSet.isEmpty())));
+            ((this.icmParamcalventacongeladaRecordSet != null) && (!this.icmParamcalventacongeladaRecordSet.isEmpty())));
         if (icmParamcalventacongeladaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmParamcalventacongeladaRecord> sourceIcmParamcalventacongeladaRecordSet;
-          sourceIcmParamcalventacongeladaRecordSet = (((this.icmParamcalventacongeladaRecordSet != null)
-              && (!this.icmParamcalventacongeladaRecordSet.isEmpty()))
+          sourceIcmParamcalventacongeladaRecordSet =
+              (((this.icmParamcalventacongeladaRecordSet != null) && (!this.icmParamcalventacongeladaRecordSet.isEmpty()))
                   ? this.getIcmParamcalventacongeladaRecordSet()
                   : null);
           @SuppressWarnings("unchecked")
           List<IcmParamcalventacongeladaRecord> copyIcmParamcalventacongeladaRecordSet = ((List<IcmParamcalventacongeladaRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmParamcalventacongeladaRecordSet",
-                  sourceIcmParamcalventacongeladaRecordSet), sourceIcmParamcalventacongeladaRecordSet,
-                  ((this.icmParamcalventacongeladaRecordSet != null)
-                      && (!this.icmParamcalventacongeladaRecordSet.isEmpty()))));
+              .copy(LocatorUtils.property(locator, "icmParamcalventacongeladaRecordSet", sourceIcmParamcalventacongeladaRecordSet),
+                  sourceIcmParamcalventacongeladaRecordSet,
+                  ((this.icmParamcalventacongeladaRecordSet != null) && (!this.icmParamcalventacongeladaRecordSet.isEmpty()))));
           copy.icmParamcalventacongeladaRecordSet = null;
           if (copyIcmParamcalventacongeladaRecordSet != null) {
-            List<IcmParamcalventacongeladaRecord> uniqueIcmParamcalventacongeladaRecordSetl = copy
-                .getIcmParamcalventacongeladaRecordSet();
+            List<IcmParamcalventacongeladaRecord> uniqueIcmParamcalventacongeladaRecordSetl = copy.getIcmParamcalventacongeladaRecordSet();
             uniqueIcmParamcalventacongeladaRecordSetl.addAll(copyIcmParamcalventacongeladaRecordSet);
           }
         } else {
