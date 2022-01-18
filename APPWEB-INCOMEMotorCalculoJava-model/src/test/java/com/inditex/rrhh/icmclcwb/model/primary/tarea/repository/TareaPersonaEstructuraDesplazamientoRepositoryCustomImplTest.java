@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraDesplazamiento;
 
@@ -65,27 +63,18 @@ class TareaPersonaEstructuraDesplazamientoRepositoryCustomImplTest {
   }
 
   @Test
-  void crearChallengeOpcionOrigenIgualarBandasTest() {
-    final TareaDto tarea = new TareaDto();
-    final long idTarea = 89383L;
-    tarea.setId(idTarea);
+  void crearEstructurasDestinoIgualarBandasTest() {
 
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
-
-    this.tareaPersonaEstructuraDesplazamientoRepositoryCustom.crearChallengeOpcionOrigenIgualarBandas(tarea);
-
+    this.tareaPersonaEstructuraDesplazamientoRepositoryCustom.crearEstructurasDestinoIgualarBandas();
     verify(this.namedParameterJdbcTemplate).update(eq(SQL_CREAR_CHALLENGE_OPCION_ORIGEN_IGUALAR_BANDAS), paramsCaptor.capture());
     final MapSqlParameterSource params = paramsCaptor.getValue();
-
     final Map<String, Object> expected = new HashMap<String, Object>() {
       private static final long serialVersionUID = -8705967666979364371L;
 
       {
-        this.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
         this.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
         this.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-        this.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, AppConstants.getTIPOS_CALCULO_CHALLENGE());
-        this.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, AppConstants.getTIPOS_COMISION_CHALLENGE());
       }
     };
 

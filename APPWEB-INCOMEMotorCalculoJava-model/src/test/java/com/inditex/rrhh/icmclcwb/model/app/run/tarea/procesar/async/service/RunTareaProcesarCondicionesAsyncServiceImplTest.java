@@ -6,8 +6,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.async.service;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.util.concurrent.CompletableFuture;
-
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -28,16 +26,15 @@ class RunTareaProcesarCondicionesAsyncServiceImplTest {
   private RunTareaProcesarCondicionesAsyncServiceImpl runTareaProcesarCondicionesAsyncService;
 
   @Test
-  void crearChallengeOpcionOrigenIgualarBandasTest() {
+  void igualarBandasOrigenDestinoTest() {
     final TareaDto tarea = new TareaDto();
     tarea.setId(89898L);
     final RunTareaDto runTarea = new RunTareaDto();
     runTarea.setTarea(tarea);
 
-    final CompletableFuture<Void> result =
-        this.runTareaProcesarCondicionesAsyncService.crearChallengeOpcionOrigenIgualarBandas(runTarea);
+    this.runTareaProcesarCondicionesAsyncService.igualarBandasOrigenDestino(runTarea);
 
-    verify(this.tareaProcesarCondicionesService, times(1)).crearChallengeOpcionOrigenIgualarBandas(tarea);
+    verify(this.tareaProcesarCondicionesService, times(1)).igualarBandasOrigenDestino(tarea);
   }
 
 }

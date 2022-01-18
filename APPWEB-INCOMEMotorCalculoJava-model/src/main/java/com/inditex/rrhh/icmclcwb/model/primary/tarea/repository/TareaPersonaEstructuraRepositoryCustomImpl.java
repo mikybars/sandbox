@@ -45,6 +45,9 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
   @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.desactivarManualOrdinalDoble']}")
   private String sqlDesactivarManualOrdinalDoble;
 
+  @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.crearEstructurasOrigenIgualarBandas']}")
+  private String sqlCrearEstructurasOrigenIgualarBandas;
+
   @Override
   public List<TareaPersonaEstructura> save(final List<TareaPersonaEstructura> src) {
     return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -148,4 +151,11 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
 
   }
 
+  @Override
+  public void crearEstructurasOrigenIgualarBandas() {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    this.update(this.sqlCrearEstructurasOrigenIgualarBandas, map);
+  }
 }

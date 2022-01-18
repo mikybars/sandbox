@@ -72,10 +72,18 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
     this.tareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen(tarea);
   }
 
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
   @Override
-  public void crearChallengeOpcionOrigenIgualarBandas(
+  public void igualarBandasOrigenDestino(
       @Valid @NotNull final TareaDto tarea) {
-    this.tareaPersonaEstructuraDesplazamientoRepositoryCustom.crearChallengeOpcionOrigenIgualarBandas(tarea);
+    try {
+      this.primaryTemporaryTableRepositoryCustom.createTempBandasOrigenSinBandaDesplazamiento();
+      this.primaryTemporaryTableRepositoryCustom.insertBandasOrigenSinBandaDesplazamiento(tarea);
+      this.tareaPersonaEstructuraRepositoryCustom.crearEstructurasOrigenIgualarBandas();
+      this.tareaPersonaEstructuraDesplazamientoRepositoryCustom.crearEstructurasDestinoIgualarBandas();
+    } finally {
+      this.primaryTemporaryTableRepositoryCustom.deleteTempBandasOrigenSinBandaDesplazamiento();
+    }
   }
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)

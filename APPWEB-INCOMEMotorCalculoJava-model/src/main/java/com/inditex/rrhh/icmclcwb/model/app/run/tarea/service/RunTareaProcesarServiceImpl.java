@@ -57,9 +57,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
               FaseEnum.PROCESAR.getId()));
 
       // Generar bandas challenge extra en caso de que en el destino de desplazamiento haya menos que en origen en opcion origen / mejor
-      final CompletableFuture<Void> cfCrearChallengeOpcionOrigenIgualarBandas =
-          this.runTareaProcesarCondicionesAsyncService.crearChallengeOpcionOrigenIgualarBandas(runTarea);
-      AsyncUtils.exceptionally(cfCrearChallengeOpcionOrigenIgualarBandas, cf, cfWait);
+      final CompletableFuture<Void> cfIgualarBandasOrigenDestino =
+          this.runTareaProcesarCondicionesAsyncService.igualarBandasOrigenDestino(runTarea);
+      AsyncUtils.exceptionally(cfIgualarBandasOrigenDestino, cf, cfWait);
 
       // Totalizar las presencias sindicales por localizacion
       final CompletableFuture<Void> cfTotalzarPresenciasSindicales = this.runTareaProcesarPresenciaAsyncService

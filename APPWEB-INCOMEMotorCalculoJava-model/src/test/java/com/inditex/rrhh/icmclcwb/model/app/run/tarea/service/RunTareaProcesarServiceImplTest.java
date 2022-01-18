@@ -73,7 +73,7 @@ class RunTareaProcesarServiceImplTest {
         .crearChallengeOpcionOrigen(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
-        .crearChallengeOpcionOrigenIgualarBandas(this.runTarea);
+        .igualarBandasOrigenDestino(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
         .updateImporteEstructuraPoliticas(this.runTarea);
