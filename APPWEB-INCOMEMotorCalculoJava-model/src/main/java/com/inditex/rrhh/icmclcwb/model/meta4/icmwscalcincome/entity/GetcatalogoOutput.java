@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para GetcatalogoOutput complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para GetcatalogoOutput complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="GetcatalogoOutput"&gt;
  *   &lt;complexContent&gt;
@@ -46,8 +42,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GetcatalogoOutput", propOrder = {
@@ -70,7 +66,7 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
 
   /**
    * Obtiene el valor de la propiedad return.
-   *
+   * 
    */
   public double getReturn() {
     return _return;
@@ -78,7 +74,7 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
 
   /**
    * Define el valor de la propiedad return.
-   *
+   * 
    */
   public void setReturn(double value) {
     this._return = value;
@@ -86,20 +82,20 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
 
   /**
    * Gets the value of the logMessage property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the logMessage property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getLogMessage().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link LogMessage }
-   *
-   *
+   * 
+   * 
    */
   public List<LogMessage> getLogMessage() {
     if (logMessage == null) {
@@ -112,7 +108,7 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
    * Obtiene el valor de la propiedad icmListacatalogo.
    * 
    * @return possible object is {@link IcmListacatalogoBlock }
-   *
+   * 
    */
   public IcmListacatalogoBlock getIcmListacatalogo() {
     return icmListacatalogo;
@@ -122,14 +118,13 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
    * Define el valor de la propiedad icmListacatalogo.
    * 
    * @param value allowed object is {@link IcmListacatalogoBlock }
-   *
+   * 
    */
   public void setIcmListacatalogo(IcmListacatalogoBlock value) {
     this.icmListacatalogo = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -154,8 +149,7 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
       rhsLogMessage = (((that.logMessage != null) && (!that.logMessage.isEmpty())) ? that.getLogMessage() : null);
       if (!strategy.equals(LocatorUtils.property(thisLocator, "logMessage", lhsLogMessage),
           LocatorUtils.property(thatLocator, "logMessage", rhsLogMessage), lhsLogMessage, rhsLogMessage,
-          ((this.logMessage != null) && (!this.logMessage.isEmpty())),
-          ((that.logMessage != null) && (!that.logMessage.isEmpty())))) {
+          ((this.logMessage != null) && (!this.logMessage.isEmpty())), ((that.logMessage != null) && (!that.logMessage.isEmpty())))) {
         return false;
       }
     }
@@ -165,8 +159,8 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
       IcmListacatalogoBlock rhsIcmListacatalogo;
       rhsIcmListacatalogo = that.getIcmListacatalogo();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListacatalogo", lhsIcmListacatalogo),
-          LocatorUtils.property(thatLocator, "icmListacatalogo", rhsIcmListacatalogo), lhsIcmListacatalogo,
-          rhsIcmListacatalogo, (this.icmListacatalogo != null), (that.icmListacatalogo != null))) {
+          LocatorUtils.property(thatLocator, "icmListacatalogo", rhsIcmListacatalogo), lhsIcmListacatalogo, rhsIcmListacatalogo,
+          (this.icmListacatalogo != null), (that.icmListacatalogo != null))) {
         return false;
       }
     }
@@ -201,14 +195,12 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
     {
       List<LogMessage> theLogMessage;
       theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
-      strategy.appendField(locator, this, "logMessage", buffer, theLogMessage,
-          ((this.logMessage != null) && (!this.logMessage.isEmpty())));
+      strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
     }
     {
       IcmListacatalogoBlock theIcmListacatalogo;
       theIcmListacatalogo = this.getIcmListacatalogo();
-      strategy.appendField(locator, this, "icmListacatalogo", buffer, theIcmListacatalogo,
-          (this.icmListacatalogo != null));
+      strategy.appendField(locator, this, "icmListacatalogo", buffer, theIcmListacatalogo, (this.icmListacatalogo != null));
     }
     return buffer;
   }
@@ -218,20 +210,19 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
     {
       double theReturn;
       theReturn = this.getReturn();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode,
-          theReturn, true);
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode, theReturn, true);
     }
     {
       List<LogMessage> theLogMessage;
       theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage),
-          currentHashCode, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage,
+          ((this.logMessage != null) && (!this.logMessage.isEmpty())));
     }
     {
       IcmListacatalogoBlock theIcmListacatalogo;
       theIcmListacatalogo = this.getIcmListacatalogo();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListacatalogo", theIcmListacatalogo),
-          currentHashCode, theIcmListacatalogo, (this.icmListacatalogo != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListacatalogo", theIcmListacatalogo), currentHashCode,
+          theIcmListacatalogo, (this.icmListacatalogo != null));
     }
     return currentHashCode;
   }
@@ -259,8 +250,7 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
         if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
           double sourceReturn;
           sourceReturn = this.getReturn();
-          double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn),
-              sourceReturn, true);
+          double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn), sourceReturn, true);
           copy.setReturn(copyReturn);
         } else {
           if (_returnShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -268,17 +258,15 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
         }
       }
       {
-        Boolean logMessageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.logMessage != null) && (!this.logMessage.isEmpty())));
+        Boolean logMessageShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
         if (logMessageShouldBeCopiedAndSet == Boolean.TRUE) {
           List<LogMessage> sourceLogMessage;
-          sourceLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty()))
-              ? this.getLogMessage()
-              : null);
+          sourceLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
           @SuppressWarnings("unchecked")
-          List<LogMessage> copyLogMessage = ((List<LogMessage>) strategy.copy(
-              LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage,
-              ((this.logMessage != null) && (!this.logMessage.isEmpty()))));
+          List<LogMessage> copyLogMessage =
+              ((List<LogMessage>) strategy.copy(LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage,
+                  ((this.logMessage != null) && (!this.logMessage.isEmpty()))));
           copy.logMessage = null;
           if (copyLogMessage != null) {
             List<LogMessage> uniqueLogMessagel = copy.getLogMessage();
@@ -291,14 +279,13 @@ public class GetcatalogoOutput implements Serializable, Cloneable, CopyTo2, Equa
         }
       }
       {
-        Boolean icmListacatalogoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmListacatalogo != null));
+        Boolean icmListacatalogoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListacatalogo != null));
         if (icmListacatalogoShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmListacatalogoBlock sourceIcmListacatalogo;
           sourceIcmListacatalogo = this.getIcmListacatalogo();
-          IcmListacatalogoBlock copyIcmListacatalogo = ((IcmListacatalogoBlock) strategy.copy(
-              LocatorUtils.property(locator, "icmListacatalogo", sourceIcmListacatalogo),
-              sourceIcmListacatalogo, (this.icmListacatalogo != null)));
+          IcmListacatalogoBlock copyIcmListacatalogo =
+              ((IcmListacatalogoBlock) strategy.copy(LocatorUtils.property(locator, "icmListacatalogo", sourceIcmListacatalogo),
+                  sourceIcmListacatalogo, (this.icmListacatalogo != null)));
           copy.setIcmListacatalogo(copyIcmListacatalogo);
         } else {
           if (icmListacatalogoShouldBeCopiedAndSet == Boolean.FALSE) {

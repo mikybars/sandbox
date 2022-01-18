@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class SAVEPROCESO implements Serializable, Cloneable, CopyTo2, Equals2, H
    * Obtiene el valor de la propiedad icmparamcalproceso.
    * 
    * @return possible object is {@link IcmParamcalprocesoBlock }
-   *
+   * 
    */
   public IcmParamcalprocesoBlock getICMPARAMCALPROCESO() {
     return icmparamcalproceso;
@@ -72,14 +68,13 @@ public class SAVEPROCESO implements Serializable, Cloneable, CopyTo2, Equals2, H
    * Define el valor de la propiedad icmparamcalproceso.
    * 
    * @param value allowed object is {@link IcmParamcalprocesoBlock }
-   *
+   * 
    */
   public void setICMPARAMCALPROCESO(IcmParamcalprocesoBlock value) {
     this.icmparamcalproceso = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,9 +88,8 @@ public class SAVEPROCESO implements Serializable, Cloneable, CopyTo2, Equals2, H
       IcmParamcalprocesoBlock rhsICMPARAMCALPROCESO;
       rhsICMPARAMCALPROCESO = that.getICMPARAMCALPROCESO();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalproceso", lhsICMPARAMCALPROCESO),
-          LocatorUtils.property(thatLocator, "icmparamcalproceso", rhsICMPARAMCALPROCESO),
-          lhsICMPARAMCALPROCESO, rhsICMPARAMCALPROCESO, (this.icmparamcalproceso != null),
-          (that.icmparamcalproceso != null))) {
+          LocatorUtils.property(thatLocator, "icmparamcalproceso", rhsICMPARAMCALPROCESO), lhsICMPARAMCALPROCESO, rhsICMPARAMCALPROCESO,
+          (this.icmparamcalproceso != null), (that.icmparamcalproceso != null))) {
         return false;
       }
     }
@@ -125,8 +119,7 @@ public class SAVEPROCESO implements Serializable, Cloneable, CopyTo2, Equals2, H
     {
       IcmParamcalprocesoBlock theICMPARAMCALPROCESO;
       theICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
-      strategy.appendField(locator, this, "icmparamcalproceso", buffer, theICMPARAMCALPROCESO,
-          (this.icmparamcalproceso != null));
+      strategy.appendField(locator, this, "icmparamcalproceso", buffer, theICMPARAMCALPROCESO, (this.icmparamcalproceso != null));
     }
     return buffer;
   }
@@ -136,8 +129,7 @@ public class SAVEPROCESO implements Serializable, Cloneable, CopyTo2, Equals2, H
     {
       IcmParamcalprocesoBlock theICMPARAMCALPROCESO;
       theICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmparamcalproceso", theICMPARAMCALPROCESO), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalproceso", theICMPARAMCALPROCESO), currentHashCode,
           theICMPARAMCALPROCESO, (this.icmparamcalproceso != null));
     }
     return currentHashCode;
@@ -162,14 +154,13 @@ public class SAVEPROCESO implements Serializable, Cloneable, CopyTo2, Equals2, H
     if (draftCopy instanceof SAVEPROCESO) {
       final SAVEPROCESO copy = ((SAVEPROCESO) draftCopy);
       {
-        Boolean icmparamcalprocesoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmparamcalproceso != null));
+        Boolean icmparamcalprocesoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalproceso != null));
         if (icmparamcalprocesoShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmParamcalprocesoBlock sourceICMPARAMCALPROCESO;
           sourceICMPARAMCALPROCESO = this.getICMPARAMCALPROCESO();
-          IcmParamcalprocesoBlock copyICMPARAMCALPROCESO = ((IcmParamcalprocesoBlock) strategy.copy(
-              LocatorUtils.property(locator, "icmparamcalproceso", sourceICMPARAMCALPROCESO),
-              sourceICMPARAMCALPROCESO, (this.icmparamcalproceso != null)));
+          IcmParamcalprocesoBlock copyICMPARAMCALPROCESO =
+              ((IcmParamcalprocesoBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalproceso", sourceICMPARAMCALPROCESO),
+                  sourceICMPARAMCALPROCESO, (this.icmparamcalproceso != null)));
           copy.setICMPARAMCALPROCESO(copyICMPARAMCALPROCESO);
         } else {
           if (icmparamcalprocesoShouldBeCopiedAndSet == Boolean.FALSE) {

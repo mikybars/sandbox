@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETDESPLAZMULTIEMPRESAResponse implements Serializable, Cloneable, 
    * Obtiene el valor de la propiedad getdesplazmultiempresaReturn.
    * 
    * @return possible object is {@link GetdesplazmultiempresaOutput }
-   *
+   * 
    */
   public GetdesplazmultiempresaOutput getGETDESPLAZMULTIEMPRESAReturn() {
     return getdesplazmultiempresaReturn;
@@ -72,14 +68,13 @@ public class GETDESPLAZMULTIEMPRESAResponse implements Serializable, Cloneable, 
    * Define el valor de la propiedad getdesplazmultiempresaReturn.
    * 
    * @param value allowed object is {@link GetdesplazmultiempresaOutput }
-   *
+   * 
    */
   public void setGETDESPLAZMULTIEMPRESAReturn(GetdesplazmultiempresaOutput value) {
     this.getdesplazmultiempresaReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -92,11 +87,10 @@ public class GETDESPLAZMULTIEMPRESAResponse implements Serializable, Cloneable, 
       lhsGETDESPLAZMULTIEMPRESAReturn = this.getGETDESPLAZMULTIEMPRESAReturn();
       GetdesplazmultiempresaOutput rhsGETDESPLAZMULTIEMPRESAReturn;
       rhsGETDESPLAZMULTIEMPRESAReturn = that.getGETDESPLAZMULTIEMPRESAReturn();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "getdesplazmultiempresaReturn", lhsGETDESPLAZMULTIEMPRESAReturn),
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "getdesplazmultiempresaReturn", lhsGETDESPLAZMULTIEMPRESAReturn),
           LocatorUtils.property(thatLocator, "getdesplazmultiempresaReturn", rhsGETDESPLAZMULTIEMPRESAReturn),
-          lhsGETDESPLAZMULTIEMPRESAReturn, rhsGETDESPLAZMULTIEMPRESAReturn,
-          (this.getdesplazmultiempresaReturn != null), (that.getdesplazmultiempresaReturn != null))) {
+          lhsGETDESPLAZMULTIEMPRESAReturn, rhsGETDESPLAZMULTIEMPRESAReturn, (this.getdesplazmultiempresaReturn != null),
+          (that.getdesplazmultiempresaReturn != null))) {
         return false;
       }
     }
@@ -137,8 +131,7 @@ public class GETDESPLAZMULTIEMPRESAResponse implements Serializable, Cloneable, 
     {
       GetdesplazmultiempresaOutput theGETDESPLAZMULTIEMPRESAReturn;
       theGETDESPLAZMULTIEMPRESAReturn = this.getGETDESPLAZMULTIEMPRESAReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "getdesplazmultiempresaReturn", theGETDESPLAZMULTIEMPRESAReturn),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getdesplazmultiempresaReturn", theGETDESPLAZMULTIEMPRESAReturn),
           currentHashCode, theGETDESPLAZMULTIEMPRESAReturn, (this.getdesplazmultiempresaReturn != null));
     }
     return currentHashCode;
@@ -163,15 +156,14 @@ public class GETDESPLAZMULTIEMPRESAResponse implements Serializable, Cloneable, 
     if (draftCopy instanceof GETDESPLAZMULTIEMPRESAResponse) {
       final GETDESPLAZMULTIEMPRESAResponse copy = ((GETDESPLAZMULTIEMPRESAResponse) draftCopy);
       {
-        Boolean getdesplazmultiempresaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.getdesplazmultiempresaReturn != null));
+        Boolean getdesplazmultiempresaReturnShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.getdesplazmultiempresaReturn != null));
         if (getdesplazmultiempresaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GetdesplazmultiempresaOutput sourceGETDESPLAZMULTIEMPRESAReturn;
           sourceGETDESPLAZMULTIEMPRESAReturn = this.getGETDESPLAZMULTIEMPRESAReturn();
-          GetdesplazmultiempresaOutput copyGETDESPLAZMULTIEMPRESAReturn = ((GetdesplazmultiempresaOutput) strategy
-              .copy(LocatorUtils.property(locator, "getdesplazmultiempresaReturn",
-                  sourceGETDESPLAZMULTIEMPRESAReturn), sourceGETDESPLAZMULTIEMPRESAReturn,
-                  (this.getdesplazmultiempresaReturn != null)));
+          GetdesplazmultiempresaOutput copyGETDESPLAZMULTIEMPRESAReturn = ((GetdesplazmultiempresaOutput) strategy.copy(
+              LocatorUtils.property(locator, "getdesplazmultiempresaReturn", sourceGETDESPLAZMULTIEMPRESAReturn),
+              sourceGETDESPLAZMULTIEMPRESAReturn, (this.getdesplazmultiempresaReturn != null)));
           copy.setGETDESPLAZMULTIEMPRESAReturn(copyGETDESPLAZMULTIEMPRESAReturn);
         } else {
           if (getdesplazmultiempresaReturnShouldBeCopiedAndSet == Boolean.FALSE) {

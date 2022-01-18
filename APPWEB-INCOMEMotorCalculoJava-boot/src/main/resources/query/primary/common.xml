@@ -5827,8 +5827,8 @@ WHEN MATCHED AND POLITICA.ID_TAREA = :idTarea AND POLITICA.ID_TIPO_POLITICA = :i
 
   <entry key="TareaConfiguracionRepositoryCustom.save">
     <![CDATA[
-  INSERT INTO TAREA_CONFIGURACION (ID_TAREA, CCL_ID_ORIGEN, FECHA_INICIO, FECHA_FIN, COD_TIPO_HORA, ICM_CK_VENTA_IMPUESTOS, ICM_CK_INC_IVA_EVAL_PTPO)
-  VALUES (:tarea.id, :cclIdOrigen, :fechaInicio, :fechaFin, :codTipoHora, :icmCkVentaImpuestos, :icmCkIncIvaEvalPtpo)
+  INSERT INTO TAREA_CONFIGURACION (ID_TAREA, CCL_ID_ORIGEN, FECHA_INICIO, FECHA_FIN, COD_TIPO_HORA, ICM_CK_VENTA_IMPUESTOS, ICM_CK_INC_IVA_EVAL_PTPO, ICM_CK_RED_JORNADA)
+  VALUES (:tarea.id, :cclIdOrigen, :fechaInicio, :fechaFin, :codTipoHora, :icmCkVentaImpuestos, :icmCkIncIvaEvalPtpo, :icmCkRedJornada)
   ]]>
   </entry>
 

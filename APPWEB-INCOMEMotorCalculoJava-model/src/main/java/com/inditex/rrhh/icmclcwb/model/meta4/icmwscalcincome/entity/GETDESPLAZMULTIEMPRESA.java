@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETDESPLAZMULTIEMPRESA implements Serializable, Cloneable, CopyTo2,
    * Obtiene el valor de la propiedad icmparamcalmultiempresa.
    * 
    * @return possible object is {@link IcmParamcalmultiempresaBlock }
-   *
+   * 
    */
   public IcmParamcalmultiempresaBlock getICMPARAMCALMULTIEMPRESA() {
     return icmparamcalmultiempresa;
@@ -72,14 +68,13 @@ public class GETDESPLAZMULTIEMPRESA implements Serializable, Cloneable, CopyTo2,
    * Define el valor de la propiedad icmparamcalmultiempresa.
    * 
    * @param value allowed object is {@link IcmParamcalmultiempresaBlock }
-   *
+   * 
    */
   public void setICMPARAMCALMULTIEMPRESA(IcmParamcalmultiempresaBlock value) {
     this.icmparamcalmultiempresa = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -92,11 +87,9 @@ public class GETDESPLAZMULTIEMPRESA implements Serializable, Cloneable, CopyTo2,
       lhsICMPARAMCALMULTIEMPRESA = this.getICMPARAMCALMULTIEMPRESA();
       IcmParamcalmultiempresaBlock rhsICMPARAMCALMULTIEMPRESA;
       rhsICMPARAMCALMULTIEMPRESA = that.getICMPARAMCALMULTIEMPRESA();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmparamcalmultiempresa", lhsICMPARAMCALMULTIEMPRESA),
-          LocatorUtils.property(thatLocator, "icmparamcalmultiempresa", rhsICMPARAMCALMULTIEMPRESA),
-          lhsICMPARAMCALMULTIEMPRESA, rhsICMPARAMCALMULTIEMPRESA, (this.icmparamcalmultiempresa != null),
-          (that.icmparamcalmultiempresa != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalmultiempresa", lhsICMPARAMCALMULTIEMPRESA),
+          LocatorUtils.property(thatLocator, "icmparamcalmultiempresa", rhsICMPARAMCALMULTIEMPRESA), lhsICMPARAMCALMULTIEMPRESA,
+          rhsICMPARAMCALMULTIEMPRESA, (this.icmparamcalmultiempresa != null), (that.icmparamcalmultiempresa != null))) {
         return false;
       }
     }
@@ -137,8 +130,7 @@ public class GETDESPLAZMULTIEMPRESA implements Serializable, Cloneable, CopyTo2,
     {
       IcmParamcalmultiempresaBlock theICMPARAMCALMULTIEMPRESA;
       theICMPARAMCALMULTIEMPRESA = this.getICMPARAMCALMULTIEMPRESA();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmparamcalmultiempresa", theICMPARAMCALMULTIEMPRESA),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalmultiempresa", theICMPARAMCALMULTIEMPRESA),
           currentHashCode, theICMPARAMCALMULTIEMPRESA, (this.icmparamcalmultiempresa != null));
     }
     return currentHashCode;
@@ -163,14 +155,14 @@ public class GETDESPLAZMULTIEMPRESA implements Serializable, Cloneable, CopyTo2,
     if (draftCopy instanceof GETDESPLAZMULTIEMPRESA) {
       final GETDESPLAZMULTIEMPRESA copy = ((GETDESPLAZMULTIEMPRESA) draftCopy);
       {
-        Boolean icmparamcalmultiempresaShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmparamcalmultiempresa != null));
+        Boolean icmparamcalmultiempresaShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalmultiempresa != null));
         if (icmparamcalmultiempresaShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmParamcalmultiempresaBlock sourceICMPARAMCALMULTIEMPRESA;
           sourceICMPARAMCALMULTIEMPRESA = this.getICMPARAMCALMULTIEMPRESA();
-          IcmParamcalmultiempresaBlock copyICMPARAMCALMULTIEMPRESA = ((IcmParamcalmultiempresaBlock) strategy
-              .copy(LocatorUtils.property(locator, "icmparamcalmultiempresa", sourceICMPARAMCALMULTIEMPRESA),
-                  sourceICMPARAMCALMULTIEMPRESA, (this.icmparamcalmultiempresa != null)));
+          IcmParamcalmultiempresaBlock copyICMPARAMCALMULTIEMPRESA = ((IcmParamcalmultiempresaBlock) strategy.copy(
+              LocatorUtils.property(locator, "icmparamcalmultiempresa", sourceICMPARAMCALMULTIEMPRESA), sourceICMPARAMCALMULTIEMPRESA,
+              (this.icmparamcalmultiempresa != null)));
           copy.setICMPARAMCALMULTIEMPRESA(copyICMPARAMCALMULTIEMPRESA);
         } else {
           if (icmparamcalmultiempresaShouldBeCopiedAndSet == Boolean.FALSE) {

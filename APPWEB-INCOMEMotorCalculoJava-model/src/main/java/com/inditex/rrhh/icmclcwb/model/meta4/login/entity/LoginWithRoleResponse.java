@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,25 +58,23 @@ public class LoginWithRoleResponse implements Serializable, Cloneable, CopyTo2, 
    * Obtiene el valor de la propiedad loginWithRoleReturn.
    * 
    * @return possible object is {@link M4LoginOutput }
-   *
+   * 
    */
   public M4LoginOutput getLoginWithRoleReturn() {
-    return this.loginWithRoleReturn;
+    return loginWithRoleReturn;
   }
 
   /**
    * Define el valor de la propiedad loginWithRoleReturn.
    * 
    * @param value allowed object is {@link M4LoginOutput }
-   *
+   * 
    */
-  public void setLoginWithRoleReturn(final M4LoginOutput value) {
+  public void setLoginWithRoleReturn(M4LoginOutput value) {
     this.loginWithRoleReturn = value;
   }
 
-  @Override
-  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
-      final EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -89,99 +83,84 @@ public class LoginWithRoleResponse implements Serializable, Cloneable, CopyTo2, 
     }
     final LoginWithRoleResponse that = ((LoginWithRoleResponse) object);
     {
-      final M4LoginOutput lhsLoginWithRoleReturn;
+      M4LoginOutput lhsLoginWithRoleReturn;
       lhsLoginWithRoleReturn = this.getLoginWithRoleReturn();
-      final M4LoginOutput rhsLoginWithRoleReturn;
+      M4LoginOutput rhsLoginWithRoleReturn;
       rhsLoginWithRoleReturn = that.getLoginWithRoleReturn();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "loginWithRoleReturn", lhsLoginWithRoleReturn),
-          LocatorUtils.property(thatLocator, "loginWithRoleReturn", rhsLoginWithRoleReturn),
-          lhsLoginWithRoleReturn, rhsLoginWithRoleReturn, (this.loginWithRoleReturn != null),
-          (that.loginWithRoleReturn != null))) {
+          LocatorUtils.property(thatLocator, "loginWithRoleReturn", rhsLoginWithRoleReturn), lhsLoginWithRoleReturn, rhsLoginWithRoleReturn,
+          (this.loginWithRoleReturn != null), (that.loginWithRoleReturn != null))) {
         return false;
       }
     }
     return true;
   }
 
-  @Override
-  public boolean equals(final Object object) {
+  public boolean equals(Object object) {
     final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return this.equals(null, null, object, strategy);
+    return equals(null, null, object, strategy);
   }
 
-  @Override
   public String toString() {
     final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
     final StringBuilder buffer = new StringBuilder();
-    this.append(null, buffer, strategy);
+    append(null, buffer, strategy);
     return buffer.toString();
   }
 
-  @Override
-  public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer,
-      final ToStringStrategy2 strategy) {
+  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     strategy.appendStart(locator, this, buffer);
-    this.appendFields(locator, buffer, strategy);
+    appendFields(locator, buffer, strategy);
     strategy.appendEnd(locator, this, buffer);
     return buffer;
   }
 
-  @Override
-  public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer,
-      final ToStringStrategy2 strategy) {
+  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
-      final M4LoginOutput theLoginWithRoleReturn;
+      M4LoginOutput theLoginWithRoleReturn;
       theLoginWithRoleReturn = this.getLoginWithRoleReturn();
-      strategy.appendField(locator, this, "loginWithRoleReturn", buffer, theLoginWithRoleReturn,
-          (this.loginWithRoleReturn != null));
+      strategy.appendField(locator, this, "loginWithRoleReturn", buffer, theLoginWithRoleReturn, (this.loginWithRoleReturn != null));
     }
     return buffer;
   }
 
-  @Override
-  public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
+  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
     int currentHashCode = 1;
     {
-      final M4LoginOutput theLoginWithRoleReturn;
+      M4LoginOutput theLoginWithRoleReturn;
       theLoginWithRoleReturn = this.getLoginWithRoleReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "loginWithRoleReturn", theLoginWithRoleReturn), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "loginWithRoleReturn", theLoginWithRoleReturn), currentHashCode,
           theLoginWithRoleReturn, (this.loginWithRoleReturn != null));
     }
     return currentHashCode;
   }
 
-  @Override
   public int hashCode() {
     final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
     return this.hashCode(null, strategy);
   }
 
-  @Override
   public Object clone() {
-    return this.copyTo(this.createNewInstance());
+    return copyTo(createNewInstance());
   }
 
-  @Override
-  public Object copyTo(final Object target) {
+  public Object copyTo(Object target) {
     final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return this.copyTo(null, target, strategy);
+    return copyTo(null, target, strategy);
   }
 
-  @Override
-  public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
+  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? createNewInstance() : target);
     if (draftCopy instanceof LoginWithRoleResponse) {
       final LoginWithRoleResponse copy = ((LoginWithRoleResponse) draftCopy);
       {
-        final Boolean loginWithRoleReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.loginWithRoleReturn != null));
+        Boolean loginWithRoleReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.loginWithRoleReturn != null));
         if (loginWithRoleReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-          final M4LoginOutput sourceLoginWithRoleReturn;
+          M4LoginOutput sourceLoginWithRoleReturn;
           sourceLoginWithRoleReturn = this.getLoginWithRoleReturn();
-          final M4LoginOutput copyLoginWithRoleReturn = ((M4LoginOutput) strategy.copy(
-              LocatorUtils.property(locator, "loginWithRoleReturn", sourceLoginWithRoleReturn),
-              sourceLoginWithRoleReturn, (this.loginWithRoleReturn != null)));
+          M4LoginOutput copyLoginWithRoleReturn =
+              ((M4LoginOutput) strategy.copy(LocatorUtils.property(locator, "loginWithRoleReturn", sourceLoginWithRoleReturn),
+                  sourceLoginWithRoleReturn, (this.loginWithRoleReturn != null)));
           copy.setLoginWithRoleReturn(copyLoginWithRoleReturn);
         } else {
           if (loginWithRoleReturnShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -193,7 +172,6 @@ public class LoginWithRoleResponse implements Serializable, Cloneable, CopyTo2, 
     return draftCopy;
   }
 
-  @Override
   public Object createNewInstance() {
     return new LoginWithRoleResponse();
   }

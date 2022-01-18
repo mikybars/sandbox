@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETPRESUPUESTOSRANGOResponse implements Serializable, Cloneable, Co
    * Obtiene el valor de la propiedad getpresupuestosrangoReturn.
    * 
    * @return possible object is {@link GetpresupuestosrangoOutput }
-   *
+   * 
    */
   public GetpresupuestosrangoOutput getGETPRESUPUESTOSRANGOReturn() {
     return getpresupuestosrangoReturn;
@@ -72,14 +68,13 @@ public class GETPRESUPUESTOSRANGOResponse implements Serializable, Cloneable, Co
    * Define el valor de la propiedad getpresupuestosrangoReturn.
    * 
    * @param value allowed object is {@link GetpresupuestosrangoOutput }
-   *
+   * 
    */
   public void setGETPRESUPUESTOSRANGOReturn(GetpresupuestosrangoOutput value) {
     this.getpresupuestosrangoReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -92,11 +87,9 @@ public class GETPRESUPUESTOSRANGOResponse implements Serializable, Cloneable, Co
       lhsGETPRESUPUESTOSRANGOReturn = this.getGETPRESUPUESTOSRANGOReturn();
       GetpresupuestosrangoOutput rhsGETPRESUPUESTOSRANGOReturn;
       rhsGETPRESUPUESTOSRANGOReturn = that.getGETPRESUPUESTOSRANGOReturn();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "getpresupuestosrangoReturn", lhsGETPRESUPUESTOSRANGOReturn),
-          LocatorUtils.property(thatLocator, "getpresupuestosrangoReturn", rhsGETPRESUPUESTOSRANGOReturn),
-          lhsGETPRESUPUESTOSRANGOReturn, rhsGETPRESUPUESTOSRANGOReturn,
-          (this.getpresupuestosrangoReturn != null), (that.getpresupuestosrangoReturn != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "getpresupuestosrangoReturn", lhsGETPRESUPUESTOSRANGOReturn),
+          LocatorUtils.property(thatLocator, "getpresupuestosrangoReturn", rhsGETPRESUPUESTOSRANGOReturn), lhsGETPRESUPUESTOSRANGOReturn,
+          rhsGETPRESUPUESTOSRANGOReturn, (this.getpresupuestosrangoReturn != null), (that.getpresupuestosrangoReturn != null))) {
         return false;
       }
     }
@@ -137,8 +130,7 @@ public class GETPRESUPUESTOSRANGOResponse implements Serializable, Cloneable, Co
     {
       GetpresupuestosrangoOutput theGETPRESUPUESTOSRANGOReturn;
       theGETPRESUPUESTOSRANGOReturn = this.getGETPRESUPUESTOSRANGOReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "getpresupuestosrangoReturn", theGETPRESUPUESTOSRANGOReturn),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getpresupuestosrangoReturn", theGETPRESUPUESTOSRANGOReturn),
           currentHashCode, theGETPRESUPUESTOSRANGOReturn, (this.getpresupuestosrangoReturn != null));
     }
     return currentHashCode;
@@ -163,15 +155,14 @@ public class GETPRESUPUESTOSRANGOResponse implements Serializable, Cloneable, Co
     if (draftCopy instanceof GETPRESUPUESTOSRANGOResponse) {
       final GETPRESUPUESTOSRANGOResponse copy = ((GETPRESUPUESTOSRANGOResponse) draftCopy);
       {
-        Boolean getpresupuestosrangoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.getpresupuestosrangoReturn != null));
+        Boolean getpresupuestosrangoReturnShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.getpresupuestosrangoReturn != null));
         if (getpresupuestosrangoReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GetpresupuestosrangoOutput sourceGETPRESUPUESTOSRANGOReturn;
           sourceGETPRESUPUESTOSRANGOReturn = this.getGETPRESUPUESTOSRANGOReturn();
-          GetpresupuestosrangoOutput copyGETPRESUPUESTOSRANGOReturn = ((GetpresupuestosrangoOutput) strategy
-              .copy(LocatorUtils.property(locator, "getpresupuestosrangoReturn",
-                  sourceGETPRESUPUESTOSRANGOReturn), sourceGETPRESUPUESTOSRANGOReturn,
-                  (this.getpresupuestosrangoReturn != null)));
+          GetpresupuestosrangoOutput copyGETPRESUPUESTOSRANGOReturn = ((GetpresupuestosrangoOutput) strategy.copy(
+              LocatorUtils.property(locator, "getpresupuestosrangoReturn", sourceGETPRESUPUESTOSRANGOReturn),
+              sourceGETPRESUPUESTOSRANGOReturn, (this.getpresupuestosrangoReturn != null)));
           copy.setGETPRESUPUESTOSRANGOReturn(copyGETPRESUPUESTOSRANGOReturn);
         } else {
           if (getpresupuestosrangoReturnShouldBeCopiedAndSet == Boolean.FALSE) {
