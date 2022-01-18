@@ -30,4 +30,6 @@ public class ConfiguracionItemDto implements Serializable {
 
   private Boolean icmCkIncIvaEvalPtpo;
 
+  private Boolean icmCkRedJornada;
+
 }

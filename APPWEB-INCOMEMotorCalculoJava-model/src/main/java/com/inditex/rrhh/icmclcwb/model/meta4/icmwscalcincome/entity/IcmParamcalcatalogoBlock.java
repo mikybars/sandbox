@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ParamcalcatalogoBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ParamcalcatalogoBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ParamcalcatalogoBlock"&gt;
  *   &lt;complexContent&gt;
@@ -45,8 +41,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalcatalogoBlock", propOrder = {
@@ -67,7 +63,7 @@ public class IcmParamcalcatalogoBlock implements Serializable, Cloneable, CopyTo
    * Obtiene el valor de la propiedad idorigen.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getIdorigen() {
     return idorigen;
@@ -77,7 +73,7 @@ public class IcmParamcalcatalogoBlock implements Serializable, Cloneable, CopyTo
    * Define el valor de la propiedad idorigen.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setIdorigen(String value) {
     this.idorigen = value;
@@ -85,21 +81,21 @@ public class IcmParamcalcatalogoBlock implements Serializable, Cloneable, CopyTo
 
   /**
    * Gets the value of the icmParamcalcatalogoRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmParamcalcatalogoRecordSet
    * property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmParamcalcatalogoRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmParamcalcatalogoRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmParamcalcatalogoRecord> getIcmParamcalcatalogoRecordSet() {
     if (icmParamcalcatalogoRecordSet == null) {
@@ -108,8 +104,7 @@ public class IcmParamcalcatalogoBlock implements Serializable, Cloneable, CopyTo
     return this.icmParamcalcatalogoRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -123,20 +118,21 @@ public class IcmParamcalcatalogoBlock implements Serializable, Cloneable, CopyTo
       String rhsIdorigen;
       rhsIdorigen = that.getIdorigen();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "idorigen", lhsIdorigen),
-          LocatorUtils.property(thatLocator, "idorigen", rhsIdorigen), lhsIdorigen, rhsIdorigen,
-          (this.idorigen != null), (that.idorigen != null))) {
+          LocatorUtils.property(thatLocator, "idorigen", rhsIdorigen), lhsIdorigen, rhsIdorigen, (this.idorigen != null),
+          (that.idorigen != null))) {
         return false;
       }
     }
     {
       List<IcmParamcalcatalogoRecord> lhsIcmParamcalcatalogoRecordSet;
-      lhsIcmParamcalcatalogoRecordSet = (((this.icmParamcalcatalogoRecordSet != null)
-          && (!this.icmParamcalcatalogoRecordSet.isEmpty())) ? this.getIcmParamcalcatalogoRecordSet() : null);
+      lhsIcmParamcalcatalogoRecordSet = (((this.icmParamcalcatalogoRecordSet != null) && (!this.icmParamcalcatalogoRecordSet.isEmpty()))
+          ? this.getIcmParamcalcatalogoRecordSet()
+          : null);
       List<IcmParamcalcatalogoRecord> rhsIcmParamcalcatalogoRecordSet;
-      rhsIcmParamcalcatalogoRecordSet = (((that.icmParamcalcatalogoRecordSet != null)
-          && (!that.icmParamcalcatalogoRecordSet.isEmpty())) ? that.getIcmParamcalcatalogoRecordSet() : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmParamcalcatalogoRecordSet", lhsIcmParamcalcatalogoRecordSet),
+      rhsIcmParamcalcatalogoRecordSet = (((that.icmParamcalcatalogoRecordSet != null) && (!that.icmParamcalcatalogoRecordSet.isEmpty()))
+          ? that.getIcmParamcalcatalogoRecordSet()
+          : null);
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalcatalogoRecordSet", lhsIcmParamcalcatalogoRecordSet),
           LocatorUtils.property(thatLocator, "icmParamcalcatalogoRecordSet", rhsIcmParamcalcatalogoRecordSet),
           lhsIcmParamcalcatalogoRecordSet, rhsIcmParamcalcatalogoRecordSet,
           ((this.icmParamcalcatalogoRecordSet != null) && (!this.icmParamcalcatalogoRecordSet.isEmpty())),
@@ -174,8 +170,9 @@ public class IcmParamcalcatalogoBlock implements Serializable, Cloneable, CopyTo
     }
     {
       List<IcmParamcalcatalogoRecord> theIcmParamcalcatalogoRecordSet;
-      theIcmParamcalcatalogoRecordSet = (((this.icmParamcalcatalogoRecordSet != null)
-          && (!this.icmParamcalcatalogoRecordSet.isEmpty())) ? this.getIcmParamcalcatalogoRecordSet() : null);
+      theIcmParamcalcatalogoRecordSet = (((this.icmParamcalcatalogoRecordSet != null) && (!this.icmParamcalcatalogoRecordSet.isEmpty()))
+          ? this.getIcmParamcalcatalogoRecordSet()
+          : null);
       strategy.appendField(locator, this, "icmParamcalcatalogoRecordSet", buffer, theIcmParamcalcatalogoRecordSet,
           ((this.icmParamcalcatalogoRecordSet != null) && (!this.icmParamcalcatalogoRecordSet.isEmpty())));
     }
@@ -187,15 +184,15 @@ public class IcmParamcalcatalogoBlock implements Serializable, Cloneable, CopyTo
     {
       String theIdorigen;
       theIdorigen = this.getIdorigen();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idorigen", theIdorigen),
-          currentHashCode, theIdorigen, (this.idorigen != null));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "idorigen", theIdorigen), currentHashCode, theIdorigen, (this.idorigen != null));
     }
     {
       List<IcmParamcalcatalogoRecord> theIcmParamcalcatalogoRecordSet;
-      theIcmParamcalcatalogoRecordSet = (((this.icmParamcalcatalogoRecordSet != null)
-          && (!this.icmParamcalcatalogoRecordSet.isEmpty())) ? this.getIcmParamcalcatalogoRecordSet() : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmParamcalcatalogoRecordSet", theIcmParamcalcatalogoRecordSet),
+      theIcmParamcalcatalogoRecordSet = (((this.icmParamcalcatalogoRecordSet != null) && (!this.icmParamcalcatalogoRecordSet.isEmpty()))
+          ? this.getIcmParamcalcatalogoRecordSet()
+          : null);
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalcatalogoRecordSet", theIcmParamcalcatalogoRecordSet),
           currentHashCode, theIcmParamcalcatalogoRecordSet,
           ((this.icmParamcalcatalogoRecordSet != null) && (!this.icmParamcalcatalogoRecordSet.isEmpty())));
     }
@@ -225,9 +222,8 @@ public class IcmParamcalcatalogoBlock implements Serializable, Cloneable, CopyTo
         if (idorigenShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceIdorigen;
           sourceIdorigen = this.getIdorigen();
-          String copyIdorigen = ((String) strategy.copy(
-              LocatorUtils.property(locator, "idorigen", sourceIdorigen), sourceIdorigen,
-              (this.idorigen != null)));
+          String copyIdorigen =
+              ((String) strategy.copy(LocatorUtils.property(locator, "idorigen", sourceIdorigen), sourceIdorigen, (this.idorigen != null)));
           copy.setIdorigen(copyIdorigen);
         } else {
           if (idorigenShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -237,23 +233,21 @@ public class IcmParamcalcatalogoBlock implements Serializable, Cloneable, CopyTo
       }
       {
         Boolean icmParamcalcatalogoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmParamcalcatalogoRecordSet != null)
-                && (!this.icmParamcalcatalogoRecordSet.isEmpty())));
+            ((this.icmParamcalcatalogoRecordSet != null) && (!this.icmParamcalcatalogoRecordSet.isEmpty())));
         if (icmParamcalcatalogoRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmParamcalcatalogoRecord> sourceIcmParamcalcatalogoRecordSet;
-          sourceIcmParamcalcatalogoRecordSet = (((this.icmParamcalcatalogoRecordSet != null)
-              && (!this.icmParamcalcatalogoRecordSet.isEmpty())) ? this.getIcmParamcalcatalogoRecordSet()
+          sourceIcmParamcalcatalogoRecordSet =
+              (((this.icmParamcalcatalogoRecordSet != null) && (!this.icmParamcalcatalogoRecordSet.isEmpty()))
+                  ? this.getIcmParamcalcatalogoRecordSet()
                   : null);
           @SuppressWarnings("unchecked")
-          List<IcmParamcalcatalogoRecord> copyIcmParamcalcatalogoRecordSet = ((List<IcmParamcalcatalogoRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmParamcalcatalogoRecordSet",
-                  sourceIcmParamcalcatalogoRecordSet), sourceIcmParamcalcatalogoRecordSet,
-                  ((this.icmParamcalcatalogoRecordSet != null)
-                      && (!this.icmParamcalcatalogoRecordSet.isEmpty()))));
+          List<IcmParamcalcatalogoRecord> copyIcmParamcalcatalogoRecordSet = ((List<IcmParamcalcatalogoRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmParamcalcatalogoRecordSet", sourceIcmParamcalcatalogoRecordSet),
+              sourceIcmParamcalcatalogoRecordSet,
+              ((this.icmParamcalcatalogoRecordSet != null) && (!this.icmParamcalcatalogoRecordSet.isEmpty()))));
           copy.icmParamcalcatalogoRecordSet = null;
           if (copyIcmParamcalcatalogoRecordSet != null) {
-            List<IcmParamcalcatalogoRecord> uniqueIcmParamcalcatalogoRecordSetl = copy
-                .getIcmParamcalcatalogoRecordSet();
+            List<IcmParamcalcatalogoRecord> uniqueIcmParamcalcatalogoRecordSetl = copy.getIcmParamcalcatalogoRecordSet();
             uniqueIcmParamcalcatalogoRecordSetl.addAll(copyIcmParamcalcatalogoRecordSet);
           }
         } else {

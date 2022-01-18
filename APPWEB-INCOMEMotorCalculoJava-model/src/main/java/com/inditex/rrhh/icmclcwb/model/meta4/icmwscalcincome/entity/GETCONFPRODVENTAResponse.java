@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETCONFPRODVENTAResponse implements Serializable, Cloneable, CopyTo
    * Obtiene el valor de la propiedad getconfprodventaReturn.
    * 
    * @return possible object is {@link GetconfprodventaOutput }
-   *
+   * 
    */
   public GetconfprodventaOutput getGETCONFPRODVENTAReturn() {
     return getconfprodventaReturn;
@@ -72,14 +68,13 @@ public class GETCONFPRODVENTAResponse implements Serializable, Cloneable, CopyTo
    * Define el valor de la propiedad getconfprodventaReturn.
    * 
    * @param value allowed object is {@link GetconfprodventaOutput }
-   *
+   * 
    */
   public void setGETCONFPRODVENTAReturn(GetconfprodventaOutput value) {
     this.getconfprodventaReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -92,11 +87,9 @@ public class GETCONFPRODVENTAResponse implements Serializable, Cloneable, CopyTo
       lhsGETCONFPRODVENTAReturn = this.getGETCONFPRODVENTAReturn();
       GetconfprodventaOutput rhsGETCONFPRODVENTAReturn;
       rhsGETCONFPRODVENTAReturn = that.getGETCONFPRODVENTAReturn();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "getconfprodventaReturn", lhsGETCONFPRODVENTAReturn),
-          LocatorUtils.property(thatLocator, "getconfprodventaReturn", rhsGETCONFPRODVENTAReturn),
-          lhsGETCONFPRODVENTAReturn, rhsGETCONFPRODVENTAReturn, (this.getconfprodventaReturn != null),
-          (that.getconfprodventaReturn != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfprodventaReturn", lhsGETCONFPRODVENTAReturn),
+          LocatorUtils.property(thatLocator, "getconfprodventaReturn", rhsGETCONFPRODVENTAReturn), lhsGETCONFPRODVENTAReturn,
+          rhsGETCONFPRODVENTAReturn, (this.getconfprodventaReturn != null), (that.getconfprodventaReturn != null))) {
         return false;
       }
     }
@@ -137,8 +130,7 @@ public class GETCONFPRODVENTAResponse implements Serializable, Cloneable, CopyTo
     {
       GetconfprodventaOutput theGETCONFPRODVENTAReturn;
       theGETCONFPRODVENTAReturn = this.getGETCONFPRODVENTAReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "getconfprodventaReturn", theGETCONFPRODVENTAReturn),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfprodventaReturn", theGETCONFPRODVENTAReturn),
           currentHashCode, theGETCONFPRODVENTAReturn, (this.getconfprodventaReturn != null));
     }
     return currentHashCode;
@@ -163,14 +155,13 @@ public class GETCONFPRODVENTAResponse implements Serializable, Cloneable, CopyTo
     if (draftCopy instanceof GETCONFPRODVENTAResponse) {
       final GETCONFPRODVENTAResponse copy = ((GETCONFPRODVENTAResponse) draftCopy);
       {
-        Boolean getconfprodventaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.getconfprodventaReturn != null));
+        Boolean getconfprodventaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getconfprodventaReturn != null));
         if (getconfprodventaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GetconfprodventaOutput sourceGETCONFPRODVENTAReturn;
           sourceGETCONFPRODVENTAReturn = this.getGETCONFPRODVENTAReturn();
           GetconfprodventaOutput copyGETCONFPRODVENTAReturn = ((GetconfprodventaOutput) strategy.copy(
-              LocatorUtils.property(locator, "getconfprodventaReturn", sourceGETCONFPRODVENTAReturn),
-              sourceGETCONFPRODVENTAReturn, (this.getconfprodventaReturn != null)));
+              LocatorUtils.property(locator, "getconfprodventaReturn", sourceGETCONFPRODVENTAReturn), sourceGETCONFPRODVENTAReturn,
+              (this.getconfprodventaReturn != null)));
           copy.setGETCONFPRODVENTAReturn(copyGETCONFPRODVENTAReturn);
         } else {
           if (getconfprodventaReturnShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ListapresupuestoswlocBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ListapresupuestoswlocBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ListapresupuestoswlocBlock"&gt;
  *   &lt;complexContent&gt;
@@ -44,8 +40,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListapresupuestoswlocBlock", propOrder = {
@@ -60,21 +56,21 @@ public class IcmListapresupuestoswlocBlock implements Serializable, Cloneable, C
 
   /**
    * Gets the value of the icmListapresupuestoswlocRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListapresupuestoswlocRecordSet
    * property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmListapresupuestoswlocRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmListapresupuestoswlocRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmListapresupuestoswlocRecord> getIcmListapresupuestoswlocRecordSet() {
     if (icmListapresupuestoswlocRecordSet == null) {
@@ -83,8 +79,7 @@ public class IcmListapresupuestoswlocBlock implements Serializable, Cloneable, C
     return this.icmListapresupuestoswlocRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -94,25 +89,20 @@ public class IcmListapresupuestoswlocBlock implements Serializable, Cloneable, C
     final IcmListapresupuestoswlocBlock that = ((IcmListapresupuestoswlocBlock) object);
     {
       List<IcmListapresupuestoswlocRecord> lhsIcmListapresupuestoswlocRecordSet;
-      lhsIcmListapresupuestoswlocRecordSet = (((this.icmListapresupuestoswlocRecordSet != null)
-          && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
+      lhsIcmListapresupuestoswlocRecordSet =
+          (((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
               ? this.getIcmListapresupuestoswlocRecordSet()
               : null);
       List<IcmListapresupuestoswlocRecord> rhsIcmListapresupuestoswlocRecordSet;
-      rhsIcmListapresupuestoswlocRecordSet = (((that.icmListapresupuestoswlocRecordSet != null)
-          && (!that.icmListapresupuestoswlocRecordSet.isEmpty()))
+      rhsIcmListapresupuestoswlocRecordSet =
+          (((that.icmListapresupuestoswlocRecordSet != null) && (!that.icmListapresupuestoswlocRecordSet.isEmpty()))
               ? that.getIcmListapresupuestoswlocRecordSet()
               : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmListapresupuestoswlocRecordSet",
-              lhsIcmListapresupuestoswlocRecordSet),
-          LocatorUtils.property(thatLocator, "icmListapresupuestoswlocRecordSet",
-              rhsIcmListapresupuestoswlocRecordSet),
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListapresupuestoswlocRecordSet", lhsIcmListapresupuestoswlocRecordSet),
+          LocatorUtils.property(thatLocator, "icmListapresupuestoswlocRecordSet", rhsIcmListapresupuestoswlocRecordSet),
           lhsIcmListapresupuestoswlocRecordSet, rhsIcmListapresupuestoswlocRecordSet,
-          ((this.icmListapresupuestoswlocRecordSet != null)
-              && (!this.icmListapresupuestoswlocRecordSet.isEmpty())),
-          ((that.icmListapresupuestoswlocRecordSet != null)
-              && (!that.icmListapresupuestoswlocRecordSet.isEmpty())))) {
+          ((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty())),
+          ((that.icmListapresupuestoswlocRecordSet != null) && (!that.icmListapresupuestoswlocRecordSet.isEmpty())))) {
         return false;
       }
     }
@@ -141,13 +131,12 @@ public class IcmListapresupuestoswlocBlock implements Serializable, Cloneable, C
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
       List<IcmListapresupuestoswlocRecord> theIcmListapresupuestoswlocRecordSet;
-      theIcmListapresupuestoswlocRecordSet = (((this.icmListapresupuestoswlocRecordSet != null)
-          && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
+      theIcmListapresupuestoswlocRecordSet =
+          (((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
               ? this.getIcmListapresupuestoswlocRecordSet()
               : null);
-      strategy.appendField(locator, this, "icmListapresupuestoswlocRecordSet", buffer,
-          theIcmListapresupuestoswlocRecordSet, ((this.icmListapresupuestoswlocRecordSet != null)
-              && (!this.icmListapresupuestoswlocRecordSet.isEmpty())));
+      strategy.appendField(locator, this, "icmListapresupuestoswlocRecordSet", buffer, theIcmListapresupuestoswlocRecordSet,
+          ((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty())));
     }
     return buffer;
   }
@@ -156,16 +145,14 @@ public class IcmListapresupuestoswlocBlock implements Serializable, Cloneable, C
     int currentHashCode = 1;
     {
       List<IcmListapresupuestoswlocRecord> theIcmListapresupuestoswlocRecordSet;
-      theIcmListapresupuestoswlocRecordSet = (((this.icmListapresupuestoswlocRecordSet != null)
-          && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
+      theIcmListapresupuestoswlocRecordSet =
+          (((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
               ? this.getIcmListapresupuestoswlocRecordSet()
               : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmListapresupuestoswlocRecordSet",
-              theIcmListapresupuestoswlocRecordSet),
-          currentHashCode, theIcmListapresupuestoswlocRecordSet,
-          ((this.icmListapresupuestoswlocRecordSet != null)
-              && (!this.icmListapresupuestoswlocRecordSet.isEmpty())));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmListapresupuestoswlocRecordSet", theIcmListapresupuestoswlocRecordSet),
+              currentHashCode, theIcmListapresupuestoswlocRecordSet,
+              ((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -190,24 +177,21 @@ public class IcmListapresupuestoswlocBlock implements Serializable, Cloneable, C
       final IcmListapresupuestoswlocBlock copy = ((IcmListapresupuestoswlocBlock) draftCopy);
       {
         Boolean icmListapresupuestoswlocRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmListapresupuestoswlocRecordSet != null)
-                && (!this.icmListapresupuestoswlocRecordSet.isEmpty())));
+            ((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty())));
         if (icmListapresupuestoswlocRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmListapresupuestoswlocRecord> sourceIcmListapresupuestoswlocRecordSet;
-          sourceIcmListapresupuestoswlocRecordSet = (((this.icmListapresupuestoswlocRecordSet != null)
-              && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
+          sourceIcmListapresupuestoswlocRecordSet =
+              (((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
                   ? this.getIcmListapresupuestoswlocRecordSet()
                   : null);
           @SuppressWarnings("unchecked")
           List<IcmListapresupuestoswlocRecord> copyIcmListapresupuestoswlocRecordSet = ((List<IcmListapresupuestoswlocRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmListapresupuestoswlocRecordSet",
-                  sourceIcmListapresupuestoswlocRecordSet), sourceIcmListapresupuestoswlocRecordSet,
-                  ((this.icmListapresupuestoswlocRecordSet != null)
-                      && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))));
+              .copy(LocatorUtils.property(locator, "icmListapresupuestoswlocRecordSet", sourceIcmListapresupuestoswlocRecordSet),
+                  sourceIcmListapresupuestoswlocRecordSet,
+                  ((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))));
           copy.icmListapresupuestoswlocRecordSet = null;
           if (copyIcmListapresupuestoswlocRecordSet != null) {
-            List<IcmListapresupuestoswlocRecord> uniqueIcmListapresupuestoswlocRecordSetl = copy
-                .getIcmListapresupuestoswlocRecordSet();
+            List<IcmListapresupuestoswlocRecord> uniqueIcmListapresupuestoswlocRecordSetl = copy.getIcmListapresupuestoswlocRecordSet();
             uniqueIcmListapresupuestoswlocRecordSetl.addAll(copyIcmListapresupuestoswlocRecordSet);
           }
         } else {

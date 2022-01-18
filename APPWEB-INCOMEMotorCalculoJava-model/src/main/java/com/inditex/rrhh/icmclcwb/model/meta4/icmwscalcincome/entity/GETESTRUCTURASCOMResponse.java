@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETESTRUCTURASCOMResponse implements Serializable, Cloneable, CopyT
    * Obtiene el valor de la propiedad getestructurascomReturn.
    * 
    * @return possible object is {@link GetestructurascomOutput }
-   *
+   * 
    */
   public GetestructurascomOutput getGETESTRUCTURASCOMReturn() {
     return getestructurascomReturn;
@@ -72,14 +68,13 @@ public class GETESTRUCTURASCOMResponse implements Serializable, Cloneable, CopyT
    * Define el valor de la propiedad getestructurascomReturn.
    * 
    * @param value allowed object is {@link GetestructurascomOutput }
-   *
+   * 
    */
   public void setGETESTRUCTURASCOMReturn(GetestructurascomOutput value) {
     this.getestructurascomReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -92,11 +87,9 @@ public class GETESTRUCTURASCOMResponse implements Serializable, Cloneable, CopyT
       lhsGETESTRUCTURASCOMReturn = this.getGETESTRUCTURASCOMReturn();
       GetestructurascomOutput rhsGETESTRUCTURASCOMReturn;
       rhsGETESTRUCTURASCOMReturn = that.getGETESTRUCTURASCOMReturn();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "getestructurascomReturn", lhsGETESTRUCTURASCOMReturn),
-          LocatorUtils.property(thatLocator, "getestructurascomReturn", rhsGETESTRUCTURASCOMReturn),
-          lhsGETESTRUCTURASCOMReturn, rhsGETESTRUCTURASCOMReturn, (this.getestructurascomReturn != null),
-          (that.getestructurascomReturn != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "getestructurascomReturn", lhsGETESTRUCTURASCOMReturn),
+          LocatorUtils.property(thatLocator, "getestructurascomReturn", rhsGETESTRUCTURASCOMReturn), lhsGETESTRUCTURASCOMReturn,
+          rhsGETESTRUCTURASCOMReturn, (this.getestructurascomReturn != null), (that.getestructurascomReturn != null))) {
         return false;
       }
     }
@@ -137,8 +130,7 @@ public class GETESTRUCTURASCOMResponse implements Serializable, Cloneable, CopyT
     {
       GetestructurascomOutput theGETESTRUCTURASCOMReturn;
       theGETESTRUCTURASCOMReturn = this.getGETESTRUCTURASCOMReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "getestructurascomReturn", theGETESTRUCTURASCOMReturn),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getestructurascomReturn", theGETESTRUCTURASCOMReturn),
           currentHashCode, theGETESTRUCTURASCOMReturn, (this.getestructurascomReturn != null));
     }
     return currentHashCode;
@@ -163,14 +155,14 @@ public class GETESTRUCTURASCOMResponse implements Serializable, Cloneable, CopyT
     if (draftCopy instanceof GETESTRUCTURASCOMResponse) {
       final GETESTRUCTURASCOMResponse copy = ((GETESTRUCTURASCOMResponse) draftCopy);
       {
-        Boolean getestructurascomReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.getestructurascomReturn != null));
+        Boolean getestructurascomReturnShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.getestructurascomReturn != null));
         if (getestructurascomReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GetestructurascomOutput sourceGETESTRUCTURASCOMReturn;
           sourceGETESTRUCTURASCOMReturn = this.getGETESTRUCTURASCOMReturn();
           GetestructurascomOutput copyGETESTRUCTURASCOMReturn = ((GetestructurascomOutput) strategy.copy(
-              LocatorUtils.property(locator, "getestructurascomReturn", sourceGETESTRUCTURASCOMReturn),
-              sourceGETESTRUCTURASCOMReturn, (this.getestructurascomReturn != null)));
+              LocatorUtils.property(locator, "getestructurascomReturn", sourceGETESTRUCTURASCOMReturn), sourceGETESTRUCTURASCOMReturn,
+              (this.getestructurascomReturn != null)));
           copy.setGETESTRUCTURASCOMReturn(copyGETESTRUCTURASCOMReturn);
         } else {
           if (getestructurascomReturnShouldBeCopiedAndSet == Boolean.FALSE) {

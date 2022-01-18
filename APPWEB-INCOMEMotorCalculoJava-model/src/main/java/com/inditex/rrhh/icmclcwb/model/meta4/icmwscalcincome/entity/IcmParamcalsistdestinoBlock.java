@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ParamcalsistdestinoBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ParamcalsistdestinoBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ParamcalsistdestinoBlock"&gt;
  *   &lt;complexContent&gt;
@@ -45,8 +41,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalsistdestinoBlock", propOrder = {
@@ -67,7 +63,7 @@ public class IcmParamcalsistdestinoBlock implements Serializable, Cloneable, Cop
    * Obtiene el valor de la propiedad idorigen.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getIdorigen() {
     return idorigen;
@@ -77,7 +73,7 @@ public class IcmParamcalsistdestinoBlock implements Serializable, Cloneable, Cop
    * Define el valor de la propiedad idorigen.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setIdorigen(String value) {
     this.idorigen = value;
@@ -85,21 +81,21 @@ public class IcmParamcalsistdestinoBlock implements Serializable, Cloneable, Cop
 
   /**
    * Gets the value of the icmParamcalsistdestinoRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmParamcalsistdestinoRecordSet
    * property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmParamcalsistdestinoRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmParamcalsistdestinoRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmParamcalsistdestinoRecord> getIcmParamcalsistdestinoRecordSet() {
     if (icmParamcalsistdestinoRecordSet == null) {
@@ -108,8 +104,7 @@ public class IcmParamcalsistdestinoBlock implements Serializable, Cloneable, Cop
     return this.icmParamcalsistdestinoRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -123,30 +118,27 @@ public class IcmParamcalsistdestinoBlock implements Serializable, Cloneable, Cop
       String rhsIdorigen;
       rhsIdorigen = that.getIdorigen();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "idorigen", lhsIdorigen),
-          LocatorUtils.property(thatLocator, "idorigen", rhsIdorigen), lhsIdorigen, rhsIdorigen,
-          (this.idorigen != null), (that.idorigen != null))) {
+          LocatorUtils.property(thatLocator, "idorigen", rhsIdorigen), lhsIdorigen, rhsIdorigen, (this.idorigen != null),
+          (that.idorigen != null))) {
         return false;
       }
     }
     {
       List<IcmParamcalsistdestinoRecord> lhsIcmParamcalsistdestinoRecordSet;
-      lhsIcmParamcalsistdestinoRecordSet = (((this.icmParamcalsistdestinoRecordSet != null)
-          && (!this.icmParamcalsistdestinoRecordSet.isEmpty())) ? this.getIcmParamcalsistdestinoRecordSet()
+      lhsIcmParamcalsistdestinoRecordSet =
+          (((this.icmParamcalsistdestinoRecordSet != null) && (!this.icmParamcalsistdestinoRecordSet.isEmpty()))
+              ? this.getIcmParamcalsistdestinoRecordSet()
               : null);
       List<IcmParamcalsistdestinoRecord> rhsIcmParamcalsistdestinoRecordSet;
-      rhsIcmParamcalsistdestinoRecordSet = (((that.icmParamcalsistdestinoRecordSet != null)
-          && (!that.icmParamcalsistdestinoRecordSet.isEmpty())) ? that.getIcmParamcalsistdestinoRecordSet()
+      rhsIcmParamcalsistdestinoRecordSet =
+          (((that.icmParamcalsistdestinoRecordSet != null) && (!that.icmParamcalsistdestinoRecordSet.isEmpty()))
+              ? that.getIcmParamcalsistdestinoRecordSet()
               : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmParamcalsistdestinoRecordSet",
-              lhsIcmParamcalsistdestinoRecordSet),
-          LocatorUtils.property(thatLocator, "icmParamcalsistdestinoRecordSet",
-              rhsIcmParamcalsistdestinoRecordSet),
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalsistdestinoRecordSet", lhsIcmParamcalsistdestinoRecordSet),
+          LocatorUtils.property(thatLocator, "icmParamcalsistdestinoRecordSet", rhsIcmParamcalsistdestinoRecordSet),
           lhsIcmParamcalsistdestinoRecordSet, rhsIcmParamcalsistdestinoRecordSet,
-          ((this.icmParamcalsistdestinoRecordSet != null)
-              && (!this.icmParamcalsistdestinoRecordSet.isEmpty())),
-          ((that.icmParamcalsistdestinoRecordSet != null)
-              && (!that.icmParamcalsistdestinoRecordSet.isEmpty())))) {
+          ((this.icmParamcalsistdestinoRecordSet != null) && (!this.icmParamcalsistdestinoRecordSet.isEmpty())),
+          ((that.icmParamcalsistdestinoRecordSet != null) && (!that.icmParamcalsistdestinoRecordSet.isEmpty())))) {
         return false;
       }
     }
@@ -180,12 +172,12 @@ public class IcmParamcalsistdestinoBlock implements Serializable, Cloneable, Cop
     }
     {
       List<IcmParamcalsistdestinoRecord> theIcmParamcalsistdestinoRecordSet;
-      theIcmParamcalsistdestinoRecordSet = (((this.icmParamcalsistdestinoRecordSet != null)
-          && (!this.icmParamcalsistdestinoRecordSet.isEmpty())) ? this.getIcmParamcalsistdestinoRecordSet()
+      theIcmParamcalsistdestinoRecordSet =
+          (((this.icmParamcalsistdestinoRecordSet != null) && (!this.icmParamcalsistdestinoRecordSet.isEmpty()))
+              ? this.getIcmParamcalsistdestinoRecordSet()
               : null);
-      strategy.appendField(locator, this, "icmParamcalsistdestinoRecordSet", buffer,
-          theIcmParamcalsistdestinoRecordSet, ((this.icmParamcalsistdestinoRecordSet != null)
-              && (!this.icmParamcalsistdestinoRecordSet.isEmpty())));
+      strategy.appendField(locator, this, "icmParamcalsistdestinoRecordSet", buffer, theIcmParamcalsistdestinoRecordSet,
+          ((this.icmParamcalsistdestinoRecordSet != null) && (!this.icmParamcalsistdestinoRecordSet.isEmpty())));
     }
     return buffer;
   }
@@ -195,19 +187,19 @@ public class IcmParamcalsistdestinoBlock implements Serializable, Cloneable, Cop
     {
       String theIdorigen;
       theIdorigen = this.getIdorigen();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idorigen", theIdorigen),
-          currentHashCode, theIdorigen, (this.idorigen != null));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "idorigen", theIdorigen), currentHashCode, theIdorigen, (this.idorigen != null));
     }
     {
       List<IcmParamcalsistdestinoRecord> theIcmParamcalsistdestinoRecordSet;
-      theIcmParamcalsistdestinoRecordSet = (((this.icmParamcalsistdestinoRecordSet != null)
-          && (!this.icmParamcalsistdestinoRecordSet.isEmpty())) ? this.getIcmParamcalsistdestinoRecordSet()
+      theIcmParamcalsistdestinoRecordSet =
+          (((this.icmParamcalsistdestinoRecordSet != null) && (!this.icmParamcalsistdestinoRecordSet.isEmpty()))
+              ? this.getIcmParamcalsistdestinoRecordSet()
               : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmParamcalsistdestinoRecordSet",
-              theIcmParamcalsistdestinoRecordSet),
-          currentHashCode, theIcmParamcalsistdestinoRecordSet, ((this.icmParamcalsistdestinoRecordSet != null)
-              && (!this.icmParamcalsistdestinoRecordSet.isEmpty())));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmParamcalsistdestinoRecordSet", theIcmParamcalsistdestinoRecordSet),
+              currentHashCode, theIcmParamcalsistdestinoRecordSet,
+              ((this.icmParamcalsistdestinoRecordSet != null) && (!this.icmParamcalsistdestinoRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -235,9 +227,8 @@ public class IcmParamcalsistdestinoBlock implements Serializable, Cloneable, Cop
         if (idorigenShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceIdorigen;
           sourceIdorigen = this.getIdorigen();
-          String copyIdorigen = ((String) strategy.copy(
-              LocatorUtils.property(locator, "idorigen", sourceIdorigen), sourceIdorigen,
-              (this.idorigen != null)));
+          String copyIdorigen =
+              ((String) strategy.copy(LocatorUtils.property(locator, "idorigen", sourceIdorigen), sourceIdorigen, (this.idorigen != null)));
           copy.setIdorigen(copyIdorigen);
         } else {
           if (idorigenShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -247,24 +238,21 @@ public class IcmParamcalsistdestinoBlock implements Serializable, Cloneable, Cop
       }
       {
         Boolean icmParamcalsistdestinoRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmParamcalsistdestinoRecordSet != null)
-                && (!this.icmParamcalsistdestinoRecordSet.isEmpty())));
+            ((this.icmParamcalsistdestinoRecordSet != null) && (!this.icmParamcalsistdestinoRecordSet.isEmpty())));
         if (icmParamcalsistdestinoRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmParamcalsistdestinoRecord> sourceIcmParamcalsistdestinoRecordSet;
-          sourceIcmParamcalsistdestinoRecordSet = (((this.icmParamcalsistdestinoRecordSet != null)
-              && (!this.icmParamcalsistdestinoRecordSet.isEmpty()))
+          sourceIcmParamcalsistdestinoRecordSet =
+              (((this.icmParamcalsistdestinoRecordSet != null) && (!this.icmParamcalsistdestinoRecordSet.isEmpty()))
                   ? this.getIcmParamcalsistdestinoRecordSet()
                   : null);
           @SuppressWarnings("unchecked")
-          List<IcmParamcalsistdestinoRecord> copyIcmParamcalsistdestinoRecordSet = ((List<IcmParamcalsistdestinoRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmParamcalsistdestinoRecordSet",
-                  sourceIcmParamcalsistdestinoRecordSet), sourceIcmParamcalsistdestinoRecordSet,
-                  ((this.icmParamcalsistdestinoRecordSet != null)
-                      && (!this.icmParamcalsistdestinoRecordSet.isEmpty()))));
+          List<IcmParamcalsistdestinoRecord> copyIcmParamcalsistdestinoRecordSet = ((List<IcmParamcalsistdestinoRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmParamcalsistdestinoRecordSet", sourceIcmParamcalsistdestinoRecordSet),
+              sourceIcmParamcalsistdestinoRecordSet,
+              ((this.icmParamcalsistdestinoRecordSet != null) && (!this.icmParamcalsistdestinoRecordSet.isEmpty()))));
           copy.icmParamcalsistdestinoRecordSet = null;
           if (copyIcmParamcalsistdestinoRecordSet != null) {
-            List<IcmParamcalsistdestinoRecord> uniqueIcmParamcalsistdestinoRecordSetl = copy
-                .getIcmParamcalsistdestinoRecordSet();
+            List<IcmParamcalsistdestinoRecord> uniqueIcmParamcalsistdestinoRecordSetl = copy.getIcmParamcalsistdestinoRecordSet();
             uniqueIcmParamcalsistdestinoRecordSetl.addAll(copyIcmParamcalsistdestinoRecordSet);
           }
         } else {

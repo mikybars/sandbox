@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
    * Obtiene el valor de la propiedad sincronizacionReturn.
    * 
    * @return possible object is {@link SincronizacionOutput }
-   *
+   * 
    */
   public SincronizacionOutput getSINCRONIZACIONReturn() {
     return sincronizacionReturn;
@@ -72,14 +68,13 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
    * Define el valor de la propiedad sincronizacionReturn.
    * 
    * @param value allowed object is {@link SincronizacionOutput }
-   *
+   * 
    */
   public void setSINCRONIZACIONReturn(SincronizacionOutput value) {
     this.sincronizacionReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,9 +88,8 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
       SincronizacionOutput rhsSINCRONIZACIONReturn;
       rhsSINCRONIZACIONReturn = that.getSINCRONIZACIONReturn();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "sincronizacionReturn", lhsSINCRONIZACIONReturn),
-          LocatorUtils.property(thatLocator, "sincronizacionReturn", rhsSINCRONIZACIONReturn),
-          lhsSINCRONIZACIONReturn, rhsSINCRONIZACIONReturn, (this.sincronizacionReturn != null),
-          (that.sincronizacionReturn != null))) {
+          LocatorUtils.property(thatLocator, "sincronizacionReturn", rhsSINCRONIZACIONReturn), lhsSINCRONIZACIONReturn,
+          rhsSINCRONIZACIONReturn, (this.sincronizacionReturn != null), (that.sincronizacionReturn != null))) {
         return false;
       }
     }
@@ -125,8 +119,7 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
     {
       SincronizacionOutput theSINCRONIZACIONReturn;
       theSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
-      strategy.appendField(locator, this, "sincronizacionReturn", buffer, theSINCRONIZACIONReturn,
-          (this.sincronizacionReturn != null));
+      strategy.appendField(locator, this, "sincronizacionReturn", buffer, theSINCRONIZACIONReturn, (this.sincronizacionReturn != null));
     }
     return buffer;
   }
@@ -136,8 +129,7 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
     {
       SincronizacionOutput theSINCRONIZACIONReturn;
       theSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "sincronizacionReturn", theSINCRONIZACIONReturn), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "sincronizacionReturn", theSINCRONIZACIONReturn), currentHashCode,
           theSINCRONIZACIONReturn, (this.sincronizacionReturn != null));
     }
     return currentHashCode;
@@ -162,14 +154,13 @@ public class SINCRONIZACIONResponse implements Serializable, Cloneable, CopyTo2,
     if (draftCopy instanceof SINCRONIZACIONResponse) {
       final SINCRONIZACIONResponse copy = ((SINCRONIZACIONResponse) draftCopy);
       {
-        Boolean sincronizacionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.sincronizacionReturn != null));
+        Boolean sincronizacionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.sincronizacionReturn != null));
         if (sincronizacionReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           SincronizacionOutput sourceSINCRONIZACIONReturn;
           sourceSINCRONIZACIONReturn = this.getSINCRONIZACIONReturn();
-          SincronizacionOutput copySINCRONIZACIONReturn = ((SincronizacionOutput) strategy.copy(
-              LocatorUtils.property(locator, "sincronizacionReturn", sourceSINCRONIZACIONReturn),
-              sourceSINCRONIZACIONReturn, (this.sincronizacionReturn != null)));
+          SincronizacionOutput copySINCRONIZACIONReturn =
+              ((SincronizacionOutput) strategy.copy(LocatorUtils.property(locator, "sincronizacionReturn", sourceSINCRONIZACIONReturn),
+                  sourceSINCRONIZACIONReturn, (this.sincronizacionReturn != null)));
           copy.setSINCRONIZACIONReturn(copySINCRONIZACIONReturn);
         } else {
           if (sincronizacionReturnShouldBeCopiedAndSet == Boolean.FALSE) {

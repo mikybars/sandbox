@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETCATALOGO implements Serializable, Cloneable, CopyTo2, Equals2, H
    * Obtiene el valor de la propiedad icmparamcalcatalogo.
    * 
    * @return possible object is {@link IcmParamcalcatalogoBlock }
-   *
+   * 
    */
   public IcmParamcalcatalogoBlock getICMPARAMCALCATALOGO() {
     return icmparamcalcatalogo;
@@ -72,14 +68,13 @@ public class GETCATALOGO implements Serializable, Cloneable, CopyTo2, Equals2, H
    * Define el valor de la propiedad icmparamcalcatalogo.
    * 
    * @param value allowed object is {@link IcmParamcalcatalogoBlock }
-   *
+   * 
    */
   public void setICMPARAMCALCATALOGO(IcmParamcalcatalogoBlock value) {
     this.icmparamcalcatalogo = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,9 +88,8 @@ public class GETCATALOGO implements Serializable, Cloneable, CopyTo2, Equals2, H
       IcmParamcalcatalogoBlock rhsICMPARAMCALCATALOGO;
       rhsICMPARAMCALCATALOGO = that.getICMPARAMCALCATALOGO();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalcatalogo", lhsICMPARAMCALCATALOGO),
-          LocatorUtils.property(thatLocator, "icmparamcalcatalogo", rhsICMPARAMCALCATALOGO),
-          lhsICMPARAMCALCATALOGO, rhsICMPARAMCALCATALOGO, (this.icmparamcalcatalogo != null),
-          (that.icmparamcalcatalogo != null))) {
+          LocatorUtils.property(thatLocator, "icmparamcalcatalogo", rhsICMPARAMCALCATALOGO), lhsICMPARAMCALCATALOGO, rhsICMPARAMCALCATALOGO,
+          (this.icmparamcalcatalogo != null), (that.icmparamcalcatalogo != null))) {
         return false;
       }
     }
@@ -125,8 +119,7 @@ public class GETCATALOGO implements Serializable, Cloneable, CopyTo2, Equals2, H
     {
       IcmParamcalcatalogoBlock theICMPARAMCALCATALOGO;
       theICMPARAMCALCATALOGO = this.getICMPARAMCALCATALOGO();
-      strategy.appendField(locator, this, "icmparamcalcatalogo", buffer, theICMPARAMCALCATALOGO,
-          (this.icmparamcalcatalogo != null));
+      strategy.appendField(locator, this, "icmparamcalcatalogo", buffer, theICMPARAMCALCATALOGO, (this.icmparamcalcatalogo != null));
     }
     return buffer;
   }
@@ -136,8 +129,7 @@ public class GETCATALOGO implements Serializable, Cloneable, CopyTo2, Equals2, H
     {
       IcmParamcalcatalogoBlock theICMPARAMCALCATALOGO;
       theICMPARAMCALCATALOGO = this.getICMPARAMCALCATALOGO();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmparamcalcatalogo", theICMPARAMCALCATALOGO), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalcatalogo", theICMPARAMCALCATALOGO), currentHashCode,
           theICMPARAMCALCATALOGO, (this.icmparamcalcatalogo != null));
     }
     return currentHashCode;
@@ -162,14 +154,13 @@ public class GETCATALOGO implements Serializable, Cloneable, CopyTo2, Equals2, H
     if (draftCopy instanceof GETCATALOGO) {
       final GETCATALOGO copy = ((GETCATALOGO) draftCopy);
       {
-        Boolean icmparamcalcatalogoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmparamcalcatalogo != null));
+        Boolean icmparamcalcatalogoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalcatalogo != null));
         if (icmparamcalcatalogoShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmParamcalcatalogoBlock sourceICMPARAMCALCATALOGO;
           sourceICMPARAMCALCATALOGO = this.getICMPARAMCALCATALOGO();
-          IcmParamcalcatalogoBlock copyICMPARAMCALCATALOGO = ((IcmParamcalcatalogoBlock) strategy.copy(
-              LocatorUtils.property(locator, "icmparamcalcatalogo", sourceICMPARAMCALCATALOGO),
-              sourceICMPARAMCALCATALOGO, (this.icmparamcalcatalogo != null)));
+          IcmParamcalcatalogoBlock copyICMPARAMCALCATALOGO =
+              ((IcmParamcalcatalogoBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalcatalogo", sourceICMPARAMCALCATALOGO),
+                  sourceICMPARAMCALCATALOGO, (this.icmparamcalcatalogo != null)));
           copy.setICMPARAMCALCATALOGO(copyICMPARAMCALCATALOGO);
         } else {
           if (icmparamcalcatalogoShouldBeCopiedAndSet == Boolean.FALSE) {

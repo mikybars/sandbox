@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETCONFCHDIASMINIMOS implements Serializable, Cloneable, CopyTo2, E
    * Obtiene el valor de la propiedad icmparamcalconfchdias.
    * 
    * @return possible object is {@link IcmParamcalconfchdiasBlock }
-   *
+   * 
    */
   public IcmParamcalconfchdiasBlock getICMPARAMCALCONFCHDIAS() {
     return icmparamcalconfchdias;
@@ -72,14 +68,13 @@ public class GETCONFCHDIASMINIMOS implements Serializable, Cloneable, CopyTo2, E
    * Define el valor de la propiedad icmparamcalconfchdias.
    * 
    * @param value allowed object is {@link IcmParamcalconfchdiasBlock }
-   *
+   * 
    */
   public void setICMPARAMCALCONFCHDIAS(IcmParamcalconfchdiasBlock value) {
     this.icmparamcalconfchdias = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,9 +88,8 @@ public class GETCONFCHDIASMINIMOS implements Serializable, Cloneable, CopyTo2, E
       IcmParamcalconfchdiasBlock rhsICMPARAMCALCONFCHDIAS;
       rhsICMPARAMCALCONFCHDIAS = that.getICMPARAMCALCONFCHDIAS();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalconfchdias", lhsICMPARAMCALCONFCHDIAS),
-          LocatorUtils.property(thatLocator, "icmparamcalconfchdias", rhsICMPARAMCALCONFCHDIAS),
-          lhsICMPARAMCALCONFCHDIAS, rhsICMPARAMCALCONFCHDIAS, (this.icmparamcalconfchdias != null),
-          (that.icmparamcalconfchdias != null))) {
+          LocatorUtils.property(thatLocator, "icmparamcalconfchdias", rhsICMPARAMCALCONFCHDIAS), lhsICMPARAMCALCONFCHDIAS,
+          rhsICMPARAMCALCONFCHDIAS, (this.icmparamcalconfchdias != null), (that.icmparamcalconfchdias != null))) {
         return false;
       }
     }
@@ -125,8 +119,7 @@ public class GETCONFCHDIASMINIMOS implements Serializable, Cloneable, CopyTo2, E
     {
       IcmParamcalconfchdiasBlock theICMPARAMCALCONFCHDIAS;
       theICMPARAMCALCONFCHDIAS = this.getICMPARAMCALCONFCHDIAS();
-      strategy.appendField(locator, this, "icmparamcalconfchdias", buffer, theICMPARAMCALCONFCHDIAS,
-          (this.icmparamcalconfchdias != null));
+      strategy.appendField(locator, this, "icmparamcalconfchdias", buffer, theICMPARAMCALCONFCHDIAS, (this.icmparamcalconfchdias != null));
     }
     return buffer;
   }
@@ -136,9 +129,8 @@ public class GETCONFCHDIASMINIMOS implements Serializable, Cloneable, CopyTo2, E
     {
       IcmParamcalconfchdiasBlock theICMPARAMCALCONFCHDIAS;
       theICMPARAMCALCONFCHDIAS = this.getICMPARAMCALCONFCHDIAS();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmparamcalconfchdias", theICMPARAMCALCONFCHDIAS), currentHashCode,
-          theICMPARAMCALCONFCHDIAS, (this.icmparamcalconfchdias != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalconfchdias", theICMPARAMCALCONFCHDIAS),
+          currentHashCode, theICMPARAMCALCONFCHDIAS, (this.icmparamcalconfchdias != null));
     }
     return currentHashCode;
   }
@@ -162,14 +154,13 @@ public class GETCONFCHDIASMINIMOS implements Serializable, Cloneable, CopyTo2, E
     if (draftCopy instanceof GETCONFCHDIASMINIMOS) {
       final GETCONFCHDIASMINIMOS copy = ((GETCONFCHDIASMINIMOS) draftCopy);
       {
-        Boolean icmparamcalconfchdiasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmparamcalconfchdias != null));
+        Boolean icmparamcalconfchdiasShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalconfchdias != null));
         if (icmparamcalconfchdiasShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmParamcalconfchdiasBlock sourceICMPARAMCALCONFCHDIAS;
           sourceICMPARAMCALCONFCHDIAS = this.getICMPARAMCALCONFCHDIAS();
           IcmParamcalconfchdiasBlock copyICMPARAMCALCONFCHDIAS = ((IcmParamcalconfchdiasBlock) strategy.copy(
-              LocatorUtils.property(locator, "icmparamcalconfchdias", sourceICMPARAMCALCONFCHDIAS),
-              sourceICMPARAMCALCONFCHDIAS, (this.icmparamcalconfchdias != null)));
+              LocatorUtils.property(locator, "icmparamcalconfchdias", sourceICMPARAMCALCONFCHDIAS), sourceICMPARAMCALCONFCHDIAS,
+              (this.icmparamcalconfchdias != null)));
           copy.setICMPARAMCALCONFCHDIAS(copyICMPARAMCALCONFCHDIAS);
         } else {
           if (icmparamcalconfchdiasShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ListaseccionespresenciasBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ListaseccionespresenciasBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ListaseccionespresenciasBlock"&gt;
  *   &lt;complexContent&gt;
@@ -44,15 +40,14 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaseccionespresenciasBlock", propOrder = {
     "icmListaseccionespresenciasRecordSet"
 })
-public class IcmListaseccionespresenciasBlock
-    implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmListaseccionespresenciasBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
   private final static long serialVersionUID = 1L;
 
@@ -61,21 +56,21 @@ public class IcmListaseccionespresenciasBlock
 
   /**
    * Gets the value of the icmListaseccionespresenciasRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListaseccionespresenciasRecordSet
    * property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmListaseccionespresenciasRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmListaseccionespresenciasRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmListaseccionespresenciasRecord> getIcmListaseccionespresenciasRecordSet() {
     if (icmListaseccionespresenciasRecordSet == null) {
@@ -84,8 +79,7 @@ public class IcmListaseccionespresenciasBlock
     return this.icmListaseccionespresenciasRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -95,25 +89,21 @@ public class IcmListaseccionespresenciasBlock
     final IcmListaseccionespresenciasBlock that = ((IcmListaseccionespresenciasBlock) object);
     {
       List<IcmListaseccionespresenciasRecord> lhsIcmListaseccionespresenciasRecordSet;
-      lhsIcmListaseccionespresenciasRecordSet = (((this.icmListaseccionespresenciasRecordSet != null)
-          && (!this.icmListaseccionespresenciasRecordSet.isEmpty()))
+      lhsIcmListaseccionespresenciasRecordSet =
+          (((this.icmListaseccionespresenciasRecordSet != null) && (!this.icmListaseccionespresenciasRecordSet.isEmpty()))
               ? this.getIcmListaseccionespresenciasRecordSet()
               : null);
       List<IcmListaseccionespresenciasRecord> rhsIcmListaseccionespresenciasRecordSet;
-      rhsIcmListaseccionespresenciasRecordSet = (((that.icmListaseccionespresenciasRecordSet != null)
-          && (!that.icmListaseccionespresenciasRecordSet.isEmpty()))
+      rhsIcmListaseccionespresenciasRecordSet =
+          (((that.icmListaseccionespresenciasRecordSet != null) && (!that.icmListaseccionespresenciasRecordSet.isEmpty()))
               ? that.getIcmListaseccionespresenciasRecordSet()
               : null);
       if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmListaseccionespresenciasRecordSet",
-              lhsIcmListaseccionespresenciasRecordSet),
-          LocatorUtils.property(thatLocator, "icmListaseccionespresenciasRecordSet",
-              rhsIcmListaseccionespresenciasRecordSet),
+          LocatorUtils.property(thisLocator, "icmListaseccionespresenciasRecordSet", lhsIcmListaseccionespresenciasRecordSet),
+          LocatorUtils.property(thatLocator, "icmListaseccionespresenciasRecordSet", rhsIcmListaseccionespresenciasRecordSet),
           lhsIcmListaseccionespresenciasRecordSet, rhsIcmListaseccionespresenciasRecordSet,
-          ((this.icmListaseccionespresenciasRecordSet != null)
-              && (!this.icmListaseccionespresenciasRecordSet.isEmpty())),
-          ((that.icmListaseccionespresenciasRecordSet != null)
-              && (!that.icmListaseccionespresenciasRecordSet.isEmpty())))) {
+          ((this.icmListaseccionespresenciasRecordSet != null) && (!this.icmListaseccionespresenciasRecordSet.isEmpty())),
+          ((that.icmListaseccionespresenciasRecordSet != null) && (!that.icmListaseccionespresenciasRecordSet.isEmpty())))) {
         return false;
       }
     }
@@ -142,13 +132,12 @@ public class IcmListaseccionespresenciasBlock
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
       List<IcmListaseccionespresenciasRecord> theIcmListaseccionespresenciasRecordSet;
-      theIcmListaseccionespresenciasRecordSet = (((this.icmListaseccionespresenciasRecordSet != null)
-          && (!this.icmListaseccionespresenciasRecordSet.isEmpty()))
+      theIcmListaseccionespresenciasRecordSet =
+          (((this.icmListaseccionespresenciasRecordSet != null) && (!this.icmListaseccionespresenciasRecordSet.isEmpty()))
               ? this.getIcmListaseccionespresenciasRecordSet()
               : null);
-      strategy.appendField(locator, this, "icmListaseccionespresenciasRecordSet", buffer,
-          theIcmListaseccionespresenciasRecordSet, ((this.icmListaseccionespresenciasRecordSet != null)
-              && (!this.icmListaseccionespresenciasRecordSet.isEmpty())));
+      strategy.appendField(locator, this, "icmListaseccionespresenciasRecordSet", buffer, theIcmListaseccionespresenciasRecordSet,
+          ((this.icmListaseccionespresenciasRecordSet != null) && (!this.icmListaseccionespresenciasRecordSet.isEmpty())));
     }
     return buffer;
   }
@@ -157,16 +146,14 @@ public class IcmListaseccionespresenciasBlock
     int currentHashCode = 1;
     {
       List<IcmListaseccionespresenciasRecord> theIcmListaseccionespresenciasRecordSet;
-      theIcmListaseccionespresenciasRecordSet = (((this.icmListaseccionespresenciasRecordSet != null)
-          && (!this.icmListaseccionespresenciasRecordSet.isEmpty()))
+      theIcmListaseccionespresenciasRecordSet =
+          (((this.icmListaseccionespresenciasRecordSet != null) && (!this.icmListaseccionespresenciasRecordSet.isEmpty()))
               ? this.getIcmListaseccionespresenciasRecordSet()
               : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmListaseccionespresenciasRecordSet",
-              theIcmListaseccionespresenciasRecordSet),
-          currentHashCode, theIcmListaseccionespresenciasRecordSet,
-          ((this.icmListaseccionespresenciasRecordSet != null)
-              && (!this.icmListaseccionespresenciasRecordSet.isEmpty())));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmListaseccionespresenciasRecordSet", theIcmListaseccionespresenciasRecordSet),
+              currentHashCode, theIcmListaseccionespresenciasRecordSet,
+              ((this.icmListaseccionespresenciasRecordSet != null) && (!this.icmListaseccionespresenciasRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -190,26 +177,24 @@ public class IcmListaseccionespresenciasBlock
     if (draftCopy instanceof IcmListaseccionespresenciasBlock) {
       final IcmListaseccionespresenciasBlock copy = ((IcmListaseccionespresenciasBlock) draftCopy);
       {
-        Boolean icmListaseccionespresenciasRecordSetShouldBeCopiedAndSet = strategy
-            .shouldBeCopiedAndSet(locator, ((this.icmListaseccionespresenciasRecordSet != null)
-                && (!this.icmListaseccionespresenciasRecordSet.isEmpty())));
+        Boolean icmListaseccionespresenciasRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+            ((this.icmListaseccionespresenciasRecordSet != null) && (!this.icmListaseccionespresenciasRecordSet.isEmpty())));
         if (icmListaseccionespresenciasRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmListaseccionespresenciasRecord> sourceIcmListaseccionespresenciasRecordSet;
-          sourceIcmListaseccionespresenciasRecordSet = (((this.icmListaseccionespresenciasRecordSet != null)
-              && (!this.icmListaseccionespresenciasRecordSet.isEmpty()))
+          sourceIcmListaseccionespresenciasRecordSet =
+              (((this.icmListaseccionespresenciasRecordSet != null) && (!this.icmListaseccionespresenciasRecordSet.isEmpty()))
                   ? this.getIcmListaseccionespresenciasRecordSet()
                   : null);
           @SuppressWarnings("unchecked")
           List<IcmListaseccionespresenciasRecord> copyIcmListaseccionespresenciasRecordSet =
-              ((List<IcmListaseccionespresenciasRecord>) strategy
-                  .copy(LocatorUtils.property(locator, "icmListaseccionespresenciasRecordSet",
-                      sourceIcmListaseccionespresenciasRecordSet), sourceIcmListaseccionespresenciasRecordSet,
-                      ((this.icmListaseccionespresenciasRecordSet != null)
-                          && (!this.icmListaseccionespresenciasRecordSet.isEmpty()))));
+              ((List<IcmListaseccionespresenciasRecord>) strategy.copy(
+                  LocatorUtils.property(locator, "icmListaseccionespresenciasRecordSet", sourceIcmListaseccionespresenciasRecordSet),
+                  sourceIcmListaseccionespresenciasRecordSet,
+                  ((this.icmListaseccionespresenciasRecordSet != null) && (!this.icmListaseccionespresenciasRecordSet.isEmpty()))));
           copy.icmListaseccionespresenciasRecordSet = null;
           if (copyIcmListaseccionespresenciasRecordSet != null) {
-            List<IcmListaseccionespresenciasRecord> uniqueIcmListaseccionespresenciasRecordSetl = copy
-                .getIcmListaseccionespresenciasRecordSet();
+            List<IcmListaseccionespresenciasRecord> uniqueIcmListaseccionespresenciasRecordSetl =
+                copy.getIcmListaseccionespresenciasRecordSet();
             uniqueIcmListaseccionespresenciasRecordSetl.addAll(copyIcmListaseccionespresenciasRecordSet);
           }
         } else {

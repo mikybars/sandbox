@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETCOEFJORNADAResponse implements Serializable, Cloneable, CopyTo2,
    * Obtiene el valor de la propiedad getcoefjornadaReturn.
    * 
    * @return possible object is {@link GetcoefjornadaOutput }
-   *
+   * 
    */
   public GetcoefjornadaOutput getGETCOEFJORNADAReturn() {
     return getcoefjornadaReturn;
@@ -72,14 +68,13 @@ public class GETCOEFJORNADAResponse implements Serializable, Cloneable, CopyTo2,
    * Define el valor de la propiedad getcoefjornadaReturn.
    * 
    * @param value allowed object is {@link GetcoefjornadaOutput }
-   *
+   * 
    */
   public void setGETCOEFJORNADAReturn(GetcoefjornadaOutput value) {
     this.getcoefjornadaReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,9 +88,8 @@ public class GETCOEFJORNADAResponse implements Serializable, Cloneable, CopyTo2,
       GetcoefjornadaOutput rhsGETCOEFJORNADAReturn;
       rhsGETCOEFJORNADAReturn = that.getGETCOEFJORNADAReturn();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "getcoefjornadaReturn", lhsGETCOEFJORNADAReturn),
-          LocatorUtils.property(thatLocator, "getcoefjornadaReturn", rhsGETCOEFJORNADAReturn),
-          lhsGETCOEFJORNADAReturn, rhsGETCOEFJORNADAReturn, (this.getcoefjornadaReturn != null),
-          (that.getcoefjornadaReturn != null))) {
+          LocatorUtils.property(thatLocator, "getcoefjornadaReturn", rhsGETCOEFJORNADAReturn), lhsGETCOEFJORNADAReturn,
+          rhsGETCOEFJORNADAReturn, (this.getcoefjornadaReturn != null), (that.getcoefjornadaReturn != null))) {
         return false;
       }
     }
@@ -125,8 +119,7 @@ public class GETCOEFJORNADAResponse implements Serializable, Cloneable, CopyTo2,
     {
       GetcoefjornadaOutput theGETCOEFJORNADAReturn;
       theGETCOEFJORNADAReturn = this.getGETCOEFJORNADAReturn();
-      strategy.appendField(locator, this, "getcoefjornadaReturn", buffer, theGETCOEFJORNADAReturn,
-          (this.getcoefjornadaReturn != null));
+      strategy.appendField(locator, this, "getcoefjornadaReturn", buffer, theGETCOEFJORNADAReturn, (this.getcoefjornadaReturn != null));
     }
     return buffer;
   }
@@ -136,8 +129,7 @@ public class GETCOEFJORNADAResponse implements Serializable, Cloneable, CopyTo2,
     {
       GetcoefjornadaOutput theGETCOEFJORNADAReturn;
       theGETCOEFJORNADAReturn = this.getGETCOEFJORNADAReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "getcoefjornadaReturn", theGETCOEFJORNADAReturn), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getcoefjornadaReturn", theGETCOEFJORNADAReturn), currentHashCode,
           theGETCOEFJORNADAReturn, (this.getcoefjornadaReturn != null));
     }
     return currentHashCode;
@@ -162,14 +154,13 @@ public class GETCOEFJORNADAResponse implements Serializable, Cloneable, CopyTo2,
     if (draftCopy instanceof GETCOEFJORNADAResponse) {
       final GETCOEFJORNADAResponse copy = ((GETCOEFJORNADAResponse) draftCopy);
       {
-        Boolean getcoefjornadaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.getcoefjornadaReturn != null));
+        Boolean getcoefjornadaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getcoefjornadaReturn != null));
         if (getcoefjornadaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GetcoefjornadaOutput sourceGETCOEFJORNADAReturn;
           sourceGETCOEFJORNADAReturn = this.getGETCOEFJORNADAReturn();
-          GetcoefjornadaOutput copyGETCOEFJORNADAReturn = ((GetcoefjornadaOutput) strategy.copy(
-              LocatorUtils.property(locator, "getcoefjornadaReturn", sourceGETCOEFJORNADAReturn),
-              sourceGETCOEFJORNADAReturn, (this.getcoefjornadaReturn != null)));
+          GetcoefjornadaOutput copyGETCOEFJORNADAReturn =
+              ((GetcoefjornadaOutput) strategy.copy(LocatorUtils.property(locator, "getcoefjornadaReturn", sourceGETCOEFJORNADAReturn),
+                  sourceGETCOEFJORNADAReturn, (this.getcoefjornadaReturn != null)));
           copy.setGETCOEFJORNADAReturn(copyGETCOEFJORNADAReturn);
         } else {
           if (getcoefjornadaReturnShouldBeCopiedAndSet == Boolean.FALSE) {

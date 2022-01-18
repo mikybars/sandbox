@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ListacadenasBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ListacadenasBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ListacadenasBlock"&gt;
  *   &lt;complexContent&gt;
@@ -44,8 +40,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListacadenasBlock", propOrder = {
@@ -60,20 +56,20 @@ public class IcmListacadenasBlock implements Serializable, Cloneable, CopyTo2, E
 
   /**
    * Gets the value of the icmListacadenasRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListacadenasRecordSet property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmListacadenasRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmListacadenasRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmListacadenasRecord> getIcmListacadenasRecordSet() {
     if (icmListacadenasRecordSet == null) {
@@ -82,8 +78,7 @@ public class IcmListacadenasBlock implements Serializable, Cloneable, CopyTo2, E
     return this.icmListacadenasRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,16 +88,16 @@ public class IcmListacadenasBlock implements Serializable, Cloneable, CopyTo2, E
     final IcmListacadenasBlock that = ((IcmListacadenasBlock) object);
     {
       List<IcmListacadenasRecord> lhsIcmListacadenasRecordSet;
-      lhsIcmListacadenasRecordSet = (((this.icmListacadenasRecordSet != null)
-          && (!this.icmListacadenasRecordSet.isEmpty())) ? this.getIcmListacadenasRecordSet() : null);
+      lhsIcmListacadenasRecordSet =
+          (((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty())) ? this.getIcmListacadenasRecordSet()
+              : null);
       List<IcmListacadenasRecord> rhsIcmListacadenasRecordSet;
-      rhsIcmListacadenasRecordSet = (((that.icmListacadenasRecordSet != null)
-          && (!that.icmListacadenasRecordSet.isEmpty())) ? that.getIcmListacadenasRecordSet() : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmListacadenasRecordSet", lhsIcmListacadenasRecordSet),
-          LocatorUtils.property(thatLocator, "icmListacadenasRecordSet", rhsIcmListacadenasRecordSet),
-          lhsIcmListacadenasRecordSet, rhsIcmListacadenasRecordSet,
-          ((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty())),
+      rhsIcmListacadenasRecordSet =
+          (((that.icmListacadenasRecordSet != null) && (!that.icmListacadenasRecordSet.isEmpty())) ? that.getIcmListacadenasRecordSet()
+              : null);
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListacadenasRecordSet", lhsIcmListacadenasRecordSet),
+          LocatorUtils.property(thatLocator, "icmListacadenasRecordSet", rhsIcmListacadenasRecordSet), lhsIcmListacadenasRecordSet,
+          rhsIcmListacadenasRecordSet, ((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty())),
           ((that.icmListacadenasRecordSet != null) && (!that.icmListacadenasRecordSet.isEmpty())))) {
         return false;
       }
@@ -132,8 +127,9 @@ public class IcmListacadenasBlock implements Serializable, Cloneable, CopyTo2, E
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
       List<IcmListacadenasRecord> theIcmListacadenasRecordSet;
-      theIcmListacadenasRecordSet = (((this.icmListacadenasRecordSet != null)
-          && (!this.icmListacadenasRecordSet.isEmpty())) ? this.getIcmListacadenasRecordSet() : null);
+      theIcmListacadenasRecordSet =
+          (((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty())) ? this.getIcmListacadenasRecordSet()
+              : null);
       strategy.appendField(locator, this, "icmListacadenasRecordSet", buffer, theIcmListacadenasRecordSet,
           ((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty())));
     }
@@ -144,12 +140,12 @@ public class IcmListacadenasBlock implements Serializable, Cloneable, CopyTo2, E
     int currentHashCode = 1;
     {
       List<IcmListacadenasRecord> theIcmListacadenasRecordSet;
-      theIcmListacadenasRecordSet = (((this.icmListacadenasRecordSet != null)
-          && (!this.icmListacadenasRecordSet.isEmpty())) ? this.getIcmListacadenasRecordSet() : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmListacadenasRecordSet", theIcmListacadenasRecordSet),
-          currentHashCode, theIcmListacadenasRecordSet,
-          ((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty())));
+      theIcmListacadenasRecordSet =
+          (((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty())) ? this.getIcmListacadenasRecordSet()
+              : null);
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmListacadenasRecordSet", theIcmListacadenasRecordSet), currentHashCode,
+              theIcmListacadenasRecordSet, ((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -173,22 +169,20 @@ public class IcmListacadenasBlock implements Serializable, Cloneable, CopyTo2, E
     if (draftCopy instanceof IcmListacadenasBlock) {
       final IcmListacadenasBlock copy = ((IcmListacadenasBlock) draftCopy);
       {
-        Boolean icmListacadenasRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty())));
+        Boolean icmListacadenasRecordSetShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, ((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty())));
         if (icmListacadenasRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmListacadenasRecord> sourceIcmListacadenasRecordSet;
-          sourceIcmListacadenasRecordSet = (((this.icmListacadenasRecordSet != null)
-              && (!this.icmListacadenasRecordSet.isEmpty())) ? this.getIcmListacadenasRecordSet() : null);
+          sourceIcmListacadenasRecordSet =
+              (((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty())) ? this.getIcmListacadenasRecordSet()
+                  : null);
           @SuppressWarnings("unchecked")
-          List<IcmListacadenasRecord> copyIcmListacadenasRecordSet = ((List<IcmListacadenasRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmListacadenasRecordSet",
-                  sourceIcmListacadenasRecordSet), sourceIcmListacadenasRecordSet,
-                  ((this.icmListacadenasRecordSet != null)
-                      && (!this.icmListacadenasRecordSet.isEmpty()))));
+          List<IcmListacadenasRecord> copyIcmListacadenasRecordSet = ((List<IcmListacadenasRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmListacadenasRecordSet", sourceIcmListacadenasRecordSet), sourceIcmListacadenasRecordSet,
+              ((this.icmListacadenasRecordSet != null) && (!this.icmListacadenasRecordSet.isEmpty()))));
           copy.icmListacadenasRecordSet = null;
           if (copyIcmListacadenasRecordSet != null) {
-            List<IcmListacadenasRecord> uniqueIcmListacadenasRecordSetl = copy
-                .getIcmListacadenasRecordSet();
+            List<IcmListacadenasRecord> uniqueIcmListacadenasRecordSetl = copy.getIcmListacadenasRecordSet();
             uniqueIcmListacadenasRecordSetl.addAll(copyIcmListacadenasRecordSet);
           }
         } else {

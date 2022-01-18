@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETCATALOGOResponse implements Serializable, Cloneable, CopyTo2, Eq
    * Obtiene el valor de la propiedad getcatalogoReturn.
    * 
    * @return possible object is {@link GetcatalogoOutput }
-   *
+   * 
    */
   public GetcatalogoOutput getGETCATALOGOReturn() {
     return getcatalogoReturn;
@@ -72,14 +68,13 @@ public class GETCATALOGOResponse implements Serializable, Cloneable, CopyTo2, Eq
    * Define el valor de la propiedad getcatalogoReturn.
    * 
    * @param value allowed object is {@link GetcatalogoOutput }
-   *
+   * 
    */
   public void setGETCATALOGOReturn(GetcatalogoOutput value) {
     this.getcatalogoReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,8 +88,8 @@ public class GETCATALOGOResponse implements Serializable, Cloneable, CopyTo2, Eq
       GetcatalogoOutput rhsGETCATALOGOReturn;
       rhsGETCATALOGOReturn = that.getGETCATALOGOReturn();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "getcatalogoReturn", lhsGETCATALOGOReturn),
-          LocatorUtils.property(thatLocator, "getcatalogoReturn", rhsGETCATALOGOReturn), lhsGETCATALOGOReturn,
-          rhsGETCATALOGOReturn, (this.getcatalogoReturn != null), (that.getcatalogoReturn != null))) {
+          LocatorUtils.property(thatLocator, "getcatalogoReturn", rhsGETCATALOGOReturn), lhsGETCATALOGOReturn, rhsGETCATALOGOReturn,
+          (this.getcatalogoReturn != null), (that.getcatalogoReturn != null))) {
         return false;
       }
     }
@@ -124,8 +119,7 @@ public class GETCATALOGOResponse implements Serializable, Cloneable, CopyTo2, Eq
     {
       GetcatalogoOutput theGETCATALOGOReturn;
       theGETCATALOGOReturn = this.getGETCATALOGOReturn();
-      strategy.appendField(locator, this, "getcatalogoReturn", buffer, theGETCATALOGOReturn,
-          (this.getcatalogoReturn != null));
+      strategy.appendField(locator, this, "getcatalogoReturn", buffer, theGETCATALOGOReturn, (this.getcatalogoReturn != null));
     }
     return buffer;
   }
@@ -135,8 +129,7 @@ public class GETCATALOGOResponse implements Serializable, Cloneable, CopyTo2, Eq
     {
       GetcatalogoOutput theGETCATALOGOReturn;
       theGETCATALOGOReturn = this.getGETCATALOGOReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "getcatalogoReturn", theGETCATALOGOReturn), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getcatalogoReturn", theGETCATALOGOReturn), currentHashCode,
           theGETCATALOGOReturn, (this.getcatalogoReturn != null));
     }
     return currentHashCode;
@@ -161,14 +154,13 @@ public class GETCATALOGOResponse implements Serializable, Cloneable, CopyTo2, Eq
     if (draftCopy instanceof GETCATALOGOResponse) {
       final GETCATALOGOResponse copy = ((GETCATALOGOResponse) draftCopy);
       {
-        Boolean getcatalogoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.getcatalogoReturn != null));
+        Boolean getcatalogoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getcatalogoReturn != null));
         if (getcatalogoReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GetcatalogoOutput sourceGETCATALOGOReturn;
           sourceGETCATALOGOReturn = this.getGETCATALOGOReturn();
-          GetcatalogoOutput copyGETCATALOGOReturn = ((GetcatalogoOutput) strategy.copy(
-              LocatorUtils.property(locator, "getcatalogoReturn", sourceGETCATALOGOReturn),
-              sourceGETCATALOGOReturn, (this.getcatalogoReturn != null)));
+          GetcatalogoOutput copyGETCATALOGOReturn =
+              ((GetcatalogoOutput) strategy.copy(LocatorUtils.property(locator, "getcatalogoReturn", sourceGETCATALOGOReturn),
+                  sourceGETCATALOGOReturn, (this.getcatalogoReturn != null)));
           copy.setGETCATALOGOReturn(copyGETCATALOGOReturn);
         } else {
           if (getcatalogoReturnShouldBeCopiedAndSet == Boolean.FALSE) {

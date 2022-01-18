@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_AvisosguardadoBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_AvisosguardadoBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_AvisosguardadoBlock"&gt;
  *   &lt;complexContent&gt;
@@ -45,8 +41,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_AvisosguardadoBlock", propOrder = {
@@ -67,7 +63,7 @@ public class IcmAvisosguardadoBlock implements Serializable, Cloneable, CopyTo2,
    * Obtiene el valor de la propiedad resultado.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getResultado() {
     return resultado;
@@ -77,7 +73,7 @@ public class IcmAvisosguardadoBlock implements Serializable, Cloneable, CopyTo2,
    * Define el valor de la propiedad resultado.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setResultado(String value) {
     this.resultado = value;
@@ -85,20 +81,20 @@ public class IcmAvisosguardadoBlock implements Serializable, Cloneable, CopyTo2,
 
   /**
    * Gets the value of the icmAvisosguardadoRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmAvisosguardadoRecordSet property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmAvisosguardadoRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmAvisosguardadoRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmAvisosguardadoRecord> getIcmAvisosguardadoRecordSet() {
     if (icmAvisosguardadoRecordSet == null) {
@@ -107,8 +103,7 @@ public class IcmAvisosguardadoBlock implements Serializable, Cloneable, CopyTo2,
     return this.icmAvisosguardadoRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -122,23 +117,23 @@ public class IcmAvisosguardadoBlock implements Serializable, Cloneable, CopyTo2,
       String rhsResultado;
       rhsResultado = that.getResultado();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "resultado", lhsResultado),
-          LocatorUtils.property(thatLocator, "resultado", rhsResultado), lhsResultado, rhsResultado,
-          (this.resultado != null), (that.resultado != null))) {
+          LocatorUtils.property(thatLocator, "resultado", rhsResultado), lhsResultado, rhsResultado, (this.resultado != null),
+          (that.resultado != null))) {
         return false;
       }
     }
     {
       List<IcmAvisosguardadoRecord> lhsIcmAvisosguardadoRecordSet;
-      lhsIcmAvisosguardadoRecordSet = (((this.icmAvisosguardadoRecordSet != null)
-          && (!this.icmAvisosguardadoRecordSet.isEmpty())) ? this.getIcmAvisosguardadoRecordSet() : null);
+      lhsIcmAvisosguardadoRecordSet = (((this.icmAvisosguardadoRecordSet != null) && (!this.icmAvisosguardadoRecordSet.isEmpty()))
+          ? this.getIcmAvisosguardadoRecordSet()
+          : null);
       List<IcmAvisosguardadoRecord> rhsIcmAvisosguardadoRecordSet;
-      rhsIcmAvisosguardadoRecordSet = (((that.icmAvisosguardadoRecordSet != null)
-          && (!that.icmAvisosguardadoRecordSet.isEmpty())) ? that.getIcmAvisosguardadoRecordSet() : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmAvisosguardadoRecordSet", lhsIcmAvisosguardadoRecordSet),
-          LocatorUtils.property(thatLocator, "icmAvisosguardadoRecordSet", rhsIcmAvisosguardadoRecordSet),
-          lhsIcmAvisosguardadoRecordSet, rhsIcmAvisosguardadoRecordSet,
-          ((this.icmAvisosguardadoRecordSet != null) && (!this.icmAvisosguardadoRecordSet.isEmpty())),
+      rhsIcmAvisosguardadoRecordSet = (((that.icmAvisosguardadoRecordSet != null) && (!that.icmAvisosguardadoRecordSet.isEmpty()))
+          ? that.getIcmAvisosguardadoRecordSet()
+          : null);
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmAvisosguardadoRecordSet", lhsIcmAvisosguardadoRecordSet),
+          LocatorUtils.property(thatLocator, "icmAvisosguardadoRecordSet", rhsIcmAvisosguardadoRecordSet), lhsIcmAvisosguardadoRecordSet,
+          rhsIcmAvisosguardadoRecordSet, ((this.icmAvisosguardadoRecordSet != null) && (!this.icmAvisosguardadoRecordSet.isEmpty())),
           ((that.icmAvisosguardadoRecordSet != null) && (!that.icmAvisosguardadoRecordSet.isEmpty())))) {
         return false;
       }
@@ -173,8 +168,9 @@ public class IcmAvisosguardadoBlock implements Serializable, Cloneable, CopyTo2,
     }
     {
       List<IcmAvisosguardadoRecord> theIcmAvisosguardadoRecordSet;
-      theIcmAvisosguardadoRecordSet = (((this.icmAvisosguardadoRecordSet != null)
-          && (!this.icmAvisosguardadoRecordSet.isEmpty())) ? this.getIcmAvisosguardadoRecordSet() : null);
+      theIcmAvisosguardadoRecordSet = (((this.icmAvisosguardadoRecordSet != null) && (!this.icmAvisosguardadoRecordSet.isEmpty()))
+          ? this.getIcmAvisosguardadoRecordSet()
+          : null);
       strategy.appendField(locator, this, "icmAvisosguardadoRecordSet", buffer, theIcmAvisosguardadoRecordSet,
           ((this.icmAvisosguardadoRecordSet != null) && (!this.icmAvisosguardadoRecordSet.isEmpty())));
     }
@@ -186,17 +182,17 @@ public class IcmAvisosguardadoBlock implements Serializable, Cloneable, CopyTo2,
     {
       String theResultado;
       theResultado = this.getResultado();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "resultado", theResultado),
-          currentHashCode, theResultado, (this.resultado != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "resultado", theResultado), currentHashCode, theResultado,
+          (this.resultado != null));
     }
     {
       List<IcmAvisosguardadoRecord> theIcmAvisosguardadoRecordSet;
-      theIcmAvisosguardadoRecordSet = (((this.icmAvisosguardadoRecordSet != null)
-          && (!this.icmAvisosguardadoRecordSet.isEmpty())) ? this.getIcmAvisosguardadoRecordSet() : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmAvisosguardadoRecordSet", theIcmAvisosguardadoRecordSet),
-          currentHashCode, theIcmAvisosguardadoRecordSet,
-          ((this.icmAvisosguardadoRecordSet != null) && (!this.icmAvisosguardadoRecordSet.isEmpty())));
+      theIcmAvisosguardadoRecordSet = (((this.icmAvisosguardadoRecordSet != null) && (!this.icmAvisosguardadoRecordSet.isEmpty()))
+          ? this.getIcmAvisosguardadoRecordSet()
+          : null);
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmAvisosguardadoRecordSet", theIcmAvisosguardadoRecordSet), currentHashCode,
+              theIcmAvisosguardadoRecordSet, ((this.icmAvisosguardadoRecordSet != null) && (!this.icmAvisosguardadoRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -220,13 +216,11 @@ public class IcmAvisosguardadoBlock implements Serializable, Cloneable, CopyTo2,
     if (draftCopy instanceof IcmAvisosguardadoBlock) {
       final IcmAvisosguardadoBlock copy = ((IcmAvisosguardadoBlock) draftCopy);
       {
-        Boolean resultadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.resultado != null));
+        Boolean resultadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.resultado != null));
         if (resultadoShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceResultado;
           sourceResultado = this.getResultado();
-          String copyResultado = ((String) strategy.copy(
-              LocatorUtils.property(locator, "resultado", sourceResultado), sourceResultado,
+          String copyResultado = ((String) strategy.copy(LocatorUtils.property(locator, "resultado", sourceResultado), sourceResultado,
               (this.resultado != null)));
           copy.setResultado(copyResultado);
         } else {
@@ -240,19 +234,17 @@ public class IcmAvisosguardadoBlock implements Serializable, Cloneable, CopyTo2,
             ((this.icmAvisosguardadoRecordSet != null) && (!this.icmAvisosguardadoRecordSet.isEmpty())));
         if (icmAvisosguardadoRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmAvisosguardadoRecord> sourceIcmAvisosguardadoRecordSet;
-          sourceIcmAvisosguardadoRecordSet = (((this.icmAvisosguardadoRecordSet != null)
-              && (!this.icmAvisosguardadoRecordSet.isEmpty())) ? this.getIcmAvisosguardadoRecordSet()
-                  : null);
+          sourceIcmAvisosguardadoRecordSet = (((this.icmAvisosguardadoRecordSet != null) && (!this.icmAvisosguardadoRecordSet.isEmpty()))
+              ? this.getIcmAvisosguardadoRecordSet()
+              : null);
           @SuppressWarnings("unchecked")
-          List<IcmAvisosguardadoRecord> copyIcmAvisosguardadoRecordSet = ((List<IcmAvisosguardadoRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmAvisosguardadoRecordSet",
-                  sourceIcmAvisosguardadoRecordSet), sourceIcmAvisosguardadoRecordSet,
-                  ((this.icmAvisosguardadoRecordSet != null)
-                      && (!this.icmAvisosguardadoRecordSet.isEmpty()))));
+          List<IcmAvisosguardadoRecord> copyIcmAvisosguardadoRecordSet = ((List<IcmAvisosguardadoRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmAvisosguardadoRecordSet", sourceIcmAvisosguardadoRecordSet),
+              sourceIcmAvisosguardadoRecordSet,
+              ((this.icmAvisosguardadoRecordSet != null) && (!this.icmAvisosguardadoRecordSet.isEmpty()))));
           copy.icmAvisosguardadoRecordSet = null;
           if (copyIcmAvisosguardadoRecordSet != null) {
-            List<IcmAvisosguardadoRecord> uniqueIcmAvisosguardadoRecordSetl = copy
-                .getIcmAvisosguardadoRecordSet();
+            List<IcmAvisosguardadoRecord> uniqueIcmAvisosguardadoRecordSetl = copy.getIcmAvisosguardadoRecordSet();
             uniqueIcmAvisosguardadoRecordSetl.addAll(copyIcmAvisosguardadoRecordSet);
           }
         } else {
