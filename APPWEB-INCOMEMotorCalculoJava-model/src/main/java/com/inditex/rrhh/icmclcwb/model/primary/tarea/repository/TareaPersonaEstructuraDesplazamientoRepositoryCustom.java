@@ -8,4 +8,6 @@ public interface TareaPersonaEstructuraDesplazamientoRepositoryCustom {
 
   List<TareaPersonaEstructuraDesplazamiento> save(List<TareaPersonaEstructuraDesplazamiento> src);
 
+  void crearEstructurasDestinoIgualarBandas();
+
 }

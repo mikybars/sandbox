@@ -51,8 +51,8 @@ class RunTareaProcesarServiceImplTest {
   private RunTareaDto runTarea;
 
   @Test
-  void runTest(@Random TareaFaseDto tareaFaseDto,
-      @Random CompletableFuture<Void> completableFuture) {
+  void runTest(@Random final TareaFaseDto tareaFaseDto,
+      @Random final CompletableFuture<Void> completableFuture) {
 
     doReturn(tareaFaseDto).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase(this.runTarea.getTarea().getId(),
         FaseEnum.PROCESAR.getId());
@@ -71,6 +71,9 @@ class RunTareaProcesarServiceImplTest {
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
         .crearChallengeOpcionOrigen(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
+        .igualarBandasOrigenDestino(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
         .updateImporteEstructuraPoliticas(this.runTarea);
@@ -280,8 +283,8 @@ class RunTareaProcesarServiceImplTest {
   }
 
   @Test
-  void runExceptionTest(@Random TareaFaseDto tareaFaseDto,
-      @Random CompletableFuture<Void> completableFuture) {
+  void runExceptionTest(@Random final TareaFaseDto tareaFaseDto,
+      @Random final CompletableFuture<Void> completableFuture) {
 
     doThrow(RuntimeException.class).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase(this.runTarea.getTarea().getId(),
         FaseEnum.PROCESAR.getId());
