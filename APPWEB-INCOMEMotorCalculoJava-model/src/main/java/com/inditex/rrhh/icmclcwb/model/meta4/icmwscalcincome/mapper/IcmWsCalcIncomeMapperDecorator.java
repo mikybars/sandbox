@@ -433,6 +433,8 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
                 .setIcmCkIncIvaEvalPtpo(Meta4Constants.TRUE.equalsIgnoreCase(x.getChkevalpres().trim()));
             mappedEntity
                 .setIcmCkVentaImpuestos(Meta4Constants.TRUE.equalsIgnoreCase(x.getChkventaimpuestos().trim()));
+            mappedEntity
+                .setIcmCkRedJornada(Meta4Constants.TRUE.equalsIgnoreCase(x.getChkredjornada().trim()));
             items.add(mappedEntity);
           });
       result.setItems(items);
