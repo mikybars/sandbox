@@ -1112,7 +1112,7 @@ public interface IcmWsCalcIncomeMapper {
   @Mapping(target = "idConfiguracion", ignore = true)
   @Mapping(target = "icmCkVentaImpuestos", source = "src.chkventaimpuestos")
   @Mapping(target = "icmCkIncIvaEvalPtpo", source = "src.chkevalpres")
-  @Mapping(target = "icmCkRedJornada", source = "src.chkevalpres")
+  @Mapping(target = "icmCkRedJornada", source = "src.chkredjornada")
   ConfiguracionItemDto asConfiguracionItemDto(IcmListaconforigenRecord src, String idOrigen);
 
   @InheritInverseConfiguration
