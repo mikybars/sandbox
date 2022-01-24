@@ -21,7 +21,7 @@ public class JmsConnectionFactoryGlobalCustom implements JmsConnectionFactoryGlo
       org.apache.activemq.ActiveMQXAConnectionFactory activeMQCF = (org.apache.activemq.ActiveMQXAConnectionFactory) cf;
       activeMQCF.setMessagePrioritySupported(true);
       RedeliveryPolicy redeliveryPolicy = new RedeliveryPolicy();
-      redeliveryPolicy.setMaximumRedeliveries(0);
+      redeliveryPolicy.setMaximumRedeliveries(0);º
       activeMQCF.setRedeliveryPolicy(redeliveryPolicy);
     } else if (ActiveMQConnectionFactory.class.isInstance(cf)) {
       ActiveMQConnectionFactory activeMQCF = (ActiveMQConnectionFactory) cf;
