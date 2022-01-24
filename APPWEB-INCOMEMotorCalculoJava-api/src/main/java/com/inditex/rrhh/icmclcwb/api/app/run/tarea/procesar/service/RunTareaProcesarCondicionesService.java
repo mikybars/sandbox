@@ -24,4 +24,6 @@ public interface RunTareaProcesarCondicionesService {
 
   void desactivarManualOrdinalDoble(@Valid TareaDto tarea);
 
+  void igualarBandasOrigenDestino(@Valid @NotNull final TareaDto tarea);
+
 }

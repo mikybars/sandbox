@@ -9,17 +9,18 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/*
- * Copyright (c) 2021. Inditex
- */
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -175,6 +176,15 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
   private final static String SQL_DELETE_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO = "SQL DELETE TEMP MEJOR OPCION SIN FECHAS TODO PERIODO";
 
+  private final static String SQL_CREATE_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO =
+      "SQL CREATE TEMP BANDAS ORIGEN SIN BANDA DESPLAZAMIENTO";
+
+  private final static String SQL_INSERT_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO =
+      "SQL INSERT TEMP BANDAS ORIGEN SIN BANDA DESPLAZAMIENTO";
+
+  private final static String SQL_DELETE_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO =
+      "SQL DELETE TEMP BANDAS ORIGEN SIN BANDA DESPLAZAMIENTO";
+
   @BeforeEach
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom, "batchSize", 3, true);
@@ -294,6 +304,16 @@ class PrimaryTemporaryTableRepositoryCustomTest {
         true);
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
         "sqlDeleteTempMejorOpcionSinFechasTodoPeriodo", SQL_DELETE_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO,
+        true);
+
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlCreateTempBandasOrigenSinBandaDesplazamiento", SQL_CREATE_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlInsertBandasOrigenSinBandaDesplazamiento", SQL_INSERT_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlDeleteTempBandasOrigenSinBandaDesplazamiento", SQL_DELETE_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO,
         true);
 
   }
@@ -940,5 +960,46 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   // Fin tests mejoropcion
+
+  // Tests compensación bandas origen que no hay en destino
+
+  @Test
+  void createTempBandasOrigenSinBandaDesplazamientoTest() {
+    this.primaryTemporaryTableRepositoryCustom.createTempBandasOrigenSinBandaDesplazamiento();
+    verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO);
+  }
+
+  @Test
+  void deleteTempBandasOrigenSinBandaDesplazamientoTest() {
+    this.primaryTemporaryTableRepositoryCustom.deleteTempBandasOrigenSinBandaDesplazamiento();
+    verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO);
+  }
+
+  @Test
+  void insertBandasOrigenSinBandaDesplazamientoTest() {
+    final TareaDto tarea = new TareaDto();
+    final long idTarea = 8989L;
+    tarea.setId(idTarea);
+    this.primaryTemporaryTableRepositoryCustom.insertBandasOrigenSinBandaDesplazamiento(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO),
+        this.paramsCaptor.capture());
+
+    final Map<String, Object> expected = new HashMap<>() {
+      private static final long serialVersionUID = 9034296128591281441L;
+
+      {
+        this.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        this.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+        this.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        this.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, AppConstants.getTIPOS_COMISION_CHALLENGE());
+        this.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, AppConstants.getTIPOS_CALCULO_CHALLENGE());
+      }
+    };
+
+    assertEquals(expected, this.paramsCaptor.getValue().getValues());
+
+  }
+
+  // Fin test compesación bandas
 
 }

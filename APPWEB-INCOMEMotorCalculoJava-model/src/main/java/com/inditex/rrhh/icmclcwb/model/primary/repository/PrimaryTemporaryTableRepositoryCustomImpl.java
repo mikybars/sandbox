@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
@@ -263,6 +264,15 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
 
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.mergeCalculoAjusteTotalizado']}")
   private String sqlMergeCalculoAjusteTotalizado;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempBandasOrigenSinBandaDesplazamiento']}")
+  private String sqlCreateTempBandasOrigenSinBandaDesplazamiento;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertBandasOrigenSinBandaDesplazamiento']}")
+  private String sqlInsertBandasOrigenSinBandaDesplazamiento;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempBandasOrigenSinBandaDesplazamiento']}")
+  private String sqlDeleteTempBandasOrigenSinBandaDesplazamiento;
 
   @Override
   public int deleteTempMotivoDesplazamientoComis() {
@@ -530,7 +540,6 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
               ps.setDate(2, new Date(TimeUtils.toDate(el.getFechaDesde()).getTime()));
               ps.setDate(3, new Date(TimeUtils.toDate(el.getFechaHasta()).getTime()));
               ps.setString(4, el.getPorcentaje());
-              ps.setString(5, el.getCclIdCodOrigen());
             }
 
             @Override
@@ -921,4 +930,24 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     this.namedParameterJdbcTemplate.update(this.sqlInsertTempMejorOpcionSinFechasTodoPeriodo, map);
   }
 
+  @Override
+  public int createTempBandasOrigenSinBandaDesplazamiento() {
+    return this.jdbcTemplate.update(this.sqlCreateTempBandasOrigenSinBandaDesplazamiento);
+  }
+
+  @Override
+  public void insertBandasOrigenSinBandaDesplazamiento(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, AppConstants.getTIPOS_COMISION_CHALLENGE());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, AppConstants.getTIPOS_CALCULO_CHALLENGE());
+    this.namedParameterJdbcTemplate.update(this.sqlInsertBandasOrigenSinBandaDesplazamiento, map);
+  }
+
+  @Override
+  public int deleteTempBandasOrigenSinBandaDesplazamiento() {
+    return this.jdbcTemplate.update(this.sqlDeleteTempBandasOrigenSinBandaDesplazamiento);
+  }
 }
