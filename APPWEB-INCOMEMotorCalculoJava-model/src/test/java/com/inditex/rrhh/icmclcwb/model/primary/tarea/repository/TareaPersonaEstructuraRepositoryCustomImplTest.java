@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -39,7 +41,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 class TareaPersonaEstructuraRepositoryCustomImplTest {
 
   private static final String SQL_UPDATE_ACTIVO_TOPES = "SQL UPDATE ACTIVO TOPES";
@@ -53,6 +55,8 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
   private static final String SQL_SAVE = "SQL_SAVE";
 
   private static final String SQL_CREAR_ESTRUCTURAS_ORIGEN_IGUALAR_BANDAS = "SQL CREAR ESTRUCTURAS ORIGEN IGUALAR BANDAS";
+
+  private static final String SQL_ESTABLECER_BANDA_OPCION_ORIGEN = "SQL ESTABLECER BANDA OPCION ORIGEN";
 
   @Mock
   private JdbcTemplate jdbcTemplate;
@@ -83,6 +87,8 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlSave", SQL_SAVE, true);
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlCrearEstructurasOrigenIgualarBandas",
         SQL_CREAR_ESTRUCTURAS_ORIGEN_IGUALAR_BANDAS, true);
+    FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlEstablecerBandaOpcionOrigen",
+        SQL_ESTABLECER_BANDA_OPCION_ORIGEN, true);
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "batchSize", 100, true);
   }
 
@@ -242,4 +248,27 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
 
   }
 
+  @Test
+  void establecerBandaOpcionOrigen(@Random final TareaDto tarea) {
+
+    final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
+    this.tareaPersonaEstructuraRepositoryCustom.establecerBandaOpcionOrigen(tarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_ESTABLECER_BANDA_OPCION_ORIGEN), paramsCaptor.capture());
+
+    final Map<String, Object> expected = new HashMap<>() {
+      private static final long serialVersionUID = -8167762125396743554L;
+
+      {
+        this.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        this.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, AppConstants.getTIPOS_CALCULO_CHALLENGE());
+        this.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, AppConstants.getTIPOS_COMISION_CHALLENGE());
+        this.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        this.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+      }
+    };
+
+    assertEquals(expected, paramsCaptor.getValue().getValues());
+
+  }
 }

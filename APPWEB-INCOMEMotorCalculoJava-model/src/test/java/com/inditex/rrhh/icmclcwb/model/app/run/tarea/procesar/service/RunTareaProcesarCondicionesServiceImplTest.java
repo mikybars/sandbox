@@ -6,6 +6,8 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraDesplazamientoRepositoryCustom;
@@ -17,7 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 class RunTareaProcesarCondicionesServiceImplTest {
 
   @Mock
@@ -33,15 +35,19 @@ class RunTareaProcesarCondicionesServiceImplTest {
   private RunTareaProcesarCondicionesServiceImpl runTareaProcesarCondicionesService;
 
   @Test
-  void igualarBandasOrigenDestinoTest() {
-    final TareaDto tarea = new TareaDto();
-    tarea.setId(890890L);
+  void igualarBandasOrigenDestinoTest(@Random final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.igualarBandasOrigenDestino(tarea);
     verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempBandasOrigenSinBandaDesplazamiento();
     verify(this.primaryTemporaryTableRepositoryCustom, times(1)).insertBandasOrigenSinBandaDesplazamiento(tarea);
     verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).crearEstructurasOrigenIgualarBandas();
     verify(this.tareaPersonaEstructuraDesplazamientoRepositoryCustom, times(1)).crearEstructurasDestinoIgualarBandas();
     verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempBandasOrigenSinBandaDesplazamiento();
+  }
+
+  @Test
+  void establecerBandaOpcionOrigen(@Random final TareaDto tarea) {
+    this.runTareaProcesarCondicionesService.establecerBandaOpcionOrigen(tarea);
+    verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).establecerBandaOpcionOrigen(tarea);
   }
 
 }

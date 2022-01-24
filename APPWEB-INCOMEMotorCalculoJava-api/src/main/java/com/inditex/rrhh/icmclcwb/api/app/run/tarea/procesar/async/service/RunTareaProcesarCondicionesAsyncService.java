@@ -30,4 +30,6 @@ public interface RunTareaProcesarCondicionesAsyncService {
 
   CompletableFuture<Void> desactivarManualOrdinalDoble(final RunTareaDto runTarea);
 
+  CompletableFuture<Void> establecerBandaOpcionOrigen(final RunTareaDto runTarea);
+
 }

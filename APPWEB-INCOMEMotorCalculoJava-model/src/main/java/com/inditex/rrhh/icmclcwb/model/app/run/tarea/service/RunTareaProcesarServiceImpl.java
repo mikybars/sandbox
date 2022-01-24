@@ -56,15 +56,25 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
               FaseEnum.PROCESAR.getId()));
 
-      // Generar bandas challenge extra en caso de que en el destino de desplazamiento haya menos que en origen en opcion origen / mejor
-      final CompletableFuture<Void> cfIgualarBandasOrigenDestino =
-          this.runTareaProcesarCondicionesAsyncService.igualarBandasOrigenDestino(runTarea);
-      AsyncUtils.exceptionally(cfIgualarBandasOrigenDestino, cf, cfWait);
-
       // Totalizar las presencias sindicales por localizacion
       final CompletableFuture<Void> cfTotalzarPresenciasSindicales = this.runTareaProcesarPresenciaAsyncService
           .totalizarPresenciasSindicalesLocalizacion(runTarea);
       AsyncUtils.exceptionally(cfTotalzarPresenciasSindicales, cf, cfWait);
+
+      // Para desplazamientos opcion origen challenge origen y destino otro tipo se deben establecer de forma ficticia
+      // las bandas en destino para que se puedan enlazar en el calculo
+      final CompletableFuture<Void> cfEstablecerBandaOpcionOrigen =
+          this.runTareaProcesarCondicionesAsyncService.establecerBandaOpcionOrigen(runTarea);
+      AsyncUtils.exceptionally(cfEstablecerBandaOpcionOrigen, cf, cfWait);
+
+      /*-------------------------------------------------------------*/
+      AsyncUtils.waitAllOfIsOk(cf, cfWait);
+      /*-------------------------------------------------------------*/
+
+      // Generar bandas challenge extra en caso de que en el destino de desplazamiento haya menos que en origen en opcion origen / mejor
+      final CompletableFuture<Void> cfIgualarBandasOrigenDestino =
+          this.runTareaProcesarCondicionesAsyncService.igualarBandasOrigenDestino(runTarea);
+      AsyncUtils.exceptionally(cfIgualarBandasOrigenDestino, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);

@@ -48,6 +48,9 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
   @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.crearEstructurasOrigenIgualarBandas']}")
   private String sqlCrearEstructurasOrigenIgualarBandas;
 
+  @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.establecerBandaOpcionOrigen']}")
+  private String sqlEstablecerBandaOpcionOrigen;
+
   @Override
   public List<TareaPersonaEstructura> save(final List<TareaPersonaEstructura> src) {
     return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -157,5 +160,16 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
     this.update(this.sqlCrearEstructurasOrigenIgualarBandas, map);
+  }
+
+  @Override
+  public void establecerBandaOpcionOrigen(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, AppConstants.getTIPOS_CALCULO_CHALLENGE());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, AppConstants.getTIPOS_COMISION_CHALLENGE());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    this.update(this.sqlEstablecerBandaOpcionOrigen, map);
   }
 }
