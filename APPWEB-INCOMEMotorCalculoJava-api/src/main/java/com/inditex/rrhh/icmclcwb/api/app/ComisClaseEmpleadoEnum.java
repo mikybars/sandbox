@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ComisClaseEmpleadoEnum {
 
-    EMPLEADO_EXTERNO_BRASIL(99), EMPLEADO_EXTERNO_BOSNIA(2);
+  EMPLEADO_EXTERNO_BRASIL(99), EMPLEADO_EXTERNO_BOSNIA(2);
 
-    private final Integer id;
+  private final Integer id;
 
 }

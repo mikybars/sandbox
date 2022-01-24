@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.calcular.entity;
 
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +12,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import lombok.Data;
 
 @Entity
@@ -19,30 +19,30 @@ import lombok.Data;
 @Data
 public class TareaAgrupacionCadena {
 
-    @Id
-    @Column(name = "ID_TAREA_AGRUPACION_CADENA")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @Column(name = "ID_TAREA_AGRUPACION_CADENA")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "ID_TAREA", nullable = false)
-    private Tarea tarea;
+  @NotNull
+  @OneToOne
+  @JoinColumn(name = "ID_TAREA", nullable = false)
+  private Tarea tarea;
 
-    @NotBlank
-    @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-    private String cclIdOrigen;
+  @NotBlank
+  @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
+  private String cclIdOrigen;
 
-    @NotNull
-    @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
-    private Long icmIdAgrupacionOnline;
+  @NotNull
+  @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
+  private Long icmIdAgrupacionOnline;
 
-    @NotBlank
-    @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
-    private String cclIdCadena;
+  @NotBlank
+  @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
+  private String cclIdCadena;
 
-    @NotNull
-    @Column(name = "ES_MULTIPLE", nullable = false)
-    private Boolean multiple;
+  @NotNull
+  @Column(name = "ES_MULTIPLE", nullable = false)
+  private Boolean multiple;
 
 }

@@ -13,22 +13,22 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
  */
 public interface RunAlgoritmoTest {
 
-    public default RunAlgoritmoCalculoPropertiesDto createRunAlgoritmoCalculoPropertiesDto(final int batchSize) {
-        final RunAlgoritmoCalculoPropertiesDto properties = new RunAlgoritmoCalculoPropertiesDto();
-        properties.setBatchSize(batchSize);
-        properties.setThreadSize(3);
-        return properties;
-    }
+  public default RunAlgoritmoCalculoPropertiesDto createRunAlgoritmoCalculoPropertiesDto(final int batchSize) {
+    final RunAlgoritmoCalculoPropertiesDto properties = new RunAlgoritmoCalculoPropertiesDto();
+    properties.setBatchSize(batchSize);
+    properties.setThreadSize(3);
+    return properties;
+  }
 
-    public default RunTareaDto createRunTareaDto(final Long idTarea, final Long idTrabajo) {
-        final RunTareaDto runTarea = new RunTareaDto();
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(idTarea);
-        final TrabajoDTO trabajo = new TrabajoDTO();
-        trabajo.setId(idTrabajo);
-        runTarea.setTarea(tarea);
-        runTarea.setTrabajo(trabajo);
-        return runTarea;
-    }
+  public default RunTareaDto createRunTareaDto(final Long idTarea, final Long idTrabajo) {
+    final RunTareaDto runTarea = new RunTareaDto();
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(idTarea);
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(idTrabajo);
+    runTarea.setTarea(tarea);
+    runTarea.setTrabajo(trabajo);
+    return runTarea;
+  }
 
 }

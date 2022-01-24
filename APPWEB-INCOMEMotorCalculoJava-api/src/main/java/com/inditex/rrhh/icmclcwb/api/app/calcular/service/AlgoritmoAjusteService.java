@@ -2,19 +2,19 @@ package com.inditex.rrhh.icmclcwb.api.app.calcular.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
-
 public interface AlgoritmoAjusteService {
 
-    List<Long> customFindAjustePesosByTarea(@NotNull @Positive Long id);
+  List<Long> customFindAjustePesosByTarea(@NotNull @Positive Long id);
 
-    AlgoritmoAjusteDto findById(@NotNull @Positive Integer id);
+  AlgoritmoAjusteDto findById(@NotNull @Positive Integer id);
 
-    List<AlgoritmoAjusteDto> findByPeso(@NotNull @Positive Long id);
+  List<AlgoritmoAjusteDto> findByPeso(@NotNull @Positive Long id);
 
-    List<Integer> customFindAjusteIdsByTareaAndPeso(@NotNull @Positive Long idTarea, @NotNull @Positive Long peso);
+  List<Integer> customFindAjusteIdsByTareaAndPeso(@NotNull @Positive Long idTarea, @NotNull @Positive Long peso);
 
 }

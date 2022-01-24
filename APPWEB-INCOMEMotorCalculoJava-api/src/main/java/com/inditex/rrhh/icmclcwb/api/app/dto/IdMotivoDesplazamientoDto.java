@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.inditex.rrhh.icmclcwb.api.app.dto;
 
 import java.io.Serializable;
@@ -16,6 +13,6 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class IdMotivoDesplazamientoDto implements Serializable {
 
-    private Integer idMotivoDesplazamiento;
+  private Integer idMotivoDesplazamiento;
 
 }

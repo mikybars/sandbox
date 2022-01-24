@@ -4,6 +4,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionCom
 import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 public interface TareaLocalizacionComisionHistoricoRepository
-        extends BaseRepository<TareaLocalizacionComisionHistorico, Long> {
+    extends BaseRepository<TareaLocalizacionComisionHistorico, Long> {
 
 }

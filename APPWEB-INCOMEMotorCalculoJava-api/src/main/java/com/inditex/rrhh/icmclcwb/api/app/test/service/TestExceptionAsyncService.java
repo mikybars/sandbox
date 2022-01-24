@@ -7,6 +7,6 @@ import org.springframework.scheduling.annotation.Async;
 @Async
 public interface TestExceptionAsyncService {
 
-    CompletableFuture<Void> icmclcwbException();
+  CompletableFuture<Void> icmclcwbException();
 
 }

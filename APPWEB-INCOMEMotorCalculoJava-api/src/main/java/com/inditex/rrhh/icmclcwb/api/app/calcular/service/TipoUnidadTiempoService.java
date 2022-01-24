@@ -4,8 +4,8 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoUnidadTiempoDto;
 
 public interface TipoUnidadTiempoService {
 
-    TipoUnidadTiempoDto findByIcmIdUnidadTiempo(String icmIdUnidadTiempo);
+  TipoUnidadTiempoDto findByIcmIdUnidadTiempo(String icmIdUnidadTiempo);
 
-    TipoUnidadTiempoDto findById(Integer id);
+  TipoUnidadTiempoDto findById(Integer id);
 
 }

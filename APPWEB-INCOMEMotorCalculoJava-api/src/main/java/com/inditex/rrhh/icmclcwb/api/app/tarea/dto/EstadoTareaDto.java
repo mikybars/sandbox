@@ -18,9 +18,9 @@ import lombok.ToString;
 @ToString
 public class EstadoTareaDto implements Serializable {
 
-    private static final long serialVersionUID = 690542159104929423L;
+  private static final long serialVersionUID = 690542159104929423L;
 
-    @ApiModelProperty(value = "Identificador del estado de la tarea", required = true)
-    private Integer id;
+  @ApiModelProperty(value = "Identificador del estado de la tarea", required = true)
+  private Integer id;
 
 }

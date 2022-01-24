@@ -1,20 +1,8 @@
-/**
- *
- */
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
@@ -32,67 +20,71 @@ import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMa
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
-/**
- * @author mdelrio
- *
- */
+import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
 @Service
 @Validated
 public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
-        implements RunTareaAmbitoValidarCondicionesDesplazamientoService {
+    implements RunTareaAmbitoValidarCondicionesDesplazamientoService {
 
-    @Autowired
-    private ComisAsyncService comisAsyncService;
+  @Autowired
+  private ComisAsyncService comisAsyncService;
 
-    @Autowired
-    private TareaFaseAccionService tareaFaseAccionService;
+  @Autowired
+  private TareaFaseAccionService tareaFaseAccionService;
 
-    @Autowired
-    private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  @Autowired
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
-    @Autowired
-    private ValidacionMapper validacionMapper;
+  @Autowired
+  private ValidacionMapper validacionMapper;
 
-    @Autowired
-    @Qualifier("desplazamientoProperties")
-    private PrevalidarPropertiesDto desplazamientoProperties;
+  @Autowired
+  @Qualifier("desplazamientoProperties")
+  private PrevalidarPropertiesDto desplazamientoProperties;
 
-    @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito,
-            @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final TareaDto tareaDto = runTareaDto.getTarea();
-        final List<CompletableFuture<?>> cf = new ArrayList<>();
-        final List<IdPersonaLocalDto> desplazamientoValidationResult;
-        try {
-            final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesDesplazamiento = this.comisAsyncService
-                .findCondicionesDesplazamiento(runTareaDto, tareaAmbito);
-            AsyncUtils.exceptionally(cfCondicionesDesplazamiento, cf);
+  @Override
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito,
+      @Valid final TareaFaseAccionDto tareaFaseAccion) {
+    final TareaDto tareaDto = runTareaDto.getTarea();
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
+    final List<IdPersonaLocalDto> desplazamientoValidationResult;
+    try {
+      final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesDesplazamiento = this.comisAsyncService
+          .findCondicionesDesplazamiento(runTareaDto, tareaAmbito);
+      AsyncUtils.exceptionally(cfCondicionesDesplazamiento, cf);
 
-            AsyncUtils.waitAllOfIsOk(cf, cf);
+      AsyncUtils.waitAllOfIsOk(cf, cf);
 
-            final List<IdPersonaLocalCondicionesDto> condicionesDesplazamiento = AsyncUtils
-                .get(cfCondicionesDesplazamiento);
+      final List<IdPersonaLocalCondicionesDto> condicionesDesplazamiento = AsyncUtils
+          .get(cfCondicionesDesplazamiento);
 
-            this.primaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento();
-            this.primaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento(condicionesDesplazamiento);
+      this.primaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento();
+      this.primaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento(condicionesDesplazamiento);
 
-            desplazamientoValidationResult = this.primaryTemporaryTableRepositoryCustom
-                .validateTempComisDesplazamiento(runTareaDto.getTarea());
+      desplazamientoValidationResult = this.primaryTemporaryTableRepositoryCustom
+          .validateTempComisDesplazamiento(runTareaDto.getTarea());
 
-            this.primaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento();
+      this.primaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento();
 
-        } catch (final Exception e) {
-            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
-                    EstadoTareaFaseAccionEnum.ERROR.getDto());
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-
-        return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-                desplazamientoValidationResult, this.desplazamientoProperties, tareaDto);
-
+    } catch (final Exception e) {
+      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+          EstadoTareaFaseAccionEnum.ERROR.getDto());
+      AsyncUtils.cancel(cf);
+      throw e;
     }
+
+    return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
+        desplazamientoValidationResult, this.desplazamientoProperties, tareaDto);
+
+  }
 
 }

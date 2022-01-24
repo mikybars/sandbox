@@ -2,10 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
@@ -13,28 +9,32 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 public interface TareaPersonaHistoricoRepositoryCustom {
 
-    List<TareaPersonaHistorico> save(List<TareaPersonaHistorico> src);
+  List<TareaPersonaHistorico> save(List<TareaPersonaHistorico> src);
 
-    List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-            @NotNull @Positive Long idTarea,
-            @NotBlank String cclIdOrigen, @NotNull List<Integer> idsTipoDato);
+  List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
+      @NotNull @Positive Long idTarea,
+      @NotBlank String cclIdOrigen, @NotNull List<Integer> idsTipoDato);
 
-    List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
-            @NotBlank String cclIdOrigen);
+  List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
+      @NotBlank String cclIdOrigen);
 
-    PeriodoDto findPeriodoDtoByIdTarea(@NotNull @Positive Long idTarea);
+  PeriodoDto findPeriodoDtoByIdTarea(@NotNull @Positive Long idTarea);
 
-    List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NotNull @Positive Long idTarea);
+  List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NotNull @Positive Long idTarea);
 
-    List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(@NotNull @Positive Long idTarea);
+  List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(@NotNull @Positive Long idTarea);
 
-    List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
-            @NotNull @Positive Long idTarea, @NotNull String cclIdOrigen,
-            @NotNull TipoVentaConceptoEnum tipoVentaConcepto);
+  List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
+      @NotNull @Positive Long idTarea, @NotNull String cclIdOrigen,
+      @NotNull TipoVentaConceptoEnum tipoVentaConcepto);
 
-    List<GenericAlgoritmoPropertiesDto> findIdTipoCalculoAndIdTipoComisionByIdsTiposDato(
-            @NotNull List<Integer> idsTipoDato);
+  List<GenericAlgoritmoPropertiesDto> findIdTipoCalculoAndIdTipoComisionByIdsTiposDato(
+      @NotNull List<Integer> idsTipoDato);
 
 }

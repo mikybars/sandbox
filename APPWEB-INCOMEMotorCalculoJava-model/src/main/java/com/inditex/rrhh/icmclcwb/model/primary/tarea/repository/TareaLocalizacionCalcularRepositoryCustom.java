@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionCal
 
 public interface TareaLocalizacionCalcularRepositoryCustom {
 
-    List<TareaLocalizacionCalcular> save(List<TareaLocalizacionCalcular> src);
+  List<TareaLocalizacionCalcular> save(List<TareaLocalizacionCalcular> src);
 
 }

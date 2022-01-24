@@ -6,8 +6,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.Pageable;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
 
 public class SincronizacionRequestDto extends PageableDto<SincronizacionFilterDto>
-        implements Pageable<SincronizacionFilterDto>, Serializable {
+    implements Pageable<SincronizacionFilterDto>, Serializable {
 
-    private static final long serialVersionUID = -1L;
+  private static final long serialVersionUID = -1L;
 
 }

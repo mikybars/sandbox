@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHo
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaTipoHoraDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTipoHora;
+
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,33 +18,33 @@ import org.mapstruct.Mapping;
 @DecoratedWith(TareaTipoHoraDecorator.class)
 public abstract class TareaTipoHoraMapper {
 
-    @Mapping(source = "idTarea", target = "tarea.id")
-    public abstract TareaTipoHora tareaTipoHoraDtoToTareaTipoHora(TareaTipoHoraDto src);
+  @Mapping(source = "idTarea", target = "tarea.id")
+  public abstract TareaTipoHora tareaTipoHoraDtoToTareaTipoHora(TareaTipoHoraDto src);
 
-    public abstract List<TareaTipoHora> tareaTipoHoraDtoListToTareaTareaTipoHoraList(
-            List<TareaTipoHoraDto> src);
+  public abstract List<TareaTipoHora> tareaTipoHoraDtoListToTareaTareaTipoHoraList(
+      List<TareaTipoHoraDto> src);
 
-    public abstract List<TareaTipoHoraDto> tareaTipoHoraListTotareaTipoHoraDtoList(
-            List<TareaTipoHora> src);
+  public abstract List<TareaTipoHoraDto> tareaTipoHoraListTotareaTipoHoraDtoList(
+      List<TareaTipoHora> src);
 
-    @Mapping(source = "tarea.id", target = "idTarea")
-    public abstract TareaTipoHoraDto tareaTipoHoraToTareaTipoHoraDto(TareaTipoHora src);
+  @Mapping(source = "tarea.id", target = "idTarea")
+  public abstract TareaTipoHoraDto tareaTipoHoraToTareaTipoHoraDto(TareaTipoHora src);
 
-    @Mapping(source = "src.idTipoHora", target = "idTipoHora")
-    @Mapping(source = "src.excluidoCalculo", target = "excluidoCalculo")
-    @Mapping(source = "src.excluidoDenominador", target = "excluidoDenominador")
-    @Mapping(source = "src.incluidoVenta", target = "incluidoVenta")
-    @Mapping(source = "src.incluidoChallenge", target = "incluidoChallenge")
-    @Mapping(source = "src.incluidoCommerce", target = "incluidoEcommerce")
-    @Mapping(source = "tarea.id", target = "tarea.id")
-    @Mapping(source = "src.excluidoDenominadorRepartoProvincia", target = "excluidoDenominadorYRepartidoProvincia")
-    @Mapping(target = "id", ignore = true)
-    public abstract TareaTipoHora tipoHoraResultItemDtoToTareaTipoHora(final TiposHoraResultItemDto src,
-            final TareaDto tarea);
+  @Mapping(source = "src.idTipoHora", target = "idTipoHora")
+  @Mapping(source = "src.excluidoCalculo", target = "excluidoCalculo")
+  @Mapping(source = "src.excluidoDenominador", target = "excluidoDenominador")
+  @Mapping(source = "src.incluidoVenta", target = "incluidoVenta")
+  @Mapping(source = "src.incluidoChallenge", target = "incluidoChallenge")
+  @Mapping(source = "src.incluidoCommerce", target = "incluidoEcommerce")
+  @Mapping(source = "tarea.id", target = "tarea.id")
+  @Mapping(source = "src.excluidoDenominadorRepartoProvincia", target = "excluidoDenominadorYRepartidoProvincia")
+  @Mapping(target = "id", ignore = true)
+  public abstract TareaTipoHora tipoHoraResultItemDtoToTareaTipoHora(final TiposHoraResultItemDto src,
+      final TareaDto tarea);
 
-    public List<TareaTipoHora> tiposHorasResponseDtoToTareaTipoHora(final TiposHoraResponseDto src,
-            final TareaDto tarea) {
-        throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
-    }
+  public List<TareaTipoHora> tiposHorasResponseDtoToTareaTipoHora(final TiposHoraResponseDto src,
+      final TareaDto tarea) {
+    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  }
 
 }

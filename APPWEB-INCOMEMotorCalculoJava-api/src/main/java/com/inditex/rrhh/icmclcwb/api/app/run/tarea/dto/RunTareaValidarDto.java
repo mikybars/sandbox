@@ -10,12 +10,12 @@ import lombok.Data;
 @Data
 public class RunTareaValidarDto implements Serializable {
 
-    private static final long serialVersionUID = -3950518148213548040L;
+  private static final long serialVersionUID = -3950518148213548040L;
 
-    private Set<String> duplicated;
+  private Set<String> duplicated;
 
-    private Integer count;
+  private Integer count;
 
-    private String type;
+  private String type;
 
 }

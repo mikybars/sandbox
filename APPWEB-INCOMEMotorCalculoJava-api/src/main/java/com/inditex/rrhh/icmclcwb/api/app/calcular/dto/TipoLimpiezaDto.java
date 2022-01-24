@@ -1,9 +1,8 @@
+package com.inditex.rrhh.icmclcwb.api.app.calcular.dto;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.api.app.calcular.dto;
-
 import java.io.Serializable;
 
 import io.swagger.annotations.ApiModel;
@@ -20,15 +19,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-/**
- *
- * @author javierev
- */
+
 public class TipoLimpiezaDto implements Serializable {
 
-    private static final long serialVersionUID = -8639414587126123438L;
+  private static final long serialVersionUID = -8639414587126123438L;
 
-    @ApiModelProperty(value = "Identificador del tipo de limpieza", required = true)
-    private Integer id;
+  @ApiModelProperty(value = "Identificador del tipo de limpieza", required = true)
+  private Integer id;
 
 }

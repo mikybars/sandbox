@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class IdLocalizacionDto implements Serializable {
 
-    private static final long serialVersionUID = -2999803240189313755L;
+  private static final long serialVersionUID = -2999803240189313755L;
 
-    @NotBlank
-    private String id;
+  @NotBlank
+  private String id;
 
 }

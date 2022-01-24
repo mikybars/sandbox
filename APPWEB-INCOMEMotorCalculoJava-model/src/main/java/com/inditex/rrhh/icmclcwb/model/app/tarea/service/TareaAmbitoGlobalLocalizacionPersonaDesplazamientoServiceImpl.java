@@ -2,37 +2,36 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalLocalizacionPersonaDesplazamientoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 @Service
 @Validated
 public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoServiceImpl
-        implements TareaAmbitoGlobalLocalizacionPersonaDesplazamientoService {
+    implements TareaAmbitoGlobalLocalizacionPersonaDesplazamientoService {
 
-    @Autowired
-    private TareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper tareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper;
+  @Autowired
+  private TareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper tareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper;
 
-    @Autowired
-    private TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom tareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom;
+  @Autowired
+  private TareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom tareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom;
 
-    @Override
-    public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
-            @Valid @NotNull final TareaDto tareaDto) {
-        tareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom.save(
-                tareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper
-                    .genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(src, tareaDto));
-    }
+  @Override
+  public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
+      @Valid @NotNull final TareaDto tareaDto) {
+    tareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom.save(
+        tareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper
+            .genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(src, tareaDto));
+  }
 
 }

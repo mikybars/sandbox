@@ -2,14 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionConfiguracionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionConfiguracionService;
@@ -18,24 +10,31 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAgrupacionConfigura
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionConfiguracion;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionConfiguracionRepositoryCustom;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 @Service
 @Validated
 public class TareaAgrupacionConfiguracionServiceImpl implements TareaAgrupacionConfiguracionService {
 
-    @Autowired
-    private TareaAgrupacionConfiguracionMapper tareaAgrupacionConfiguracionMapper;
+  @Autowired
+  private TareaAgrupacionConfiguracionMapper tareaAgrupacionConfiguracionMapper;
 
-    @Autowired
-    private TareaAgrupacionConfiguracionRepositoryCustom tareaAgrupacionConfiguracionRepositoryCustom;
+  @Autowired
+  private TareaAgrupacionConfiguracionRepositoryCustom tareaAgrupacionConfiguracionRepositoryCustom;
 
-    @Override
-    public List<TareaAgrupacionConfiguracionDto> saveConfiguracionVentaOnline(
-            @Valid @NotNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data,
-            @Valid @NotNull final RunTareaDto tarea) {
-        List<TareaAgrupacionConfiguracion> configuraciones = tareaAgrupacionConfiguracionMapper
-            .getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(data, tarea.getTarea());
-        return tareaAgrupacionConfiguracionMapper.getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
-                tareaAgrupacionConfiguracionRepositoryCustom.save(configuraciones));
-    }
+  @Override
+  public List<TareaAgrupacionConfiguracionDto> saveConfiguracionVentaOnline(
+      @Valid @NotNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data,
+      @Valid @NotNull final RunTareaDto tarea) {
+    List<TareaAgrupacionConfiguracion> configuraciones = tareaAgrupacionConfiguracionMapper
+        .getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(data, tarea.getTarea());
+    return tareaAgrupacionConfiguracionMapper.getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
+        tareaAgrupacionConfiguracionRepositoryCustom.save(configuraciones));
+  }
 
 }

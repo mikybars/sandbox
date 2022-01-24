@@ -1,13 +1,13 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service;
 
-import javax.validation.constraints.NotNull;
-
 import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
+
+import javax.validation.constraints.NotNull;
 
 public interface RunMantenimientoLimpiezaService {
 
-    RunMantenimientoLimpiezaDTO run();
+  RunMantenimientoLimpiezaDTO run();
 
-    RunMantenimientoLimpiezaDTO runIdTarea(@NotNull final Long id);
+  RunMantenimientoLimpiezaDTO runIdTarea(@NotNull final Long id);
 
 }

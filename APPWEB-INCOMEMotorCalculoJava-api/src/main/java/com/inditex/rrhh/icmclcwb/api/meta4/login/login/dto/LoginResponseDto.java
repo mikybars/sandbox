@@ -15,8 +15,8 @@ import lombok.ToString;
 @ToString
 public class LoginResponseDto implements Serializable {
 
-    private static final long serialVersionUID = 8224685868544251698L;
+  private static final long serialVersionUID = 8224685868544251698L;
 
-    private String sessionID;
+  private String sessionID;
 
 }

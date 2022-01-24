@@ -1,17 +1,6 @@
-/**
- *
- */
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.List;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
@@ -30,288 +19,294 @@ import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabase;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabaseContextHolder;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 @Service
 @Validated
 public class ComisServiceImpl implements ComisService {
 
-    @Autowired
-    private ComisRepositoryCustom comisRepositoryCustom;
+  @Autowired
+  private ComisRepositoryCustom comisRepositoryCustom;
 
-    @Autowired
-    private TareaAmbitoGlobalFechaService tareaAmbitoGlobalFechaService;
+  @Autowired
+  private TareaAmbitoGlobalFechaService tareaAmbitoGlobalFechaService;
 
-    @Override
-    public PresenciaOrigenDto findPresenciasOrigenAndFecha(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        PresenciaOrigenDto presencia = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            presencia = this.comisRepositoryCustom
-                .findPresenciasOrigenAndFecha(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
-
-        return presencia;
+  @Override
+  public PresenciaOrigenDto findPresenciasOrigenAndFecha(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    PresenciaOrigenDto presencia = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      presencia = this.comisRepositoryCustom
+          .findPresenciasOrigenAndFecha(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdMotivoDesplazamientoDto> findMotivoDesplazamiento(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdMotivoDesplazamientoDto> motivos = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            motivos = this.comisRepositoryCustom
-                .findMotivoDesplazamiento(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return presencia;
+  }
 
-        return motivos;
+  @Override
+  public List<IdMotivoDesplazamientoDto> findMotivoDesplazamiento(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdMotivoDesplazamientoDto> motivos = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      motivos = this.comisRepositoryCustom
+          .findMotivoDesplazamiento(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalFechaIncidenciaDto> incidencias = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            incidencias = this.comisRepositoryCustom
-                .findFechasIncidencias(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return motivos;
+  }
 
-        return incidencias;
+  @Override
+  public List<IdPersonaLocalFechaIncidenciaDto> findFechasIncidencias(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalFechaIncidenciaDto> incidencias = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      incidencias = this.comisRepositoryCustom
+          .findFechasIncidencias(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalFechaIncidenciaDto> desplazamientos = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            desplazamientos = this.comisRepositoryCustom
-                .findFechasDesplazamientos(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return incidencias;
+  }
 
-        return desplazamientos;
+  @Override
+  public List<IdPersonaLocalFechaIncidenciaDto> findFechasDesplazamientos(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalFechaIncidenciaDto> desplazamientos = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      desplazamientos = this.comisRepositoryCustom
+          .findFechasDesplazamientos(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalCondicionesDto> findCondicionesHistorico(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalCondicionesDto> historico = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            historico = this.comisRepositoryCustom
-                .findCondicionesHistorico(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return desplazamientos;
+  }
 
-        return historico;
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesHistorico(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> historico = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      historico = this.comisRepositoryCustom
+          .findCondicionesHistorico(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoEs(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalCondicionesDto> historico = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            historico = this.comisRepositoryCustom
-                .findCondicionesHistoricoEs(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return historico;
+  }
 
-        return historico;
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoEs(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> historico = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      historico = this.comisRepositoryCustom
+          .findCondicionesHistoricoEs(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamiento(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalCondicionesDto> desplazamiento = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            desplazamiento = this.comisRepositoryCustom
-                .findCondicionesDesplazamiento(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return historico;
+  }
 
-        return desplazamiento;
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamiento(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> desplazamiento = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      desplazamiento = this.comisRepositoryCustom
+          .findCondicionesDesplazamiento(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalCondicionesDto> desplazamiento = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            desplazamiento = this.comisRepositoryCustom
-                .findCondicionesDesplazamientoEs(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return desplazamiento;
+  }
 
-        return desplazamiento;
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> desplazamiento = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      desplazamiento = this.comisRepositoryCustom
+          .findCondicionesDesplazamientoEs(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalCondicionesDto> findCondicionesResalta(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalCondicionesDto> resalta = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            resalta = this.comisRepositoryCustom
-                .findCondicionesResalta(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return desplazamiento;
+  }
 
-        return resalta;
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesResalta(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> resalta = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      resalta = this.comisRepositoryCustom
+          .findCondicionesResalta(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinPrimas(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalCondicionesDto> resalta = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            resalta = this.comisRepositoryCustom
-                .findCondicionesResaltaSinPrimas(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return resalta;
+  }
 
-        return resalta;
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinPrimas(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> resalta = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      resalta = this.comisRepositoryCustom
+          .findCondicionesResaltaSinPrimas(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalCondicionesDto> resalta = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            resalta = this.comisRepositoryCustom
-                .findCondicionesResaltaEs(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return resalta;
+  }
 
-        return resalta;
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesResaltaEs(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> resalta = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      resalta = this.comisRepositoryCustom
+          .findCondicionesResaltaEs(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalCondicionesDto> resalta = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            resalta = this.comisRepositoryCustom
-                .findCondicionesPrimas(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return resalta;
+  }
 
-        return resalta;
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> resalta = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      resalta = this.comisRepositoryCustom
+          .findCondicionesPrimas(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
+    return resalta;
+  }
 
-    @Override
-    public List<IdPersonaLocalCondicionesDto> findBajasIt(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalCondicionesDto> bajasIt = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            bajasIt = this.comisRepositoryCustom
-                .findBajasIt(runTareaDto.getTarea(),
-                        this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
-                                runTareaDto.getTarea().getId(),
-                                TipoDatoEnum.PERIODO_AMPLIADO.getId()));
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
-
-        return bajasIt;
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findBajasIt(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> bajasIt = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      bajasIt = this.comisRepositoryCustom
+          .findBajasIt(runTareaDto.getTarea(),
+              this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                  runTareaDto.getTarea().getId(),
+                  TipoDatoEnum.PERIODO_AMPLIADO.getId()));
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalCarenciaDto> findCarencia(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalCarenciaDto> carencia = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            carencia = this.comisRepositoryCustom
-                .findCarencia(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
+    return bajasIt;
+  }
 
-        return carencia;
+  @Override
+  public List<IdPersonaLocalCarenciaDto> findCarencia(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCarenciaDto> carencia = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      carencia = this.comisRepositoryCustom
+          .findCarencia(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalExternaDto> findExternosByClase(
-            @Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito,
-            final ComisClaseEmpleadoEnum clase) {
-        List<IdPersonaLocalExternaDto> externos = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            externos = this.comisRepositoryCustom.findExternosByClase(runTareaDto.getTarea(), clase);
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
-        return externos;
+    return carencia;
+  }
+
+  @Override
+  public List<IdPersonaLocalExternaDto> findExternosByClase(
+      @Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito,
+      final ComisClaseEmpleadoEnum clase) {
+    List<IdPersonaLocalExternaDto> externos = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      externos = this.comisRepositoryCustom.findExternosByClase(runTareaDto.getTarea(), clase);
+    } finally {
+      ClientDatabaseContextHolder.clear();
+    }
+    return externos;
+  }
+
+  @Override
+  public List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(
+      @Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito,
+      @NotNull @Positive final Long minIdPersona) {
+    List<IdPersonaLocalExternaDto> externos = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      externos = this.comisRepositoryCustom.findExternosByMinIdPersona(runTareaDto.getTarea(), minIdPersona);
+    } finally {
+      ClientDatabaseContextHolder.clear();
+    }
+    return externos;
+  }
+
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findBajasItEs(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> bajasIt = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      bajasIt = this.comisRepositoryCustom
+          .findBajasItEs(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
     }
 
-    @Override
-    public List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(
-            @Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito,
-            @NotNull @Positive final Long minIdPersona) {
-        List<IdPersonaLocalExternaDto> externos = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            externos = this.comisRepositoryCustom.findExternosByMinIdPersona(runTareaDto.getTarea(), minIdPersona);
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
-        return externos;
-    }
+    return bajasIt;
+  }
 
-    @Override
-    public List<IdPersonaLocalCondicionesDto> findBajasItEs(@Valid final RunTareaDto runTareaDto,
-            @Valid final TareaAmbitoDto tareaAmbito) {
-        List<IdPersonaLocalCondicionesDto> bajasIt = null;
-        try {
-            this.setContext(runTareaDto, tareaAmbito);
-            bajasIt = this.comisRepositoryCustom
-                .findBajasItEs(runTareaDto.getTarea());
-        } finally {
-            ClientDatabaseContextHolder.clear();
-        }
-
-        return bajasIt;
+  private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {
+    if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
+      ClientDatabaseContextHolder
+          .set(ClientDatabase.getClient(new StringBuilder()
+              .append(tareaAmbito.getCclIdOrigen())
+              .append(AppConstants.UNDERSCORE)
+              .append(runTareaDto.getTarea().getStdIdLegEnt())
+              .toString()));
+    } else {
+      ClientDatabaseContextHolder
+          .set(ClientDatabase
+              .getClient(tareaAmbito.getCclIdOrigen()));
     }
-
-    private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {
-        if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
-            ClientDatabaseContextHolder
-                .set(ClientDatabase.getClient(new StringBuilder()
-                    .append(tareaAmbito.getCclIdOrigen())
-                    .append(AppConstants.UNDERSCORE)
-                    .append(runTareaDto.getTarea().getStdIdLegEnt())
-                    .toString()));
-        } else {
-            ClientDatabaseContextHolder
-                .set(ClientDatabase
-                    .getClient(tareaAmbito.getCclIdOrigen()));
-        }
-    }
+  }
 
 }

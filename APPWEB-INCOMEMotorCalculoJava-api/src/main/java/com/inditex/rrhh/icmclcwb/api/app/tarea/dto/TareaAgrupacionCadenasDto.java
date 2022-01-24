@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TareaAgrupacionCadenasDto implements Serializable {
 
-    private static final long serialVersionUID = -519102628504860525L;
+  private static final long serialVersionUID = -519102628504860525L;
 
-    private Long id;
+  private Long id;
 
-    private List<String> cadenas;
+  private List<String> cadenas;
 
 }

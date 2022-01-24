@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.inditex.rrhh.icmclcwb.api.app.dto;
 
 import java.io.Serializable;
@@ -10,18 +7,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-/**
- * @author mdelrio
- *
- */
 @Data
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class GenericAlgoritmoPropertiesDto implements Serializable {
 
-    private String idTipoComision;
+  private String idTipoComision;
 
-    private String idTipoCalculo;
+  private String idTipoCalculo;
 
 }

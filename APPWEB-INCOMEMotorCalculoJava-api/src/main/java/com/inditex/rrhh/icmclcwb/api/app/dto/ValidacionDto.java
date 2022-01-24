@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.inditex.rrhh.icmclcwb.api.app.dto;
 
 import java.io.Serializable;
@@ -17,22 +14,22 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class ValidacionDto implements Serializable {
 
-    private static final long serialVersionUID = -2130233513919563977L;
+  private static final long serialVersionUID = -2130233513919563977L;
 
-    private Boolean result;
+  private Boolean result;
 
-    private Long idTareaFaseAccion;
+  private Long idTareaFaseAccion;
 
-    private Integer reaccionPeso;
+  private Integer reaccionPeso;
 
-    private String cclIdOrigen;
+  private String cclIdOrigen;
 
-    private String stdIdLegEnt;
+  private String stdIdLegEnt;
 
-    private List<String> idPersonaLocal;
+  private List<String> idPersonaLocal;
 
-    private Boolean sincronizacion;
+  private Boolean sincronizacion;
 
-    private List<Integer> idMotivosDesplazamiento;
+  private List<Integer> idMotivosDesplazamiento;
 
 }

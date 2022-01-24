@@ -1,150 +1,146 @@
+package com.inditex.rrhh.icmclcwb.model.primary.repository;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-
-package com.inditex.rrhh.icmclcwb.model.primary.repository;
-
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-/**
- * @author javierev
- */
 public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
-    // comun
+  // comun
 
-    int createTempPersonas();
+  int createTempPersonas();
 
-    int deleteTempPersonas();
+  int deleteTempPersonas();
 
-    void insertTempPersonas(final TareaDto tarea, List<IdPersonaLocalDto> personas, TipoPoliticaEnum tipoPolitica);
+  void insertTempPersonas(final TareaDto tarea, List<IdPersonaLocalDto> personas, TipoPoliticaEnum tipoPolitica);
 
-    int createIndexTempPersonas();
+  int createIndexTempPersonas();
 
-    int createTempCalculoConAjuste();
+  int createTempCalculoConAjuste();
 
-    int deleteTempCalculoConAjuste();
+  int deleteTempCalculoConAjuste();
 
-    void insertTempCalculoConAjuste(List<TipoPoliticaEnum> politicas);
+  void insertTempCalculoConAjuste(List<TipoPoliticaEnum> politicas);
 
-    int createIndexTempCalculoConAjuste();
+  int createIndexTempCalculoConAjuste();
 
-    // fin comun
+  // fin comun
 
-    // baja it
+  // baja it
 
-    int createTempFechasBajaIt();
+  int createTempFechasBajaIt();
 
-    int deleteTempFechasBajaIt();
+  int deleteTempFechasBajaIt();
 
-    void insertTempFechasBajaIt(final TareaDto tarea, String sistemaDestino);
+  void insertTempFechasBajaIt(final TareaDto tarea, String sistemaDestino);
 
-    int createIndexTempFechasBajaIt();
+  int createIndexTempFechasBajaIt();
 
-    int createTempFechasAcumuladasBajaIt();
+  int createTempFechasAcumuladasBajaIt();
 
-    int deleteTempFechasAcumuladasBajaIt();
+  int deleteTempFechasAcumuladasBajaIt();
 
-    void insertTempFechasAcumuladasBajaIt();
+  void insertTempFechasAcumuladasBajaIt();
 
-    int createIndexTempFechasAcumuladasBajaIt();
+  int createIndexTempFechasAcumuladasBajaIt();
 
-    // fin baja it
+  // fin baja it
 
-    // antiguedad
+  // antiguedad
 
-    int createTempFechasAntiguedad();
+  int createTempFechasAntiguedad();
 
-    int deleteTempFechasAntiguedad();
+  int deleteTempFechasAntiguedad();
 
-    void insertTempFechasAntiguedad();
+  void insertTempFechasAntiguedad();
 
-    int createIndexTempFechasAntiguedad();
+  int createIndexTempFechasAntiguedad();
 
-    int createTempFechasAcumuladasAntiguedad();
+  int createTempFechasAcumuladasAntiguedad();
 
-    int deleteTempFechasAcumuladasAntiguedad();
+  int deleteTempFechasAcumuladasAntiguedad();
 
-    void insertTempFechasAcumuladasAntiguedad();
+  void insertTempFechasAcumuladasAntiguedad();
 
-    int createIndexTempFechasAcumuladasAntiguedad();
+  int createIndexTempFechasAcumuladasAntiguedad();
 
-    // fin antiguedad
+  // fin antiguedad
 
-    // vacaciones
+  // vacaciones
 
-    int createTempFechasVacaciones();
+  int createTempFechasVacaciones();
 
-    int deleteTempFechasVacaciones();
+  int deleteTempFechasVacaciones();
 
-    void insertTempFechasVacaciones();
+  void insertTempFechasVacaciones();
 
-    int createIndexTempFechasVacaciones();
+  int createIndexTempFechasVacaciones();
 
-    int createTempFechasAcumuladasVacaciones();
+  int createTempFechasAcumuladasVacaciones();
 
-    int deleteTempFechasAcumuladasVacaciones();
+  int deleteTempFechasAcumuladasVacaciones();
 
-    void insertTempFechasAcumuladasVacaciones();
+  void insertTempFechasAcumuladasVacaciones();
 
-    int createIndexTempFechasAcumuladasVacaciones();
+  int createIndexTempFechasAcumuladasVacaciones();
 
-    // fin vacaciones
+  // fin vacaciones
 
-    // inicio máximo / mínimo garantizado (común)
+  // inicio máximo / mínimo garantizado (común)
 
-    int createTempAusenciasDateMaximoMinimoGarantizado();
+  int createTempAusenciasDateMaximoMinimoGarantizado();
 
-    int deleteTempAusenciasDateMaximoMinimoGarantizado();
+  int deleteTempAusenciasDateMaximoMinimoGarantizado();
 
-    int createIndexTempAusenciasDateMaximoMinimoGarantizado();
+  int createIndexTempAusenciasDateMaximoMinimoGarantizado();
 
-    void insertTempAusenciasDateMaximoMinimoGarantizado();
+  void insertTempAusenciasDateMaximoMinimoGarantizado();
 
-    int createTempDatosMaximoMinimoGarantizado();
+  int createTempDatosMaximoMinimoGarantizado();
 
-    int deleteTempDatosMaximoMinimoGarantizado();
+  int deleteTempDatosMaximoMinimoGarantizado();
 
-    int createIndexTempDatosMaximoMinimoGarantizado();
+  int createIndexTempDatosMaximoMinimoGarantizado();
 
-    void insertTempDatosMaximoGarantizado();
+  void insertTempDatosMaximoGarantizado();
 
-    // fin máximo / mínimo garantizado (común)
+  // fin máximo / mínimo garantizado (común)
 
-    // inicio máximo garantizado
+  // inicio máximo garantizado
 
-    // fin máximo garantizado
+  // fin máximo garantizado
 
-    // inicio mínimo garantizado
+  // inicio mínimo garantizado
 
-    void insertTempDatosMininimoGarantizado();
+  void insertTempDatosMininimoGarantizado();
 
-    // fin mínimo garantizado
+  // fin mínimo garantizado
 
-    // carencia
+  // carencia
 
-    int createTempFechasCarencia();
+  int createTempFechasCarencia();
 
-    int deleteTempFechasCarencia();
+  int deleteTempFechasCarencia();
 
-    void insertTempFechasCarencia();
+  void insertTempFechasCarencia();
 
-    int createIndexTempFechasCarencia();
+  int createIndexTempFechasCarencia();
 
-    int createTempFechasAcumuladasCarencia();
+  int createTempFechasAcumuladasCarencia();
 
-    int deleteTempFechasAcumuladasCarencia();
+  int deleteTempFechasAcumuladasCarencia();
 
-    void insertTempFechasAcumuladasCarencia();
+  void insertTempFechasAcumuladasCarencia();
 
-    int createIndexTempFechasAcumuladasCarencia();
+  int createIndexTempFechasAcumuladasCarencia();
 
-    void insertTempCalculoConAjusteCarencia();
+  void insertTempCalculoConAjusteCarencia();
 
-    // fin carencia
+  // fin carencia
 
 }

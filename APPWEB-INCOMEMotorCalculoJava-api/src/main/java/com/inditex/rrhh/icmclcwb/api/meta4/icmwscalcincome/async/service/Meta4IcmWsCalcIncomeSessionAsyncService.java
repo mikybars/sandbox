@@ -3,8 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.scheduling.annotation.Async;
-
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
@@ -58,74 +56,76 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.Ve
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 
+import org.springframework.scheduling.annotation.Async;
+
 @Async("meta4Executor")
 public interface Meta4IcmWsCalcIncomeSessionAsyncService {
 
-    CompletableFuture<List<GenericTiendaResultItemDto>> searchTiendas(SearchTiendasRequestDto request);
+  CompletableFuture<List<GenericTiendaResultItemDto>> searchTiendas(SearchTiendasRequestDto request);
 
-    CompletableFuture<List<GenericTiendaResultItemDto>> getTiendas(TiendasRequestDto request);
+  CompletableFuture<List<GenericTiendaResultItemDto>> getTiendas(TiendasRequestDto request);
 
-    CompletableFuture<List<GenericEmpleadoResultItemDto>> searchEmpleados(SearchEmpleadosRequestDto request);
+  CompletableFuture<List<GenericEmpleadoResultItemDto>> searchEmpleados(SearchEmpleadosRequestDto request);
 
-    CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleados(EmpleadosRequestDto request);
+  CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleados(EmpleadosRequestDto request);
 
-    CompletableFuture<List<PeriodosResultItemDto>> getPeriodos(PeriodosRequestDto request);
+  CompletableFuture<List<PeriodosResultItemDto>> getPeriodos(PeriodosRequestDto request);
 
-    CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleadosPresencia(EmpleadosPresenciaRequestDto request);
+  CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleadosPresencia(EmpleadosPresenciaRequestDto request);
 
-    CompletableFuture<List<GenericEmpleadoResultItemDto>> getPresenciaManual(PresenciaManualRequestDto request);
+  CompletableFuture<List<GenericEmpleadoResultItemDto>> getPresenciaManual(PresenciaManualRequestDto request);
 
-    CompletableFuture<List<GenericTiendaResultItemDto>> getFestivos(FestivosRequestDto request);
+  CompletableFuture<List<GenericTiendaResultItemDto>> getFestivos(FestivosRequestDto request);
 
-    CompletableFuture<List<GenericEmpleadoResultItemDto>> getCoefJornada(CoefJornadaRequestDto request);
+  CompletableFuture<List<GenericEmpleadoResultItemDto>> getCoefJornada(CoefJornadaRequestDto request);
 
-    CompletableFuture<List<GenericTiendaResultItemDto>> getFlagCalcula(FlagCalculaRequestDto request);
+  CompletableFuture<List<GenericTiendaResultItemDto>> getFlagCalcula(FlagCalculaRequestDto request);
 
-    CompletableFuture<List<ConfiguracionVentaOnlineResultItemDto>> getConfiguracionVentaOnline(
-            ConfiguracionVentaOnlineRequestDto request);
+  CompletableFuture<List<ConfiguracionVentaOnlineResultItemDto>> getConfiguracionVentaOnline(
+      ConfiguracionVentaOnlineRequestDto request);
 
-    CompletableFuture<List<AgrupOnlineResultItemDto>> getAgrupacionesOnline(AgrupOnlineRequestDto request);
+  CompletableFuture<List<AgrupOnlineResultItemDto>> getAgrupacionesOnline(AgrupOnlineRequestDto request);
 
-    CompletableFuture<List<TiendaOnlineResultItemDto>> getTiendasOnline(TiendaOnlineRequestDto request);
+  CompletableFuture<List<TiendaOnlineResultItemDto>> getTiendasOnline(TiendaOnlineRequestDto request);
 
-    CompletableFuture<List<EmpresaResultItemDto>> getEmpresa(EmpresaRequestDto request);
+  CompletableFuture<List<EmpresaResultItemDto>> getEmpresa(EmpresaRequestDto request);
 
-    CompletableFuture<List<OrigenResultItemDto>> getOrigen(OrigenRequestDto request);
+  CompletableFuture<List<OrigenResultItemDto>> getOrigen(OrigenRequestDto request);
 
-    CompletableFuture<List<ConfiguracionProductoVentaResultItemDto>> getConfiguracionProductoVenta(
-            ConfiguracionProductoVentaRequestDto request);
+  CompletableFuture<List<ConfiguracionProductoVentaResultItemDto>> getConfiguracionProductoVenta(
+      ConfiguracionProductoVentaRequestDto request);
 
-    CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleadosDesplazamiento(
-            EmpleadosDesplazamientoRequestDto request);
+  CompletableFuture<List<GenericEmpleadoResultItemDto>> getEmpleadosDesplazamiento(
+      EmpleadosDesplazamientoRequestDto request);
 
-    CompletableFuture<List<EstructurasComResultItemDto>> getEstructurasCom(EstructurasComRequestDto request);
+  CompletableFuture<List<EstructurasComResultItemDto>> getEstructurasCom(EstructurasComRequestDto request);
 
-    CompletableFuture<List<EstructurasPolResultItemDto>> getEstructurasPol(EstructurasPolRequestDto request);
+  CompletableFuture<List<EstructurasPolResultItemDto>> getEstructurasPol(EstructurasPolRequestDto request);
 
-    CompletableFuture<List<AusenciasResultItemDto>> getAusencias(AusenciasRequestDto request);
+  CompletableFuture<List<AusenciasResultItemDto>> getAusencias(AusenciasRequestDto request);
 
-    CompletableFuture<List<ConfChDiasMinimosResultItemDto>> getConfChallengeDiasMinimos(
-            ConfChDiasMinimosRequestDto request);
+  CompletableFuture<List<ConfChDiasMinimosResultItemDto>> getConfChallengeDiasMinimos(
+      ConfChDiasMinimosRequestDto request);
 
-    CompletableFuture<List<PresupuestosWlocResultItemDto>> getPresupuestosWloc(PresupuestosWlocRequestDto request);
+  CompletableFuture<List<PresupuestosWlocResultItemDto>> getPresupuestosWloc(PresupuestosWlocRequestDto request);
 
-    CompletableFuture<List<ConfPrecioHoraResultItemDto>> getConfPrecioHora(ConfPrecioHoraRequestDto request);
+  CompletableFuture<List<ConfPrecioHoraResultItemDto>> getConfPrecioHora(ConfPrecioHoraRequestDto request);
 
-    CompletableFuture<List<ConfChTpVentaResultItemDto>> getConfChallengeTpVenta(ConfChTpVentaRequestDto request);
+  CompletableFuture<List<ConfChTpVentaResultItemDto>> getConfChallengeTpVenta(ConfChTpVentaRequestDto request);
 
-    CompletableFuture<List<PresupuestosRangoResultItemDto>> getPresupuestosRango(PresupuestosRangoRequestDto request);
+  CompletableFuture<List<PresupuestosRangoResultItemDto>> getPresupuestosRango(PresupuestosRangoRequestDto request);
 
-    CompletableFuture<List<VentaCongeladaResultItemDto>> getVentaCongelada(VentaCongeladaRequestDto request);
+  CompletableFuture<List<VentaCongeladaResultItemDto>> getVentaCongelada(VentaCongeladaRequestDto request);
 
-    CompletableFuture<List<DesplazamientoRealResultItemDto>> getDesplazReal(DesplazamientoRealRequestDto request);
+  CompletableFuture<List<DesplazamientoRealResultItemDto>> getDesplazReal(DesplazamientoRealRequestDto request);
 
-    CompletableFuture<List<DesplazamientosMultiempresaItemDto>> getDesplazamientosMultiempresa(
-            DesplazamientosMultiempresaRequestDto request);
+  CompletableFuture<List<DesplazamientosMultiempresaItemDto>> getDesplazamientosMultiempresa(
+      DesplazamientosMultiempresaRequestDto request);
 
-    CompletableFuture<List<PresenciaManualWlocResultItemDto>> getPresenciaManualWloc(
-            PresenciaManualWlocRequestDto request);
+  CompletableFuture<List<PresenciaManualWlocResultItemDto>> getPresenciaManualWloc(
+      PresenciaManualWlocRequestDto request);
 
-    CompletableFuture<List<VentaManualWlocResultItemDto>> getVentaManualWloc(
-            VentaManualWlocRequestDto request);
+  CompletableFuture<List<VentaManualWlocResultItemDto>> getVentaManualWloc(
+      VentaManualWlocRequestDto request);
 
 }

@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class Meta4PropertiesDto {
 
-    Meta4FilterPropertiesDto filter;
+  Meta4FilterPropertiesDto filter;
 
-    PageDto page;
+  PageDto page;
 
 }

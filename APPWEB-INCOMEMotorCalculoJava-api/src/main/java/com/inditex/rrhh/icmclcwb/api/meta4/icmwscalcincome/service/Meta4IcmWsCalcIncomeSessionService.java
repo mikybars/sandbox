@@ -57,70 +57,70 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 
 public interface Meta4IcmWsCalcIncomeSessionService {
 
-    List<GenericTiendaResultItemDto> searchTiendas(SearchTiendasRequestDto request);
+  List<GenericTiendaResultItemDto> searchTiendas(SearchTiendasRequestDto request);
 
-    List<GenericTiendaResultItemDto> getTiendas(TiendasRequestDto request);
+  List<GenericTiendaResultItemDto> getTiendas(TiendasRequestDto request);
 
-    List<GenericEmpleadoResultItemDto> searchEmpleados(SearchEmpleadosRequestDto request);
+  List<GenericEmpleadoResultItemDto> searchEmpleados(SearchEmpleadosRequestDto request);
 
-    List<GenericEmpleadoResultItemDto> getEmpleados(EmpleadosRequestDto request);
+  List<GenericEmpleadoResultItemDto> getEmpleados(EmpleadosRequestDto request);
 
-    List<TiendaOnlineResultItemDto> tiendaOnline(TiendaOnlineRequestDto request);
+  List<TiendaOnlineResultItemDto> tiendaOnline(TiendaOnlineRequestDto request);
 
-    List<PeriodosResultItemDto> getPeriodos(PeriodosRequestDto request);
+  List<PeriodosResultItemDto> getPeriodos(PeriodosRequestDto request);
 
-    List<GenericEmpleadoResultItemDto> getEmpleadosPresencia(EmpleadosPresenciaRequestDto request);
+  List<GenericEmpleadoResultItemDto> getEmpleadosPresencia(EmpleadosPresenciaRequestDto request);
 
-    List<GenericEmpleadoResultItemDto> getPresenciaManual(PresenciaManualRequestDto request);
+  List<GenericEmpleadoResultItemDto> getPresenciaManual(PresenciaManualRequestDto request);
 
-    List<GenericEmpleadoResultItemDto> getCoefJornada(CoefJornadaRequestDto request);
+  List<GenericEmpleadoResultItemDto> getCoefJornada(CoefJornadaRequestDto request);
 
-    List<GenericTiendaResultItemDto> getFestivos(FestivosRequestDto request);
+  List<GenericTiendaResultItemDto> getFestivos(FestivosRequestDto request);
 
-    List<GenericTiendaResultItemDto> getFlagCalcula(FlagCalculaRequestDto request);
+  List<GenericTiendaResultItemDto> getFlagCalcula(FlagCalculaRequestDto request);
 
-    List<ConfiguracionVentaOnlineResultItemDto> getConfiguracionVentaOnline(
-            final ConfiguracionVentaOnlineRequestDto request);
+  List<ConfiguracionVentaOnlineResultItemDto> getConfiguracionVentaOnline(
+      final ConfiguracionVentaOnlineRequestDto request);
 
-    List<AgrupOnlineResultItemDto> getAgrupacionesOnline(AgrupOnlineRequestDto request);
+  List<AgrupOnlineResultItemDto> getAgrupacionesOnline(AgrupOnlineRequestDto request);
 
-    List<EmpresaResultItemDto> getEmpresa(EmpresaRequestDto request);
+  List<EmpresaResultItemDto> getEmpresa(EmpresaRequestDto request);
 
-    List<OrigenResultItemDto> getOrigen(OrigenRequestDto request);
+  List<OrigenResultItemDto> getOrigen(OrigenRequestDto request);
 
-    List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(
-            ConfiguracionProductoVentaRequestDto request);
+  List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(
+      ConfiguracionProductoVentaRequestDto request);
 
-    List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea, String cclIdOrigen);
+  List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea, String cclIdOrigen);
 
-    List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(EmpleadosDesplazamientoRequestDto request);
+  List<GenericEmpleadoResultItemDto> getEmpleadosDesplazamiento(EmpleadosDesplazamientoRequestDto request);
 
-    List<EstructurasComResultItemDto> getEstructurasCom(EstructurasComRequestDto request);
+  List<EstructurasComResultItemDto> getEstructurasCom(EstructurasComRequestDto request);
 
-    List<EstructurasPolResultItemDto> getEstructurasPol(EstructurasPolRequestDto request);
+  List<EstructurasPolResultItemDto> getEstructurasPol(EstructurasPolRequestDto request);
 
-    List<AusenciasResultItemDto> getAusencias(AusenciasRequestDto request);
+  List<AusenciasResultItemDto> getAusencias(AusenciasRequestDto request);
 
-    List<ConfChDiasMinimosResultItemDto> getConfChallengeDiasMinimos(ConfChDiasMinimosRequestDto request);
+  List<ConfChDiasMinimosResultItemDto> getConfChallengeDiasMinimos(ConfChDiasMinimosRequestDto request);
 
-    List<PresupuestosWlocResultItemDto> getPresupuestosWloc(PresupuestosWlocRequestDto request);
+  List<PresupuestosWlocResultItemDto> getPresupuestosWloc(PresupuestosWlocRequestDto request);
 
-    List<ConfPrecioHoraResultItemDto> getConfPrecioHora(ConfPrecioHoraRequestDto request);
+  List<ConfPrecioHoraResultItemDto> getConfPrecioHora(ConfPrecioHoraRequestDto request);
 
-    List<ConfChTpVentaResultItemDto> getConfChallengeTpVenta(ConfChTpVentaRequestDto request);
+  List<ConfChTpVentaResultItemDto> getConfChallengeTpVenta(ConfChTpVentaRequestDto request);
 
-    List<PresupuestosRangoResultItemDto> getPresupuestosRango(PresupuestosRangoRequestDto request);
+  List<PresupuestosRangoResultItemDto> getPresupuestosRango(PresupuestosRangoRequestDto request);
 
-    List<VentaCongeladaResultItemDto> getVentaCongelada(VentaCongeladaRequestDto request);
+  List<VentaCongeladaResultItemDto> getVentaCongelada(VentaCongeladaRequestDto request);
 
-    List<DesplazamientoRealResultItemDto> getDesplazReal(DesplazamientoRealRequestDto request);
+  List<DesplazamientoRealResultItemDto> getDesplazReal(DesplazamientoRealRequestDto request);
 
-    List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(
-            DesplazamientosMultiempresaRequestDto request);
+  List<DesplazamientosMultiempresaItemDto> getDesplazamientoMultiempresa(
+      DesplazamientosMultiempresaRequestDto request);
 
-    List<PresenciaManualWlocResultItemDto> getPresenciaManualWloc(
-            PresenciaManualWlocRequestDto request);
+  List<PresenciaManualWlocResultItemDto> getPresenciaManualWloc(
+      PresenciaManualWlocRequestDto request);
 
-    List<VentaManualWlocResultItemDto> getVentaManualWloc(VentaManualWlocRequestDto request);
+  List<VentaManualWlocResultItemDto> getVentaManualWloc(VentaManualWlocRequestDto request);
 
 }

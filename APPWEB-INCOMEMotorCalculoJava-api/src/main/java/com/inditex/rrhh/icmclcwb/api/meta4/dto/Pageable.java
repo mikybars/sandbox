@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public interface Pageable<T extends Serializable> {
 
-    T getData();
+  T getData();
 
-    PageDto getPage();
+  PageDto getPage();
 
 }
