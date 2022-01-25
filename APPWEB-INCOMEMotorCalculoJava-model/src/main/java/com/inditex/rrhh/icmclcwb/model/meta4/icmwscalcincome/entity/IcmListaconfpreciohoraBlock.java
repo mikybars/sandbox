@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ListaconfpreciohoraBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ListaconfpreciohoraBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ListaconfpreciohoraBlock"&gt;
  *   &lt;complexContent&gt;
@@ -44,8 +40,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListaconfpreciohoraBlock", propOrder = {
@@ -60,21 +56,21 @@ public class IcmListaconfpreciohoraBlock implements Serializable, Cloneable, Cop
 
   /**
    * Gets the value of the icmListaconfpreciohoraRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListaconfpreciohoraRecordSet
    * property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmListaconfpreciohoraRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmListaconfpreciohoraRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmListaconfpreciohoraRecord> getIcmListaconfpreciohoraRecordSet() {
     if (icmListaconfpreciohoraRecordSet == null) {
@@ -83,8 +79,7 @@ public class IcmListaconfpreciohoraBlock implements Serializable, Cloneable, Cop
     return this.icmListaconfpreciohoraRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -94,23 +89,20 @@ public class IcmListaconfpreciohoraBlock implements Serializable, Cloneable, Cop
     final IcmListaconfpreciohoraBlock that = ((IcmListaconfpreciohoraBlock) object);
     {
       List<IcmListaconfpreciohoraRecord> lhsIcmListaconfpreciohoraRecordSet;
-      lhsIcmListaconfpreciohoraRecordSet = (((this.icmListaconfpreciohoraRecordSet != null)
-          && (!this.icmListaconfpreciohoraRecordSet.isEmpty())) ? this.getIcmListaconfpreciohoraRecordSet()
+      lhsIcmListaconfpreciohoraRecordSet =
+          (((this.icmListaconfpreciohoraRecordSet != null) && (!this.icmListaconfpreciohoraRecordSet.isEmpty()))
+              ? this.getIcmListaconfpreciohoraRecordSet()
               : null);
       List<IcmListaconfpreciohoraRecord> rhsIcmListaconfpreciohoraRecordSet;
-      rhsIcmListaconfpreciohoraRecordSet = (((that.icmListaconfpreciohoraRecordSet != null)
-          && (!that.icmListaconfpreciohoraRecordSet.isEmpty())) ? that.getIcmListaconfpreciohoraRecordSet()
+      rhsIcmListaconfpreciohoraRecordSet =
+          (((that.icmListaconfpreciohoraRecordSet != null) && (!that.icmListaconfpreciohoraRecordSet.isEmpty()))
+              ? that.getIcmListaconfpreciohoraRecordSet()
               : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmListaconfpreciohoraRecordSet",
-              lhsIcmListaconfpreciohoraRecordSet),
-          LocatorUtils.property(thatLocator, "icmListaconfpreciohoraRecordSet",
-              rhsIcmListaconfpreciohoraRecordSet),
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaconfpreciohoraRecordSet", lhsIcmListaconfpreciohoraRecordSet),
+          LocatorUtils.property(thatLocator, "icmListaconfpreciohoraRecordSet", rhsIcmListaconfpreciohoraRecordSet),
           lhsIcmListaconfpreciohoraRecordSet, rhsIcmListaconfpreciohoraRecordSet,
-          ((this.icmListaconfpreciohoraRecordSet != null)
-              && (!this.icmListaconfpreciohoraRecordSet.isEmpty())),
-          ((that.icmListaconfpreciohoraRecordSet != null)
-              && (!that.icmListaconfpreciohoraRecordSet.isEmpty())))) {
+          ((this.icmListaconfpreciohoraRecordSet != null) && (!this.icmListaconfpreciohoraRecordSet.isEmpty())),
+          ((that.icmListaconfpreciohoraRecordSet != null) && (!that.icmListaconfpreciohoraRecordSet.isEmpty())))) {
         return false;
       }
     }
@@ -139,12 +131,12 @@ public class IcmListaconfpreciohoraBlock implements Serializable, Cloneable, Cop
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
       List<IcmListaconfpreciohoraRecord> theIcmListaconfpreciohoraRecordSet;
-      theIcmListaconfpreciohoraRecordSet = (((this.icmListaconfpreciohoraRecordSet != null)
-          && (!this.icmListaconfpreciohoraRecordSet.isEmpty())) ? this.getIcmListaconfpreciohoraRecordSet()
+      theIcmListaconfpreciohoraRecordSet =
+          (((this.icmListaconfpreciohoraRecordSet != null) && (!this.icmListaconfpreciohoraRecordSet.isEmpty()))
+              ? this.getIcmListaconfpreciohoraRecordSet()
               : null);
-      strategy.appendField(locator, this, "icmListaconfpreciohoraRecordSet", buffer,
-          theIcmListaconfpreciohoraRecordSet, ((this.icmListaconfpreciohoraRecordSet != null)
-              && (!this.icmListaconfpreciohoraRecordSet.isEmpty())));
+      strategy.appendField(locator, this, "icmListaconfpreciohoraRecordSet", buffer, theIcmListaconfpreciohoraRecordSet,
+          ((this.icmListaconfpreciohoraRecordSet != null) && (!this.icmListaconfpreciohoraRecordSet.isEmpty())));
     }
     return buffer;
   }
@@ -153,14 +145,14 @@ public class IcmListaconfpreciohoraBlock implements Serializable, Cloneable, Cop
     int currentHashCode = 1;
     {
       List<IcmListaconfpreciohoraRecord> theIcmListaconfpreciohoraRecordSet;
-      theIcmListaconfpreciohoraRecordSet = (((this.icmListaconfpreciohoraRecordSet != null)
-          && (!this.icmListaconfpreciohoraRecordSet.isEmpty())) ? this.getIcmListaconfpreciohoraRecordSet()
+      theIcmListaconfpreciohoraRecordSet =
+          (((this.icmListaconfpreciohoraRecordSet != null) && (!this.icmListaconfpreciohoraRecordSet.isEmpty()))
+              ? this.getIcmListaconfpreciohoraRecordSet()
               : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmListaconfpreciohoraRecordSet",
-              theIcmListaconfpreciohoraRecordSet),
-          currentHashCode, theIcmListaconfpreciohoraRecordSet, ((this.icmListaconfpreciohoraRecordSet != null)
-              && (!this.icmListaconfpreciohoraRecordSet.isEmpty())));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmListaconfpreciohoraRecordSet", theIcmListaconfpreciohoraRecordSet),
+              currentHashCode, theIcmListaconfpreciohoraRecordSet,
+              ((this.icmListaconfpreciohoraRecordSet != null) && (!this.icmListaconfpreciohoraRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -185,24 +177,21 @@ public class IcmListaconfpreciohoraBlock implements Serializable, Cloneable, Cop
       final IcmListaconfpreciohoraBlock copy = ((IcmListaconfpreciohoraBlock) draftCopy);
       {
         Boolean icmListaconfpreciohoraRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmListaconfpreciohoraRecordSet != null)
-                && (!this.icmListaconfpreciohoraRecordSet.isEmpty())));
+            ((this.icmListaconfpreciohoraRecordSet != null) && (!this.icmListaconfpreciohoraRecordSet.isEmpty())));
         if (icmListaconfpreciohoraRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmListaconfpreciohoraRecord> sourceIcmListaconfpreciohoraRecordSet;
-          sourceIcmListaconfpreciohoraRecordSet = (((this.icmListaconfpreciohoraRecordSet != null)
-              && (!this.icmListaconfpreciohoraRecordSet.isEmpty()))
+          sourceIcmListaconfpreciohoraRecordSet =
+              (((this.icmListaconfpreciohoraRecordSet != null) && (!this.icmListaconfpreciohoraRecordSet.isEmpty()))
                   ? this.getIcmListaconfpreciohoraRecordSet()
                   : null);
           @SuppressWarnings("unchecked")
-          List<IcmListaconfpreciohoraRecord> copyIcmListaconfpreciohoraRecordSet = ((List<IcmListaconfpreciohoraRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmListaconfpreciohoraRecordSet",
-                  sourceIcmListaconfpreciohoraRecordSet), sourceIcmListaconfpreciohoraRecordSet,
-                  ((this.icmListaconfpreciohoraRecordSet != null)
-                      && (!this.icmListaconfpreciohoraRecordSet.isEmpty()))));
+          List<IcmListaconfpreciohoraRecord> copyIcmListaconfpreciohoraRecordSet = ((List<IcmListaconfpreciohoraRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmListaconfpreciohoraRecordSet", sourceIcmListaconfpreciohoraRecordSet),
+              sourceIcmListaconfpreciohoraRecordSet,
+              ((this.icmListaconfpreciohoraRecordSet != null) && (!this.icmListaconfpreciohoraRecordSet.isEmpty()))));
           copy.icmListaconfpreciohoraRecordSet = null;
           if (copyIcmListaconfpreciohoraRecordSet != null) {
-            List<IcmListaconfpreciohoraRecord> uniqueIcmListaconfpreciohoraRecordSetl = copy
-                .getIcmListaconfpreciohoraRecordSet();
+            List<IcmListaconfpreciohoraRecord> uniqueIcmListaconfpreciohoraRecordSetl = copy.getIcmListaconfpreciohoraRecordSet();
             uniqueIcmListaconfpreciohoraRecordSetl.addAll(copyIcmListaconfpreciohoraRecordSet);
           }
         } else {

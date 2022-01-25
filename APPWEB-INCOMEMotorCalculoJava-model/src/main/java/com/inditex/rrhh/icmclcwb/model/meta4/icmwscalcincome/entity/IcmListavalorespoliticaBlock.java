@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ListavalorespoliticaBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ListavalorespoliticaBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ListavalorespoliticaBlock"&gt;
  *   &lt;complexContent&gt;
@@ -45,8 +41,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListavalorespoliticaBlock", propOrder = {
@@ -67,7 +63,7 @@ public class IcmListavalorespoliticaBlock implements Serializable, Cloneable, Co
    * Obtiene el valor de la propiedad idestructura.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getIdestructura() {
     return idestructura;
@@ -77,7 +73,7 @@ public class IcmListavalorespoliticaBlock implements Serializable, Cloneable, Co
    * Define el valor de la propiedad idestructura.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setIdestructura(String value) {
     this.idestructura = value;
@@ -85,21 +81,21 @@ public class IcmListavalorespoliticaBlock implements Serializable, Cloneable, Co
 
   /**
    * Gets the value of the icmListavalorespoliticaRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListavalorespoliticaRecordSet
    * property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmListavalorespoliticaRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmListavalorespoliticaRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmListavalorespoliticaRecord> getIcmListavalorespoliticaRecordSet() {
     if (icmListavalorespoliticaRecordSet == null) {
@@ -108,8 +104,7 @@ public class IcmListavalorespoliticaBlock implements Serializable, Cloneable, Co
     return this.icmListavalorespoliticaRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -123,30 +118,27 @@ public class IcmListavalorespoliticaBlock implements Serializable, Cloneable, Co
       String rhsIdestructura;
       rhsIdestructura = that.getIdestructura();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "idestructura", lhsIdestructura),
-          LocatorUtils.property(thatLocator, "idestructura", rhsIdestructura), lhsIdestructura,
-          rhsIdestructura, (this.idestructura != null), (that.idestructura != null))) {
+          LocatorUtils.property(thatLocator, "idestructura", rhsIdestructura), lhsIdestructura, rhsIdestructura,
+          (this.idestructura != null), (that.idestructura != null))) {
         return false;
       }
     }
     {
       List<IcmListavalorespoliticaRecord> lhsIcmListavalorespoliticaRecordSet;
-      lhsIcmListavalorespoliticaRecordSet = (((this.icmListavalorespoliticaRecordSet != null)
-          && (!this.icmListavalorespoliticaRecordSet.isEmpty())) ? this.getIcmListavalorespoliticaRecordSet()
+      lhsIcmListavalorespoliticaRecordSet =
+          (((this.icmListavalorespoliticaRecordSet != null) && (!this.icmListavalorespoliticaRecordSet.isEmpty()))
+              ? this.getIcmListavalorespoliticaRecordSet()
               : null);
       List<IcmListavalorespoliticaRecord> rhsIcmListavalorespoliticaRecordSet;
-      rhsIcmListavalorespoliticaRecordSet = (((that.icmListavalorespoliticaRecordSet != null)
-          && (!that.icmListavalorespoliticaRecordSet.isEmpty())) ? that.getIcmListavalorespoliticaRecordSet()
+      rhsIcmListavalorespoliticaRecordSet =
+          (((that.icmListavalorespoliticaRecordSet != null) && (!that.icmListavalorespoliticaRecordSet.isEmpty()))
+              ? that.getIcmListavalorespoliticaRecordSet()
               : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmListavalorespoliticaRecordSet",
-              lhsIcmListavalorespoliticaRecordSet),
-          LocatorUtils.property(thatLocator, "icmListavalorespoliticaRecordSet",
-              rhsIcmListavalorespoliticaRecordSet),
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListavalorespoliticaRecordSet", lhsIcmListavalorespoliticaRecordSet),
+          LocatorUtils.property(thatLocator, "icmListavalorespoliticaRecordSet", rhsIcmListavalorespoliticaRecordSet),
           lhsIcmListavalorespoliticaRecordSet, rhsIcmListavalorespoliticaRecordSet,
-          ((this.icmListavalorespoliticaRecordSet != null)
-              && (!this.icmListavalorespoliticaRecordSet.isEmpty())),
-          ((that.icmListavalorespoliticaRecordSet != null)
-              && (!that.icmListavalorespoliticaRecordSet.isEmpty())))) {
+          ((this.icmListavalorespoliticaRecordSet != null) && (!this.icmListavalorespoliticaRecordSet.isEmpty())),
+          ((that.icmListavalorespoliticaRecordSet != null) && (!that.icmListavalorespoliticaRecordSet.isEmpty())))) {
         return false;
       }
     }
@@ -180,12 +172,12 @@ public class IcmListavalorespoliticaBlock implements Serializable, Cloneable, Co
     }
     {
       List<IcmListavalorespoliticaRecord> theIcmListavalorespoliticaRecordSet;
-      theIcmListavalorespoliticaRecordSet = (((this.icmListavalorespoliticaRecordSet != null)
-          && (!this.icmListavalorespoliticaRecordSet.isEmpty())) ? this.getIcmListavalorespoliticaRecordSet()
+      theIcmListavalorespoliticaRecordSet =
+          (((this.icmListavalorespoliticaRecordSet != null) && (!this.icmListavalorespoliticaRecordSet.isEmpty()))
+              ? this.getIcmListavalorespoliticaRecordSet()
               : null);
-      strategy.appendField(locator, this, "icmListavalorespoliticaRecordSet", buffer,
-          theIcmListavalorespoliticaRecordSet, ((this.icmListavalorespoliticaRecordSet != null)
-              && (!this.icmListavalorespoliticaRecordSet.isEmpty())));
+      strategy.appendField(locator, this, "icmListavalorespoliticaRecordSet", buffer, theIcmListavalorespoliticaRecordSet,
+          ((this.icmListavalorespoliticaRecordSet != null) && (!this.icmListavalorespoliticaRecordSet.isEmpty())));
     }
     return buffer;
   }
@@ -195,20 +187,19 @@ public class IcmListavalorespoliticaBlock implements Serializable, Cloneable, Co
     {
       String theIdestructura;
       theIdestructura = this.getIdestructura();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idestructura", theIdestructura),
-          currentHashCode, theIdestructura, (this.idestructura != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idestructura", theIdestructura), currentHashCode, theIdestructura,
+          (this.idestructura != null));
     }
     {
       List<IcmListavalorespoliticaRecord> theIcmListavalorespoliticaRecordSet;
-      theIcmListavalorespoliticaRecordSet = (((this.icmListavalorespoliticaRecordSet != null)
-          && (!this.icmListavalorespoliticaRecordSet.isEmpty())) ? this.getIcmListavalorespoliticaRecordSet()
+      theIcmListavalorespoliticaRecordSet =
+          (((this.icmListavalorespoliticaRecordSet != null) && (!this.icmListavalorespoliticaRecordSet.isEmpty()))
+              ? this.getIcmListavalorespoliticaRecordSet()
               : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmListavalorespoliticaRecordSet",
-              theIcmListavalorespoliticaRecordSet),
-          currentHashCode, theIcmListavalorespoliticaRecordSet,
-          ((this.icmListavalorespoliticaRecordSet != null)
-              && (!this.icmListavalorespoliticaRecordSet.isEmpty())));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmListavalorespoliticaRecordSet", theIcmListavalorespoliticaRecordSet),
+              currentHashCode, theIcmListavalorespoliticaRecordSet,
+              ((this.icmListavalorespoliticaRecordSet != null) && (!this.icmListavalorespoliticaRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -232,14 +223,12 @@ public class IcmListavalorespoliticaBlock implements Serializable, Cloneable, Co
     if (draftCopy instanceof IcmListavalorespoliticaBlock) {
       final IcmListavalorespoliticaBlock copy = ((IcmListavalorespoliticaBlock) draftCopy);
       {
-        Boolean idestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.idestructura != null));
+        Boolean idestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.idestructura != null));
         if (idestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceIdestructura;
           sourceIdestructura = this.getIdestructura();
-          String copyIdestructura = ((String) strategy.copy(
-              LocatorUtils.property(locator, "idestructura", sourceIdestructura), sourceIdestructura,
-              (this.idestructura != null)));
+          String copyIdestructura = ((String) strategy.copy(LocatorUtils.property(locator, "idestructura", sourceIdestructura),
+              sourceIdestructura, (this.idestructura != null)));
           copy.setIdestructura(copyIdestructura);
         } else {
           if (idestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -249,24 +238,21 @@ public class IcmListavalorespoliticaBlock implements Serializable, Cloneable, Co
       }
       {
         Boolean icmListavalorespoliticaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmListavalorespoliticaRecordSet != null)
-                && (!this.icmListavalorespoliticaRecordSet.isEmpty())));
+            ((this.icmListavalorespoliticaRecordSet != null) && (!this.icmListavalorespoliticaRecordSet.isEmpty())));
         if (icmListavalorespoliticaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmListavalorespoliticaRecord> sourceIcmListavalorespoliticaRecordSet;
-          sourceIcmListavalorespoliticaRecordSet = (((this.icmListavalorespoliticaRecordSet != null)
-              && (!this.icmListavalorespoliticaRecordSet.isEmpty()))
+          sourceIcmListavalorespoliticaRecordSet =
+              (((this.icmListavalorespoliticaRecordSet != null) && (!this.icmListavalorespoliticaRecordSet.isEmpty()))
                   ? this.getIcmListavalorespoliticaRecordSet()
                   : null);
           @SuppressWarnings("unchecked")
-          List<IcmListavalorespoliticaRecord> copyIcmListavalorespoliticaRecordSet = ((List<IcmListavalorespoliticaRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmListavalorespoliticaRecordSet",
-                  sourceIcmListavalorespoliticaRecordSet), sourceIcmListavalorespoliticaRecordSet,
-                  ((this.icmListavalorespoliticaRecordSet != null)
-                      && (!this.icmListavalorespoliticaRecordSet.isEmpty()))));
+          List<IcmListavalorespoliticaRecord> copyIcmListavalorespoliticaRecordSet = ((List<IcmListavalorespoliticaRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmListavalorespoliticaRecordSet", sourceIcmListavalorespoliticaRecordSet),
+              sourceIcmListavalorespoliticaRecordSet,
+              ((this.icmListavalorespoliticaRecordSet != null) && (!this.icmListavalorespoliticaRecordSet.isEmpty()))));
           copy.icmListavalorespoliticaRecordSet = null;
           if (copyIcmListavalorespoliticaRecordSet != null) {
-            List<IcmListavalorespoliticaRecord> uniqueIcmListavalorespoliticaRecordSetl = copy
-                .getIcmListavalorespoliticaRecordSet();
+            List<IcmListavalorespoliticaRecord> uniqueIcmListavalorespoliticaRecordSetl = copy.getIcmListavalorespoliticaRecordSet();
             uniqueIcmListavalorespoliticaRecordSetl.addAll(copyIcmListavalorespoliticaRecordSet);
           }
         } else {

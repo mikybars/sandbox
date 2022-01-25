@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETESTRUCTURASCOM implements Serializable, Cloneable, CopyTo2, Equa
    * Obtiene el valor de la propiedad icmparamcalestructura.
    * 
    * @return possible object is {@link IcmParamcalestructuraBlock }
-   *
+   * 
    */
   public IcmParamcalestructuraBlock getICMPARAMCALESTRUCTURA() {
     return icmparamcalestructura;
@@ -72,14 +68,13 @@ public class GETESTRUCTURASCOM implements Serializable, Cloneable, CopyTo2, Equa
    * Define el valor de la propiedad icmparamcalestructura.
    * 
    * @param value allowed object is {@link IcmParamcalestructuraBlock }
-   *
+   * 
    */
   public void setICMPARAMCALESTRUCTURA(IcmParamcalestructuraBlock value) {
     this.icmparamcalestructura = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,9 +88,8 @@ public class GETESTRUCTURASCOM implements Serializable, Cloneable, CopyTo2, Equa
       IcmParamcalestructuraBlock rhsICMPARAMCALESTRUCTURA;
       rhsICMPARAMCALESTRUCTURA = that.getICMPARAMCALESTRUCTURA();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalestructura", lhsICMPARAMCALESTRUCTURA),
-          LocatorUtils.property(thatLocator, "icmparamcalestructura", rhsICMPARAMCALESTRUCTURA),
-          lhsICMPARAMCALESTRUCTURA, rhsICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null),
-          (that.icmparamcalestructura != null))) {
+          LocatorUtils.property(thatLocator, "icmparamcalestructura", rhsICMPARAMCALESTRUCTURA), lhsICMPARAMCALESTRUCTURA,
+          rhsICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null), (that.icmparamcalestructura != null))) {
         return false;
       }
     }
@@ -125,8 +119,7 @@ public class GETESTRUCTURASCOM implements Serializable, Cloneable, CopyTo2, Equa
     {
       IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
       theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-      strategy.appendField(locator, this, "icmparamcalestructura", buffer, theICMPARAMCALESTRUCTURA,
-          (this.icmparamcalestructura != null));
+      strategy.appendField(locator, this, "icmparamcalestructura", buffer, theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null));
     }
     return buffer;
   }
@@ -136,9 +129,8 @@ public class GETESTRUCTURASCOM implements Serializable, Cloneable, CopyTo2, Equa
     {
       IcmParamcalestructuraBlock theICMPARAMCALESTRUCTURA;
       theICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmparamcalestructura", theICMPARAMCALESTRUCTURA), currentHashCode,
-          theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalestructura", theICMPARAMCALESTRUCTURA),
+          currentHashCode, theICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null));
     }
     return currentHashCode;
   }
@@ -162,14 +154,13 @@ public class GETESTRUCTURASCOM implements Serializable, Cloneable, CopyTo2, Equa
     if (draftCopy instanceof GETESTRUCTURASCOM) {
       final GETESTRUCTURASCOM copy = ((GETESTRUCTURASCOM) draftCopy);
       {
-        Boolean icmparamcalestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmparamcalestructura != null));
+        Boolean icmparamcalestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalestructura != null));
         if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmParamcalestructuraBlock sourceICMPARAMCALESTRUCTURA;
           sourceICMPARAMCALESTRUCTURA = this.getICMPARAMCALESTRUCTURA();
           IcmParamcalestructuraBlock copyICMPARAMCALESTRUCTURA = ((IcmParamcalestructuraBlock) strategy.copy(
-              LocatorUtils.property(locator, "icmparamcalestructura", sourceICMPARAMCALESTRUCTURA),
-              sourceICMPARAMCALESTRUCTURA, (this.icmparamcalestructura != null)));
+              LocatorUtils.property(locator, "icmparamcalestructura", sourceICMPARAMCALESTRUCTURA), sourceICMPARAMCALESTRUCTURA,
+              (this.icmparamcalestructura != null)));
           copy.setICMPARAMCALESTRUCTURA(copyICMPARAMCALESTRUCTURA);
         } else {
           if (icmparamcalestructuraShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -27,10 +23,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para LogMessage complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para LogMessage complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="LogMessage"&gt;
  *   &lt;complexContent&gt;
@@ -45,8 +41,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "LogMessage", propOrder = {
@@ -75,7 +71,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
    * Obtiene el valor de la propiedad code.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getCode() {
     return code;
@@ -85,7 +81,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
    * Define el valor de la propiedad code.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setCode(String value) {
     this.code = value;
@@ -95,7 +91,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
    * Obtiene el valor de la propiedad description.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getDescription() {
     return description;
@@ -105,7 +101,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
    * Define el valor de la propiedad description.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setDescription(String value) {
     this.description = value;
@@ -115,7 +111,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
    * Obtiene el valor de la propiedad severity.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getSeverity() {
     return severity;
@@ -125,7 +121,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
    * Define el valor de la propiedad severity.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setSeverity(String value) {
     this.severity = value;
@@ -135,7 +131,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
    * Obtiene el valor de la propiedad title.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getTitle() {
     return title;
@@ -145,14 +141,13 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
    * Define el valor de la propiedad title.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setTitle(String value) {
     this.title = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -165,9 +160,8 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
       lhsCode = this.getCode();
       String rhsCode;
       rhsCode = that.getCode();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "code", lhsCode),
-          LocatorUtils.property(thatLocator, "code", rhsCode), lhsCode, rhsCode, (this.code != null),
-          (that.code != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "code", lhsCode), LocatorUtils.property(thatLocator, "code", rhsCode),
+          lhsCode, rhsCode, (this.code != null), (that.code != null))) {
         return false;
       }
     }
@@ -177,8 +171,8 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
       String rhsDescription;
       rhsDescription = that.getDescription();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "description", lhsDescription),
-          LocatorUtils.property(thatLocator, "description", rhsDescription), lhsDescription, rhsDescription,
-          (this.description != null), (that.description != null))) {
+          LocatorUtils.property(thatLocator, "description", rhsDescription), lhsDescription, rhsDescription, (this.description != null),
+          (that.description != null))) {
         return false;
       }
     }
@@ -188,8 +182,8 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
       String rhsSeverity;
       rhsSeverity = that.getSeverity();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "severity", lhsSeverity),
-          LocatorUtils.property(thatLocator, "severity", rhsSeverity), lhsSeverity, rhsSeverity,
-          (this.severity != null), (that.severity != null))) {
+          LocatorUtils.property(thatLocator, "severity", rhsSeverity), lhsSeverity, rhsSeverity, (this.severity != null),
+          (that.severity != null))) {
         return false;
       }
     }
@@ -198,9 +192,8 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
       lhsTitle = this.getTitle();
       String rhsTitle;
       rhsTitle = that.getTitle();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "title", lhsTitle),
-          LocatorUtils.property(thatLocator, "title", rhsTitle), lhsTitle, rhsTitle, (this.title != null),
-          (that.title != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "title", lhsTitle), LocatorUtils.property(thatLocator, "title", rhsTitle),
+          lhsTitle, rhsTitle, (this.title != null), (that.title != null))) {
         return false;
       }
     }
@@ -255,26 +248,25 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
     {
       String theCode;
       theCode = this.getCode();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "code", theCode), currentHashCode,
-          theCode, (this.code != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "code", theCode), currentHashCode, theCode, (this.code != null));
     }
     {
       String theDescription;
       theDescription = this.getDescription();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "description", theDescription),
-          currentHashCode, theDescription, (this.description != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "description", theDescription), currentHashCode, theDescription,
+          (this.description != null));
     }
     {
       String theSeverity;
       theSeverity = this.getSeverity();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "severity", theSeverity),
-          currentHashCode, theSeverity, (this.severity != null));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "severity", theSeverity), currentHashCode, theSeverity, (this.severity != null));
     }
     {
       String theTitle;
       theTitle = this.getTitle();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "title", theTitle), currentHashCode,
-          theTitle, (this.title != null));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "title", theTitle), currentHashCode, theTitle, (this.title != null));
     }
     return currentHashCode;
   }
@@ -302,8 +294,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
         if (codeShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceCode;
           sourceCode = this.getCode();
-          String copyCode = ((String) strategy.copy(LocatorUtils.property(locator, "code", sourceCode),
-              sourceCode, (this.code != null)));
+          String copyCode = ((String) strategy.copy(LocatorUtils.property(locator, "code", sourceCode), sourceCode, (this.code != null)));
           copy.setCode(copyCode);
         } else {
           if (codeShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -312,14 +303,12 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
         }
       }
       {
-        Boolean descriptionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.description != null));
+        Boolean descriptionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.description != null));
         if (descriptionShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceDescription;
           sourceDescription = this.getDescription();
-          String copyDescription = ((String) strategy.copy(
-              LocatorUtils.property(locator, "description", sourceDescription), sourceDescription,
-              (this.description != null)));
+          String copyDescription = ((String) strategy.copy(LocatorUtils.property(locator, "description", sourceDescription),
+              sourceDescription, (this.description != null)));
           copy.setDescription(copyDescription);
         } else {
           if (descriptionShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -332,9 +321,8 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
         if (severityShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceSeverity;
           sourceSeverity = this.getSeverity();
-          String copySeverity = ((String) strategy.copy(
-              LocatorUtils.property(locator, "severity", sourceSeverity), sourceSeverity,
-              (this.severity != null)));
+          String copySeverity =
+              ((String) strategy.copy(LocatorUtils.property(locator, "severity", sourceSeverity), sourceSeverity, (this.severity != null)));
           copy.setSeverity(copySeverity);
         } else {
           if (severityShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -347,8 +335,8 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
         if (titleShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceTitle;
           sourceTitle = this.getTitle();
-          String copyTitle = ((String) strategy.copy(LocatorUtils.property(locator, "title", sourceTitle),
-              sourceTitle, (this.title != null)));
+          String copyTitle =
+              ((String) strategy.copy(LocatorUtils.property(locator, "title", sourceTitle), sourceTitle, (this.title != null)));
           copy.setTitle(copyTitle);
         } else {
           if (titleShouldBeCopiedAndSet == Boolean.FALSE) {

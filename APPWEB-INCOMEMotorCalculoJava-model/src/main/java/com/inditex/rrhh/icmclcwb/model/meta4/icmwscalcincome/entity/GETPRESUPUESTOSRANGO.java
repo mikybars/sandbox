@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -44,8 +40,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -67,7 +63,7 @@ public class GETPRESUPUESTOSRANGO implements Serializable, Cloneable, CopyTo2, E
    * Obtiene el valor de la propiedad icmparametrospaginacion.
    * 
    * @return possible object is {@link IcmParametrospaginacionBlock }
-   *
+   * 
    */
   public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
     return icmparametrospaginacion;
@@ -77,7 +73,7 @@ public class GETPRESUPUESTOSRANGO implements Serializable, Cloneable, CopyTo2, E
    * Define el valor de la propiedad icmparametrospaginacion.
    * 
    * @param value allowed object is {@link IcmParametrospaginacionBlock }
-   *
+   * 
    */
   public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
     this.icmparametrospaginacion = value;
@@ -87,7 +83,7 @@ public class GETPRESUPUESTOSRANGO implements Serializable, Cloneable, CopyTo2, E
    * Obtiene el valor de la propiedad icmparamcalpresupuestosrango.
    * 
    * @return possible object is {@link IcmParamcalpresupuestosrangoBlock }
-   *
+   * 
    */
   public IcmParamcalpresupuestosrangoBlock getICMPARAMCALPRESUPUESTOSRANGO() {
     return icmparamcalpresupuestosrango;
@@ -97,14 +93,13 @@ public class GETPRESUPUESTOSRANGO implements Serializable, Cloneable, CopyTo2, E
    * Define el valor de la propiedad icmparamcalpresupuestosrango.
    * 
    * @param value allowed object is {@link IcmParamcalpresupuestosrangoBlock }
-   *
+   * 
    */
   public void setICMPARAMCALPRESUPUESTOSRANGO(IcmParamcalpresupuestosrangoBlock value) {
     this.icmparamcalpresupuestosrango = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -117,11 +112,9 @@ public class GETPRESUPUESTOSRANGO implements Serializable, Cloneable, CopyTo2, E
       lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
       IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
       rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
-          LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION),
-          lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null),
-          (that.icmparametrospaginacion != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
+          LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION), lhsICMPARAMETROSPAGINACION,
+          rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null), (that.icmparametrospaginacion != null))) {
         return false;
       }
     }
@@ -130,11 +123,10 @@ public class GETPRESUPUESTOSRANGO implements Serializable, Cloneable, CopyTo2, E
       lhsICMPARAMCALPRESUPUESTOSRANGO = this.getICMPARAMCALPRESUPUESTOSRANGO();
       IcmParamcalpresupuestosrangoBlock rhsICMPARAMCALPRESUPUESTOSRANGO;
       rhsICMPARAMCALPRESUPUESTOSRANGO = that.getICMPARAMCALPRESUPUESTOSRANGO();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmparamcalpresupuestosrango", lhsICMPARAMCALPRESUPUESTOSRANGO),
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalpresupuestosrango", lhsICMPARAMCALPRESUPUESTOSRANGO),
           LocatorUtils.property(thatLocator, "icmparamcalpresupuestosrango", rhsICMPARAMCALPRESUPUESTOSRANGO),
-          lhsICMPARAMCALPRESUPUESTOSRANGO, rhsICMPARAMCALPRESUPUESTOSRANGO,
-          (this.icmparamcalpresupuestosrango != null), (that.icmparamcalpresupuestosrango != null))) {
+          lhsICMPARAMCALPRESUPUESTOSRANGO, rhsICMPARAMCALPRESUPUESTOSRANGO, (this.icmparamcalpresupuestosrango != null),
+          (that.icmparamcalpresupuestosrango != null))) {
         return false;
       }
     }
@@ -181,15 +173,13 @@ public class GETPRESUPUESTOSRANGO implements Serializable, Cloneable, CopyTo2, E
     {
       IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
       theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
           currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
     }
     {
       IcmParamcalpresupuestosrangoBlock theICMPARAMCALPRESUPUESTOSRANGO;
       theICMPARAMCALPRESUPUESTOSRANGO = this.getICMPARAMCALPRESUPUESTOSRANGO();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmparamcalpresupuestosrango", theICMPARAMCALPRESUPUESTOSRANGO),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalpresupuestosrango", theICMPARAMCALPRESUPUESTOSRANGO),
           currentHashCode, theICMPARAMCALPRESUPUESTOSRANGO, (this.icmparamcalpresupuestosrango != null));
     }
     return currentHashCode;
@@ -214,14 +204,14 @@ public class GETPRESUPUESTOSRANGO implements Serializable, Cloneable, CopyTo2, E
     if (draftCopy instanceof GETPRESUPUESTOSRANGO) {
       final GETPRESUPUESTOSRANGO copy = ((GETPRESUPUESTOSRANGO) draftCopy);
       {
-        Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmparametrospaginacion != null));
+        Boolean icmparametrospaginacionShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospaginacion != null));
         if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
           sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-          IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
-              .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
-                  sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
+          IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy.copy(
+              LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION), sourceICMPARAMETROSPAGINACION,
+              (this.icmparametrospaginacion != null)));
           copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
         } else {
           if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -230,15 +220,14 @@ public class GETPRESUPUESTOSRANGO implements Serializable, Cloneable, CopyTo2, E
         }
       }
       {
-        Boolean icmparamcalpresupuestosrangoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmparamcalpresupuestosrango != null));
+        Boolean icmparamcalpresupuestosrangoShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalpresupuestosrango != null));
         if (icmparamcalpresupuestosrangoShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmParamcalpresupuestosrangoBlock sourceICMPARAMCALPRESUPUESTOSRANGO;
           sourceICMPARAMCALPRESUPUESTOSRANGO = this.getICMPARAMCALPRESUPUESTOSRANGO();
-          IcmParamcalpresupuestosrangoBlock copyICMPARAMCALPRESUPUESTOSRANGO = ((IcmParamcalpresupuestosrangoBlock) strategy
-              .copy(LocatorUtils.property(locator, "icmparamcalpresupuestosrango",
-                  sourceICMPARAMCALPRESUPUESTOSRANGO), sourceICMPARAMCALPRESUPUESTOSRANGO,
-                  (this.icmparamcalpresupuestosrango != null)));
+          IcmParamcalpresupuestosrangoBlock copyICMPARAMCALPRESUPUESTOSRANGO = ((IcmParamcalpresupuestosrangoBlock) strategy.copy(
+              LocatorUtils.property(locator, "icmparamcalpresupuestosrango", sourceICMPARAMCALPRESUPUESTOSRANGO),
+              sourceICMPARAMCALPRESUPUESTOSRANGO, (this.icmparamcalpresupuestosrango != null)));
           copy.setICMPARAMCALPRESUPUESTOSRANGO(copyICMPARAMCALPRESUPUESTOSRANGO);
         } else {
           if (icmparamcalpresupuestosrangoShouldBeCopiedAndSet == Boolean.FALSE) {

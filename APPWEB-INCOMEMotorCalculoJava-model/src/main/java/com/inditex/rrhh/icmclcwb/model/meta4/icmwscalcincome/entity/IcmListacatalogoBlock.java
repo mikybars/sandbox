@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_ListacatalogoBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_ListacatalogoBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_ListacatalogoBlock"&gt;
  *   &lt;complexContent&gt;
@@ -44,8 +40,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListacatalogoBlock", propOrder = {
@@ -60,20 +56,20 @@ public class IcmListacatalogoBlock implements Serializable, Cloneable, CopyTo2, 
 
   /**
    * Gets the value of the icmListacatalogoRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListacatalogoRecordSet property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmListacatalogoRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmListacatalogoRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmListacatalogoRecord> getIcmListacatalogoRecordSet() {
     if (icmListacatalogoRecordSet == null) {
@@ -82,8 +78,7 @@ public class IcmListacatalogoBlock implements Serializable, Cloneable, CopyTo2, 
     return this.icmListacatalogoRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,16 +88,16 @@ public class IcmListacatalogoBlock implements Serializable, Cloneable, CopyTo2, 
     final IcmListacatalogoBlock that = ((IcmListacatalogoBlock) object);
     {
       List<IcmListacatalogoRecord> lhsIcmListacatalogoRecordSet;
-      lhsIcmListacatalogoRecordSet = (((this.icmListacatalogoRecordSet != null)
-          && (!this.icmListacatalogoRecordSet.isEmpty())) ? this.getIcmListacatalogoRecordSet() : null);
+      lhsIcmListacatalogoRecordSet =
+          (((this.icmListacatalogoRecordSet != null) && (!this.icmListacatalogoRecordSet.isEmpty())) ? this.getIcmListacatalogoRecordSet()
+              : null);
       List<IcmListacatalogoRecord> rhsIcmListacatalogoRecordSet;
-      rhsIcmListacatalogoRecordSet = (((that.icmListacatalogoRecordSet != null)
-          && (!that.icmListacatalogoRecordSet.isEmpty())) ? that.getIcmListacatalogoRecordSet() : null);
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmListacatalogoRecordSet", lhsIcmListacatalogoRecordSet),
-          LocatorUtils.property(thatLocator, "icmListacatalogoRecordSet", rhsIcmListacatalogoRecordSet),
-          lhsIcmListacatalogoRecordSet, rhsIcmListacatalogoRecordSet,
-          ((this.icmListacatalogoRecordSet != null) && (!this.icmListacatalogoRecordSet.isEmpty())),
+      rhsIcmListacatalogoRecordSet =
+          (((that.icmListacatalogoRecordSet != null) && (!that.icmListacatalogoRecordSet.isEmpty())) ? that.getIcmListacatalogoRecordSet()
+              : null);
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListacatalogoRecordSet", lhsIcmListacatalogoRecordSet),
+          LocatorUtils.property(thatLocator, "icmListacatalogoRecordSet", rhsIcmListacatalogoRecordSet), lhsIcmListacatalogoRecordSet,
+          rhsIcmListacatalogoRecordSet, ((this.icmListacatalogoRecordSet != null) && (!this.icmListacatalogoRecordSet.isEmpty())),
           ((that.icmListacatalogoRecordSet != null) && (!that.icmListacatalogoRecordSet.isEmpty())))) {
         return false;
       }
@@ -132,8 +127,9 @@ public class IcmListacatalogoBlock implements Serializable, Cloneable, CopyTo2, 
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
       List<IcmListacatalogoRecord> theIcmListacatalogoRecordSet;
-      theIcmListacatalogoRecordSet = (((this.icmListacatalogoRecordSet != null)
-          && (!this.icmListacatalogoRecordSet.isEmpty())) ? this.getIcmListacatalogoRecordSet() : null);
+      theIcmListacatalogoRecordSet =
+          (((this.icmListacatalogoRecordSet != null) && (!this.icmListacatalogoRecordSet.isEmpty())) ? this.getIcmListacatalogoRecordSet()
+              : null);
       strategy.appendField(locator, this, "icmListacatalogoRecordSet", buffer, theIcmListacatalogoRecordSet,
           ((this.icmListacatalogoRecordSet != null) && (!this.icmListacatalogoRecordSet.isEmpty())));
     }
@@ -144,12 +140,12 @@ public class IcmListacatalogoBlock implements Serializable, Cloneable, CopyTo2, 
     int currentHashCode = 1;
     {
       List<IcmListacatalogoRecord> theIcmListacatalogoRecordSet;
-      theIcmListacatalogoRecordSet = (((this.icmListacatalogoRecordSet != null)
-          && (!this.icmListacatalogoRecordSet.isEmpty())) ? this.getIcmListacatalogoRecordSet() : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmListacatalogoRecordSet", theIcmListacatalogoRecordSet),
-          currentHashCode, theIcmListacatalogoRecordSet,
-          ((this.icmListacatalogoRecordSet != null) && (!this.icmListacatalogoRecordSet.isEmpty())));
+      theIcmListacatalogoRecordSet =
+          (((this.icmListacatalogoRecordSet != null) && (!this.icmListacatalogoRecordSet.isEmpty())) ? this.getIcmListacatalogoRecordSet()
+              : null);
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "icmListacatalogoRecordSet", theIcmListacatalogoRecordSet), currentHashCode,
+              theIcmListacatalogoRecordSet, ((this.icmListacatalogoRecordSet != null) && (!this.icmListacatalogoRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -177,19 +173,16 @@ public class IcmListacatalogoBlock implements Serializable, Cloneable, CopyTo2, 
             ((this.icmListacatalogoRecordSet != null) && (!this.icmListacatalogoRecordSet.isEmpty())));
         if (icmListacatalogoRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmListacatalogoRecord> sourceIcmListacatalogoRecordSet;
-          sourceIcmListacatalogoRecordSet = (((this.icmListacatalogoRecordSet != null)
-              && (!this.icmListacatalogoRecordSet.isEmpty())) ? this.getIcmListacatalogoRecordSet()
-                  : null);
+          sourceIcmListacatalogoRecordSet = (((this.icmListacatalogoRecordSet != null) && (!this.icmListacatalogoRecordSet.isEmpty()))
+              ? this.getIcmListacatalogoRecordSet()
+              : null);
           @SuppressWarnings("unchecked")
-          List<IcmListacatalogoRecord> copyIcmListacatalogoRecordSet = ((List<IcmListacatalogoRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmListacatalogoRecordSet",
-                  sourceIcmListacatalogoRecordSet), sourceIcmListacatalogoRecordSet,
-                  ((this.icmListacatalogoRecordSet != null)
-                      && (!this.icmListacatalogoRecordSet.isEmpty()))));
+          List<IcmListacatalogoRecord> copyIcmListacatalogoRecordSet = ((List<IcmListacatalogoRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmListacatalogoRecordSet", sourceIcmListacatalogoRecordSet), sourceIcmListacatalogoRecordSet,
+              ((this.icmListacatalogoRecordSet != null) && (!this.icmListacatalogoRecordSet.isEmpty()))));
           copy.icmListacatalogoRecordSet = null;
           if (copyIcmListacatalogoRecordSet != null) {
-            List<IcmListacatalogoRecord> uniqueIcmListacatalogoRecordSetl = copy
-                .getIcmListacatalogoRecordSet();
+            List<IcmListacatalogoRecord> uniqueIcmListacatalogoRecordSetl = copy.getIcmListacatalogoRecordSet();
             uniqueIcmListacatalogoRecordSetl.addAll(copyIcmListacatalogoRecordSet);
           }
         } else {

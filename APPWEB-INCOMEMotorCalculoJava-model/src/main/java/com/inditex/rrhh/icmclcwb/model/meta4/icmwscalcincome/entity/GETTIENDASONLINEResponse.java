@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETTIENDASONLINEResponse implements Serializable, Cloneable, CopyTo
    * Obtiene el valor de la propiedad gettiendasonlineReturn.
    * 
    * @return possible object is {@link GettiendasonlineOutput }
-   *
+   * 
    */
   public GettiendasonlineOutput getGETTIENDASONLINEReturn() {
     return gettiendasonlineReturn;
@@ -72,14 +68,13 @@ public class GETTIENDASONLINEResponse implements Serializable, Cloneable, CopyTo
    * Define el valor de la propiedad gettiendasonlineReturn.
    * 
    * @param value allowed object is {@link GettiendasonlineOutput }
-   *
+   * 
    */
   public void setGETTIENDASONLINEReturn(GettiendasonlineOutput value) {
     this.gettiendasonlineReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -92,11 +87,9 @@ public class GETTIENDASONLINEResponse implements Serializable, Cloneable, CopyTo
       lhsGETTIENDASONLINEReturn = this.getGETTIENDASONLINEReturn();
       GettiendasonlineOutput rhsGETTIENDASONLINEReturn;
       rhsGETTIENDASONLINEReturn = that.getGETTIENDASONLINEReturn();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "gettiendasonlineReturn", lhsGETTIENDASONLINEReturn),
-          LocatorUtils.property(thatLocator, "gettiendasonlineReturn", rhsGETTIENDASONLINEReturn),
-          lhsGETTIENDASONLINEReturn, rhsGETTIENDASONLINEReturn, (this.gettiendasonlineReturn != null),
-          (that.gettiendasonlineReturn != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "gettiendasonlineReturn", lhsGETTIENDASONLINEReturn),
+          LocatorUtils.property(thatLocator, "gettiendasonlineReturn", rhsGETTIENDASONLINEReturn), lhsGETTIENDASONLINEReturn,
+          rhsGETTIENDASONLINEReturn, (this.gettiendasonlineReturn != null), (that.gettiendasonlineReturn != null))) {
         return false;
       }
     }
@@ -137,8 +130,7 @@ public class GETTIENDASONLINEResponse implements Serializable, Cloneable, CopyTo
     {
       GettiendasonlineOutput theGETTIENDASONLINEReturn;
       theGETTIENDASONLINEReturn = this.getGETTIENDASONLINEReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "gettiendasonlineReturn", theGETTIENDASONLINEReturn),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "gettiendasonlineReturn", theGETTIENDASONLINEReturn),
           currentHashCode, theGETTIENDASONLINEReturn, (this.gettiendasonlineReturn != null));
     }
     return currentHashCode;
@@ -163,14 +155,13 @@ public class GETTIENDASONLINEResponse implements Serializable, Cloneable, CopyTo
     if (draftCopy instanceof GETTIENDASONLINEResponse) {
       final GETTIENDASONLINEResponse copy = ((GETTIENDASONLINEResponse) draftCopy);
       {
-        Boolean gettiendasonlineReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.gettiendasonlineReturn != null));
+        Boolean gettiendasonlineReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.gettiendasonlineReturn != null));
         if (gettiendasonlineReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GettiendasonlineOutput sourceGETTIENDASONLINEReturn;
           sourceGETTIENDASONLINEReturn = this.getGETTIENDASONLINEReturn();
           GettiendasonlineOutput copyGETTIENDASONLINEReturn = ((GettiendasonlineOutput) strategy.copy(
-              LocatorUtils.property(locator, "gettiendasonlineReturn", sourceGETTIENDASONLINEReturn),
-              sourceGETTIENDASONLINEReturn, (this.gettiendasonlineReturn != null)));
+              LocatorUtils.property(locator, "gettiendasonlineReturn", sourceGETTIENDASONLINEReturn), sourceGETTIENDASONLINEReturn,
+              (this.gettiendasonlineReturn != null)));
           copy.setGETTIENDASONLINEReturn(copyGETTIENDASONLINEReturn);
         } else {
           if (gettiendasonlineReturnShouldBeCopiedAndSet == Boolean.FALSE) {

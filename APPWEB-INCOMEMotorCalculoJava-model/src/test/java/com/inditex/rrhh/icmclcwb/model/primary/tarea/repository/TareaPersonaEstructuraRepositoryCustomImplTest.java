@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -10,7 +11,9 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
@@ -37,7 +40,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class TareaPersonaEstructuraRepositoryCustomImplTest {
+class TareaPersonaEstructuraRepositoryCustomImplTest {
 
   private static final String SQL_UPDATE_ACTIVO_TOPES = "SQL UPDATE ACTIVO TOPES";
 
@@ -48,6 +51,8 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
   private static final String SQL_CALCULAR_FESTIVOS = "SQL CALCULAR FESTIVOS";
 
   private static final String SQL_SAVE = "SQL_SAVE";
+
+  private static final String SQL_CREAR_ESTRUCTURAS_ORIGEN_IGUALAR_BANDAS = "SQL CREAR ESTRUCTURAS ORIGEN IGUALAR BANDAS";
 
   @Mock
   private JdbcTemplate jdbcTemplate;
@@ -76,11 +81,13 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlCalcularFestivos", SQL_CALCULAR_FESTIVOS,
         true);
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlSave", SQL_SAVE, true);
+    FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlCrearEstructurasOrigenIgualarBandas",
+        SQL_CREAR_ESTRUCTURAS_ORIGEN_IGUALAR_BANDAS, true);
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "batchSize", 100, true);
   }
 
   @Test
-  public void updateActivoTopesTest() {
+  void updateActivoTopesTest() {
 
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(890L);
@@ -108,7 +115,7 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
   }
 
   @Test
-  public void findPersonasChallengeTest() {
+  void findPersonasChallengeTest() {
 
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(8209L);
@@ -138,7 +145,7 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
   }
 
   @Test
-  public void saveTest() {
+  void saveTest() {
     final List<TareaPersonaEstructura> items = Arrays.asList(mock(TareaPersonaEstructura.class));
     this.tareaPersonaEstructuraRepositoryCustom.save(items);
     verify(this.namedParameterJdbcTemplate).batchUpdate(this.sqlCaptor.capture(),
@@ -147,7 +154,7 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
   }
 
   @Test
-  public void desactivarChallengeOpcionOrigenTest() {
+  void desactivarChallengeOpcionOrigenTest() {
 
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(8209L);
@@ -190,7 +197,7 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
   }
 
   @Test
-  public void calcularFestivosTest() {
+  void calcularFestivosTest() {
 
     final Long idTarea = 12L;
     final TareaDto tareaMock = mock(TareaDto.class);
@@ -211,6 +218,27 @@ public class TareaPersonaEstructuraRepositoryCustomImplTest {
     // festivo
     assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_FESTIVO));
     assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, map.getValue(SqlPrimaryConstants.SQL_PARAM_FESTIVO));
+
+  }
+
+  @Test
+  void crearEstructurasOrigenIgualarBandasTest() {
+
+    this.tareaPersonaEstructuraRepositoryCustom.crearEstructurasOrigenIgualarBandas();
+
+    final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_CREAR_ESTRUCTURAS_ORIGEN_IGUALAR_BANDAS), paramsCaptor.capture());
+
+    final Map<String, Object> expected = new HashMap<>() {
+      private static final long serialVersionUID = 3840086857103797076L;
+
+      {
+        this.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        this.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+      }
+    };
+
+    assertEquals(expected, paramsCaptor.getValue().getValues());
 
   }
 
