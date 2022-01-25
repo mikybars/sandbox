@@ -151,13 +151,13 @@ amiga:
         broker-escritura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: ${qa.amq.brokerAmqCFWrite.url:tcp://localhost:61616}?jms.messagePrioritySupported=true
+          brokerURL: ${qa.amq.brokerAmqCFWrite.url:tcp://localhost:61616}
           userName: ${qa.amq.brokerAmqCFWrite.username:usr-write}
           password: ${qa.amq.brokerAmqCFWrite.password:write}
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: ${qa.amq.brokerAmqCFRead.url:tcp://localhost:61616}?jms.messagePrioritySupported=true
+          brokerURL: ${qa.amq.brokerAmqCFRead.url:tcp://localhost:61616}
           userName: ${qa.amq.brokerAmqCFRead.username:usr-read}
           password: ${qa.amq.brokerAmqCFRead.password:read}
       listener-container-factory:
