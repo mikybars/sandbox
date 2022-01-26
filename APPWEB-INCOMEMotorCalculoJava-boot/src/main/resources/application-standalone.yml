@@ -20,7 +20,7 @@ metadata:
   platform: Openshift-SSCC Arteixo
   slot: develop
   developModel: CORPORATE
-  layer: core 
+  layer: core
   version: 4.10.4
 amiga:
   monitoring:
@@ -205,7 +205,7 @@ amiga:
         consolidacion:
           destinationName: ${amiga.service.jms.programacion-queue.consolidacion-fqdn}
           pubSubDomain: false
-          sessionTransacted: false          
+          sessionTransacted: false
     jdbc:
       pool:
         hikari:

@@ -178,7 +178,7 @@
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
-        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)                
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -212,10 +212,9 @@
     WHERE
       PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
     SELECT
@@ -251,11 +250,10 @@
       ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
     WHERE PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
     UNION
     -- Casos que no tienen desplazamientos en el período
      SELECT
@@ -310,16 +308,15 @@
                       ON pct.Persona = ph.Persona
                       AND pct.FechaDesde <= :fechaHasta
                       AND PCT.FECHADESDE <= case when PH.fechaHasta is not null then ph.fechahasta else :fechaHasta end
-                      AND (PCT.FechaHasta IS NULL OR pct.FechaHasta >= PH.FechaDesde)                      
+                      AND (PCT.FechaHasta IS NULL OR pct.FechaHasta >= PH.FechaDesde)
                       AND (pct.FechaHasta IS NULL OR pct.FechaHasta >= :fechaDesde)
                     WHERE
                       PH.FechaDesde <= :fechaHasta
                       AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
-                      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+                      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
                       AND (pct.Persona IS NULL OR PCT.EXCLUIDOCALCULO = 1)
                       AND PH.TIPOCALCULO IS NOT NULL
                       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-                      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
                 ) Groups
         ) Islands
         GROUP BY
@@ -404,11 +401,11 @@ WITH T AS (SELECT
                           ON TPP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
                             WHERE PCT.FECHADESDE <= :fechaHasta
                             AND PCT.FECHAHASTA >= :fechaDesde
-                            AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-                            AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+                            AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
                             AND PCT.TIPOCALCULO <> 0
                             AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
                             AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+                            AND PH.TABLAPORCENTAJE IS NOT NULL
                           GROUP BY
                             PCT.PERSONA,
                             PCT.FECHADESDE,
@@ -468,7 +465,7 @@ WITH T AS (SELECT
                 *,
                 LAG(PORCENTAJE) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousPorcentaje
                 FROM
-                    (            
+                    (
                         SELECT PCT.PERSONA AS CCL_ID_PERSON,
                             ROW_NUMBER() OVER(PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, TPC.PORCENTAJE, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS RN,
                             LAG(PCT.FECHAHASTA,1) OVER (PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, TPC.PORCENTAJE, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS PreviousEndDate,
@@ -515,14 +512,14 @@ WITH T AS (SELECT
                             WHERE PCT.FECHADESDE <= :fechaHasta
                             AND PCT.FECHAHASTA >= :fechaDesde
                             AND PR.FECHADESDE <= :fechaHasta
-                            AND PR.FECHAHASTA >= :fechaDesde            
-                            AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-                            AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+                            AND PR.FECHAHASTA >= :fechaDesde
+                            AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
                             AND PCT.TIPOCALCULO <> 0
                             AND PR.TIPOCALCULO = 0
                             AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
-                            AND PH.TIPOCALCULO IS NOT NULL                            
+                            AND PH.TIPOCALCULO IS NOT NULL
                             AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+                            AND PH.TABLAPORCENTAJE IS NOT NULL
                           GROUP BY
                             PCT.PERSONA,
                             PCT.FECHADESDE,
@@ -686,7 +683,7 @@ UNION
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
-        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)        
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -721,10 +718,9 @@ UNION
       AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
       AND PH.TABLAPORCENTAJE IS NOT NULL
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
@@ -765,11 +761,10 @@ UNION
       AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1 ) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
       AND PH.TABLAPORCENTAJE IS NOT NULL
     UNION
     -- Casos que no tienen desplazamientos en el período
@@ -793,12 +788,12 @@ UNION
            SELECT
                 DENSE_RANK() OVER (ORDER BY PH.FechaDesde) AS DENSE_RANK,
                 PH.PERSONA AS CCL_ID_PERSON,
-                CASE 
-                  WHEN PR.FECHADESDE < :fechaDesde THEN :fechaDesde 
-                  ELSE PR.FechaDesde 
+                CASE
+                  WHEN PR.FECHADESDE < :fechaDesde THEN :fechaDesde
+                  ELSE PR.FechaDesde
                 END AS FechaDesde,
                 CASE
-                  WHEN PR.FECHAHASTA <= :fechaHasta THEN PR.FECHAHASTA                
+                  WHEN PR.FECHAHASTA <= :fechaHasta THEN PR.FECHAHASTA
                   ELSE :fechaHasta
                 END AS FECHAHASTA,
                 PH.TipoCalculo AS ID_TIPO_CALCULO,
@@ -819,7 +814,7 @@ UNION
               FROM PersonasResaltas PR
               INNER JOIN PERSONASHISTORICO PH
                   ON PH.PERSONA = PR.PERSONA
-                  AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
+                  AND (PR.FechaHasta IS NULL OR (PH.FechaDesde <= PR.FechaDesde OR PH.FechaDesde <= :fechaDesde))
                   AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
               LEFT JOIN TABLASPORCENTAJESCOMISION TPC
                 ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
@@ -829,18 +824,17 @@ UNION
                 ON PCT.PERSONA = PH.PERSONA
                 AND PCT.FECHADESDE <= :fechaHasta
                 AND PCT.FECHADESDE <= case when PH.fechaHasta is not null then ph.fechahasta else :fechaHasta end
-                AND (PCT.FechaHasta IS NULL OR pct.FechaHasta >= PH.FechaDesde)                                      
+                AND (PCT.FechaHasta IS NULL OR pct.FechaHasta >= PH.FechaDesde)
                 AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
               WHERE
                 PR.FechaDesde <= :fechaHasta
                 AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
                 AND PH.FechaDesde <= :fechaHasta
                 AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
-                AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+                AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
                 AND PCT.PERSONA IS NULL
                 AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
                 AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-                AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
                 AND PH.TABLAPORCENTAJE IS NOT NULL
                 AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
           ) Groups
@@ -942,7 +936,7 @@ UNION
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
-        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)                
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -985,10 +979,9 @@ UNION
       AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
       AND PH.TABLAPORCENTAJE IS NOT NULL
       -- Filtro para excluir las PRIMAS
       AND NOT (GP.GrupoPorcentaje IN (106,107) AND GP.TipoPorcentaje = 2 AND GPH.TipoPorcentaje = 1)
@@ -1039,11 +1032,10 @@ UNION
       AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
       AND PH.TABLAPORCENTAJE IS NOT NULL
       -- Filtro para excluir las PRIMAS
       AND NOT (GP.GrupoPorcentaje IN (106,107) AND GP.TipoPorcentaje = 2 AND GPH.TipoPorcentaje = 1)
@@ -1069,12 +1061,12 @@ UNION
            SELECT
                 DENSE_RANK() OVER (ORDER BY PH.FechaDesde) AS DENSE_RANK,
                 PH.PERSONA AS CCL_ID_PERSON,
-                CASE 
-                  WHEN PR.FECHADESDE < :fechaDesde THEN :fechaDesde 
-                  ELSE PR.FechaDesde 
+                CASE
+                  WHEN PR.FECHADESDE < :fechaDesde THEN :fechaDesde
+                  ELSE PR.FechaDesde
                 END AS FechaDesde,
                 CASE
-                  WHEN PR.FECHAHASTA <= :fechaHasta THEN PR.FECHAHASTA                
+                  WHEN PR.FECHAHASTA <= :fechaHasta THEN PR.FECHAHASTA
                   ELSE :fechaHasta
                 END AS FECHAHASTA,
                 PH.TipoCalculo AS ID_TIPO_CALCULO,
@@ -1099,7 +1091,7 @@ UNION
               	ON TPR.GrupoPorcentaje = GP.GrupoPorcentaje
               INNER JOIN PERSONASHISTORICO PH
                   ON PH.PERSONA = PR.PERSONA
-                  AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
+                  AND (PR.FechaHasta IS NULL OR (PH.FechaDesde <= PR.FechaDesde OR PH.FechaDesde <= :fechaDesde))
                   AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
               INNER JOIN TablasPorcentajes TPH
                 ON TPH.TablaPorcentaje = PH.TablaPorcentaje
@@ -1118,11 +1110,10 @@ UNION
                 AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
                 AND PH.FechaDesde <= :fechaHasta
                 AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
-                AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+                AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
                 AND (PCT.PERSONA IS NULL OR PCT.EXCLUIDOCALCULO = 1)
                 AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
                 AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-                AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
                 AND PH.TABLAPORCENTAJE IS NOT NULL
                 -- Filtro para excluir las PRIMAS
                 AND NOT (GP.GrupoPorcentaje IN (106,107) AND GP.TipoPorcentaje = 2 AND GPH.TipoPorcentaje = 1)
@@ -1227,7 +1218,7 @@ UNION
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
-        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)        
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -1270,10 +1261,9 @@ UNION
       AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
       AND PH.TABLAPORCENTAJE IS NOT NULL
       -- Filtro para propio de las PRIMAS
       AND GP.GrupoPorcentaje IN (106,107)
@@ -1326,11 +1316,10 @@ UNION
       AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
       AND PH.TABLAPORCENTAJE IS NOT NULL
       -- Filtro para propio de las PRIMAS
       AND GP.GrupoPorcentaje IN (106,107)
@@ -1405,11 +1394,10 @@ UNION
                 AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
                 AND PH.FechaDesde <= :fechaHasta
                 AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
-                AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+                AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
                 AND PCT.PERSONA IS NULL
                 AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
                 AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-                AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
                 AND PH.TABLAPORCENTAJE IS NOT NULL
                 AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
                 -- Filtro para propio de las PRIMAS
@@ -1688,7 +1676,7 @@ WITH T AS (SELECT
              SELECT PCT.PERSONA AS CCL_ID_PERSON,
                     ROW_NUMBER() OVER(PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, TPC.PORCENTAJE, TPP.BANDA, TPP.IMPORTE, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS RN,
                     LAG(PCT.FECHAHASTA,1) OVER (PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, TPC.PORCENTAJE, TPP.BANDA, TPP.IMPORTE, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS PreviousEndDate,
-                    LAG(TPC.PORCENTAJE) OVER (PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS PreviousPorcentaje,		
+                    LAG(TPC.PORCENTAJE) OVER (PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS PreviousPorcentaje,
                   CASE
                     WHEN PCT.FECHADESDE < :fechaDesde THEN :fechaDesde
                     ELSE PCT.FECHADESDE
@@ -1721,8 +1709,7 @@ WITH T AS (SELECT
                   ON TPP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
                     WHERE PCT.FECHADESDE <= :fechaHasta
                     AND PCT.FECHAHASTA >= :fechaDesde
-                    AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-                    AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+                    AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
                     AND PCT.TIPOCALCULO <> 0
                     AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
                     AND PCT.PERSONA < 500000
@@ -1782,7 +1769,7 @@ WITH T AS (SELECT
         SELECT PCT.PERSONA AS CCL_ID_PERSON,
             ROW_NUMBER() OVER(PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, TPC.PORCENTAJE, TPP.BANDA, TPP.IMPORTE, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS RN,
             LAG(PCT.FECHAHASTA,1) OVER (PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, TPC.PORCENTAJE, TPP.BANDA, TPP.IMPORTE, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS PreviousEndDate,
-            LAG(TPC.PORCENTAJE) OVER (PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS PreviousPorcentaje,	
+            LAG(TPC.PORCENTAJE) OVER (PARTITION BY PCT.PERSONA, PCT.TIENDADESTINO, TPC.SECCION, PCT.SECCIONDESTINO, PCT.TIPOCALCULO, PCT.TIPOOPCIONCALCULO, PCT.MOTIVO, PCT.PUESTODESTINO ORDER BY PCT.FECHADESDE, PCT.FECHAHASTA) AS PreviousPorcentaje,
           CASE
             WHEN PCT.FECHADESDE < :fechaDesde THEN :fechaDesde
             ELSE PCT.FECHADESDE
@@ -1821,9 +1808,8 @@ WITH T AS (SELECT
             WHERE PCT.FECHADESDE <= :fechaHasta
             AND PCT.FECHAHASTA >= :fechaDesde
             AND PR.FECHADESDE <= :fechaHasta
-            AND PR.FECHAHASTA >= :fechaDesde            
-            AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
-            AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
+            AND PR.FECHAHASTA >= :fechaDesde
+            AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
             AND PCT.TIPOCALCULO <> 0
             AND PR.TIPOCALCULO = 0
             AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
@@ -1985,7 +1971,7 @@ UNION
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
-        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)                
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -2020,10 +2006,9 @@ UNION
       PH.FechaDesde <= :fechaHasta
       AND PH.PERSONA < 500000
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
     SELECT
@@ -2060,11 +2045,10 @@ UNION
     WHERE PH.FechaDesde <= :fechaHasta
       AND PH.PERSONA < 500000
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
     UNION
     -- Casos que no tienen desplazamientos en el período
      SELECT
@@ -2125,11 +2109,10 @@ UNION
                       PH.FechaDesde <= :fechaHasta
                       AND PH.PERSONA < 500000
                       AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
-                      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+                      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
                       AND pct.Persona IS NULL
                       AND PH.TIPOCALCULO IS NOT NULL
                       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-                      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
                       AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
                 ) Groups
         ) Islands
@@ -2222,7 +2205,7 @@ WITH FECHAS_ESTRUCTURA AS (
         FECHADESDE <= :fechaHasta
         AND FECHAHASTA >= :fechaDesde
         AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
-        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)                
+        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -2265,10 +2248,9 @@ WITH FECHAS_ESTRUCTURA AS (
       AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
       AND PH.TABLAPORCENTAJE IS NOT NULL
     UNION
     -- Casos con desplazamientos en el período, el último tramo con la estructura base
@@ -2317,11 +2299,10 @@ WITH FECHAS_ESTRUCTURA AS (
       AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
       AND PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-      AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+      AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
       AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
       AND DATEADD(day, 1, D.FECHAHASTA) <= :fechaHasta
-      AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
       AND PH.TABLAPORCENTAJE IS NOT NULL
     UNION
     -- Casos que no tienen desplazamientos en el período
@@ -2345,12 +2326,12 @@ WITH FECHAS_ESTRUCTURA AS (
            SELECT
                 DENSE_RANK() OVER (ORDER BY PH.FechaDesde) AS DENSE_RANK,
                 PH.PERSONA AS CCL_ID_PERSON,
-                CASE 
-                  WHEN PR.FECHADESDE < :fechaDesde THEN :fechaDesde 
-                  ELSE PR.FechaDesde 
+                CASE
+                  WHEN PR.FECHADESDE < :fechaDesde THEN :fechaDesde
+                  ELSE PR.FechaDesde
                 END AS FechaDesde,
                 CASE
-                  WHEN PR.FECHAHASTA <= :fechaHasta THEN PR.FECHAHASTA                
+                  WHEN PR.FECHAHASTA <= :fechaHasta THEN PR.FECHAHASTA
                   ELSE :fechaHasta
                 END AS FECHAHASTA,
                 CASE WHEN PH.TIPOCALCULO = 8 AND GP.TipoPorcentaje = 3 THEN 8
@@ -2394,11 +2375,10 @@ WITH FECHAS_ESTRUCTURA AS (
                 AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
                 AND PH.FechaDesde <= :fechaHasta
                 AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
-                AND (TPC.PORCENTAJE IS NOT NULL OR TPP.IMPORTE IS NOT NULL)
+                AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR TPP.IMPORTE IS NOT NULL)
                 AND (PCT.PERSONA IS NULL OR PCT.EXCLUIDOCALCULO = 1)
                 AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
                 AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-                AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
                 AND PH.TABLAPORCENTAJE IS NOT NULL
           ) Groups
   ) Islands
