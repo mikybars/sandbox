@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -29,10 +25,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para Icm_Ws_ToolsBlock complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para Icm_Ws_ToolsBlock complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType name="Icm_Ws_ToolsBlock"&gt;
  *   &lt;complexContent&gt;
@@ -58,8 +54,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_Ws_ToolsBlock", propOrder = {
@@ -132,7 +128,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad sysParam.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getSysParam() {
     return sysParam;
@@ -142,7 +138,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad sysParam.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setSysParam(String value) {
     this.sysParam = value;
@@ -152,7 +148,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmPrpCopy.
    * 
    * @return possible object is {@link Double }
-   *
+   * 
    */
   public Double getIcmPrpCopy() {
     return icmPrpCopy;
@@ -162,7 +158,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmPrpCopy.
    * 
    * @param value allowed object is {@link Double }
-   *
+   * 
    */
   public void setIcmPrpCopy(Double value) {
     this.icmPrpCopy = value;
@@ -172,7 +168,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad sysSentence.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getSysSentence() {
     return sysSentence;
@@ -182,7 +178,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad sysSentence.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setSysSentence(String value) {
     this.sysSentence = value;
@@ -192,7 +188,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmM4Object.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getIcmM4Object() {
     return icmM4Object;
@@ -202,7 +198,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmM4Object.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setIcmM4Object(String value) {
     this.icmM4Object = value;
@@ -212,7 +208,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmHavePaging.
    * 
    * @return possible object is {@link Double }
-   *
+   * 
    */
   public Double getIcmHavePaging() {
     return icmHavePaging;
@@ -222,7 +218,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmHavePaging.
    * 
    * @param value allowed object is {@link Double }
-   *
+   * 
    */
   public void setIcmHavePaging(Double value) {
     this.icmHavePaging = value;
@@ -232,7 +228,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmParentNode.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getIcmParentNode() {
     return icmParentNode;
@@ -242,7 +238,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmParentNode.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setIcmParentNode(String value) {
     this.icmParentNode = value;
@@ -252,7 +248,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmSharePolicy.
    * 
    * @return possible object is {@link Double }
-   *
+   * 
    */
   public Double getIcmSharePolicy() {
     return icmSharePolicy;
@@ -262,7 +258,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmSharePolicy.
    * 
    * @param value allowed object is {@link Double }
-   *
+   * 
    */
   public void setIcmSharePolicy(Double value) {
     this.icmSharePolicy = value;
@@ -272,7 +268,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmCloseChannel.
    * 
    * @return possible object is {@link Double }
-   *
+   * 
    */
   public Double getIcmCloseChannel() {
     return icmCloseChannel;
@@ -282,7 +278,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmCloseChannel.
    * 
    * @param value allowed object is {@link Double }
-   *
+   * 
    */
   public void setIcmCloseChannel(Double value) {
     this.icmCloseChannel = value;
@@ -292,7 +288,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmPrpCopyType.
    * 
    * @return possible object is {@link String }
-   *
+   * 
    */
   public String getIcmPrpCopyType() {
     return icmPrpCopyType;
@@ -302,7 +298,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmPrpCopyType.
    * 
    * @param value allowed object is {@link String }
-   *
+   * 
    */
   public void setIcmPrpCopyType(String value) {
     this.icmPrpCopyType = value;
@@ -312,7 +308,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmPrpLoadType.
    * 
    * @return possible object is {@link Double }
-   *
+   * 
    */
   public Double getIcmPrpLoadType() {
     return icmPrpLoadType;
@@ -322,7 +318,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmPrpLoadType.
    * 
    * @param value allowed object is {@link Double }
-   *
+   * 
    */
   public void setIcmPrpLoadType(Double value) {
     this.icmPrpLoadType = value;
@@ -332,7 +328,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmPrpLastLevel.
    * 
    * @return possible object is {@link Double }
-   *
+   * 
    */
   public Double getIcmPrpLastLevel() {
     return icmPrpLastLevel;
@@ -342,7 +338,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmPrpLastLevel.
    * 
    * @param value allowed object is {@link Double }
-   *
+   * 
    */
   public void setIcmPrpLastLevel(Double value) {
     this.icmPrpLastLevel = value;
@@ -352,7 +348,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmPrpLoadDepth.
    * 
    * @return possible object is {@link Double }
-   *
+   * 
    */
   public Double getIcmPrpLoadDepth() {
     return icmPrpLoadDepth;
@@ -362,7 +358,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmPrpLoadDepth.
    * 
    * @param value allowed object is {@link Double }
-   *
+   * 
    */
   public void setIcmPrpLoadDepth(Double value) {
     this.icmPrpLoadDepth = value;
@@ -372,7 +368,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmHaveValidation.
    * 
    * @return possible object is {@link Double }
-   *
+   * 
    */
   public Double getIcmHaveValidation() {
     return icmHaveValidation;
@@ -382,7 +378,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmHaveValidation.
    * 
    * @param value allowed object is {@link Double }
-   *
+   * 
    */
   public void setIcmHaveValidation(Double value) {
     this.icmHaveValidation = value;
@@ -392,7 +388,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmHaveIdexecution.
    * 
    * @return possible object is {@link Double }
-   *
+   * 
    */
   public Double getIcmHaveIdexecution() {
     return icmHaveIdexecution;
@@ -402,7 +398,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmHaveIdexecution.
    * 
    * @param value allowed object is {@link Double }
-   *
+   * 
    */
   public void setIcmHaveIdexecution(Double value) {
     this.icmHaveIdexecution = value;
@@ -410,20 +406,20 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Gets the value of the icmWsToolsRecordSet property.
-   *
+   * 
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmWsToolsRecordSet property.
-   *
+   * 
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmWsToolsRecordSet().add(newItem);
    * </pre>
-   *
-   *
+   * 
+   * 
    * <p> Objects of the following type(s) are allowed in the list {@link IcmWsToolsRecord }
-   *
-   *
+   * 
+   * 
    */
   public List<IcmWsToolsRecord> getIcmWsToolsRecordSet() {
     if (icmWsToolsRecordSet == null) {
@@ -432,8 +428,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
     return this.icmWsToolsRecordSet;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -447,8 +442,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       String rhsSysParam;
       rhsSysParam = that.getSysParam();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "sysParam", lhsSysParam),
-          LocatorUtils.property(thatLocator, "sysParam", rhsSysParam), lhsSysParam, rhsSysParam,
-          (this.sysParam != null), (that.sysParam != null))) {
+          LocatorUtils.property(thatLocator, "sysParam", rhsSysParam), lhsSysParam, rhsSysParam, (this.sysParam != null),
+          (that.sysParam != null))) {
         return false;
       }
     }
@@ -458,8 +453,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       Double rhsIcmPrpCopy;
       rhsIcmPrpCopy = that.getIcmPrpCopy();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmPrpCopy", lhsIcmPrpCopy),
-          LocatorUtils.property(thatLocator, "icmPrpCopy", rhsIcmPrpCopy), lhsIcmPrpCopy, rhsIcmPrpCopy,
-          (this.icmPrpCopy != null), (that.icmPrpCopy != null))) {
+          LocatorUtils.property(thatLocator, "icmPrpCopy", rhsIcmPrpCopy), lhsIcmPrpCopy, rhsIcmPrpCopy, (this.icmPrpCopy != null),
+          (that.icmPrpCopy != null))) {
         return false;
       }
     }
@@ -469,8 +464,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       String rhsSysSentence;
       rhsSysSentence = that.getSysSentence();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "sysSentence", lhsSysSentence),
-          LocatorUtils.property(thatLocator, "sysSentence", rhsSysSentence), lhsSysSentence, rhsSysSentence,
-          (this.sysSentence != null), (that.sysSentence != null))) {
+          LocatorUtils.property(thatLocator, "sysSentence", rhsSysSentence), lhsSysSentence, rhsSysSentence, (this.sysSentence != null),
+          (that.sysSentence != null))) {
         return false;
       }
     }
@@ -480,8 +475,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       String rhsIcmM4Object;
       rhsIcmM4Object = that.getIcmM4Object();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmM4Object", lhsIcmM4Object),
-          LocatorUtils.property(thatLocator, "icmM4Object", rhsIcmM4Object), lhsIcmM4Object, rhsIcmM4Object,
-          (this.icmM4Object != null), (that.icmM4Object != null))) {
+          LocatorUtils.property(thatLocator, "icmM4Object", rhsIcmM4Object), lhsIcmM4Object, rhsIcmM4Object, (this.icmM4Object != null),
+          (that.icmM4Object != null))) {
         return false;
       }
     }
@@ -491,8 +486,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       Double rhsIcmHavePaging;
       rhsIcmHavePaging = that.getIcmHavePaging();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmHavePaging", lhsIcmHavePaging),
-          LocatorUtils.property(thatLocator, "icmHavePaging", rhsIcmHavePaging), lhsIcmHavePaging,
-          rhsIcmHavePaging, (this.icmHavePaging != null), (that.icmHavePaging != null))) {
+          LocatorUtils.property(thatLocator, "icmHavePaging", rhsIcmHavePaging), lhsIcmHavePaging, rhsIcmHavePaging,
+          (this.icmHavePaging != null), (that.icmHavePaging != null))) {
         return false;
       }
     }
@@ -502,8 +497,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       String rhsIcmParentNode;
       rhsIcmParentNode = that.getIcmParentNode();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParentNode", lhsIcmParentNode),
-          LocatorUtils.property(thatLocator, "icmParentNode", rhsIcmParentNode), lhsIcmParentNode,
-          rhsIcmParentNode, (this.icmParentNode != null), (that.icmParentNode != null))) {
+          LocatorUtils.property(thatLocator, "icmParentNode", rhsIcmParentNode), lhsIcmParentNode, rhsIcmParentNode,
+          (this.icmParentNode != null), (that.icmParentNode != null))) {
         return false;
       }
     }
@@ -513,8 +508,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       Double rhsIcmSharePolicy;
       rhsIcmSharePolicy = that.getIcmSharePolicy();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmSharePolicy", lhsIcmSharePolicy),
-          LocatorUtils.property(thatLocator, "icmSharePolicy", rhsIcmSharePolicy), lhsIcmSharePolicy,
-          rhsIcmSharePolicy, (this.icmSharePolicy != null), (that.icmSharePolicy != null))) {
+          LocatorUtils.property(thatLocator, "icmSharePolicy", rhsIcmSharePolicy), lhsIcmSharePolicy, rhsIcmSharePolicy,
+          (this.icmSharePolicy != null), (that.icmSharePolicy != null))) {
         return false;
       }
     }
@@ -524,8 +519,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       Double rhsIcmCloseChannel;
       rhsIcmCloseChannel = that.getIcmCloseChannel();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmCloseChannel", lhsIcmCloseChannel),
-          LocatorUtils.property(thatLocator, "icmCloseChannel", rhsIcmCloseChannel), lhsIcmCloseChannel,
-          rhsIcmCloseChannel, (this.icmCloseChannel != null), (that.icmCloseChannel != null))) {
+          LocatorUtils.property(thatLocator, "icmCloseChannel", rhsIcmCloseChannel), lhsIcmCloseChannel, rhsIcmCloseChannel,
+          (this.icmCloseChannel != null), (that.icmCloseChannel != null))) {
         return false;
       }
     }
@@ -535,8 +530,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       String rhsIcmPrpCopyType;
       rhsIcmPrpCopyType = that.getIcmPrpCopyType();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmPrpCopyType", lhsIcmPrpCopyType),
-          LocatorUtils.property(thatLocator, "icmPrpCopyType", rhsIcmPrpCopyType), lhsIcmPrpCopyType,
-          rhsIcmPrpCopyType, (this.icmPrpCopyType != null), (that.icmPrpCopyType != null))) {
+          LocatorUtils.property(thatLocator, "icmPrpCopyType", rhsIcmPrpCopyType), lhsIcmPrpCopyType, rhsIcmPrpCopyType,
+          (this.icmPrpCopyType != null), (that.icmPrpCopyType != null))) {
         return false;
       }
     }
@@ -546,8 +541,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       Double rhsIcmPrpLoadType;
       rhsIcmPrpLoadType = that.getIcmPrpLoadType();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmPrpLoadType", lhsIcmPrpLoadType),
-          LocatorUtils.property(thatLocator, "icmPrpLoadType", rhsIcmPrpLoadType), lhsIcmPrpLoadType,
-          rhsIcmPrpLoadType, (this.icmPrpLoadType != null), (that.icmPrpLoadType != null))) {
+          LocatorUtils.property(thatLocator, "icmPrpLoadType", rhsIcmPrpLoadType), lhsIcmPrpLoadType, rhsIcmPrpLoadType,
+          (this.icmPrpLoadType != null), (that.icmPrpLoadType != null))) {
         return false;
       }
     }
@@ -557,8 +552,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       Double rhsIcmPrpLastLevel;
       rhsIcmPrpLastLevel = that.getIcmPrpLastLevel();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmPrpLastLevel", lhsIcmPrpLastLevel),
-          LocatorUtils.property(thatLocator, "icmPrpLastLevel", rhsIcmPrpLastLevel), lhsIcmPrpLastLevel,
-          rhsIcmPrpLastLevel, (this.icmPrpLastLevel != null), (that.icmPrpLastLevel != null))) {
+          LocatorUtils.property(thatLocator, "icmPrpLastLevel", rhsIcmPrpLastLevel), lhsIcmPrpLastLevel, rhsIcmPrpLastLevel,
+          (this.icmPrpLastLevel != null), (that.icmPrpLastLevel != null))) {
         return false;
       }
     }
@@ -568,8 +563,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       Double rhsIcmPrpLoadDepth;
       rhsIcmPrpLoadDepth = that.getIcmPrpLoadDepth();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmPrpLoadDepth", lhsIcmPrpLoadDepth),
-          LocatorUtils.property(thatLocator, "icmPrpLoadDepth", rhsIcmPrpLoadDepth), lhsIcmPrpLoadDepth,
-          rhsIcmPrpLoadDepth, (this.icmPrpLoadDepth != null), (that.icmPrpLoadDepth != null))) {
+          LocatorUtils.property(thatLocator, "icmPrpLoadDepth", rhsIcmPrpLoadDepth), lhsIcmPrpLoadDepth, rhsIcmPrpLoadDepth,
+          (this.icmPrpLoadDepth != null), (that.icmPrpLoadDepth != null))) {
         return false;
       }
     }
@@ -579,8 +574,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       Double rhsIcmHaveValidation;
       rhsIcmHaveValidation = that.getIcmHaveValidation();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmHaveValidation", lhsIcmHaveValidation),
-          LocatorUtils.property(thatLocator, "icmHaveValidation", rhsIcmHaveValidation), lhsIcmHaveValidation,
-          rhsIcmHaveValidation, (this.icmHaveValidation != null), (that.icmHaveValidation != null))) {
+          LocatorUtils.property(thatLocator, "icmHaveValidation", rhsIcmHaveValidation), lhsIcmHaveValidation, rhsIcmHaveValidation,
+          (this.icmHaveValidation != null), (that.icmHaveValidation != null))) {
         return false;
       }
     }
@@ -590,24 +585,20 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
       Double rhsIcmHaveIdexecution;
       rhsIcmHaveIdexecution = that.getIcmHaveIdexecution();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmHaveIdexecution", lhsIcmHaveIdexecution),
-          LocatorUtils.property(thatLocator, "icmHaveIdexecution", rhsIcmHaveIdexecution),
-          lhsIcmHaveIdexecution, rhsIcmHaveIdexecution, (this.icmHaveIdexecution != null),
-          (that.icmHaveIdexecution != null))) {
+          LocatorUtils.property(thatLocator, "icmHaveIdexecution", rhsIcmHaveIdexecution), lhsIcmHaveIdexecution, rhsIcmHaveIdexecution,
+          (this.icmHaveIdexecution != null), (that.icmHaveIdexecution != null))) {
         return false;
       }
     }
     {
       List<IcmWsToolsRecord> lhsIcmWsToolsRecordSet;
-      lhsIcmWsToolsRecordSet = (((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty()))
-          ? this.getIcmWsToolsRecordSet()
-          : null);
+      lhsIcmWsToolsRecordSet =
+          (((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty())) ? this.getIcmWsToolsRecordSet() : null);
       List<IcmWsToolsRecord> rhsIcmWsToolsRecordSet;
-      rhsIcmWsToolsRecordSet = (((that.icmWsToolsRecordSet != null) && (!that.icmWsToolsRecordSet.isEmpty()))
-          ? that.getIcmWsToolsRecordSet()
-          : null);
+      rhsIcmWsToolsRecordSet =
+          (((that.icmWsToolsRecordSet != null) && (!that.icmWsToolsRecordSet.isEmpty())) ? that.getIcmWsToolsRecordSet() : null);
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmWsToolsRecordSet", lhsIcmWsToolsRecordSet),
-          LocatorUtils.property(thatLocator, "icmWsToolsRecordSet", rhsIcmWsToolsRecordSet),
-          lhsIcmWsToolsRecordSet, rhsIcmWsToolsRecordSet,
+          LocatorUtils.property(thatLocator, "icmWsToolsRecordSet", rhsIcmWsToolsRecordSet), lhsIcmWsToolsRecordSet, rhsIcmWsToolsRecordSet,
           ((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty())),
           ((that.icmWsToolsRecordSet != null) && (!that.icmWsToolsRecordSet.isEmpty())))) {
         return false;
@@ -659,68 +650,57 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
     {
       Double theIcmHavePaging;
       theIcmHavePaging = this.getIcmHavePaging();
-      strategy.appendField(locator, this, "icmHavePaging", buffer, theIcmHavePaging,
-          (this.icmHavePaging != null));
+      strategy.appendField(locator, this, "icmHavePaging", buffer, theIcmHavePaging, (this.icmHavePaging != null));
     }
     {
       String theIcmParentNode;
       theIcmParentNode = this.getIcmParentNode();
-      strategy.appendField(locator, this, "icmParentNode", buffer, theIcmParentNode,
-          (this.icmParentNode != null));
+      strategy.appendField(locator, this, "icmParentNode", buffer, theIcmParentNode, (this.icmParentNode != null));
     }
     {
       Double theIcmSharePolicy;
       theIcmSharePolicy = this.getIcmSharePolicy();
-      strategy.appendField(locator, this, "icmSharePolicy", buffer, theIcmSharePolicy,
-          (this.icmSharePolicy != null));
+      strategy.appendField(locator, this, "icmSharePolicy", buffer, theIcmSharePolicy, (this.icmSharePolicy != null));
     }
     {
       Double theIcmCloseChannel;
       theIcmCloseChannel = this.getIcmCloseChannel();
-      strategy.appendField(locator, this, "icmCloseChannel", buffer, theIcmCloseChannel,
-          (this.icmCloseChannel != null));
+      strategy.appendField(locator, this, "icmCloseChannel", buffer, theIcmCloseChannel, (this.icmCloseChannel != null));
     }
     {
       String theIcmPrpCopyType;
       theIcmPrpCopyType = this.getIcmPrpCopyType();
-      strategy.appendField(locator, this, "icmPrpCopyType", buffer, theIcmPrpCopyType,
-          (this.icmPrpCopyType != null));
+      strategy.appendField(locator, this, "icmPrpCopyType", buffer, theIcmPrpCopyType, (this.icmPrpCopyType != null));
     }
     {
       Double theIcmPrpLoadType;
       theIcmPrpLoadType = this.getIcmPrpLoadType();
-      strategy.appendField(locator, this, "icmPrpLoadType", buffer, theIcmPrpLoadType,
-          (this.icmPrpLoadType != null));
+      strategy.appendField(locator, this, "icmPrpLoadType", buffer, theIcmPrpLoadType, (this.icmPrpLoadType != null));
     }
     {
       Double theIcmPrpLastLevel;
       theIcmPrpLastLevel = this.getIcmPrpLastLevel();
-      strategy.appendField(locator, this, "icmPrpLastLevel", buffer, theIcmPrpLastLevel,
-          (this.icmPrpLastLevel != null));
+      strategy.appendField(locator, this, "icmPrpLastLevel", buffer, theIcmPrpLastLevel, (this.icmPrpLastLevel != null));
     }
     {
       Double theIcmPrpLoadDepth;
       theIcmPrpLoadDepth = this.getIcmPrpLoadDepth();
-      strategy.appendField(locator, this, "icmPrpLoadDepth", buffer, theIcmPrpLoadDepth,
-          (this.icmPrpLoadDepth != null));
+      strategy.appendField(locator, this, "icmPrpLoadDepth", buffer, theIcmPrpLoadDepth, (this.icmPrpLoadDepth != null));
     }
     {
       Double theIcmHaveValidation;
       theIcmHaveValidation = this.getIcmHaveValidation();
-      strategy.appendField(locator, this, "icmHaveValidation", buffer, theIcmHaveValidation,
-          (this.icmHaveValidation != null));
+      strategy.appendField(locator, this, "icmHaveValidation", buffer, theIcmHaveValidation, (this.icmHaveValidation != null));
     }
     {
       Double theIcmHaveIdexecution;
       theIcmHaveIdexecution = this.getIcmHaveIdexecution();
-      strategy.appendField(locator, this, "icmHaveIdexecution", buffer, theIcmHaveIdexecution,
-          (this.icmHaveIdexecution != null));
+      strategy.appendField(locator, this, "icmHaveIdexecution", buffer, theIcmHaveIdexecution, (this.icmHaveIdexecution != null));
     }
     {
       List<IcmWsToolsRecord> theIcmWsToolsRecordSet;
-      theIcmWsToolsRecordSet = (((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty()))
-          ? this.getIcmWsToolsRecordSet()
-          : null);
+      theIcmWsToolsRecordSet =
+          (((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty())) ? this.getIcmWsToolsRecordSet() : null);
       strategy.appendField(locator, this, "icmWsToolsRecordSet", buffer, theIcmWsToolsRecordSet,
           ((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty())));
     }
@@ -732,98 +712,93 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
     {
       String theSysParam;
       theSysParam = this.getSysParam();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "sysParam", theSysParam),
-          currentHashCode, theSysParam, (this.sysParam != null));
+      currentHashCode =
+          strategy.hashCode(LocatorUtils.property(locator, "sysParam", theSysParam), currentHashCode, theSysParam, (this.sysParam != null));
     }
     {
       Double theIcmPrpCopy;
       theIcmPrpCopy = this.getIcmPrpCopy();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPrpCopy", theIcmPrpCopy),
-          currentHashCode, theIcmPrpCopy, (this.icmPrpCopy != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPrpCopy", theIcmPrpCopy), currentHashCode, theIcmPrpCopy,
+          (this.icmPrpCopy != null));
     }
     {
       String theSysSentence;
       theSysSentence = this.getSysSentence();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "sysSentence", theSysSentence),
-          currentHashCode, theSysSentence, (this.sysSentence != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "sysSentence", theSysSentence), currentHashCode, theSysSentence,
+          (this.sysSentence != null));
     }
     {
       String theIcmM4Object;
       theIcmM4Object = this.getIcmM4Object();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmM4Object", theIcmM4Object),
-          currentHashCode, theIcmM4Object, (this.icmM4Object != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmM4Object", theIcmM4Object), currentHashCode, theIcmM4Object,
+          (this.icmM4Object != null));
     }
     {
       Double theIcmHavePaging;
       theIcmHavePaging = this.getIcmHavePaging();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmHavePaging", theIcmHavePaging),
-          currentHashCode, theIcmHavePaging, (this.icmHavePaging != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmHavePaging", theIcmHavePaging), currentHashCode,
+          theIcmHavePaging, (this.icmHavePaging != null));
     }
     {
       String theIcmParentNode;
       theIcmParentNode = this.getIcmParentNode();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParentNode", theIcmParentNode),
-          currentHashCode, theIcmParentNode, (this.icmParentNode != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParentNode", theIcmParentNode), currentHashCode,
+          theIcmParentNode, (this.icmParentNode != null));
     }
     {
       Double theIcmSharePolicy;
       theIcmSharePolicy = this.getIcmSharePolicy();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmSharePolicy", theIcmSharePolicy),
-          currentHashCode, theIcmSharePolicy, (this.icmSharePolicy != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmSharePolicy", theIcmSharePolicy), currentHashCode,
+          theIcmSharePolicy, (this.icmSharePolicy != null));
     }
     {
       Double theIcmCloseChannel;
       theIcmCloseChannel = this.getIcmCloseChannel();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmCloseChannel", theIcmCloseChannel),
-          currentHashCode, theIcmCloseChannel, (this.icmCloseChannel != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmCloseChannel", theIcmCloseChannel), currentHashCode,
+          theIcmCloseChannel, (this.icmCloseChannel != null));
     }
     {
       String theIcmPrpCopyType;
       theIcmPrpCopyType = this.getIcmPrpCopyType();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPrpCopyType", theIcmPrpCopyType),
-          currentHashCode, theIcmPrpCopyType, (this.icmPrpCopyType != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPrpCopyType", theIcmPrpCopyType), currentHashCode,
+          theIcmPrpCopyType, (this.icmPrpCopyType != null));
     }
     {
       Double theIcmPrpLoadType;
       theIcmPrpLoadType = this.getIcmPrpLoadType();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPrpLoadType", theIcmPrpLoadType),
-          currentHashCode, theIcmPrpLoadType, (this.icmPrpLoadType != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPrpLoadType", theIcmPrpLoadType), currentHashCode,
+          theIcmPrpLoadType, (this.icmPrpLoadType != null));
     }
     {
       Double theIcmPrpLastLevel;
       theIcmPrpLastLevel = this.getIcmPrpLastLevel();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPrpLastLevel", theIcmPrpLastLevel),
-          currentHashCode, theIcmPrpLastLevel, (this.icmPrpLastLevel != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPrpLastLevel", theIcmPrpLastLevel), currentHashCode,
+          theIcmPrpLastLevel, (this.icmPrpLastLevel != null));
     }
     {
       Double theIcmPrpLoadDepth;
       theIcmPrpLoadDepth = this.getIcmPrpLoadDepth();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPrpLoadDepth", theIcmPrpLoadDepth),
-          currentHashCode, theIcmPrpLoadDepth, (this.icmPrpLoadDepth != null));
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmPrpLoadDepth", theIcmPrpLoadDepth), currentHashCode,
+          theIcmPrpLoadDepth, (this.icmPrpLoadDepth != null));
     }
     {
       Double theIcmHaveValidation;
       theIcmHaveValidation = this.getIcmHaveValidation();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmHaveValidation", theIcmHaveValidation), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmHaveValidation", theIcmHaveValidation), currentHashCode,
           theIcmHaveValidation, (this.icmHaveValidation != null));
     }
     {
       Double theIcmHaveIdexecution;
       theIcmHaveIdexecution = this.getIcmHaveIdexecution();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmHaveIdexecution", theIcmHaveIdexecution), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmHaveIdexecution", theIcmHaveIdexecution), currentHashCode,
           theIcmHaveIdexecution, (this.icmHaveIdexecution != null));
     }
     {
       List<IcmWsToolsRecord> theIcmWsToolsRecordSet;
-      theIcmWsToolsRecordSet = (((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty()))
-          ? this.getIcmWsToolsRecordSet()
-          : null);
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmWsToolsRecordSet", theIcmWsToolsRecordSet), currentHashCode,
-          theIcmWsToolsRecordSet,
-          ((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty())));
+      theIcmWsToolsRecordSet =
+          (((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty())) ? this.getIcmWsToolsRecordSet() : null);
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmWsToolsRecordSet", theIcmWsToolsRecordSet), currentHashCode,
+          theIcmWsToolsRecordSet, ((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty())));
     }
     return currentHashCode;
   }
@@ -851,9 +826,8 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         if (sysParamShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceSysParam;
           sourceSysParam = this.getSysParam();
-          String copySysParam = ((String) strategy.copy(
-              LocatorUtils.property(locator, "sysParam", sourceSysParam), sourceSysParam,
-              (this.sysParam != null)));
+          String copySysParam =
+              ((String) strategy.copy(LocatorUtils.property(locator, "sysParam", sourceSysParam), sourceSysParam, (this.sysParam != null)));
           copy.setSysParam(copySysParam);
         } else {
           if (sysParamShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -862,13 +836,11 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmPrpCopyShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmPrpCopy != null));
+        Boolean icmPrpCopyShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmPrpCopy != null));
         if (icmPrpCopyShouldBeCopiedAndSet == Boolean.TRUE) {
           Double sourceIcmPrpCopy;
           sourceIcmPrpCopy = this.getIcmPrpCopy();
-          Double copyIcmPrpCopy = ((Double) strategy.copy(
-              LocatorUtils.property(locator, "icmPrpCopy", sourceIcmPrpCopy), sourceIcmPrpCopy,
+          Double copyIcmPrpCopy = ((Double) strategy.copy(LocatorUtils.property(locator, "icmPrpCopy", sourceIcmPrpCopy), sourceIcmPrpCopy,
               (this.icmPrpCopy != null)));
           copy.setIcmPrpCopy(copyIcmPrpCopy);
         } else {
@@ -878,14 +850,12 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean sysSentenceShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.sysSentence != null));
+        Boolean sysSentenceShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.sysSentence != null));
         if (sysSentenceShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceSysSentence;
           sourceSysSentence = this.getSysSentence();
-          String copySysSentence = ((String) strategy.copy(
-              LocatorUtils.property(locator, "sysSentence", sourceSysSentence), sourceSysSentence,
-              (this.sysSentence != null)));
+          String copySysSentence = ((String) strategy.copy(LocatorUtils.property(locator, "sysSentence", sourceSysSentence),
+              sourceSysSentence, (this.sysSentence != null)));
           copy.setSysSentence(copySysSentence);
         } else {
           if (sysSentenceShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -894,14 +864,12 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmM4ObjectShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmM4Object != null));
+        Boolean icmM4ObjectShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmM4Object != null));
         if (icmM4ObjectShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceIcmM4Object;
           sourceIcmM4Object = this.getIcmM4Object();
-          String copyIcmM4Object = ((String) strategy.copy(
-              LocatorUtils.property(locator, "icmM4Object", sourceIcmM4Object), sourceIcmM4Object,
-              (this.icmM4Object != null)));
+          String copyIcmM4Object = ((String) strategy.copy(LocatorUtils.property(locator, "icmM4Object", sourceIcmM4Object),
+              sourceIcmM4Object, (this.icmM4Object != null)));
           copy.setIcmM4Object(copyIcmM4Object);
         } else {
           if (icmM4ObjectShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -910,14 +878,12 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmHavePagingShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmHavePaging != null));
+        Boolean icmHavePagingShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmHavePaging != null));
         if (icmHavePagingShouldBeCopiedAndSet == Boolean.TRUE) {
           Double sourceIcmHavePaging;
           sourceIcmHavePaging = this.getIcmHavePaging();
-          Double copyIcmHavePaging = ((Double) strategy.copy(
-              LocatorUtils.property(locator, "icmHavePaging", sourceIcmHavePaging), sourceIcmHavePaging,
-              (this.icmHavePaging != null)));
+          Double copyIcmHavePaging = ((Double) strategy.copy(LocatorUtils.property(locator, "icmHavePaging", sourceIcmHavePaging),
+              sourceIcmHavePaging, (this.icmHavePaging != null)));
           copy.setIcmHavePaging(copyIcmHavePaging);
         } else {
           if (icmHavePagingShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -926,14 +892,12 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmParentNodeShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmParentNode != null));
+        Boolean icmParentNodeShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParentNode != null));
         if (icmParentNodeShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceIcmParentNode;
           sourceIcmParentNode = this.getIcmParentNode();
-          String copyIcmParentNode = ((String) strategy.copy(
-              LocatorUtils.property(locator, "icmParentNode", sourceIcmParentNode), sourceIcmParentNode,
-              (this.icmParentNode != null)));
+          String copyIcmParentNode = ((String) strategy.copy(LocatorUtils.property(locator, "icmParentNode", sourceIcmParentNode),
+              sourceIcmParentNode, (this.icmParentNode != null)));
           copy.setIcmParentNode(copyIcmParentNode);
         } else {
           if (icmParentNodeShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -942,13 +906,11 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmSharePolicyShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmSharePolicy != null));
+        Boolean icmSharePolicyShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmSharePolicy != null));
         if (icmSharePolicyShouldBeCopiedAndSet == Boolean.TRUE) {
           Double sourceIcmSharePolicy;
           sourceIcmSharePolicy = this.getIcmSharePolicy();
-          Double copyIcmSharePolicy = ((Double) strategy.copy(
-              LocatorUtils.property(locator, "icmSharePolicy", sourceIcmSharePolicy),
+          Double copyIcmSharePolicy = ((Double) strategy.copy(LocatorUtils.property(locator, "icmSharePolicy", sourceIcmSharePolicy),
               sourceIcmSharePolicy, (this.icmSharePolicy != null)));
           copy.setIcmSharePolicy(copyIcmSharePolicy);
         } else {
@@ -958,13 +920,11 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmCloseChannelShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmCloseChannel != null));
+        Boolean icmCloseChannelShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmCloseChannel != null));
         if (icmCloseChannelShouldBeCopiedAndSet == Boolean.TRUE) {
           Double sourceIcmCloseChannel;
           sourceIcmCloseChannel = this.getIcmCloseChannel();
-          Double copyIcmCloseChannel = ((Double) strategy.copy(
-              LocatorUtils.property(locator, "icmCloseChannel", sourceIcmCloseChannel),
+          Double copyIcmCloseChannel = ((Double) strategy.copy(LocatorUtils.property(locator, "icmCloseChannel", sourceIcmCloseChannel),
               sourceIcmCloseChannel, (this.icmCloseChannel != null)));
           copy.setIcmCloseChannel(copyIcmCloseChannel);
         } else {
@@ -974,13 +934,11 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmPrpCopyTypeShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmPrpCopyType != null));
+        Boolean icmPrpCopyTypeShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmPrpCopyType != null));
         if (icmPrpCopyTypeShouldBeCopiedAndSet == Boolean.TRUE) {
           String sourceIcmPrpCopyType;
           sourceIcmPrpCopyType = this.getIcmPrpCopyType();
-          String copyIcmPrpCopyType = ((String) strategy.copy(
-              LocatorUtils.property(locator, "icmPrpCopyType", sourceIcmPrpCopyType),
+          String copyIcmPrpCopyType = ((String) strategy.copy(LocatorUtils.property(locator, "icmPrpCopyType", sourceIcmPrpCopyType),
               sourceIcmPrpCopyType, (this.icmPrpCopyType != null)));
           copy.setIcmPrpCopyType(copyIcmPrpCopyType);
         } else {
@@ -990,13 +948,11 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmPrpLoadTypeShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmPrpLoadType != null));
+        Boolean icmPrpLoadTypeShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmPrpLoadType != null));
         if (icmPrpLoadTypeShouldBeCopiedAndSet == Boolean.TRUE) {
           Double sourceIcmPrpLoadType;
           sourceIcmPrpLoadType = this.getIcmPrpLoadType();
-          Double copyIcmPrpLoadType = ((Double) strategy.copy(
-              LocatorUtils.property(locator, "icmPrpLoadType", sourceIcmPrpLoadType),
+          Double copyIcmPrpLoadType = ((Double) strategy.copy(LocatorUtils.property(locator, "icmPrpLoadType", sourceIcmPrpLoadType),
               sourceIcmPrpLoadType, (this.icmPrpLoadType != null)));
           copy.setIcmPrpLoadType(copyIcmPrpLoadType);
         } else {
@@ -1006,13 +962,11 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmPrpLastLevelShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmPrpLastLevel != null));
+        Boolean icmPrpLastLevelShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmPrpLastLevel != null));
         if (icmPrpLastLevelShouldBeCopiedAndSet == Boolean.TRUE) {
           Double sourceIcmPrpLastLevel;
           sourceIcmPrpLastLevel = this.getIcmPrpLastLevel();
-          Double copyIcmPrpLastLevel = ((Double) strategy.copy(
-              LocatorUtils.property(locator, "icmPrpLastLevel", sourceIcmPrpLastLevel),
+          Double copyIcmPrpLastLevel = ((Double) strategy.copy(LocatorUtils.property(locator, "icmPrpLastLevel", sourceIcmPrpLastLevel),
               sourceIcmPrpLastLevel, (this.icmPrpLastLevel != null)));
           copy.setIcmPrpLastLevel(copyIcmPrpLastLevel);
         } else {
@@ -1022,13 +976,11 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmPrpLoadDepthShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmPrpLoadDepth != null));
+        Boolean icmPrpLoadDepthShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmPrpLoadDepth != null));
         if (icmPrpLoadDepthShouldBeCopiedAndSet == Boolean.TRUE) {
           Double sourceIcmPrpLoadDepth;
           sourceIcmPrpLoadDepth = this.getIcmPrpLoadDepth();
-          Double copyIcmPrpLoadDepth = ((Double) strategy.copy(
-              LocatorUtils.property(locator, "icmPrpLoadDepth", sourceIcmPrpLoadDepth),
+          Double copyIcmPrpLoadDepth = ((Double) strategy.copy(LocatorUtils.property(locator, "icmPrpLoadDepth", sourceIcmPrpLoadDepth),
               sourceIcmPrpLoadDepth, (this.icmPrpLoadDepth != null)));
           copy.setIcmPrpLoadDepth(copyIcmPrpLoadDepth);
         } else {
@@ -1038,14 +990,13 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmHaveValidationShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmHaveValidation != null));
+        Boolean icmHaveValidationShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmHaveValidation != null));
         if (icmHaveValidationShouldBeCopiedAndSet == Boolean.TRUE) {
           Double sourceIcmHaveValidation;
           sourceIcmHaveValidation = this.getIcmHaveValidation();
-          Double copyIcmHaveValidation = ((Double) strategy.copy(
-              LocatorUtils.property(locator, "icmHaveValidation", sourceIcmHaveValidation),
-              sourceIcmHaveValidation, (this.icmHaveValidation != null)));
+          Double copyIcmHaveValidation =
+              ((Double) strategy.copy(LocatorUtils.property(locator, "icmHaveValidation", sourceIcmHaveValidation), sourceIcmHaveValidation,
+                  (this.icmHaveValidation != null)));
           copy.setIcmHaveValidation(copyIcmHaveValidation);
         } else {
           if (icmHaveValidationShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1054,14 +1005,13 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmHaveIdexecutionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmHaveIdexecution != null));
+        Boolean icmHaveIdexecutionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmHaveIdexecution != null));
         if (icmHaveIdexecutionShouldBeCopiedAndSet == Boolean.TRUE) {
           Double sourceIcmHaveIdexecution;
           sourceIcmHaveIdexecution = this.getIcmHaveIdexecution();
-          Double copyIcmHaveIdexecution = ((Double) strategy.copy(
-              LocatorUtils.property(locator, "icmHaveIdexecution", sourceIcmHaveIdexecution),
-              sourceIcmHaveIdexecution, (this.icmHaveIdexecution != null)));
+          Double copyIcmHaveIdexecution =
+              ((Double) strategy.copy(LocatorUtils.property(locator, "icmHaveIdexecution", sourceIcmHaveIdexecution),
+                  sourceIcmHaveIdexecution, (this.icmHaveIdexecution != null)));
           copy.setIcmHaveIdexecution(copyIcmHaveIdexecution);
         } else {
           if (icmHaveIdexecutionShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -1070,17 +1020,16 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmWsToolsRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty())));
+        Boolean icmWsToolsRecordSetShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, ((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty())));
         if (icmWsToolsRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
           List<IcmWsToolsRecord> sourceIcmWsToolsRecordSet;
-          sourceIcmWsToolsRecordSet = (((this.icmWsToolsRecordSet != null)
-              && (!this.icmWsToolsRecordSet.isEmpty())) ? this.getIcmWsToolsRecordSet() : null);
+          sourceIcmWsToolsRecordSet =
+              (((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty())) ? this.getIcmWsToolsRecordSet() : null);
           @SuppressWarnings("unchecked")
-          List<IcmWsToolsRecord> copyIcmWsToolsRecordSet = ((List<IcmWsToolsRecord>) strategy.copy(
-              LocatorUtils.property(locator, "icmWsToolsRecordSet", sourceIcmWsToolsRecordSet),
-              sourceIcmWsToolsRecordSet,
-              ((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty()))));
+          List<IcmWsToolsRecord> copyIcmWsToolsRecordSet =
+              ((List<IcmWsToolsRecord>) strategy.copy(LocatorUtils.property(locator, "icmWsToolsRecordSet", sourceIcmWsToolsRecordSet),
+                  sourceIcmWsToolsRecordSet, ((this.icmWsToolsRecordSet != null) && (!this.icmWsToolsRecordSet.isEmpty()))));
           copy.icmWsToolsRecordSet = null;
           if (copyIcmWsToolsRecordSet != null) {
             List<IcmWsToolsRecord> uniqueIcmWsToolsRecordSetl = copy.getIcmWsToolsRecordSet();

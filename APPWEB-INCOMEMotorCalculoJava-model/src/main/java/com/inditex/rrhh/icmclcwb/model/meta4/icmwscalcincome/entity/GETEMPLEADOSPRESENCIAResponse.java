@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETEMPLEADOSPRESENCIAResponse implements Serializable, Cloneable, C
    * Obtiene el valor de la propiedad getempleadospresenciaReturn.
    * 
    * @return possible object is {@link GetempleadospresenciaOutput }
-   *
+   * 
    */
   public GetempleadospresenciaOutput getGETEMPLEADOSPRESENCIAReturn() {
     return getempleadospresenciaReturn;
@@ -72,14 +68,13 @@ public class GETEMPLEADOSPRESENCIAResponse implements Serializable, Cloneable, C
    * Define el valor de la propiedad getempleadospresenciaReturn.
    * 
    * @param value allowed object is {@link GetempleadospresenciaOutput }
-   *
+   * 
    */
   public void setGETEMPLEADOSPRESENCIAReturn(GetempleadospresenciaOutput value) {
     this.getempleadospresenciaReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -92,11 +87,9 @@ public class GETEMPLEADOSPRESENCIAResponse implements Serializable, Cloneable, C
       lhsGETEMPLEADOSPRESENCIAReturn = this.getGETEMPLEADOSPRESENCIAReturn();
       GetempleadospresenciaOutput rhsGETEMPLEADOSPRESENCIAReturn;
       rhsGETEMPLEADOSPRESENCIAReturn = that.getGETEMPLEADOSPRESENCIAReturn();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "getempleadospresenciaReturn", lhsGETEMPLEADOSPRESENCIAReturn),
-          LocatorUtils.property(thatLocator, "getempleadospresenciaReturn", rhsGETEMPLEADOSPRESENCIAReturn),
-          lhsGETEMPLEADOSPRESENCIAReturn, rhsGETEMPLEADOSPRESENCIAReturn,
-          (this.getempleadospresenciaReturn != null), (that.getempleadospresenciaReturn != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "getempleadospresenciaReturn", lhsGETEMPLEADOSPRESENCIAReturn),
+          LocatorUtils.property(thatLocator, "getempleadospresenciaReturn", rhsGETEMPLEADOSPRESENCIAReturn), lhsGETEMPLEADOSPRESENCIAReturn,
+          rhsGETEMPLEADOSPRESENCIAReturn, (this.getempleadospresenciaReturn != null), (that.getempleadospresenciaReturn != null))) {
         return false;
       }
     }
@@ -137,8 +130,7 @@ public class GETEMPLEADOSPRESENCIAResponse implements Serializable, Cloneable, C
     {
       GetempleadospresenciaOutput theGETEMPLEADOSPRESENCIAReturn;
       theGETEMPLEADOSPRESENCIAReturn = this.getGETEMPLEADOSPRESENCIAReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "getempleadospresenciaReturn", theGETEMPLEADOSPRESENCIAReturn),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getempleadospresenciaReturn", theGETEMPLEADOSPRESENCIAReturn),
           currentHashCode, theGETEMPLEADOSPRESENCIAReturn, (this.getempleadospresenciaReturn != null));
     }
     return currentHashCode;
@@ -163,15 +155,14 @@ public class GETEMPLEADOSPRESENCIAResponse implements Serializable, Cloneable, C
     if (draftCopy instanceof GETEMPLEADOSPRESENCIAResponse) {
       final GETEMPLEADOSPRESENCIAResponse copy = ((GETEMPLEADOSPRESENCIAResponse) draftCopy);
       {
-        Boolean getempleadospresenciaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.getempleadospresenciaReturn != null));
+        Boolean getempleadospresenciaReturnShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.getempleadospresenciaReturn != null));
         if (getempleadospresenciaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GetempleadospresenciaOutput sourceGETEMPLEADOSPRESENCIAReturn;
           sourceGETEMPLEADOSPRESENCIAReturn = this.getGETEMPLEADOSPRESENCIAReturn();
-          GetempleadospresenciaOutput copyGETEMPLEADOSPRESENCIAReturn = ((GetempleadospresenciaOutput) strategy
-              .copy(LocatorUtils.property(locator, "getempleadospresenciaReturn",
-                  sourceGETEMPLEADOSPRESENCIAReturn), sourceGETEMPLEADOSPRESENCIAReturn,
-                  (this.getempleadospresenciaReturn != null)));
+          GetempleadospresenciaOutput copyGETEMPLEADOSPRESENCIAReturn = ((GetempleadospresenciaOutput) strategy.copy(
+              LocatorUtils.property(locator, "getempleadospresenciaReturn", sourceGETEMPLEADOSPRESENCIAReturn),
+              sourceGETEMPLEADOSPRESENCIAReturn, (this.getempleadospresenciaReturn != null)));
           copy.setGETEMPLEADOSPRESENCIAReturn(copyGETEMPLEADOSPRESENCIAReturn);
         } else {
           if (getempleadospresenciaReturnShouldBeCopiedAndSet == Boolean.FALSE) {

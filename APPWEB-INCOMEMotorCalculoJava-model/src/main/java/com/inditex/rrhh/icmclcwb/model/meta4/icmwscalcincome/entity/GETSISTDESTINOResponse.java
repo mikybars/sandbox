@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +39,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -62,7 +58,7 @@ public class GETSISTDESTINOResponse implements Serializable, Cloneable, CopyTo2,
    * Obtiene el valor de la propiedad getsistdestinoReturn.
    * 
    * @return possible object is {@link GetsistdestinoOutput }
-   *
+   * 
    */
   public GetsistdestinoOutput getGETSISTDESTINOReturn() {
     return getsistdestinoReturn;
@@ -72,14 +68,13 @@ public class GETSISTDESTINOResponse implements Serializable, Cloneable, CopyTo2,
    * Define el valor de la propiedad getsistdestinoReturn.
    * 
    * @param value allowed object is {@link GetsistdestinoOutput }
-   *
+   * 
    */
   public void setGETSISTDESTINOReturn(GetsistdestinoOutput value) {
     this.getsistdestinoReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -93,9 +88,8 @@ public class GETSISTDESTINOResponse implements Serializable, Cloneable, CopyTo2,
       GetsistdestinoOutput rhsGETSISTDESTINOReturn;
       rhsGETSISTDESTINOReturn = that.getGETSISTDESTINOReturn();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "getsistdestinoReturn", lhsGETSISTDESTINOReturn),
-          LocatorUtils.property(thatLocator, "getsistdestinoReturn", rhsGETSISTDESTINOReturn),
-          lhsGETSISTDESTINOReturn, rhsGETSISTDESTINOReturn, (this.getsistdestinoReturn != null),
-          (that.getsistdestinoReturn != null))) {
+          LocatorUtils.property(thatLocator, "getsistdestinoReturn", rhsGETSISTDESTINOReturn), lhsGETSISTDESTINOReturn,
+          rhsGETSISTDESTINOReturn, (this.getsistdestinoReturn != null), (that.getsistdestinoReturn != null))) {
         return false;
       }
     }
@@ -125,8 +119,7 @@ public class GETSISTDESTINOResponse implements Serializable, Cloneable, CopyTo2,
     {
       GetsistdestinoOutput theGETSISTDESTINOReturn;
       theGETSISTDESTINOReturn = this.getGETSISTDESTINOReturn();
-      strategy.appendField(locator, this, "getsistdestinoReturn", buffer, theGETSISTDESTINOReturn,
-          (this.getsistdestinoReturn != null));
+      strategy.appendField(locator, this, "getsistdestinoReturn", buffer, theGETSISTDESTINOReturn, (this.getsistdestinoReturn != null));
     }
     return buffer;
   }
@@ -136,8 +129,7 @@ public class GETSISTDESTINOResponse implements Serializable, Cloneable, CopyTo2,
     {
       GetsistdestinoOutput theGETSISTDESTINOReturn;
       theGETSISTDESTINOReturn = this.getGETSISTDESTINOReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "getsistdestinoReturn", theGETSISTDESTINOReturn), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getsistdestinoReturn", theGETSISTDESTINOReturn), currentHashCode,
           theGETSISTDESTINOReturn, (this.getsistdestinoReturn != null));
     }
     return currentHashCode;
@@ -162,14 +154,13 @@ public class GETSISTDESTINOResponse implements Serializable, Cloneable, CopyTo2,
     if (draftCopy instanceof GETSISTDESTINOResponse) {
       final GETSISTDESTINOResponse copy = ((GETSISTDESTINOResponse) draftCopy);
       {
-        Boolean getsistdestinoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.getsistdestinoReturn != null));
+        Boolean getsistdestinoReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getsistdestinoReturn != null));
         if (getsistdestinoReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           GetsistdestinoOutput sourceGETSISTDESTINOReturn;
           sourceGETSISTDESTINOReturn = this.getGETSISTDESTINOReturn();
-          GetsistdestinoOutput copyGETSISTDESTINOReturn = ((GetsistdestinoOutput) strategy.copy(
-              LocatorUtils.property(locator, "getsistdestinoReturn", sourceGETSISTDESTINOReturn),
-              sourceGETSISTDESTINOReturn, (this.getsistdestinoReturn != null)));
+          GetsistdestinoOutput copyGETSISTDESTINOReturn =
+              ((GetsistdestinoOutput) strategy.copy(LocatorUtils.property(locator, "getsistdestinoReturn", sourceGETSISTDESTINOReturn),
+                  sourceGETSISTDESTINOReturn, (this.getsistdestinoReturn != null)));
           copy.setGETSISTDESTINOReturn(copyGETSISTDESTINOReturn);
         } else {
           if (getsistdestinoReturnShouldBeCopiedAndSet == Boolean.FALSE) {

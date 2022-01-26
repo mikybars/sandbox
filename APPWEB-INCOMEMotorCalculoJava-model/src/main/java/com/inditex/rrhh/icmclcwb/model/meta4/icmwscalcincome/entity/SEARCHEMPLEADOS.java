@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -28,10 +24,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -44,8 +40,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -67,7 +63,7 @@ public class SEARCHEMPLEADOS implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmparametrospaginacion.
    * 
    * @return possible object is {@link IcmParametrospaginacionBlock }
-   *
+   * 
    */
   public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
     return icmparametrospaginacion;
@@ -77,7 +73,7 @@ public class SEARCHEMPLEADOS implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmparametrospaginacion.
    * 
    * @param value allowed object is {@link IcmParametrospaginacionBlock }
-   *
+   * 
    */
   public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
     this.icmparametrospaginacion = value;
@@ -87,7 +83,7 @@ public class SEARCHEMPLEADOS implements Serializable, Cloneable, CopyTo2, Equals
    * Obtiene el valor de la propiedad icmparamcalempleado.
    * 
    * @return possible object is {@link IcmParamcalempleadoBlock }
-   *
+   * 
    */
   public IcmParamcalempleadoBlock getICMPARAMCALEMPLEADO() {
     return icmparamcalempleado;
@@ -97,14 +93,13 @@ public class SEARCHEMPLEADOS implements Serializable, Cloneable, CopyTo2, Equals
    * Define el valor de la propiedad icmparamcalempleado.
    * 
    * @param value allowed object is {@link IcmParamcalempleadoBlock }
-   *
+   * 
    */
   public void setICMPARAMCALEMPLEADO(IcmParamcalempleadoBlock value) {
     this.icmparamcalempleado = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -117,11 +112,9 @@ public class SEARCHEMPLEADOS implements Serializable, Cloneable, CopyTo2, Equals
       lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
       IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
       rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
-          LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION),
-          lhsICMPARAMETROSPAGINACION, rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null),
-          (that.icmparametrospaginacion != null))) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
+          LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION), lhsICMPARAMETROSPAGINACION,
+          rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null), (that.icmparametrospaginacion != null))) {
         return false;
       }
     }
@@ -131,9 +124,8 @@ public class SEARCHEMPLEADOS implements Serializable, Cloneable, CopyTo2, Equals
       IcmParamcalempleadoBlock rhsICMPARAMCALEMPLEADO;
       rhsICMPARAMCALEMPLEADO = that.getICMPARAMCALEMPLEADO();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalempleado", lhsICMPARAMCALEMPLEADO),
-          LocatorUtils.property(thatLocator, "icmparamcalempleado", rhsICMPARAMCALEMPLEADO),
-          lhsICMPARAMCALEMPLEADO, rhsICMPARAMCALEMPLEADO, (this.icmparamcalempleado != null),
-          (that.icmparamcalempleado != null))) {
+          LocatorUtils.property(thatLocator, "icmparamcalempleado", rhsICMPARAMCALEMPLEADO), lhsICMPARAMCALEMPLEADO, rhsICMPARAMCALEMPLEADO,
+          (this.icmparamcalempleado != null), (that.icmparamcalempleado != null))) {
         return false;
       }
     }
@@ -169,8 +161,7 @@ public class SEARCHEMPLEADOS implements Serializable, Cloneable, CopyTo2, Equals
     {
       IcmParamcalempleadoBlock theICMPARAMCALEMPLEADO;
       theICMPARAMCALEMPLEADO = this.getICMPARAMCALEMPLEADO();
-      strategy.appendField(locator, this, "icmparamcalempleado", buffer, theICMPARAMCALEMPLEADO,
-          (this.icmparamcalempleado != null));
+      strategy.appendField(locator, this, "icmparamcalempleado", buffer, theICMPARAMCALEMPLEADO, (this.icmparamcalempleado != null));
     }
     return buffer;
   }
@@ -180,15 +171,13 @@ public class SEARCHEMPLEADOS implements Serializable, Cloneable, CopyTo2, Equals
     {
       IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
       theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
           currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
     }
     {
       IcmParamcalempleadoBlock theICMPARAMCALEMPLEADO;
       theICMPARAMCALEMPLEADO = this.getICMPARAMCALEMPLEADO();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "icmparamcalempleado", theICMPARAMCALEMPLEADO), currentHashCode,
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalempleado", theICMPARAMCALEMPLEADO), currentHashCode,
           theICMPARAMCALEMPLEADO, (this.icmparamcalempleado != null));
     }
     return currentHashCode;
@@ -213,14 +202,14 @@ public class SEARCHEMPLEADOS implements Serializable, Cloneable, CopyTo2, Equals
     if (draftCopy instanceof SEARCHEMPLEADOS) {
       final SEARCHEMPLEADOS copy = ((SEARCHEMPLEADOS) draftCopy);
       {
-        Boolean icmparametrospaginacionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmparametrospaginacion != null));
+        Boolean icmparametrospaginacionShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospaginacion != null));
         if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
           sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-          IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy
-              .copy(LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION),
-                  sourceICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null)));
+          IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy.copy(
+              LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION), sourceICMPARAMETROSPAGINACION,
+              (this.icmparametrospaginacion != null)));
           copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
         } else {
           if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -229,14 +218,13 @@ public class SEARCHEMPLEADOS implements Serializable, Cloneable, CopyTo2, Equals
         }
       }
       {
-        Boolean icmparamcalempleadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            (this.icmparamcalempleado != null));
+        Boolean icmparamcalempleadoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalempleado != null));
         if (icmparamcalempleadoShouldBeCopiedAndSet == Boolean.TRUE) {
           IcmParamcalempleadoBlock sourceICMPARAMCALEMPLEADO;
           sourceICMPARAMCALEMPLEADO = this.getICMPARAMCALEMPLEADO();
-          IcmParamcalempleadoBlock copyICMPARAMCALEMPLEADO = ((IcmParamcalempleadoBlock) strategy.copy(
-              LocatorUtils.property(locator, "icmparamcalempleado", sourceICMPARAMCALEMPLEADO),
-              sourceICMPARAMCALEMPLEADO, (this.icmparamcalempleado != null)));
+          IcmParamcalempleadoBlock copyICMPARAMCALEMPLEADO =
+              ((IcmParamcalempleadoBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalempleado", sourceICMPARAMCALEMPLEADO),
+                  sourceICMPARAMCALEMPLEADO, (this.icmparamcalempleado != null)));
           copy.setICMPARAMCALEMPLEADO(copyICMPARAMCALEMPLEADO);
         } else {
           if (icmparamcalempleadoShouldBeCopiedAndSet == Boolean.FALSE) {

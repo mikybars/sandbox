@@ -1,8 +1,4 @@
 
-/*
- * Copyright (c) 2021. Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
@@ -27,10 +23,10 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p> Clase Java para anonymous complex type.
- *
- * <p> El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- *
+ * <p>Clase Java para anonymous complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -42,8 +38,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -58,7 +54,7 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
 
   /**
    * Obtiene el valor de la propiedad retrieveM4SessionReturn.
-   *
+   * 
    */
   public int getRetrieveM4SessionReturn() {
     return retrieveM4SessionReturn;
@@ -66,14 +62,13 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
 
   /**
    * Define el valor de la propiedad retrieveM4SessionReturn.
-   *
+   * 
    */
   public void setRetrieveM4SessionReturn(int value) {
     this.retrieveM4SessionReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object,
-      EqualsStrategy2 strategy) {
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -86,10 +81,9 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
       lhsRetrieveM4SessionReturn = this.getRetrieveM4SessionReturn();
       int rhsRetrieveM4SessionReturn;
       rhsRetrieveM4SessionReturn = that.getRetrieveM4SessionReturn();
-      if (!strategy.equals(
-          LocatorUtils.property(thisLocator, "retrieveM4SessionReturn", lhsRetrieveM4SessionReturn),
-          LocatorUtils.property(thatLocator, "retrieveM4SessionReturn", rhsRetrieveM4SessionReturn),
-          lhsRetrieveM4SessionReturn, rhsRetrieveM4SessionReturn, true, true)) {
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "retrieveM4SessionReturn", lhsRetrieveM4SessionReturn),
+          LocatorUtils.property(thatLocator, "retrieveM4SessionReturn", rhsRetrieveM4SessionReturn), lhsRetrieveM4SessionReturn,
+          rhsRetrieveM4SessionReturn, true, true)) {
         return false;
       }
     }
@@ -129,8 +123,7 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
     {
       int theRetrieveM4SessionReturn;
       theRetrieveM4SessionReturn = this.getRetrieveM4SessionReturn();
-      currentHashCode = strategy.hashCode(
-          LocatorUtils.property(locator, "retrieveM4SessionReturn", theRetrieveM4SessionReturn),
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "retrieveM4SessionReturn", theRetrieveM4SessionReturn),
           currentHashCode, theRetrieveM4SessionReturn, true);
     }
     return currentHashCode;
@@ -159,9 +152,9 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
         if (retrieveM4SessionReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           int sourceRetrieveM4SessionReturn;
           sourceRetrieveM4SessionReturn = this.getRetrieveM4SessionReturn();
-          int copyRetrieveM4SessionReturn = strategy.copy(
-              LocatorUtils.property(locator, "retrieveM4SessionReturn", sourceRetrieveM4SessionReturn),
-              sourceRetrieveM4SessionReturn, true);
+          int copyRetrieveM4SessionReturn =
+              strategy.copy(LocatorUtils.property(locator, "retrieveM4SessionReturn", sourceRetrieveM4SessionReturn),
+                  sourceRetrieveM4SessionReturn, true);
           copy.setRetrieveM4SessionReturn(copyRetrieveM4SessionReturn);
         } else {
           if (retrieveM4SessionReturnShouldBeCopiedAndSet == Boolean.FALSE) {
