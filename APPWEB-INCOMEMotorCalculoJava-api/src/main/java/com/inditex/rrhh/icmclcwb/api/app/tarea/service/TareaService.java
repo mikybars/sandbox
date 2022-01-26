@@ -17,7 +17,7 @@ public interface TareaService {
 
   TareaDto find(@NotNull @Positive final Long id);
 
-  TareaDto create(@Valid @NotNull final TareaDto tarea);
+  TareaDto create(@Valid @NotNull final TrabajoDTO trabajo, @Valid @NotNull final TareaDto tarea);
 
   List<TareaDto> create(@Valid @NotNull final TrabajoDTO trabajo);
 

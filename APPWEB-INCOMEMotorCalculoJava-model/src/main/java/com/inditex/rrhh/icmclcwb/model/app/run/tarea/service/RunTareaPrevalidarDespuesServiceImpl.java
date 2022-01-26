@@ -36,6 +36,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
+import com.inditex.rrhh.icmclcwb.ms.app.tarea.TareaPriorityEnum;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -218,10 +219,10 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
               .countReintentosByIdTareaAndIdAccionAndIdEstado(
                   tareaFaseAccion, tareaFase) < accion.getReintentoMax())) {
         if (Boolean.TRUE.equals(accion.getEsReaccionEsperar())) {
-          this.senderTarea.sendWithDelay(runTareaDto.getTarea(),
-              accion.getReintentoDelay());
+          this.senderTarea.sendWithDelayWithPriority(runTareaDto.getTarea(),
+              accion.getReintentoDelay(), TareaPriorityEnum.REENCOLADA);
         } else {
-          this.senderTarea.send(runTareaDto.getTarea());
+          this.senderTarea.sendWithPriority(runTareaDto.getTarea(), TareaPriorityEnum.REENCOLADA);
         }
         throw new ValidationReintentoException("Error validando");
       }
