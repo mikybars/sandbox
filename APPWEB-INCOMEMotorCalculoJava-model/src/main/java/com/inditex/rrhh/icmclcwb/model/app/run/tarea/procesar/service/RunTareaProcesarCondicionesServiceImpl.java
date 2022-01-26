@@ -73,8 +73,20 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
   }
 
   @Override
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
   public void establecerBandaOpcionOrigen(@Valid @NotNull final TareaDto tarea) {
-    this.tareaPersonaEstructuraRepositoryCustom.establecerBandaOpcionOrigen(tarea);
+    try {
+      this.primaryTemporaryTableRepositoryCustom.createTempEstructurasBaseChallenge();
+      this.primaryTemporaryTableRepositoryCustom.indexTempEstructurasBaseChallenge();
+      this.primaryTemporaryTableRepositoryCustom.insertTempEstructurasBaseChallenge(tarea);
+      this.primaryTemporaryTableRepositoryCustom.createTempEstructurasDesplazamientoNoChallenge();
+      this.primaryTemporaryTableRepositoryCustom.indexTempEstructurasDesplazamientoNoChallenge();
+      this.primaryTemporaryTableRepositoryCustom.insertTempEstructurasDesplazamientoNoChallenge(tarea);
+      this.tareaPersonaEstructuraRepositoryCustom.establecerBandaOpcionOrigen();
+    } finally {
+      this.primaryTemporaryTableRepositoryCustom.deleteTempEstructurasBaseChallenge();
+      this.primaryTemporaryTableRepositoryCustom.deleteTempEstructurasDesplazamientoNoChallenge();
+    }
   }
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)

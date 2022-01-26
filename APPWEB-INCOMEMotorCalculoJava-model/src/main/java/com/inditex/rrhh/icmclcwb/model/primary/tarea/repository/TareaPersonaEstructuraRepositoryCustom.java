@@ -24,6 +24,6 @@ public interface TareaPersonaEstructuraRepositoryCustom {
 
   void crearEstructurasOrigenIgualarBandas();
 
-  void establecerBandaOpcionOrigen(final TareaDto tarea);
+  void establecerBandaOpcionOrigen();
 
 }

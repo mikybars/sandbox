@@ -47,7 +47,16 @@ class RunTareaProcesarCondicionesServiceImplTest {
   @Test
   void establecerBandaOpcionOrigen(@Random final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.establecerBandaOpcionOrigen(tarea);
-    verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).establecerBandaOpcionOrigen(tarea);
+    verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempEstructurasBaseChallenge();
+    verify(this.primaryTemporaryTableRepositoryCustom, times(1)).indexTempEstructurasBaseChallenge();
+    verify(this.primaryTemporaryTableRepositoryCustom, times(1)).insertTempEstructurasBaseChallenge(tarea);
+    verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempEstructurasDesplazamientoNoChallenge();
+    verify(this.primaryTemporaryTableRepositoryCustom, times(1)).indexTempEstructurasDesplazamientoNoChallenge();
+    verify(this.primaryTemporaryTableRepositoryCustom, times(1)).insertTempEstructurasDesplazamientoNoChallenge(tarea);
+    verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).establecerBandaOpcionOrigen();
+    verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempEstructurasBaseChallenge();
+    verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempEstructurasDesplazamientoNoChallenge();
+
   }
 
 }

@@ -163,13 +163,7 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
   }
 
   @Override
-  public void establecerBandaOpcionOrigen(final TareaDto tarea) {
-    final MapSqlParameterSource map = new MapSqlParameterSource();
-    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, AppConstants.getTIPOS_CALCULO_CHALLENGE());
-    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, AppConstants.getTIPOS_COMISION_CHALLENGE());
-    map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-    map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-    this.update(this.sqlEstablecerBandaOpcionOrigen, map);
+  public void establecerBandaOpcionOrigen() {
+    this.update(this.sqlEstablecerBandaOpcionOrigen, new MapSqlParameterSource());
   }
 }
