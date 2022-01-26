@@ -251,7 +251,7 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
 
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
     this.tareaPersonaEstructuraRepositoryCustom.establecerBandaOpcionOrigen();
-    verify(this.jdbcTemplate, times(1)).update(eq(SQL_ESTABLECER_BANDA_OPCION_ORIGEN), paramsCaptor.capture());
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_ESTABLECER_BANDA_OPCION_ORIGEN), paramsCaptor.capture());
     final Map<String, Object> expected = new HashMap<>();
     assertEquals(expected, paramsCaptor.getValue().getValues());
 
