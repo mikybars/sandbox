@@ -239,7 +239,8 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
 
       doReturn(tareaFaseAccionDtoList).when(this.tareaFaseAccionService)
-          .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(this.runTareaDto.getTarea().getId(), this.faseDto.getId(),
+          .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(this.runTareaDto.getTarea().getId(),
+              this.faseDto.getId(),
               this.accionDto.getId(),
               PuntoEjecucionEnum.DURANTE.getId());
 
@@ -309,6 +310,59 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
         this.runTareaPrevalidarDuranteServiceImpl.run(this.runTareaDto, this.faseDto, this.accionDto);
       });
     }
+  }
+
+  @Test
+  public void runExceptionSendWithDelay()
+      throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runTareaDto.setTarea(tareaDto);
+    final FaseDto faseDto = new FaseDto();
+    faseDto.setId(1);
+    final AccionDto accionDto = new AccionDto();
+    accionDto.setId(1);
+
+    final List<TareaFaseAccionDto> tareaFaseAccion = Arrays
+        .asList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
+
+    when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
+        any(Long.class),
+        any(Integer.class), any(Integer.class), any(Integer.class))).thenReturn(tareaFaseAccion);
+    when(this.tareaFaseAccionService.countReintentosByIdTareaAndIdAccionAndIdEstado(any(TareaFaseAccionDto.class),
+        any(TareaFaseDto.class))).thenReturn(1);
+    when(this.accionService.findAccionDtoById(any(Integer.class)))
+        .thenReturn(AccionDto.builder()
+            .id(1)
+            .nombre("Nombre")
+            .esReaccionReintento(Boolean.TRUE)
+            .esReaccionEsperar(Boolean.TRUE)
+            .reintentoMax(2)
+            .peso(100)
+            .build());
+
+    final RunPrevalidar service = mock(RunPrevalidar.class);
+
+    final CompletableFuture<List<ValidacionDto>> cfValid = new CompletableFuture<>();
+    final ValidacionDto validacion = new ValidacionDto();
+    validacion.setResult(Boolean.FALSE);
+    validacion.setIdTareaFaseAccion(1L);
+    validacion.setSincronizacion(Boolean.TRUE);
+    validacion.setIdPersonaLocal(Arrays.asList("111"));
+    cfValid.complete(Arrays.asList(validacion));
+
+    when(this.runPrevalidarFactory.getRunPrevalidar(any(String.class))).thenReturn(service);
+    when(service.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class))).thenReturn(cfValid);
+    when(this.tareaFaseAccionService.findById(any(Long.class)))
+        .thenReturn(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
+
+    try {
+      this.runTareaPrevalidarDuranteServiceImpl.run(runTareaDto, faseDto, accionDto);
+    } catch (final Exception e) {
+      assertThat(e instanceof ValidationReintentoException);
+    }
+
   }
 
 }
