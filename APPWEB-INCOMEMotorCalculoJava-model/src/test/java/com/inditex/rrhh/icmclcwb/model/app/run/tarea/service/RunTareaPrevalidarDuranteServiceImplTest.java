@@ -313,7 +313,7 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
   }
 
   @Test
-  public void runExceptionSendWithDelay()
+  void runExceptionSendWithDelay()
       throws NoSuchFieldException, SecurityException, InterruptedException, ExecutionException {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
