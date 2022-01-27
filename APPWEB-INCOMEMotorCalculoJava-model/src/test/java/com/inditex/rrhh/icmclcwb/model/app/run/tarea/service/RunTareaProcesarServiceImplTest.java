@@ -76,6 +76,9 @@ class RunTareaProcesarServiceImplTest {
         .igualarBandasOrigenDestino(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
+        .establecerBandaOpcionOrigen(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
         .updateImporteEstructuraPoliticas(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)

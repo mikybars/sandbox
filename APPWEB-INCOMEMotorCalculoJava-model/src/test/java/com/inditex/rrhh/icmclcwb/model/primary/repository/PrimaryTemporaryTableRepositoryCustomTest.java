@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -38,7 +40,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 class PrimaryTemporaryTableRepositoryCustomTest {
 
   private final static String ID_TAREA_PARAM = "idTarea";
@@ -176,6 +178,30 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
   private final static String SQL_DELETE_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO = "SQL DELETE TEMP MEJOR OPCION SIN FECHAS TODO PERIODO";
 
+  // estructuras base challenge
+
+  private final static String SQL_CREATE_TEMP_ESTRUCTURAS_BASE_CHALLENGE = "SQL CREATE TEMP ESTRUCTURAS BASE CHALLENGE";
+
+  private final static String SQL_INSERT_TEMP_ESTRUCTURAS_BASE_CHALLENGE = "SQL MERGE TEMP ESTRUCTURAS BASE CHALLENGE";
+
+  private final static String SQL_INDEX_TEMP_ESTRUCTURAS_BASE_CHALLENGE = "SQL INDEX TEMP ESTRUCTURAS BASE CHALLENGE";
+
+  private final static String SQL_DELETE_TEMP_ESTRUCTURAS_BASE_CHALLENGE = "SQL DELETE TEMP ESTRUCTURAS BASE CHALLENGE";
+
+  // estructuras desplazamiento no challenge
+
+  private final static String SQL_CREATE_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE =
+      "SQL CREATE TEMP ESTRUCTURAS DESPLAZAMIENTO NO CHALLENGE";
+
+  private final static String SQL_INSERT_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE =
+      "SQL MERGE TEMP ESTRUCTURAS DESPLAZAMIENTO NO CHALLENGE";
+
+  private final static String SQL_INDEX_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE =
+      "SQL INDEX TEMP ESTRUCTURAS DESPLAZAMIENTO NO CHALLENGE";
+
+  private final static String SQL_DELETE_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE =
+      "SQL DELETE TEMP ESTRUCTURAS DESPLAZAMIENTO NO CHALLENGE";
+
   private final static String SQL_CREATE_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO =
       "SQL CREATE TEMP BANDAS ORIGEN SIN BANDA DESPLAZAMIENTO";
 
@@ -304,6 +330,34 @@ class PrimaryTemporaryTableRepositoryCustomTest {
         true);
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
         "sqlDeleteTempMejorOpcionSinFechasTodoPeriodo", SQL_DELETE_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO,
+        true);
+
+    // estructuras base challenge
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlCreateTempEstructurasBaseChallenge", SQL_CREATE_TEMP_ESTRUCTURAS_BASE_CHALLENGE,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlIndexTempEstructurasBaseChallenge", SQL_INDEX_TEMP_ESTRUCTURAS_BASE_CHALLENGE,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlInsertTempEstructurasBaseChallenge", SQL_INSERT_TEMP_ESTRUCTURAS_BASE_CHALLENGE,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlDeleteTempEstructurasBaseChallenge", SQL_DELETE_TEMP_ESTRUCTURAS_BASE_CHALLENGE,
+        true);
+
+    // estructuras desplazamiento no challenge
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlCreateTempEstructurasDesplazamientoNoChallenge", SQL_CREATE_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlIndexTempEstructurasDesplazamientoNoChallenge", SQL_INDEX_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlInsertTempEstructurasDesplazamientoNoChallenge", SQL_INSERT_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlDeleteTempEstructurasDesplazamientoNoChallenge", SQL_DELETE_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE,
         true);
 
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
@@ -1001,5 +1055,94 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   // Fin test compesación bandas
+
+  // Test estructuras base challenge
+
+  @Test
+  void createTempEstructurasBaseChallengeTest() {
+    this.primaryTemporaryTableRepositoryCustom.createTempEstructurasBaseChallenge();
+    verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_ESTRUCTURAS_BASE_CHALLENGE);
+  }
+
+  @Test
+  void insertTempEstructurasBaseChallengeTest(@Random final TareaDto tarea) {
+
+    this.primaryTemporaryTableRepositoryCustom.insertTempEstructurasBaseChallenge(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(
+        eq(SQL_INSERT_TEMP_ESTRUCTURAS_BASE_CHALLENGE),
+        this.paramsCaptor.capture());
+
+    final Map<String, Object> expected = new HashMap<>() {
+      private static final long serialVersionUID = 267715629345937185L;
+
+      {
+        this.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        this.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        this.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, AppConstants.getTIPOS_COMISION_CHALLENGE());
+        this.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, AppConstants.getTIPOS_CALCULO_CHALLENGE());
+      }
+    };
+
+    assertEquals(expected, this.paramsCaptor.getValue().getValues());
+  }
+
+  @Test
+  void deleteTempEstructurasBaseChallengeTest() {
+    this.primaryTemporaryTableRepositoryCustom.deleteTempEstructurasBaseChallenge();
+    verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_ESTRUCTURAS_BASE_CHALLENGE);
+  }
+
+  @Test
+  void indexTempEstructurasBaseChallengeTest() {
+    this.primaryTemporaryTableRepositoryCustom.indexTempEstructurasBaseChallenge();
+    verify(this.jdbcTemplate).update(SQL_INDEX_TEMP_ESTRUCTURAS_BASE_CHALLENGE);
+  }
+
+  // Fin Test estructuras base challenge
+
+  // Test estructuras base challenge
+
+  @Test
+  void createTempEstructurasDesplazamientoNoChallengeTest() {
+    this.primaryTemporaryTableRepositoryCustom.createTempEstructurasDesplazamientoNoChallenge();
+    verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE);
+  }
+
+  @Test
+  void insertTempEstructurasDesplazamientoNoChallengeTest(@Random final TareaDto tarea) {
+
+    this.primaryTemporaryTableRepositoryCustom.insertTempEstructurasDesplazamientoNoChallenge(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(
+        eq(SQL_INSERT_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE),
+        this.paramsCaptor.capture());
+
+    final Map<String, Object> expected = new HashMap<>() {
+      private static final long serialVersionUID = 2356126580568113922L;
+
+      {
+        this.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+        this.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+        this.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, AppConstants.getTIPOS_COMISION_CHALLENGE());
+        this.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, AppConstants.getTIPOS_CALCULO_CHALLENGE());
+        this.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+      }
+    };
+
+    assertEquals(expected, this.paramsCaptor.getValue().getValues());
+  }
+
+  @Test
+  void deleteTempEstructurasDesplazamientoNoChallengeTest() {
+    this.primaryTemporaryTableRepositoryCustom.deleteTempEstructurasDesplazamientoNoChallenge();
+    verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE);
+  }
+
+  @Test
+  void indexTempEstructurasDesplazamientoNoChallengeTest() {
+    this.primaryTemporaryTableRepositoryCustom.indexTempEstructurasDesplazamientoNoChallenge();
+    verify(this.jdbcTemplate).update(SQL_INDEX_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE);
+  }
+
+  // Fin Test estructuras base challenge
 
 }

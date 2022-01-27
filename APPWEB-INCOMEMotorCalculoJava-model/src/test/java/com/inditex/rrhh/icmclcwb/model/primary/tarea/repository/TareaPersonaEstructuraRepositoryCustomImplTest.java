@@ -54,6 +54,8 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
 
   private static final String SQL_CREAR_ESTRUCTURAS_ORIGEN_IGUALAR_BANDAS = "SQL CREAR ESTRUCTURAS ORIGEN IGUALAR BANDAS";
 
+  private static final String SQL_ESTABLECER_BANDA_OPCION_ORIGEN = "SQL ESTABLECER BANDA OPCION ORIGEN";
+
   @Mock
   private JdbcTemplate jdbcTemplate;
 
@@ -83,6 +85,8 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlSave", SQL_SAVE, true);
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlCrearEstructurasOrigenIgualarBandas",
         SQL_CREAR_ESTRUCTURAS_ORIGEN_IGUALAR_BANDAS, true);
+    FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlEstablecerBandaOpcionOrigen",
+        SQL_ESTABLECER_BANDA_OPCION_ORIGEN, true);
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "batchSize", 100, true);
   }
 
@@ -242,4 +246,14 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
 
   }
 
+  @Test
+  void establecerBandaOpcionOrigen() {
+
+    final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
+    this.tareaPersonaEstructuraRepositoryCustom.establecerBandaOpcionOrigen();
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_ESTABLECER_BANDA_OPCION_ORIGEN), paramsCaptor.capture());
+    final Map<String, Object> expected = new HashMap<>();
+    assertEquals(expected, paramsCaptor.getValue().getValues());
+
+  }
 }
