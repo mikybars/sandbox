@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -12,9 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
@@ -35,7 +34,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith(SpringExtension.class)
 public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustomImplTest {
 
   private final static String SQL_BASE = "SQL CALCULAR BASE";
@@ -46,6 +45,9 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCu
   private TareaCalculoPersonaService tareaCalculoPersonaService;
 
   @Mock
+  private TipoDatoService tipoDatoService;
+
+  @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Captor
@@ -53,15 +55,6 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCu
 
   @InjectMocks
   private TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustomImpl tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustomImpl;
-
-  @Random
-  private AlgoritmoDTO algoritmo;
-
-  @Random
-  private TareaDto tarea;
-
-  @Random
-  private IdPersonaLocalDto persona;
 
   @BeforeEach
   public void setup() throws IllegalAccessException {
@@ -91,6 +84,16 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCu
 
   @Test
   public void getMapValuesTest() {
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(Arrays.asList(
+        IdTipoDatoDto.builder()
+            .id(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
+            .build(),
+        IdTipoDatoDto.builder()
+            .id(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
+            .build(),
+        IdTipoDatoDto.builder()
+            .id(TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
+            .build()));
     final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
     when(algoritmo.getId()).thenReturn(1001);
     final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
@@ -159,12 +162,24 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCu
         result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
     // tipoDatoLocalizacionPersonaPresencia
     assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
-    assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId()),
+    assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+        TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+        TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()),
         result.get(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
   }
 
   @Test
   public void calcularTest() {
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(Arrays.asList(
+        IdTipoDatoDto.builder()
+            .id(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
+            .build(),
+        IdTipoDatoDto.builder()
+            .id(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
+            .build(),
+        IdTipoDatoDto.builder()
+            .id(TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId())
+            .build()));
     final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
     when(algoritmo.getId()).thenReturn(1001);
     final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
@@ -242,7 +257,9 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCu
       assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD));
       // tipoDatoLocalizacionPersonaPresencia
       assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
-      assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId()),
+      assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+          TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+          TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()),
           value.getValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
 
     }
@@ -275,19 +292,6 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCu
         .getSqlCalcular(algoritmo);
     assertEquals(SQL_BASE, result);
 
-  }
-
-  @Test
-  void getMapValuesTest2() {
-    this.algoritmo.setDesplazamientoBase(true);
-    this.algoritmo.setDesplazamiento(true);
-
-    final Map<String, Object> result = this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustomImpl
-        .getMapValues(this.algoritmo, this.tarea, this.persona);
-
-    assertNotNull(result);
-    assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
   }
 
 }
