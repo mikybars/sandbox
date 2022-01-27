@@ -11,6 +11,7 @@ import java.util.concurrent.CompletionException;
 
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.WarningException;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
@@ -140,7 +141,7 @@ public class LoggingAspect {
             pjp.getSignature().toShortString(), o);
       }
     }
-    Object result;
+    Object result = null;
     try {
       result = pjp.proceed();
       if (auditoria.logResult() && this.log.isInfoEnabled()) {
@@ -148,7 +149,15 @@ public class LoggingAspect {
             pjp.getSignature().toShortString());
       }
     } catch (final Throwable e) {
-      if (auditoria.logException() && this.log.isErrorEnabled()) {
+      if (e instanceof WarningException && this.log.isWarnEnabled()) {
+        final Instant end = Instant.now();
+        final String msg = new StringBuilder(id).append("AuditoriaAround :: Fin :: Warn :: Duration[")
+            .append(Duration.between(start, end))
+            .append("] :: ")
+            .append(pjp.getSignature().toShortString())
+            .toString();
+        this.log.warn(msg, e);
+      } else if (auditoria.logException() && this.log.isErrorEnabled()) {
         final Instant end = Instant.now();
         this.log.error(new StringBuilder(id).append("AuditoriaAround :: Fin :: Error :: Duration[")
             .append(Duration.between(start, end))
@@ -177,11 +186,19 @@ public class LoggingAspect {
       this.log.debug("GenericAround :: Inicio :: {} :: {}", pjp.getSignature().toShortString(),
           Arrays.asList(pjp.getArgs()));
     }
-    Object result;
+    Object result = null;
     try {
       result = pjp.proceed();
     } catch (final Throwable e) {
-      if (this.log.isErrorEnabled()) {
+      if (e instanceof WarningException && this.log.isWarnEnabled()) {
+        final Instant end = Instant.now();
+        final String msg = new StringBuilder("GenericAround :: Fin :: Warn :: Duration[")
+            .append(Duration.between(start, end))
+            .append("] :: ")
+            .append(pjp.getSignature().toShortString())
+            .toString();
+        this.log.warn(msg, e);
+      } else if (!(e instanceof WarningException) && this.log.isErrorEnabled()) {
         final Instant end = Instant.now();
         final String msg = new StringBuilder("GenericAround :: Fin :: Error :: Duration[")
             .append(Duration.between(start, end))
@@ -216,15 +233,24 @@ public class LoggingAspect {
       pointcut = "auditoriaPointcut() || controllerPointcut() || servicePointcut() || repositoryPointcut()",
       throwing = "e")
   public void genericAfterThrowing(final JoinPoint jp, final Exception e) {
-    if (this.log.isErrorEnabled()
-        && !(CompletionException.class.equals(e.getClass())
-            && CancellationException.class.equals(e.getCause().getClass()))) {
-      final String msg = new StringBuilder("GenericAfterThrowing :: Error :: ")
-          .append(jp.getSignature().toShortString())
-          .append(" :: ")
-          .append(Arrays.asList(jp.getArgs()))
-          .toString();
-      this.log.error(msg, e);
+    if (!(CompletionException.class.equals(e.getClass())
+        && CancellationException.class.equals(e.getCause().getClass()))) {
+
+      if (e instanceof WarningException && this.log.isWarnEnabled()) {
+        final String msg = new StringBuilder("GenericAfterThrowing :: Warn :: ")
+            .append(jp.getSignature().toShortString())
+            .append(" :: ")
+            .append(Arrays.asList(jp.getArgs()))
+            .toString();
+        this.log.warn(msg, e);
+      } else if (!(e instanceof WarningException) && this.log.isErrorEnabled()) {
+        final String msg = new StringBuilder("GenericAfterThrowing :: Error :: ")
+            .append(jp.getSignature().toShortString())
+            .append(" :: ")
+            .append(Arrays.asList(jp.getArgs()))
+            .toString();
+        this.log.error(msg, e);
+      }
     }
   }
 

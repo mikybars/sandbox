@@ -11,7 +11,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.RunTareaLimpiarConsolidarByAmbitoService;
@@ -121,8 +121,8 @@ class RunTareaServiceImplTest {
   @Test
   void runValidationExceptionTest() {
     final RunTareaDto runTarea = this.createRunTarea();
-    doThrow(new ValidationException("e")).when(this.runTareaNormalizarService).run(any(RunTareaDto.class));
-    assertThrows(ValidationException.class, () -> this.runTareaService.run(runTarea));
+    doThrow(new ValidationNoReintentoException("e")).when(this.runTareaNormalizarService).run(any(RunTareaDto.class));
+    assertThrows(ValidationNoReintentoException.class, () -> this.runTareaService.run(runTarea));
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstado(runTarea,
         EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(), EstadoTareaCalculoPersonaEnum.KO.getDto());
     verify(this.tareaService, times(1)).updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR_VALIDANDO.getDto());
