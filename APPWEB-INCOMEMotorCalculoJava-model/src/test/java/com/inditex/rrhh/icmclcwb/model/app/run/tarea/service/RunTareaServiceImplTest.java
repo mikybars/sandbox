@@ -34,6 +34,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.dto.TipoAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -122,18 +123,17 @@ class RunTareaServiceImplTest {
   void runValidationExceptionTest() {
     final RunTareaDto runTarea = this.createRunTarea();
     doThrow(new ValidationNoReintentoException("e")).when(this.runTareaNormalizarService).run(any(RunTareaDto.class));
-    assertThrows(ValidationNoReintentoException.class, () -> this.runTareaService.run(runTarea));
+    this.runTareaService.run(runTarea);
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstado(runTarea,
         EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(), EstadoTareaCalculoPersonaEnum.KO.getDto());
     verify(this.tareaService, times(1)).updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR_VALIDANDO.getDto());
     verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
-  }
-
-  @Test
-  void runValidationReintentoExceptionTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    doThrow(new ValidationReintentoException("e")).when(this.runTareaNormalizarService).run(any(RunTareaDto.class));
-    assertThrows(ValidationReintentoException.class, () -> this.runTareaService.run(runTarea));
+    verify(this.tareaCalculoPersonaService, times(1)).updateWithEstado(runTarea,
+        EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
+        EstadoTareaCalculoPersonaEnum.KO.getDto());
+    verify(this.runTareaConsolidarService, times(1)).run(runTarea);
+    verify(this.tareaService, times(1)).updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR_VALIDANDO.getDto());
+    verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
   }
 
 }
