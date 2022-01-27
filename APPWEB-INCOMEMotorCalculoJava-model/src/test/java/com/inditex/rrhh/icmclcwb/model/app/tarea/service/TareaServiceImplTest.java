@@ -136,7 +136,9 @@ class TareaServiceImplTest {
   }
 
   @Test
-  void createTest() {
+  void createTareaAndTrabajoTest() {
+    final TrabajoDTO trabajoDto = mock(TrabajoDTO.class);
+    trabajoDto.setEmpresa(new ArrayList<>());
     final TareaDto tareaDto = mock(TareaDto.class);
     tareaDto.setAmbito(new ArrayList<>());
     tareaDto.getAmbito().add(new TareaAmbitoDto());
@@ -147,7 +149,7 @@ class TareaServiceImplTest {
 
     when(this.tareaMapper.tareaDtoToTarea(any(TareaDto.class))).thenReturn(new Tarea());
 
-    this.tareaServiceImpl.create(tareaDto);
+    this.tareaServiceImpl.create(trabajoDto, tareaDto);
 
     verify(this.tareaRepository, times(1)).save(any(Tarea.class));
   }

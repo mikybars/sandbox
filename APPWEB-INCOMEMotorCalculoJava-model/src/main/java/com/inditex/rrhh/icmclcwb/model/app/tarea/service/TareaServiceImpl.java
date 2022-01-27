@@ -23,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
+import com.inditex.rrhh.icmclcwb.ms.app.tarea.TareaPriorityEnum;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -99,7 +100,7 @@ public class TareaServiceImpl implements TareaService {
   }
 
   @Override
-  public TareaDto create(@Valid @NotNull final TareaDto tarea) {
+  public TareaDto create(@Valid @NotNull final TrabajoDTO trabajo, @Valid @NotNull final TareaDto tarea) {
     tarea.setFechaHoraCreacion(LocalDateTime.now());
     tarea.setEstado(EstadoTareaEnum.PENDIENTE.getDto());
     final TareaDto result = this.save(tarea);
@@ -112,8 +113,11 @@ public class TareaServiceImpl implements TareaService {
     if (CollectionUtils.isNotEmpty(tarea.getPersona())) {
       result.setPersona(this.tareaAmbitoPersonaService.create(tarea.getPersona(), result));
     }
-
-    this.senderTarea.send(result);
+    if (trabajo.getIdProgramacion() != null) {
+      this.senderTarea.sendWithPriority(result, TareaPriorityEnum.PROGRAMADA);
+    } else {
+      this.senderTarea.sendWithPriority(result, TareaPriorityEnum.MANUAL);
+    }
     return null;
   }
 
@@ -121,7 +125,7 @@ public class TareaServiceImpl implements TareaService {
   public List<TareaDto> create(@Valid @NotNull final TrabajoDTO trabajo) {
     final List<TareaDto> result = new ArrayList<>();
     this.tareaMapper.mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(trabajo.getEmpresa(), trabajo)
-        .forEach(item -> result.add(this.create(item)));
+        .forEach(item -> result.add(this.create(trabajo, item)));
     return result;
   }
 
