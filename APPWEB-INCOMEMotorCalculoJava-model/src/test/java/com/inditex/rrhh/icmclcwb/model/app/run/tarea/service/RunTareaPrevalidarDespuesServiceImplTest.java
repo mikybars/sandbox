@@ -292,6 +292,11 @@ public class RunTareaPrevalidarDespuesServiceImplTest {
         this.runTareaPrevalidarDespuesServiceImpl.run(this.runTareaDto, this.faseDto);
       });
 
+      accion.setEsReaccionEsperar(false);
+      assertThrows(ValidationReintentoException.class, () -> {
+        this.runTareaPrevalidarDespuesServiceImpl.run(this.runTareaDto, this.faseDto);
+      });
+
       accion.setEsReaccionReintento(false);
       assertThrows(ValidationException.class, () -> {
         this.runTareaPrevalidarDespuesServiceImpl.run(this.runTareaDto, this.faseDto);
