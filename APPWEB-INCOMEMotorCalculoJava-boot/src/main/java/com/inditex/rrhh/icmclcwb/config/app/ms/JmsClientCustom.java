@@ -17,6 +17,7 @@ public class JmsClientCustom implements JmsClientCustomizer {
     converter.setTypeIdPropertyName("_type");
     converter.setObjectMapper(new ObjectMapperCustom());
     jmsClient.setMessageConverter(converter);
+    jmsClient.setExplicitQosEnabled(true);
   }
 
 }

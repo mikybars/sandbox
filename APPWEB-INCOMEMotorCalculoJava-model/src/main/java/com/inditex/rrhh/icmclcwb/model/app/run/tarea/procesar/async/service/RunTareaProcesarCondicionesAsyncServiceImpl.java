@@ -80,4 +80,10 @@ public class RunTareaProcesarCondicionesAsyncServiceImpl implements RunTareaProc
     this.tareaProcesarCondicionesService.igualarBandasOrigenDestino(runTarea.getTarea());
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
+
+  @Override
+  public CompletableFuture<Void> establecerBandaOpcionOrigen(final RunTareaDto runTarea) {
+    this.tareaProcesarCondicionesService.establecerBandaOpcionOrigen(runTarea.getTarea());
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
 }
