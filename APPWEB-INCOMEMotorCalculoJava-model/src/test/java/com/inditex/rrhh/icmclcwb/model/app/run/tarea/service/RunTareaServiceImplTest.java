@@ -12,6 +12,7 @@ import static org.mockito.Mockito.verify;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.RunTareaLimpiarConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
@@ -124,14 +125,22 @@ class RunTareaServiceImplTest {
     this.runTareaService.run(runTarea);
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstado(runTarea,
         EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(), EstadoTareaCalculoPersonaEnum.KO.getDto());
-    verify(this.tareaService, times(1)).updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR_VALIDANDO.getDto());
-    verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstado(runTarea,
         EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
         EstadoTareaCalculoPersonaEnum.KO.getDto());
     verify(this.runTareaConsolidarService, times(1)).run(runTarea);
     verify(this.tareaService, times(1)).updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR_VALIDANDO.getDto());
     verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
+  }
+
+  @Test
+  void runValidationReintentoExceptionTest() {
+    final RunTareaDto runTarea = this.createRunTarea();
+    doThrow(new ValidationReintentoException("e")).when(this.runTareaNormalizarService).run(any(RunTareaDto.class));
+    this.runTareaService.run(runTarea);
+    verify(this.tareaFaseService, times(1)).create(runTarea);
+    verify(this.runTareaAjustarService, times(1)).run(runTarea);
+
   }
 
 }

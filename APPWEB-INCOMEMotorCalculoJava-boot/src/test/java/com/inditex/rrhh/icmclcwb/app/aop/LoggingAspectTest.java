@@ -11,6 +11,7 @@ import static org.mockito.Mockito.verify;
 import java.util.Collections;
 
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.config.app.aop.LoggingAspect;
 
 import org.aspectj.lang.JoinPoint;
@@ -85,6 +86,48 @@ class LoggingAspectTest {
   @Test
   void genericAfterThrowingTest2() {
     Exception exception = new Exception();
+    this.loggingAspect.genericAfterThrowing(this.jp, exception);
+
+    verify(this.loggingAspect, times(1)).genericAfterThrowing(this.jp, exception);
+  }
+
+  @Test
+  void genericAfterThrowingTest3() {
+    doReturn(true).when(this.log).isWarnEnabled();
+    Signature signature = Mockito.mock(Signature.class);
+    Signature spiedSignature = Mockito.spy(signature);
+    doReturn(spiedSignature).when(this.jp).getSignature();
+    doReturn("").when(spiedSignature).toShortString();
+    doReturn(new String[]{"A"}).when(this.jp).getArgs();
+
+    Exception exception = new ValidationReintentoException("e");
+    this.loggingAspect.genericAfterThrowing(this.jp, exception);
+
+    verify(this.loggingAspect, times(1)).genericAfterThrowing(this.jp, exception);
+  }
+
+  @Test
+  void genericAfterThrowingTest4() {
+    doReturn(false).when(this.log).isWarnEnabled();
+    Exception exception = new Exception("e");
+    this.loggingAspect.genericAfterThrowing(this.jp, exception);
+
+    verify(this.loggingAspect, times(1)).genericAfterThrowing(this.jp, exception);
+  }
+
+  @Test
+  void genericAfterThrowingTest5() {
+    doReturn(true).when(this.log).isWarnEnabled();
+    Exception exception = new Exception("e");
+    this.loggingAspect.genericAfterThrowing(this.jp, exception);
+
+    verify(this.loggingAspect, times(1)).genericAfterThrowing(this.jp, exception);
+  }
+
+  @Test
+  void genericAfterThrowingTest6() {
+    doReturn(false).when(this.log).isWarnEnabled();
+    Exception exception = new ValidationReintentoException("e");
     this.loggingAspect.genericAfterThrowing(this.jp, exception);
 
     verify(this.loggingAspect, times(1)).genericAfterThrowing(this.jp, exception);
