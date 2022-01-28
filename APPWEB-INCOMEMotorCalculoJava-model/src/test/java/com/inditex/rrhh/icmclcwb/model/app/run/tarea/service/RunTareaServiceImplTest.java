@@ -12,7 +12,6 @@ import static org.mockito.Mockito.verify;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
-import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.RunTareaLimpiarConsolidarByAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
@@ -34,7 +33,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.dto.TipoAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

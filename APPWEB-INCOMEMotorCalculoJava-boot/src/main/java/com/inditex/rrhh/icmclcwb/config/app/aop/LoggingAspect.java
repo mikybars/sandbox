@@ -149,7 +149,7 @@ public class LoggingAspect {
             pjp.getSignature().toShortString());
       }
     } catch (final Throwable e) {
-      if (e instanceof WarningException && this.log.isWarnEnabled()) {
+      if (auditoria.logException() && e instanceof WarningException && this.log.isWarnEnabled()) {
         final Instant end = Instant.now();
         final String msg = new StringBuilder(id).append("AuditoriaAround :: Fin :: Warn :: Duration[")
             .append(Duration.between(start, end))
