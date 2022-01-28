@@ -12,6 +12,7 @@ import java.util.Collections;
 
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.WarningException;
 import com.inditex.rrhh.icmclcwb.config.app.aop.LoggingAspect;
 
 import org.aspectj.lang.JoinPoint;
@@ -100,7 +101,7 @@ class LoggingAspectTest {
     doReturn("").when(spiedSignature).toShortString();
     doReturn(new String[]{"A"}).when(this.jp).getArgs();
 
-    Exception exception = new ValidationReintentoException("e");
+    Exception exception = new WarningException("e", new Throwable());
     this.loggingAspect.genericAfterThrowing(this.jp, exception);
 
     verify(this.loggingAspect, times(1)).genericAfterThrowing(this.jp, exception);
@@ -127,7 +128,7 @@ class LoggingAspectTest {
   @Test
   void genericAfterThrowingTest6() {
     doReturn(false).when(this.log).isWarnEnabled();
-    Exception exception = new ValidationReintentoException("e");
+    Exception exception = new ValidationReintentoException("e", new Throwable());
     this.loggingAspect.genericAfterThrowing(this.jp, exception);
 
     verify(this.loggingAspect, times(1)).genericAfterThrowing(this.jp, exception);
