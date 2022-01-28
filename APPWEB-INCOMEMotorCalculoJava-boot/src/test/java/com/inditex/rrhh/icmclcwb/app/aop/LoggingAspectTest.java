@@ -141,53 +141,53 @@ class LoggingAspectTest {
 
   @Test
   void genericAroundTest() throws Throwable {
-      doReturn(true).when(this.log).isDebugEnabled();
+    doReturn(true).when(this.log).isDebugEnabled();
 
-      Signature signature = Mockito.mock(Signature.class);
-      Signature spiedSignature = Mockito.spy(signature);
-      doReturn(spiedSignature).when(this.pjp).getSignature();
-      doReturn("").when(spiedSignature).toShortString();
-      doReturn(new String[]{"A"}).when(this.pjp).getArgs();
+    Signature signature = Mockito.mock(Signature.class);
+    Signature spiedSignature = Mockito.spy(signature);
+    doReturn(spiedSignature).when(this.pjp).getSignature();
+    doReturn("").when(spiedSignature).toShortString();
+    doReturn(new String[]{"A"}).when(this.pjp).getArgs();
 
     this.loggingAspect.genericAround(this.pjp);
 
-      verify(this.pjp, times(1)).proceed();
+    verify(this.pjp, times(1)).proceed();
   }
 
-    @Test
-    void genericAroundTest2() throws Throwable {
-        doReturn(true).when(this.log).isErrorEnabled();
+  @Test
+  void genericAroundTest2() throws Throwable {
+    doReturn(true).when(this.log).isErrorEnabled();
 
-        Signature signature = Mockito.mock(Signature.class);
-        Signature spiedSignature = Mockito.spy(signature);
-        doReturn(spiedSignature).when(this.pjp).getSignature();
-        doReturn("").when(spiedSignature).toShortString();
-        doReturn(new String[]{"A"}).when(this.pjp).getArgs();
+    Signature signature = Mockito.mock(Signature.class);
+    Signature spiedSignature = Mockito.spy(signature);
+    doReturn(spiedSignature).when(this.pjp).getSignature();
+    doReturn("").when(spiedSignature).toShortString();
+    doReturn(new String[]{"A"}).when(this.pjp).getArgs();
 
-        doThrow(new Throwable()).when(this.pjp).proceed();
+    doThrow(new Throwable()).when(this.pjp).proceed();
 
-        assertThrows(Throwable.class, () -> {
-            this.loggingAspect.genericAround(this.pjp);
-        });
+    assertThrows(Throwable.class, () -> {
+      this.loggingAspect.genericAround(this.pjp);
+    });
 
-    }
+  }
 
-    @Test
-    void genericAroundTest3() throws Throwable {
-        doReturn(true).when(this.log).isWarnEnabled();
+  @Test
+  void genericAroundTest3() throws Throwable {
+    doReturn(true).when(this.log).isWarnEnabled();
 
-        Signature signature = Mockito.mock(Signature.class);
-        Signature spiedSignature = Mockito.spy(signature);
-        doReturn(spiedSignature).when(this.pjp).getSignature();
-        doReturn("").when(spiedSignature).toShortString();
-        doReturn(new String[]{"A"}).when(this.pjp).getArgs();
+    Signature signature = Mockito.mock(Signature.class);
+    Signature spiedSignature = Mockito.spy(signature);
+    doReturn(spiedSignature).when(this.pjp).getSignature();
+    doReturn("").when(spiedSignature).toShortString();
+    doReturn(new String[]{"A"}).when(this.pjp).getArgs();
 
-        doThrow(new WarningException("")).when(this.pjp).proceed();
+    doThrow(new WarningException("")).when(this.pjp).proceed();
 
-        assertThrows(WarningException.class, () -> {
-            this.loggingAspect.genericAround(this.pjp);
-        });
+    assertThrows(WarningException.class, () -> {
+      this.loggingAspect.genericAround(this.pjp);
+    });
 
-    }
+  }
 
 }
