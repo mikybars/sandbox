@@ -5,6 +5,7 @@ package com.inditex.rrhh.icmclcwb.app.aop;
  */
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -16,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.exception.WarningException;
 import com.inditex.rrhh.icmclcwb.config.app.aop.LoggingAspect;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,6 +38,9 @@ class LoggingAspectTest {
 
   @Mock
   JoinPoint jp;
+
+  @Mock
+  ProceedingJoinPoint pjp;
 
   @Mock
   Signature signature;
@@ -133,5 +138,56 @@ class LoggingAspectTest {
 
     verify(this.loggingAspect, times(1)).genericAfterThrowing(this.jp, exception);
   }
+
+  @Test
+  void genericAroundTest() throws Throwable {
+      doReturn(true).when(this.log).isDebugEnabled();
+
+      Signature signature = Mockito.mock(Signature.class);
+      Signature spiedSignature = Mockito.spy(signature);
+      doReturn(spiedSignature).when(this.pjp).getSignature();
+      doReturn("").when(spiedSignature).toShortString();
+      doReturn(new String[]{"A"}).when(this.pjp).getArgs();
+
+    this.loggingAspect.genericAround(this.pjp);
+
+      verify(this.pjp, times(1)).proceed();
+  }
+
+    @Test
+    void genericAroundTest2() throws Throwable {
+        doReturn(true).when(this.log).isErrorEnabled();
+
+        Signature signature = Mockito.mock(Signature.class);
+        Signature spiedSignature = Mockito.spy(signature);
+        doReturn(spiedSignature).when(this.pjp).getSignature();
+        doReturn("").when(spiedSignature).toShortString();
+        doReturn(new String[]{"A"}).when(this.pjp).getArgs();
+
+        doThrow(new Throwable()).when(this.pjp).proceed();
+
+        assertThrows(Throwable.class, () -> {
+            this.loggingAspect.genericAround(this.pjp);
+        });
+
+    }
+
+    @Test
+    void genericAroundTest3() throws Throwable {
+        doReturn(true).when(this.log).isWarnEnabled();
+
+        Signature signature = Mockito.mock(Signature.class);
+        Signature spiedSignature = Mockito.spy(signature);
+        doReturn(spiedSignature).when(this.pjp).getSignature();
+        doReturn("").when(spiedSignature).toShortString();
+        doReturn(new String[]{"A"}).when(this.pjp).getArgs();
+
+        doThrow(new WarningException("")).when(this.pjp).proceed();
+
+        assertThrows(WarningException.class, () -> {
+            this.loggingAspect.genericAround(this.pjp);
+        });
+
+    }
 
 }
