@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -170,7 +170,7 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     try {
       this.runTareaPrevalidarDuranteServiceImpl.run(runTareaDto, faseDto, accionDto);
     } catch (final Exception e) {
-      assertThat(e instanceof ValidationException);
+      assertThat(e instanceof ValidationNoReintentoException);
     }
 
   }
@@ -306,7 +306,7 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
       doReturn(2).when(this.tareaFaseAccionService).countReintentosByIdTareaAndIdAccionAndIdEstado(
           tareaFaseAccionDto, tareaFase);
 
-      assertThrows(ValidationException.class, () -> {
+      assertThrows(ValidationNoReintentoException.class, () -> {
         this.runTareaPrevalidarDuranteServiceImpl.run(this.runTareaDto, this.faseDto, this.accionDto);
       });
     }

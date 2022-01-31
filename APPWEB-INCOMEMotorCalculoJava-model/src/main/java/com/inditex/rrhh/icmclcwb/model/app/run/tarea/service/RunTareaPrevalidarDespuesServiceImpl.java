@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -226,7 +226,7 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
         }
         throw new ValidationReintentoException("Error validando");
       }
-      throw new ValidationException("Error validando");
+      throw new ValidationNoReintentoException("Error validando");
     }
 
   }
