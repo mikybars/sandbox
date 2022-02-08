@@ -9,6 +9,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -17,7 +18,15 @@ import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.WarningException;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.config.app.aop.LoggingAspect;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -197,13 +206,16 @@ class LoggingAspectTest {
   @Test
   void auditoriaAroundTest() throws Throwable {
     doReturn(true).when(this.log).isDebugEnabled();
-
+    final RunProgramacionDto runProgramacion = new RunProgramacionDto();
+    final ProgramacionDto programacion = new ProgramacionDto();
+    programacion.setId(1L);
+    runProgramacion.setProgramacion(programacion);
     final Signature signature = Mockito.mock(Signature.class);
     final MethodSignature methodSignature = Mockito.mock(MethodSignature.class);
     final Signature spiedSignature = Mockito.spy(signature);
     doReturn(methodSignature).when(this.pjp).getSignature();
     doReturn("").when(methodSignature).toShortString();
-    doReturn(new String[]{"A"}).when(this.pjp).getArgs();
+    doReturn(new RunProgramacionDto[]{runProgramacion}).when(this.pjp).getArgs();
     doReturn(this.myMethod()).when(methodSignature).getMethod();
 
     this.loggingAspect.auditoriaAround(this.pjp);
@@ -211,12 +223,127 @@ class LoggingAspectTest {
     verify(this.pjp, times(1)).proceed();
   }
 
-  public Method myMethod() throws NoSuchMethodException {
-    return this.getClass().getDeclaredMethod("someMethod");
+  @Test
+  void auditoriaAroundTest2() throws Throwable {
+    doReturn(true).when(this.log).isDebugEnabled();
+    final RunTrabajoDto runTrabajoDto = new RunTrabajoDto();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    runTrabajoDto.setTrabajo(trabajo);
+    final Signature signature = Mockito.mock(Signature.class);
+    final MethodSignature methodSignature = Mockito.mock(MethodSignature.class);
+    final Signature spiedSignature = Mockito.spy(signature);
+    doReturn(methodSignature).when(this.pjp).getSignature();
+    doReturn("").when(methodSignature).toShortString();
+    doReturn(new RunTrabajoDto[]{runTrabajoDto}).when(this.pjp).getArgs();
+    doReturn(this.myMethod()).when(methodSignature).getMethod();
+
+    this.loggingAspect.auditoriaAround(this.pjp);
+
+    verify(this.pjp, times(1)).proceed();
   }
 
-  @Auditoria
-  public void someMethod() {
+  @Test
+  void auditoriaAroundTest3() throws Throwable {
+    doReturn(true).when(this.log).isDebugEnabled();
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runTareaDto.setTarea(tareaDto);
+    final Signature signature = Mockito.mock(Signature.class);
+    final MethodSignature methodSignature = Mockito.mock(MethodSignature.class);
+    final Signature spiedSignature = Mockito.spy(signature);
+    doReturn(methodSignature).when(this.pjp).getSignature();
+    doReturn("").when(methodSignature).toShortString();
+    doReturn(new RunTareaDto[]{runTareaDto}).when(this.pjp).getArgs();
+    doReturn(this.myMethod()).when(methodSignature).getMethod();
+
+    this.loggingAspect.auditoriaAround(this.pjp);
+
+    verify(this.pjp, times(1)).proceed();
+  }
+
+  @Test
+  void auditoriaAroundTest4() throws Throwable {
+    doReturn(true).when(this.log).isDebugEnabled();
+    final ProgramacionDto programacionDto = new ProgramacionDto();
+    programacionDto.setId(1L);
+    final Signature signature = Mockito.mock(Signature.class);
+    final MethodSignature methodSignature = Mockito.mock(MethodSignature.class);
+    final Signature spiedSignature = Mockito.spy(signature);
+    doReturn(methodSignature).when(this.pjp).getSignature();
+    doReturn("").when(methodSignature).toShortString();
+    doReturn(new ProgramacionDto[]{programacionDto}).when(this.pjp).getArgs();
+    doReturn(this.myMethod()).when(methodSignature).getMethod();
+
+    this.loggingAspect.auditoriaAround(this.pjp);
+
+    verify(this.pjp, times(1)).proceed();
+  }
+
+  @Test
+  void auditoriaAroundTest5() throws Throwable {
+    doReturn(true).when(this.log).isDebugEnabled();
+    final TrabajoDto trabajoDto = new TrabajoDto();
+    trabajoDto.setId(1L);
+    final Signature signature = Mockito.mock(Signature.class);
+    final MethodSignature methodSignature = Mockito.mock(MethodSignature.class);
+    final Signature spiedSignature = Mockito.spy(signature);
+    doReturn(methodSignature).when(this.pjp).getSignature();
+    doReturn("").when(methodSignature).toShortString();
+    doReturn(new TrabajoDto[]{trabajoDto}).when(this.pjp).getArgs();
+    doReturn(this.myMethod()).when(methodSignature).getMethod();
+
+    this.loggingAspect.auditoriaAround(this.pjp);
+
+    verify(this.pjp, times(1)).proceed();
+  }
+
+  @Test
+  void auditoriaAroundTest6() throws Throwable {
+    doReturn(true).when(this.log).isDebugEnabled();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    final Signature signature = Mockito.mock(Signature.class);
+    final MethodSignature methodSignature = Mockito.mock(MethodSignature.class);
+    final Signature spiedSignature = Mockito.spy(signature);
+    doReturn(methodSignature).when(this.pjp).getSignature();
+    doReturn("").when(methodSignature).toShortString();
+    doReturn(new TareaDto[]{tareaDto}).when(this.pjp).getArgs();
+    doReturn(this.myMethod()).when(methodSignature).getMethod();
+
+    this.loggingAspect.auditoriaAround(this.pjp);
+
+    verify(this.pjp, times(1)).proceed();
+  }
+
+  @Test
+  void auditoriaAroundTest7() throws Throwable {
+    doReturn(true).when(this.log).isDebugEnabled();
+    final RunLimpiezaDto runLimpiezaDto = new RunLimpiezaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runLimpiezaDto.setTarea(tareaDto);
+    final Signature signature = Mockito.mock(Signature.class);
+    final MethodSignature methodSignature = Mockito.mock(MethodSignature.class);
+    final Signature spiedSignature = Mockito.spy(signature);
+    doReturn(methodSignature).when(this.pjp).getSignature();
+    doReturn("").when(methodSignature).toShortString();
+    doReturn(new RunLimpiezaDto[]{runLimpiezaDto}).when(this.pjp).getArgs();
+    doReturn(this.myMethod()).when(methodSignature).getMethod();
+    when(this.log.isInfoEnabled()).thenReturn(true);
+
+    this.loggingAspect.auditoriaAround(this.pjp);
+
+    verify(this.pjp, times(1)).proceed();
+  }
+
+  public Method myMethod() throws NoSuchMethodException {
+    return this.getClass().getDeclaredMethod("someMethod", RunProgramacionDto.class);
+  }
+
+  @Auditoria(logArgs = true)
+  public void someMethod(final RunProgramacionDto a) {
   }
 
 }
