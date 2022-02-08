@@ -32,4 +32,8 @@ public class ValidacionDto implements Serializable {
 
   private List<Integer> idMotivosDesplazamiento;
 
+  private PresenciaOrigenDto comis;
+
+  private PresenciaOrigenDto ptr;
+
 }

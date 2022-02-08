@@ -46,6 +46,8 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
       @Valid final TareaAmbitoDto tareaAmbito,
       @Valid final TareaFaseAccionDto tareaFaseAccion) {
     boolean validacion = Boolean.FALSE;
+    PresenciaOrigenDto presenciaComis = new PresenciaOrigenDto();
+    PresenciaOrigenDto presenciaPtr = new PresenciaOrigenDto();
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final CompletableFuture<PresenciaOrigenDto> cfPresenciaComis = this.comisAsyncService
@@ -58,8 +60,8 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
 
       AsyncUtils.waitAllOfIsOk(cf, cf);
 
-      final PresenciaOrigenDto presenciaComis = AsyncUtils.get(cfPresenciaComis);
-      final PresenciaOrigenDto presenciaPtr = AsyncUtils.get(cfPresenciaPtr);
+      presenciaComis = AsyncUtils.get(cfPresenciaComis);
+      presenciaPtr = AsyncUtils.get(cfPresenciaPtr);
 
       validacion = presenciaComis.getHorasSeccion4().equals(presenciaPtr.getHorasSeccion4());
 
@@ -69,7 +71,7 @@ public class RunTareaAmbitoValidarPresenciasServiceImpl implements RunTareaAmbit
       AsyncUtils.cancel(cf);
       throw e;
     }
-    return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, validacion);
+    return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, validacion, presenciaComis, presenciaPtr);
   }
 
 }
