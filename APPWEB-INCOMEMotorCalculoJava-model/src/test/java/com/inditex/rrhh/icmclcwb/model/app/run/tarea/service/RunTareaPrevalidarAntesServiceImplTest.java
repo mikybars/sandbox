@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.service.LimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -156,7 +156,7 @@ public class RunTareaPrevalidarAntesServiceImplTest {
     try {
       this.runTareaPrevalidarAntesServiceImpl.run(runTareaDto, faseDto);
     } catch (final Exception e) {
-      assertThat(e instanceof ValidationNoReintentoException);
+      assertTrue(ValidationException.class.isAssignableFrom(e.getClass()));
     }
 
   }
@@ -208,28 +208,28 @@ public class RunTareaPrevalidarAntesServiceImplTest {
     try {
       this.runTareaPrevalidarAntesServiceImpl.run(runTareaDto, faseDto);
     } catch (final Exception e) {
-      assertThat(e instanceof ValidationReintentoException);
+      assertTrue(ValidationReintentoException.class.isAssignableFrom(e.getClass()));
     }
 
   }
 
   @Test
-  void runExceptionTest(@Random TareaFaseDto tareaFase, @Random AccionDto accionDto,
-      @Random(type = TareaFaseAccionDto.class, size = 2) List<TareaFaseAccionDto> tareaFaseAccionDtoList,
-      @Random(type = ValidacionDto.class, size = 2) List<ValidacionDto> validacionDtoList,
-      @Random TareaFaseAccionDto tareaFaseAccionDto,
-      @Random CompletableFuture<List<ValidacionDto>> cfRun,
-      @Random SincronizacionResponseDto sincronizacionResponseDto,
-      @Random AccionDto accion) {
+  void runExceptionTest(@Random final TareaFaseDto tareaFase, @Random final AccionDto accionDto,
+      @Random(type = TareaFaseAccionDto.class, size = 2) final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
+      @Random(type = ValidacionDto.class, size = 2) final List<ValidacionDto> validacionDtoList,
+      @Random final TareaFaseAccionDto tareaFaseAccionDto,
+      @Random final CompletableFuture<List<ValidacionDto>> cfRun,
+      @Random final SincronizacionResponseDto sincronizacionResponseDto,
+      @Random final AccionDto accion) {
 
-    try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+    try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
       doReturn(tareaFase).when(this.tareaFaseService)
           .findTareaFaseDtoByIdTareaAndIdFase(this.runTareaDto.getTarea().getId(), this.faseDto.getId());
 
       doReturn(tareaFaseAccionDtoList).when(this.tareaFaseAccionService)
           .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(this.runTareaDto.getTarea().getId(), this.faseDto.getId(),
               PuntoEjecucionEnum.ANTES.getId());
-      Map<Integer, List<TareaFaseAccionDto>> fases = tareaFaseAccionDtoList.stream()
+      final Map<Integer, List<TareaFaseAccionDto>> fases = tareaFaseAccionDtoList.stream()
           .sorted(Comparator.comparingInt(TareaFaseAccionDto::getPeso).reversed())
           .collect(Collectors.groupingBy(TareaFaseAccionDto::getPeso));
 
@@ -246,7 +246,7 @@ public class RunTareaPrevalidarAntesServiceImplTest {
         }
       }
 
-      List<ValidacionDto> fallidas = validaciones.stream().filter(e -> Boolean.FALSE.equals(e.getResult()))
+      final List<ValidacionDto> fallidas = validaciones.stream().filter(e -> Boolean.FALSE.equals(e.getResult()))
           .sorted(Comparator.comparingInt(ValidacionDto::getReaccionPeso).reversed()).map(e -> {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccionDto,
                 EstadoTareaFaseAccionEnum.KO.getDto());
@@ -254,7 +254,7 @@ public class RunTareaPrevalidarAntesServiceImplTest {
                 EstadoTareaFaseEnum.KO.getDto());
             return e;
           }).collect(Collectors.toList());
-      for (ValidacionDto e : fallidas) {
+      for (final ValidacionDto e : fallidas) {
         doReturn(tareaFaseAccionDto).when(this.tareaFaseAccionService).findById(e.getIdTareaFaseAccion());
       }
 
@@ -298,7 +298,7 @@ public class RunTareaPrevalidarAntesServiceImplTest {
       });
 
       accion.setEsReaccionReintento(false);
-      assertThrows(ValidationNoReintentoException.class, () -> {
+      assertThrows(ValidationException.class, () -> {
         this.runTareaPrevalidarAntesServiceImpl.run(this.runTareaDto, this.faseDto);
       });
     }
