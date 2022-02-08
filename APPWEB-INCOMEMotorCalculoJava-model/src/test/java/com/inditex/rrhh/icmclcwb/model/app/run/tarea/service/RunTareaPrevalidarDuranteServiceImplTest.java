@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -170,7 +170,7 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     try {
       this.runTareaPrevalidarDuranteServiceImpl.run(runTareaDto, faseDto, accionDto);
     } catch (final Exception e) {
-      assertThat(e instanceof ValidationException);
+      assertTrue(ValidationException.class.isAssignableFrom(e.getClass()));
     }
 
   }
@@ -223,20 +223,20 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     try {
       this.runTareaPrevalidarDuranteServiceImpl.run(runTareaDto, faseDto, accionDto);
     } catch (final Exception e) {
-      assertThat(e instanceof ValidationReintentoException);
+      assertTrue(ValidationReintentoException.class.isAssignableFrom(e.getClass()));
     }
 
   }
 
   @Test
-  void runExceptionTest(@Random AccionDto accion,
-      @Random(type = TareaFaseAccionDto.class, size = 2) List<TareaFaseAccionDto> tareaFaseAccionDtoList,
-      @Random CompletableFuture<List<ValidacionDto>> cfRun, @Random TareaFaseDto tareaFase,
-      @Random(type = ValidacionDto.class, size = 2) List<ValidacionDto> validacionDtoList,
-      @Random TareaFaseAccionDto tareaFaseAccionDto,
-      @Random SincronizacionResponseDto sincronizacionResponseDto) {
+  void runExceptionTest(@Random final AccionDto accion,
+      @Random(type = TareaFaseAccionDto.class, size = 2) final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
+      @Random final CompletableFuture<List<ValidacionDto>> cfRun, @Random final TareaFaseDto tareaFase,
+      @Random(type = ValidacionDto.class, size = 2) final List<ValidacionDto> validacionDtoList,
+      @Random final TareaFaseAccionDto tareaFaseAccionDto,
+      @Random final SincronizacionResponseDto sincronizacionResponseDto) {
 
-    try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+    try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
 
       doReturn(tareaFaseAccionDtoList).when(this.tareaFaseAccionService)
           .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(this.runTareaDto.getTarea().getId(),
@@ -244,16 +244,16 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
               this.accionDto.getId(),
               PuntoEjecucionEnum.DURANTE.getId());
 
-      Map<Integer, List<TareaFaseAccionDto>> fases = tareaFaseAccionDtoList.stream()
+      final Map<Integer, List<TareaFaseAccionDto>> fases = tareaFaseAccionDtoList.stream()
           .sorted(Comparator.comparingInt(TareaFaseAccionDto::getPeso).reversed())
           .collect(Collectors.groupingBy(TareaFaseAccionDto::getPeso));
 
       final List<ValidacionDto> validaciones = new ArrayList<>();
       for (final Integer pesos : fases.keySet()) {
         for (final TareaFaseAccionDto tareaFaseAccion : fases.get(pesos)) {
-          doReturn(accionDto).when(this.accionService).findAccionDtoById(tareaFaseAccion.getIdAccion());
+          doReturn(this.accionDto).when(this.accionService).findAccionDtoById(tareaFaseAccion.getIdAccion());
 
-          doReturn(this.runPrevalidar).when(this.runPrevalidarFactory).getRunPrevalidar(accionDto.getNombre());
+          doReturn(this.runPrevalidar).when(this.runPrevalidarFactory).getRunPrevalidar(this.accionDto.getNombre());
           doReturn(cfRun).when(this.runPrevalidar).execute(this.runTareaDto, tareaFaseAccion);
 
           utilities.when(() -> AsyncUtils.get(cfRun)).thenReturn(validacionDtoList);
@@ -264,7 +264,7 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
       doReturn(tareaFase).when(this.tareaFaseService)
           .findTareaFaseDtoByIdTareaAndIdFase(this.runTareaDto.getTarea().getId(), this.faseDto.getId());
 
-      List<ValidacionDto> fallidas = validaciones.stream().filter(e -> Boolean.FALSE.equals(e.getResult()))
+      final List<ValidacionDto> fallidas = validaciones.stream().filter(e -> Boolean.FALSE.equals(e.getResult()))
           .sorted(Comparator.comparingInt(ValidacionDto::getReaccionPeso).reversed()).map(e -> {
             this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccionDto,
                 EstadoTareaFaseAccionEnum.KO.getDto());
@@ -272,7 +272,7 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
                 EstadoTareaFaseEnum.KO.getDto());
             return e;
           }).collect(Collectors.toList());
-      for (ValidacionDto e : fallidas) {
+      for (final ValidacionDto e : fallidas) {
         doReturn(tareaFaseAccionDto).when(this.tareaFaseAccionService).findById(e.getIdTareaFaseAccion());
       }
 
@@ -360,7 +360,7 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     try {
       this.runTareaPrevalidarDuranteServiceImpl.run(runTareaDto, faseDto, accionDto);
     } catch (final Exception e) {
-      assertThat(e instanceof ValidationReintentoException);
+      assertTrue(ValidationReintentoException.class.isAssignableFrom(e.getClass()));
     }
 
   }
