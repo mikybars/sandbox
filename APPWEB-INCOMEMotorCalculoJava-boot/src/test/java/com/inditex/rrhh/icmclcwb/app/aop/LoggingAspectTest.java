@@ -338,11 +338,59 @@ class LoggingAspectTest {
     verify(this.pjp, times(1)).proceed();
   }
 
+  @Test
+  void auditoriaAroundTest8() throws Throwable {
+    doReturn(true).when(this.log).isDebugEnabled();
+    final RunLimpiezaDto runLimpiezaDto = new RunLimpiezaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runLimpiezaDto.setTarea(tareaDto);
+    final Signature signature = Mockito.mock(Signature.class);
+    final MethodSignature methodSignature = Mockito.mock(MethodSignature.class);
+    final Signature spiedSignature = Mockito.spy(signature);
+    doReturn(methodSignature).when(this.pjp).getSignature();
+    doReturn("").when(methodSignature).toShortString();
+    doReturn(new RunLimpiezaDto[]{runLimpiezaDto}).when(this.pjp).getArgs();
+    doReturn(this.myMethod()).when(methodSignature).getMethod();
+    when(this.log.isInfoEnabled()).thenReturn(true);
+    when(this.log.isErrorEnabled()).thenReturn(true);
+    when(this.pjp.proceed()).thenThrow(new Throwable());
+
+    assertThrows(Throwable.class, () -> {
+      this.loggingAspect.auditoriaAround(this.pjp);
+    });
+
+  }
+
+  @Test
+  void auditoriaAroundTest9() throws Throwable {
+    doReturn(true).when(this.log).isDebugEnabled();
+    final RunLimpiezaDto runLimpiezaDto = new RunLimpiezaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runLimpiezaDto.setTarea(tareaDto);
+    final Signature signature = Mockito.mock(Signature.class);
+    final MethodSignature methodSignature = Mockito.mock(MethodSignature.class);
+    final Signature spiedSignature = Mockito.spy(signature);
+    doReturn(methodSignature).when(this.pjp).getSignature();
+    doReturn("").when(methodSignature).toShortString();
+    doReturn(new RunLimpiezaDto[]{runLimpiezaDto}).when(this.pjp).getArgs();
+    doReturn(this.myMethod()).when(methodSignature).getMethod();
+    when(this.log.isInfoEnabled()).thenReturn(true);
+    when(this.log.isWarnEnabled()).thenReturn(true);
+    when(this.pjp.proceed()).thenThrow(new WarningException(""));
+
+    assertThrows(WarningException.class, () -> {
+      this.loggingAspect.auditoriaAround(this.pjp);
+    });
+
+  }
+
   public Method myMethod() throws NoSuchMethodException {
     return this.getClass().getDeclaredMethod("someMethod", RunProgramacionDto.class);
   }
 
-  @Auditoria(logArgs = true)
+  @Auditoria(logArgs = true, logResult = true, logException = true)
   public void someMethod(final RunProgramacionDto a) {
   }
 
