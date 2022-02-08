@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -32,6 +33,9 @@ public class RunTareaValidarPresenciasServiceImpl implements RunPrevalidar {
 
   @Autowired
   private AccionService accionService;
+
+  @Autowired
+  private Logger log;
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid final RunTareaDto runTarea,
@@ -57,7 +61,14 @@ public class RunTareaValidarPresenciasServiceImpl implements RunPrevalidar {
         .collect(Collectors.toList())
         .isEmpty()) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+    } else {
+      validaciones.stream().filter(e -> e.getResult().equals(Boolean.FALSE))
+          .forEach(e -> {
+            this.log.error(
+                new StringBuilder().append("Horas PTR: ").append(e.getPtr()).append(", Horas Comis: ").append(e.getComis()).toString());
+          });
     }
+
     return CompletableFuture.completedFuture(validaciones);
   }
 
