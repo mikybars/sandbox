@@ -63,10 +63,10 @@ public class RunTareaValidarPresenciasServiceImpl implements RunPrevalidar {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
     } else {
       validaciones.stream().filter(e -> e.getResult().equals(Boolean.FALSE))
-          .forEach(e ->
+          .forEach(e -> {
             this.log.error(
                 new StringBuilder().append("Horas PTR: ").append(e.getPtr()).append(", Horas Comis: ").append(e.getComis()).toString());
-          );
+          });
     }
 
     return CompletableFuture.completedFuture(validaciones);
