@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -156,7 +156,7 @@ public class RunTareaPrevalidarAntesServiceImplTest {
     try {
       this.runTareaPrevalidarAntesServiceImpl.run(runTareaDto, faseDto);
     } catch (final Exception e) {
-      assertTrue(ValidationException.class.isAssignableFrom(e.getClass()));
+      assertFalse(ValidationException.class.isAssignableFrom(e.getClass()));
     }
 
   }
@@ -208,7 +208,7 @@ public class RunTareaPrevalidarAntesServiceImplTest {
     try {
       this.runTareaPrevalidarAntesServiceImpl.run(runTareaDto, faseDto);
     } catch (final Exception e) {
-      assertTrue(ValidationReintentoException.class.isAssignableFrom(e.getClass()));
+      assertFalse(ValidationReintentoException.class.isAssignableFrom(e.getClass()));
     }
 
   }
