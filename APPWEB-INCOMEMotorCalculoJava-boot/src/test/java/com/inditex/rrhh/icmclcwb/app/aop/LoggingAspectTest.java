@@ -17,6 +17,8 @@ import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.WarningException;
+import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.programacion.dto.RunProgramacionDto;
 import com.inditex.rrhh.icmclcwb.config.app.aop.LoggingAspect;
 
 import org.aspectj.lang.JoinPoint;
@@ -197,13 +199,16 @@ class LoggingAspectTest {
   @Test
   void auditoriaAroundTest() throws Throwable {
     doReturn(true).when(this.log).isDebugEnabled();
-
+    final RunProgramacionDto runProgramacion = new RunProgramacionDto();
+    final ProgramacionDto programacion = new ProgramacionDto();
+    programacion.setId(1L);
+    runProgramacion.setProgramacion(programacion);
     final Signature signature = Mockito.mock(Signature.class);
     final MethodSignature methodSignature = Mockito.mock(MethodSignature.class);
     final Signature spiedSignature = Mockito.spy(signature);
     doReturn(methodSignature).when(this.pjp).getSignature();
     doReturn("").when(methodSignature).toShortString();
-    doReturn(new String[]{"A"}).when(this.pjp).getArgs();
+    doReturn(new RunProgramacionDto[]{runProgramacion}).when(this.pjp).getArgs();
     doReturn(this.myMethod()).when(methodSignature).getMethod();
 
     this.loggingAspect.auditoriaAround(this.pjp);
@@ -212,11 +217,11 @@ class LoggingAspectTest {
   }
 
   public Method myMethod() throws NoSuchMethodException {
-    return this.getClass().getDeclaredMethod("someMethod");
+    return this.getClass().getDeclaredMethod("someMethod", RunProgramacionDto.class);
   }
 
-  @Auditoria
-  public void someMethod() {
+  @Auditoria(logArgs = true)
+  public void someMethod(final RunProgramacionDto a) {
   }
 
 }
