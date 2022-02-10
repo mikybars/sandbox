@@ -97,9 +97,13 @@ public class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+    when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+        ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
+            .thenReturn(new PeriodoDto());
+
     this.comisServiceImpl.findCondicionesHistorico(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
-        .findCondicionesHistorico(any(TareaDto.class));
+        .findCondicionesHistorico(any(TareaDto.class), any(PeriodoDto.class));
   }
 
   @Test
@@ -123,9 +127,13 @@ public class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+    when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+        ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
+            .thenReturn(new PeriodoDto());
+
     this.comisServiceImpl.findCondicionesDesplazamiento(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
-        .findCondicionesDesplazamiento(any(TareaDto.class));
+        .findCondicionesDesplazamiento(any(TareaDto.class), any(PeriodoDto.class));
   }
 
   @Test

@@ -52,7 +52,7 @@ public interface ComisRepositoryCustom {
    * @param tarea Some javadoc.
    * @return Some javadoc.
    */
-  List<IdPersonaLocalCondicionesDto> findCondicionesHistorico(TareaDto tarea);
+  List<IdPersonaLocalCondicionesDto> findCondicionesHistorico(TareaDto tarea, final PeriodoDto periodoAmpliado);
 
   /**
    * Some javadoc.
@@ -60,7 +60,7 @@ public interface ComisRepositoryCustom {
    * @param tarea Some javadoc.
    * @return Some javadoc.
    */
-  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamiento(TareaDto tarea);
+  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamiento(TareaDto tarea, final PeriodoDto periodoAmpliado);
 
   /**
    * Some javadoc.
