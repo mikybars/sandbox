@@ -280,8 +280,9 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays
         .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
-    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION, Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION,
+        Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()));
 
     assertEquals(expected, paramsCaptor.getValue().getValues());
   }
