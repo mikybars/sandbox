@@ -415,10 +415,15 @@
       AND (F.FECHADESDE = PH.FECHADESDE OR F.FECHADESDE >= PH.FECHADESDE AND (PH.FECHAHASTA IS NULL OR F.FECHAHASTA <= PH.FECHAHASTA))
     LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
       ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
-    INNER JOIN PersonasHistorico PHB
+    INNER JOIN
+      (
+          SELECT PHB.PERSONA
+          FROM PERSONASHISTORICO PHB
+          WHERE (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
+          AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
+          GROUP BY PHB.PERSONA
+      ) PHB
       ON PHB.Persona = ph.Persona
-      AND (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
-      AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
     WHERE
       PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesdeAmpliado)
@@ -450,10 +455,15 @@
       AND (D.FECHAHASTA < PH.FECHAHASTA OR PH.FECHAHASTA IS NULL AND D.FECHAHASTA < :fechaHasta)
     LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
       ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
-    INNER JOIN PersonasHistorico PHB
+    INNER JOIN
+      (
+          SELECT PHB.PERSONA
+          FROM PERSONASHISTORICO PHB
+          WHERE (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
+          AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
+          GROUP BY PHB.PERSONA
+      ) PHB
       ON PHB.Persona = ph.Persona
-      AND (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
-      AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
     WHERE PH.FechaDesde <= :fechaHasta
       AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesdeAmpliado)
       AND TPP.IMPORTE IS NOT NULL AND TPP.IDCRITERIOSPRESUPUESTOS IN (1,2,3,4)
@@ -508,10 +518,15 @@
                       AND PCT.FECHADESDE <= case when PH.fechaHasta is not null then ph.fechahasta else :fechaHasta end
                       AND (PCT.FechaHasta IS NULL OR pct.FechaHasta >= PH.FechaDesde)
                       AND (pct.FechaHasta IS NULL OR pct.FechaHasta >= :fechaDesdeAmpliado)
-                    INNER JOIN PersonasHistorico PHB
+                    INNER JOIN
+                      (
+                          SELECT PHB.PERSONA
+                          FROM PERSONASHISTORICO PHB
+                          WHERE (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
+                          AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
+                          GROUP BY PHB.PERSONA
+                      ) PHB
                       ON PHB.Persona = ph.Persona
-                      AND (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
-                      AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
                     WHERE
                       PH.FechaDesde <= :fechaHasta
                       AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesdeAmpliado)
@@ -803,10 +818,15 @@ WITH T AS (SELECT
                           AND (PCT.FECHADESDE <= PH.FECHAHASTA OR PH.FECHAHASTA IS NULL)
                           LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
                           ON TPP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
-                          INNER JOIN PersonasHistorico PHB
-                          ON PHB.Persona = ph.Persona
-                          AND (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
-                          AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
+                          INNER JOIN
+                            (
+                                SELECT PHB.PERSONA
+                                FROM PERSONASHISTORICO PHB
+                                WHERE (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
+                                AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
+                                GROUP BY PHB.PERSONA
+                            ) PHB
+                            ON PHB.Persona = ph.Persona
                             WHERE PCT.FECHADESDE <= :fechaHasta
                             AND PCT.FECHAHASTA >= :fechaDesdeAmpliado
                             AND TPP.IMPORTE IS NOT NULL AND TPP.IDCRITERIOSPRESUPUESTOS IN (1,2,3,4)
@@ -907,10 +927,15 @@ WITH T AS (SELECT
                           AND (PCT.FECHADESDE <= PH.FECHAHASTA OR PH.FECHAHASTA IS NULL)
                           LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
                           ON TPP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
-                          INNER JOIN PersonasHistorico PHB
-                          ON PHB.Persona = ph.Persona
-                          AND (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
-                          AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
+                          INNER JOIN
+                            (
+                                SELECT PHB.PERSONA
+                                FROM PERSONASHISTORICO PHB
+                                WHERE (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
+                                AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
+                                GROUP BY PHB.PERSONA
+                            ) PHB
+                            ON PHB.Persona = ph.Persona
                             WHERE PCT.FECHADESDE <= :fechaHasta
                             AND PCT.FECHAHASTA >= :fechaDesdeAmpliado
                             AND PR.FECHADESDE <= :fechaHasta
