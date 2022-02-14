@@ -49,7 +49,11 @@
     </dependency>
     <dependency>
       <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-cache-datagrid</artifactId>
+      <artifactId>common-framework-starter-cache-datagrid-embedded</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.common</groupId>
+      <artifactId>common-framework-starter-cache-datagrid-remote</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
