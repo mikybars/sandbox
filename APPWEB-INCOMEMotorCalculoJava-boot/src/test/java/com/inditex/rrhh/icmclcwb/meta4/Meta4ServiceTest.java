@@ -105,6 +105,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {Application.class})
 @ActiveProfiles({"standalone", "test"})
 @EnableAutoConfiguration
+@Disabled("No están funcionando los servicios Meta4 en DES")
 public class Meta4ServiceTest {
 
   @Autowired
