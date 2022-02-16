@@ -71,4 +71,8 @@ public class PtrVentaOnlinePickingRequestDto implements Serializable {
   @XmlElement(name = "ventaPAT")
   private Integer ventaPAT;
 
+  @ApiModelProperty(value = "Flag excluido ipod (excluido/incluido)", required = false, example = "0")
+  @XmlElement(name = "excluirIpod")
+  private Integer excluirIpod;
+
 }
