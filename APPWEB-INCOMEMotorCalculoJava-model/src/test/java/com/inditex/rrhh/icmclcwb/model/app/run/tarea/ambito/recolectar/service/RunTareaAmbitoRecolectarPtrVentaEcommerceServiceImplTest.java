@@ -23,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPro
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
@@ -78,6 +79,9 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
   @Mock
   private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
+  @Mock
+  private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+
   @Spy
   @InjectMocks
   RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl runTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl;
@@ -99,14 +103,12 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
           .thenReturn(ptrVentaOnlinePickingResponseDto);
 
       doReturn(ptrPropertiesDto).when(this.ventaEcommerceProperties).get(PtrPropertiesConstants.VENTA_ONLINE_PICKING);
-      // Modificamos datos a un formato adecuado
       idCadenaDtoList.get(0).setId("1");
       idCadenaDtoList.get(1).setId("2");
       doReturn(idCadenaDtoList).when(this.tareaLocalizacionHistoricoService)
           .findIdCadenaDtoByIdTareaAndCclIdOrigen(this.runTarea.getTarea().getId(), this.tareaAmbitoDto.getCclIdOrigen(),
               TipoVentaConceptoEnum.SINT.getId());
 
-      // Modificamos datos a un formato adecuado
       localizacionesAmbitoDtoList.setLocalizaciones(new ArrayList<>());
 
       doReturn(periodoDtoList).when(this.tareaLocalizacionPresupuestoService).findListaPeriodosPresupestoYTrabajo(
@@ -130,6 +132,54 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
 
       verify(this.runTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl, times(1))
           .ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.tareaAmbitoDto);
+
+    }
+  }
+
+  @Test
+  void ventaRangoOnlineSintLocalizacionSeccionByRunTareaAndTareaAmbito(@Random final PtrPropertiesDto ptrPropertiesDto,
+      @Random(type = IdCadenaDto.class, size = 2) final List<IdCadenaDto> idCadenaDtoList,
+      @Random(type = PeriodoDto.class, size = 1) final List<PeriodoDto> periodoDtoList,
+      @Random(type = LocalizacionesAmbitoDto.class, size = 1) final LocalizacionesAmbitoDto localizacionesAmbitoDtoList,
+      @Random final PtrVentaOnlinePickingRequestDto ptrVentaOnlinePickingRequestDto,
+      @Random final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData,
+      @Random final PtrVentaOnlinePickingResponseDto ptrVentaOnlinePickingResponseDto) {
+
+    try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+      utilities.when(() -> AsyncUtils.get(cfData))
+          .thenReturn(ptrVentaOnlinePickingResponseDto);
+
+      doReturn(ptrPropertiesDto).when(this.ventaEcommerceProperties).get(PtrPropertiesConstants.VENTA_ONLINE_PICKING);
+      idCadenaDtoList.get(0).setId("1");
+      idCadenaDtoList.get(1).setId("2");
+      doReturn(idCadenaDtoList).when(this.tareaLocalizacionHistoricoService)
+          .findIdCadenaDtoByIdTareaAndCclIdOrigen(this.runTarea.getTarea().getId(), this.tareaAmbitoDto.getCclIdOrigen(),
+              TipoVentaConceptoEnum.SINT.getId());
+
+      localizacionesAmbitoDtoList.setLocalizaciones(new ArrayList<>());
+
+      doReturn(periodoDtoList).when(this.tareaLocalizacionPresupuestoService).findListaPeriodosPresupestoYTrabajo(
+          this.runTarea.getTarea().getId(), ptrPropertiesDto.getFilter(), this.recolectarProperties);
+
+      doReturn(ptrVentaOnlinePickingRequestDto).when(this.tareaMapper)
+          .mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaOnlinePickingRequestDto(this.runTarea.getTarea(), this.tareaAmbitoDto,
+              periodoDtoList.get(0));
+
+      ptrVentaOnlinePickingRequestDto
+          .setCadena(idCadenaDtoList.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
+      ptrVentaOnlinePickingRequestDto.setTienda(localizacionesAmbitoDtoList.getLocalizaciones().stream()
+          .map(Integer::valueOf)
+          .collect(Collectors.toList()));
+      ptrVentaOnlinePickingRequestDto.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
+      ptrVentaOnlinePickingRequestDto
+          .setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
+      doReturn(cfData).when(this.ptrVentaEcommerceAsyncService).ventaOnlinePicking(ptrVentaOnlinePickingRequestDto);
+
+      this.runTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
+          .ventaRangoOnlineSintLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.tareaAmbitoDto);
+
+      verify(this.runTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl, times(1))
+          .ventaRangoOnlineSintLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.tareaAmbitoDto);
 
     }
   }
