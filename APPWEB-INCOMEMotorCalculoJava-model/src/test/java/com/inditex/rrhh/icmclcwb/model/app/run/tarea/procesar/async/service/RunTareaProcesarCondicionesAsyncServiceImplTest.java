@@ -6,9 +6,10 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.async.service;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarCondicionesService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 class RunTareaProcesarCondicionesAsyncServiceImplTest {
 
   @Mock
@@ -26,15 +27,15 @@ class RunTareaProcesarCondicionesAsyncServiceImplTest {
   private RunTareaProcesarCondicionesAsyncServiceImpl runTareaProcesarCondicionesAsyncService;
 
   @Test
-  void igualarBandasOrigenDestinoTest() {
-    final TareaDto tarea = new TareaDto();
-    tarea.setId(89898L);
-    final RunTareaDto runTarea = new RunTareaDto();
-    runTarea.setTarea(tarea);
-
+  void igualarBandasOrigenDestinoTest(@Random final RunTareaDto runTarea) {
     this.runTareaProcesarCondicionesAsyncService.igualarBandasOrigenDestino(runTarea);
+    verify(this.tareaProcesarCondicionesService, times(1)).igualarBandasOrigenDestino(runTarea.getTarea());
+  }
 
-    verify(this.tareaProcesarCondicionesService, times(1)).igualarBandasOrigenDestino(tarea);
+  @Test
+  void establecerBandaOpcionOrigen(@Random final RunTareaDto runTarea) {
+    this.runTareaProcesarCondicionesAsyncService.establecerBandaOpcionOrigen(runTarea);
+    verify(this.tareaProcesarCondicionesService, times(1)).establecerBandaOpcionOrigen(runTarea.getTarea());
   }
 
 }

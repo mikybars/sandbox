@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -39,7 +41,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 class TareaPersonaEstructuraRepositoryCustomImplTest {
 
   private static final String SQL_UPDATE_ACTIVO_TOPES = "SQL UPDATE ACTIVO TOPES";
@@ -53,6 +55,10 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
   private static final String SQL_SAVE = "SQL_SAVE";
 
   private static final String SQL_CREAR_ESTRUCTURAS_ORIGEN_IGUALAR_BANDAS = "SQL CREAR ESTRUCTURAS ORIGEN IGUALAR BANDAS";
+
+  private static final String SQL_ESTABLECER_BANDA_OPCION_ORIGEN = "SQL ESTABLECER BANDA OPCION ORIGEN";
+
+  private static final String SQL_CREAR_CHALLENGE_OPCION_ORIGEN = "SQL CREAR CHALLENGE OPCION ORIGEN";
 
   @Mock
   private JdbcTemplate jdbcTemplate;
@@ -83,6 +89,10 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlSave", SQL_SAVE, true);
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlCrearEstructurasOrigenIgualarBandas",
         SQL_CREAR_ESTRUCTURAS_ORIGEN_IGUALAR_BANDAS, true);
+    FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlEstablecerBandaOpcionOrigen",
+        SQL_ESTABLECER_BANDA_OPCION_ORIGEN, true);
+    FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlCrearChallengeOpcionOrigen", SQL_CREAR_CHALLENGE_OPCION_ORIGEN,
+        true);
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "batchSize", 100, true);
   }
 
@@ -242,4 +252,38 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
 
   }
 
+  @Test
+  void establecerBandaOpcionOrigen() {
+
+    final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
+    this.tareaPersonaEstructuraRepositoryCustom.establecerBandaOpcionOrigen();
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_ESTABLECER_BANDA_OPCION_ORIGEN), paramsCaptor.capture());
+    final Map<String, Object> expected = new HashMap<>();
+    assertEquals(expected, paramsCaptor.getValue().getValues());
+
+  }
+
+  @Test
+  void crearChallengeOpcionOrigenTest(@Random final TareaDto tarea) {
+    final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
+    this.tareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_CREAR_CHALLENGE_OPCION_ORIGEN), paramsCaptor.capture());
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(
+        TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+        TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
+        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+        TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays
+        .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION,
+        Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()));
+
+    assertEquals(expected, paramsCaptor.getValue().getValues());
+  }
 }

@@ -547,4 +547,60 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    */
   int deleteTempBandasOrigenSinBandaDesplazamiento();
 
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempEstructurasBaseChallenge();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempEstructurasBaseChallenge();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempEstructurasBaseChallenge();
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void insertTempEstructurasBaseChallenge(TareaDto tarea);
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempEstructurasDesplazamientoNoChallenge();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int createTempEstructurasDesplazamientoNoChallenge();
+
+  /**
+   * Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempEstructurasDesplazamientoNoChallenge();
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   */
+  void insertTempEstructurasDesplazamientoNoChallenge(TareaDto tarea);
+
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -73,5 +74,17 @@ public interface ValidacionMapper {
   @Mapping(target = "idPersonaLocal", expression = "java(new ArrayList<>())")
   @Mapping(target = "idMotivosDesplazamiento", expression = "java(new ArrayList<>())")
   ValidacionDto booleanToValidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion, boolean result);
+
+  @Mapping(target = "result", source = "result")
+  @Mapping(target = "sincronizacion", constant = "false")
+  @Mapping(target = "idTareaFaseAccion", source = "accion.id")
+  @Mapping(target = "reaccionPeso", source = "accion.reaccionPeso")
+  @Mapping(target = "cclIdOrigen", source = "ambito.cclIdOrigen")
+  @Mapping(target = "idPersonaLocal", expression = "java(new ArrayList<>())")
+  @Mapping(target = "idMotivosDesplazamiento", expression = "java(new ArrayList<>())")
+  @Mapping(target = "comis", source = "comis")
+  @Mapping(target = "ptr", source = "ptr")
+  ValidacionDto booleanToValidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion, boolean result, PresenciaOrigenDto comis,
+      PresenciaOrigenDto ptr);
 
 }

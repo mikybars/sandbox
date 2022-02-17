@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>4.10.4</version>
+    <version>4.10.7</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-api</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
@@ -35,33 +35,6 @@
     <dependency>
       <groupId>com.inditex.aqsw.framework.service</groupId>
       <artifactId>service-framework-starter-aaa-userdetails-sso</artifactId>
-    </dependency>
-
-    <!-- OTHER DEPENDENCIES -->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-annotations</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.module</groupId>
-      <artifactId>jackson-module-parameter-names</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jdk8</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
     </dependency>
 
     <!-- OTHER DEPENDENCIES -->

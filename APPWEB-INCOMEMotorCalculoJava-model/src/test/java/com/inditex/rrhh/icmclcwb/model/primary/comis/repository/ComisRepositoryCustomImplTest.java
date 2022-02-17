@@ -241,18 +241,22 @@ public class ComisRepositoryCustomImplTest {
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
     tarea.setFechaFinPeriodo(LocalDate.now());
-    this.comisRepositoryCustom.findCondicionesHistorico(tarea);
+    final PeriodoDto periodo = new PeriodoDto();
+    periodo.setFechaInicioPeriodo(LocalDate.now());
+    this.comisRepositoryCustom.findCondicionesHistorico(tarea, periodo);
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
         ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
     assertEquals(SQL_FIND_CONDICIONES_HISTORICO,
         this.sqlCaptor.getValue());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
     // Parámetros de la consulta: fecha desde, fecha hasta
-    assertEquals(2, params.getValues().size());
+    assertEquals(3, params.getValues().size());
     // fecha desde
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
     // fecha hasta
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    // fecha desde ampliado
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
   }
 
   @Test
@@ -281,18 +285,22 @@ public class ComisRepositoryCustomImplTest {
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
     tarea.setFechaFinPeriodo(LocalDate.now());
-    this.comisRepositoryCustom.findCondicionesDesplazamiento(tarea);
+    final PeriodoDto periodo = new PeriodoDto();
+    periodo.setFechaInicioPeriodo(LocalDate.now());
+    this.comisRepositoryCustom.findCondicionesDesplazamiento(tarea, periodo);
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
         ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
     assertEquals(SQL_FIND_CONDICIONES_DESPLAZAMIENTO,
         this.sqlCaptor.getValue());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
     // Parámetros de la consulta: fecha desde, fecha hasta
-    assertEquals(2, params.getValues().size());
+    assertEquals(3, params.getValues().size());
     // fecha desde
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
     // fecha hasta
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    // fecha desde ampliado
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
   }
 
   @Test

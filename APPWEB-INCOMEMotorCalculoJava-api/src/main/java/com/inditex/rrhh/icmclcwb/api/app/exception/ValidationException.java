@@ -1,6 +1,10 @@
 package com.inditex.rrhh.icmclcwb.api.app.exception;
 
-public class ValidationException extends IcmclcwbException {
+/*
+ * Copyright (c) 2022. Inditex
+ */
+
+public class ValidationException extends WarningException {
 
   public ValidationException(final String message, final Throwable cause) {
     super(message, cause);

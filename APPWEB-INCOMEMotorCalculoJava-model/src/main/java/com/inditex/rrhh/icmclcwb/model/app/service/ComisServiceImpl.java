@@ -103,7 +103,10 @@ public class ComisServiceImpl implements ComisService {
     try {
       this.setContext(runTareaDto, tareaAmbito);
       historico = this.comisRepositoryCustom
-          .findCondicionesHistorico(runTareaDto.getTarea());
+          .findCondicionesHistorico(runTareaDto.getTarea(),
+              this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                  runTareaDto.getTarea().getId(),
+                  TipoDatoEnum.PERIODO_AMPLIADO.getId()));
     } finally {
       ClientDatabaseContextHolder.clear();
     }
@@ -133,7 +136,10 @@ public class ComisServiceImpl implements ComisService {
     try {
       this.setContext(runTareaDto, tareaAmbito);
       desplazamiento = this.comisRepositoryCustom
-          .findCondicionesDesplazamiento(runTareaDto.getTarea());
+          .findCondicionesDesplazamiento(runTareaDto.getTarea(),
+              this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                  runTareaDto.getTarea().getId(),
+                  TipoDatoEnum.PERIODO_AMPLIADO.getId()));
     } finally {
       ClientDatabaseContextHolder.clear();
     }

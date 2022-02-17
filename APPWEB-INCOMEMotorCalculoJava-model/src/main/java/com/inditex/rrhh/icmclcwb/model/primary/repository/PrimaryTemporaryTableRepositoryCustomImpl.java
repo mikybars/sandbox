@@ -274,6 +274,30 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempBandasOrigenSinBandaDesplazamiento']}")
   private String sqlDeleteTempBandasOrigenSinBandaDesplazamiento;
 
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempEstructurasBaseChallenge']}")
+  private String sqlCreateTempEstructurasBaseChallenge;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempEstructurasBaseChallenge']}")
+  private String sqlIndexTempEstructurasBaseChallenge;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempEstructurasBaseChallenge']}")
+  private String sqlInsertTempEstructurasBaseChallenge;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempEstructurasBaseChallenge']}")
+  private String sqlDeleteTempEstructurasBaseChallenge;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempEstructurasDesplazamientoNoChallenge']}")
+  private String sqlCreateTempEstructurasDesplazamientoNoChallenge;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempEstructurasDesplazamientoNoChallenge']}")
+  private String sqlIndexTempEstructurasDesplazamientoNoChallenge;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempEstructurasDesplazamientoNoChallenge']}")
+  private String sqlInsertTempEstructurasDesplazamientoNoChallenge;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempEstructurasDesplazamientoNoChallenge']}")
+  private String sqlDeleteTempEstructurasDesplazamientoNoChallenge;
+
   @Override
   public int deleteTempMotivoDesplazamientoComis() {
     return this.jdbcTemplate.update(this.sqlDeleteTempMotivoDesplazamientoComis);
@@ -949,5 +973,56 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Override
   public int deleteTempBandasOrigenSinBandaDesplazamiento() {
     return this.jdbcTemplate.update(this.sqlDeleteTempBandasOrigenSinBandaDesplazamiento);
+  }
+
+  @Override
+  public int deleteTempEstructurasBaseChallenge() {
+    return this.jdbcTemplate.update(this.sqlDeleteTempEstructurasBaseChallenge);
+  }
+
+  @Override
+  public int createTempEstructurasBaseChallenge() {
+    return this.jdbcTemplate.update(this.sqlCreateTempEstructurasBaseChallenge);
+  }
+
+  @Override
+  public int indexTempEstructurasBaseChallenge() {
+    return this.jdbcTemplate.update(this.sqlIndexTempEstructurasBaseChallenge);
+  }
+
+  @Override
+  public void insertTempEstructurasBaseChallenge(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, AppConstants.getTIPOS_COMISION_CHALLENGE());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, AppConstants.getTIPOS_CALCULO_CHALLENGE());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    this.namedParameterJdbcTemplate.update(this.sqlInsertTempEstructurasBaseChallenge, map);
+  }
+
+  @Override
+  public int deleteTempEstructurasDesplazamientoNoChallenge() {
+    return this.jdbcTemplate.update(this.sqlDeleteTempEstructurasDesplazamientoNoChallenge);
+  }
+
+  @Override
+  public int createTempEstructurasDesplazamientoNoChallenge() {
+    return this.jdbcTemplate.update(this.sqlCreateTempEstructurasDesplazamientoNoChallenge);
+  }
+
+  @Override
+  public int indexTempEstructurasDesplazamientoNoChallenge() {
+    return this.jdbcTemplate.update(this.sqlIndexTempEstructurasDesplazamientoNoChallenge);
+  }
+
+  @Override
+  public void insertTempEstructurasDesplazamientoNoChallenge(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, AppConstants.getTIPOS_COMISION_CHALLENGE());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, AppConstants.getTIPOS_CALCULO_CHALLENGE());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    this.namedParameterJdbcTemplate.update(this.sqlInsertTempEstructurasDesplazamientoNoChallenge, map);
   }
 }
