@@ -111,7 +111,7 @@
 
   <entry key="ComisRepositoryCustom.findCondicionesHistorico">
     <![CDATA[
-   WITH FECHAS_ESTRUCTURA AS (
+  WITH FECHAS_ESTRUCTURA AS (
             SELECT
               PERSONA,
               CASE WHEN FechaDesde < :fechaDesde THEN :fechaDesde ELSE FechaDesde END AS FechaDesde,
@@ -140,10 +140,14 @@
                     PCT.FechaHasta,
                     PCT.FechaHasta + 1 AS FechaHasta1
                   FROM PERSONASHISTORICO PH
-                  LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT
+                  INNER JOIN PERSONASCAMBIOSTEMPORALES PCT
                     ON PCT.PERSONA = PH.PERSONA
                     AND (PH.FechaHasta IS NULL OR PCT.FechaDesde <= PH.FechaHasta)
                     AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PH.FechaDesde)
+                  INNER JOIN TABLASPORCENTAJES TP
+                    ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+                  INNER JOIN GRUPOSPORCENTAJES GP
+                    ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
                   LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT2
                     ON PCT2.PERSONA = PH.PERSONA
                     AND (PCT2.FECHADESDE = PH.FECHADESDE OR PCT2.FECHADESDE = :fechaDesde)
@@ -157,6 +161,7 @@
                   AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                   AND PCT2.PERSONA IS NULL
                   AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+                  AND GP.TIPOPORCENTAJE IN (1, 8, 9)
                   GROUP BY
                     PCT.Persona,
                     PCT.FechaDesde,
@@ -196,10 +201,14 @@
                     PCT.FechaHasta,
                     PCT.FechaHasta + 1 AS FechaHasta1
                   FROM PERSONASHISTORICO PH
-                  LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT
+                  INNER JOIN PERSONASCAMBIOSTEMPORALES PCT
                     ON PCT.PERSONA = PH.PERSONA
                     AND (PH.FechaHasta IS NULL OR PCT.FechaDesde <= PH.FechaHasta)
                     AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PH.FechaDesde)
+                  INNER JOIN TABLASPORCENTAJES TP
+                    ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+                  INNER JOIN GRUPOSPORCENTAJES GP
+                    ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
                   LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT2
                     ON PCT2.PERSONA = PH.PERSONA
                     AND (PCT2.FECHADESDE = PH.FECHADESDE OR PCT2.FECHADESDE = :fechaDesdeAmpliado)
@@ -213,6 +222,7 @@
                   AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                   AND PCT2.PERSONA IS NULL
                   AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+                  AND GP.TIPOPORCENTAJE IN (1, 8, 9)
                   GROUP BY
                     PCT.Persona,
                     PCT.FechaDesde,
@@ -225,29 +235,39 @@
             WHERE FILTRO.FechaDesde <= FILTRO.FechaHasta),
         DESPLAZAMIENTOS AS (
               SELECT
-                ROW_NUMBER() OVER (PARTITION BY PERSONA ORDER BY FECHADESDE DESC) AS ROW,
-                PERSONA,
-                FECHADESDE,
-                FECHAHASTA
-              FROM PersonasCambiosTemporales
+                ROW_NUMBER() OVER (PARTITION BY PCT.PERSONA ORDER BY PCT.FECHADESDE DESC) AS ROW,
+                PCT.PERSONA,
+                PCT.FECHADESDE,
+                PCT.FECHAHASTA
+              FROM PersonasCambiosTemporales PCT
+              INNER JOIN TABLASPORCENTAJES TP
+                ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+              INNER JOIN GRUPOSPORCENTAJES GP
+                ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
               WHERE
-                FECHADESDE <= :fechaHasta
-                AND FECHAHASTA >= :fechaDesde
-                AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
-                AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)
+                PCT.FECHADESDE <= :fechaHasta
+                AND PCT.FECHAHASTA >= :fechaDesde
+                AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
+                AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+                AND GP.TIPOPORCENTAJE IN (1, 8, 9)
         ),
         DESPLAZAMIENTOS_AMPLIADO AS (
               SELECT
-                ROW_NUMBER() OVER (PARTITION BY PERSONA ORDER BY FECHADESDE DESC) AS ROW,
-                PERSONA,
-                FECHADESDE,
-                FECHAHASTA
-              FROM PersonasCambiosTemporales
+                ROW_NUMBER() OVER (PARTITION BY PCT.PERSONA ORDER BY PCT.FECHADESDE DESC) AS ROW,
+                PCT.PERSONA,
+                PCT.FECHADESDE,
+                PCT.FECHAHASTA
+              FROM PersonasCambiosTemporales PCT
+              INNER JOIN TABLASPORCENTAJES TP
+                ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+              INNER JOIN GRUPOSPORCENTAJES GP
+                ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
               WHERE
                 FECHADESDE <= :fechaHasta
                 AND FECHAHASTA >= :fechaDesdeAmpliado
                 AND NOT (FechaDesde = :fechaDesdeAmpliado AND FechaHasta = :fechaHasta)
                 AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)
+                AND GP.TIPOPORCENTAJE IN (1, 8, 9)
         )
             -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
             SELECT
@@ -373,11 +393,15 @@
                               AND PCT.FECHADESDE <= case when PH.fechaHasta is not null then ph.fechahasta else :fechaHasta end
                               AND (PCT.FechaHasta IS NULL OR pct.FechaHasta >= PH.FechaDesde)
                               AND (pct.FechaHasta IS NULL OR pct.FechaHasta >= :fechaDesde)
+                            LEFT JOIN TABLASPORCENTAJES TP
+                              ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+                            LEFT JOIN GRUPOSPORCENTAJES GP
+                              ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
                             WHERE
                               PH.FechaDesde <= :fechaHasta
                               AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
                               AND TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
-                              AND (pct.Persona IS NULL OR PCT.EXCLUIDOCALCULO = 1)
+                              AND (pct.Persona IS NULL OR PCT.EXCLUIDOCALCULO = 1 OR GP.TIPOPORCENTAJE NOT IN (1, 8, 9))
                               AND PH.TIPOCALCULO IS NOT NULL
                               AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                         ) Groups
@@ -518,11 +542,16 @@
                       AND PCT.FECHADESDE <= case when PH.fechaHasta is not null then ph.fechahasta else :fechaHasta end
                       AND (PCT.FechaHasta IS NULL OR pct.FechaHasta >= PH.FechaDesde)
                       AND (pct.FechaHasta IS NULL OR pct.FechaHasta >= :fechaDesdeAmpliado)
+                    LEFT JOIN TABLASPORCENTAJES TP
+                      ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+                    LEFT JOIN GRUPOSPORCENTAJES GP
+                      ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
                     INNER JOIN
                       (
                           SELECT PHB.PERSONA
                           FROM PERSONASHISTORICO PHB
                           WHERE (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
+                          AND PHB.FECHADESDE <= :fechaHasta
                           AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
                           GROUP BY PHB.PERSONA
                       ) PHB
@@ -531,7 +560,7 @@
                       PH.FechaDesde <= :fechaHasta
                       AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesdeAmpliado)
                       AND TPP.IMPORTE IS NOT NULL AND TPP.IDCRITERIOSPRESUPUESTOS IN (1,2,3,4)
-                      AND (pct.Persona IS NULL OR PCT.EXCLUIDOCALCULO = 1)
+                      AND (pct.Persona IS NULL OR PCT.EXCLUIDOCALCULO = 1 OR GP.TIPOPORCENTAJE NOT IN (1, 8, 9))
                       AND PH.TIPOCALCULO IS NOT NULL
                       AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                 ) Groups
@@ -608,6 +637,10 @@ WITH T AS (SELECT
                           PCT.MOTIVO,
                           PCT.PUESTODESTINO AS PUESTO_DESTINO
                           FROM PERSONASCAMBIOSTEMPORALES PCT
+                          INNER JOIN TABLASPORCENTAJES TP
+                          ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+                          INNER JOIN GRUPOSPORCENTAJES GP
+                          ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
                           INNER JOIN PERSONASHISTORICO PH
                           ON PCT.PERSONA = PH.PERSONA
                           AND (PCT.FECHAHASTA >= PH.FECHADESDE)
@@ -621,6 +654,7 @@ WITH T AS (SELECT
                             AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
                             AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                             AND PH.TABLAPORCENTAJE IS NOT NULL
+                            AND GP.TIPOPORCENTAJE IN (1, 8, 9)
                           GROUP BY
                             PCT.PERSONA,
                             PCT.FECHADESDE,
@@ -710,6 +744,10 @@ WITH T AS (SELECT
                           PCT.MOTIVO,
                           PCT.PUESTODESTINO AS PUESTO_DESTINO
                           FROM PERSONASCAMBIOSTEMPORALES PCT
+                          INNER JOIN TABLASPORCENTAJES TP
+                          ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+                          INNER JOIN GRUPOSPORCENTAJES GP
+                          ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
                           INNER JOIN PERSONASRESALTAS PR
                           ON PCT.PERSONA = PR.PERSONA
                           AND (PCT.FECHAHASTA >= PR.FECHADESDE)
@@ -731,6 +769,7 @@ WITH T AS (SELECT
                             AND PH.TIPOCALCULO IS NOT NULL
                             AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                             AND PH.TABLAPORCENTAJE IS NOT NULL
+                            AND GP.TIPOPORCENTAJE IN (1, 8, 9)
                           GROUP BY
                             PCT.PERSONA,
                             PCT.FECHADESDE,
@@ -812,6 +851,10 @@ WITH T AS (SELECT
                           PCT.MOTIVO,
                           PCT.PUESTODESTINO AS PUESTO_DESTINO
                           FROM PERSONASCAMBIOSTEMPORALES PCT
+                          INNER JOIN TABLASPORCENTAJES TP
+                          ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+                          INNER JOIN GRUPOSPORCENTAJES GP
+                          ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
                           INNER JOIN PERSONASHISTORICO PH
                           ON PCT.PERSONA = PH.PERSONA
                           AND (PCT.FECHAHASTA >= PH.FECHADESDE)
@@ -823,6 +866,7 @@ WITH T AS (SELECT
                                 SELECT PHB.PERSONA
                                 FROM PERSONASHISTORICO PHB
                                 WHERE (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
+                                AND PHB.FECHADESDE <= :fechaHasta
                                 AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
                                 GROUP BY PHB.PERSONA
                             ) PHB
@@ -834,6 +878,7 @@ WITH T AS (SELECT
                             AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
                             AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                             AND PH.TABLAPORCENTAJE IS NOT NULL
+                            AND GP.TIPOPORCENTAJE IN (1, 8, 9)
                           GROUP BY
                             PCT.PERSONA,
                             PCT.FECHADESDE,
@@ -917,6 +962,10 @@ WITH T AS (SELECT
                           PCT.MOTIVO,
                           PCT.PUESTODESTINO AS PUESTO_DESTINO
                           FROM PERSONASCAMBIOSTEMPORALES PCT
+                          INNER JOIN TABLASPORCENTAJES TP
+                          ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+                          INNER JOIN GRUPOSPORCENTAJES GP
+                          ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
                           INNER JOIN PERSONASRESALTAS PR
                           ON PCT.PERSONA = PR.PERSONA
                           AND (PCT.FECHAHASTA >= PR.FECHADESDE)
@@ -932,6 +981,7 @@ WITH T AS (SELECT
                                 SELECT PHB.PERSONA
                                 FROM PERSONASHISTORICO PHB
                                 WHERE (PHB.FechaHasta IS NULL OR PHB.FechaHasta >= :fechaDesde)
+                                AND PHB.FECHADESDE <= :fechaHasta
                                 AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
                                 GROUP BY PHB.PERSONA
                             ) PHB
@@ -947,6 +997,7 @@ WITH T AS (SELECT
                             AND PH.TIPOCALCULO IS NOT NULL
                             AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                             AND PH.TABLAPORCENTAJE IS NOT NULL
+                            AND GP.TIPOPORCENTAJE IN (1, 8, 9)
                           GROUP BY
                             PCT.PERSONA,
                             PCT.FECHADESDE,
@@ -1125,10 +1176,14 @@ UNION
             ON PH.PERSONA = PR.PERSONA
             AND (PR.FechaHasta IS NULL OR PH.FechaDesde <= PR.FechaDesde)
           AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= PR.FECHAHASTA)
-          LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT
+          INNER JOIN PERSONASCAMBIOSTEMPORALES PCT
             ON PCT.PERSONA = PR.PERSONA
             AND (PR.FechaHasta IS NULL OR PCT.FechaDesde <= PR.FechaHasta)
             AND (PCT.FechaHasta IS NULL OR PCT.FechaHasta >= PR.FechaDesde)
+          INNER JOIN TABLASPORCENTAJES TP
+            ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+          INNER JOIN GRUPOSPORCENTAJES GP
+            ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
           LEFT JOIN PERSONASCAMBIOSTEMPORALES PCT2
             ON PCT2.PERSONA = PH.PERSONA
             AND (PCT2.FECHADESDE = PH.FECHADESDE OR PCT2.FECHADESDE = :fechaDesde)
@@ -1143,6 +1198,7 @@ UNION
           AND PCT2.PERSONA IS NULL
           AND PH.TABLAPORCENTAJE IS NOT NULL
           AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+          AND GP.TIPOPORCENTAJE IN (1, 8, 9)
           GROUP BY
             PCT.Persona,
             PCT.FechaDesde,
@@ -1155,16 +1211,21 @@ UNION
     WHERE FILTRO.FechaDesde <= FILTRO.FechaHasta),
     DESPLAZAMIENTOS AS (
       SELECT
-        ROW_NUMBER() OVER (PARTITION BY PERSONA ORDER BY FECHADESDE DESC) AS ROW,
-        PERSONA,
-        FECHADESDE,
-        FECHAHASTA
-      FROM PersonasCambiosTemporales
+        ROW_NUMBER() OVER (PARTITION BY PCT.PERSONA ORDER BY PCT.FECHADESDE DESC) AS ROW,
+        PCT.PERSONA,
+        PCT.FECHADESDE,
+        PCT.FECHAHASTA
+      FROM PersonasCambiosTemporales PCT
+      INNER JOIN TABLASPORCENTAJES TP
+        ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+      INNER JOIN GRUPOSPORCENTAJES GP
+        ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
       WHERE
-        FECHADESDE <= :fechaHasta
-        AND FECHAHASTA >= :fechaDesde
-        AND NOT (FechaDesde = :fechaDesde AND FechaHasta = :fechaHasta)
-        AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)
+        PCT.FECHADESDE <= :fechaHasta
+        AND PCT.FECHAHASTA >= :fechaDesde
+        AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
+        AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
+        AND GP.TIPOPORCENTAJE IN (1, 8, 9)
     )
     -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
     SELECT
@@ -1307,13 +1368,17 @@ UNION
                 AND PCT.FECHADESDE <= case when PH.fechaHasta is not null then ph.fechahasta else :fechaHasta end
                 AND (PCT.FechaHasta IS NULL OR pct.FechaHasta >= PH.FechaDesde)
                 AND (PCT.FECHAHASTA IS NULL OR PCT.FECHAHASTA >= :fechaDesde)
+              LEFT JOIN TABLASPORCENTAJES TP
+                ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+              LEFT JOIN GRUPOSPORCENTAJES GP
+                ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
               WHERE
                 PR.FechaDesde <= :fechaHasta
                 AND (Pr.FECHAHASTA IS NULL OR PR.FECHAHASTA >= :fechaDesde)
                 AND PH.FechaDesde <= :fechaHasta
                 AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
                 AND ((TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1) OR (TPP.IMPORTE IS NOT NULL AND TPP.IDCRITERIOSPRESUPUESTOS IN (1,2,3,4)))
-                AND PCT.PERSONA IS NULL
+                AND (pct.Persona IS NULL OR PCT.EXCLUIDOCALCULO = 1 OR GP.TIPOPORCENTAJE NOT IN (1, 8, 9))
                 AND PH.TIPOCALCULO IS NOT NULL AND PR.TIPOCALCULO = 0
                 AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
                 AND PH.TABLAPORCENTAJE IS NOT NULL
