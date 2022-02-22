@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
@@ -410,7 +412,9 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Override
   public void mergeDateRangesTempComisHistorico(final TareaDto tarea) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
-    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    // Se amplia dos dias para no descartar tramos que acaben en el penultimo o ultimo dia del mes
+    final LocalDate fechaHasta = RunUtils.addDays(tarea.getFechaFinPeriodo(), 2);
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(fechaHasta));
     map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
     this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesTempComisHistorico, map);
@@ -419,7 +423,6 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Override
   public void mergeDateRangesSeccionNotEqualsTempComisHistorico(final TareaDto tarea) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
-    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
     map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
     this.namedParameterJdbcTemplate.update(this.sqlMergeDateRangesSeccionNotEqualsTempComisHistorico, map);
