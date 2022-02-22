@@ -357,12 +357,13 @@
                         SELECT
                         *,
                         CASE WHEN Groups.PreviousEndDate >= FECHA_DESDE THEN 0 ELSE 1 END AS IslandStartInd,
-                        SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION, TABLAPORCENTAJE ORDER BY Groups.RN) AS IslandId
+                        SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, TIENDA, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION, TABLAPORCENTAJE ORDER BY Groups.RN) AS IslandId
                         FROM
                         (
                             SELECT
                               DENSE_RANK() OVER (ORDER BY PH.FechaDesde) AS DENSE_RANK,
                               PH.PERSONA AS CCL_ID_PERSON,
+                              PH.TIENDA AS TIENDA,
                               CASE WHEN PH.FechaDesde < :fechaDesde THEN :fechaDesde ELSE PH.FechaDesde END AS FECHA_DESDE,
                               CASE
                                 WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
@@ -382,8 +383,8 @@
                               NULL AS IMPORTE,
                               TPC.SECCION AS CCL_ID_SECCION,
                               PH.TABLAPORCENTAJE,
-                              ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPC.PORCENTAJE, TPC.SECCION, TPC.TABLAPORCENTAJE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
-                              LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPC.PORCENTAJE, TPC.SECCION, TPC.TABLAPORCENTAJE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
+                              ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIENDA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPC.PORCENTAJE, TPC.SECCION, TPC.TABLAPORCENTAJE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
+                              LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIENDA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPC.PORCENTAJE, TPC.SECCION, TPC.TABLAPORCENTAJE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
                             FROM PersonasHistorico PH
                             LEFT JOIN TABLASPORCENTAJESCOMISION TPC
                               ON TPC.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
@@ -408,6 +409,7 @@
                 ) Islands
                 GROUP BY
                     CCL_ID_PERSON,
+                    TIENDA,
                     ID_TIPO_CALCULO,
                     PORCENTAJE,
                     PUESTO,
@@ -512,12 +514,13 @@
                 SELECT
                 *,
                 CASE WHEN Groups.PreviousEndDate >= FECHA_DESDE THEN 0 ELSE 1 END AS IslandStartInd,
-                SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION, TABLAPORCENTAJE ORDER BY Groups.RN) AS IslandId
+                SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, TIENDA, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION, TABLAPORCENTAJE ORDER BY Groups.RN) AS IslandId
                 FROM
                 (
                     SELECT
                       DENSE_RANK() OVER (ORDER BY PH.FechaDesde) AS DENSE_RANK,
                       PH.PERSONA AS CCL_ID_PERSON,
+                      PH.TIENDA AS TIENDA,
                       CASE WHEN PH.FechaDesde < :fechaDesdeAmpliado THEN :fechaDesdeAmpliado ELSE PH.FechaDesde END AS FECHA_DESDE,
                       CASE
                         WHEN PH.FECHAHASTA IS NULL OR PH.FECHAHASTA > :fechaHasta THEN :fechaHasta
@@ -531,8 +534,8 @@
                       TPP.IMPORTE,
                       TPP.IDCRITERIOSPRESUPUESTOS AS CCL_ID_SECCION,
                       PH.TABLAPORCENTAJE,
-                      ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPP.BANDA, TPP.IMPORTE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
-                      LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES,TPP.BANDA, TPP.IMPORTE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
+                      ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIENDA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES, TPP.BANDA, TPP.IMPORTE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
+                      LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIENDA, PH.TIPOCALCULO, PH.PUESTO, PH.SECCIONES,TPP.BANDA, TPP.IMPORTE ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
                     FROM PersonasHistorico PH
                     LEFT JOIN TABLASPRESUPUESTOSCOMISION TPP
                       ON TPP.TABLAPORCENTAJE = PH.TABLAPORCENTAJE
@@ -567,6 +570,7 @@
         ) Islands
         GROUP BY
             CCL_ID_PERSON,
+            TIENDA,
             ID_TIPO_CALCULO,
             PORCENTAJE,
             PUESTO,
@@ -1324,12 +1328,13 @@ UNION
           SELECT
           *,
           CASE WHEN Groups.PreviousEndDate >= FECHADESDE THEN 0 ELSE 1 END AS IslandStartInd,
-          SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHADESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION ORDER BY Groups.RN) AS IslandId
+          SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FECHADESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, TIENDA, ID_TIPO_CALCULO, PUESTO, SECCIONES, PORCENTAJE, BANDA, IMPORTE, CCL_ID_SECCION ORDER BY Groups.RN) AS IslandId
           FROM
           (
            SELECT
                 DENSE_RANK() OVER (ORDER BY PH.FechaDesde) AS DENSE_RANK,
                 PH.PERSONA AS CCL_ID_PERSON,
+                PH.TIENDA AS TIENDA,
                 CASE
                   WHEN PR.FECHADESDE < :fechaDesde THEN :fechaDesde
                   ELSE PR.FechaDesde
@@ -1351,8 +1356,8 @@ UNION
                 PH.SECCIONES AS SECCIONES,
                 TPP.Importe,
                 COALESCE(TPC.SECCION, TPP.IDCRITERIOSPRESUPUESTOS) AS CCL_ID_SECCION,
-                ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIPOCALCULO, TPC.PORCENTAJE, TPP.BANDA, PH.PUESTO, PH.SECCIONES, TPP.IMPORTE, TPC.SECCION ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
-                LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIPOCALCULO, TPC.PORCENTAJE, TPP.BANDA, PH.PUESTO, PH.SECCIONES, TPP.IMPORTE, TPC.SECCION ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
+                ROW_NUMBER() OVER(PARTITION BY PH.PERSONA, PH.TIENDA, PH.TIPOCALCULO, TPC.PORCENTAJE, TPP.BANDA, PH.PUESTO, PH.SECCIONES, TPP.IMPORTE, TPC.SECCION ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS RN,
+                LAG(PH.FECHAHASTA,1) OVER (PARTITION BY PH.PERSONA, PH.TIENDA, PH.TIPOCALCULO, TPC.PORCENTAJE, TPP.BANDA, PH.PUESTO, PH.SECCIONES, TPP.IMPORTE, TPC.SECCION ORDER BY PH.FechaDesde, PH.FECHAHASTA) AS PreviousEndDate
               FROM PersonasResaltas PR
               INNER JOIN PERSONASHISTORICO PH
                   ON PH.PERSONA = PR.PERSONA
@@ -1387,6 +1392,7 @@ UNION
   ) Islands
   GROUP BY
       CCL_ID_PERSON,
+      TIENDA,
       ID_TIPO_CALCULO,
       PORCENTAJE,
       BANDA,
