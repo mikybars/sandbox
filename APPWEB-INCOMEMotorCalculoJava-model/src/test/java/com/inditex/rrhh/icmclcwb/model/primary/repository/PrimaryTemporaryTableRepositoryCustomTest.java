@@ -110,7 +110,8 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
   private final static String SQL_MERGE_RANGE_TEMP_COMIS_HITORICO = "SQL MERGE RANGE TEMP COMIS HITORICO";
 
-  private final static String SQL_MERGE_DATE_RANGES_SECCION_NOT_EQUALS_TEMP_COMIS_HITORICO = "SQL MERGE DATE RANGES SECCION NOT EQUALS TEMP COMIS HITORICO";
+  private final static String SQL_MERGE_DATE_RANGES_SECCION_NOT_EQUALS_TEMP_COMIS_HITORICO =
+      "SQL MERGE DATE RANGES SECCION NOT EQUALS TEMP COMIS HITORICO";
 
   // resalta
 
@@ -584,10 +585,11 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
   @Test
   void mergeDateRangesSeccionNotEqualsTempComisHistoricoTest(@Random final TareaDto tarea) {
-      this.primaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisHistorico(tarea);
+    this.primaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisHistorico(tarea);
     final Map<String, Object> params = new HashMap<>();
     params.put(ID_TAREA_PARAM, tarea.getId());
-    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_DATE_RANGES_SECCION_NOT_EQUALS_TEMP_COMIS_HITORICO), this.paramsCaptor.capture());
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_DATE_RANGES_SECCION_NOT_EQUALS_TEMP_COMIS_HITORICO),
+        this.paramsCaptor.capture());
     assertEquals(params, this.paramsCaptor.getValue().getValues());
   }
 
