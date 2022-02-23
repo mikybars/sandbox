@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

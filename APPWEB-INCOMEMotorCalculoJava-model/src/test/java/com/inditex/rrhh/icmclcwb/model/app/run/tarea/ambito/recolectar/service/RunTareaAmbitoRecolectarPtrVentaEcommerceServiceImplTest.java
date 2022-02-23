@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
+
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -53,7 +53,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
+class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
 
   @Mock
   @Qualifier("ventaEcommerceProperties")
