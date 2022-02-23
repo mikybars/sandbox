@@ -23,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -52,6 +53,8 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   private final static Integer SQL_ZERO_VALUE = 0;
 
   private final static String FECHA_INICIO_PERIODO_PARAM = "fechaInicioPeriodo";
+
+  private final static String FECHA_HASTA_PARAM = "fechaHasta";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -104,6 +107,11 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   private final static String SQL_VALIDATE_TEMP_COMIS_HISTORICO = "SQL VALDIATE TEMP COMIS HISTORICO";
 
   private final static String SQL_DELETE_TEMP_COMIS_HISTORICO = "SQL DELETE TEMP COMIS HISTORICO";
+
+  private final static String SQL_MERGE_RANGE_TEMP_COMIS_HITORICO = "SQL MERGE RANGE TEMP COMIS HITORICO";
+
+  private final static String SQL_MERGE_DATE_RANGES_SECCION_NOT_EQUALS_TEMP_COMIS_HITORICO =
+      "SQL MERGE DATE RANGES SECCION NOT EQUALS TEMP COMIS HITORICO";
 
   // resalta
 
@@ -254,6 +262,10 @@ class PrimaryTemporaryTableRepositoryCustomTest {
         "sqlValidateTempComisHistorico", SQL_VALIDATE_TEMP_COMIS_HISTORICO, true);
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
         "sqlDeleteTempComisHistorico", SQL_DELETE_TEMP_COMIS_HISTORICO, true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlMergeDateRangesTempComisHistorico", SQL_MERGE_RANGE_TEMP_COMIS_HITORICO, true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlMergeDateRangesSeccionNotEqualsTempComisHistorico", SQL_MERGE_DATE_RANGES_SECCION_NOT_EQUALS_TEMP_COMIS_HITORICO, true);
 
     // resalta
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
@@ -559,6 +571,26 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   void deleteTempComisHistoricoTest() {
     this.primaryTemporaryTableRepositoryCustom.deleteTempComisHistorico();
     verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_HISTORICO);
+  }
+
+  @Test
+  void mergeDateRangesTempComisHistoricoTest(@Random final TareaDto tarea) {
+    this.primaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisHistorico(tarea);
+    final Map<String, Object> params = new HashMap<>();
+    params.put(ID_TAREA_PARAM, tarea.getId());
+    params.put(FECHA_HASTA_PARAM, TimeUtils.toDate(RunUtils.addDays(tarea.getFechaFinPeriodo(), 2)));
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_RANGE_TEMP_COMIS_HITORICO), this.paramsCaptor.capture());
+    assertEquals(params, this.paramsCaptor.getValue().getValues());
+  }
+
+  @Test
+  void mergeDateRangesSeccionNotEqualsTempComisHistoricoTest(@Random final TareaDto tarea) {
+    this.primaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisHistorico(tarea);
+    final Map<String, Object> params = new HashMap<>();
+    params.put(ID_TAREA_PARAM, tarea.getId());
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_MERGE_DATE_RANGES_SECCION_NOT_EQUALS_TEMP_COMIS_HITORICO),
+        this.paramsCaptor.capture());
+    assertEquals(params, this.paramsCaptor.getValue().getValues());
   }
 
   // Fin tests historico
