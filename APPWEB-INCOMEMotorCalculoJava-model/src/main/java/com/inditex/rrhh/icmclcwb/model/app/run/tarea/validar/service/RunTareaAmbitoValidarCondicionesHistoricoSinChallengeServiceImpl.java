@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -10,7 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesHistoricoEsService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesHistoricoSinChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -30,8 +33,8 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class RunTareaAmbitoValidarCondicionesHistoricoEsServiceImpl
-    implements RunTareaAmbitoValidarCondicionesHistoricoEsService {
+public class RunTareaAmbitoValidarCondicionesHistoricoSinChallengeServiceImpl implements
+    RunTareaAmbitoValidarCondicionesHistoricoSinChallengeService {
 
   @Autowired
   private ComisAsyncService comisAsyncService;
@@ -59,7 +62,7 @@ public class RunTareaAmbitoValidarCondicionesHistoricoEsServiceImpl
     final List<IdPersonaLocalDto> historicoValidationResult;
     try {
       final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesHistorico = this.comisAsyncService
-          .findCondicionesHistoricoEs(runTareaDto, tareaAmbito);
+          .findCondicionesHistoricoSinChallenge(runTareaDto, tareaAmbito);
       AsyncUtils.exceptionally(cfCondicionesHistorico, cf);
 
       AsyncUtils.waitAllOfIsOk(cf, cf);

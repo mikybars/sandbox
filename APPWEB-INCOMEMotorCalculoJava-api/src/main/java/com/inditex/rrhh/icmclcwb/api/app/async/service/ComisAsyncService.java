@@ -194,4 +194,36 @@ public interface ComisAsyncService {
   CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesPrimas(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
+  /**
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
+   */
+  CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesHistoricoSinChallenge(
+      @Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
+
+  /**
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
+   */
+  CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesDesplazamientoSinChallenge(
+      @Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
+
+  /**
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
+   */
+  CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesResaltaSinChallenge(
+      @Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
 }

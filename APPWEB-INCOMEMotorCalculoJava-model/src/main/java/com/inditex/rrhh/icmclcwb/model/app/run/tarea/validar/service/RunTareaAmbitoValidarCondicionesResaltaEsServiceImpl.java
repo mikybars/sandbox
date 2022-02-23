@@ -59,7 +59,7 @@ public class RunTareaAmbitoValidarCondicionesResaltaEsServiceImpl
     final List<IdPersonaLocalDto> resaltaValidationResult;
     try {
       final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesResalta = this.comisAsyncService
-          .findCondicionesResalta(runTareaDto, tareaAmbito);
+          .findCondicionesResaltaEs(runTareaDto, tareaAmbito);
       AsyncUtils.exceptionally(cfCondicionesResalta, cf);
 
       AsyncUtils.waitAllOfIsOk(cf, cf);
