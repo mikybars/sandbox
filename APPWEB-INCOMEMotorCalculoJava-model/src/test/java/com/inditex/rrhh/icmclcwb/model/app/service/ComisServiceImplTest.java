@@ -273,4 +273,51 @@ public class ComisServiceImplTest {
         .findBajasItEs(any(TareaDto.class));
   }
 
+  @Test
+  public void findCondicionesHistoricoSinChallenge() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(ID_TAREA);
+    runTareaDto.setTarea(tarea);
+    final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+    tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+    when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+        ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
+            .thenReturn(new PeriodoDto());
+
+    this.comisServiceImpl.findCondicionesHistoricoSinChallenge(runTareaDto, tareaAmbitoDto);
+    verify(this.comisRepositoryCustom, times(1))
+        .findCondicionesHistoricoSinChallenge(any(TareaDto.class), any(PeriodoDto.class));
+  }
+
+  @Test
+  public void findCondicionesDesplazamientoSinChallenge() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(ID_TAREA);
+    runTareaDto.setTarea(tarea);
+    final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+    tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+    when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+        ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
+            .thenReturn(new PeriodoDto());
+
+    this.comisServiceImpl.findCondicionesDesplazamientoSinChallenge(runTareaDto, tareaAmbitoDto);
+    verify(this.comisRepositoryCustom, times(1))
+        .findCondicionesDesplazamientoSinChallenge(any(TareaDto.class), any(PeriodoDto.class));
+  }
+
+  @Test
+  public void findCondicionesResaltaSinChallenge() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(ID_TAREA);
+    runTareaDto.setTarea(tarea);
+    final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+    tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+    this.comisServiceImpl.findCondicionesResaltaSinChallenge(runTareaDto, tareaAmbitoDto);
+    verify(this.comisRepositoryCustom, times(1))
+        .findCondicionesResaltaSinChallenge(any(TareaDto.class));
+  }
+
 }

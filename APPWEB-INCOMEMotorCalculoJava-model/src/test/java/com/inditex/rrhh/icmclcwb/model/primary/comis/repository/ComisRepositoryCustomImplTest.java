@@ -52,15 +52,21 @@ public class ComisRepositoryCustomImplTest {
 
   private final static String SQL_FIND_CONDICIONES_HISTORICO_ES = "SQL FIND CONDICIONES HISTORICO ES";
 
+  private final static String SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE = "SQL FIND CONDICIONES HISTORICO CHALLENGE";
+
   private final static String SQL_FIND_CONDICIONES_DESPLAZAMIENTO = "SQL FIND CONDICIONES DESPLAZAMIENTO";
 
   private final static String SQL_FIND_CONDICIONES_DESPLAZAMIENTO_ES = "SQL FIND CONDICIONES DESPLAZAMIENTO ES";
+
+  private final static String SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE = "SQL FIND CONDICIONES DESPLAZAMIENTO CHALLENGE";
 
   private final static String SQL_FIND_CONDICIONES_RESALTA = "SQL FIND CONDICIONES RESALTA";
 
   private final static String SQL_FIND_CONDICIONES_RESALTA_SIN_PRIMAS = "SQL FIND CONDICIONES RESALTA SIN PRIMA";
 
   private final static String SQL_FIND_CONDICIONES_RESALTA_ES = "SQL FIND CONDICIONES RESALTA ES";
+
+  private final static String SQL_FIND_CONDICIONES_RESALTA_CHALLENGE = "SQL FIND CONDICIONES RESALTA CHALLENGE";
 
   private final static String SQL_FIND_CONDICIONES_PRIMAS = "SQL FIND CONDICIONES PRIMA";
 
@@ -154,6 +160,18 @@ public class ComisRepositoryCustomImplTest {
     FieldUtils.writeField(this.comisRepositoryCustom,
         "sqlFindBajasItEs",
         SQL_FIND_BAJAS_IT_ES,
+        true);
+    FieldUtils.writeField(this.comisRepositoryCustom,
+        "sqlFindCondicionesResaltaSinChallenge",
+        SQL_FIND_CONDICIONES_RESALTA_CHALLENGE,
+        true);
+    FieldUtils.writeField(this.comisRepositoryCustom,
+        "sqlFindCondicionesDesplazamientoSinChallenge",
+        SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE,
+        true);
+    FieldUtils.writeField(this.comisRepositoryCustom,
+        "sqlFindCondicionesHistoricoSinChallenge",
+        SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE,
         true);
   }
 
@@ -600,6 +618,74 @@ public class ComisRepositoryCustomImplTest {
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
         ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
     assertEquals(SQL_FIND_BAJAS_IT_ES,
+        this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: fecha desde, fecha hasta
+    assertEquals(2, params.getValues().size());
+    // fecha desde
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+    // fecha hasta
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+  }
+
+  @Test
+  public void findCondicionesHistoricoSinChallenge() {
+    final TareaDto tarea = new TareaDto();
+    tarea.setIdOrganization("1");
+    tarea.setFechaInicioPeriodo(LocalDate.now());
+    tarea.setFechaFinPeriodo(LocalDate.now());
+    final PeriodoDto periodo = new PeriodoDto();
+    periodo.setFechaInicioPeriodo(LocalDate.now());
+    this.comisRepositoryCustom.findCondicionesHistoricoSinChallenge(tarea, periodo);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
+    assertEquals(SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE,
+        this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: fecha desde, fecha hasta
+    assertEquals(3, params.getValues().size());
+    // fecha desde
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+    // fecha hasta
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    // fecha desde ampliado
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
+  }
+
+  @Test
+  public void findCondicionesDesplazamientoSinChallenge() {
+    final TareaDto tarea = new TareaDto();
+    tarea.setIdOrganization("1");
+    tarea.setFechaInicioPeriodo(LocalDate.now());
+    tarea.setFechaFinPeriodo(LocalDate.now());
+    final PeriodoDto periodo = new PeriodoDto();
+    periodo.setFechaInicioPeriodo(LocalDate.now());
+    this.comisRepositoryCustom.findCondicionesDesplazamientoSinChallenge(tarea, periodo);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
+    assertEquals(SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE,
+        this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: fecha desde, fecha hasta
+    assertEquals(3, params.getValues().size());
+    // fecha desde
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+    // fecha hasta
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    // fecha desde ampliado
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
+  }
+
+  @Test
+  public void findCondicionesResaltaSinChallenge() {
+    final TareaDto tarea = new TareaDto();
+    tarea.setIdOrganization("1");
+    tarea.setFechaInicioPeriodo(LocalDate.now());
+    tarea.setFechaFinPeriodo(LocalDate.now());
+    this.comisRepositoryCustom.findCondicionesResaltaSinChallenge(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
+    assertEquals(SQL_FIND_CONDICIONES_RESALTA_CHALLENGE,
         this.sqlCaptor.getValue());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
     // Parámetros de la consulta: fecha desde, fecha hasta

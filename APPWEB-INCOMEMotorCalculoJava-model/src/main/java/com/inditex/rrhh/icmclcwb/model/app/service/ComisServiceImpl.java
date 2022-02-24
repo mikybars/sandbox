@@ -300,6 +300,57 @@ public class ComisServiceImpl implements ComisService {
     return bajasIt;
   }
 
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoSinChallenge(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> historico = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      historico = this.comisRepositoryCustom
+          .findCondicionesHistoricoSinChallenge(runTareaDto.getTarea(),
+              this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                  runTareaDto.getTarea().getId(),
+                  TipoDatoEnum.PERIODO_AMPLIADO.getId()));
+    } finally {
+      ClientDatabaseContextHolder.clear();
+    }
+
+    return historico;
+  }
+
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoSinChallenge(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> desplazamiento = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      desplazamiento = this.comisRepositoryCustom
+          .findCondicionesDesplazamientoSinChallenge(runTareaDto.getTarea(),
+              this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                  runTareaDto.getTarea().getId(),
+                  TipoDatoEnum.PERIODO_AMPLIADO.getId()));
+    } finally {
+      ClientDatabaseContextHolder.clear();
+    }
+
+    return desplazamiento;
+  }
+
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinChallenge(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> resalta = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      resalta = this.comisRepositoryCustom
+          .findCondicionesResaltaSinChallenge(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
+    }
+
+    return resalta;
+  }
+
   private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {
     if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
       ClientDatabaseContextHolder
