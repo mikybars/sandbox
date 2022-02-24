@@ -105,8 +105,8 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoSinChallengeServiceIm
   @Test
   void exception() {
 
-    when(this.comisAsyncService.findCondicionesDesplazamientoSinChallenge(ArgumentMatchers.any(RunTareaDto.class),
-        ArgumentMatchers.any(TareaAmbitoDto.class)))
+    when(this.comisAsyncService.findCondicionesDesplazamientoSinChallenge(any(RunTareaDto.class),
+        any(TareaAmbitoDto.class)))
             .thenReturn(null);
 
     assertThrows(NullPointerException.class, () -> {
