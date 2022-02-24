@@ -110,8 +110,8 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoSinChallengeServiceIm
             .thenReturn(null);
 
     assertThrows(NullPointerException.class, () -> {
-      this.runTareaAmbitoValidarCondicionesDesplazamientoSinChallengeServiceImpl.execute(any(RunTareaDto.class), any(TareaAmbitoDto.class),
-          any(TareaFaseAccionDto.class));
+      this.runTareaAmbitoValidarCondicionesDesplazamientoSinChallengeServiceImpl.execute(new RunTareaDto(), new TareaAmbitoDto(),
+          new TareaFaseAccionDto());
     });
 
   }
