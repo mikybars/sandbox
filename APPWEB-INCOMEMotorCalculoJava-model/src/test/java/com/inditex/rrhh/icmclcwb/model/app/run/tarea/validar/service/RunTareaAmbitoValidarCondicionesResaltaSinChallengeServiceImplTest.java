@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
  * Copyright (c) 2022. Inditex
  */
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -95,5 +96,18 @@ public class RunTareaAmbitoValidarCondicionesResaltaSinChallengeServiceImplTest 
         .idPersonaLocalDtoTovalidacionDto(ArgumentMatchers.any(TareaAmbitoDto.class),
             ArgumentMatchers.any(TareaFaseAccionDto.class), ArgumentMatchers.any(List.class),
             ArgumentMatchers.any(PrevalidarPropertiesDto.class), ArgumentMatchers.any(TareaDto.class));
+  }
+
+  @Test
+  void exception() {
+    when(this.comisAsyncService.findCondicionesResaltaSinChallenge(any(RunTareaDto.class),
+        any(TareaAmbitoDto.class)))
+            .thenReturn(null);
+
+    assertThrows(NullPointerException.class, () -> {
+      this.runTareaAmbitoValidarCondicionesResaltaSinChallengeServiceImpl.execute(new RunTareaDto(), new TareaAmbitoDto(),
+          new TareaFaseAccionDto());
+    });
+
   }
 }
