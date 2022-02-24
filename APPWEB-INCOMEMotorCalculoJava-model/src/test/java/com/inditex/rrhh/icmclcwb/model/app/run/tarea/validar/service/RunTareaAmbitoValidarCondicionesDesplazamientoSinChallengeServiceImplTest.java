@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
  * Copyright (c) 2022. Inditex
  */
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -31,10 +32,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 public class RunTareaAmbitoValidarCondicionesDesplazamientoSinChallengeServiceImplTest {
+
+  @Mock
+  private JdbcTemplate jdbcTemplate;
 
   @Mock
   private ComisAsyncService comisAsyncService;
@@ -96,4 +101,19 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoSinChallengeServiceIm
             ArgumentMatchers.any(TareaFaseAccionDto.class), ArgumentMatchers.any(List.class),
             ArgumentMatchers.any(PrevalidarPropertiesDto.class), ArgumentMatchers.any(TareaDto.class));
   }
+
+  @Test
+  void exception() {
+
+    when(this.comisAsyncService.findCondicionesDesplazamientoSinChallenge(ArgumentMatchers.any(RunTareaDto.class),
+        ArgumentMatchers.any(TareaAmbitoDto.class)))
+            .thenReturn(null);
+
+    assertThrows(NullPointerException.class, () -> {
+      this.runTareaAmbitoValidarCondicionesDesplazamientoSinChallengeServiceImpl.execute(any(RunTareaDto.class), any(TareaAmbitoDto.class),
+          any(TareaFaseAccionDto.class));
+    });
+
+  }
+
 }
