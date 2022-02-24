@@ -83,4 +83,36 @@ public class RunTareaValidarCondicionesHistoricoSinChallengeServiceImplTest {
             ArgumentMatchers.any(TareaFaseAccionDto.class));
 
   }
+
+  @Test
+  public void executeEmpty() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    tareaDto.setAmbito(new ArrayList<TareaAmbitoDto>());
+    tareaDto.setStdIdLegEnt("1");
+    runTareaDto.setTarea(tareaDto);
+    final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+    tareaAmbitoDto.setCclIdOrigen("1");
+    tareaDto.getAmbito().add(tareaAmbitoDto);
+    final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
+    tareaFaseAccionDto.setIdAccion(1);
+
+    when(this.runTareaAmbitoValidarCondicionesHistoricoSinChallengeService.execute(ArgumentMatchers.any(RunTareaDto.class),
+        ArgumentMatchers.any(TareaAmbitoDto.class),
+        ArgumentMatchers.any(TareaFaseAccionDto.class)))
+            .thenReturn(null);
+
+    this.runTareaValidarCondicionesHistoricoSinChallengeServiceImpl.execute(runTareaDto, tareaFaseAccionDto);
+
+    verify(this.tareaFaseAccionService, timeout(1000).times(1))
+        .updateFechaInicio(
+            ArgumentMatchers.any(TareaFaseAccionDto.class));
+
+    verify(this.accionService, timeout(1000).times(1))
+        .findByIdAccionAndIdOrigenAndStdIdLegEnt(
+            ArgumentMatchers.any(Integer.class), ArgumentMatchers.any(String.class),
+            ArgumentMatchers.any(String.class));
+
+  }
 }
