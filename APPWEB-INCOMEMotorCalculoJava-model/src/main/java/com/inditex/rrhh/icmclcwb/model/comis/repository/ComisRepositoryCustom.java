@@ -5,6 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
@@ -174,4 +175,12 @@ public interface ComisRepositoryCustom {
    * @return Some javadoc.
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinChallenge(TareaDto tarea);
+
+  /**
+   * Obtiene las comisiones manuales.
+   * 
+   * @param tarea tarea
+   * @return Lista de comisiones manuales.
+   */
+  List<IdPersonaLocalComisionManualDto> findComisionManual(TareaDto tarea);
 }
