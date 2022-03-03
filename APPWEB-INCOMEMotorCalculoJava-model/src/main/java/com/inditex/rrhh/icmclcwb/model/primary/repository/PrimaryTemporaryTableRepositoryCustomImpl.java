@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -299,6 +300,18 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
 
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempEstructurasDesplazamientoNoChallenge']}")
   private String sqlDeleteTempEstructurasDesplazamientoNoChallenge;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisComisionManual']}")
+  private String sqlCreateTempComisComisionManual;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempComisComisionManual']}")
+  private String sqlIndexTempComisComisionManual;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisComisionManual']}")
+  private String sqlInsertTempComisComisionManual;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisComisionManual']}")
+  private String sqlDeleteTempComisComisionManual;
 
   @Override
   public int deleteTempMotivoDesplazamientoComis() {
@@ -1027,5 +1040,41 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
     this.namedParameterJdbcTemplate.update(this.sqlInsertTempEstructurasDesplazamientoNoChallenge, map);
+  }
+
+  @Override
+  public int deleteTempComisComisionManual() {
+    return this.jdbcTemplate.update(this.sqlDeleteTempComisComisionManual);
+  }
+
+  @Override
+  public int createTempComisComisionManual() {
+    return this.jdbcTemplate.update(this.sqlCreateTempComisComisionManual);
+  }
+
+  @Override
+  public int indexTempComisComisionManual() {
+    return this.jdbcTemplate.update(this.sqlIndexTempComisComisionManual);
+  }
+
+  @Override
+  public void insertTempComisComisionManual(final List<IdPersonaLocalComisionManualDto> comisiones) {
+    for (final List<IdPersonaLocalComisionManualDto> iter : StreamUtils.partition(comisiones, this.batchSize)) {
+      this.jdbcTemplate.batchUpdate(this.sqlInsertTempComisComisionManual, new BatchPreparedStatementSetter() {
+        @Override
+        public void setValues(final PreparedStatement ps, final int i) throws SQLException {
+          final IdPersonaLocalComisionManualDto idPersonaLocalComisionManualDto = iter.get(i);
+          ps.setString(1, idPersonaLocalComisionManualDto.getIdPersonaLocal());
+          ps.setInt(2, Integer.parseInt(idPersonaLocalComisionManualDto.getGrupoManual()));
+          ps.setString(3, idPersonaLocalComisionManualDto.getTipoComision());
+          ps.setString(4, idPersonaLocalComisionManualDto.getImporte());
+        }
+
+        @Override
+        public int getBatchSize() {
+          return iter.size();
+        }
+      });
+    }
   }
 }
