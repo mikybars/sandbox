@@ -313,6 +313,9 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisComisionManual']}")
   private String sqlDeleteTempComisComisionManual;
 
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisComisionManual']}")
+  private String sqlValidateTempComisComisionManual;
+
   @Override
   public int deleteTempMotivoDesplazamientoComis() {
     return this.jdbcTemplate.update(this.sqlDeleteTempMotivoDesplazamientoComis);
@@ -1076,5 +1079,14 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
         }
       });
     }
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> validateTempComisComisionManual(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+    return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisComisionManual, map,
+        (rs, i) -> IdPersonaLocalDto.builder().idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).build());
   }
 }

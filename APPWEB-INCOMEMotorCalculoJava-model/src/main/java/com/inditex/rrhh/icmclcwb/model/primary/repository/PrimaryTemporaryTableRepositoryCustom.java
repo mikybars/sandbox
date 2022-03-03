@@ -214,6 +214,14 @@ public interface PrimaryTemporaryTableRepositoryCustom {
   List<IdPersonaLocalDto> validateTempComisResalta(TareaDto tarea);
 
   /**
+   * Comprueba las diferencias de comisiones manuales entre comis e income.
+   *
+   * @param tarea tarea.
+   * @return Empleados cuyas comisiones manuales difieren.
+   */
+  List<IdPersonaLocalDto> validateTempComisComisionManual(TareaDto tarea);
+
+  /**
    * Some javadoc.
    *
    * @param tarea Some javadoc.
