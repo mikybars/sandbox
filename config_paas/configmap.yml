@@ -197,6 +197,10 @@ app:
         sincronizacion:
           activo: true
           max-empleados: 30
+      manual:
+        sincronizacion:
+          activo: true
+          max-empleados: 30
     ptr:
       config:
         max-attempts: 2
