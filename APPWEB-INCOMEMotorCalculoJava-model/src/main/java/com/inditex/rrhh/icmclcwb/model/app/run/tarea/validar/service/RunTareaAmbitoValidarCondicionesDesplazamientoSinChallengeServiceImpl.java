@@ -37,20 +37,20 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoSinChallengeServiceIm
     implements RunTareaAmbitoValidarCondicionesDesplazamientoSinChallengeService {
 
   @Autowired
-  private ComisAsyncService comisAsyncService;
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
   @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  @Qualifier("desplazamientoProperties")
+  private PrevalidarPropertiesDto desplazamientoProperties;
+
+  @Autowired
+  private ComisAsyncService comisAsyncService;
 
   @Autowired
   private ValidacionMapper validacionMapper;
-
-  @Autowired
-  @Qualifier("desplazamientoProperties")
-  private PrevalidarPropertiesDto desplazamientoProperties;
 
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -74,7 +74,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoSinChallengeServiceIm
       this.primaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento(condicionesDesplazamiento);
 
       desplazamientoValidationResult = this.primaryTemporaryTableRepositoryCustom
-          .validateTempComisDesplazamiento(runTareaDto.getTarea());
+          .validateTempComisDesplazamiento(tareaDto);
 
       this.primaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento();
 
