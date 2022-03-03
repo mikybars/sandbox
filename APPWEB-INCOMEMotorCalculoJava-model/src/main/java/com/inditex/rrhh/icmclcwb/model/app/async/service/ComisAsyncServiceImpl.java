@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
@@ -182,5 +183,11 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
       @Valid final TareaAmbitoDto tareaAmbito) {
     return CompletableFuture
         .completedFuture(this.comisService.findCondicionesResaltaSinChallenge(runTareaDto, tareaAmbito));
+  }
+
+  @Override
+  public CompletableFuture<List<IdPersonaLocalComisionManualDto>> findComisionManual(
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito) {
+    return CompletableFuture.completedFuture(this.comisService.findComisionManual(runTareaDto, tareaAmbito));
   }
 }
