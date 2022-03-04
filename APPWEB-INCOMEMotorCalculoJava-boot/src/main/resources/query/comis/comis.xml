@@ -3723,7 +3723,7 @@ UNION
       Persona AS CCL_ID_PERSON,
       GrupoManual AS ID_GRUPO_MANUAL,
       ImporteComision AS IMPORTE,
-      '010' AS TipoComision AS ID_TIPO_COMISION
+      '010' AS ID_TIPO_COMISION
     FROM ComisionManual
     WHERE FechaVencimiento = :fechaHasta
     UNION
@@ -3731,7 +3731,7 @@ UNION
       Persona AS CCL_ID_PERSON,
       GrupoManual AS ID_GRUPO_MANUAL,
       ImporteResalta AS IMPORTE,
-      '014' AS TipoComision AS ID_TIPO_COMISION
+      '014' AS ID_TIPO_COMISION
     FROM ComisionManual
     WHERE FechaVencimiento = :fechaHasta
     ]]>
