@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.timeout;
@@ -20,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
@@ -81,6 +83,20 @@ class RunTareaAmbitoValidarComisionManualServiceImplTest {
         ArgumentMatchers.<List<IdPersonaLocalDto>>any(), eq(
             this.comisionManualProperties),
         eq(runTarea.getTarea()));
+
+  }
+
+  @Test
+  void executeExceptionTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbito,
+      @Random final TareaFaseAccionDto tareaFaseAccion) {
+
+    when(this.comisAsyncService.findComisionManual(any(RunTareaDto.class), any(TareaAmbitoDto.class))).thenThrow(RuntimeException.class);
+
+    assertThrows(RuntimeException.class, () -> {
+      this.runTareaAmbitoValidarComisionManualService.execute(runTarea, tareaAmbito, tareaFaseAccion);
+    });
+    verify(this.tareaFaseAccionService, timeout(1000).times(1)).updateFechaFinAndEstado(tareaFaseAccion,
+        EstadoTareaFaseAccionEnum.ERROR.getDto());
 
   }
 
