@@ -6,6 +6,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -21,8 +23,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
-public class ComisServiceImplTest {
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+class ComisServiceImplTest {
 
   @Mock
   private ComisRepositoryCustom comisRepositoryCustom;
@@ -38,7 +40,7 @@ public class ComisServiceImplTest {
   private static final long ID_TAREA = 1L;
 
   @Test
-  public void findPresenciasOrigenAndFecha() {
+  void findPresenciasOrigenAndFecha() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -51,7 +53,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findMotivoDesplazamiento() {
+  void findMotivoDesplazamiento() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -64,7 +66,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findFechasIncidencias() {
+  void findFechasIncidencias() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -77,7 +79,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findFechasDesplazamientos() {
+  void findFechasDesplazamientos() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -90,7 +92,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCondicionesHistorico() {
+  void findCondicionesHistorico() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -107,7 +109,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCondicionesHistoricoEs() {
+  void findCondicionesHistoricoEs() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -120,7 +122,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCondicionesDesplazamiento() {
+  void findCondicionesDesplazamiento() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -137,7 +139,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCondicionesDesplazamientoEs() {
+  void findCondicionesDesplazamientoEs() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -150,7 +152,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCondicionesResalta() {
+  void findCondicionesResalta() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -163,7 +165,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCondicionesResaltaSinPrimas() {
+  void findCondicionesResaltaSinPrimas() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -176,7 +178,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCondicionesResaltaEs() {
+  void findCondicionesResaltaEs() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -189,7 +191,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCondicionesPrimas() {
+  void findCondicionesPrimas() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -202,7 +204,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findBajasIt() {
+  void findBajasIt() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -219,7 +221,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCarencia() {
+  void findCarencia() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -232,7 +234,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findEmpleadosExterosByClaseTest() {
+  void findEmpleadosExterosByClaseTest() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -246,7 +248,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findEmpleadosExternosByMinIdPersonaTest() {
+  void findEmpleadosExternosByMinIdPersonaTest() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -261,7 +263,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findBajasItEs() {
+  void findBajasItEs() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -274,7 +276,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCondicionesHistoricoSinChallenge() {
+  void findCondicionesHistoricoSinChallenge() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -291,7 +293,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCondicionesDesplazamientoSinChallenge() {
+  void findCondicionesDesplazamientoSinChallenge() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -308,7 +310,7 @@ public class ComisServiceImplTest {
   }
 
   @Test
-  public void findCondicionesResaltaSinChallenge() {
+  void findCondicionesResaltaSinChallenge() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -318,6 +320,12 @@ public class ComisServiceImplTest {
     this.comisServiceImpl.findCondicionesResaltaSinChallenge(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesResaltaSinChallenge(any(TareaDto.class));
+  }
+
+  @Test
+  void findComisionManualTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbito) {
+    this.comisServiceImpl.findComisionManual(runTarea, tareaAmbito);
+    verify(this.comisRepositoryCustom, times(1)).findComisionManual(runTarea.getTarea());
   }
 
 }

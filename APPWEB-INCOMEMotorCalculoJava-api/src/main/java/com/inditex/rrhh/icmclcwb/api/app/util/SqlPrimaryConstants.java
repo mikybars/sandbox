@@ -288,6 +288,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_REPARTIDO_PROVINCIA = "repartidoProvincia";
 
+  public static final String SQL_PARAM_ID_GRUPO_MANUAL = "idGrupoManual";
+
   // PARAMETROS USADOS PARA ESTABLECER VALORES
 
   public static final String SQL_PARAM_NUEVO_ID_TIPO_DATO = "nuevoIdTipoDato";

@@ -5,6 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
@@ -349,6 +350,17 @@ public class ComisServiceImpl implements ComisService {
     }
 
     return resalta;
+  }
+
+  @Override
+  public List<IdPersonaLocalComisionManualDto> findComisionManual(
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito) {
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      return this.comisRepositoryCustom.findComisionManual(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
+    }
   }
 
   private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {
