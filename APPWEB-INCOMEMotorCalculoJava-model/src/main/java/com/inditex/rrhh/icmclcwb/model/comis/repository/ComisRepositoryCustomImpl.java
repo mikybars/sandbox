@@ -5,6 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
@@ -85,6 +86,9 @@ public class ComisRepositoryCustomImpl
 
   @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findCondicionesResaltaSinChallenge']}")
   private String sqlFindCondicionesResaltaSinChallenge;
+
+  @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findComisionManual']}")
+  private String sqlFindComisionManual;
 
   @Autowired
   @Qualifier("fechasProperties")
@@ -505,4 +509,18 @@ public class ComisRepositoryCustomImpl
             .build());
   }
 
+  @Override
+  public List<IdPersonaLocalComisionManualDto> findComisionManual(
+      final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+
+    return this.query(this.sqlFindComisionManual, map, (rs, rowNum) -> IdPersonaLocalComisionManualDto
+        .builder()
+        .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
+        .tipoComision(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_COMISION))
+        .grupoManual(rs.getString(SqlComisConstants.SQL_RESULT_ID_GRUPO_MANUAL))
+        .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
+        .build());
+  }
 }
