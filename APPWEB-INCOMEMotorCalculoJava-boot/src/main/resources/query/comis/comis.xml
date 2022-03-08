@@ -240,16 +240,16 @@
                 PCT.FECHADESDE,
                 PCT.FECHAHASTA
               FROM PersonasCambiosTemporales PCT
-              INNER JOIN TABLASPORCENTAJES TP
+              LEFT JOIN TABLASPORCENTAJES TP
                 ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
-              INNER JOIN GRUPOSPORCENTAJES GP
+              LEFT JOIN GRUPOSPORCENTAJES GP
                 ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
               WHERE
                 PCT.FECHADESDE <= :fechaHasta
                 AND PCT.FECHAHASTA >= :fechaDesde
                 AND NOT (PCT.FechaDesde = :fechaDesde AND PCT.FechaHasta = :fechaHasta)
                 AND (PCT.EXCLUIDOCALCULO IS NULL OR PCT.EXCLUIDOCALCULO = 0)
-                AND GP.TIPOPORCENTAJE IN (1, 8, 9)
+                AND (GP.TIPOPORCENTAJE IN (1, 8, 9) OR PCT.TABLAPORCENTAJE IS NULL)
         ),
         DESPLAZAMIENTOS_AMPLIADO AS (
               SELECT
@@ -258,16 +258,16 @@
                 PCT.FECHADESDE,
                 PCT.FECHAHASTA
               FROM PersonasCambiosTemporales PCT
-              INNER JOIN TABLASPORCENTAJES TP
+              LEFT JOIN TABLASPORCENTAJES TP
                 ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
-              INNER JOIN GRUPOSPORCENTAJES GP
+              LEFT JOIN GRUPOSPORCENTAJES GP
                 ON GP.GRUPOPORCENTAJE = TP.GRUPOPORCENTAJE
               WHERE
                 FECHADESDE <= :fechaHasta
                 AND FECHAHASTA >= :fechaDesdeAmpliado
                 AND NOT (FechaDesde = :fechaDesdeAmpliado AND FechaHasta = :fechaHasta)
                 AND (EXCLUIDOCALCULO IS NULL OR EXCLUIDOCALCULO = 0)
-                AND GP.TIPOPORCENTAJE IN (1, 8, 9)
+                AND (GP.TIPOPORCENTAJE IN (1, 8, 9) OR PCT.TABLAPORCENTAJE IS NULL)
         )
             -- Casos con desplazamientos, la estructura base entre desplazamientos excepto el último tramo
             SELECT
@@ -603,12 +603,13 @@ WITH T AS (SELECT
             SELECT
                 *,
                 CASE WHEN GroupsWithLag.PreviousEndDate >= FECHA_DESDE THEN 0 ELSE 1 END AS IslandStartInd,
-                SUM(CASE WHEN GroupsWithLag.PreviousPorcentaje <> porcentaje THEN 1 WHEN GroupsWithLag.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY GroupsWithLag.RN) AS IslandId
+                SUM(CASE when cuenta <> GroupsWithLag.PreviousCuenta THEN 1 WHEN GroupsWithLag.PreviousPorcentaje <> porcentaje THEN 1 WHEN GroupsWithLag.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY GroupsWithLag.RN) AS IslandId
             FROM
                 (
                 SELECT
                 *,
-                LAG(PORCENTAJE) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousPorcentaje
+                LAG(PORCENTAJE) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousPorcentaje,
+                LAG(CUENTA) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousCuenta
                 FROM
                     (
                      SELECT PCT.PERSONA AS CCL_ID_PERSON,
@@ -639,7 +640,8 @@ WITH T AS (SELECT
                           NULL AS BANDA,
                           NULL AS IMPORTE,
                           PCT.MOTIVO,
-                          PCT.PUESTODESTINO AS PUESTO_DESTINO
+                          PCT.PUESTODESTINO AS PUESTO_DESTINO,
+                          DD.CUENTA
                           FROM PERSONASCAMBIOSTEMPORALES PCT
                           INNER JOIN TABLASPORCENTAJES TP
                           ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
@@ -651,6 +653,16 @@ WITH T AS (SELECT
                           AND (PCT.FECHADESDE <= PH.FECHAHASTA OR PH.FECHAHASTA IS NULL)
                           LEFT JOIN TABLASPORCENTAJESCOMISION TPC
                           ON TPC.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
+                          LEFT JOIN (
+                                SELECT PERSONA, FECHADESDE, FECHAHASTA, COUNT(*) AS CUENTA
+                                FROM PERSONASCAMBIOSTEMPORALES
+                                WHERE FECHADESDE <= :fechaHasta
+                                AND FECHAHASTA >= :fechaDesdeAmpliado
+                                GROUP BY PERSONA, FECHADESDE, FECHAHASTA
+                          ) DD
+                          ON DD.PERSONA = PCT.PERSONA
+                          AND DD.FECHADESDE = PCT.FECHADESDE
+                          AND DD.FECHAHASTA = PCT.FECHAHASTA
                             WHERE PCT.FECHADESDE <= :fechaHasta
                             AND PCT.FECHAHASTA >= :fechaDesde
                             AND TPC.PORCENTAJE IS NOT NULL AND TPC.TEMPORADA = 1 AND TPC.PRODUCTO = 1
@@ -672,7 +684,8 @@ WITH T AS (SELECT
                             TPC.PORCENTAJE,
                             PCT.SECCIONESCOMISION,
                             PCT.MOTIVO,
-                            PCT.PUESTODESTINO
+                            PCT.PUESTODESTINO,
+                            DD.CUENTA
                     ) Groups
             )GroupsWithLag
         ) Islands
@@ -709,12 +722,13 @@ WITH T AS (SELECT
             SELECT
                 *,
                 CASE WHEN GroupsWithLag.PreviousEndDate >= FECHA_DESDE THEN 0 ELSE 1 END AS IslandStartInd,
-                SUM(CASE WHEN GroupsWithLag.PreviousPorcentaje <> porcentaje THEN 1 WHEN GroupsWithLag.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0  ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY GroupsWithLag.RN) AS IslandId
+                SUM(CASE when cuenta <> GroupsWithLag.PreviousCuenta THEN 1 WHEN GroupsWithLag.PreviousPorcentaje <> porcentaje THEN 1 WHEN GroupsWithLag.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY GroupsWithLag.RN) AS IslandId
             FROM
             (
              SELECT
                 *,
-                LAG(PORCENTAJE) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousPorcentaje
+                LAG(PORCENTAJE) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousPorcentaje,
+                LAG(CUENTA) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousCuenta
                 FROM
                     (
                         SELECT PCT.PERSONA AS CCL_ID_PERSON,
@@ -746,7 +760,8 @@ WITH T AS (SELECT
                           NULL AS BANDA,
                           NULL AS IMPORTE,
                           PCT.MOTIVO,
-                          PCT.PUESTODESTINO AS PUESTO_DESTINO
+                          PCT.PUESTODESTINO AS PUESTO_DESTINO,
+                          DD.CUENTA
                           FROM PERSONASCAMBIOSTEMPORALES PCT
                           INNER JOIN TABLASPORCENTAJES TP
                           ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
@@ -762,6 +777,16 @@ WITH T AS (SELECT
                           AND (PCT.FECHADESDE <= PH.FECHAHASTA OR PH.FECHAHASTA IS NULL)
                           LEFT JOIN TABLASPORCENTAJESCOMISION TPC
                           ON TPC.TABLAPORCENTAJE = PR.TABLAPORCENTAJE
+                          LEFT JOIN (
+                                SELECT PERSONA, FECHADESDE, FECHAHASTA, COUNT(*) AS CUENTA
+                                FROM PERSONASCAMBIOSTEMPORALES
+                                WHERE FECHADESDE <= :fechaHasta
+                                AND FECHAHASTA >= :fechaDesdeAmpliado
+                                GROUP BY PERSONA, FECHADESDE, FECHAHASTA
+                          ) DD
+                          ON DD.PERSONA = PCT.PERSONA
+                          AND DD.FECHADESDE = PCT.FECHADESDE
+                          AND DD.FECHAHASTA = PCT.FECHAHASTA
                             WHERE PCT.FECHADESDE <= :fechaHasta
                             AND PCT.FECHAHASTA >= :fechaDesde
                             AND PR.FECHADESDE <= :fechaHasta
@@ -788,7 +813,8 @@ WITH T AS (SELECT
                             TPC.PORCENTAJE,
                             PCT.SECCIONESCOMISION,
                             PCT.MOTIVO,
-                            PCT.PUESTODESTINO
+                            PCT.PUESTODESTINO,
+                            DD.CUENTA
                       ) Groups
                 )GroupsWithLag
         ) Islands
@@ -823,12 +849,13 @@ WITH T AS (SELECT
             SELECT
                 *,
                 CASE WHEN GroupsWithLag.PreviousEndDate >= FECHA_DESDE THEN 0 ELSE 1 END AS IslandStartInd,
-                SUM(CASE WHEN GroupsWithLag.PreviousPorcentaje <> porcentaje THEN 1 WHEN GroupsWithLag.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY GroupsWithLag.RN) AS IslandId
+                SUM(CASE when cuenta <> GroupsWithLag.PreviousCuenta THEN 1 WHEN GroupsWithLag.PreviousPorcentaje <> porcentaje THEN 1 WHEN GroupsWithLag.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY GroupsWithLag.RN) AS IslandId
             FROM
                 (
                 SELECT
                 *,
-                LAG(PORCENTAJE) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousPorcentaje
+                LAG(PORCENTAJE) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousPorcentaje,
+                LAG(CUENTA) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousCuenta
                 FROM
                     (
                      SELECT PCT.PERSONA AS CCL_ID_PERSON,
@@ -853,7 +880,8 @@ WITH T AS (SELECT
                           TPP.BANDA AS BANDA,
                           TPP.IMPORTE,
                           PCT.MOTIVO,
-                          PCT.PUESTODESTINO AS PUESTO_DESTINO
+                          PCT.PUESTODESTINO AS PUESTO_DESTINO,
+                          DD.CUENTA
                           FROM PERSONASCAMBIOSTEMPORALES PCT
                           INNER JOIN TABLASPORCENTAJES TP
                           ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
@@ -874,7 +902,17 @@ WITH T AS (SELECT
                                 AND PHB.PUESTO IS NOT NULL AND PHB.PUESTO <> 99 AND PHB.TIENDA IS NOT NULL
                                 GROUP BY PHB.PERSONA
                             ) PHB
-                            ON PHB.Persona = ph.Persona
+                          ON PHB.Persona = ph.Persona
+                          LEFT JOIN (
+                                SELECT PERSONA, FECHADESDE, FECHAHASTA, COUNT(*) AS CUENTA
+                                FROM PERSONASCAMBIOSTEMPORALES
+                                WHERE FECHADESDE <= :fechaHasta
+                                AND FECHAHASTA >= :fechaDesdeAmpliado
+                                GROUP BY PERSONA, FECHADESDE, FECHAHASTA
+                          ) DD
+                          ON DD.PERSONA = PCT.PERSONA
+                          AND DD.FECHADESDE = PCT.FECHADESDE
+                          AND DD.FECHAHASTA = PCT.FECHAHASTA
                             WHERE PCT.FECHADESDE <= :fechaHasta
                             AND PCT.FECHAHASTA >= :fechaDesdeAmpliado
                             AND TPP.IMPORTE IS NOT NULL AND TPP.IDCRITERIOSPRESUPUESTOS IN (1,2,3,4)
@@ -897,9 +935,11 @@ WITH T AS (SELECT
                             TPP.IMPORTE,
                             PCT.SECCIONESCOMISION,
                             PCT.MOTIVO,
-                            PCT.PUESTODESTINO
+                            PCT.PUESTODESTINO,
+                            DD.CUENTA,
+                            PH.TIPOCALCULO
                     ) Groups
-            )GroupsWithLag
+            ) GroupsWithLag
         ) Islands
         GROUP BY
             CCL_ID_PERSON,
@@ -933,12 +973,13 @@ WITH T AS (SELECT
             SELECT
                 *,
                 CASE WHEN GroupsWithLag.PreviousEndDate >= FECHA_DESDE THEN 0 ELSE 1 END AS IslandStartInd,
-                SUM(CASE WHEN GroupsWithLag.PreviousPorcentaje <> porcentaje THEN 1 WHEN GroupsWithLag.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY GroupsWithLag.RN) AS IslandId
+                SUM(CASE when cuenta <> GroupsWithLag.PreviousCuenta THEN 1 WHEN GroupsWithLag.PreviousPorcentaje <> porcentaje THEN 1 WHEN GroupsWithLag.PreviousEndDate >= dateadd(day, -1, FECHA_DESDE) THEN 0 ELSE 1 END) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY GroupsWithLag.RN) AS IslandId
             FROM
                 (
                 SELECT
                 *,
-                LAG(PORCENTAJE) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousPorcentaje
+                LAG(PORCENTAJE) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousPorcentaje,
+                LAG(CUENTA) OVER (PARTITION BY CCL_ID_PERSON, CCL_ID_COD_ORIGEN_DESTINO, CCL_ID_SECCION, CCL_ID_SECCION_DESTINO, ID_TIPO_CALCULO, ID_TIPO_OPCION_CALCULO, MOTIVO, PUESTO_DESTINO ORDER BY FECHA_DESDE, FECHA_HASTA) AS PreviousCuenta
                 FROM
                     (
                         SELECT PCT.PERSONA AS CCL_ID_PERSON,
@@ -964,7 +1005,8 @@ WITH T AS (SELECT
                           TPP.BANDA AS BANDA,
                           TPP.IMPORTE AS IMPORTE,
                           PCT.MOTIVO,
-                          PCT.PUESTODESTINO AS PUESTO_DESTINO
+                          PCT.PUESTODESTINO AS PUESTO_DESTINO,
+                          DD.CUENTA
                           FROM PERSONASCAMBIOSTEMPORALES PCT
                           INNER JOIN TABLASPORCENTAJES TP
                           ON TP.TABLAPORCENTAJE = PCT.TABLAPORCENTAJE
@@ -990,6 +1032,16 @@ WITH T AS (SELECT
                                 GROUP BY PHB.PERSONA
                             ) PHB
                             ON PHB.Persona = ph.Persona
+                          LEFT JOIN (
+                                SELECT PERSONA, FECHADESDE, FECHAHASTA, COUNT(*) AS CUENTA
+                                FROM PERSONASCAMBIOSTEMPORALES
+                                WHERE FECHADESDE <= :fechaHasta
+                                AND FECHAHASTA >= :fechaDesdeAmpliado
+                                GROUP BY PERSONA, FECHADESDE, FECHAHASTA
+                          ) DD
+                          ON DD.PERSONA = PCT.PERSONA
+                          AND DD.FECHADESDE = PCT.FECHADESDE
+                          AND DD.FECHAHASTA = PCT.FECHAHASTA
                             WHERE PCT.FECHADESDE <= :fechaHasta
                             AND PCT.FECHAHASTA >= :fechaDesdeAmpliado
                             AND PR.FECHADESDE <= :fechaHasta
@@ -1017,7 +1069,8 @@ WITH T AS (SELECT
                             TPP.IMPORTE,
                             PCT.SECCIONESCOMISION,
                             PCT.MOTIVO,
-                            PCT.PUESTODESTINO
+                            PCT.PUESTODESTINO,
+                            DD.CUENTA
                     ) Groups
             )GroupsWithLag
         ) Islands
