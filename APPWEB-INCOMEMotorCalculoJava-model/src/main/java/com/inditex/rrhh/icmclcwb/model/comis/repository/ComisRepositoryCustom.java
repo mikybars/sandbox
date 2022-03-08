@@ -151,4 +151,27 @@ public interface ComisRepositoryCustom {
    */
   List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(TareaDto tarea);
 
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoSinChallenge(final TareaDto tarea, final PeriodoDto periodoAmpliado);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoSinChallenge(TareaDto tarea, PeriodoDto periodoAmpliado);
+
+  /**
+   * Some javadoc.
+   *
+   * @param tarea Some javadoc.
+   * @return Some javadoc.
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinChallenge(TareaDto tarea);
 }

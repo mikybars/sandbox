@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -10,7 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesHistoricoEsService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesHistoricoSinChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -30,36 +33,37 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class RunTareaAmbitoValidarCondicionesHistoricoEsServiceImpl
-    implements RunTareaAmbitoValidarCondicionesHistoricoEsService {
+public class RunTareaAmbitoValidarCondicionesHistoricoSinChallengeServiceImpl implements
+    RunTareaAmbitoValidarCondicionesHistoricoSinChallengeService {
 
   @Autowired
-  private ComisAsyncService comisAsyncService;
+  @Qualifier("historicoProperties")
+  private PrevalidarPropertiesDto historicoProperties;
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
   @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
-
-  @Autowired
   private ValidacionMapper validacionMapper;
 
   @Autowired
-  @Qualifier("historicoProperties")
-  private PrevalidarPropertiesDto historicoProperties;
+  private ComisAsyncService comisAsyncService;
+
+  @Autowired
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
       @Valid final TareaAmbitoDto tareaAmbito,
       @Valid final TareaFaseAccionDto tareaFaseAccion) {
-    final TareaDto tareaDto = runTareaDto.getTarea();
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<IdPersonaLocalDto> historicoValidationResult;
+    final TareaDto tareaDto = runTareaDto.getTarea();
+
     try {
       final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesHistorico = this.comisAsyncService
-          .findCondicionesHistoricoEs(runTareaDto, tareaAmbito);
+          .findCondicionesHistoricoSinChallenge(runTareaDto, tareaAmbito);
       AsyncUtils.exceptionally(cfCondicionesHistorico, cf);
 
       AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -70,9 +74,9 @@ public class RunTareaAmbitoValidarCondicionesHistoricoEsServiceImpl
       this.primaryTemporaryTableRepositoryCustom.insertTempComisHistorico(condicionesHistorico);
 
       this.primaryTemporaryTableRepositoryCustom
-          .mergeDateRangesSeccionNotEqualsTempComisHistorico(runTareaDto.getTarea());
+          .mergeDateRangesSeccionNotEqualsTempComisHistorico(tareaDto);
       this.primaryTemporaryTableRepositoryCustom
-          .mergeDateRangesTempComisHistorico(runTareaDto.getTarea());
+          .mergeDateRangesTempComisHistorico(tareaDto);
 
       historicoValidationResult = this.primaryTemporaryTableRepositoryCustom
           .validateTempComisHistorico(runTareaDto.getTarea());

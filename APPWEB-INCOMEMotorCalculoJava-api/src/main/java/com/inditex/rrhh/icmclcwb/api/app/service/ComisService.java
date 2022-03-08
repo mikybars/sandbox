@@ -187,4 +187,33 @@ public interface ComisService {
   List<IdPersonaLocalCondicionesDto> findCondicionesPrimas(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 
+  /**
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoSinChallenge(@Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
+
+  /**
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoSinChallenge(@Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
+
+  /**
+   * Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   * @return Some javadoc.
+   */
+  List<IdPersonaLocalCondicionesDto> findCondicionesResaltaSinChallenge(@Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
 }

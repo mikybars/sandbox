@@ -37,6 +37,8 @@ public class PtrTestConstants {
 
   public static final Integer INCLUIR_VENTA_PAT = 1;
 
+  public static final Integer EXCLUIDO_IPOD = 1;
+
   @Getter
   private static final List<Integer> CADENA_LIST = Arrays.asList(1);
 

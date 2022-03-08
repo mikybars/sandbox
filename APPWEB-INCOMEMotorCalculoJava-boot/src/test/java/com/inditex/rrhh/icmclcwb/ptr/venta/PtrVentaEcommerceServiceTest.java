@@ -175,6 +175,7 @@ public class PtrVentaEcommerceServiceTest {
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_ONLINE_LIST());
     request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
     request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
+    request.setExcluirIpod(PtrTestConstants.EXCLUIDO_IPOD);
 
     final ResponseEntity<PtrVentaOnlinePickingResponseDto> response = this.ptrVentaClient
         .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
@@ -193,6 +194,7 @@ public class PtrVentaEcommerceServiceTest {
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_ONLINE_LIST());
     request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
     request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
+    request.setExcluirIpod(PtrTestConstants.EXCLUIDO_IPOD);
 
     final ResponseEntity<PtrVentaOnlinePickingResponseDto> response = this.ptrVentaClient
         .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
@@ -211,6 +213,7 @@ public class PtrVentaEcommerceServiceTest {
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_ONLINE_LIST());
     request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
     request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
+    request.setExcluirIpod(PtrTestConstants.EXCLUIDO_IPOD);
 
     final HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_XML);
