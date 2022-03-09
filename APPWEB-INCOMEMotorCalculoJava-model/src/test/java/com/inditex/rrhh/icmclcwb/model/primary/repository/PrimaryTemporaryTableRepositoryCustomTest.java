@@ -246,6 +246,8 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
   private final static String SQL_INSERT_TEMP_COMIS_PERSONAS_LOCALIZACIONES = "SQL INSERT TEMP COMIS PERSONAS";
 
+  private final static String SQL_VALIDATE_TEMP_COMIS_PERSONAS = "SQL VALIDATE TEMP COMIS PERSONAS";
+
   @BeforeEach
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom, "batchSize", 3, true);
@@ -438,6 +440,9 @@ class PrimaryTemporaryTableRepositoryCustomTest {
         true);
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
         "sqlInsertTempComisPersonasLocalizaciones", SQL_INSERT_TEMP_COMIS_PERSONAS_LOCALIZACIONES,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlValidateTempComisPersonas", SQL_VALIDATE_TEMP_COMIS_PERSONAS,
         true);
   }
 
@@ -1317,11 +1322,39 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   @Test
-  void insertTempComisPersonasLocalizacionesTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto persona) {
+  void insertTempComisPersonasLocalizacionesTest(@Random final IdPersonaLocalLocalizacionDto persona) {
     final List<IdPersonaLocalLocalizacionDto> personas = Collections.singletonList(persona);
     this.primaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones(personas);
     verify(this.jdbcTemplate).batchUpdate(eq(SQL_INSERT_TEMP_COMIS_PERSONAS_LOCALIZACIONES),
         any(BatchPreparedStatementSetter.class));
+  }
+
+  @Test
+  void validateTempComisPersonas(@Random final TareaDto tarea, @Random final IdPersonaLocalDto persona1, @Random final IdPersonaLocalDto persona2) {
+
+    persona1.setStdOrHrPeriod(null);
+    persona2.setStdOrHrPeriod(null);
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalDto>>any())).thenAnswer((invocation) -> {
+          final RowMapper<IdPersonaLocalDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs1 = mock(ResultSet.class);
+          final ResultSet rs2 = mock(ResultSet.class);
+          when(rs1.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(persona1.getIdPersonaLocal());
+          when(rs2.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(persona2.getIdPersonaLocal());
+
+          return Arrays.asList(rowMapper.mapRow(rs1, 0), rowMapper.mapRow(rs2, 1));
+        });
+
+    final List<IdPersonaLocalDto> result = this.primaryTemporaryTableRepositoryCustom.validateTempComisPersonas(tarea);
+
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_VALIDATE_TEMP_COMIS_PERSONAS), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalDto>>any());
+    assertEquals(expected, this.paramsCaptor.getValue().getValues());
+
+    assertEquals(Arrays.asList(persona1, persona2), result);
   }
 
   // Fin tests personas

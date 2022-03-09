@@ -669,4 +669,12 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    */
   void insertTempComisPersonasLocalizaciones(List<IdPersonaLocalLocalizacionDto> personas);
 
+  /**
+   * Comprueba las diferencias de personas entre comis e income.
+   *
+   * @param tarea tarea.
+   * @return Empleados que aparecen en comis y no en income.
+   */
+  List<IdPersonaLocalDto> validateTempComisPersonas(TareaDto tarea);
+
 }
