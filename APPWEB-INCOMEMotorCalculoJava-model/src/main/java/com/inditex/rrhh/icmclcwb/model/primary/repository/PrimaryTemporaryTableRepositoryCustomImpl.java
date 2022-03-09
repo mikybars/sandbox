@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
@@ -315,6 +316,18 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
 
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisComisionManual']}")
   private String sqlValidateTempComisComisionManual;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisPersonasLocalizaciones']}")
+  private String sqlCreateTempComisPersonasLocalizaciones;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempComisPersonasLocalizaciones']}")
+  private String sqlIndexTempComisPersonasLocalizaciones;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempComisPersonasLocalizaciones']}")
+  private String sqlDeleteTempComisPersonasLocalizaciones;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones']}")
+  private String sqlInsertTempComisPersonasLocalizaciones;
 
   @Override
   public int deleteTempMotivoDesplazamientoComis() {
@@ -1088,5 +1101,39 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
 
     return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisComisionManual, map,
         (rs, i) -> IdPersonaLocalDto.builder().idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).build());
+  }
+
+  @Override
+  public int deleteTempComisPersonasLocalizaciones() {
+    return this.jdbcTemplate.update(this.sqlDeleteTempComisPersonasLocalizaciones);
+  }
+
+  @Override
+  public int createTempComisPersonasLocalizaciones() {
+    return this.jdbcTemplate.update(this.sqlCreateTempComisPersonasLocalizaciones);
+  }
+
+  @Override
+  public int indexTempComisPersonasLocalizaciones() {
+    return this.jdbcTemplate.update(this.sqlIndexTempComisPersonasLocalizaciones);
+  }
+
+  @Override
+  public void insertTempComisPersonasLocalizaciones(final List<IdPersonaLocalLocalizacionDto> personas) {
+    for (final List<IdPersonaLocalLocalizacionDto> iter : StreamUtils.partition(personas, this.batchSize)) {
+      this.jdbcTemplate.batchUpdate(this.sqlInsertTempComisPersonasLocalizaciones, new BatchPreparedStatementSetter() {
+        @Override
+        public void setValues(final PreparedStatement ps, final int i) throws SQLException {
+          final IdPersonaLocalLocalizacionDto idPersonaLocalComisionManualDto = iter.get(i);
+          ps.setString(1, idPersonaLocalComisionManualDto.getIdPersonaLocal());
+          ps.setString(2, idPersonaLocalComisionManualDto.getCclIdCodOrigen());
+        }
+
+        @Override
+        public int getBatchSize() {
+          return iter.size();
+        }
+      });
+    }
   }
 }

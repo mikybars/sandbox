@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
@@ -235,6 +237,15 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
   private final static String SQL_VALIDATE_TEMP_COMIS_COMISION_MANUAL = "SQL VALIDATE TEMP COMIS COMISION MANUAL";
 
+  // personas
+  private final static String SQL_CREATE_TEMP_COMIS_PERSONAS_LOCALIZACIONES = "SQL CREATE TEMP COMIS PERSONAS";
+
+  private final static String SQL_INDEX_TEMP_COMIS_PERSONAS_LOCALIZACIONES = "SQL INDEX TEMP COMIS PERSONAS";
+
+  private final static String SQL_DELETE_TEMP_COMIS_PERSONAS_LOCALIZACIONES = "SQL DELETE TEMP COMIS PERSONAS";
+
+  private final static String SQL_INSERT_TEMP_COMIS_PERSONAS_LOCALIZACIONES = "SQL INSERT TEMP COMIS PERSONAS";
+
   @BeforeEach
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom, "batchSize", 3, true);
@@ -415,6 +426,19 @@ class PrimaryTemporaryTableRepositoryCustomTest {
         "sqlValidateTempComisComisionManual", SQL_VALIDATE_TEMP_COMIS_COMISION_MANUAL,
         true);
 
+    // Personas
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlCreateTempComisPersonasLocalizaciones", SQL_CREATE_TEMP_COMIS_PERSONAS_LOCALIZACIONES,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlIndexTempComisPersonasLocalizaciones", SQL_INDEX_TEMP_COMIS_PERSONAS_LOCALIZACIONES,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlDeleteTempComisPersonasLocalizaciones", SQL_DELETE_TEMP_COMIS_PERSONAS_LOCALIZACIONES,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlInsertTempComisPersonasLocalizaciones", SQL_INSERT_TEMP_COMIS_PERSONAS_LOCALIZACIONES,
+        true);
   }
 
   // Inicio tests baja it
@@ -1271,5 +1295,35 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   // Fin Tetss comision manual
+
+  // Tests Personas
+
+  @Test
+  void createTempComisPersonasLocalizacionesTest() {
+    this.primaryTemporaryTableRepositoryCustom.createTempComisPersonasLocalizaciones();
+    verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_COMIS_PERSONAS_LOCALIZACIONES);
+  }
+
+  @Test
+  void indexTempComisPersonasLocalizacionesTest() {
+    this.primaryTemporaryTableRepositoryCustom.indexTempComisPersonasLocalizaciones();
+    verify(this.jdbcTemplate).update(SQL_INDEX_TEMP_COMIS_PERSONAS_LOCALIZACIONES);
+  }
+
+  @Test
+  void deleteTempComisPersonasLocalizacionesTest() {
+    this.primaryTemporaryTableRepositoryCustom.deleteTempComisPersonasLocalizaciones();
+    verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_PERSONAS_LOCALIZACIONES);
+  }
+
+  @Test
+  void insertTempComisPersonasLocalizacionesTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto persona) {
+    final List<IdPersonaLocalLocalizacionDto> personas = Collections.singletonList(persona);
+    this.primaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones(personas);
+    verify(this.jdbcTemplate).batchUpdate(eq(SQL_INSERT_TEMP_COMIS_PERSONAS_LOCALIZACIONES),
+        any(BatchPreparedStatementSetter.class));
+  }
+
+  // Fin tests personas
 
 }

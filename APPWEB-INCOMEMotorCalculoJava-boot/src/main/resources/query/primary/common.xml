@@ -9156,4 +9156,31 @@ INSERT INTO SESSION.PRESUPUESTO (
     ]]>
   </entry>
 
+  <entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisPersonasLocalizaciones">
+    <![CDATA[
+    DECLARE GLOBAL TEMPORARY TABLE SESSION.GTT_COMIS_PERSONAS_TIENDAS (
+      CCL_ID_PERSON VARGRAPHIC(24) NOT NULL,
+      CCL_ID_COD_ORIGEN VARGRAPHIC(24) NOT NULL
+    )ON COMMIT PRESERVE ROWS NOT LOGGED WITH REPLACE
+    ]]>
+  </entry>
+
+  <entry key="PrimaryTemporaryTableRepositoryCustom.indexTempComisPersonasLocalizaciones">
+    <![CDATA[
+    CREATE INDEX SESSION.IX_GTT_COMIS_PERSONAS_TIENDAS ON SESSION.GTT_COMIS_PERSONAS_TIENDAS (CCL_ID_PERSON, CCL_ID_COD_ORIGEN) COLLECT DETAILED STATISTICS
+    ]]>
+  </entry>
+
+  <entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisPersonasLocalizaciones">
+    <![CDATA[
+    DROP TABLE SESSION.GTT_COMIS_PERSONAS_TIENDAS
+    ]]>
+  </entry>
+
+  <entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones">
+    <![CDATA[
+      INSERT INTO SESSION.GTT_COMIS_PERSONAS_TIENDAS (CCL_ID_PERSON, CCL_ID_COD_ORIGEN) VALUES (?, ?)
+    ]]>
+  </entry>
+
 </properties>
