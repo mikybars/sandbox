@@ -1,18 +1,17 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.AccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +37,7 @@ public class MailServiceImpl implements MailService {
 
   private static final String SUBJECT_MOTIVOS = "Error validating displacement reasons ";
 
-  private static final String SCOPE = "Task scope: ";
-
-  private static final String STD_ID_LEG_ENT = "Company: ";
-
   private static final String PERIOD = "Period: ";
-
-  private static final String ORIGIN = "Origin: ";
 
   private static final String TITLE = "Dear INCOME administrator: ";
 
@@ -53,6 +46,13 @@ public class MailServiceImpl implements MailService {
   private static final String ERROR_LIST = "List of errors: ";
 
   private static final String TITLE_MOTIVOS = "There are unsynchronized displacement reasons";
+
+  private static final String CONTACT = "Please, contact the support team with this email at income@inditex.com.";
+
+  private static final String OVERLAPPED =
+      " Please, check these employees for inverted or overlapped dates in SIL, correct them, and then run the calculation again.";
+
+  private static final String HOURS = " Please, wait for 15 minutes, and then run the calculation again.";
 
   @Value("${app.envars.mail.sender}")
   private String sender;
@@ -80,27 +80,25 @@ public class MailServiceImpl implements MailService {
     final StringBuilder result = new StringBuilder();
     result.append(TITLE);
     result.append(DOUBLE_LINE_BREAK);
-    result.append(SCOPE);
-    result.append(tarea.getIdOrganization());
-    result.append(LINE_BREAK);
-    result.append(ORIGIN);
-    result.append(
-        trabajo.getOrigen().stream().map(TrabajoAmbitoOrigenDTO::getCclIdOrigen).collect(Collectors.toList()));
-    result.append(LINE_BREAK);
-    result.append(STD_ID_LEG_ENT);
-    result.append(tarea.getStdIdLegEnt());
-    result.append(LINE_BREAK);
     result.append(PERIOD);
-    result.append(trabajo.getIcmIdPeriodo());
+    result.append(trabajo.getFechaInicioPeriodo().toLocalDate()).append(SEPARATOR).append(trabajo.getFechaFinPeriodo().toLocalDate());
     result.append(DOUBLE_LINE_BREAK);
     result.append(ERROR_LIST);
     result.append(DOUBLE_LINE_BREAK);
+
     fallidas.stream().forEach(e -> {
       final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
           .findById(e.getIdTareaFaseAccion());
       final AccionDto accion = this.accionService
           .findAccionDtoById(tareaFaseAccion.getIdAccion());
       result.append(accion.getDescripcion());
+      if (accion.getId().equals(AccionEnum.FECHAS.getId())) {
+        result.append(OVERLAPPED);
+      } else if (accion.getId().equals(AccionEnum.PRESENCIAS.getId())) {
+        result.append(HOURS);
+      } else {
+        result.append(CONTACT);
+      }
       if ((e.getIdPersonaLocal() != null) && !e.getIdPersonaLocal().isEmpty()) {
         result.append(SEPARATOR);
         result.append(e.getIdPersonaLocal());
@@ -112,6 +110,7 @@ public class MailServiceImpl implements MailService {
     final SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(this.sender);
     message.setTo(this.receiver);
+    message.setCc(new StringBuilder(trabajo.getNombreUsuario().toLowerCase()).append("@inditex.com").toString());
 
     message.setSubject(new StringBuilder(APP)
         .append(SEPARATOR)

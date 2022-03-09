@@ -61,8 +61,6 @@ public class RunTareaValidarMotivosDesplazamientoServiceImpl implements RunPreva
         .collect(Collectors.toList())
         .isEmpty()) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
-    } else {
-      this.mailService.sendMailMotivos(runTarea);
     }
     return CompletableFuture.completedFuture(validaciones);
   }

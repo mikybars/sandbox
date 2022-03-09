@@ -140,8 +140,6 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
       this.tareaFaseService.updateActivo(runTareaDto);
       this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
 
-      this.mailService.sendMail(tareaFase, fallidas, runTareaDto);
-
       fallidas.stream().forEach(e -> {
         if (Boolean.TRUE.equals(e.getSincronizacion())
             && (e.getIdPersonaLocal() != null)
@@ -225,6 +223,10 @@ public class RunTareaPrevalidarDespuesServiceImpl implements RunTareaPrevalidarD
           this.senderTarea.sendWithPriority(runTareaDto.getTarea(), TareaPriorityEnum.REENCOLADA);
         }
         throw new ValidationReintentoException("Error validando");
+      }
+      this.mailService.sendMail(tareaFase, fallidas, runTareaDto);
+      if (fallidas.stream().anyMatch(e -> e.getIdMotivosDesplazamiento() != null && e.getIdMotivosDesplazamiento().size() > 0)) {
+        this.mailService.sendMailMotivos(runTareaDto);
       }
       throw new ValidationNoReintentoException("Error validando");
     }
