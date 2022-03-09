@@ -3737,4 +3737,17 @@ UNION
     ]]>
   </entry>
 
+  <entry key="ComisRepositoryCustom.findPersonas">
+    <![CDATA[
+    SELECT
+      Persona AS CCL_ID_PERSON,
+      Tienda AS CCL_ID_COD_ORIGEN
+    FROM PersonasHistorico
+    WHERE
+      FechaDesde <= :fechaHasta
+      AND (FechaHasta IS NULL OR FechaHasta >= :fechaDesde)
+    GROUP BY Persona, Tienda
+    ]]>
+  </entry>
+
 </properties>
