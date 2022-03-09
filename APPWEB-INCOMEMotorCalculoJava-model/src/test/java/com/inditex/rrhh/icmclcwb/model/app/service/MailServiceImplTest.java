@@ -55,6 +55,7 @@ public class MailServiceImplTest {
     final TareaDto tarea = new TareaDto();
     final TareaFaseDto tareaFase = new TareaFaseDto();
     final List<ValidacionDto> validaciones = new ArrayList<>();
+    final List<String> personaLocal = new ArrayList<>();
 
     tarea.setIdOrganization("organization");
     trabajo.setFechaInicioPeriodo(OffsetDateTime.MIN);
@@ -62,14 +63,79 @@ public class MailServiceImplTest {
     trabajo.setNombreUsuario("usuario");
     runTareaDto.setTrabajo(trabajo);
     runTareaDto.setTarea(tarea);
+    personaLocal.add("persona");
 
     ReflectionTestUtils.setField(this.mailServiceImpl, "environment", "des");
-    validaciones.add(ValidacionDto.builder().cclIdOrigen("61").idTareaFaseAccion(1L).build());
+    validaciones.add(ValidacionDto.builder().cclIdOrigen("61").idTareaFaseAccion(1L).idPersonaLocal(personaLocal).build());
 
     when(this.tareaFaseAccionService.findById(ArgumentMatchers.any(Long.class)))
         .thenReturn(TareaFaseAccionDto.builder().idAccion(1).build());
     when(this.accionService.findAccionDtoById(ArgumentMatchers.any(Integer.class)))
         .thenReturn(AccionDto.builder().descripcion("texto").id(1).build());
+
+    this.mailServiceImpl.sendMail(tareaFase, validaciones, runTareaDto);
+
+    verify(this.mailSender, times(1))
+        .send(any(SimpleMailMessage.class));
+
+  }
+
+  @Test
+  void sendMailFechas() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    final TareaDto tarea = new TareaDto();
+    final TareaFaseDto tareaFase = new TareaFaseDto();
+    final List<ValidacionDto> validaciones = new ArrayList<>();
+    final List<String> personaLocal = new ArrayList<>();
+
+    tarea.setIdOrganization("organization");
+    trabajo.setFechaInicioPeriodo(OffsetDateTime.MIN);
+    trabajo.setFechaFinPeriodo(OffsetDateTime.MAX);
+    trabajo.setNombreUsuario("usuario");
+    runTareaDto.setTrabajo(trabajo);
+    runTareaDto.setTarea(tarea);
+    personaLocal.add("persona");
+
+    ReflectionTestUtils.setField(this.mailServiceImpl, "environment", "des");
+    validaciones.add(ValidacionDto.builder().cclIdOrigen("61").idTareaFaseAccion(1L).idPersonaLocal(personaLocal).build());
+
+    when(this.tareaFaseAccionService.findById(ArgumentMatchers.any(Long.class)))
+        .thenReturn(TareaFaseAccionDto.builder().idAccion(1).build());
+    when(this.accionService.findAccionDtoById(ArgumentMatchers.any(Integer.class)))
+        .thenReturn(AccionDto.builder().descripcion("texto").id(3).build());
+
+    this.mailServiceImpl.sendMail(tareaFase, validaciones, runTareaDto);
+
+    verify(this.mailSender, times(1))
+        .send(any(SimpleMailMessage.class));
+
+  }
+
+  @Test
+  void sendMailPresencias() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    final TareaDto tarea = new TareaDto();
+    final TareaFaseDto tareaFase = new TareaFaseDto();
+    final List<ValidacionDto> validaciones = new ArrayList<>();
+    final List<String> personaLocal = new ArrayList<>();
+
+    tarea.setIdOrganization("organization");
+    trabajo.setFechaInicioPeriodo(OffsetDateTime.MIN);
+    trabajo.setFechaFinPeriodo(OffsetDateTime.MAX);
+    trabajo.setNombreUsuario("usuario");
+    runTareaDto.setTrabajo(trabajo);
+    runTareaDto.setTarea(tarea);
+    personaLocal.add("persona");
+
+    ReflectionTestUtils.setField(this.mailServiceImpl, "environment", "des");
+    validaciones.add(ValidacionDto.builder().cclIdOrigen("61").idTareaFaseAccion(1L).idPersonaLocal(personaLocal).build());
+
+    when(this.tareaFaseAccionService.findById(ArgumentMatchers.any(Long.class)))
+        .thenReturn(TareaFaseAccionDto.builder().idAccion(1).build());
+    when(this.accionService.findAccionDtoById(ArgumentMatchers.any(Integer.class)))
+        .thenReturn(AccionDto.builder().descripcion("texto").id(4).build());
 
     this.mailServiceImpl.sendMail(tareaFase, validaciones, runTareaDto);
 
