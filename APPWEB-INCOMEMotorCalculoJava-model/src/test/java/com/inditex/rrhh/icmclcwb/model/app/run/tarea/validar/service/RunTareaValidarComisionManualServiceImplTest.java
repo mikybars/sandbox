@@ -42,7 +42,7 @@ class RunTareaValidarComisionManualServiceImplTest {
   private RunTareaValidarComisionManualServiceImpl runTareaValidarComisionManualService;
 
   @Test
-  void executeTest(@Random final RunTareaDto runTarea, @Random final TareaFaseAccionDto tareaFaseAccion) {
+  void executeValidacionesConErroresTest(@Random final RunTareaDto runTarea, @Random final TareaFaseAccionDto tareaFaseAccion) {
 
     final TareaDto tarea = runTarea.getTarea();
     when(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(
@@ -82,19 +82,20 @@ class RunTareaValidarComisionManualServiceImplTest {
         any(String.class)))
             .thenReturn(Boolean.TRUE);
 
+    this.runTareaValidarComisionManualService.execute(runTarea, tareaFaseAccion);
+
     verify(this.runTareaAmbitoValidarComisionManualService, timeout(1000).times(0)).execute(any(RunTareaDto.class),
         any(TareaAmbitoDto.class), any(TareaFaseAccionDto.class));
     verify(this.accionService, timeout(1000).times(0)).findAccionDtoById(any(Integer.class));
-    verify(this.tareaFaseAccionService, timeout(1000).times(0)).updateFechaFinAndEstado(tareaFaseAccion,
+    verify(this.tareaFaseAccionService, timeout(1000).times(1)).updateFechaFinAndEstado(tareaFaseAccion,
         EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
 
   }
 
   @Test
-  void executeValidacionesConErrorTest(@Random final RunTareaDto runTarea, @Random final TareaFaseAccionDto tareaFaseAccion) {
+  void executeValidacionesSinErroresTest(@Random final RunTareaDto runTarea, @Random final TareaFaseAccionDto tareaFaseAccion) {
 
     final TareaDto tarea = runTarea.getTarea();
-    tarea.setAmbito(new ArrayList<>());
     when(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(
         any(Integer.class), any(String.class),
         any(String.class)))
@@ -107,12 +108,14 @@ class RunTareaValidarComisionManualServiceImplTest {
         any(TareaFaseAccionDto.class)))
             .thenReturn(validacion);
 
+    this.runTareaValidarComisionManualService.execute(runTarea, tareaFaseAccion);
+
     for (final TareaAmbitoDto ambito : tarea.getAmbito()) {
       verify(this.accionService, timeout(1000).times(1)).findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
           ambito.getCclIdOrigen(), tarea.getStdIdLegEnt());
       verify(this.runTareaAmbitoValidarComisionManualService, timeout(1000).times(1)).execute(runTarea, ambito, tareaFaseAccion);
     }
-    verify(this.tareaFaseAccionService, timeout(1000).times(0)).updateFechaFinAndEstado(tareaFaseAccion,
+    verify(this.tareaFaseAccionService, timeout(1000).times(1)).updateFechaFinAndEstado(tareaFaseAccion,
         EstadoTareaFaseAccionEnum.OK.getDto());
 
   }
