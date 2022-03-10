@@ -39,7 +39,7 @@ public class MailServiceImpl implements MailService {
 
   private static final String PERIOD = "Period: ";
 
-  private static final String TITLE = "Dear INCOME administrator: ";
+  private static final String TITLE = "Dear INCOME user: ";
 
   private static final String KIND_REGARDS = "Kind regards ";
 
@@ -110,7 +110,9 @@ public class MailServiceImpl implements MailService {
     final SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(this.sender);
     message.setTo(this.receiver);
-    message.setCc(new StringBuilder(trabajo.getNombreUsuario().toLowerCase()).append("@inditex.com").toString());
+    if (!trabajo.getNombreUsuario().trim().equalsIgnoreCase("srvcicmclcwbax")) {
+      message.setCc(new StringBuilder(trabajo.getNombreUsuario().toLowerCase()).append("@inditex.com").toString());
+    }
 
     message.setSubject(new StringBuilder(APP)
         .append(SEPARATOR)
