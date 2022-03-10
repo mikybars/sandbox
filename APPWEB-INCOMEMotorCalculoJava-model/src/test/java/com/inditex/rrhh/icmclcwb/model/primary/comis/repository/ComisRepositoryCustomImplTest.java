@@ -4,14 +4,24 @@ package com.inditex.rrhh.icmclcwb.model.primary.comis.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -37,8 +47,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
-public class ComisRepositoryCustomImplTest {
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+class ComisRepositoryCustomImplTest {
 
   private final static String SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA = "SQL FIND PRESENCIAS ORIGEN AND FECHA";
 
@@ -79,6 +89,8 @@ public class ComisRepositoryCustomImplTest {
   private final static String SQL_FIND_EXTERNOS_BY_MIN_ID_PERSONA = "SQL FIND EXTERNOS BY MIN ID PERSONA";
 
   private final static String SQL_FIND_BAJAS_IT_ES = "SQL FIND BAJAS IT ES";
+
+  private final static String SQL_FIND_COMISION_MANUAL = "SQL FIND COMISION MANUAL";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -173,10 +185,14 @@ public class ComisRepositoryCustomImplTest {
         "sqlFindCondicionesHistoricoSinChallenge",
         SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE,
         true);
+    FieldUtils.writeField(this.comisRepositoryCustom,
+        "sqlFindComisionManual",
+        SQL_FIND_COMISION_MANUAL,
+        true);
   }
 
   @Test
-  public void findPresenciasOrigenAndFecha() {
+  void findPresenciasOrigenAndFecha() {
     final TareaDto tarea = new TareaDto();
     tarea.setFechaInicioPeriodo(LocalDate.now());
     tarea.setFechaFinPeriodo(LocalDate.now());
@@ -196,7 +212,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findMotivoDesplazamiento() {
+  void findMotivoDesplazamiento() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -216,7 +232,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findFechasIncidencias() {
+  void findFechasIncidencias() {
     final TareaDto tarea = new TareaDto();
     tarea.setFechaInicioPeriodo(LocalDate.now());
     when(this.fechaProperties.getMeses())
@@ -235,7 +251,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findFechasDesplazamientos() {
+  void findFechasDesplazamientos() {
     final TareaDto tarea = new TareaDto();
     tarea.setFechaInicioPeriodo(LocalDate.now());
     when(this.fechaProperties.getMeses())
@@ -254,7 +270,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCondicionesHistorico() {
+  void findCondicionesHistorico() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -278,7 +294,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCondicionesHistoricoEs() {
+  void findCondicionesHistoricoEs() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -298,7 +314,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCondicionesDesplazamiento() {
+  void findCondicionesDesplazamiento() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -322,7 +338,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCondicionesDesplazamientoEs() {
+  void findCondicionesDesplazamientoEs() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -342,7 +358,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCondicionesResalta() {
+  void findCondicionesResalta() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -362,7 +378,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCondicionesResaltaSinPrimas() {
+  void findCondicionesResaltaSinPrimas() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -382,7 +398,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCondicionesResaltaEs() {
+  void findCondicionesResaltaEs() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -402,7 +418,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCondicionesPrimas() {
+  void findCondicionesPrimas() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -422,7 +438,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findBajasIt() {
+  void findBajasIt() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -447,7 +463,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCarencia() {
+  void findCarencia() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     this.comisRepositoryCustom.findCarencia(tarea);
@@ -465,7 +481,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findExternosByClaseQueryTest() {
+  void findExternosByClaseQueryTest() {
     final TareaDto tarea = new TareaDto();
     tarea.setId(1L);
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -477,7 +493,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findExternosByClaseNumeroParametrosTest() {
+  void findExternosByClaseNumeroParametrosTest() {
     final TareaDto tarea = new TareaDto();
     tarea.setFechaInicioPeriodo(LocalDate.now());
     tarea.setFechaFinPeriodo(LocalDate.now());
@@ -490,7 +506,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findExternosByClaseParametroFechaDesdeTest() {
+  void findExternosByClaseParametroFechaDesdeTest() {
     final TareaDto tarea = new TareaDto();
     final LocalDate fechaDesde = LocalDate.of(2020, 1, 1);
     tarea.setFechaInicioPeriodo(fechaDesde);
@@ -505,7 +521,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findExternosByClaseParametroFechaHastaTest() {
+  void findExternosByClaseParametroFechaHastaTest() {
     final TareaDto tarea = new TareaDto();
     final LocalDate fechaHasta = LocalDate.of(2020, 1, 31);
     tarea.setFechaFinPeriodo(fechaHasta);
@@ -520,7 +536,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findExternosByClaseParametroClaseTest() {
+  void findExternosByClaseParametroClaseTest() {
     final TareaDto tarea = new TareaDto();
     tarea.setFechaFinPeriodo(LocalDate.now());
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -537,7 +553,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findExternosByMinIdPersonaQueryTest() {
+  void findExternosByMinIdPersonaQueryTest() {
     final TareaDto tarea = new TareaDto();
     tarea.setId(1L);
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -549,7 +565,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findExternosByMinIdPersonaNumeroParametrosTest() {
+  void findExternosByMinIdPersonaNumeroParametrosTest() {
     final TareaDto tarea = new TareaDto();
     tarea.setFechaInicioPeriodo(LocalDate.now());
     tarea.setFechaFinPeriodo(LocalDate.now());
@@ -562,7 +578,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findExternosByMinIdPersonaParametroFechaDesdeTest() {
+  void findExternosByMinIdPersonaParametroFechaDesdeTest() {
     final TareaDto tarea = new TareaDto();
     final LocalDate fechaDesde = LocalDate.of(2020, 1, 1);
     tarea.setFechaInicioPeriodo(fechaDesde);
@@ -577,7 +593,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findExternosByMinIdPersonaParametroFechaHastaTest() {
+  void findExternosByMinIdPersonaParametroFechaHastaTest() {
     final TareaDto tarea = new TareaDto();
     final LocalDate fechaHasta = LocalDate.of(2020, 1, 31);
     tarea.setFechaFinPeriodo(fechaHasta);
@@ -592,7 +608,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findExternosByMinIdPersonaParametroMinPersonaTest() {
+  void findExternosByMinIdPersonaParametroMinPersonaTest() {
     final TareaDto tarea = new TareaDto();
     tarea.setFechaFinPeriodo(LocalDate.now());
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -609,7 +625,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findBajasItEs() {
+  void findBajasItEs() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -629,7 +645,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCondicionesHistoricoSinChallenge() {
+  void findCondicionesHistoricoSinChallenge() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -653,7 +669,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCondicionesDesplazamientoSinChallenge() {
+  void findCondicionesDesplazamientoSinChallenge() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -677,7 +693,7 @@ public class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  public void findCondicionesResaltaSinChallenge() {
+  void findCondicionesResaltaSinChallenge() {
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -694,6 +710,35 @@ public class ComisRepositoryCustomImplTest {
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
     // fecha hasta
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+  }
+
+  @Test
+  void findComisionManual(@Random final TareaDto tarea, @Random final IdPersonaLocalComisionManualDto result) {
+
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalComisionManualDto>>any())).thenAnswer((invocation) -> {
+
+          final RowMapper<IdPersonaLocalComisionManualDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)).thenReturn(result.getImporte());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_ID_GRUPO_MANUAL)).thenReturn(result.getGrupoManual());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_COMISION)).thenReturn(result.getTipoComision());
+
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
+        });
+
+    final List<IdPersonaLocalComisionManualDto> comisiones = this.comisRepositoryCustom.findComisionManual(tarea);
+
+    final Map<String, Object> params = new HashMap<>();
+    params.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_COMISION_MANUAL), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalComisionManualDto>>any());
+
+    assertEquals(params, this.paramsCaptor.getValue().getValues());
+    assertEquals(1, comisiones.size());
+    assertEquals(result, comisiones.get(0));
   }
 
 }

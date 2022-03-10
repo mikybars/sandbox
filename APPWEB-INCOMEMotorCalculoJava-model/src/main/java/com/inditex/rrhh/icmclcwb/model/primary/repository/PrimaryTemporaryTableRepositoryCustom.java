@@ -5,6 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -211,6 +212,14 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    * @return Some javadoc.
    */
   List<IdPersonaLocalDto> validateTempComisResalta(TareaDto tarea);
+
+  /**
+   * Comprueba las diferencias de comisiones manuales entre comis e income.
+   *
+   * @param tarea tarea.
+   * @return Empleados cuyas comisiones manuales difieren.
+   */
+  List<IdPersonaLocalDto> validateTempComisComisionManual(TareaDto tarea);
 
   /**
    * Some javadoc.
@@ -602,5 +611,33 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    * @param tarea Some javadoc.
    */
   void insertTempEstructurasDesplazamientoNoChallenge(TareaDto tarea);
+
+  /**
+   * Elimina la tabla temporal de comisiones manuales.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempComisComisionManual();
+
+  /**
+   * Crea la tabla temporal de comisiones manuales.
+   *
+   * @return Some javadoc.
+   */
+  int createTempComisComisionManual();
+
+  /**
+   * Crea un índice para la tabla temporal de comisiones manuales.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempComisComisionManual();
+
+  /**
+   * Inserta la información de las comisiones manuales en la tabla temporal.
+   *
+   * @param comisiones Comisiones manuales a insertar.
+   */
+  void insertTempComisComisionManual(List<IdPersonaLocalComisionManualDto> comisiones);
 
 }

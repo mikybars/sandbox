@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
@@ -224,6 +225,17 @@ public interface ComisAsyncService {
    * @return Some javadoc.
    */
   CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesResaltaSinChallenge(
+      @Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
+
+  /**
+   * Obtiene las comisiones manuales.
+   * 
+   * @param runTareaDto tarea.
+   * @param tareaAmbito ambito.
+   * @return Future con las comisiones manuales.
+   */
+  CompletableFuture<List<IdPersonaLocalComisionManualDto>> findComisionManual(
       @Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 }

@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.async.service;
+
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
@@ -23,8 +26,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
-public class ComisAsyncServiceImplTest {
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+class ComisAsyncServiceImplTest {
 
   @Mock
   private ComisService comisService;
@@ -33,7 +36,7 @@ public class ComisAsyncServiceImplTest {
   private ComisAsyncServiceImpl comisAsyncServiceImpl;
 
   @Test
-  public void findCondicionesHistoricoSinChallenge() throws ExecutionException, InterruptedException {
+  void findCondicionesHistoricoSinChallenge() throws ExecutionException, InterruptedException {
 
     final List<IdPersonaLocalCondicionesDto> response = new ArrayList<>();
     when(this.comisService.findCondicionesHistoricoSinChallenge(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
@@ -45,7 +48,7 @@ public class ComisAsyncServiceImplTest {
   }
 
   @Test
-  public void findCondicionesDesplazamientoSinChallenge() throws ExecutionException, InterruptedException {
+  void findCondicionesDesplazamientoSinChallenge() throws ExecutionException, InterruptedException {
 
     final List<IdPersonaLocalCondicionesDto> response = new ArrayList<>();
     when(this.comisService.findCondicionesDesplazamientoSinChallenge(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
@@ -57,7 +60,7 @@ public class ComisAsyncServiceImplTest {
   }
 
   @Test
-  public void findCondicionesResaltaSinChallenge() throws ExecutionException, InterruptedException {
+  void findCondicionesResaltaSinChallenge() throws ExecutionException, InterruptedException {
 
     final List<IdPersonaLocalCondicionesDto> response = new ArrayList<>();
     when(this.comisService.findCondicionesResaltaSinChallenge(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
@@ -66,6 +69,16 @@ public class ComisAsyncServiceImplTest {
         .findCondicionesResaltaSinChallenge(new RunTareaDto(), new TareaAmbitoDto());
     assertEquals(response, cf.get());
 
+  }
+
+  @Test
+  void findComisionManualTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto ambito)
+      throws ExecutionException, InterruptedException {
+    final List<IdPersonaLocalComisionManualDto> response = new ArrayList<>();
+    when(this.comisService.findComisionManual(any(RunTareaDto.class), any(TareaAmbitoDto.class))).thenReturn(response);
+    final CompletableFuture<List<IdPersonaLocalComisionManualDto>> cf =
+        this.comisAsyncServiceImpl.findComisionManual(runTarea, ambito);
+    assertEquals(response, cf.get());
   }
 
 }

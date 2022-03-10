@@ -90,7 +90,7 @@ public class TrabajoServiceImpl implements TrabajoService {
   @Override
   public TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id) {
 
-    Trabajo trabajoData = this.trabajoRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TRABAJO_OK);
+    final Trabajo trabajoData = this.trabajoRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TRABAJO_OK);
     if (trabajoData == null) {
       return null;
     }
