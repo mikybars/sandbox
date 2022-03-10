@@ -152,7 +152,7 @@ public class MailServiceImplTest {
     runTareaDto.setTarea(tarea);
     ReflectionTestUtils.setField(this.mailServiceImpl, "environment", "des");
 
-    this.mailServiceImpl.sendMailMotivos(runTareaDto);
+    this.mailServiceImpl.sendMailMotivos(runTareaDto, new ArrayList<>());
 
     verify(this.mailSender, times(1))
         .send(any(SimpleMailMessage.class));

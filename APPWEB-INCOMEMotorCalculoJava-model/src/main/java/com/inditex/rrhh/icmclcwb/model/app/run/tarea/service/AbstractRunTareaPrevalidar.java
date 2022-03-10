@@ -200,7 +200,7 @@ public abstract class AbstractRunTareaPrevalidar {
       }
       this.mailService.sendMail(tareaFase, fallidas, runTareaDto);
       if (fallidas.stream().anyMatch(e -> e.getIdMotivosDesplazamiento() != null && e.getIdMotivosDesplazamiento().size() > 0)) {
-        this.mailService.sendMailMotivos(runTareaDto);
+        this.mailService.sendMailMotivos(runTareaDto, fallidas);
       }
       throw new ValidationNoReintentoException("Error validando");
     }

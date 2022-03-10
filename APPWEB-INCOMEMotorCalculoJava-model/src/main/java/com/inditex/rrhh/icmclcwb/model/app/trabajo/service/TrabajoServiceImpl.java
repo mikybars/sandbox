@@ -161,7 +161,7 @@ public class TrabajoServiceImpl implements TrabajoService {
       result.setPersona(this.trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
     }
     // Guardado del trabajo en Meta4
-    this.meta4IcmWsCalcIncomeService.saveProceso(this.trabajoMapper.trabajoDtoToSaveProcesoDto(result));
+    // this.meta4IcmWsCalcIncomeService.saveProceso(this.trabajoMapper.trabajoDtoToSaveProcesoDto(result));
     // Envío del trabajo a la cola
     this.senderTrabajo.send(result);
     return result;
