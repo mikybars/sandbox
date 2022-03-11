@@ -21,7 +21,7 @@ metadata:
   slot: develop
   developModel: CORPORATE
   layer: core
-  version: 4.10.8
+  version: 4.10.9
 amiga:
   monitoring:
     metrics:
@@ -59,11 +59,11 @@ amiga:
           connect-timeout: 300000
           read-timeout: 300000
         #[HORARIOCOMERCIAL][DES][INICIO]
-#        slrhorcoms:
-#          base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp
-#          auth-method: BASIC
-#          username: srvcicmclcwbdes
-#          password: q2ZB)XKFWdeA
+        #        slrhorcoms:
+        #          base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp
+        #          auth-method: BASIC
+        #          username: srvcicmclcwbdes
+        #          password: q2ZB)XKFWdeA
         #[HORARIOCOMERCIAL][DES][FIN]
         #[HORARIOCOMERCIAL][PRE][INICIO]
         slrhorcoms:
@@ -100,16 +100,16 @@ amiga:
           password: q2ZB)XKFWdeA
         #[PTR][DES][FIN]
         #[PTR][PRE][INICIO]
-#        ptr-venta:
-#          base-url: https://sscc-pre.central.inditex.grp/rhvtimpwsd
-#          auth-method: BASIC
-#          username: srvcicmclcwbpreAX
-#          password: xynEJHKK4bu)
-#        ptr-presencia:
-#          base-url: https://sscc-pre.central.inditex.grp/rhpresnwsd
-#          auth-method: BASIC
-#          username: srvcicmclcwbpreAX
-#          password: xynEJHKK4bu)
+        #        ptr-venta:
+        #          base-url: https://sscc-pre.central.inditex.grp/rhvtimpwsd
+        #          auth-method: BASIC
+        #          username: srvcicmclcwbpreAX
+        #          password: xynEJHKK4bu)
+        #        ptr-presencia:
+        #          base-url: https://sscc-pre.central.inditex.grp/rhpresnwsd
+        #          auth-method: BASIC
+        #          username: srvcicmclcwbpreAX
+        #          password: xynEJHKK4bu)
         #[PTR][PRE][INICIO]
   service:
     jms:
@@ -223,68 +223,68 @@ amiga:
           jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
             #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
             #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
-#          user: oincome
-#          password: aMJLp8ahF09w
-#          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+            #          user: oincome
+            #          password: aMJLp8ahF09w
+            #          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
             #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][FIN]
             #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][INICIO]
-#          user: uincome
-#          password:
-#          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
+            #          user: uincome
+            #          password:
+            #          url: jdbc:db2://axdesdb22.central.inditex.grp:50000/INDITEX
             #[BBDD][ITX][NON_XA][PRE][GESTION_COMISION][FIN]
             #[BBDD][ITX][NON_XA][FIN]
             #[BBDD][ITX][XA][INICIO]
-#          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
-#          xa-properties:
+            #          xa-data-source-class-name: com.ibm.db2.jcc.DB2XADataSource
+            #          xa-properties:
             #[BBDD][ITX][XA][DES][GESTION_COMISION][INICIO]
-#            serverName: axdesdb22.central.inditex.grp
-#            portNumber: 50000
-#            databaseName: INDITEX
-#            currentSchema: GESTION_COMISION
-#            user: uincome
-#            password: pzuUKBm1ppMGzzOn
+            #            serverName: axdesdb22.central.inditex.grp
+            #            portNumber: 50000
+            #            databaseName: INDITEX
+            #            currentSchema: GESTION_COMISION
+            #            user: uincome
+            #            password: pzuUKBm1ppMGzzOn
             #[BBDD][ITX][XA][DES][GESTION_COMISION][FIN]
             #[BBDD][ITX][XA][DES][DESARROLLO_RRHH][INICIO]
-#            serverName: axdesdb22.central.inditex.grp
-#            portNumber: 50000
-#            databaseName: INDITEX
-#            currentSchema: DESARROLLO_RRHH
-#            user: oincome
-#            password: aMJLp8ahF09w
+            #            serverName: axdesdb22.central.inditex.grp
+            #            portNumber: 50000
+            #            databaseName: INDITEX
+            #            currentSchema: DESARROLLO_RRHH
+            #            user: oincome
+            #            password: aMJLp8ahF09w
             #[BBDD][ITX][XA][DES][DESARROLLO_RRHH][FIN]
             #[BBDD][VECTOR][XA][DES][INICIO]
-#            serverName: 10.202.10.178
-#            portNumber: 50000
-#            databaseName: INDITEX
-#            currentSchema: GESTION_COMISION
-#            user: db2inst1
-#            password: vector.hc
+            #            serverName: 10.202.10.178
+            #            portNumber: 50000
+            #            databaseName: INDITEX
+            #            currentSchema: GESTION_COMISION
+            #            user: db2inst1
+            #            password: vector.hc
             #[BBDD][VECTOR][XA][DES][FIN]
             #[BBDD][ITX][XA][PRE][GESTION_COMISION][INICIO]
-#            serverName: axpredb22.central.inditex.grp
-#            portNumber: 50000
-#            databaseName: INDITEX
-#            currentSchema: GESTION_COMISION
-#            user: uincome
-#            password:
-            #[BBDD][ITX][XA][PRE][GESTION_COMISION][FIN]
-#            clientProgramName: ${metadata.jirakey}-${metadata.slot}
-#            driverType: 4
-#            loginTimeout: 10
-#            connectionTimeout: 10
-#            commandTimeout: 5
-#            loginTimeout: 300
-#            connectionTimeout: 300
-#            commandTimeout: 300
-#            interruptProcessingMode: 2
+            #            serverName: axpredb22.central.inditex.grp
+            #            portNumber: 50000
+            #            databaseName: INDITEX
+            #            currentSchema: GESTION_COMISION
+            #            user: uincome
+            #            password:
+          #[BBDD][ITX][XA][PRE][GESTION_COMISION][FIN]
+        #            clientProgramName: ${metadata.jirakey}-${metadata.slot}
+        #            driverType: 4
+        #            loginTimeout: 10
+        #            connectionTimeout: 10
+        #            commandTimeout: 5
+        #            loginTimeout: 300
+        #            connectionTimeout: 300
+        #            commandTimeout: 300
+        #            interruptProcessingMode: 2
         #[BBDD][ITX][XA][FIN]
         #[PTR][ITX][PRE][NON_XA][INICIO]
-#        ptr:
-#          driver-class-name: oracle.jdbc.OracleDriver
-#          url: jdbc:oracle:thin:@//axine5-scansrv.central.inditex.grp:11521/s_pdbpr01rt_gener.central.inditex.grp
-#          user: uincome
-#          password: C2IYgNZKpjmz
-#          defaultIsolationLevel: 8
+        #        ptr:
+        #          driver-class-name: oracle.jdbc.OracleDriver
+        #          url: jdbc:oracle:thin:@//axine5-scansrv.central.inditex.grp:11521/s_pdbpr01rt_gener.central.inditex.grp
+        #          user: uincome
+        #          password: C2IYgNZKpjmz
+        #          defaultIsolationLevel: 8
         #[PTR][ITX][PRE][NON_XA][FIN]
         #[PTR][ITX][DES][NON_XA][INICIO]
         ptr:
@@ -295,15 +295,15 @@ amiga:
           defaultIsolationLevel: 2
         #[PTR][ITX][DES][NON_XA][FIN]
         #[PTR][ITX][DES][XA][INICIO]
-#        ptr:
-#          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
-#          xa-properties:
-#            serverName: axine3-scansrv.central.inditex.grp
-#            serviceName: s_pdbds01rt_gener.central.inditex.grp
-#            portNumber: 1521
-#            user: uincome
-#            password: pzuUKBm1ppMGzzOn
-#            driverType: thin
+        #        ptr:
+        #          xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
+        #          xa-properties:
+        #            serverName: axine3-scansrv.central.inditex.grp
+        #            serviceName: s_pdbds01rt_gener.central.inditex.grp
+        #            portNumber: 1521
+        #            user: uincome
+        #            password: pzuUKBm1ppMGzzOn
+        #            driverType: thin
         #[PTR][ITX][DES][XA][FIN]
         comis1:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -848,10 +848,10 @@ app:
         credentials:
           user: INCOME_CALC
           password: 123
-#          user: SRVCICMCLCWSDESAX
-#          password: kUZaIucw>WVIO9x
-#          user: SRVCICMCLCWSPREAX
-#          password: rbqOxKz4cm)fI
+          #          user: SRVCICMCLCWSDESAX
+          #          password: kUZaIucw>WVIO9x
+          #          user: SRVCICMCLCWSPREAX
+          #          password: rbqOxKz4cm)fI
           language: 2
         pool:
           pre-login: false

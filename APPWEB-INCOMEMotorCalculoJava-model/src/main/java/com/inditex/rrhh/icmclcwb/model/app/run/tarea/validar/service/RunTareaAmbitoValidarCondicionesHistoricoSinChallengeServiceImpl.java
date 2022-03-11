@@ -37,29 +37,30 @@ public class RunTareaAmbitoValidarCondicionesHistoricoSinChallengeServiceImpl im
     RunTareaAmbitoValidarCondicionesHistoricoSinChallengeService {
 
   @Autowired
-  private ComisAsyncService comisAsyncService;
+  @Qualifier("historicoProperties")
+  private PrevalidarPropertiesDto historicoProperties;
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
   @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
-
-  @Autowired
   private ValidacionMapper validacionMapper;
 
   @Autowired
-  @Qualifier("historicoProperties")
-  private PrevalidarPropertiesDto historicoProperties;
+  private ComisAsyncService comisAsyncService;
+
+  @Autowired
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
       @Valid final TareaAmbitoDto tareaAmbito,
       @Valid final TareaFaseAccionDto tareaFaseAccion) {
-    final TareaDto tareaDto = runTareaDto.getTarea();
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<IdPersonaLocalDto> historicoValidationResult;
+    final TareaDto tareaDto = runTareaDto.getTarea();
+
     try {
       final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesHistorico = this.comisAsyncService
           .findCondicionesHistoricoSinChallenge(runTareaDto, tareaAmbito);
@@ -73,9 +74,9 @@ public class RunTareaAmbitoValidarCondicionesHistoricoSinChallengeServiceImpl im
       this.primaryTemporaryTableRepositoryCustom.insertTempComisHistorico(condicionesHistorico);
 
       this.primaryTemporaryTableRepositoryCustom
-          .mergeDateRangesSeccionNotEqualsTempComisHistorico(runTareaDto.getTarea());
+          .mergeDateRangesSeccionNotEqualsTempComisHistorico(tareaDto);
       this.primaryTemporaryTableRepositoryCustom
-          .mergeDateRangesTempComisHistorico(runTareaDto.getTarea());
+          .mergeDateRangesTempComisHistorico(tareaDto);
 
       historicoValidationResult = this.primaryTemporaryTableRepositoryCustom
           .validateTempComisHistorico(runTareaDto.getTarea());

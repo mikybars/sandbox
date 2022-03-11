@@ -37,13 +37,10 @@ public class RunTareaAmbitoValidarCondicionesResaltaSinChallengeServiceImpl impl
     RunTareaAmbitoValidarCondicionesResaltaSinChallengeService {
 
   @Autowired
-  private ComisAsyncService comisAsyncService;
-
-  @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
   @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  private ComisAsyncService comisAsyncService;
 
   @Autowired
   private ValidacionMapper validacionMapper;
@@ -52,13 +49,16 @@ public class RunTareaAmbitoValidarCondicionesResaltaSinChallengeServiceImpl impl
   @Qualifier("resaltaProperties")
   private PrevalidarPropertiesDto resaltaProperties;
 
+  @Autowired
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
       @Valid final TareaAmbitoDto tareaAmbito,
       @Valid final TareaFaseAccionDto tareaFaseAccion) {
-    final TareaDto tareaDto = runTareaDto.getTarea();
     final List<CompletableFuture<?>> cf = new ArrayList<>();
+    final TareaDto tareaDto = runTareaDto.getTarea();
     final List<IdPersonaLocalDto> resaltaValidationResult;
     try {
       final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesResalta = this.comisAsyncService
@@ -73,12 +73,12 @@ public class RunTareaAmbitoValidarCondicionesResaltaSinChallengeServiceImpl impl
       this.primaryTemporaryTableRepositoryCustom.insertTempComisResalta(condicionesResalta);
 
       this.primaryTemporaryTableRepositoryCustom
-          .mergeDateRangesSeccionNotEqualsTempComisResalta(runTareaDto.getTarea());
+          .mergeDateRangesSeccionNotEqualsTempComisResalta(tareaDto);
       this.primaryTemporaryTableRepositoryCustom
-          .mergeDateRangesTempComisResalta(runTareaDto.getTarea());
+          .mergeDateRangesTempComisResalta(tareaDto);
 
       resaltaValidationResult = this.primaryTemporaryTableRepositoryCustom
-          .validateTempComisResalta(runTareaDto.getTarea());
+          .validateTempComisResalta(tareaDto);
 
       this.primaryTemporaryTableRepositoryCustom.deleteTempComisResalta();
 
