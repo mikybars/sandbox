@@ -95,7 +95,8 @@ public class MailServiceImpl implements MailService {
     final StringBuilder result = new StringBuilder();
     result.append(TITLE);
     result.append(DOUBLE_LINE_BREAK);
-    result.append(PERIOD).append(trabajo.getIdOrganization()).append(PERIOD_END);
+    result.append(PERIOD).append(trabajo.getIdOrganization().equalsIgnoreCase("0001") ? "ES" : trabajo.getIdOrganization())
+        .append(PERIOD_END);
     result.append(trabajo.getFechaInicioPeriodo().toLocalDate()).append(SEPARATOR).append(trabajo.getFechaFinPeriodo().toLocalDate());
     result.append(DOUBLE_LINE_BREAK);
     result.append(ERROR_LIST);
