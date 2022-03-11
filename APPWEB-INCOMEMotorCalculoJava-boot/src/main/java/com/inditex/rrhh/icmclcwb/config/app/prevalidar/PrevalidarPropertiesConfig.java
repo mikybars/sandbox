@@ -28,6 +28,8 @@ public class PrevalidarPropertiesConfig {
 
   private PrevalidarPropertiesDto manual;
 
+  private PrevalidarPropertiesDto personas;
+
   @Bean(name = "bajaProperties")
   public PrevalidarPropertiesDto baja() {
     return this.baja;
@@ -66,6 +68,11 @@ public class PrevalidarPropertiesConfig {
   @Bean(name = "comisionManualProperties")
   public PrevalidarPropertiesDto manual() {
     return this.manual;
+  }
+
+  @Bean(name = "personasProperties")
+  public PrevalidarPropertiesDto personas() {
+    return this.personas;
   }
 
 }
