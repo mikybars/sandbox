@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
@@ -358,6 +359,17 @@ public class ComisServiceImpl implements ComisService {
     try {
       this.setContext(runTareaDto, tareaAmbito);
       return this.comisRepositoryCustom.findComisionManual(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
+    }
+  }
+
+  @Override
+  public List<IdPersonaLocalLocalizacionDto> findPersonas(
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito) {
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      return this.comisRepositoryCustom.findPersonas(runTareaDto.getTarea());
     } finally {
       ClientDatabaseContextHolder.clear();
     }

@@ -328,4 +328,9 @@ class ComisServiceImplTest {
     verify(this.comisRepositoryCustom, times(1)).findComisionManual(runTarea.getTarea());
   }
 
+  @Test
+  void findPersonasTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto) {
+    this.comisServiceImpl.findPersonas(runTarea, tareaAmbitoDto);
+    verify(this.comisRepositoryCustom, times(1)).findPersonas(runTarea.getTarea());
+  }
 }

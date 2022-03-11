@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -230,12 +231,23 @@ public interface ComisAsyncService {
 
   /**
    * Obtiene las comisiones manuales.
-   * 
+   *
    * @param runTareaDto tarea.
    * @param tareaAmbito ambito.
    * @return Future con las comisiones manuales.
    */
   CompletableFuture<List<IdPersonaLocalComisionManualDto>> findComisionManual(
+      @Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
+
+  /**
+   * Obtiene las personas con sus respectivas localizaciones.
+   *
+   * @param runTareaDto tarea.
+   * @param tareaAmbito ambito.
+   * @return Future con las personas.
+   */
+  CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonas(
       @Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 }
