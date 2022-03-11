@@ -1330,7 +1330,8 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   @Test
-  void validateTempComisPersonas(@Random final TareaDto tarea, @Random final IdPersonaLocalDto persona1, @Random final IdPersonaLocalDto persona2) {
+  void validateTempComisPersonas(@Random final TareaDto tarea, @Random final IdPersonaLocalDto persona1,
+      @Random final IdPersonaLocalDto persona2) {
 
     persona1.setStdOrHrPeriod(null);
     persona2.setStdOrHrPeriod(null);
