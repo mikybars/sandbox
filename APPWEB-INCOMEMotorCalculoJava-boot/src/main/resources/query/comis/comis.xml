@@ -3799,6 +3799,7 @@ UNION
     WHERE
       FechaDesde <= :fechaHasta
       AND (FechaHasta IS NULL OR FechaHasta >= :fechaDesde)
+      AND Tienda IS NOT NULL
     GROUP BY Persona, Tienda
     ]]>
   </entry>
