@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 import javax.validation.constraints.NotNull;
@@ -639,5 +640,41 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    * @param comisiones Comisiones manuales a insertar.
    */
   void insertTempComisComisionManual(List<IdPersonaLocalComisionManualDto> comisiones);
+
+  /**
+   * Elimina la tabla temporal de personas relacionadas con sus tiendas de la posición.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempComisPersonasLocalizaciones();
+
+  /**
+   * Crea la tabla temporal de personas relacionadas con sus tiendas de la posición.
+   *
+   * @return Some javadoc.
+   */
+  int createTempComisPersonasLocalizaciones();
+
+  /**
+   * Crea un índice para la tabla temporal de personas relacionadas con sus tiendas de la posición.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempComisPersonasLocalizaciones();
+
+  /**
+   * Inserta la información de las personas en la tabla temporal.
+   *
+   * @param personas Personas a insertar.
+   */
+  void insertTempComisPersonasLocalizaciones(List<IdPersonaLocalLocalizacionDto> personas);
+
+  /**
+   * Comprueba las diferencias de personas entre comis e income.
+   *
+   * @param tarea tarea.
+   * @return Empleados que aparecen en comis y no en income.
+   */
+  List<IdPersonaLocalDto> validateTempComisPersonas(TareaDto tarea);
 
 }

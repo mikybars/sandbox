@@ -24,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
@@ -91,6 +92,8 @@ class ComisRepositoryCustomImplTest {
   private final static String SQL_FIND_BAJAS_IT_ES = "SQL FIND BAJAS IT ES";
 
   private final static String SQL_FIND_COMISION_MANUAL = "SQL FIND COMISION MANUAL";
+
+  private final static String SQL_FIND_PERSONAS = "SQL FIND PERSONAS";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -188,6 +191,10 @@ class ComisRepositoryCustomImplTest {
     FieldUtils.writeField(this.comisRepositoryCustom,
         "sqlFindComisionManual",
         SQL_FIND_COMISION_MANUAL,
+        true);
+    FieldUtils.writeField(this.comisRepositoryCustom,
+        "sqlFindPersonas",
+        SQL_FIND_PERSONAS,
         true);
   }
 
@@ -739,6 +746,34 @@ class ComisRepositoryCustomImplTest {
     assertEquals(params, this.paramsCaptor.getValue().getValues());
     assertEquals(1, comisiones.size());
     assertEquals(result, comisiones.get(0));
+  }
+
+  @Test
+  void findPersonasTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto result) {
+
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
+          final RowMapper<IdPersonaLocalLocalizacionDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)).thenReturn(result.getCclIdCodOrigen());
+
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
+        });
+
+    final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonas(tarea);
+
+    final Map<String, Object> expectedParams = new HashMap<>();
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_PERSONAS), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());
+
+    assertEquals(expectedParams, this.paramsCaptor.getValue().getValues());
+    assertEquals(1, personas.size());
+    assertEquals(result, personas.get(0));
+
   }
 
 }
