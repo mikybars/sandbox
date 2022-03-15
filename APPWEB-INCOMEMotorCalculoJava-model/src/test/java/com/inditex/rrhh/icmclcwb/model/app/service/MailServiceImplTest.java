@@ -24,6 +24,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioResultItemDto;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import org.junit.jupiter.api.Test;
@@ -54,6 +57,8 @@ public class MailServiceImplTest {
   public static final String PERSONA = "persona";
 
   public static final String CCL_ID_ORIGEN = "61";
+
+  public static final String MAIL = "mail";
 
   @Mock
   private MailSender mailSender;
@@ -100,6 +105,8 @@ public class MailServiceImplTest {
     runTareaDto.setTrabajo(trabajo);
     runTareaDto.setTarea(tarea);
     personaLocal.add(PERSONA);
+    final List<UsuarioResultItemDto> usuarios = new ArrayList<>();
+    usuarios.add(UsuarioResultItemDto.builder().mail(MAIL).build());
 
     ReflectionTestUtils.setField(this.mailServiceImpl, ENVIRONMENT, DES);
     validaciones.add(ValidacionDto.builder().cclIdOrigen(CCL_ID_ORIGEN).idTareaFaseAccion(1L).idPersonaLocal(personaLocal).build());
@@ -108,7 +115,8 @@ public class MailServiceImplTest {
         .thenReturn(TareaFaseAccionDto.builder().idAccion(idAccion).build());
     when(this.accionService.findAccionDtoById(ArgumentMatchers.any(Integer.class)))
         .thenReturn(AccionDto.builder().descripcion(TEXTO).id(idAccion).build());
-
+    when(this.meta4IcmWsCalcIncomeService.getMail(ArgumentMatchers.any(UsuarioRequestDto.class)))
+        .thenReturn(UsuarioResponseDto.builder().items(usuarios).build());
     this.mailServiceImpl.sendMail(tareaFase, validaciones, runTareaDto);
 
     verify(this.mailSender, times(1))
