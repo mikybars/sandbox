@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,7 +32,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHo
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
-import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
@@ -73,7 +73,7 @@ public class RunTareaAmbitoValidarTiposHoraServiceImpl implements RunTareaAmbito
       @Valid final TareaFaseAccionDto tareaFaseAccion) {
     final TareaDto tarea = runTareaDto.getTarea();
     final List<CompletableFuture<?>> cf = new ArrayList<>();
-    List<PtrPresenciaTiposHorasResultItemDto> values = new ArrayList<>();
+    final List<Integer> values = new ArrayList<>();
     try {
       final CompletableFuture<TiposHoraResponseDto> cfTiposHora = this.meta4IcmWsCalcIncomeAsyncService
           .getTiposHora(TiposHoraRequestDto.builder().idOrigen(tareaAmbito.getCclIdOrigen())
@@ -111,10 +111,18 @@ public class RunTareaAmbitoValidarTiposHoraServiceImpl implements RunTareaAmbito
       final PtrPresenciaTiposHorasResponseDto tiposHoraPtr = AsyncUtils.get(cfTiposHoraPtr);
       final TiposHoraResponseDto tiposHoraMeta4 = AsyncUtils.get(cfTiposHora);
 
-      values = tiposHoraPtr.getTiposHoras().stream()
-          .filter(e -> tiposHoraMeta4.getItems().stream().anyMatch(z -> !z.getIdTipoHora().equals(Integer.valueOf(e.getTipoHora()))))
-          .collect(
-              Collectors.toList());
+      final List<Integer> tiposHoraPtrPlain = tiposHoraPtr.getTiposHoras().stream().map(e -> e.getTipoHora()).collect(Collectors.toList());
+      final List<Integer> tiposHoraMeta4Plain =
+          tiposHoraMeta4.getItems().stream().map(e -> Integer.valueOf(e.getIdTipoHora())).collect(Collectors.toList());
+
+      final List<Integer> diff1 = new ArrayList<>(tiposHoraPtrPlain);
+      diff1.removeAll(tiposHoraMeta4Plain);
+
+      final List<Integer> diff2 = new ArrayList<>(tiposHoraMeta4Plain);
+      diff2.removeAll(tiposHoraPtrPlain);
+
+      values.addAll(diff1);
+      values.addAll(diff2);
 
     } catch (final Exception e) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
@@ -122,6 +130,6 @@ public class RunTareaAmbitoValidarTiposHoraServiceImpl implements RunTareaAmbito
       AsyncUtils.cancel(cf);
       throw e;
     }
-    return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, values.size() > 0);
+    return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, values.size() == 0);
   }
 }
