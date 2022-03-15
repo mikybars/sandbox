@@ -19,6 +19,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
@@ -40,7 +44,10 @@ public class RunTareaAmbitoValidarTiposHoraServiceImplTest {
   private PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
   @Mock
-  private Meta4IcmWsCalcIncomeAsyncService meta4IcmWsCalcIncomeService;
+  private Meta4IcmWsCalcIncomeAsyncService meta4IcmWsCalcIncomeAsyncService;
+
+  @Mock
+  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @Mock
   private ValidacionMapper validacionMapper;
@@ -58,7 +65,7 @@ public class RunTareaAmbitoValidarTiposHoraServiceImplTest {
     tareaDto.setId(1L);
     runTareaDto.setTarea(tareaDto);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
-    tareaAmbitoDto.setCclIdOrigen("1");
+    tareaAmbitoDto.setCclIdOrigen("38");
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     final FaseDto faseDto = new FaseDto();
     faseDto.setId(1);
@@ -69,6 +76,10 @@ public class RunTareaAmbitoValidarTiposHoraServiceImplTest {
     lista.setTiposHoras(new ArrayList<>());
     final CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfPtr = new CompletableFuture<>();
     cfPtr.complete(lista);
+    final CatalogoResponseDto responseCatalogo = new CatalogoResponseDto();
+    responseCatalogo.setItems(new ArrayList<>());
+    responseCatalogo.getItems().add(new CatalogoResultItemDto());
+    responseCatalogo.getItems().get(0).setIdCatalogo("1");
 
     final TiposHoraResponseDto responseDto = TiposHoraResponseDto
         .builder()
@@ -79,8 +90,10 @@ public class RunTareaAmbitoValidarTiposHoraServiceImplTest {
 
     when(this.ptrPresenciaAsyncService.tiposHoras(any(PtrPresenciaTiposHorasRequestDto.class)))
         .thenReturn(cfPtr);
-    when(this.meta4IcmWsCalcIncomeService.getTiposHora(any(TiposHoraRequestDto.class)))
+    when(this.meta4IcmWsCalcIncomeAsyncService.getTiposHora(any(TiposHoraRequestDto.class)))
         .thenReturn(cfMeta4);
+    when(this.meta4IcmWsCalcIncomeService.getCatalogo(any(CatalogoRequestDto.class)))
+        .thenReturn(responseCatalogo);
 
     this.runTareaAmbitoValidarTiposHoraServiceImpl.execute(runTareaDto, tareaAmbitoDto,
         tareaFaseAccionDto);
@@ -88,7 +101,7 @@ public class RunTareaAmbitoValidarTiposHoraServiceImplTest {
     verify(this.ptrPresenciaAsyncService, timeout(1000).times(1))
         .tiposHoras(
             ArgumentMatchers.any(PtrPresenciaTiposHorasRequestDto.class));
-    verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1))
+    verify(this.meta4IcmWsCalcIncomeAsyncService, timeout(1000).times(1))
         .getTiposHora(ArgumentMatchers.any(TiposHoraRequestDto.class));
 
   }
