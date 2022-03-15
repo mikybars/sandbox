@@ -65,7 +65,7 @@ public class RunTareaAmbitoValidarTiposHoraServiceImplTest {
     tareaDto.setId(1L);
     runTareaDto.setTarea(tareaDto);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
-    tareaAmbitoDto.setCclIdOrigen("38");
+    tareaAmbitoDto.setCclIdOrigen("11");
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     final FaseDto faseDto = new FaseDto();
     faseDto.setId(1);
