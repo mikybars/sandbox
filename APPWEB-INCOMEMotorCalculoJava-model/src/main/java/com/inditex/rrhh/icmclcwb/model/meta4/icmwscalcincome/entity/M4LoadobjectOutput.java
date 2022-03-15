@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para M4LoadobjectOutput complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType name="M4LoadobjectOutput"&gt;
  *   &lt;complexContent&gt;
@@ -37,6 +40,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="Icm_Ws_Tools" type="{http://schemas.meta4.com/}Icm_Ws_ToolsBlock"/&gt;
+ *         &lt;element name="Icm_Listamail" type="{http://schemas.meta4.com/}Icm_ListamailBlock"/&gt;
  *         &lt;element name="Icm_Listasincro" type="{http://schemas.meta4.com/}Icm_ListasincroBlock"/&gt;
  *         &lt;element name="Icm_Listacadenas" type="{http://schemas.meta4.com/}Icm_ListacadenasBlock"/&gt;
  *         &lt;element name="Icm_Listamotivos" type="{http://schemas.meta4.com/}Icm_ListamotivosBlock"/&gt;
@@ -60,6 +64,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="Icm_Paramcalperiodo" type="{http://schemas.meta4.com/}Icm_ParamcalperiodoBlock"/&gt;
  *         &lt;element name="Icm_Paramcalproceso" type="{http://schemas.meta4.com/}Icm_ParamcalprocesoBlock"/&gt;
  *         &lt;element name="Icm_Paramcaltiendas" type="{http://schemas.meta4.com/}Icm_ParamcaltiendasBlock"/&gt;
+ *         &lt;element name="Icm_Paramcalusuario" type="{http://schemas.meta4.com/}Icm_ParamcalusuarioBlock"/&gt;
  *         &lt;element name="Icm_Listaconfchventa" type="{http://schemas.meta4.com/}Icm_ListaconfchventaBlock"/&gt;
  *         &lt;element name="Icm_Listadesplazreal" type="{http://schemas.meta4.com/}Icm_ListadesplazrealBlock"/&gt;
  *         &lt;element name="Icm_Listasistdestino" type="{http://schemas.meta4.com/}Icm_ListasistdestinoBlock"/&gt;
@@ -100,14 +105,15 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "M4LoadobjectOutput", propOrder = {
     "_return",
     "logMessage",
     "icmWsTools",
+    "icmListamail",
     "icmListasincro",
     "icmListacadenas",
     "icmListamotivos",
@@ -131,6 +137,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmParamcalperiodo",
     "icmParamcalproceso",
     "icmParamcaltiendas",
+    "icmParamcalusuario",
     "icmListaconfchventa",
     "icmListadesplazreal",
     "icmListasistdestino",
@@ -179,6 +186,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   @XmlElement(name = "Icm_Ws_Tools", required = true, nillable = true)
   protected IcmWsToolsBlock icmWsTools;
+
+  @XmlElement(name = "Icm_Listamail", required = true, nillable = true)
+  protected IcmListamailBlock icmListamail;
 
   @XmlElement(name = "Icm_Listasincro", required = true, nillable = true)
   protected IcmListasincroBlock icmListasincro;
@@ -248,6 +258,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   @XmlElement(name = "Icm_Paramcaltiendas", required = true, nillable = true)
   protected IcmParamcaltiendasBlock icmParamcaltiendas;
+
+  @XmlElement(name = "Icm_Paramcalusuario", required = true, nillable = true)
+  protected IcmParamcalusuarioBlock icmParamcalusuario;
 
   @XmlElement(name = "Icm_Listaconfchventa", required = true, nillable = true)
   protected IcmListaconfchventaBlock icmListaconfchventa;
@@ -356,7 +369,7 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad return.
-   * 
+   *
    */
   public double getReturn() {
     return _return;
@@ -364,7 +377,7 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad return.
-   * 
+   *
    */
   public void setReturn(double value) {
     this._return = value;
@@ -372,20 +385,20 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Gets the value of the logMessage property.
-   * 
+   *
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the logMessage property.
-   * 
+   *
    * <p> For example, to add a new item, do as follows:
    * 
    * <pre>
    * getLogMessage().add(newItem);
    * </pre>
-   * 
-   * 
+   *
+   *
    * <p> Objects of the following type(s) are allowed in the list {@link LogMessage }
-   * 
-   * 
+   *
+   *
    */
   public List<LogMessage> getLogMessage() {
     if (logMessage == null) {
@@ -396,9 +409,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmWsTools.
-   * 
+   *
    * @return possible object is {@link IcmWsToolsBlock }
-   * 
+   *
    */
   public IcmWsToolsBlock getIcmWsTools() {
     return icmWsTools;
@@ -406,19 +419,39 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmWsTools.
-   * 
+   *
    * @param value allowed object is {@link IcmWsToolsBlock }
-   * 
+   *
    */
   public void setIcmWsTools(IcmWsToolsBlock value) {
     this.icmWsTools = value;
   }
 
   /**
+   * Obtiene el valor de la propiedad icmListamail.
+   *
+   * @return possible object is {@link IcmListamailBlock }
+   *
+   */
+  public IcmListamailBlock getIcmListamail() {
+    return icmListamail;
+  }
+
+  /**
+   * Define el valor de la propiedad icmListamail.
+   *
+   * @param value allowed object is {@link IcmListamailBlock }
+   *
+   */
+  public void setIcmListamail(IcmListamailBlock value) {
+    this.icmListamail = value;
+  }
+
+  /**
    * Obtiene el valor de la propiedad icmListasincro.
-   * 
+   *
    * @return possible object is {@link IcmListasincroBlock }
-   * 
+   *
    */
   public IcmListasincroBlock getIcmListasincro() {
     return icmListasincro;
@@ -426,9 +459,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListasincro.
-   * 
+   *
    * @param value allowed object is {@link IcmListasincroBlock }
-   * 
+   *
    */
   public void setIcmListasincro(IcmListasincroBlock value) {
     this.icmListasincro = value;
@@ -436,9 +469,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListacadenas.
-   * 
+   *
    * @return possible object is {@link IcmListacadenasBlock }
-   * 
+   *
    */
   public IcmListacadenasBlock getIcmListacadenas() {
     return icmListacadenas;
@@ -446,9 +479,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListacadenas.
-   * 
+   *
    * @param value allowed object is {@link IcmListacadenasBlock }
-   * 
+   *
    */
   public void setIcmListacadenas(IcmListacadenasBlock value) {
     this.icmListacadenas = value;
@@ -456,9 +489,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListamotivos.
-   * 
+   *
    * @return possible object is {@link IcmListamotivosBlock }
-   * 
+   *
    */
   public IcmListamotivosBlock getIcmListamotivos() {
     return icmListamotivos;
@@ -466,9 +499,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListamotivos.
-   * 
+   *
    * @param value allowed object is {@link IcmListamotivosBlock }
-   * 
+   *
    */
   public void setIcmListamotivos(IcmListamotivosBlock value) {
     this.icmListamotivos = value;
@@ -476,9 +509,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListatiendas.
-   * 
+   *
    * @return possible object is {@link IcmListatiendasBlock }
-   * 
+   *
    */
   public IcmListatiendasBlock getIcmListatiendas() {
     return icmListatiendas;
@@ -486,9 +519,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListatiendas.
-   * 
+   *
    * @param value allowed object is {@link IcmListatiendasBlock }
-   * 
+   *
    */
   public void setIcmListatiendas(IcmListatiendasBlock value) {
     this.icmListatiendas = value;
@@ -496,9 +529,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListacatalogo.
-   * 
+   *
    * @return possible object is {@link IcmListacatalogoBlock }
-   * 
+   *
    */
   public IcmListacatalogoBlock getIcmListacatalogo() {
     return icmListacatalogo;
@@ -506,9 +539,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListacatalogo.
-   * 
+   *
    * @param value allowed object is {@link IcmListacatalogoBlock }
-   * 
+   *
    */
   public void setIcmListacatalogo(IcmListacatalogoBlock value) {
     this.icmListacatalogo = value;
@@ -516,9 +549,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaempleado.
-   * 
+   *
    * @return possible object is {@link IcmListaempleadoBlock }
-   * 
+   *
    */
   public IcmListaempleadoBlock getIcmListaempleado() {
     return icmListaempleado;
@@ -526,9 +559,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaempleado.
-   * 
+   *
    * @param value allowed object is {@link IcmListaempleadoBlock }
-   * 
+   *
    */
   public void setIcmListaempleado(IcmListaempleadoBlock value) {
     this.icmListaempleado = value;
@@ -536,9 +569,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaempresas.
-   * 
+   *
    * @return possible object is {@link IcmListaempresasBlock }
-   * 
+   *
    */
   public IcmListaempresasBlock getIcmListaempresas() {
     return icmListaempresas;
@@ -546,9 +579,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaempresas.
-   * 
+   *
    * @param value allowed object is {@link IcmListaempresasBlock }
-   * 
+   *
    */
   public void setIcmListaempresas(IcmListaempresasBlock value) {
     this.icmListaempresas = value;
@@ -556,9 +589,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaorigenes.
-   * 
+   *
    * @return possible object is {@link IcmListaorigenesBlock }
-   * 
+   *
    */
   public IcmListaorigenesBlock getIcmListaorigenes() {
     return icmListaorigenes;
@@ -566,9 +599,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaorigenes.
-   * 
+   *
    * @param value allowed object is {@link IcmListaorigenesBlock }
-   * 
+   *
    */
   public void setIcmListaorigenes(IcmListaorigenesBlock value) {
     this.icmListaorigenes = value;
@@ -576,9 +609,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaperiodos.
-   * 
+   *
    * @return possible object is {@link IcmListaperiodosBlock }
-   * 
+   *
    */
   public IcmListaperiodosBlock getIcmListaperiodos() {
     return icmListaperiodos;
@@ -586,9 +619,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaperiodos.
-   * 
+   *
    * @param value allowed object is {@link IcmListaperiodosBlock }
-   * 
+   *
    */
   public void setIcmListaperiodos(IcmListaperiodosBlock value) {
     this.icmListaperiodos = value;
@@ -596,9 +629,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaausencias.
-   * 
+   *
    * @return possible object is {@link IcmListaausenciasBlock }
-   * 
+   *
    */
   public IcmListaausenciasBlock getIcmListaausencias() {
     return icmListaausencias;
@@ -606,9 +639,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaausencias.
-   * 
+   *
    * @param value allowed object is {@link IcmListaausenciasBlock }
-   * 
+   *
    */
   public void setIcmListaausencias(IcmListaausenciasBlock value) {
     this.icmListaausencias = value;
@@ -616,9 +649,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaempleados.
-   * 
+   *
    * @return possible object is {@link IcmListaempleadosBlock }
-   * 
+   *
    */
   public IcmListaempleadosBlock getIcmListaempleados() {
     return icmListaempleados;
@@ -626,9 +659,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaempleados.
-   * 
+   *
    * @param value allowed object is {@link IcmListaempleadosBlock }
-   * 
+   *
    */
   public void setIcmListaempleados(IcmListaempleadosBlock value) {
     this.icmListaempleados = value;
@@ -636,9 +669,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListapoliticas.
-   * 
+   *
    * @return possible object is {@link IcmListapoliticasBlock }
-   * 
+   *
    */
   public IcmListapoliticasBlock getIcmListapoliticas() {
     return icmListapoliticas;
@@ -646,9 +679,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListapoliticas.
-   * 
+   *
    * @param value allowed object is {@link IcmListapoliticasBlock }
-   * 
+   *
    */
   public void setIcmListapoliticas(IcmListapoliticasBlock value) {
     this.icmListapoliticas = value;
@@ -656,9 +689,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListatiposhora.
-   * 
+   *
    * @return possible object is {@link IcmListatiposhoraBlock }
-   * 
+   *
    */
   public IcmListatiposhoraBlock getIcmListatiposhora() {
     return icmListatiposhora;
@@ -666,9 +699,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListatiposhora.
-   * 
+   *
    * @param value allowed object is {@link IcmListatiposhoraBlock }
-   * 
+   *
    */
   public void setIcmListatiposhora(IcmListatiposhoraBlock value) {
     this.icmListatiposhora = value;
@@ -676,9 +709,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalcadena.
-   * 
+   *
    * @return possible object is {@link IcmParamcalcadenaBlock }
-   * 
+   *
    */
   public IcmParamcalcadenaBlock getIcmParamcalcadena() {
     return icmParamcalcadena;
@@ -686,9 +719,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalcadena.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalcadenaBlock }
-   * 
+   *
    */
   public void setIcmParamcalcadena(IcmParamcalcadenaBlock value) {
     this.icmParamcalcadena = value;
@@ -696,9 +729,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalorigen.
-   * 
+   *
    * @return possible object is {@link IcmParamcalorigenBlock }
-   * 
+   *
    */
   public IcmParamcalorigenBlock getIcmParamcalorigen() {
     return icmParamcalorigen;
@@ -706,9 +739,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalorigen.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalorigenBlock }
-   * 
+   *
    */
   public void setIcmParamcalorigen(IcmParamcalorigenBlock value) {
     this.icmParamcalorigen = value;
@@ -716,9 +749,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalsincro.
-   * 
+   *
    * @return possible object is {@link IcmParamcalsincroBlock }
-   * 
+   *
    */
   public IcmParamcalsincroBlock getIcmParamcalsincro() {
     return icmParamcalsincro;
@@ -726,9 +759,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalsincro.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalsincroBlock }
-   * 
+   *
    */
   public void setIcmParamcalsincro(IcmParamcalsincroBlock value) {
     this.icmParamcalsincro = value;
@@ -736,9 +769,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaconfchdias.
-   * 
+   *
    * @return possible object is {@link IcmListaconfchdiasBlock }
-   * 
+   *
    */
   public IcmListaconfchdiasBlock getIcmListaconfchdias() {
     return icmListaconfchdias;
@@ -746,9 +779,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaconfchdias.
-   * 
+   *
    * @param value allowed object is {@link IcmListaconfchdiasBlock }
-   * 
+   *
    */
   public void setIcmListaconfchdias(IcmListaconfchdiasBlock value) {
     this.icmListaconfchdias = value;
@@ -756,9 +789,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaconforigen.
-   * 
+   *
    * @return possible object is {@link IcmListaconforigenBlock }
-   * 
+   *
    */
   public IcmListaconforigenBlock getIcmListaconforigen() {
     return icmListaconforigen;
@@ -766,9 +799,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaconforigen.
-   * 
+   *
    * @param value allowed object is {@link IcmListaconforigenBlock }
-   * 
+   *
    */
   public void setIcmListaconforigen(IcmListaconforigenBlock value) {
     this.icmListaconforigen = value;
@@ -776,9 +809,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaestructura.
-   * 
+   *
    * @return possible object is {@link IcmListaestructuraBlock }
-   * 
+   *
    */
   public IcmListaestructuraBlock getIcmListaestructura() {
     return icmListaestructura;
@@ -786,9 +819,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaestructura.
-   * 
+   *
    * @param value allowed object is {@link IcmListaestructuraBlock }
-   * 
+   *
    */
   public void setIcmListaestructura(IcmListaestructuraBlock value) {
     this.icmListaestructura = value;
@@ -796,9 +829,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalmotivos.
-   * 
+   *
    * @return possible object is {@link IcmParamcalmotivosBlock }
-   * 
+   *
    */
   public IcmParamcalmotivosBlock getIcmParamcalmotivos() {
     return icmParamcalmotivos;
@@ -806,9 +839,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalmotivos.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalmotivosBlock }
-   * 
+   *
    */
   public void setIcmParamcalmotivos(IcmParamcalmotivosBlock value) {
     this.icmParamcalmotivos = value;
@@ -816,9 +849,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalperiodo.
-   * 
+   *
    * @return possible object is {@link IcmParamcalperiodoBlock }
-   * 
+   *
    */
   public IcmParamcalperiodoBlock getIcmParamcalperiodo() {
     return icmParamcalperiodo;
@@ -826,9 +859,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalperiodo.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalperiodoBlock }
-   * 
+   *
    */
   public void setIcmParamcalperiodo(IcmParamcalperiodoBlock value) {
     this.icmParamcalperiodo = value;
@@ -836,9 +869,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalproceso.
-   * 
+   *
    * @return possible object is {@link IcmParamcalprocesoBlock }
-   * 
+   *
    */
   public IcmParamcalprocesoBlock getIcmParamcalproceso() {
     return icmParamcalproceso;
@@ -846,9 +879,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalproceso.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalprocesoBlock }
-   * 
+   *
    */
   public void setIcmParamcalproceso(IcmParamcalprocesoBlock value) {
     this.icmParamcalproceso = value;
@@ -856,9 +889,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcaltiendas.
-   * 
+   *
    * @return possible object is {@link IcmParamcaltiendasBlock }
-   * 
+   *
    */
   public IcmParamcaltiendasBlock getIcmParamcaltiendas() {
     return icmParamcaltiendas;
@@ -866,19 +899,39 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcaltiendas.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcaltiendasBlock }
-   * 
+   *
    */
   public void setIcmParamcaltiendas(IcmParamcaltiendasBlock value) {
     this.icmParamcaltiendas = value;
   }
 
   /**
+   * Obtiene el valor de la propiedad icmParamcalusuario.
+   *
+   * @return possible object is {@link IcmParamcalusuarioBlock }
+   *
+   */
+  public IcmParamcalusuarioBlock getIcmParamcalusuario() {
+    return icmParamcalusuario;
+  }
+
+  /**
+   * Define el valor de la propiedad icmParamcalusuario.
+   *
+   * @param value allowed object is {@link IcmParamcalusuarioBlock }
+   *
+   */
+  public void setIcmParamcalusuario(IcmParamcalusuarioBlock value) {
+    this.icmParamcalusuario = value;
+  }
+
+  /**
    * Obtiene el valor de la propiedad icmListaconfchventa.
-   * 
+   *
    * @return possible object is {@link IcmListaconfchventaBlock }
-   * 
+   *
    */
   public IcmListaconfchventaBlock getIcmListaconfchventa() {
     return icmListaconfchventa;
@@ -886,9 +939,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaconfchventa.
-   * 
+   *
    * @param value allowed object is {@link IcmListaconfchventaBlock }
-   * 
+   *
    */
   public void setIcmListaconfchventa(IcmListaconfchventaBlock value) {
     this.icmListaconfchventa = value;
@@ -896,9 +949,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListadesplazreal.
-   * 
+   *
    * @return possible object is {@link IcmListadesplazrealBlock }
-   * 
+   *
    */
   public IcmListadesplazrealBlock getIcmListadesplazreal() {
     return icmListadesplazreal;
@@ -906,9 +959,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListadesplazreal.
-   * 
+   *
    * @param value allowed object is {@link IcmListadesplazrealBlock }
-   * 
+   *
    */
   public void setIcmListadesplazreal(IcmListadesplazrealBlock value) {
     this.icmListadesplazreal = value;
@@ -916,9 +969,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListasistdestino.
-   * 
+   *
    * @return possible object is {@link IcmListasistdestinoBlock }
-   * 
+   *
    */
   public IcmListasistdestinoBlock getIcmListasistdestino() {
     return icmListasistdestino;
@@ -926,9 +979,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListasistdestino.
-   * 
+   *
    * @param value allowed object is {@link IcmListasistdestinoBlock }
-   * 
+   *
    */
   public void setIcmListasistdestino(IcmListasistdestinoBlock value) {
     this.icmListasistdestino = value;
@@ -936,9 +989,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalcatalogo.
-   * 
+   *
    * @return possible object is {@link IcmParamcalcatalogoBlock }
-   * 
+   *
    */
   public IcmParamcalcatalogoBlock getIcmParamcalcatalogo() {
     return icmParamcalcatalogo;
@@ -946,9 +999,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalcatalogo.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalcatalogoBlock }
-   * 
+   *
    */
   public void setIcmParamcalcatalogo(IcmParamcalcatalogoBlock value) {
     this.icmParamcalcatalogo = value;
@@ -956,9 +1009,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalempleado.
-   * 
+   *
    * @return possible object is {@link IcmParamcalempleadoBlock }
-   * 
+   *
    */
   public IcmParamcalempleadoBlock getIcmParamcalempleado() {
     return icmParamcalempleado;
@@ -966,9 +1019,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalempleado.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalempleadoBlock }
-   * 
+   *
    */
   public void setIcmParamcalempleado(IcmParamcalempleadoBlock value) {
     this.icmParamcalempleado = value;
@@ -976,9 +1029,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalsociedad.
-   * 
+   *
    * @return possible object is {@link IcmParamcalsociedadBlock }
-   * 
+   *
    */
   public IcmParamcalsociedadBlock getIcmParamcalsociedad() {
     return icmParamcalsociedad;
@@ -986,9 +1039,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalsociedad.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalsociedadBlock }
-   * 
+   *
    */
   public void setIcmParamcalsociedad(IcmParamcalsociedadBlock value) {
     this.icmParamcalsociedad = value;
@@ -996,9 +1049,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListamultiempresa.
-   * 
+   *
    * @return possible object is {@link IcmListamultiempresaBlock }
-   * 
+   *
    */
   public IcmListamultiempresaBlock getIcmListamultiempresa() {
     return icmListamultiempresa;
@@ -1006,9 +1059,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListamultiempresa.
-   * 
+   *
    * @param value allowed object is {@link IcmListamultiempresaBlock }
-   * 
+   *
    */
   public void setIcmListamultiempresa(IcmListamultiempresaBlock value) {
     this.icmListamultiempresa = value;
@@ -1016,9 +1069,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaventamanwloc.
-   * 
+   *
    * @return possible object is {@link IcmListaventamanwlocBlock }
-   * 
+   *
    */
   public IcmListaventamanwlocBlock getIcmListaventamanwloc() {
     return icmListaventamanwloc;
@@ -1026,9 +1079,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaventamanwloc.
-   * 
+   *
    * @param value allowed object is {@link IcmListaventamanwlocBlock }
-   * 
+   *
    */
   public void setIcmListaventamanwloc(IcmListaventamanwlocBlock value) {
     this.icmListaventamanwloc = value;
@@ -1036,9 +1089,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalempleados.
-   * 
+   *
    * @return possible object is {@link IcmParamcalempleadosBlock }
-   * 
+   *
    */
   public IcmParamcalempleadosBlock getIcmParamcalempleados() {
     return icmParamcalempleados;
@@ -1046,9 +1099,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalempleados.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalempleadosBlock }
-   * 
+   *
    */
   public void setIcmParamcalempleados(IcmParamcalempleadosBlock value) {
     this.icmParamcalempleados = value;
@@ -1056,9 +1109,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcaltiposhora.
-   * 
+   *
    * @return possible object is {@link IcmParamcaltiposhoraBlock }
-   * 
+   *
    */
   public IcmParamcaltiposhoraBlock getIcmParamcaltiposhora() {
     return icmParamcaltiposhora;
@@ -1066,9 +1119,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcaltiposhora.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcaltiposhoraBlock }
-   * 
+   *
    */
   public void setIcmParamcaltiposhora(IcmParamcaltiposhoraBlock value) {
     this.icmParamcaltiposhora = value;
@@ -1076,9 +1129,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParametrosentrada.
-   * 
+   *
    * @return possible object is {@link IcmParametrosentradaBlock }
-   * 
+   *
    */
   public IcmParametrosentradaBlock getIcmParametrosentrada() {
     return icmParametrosentrada;
@@ -1086,9 +1139,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParametrosentrada.
-   * 
+   *
    * @param value allowed object is {@link IcmParametrosentradaBlock }
-   * 
+   *
    */
   public void setIcmParametrosentrada(IcmParametrosentradaBlock value) {
     this.icmParametrosentrada = value;
@@ -1096,9 +1149,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmResultadoguardado.
-   * 
+   *
    * @return possible object is {@link IcmResultadoguardadoBlock }
-   * 
+   *
    */
   public IcmResultadoguardadoBlock getIcmResultadoguardado() {
     return icmResultadoguardado;
@@ -1106,9 +1159,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmResultadoguardado.
-   * 
+   *
    * @param value allowed object is {@link IcmResultadoguardadoBlock }
-   * 
+   *
    */
   public void setIcmResultadoguardado(IcmResultadoguardadoBlock value) {
     this.icmResultadoguardado = value;
@@ -1116,9 +1169,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaconfiguracion.
-   * 
+   *
    * @return possible object is {@link IcmListaconfiguracionBlock }
-   * 
+   *
    */
   public IcmListaconfiguracionBlock getIcmListaconfiguracion() {
     return icmListaconfiguracion;
@@ -1126,9 +1179,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaconfiguracion.
-   * 
+   *
    * @param value allowed object is {@link IcmListaconfiguracionBlock }
-   * 
+   *
    */
   public void setIcmListaconfiguracion(IcmListaconfiguracionBlock value) {
     this.icmListaconfiguracion = value;
@@ -1136,9 +1189,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalconfchdias.
-   * 
+   *
    * @return possible object is {@link IcmParamcalconfchdiasBlock }
-   * 
+   *
    */
   public IcmParamcalconfchdiasBlock getIcmParamcalconfchdias() {
     return icmParamcalconfchdias;
@@ -1146,9 +1199,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalconfchdias.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalconfchdiasBlock }
-   * 
+   *
    */
   public void setIcmParamcalconfchdias(IcmParamcalconfchdiasBlock value) {
     this.icmParamcalconfchdias = value;
@@ -1156,9 +1209,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalconforigen.
-   * 
+   *
    * @return possible object is {@link IcmParamcalconforigenBlock }
-   * 
+   *
    */
   public IcmParamcalconforigenBlock getIcmParamcalconforigen() {
     return icmParamcalconforigen;
@@ -1166,9 +1219,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalconforigen.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalconforigenBlock }
-   * 
+   *
    */
   public void setIcmParamcalconforigen(IcmParamcalconforigenBlock value) {
     this.icmParamcalconforigen = value;
@@ -1176,9 +1229,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalestructura.
-   * 
+   *
    * @return possible object is {@link IcmParamcalestructuraBlock }
-   * 
+   *
    */
   public IcmParamcalestructuraBlock getIcmParamcalestructura() {
     return icmParamcalestructura;
@@ -1186,9 +1239,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalestructura.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalestructuraBlock }
-   * 
+   *
    */
   public void setIcmParamcalestructura(IcmParamcalestructuraBlock value) {
     this.icmParamcalestructura = value;
@@ -1196,9 +1249,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaconfpreciohora.
-   * 
+   *
    * @return possible object is {@link IcmListaconfpreciohoraBlock }
-   * 
+   *
    */
   public IcmListaconfpreciohoraBlock getIcmListaconfpreciohora() {
     return icmListaconfpreciohora;
@@ -1206,9 +1259,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaconfpreciohora.
-   * 
+   *
    * @param value allowed object is {@link IcmListaconfpreciohoraBlock }
-   * 
+   *
    */
   public void setIcmListaconfpreciohora(IcmListaconfpreciohoraBlock value) {
     this.icmListaconfpreciohora = value;
@@ -1216,9 +1269,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListaventacongelada.
-   * 
+   *
    * @return possible object is {@link IcmListaventacongeladaBlock }
-   * 
+   *
    */
   public IcmListaventacongeladaBlock getIcmListaventacongelada() {
     return icmListaventacongelada;
@@ -1226,9 +1279,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListaventacongelada.
-   * 
+   *
    * @param value allowed object is {@link IcmListaventacongeladaBlock }
-   * 
+   *
    */
   public void setIcmListaventacongelada(IcmListaventacongeladaBlock value) {
     this.icmListaventacongelada = value;
@@ -1236,9 +1289,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalconfchventa.
-   * 
+   *
    * @return possible object is {@link IcmParamcalconfchventaBlock }
-   * 
+   *
    */
   public IcmParamcalconfchventaBlock getIcmParamcalconfchventa() {
     return icmParamcalconfchventa;
@@ -1246,9 +1299,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalconfchventa.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalconfchventaBlock }
-   * 
+   *
    */
   public void setIcmParamcalconfchventa(IcmParamcalconfchventaBlock value) {
     this.icmParamcalconfchventa = value;
@@ -1256,9 +1309,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcaldesplazreal.
-   * 
+   *
    * @return possible object is {@link IcmParamcaldesplazrealBlock }
-   * 
+   *
    */
   public IcmParamcaldesplazrealBlock getIcmParamcaldesplazreal() {
     return icmParamcaldesplazreal;
@@ -1266,9 +1319,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcaldesplazreal.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcaldesplazrealBlock }
-   * 
+   *
    */
   public void setIcmParamcaldesplazreal(IcmParamcaldesplazrealBlock value) {
     this.icmParamcaldesplazreal = value;
@@ -1276,9 +1329,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalflagcalcula.
-   * 
+   *
    * @return possible object is {@link IcmParamcalflagcalculaBlock }
-   * 
+   *
    */
   public IcmParamcalflagcalculaBlock getIcmParamcalflagcalcula() {
     return icmParamcalflagcalcula;
@@ -1286,9 +1339,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalflagcalcula.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalflagcalculaBlock }
-   * 
+   *
    */
   public void setIcmParamcalflagcalcula(IcmParamcalflagcalculaBlock value) {
     this.icmParamcalflagcalcula = value;
@@ -1296,9 +1349,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalsistdestino.
-   * 
+   *
    * @return possible object is {@link IcmParamcalsistdestinoBlock }
-   * 
+   *
    */
   public IcmParamcalsistdestinoBlock getIcmParamcalsistdestino() {
     return icmParamcalsistdestino;
@@ -1306,9 +1359,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalsistdestino.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalsistdestinoBlock }
-   * 
+   *
    */
   public void setIcmParamcalsistdestino(IcmParamcalsistdestinoBlock value) {
     this.icmParamcalsistdestino = value;
@@ -1316,9 +1369,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmWsCalcOperaciones.
-   * 
+   *
    * @return possible object is {@link IcmWsCalcOperacionesBlock }
-   * 
+   *
    */
   public IcmWsCalcOperacionesBlock getIcmWsCalcOperaciones() {
     return icmWsCalcOperaciones;
@@ -1326,9 +1379,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmWsCalcOperaciones.
-   * 
+   *
    * @param value allowed object is {@link IcmWsCalcOperacionesBlock }
-   * 
+   *
    */
   public void setIcmWsCalcOperaciones(IcmWsCalcOperacionesBlock value) {
     this.icmWsCalcOperaciones = value;
@@ -1336,9 +1389,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalmultiempresa.
-   * 
+   *
    * @return possible object is {@link IcmParamcalmultiempresaBlock }
-   * 
+   *
    */
   public IcmParamcalmultiempresaBlock getIcmParamcalmultiempresa() {
     return icmParamcalmultiempresa;
@@ -1346,9 +1399,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalmultiempresa.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalmultiempresaBlock }
-   * 
+   *
    */
   public void setIcmParamcalmultiempresa(IcmParamcalmultiempresaBlock value) {
     this.icmParamcalmultiempresa = value;
@@ -1356,9 +1409,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParametrospaginacion.
-   * 
+   *
    * @return possible object is {@link IcmParametrospaginacionBlock }
-   * 
+   *
    */
   public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
     return icmParametrospaginacion;
@@ -1366,9 +1419,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParametrospaginacion.
-   * 
+   *
    * @param value allowed object is {@link IcmParametrospaginacionBlock }
-   * 
+   *
    */
   public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
     this.icmParametrospaginacion = value;
@@ -1376,9 +1429,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListapresenciamanwloc.
-   * 
+   *
    * @return possible object is {@link IcmListapresenciamanwlocBlock }
-   * 
+   *
    */
   public IcmListapresenciamanwlocBlock getIcmListapresenciamanwloc() {
     return icmListapresenciamanwloc;
@@ -1386,9 +1439,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListapresenciamanwloc.
-   * 
+   *
    * @param value allowed object is {@link IcmListapresenciamanwlocBlock }
-   * 
+   *
    */
   public void setIcmListapresenciamanwloc(IcmListapresenciamanwlocBlock value) {
     this.icmListapresenciamanwloc = value;
@@ -1396,9 +1449,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListapresupuestoswloc.
-   * 
+   *
    * @return possible object is {@link IcmListapresupuestoswlocBlock }
-   * 
+   *
    */
   public IcmListapresupuestoswlocBlock getIcmListapresupuestoswloc() {
     return icmListapresupuestoswloc;
@@ -1406,9 +1459,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListapresupuestoswloc.
-   * 
+   *
    * @param value allowed object is {@link IcmListapresupuestoswlocBlock }
-   * 
+   *
    */
   public void setIcmListapresupuestoswloc(IcmListapresupuestoswlocBlock value) {
     this.icmListapresupuestoswloc = value;
@@ -1416,9 +1469,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmListapresupuestosrango.
-   * 
+   *
    * @return possible object is {@link IcmListapresupuestosrangoBlock }
-   * 
+   *
    */
   public IcmListapresupuestosrangoBlock getIcmListapresupuestosrango() {
     return icmListapresupuestosrango;
@@ -1426,9 +1479,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmListapresupuestosrango.
-   * 
+   *
    * @param value allowed object is {@link IcmListapresupuestosrangoBlock }
-   * 
+   *
    */
   public void setIcmListapresupuestosrango(IcmListapresupuestosrangoBlock value) {
     this.icmListapresupuestosrango = value;
@@ -1436,9 +1489,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalconfpreciohora.
-   * 
+   *
    * @return possible object is {@link IcmParamcalconfpreciohoraBlock }
-   * 
+   *
    */
   public IcmParamcalconfpreciohoraBlock getIcmParamcalconfpreciohora() {
     return icmParamcalconfpreciohora;
@@ -1446,9 +1499,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalconfpreciohora.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalconfpreciohoraBlock }
-   * 
+   *
    */
   public void setIcmParamcalconfpreciohora(IcmParamcalconfpreciohoraBlock value) {
     this.icmParamcalconfpreciohora = value;
@@ -1456,9 +1509,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalventacongelada.
-   * 
+   *
    * @return possible object is {@link IcmParamcalventacongeladaBlock }
-   * 
+   *
    */
   public IcmParamcalventacongeladaBlock getIcmParamcalventacongelada() {
     return icmParamcalventacongelada;
@@ -1466,9 +1519,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalventacongelada.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalventacongeladaBlock }
-   * 
+   *
    */
   public void setIcmParamcalventacongelada(IcmParamcalventacongeladaBlock value) {
     this.icmParamcalventacongelada = value;
@@ -1476,9 +1529,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalpresenciamanual.
-   * 
+   *
    * @return possible object is {@link IcmParamcalpresenciamanualBlock }
-   * 
+   *
    */
   public IcmParamcalpresenciamanualBlock getIcmParamcalpresenciamanual() {
     return icmParamcalpresenciamanual;
@@ -1486,9 +1539,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalpresenciamanual.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalpresenciamanualBlock }
-   * 
+   *
    */
   public void setIcmParamcalpresenciamanual(IcmParamcalpresenciamanualBlock value) {
     this.icmParamcalpresenciamanual = value;
@@ -1496,9 +1549,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalempleadosdesplaz.
-   * 
+   *
    * @return possible object is {@link IcmParamcalempleadosdesplazBlock }
-   * 
+   *
    */
   public IcmParamcalempleadosdesplazBlock getIcmParamcalempleadosdesplaz() {
     return icmParamcalempleadosdesplaz;
@@ -1506,9 +1559,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalempleadosdesplaz.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalempleadosdesplazBlock }
-   * 
+   *
    */
   public void setIcmParamcalempleadosdesplaz(IcmParamcalempleadosdesplazBlock value) {
     this.icmParamcalempleadosdesplaz = value;
@@ -1516,9 +1569,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalpresupuestoswloc.
-   * 
+   *
    * @return possible object is {@link IcmParamcalpresupuestoswlocBlock }
-   * 
+   *
    */
   public IcmParamcalpresupuestoswlocBlock getIcmParamcalpresupuestoswloc() {
     return icmParamcalpresupuestoswloc;
@@ -1526,9 +1579,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalpresupuestoswloc.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalpresupuestoswlocBlock }
-   * 
+   *
    */
   public void setIcmParamcalpresupuestoswloc(IcmParamcalpresupuestoswlocBlock value) {
     this.icmParamcalpresupuestoswloc = value;
@@ -1536,9 +1589,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalpresupuestosrango.
-   * 
+   *
    * @return possible object is {@link IcmParamcalpresupuestosrangoBlock }
-   * 
+   *
    */
   public IcmParamcalpresupuestosrangoBlock getIcmParamcalpresupuestosrango() {
     return icmParamcalpresupuestosrango;
@@ -1546,9 +1599,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalpresupuestosrango.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalpresupuestosrangoBlock }
-   * 
+   *
    */
   public void setIcmParamcalpresupuestosrango(IcmParamcalpresupuestosrangoBlock value) {
     this.icmParamcalpresupuestosrango = value;
@@ -1556,9 +1609,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Obtiene el valor de la propiedad icmParamcalempleadospresencia.
-   * 
+   *
    * @return possible object is {@link IcmParamcalempleadospresenciaBlock }
-   * 
+   *
    */
   public IcmParamcalempleadospresenciaBlock getIcmParamcalempleadospresencia() {
     return icmParamcalempleadospresencia;
@@ -1566,9 +1619,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   /**
    * Define el valor de la propiedad icmParamcalempleadospresencia.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalempleadospresenciaBlock }
-   * 
+   *
    */
   public void setIcmParamcalempleadospresencia(IcmParamcalempleadospresenciaBlock value) {
     this.icmParamcalempleadospresencia = value;
@@ -1611,6 +1664,17 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmWsTools", lhsIcmWsTools),
           LocatorUtils.property(thatLocator, "icmWsTools", rhsIcmWsTools), lhsIcmWsTools, rhsIcmWsTools, (this.icmWsTools != null),
           (that.icmWsTools != null))) {
+        return false;
+      }
+    }
+    {
+      IcmListamailBlock lhsIcmListamail;
+      lhsIcmListamail = this.getIcmListamail();
+      IcmListamailBlock rhsIcmListamail;
+      rhsIcmListamail = that.getIcmListamail();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListamail", lhsIcmListamail),
+          LocatorUtils.property(thatLocator, "icmListamail", rhsIcmListamail), lhsIcmListamail, rhsIcmListamail,
+          (this.icmListamail != null), (that.icmListamail != null))) {
         return false;
       }
     }
@@ -1864,6 +1928,17 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcaltiendas", lhsIcmParamcaltiendas),
           LocatorUtils.property(thatLocator, "icmParamcaltiendas", rhsIcmParamcaltiendas), lhsIcmParamcaltiendas, rhsIcmParamcaltiendas,
           (this.icmParamcaltiendas != null), (that.icmParamcaltiendas != null))) {
+        return false;
+      }
+    }
+    {
+      IcmParamcalusuarioBlock lhsIcmParamcalusuario;
+      lhsIcmParamcalusuario = this.getIcmParamcalusuario();
+      IcmParamcalusuarioBlock rhsIcmParamcalusuario;
+      rhsIcmParamcalusuario = that.getIcmParamcalusuario();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalusuario", lhsIcmParamcalusuario),
+          LocatorUtils.property(thatLocator, "icmParamcalusuario", rhsIcmParamcalusuario), lhsIcmParamcalusuario, rhsIcmParamcalusuario,
+          (this.icmParamcalusuario != null), (that.icmParamcalusuario != null))) {
         return false;
       }
     }
@@ -2293,6 +2368,11 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
       strategy.appendField(locator, this, "icmWsTools", buffer, theIcmWsTools, (this.icmWsTools != null));
     }
     {
+      IcmListamailBlock theIcmListamail;
+      theIcmListamail = this.getIcmListamail();
+      strategy.appendField(locator, this, "icmListamail", buffer, theIcmListamail, (this.icmListamail != null));
+    }
+    {
       IcmListasincroBlock theIcmListasincro;
       theIcmListasincro = this.getIcmListasincro();
       strategy.appendField(locator, this, "icmListasincro", buffer, theIcmListasincro, (this.icmListasincro != null));
@@ -2406,6 +2486,11 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
       IcmParamcaltiendasBlock theIcmParamcaltiendas;
       theIcmParamcaltiendas = this.getIcmParamcaltiendas();
       strategy.appendField(locator, this, "icmParamcaltiendas", buffer, theIcmParamcaltiendas, (this.icmParamcaltiendas != null));
+    }
+    {
+      IcmParamcalusuarioBlock theIcmParamcalusuario;
+      theIcmParamcalusuario = this.getIcmParamcalusuario();
+      strategy.appendField(locator, this, "icmParamcalusuario", buffer, theIcmParamcalusuario, (this.icmParamcalusuario != null));
     }
     {
       IcmListaconfchventaBlock theIcmListaconfchventa;
@@ -2623,6 +2708,12 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
           (this.icmWsTools != null));
     }
     {
+      IcmListamailBlock theIcmListamail;
+      theIcmListamail = this.getIcmListamail();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListamail", theIcmListamail), currentHashCode, theIcmListamail,
+          (this.icmListamail != null));
+    }
+    {
       IcmListasincroBlock theIcmListasincro;
       theIcmListasincro = this.getIcmListasincro();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListasincro", theIcmListasincro), currentHashCode,
@@ -2759,6 +2850,12 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
       theIcmParamcaltiendas = this.getIcmParamcaltiendas();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcaltiendas", theIcmParamcaltiendas), currentHashCode,
           theIcmParamcaltiendas, (this.icmParamcaltiendas != null));
+    }
+    {
+      IcmParamcalusuarioBlock theIcmParamcalusuario;
+      theIcmParamcalusuario = this.getIcmParamcalusuario();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalusuario", theIcmParamcalusuario), currentHashCode,
+          theIcmParamcalusuario, (this.icmParamcalusuario != null));
     }
     {
       IcmListaconfchventaBlock theIcmListaconfchventa;
@@ -3035,6 +3132,20 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
         } else {
           if (icmWsToolsShouldBeCopiedAndSet == Boolean.FALSE) {
             copy.icmWsTools = null;
+          }
+        }
+      }
+      {
+        Boolean icmListamailShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListamail != null));
+        if (icmListamailShouldBeCopiedAndSet == Boolean.TRUE) {
+          IcmListamailBlock sourceIcmListamail;
+          sourceIcmListamail = this.getIcmListamail();
+          IcmListamailBlock copyIcmListamail = ((IcmListamailBlock) strategy
+              .copy(LocatorUtils.property(locator, "icmListamail", sourceIcmListamail), sourceIcmListamail, (this.icmListamail != null)));
+          copy.setIcmListamail(copyIcmListamail);
+        } else {
+          if (icmListamailShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmListamail = null;
           }
         }
       }
@@ -3380,6 +3491,21 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
         } else {
           if (icmParamcaltiendasShouldBeCopiedAndSet == Boolean.FALSE) {
             copy.icmParamcaltiendas = null;
+          }
+        }
+      }
+      {
+        Boolean icmParamcalusuarioShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmParamcalusuario != null));
+        if (icmParamcalusuarioShouldBeCopiedAndSet == Boolean.TRUE) {
+          IcmParamcalusuarioBlock sourceIcmParamcalusuario;
+          sourceIcmParamcalusuario = this.getIcmParamcalusuario();
+          IcmParamcalusuarioBlock copyIcmParamcalusuario =
+              ((IcmParamcalusuarioBlock) strategy.copy(LocatorUtils.property(locator, "icmParamcalusuario", sourceIcmParamcalusuario),
+                  sourceIcmParamcalusuario, (this.icmParamcalusuario != null)));
+          copy.setIcmParamcalusuario(copyIcmParamcalusuario);
+        } else {
+          if (icmParamcalusuarioShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmParamcalusuario = null;
           }
         }
       }

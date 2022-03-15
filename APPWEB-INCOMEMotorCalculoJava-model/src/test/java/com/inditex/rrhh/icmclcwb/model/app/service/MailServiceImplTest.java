@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -22,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import org.junit.jupiter.api.Test;
@@ -61,6 +63,9 @@ public class MailServiceImplTest {
 
   @Mock
   private AccionService accionService;
+
+  @Mock
+  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @InjectMocks
   private MailServiceImpl mailServiceImpl;

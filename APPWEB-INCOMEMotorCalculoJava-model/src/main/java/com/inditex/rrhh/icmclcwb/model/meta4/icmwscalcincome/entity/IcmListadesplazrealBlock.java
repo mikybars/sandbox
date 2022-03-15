@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para Icm_ListadesplazrealBlock complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType name="Icm_ListadesplazrealBlock"&gt;
  *   &lt;complexContent&gt;
@@ -40,8 +43,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ListadesplazrealBlock", propOrder = {
@@ -56,21 +59,21 @@ public class IcmListadesplazrealBlock implements Serializable, Cloneable, CopyTo
 
   /**
    * Gets the value of the icmListadesplazrealRecordSet property.
-   * 
+   *
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListadesplazrealRecordSet
    * property.
-   * 
+   *
    * <p> For example, to add a new item, do as follows:
    * 
    * <pre>
    * getIcmListadesplazrealRecordSet().add(newItem);
    * </pre>
-   * 
-   * 
+   *
+   *
    * <p> Objects of the following type(s) are allowed in the list {@link IcmListadesplazrealRecord }
-   * 
-   * 
+   *
+   *
    */
   public List<IcmListadesplazrealRecord> getIcmListadesplazrealRecordSet() {
     if (icmListadesplazrealRecordSet == null) {
