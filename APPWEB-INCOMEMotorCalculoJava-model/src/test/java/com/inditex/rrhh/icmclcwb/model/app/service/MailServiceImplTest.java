@@ -60,6 +60,10 @@ public class MailServiceImplTest {
 
   public static final String MAIL = "mail";
 
+  public static final String ES = "ES";
+
+  public static final String SRVCICMCLCWBAX = "srvcicmclcwbax";
+
   @Mock
   private MailSender mailSender;
 
@@ -77,20 +81,30 @@ public class MailServiceImplTest {
 
   @Test
   void sendMailBase() {
-    this.sendMail(1);
+    this.sendMail(1, ORGANIZATION, USUARIO);
+  }
+
+  @Test
+  void sendMailBaseEs() {
+    this.sendMail(1, ES, USUARIO);
+  }
+
+  @Test
+  void sendMailBaseEsUsuarioPRO() {
+    this.sendMail(1, ES, SRVCICMCLCWBAX);
   }
 
   @Test
   void sendMailPresencia() {
-    this.sendMail(4);
+    this.sendMail(4, ORGANIZATION, USUARIO);
   }
 
   @Test
   void sendMailFecha() {
-    this.sendMail(3);
+    this.sendMail(3, ORGANIZATION, USUARIO);
   }
 
-  void sendMail(final Integer idAccion) {
+  void sendMail(final Integer idAccion, final String idOrganization, final String nombreUsuario) {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TrabajoDTO trabajo = new TrabajoDTO();
     final TareaDto tarea = new TareaDto();
@@ -98,10 +112,10 @@ public class MailServiceImplTest {
     final List<ValidacionDto> validaciones = new ArrayList<>();
     final List<String> personaLocal = new ArrayList<>();
 
-    tarea.setIdOrganization(ORGANIZATION);
+    tarea.setIdOrganization(idOrganization);
     trabajo.setFechaInicioPeriodo(OffsetDateTime.MIN);
     trabajo.setFechaFinPeriodo(OffsetDateTime.MAX);
-    trabajo.setNombreUsuario(USUARIO);
+    trabajo.setNombreUsuario(nombreUsuario);
     runTareaDto.setTrabajo(trabajo);
     runTareaDto.setTarea(tarea);
     personaLocal.add(PERSONA);
@@ -126,23 +140,32 @@ public class MailServiceImplTest {
 
   @Test
   void sendMailMotivosPRO() {
-    this.sendMailMotivos(PRO);
+    this.sendMailMotivos(PRO, Arrays.asList(ValidacionDto.builder().idMotivosDesplazamiento(Arrays.asList(1, 2)).build()));
   }
 
   @Test
   void sendMailMotivosDES() {
-    this.sendMailMotivos(DES);
+    this.sendMailMotivos(DES, Arrays.asList(ValidacionDto.builder().idMotivosDesplazamiento(Arrays.asList(1, 2)).build()));
   }
 
-  void sendMailMotivos(final String environment) {
+  @Test
+  void sendMailMotivosNullDES() {
+    this.sendMailMotivos(DES, Arrays.asList(ValidacionDto.builder().idMotivosDesplazamiento(null).build()));
+  }
+
+  @Test
+  void sendMailMotivosEmptyDES() {
+    this.sendMailMotivos(DES, Arrays.asList(ValidacionDto.builder().idMotivosDesplazamiento(new ArrayList<>()).build()));
+  }
+
+  void sendMailMotivos(final String environment, final List<ValidacionDto> validaciones) {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setIdOrganization(ORGANIZATION);
     runTareaDto.setTarea(tarea);
     ReflectionTestUtils.setField(this.mailServiceImpl, ENVIRONMENT, environment);
 
-    this.mailServiceImpl.sendMailMotivos(runTareaDto,
-        Arrays.asList(ValidacionDto.builder().idMotivosDesplazamiento(Arrays.asList(1, 2)).build()));
+    this.mailServiceImpl.sendMailMotivos(runTareaDto, validaciones);
 
     verify(this.mailSender, times(1))
         .send(any(SimpleMailMessage.class));
