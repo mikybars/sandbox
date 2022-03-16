@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionEmpresaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHIstoricoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
@@ -556,10 +557,10 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     empresa.add(new IdEmpresaDto());
 
     when(this.meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_COM)).thenReturn(properties);
-    when(this.tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(any(Long.class),
+    when(this.tareaPersonaHistoricoService.findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(any(Long.class),
         any(String.class))).thenReturn(new ArrayList<>(
-            Arrays.asList(new IdPersonaHistoricoDto("1",
-                "1"))));
+            Arrays.asList(new IdPersonaHIstoricoLocalizacionDto("1",
+                "1", "1", "1"))));
     when(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToEstructurasComFilterDto(
         any(TrabajoDTO.class),
         any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new EstructurasComFilterDto());
@@ -601,10 +602,10 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     empresa.add(new IdEmpresaDto());
 
     when(this.meta4Properties.get(Meta4PropertiesConstants.ESTRUCTURAS_COM)).thenReturn(properties);
-    when(this.tareaPersonaHistoricoService.findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(any(Long.class),
+    when(this.tareaPersonaHistoricoService.findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(any(Long.class),
         any(String.class))).thenReturn(new ArrayList<>(
-            Arrays.asList(new IdPersonaHistoricoDto("1",
-                "1"))));
+            Arrays.asList(new IdPersonaHIstoricoLocalizacionDto("1",
+                "1", "1", "1"))));
     when(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToEstructurasComFilterDto(
         any(TrabajoDTO.class),
         any(TareaDto.class), any(TareaAmbitoDto.class))).thenReturn(new EstructurasComFilterDto());

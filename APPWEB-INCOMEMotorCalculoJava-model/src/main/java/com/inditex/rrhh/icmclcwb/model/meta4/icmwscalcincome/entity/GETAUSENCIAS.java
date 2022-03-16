@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -25,9 +28,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para anonymous complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -40,8 +43,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -61,9 +64,9 @@ public class GETAUSENCIAS implements Serializable, Cloneable, CopyTo2, Equals2, 
 
   /**
    * Obtiene el valor de la propiedad icmparamcalempleado.
-   * 
+   *
    * @return possible object is {@link IcmParamcalempleadoBlock }
-   * 
+   *
    */
   public IcmParamcalempleadoBlock getICMPARAMCALEMPLEADO() {
     return icmparamcalempleado;
@@ -71,9 +74,9 @@ public class GETAUSENCIAS implements Serializable, Cloneable, CopyTo2, Equals2, 
 
   /**
    * Define el valor de la propiedad icmparamcalempleado.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalempleadoBlock }
-   * 
+   *
    */
   public void setICMPARAMCALEMPLEADO(IcmParamcalempleadoBlock value) {
     this.icmparamcalempleado = value;
@@ -81,9 +84,9 @@ public class GETAUSENCIAS implements Serializable, Cloneable, CopyTo2, Equals2, 
 
   /**
    * Obtiene el valor de la propiedad icmparametrospaginacion.
-   * 
+   *
    * @return possible object is {@link IcmParametrospaginacionBlock }
-   * 
+   *
    */
   public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
     return icmparametrospaginacion;
@@ -91,9 +94,9 @@ public class GETAUSENCIAS implements Serializable, Cloneable, CopyTo2, Equals2, 
 
   /**
    * Define el valor de la propiedad icmparametrospaginacion.
-   * 
+   *
    * @param value allowed object is {@link IcmParametrospaginacionBlock }
-   * 
+   *
    */
   public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
     this.icmparametrospaginacion = value;

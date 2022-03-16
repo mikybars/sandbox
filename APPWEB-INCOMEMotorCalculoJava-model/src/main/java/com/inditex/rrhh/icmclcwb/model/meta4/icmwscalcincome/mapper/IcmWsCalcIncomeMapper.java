@@ -73,6 +73,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.Tie
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
@@ -82,6 +85,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmailOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiposhoraOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmErroresguardadoRecord;
@@ -101,6 +105,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempl
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempresasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructuraRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListamailRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListamotivosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListamultiempresaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaorigenesRecord;
@@ -167,6 +172,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcals
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiposhoraBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalusuarioBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
@@ -428,14 +434,14 @@ public interface IcmWsCalcIncomeMapper {
 
   @Mapping(target = "idEmpleado", source = "idempleado")
   @Mapping(target = "orEmpleado", source = "orempleado")
-  @Mapping(target = "idLugarTrabajo", ignore = true)
+  @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
+  @Mapping(target = "idEmpleadoLocal", source = "idempleadolocal")
   @Mapping(target = "activo", ignore = true)
   @Mapping(target = "ambito", ignore = true)
   @Mapping(target = "idPais", ignore = true)
   @Mapping(target = "abierto", ignore = true)
   @Mapping(target = "vigente", ignore = true)
   @Mapping(target = "idTipoHora", ignore = true)
-  @Mapping(target = "idEmpleadoLocal", ignore = true)
   @Mapping(target = "idLugarTrabajoMtu", ignore = true)
   @Mapping(target = "idCadena", ignore = true)
   @Mapping(target = "idOrigenReg", ignore = true)
@@ -1634,4 +1640,13 @@ public interface IcmWsCalcIncomeMapper {
       expression = "java(Meta4Constants.TRUE.equals(src.getEsexcluidodenominadorrepprov()))")
   TiposHoraResultItemDto asTiposHoraResultItemDto(IcmListatiposhoraRecord src);
 
+  @Mapping(target = "icmParamcalusuarioRecordSet", ignore = true)
+  IcmParamcalusuarioBlock asIcmParamcalusuarioBlock(UsuarioRequestDto src);
+
+  @Mapping(target = "items", ignore = true)
+  UsuarioResponseDto asUsuarioResponseDto(GetmailOutput src);
+
+  @Mapping(target = "mail", source = "mail")
+  @Mapping(target = "idUsuario", source = "idusuario")
+  UsuarioResultItemDto asUsuarioResultItemDto(IcmListamailRecord src);
 }

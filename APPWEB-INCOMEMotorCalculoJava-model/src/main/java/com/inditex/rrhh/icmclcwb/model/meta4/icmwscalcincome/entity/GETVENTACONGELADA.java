@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -25,65 +28,45 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para anonymous complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
  *         &lt;element name="ICM_PARAMCALVENTACONGELADA" type="{http://schemas.meta4.com/}Icm_ParamcalventacongeladaBlock"/&gt;
+ *         &lt;element name="ICM_PARAMETROSPAGINACION" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "icmparametrospaginacion",
-    "icmparamcalventacongelada"
+    "icmparamcalventacongelada",
+    "icmparametrospaginacion"
 })
 @XmlRootElement(name = "GETVENTACONGELADA")
 public class GETVENTACONGELADA implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
   private final static long serialVersionUID = 1L;
 
-  @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
-  protected IcmParametrospaginacionBlock icmparametrospaginacion;
-
   @XmlElement(name = "ICM_PARAMCALVENTACONGELADA", required = true)
   protected IcmParamcalventacongeladaBlock icmparamcalventacongelada;
 
-  /**
-   * Obtiene el valor de la propiedad icmparametrospaginacion.
-   * 
-   * @return possible object is {@link IcmParametrospaginacionBlock }
-   * 
-   */
-  public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
-    return icmparametrospaginacion;
-  }
-
-  /**
-   * Define el valor de la propiedad icmparametrospaginacion.
-   * 
-   * @param value allowed object is {@link IcmParametrospaginacionBlock }
-   * 
-   */
-  public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
-    this.icmparametrospaginacion = value;
-  }
+  @XmlElement(name = "ICM_PARAMETROSPAGINACION", required = true)
+  protected IcmParametrospaginacionBlock icmparametrospaginacion;
 
   /**
    * Obtiene el valor de la propiedad icmparamcalventacongelada.
-   * 
+   *
    * @return possible object is {@link IcmParamcalventacongeladaBlock }
-   * 
+   *
    */
   public IcmParamcalventacongeladaBlock getICMPARAMCALVENTACONGELADA() {
     return icmparamcalventacongelada;
@@ -91,12 +74,32 @@ public class GETVENTACONGELADA implements Serializable, Cloneable, CopyTo2, Equa
 
   /**
    * Define el valor de la propiedad icmparamcalventacongelada.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalventacongeladaBlock }
-   * 
+   *
    */
   public void setICMPARAMCALVENTACONGELADA(IcmParamcalventacongeladaBlock value) {
     this.icmparamcalventacongelada = value;
+  }
+
+  /**
+   * Obtiene el valor de la propiedad icmparametrospaginacion.
+   *
+   * @return possible object is {@link IcmParametrospaginacionBlock }
+   *
+   */
+  public IcmParametrospaginacionBlock getICMPARAMETROSPAGINACION() {
+    return icmparametrospaginacion;
+  }
+
+  /**
+   * Define el valor de la propiedad icmparametrospaginacion.
+   *
+   * @param value allowed object is {@link IcmParametrospaginacionBlock }
+   *
+   */
+  public void setICMPARAMETROSPAGINACION(IcmParametrospaginacionBlock value) {
+    this.icmparametrospaginacion = value;
   }
 
   public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -108,17 +111,6 @@ public class GETVENTACONGELADA implements Serializable, Cloneable, CopyTo2, Equa
     }
     final GETVENTACONGELADA that = ((GETVENTACONGELADA) object);
     {
-      IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
-      lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-      IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
-      rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
-          LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION), lhsICMPARAMETROSPAGINACION,
-          rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null), (that.icmparametrospaginacion != null))) {
-        return false;
-      }
-    }
-    {
       IcmParamcalventacongeladaBlock lhsICMPARAMCALVENTACONGELADA;
       lhsICMPARAMCALVENTACONGELADA = this.getICMPARAMCALVENTACONGELADA();
       IcmParamcalventacongeladaBlock rhsICMPARAMCALVENTACONGELADA;
@@ -126,6 +118,17 @@ public class GETVENTACONGELADA implements Serializable, Cloneable, CopyTo2, Equa
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalventacongelada", lhsICMPARAMCALVENTACONGELADA),
           LocatorUtils.property(thatLocator, "icmparamcalventacongelada", rhsICMPARAMCALVENTACONGELADA), lhsICMPARAMCALVENTACONGELADA,
           rhsICMPARAMCALVENTACONGELADA, (this.icmparamcalventacongelada != null), (that.icmparamcalventacongelada != null))) {
+        return false;
+      }
+    }
+    {
+      IcmParametrospaginacionBlock lhsICMPARAMETROSPAGINACION;
+      lhsICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+      IcmParametrospaginacionBlock rhsICMPARAMETROSPAGINACION;
+      rhsICMPARAMETROSPAGINACION = that.getICMPARAMETROSPAGINACION();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparametrospaginacion", lhsICMPARAMETROSPAGINACION),
+          LocatorUtils.property(thatLocator, "icmparametrospaginacion", rhsICMPARAMETROSPAGINACION), lhsICMPARAMETROSPAGINACION,
+          rhsICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null), (that.icmparametrospaginacion != null))) {
         return false;
       }
     }
@@ -153,16 +156,16 @@ public class GETVENTACONGELADA implements Serializable, Cloneable, CopyTo2, Equa
 
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
-      IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
-      theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-      strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
-          (this.icmparametrospaginacion != null));
-    }
-    {
       IcmParamcalventacongeladaBlock theICMPARAMCALVENTACONGELADA;
       theICMPARAMCALVENTACONGELADA = this.getICMPARAMCALVENTACONGELADA();
       strategy.appendField(locator, this, "icmparamcalventacongelada", buffer, theICMPARAMCALVENTACONGELADA,
           (this.icmparamcalventacongelada != null));
+    }
+    {
+      IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+      theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+      strategy.appendField(locator, this, "icmparametrospaginacion", buffer, theICMPARAMETROSPAGINACION,
+          (this.icmparametrospaginacion != null));
     }
     return buffer;
   }
@@ -170,16 +173,16 @@ public class GETVENTACONGELADA implements Serializable, Cloneable, CopyTo2, Equa
   public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
     int currentHashCode = 1;
     {
-      IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
-      theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
-          currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
-    }
-    {
       IcmParamcalventacongeladaBlock theICMPARAMCALVENTACONGELADA;
       theICMPARAMCALVENTACONGELADA = this.getICMPARAMCALVENTACONGELADA();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalventacongelada", theICMPARAMCALVENTACONGELADA),
           currentHashCode, theICMPARAMCALVENTACONGELADA, (this.icmparamcalventacongelada != null));
+    }
+    {
+      IcmParametrospaginacionBlock theICMPARAMETROSPAGINACION;
+      theICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparametrospaginacion", theICMPARAMETROSPAGINACION),
+          currentHashCode, theICMPARAMETROSPAGINACION, (this.icmparametrospaginacion != null));
     }
     return currentHashCode;
   }
@@ -203,22 +206,6 @@ public class GETVENTACONGELADA implements Serializable, Cloneable, CopyTo2, Equa
     if (draftCopy instanceof GETVENTACONGELADA) {
       final GETVENTACONGELADA copy = ((GETVENTACONGELADA) draftCopy);
       {
-        Boolean icmparametrospaginacionShouldBeCopiedAndSet =
-            strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospaginacion != null));
-        if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
-          IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
-          sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
-          IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy.copy(
-              LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION), sourceICMPARAMETROSPAGINACION,
-              (this.icmparametrospaginacion != null)));
-          copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
-        } else {
-          if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
-            copy.icmparametrospaginacion = null;
-          }
-        }
-      }
-      {
         Boolean icmparamcalventacongeladaShouldBeCopiedAndSet =
             strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalventacongelada != null));
         if (icmparamcalventacongeladaShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -231,6 +218,22 @@ public class GETVENTACONGELADA implements Serializable, Cloneable, CopyTo2, Equa
         } else {
           if (icmparamcalventacongeladaShouldBeCopiedAndSet == Boolean.FALSE) {
             copy.icmparamcalventacongelada = null;
+          }
+        }
+      }
+      {
+        Boolean icmparametrospaginacionShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.icmparametrospaginacion != null));
+        if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
+          IcmParametrospaginacionBlock sourceICMPARAMETROSPAGINACION;
+          sourceICMPARAMETROSPAGINACION = this.getICMPARAMETROSPAGINACION();
+          IcmParametrospaginacionBlock copyICMPARAMETROSPAGINACION = ((IcmParametrospaginacionBlock) strategy.copy(
+              LocatorUtils.property(locator, "icmparametrospaginacion", sourceICMPARAMETROSPAGINACION), sourceICMPARAMETROSPAGINACION,
+              (this.icmparametrospaginacion != null)));
+          copy.setICMPARAMETROSPAGINACION(copyICMPARAMETROSPAGINACION);
+        } else {
+          if (icmparametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmparametrospaginacion = null;
           }
         }
       }

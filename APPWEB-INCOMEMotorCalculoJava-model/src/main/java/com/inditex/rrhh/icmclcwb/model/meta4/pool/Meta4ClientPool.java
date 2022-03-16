@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getestructur
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmailOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmotivosdesplazamientoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
@@ -64,6 +65,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcals
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiposhoraBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalusuarioBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalventacongeladaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
@@ -114,7 +116,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       final IcmParamcalempleadosdesplazBlock param2) {
     final Meta4ClientPoolable client = this.claim(this.pool);
     try {
-      return client.getIcmWsCalcIncomeService().getempleadosdesplaz(param2, param1);
+      return client.getIcmWsCalcIncomeService().getempleadosdesplaz(param1, param2);
     } catch (final Exception e) {
       this.catchException(e, client, Arrays.asList(param1, param2));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -128,7 +130,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       final IcmParametrospaginacionBlock param2) {
     final Meta4ClientPoolable client = this.claim(this.pool);
     try {
-      return client.getIcmWsCalcIncomeService().getorigenes(param1, param2);
+      return client.getIcmWsCalcIncomeService().getorigenes(param2, param1);
     } catch (final Exception e) {
       this.catchException(e, client, Arrays.asList(param1, param2));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -198,7 +200,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       final IcmParametrospaginacionBlock param2) {
     final Meta4ClientPoolable client = this.claim(this.pool);
     try {
-      return client.getIcmWsCalcIncomeService().getagruponline(param1, param2);
+      return client.getIcmWsCalcIncomeService().getagruponline(param2, param1);
     } catch (final Exception e) {
       this.catchException(e, client, Arrays.asList(param1, param2));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -296,7 +298,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       final IcmParametrospaginacionBlock param2) {
     final Meta4ClientPoolable client = this.claim(this.pool);
     try {
-      return client.getIcmWsCalcIncomeService().getempleados(param2, param1);
+      return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
     } catch (final Exception e) {
       this.catchException(e, client, Arrays.asList(param1, param2));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -378,7 +380,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       final IcmParamcalempleadoBlock param2) {
     final Meta4ClientPoolable client = this.claim(this.pool);
     try {
-      return client.getIcmWsCalcIncomeService().searchempleados(param1, param2);
+      return client.getIcmWsCalcIncomeService().searchempleados(param2, param1);
     } catch (final Exception e) {
       this.catchException(e, client, Arrays.asList(param1, param2));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -445,7 +447,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       final IcmParametrospaginacionBlock param2) {
     final Meta4ClientPoolable client = this.claim(this.pool);
     try {
-      return client.getIcmWsCalcIncomeService().getpresupuestoswloc(param1, param2);
+      return client.getIcmWsCalcIncomeService().getpresupuestoswloc(param2, param1);
     } catch (final Exception e) {
       this.catchException(e, client, Arrays.asList(param1, param2));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -499,7 +501,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       final IcmParamcalventacongeladaBlock param2) {
     final Meta4ClientPoolable client = this.claim(this.pool);
     try {
-      return client.getIcmWsCalcIncomeService().getventacongelada(param1, param2);
+      return client.getIcmWsCalcIncomeService().getventacongelada(param2, param1);
     } catch (final Exception e) {
       this.catchException(e, client, Arrays.asList(param1, param2));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -553,7 +555,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       final IcmParamcaltiendasBlock param2) {
     final Meta4ClientPoolable client = this.claim(this.pool);
     try {
-      return client.getIcmWsCalcIncomeService().getventamanualwloc(param1, param2);
+      return client.getIcmWsCalcIncomeService().getventamanualwloc(param2, param1);
     } catch (final Exception e) {
       this.catchException(e, client, Arrays.asList(param1, param2));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -621,6 +623,20 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
     final Meta4ClientPoolable client = this.claim(this.pool);
     try {
       return client.getIcmWsCalcIncomeService().gettiposhora(param);
+    } catch (final M4SoapException_Exception e) {
+      this.catchException(e, client, Arrays.asList(param));
+      throw new Meta4IcmclcwbException(e.getMessage(), e);
+    } finally {
+      this.release(client);
+    }
+
+  }
+
+  @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
+  public GetmailOutput getmail(final IcmParamcalusuarioBlock param) {
+    final Meta4ClientPoolable client = this.claim(this.pool);
+    try {
+      return client.getIcmWsCalcIncomeService().getmail(param);
     } catch (final M4SoapException_Exception e) {
       this.catchException(e, client, Arrays.asList(param));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
