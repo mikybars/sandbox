@@ -40,6 +40,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 public class RunTareaAmbitoValidarTiposHoraServiceImplTest {
 
+  public static final String CCL_ID_ORIGEN = "11";
+
+  public static final String CCL_ID_ORIGEN1 = "38";
+
+  public static final String ID_CATALOGO = "1";
+
   @Mock
   private PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
@@ -59,13 +65,36 @@ public class RunTareaAmbitoValidarTiposHoraServiceImplTest {
   private RunTareaAmbitoValidarTiposHoraServiceImpl runTareaAmbitoValidarTiposHoraServiceImpl;
 
   @Test
-  public void execute() {
+  public void executeEs() {
+    final CatalogoResponseDto responseCatalogo = new CatalogoResponseDto();
+    responseCatalogo.setItems(new ArrayList<>());
+    responseCatalogo.getItems().add(new CatalogoResultItemDto());
+    responseCatalogo.getItems().get(0).setIdCatalogo(ID_CATALOGO);
+    this.execute(CCL_ID_ORIGEN, responseCatalogo);
+  }
+
+  @Test
+  public void executeNoEs() {
+    final CatalogoResponseDto responseCatalogo = new CatalogoResponseDto();
+    responseCatalogo.setItems(new ArrayList<>());
+    responseCatalogo.getItems().add(new CatalogoResultItemDto());
+    responseCatalogo.getItems().get(0).setIdCatalogo(ID_CATALOGO);
+    this.execute(CCL_ID_ORIGEN1, responseCatalogo);
+  }
+
+  @Test
+  public void executeEsCatalogoResponse() {
+    final CatalogoResponseDto responseCatalogo = new CatalogoResponseDto();
+    this.execute(CCL_ID_ORIGEN, responseCatalogo);
+  }
+
+  private void execute(final String cclIdOrigen, final CatalogoResponseDto responseCatalogo) {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
     runTareaDto.setTarea(tareaDto);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
-    tareaAmbitoDto.setCclIdOrigen("11");
+    tareaAmbitoDto.setCclIdOrigen(cclIdOrigen);
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     final FaseDto faseDto = new FaseDto();
     faseDto.setId(1);
@@ -76,10 +105,6 @@ public class RunTareaAmbitoValidarTiposHoraServiceImplTest {
     lista.setTiposHoras(new ArrayList<>());
     final CompletableFuture<PtrPresenciaTiposHorasResponseDto> cfPtr = new CompletableFuture<>();
     cfPtr.complete(lista);
-    final CatalogoResponseDto responseCatalogo = new CatalogoResponseDto();
-    responseCatalogo.setItems(new ArrayList<>());
-    responseCatalogo.getItems().add(new CatalogoResultItemDto());
-    responseCatalogo.getItems().get(0).setIdCatalogo("1");
 
     final TiposHoraResponseDto responseDto = TiposHoraResponseDto
         .builder()
