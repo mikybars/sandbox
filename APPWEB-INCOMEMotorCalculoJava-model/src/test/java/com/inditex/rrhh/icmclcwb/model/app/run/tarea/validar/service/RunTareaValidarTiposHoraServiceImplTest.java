@@ -45,7 +45,33 @@ public class RunTareaValidarTiposHoraServiceImplTest {
   private MailService mailService;
 
   @Test
-  public void execute() {
+  public void executeTest() {
+    final ValidacionDto validacion = new ValidacionDto();
+    validacion.setResult(Boolean.FALSE);
+    this.execute(validacion, Boolean.TRUE);
+    verify(this.runTareaAmbitoValidarTiposHoraService, timeout(1000).times(1))
+        .execute(
+            ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class),
+            ArgumentMatchers.any(TareaFaseAccionDto.class));
+  }
+
+  @Test
+  public void executeTestTrue() {
+    final ValidacionDto validacion = new ValidacionDto();
+    validacion.setResult(Boolean.TRUE);
+    this.execute(validacion, Boolean.TRUE);
+    verify(this.runTareaAmbitoValidarTiposHoraService, timeout(1000).times(1))
+        .execute(
+            ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class),
+            ArgumentMatchers.any(TareaFaseAccionDto.class));
+  }
+
+  @Test
+  public void executeTestNull() {
+    this.execute(null, Boolean.FALSE);
+  }
+
+  public void execute(final ValidacionDto validacion, final Boolean flagAccion) {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
@@ -58,12 +84,10 @@ public class RunTareaValidarTiposHoraServiceImplTest {
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     tareaFaseAccionDto.setIdAccion(1);
 
-    final ValidacionDto validacion = new ValidacionDto();
-    validacion.setResult(Boolean.FALSE);
     when(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(
         ArgumentMatchers.any(Integer.class), ArgumentMatchers.any(String.class),
         ArgumentMatchers.any(String.class)))
-            .thenReturn(Boolean.TRUE);
+            .thenReturn(flagAccion);
 
     when(this.runTareaAmbitoValidarTiposHoraService.execute(ArgumentMatchers.any(RunTareaDto.class),
         ArgumentMatchers.any(TareaAmbitoDto.class),
@@ -80,11 +104,6 @@ public class RunTareaValidarTiposHoraServiceImplTest {
         .findByIdAccionAndIdOrigenAndStdIdLegEnt(
             ArgumentMatchers.any(Integer.class), ArgumentMatchers.any(String.class),
             ArgumentMatchers.any(String.class));
-
-    verify(this.runTareaAmbitoValidarTiposHoraService, timeout(1000).times(1))
-        .execute(
-            ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class),
-            ArgumentMatchers.any(TareaFaseAccionDto.class));
 
   }
 }
