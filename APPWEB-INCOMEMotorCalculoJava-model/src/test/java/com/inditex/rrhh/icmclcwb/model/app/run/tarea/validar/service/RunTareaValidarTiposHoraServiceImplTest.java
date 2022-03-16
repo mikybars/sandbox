@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
+
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
