@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
  * Copyright (c) 2022. Inditex
  */
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -11,6 +12,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
@@ -85,7 +87,10 @@ public class RunTareaAmbitoValidarTiposHoraServiceImplTest {
   @Test
   public void executeEsCatalogoResponse() {
     final CatalogoResponseDto responseCatalogo = new CatalogoResponseDto();
-    this.execute(CCL_ID_ORIGEN, responseCatalogo);
+    assertThrows(IcmclcwbException.class, () -> {
+      this.execute(CCL_ID_ORIGEN, responseCatalogo);
+    });
+
   }
 
   private void execute(final String cclIdOrigen, final CatalogoResponseDto responseCatalogo) {
