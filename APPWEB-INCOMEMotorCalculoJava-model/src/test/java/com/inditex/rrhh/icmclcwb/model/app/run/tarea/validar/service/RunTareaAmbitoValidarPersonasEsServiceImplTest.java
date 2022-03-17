@@ -35,7 +35,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-class RunTareaAmbitoValidarPersonasServiceImplTest {
+class RunTareaAmbitoValidarPersonasEsServiceImplTest {
 
   @Mock
   TareaFaseAccionService tareaFaseAccionService;
@@ -56,7 +56,7 @@ class RunTareaAmbitoValidarPersonasServiceImplTest {
   private PrevalidarPropertiesDto personasPropertiesDto;
 
   @InjectMocks
-  private RunTareaAmbitoValidarPersonasServiceImpl runTareaAmbitoValidarPersonasService;
+  private RunTareaAmbitoValidarPersonasEsServiceImpl runTareaAmbitoValidarPersonasService;
 
   @Test
   void executeTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbito,
@@ -71,7 +71,7 @@ class RunTareaAmbitoValidarPersonasServiceImplTest {
 
     this.runTareaAmbitoValidarPersonasService.execute(runTarea, tareaAmbito, tareaFaseAccion);
 
-    verify(this.comisAsyncService, timeout(1000).times(1)).findPersonas(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_NO_ES);
+    verify(this.comisAsyncService, timeout(1000).times(1)).findPersonas(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_ES);
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).createTempComisPersonasLocalizaciones();
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).indexTempComisPersonasLocalizaciones();
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).insertTempComisPersonasLocalizaciones(lista);
@@ -88,7 +88,8 @@ class RunTareaAmbitoValidarPersonasServiceImplTest {
   void executeExceptionTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbito,
       @Random final TareaFaseAccionDto tareaFaseAccion) {
 
-    when(this.comisAsyncService.findPersonas(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class))).thenThrow(RuntimeException.class);
+    when(this.comisAsyncService.findPersonas(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class)))
+        .thenThrow(RuntimeException.class);
 
     assertThrows(RuntimeException.class, () -> {
       this.runTareaAmbitoValidarPersonasService.execute(runTarea, tareaAmbito, tareaFaseAccion);

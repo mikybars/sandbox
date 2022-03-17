@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -194,7 +195,7 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
 
   @Override
   public CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonas(
-      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito) {
-    return CompletableFuture.completedFuture(this.comisService.findPersonas(runTareaDto, tareaAmbito));
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona) {
+    return CompletableFuture.completedFuture(this.comisService.findPersonas(runTareaDto, tareaAmbito, maxIdPersona));
   }
 }

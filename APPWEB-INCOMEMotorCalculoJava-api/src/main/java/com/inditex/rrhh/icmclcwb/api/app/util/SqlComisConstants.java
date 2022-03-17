@@ -23,6 +23,8 @@ public class SqlComisConstants {
 
   public static final String SQL_PARAM_MIN_ID_PERSONA = "minPersona";
 
+  public static final String SQL_PARAM_MAX_ID_PERSONA = "maxPersona";
+
   // RESULTADOS DE CONSULTAS
 
   public static final String SQL_RESULT_HORAS_SECCION_1 = "HORAS_SECCION_1";

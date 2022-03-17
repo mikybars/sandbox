@@ -366,10 +366,10 @@ public class ComisServiceImpl implements ComisService {
 
   @Override
   public List<IdPersonaLocalLocalizacionDto> findPersonas(
-      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito) {
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona) {
     try {
       this.setContext(runTareaDto, tareaAmbito);
-      return this.comisRepositoryCustom.findPersonas(runTareaDto.getTarea());
+      return this.comisRepositoryCustom.findPersonas(runTareaDto.getTarea(), maxIdPersona);
     } finally {
       ClientDatabaseContextHolder.clear();
     }

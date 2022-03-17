@@ -30,7 +30,7 @@ public class RunTareaAmbitoValidarExternosSpainServiceImpl extends AbstractRunTa
       final RunTareaDto runTarea,
       final TareaAmbitoDto tareaAmbito) {
     return this.comisAsyncService.findExternosByMinIdPersona(runTarea, tareaAmbito,
-        AppConstants.MIN_ID_PERSONA_EXTERNO);
+        AppConstants.MIN_ID_PERSONA_EXTERNO_ES);
   }
 
 }

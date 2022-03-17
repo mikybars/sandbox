@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.springframework.scheduling.annotation.Async;
 
 @Async
@@ -245,9 +246,11 @@ public interface ComisAsyncService {
    *
    * @param runTareaDto tarea.
    * @param tareaAmbito ambito.
+   * @param maxIdPersona maximo id de persona a obtener para evitar empleados externos.
    * @return Future con las personas.
    */
   CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonas(
       @Valid RunTareaDto runTareaDto,
-      @Valid TareaAmbitoDto tareaAmbito);
+      @Valid TareaAmbitoDto tareaAmbito,
+      @NotNull Long maxIdPersona);
 }

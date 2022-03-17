@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarPersonasService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarPersonasEsService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -29,7 +29,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class RunTareaAmbitoValidarPersonasServiceImpl implements RunTareaAmbitoValidarPersonasService {
+public class RunTareaAmbitoValidarPersonasEsServiceImpl implements RunTareaAmbitoValidarPersonasEsService {
 
   @Autowired
   private ComisAsyncService comisAsyncService;
@@ -58,7 +58,7 @@ public class RunTareaAmbitoValidarPersonasServiceImpl implements RunTareaAmbitoV
     List<IdPersonaLocalDto> validationResult = new ArrayList<>();
     try {
       final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cfPersonas = this.comisAsyncService
-          .findPersonas(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_NO_ES);
+          .findPersonas(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_ES);
       AsyncUtils.exceptionally(cfPersonas, cf);
 
       AsyncUtils.waitAllOfIsOk(cf, cf);

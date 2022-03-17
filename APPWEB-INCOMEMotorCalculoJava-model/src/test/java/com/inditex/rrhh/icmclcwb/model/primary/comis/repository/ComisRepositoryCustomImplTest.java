@@ -749,7 +749,8 @@ class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  void findPersonasTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto result) {
+  void findPersonasTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto result,
+      @Random final Long maxIdEmpleado) {
 
     when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
         ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
@@ -761,11 +762,12 @@ class ComisRepositoryCustomImplTest {
           return Collections.singletonList(rowMapper.mapRow(rs, 0));
         });
 
-    final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonas(tarea);
+    final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonas(tarea, maxIdEmpleado);
 
     final Map<String, Object> expectedParams = new HashMap<>();
     expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
     expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdEmpleado);
 
     verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_PERSONAS), this.paramsCaptor.capture(),
         ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());

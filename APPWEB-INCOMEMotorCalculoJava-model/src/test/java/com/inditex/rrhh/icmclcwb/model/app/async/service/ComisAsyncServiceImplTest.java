@@ -5,6 +5,8 @@ package com.inditex.rrhh.icmclcwb.model.app.async.service;
  */
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -83,12 +85,13 @@ class ComisAsyncServiceImplTest {
   }
 
   @Test
-  void findPersonasTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto ambito)
+  void findPersonasTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto ambito, @Random final Long maxIdPersona)
       throws ExecutionException, InterruptedException {
     final List<IdPersonaLocalLocalizacionDto> response = new ArrayList<>();
-    when(this.comisService.findPersonas(any(RunTareaDto.class), any(TareaAmbitoDto.class))).thenReturn(response);
+    when(this.comisService.findPersonas(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class))).thenReturn(response);
     final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf =
-        this.comisAsyncServiceImpl.findPersonas(runTarea, ambito);
+        this.comisAsyncServiceImpl.findPersonas(runTarea, ambito, maxIdPersona);
+    verify(this.comisService, times(1)).findPersonas(runTarea, ambito, maxIdPersona);
     assertEquals(response, cf.get());
   }
 

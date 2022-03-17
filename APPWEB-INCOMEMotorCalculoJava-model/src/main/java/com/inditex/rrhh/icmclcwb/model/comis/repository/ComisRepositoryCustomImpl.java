@@ -530,10 +530,11 @@ public class ComisRepositoryCustomImpl
 
   @Override
   public List<IdPersonaLocalLocalizacionDto> findPersonas(
-      final TareaDto tarea) {
+      final TareaDto tarea, final Long maxIdPersona) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
     map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
     map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdPersona);
 
     return this.query(this.sqlFindPersonas, map, (rs, rowNum) -> IdPersonaLocalLocalizacionDto
         .builder()

@@ -187,9 +187,10 @@ public interface ComisRepositoryCustom {
 
   /**
    * Obtiene las personas con sus respectivas localizaciones.
-   * 
+   *
    * @param tarea tarea
+   * @param maxIdPersona maximo id de persona a obtener para evitar empleados externos.
    * @return Lista de personas.
    */
-  List<IdPersonaLocalLocalizacionDto> findPersonas(TareaDto tarea);
+  List<IdPersonaLocalLocalizacionDto> findPersonas(TareaDto tarea, Long maxIdPersona);
 }

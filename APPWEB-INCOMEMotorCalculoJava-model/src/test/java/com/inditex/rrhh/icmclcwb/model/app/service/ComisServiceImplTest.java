@@ -329,8 +329,8 @@ class ComisServiceImplTest {
   }
 
   @Test
-  void findPersonasTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto) {
-    this.comisServiceImpl.findPersonas(runTarea, tareaAmbitoDto);
-    verify(this.comisRepositoryCustom, times(1)).findPersonas(runTarea.getTarea());
+  void findPersonasTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto, @Random final Long maxIdPersona) {
+    this.comisServiceImpl.findPersonas(runTarea, tareaAmbitoDto, maxIdPersona);
+    verify(this.comisRepositoryCustom, times(1)).findPersonas(runTarea.getTarea(), maxIdPersona);
   }
 }

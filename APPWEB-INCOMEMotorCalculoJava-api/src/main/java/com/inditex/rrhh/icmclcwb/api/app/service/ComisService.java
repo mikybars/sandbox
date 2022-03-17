@@ -234,8 +234,9 @@ public interface ComisService {
    *
    * @param runTareaDto tarea
    * @param tareaAmbito ambito
+   * @param maxIdPersona maximo id de persona a obtener para evitar empleados externos.
    * @return Lista de personas.
    */
   List<IdPersonaLocalLocalizacionDto> findPersonas(@Valid RunTareaDto runTareaDto,
-      @Valid TareaAmbitoDto tareaAmbito);
+      @Valid TareaAmbitoDto tareaAmbito, @NotNull Long maxIdPersona);
 }
