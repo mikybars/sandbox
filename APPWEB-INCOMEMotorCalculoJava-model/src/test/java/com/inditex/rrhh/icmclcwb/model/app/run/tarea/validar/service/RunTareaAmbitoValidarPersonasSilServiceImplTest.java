@@ -35,7 +35,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-class RunTareaAmbitoValidarPersonasServiceImplTest {
+class RunTareaAmbitoValidarPersonasSilServiceImplTest {
 
   @Mock
   TareaFaseAccionService tareaFaseAccionService;
@@ -56,7 +56,7 @@ class RunTareaAmbitoValidarPersonasServiceImplTest {
   private PrevalidarPropertiesDto personasPropertiesDto;
 
   @InjectMocks
-  private RunTareaAmbitoValidarPersonasServiceImpl runTareaAmbitoValidarPersonasService;
+  private RunTareaAmbitoValidarPersonasSilServiceImpl runTareaAmbitoValidarPersonasGlobalService;
 
   @Test
   void executeTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbito,
@@ -69,7 +69,7 @@ class RunTareaAmbitoValidarPersonasServiceImplTest {
 
     when(this.comisAsyncService.findPersonas(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class))).thenReturn(cf);
 
-    this.runTareaAmbitoValidarPersonasService.execute(runTarea, tareaAmbito, tareaFaseAccion);
+    this.runTareaAmbitoValidarPersonasGlobalService.execute(runTarea, tareaAmbito, tareaFaseAccion);
 
     verify(this.comisAsyncService, timeout(1000).times(1)).findPersonas(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_NO_ES);
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).createTempComisPersonasLocalizaciones();
@@ -92,7 +92,7 @@ class RunTareaAmbitoValidarPersonasServiceImplTest {
         .thenThrow(RuntimeException.class);
 
     assertThrows(RuntimeException.class, () -> {
-      this.runTareaAmbitoValidarPersonasService.execute(runTarea, tareaAmbito, tareaFaseAccion);
+      this.runTareaAmbitoValidarPersonasGlobalService.execute(runTarea, tareaAmbito, tareaFaseAccion);
     });
     verify(this.tareaFaseAccionService, timeout(1000).times(1)).updateFechaFinAndEstado(tareaFaseAccion,
         EstadoTareaFaseAccionEnum.ERROR.getDto());
