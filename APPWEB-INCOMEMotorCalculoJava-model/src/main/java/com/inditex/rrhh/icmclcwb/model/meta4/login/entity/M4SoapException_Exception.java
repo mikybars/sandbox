@@ -18,14 +18,14 @@ public class M4SoapException_Exception
    * Java type that goes as soapenv:Fault detail element.
    *
    */
-  private final M4SoapException faultInfo;
+  private M4SoapException faultInfo;
 
   /**
    *
    * @param faultInfo
    * @param message
    */
-  public M4SoapException_Exception(final String message, final M4SoapException faultInfo) {
+  public M4SoapException_Exception(String message, M4SoapException faultInfo) {
     super(message);
     this.faultInfo = faultInfo;
   }
@@ -36,17 +36,17 @@ public class M4SoapException_Exception
    * @param cause
    * @param message
    */
-  public M4SoapException_Exception(final String message, final M4SoapException faultInfo, final Throwable cause) {
+  public M4SoapException_Exception(String message, M4SoapException faultInfo, Throwable cause) {
     super(message, cause);
     this.faultInfo = faultInfo;
   }
 
   /**
    *
-   * @return returns fault bean: com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.M4SoapException
+   * @return returns fault bean: com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException
    */
   public M4SoapException getFaultInfo() {
-    return this.faultInfo;
+    return faultInfo;
   }
 
 }

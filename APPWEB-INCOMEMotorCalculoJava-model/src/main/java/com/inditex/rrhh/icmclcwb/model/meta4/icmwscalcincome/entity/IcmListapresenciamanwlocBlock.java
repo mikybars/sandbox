@@ -65,7 +65,7 @@ public class IcmListapresenciamanwlocBlock implements Serializable, Cloneable, C
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmListapresenciamanwlocRecordSet().add(newItem);
    * </pre>

@@ -65,7 +65,7 @@ public class IcmParamcalmotivosBlock implements Serializable, Cloneable, CopyTo2
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParamcalmotivosRecordSet().add(newItem);
    * </pre>

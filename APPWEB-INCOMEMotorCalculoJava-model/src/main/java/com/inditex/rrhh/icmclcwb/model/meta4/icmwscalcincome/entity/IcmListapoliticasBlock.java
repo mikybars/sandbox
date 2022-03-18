@@ -64,7 +64,7 @@ public class IcmListapoliticasBlock implements Serializable, Cloneable, CopyTo2,
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListapoliticasRecordSet property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmListapoliticasRecordSet().add(newItem);
    * </pre>

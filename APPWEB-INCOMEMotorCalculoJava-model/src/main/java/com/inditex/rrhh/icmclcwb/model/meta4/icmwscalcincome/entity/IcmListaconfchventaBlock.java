@@ -65,7 +65,7 @@ public class IcmListaconfchventaBlock implements Serializable, Cloneable, CopyTo
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmListaconfchventaRecordSet().add(newItem);
    * </pre>

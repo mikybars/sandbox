@@ -64,7 +64,7 @@ public class IcmListacadenasBlock implements Serializable, Cloneable, CopyTo2, E
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListacadenasRecordSet property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmListacadenasRecordSet().add(newItem);
    * </pre>

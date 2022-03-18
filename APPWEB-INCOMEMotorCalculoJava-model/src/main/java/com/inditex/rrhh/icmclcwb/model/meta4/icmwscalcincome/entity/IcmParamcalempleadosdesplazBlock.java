@@ -65,7 +65,7 @@ public class IcmParamcalempleadosdesplazBlock implements Serializable, Cloneable
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParamcalempleadosdesplazRecordSet().add(newItem);
    * </pre>

@@ -215,7 +215,7 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParametrosentradaRecordSet().add(newItem);
    * </pre>
