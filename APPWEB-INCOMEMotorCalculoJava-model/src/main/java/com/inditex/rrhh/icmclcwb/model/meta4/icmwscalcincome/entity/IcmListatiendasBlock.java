@@ -64,7 +64,7 @@ public class IcmListatiendasBlock implements Serializable, Cloneable, CopyTo2, E
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListatiendasRecordSet property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmListatiendasRecordSet().add(newItem);
    * </pre>

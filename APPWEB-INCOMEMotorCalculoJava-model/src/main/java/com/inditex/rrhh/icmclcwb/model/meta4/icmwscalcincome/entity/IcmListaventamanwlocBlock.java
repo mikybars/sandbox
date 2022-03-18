@@ -65,7 +65,7 @@ public class IcmListaventamanwlocBlock implements Serializable, Cloneable, CopyT
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmListaventamanwlocRecordSet().add(newItem);
    * </pre>

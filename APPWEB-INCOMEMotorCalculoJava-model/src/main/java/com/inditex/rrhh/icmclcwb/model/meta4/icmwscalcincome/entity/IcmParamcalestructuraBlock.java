@@ -140,7 +140,7 @@ public class IcmParamcalestructuraBlock implements Serializable, Cloneable, Copy
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParamcalestructuraRecordSet().add(newItem);
    * </pre>

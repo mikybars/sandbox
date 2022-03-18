@@ -65,7 +65,7 @@ public class IcmParamcalsociedadBlock implements Serializable, Cloneable, CopyTo
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParamcalsociedadRecordSet().add(newItem);
    * </pre>

@@ -65,7 +65,7 @@ public class IcmListapresupuestosrangoBlock implements Serializable, Cloneable, 
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmListapresupuestosrangoRecordSet().add(newItem);
    * </pre>

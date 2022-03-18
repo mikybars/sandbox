@@ -65,7 +65,7 @@ public class IcmParamcaltiendasBlock implements Serializable, Cloneable, CopyTo2
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParamcaltiendasRecordSet().add(newItem);
    * </pre>

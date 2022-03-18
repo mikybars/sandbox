@@ -90,7 +90,7 @@ public class IcmListavaloresbasemanBlock implements Serializable, Cloneable, Cop
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmListavaloresbasemanRecordSet().add(newItem);
    * </pre>

@@ -140,7 +140,7 @@ public class IcmParamcalconfpreciohoraBlock implements Serializable, Cloneable, 
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParamcalconfpreciohoraRecordSet().add(newItem);
    * </pre>

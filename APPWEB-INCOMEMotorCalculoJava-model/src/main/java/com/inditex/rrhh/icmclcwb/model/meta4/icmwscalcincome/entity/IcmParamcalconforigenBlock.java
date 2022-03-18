@@ -140,7 +140,7 @@ public class IcmParamcalconforigenBlock implements Serializable, Cloneable, Copy
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParamcalconforigenRecordSet().add(newItem);
    * </pre>

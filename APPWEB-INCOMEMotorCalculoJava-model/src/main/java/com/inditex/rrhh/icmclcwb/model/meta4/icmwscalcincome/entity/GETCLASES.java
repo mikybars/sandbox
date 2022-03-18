@@ -1,5 +1,5 @@
 
-package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
+package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 /*
  * Copyright (c) 2022. Inditex
@@ -36,7 +36,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="ai_sessionId" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="ICM_PARAMCALORIGEN" type="{http://schemas.meta4.com/}Icm_ParamcalorigenBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -47,34 +47,34 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "aiSessionId"
+    "icmparamcalorigen"
 })
-@XmlRootElement(name = "retrieveM4Session")
-public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+@XmlRootElement(name = "GETCLASES")
+public class GETCLASES implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
   private final static long serialVersionUID = 1L;
 
-  @XmlElement(name = "ai_sessionId", required = true)
-  protected String aiSessionId;
+  @XmlElement(name = "ICM_PARAMCALORIGEN", required = true)
+  protected IcmParamcalorigenBlock icmparamcalorigen;
 
   /**
-   * Obtiene el valor de la propiedad aiSessionId.
+   * Obtiene el valor de la propiedad icmparamcalorigen.
    *
-   * @return possible object is {@link String }
+   * @return possible object is {@link IcmParamcalorigenBlock }
    *
    */
-  public String getAiSessionId() {
-    return aiSessionId;
+  public IcmParamcalorigenBlock getICMPARAMCALORIGEN() {
+    return icmparamcalorigen;
   }
 
   /**
-   * Define el valor de la propiedad aiSessionId.
+   * Define el valor de la propiedad icmparamcalorigen.
    *
-   * @param value allowed object is {@link String }
+   * @param value allowed object is {@link IcmParamcalorigenBlock }
    *
    */
-  public void setAiSessionId(String value) {
-    this.aiSessionId = value;
+  public void setICMPARAMCALORIGEN(IcmParamcalorigenBlock value) {
+    this.icmparamcalorigen = value;
   }
 
   public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -84,15 +84,15 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
     if (this == object) {
       return true;
     }
-    final RetrieveM4Session that = ((RetrieveM4Session) object);
+    final GETCLASES that = ((GETCLASES) object);
     {
-      String lhsAiSessionId;
-      lhsAiSessionId = this.getAiSessionId();
-      String rhsAiSessionId;
-      rhsAiSessionId = that.getAiSessionId();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSessionId", lhsAiSessionId),
-          LocatorUtils.property(thatLocator, "aiSessionId", rhsAiSessionId), lhsAiSessionId, rhsAiSessionId, (this.aiSessionId != null),
-          (that.aiSessionId != null))) {
+      IcmParamcalorigenBlock lhsICMPARAMCALORIGEN;
+      lhsICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
+      IcmParamcalorigenBlock rhsICMPARAMCALORIGEN;
+      rhsICMPARAMCALORIGEN = that.getICMPARAMCALORIGEN();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalorigen", lhsICMPARAMCALORIGEN),
+          LocatorUtils.property(thatLocator, "icmparamcalorigen", rhsICMPARAMCALORIGEN), lhsICMPARAMCALORIGEN, rhsICMPARAMCALORIGEN,
+          (this.icmparamcalorigen != null), (that.icmparamcalorigen != null))) {
         return false;
       }
     }
@@ -120,9 +120,9 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
 
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
-      String theAiSessionId;
-      theAiSessionId = this.getAiSessionId();
-      strategy.appendField(locator, this, "aiSessionId", buffer, theAiSessionId, (this.aiSessionId != null));
+      IcmParamcalorigenBlock theICMPARAMCALORIGEN;
+      theICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
+      strategy.appendField(locator, this, "icmparamcalorigen", buffer, theICMPARAMCALORIGEN, (this.icmparamcalorigen != null));
     }
     return buffer;
   }
@@ -130,10 +130,10 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
   public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
     int currentHashCode = 1;
     {
-      String theAiSessionId;
-      theAiSessionId = this.getAiSessionId();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSessionId", theAiSessionId), currentHashCode, theAiSessionId,
-          (this.aiSessionId != null));
+      IcmParamcalorigenBlock theICMPARAMCALORIGEN;
+      theICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalorigen", theICMPARAMCALORIGEN), currentHashCode,
+          theICMPARAMCALORIGEN, (this.icmparamcalorigen != null));
     }
     return currentHashCode;
   }
@@ -154,19 +154,20 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
 
   public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
     final Object draftCopy = ((target == null) ? createNewInstance() : target);
-    if (draftCopy instanceof RetrieveM4Session) {
-      final RetrieveM4Session copy = ((RetrieveM4Session) draftCopy);
+    if (draftCopy instanceof GETCLASES) {
+      final GETCLASES copy = ((GETCLASES) draftCopy);
       {
-        Boolean aiSessionIdShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSessionId != null));
-        if (aiSessionIdShouldBeCopiedAndSet == Boolean.TRUE) {
-          String sourceAiSessionId;
-          sourceAiSessionId = this.getAiSessionId();
-          String copyAiSessionId = ((String) strategy.copy(LocatorUtils.property(locator, "aiSessionId", sourceAiSessionId),
-              sourceAiSessionId, (this.aiSessionId != null)));
-          copy.setAiSessionId(copyAiSessionId);
+        Boolean icmparamcalorigenShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalorigen != null));
+        if (icmparamcalorigenShouldBeCopiedAndSet == Boolean.TRUE) {
+          IcmParamcalorigenBlock sourceICMPARAMCALORIGEN;
+          sourceICMPARAMCALORIGEN = this.getICMPARAMCALORIGEN();
+          IcmParamcalorigenBlock copyICMPARAMCALORIGEN =
+              ((IcmParamcalorigenBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalorigen", sourceICMPARAMCALORIGEN),
+                  sourceICMPARAMCALORIGEN, (this.icmparamcalorigen != null)));
+          copy.setICMPARAMCALORIGEN(copyICMPARAMCALORIGEN);
         } else {
-          if (aiSessionIdShouldBeCopiedAndSet == Boolean.FALSE) {
-            copy.aiSessionId = null;
+          if (icmparamcalorigenShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmparamcalorigen = null;
           }
         }
       }
@@ -175,7 +176,7 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
   }
 
   public Object createNewInstance() {
-    return new RetrieveM4Session();
+    return new GETCLASES();
   }
 
 }
