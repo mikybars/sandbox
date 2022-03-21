@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.Catalogo
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
@@ -529,11 +530,17 @@ public interface IcmWsCalcIncomeMapper {
   @InheritInverseConfiguration
   IcmParamcalsociedadRecord asIcmParamcalsociedadRecord(GenericFilterParametersDto src);
 
+  @Mapping(target = "icmParamcalorigenRecordSet", ignore = true)
+  IcmParamcalorigenBlock asIcmParamcalorigenBlock(ClaseRequestDto src);
+
   @InheritInverseConfiguration
   IcmParamcalorigenBlock asIcmParamcalorigenBlock(GenericFilterDto src);
 
   @InheritInverseConfiguration
   IcmParamcalorigenRecord asIcmParamcalorigenRecord(GenericFilterParametersDto src);
+
+  @Mapping(target = "idorigen", source = "cclIdOrigen")
+  IcmParamcalorigenRecord asIcmParamcalorigenRecord(ClaseRequestDto src);
 
   @InheritInverseConfiguration
   IcmParamcalperiodoBlock asIcmParamcalperiodoBlock(GenericFilterDto src);
