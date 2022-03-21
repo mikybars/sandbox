@@ -1,10 +1,16 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,6 +20,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionItemDto;
@@ -51,11 +59,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetclasesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmailOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiposhoraOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaclasesRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesbaseRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesdestinoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
@@ -1353,6 +1363,42 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asUsuarioResponseDto(this.getmailOutput);
 
     assertNotNull(result);
+  }
+
+  @Test
+  void asClaseResponseDtoTest(@Random final GetclasesOutput getclasesOutput) {
+    when(this.delegate.asClaseResponseDto(any(GetclasesOutput.class))).thenReturn(new ClaseResponseDto());
+    final ClaseResponseDto result = this.icmWsCalcIncomeMapperDecorator.asClaseResponseDto(getclasesOutput);
+    verify(this.delegate, times(1)).asClaseResponseDto(getclasesOutput);
+    getclasesOutput.getIcmListaclases().getIcmListaclasesRecordSet().forEach(x -> {
+      verify(this.delegate, times(1)).asClaseResultItemDto(x);
+    });
+    assertNotNull(result);
+    assertNotNull(result.getItems());
+    assertEquals(getclasesOutput.getIcmListaclases().getIcmListaclasesRecordSet().size(), result.getItems().size());
+  }
+
+  @Test
+  void asClaseResponseDtoNullBlockTest(@Random final GetclasesOutput getclasesOutput) {
+    getclasesOutput.setIcmListaclases(null);
+    when(this.delegate.asClaseResponseDto(any(GetclasesOutput.class))).thenReturn(new ClaseResponseDto());
+    final ClaseResponseDto result = this.icmWsCalcIncomeMapperDecorator.asClaseResponseDto(getclasesOutput);
+    assertNotNull(result);
+    assertNotNull(result.getItems());
+    assertTrue(result.getItems().isEmpty());
+  }
+
+  @Test
+  void asClaseResultItemDtoTest(@Random final IcmListaclasesRecord record, @Random final ClaseResultItemDto item) {
+    when(this.delegate.asClaseResultItemDto(any(IcmListaclasesRecord.class))).thenReturn(item);
+    record.setEstadosil("2,3,15");
+    final ClaseResultItemDto result = this.icmWsCalcIncomeMapperDecorator.asClaseResultItemDto(record);
+
+    verify(this.delegate).asClaseResultItemDto(record);
+    assertNotNull(result);
+    assertEquals(item, result);
+    assertNotNull(item.getIdsEstadoSil());
+    assertEquals(Arrays.asList("2", "3", "15"), item.getIdsEstadoSil());
   }
 
 }

@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getagruponli
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetausenciasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetclasesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchdiasminimosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
@@ -644,6 +645,19 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       this.release(client);
     }
 
+  }
+
+  @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
+  public GetclasesOutput getclases(final IcmParamcalorigenBlock param) {
+    final Meta4ClientPoolable client = this.claim(this.pool);
+    try {
+      return client.getIcmWsCalcIncomeService().getclases(param);
+    } catch (final M4SoapException_Exception e) {
+      this.catchException(e, client, Arrays.asList(param));
+      throw new Meta4IcmclcwbException(e.getMessage(), e);
+    } finally {
+      this.release(client);
+    }
   }
 
 }
