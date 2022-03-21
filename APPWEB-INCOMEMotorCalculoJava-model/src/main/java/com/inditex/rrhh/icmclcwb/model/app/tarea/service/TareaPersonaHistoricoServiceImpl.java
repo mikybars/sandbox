@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHIstoricoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -109,6 +110,15 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
     return this.tareaPersonaHistoricoRepositoryCustom
         .findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(idTarea, cclIdOrigen,
             TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS);
+  }
+
+  @Override
+  @Cacheable(value = "itx.icmlcwb.id_persona_historico_localizacion_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
+  public List<IdPersonaHIstoricoLocalizacionDto> findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(
+      @NotNull final Long idTarea,
+      @NotNull final String cclIdOrigen) {
+    return this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(idTarea,
+        cclIdOrigen);
   }
 
 }

@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -24,9 +27,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para LogMessage complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType name="LogMessage"&gt;
  *   &lt;complexContent&gt;
@@ -41,8 +44,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "LogMessage", propOrder = {
@@ -69,9 +72,9 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
 
   /**
    * Obtiene el valor de la propiedad code.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getCode() {
     return code;
@@ -79,9 +82,9 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
 
   /**
    * Define el valor de la propiedad code.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setCode(String value) {
     this.code = value;
@@ -89,9 +92,9 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
 
   /**
    * Obtiene el valor de la propiedad description.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getDescription() {
     return description;
@@ -99,9 +102,9 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
 
   /**
    * Define el valor de la propiedad description.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setDescription(String value) {
     this.description = value;
@@ -109,9 +112,9 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
 
   /**
    * Obtiene el valor de la propiedad severity.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getSeverity() {
     return severity;
@@ -119,9 +122,9 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
 
   /**
    * Define el valor de la propiedad severity.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setSeverity(String value) {
     this.severity = value;
@@ -129,9 +132,9 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
 
   /**
    * Obtiene el valor de la propiedad title.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getTitle() {
     return title;
@@ -139,9 +142,9 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
 
   /**
    * Define el valor de la propiedad title.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setTitle(String value) {
     this.title = value;

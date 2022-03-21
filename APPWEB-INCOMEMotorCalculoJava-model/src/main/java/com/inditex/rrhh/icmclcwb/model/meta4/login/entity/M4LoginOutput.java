@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -24,9 +27,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para M4loginOutput complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType name="M4loginOutput"&gt;
  *   &lt;complexContent&gt;
@@ -38,8 +41,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "M4loginOutput", propOrder = {
@@ -54,9 +57,9 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
 
   /**
    * Obtiene el valor de la propiedad sessionID.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getSessionID() {
     return sessionID;
@@ -64,9 +67,9 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
 
   /**
    * Define el valor de la propiedad sessionID.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setSessionID(String value) {
     this.sessionID = value;

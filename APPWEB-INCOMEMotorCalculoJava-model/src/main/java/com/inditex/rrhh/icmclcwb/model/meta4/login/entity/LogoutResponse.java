@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -24,9 +27,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para anonymous complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -38,8 +41,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -54,7 +57,7 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
 
   /**
    * Obtiene el valor de la propiedad logoutReturn.
-   * 
+   *
    */
   public int getLogoutReturn() {
     return logoutReturn;
@@ -62,7 +65,7 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
 
   /**
    * Define el valor de la propiedad logoutReturn.
-   * 
+   *
    */
   public void setLogoutReturn(int value) {
     this.logoutReturn = value;

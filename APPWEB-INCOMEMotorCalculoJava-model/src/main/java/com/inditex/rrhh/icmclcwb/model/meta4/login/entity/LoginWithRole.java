@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -25,9 +28,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para anonymous complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -42,8 +45,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -71,9 +74,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
 
   /**
    * Obtiene el valor de la propiedad aiSUser.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getAiSUser() {
     return aiSUser;
@@ -81,9 +84,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
 
   /**
    * Define el valor de la propiedad aiSUser.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setAiSUser(String value) {
     this.aiSUser = value;
@@ -91,9 +94,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
 
   /**
    * Obtiene el valor de la propiedad aiSPassword.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getAiSPassword() {
     return aiSPassword;
@@ -101,9 +104,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
 
   /**
    * Define el valor de la propiedad aiSPassword.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setAiSPassword(String value) {
     this.aiSPassword = value;
@@ -111,9 +114,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
 
   /**
    * Obtiene el valor de la propiedad aiSLanguage.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getAiSLanguage() {
     return aiSLanguage;
@@ -121,9 +124,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
 
   /**
    * Define el valor de la propiedad aiSLanguage.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setAiSLanguage(String value) {
     this.aiSLanguage = value;
@@ -131,9 +134,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
 
   /**
    * Obtiene el valor de la propiedad aiSRole.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getAiSRole() {
     return aiSRole;
@@ -141,9 +144,9 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
 
   /**
    * Define el valor de la propiedad aiSRole.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setAiSRole(String value) {
     this.aiSRole = value;
