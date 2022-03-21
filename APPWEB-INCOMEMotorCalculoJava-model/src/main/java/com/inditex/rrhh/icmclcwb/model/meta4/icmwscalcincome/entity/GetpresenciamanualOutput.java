@@ -95,7 +95,7 @@ public class GetpresenciamanualOutput implements Serializable, Cloneable, CopyTo
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the logMessage property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getLogMessage().add(newItem);
    * </pre>

@@ -1,5 +1,5 @@
 
-package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
+package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 /*
  * Copyright (c) 2022. Inditex
@@ -36,7 +36,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="ai_sessionId" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="GETCLASESReturn" type="{http://schemas.meta4.com/}GetclasesOutput"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -47,34 +47,34 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "aiSessionId"
+    "getclasesReturn"
 })
-@XmlRootElement(name = "retrieveM4Session")
-public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+@XmlRootElement(name = "GETCLASESResponse")
+public class GETCLASESResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
   private final static long serialVersionUID = 1L;
 
-  @XmlElement(name = "ai_sessionId", required = true)
-  protected String aiSessionId;
+  @XmlElement(name = "GETCLASESReturn", required = true)
+  protected GetclasesOutput getclasesReturn;
 
   /**
-   * Obtiene el valor de la propiedad aiSessionId.
+   * Obtiene el valor de la propiedad getclasesReturn.
    *
-   * @return possible object is {@link String }
+   * @return possible object is {@link GetclasesOutput }
    *
    */
-  public String getAiSessionId() {
-    return aiSessionId;
+  public GetclasesOutput getGETCLASESReturn() {
+    return getclasesReturn;
   }
 
   /**
-   * Define el valor de la propiedad aiSessionId.
+   * Define el valor de la propiedad getclasesReturn.
    *
-   * @param value allowed object is {@link String }
+   * @param value allowed object is {@link GetclasesOutput }
    *
    */
-  public void setAiSessionId(String value) {
-    this.aiSessionId = value;
+  public void setGETCLASESReturn(GetclasesOutput value) {
+    this.getclasesReturn = value;
   }
 
   public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -84,15 +84,15 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
     if (this == object) {
       return true;
     }
-    final RetrieveM4Session that = ((RetrieveM4Session) object);
+    final GETCLASESResponse that = ((GETCLASESResponse) object);
     {
-      String lhsAiSessionId;
-      lhsAiSessionId = this.getAiSessionId();
-      String rhsAiSessionId;
-      rhsAiSessionId = that.getAiSessionId();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSessionId", lhsAiSessionId),
-          LocatorUtils.property(thatLocator, "aiSessionId", rhsAiSessionId), lhsAiSessionId, rhsAiSessionId, (this.aiSessionId != null),
-          (that.aiSessionId != null))) {
+      GetclasesOutput lhsGETCLASESReturn;
+      lhsGETCLASESReturn = this.getGETCLASESReturn();
+      GetclasesOutput rhsGETCLASESReturn;
+      rhsGETCLASESReturn = that.getGETCLASESReturn();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "getclasesReturn", lhsGETCLASESReturn),
+          LocatorUtils.property(thatLocator, "getclasesReturn", rhsGETCLASESReturn), lhsGETCLASESReturn, rhsGETCLASESReturn,
+          (this.getclasesReturn != null), (that.getclasesReturn != null))) {
         return false;
       }
     }
@@ -120,9 +120,9 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
 
   public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
     {
-      String theAiSessionId;
-      theAiSessionId = this.getAiSessionId();
-      strategy.appendField(locator, this, "aiSessionId", buffer, theAiSessionId, (this.aiSessionId != null));
+      GetclasesOutput theGETCLASESReturn;
+      theGETCLASESReturn = this.getGETCLASESReturn();
+      strategy.appendField(locator, this, "getclasesReturn", buffer, theGETCLASESReturn, (this.getclasesReturn != null));
     }
     return buffer;
   }
@@ -130,10 +130,10 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
   public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
     int currentHashCode = 1;
     {
-      String theAiSessionId;
-      theAiSessionId = this.getAiSessionId();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSessionId", theAiSessionId), currentHashCode, theAiSessionId,
-          (this.aiSessionId != null));
+      GetclasesOutput theGETCLASESReturn;
+      theGETCLASESReturn = this.getGETCLASESReturn();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getclasesReturn", theGETCLASESReturn), currentHashCode,
+          theGETCLASESReturn, (this.getclasesReturn != null));
     }
     return currentHashCode;
   }
@@ -154,19 +154,20 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
 
   public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
     final Object draftCopy = ((target == null) ? createNewInstance() : target);
-    if (draftCopy instanceof RetrieveM4Session) {
-      final RetrieveM4Session copy = ((RetrieveM4Session) draftCopy);
+    if (draftCopy instanceof GETCLASESResponse) {
+      final GETCLASESResponse copy = ((GETCLASESResponse) draftCopy);
       {
-        Boolean aiSessionIdShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSessionId != null));
-        if (aiSessionIdShouldBeCopiedAndSet == Boolean.TRUE) {
-          String sourceAiSessionId;
-          sourceAiSessionId = this.getAiSessionId();
-          String copyAiSessionId = ((String) strategy.copy(LocatorUtils.property(locator, "aiSessionId", sourceAiSessionId),
-              sourceAiSessionId, (this.aiSessionId != null)));
-          copy.setAiSessionId(copyAiSessionId);
+        Boolean getclasesReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getclasesReturn != null));
+        if (getclasesReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+          GetclasesOutput sourceGETCLASESReturn;
+          sourceGETCLASESReturn = this.getGETCLASESReturn();
+          GetclasesOutput copyGETCLASESReturn =
+              ((GetclasesOutput) strategy.copy(LocatorUtils.property(locator, "getclasesReturn", sourceGETCLASESReturn),
+                  sourceGETCLASESReturn, (this.getclasesReturn != null)));
+          copy.setGETCLASESReturn(copyGETCLASESReturn);
         } else {
-          if (aiSessionIdShouldBeCopiedAndSet == Boolean.FALSE) {
-            copy.aiSessionId = null;
+          if (getclasesReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.getclasesReturn = null;
           }
         }
       }
@@ -175,7 +176,7 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
   }
 
   public Object createNewInstance() {
-    return new RetrieveM4Session();
+    return new GETCLASESResponse();
   }
 
 }

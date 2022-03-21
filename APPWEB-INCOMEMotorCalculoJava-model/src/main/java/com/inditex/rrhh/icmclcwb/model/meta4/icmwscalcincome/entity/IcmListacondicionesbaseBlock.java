@@ -90,7 +90,7 @@ public class IcmListacondicionesbaseBlock implements Serializable, Cloneable, Co
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmListacondicionesbaseRecordSet().add(newItem);
    * </pre>

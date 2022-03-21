@@ -65,7 +65,7 @@ public class IcmListaventacongeladaBlock implements Serializable, Cloneable, Cop
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmListaventacongeladaRecordSet().add(newItem);
    * </pre>

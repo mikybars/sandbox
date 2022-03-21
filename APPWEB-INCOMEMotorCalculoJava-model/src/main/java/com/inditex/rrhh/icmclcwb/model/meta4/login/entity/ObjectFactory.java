@@ -31,19 +31,19 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link LoginWithRole }
+   * Create an instance of {@link LoginWithCertificate }
    *
    */
-  public LoginWithRole createLoginWithRole() {
-    return new LoginWithRole();
+  public LoginWithCertificate createLoginWithCertificate() {
+    return new LoginWithCertificate();
   }
 
   /**
-   * Create an instance of {@link LoginWithRoleResponse }
+   * Create an instance of {@link LoginWithCertificateResponse }
    *
    */
-  public LoginWithRoleResponse createLoginWithRoleResponse() {
-    return new LoginWithRoleResponse();
+  public LoginWithCertificateResponse createLoginWithCertificateResponse() {
+    return new LoginWithCertificateResponse();
   }
 
   /**
@@ -63,35 +63,19 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link LoginWithCertificate }
+   * Create an instance of {@link LoginWithRole }
    *
    */
-  public LoginWithCertificate createLoginWithCertificate() {
-    return new LoginWithCertificate();
+  public LoginWithRole createLoginWithRole() {
+    return new LoginWithRole();
   }
 
   /**
-   * Create an instance of {@link LoginWithCertificateResponse }
+   * Create an instance of {@link LoginWithRoleResponse }
    *
    */
-  public LoginWithCertificateResponse createLoginWithCertificateResponse() {
-    return new LoginWithCertificateResponse();
-  }
-
-  /**
-   * Create an instance of {@link Logout }
-   *
-   */
-  public Logout createLogout() {
-    return new Logout();
-  }
-
-  /**
-   * Create an instance of {@link LogoutResponse }
-   *
-   */
-  public LogoutResponse createLogoutResponse() {
-    return new LogoutResponse();
+  public LoginWithRoleResponse createLoginWithRoleResponse() {
+    return new LoginWithRoleResponse();
   }
 
   /**
@@ -108,6 +92,22 @@ public class ObjectFactory {
    */
   public LoginResponse createLoginResponse() {
     return new LoginResponse();
+  }
+
+  /**
+   * Create an instance of {@link Logout }
+   *
+   */
+  public Logout createLogout() {
+    return new Logout();
+  }
+
+  /**
+   * Create an instance of {@link LogoutResponse }
+   *
+   */
+  public LogoutResponse createLogoutResponse() {
+    return new LogoutResponse();
   }
 
   /**
@@ -133,7 +133,7 @@ public class ObjectFactory {
    * @return the new instance of {@link JAXBElement }{@code <}{@link M4SoapException }{@code >}
    */
   @XmlElementDecl(namespace = "http://schemas.meta4.com/", name = "fault")
-  public JAXBElement<M4SoapException> createFault(final M4SoapException value) {
+  public JAXBElement<M4SoapException> createFault(M4SoapException value) {
     return new JAXBElement<M4SoapException>(_Fault_QNAME, M4SoapException.class, null, value);
   }
 

@@ -140,7 +140,7 @@ public class IcmParamcalpresupuestoswlocBlock implements Serializable, Cloneable
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParamcalpresupuestoswlocRecordSet().add(newItem);
    * </pre>

@@ -41,6 +41,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="Icm_Ws_Tools" type="{http://schemas.meta4.com/}Icm_Ws_ToolsBlock"/&gt;
  *         &lt;element name="Icm_Listamail" type="{http://schemas.meta4.com/}Icm_ListamailBlock"/&gt;
+ *         &lt;element name="Icm_Listaclases" type="{http://schemas.meta4.com/}Icm_ListaclasesBlock"/&gt;
  *         &lt;element name="Icm_Listasincro" type="{http://schemas.meta4.com/}Icm_ListasincroBlock"/&gt;
  *         &lt;element name="Icm_Listacadenas" type="{http://schemas.meta4.com/}Icm_ListacadenasBlock"/&gt;
  *         &lt;element name="Icm_Listamotivos" type="{http://schemas.meta4.com/}Icm_ListamotivosBlock"/&gt;
@@ -114,6 +115,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "logMessage",
     "icmWsTools",
     "icmListamail",
+    "icmListaclases",
     "icmListasincro",
     "icmListacadenas",
     "icmListamotivos",
@@ -189,6 +191,9 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
 
   @XmlElement(name = "Icm_Listamail", required = true, nillable = true)
   protected IcmListamailBlock icmListamail;
+
+  @XmlElement(name = "Icm_Listaclases", required = true, nillable = true)
+  protected IcmListaclasesBlock icmListaclases;
 
   @XmlElement(name = "Icm_Listasincro", required = true, nillable = true)
   protected IcmListasincroBlock icmListasincro;
@@ -390,7 +395,7 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the logMessage property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getLogMessage().add(newItem);
    * </pre>
@@ -445,6 +450,26 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
    */
   public void setIcmListamail(IcmListamailBlock value) {
     this.icmListamail = value;
+  }
+
+  /**
+   * Obtiene el valor de la propiedad icmListaclases.
+   *
+   * @return possible object is {@link IcmListaclasesBlock }
+   *
+   */
+  public IcmListaclasesBlock getIcmListaclases() {
+    return icmListaclases;
+  }
+
+  /**
+   * Define el valor de la propiedad icmListaclases.
+   *
+   * @param value allowed object is {@link IcmListaclasesBlock }
+   *
+   */
+  public void setIcmListaclases(IcmListaclasesBlock value) {
+    this.icmListaclases = value;
   }
 
   /**
@@ -1679,6 +1704,17 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
       }
     }
     {
+      IcmListaclasesBlock lhsIcmListaclases;
+      lhsIcmListaclases = this.getIcmListaclases();
+      IcmListaclasesBlock rhsIcmListaclases;
+      rhsIcmListaclases = that.getIcmListaclases();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaclases", lhsIcmListaclases),
+          LocatorUtils.property(thatLocator, "icmListaclases", rhsIcmListaclases), lhsIcmListaclases, rhsIcmListaclases,
+          (this.icmListaclases != null), (that.icmListaclases != null))) {
+        return false;
+      }
+    }
+    {
       IcmListasincroBlock lhsIcmListasincro;
       lhsIcmListasincro = this.getIcmListasincro();
       IcmListasincroBlock rhsIcmListasincro;
@@ -2373,6 +2409,11 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
       strategy.appendField(locator, this, "icmListamail", buffer, theIcmListamail, (this.icmListamail != null));
     }
     {
+      IcmListaclasesBlock theIcmListaclases;
+      theIcmListaclases = this.getIcmListaclases();
+      strategy.appendField(locator, this, "icmListaclases", buffer, theIcmListaclases, (this.icmListaclases != null));
+    }
+    {
       IcmListasincroBlock theIcmListasincro;
       theIcmListasincro = this.getIcmListasincro();
       strategy.appendField(locator, this, "icmListasincro", buffer, theIcmListasincro, (this.icmListasincro != null));
@@ -2712,6 +2753,12 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
       theIcmListamail = this.getIcmListamail();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListamail", theIcmListamail), currentHashCode, theIcmListamail,
           (this.icmListamail != null));
+    }
+    {
+      IcmListaclasesBlock theIcmListaclases;
+      theIcmListaclases = this.getIcmListaclases();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaclases", theIcmListaclases), currentHashCode,
+          theIcmListaclases, (this.icmListaclases != null));
     }
     {
       IcmListasincroBlock theIcmListasincro;
@@ -3146,6 +3193,21 @@ public class M4LoadobjectOutput implements Serializable, Cloneable, CopyTo2, Equ
         } else {
           if (icmListamailShouldBeCopiedAndSet == Boolean.FALSE) {
             copy.icmListamail = null;
+          }
+        }
+      }
+      {
+        Boolean icmListaclasesShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaclases != null));
+        if (icmListaclasesShouldBeCopiedAndSet == Boolean.TRUE) {
+          IcmListaclasesBlock sourceIcmListaclases;
+          sourceIcmListaclases = this.getIcmListaclases();
+          IcmListaclasesBlock copyIcmListaclases =
+              ((IcmListaclasesBlock) strategy.copy(LocatorUtils.property(locator, "icmListaclases", sourceIcmListaclases),
+                  sourceIcmListaclases, (this.icmListaclases != null)));
+          copy.setIcmListaclases(copyIcmListaclases);
+        } else {
+          if (icmListaclasesShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmListaclases = null;
           }
         }
       }

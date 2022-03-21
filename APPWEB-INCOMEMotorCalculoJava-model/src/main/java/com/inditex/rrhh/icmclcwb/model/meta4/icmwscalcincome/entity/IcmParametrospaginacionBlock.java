@@ -240,7 +240,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParametrospaginacionRecordSet().add(newItem);
    * </pre>
