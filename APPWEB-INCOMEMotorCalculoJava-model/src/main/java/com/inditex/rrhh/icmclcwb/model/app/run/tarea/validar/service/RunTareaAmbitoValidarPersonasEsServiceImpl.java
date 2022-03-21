@@ -32,20 +32,20 @@ import org.springframework.validation.annotation.Validated;
 public class RunTareaAmbitoValidarPersonasEsServiceImpl implements RunTareaAmbitoValidarPersonasEsService {
 
   @Autowired
-  private ComisAsyncService comisAsyncService;
-
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Autowired
   private ValidacionMapper validacionMapper;
+
+  @Autowired
+  private ComisAsyncService comisAsyncService;
 
   @Autowired
   @Qualifier("personasProperties")
   private PrevalidarPropertiesDto personasProperties;
 
   @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  private TareaFaseAccionService tareaFaseAccionService;
 
   @Override
   public ValidacionDto execute(
