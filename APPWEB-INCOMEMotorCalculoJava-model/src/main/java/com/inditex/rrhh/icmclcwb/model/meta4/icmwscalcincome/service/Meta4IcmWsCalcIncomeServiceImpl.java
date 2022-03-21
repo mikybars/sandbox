@@ -1074,8 +1074,8 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
   @Cacheable(value = "itx.icmlcwb.get_tipos_hora", key = "{#request.cclIdOrigen}")
   public ClaseResponseDto getClases(
       final ClaseRequestDto request) {
-      final IcmParamcalorigenBlock param = this.icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(request);
-      final GetclasesOutput clases = this.meta4ClientPool.getclases(param);
-      return this.icmWsCalcIncomeMapper.asClaseResponseDto(clases);
+    final IcmParamcalorigenBlock param = this.icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(request);
+    final GetclasesOutput clases = this.meta4ClientPool.getclases(param);
+    return this.icmWsCalcIncomeMapper.asClaseResponseDto(clases);
   }
 }

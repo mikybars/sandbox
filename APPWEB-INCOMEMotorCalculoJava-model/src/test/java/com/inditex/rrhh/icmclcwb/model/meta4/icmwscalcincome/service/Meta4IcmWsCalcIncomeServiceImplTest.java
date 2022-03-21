@@ -1933,18 +1933,18 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
   }
 
   @Test
-  void clases(@Random final ClaseRequestDto request, @Random final IcmParamcalorigenBlock param, @Random final GetclasesOutput output, @Random final
-  ClaseResponseDto response) {
-      when(this.icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(any(ClaseRequestDto.class))).thenReturn(param);
-      when(this.meta4ClientPool.getclases(any(IcmParamcalorigenBlock.class))).thenReturn(output);
-      when(this.icmWsCalcIncomeMapper.asClaseResponseDto(any(GetclasesOutput.class))).thenReturn(response);
+  void clases(@Random final ClaseRequestDto request, @Random final IcmParamcalorigenBlock param, @Random final GetclasesOutput output,
+      @Random final ClaseResponseDto response) {
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(any(ClaseRequestDto.class))).thenReturn(param);
+    when(this.meta4ClientPool.getclases(any(IcmParamcalorigenBlock.class))).thenReturn(output);
+    when(this.icmWsCalcIncomeMapper.asClaseResponseDto(any(GetclasesOutput.class))).thenReturn(response);
 
-      final ClaseResponseDto result = this.meta4IcmWsCalcIncomeServiceImpl.getClases(request);
+    final ClaseResponseDto result = this.meta4IcmWsCalcIncomeServiceImpl.getClases(request);
 
-      verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcalorigenBlock(request);
-      verify(this.icmWsCalcIncomeMapper, times(1)).asClaseResponseDto(output);
-      verify(this.meta4ClientPool, times(1)).getclases(param);
-      assertEquals(response, result);
+    verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcalorigenBlock(request);
+    verify(this.icmWsCalcIncomeMapper, times(1)).asClaseResponseDto(output);
+    verify(this.meta4ClientPool, times(1)).getclases(param);
+    assertEquals(response, result);
   }
 
 }
