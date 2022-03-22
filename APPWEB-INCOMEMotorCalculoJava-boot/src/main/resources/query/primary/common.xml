@@ -9127,4 +9127,33 @@ INSERT INTO SESSION.PRESUPUESTO (
     ]]>
   </entry>
 
+  <entry key="PrimaryTemporaryTableRepositoryCustom.createTempComisComisionManual">
+    <![CDATA[
+    DECLARE GLOBAL TEMPORARY TABLE SESSION.GTT_COMIS_COMISION_MANUAL (
+      CCL_ID_PERSON VARGRAPHIC(24) NOT NULL,
+      ID_GRUPO_MANUAL INTEGER NOT NULL,
+      ICM_ID_TP_COMISION VARGRAPHIC(24) NOT NULL,
+      IMPORTE DECIMAL(23,8) NOT NULL
+    )ON COMMIT PRESERVE ROWS NOT LOGGED WITH REPLACE
+    ]]>
+  </entry>
+
+  <entry key="PrimaryTemporaryTableRepositoryCustom.indexTempComisComisionManual">
+    <![CDATA[
+      CREATE INDEX SESSION.IX_GTT_COMIS_COMISION_MANUAL ON SESSION.GTT_COMIS_COMISION_MANUAL (CCL_ID_PERSON, ICM_ID_TP_COMISION, ID_GRUPO_MANUAL) COLLECT DETAILED STATISTICS
+    ]]>
+  </entry>
+
+  <entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempComisComisionManual">
+    <![CDATA[
+      DROP TABLE SESSION.GTT_COMIS_COMISION_MANUAL
+    ]]>
+  </entry>
+
+  <entry key="PrimaryTemporaryTableRepositoryCustom.insertTempComisComisionManual">
+    <![CDATA[
+      INSERT INTO SESSION.GTT_COMIS_COMISION_MANUAL (CCL_ID_PERSON, ID_GRUPO_MANUAL, ICM_ID_TP_COMISION, IMPORTE) VALUES (?, ? , ?, ?)
+    ]]>
+  </entry>
+
 </properties>

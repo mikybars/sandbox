@@ -59,6 +59,8 @@ public class SqlComisConstants {
 
   public static final String SQL_RESULT_ID_TIPO_CALCULO = "ID_TIPO_CALCULO";
 
+  public static final String SQL_RESULT_ID_TIPO_COMISION = "ID_TIPO_COMISION";
+
   public static final String SQL_RESULT_ID_TIPO_OPCION_CALCULO = "ID_TIPO_OPCION_CALCULO";
 
   public static final String SQL_RESULT_PORCENTAJE = "PORCENTAJE";
@@ -70,6 +72,8 @@ public class SqlComisConstants {
   public static final String SQL_RESULT_PUESTO = "PUESTO";
 
   public static final String SQL_RESULT_SECCIONES = "SECCIONES";
+
+  public static final String SQL_RESULT_ID_GRUPO_MANUAL = "ID_GRUPO_MANUAL";
 
   private SqlComisConstants() {
   }

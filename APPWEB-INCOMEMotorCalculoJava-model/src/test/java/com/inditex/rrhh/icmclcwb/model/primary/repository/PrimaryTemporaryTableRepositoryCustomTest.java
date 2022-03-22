@@ -9,8 +9,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +20,9 @@ import java.util.Map;
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
@@ -31,6 +35,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -219,6 +224,17 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   private final static String SQL_DELETE_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO =
       "SQL DELETE TEMP BANDAS ORIGEN SIN BANDA DESPLAZAMIENTO";
 
+  // comision manual
+  private final static String SQL_CREATE_TEMP_COMIS_COMISION_MANUAL = "SQL CREATE TEMP COMIS COMISION MANUAL";
+
+  private final static String SQL_INDEX_TEMP_COMIS_COMISION_MANUAL = "SQL INDEX TEMP COMIS COMISION MANUAL";
+
+  private final static String SQL_INSERT_TEMP_COMIS_COMISION_MANUAL = "SQL INSERT TEMP COMIS COMISION MANUAL";
+
+  private final static String SQL_DELETE_TEMP_COMIS_COMISION_MANUAL = "SQL DELETE TEMP COMIS COMISION MANUAL";
+
+  private final static String SQL_VALIDATE_TEMP_COMIS_COMISION_MANUAL = "SQL VALIDATE TEMP COMIS COMISION MANUAL";
+
   @BeforeEach
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom, "batchSize", 3, true);
@@ -380,6 +396,23 @@ class PrimaryTemporaryTableRepositoryCustomTest {
         true);
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
         "sqlDeleteTempBandasOrigenSinBandaDesplazamiento", SQL_DELETE_TEMP_BANDAS_ORIGEN_SIN_BANDA_DESPLAZAMIENTO,
+        true);
+
+    // comision manual
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlCreateTempComisComisionManual", SQL_CREATE_TEMP_COMIS_COMISION_MANUAL,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlIndexTempComisComisionManual", SQL_INDEX_TEMP_COMIS_COMISION_MANUAL,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlInsertTempComisComisionManual", SQL_INSERT_TEMP_COMIS_COMISION_MANUAL,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlDeleteTempComisComisionManual", SQL_DELETE_TEMP_COMIS_COMISION_MANUAL,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlValidateTempComisComisionManual", SQL_VALIDATE_TEMP_COMIS_COMISION_MANUAL,
         true);
 
   }
@@ -1176,5 +1209,67 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   // Fin Test estructuras base challenge
+
+  // Tests comision manual
+
+  @Test
+  void createTempComisComisionManualTest() {
+    this.primaryTemporaryTableRepositoryCustom.createTempComisComisionManual();
+    verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_COMIS_COMISION_MANUAL);
+  }
+
+  @Test
+  void insertTempComisComisionManualTest(@Random final IdPersonaLocalComisionManualDto comision1,
+      @Random final IdPersonaLocalComisionManualDto comision2,
+      @Random final IdPersonaLocalComisionManualDto comision3) {
+
+    final List<IdPersonaLocalComisionManualDto> comisiones = Arrays.asList(comision1, comision2, comision3);
+    this.primaryTemporaryTableRepositoryCustom.insertTempComisComisionManual(comisiones);
+    verify(this.jdbcTemplate).batchUpdate(eq(SQL_INSERT_TEMP_COMIS_COMISION_MANUAL),
+        any(BatchPreparedStatementSetter.class));
+  }
+
+  @Test
+  void deleteTempComisComisionManualTest() {
+    this.primaryTemporaryTableRepositoryCustom.deleteTempComisComisionManual();
+    verify(this.jdbcTemplate, times(1)).update(SQL_DELETE_TEMP_COMIS_COMISION_MANUAL);
+  }
+
+  @Test
+  void indexTempComisComisionManualTest() {
+    this.primaryTemporaryTableRepositoryCustom.indexTempComisComisionManual();
+    verify(this.jdbcTemplate).update(SQL_INDEX_TEMP_COMIS_COMISION_MANUAL);
+  }
+
+  @Test
+  void validateTempComisComisionManualTest(@Random final TareaDto tarea, @Random final IdPersonaLocalDto persona1,
+      @Random final IdPersonaLocalDto persona2) {
+
+    persona1.setStdOrHrPeriod(null);
+    persona2.setStdOrHrPeriod(null);
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalDto>>any())).thenAnswer((invocation) -> {
+          final RowMapper<IdPersonaLocalDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs1 = mock(ResultSet.class);
+          final ResultSet rs2 = mock(ResultSet.class);
+          when(rs1.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(persona1.getIdPersonaLocal());
+          when(rs2.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(persona2.getIdPersonaLocal());
+
+          return Arrays.asList(rowMapper.mapRow(rs1, 0), rowMapper.mapRow(rs2, 1));
+        });
+
+    final List<IdPersonaLocalDto> result = this.primaryTemporaryTableRepositoryCustom.validateTempComisComisionManual(tarea);
+
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_VALIDATE_TEMP_COMIS_COMISION_MANUAL), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalDto>>any());
+    assertEquals(expected, this.paramsCaptor.getValue().getValues());
+
+    assertEquals(Arrays.asList(persona1, persona2), result);
+  }
+
+  // Fin Tetss comision manual
 
 }

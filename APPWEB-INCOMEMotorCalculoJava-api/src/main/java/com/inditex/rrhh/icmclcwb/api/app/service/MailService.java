@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 
 public interface MailService {
 
-  void sendMailMotivos(final RunTareaDto runTarea);
+  void sendMailMotivos(final RunTareaDto runTarea, List<ValidacionDto> fallidas);
 
   /**
    * Some javadoc.
