@@ -3807,4 +3807,40 @@ UNION
     ]]>
   </entry>
 
+  <entry key="ComisRepositoryCustom.findPersonasSILSinEstado">
+    <![CDATA[
+    SELECT
+      PH.Persona AS CCL_ID_PERSON,
+      PH.Tienda AS CCL_ID_COD_ORIGEN
+    FROM PersonasGrupo PG
+    INNER JOIN PersonasHistorico PH
+      ON PH.Persona = PG.Persona
+    WHERE
+      PH.FechaDesde <= :fechaHasta
+      AND PG.Persona < :maxPersona
+      AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
+      AND PH.PUESTO IS NOT NULL AND PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+      AND PG.Clase = :clase
+    GROUP BY PH.Persona, PH.Tienda
+    ]]>
+  </entry>
+
+  <entry key="ComisRepositoryCustom.findPersonasSILConEstado">
+    <![CDATA[
+    SELECT
+      PH.Persona AS CCL_ID_PERSON,
+      PH.Tienda AS CCL_ID_COD_ORIGEN
+    FROM PersonasGrupo PG
+    INNER JOIN PersonasHistorico PH
+      ON PH.Persona = PG.Persona
+    WHERE
+      PH.FechaDesde <= :fechaHasta
+      AND PG.Persona < :maxPersona
+      AND (PH.FechaHasta IS NULL OR PH.FechaHasta >= :fechaDesde)
+      AND PH.PUESTO IS NOT NULL AND PUESTO <> 99 AND PH.TIENDA IS NOT NULL
+      AND PG.Clase = :clase AND PG.EstadoSil in (:estadosSil)
+    GROUP BY PH.Persona, PH.Tienda
+    ]]>
+  </entry>
+
 </properties>

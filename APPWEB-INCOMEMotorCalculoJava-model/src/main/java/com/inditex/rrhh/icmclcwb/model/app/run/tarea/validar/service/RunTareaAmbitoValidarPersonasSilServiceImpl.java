@@ -17,6 +17,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
@@ -47,6 +50,9 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
   @Autowired
   private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
+  @Autowired
+  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+
   @Override
   public ValidacionDto execute(
       @Valid final RunTareaDto runTarea,
@@ -57,21 +63,28 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     List<IdPersonaLocalDto> validationResult = new ArrayList<>();
     try {
-      // TODO llamar a Meta4 para obtener las clases y/o estado SIL
+      // llamar a Meta4 para obtener las clases y/o estado SIL
+      final ClaseRequestDto request = ClaseRequestDto.builder().cclIdOrigen(tareaAmbito.getCclIdOrigen()).build();
+      final ClaseResponseDto clases = this.meta4IcmWsCalcIncomeService.getClases(request);
 
-      // TODO llamar a un nuevo servico comis que acepte por parametro las clases y estados
-      final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cfPersonas = this.comisAsyncService
-          .findPersonas(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_NO_ES);
-      AsyncUtils.exceptionally(cfPersonas, cf);
+      // obtención de las personas desde Comis usando las clases y estaod SIL
+      final List<CompletableFuture<List<IdPersonaLocalLocalizacionDto>>> cfsPersonas = new ArrayList<>();
+      clases.getItems().forEach(clase -> {
+        final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cfPersonas =
+            this.comisAsyncService.findPersonasSil(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_NO_ES, clase);
+        AsyncUtils.exceptionally(cfPersonas, cf);
+        cfsPersonas.add(cfPersonas);
+      });
 
       AsyncUtils.waitAllOfIsOk(cf, cf);
 
-      final List<IdPersonaLocalLocalizacionDto> personasComis = AsyncUtils.get(cfPersonas);
-
-      // guardado de la infor de comis en una tabla temporal
+      // guardado de la info de comis en una tabla temporal
       this.primaryTemporaryTableRepositoryCustom.createTempComisPersonasLocalizaciones();
       this.primaryTemporaryTableRepositoryCustom.indexTempComisPersonasLocalizaciones();
-      this.primaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones(personasComis);
+      cfsPersonas.forEach(cfPersonas -> {
+        final List<IdPersonaLocalLocalizacionDto> personasComis = AsyncUtils.get(cfPersonas);
+        this.primaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones(personasComis);
+      });
 
       // comparar la info de la tabl atemporal con los datos de Income
       validationResult = this.primaryTemporaryTableRepositoryCustom.validateTempComisPersonas(tarea);

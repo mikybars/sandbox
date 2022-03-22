@@ -22,6 +22,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -92,6 +93,19 @@ class ComisAsyncServiceImplTest {
     final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf =
         this.comisAsyncServiceImpl.findPersonas(runTarea, ambito, maxIdPersona);
     verify(this.comisService, times(1)).findPersonas(runTarea, ambito, maxIdPersona);
+    assertEquals(response, cf.get());
+  }
+
+  @Test
+  void findPersonasSilTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto ambito, @Random final Long maxIdPersona,
+      @Random final ClaseResultItemDto clase)
+      throws ExecutionException, InterruptedException {
+    final List<IdPersonaLocalLocalizacionDto> response = new ArrayList<>();
+    when(this.comisService.findPersonasSil(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class),
+        any(ClaseResultItemDto.class))).thenReturn(response);
+    final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf =
+        this.comisAsyncServiceImpl.findPersonasSil(runTarea, ambito, maxIdPersona, clase);
+    verify(this.comisService, times(1)).findPersonasSil(runTarea, ambito, maxIdPersona, clase);
     assertEquals(response, cf.get());
   }
 

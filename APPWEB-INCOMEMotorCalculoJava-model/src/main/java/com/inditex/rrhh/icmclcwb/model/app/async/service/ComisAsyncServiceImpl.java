@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -197,5 +198,12 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
   public CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonas(
       @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona) {
     return CompletableFuture.completedFuture(this.comisService.findPersonas(runTareaDto, tareaAmbito, maxIdPersona));
+  }
+
+  @Override
+  public CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonasSil(
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona,
+      @Valid final ClaseResultItemDto clase) {
+    return CompletableFuture.completedFuture(this.comisService.findPersonasSil(runTareaDto, tareaAmbito, maxIdPersona, clase));
   }
 }
