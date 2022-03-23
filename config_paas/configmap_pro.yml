@@ -38,7 +38,7 @@ amiga:
           username: uincome
         ptr:
           driver-class-name: oracle.jdbc.OracleDriver
-          jdbc-url: jdbc:oracle:thin:@//axine6-scansrv.central.inditex.grp:11521/s_pdbin01rt_gener.central.inditex.grp
+          jdbc-url: jdbc:oracle:thin:@//axine5-scansrv.central.inditex.grp:11521/s_pdbin01rt_gener.central.inditex.grp
           username: uincome
           defaultIsolationLevel: 2
 #        ptr:
