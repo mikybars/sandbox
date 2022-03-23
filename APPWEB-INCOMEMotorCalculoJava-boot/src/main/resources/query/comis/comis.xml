@@ -3807,7 +3807,7 @@ UNION
     ]]>
   </entry>
 
-  <entry key="ComisRepositoryCustom.findPersonasSILSinEstado">
+  <entry key="ComisRepositoryCustom.findPersonasSilSinEstado">
     <![CDATA[
     SELECT
       PH.Persona AS CCL_ID_PERSON,
@@ -3825,7 +3825,7 @@ UNION
     ]]>
   </entry>
 
-  <entry key="ComisRepositoryCustom.findPersonasSILConEstado">
+  <entry key="ComisRepositoryCustom.findPersonasSilConEstado">
     <![CDATA[
     SELECT
       PH.Persona AS CCL_ID_PERSON,
