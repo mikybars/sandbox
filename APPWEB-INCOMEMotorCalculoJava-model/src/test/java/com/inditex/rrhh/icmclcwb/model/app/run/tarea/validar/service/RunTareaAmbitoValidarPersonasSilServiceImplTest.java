@@ -73,12 +73,10 @@ class RunTareaAmbitoValidarPersonasSilServiceImplTest {
       @Random final IdPersonaLocalLocalizacionDto persona2, @Random final ClaseResultItemDto clase1,
       @Random final ClaseResultItemDto clase2) {
 
-    final List<IdPersonaLocalLocalizacionDto> listaClase1 = Collections.singletonList(persona1);
-    final List<IdPersonaLocalLocalizacionDto> listaClase2 = Collections.singletonList(persona2);
     final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf1 = new CompletableFuture<>();
-    cf1.complete(listaClase1);
+    cf1.complete(Collections.singletonList(persona1));
     final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf2 = new CompletableFuture<>();
-    cf2.complete(listaClase2);
+    cf2.complete(Collections.singletonList(persona2));
 
     final ClaseResponseDto clase = ClaseResponseDto
         .builder()
@@ -99,8 +97,7 @@ class RunTareaAmbitoValidarPersonasSilServiceImplTest {
         clase2);
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).createTempComisPersonasLocalizaciones();
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).indexTempComisPersonasLocalizaciones();
-    verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).insertTempComisPersonasLocalizaciones(listaClase1);
-    verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).insertTempComisPersonasLocalizaciones(listaClase2);
+    verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).insertTempComisPersonasLocalizaciones(Arrays.asList(persona1, persona2));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).validateTempComisPersonas(runTarea.getTarea());
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).deleteTempComisPersonasLocalizaciones();
     verify(this.validacionMapper, timeout(1000).times(1)).idPersonaLocalDtoTovalidacionDto(eq(tareaAmbito), eq(tareaFaseAccion),
