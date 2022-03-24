@@ -13,6 +13,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioResponseDto;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +90,9 @@ public class MailServiceImpl implements MailService {
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
+  @Autowired
+  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+
   @Override
   public void sendMail(final TareaFaseDto tareaFase, final List<ValidacionDto> fallidas, final RunTareaDto runTarea) {
     final TareaDto tarea = runTarea.getTarea();
@@ -95,7 +101,8 @@ public class MailServiceImpl implements MailService {
     final StringBuilder result = new StringBuilder();
     result.append(TITLE);
     result.append(DOUBLE_LINE_BREAK);
-    result.append(PERIOD).append(trabajo.getIdOrganization()).append(PERIOD_END);
+    result.append(PERIOD).append(tarea.getIdOrganization().equalsIgnoreCase("0001") ? "ES" : tarea.getIdOrganization())
+        .append(PERIOD_END);
     result.append(trabajo.getFechaInicioPeriodo().toLocalDate()).append(SEPARATOR).append(trabajo.getFechaFinPeriodo().toLocalDate());
     result.append(DOUBLE_LINE_BREAK);
     result.append(ERROR_LIST);
@@ -127,14 +134,22 @@ public class MailServiceImpl implements MailService {
     message.setFrom(this.sender);
     message.setTo(this.receiver);
     if (!trabajo.getNombreUsuario().trim().equalsIgnoreCase("srvcicmclcwbax")) {
-      message.setCc(new StringBuilder(trabajo.getNombreUsuario().toLowerCase()).append("@inditex.com").toString());
+      final UsuarioResponseDto usuario = this.meta4IcmWsCalcIncomeService
+          .getMail(UsuarioRequestDto
+              .builder()
+              .idUsuario(trabajo.getNombreUsuario())
+              .build());
+      if (usuario != null && !usuario.getItems().isEmpty()) {
+        message.setCc(new StringBuilder(usuario.getItems().get(0).getMail()).toString());
+      }
+
     }
 
     message.setSubject(new StringBuilder(APP)
         .append(SEPARATOR)
         .append(CALCULATION_RESULTS)
         .append(tarea.getIdOrganization())
-        .append(this.environment.equalsIgnoreCase("PRO") ? "" : SEPARATOR + this.environment.toUpperCase() + SEPARATOR)
+        .append(this.environment.equalsIgnoreCase("PRO") ? " " : SEPARATOR + this.environment.toUpperCase() + SEPARATOR)
         .append(SUBJECT)
         .append(OPEN_PARENTHESIS)
         .append(tareaFase.getIdTarea())

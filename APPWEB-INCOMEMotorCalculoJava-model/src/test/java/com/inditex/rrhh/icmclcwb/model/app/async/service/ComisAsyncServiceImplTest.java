@@ -16,6 +16,7 @@ import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -78,6 +79,16 @@ class ComisAsyncServiceImplTest {
     when(this.comisService.findComisionManual(any(RunTareaDto.class), any(TareaAmbitoDto.class))).thenReturn(response);
     final CompletableFuture<List<IdPersonaLocalComisionManualDto>> cf =
         this.comisAsyncServiceImpl.findComisionManual(runTarea, ambito);
+    assertEquals(response, cf.get());
+  }
+
+  @Test
+  void findPersonasTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto ambito)
+      throws ExecutionException, InterruptedException {
+    final List<IdPersonaLocalLocalizacionDto> response = new ArrayList<>();
+    when(this.comisService.findPersonas(any(RunTareaDto.class), any(TareaAmbitoDto.class))).thenReturn(response);
+    final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf =
+        this.comisAsyncServiceImpl.findPersonas(runTarea, ambito);
     assertEquals(response, cf.get());
   }
 

@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
@@ -189,5 +190,11 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
   public CompletableFuture<List<IdPersonaLocalComisionManualDto>> findComisionManual(
       @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito) {
     return CompletableFuture.completedFuture(this.comisService.findComisionManual(runTareaDto, tareaAmbito));
+  }
+
+  @Override
+  public CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonas(
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito) {
+    return CompletableFuture.completedFuture(this.comisService.findPersonas(runTareaDto, tareaAmbito));
   }
 }

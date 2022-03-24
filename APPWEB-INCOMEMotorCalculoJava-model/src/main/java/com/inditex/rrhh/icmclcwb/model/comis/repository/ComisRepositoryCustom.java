@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -178,9 +179,17 @@ public interface ComisRepositoryCustom {
 
   /**
    * Obtiene las comisiones manuales.
-   * 
+   *
    * @param tarea tarea
    * @return Lista de comisiones manuales.
    */
   List<IdPersonaLocalComisionManualDto> findComisionManual(TareaDto tarea);
+
+  /**
+   * Obtiene las personas con sus respectivas localizaciones.
+   * 
+   * @param tarea tarea
+   * @return Lista de personas.
+   */
+  List<IdPersonaLocalLocalizacionDto> findPersonas(TareaDto tarea);
 }

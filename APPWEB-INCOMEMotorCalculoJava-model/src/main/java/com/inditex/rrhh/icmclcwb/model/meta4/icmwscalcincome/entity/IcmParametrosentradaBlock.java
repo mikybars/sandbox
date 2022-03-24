@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para Icm_ParametrosentradaBlock complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType name="Icm_ParametrosentradaBlock"&gt;
  *   &lt;complexContent&gt;
@@ -46,8 +49,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParametrosentradaBlock", propOrder = {
@@ -86,9 +89,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Obtiene el valor de la propiedad ambito.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getAmbito() {
     return ambito;
@@ -96,9 +99,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Define el valor de la propiedad ambito.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setAmbito(String value) {
     this.ambito = value;
@@ -106,9 +109,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Obtiene el valor de la propiedad fechafin.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getFechafin() {
     return fechafin;
@@ -116,9 +119,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Define el valor de la propiedad fechafin.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setFechafin(String value) {
     this.fechafin = value;
@@ -126,9 +129,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Obtiene el valor de la propiedad idcadena.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getIdcadena() {
     return idcadena;
@@ -136,9 +139,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Define el valor de la propiedad idcadena.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setIdcadena(String value) {
     this.idcadena = value;
@@ -146,9 +149,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Obtiene el valor de la propiedad idorigen.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getIdorigen() {
     return idorigen;
@@ -156,9 +159,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Define el valor de la propiedad idorigen.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setIdorigen(String value) {
     this.idorigen = value;
@@ -166,9 +169,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Obtiene el valor de la propiedad idempresa.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getIdempresa() {
     return idempresa;
@@ -176,9 +179,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Define el valor de la propiedad idempresa.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setIdempresa(String value) {
     this.idempresa = value;
@@ -186,9 +189,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Obtiene el valor de la propiedad fechainicio.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getFechainicio() {
     return fechainicio;
@@ -196,9 +199,9 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Define el valor de la propiedad fechainicio.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setFechainicio(String value) {
     this.fechainicio = value;
@@ -206,21 +209,21 @@ public class IcmParametrosentradaBlock implements Serializable, Cloneable, CopyT
 
   /**
    * Gets the value of the icmParametrosentradaRecordSet property.
-   * 
+   *
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmParametrosentradaRecordSet
    * property.
-   * 
+   *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParametrosentradaRecordSet().add(newItem);
    * </pre>
-   * 
-   * 
+   *
+   *
    * <p> Objects of the following type(s) are allowed in the list {@link IcmParametrosentradaRecord }
-   * 
-   * 
+   *
+   *
    */
   public List<IcmParametrosentradaRecord> getIcmParametrosentradaRecordSet() {
     if (icmParametrosentradaRecordSet == null) {

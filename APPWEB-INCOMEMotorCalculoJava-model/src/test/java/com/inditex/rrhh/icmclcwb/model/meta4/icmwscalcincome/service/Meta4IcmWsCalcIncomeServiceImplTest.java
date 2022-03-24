@@ -48,6 +48,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.Siste
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioRequestDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
@@ -65,6 +66,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasO
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmailOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
@@ -130,6 +132,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcals
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiposhoraBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalusuarioBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
@@ -1903,6 +1906,23 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     verify(this.meta4ClientPool, times(1)).gettiposhora(entrada);
     verify(this.icmWsCalcIncomeMapper, times(1)).asTiposHoraResponseDto(output);
     verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcaltiposhoraBlock(request);
+
+  }
+
+  @Test
+  public void mail() {
+
+    final IcmParamcalusuarioBlock entrada = new IcmParamcalusuarioBlock();
+    final GetmailOutput output = new GetmailOutput();
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalusuarioBlock(any(UsuarioRequestDto.class)))
+        .thenReturn(entrada);
+    when(this.meta4ClientPool.getmail(entrada)).thenReturn(output);
+    final UsuarioRequestDto request = UsuarioRequestDto.builder().build();
+    this.meta4IcmWsCalcIncomeServiceImpl.getMail(request);
+
+    verify(this.meta4ClientPool, times(1)).getmail(entrada);
+    verify(this.icmWsCalcIncomeMapper, times(1)).asUsuarioResponseDto(output);
+    verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcalusuarioBlock(request);
 
   }
 

@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
@@ -89,6 +90,9 @@ public class ComisRepositoryCustomImpl
 
   @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findComisionManual']}")
   private String sqlFindComisionManual;
+
+  @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findPersonas']}")
+  private String sqlFindPersonas;
 
   @Autowired
   @Qualifier("fechasProperties")
@@ -521,6 +525,20 @@ public class ComisRepositoryCustomImpl
         .tipoComision(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_COMISION))
         .grupoManual(rs.getString(SqlComisConstants.SQL_RESULT_ID_GRUPO_MANUAL))
         .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
+        .build());
+  }
+
+  @Override
+  public List<IdPersonaLocalLocalizacionDto> findPersonas(
+      final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+
+    return this.query(this.sqlFindPersonas, map, (rs, rowNum) -> IdPersonaLocalLocalizacionDto
+        .builder()
+        .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
+        .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
         .build());
   }
 }

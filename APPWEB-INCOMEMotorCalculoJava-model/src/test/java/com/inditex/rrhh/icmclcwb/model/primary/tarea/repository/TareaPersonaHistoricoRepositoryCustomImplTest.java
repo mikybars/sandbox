@@ -62,6 +62,9 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
   private final static String SQL_FIND_ID_PERSONA_HISTORICO_COMPENSACION_CHALLENGE_BY_ID_TAREA =
       "SQL FIND ID PERSONA HISTORICO COMPENSACION CHALLENGE BY ID TAREA";
 
+  private final static String SQL_FIND_ID_PERSONA_HISTORICO_AND_LOCALIZACION_BY_ID_TAREA_AND_ID_ORIGEN_AND_TIPO_DATO_IN_AMBITO =
+      "SQL FIND ID PERSONA HISTORICO AND LOCALIZACION BY ID TAREA AND ID ORIGEN AND TIPO DATO IN AMBITO";
+
   @Mock
   private JdbcTemplate jdbcTemplate;
 
@@ -102,6 +105,10 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaPersonaHistoricoRepositoryCustom,
         "sqlFindIdPersonaLocalCompensacionChallengeByIdTarea",
         SQL_FIND_ID_PERSONA_HISTORICO_COMPENSACION_CHALLENGE_BY_ID_TAREA,
+        true);
+    FieldUtils.writeField(this.tareaPersonaHistoricoRepositoryCustom,
+        "sqlFindIdPersonaHistoricoLocalizacionByIdTareaAndIdOrigenInPeriodoCalculoPersona",
+        SQL_FIND_ID_PERSONA_HISTORICO_AND_LOCALIZACION_BY_ID_TAREA_AND_ID_ORIGEN_AND_TIPO_DATO_IN_AMBITO,
         true);
     FieldUtils.writeField(this.tareaPersonaHistoricoRepositoryCustom,
         "batchSize", 100, true);
@@ -255,4 +262,26 @@ public class TareaPersonaHistoricoRepositoryCustomImplTest {
     assertEquals(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId(), params.getValue(SQL_PARAM_ID_CONCEPTO));
   }
 
+  @Test
+  public void findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito() {
+    final long idTarea = 900L;
+    final String idOrigen = "CCL_ID_ORIGEN";
+    this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(
+        idTarea,
+        idOrigen);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<TareaPersonaHistorico>>any());
+    assertEquals(SQL_FIND_ID_PERSONA_HISTORICO_AND_LOCALIZACION_BY_ID_TAREA_AND_ID_ORIGEN_AND_TIPO_DATO_IN_AMBITO,
+        this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: idTarea, cclIdOrigen
+    assertEquals(2, params.getValues().size());
+    // idTarea
+    assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+    assertEquals(idTarea, params.getValue(SQL_PARAM_ID_TAREA));
+    // cclIdOrigen
+    assertTrue(params.hasValue(SQL_PARAM_CCL_ID_ORIGEN));
+    assertEquals(idOrigen, params.getValue(SQL_PARAM_CCL_ID_ORIGEN));
+  }
 }
