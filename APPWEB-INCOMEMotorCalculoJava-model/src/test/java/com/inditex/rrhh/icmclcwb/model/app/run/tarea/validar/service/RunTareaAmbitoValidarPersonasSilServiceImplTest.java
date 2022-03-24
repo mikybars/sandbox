@@ -97,7 +97,8 @@ class RunTareaAmbitoValidarPersonasSilServiceImplTest {
         clase2);
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).createTempComisPersonasLocalizaciones();
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).indexTempComisPersonasLocalizaciones();
-    verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).insertTempComisPersonasLocalizaciones(Arrays.asList(persona1, persona2));
+    verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
+        .insertTempComisPersonasLocalizaciones(Arrays.asList(persona1, persona2));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).validateTempComisPersonas(runTarea.getTarea());
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).deleteTempComisPersonasLocalizaciones();
     verify(this.validacionMapper, timeout(1000).times(1)).idPersonaLocalDtoTovalidacionDto(eq(tareaAmbito), eq(tareaFaseAccion),
