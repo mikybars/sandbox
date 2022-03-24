@@ -32,7 +32,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class RunTareaAmbitoValidarExternosSpainServiceImplTest {
+class RunTareaAmbitoValidarExternosSpainServiceImplTest {
 
   @Mock
   private ComisAsyncService comisAsyncService;
@@ -50,7 +50,7 @@ public class RunTareaAmbitoValidarExternosSpainServiceImplTest {
   private RunTareaAmbitoValidarExternosSpainServiceImpl runTareaAmbitoValidarExternosSpainService;
 
   @Test
-  public void executeTest() {
+  void executeTest() {
 
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
@@ -69,7 +69,7 @@ public class RunTareaAmbitoValidarExternosSpainServiceImplTest {
     this.runTareaAmbitoValidarExternosSpainService.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
     verify(this.comisAsyncService, timeout(1000).times(1)).findExternosByMinIdPersona(runTareaDto, tareaAmbitoDto,
-        AppConstants.MIN_ID_PERSONA_EXTERNO);
+        AppConstants.MIN_ID_PERSONA_EXTERNO_ES);
     verify(this.tareaPersonaExternaMapper, timeout(1000).times(1))
         .idPersonaLocalExternaToTareaPersonaExterna(any(List.class), eq(tareaDto));
     verify(this.tareaPersonaExternaRepositoryCustom, timeout(1000).times(1)).save(any(List.class));

@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,12 @@ public class ComisRepositoryCustomImpl
 
   @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findPersonas']}")
   private String sqlFindPersonas;
+
+  @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findPersonasSilConEstado']}")
+  private String sqlFindPersonasSilConEstado;
+
+  @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findPersonasSilSinEstado']}")
+  private String sqlFindPersonasSilSinEstado;
 
   @Autowired
   @Qualifier("fechasProperties")
@@ -530,12 +537,46 @@ public class ComisRepositoryCustomImpl
 
   @Override
   public List<IdPersonaLocalLocalizacionDto> findPersonas(
-      final TareaDto tarea) {
+      final TareaDto tarea, final Long maxIdPersona) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
     map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
     map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdPersona);
 
     return this.query(this.sqlFindPersonas, map, (rs, rowNum) -> IdPersonaLocalLocalizacionDto
+        .builder()
+        .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
+        .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
+        .build());
+  }
+
+  @Override
+  public List<IdPersonaLocalLocalizacionDto> findPersonasSilSinEstado(final TareaDto tarea, final Long maxIdPersona,
+      final ClaseResultItemDto clase) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdPersona);
+    map.addValue(SqlComisConstants.SQL_PARAM_CLASE, clase.getIdClase());
+
+    return this.query(this.sqlFindPersonasSilSinEstado, map, (rs, rowNum) -> IdPersonaLocalLocalizacionDto
+        .builder()
+        .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
+        .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
+        .build());
+  }
+
+  @Override
+  public List<IdPersonaLocalLocalizacionDto> findPersonasSilConEstado(final TareaDto tarea, final Long maxIdPersona,
+      final ClaseResultItemDto clase) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdPersona);
+    map.addValue(SqlComisConstants.SQL_PARAM_CLASE, clase.getIdClase());
+    map.addValue(SqlComisConstants.SQL_PARAM_ESTADO_SIL, clase.getIdsEstadoSil());
+
+    return this.query(this.sqlFindPersonasSilConEstado, map, (rs, rowNum) -> IdPersonaLocalLocalizacionDto
         .builder()
         .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
         .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))

@@ -2,9 +2,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
@@ -14,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 
 import org.junit.jupiter.api.Test;
@@ -329,8 +331,32 @@ class ComisServiceImplTest {
   }
 
   @Test
-  void findPersonasTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto) {
-    this.comisServiceImpl.findPersonas(runTarea, tareaAmbitoDto);
-    verify(this.comisRepositoryCustom, times(1)).findPersonas(runTarea.getTarea());
+  void findPersonasTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto, @Random final Long maxIdPersona) {
+    this.comisServiceImpl.findPersonas(runTarea, tareaAmbitoDto, maxIdPersona);
+    verify(this.comisRepositoryCustom, times(1)).findPersonas(runTarea.getTarea(), maxIdPersona);
+  }
+
+  @Test
+  void findPersonasSilEstadoNullTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto,
+      @Random final Long maxIdPersona, @Random final ClaseResultItemDto clase) {
+    clase.setIdsEstadoSil(null);
+    this.comisServiceImpl.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
+    verify(this.comisRepositoryCustom, times(1)).findPersonasSilSinEstado(runTarea.getTarea(), maxIdPersona, clase);
+  }
+
+  @Test
+  void findPersonasSilEstadoVacioTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto,
+      @Random final Long maxIdPersona, @Random final ClaseResultItemDto clase) {
+    clase.setIdsEstadoSil(new ArrayList<>());
+    this.comisServiceImpl.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
+    verify(this.comisRepositoryCustom, times(1)).findPersonasSilSinEstado(runTarea.getTarea(), maxIdPersona, clase);
+  }
+
+  @Test
+  void findPersonasSilConEstadoTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto,
+      @Random final Long maxIdPersona, @Random final ClaseResultItemDto clase) {
+    clase.setIdsEstadoSil(Collections.singletonList("ea"));
+    this.comisServiceImpl.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
+    verify(this.comisRepositoryCustom, times(1)).findPersonasSilConEstado(runTarea.getTarea(), maxIdPersona, clase);
   }
 }

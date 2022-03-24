@@ -7,6 +7,7 @@ import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -24,6 +25,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
@@ -35,7 +40,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-class RunTareaAmbitoValidarPersonasServiceImplTest {
+class RunTareaAmbitoValidarPersonasSilServiceImplTest {
 
   @Mock
   TareaFaseAccionService tareaFaseAccionService;
@@ -55,26 +60,45 @@ class RunTareaAmbitoValidarPersonasServiceImplTest {
   @Mock
   private PrevalidarPropertiesDto personasPropertiesDto;
 
+  @Mock
+  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+
   @InjectMocks
-  private RunTareaAmbitoValidarPersonasServiceImpl runTareaAmbitoValidarPersonasService;
+  private RunTareaAmbitoValidarPersonasSilServiceImpl runTareaAmbitoValidarPersonasGlobalService;
 
   @Test
   void executeTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbito,
       @Random final TareaFaseAccionDto tareaFaseAccion,
-      @Random final IdPersonaLocalLocalizacionDto persona) {
+      @Random final IdPersonaLocalLocalizacionDto persona1,
+      @Random final IdPersonaLocalLocalizacionDto persona2, @Random final ClaseResultItemDto clase1,
+      @Random final ClaseResultItemDto clase2) {
 
-    final List<IdPersonaLocalLocalizacionDto> lista = Collections.singletonList(persona);
-    final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf = new CompletableFuture<>();
-    cf.complete(lista);
+    final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf1 = new CompletableFuture<>();
+    cf1.complete(Collections.singletonList(persona1));
+    final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf2 = new CompletableFuture<>();
+    cf2.complete(Collections.singletonList(persona2));
 
-    when(this.comisAsyncService.findPersonas(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class))).thenReturn(cf);
+    final ClaseResponseDto clase = ClaseResponseDto
+        .builder()
+        .items(Arrays.asList(clase1, clase2))
+        .build();
 
-    this.runTareaAmbitoValidarPersonasService.execute(runTarea, tareaAmbito, tareaFaseAccion);
+    when(this.meta4IcmWsCalcIncomeService.getClases(any(ClaseRequestDto.class))).thenReturn(clase);
+    when(this.comisAsyncService.findPersonasSil(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class), eq(clase1)))
+        .thenReturn(cf1);
+    when(this.comisAsyncService.findPersonasSil(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class), eq(clase2)))
+        .thenReturn(cf2);
 
-    verify(this.comisAsyncService, timeout(1000).times(1)).findPersonas(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_NO_ES);
+    this.runTareaAmbitoValidarPersonasGlobalService.execute(runTarea, tareaAmbito, tareaFaseAccion);
+
+    verify(this.comisAsyncService, timeout(1000).times(1)).findPersonasSil(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_NO_ES,
+        clase1);
+    verify(this.comisAsyncService, timeout(1000).times(1)).findPersonasSil(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_NO_ES,
+        clase2);
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).createTempComisPersonasLocalizaciones();
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).indexTempComisPersonasLocalizaciones();
-    verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).insertTempComisPersonasLocalizaciones(lista);
+    verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
+        .insertTempComisPersonasLocalizaciones(Arrays.asList(persona1, persona2));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).validateTempComisPersonas(runTarea.getTarea());
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1)).deleteTempComisPersonasLocalizaciones();
     verify(this.validacionMapper, timeout(1000).times(1)).idPersonaLocalDtoTovalidacionDto(eq(tareaAmbito), eq(tareaFaseAccion),
@@ -92,7 +116,7 @@ class RunTareaAmbitoValidarPersonasServiceImplTest {
         .thenThrow(RuntimeException.class);
 
     assertThrows(RuntimeException.class, () -> {
-      this.runTareaAmbitoValidarPersonasService.execute(runTarea, tareaAmbito, tareaFaseAccion);
+      this.runTareaAmbitoValidarPersonasGlobalService.execute(runTarea, tareaAmbito, tareaFaseAccion);
     });
     verify(this.tareaFaseAccionService, timeout(1000).times(1)).updateFechaFinAndEstado(tareaFaseAccion,
         EstadoTareaFaseAccionEnum.ERROR.getDto());

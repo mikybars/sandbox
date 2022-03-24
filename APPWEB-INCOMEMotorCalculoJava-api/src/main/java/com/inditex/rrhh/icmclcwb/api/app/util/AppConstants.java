@@ -51,7 +51,9 @@ public class AppConstants {
 
   public static final String UNDERSCORE = "_";
 
-  public static final Long MIN_ID_PERSONA_EXTERNO = 500000L;
+  public static final Long MIN_ID_PERSONA_EXTERNO_ES = 500000L;
+
+  public static final Long MIN_ID_PERSONA_EXTERNO_NO_ES = 90000000L;
 
   public static final Collection<Integer> ESTADOS_RUN_TAREA_OK = Arrays.asList(EstadoTareaEnum.PENDIENTE.getId(),
       EstadoTareaEnum.EN_CURSO.getId(), EstadoTareaEnum.ERROR_VALIDANDO.getId());

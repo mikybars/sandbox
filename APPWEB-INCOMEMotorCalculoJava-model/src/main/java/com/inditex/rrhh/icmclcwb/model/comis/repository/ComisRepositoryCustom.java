@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 
 public interface ComisRepositoryCustom {
 
@@ -187,9 +188,30 @@ public interface ComisRepositoryCustom {
 
   /**
    * Obtiene las personas con sus respectivas localizaciones.
-   * 
+   *
    * @param tarea tarea
+   * @param maxIdPersona maximo id de persona a obtener para evitar empleados externos.
    * @return Lista de personas.
    */
-  List<IdPersonaLocalLocalizacionDto> findPersonas(TareaDto tarea);
+  List<IdPersonaLocalLocalizacionDto> findPersonas(TareaDto tarea, Long maxIdPersona);
+
+  /**
+   * Obtiene las personas con sus respectivas localizaciones en orígenes SIL.
+   * 
+   * @param tarea tarea
+   * @param maxIdPersona máximo id de persona aobtener para evitar empleados externos.
+   * @param clase clase a tener en cuenta.
+   * @return Lista de personas.
+   */
+  List<IdPersonaLocalLocalizacionDto> findPersonasSilSinEstado(TareaDto tarea, Long maxIdPersona, ClaseResultItemDto clase);
+
+  /**
+   * Obtiene las personas con sus respectivas localizaciones en orígenes SIL.
+   * 
+   * @param tarea tarea
+   * @param maxIdPersona máximo id de persona aobtener para evitar empleados externos.
+   * @param clase clase a tener en cuenta con su estado SIL correspondiente.
+   * @return Lista de personas.
+   */
+  List<IdPersonaLocalLocalizacionDto> findPersonasSilConEstado(TareaDto tarea, Long maxIdPersona, ClaseResultItemDto clase);
 }
