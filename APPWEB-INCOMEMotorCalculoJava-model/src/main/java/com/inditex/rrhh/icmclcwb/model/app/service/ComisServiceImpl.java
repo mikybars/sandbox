@@ -17,6 +17,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabase;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabaseContextHolder;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
@@ -366,13 +368,31 @@ public class ComisServiceImpl implements ComisService {
 
   @Override
   public List<IdPersonaLocalLocalizacionDto> findPersonas(
-      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito) {
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona) {
     try {
       this.setContext(runTareaDto, tareaAmbito);
-      return this.comisRepositoryCustom.findPersonas(runTareaDto.getTarea());
+      return this.comisRepositoryCustom.findPersonas(runTareaDto.getTarea(), maxIdPersona);
     } finally {
       ClientDatabaseContextHolder.clear();
     }
+  }
+
+  @Override
+  public List<IdPersonaLocalLocalizacionDto> findPersonasSil(
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona,
+      @Valid final ClaseResultItemDto clase) {
+    List<IdPersonaLocalLocalizacionDto> personas;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      if (CollectionUtils.isNotEmpty(clase.getIdsEstadoSil())) {
+        personas = this.comisRepositoryCustom.findPersonasSilConEstado(runTareaDto.getTarea(), maxIdPersona, clase);
+      } else {
+        personas = this.comisRepositoryCustom.findPersonasSilSinEstado(runTareaDto.getTarea(), maxIdPersona, clase);
+      }
+    } finally {
+      ClientDatabaseContextHolder.clear();
+    }
+    return personas;
   }
 
   private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {

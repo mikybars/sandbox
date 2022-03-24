@@ -14,6 +14,8 @@ public class Meta4Constants {
 
   public static final String RESULTADO_ERROR = "ERROR";
 
+  public static final String COMMA_SEPARATOR = ",";
+
   private Meta4Constants() {
   }
 

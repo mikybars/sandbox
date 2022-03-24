@@ -31,6 +31,7 @@ import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPro
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustomImpl;
 
@@ -94,6 +95,10 @@ class ComisRepositoryCustomImplTest {
   private final static String SQL_FIND_COMISION_MANUAL = "SQL FIND COMISION MANUAL";
 
   private final static String SQL_FIND_PERSONAS = "SQL FIND PERSONAS";
+
+  private final static String SQL_FIND_PERSONAS_SIL_SIN_ESTADO = "SQL FIND PERSONAS SIN ESTADO";
+
+  private final static String SQL_FIND_PERSONAS_SIL_CON_ESTADO = "SQL FIND PERSONAS CON ESTADO";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -195,6 +200,14 @@ class ComisRepositoryCustomImplTest {
     FieldUtils.writeField(this.comisRepositoryCustom,
         "sqlFindPersonas",
         SQL_FIND_PERSONAS,
+        true);
+    FieldUtils.writeField(this.comisRepositoryCustom,
+        "sqlFindPersonasSilConEstado",
+        SQL_FIND_PERSONAS_SIL_CON_ESTADO,
+        true);
+    FieldUtils.writeField(this.comisRepositoryCustom,
+        "sqlFindPersonasSilSinEstado",
+        SQL_FIND_PERSONAS_SIL_SIN_ESTADO,
         true);
   }
 
@@ -749,7 +762,8 @@ class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  void findPersonasTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto result) {
+  void findPersonasTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto result,
+      @Random final Long maxIdEmpleado) {
 
     when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
         ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
@@ -761,11 +775,12 @@ class ComisRepositoryCustomImplTest {
           return Collections.singletonList(rowMapper.mapRow(rs, 0));
         });
 
-    final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonas(tarea);
+    final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonas(tarea, maxIdEmpleado);
 
     final Map<String, Object> expectedParams = new HashMap<>();
     expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
     expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdEmpleado);
 
     verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_PERSONAS), this.paramsCaptor.capture(),
         ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());
@@ -774,6 +789,65 @@ class ComisRepositoryCustomImplTest {
     assertEquals(1, personas.size());
     assertEquals(result, personas.get(0));
 
+  }
+
+  @Test
+  void findPersonasSilSinEstadoTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto result,
+      @Random final Long maxIdEmpleado, @Random final ClaseResultItemDto clase) {
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
+          final RowMapper<IdPersonaLocalLocalizacionDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)).thenReturn(result.getCclIdCodOrigen());
+
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
+        });
+
+    final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonasSilSinEstado(tarea, maxIdEmpleado, clase);
+
+    final Map<String, Object> expectedParams = new HashMap<>();
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdEmpleado);
+    expectedParams.put(SqlComisConstants.SQL_PARAM_CLASE, clase.getIdClase());
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_PERSONAS_SIL_SIN_ESTADO), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());
+
+    assertEquals(expectedParams, this.paramsCaptor.getValue().getValues());
+    assertEquals(1, personas.size());
+    assertEquals(result, personas.get(0));
+  }
+
+  @Test
+  void findPersonasSilConEstadoTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto result,
+      @Random final Long maxIdEmpleado, @Random final ClaseResultItemDto clase) {
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
+          final RowMapper<IdPersonaLocalLocalizacionDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)).thenReturn(result.getCclIdCodOrigen());
+
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
+        });
+
+    final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonasSilConEstado(tarea, maxIdEmpleado, clase);
+
+    final Map<String, Object> expectedParams = new HashMap<>();
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdEmpleado);
+    expectedParams.put(SqlComisConstants.SQL_PARAM_CLASE, clase.getIdClase());
+    expectedParams.put(SqlComisConstants.SQL_PARAM_ESTADO_SIL, clase.getIdsEstadoSil());
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_PERSONAS_SIL_CON_ESTADO), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());
+
+    assertEquals(expectedParams, this.paramsCaptor.getValue().getValues());
+    assertEquals(1, personas.size());
+    assertEquals(result, personas.get(0));
   }
 
 }

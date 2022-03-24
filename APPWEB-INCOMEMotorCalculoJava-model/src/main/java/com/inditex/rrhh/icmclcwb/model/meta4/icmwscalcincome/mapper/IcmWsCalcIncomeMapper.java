@@ -11,6 +11,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.Catalogo
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
@@ -84,6 +87,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetclasesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfiguracionOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmailOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
@@ -92,6 +96,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmErroresgu
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacadenasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacatalogoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaclasesRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesbaseRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionesdestinoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacondicionespoliticaRecord;
@@ -525,11 +530,17 @@ public interface IcmWsCalcIncomeMapper {
   @InheritInverseConfiguration
   IcmParamcalsociedadRecord asIcmParamcalsociedadRecord(GenericFilterParametersDto src);
 
+  @Mapping(target = "icmParamcalorigenRecordSet", ignore = true)
+  IcmParamcalorigenBlock asIcmParamcalorigenBlock(ClaseRequestDto src);
+
   @InheritInverseConfiguration
   IcmParamcalorigenBlock asIcmParamcalorigenBlock(GenericFilterDto src);
 
   @InheritInverseConfiguration
   IcmParamcalorigenRecord asIcmParamcalorigenRecord(GenericFilterParametersDto src);
+
+  @Mapping(target = "idorigen", source = "cclIdOrigen")
+  IcmParamcalorigenRecord asIcmParamcalorigenRecord(ClaseRequestDto src);
 
   @InheritInverseConfiguration
   IcmParamcalperiodoBlock asIcmParamcalperiodoBlock(GenericFilterDto src);
@@ -1649,4 +1660,12 @@ public interface IcmWsCalcIncomeMapper {
   @Mapping(target = "mail", source = "mail")
   @Mapping(target = "idUsuario", source = "idusuario")
   UsuarioResultItemDto asUsuarioResultItemDto(IcmListamailRecord src);
+
+  @Mapping(target = "items", ignore = true)
+  ClaseResponseDto asClaseResponseDto(GetclasesOutput src);
+
+  @Mapping(target = "idOrigen", source = "idorigen")
+  @Mapping(target = "idClase", source = "idtpclas")
+  @Mapping(target = "idsEstadoSil", ignore = true)
+  ClaseResultItemDto asClaseResultItemDto(IcmListaclasesRecord src);
 }

@@ -323,3 +323,9 @@ statistics="true">
 </memory>
 <expiration max-idle="600000"/>
 </replicated-cache>
+<replicated-cache name="itx.icmlcwb.get_clases" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000"/>
+</memory>
+<expiration max-idle="600000"/>
+</replicated-cache>
