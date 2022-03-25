@@ -37,10 +37,10 @@ public class RunTareaAmbitoValidarPersonasEsServiceImpl implements RunTareaAmbit
   private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Autowired
-  private ComisAsyncService comisAsyncService;
+  private ValidacionMapper validacionMapper;
 
   @Autowired
-  private ValidacionMapper validacionMapper;
+  private ComisAsyncService comisAsyncService;
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
