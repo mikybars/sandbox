@@ -37,10 +37,10 @@ public class RunTareaAmbitoValidarPersonasServiceImpl implements RunTareaAmbitoV
   private ComisAsyncService comisAsyncService;
 
   @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  private ValidacionMapper validacionMapper;
 
   @Autowired
-  private ValidacionMapper validacionMapper;
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Autowired
   @Qualifier("personasProperties")

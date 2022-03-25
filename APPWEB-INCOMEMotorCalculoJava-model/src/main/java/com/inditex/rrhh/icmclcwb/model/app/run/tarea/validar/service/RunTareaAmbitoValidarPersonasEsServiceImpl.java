@@ -34,20 +34,20 @@ import org.springframework.validation.annotation.Validated;
 public class RunTareaAmbitoValidarPersonasEsServiceImpl implements RunTareaAmbitoValidarPersonasEsService {
 
   @Autowired
-  private ComisAsyncService comisAsyncService;
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  private ComisAsyncService comisAsyncService;
 
   @Autowired
   private ValidacionMapper validacionMapper;
 
   @Autowired
-  @Qualifier("personasProperties")
-  private PrevalidarPropertiesDto personasProperties;
+  private TareaFaseAccionService tareaFaseAccionService;
 
   @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
+  @Qualifier("personasProperties")
+  private PrevalidarPropertiesDto personasProperties;
 
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
