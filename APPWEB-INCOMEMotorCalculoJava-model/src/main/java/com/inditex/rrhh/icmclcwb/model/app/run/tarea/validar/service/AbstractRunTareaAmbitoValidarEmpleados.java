@@ -50,9 +50,9 @@ public abstract class AbstractRunTareaAmbitoValidarEmpleados {
       @Valid final TareaAmbitoDto tareaAmbito);
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)
-  public ValidacionDto execute(@Valid final RunTareaDto runTarea,
-      @Valid final TareaAmbitoDto tareaAmbito,
-      @Valid final TareaFaseAccionDto tareaFaseAccion) {
+  public ValidacionDto execute(final RunTareaDto runTarea,
+      final TareaAmbitoDto tareaAmbito,
+      final TareaFaseAccionDto tareaFaseAccion) {
 
     final TareaDto tarea = runTarea.getTarea();
     final List<CompletableFuture<?>> cf = new ArrayList<>();
