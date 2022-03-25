@@ -1010,7 +1010,13 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
   public IcmParamcalusuarioBlock asIcmParamcalusuarioBlock(
       final UsuarioRequestDto request) {
     final IcmParamcalusuarioBlock result = this.delegate.asIcmParamcalusuarioBlock(request);
-    result.getIcmParamcalusuarioRecordSet().add(new IcmParamcalusuarioRecord());
+    if (StringUtils.isNotEmpty(request.getIdUsuario())) {
+      final IcmParamcalusuarioRecord record = new IcmParamcalusuarioRecord();
+      record.setIdusuario(request.getIdUsuario());
+      result.getIcmParamcalusuarioRecordSet().add(record);
+    } else {
+      result.getIcmParamcalusuarioRecordSet().add(new IcmParamcalusuarioRecord());
+    }
     return result;
   }
 
