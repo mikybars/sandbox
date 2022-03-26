@@ -34,9 +34,6 @@ import org.springframework.validation.annotation.Validated;
 public class RunTareaAmbitoValidarPersonasEsServiceImpl implements RunTareaAmbitoValidarPersonasEsService {
 
   @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
-
-  @Autowired
   private ValidacionMapper validacionMapper;
 
   @Autowired
@@ -48,6 +45,9 @@ public class RunTareaAmbitoValidarPersonasEsServiceImpl implements RunTareaAmbit
   @Autowired
   @Qualifier("personasProperties")
   private PrevalidarPropertiesDto personasProperties;
+
+  @Autowired
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
