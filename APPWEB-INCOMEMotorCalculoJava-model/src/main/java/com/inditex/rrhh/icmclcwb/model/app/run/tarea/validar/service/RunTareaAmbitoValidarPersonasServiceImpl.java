@@ -69,9 +69,7 @@ public class RunTareaAmbitoValidarPersonasServiceImpl implements RunTareaAmbitoV
       final List<IdPersonaLocalLocalizacionDto> personasComis = AsyncUtils.get(cfPersonas);
 
       // guardado de la info de comis en una tabla temporal
-      this.primaryTemporaryTableRepositoryCustom.createTempComisPersonasLocalizaciones();
-      this.primaryTemporaryTableRepositoryCustom.indexTempComisPersonasLocalizaciones();
-      this.primaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones(personasComis);
+        this.saveTemporaryTable(personasComis);
 
       // comparar la info de la tabla temporal con los datos de Income
       validationResult = this.primaryTemporaryTableRepositoryCustom.validateTempComisPersonas(tarea);
@@ -87,4 +85,10 @@ public class RunTareaAmbitoValidarPersonasServiceImpl implements RunTareaAmbitoV
         .idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, validationResult, this.personasProperties, tarea);
 
   }
+
+    private void saveTemporaryTable(final List<IdPersonaLocalLocalizacionDto> personasComis) {
+        this.primaryTemporaryTableRepositoryCustom.createTempComisPersonasLocalizaciones();
+        this.primaryTemporaryTableRepositoryCustom.indexTempComisPersonasLocalizaciones();
+        this.primaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones(personasComis);
+    }
 }

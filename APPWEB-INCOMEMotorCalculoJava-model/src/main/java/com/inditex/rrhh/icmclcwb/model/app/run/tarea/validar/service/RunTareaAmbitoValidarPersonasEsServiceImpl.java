@@ -65,12 +65,11 @@ public class RunTareaAmbitoValidarPersonasEsServiceImpl implements RunTareaAmbit
           .findPersonas(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_ES);
       AsyncUtils.exceptionally(cfPersonas, cf);
       AsyncUtils.waitAllOfIsOk(cf, cf);
-      final List<IdPersonaLocalLocalizacionDto> personasComis = AsyncUtils.get(cfPersonas);
 
       // guardado de la info de comis en una tabla temporal
       this.primaryTemporaryTableRepositoryCustom.createTempComisPersonasLocalizaciones();
       this.primaryTemporaryTableRepositoryCustom.indexTempComisPersonasLocalizaciones();
-      this.primaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones(personasComis);
+      this.primaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones(AsyncUtils.get(cfPersonas));
 
       // comparar la info de la tabla temporal con los datos de Income
       validationResult = this.primaryTemporaryTableRepositoryCustom.validateTempComisPersonas(tarea);
