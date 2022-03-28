@@ -105,6 +105,10 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
   private final static String SQL_DELETE_TEMP_COMIS_DESPLAZAMIENTOS = "SQL DELETE TEMP COMIS DESPLAZAMIENTOS";
 
+  private final static String SQL_DESACTIVA_TEMP_COMIS_DESPLAZAMIENTOS = "SQL DESACTIVA TEMP COMIS DESPLAZAMIENTOS";
+
+  private final static String SQL_REACTIVA_TEMP_COMIS_DESPLAZAMIENTOS = "SQL REACTIVA TEMP COMIS DESPLAZAMIENTOS";
+
   // historico
 
   private final static String SQL_CREATE_TEMP_COMIS_HISTORICO = "SQL CREATE TEMP COMIS HISTORICO";
@@ -281,6 +285,10 @@ class PrimaryTemporaryTableRepositoryCustomTest {
         "sqlValidateTempComisDesplazamiento", SQL_VALIDATE_TEMP_COMIS_DESPLAZAMIENTOS, true);
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
         "sqlDeleteTempComisDesplazamiento", SQL_DELETE_TEMP_COMIS_DESPLAZAMIENTOS, true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlDesactivaFechasSolapadas", SQL_DESACTIVA_TEMP_COMIS_DESPLAZAMIENTOS, true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlReactivaFechasSolapadas", SQL_REACTIVA_TEMP_COMIS_DESPLAZAMIENTOS, true);
 
     // historico
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
@@ -585,6 +593,22 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   void deleteTempComisDesplazamientoTest() {
     this.primaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento();
     verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_DESPLAZAMIENTOS);
+  }
+
+  @Test
+  void desactivaFechasSolapadasTest() {
+    this.primaryTemporaryTableRepositoryCustom.desactivaFechasSolapadas();
+    verify(this.jdbcTemplate).update(SQL_DESACTIVA_TEMP_COMIS_DESPLAZAMIENTOS);
+  }
+
+  @Test
+  void reactivaFechasSolapadasTest() {
+    final TareaDto tarea = new TareaDto();
+    tarea.setFechaInicioPeriodo(LocalDate.of(2020, 1, 1));
+    tarea.setFechaFinPeriodo(LocalDate.of(2020, 1, 1));
+    this.primaryTemporaryTableRepositoryCustom.reactivaFechasSolapadas(tarea);
+    verify(this.namedParameterJdbcTemplate).update(any(String.class),
+        any(MapSqlParameterSource.class));
   }
 
   // Fin tests desplazamientos
