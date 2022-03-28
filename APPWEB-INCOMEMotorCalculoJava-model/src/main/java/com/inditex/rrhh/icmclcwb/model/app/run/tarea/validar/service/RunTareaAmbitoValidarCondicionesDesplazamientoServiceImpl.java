@@ -30,7 +30,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
+public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl extends AbstractRunTareaAmbitoValidarCondicionesDesplazamiento
     implements RunTareaAmbitoValidarCondicionesDesplazamientoService {
 
   @Autowired
@@ -67,16 +67,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
       final List<IdPersonaLocalCondicionesDto> condicionesDesplazamiento = AsyncUtils
           .get(cfCondicionesDesplazamiento);
 
-      this.primaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento();
-      this.primaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento(condicionesDesplazamiento);
-
-      this.primaryTemporaryTableRepositoryCustom.desactivaFechasSolapadas();
-      this.primaryTemporaryTableRepositoryCustom.reactivaFechasSolapadas(tareaDto);
-
-      desplazamientoValidationResult = this.primaryTemporaryTableRepositoryCustom
-          .validateTempComisDesplazamiento(runTareaDto.getTarea());
-
-      this.primaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento();
+      desplazamientoValidationResult = this.getIdPersonaLocalDtos(runTareaDto, tareaDto, cfCondicionesDesplazamiento);
 
     } catch (final Exception e) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
