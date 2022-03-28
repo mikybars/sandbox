@@ -70,6 +70,9 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoServiceImpl
       this.primaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento();
       this.primaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento(condicionesDesplazamiento);
 
+      this.primaryTemporaryTableRepositoryCustom.desactivaFechasSolapadas();
+      this.primaryTemporaryTableRepositoryCustom.reactivaFechasSolapadas(tareaDto);
+
       desplazamientoValidationResult = this.primaryTemporaryTableRepositoryCustom
           .validateTempComisDesplazamiento(runTareaDto.getTarea());
 
