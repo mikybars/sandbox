@@ -100,6 +100,12 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisDesplazamiento']}")
   private String sqlValidateTempComisDesplazamiento;
 
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.desactivaFechasSolapadas']}")
+  private String sqlDesactivaFechasSolapadas;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.reactivaFechasSolapadas']}")
+  private String sqlReactivaFechasSolapadas;
+
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempComisResalta']}")
   private String sqlCreateTempComisResalta;
 
@@ -509,6 +515,20 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
               .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
           return idPersonaLocalCondicionesDto;
         });
+  }
+
+  @Override
+  public int desactivaFechasSolapadas() {
+    return this.jdbcTemplate.update(this.sqlDesactivaFechasSolapadas);
+  }
+
+  @Override
+  public void reactivaFechasSolapadas(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+
+    this.namedParameterJdbcTemplate.update(this.sqlReactivaFechasSolapadas, map);
   }
 
   @Override
