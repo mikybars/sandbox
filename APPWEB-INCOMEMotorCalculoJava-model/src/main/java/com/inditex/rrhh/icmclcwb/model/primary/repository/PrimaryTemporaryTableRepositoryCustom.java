@@ -64,6 +64,10 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    */
   void insertTempComisDesplazamiento(List<IdPersonaLocalCondicionesDto> listado);
 
+  int desactivaFechasSolapadas();
+
+  void reactivaFechasSolapadas(TareaDto tarea);
+
   /**
    * Some javadoc.
    *
