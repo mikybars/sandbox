@@ -214,8 +214,6 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
             final IdPersonaHIstoricoLocalizacionDto dto = new IdPersonaHIstoricoLocalizacionDto();
             dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
             dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
-            dto.setCclIdPerson(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL));
-            dto.setStdIdWorkLocat(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4));
 
             return dto;
           }

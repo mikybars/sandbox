@@ -25,9 +25,7 @@ public class IdPersonaHIstoricoLocalizacionDto implements Serializable {
   @NotBlank
   private String stdOrHrPeriod;
 
-  @NotBlank
   private String cclIdPerson;
 
-  @NotBlank
   private String stdIdWorkLocat;
 }
