@@ -424,8 +424,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
                     item -> EstructurasComFilterParametersDto.builder()
                         .idEmpleado(item.getStdIdHr())
                         .orEmpleado(item.getStdOrHrPeriod())
-                        .idEmpleadoLocal(item.getCclIdPerson())
-                        .idLugarTrabajo(item.getStdIdWorkLocat())
                         .build())
                 .collect(Collectors.toList()));
         final CompletableFuture<List<EstructurasComResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
