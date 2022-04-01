@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para GettiendasincomeOutput complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType name="GettiendasincomeOutput"&gt;
  *   &lt;complexContent&gt;
@@ -43,8 +46,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GettiendasincomeOutput", propOrder = {
@@ -71,7 +74,7 @@ public class GettiendasincomeOutput implements Serializable, Cloneable, CopyTo2,
 
   /**
    * Obtiene el valor de la propiedad return.
-   * 
+   *
    */
   public double getReturn() {
     return _return;
@@ -79,7 +82,7 @@ public class GettiendasincomeOutput implements Serializable, Cloneable, CopyTo2,
 
   /**
    * Define el valor de la propiedad return.
-   * 
+   *
    */
   public void setReturn(double value) {
     this._return = value;
@@ -87,20 +90,20 @@ public class GettiendasincomeOutput implements Serializable, Cloneable, CopyTo2,
 
   /**
    * Gets the value of the logMessage property.
-   * 
+   *
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the logMessage property.
-   * 
+   *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getLogMessage().add(newItem);
    * </pre>
-   * 
-   * 
+   *
+   *
    * <p> Objects of the following type(s) are allowed in the list {@link LogMessage }
-   * 
-   * 
+   *
+   *
    */
   public List<LogMessage> getLogMessage() {
     if (logMessage == null) {
@@ -111,9 +114,9 @@ public class GettiendasincomeOutput implements Serializable, Cloneable, CopyTo2,
 
   /**
    * Obtiene el valor de la propiedad icmParametrospaginacion.
-   * 
+   *
    * @return possible object is {@link IcmParametrospaginacionBlock }
-   * 
+   *
    */
   public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
     return icmParametrospaginacion;
@@ -121,9 +124,9 @@ public class GettiendasincomeOutput implements Serializable, Cloneable, CopyTo2,
 
   /**
    * Define el valor de la propiedad icmParametrospaginacion.
-   * 
+   *
    * @param value allowed object is {@link IcmParametrospaginacionBlock }
-   * 
+   *
    */
   public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
     this.icmParametrospaginacion = value;
@@ -131,9 +134,9 @@ public class GettiendasincomeOutput implements Serializable, Cloneable, CopyTo2,
 
   /**
    * Obtiene el valor de la propiedad icmListatiendas.
-   * 
+   *
    * @return possible object is {@link IcmListatiendasBlock }
-   * 
+   *
    */
   public IcmListatiendasBlock getIcmListatiendas() {
     return icmListatiendas;
@@ -141,9 +144,9 @@ public class GettiendasincomeOutput implements Serializable, Cloneable, CopyTo2,
 
   /**
    * Define el valor de la propiedad icmListatiendas.
-   * 
+   *
    * @param value allowed object is {@link IcmListatiendasBlock }
-   * 
+   *
    */
   public void setIcmListatiendas(IcmListatiendasBlock value) {
     this.icmListatiendas = value;

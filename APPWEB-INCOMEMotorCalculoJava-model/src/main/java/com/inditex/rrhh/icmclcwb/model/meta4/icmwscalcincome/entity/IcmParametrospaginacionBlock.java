@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para Icm_ParametrospaginacionBlock complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType name="Icm_ParametrospaginacionBlock"&gt;
  *   &lt;complexContent&gt;
@@ -47,8 +50,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParametrospaginacionBlock", propOrder = {
@@ -91,9 +94,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Obtiene el valor de la propiedad tipoorden.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getTipoorden() {
     return tipoorden;
@@ -101,9 +104,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Define el valor de la propiedad tipoorden.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setTipoorden(String value) {
     this.tipoorden = value;
@@ -111,9 +114,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Obtiene el valor de la propiedad campoorden.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getCampoorden() {
     return campoorden;
@@ -121,9 +124,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Define el valor de la propiedad campoorden.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setCampoorden(String value) {
     this.campoorden = value;
@@ -131,9 +134,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Obtiene el valor de la propiedad idbusqueda.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getIdbusqueda() {
     return idbusqueda;
@@ -141,9 +144,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Define el valor de la propiedad idbusqueda.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setIdbusqueda(String value) {
     this.idbusqueda = value;
@@ -151,9 +154,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Obtiene el valor de la propiedad numeropagina.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getNumeropagina() {
     return numeropagina;
@@ -161,9 +164,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Define el valor de la propiedad numeropagina.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setNumeropagina(String value) {
     this.numeropagina = value;
@@ -171,9 +174,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Obtiene el valor de la propiedad numerototalpaginas.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getNumerototalpaginas() {
     return numerototalpaginas;
@@ -181,9 +184,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Define el valor de la propiedad numerototalpaginas.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setNumerototalpaginas(String value) {
     this.numerototalpaginas = value;
@@ -191,9 +194,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Obtiene el valor de la propiedad numeroregistrospagina.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getNumeroregistrospagina() {
     return numeroregistrospagina;
@@ -201,9 +204,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Define el valor de la propiedad numeroregistrospagina.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setNumeroregistrospagina(String value) {
     this.numeroregistrospagina = value;
@@ -211,9 +214,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Obtiene el valor de la propiedad numerototalresultados.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getNumerototalresultados() {
     return numerototalresultados;
@@ -221,9 +224,9 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Define el valor de la propiedad numerototalresultados.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setNumerototalresultados(String value) {
     this.numerototalresultados = value;
@@ -231,21 +234,21 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
 
   /**
    * Gets the value of the icmParametrospaginacionRecordSet property.
-   * 
+   *
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmParametrospaginacionRecordSet
    * property.
-   * 
+   *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParametrospaginacionRecordSet().add(newItem);
    * </pre>
-   * 
-   * 
+   *
+   *
    * <p> Objects of the following type(s) are allowed in the list {@link IcmParametrospaginacionRecord }
-   * 
-   * 
+   *
+   *
    */
   public List<IcmParametrospaginacionRecord> getIcmParametrospaginacionRecordSet() {
     if (icmParametrospaginacionRecordSet == null) {

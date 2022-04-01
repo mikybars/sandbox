@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para Icm_ParamcalmultiempresaBlock complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType name="Icm_ParamcalmultiempresaBlock"&gt;
  *   &lt;complexContent&gt;
@@ -40,8 +43,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_ParamcalmultiempresaBlock", propOrder = {
@@ -56,21 +59,21 @@ public class IcmParamcalmultiempresaBlock implements Serializable, Cloneable, Co
 
   /**
    * Gets the value of the icmParamcalmultiempresaRecordSet property.
-   * 
+   *
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmParamcalmultiempresaRecordSet
    * property.
-   * 
+   *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmParamcalmultiempresaRecordSet().add(newItem);
    * </pre>
-   * 
-   * 
+   *
+   *
    * <p> Objects of the following type(s) are allowed in the list {@link IcmParamcalmultiempresaRecord }
-   * 
-   * 
+   *
+   *
    */
   public List<IcmParamcalmultiempresaRecord> getIcmParamcalmultiempresaRecordSet() {
     if (icmParamcalmultiempresaRecordSet == null) {

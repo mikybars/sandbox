@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -25,9 +28,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para anonymous complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,8 +42,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -56,9 +59,9 @@ public class LoginWithCertificateResponse implements Serializable, Cloneable, Co
 
   /**
    * Obtiene el valor de la propiedad loginWithCertificateReturn.
-   * 
+   *
    * @return possible object is {@link M4LoginOutput }
-   * 
+   *
    */
   public M4LoginOutput getLoginWithCertificateReturn() {
     return loginWithCertificateReturn;
@@ -66,9 +69,9 @@ public class LoginWithCertificateResponse implements Serializable, Cloneable, Co
 
   /**
    * Define el valor de la propiedad loginWithCertificateReturn.
-   * 
+   *
    * @param value allowed object is {@link M4LoginOutput }
-   * 
+   *
    */
   public void setLoginWithCertificateReturn(M4LoginOutput value) {
     this.loginWithCertificateReturn = value;

@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +29,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para Icm_Ws_ToolsBlock complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType name="Icm_Ws_ToolsBlock"&gt;
  *   &lt;complexContent&gt;
@@ -54,8 +57,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Icm_Ws_ToolsBlock", propOrder = {
@@ -126,9 +129,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad sysParam.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getSysParam() {
     return sysParam;
@@ -136,9 +139,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad sysParam.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setSysParam(String value) {
     this.sysParam = value;
@@ -146,9 +149,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmPrpCopy.
-   * 
+   *
    * @return possible object is {@link Double }
-   * 
+   *
    */
   public Double getIcmPrpCopy() {
     return icmPrpCopy;
@@ -156,9 +159,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmPrpCopy.
-   * 
+   *
    * @param value allowed object is {@link Double }
-   * 
+   *
    */
   public void setIcmPrpCopy(Double value) {
     this.icmPrpCopy = value;
@@ -166,9 +169,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad sysSentence.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getSysSentence() {
     return sysSentence;
@@ -176,9 +179,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad sysSentence.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setSysSentence(String value) {
     this.sysSentence = value;
@@ -186,9 +189,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmM4Object.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getIcmM4Object() {
     return icmM4Object;
@@ -196,9 +199,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmM4Object.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setIcmM4Object(String value) {
     this.icmM4Object = value;
@@ -206,9 +209,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmHavePaging.
-   * 
+   *
    * @return possible object is {@link Double }
-   * 
+   *
    */
   public Double getIcmHavePaging() {
     return icmHavePaging;
@@ -216,9 +219,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmHavePaging.
-   * 
+   *
    * @param value allowed object is {@link Double }
-   * 
+   *
    */
   public void setIcmHavePaging(Double value) {
     this.icmHavePaging = value;
@@ -226,9 +229,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmParentNode.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getIcmParentNode() {
     return icmParentNode;
@@ -236,9 +239,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmParentNode.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setIcmParentNode(String value) {
     this.icmParentNode = value;
@@ -246,9 +249,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmSharePolicy.
-   * 
+   *
    * @return possible object is {@link Double }
-   * 
+   *
    */
   public Double getIcmSharePolicy() {
     return icmSharePolicy;
@@ -256,9 +259,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmSharePolicy.
-   * 
+   *
    * @param value allowed object is {@link Double }
-   * 
+   *
    */
   public void setIcmSharePolicy(Double value) {
     this.icmSharePolicy = value;
@@ -266,9 +269,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmCloseChannel.
-   * 
+   *
    * @return possible object is {@link Double }
-   * 
+   *
    */
   public Double getIcmCloseChannel() {
     return icmCloseChannel;
@@ -276,9 +279,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmCloseChannel.
-   * 
+   *
    * @param value allowed object is {@link Double }
-   * 
+   *
    */
   public void setIcmCloseChannel(Double value) {
     this.icmCloseChannel = value;
@@ -286,9 +289,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmPrpCopyType.
-   * 
+   *
    * @return possible object is {@link String }
-   * 
+   *
    */
   public String getIcmPrpCopyType() {
     return icmPrpCopyType;
@@ -296,9 +299,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmPrpCopyType.
-   * 
+   *
    * @param value allowed object is {@link String }
-   * 
+   *
    */
   public void setIcmPrpCopyType(String value) {
     this.icmPrpCopyType = value;
@@ -306,9 +309,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmPrpLoadType.
-   * 
+   *
    * @return possible object is {@link Double }
-   * 
+   *
    */
   public Double getIcmPrpLoadType() {
     return icmPrpLoadType;
@@ -316,9 +319,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmPrpLoadType.
-   * 
+   *
    * @param value allowed object is {@link Double }
-   * 
+   *
    */
   public void setIcmPrpLoadType(Double value) {
     this.icmPrpLoadType = value;
@@ -326,9 +329,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmPrpLastLevel.
-   * 
+   *
    * @return possible object is {@link Double }
-   * 
+   *
    */
   public Double getIcmPrpLastLevel() {
     return icmPrpLastLevel;
@@ -336,9 +339,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmPrpLastLevel.
-   * 
+   *
    * @param value allowed object is {@link Double }
-   * 
+   *
    */
   public void setIcmPrpLastLevel(Double value) {
     this.icmPrpLastLevel = value;
@@ -346,9 +349,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmPrpLoadDepth.
-   * 
+   *
    * @return possible object is {@link Double }
-   * 
+   *
    */
   public Double getIcmPrpLoadDepth() {
     return icmPrpLoadDepth;
@@ -356,9 +359,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmPrpLoadDepth.
-   * 
+   *
    * @param value allowed object is {@link Double }
-   * 
+   *
    */
   public void setIcmPrpLoadDepth(Double value) {
     this.icmPrpLoadDepth = value;
@@ -366,9 +369,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmHaveValidation.
-   * 
+   *
    * @return possible object is {@link Double }
-   * 
+   *
    */
   public Double getIcmHaveValidation() {
     return icmHaveValidation;
@@ -376,9 +379,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmHaveValidation.
-   * 
+   *
    * @param value allowed object is {@link Double }
-   * 
+   *
    */
   public void setIcmHaveValidation(Double value) {
     this.icmHaveValidation = value;
@@ -386,9 +389,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Obtiene el valor de la propiedad icmHaveIdexecution.
-   * 
+   *
    * @return possible object is {@link Double }
-   * 
+   *
    */
   public Double getIcmHaveIdexecution() {
     return icmHaveIdexecution;
@@ -396,9 +399,9 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Define el valor de la propiedad icmHaveIdexecution.
-   * 
+   *
    * @param value allowed object is {@link Double }
-   * 
+   *
    */
   public void setIcmHaveIdexecution(Double value) {
     this.icmHaveIdexecution = value;
@@ -406,20 +409,20 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
 
   /**
    * Gets the value of the icmWsToolsRecordSet property.
-   * 
+   *
    * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmWsToolsRecordSet property.
-   * 
+   *
    * <p> For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getIcmWsToolsRecordSet().add(newItem);
    * </pre>
-   * 
-   * 
+   *
+   *
    * <p> Objects of the following type(s) are allowed in the list {@link IcmWsToolsRecord }
-   * 
-   * 
+   *
+   *
    */
   public List<IcmWsToolsRecord> getIcmWsToolsRecordSet() {
     if (icmWsToolsRecordSet == null) {

@@ -15,6 +15,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenc
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResponseDto;
 
@@ -90,6 +92,19 @@ public class PtrPresenciaAsyncServiceImplTest {
         .presenciasEmpleadosTienda(new PtrPresenciaEmpleadosTiendaRequestDto());
     assertEquals(response, cf.get());
 
+  }
+
+  @Test
+  public void tiposHorasTest() throws ExecutionException, InterruptedException {
+
+    final PtrPresenciaTiposHorasResponseDto response = PtrPresenciaTiposHorasResponseDto
+        .builder()
+        .tiposHoras(new ArrayList<>())
+        .build();
+    when(this.ptrPresenciaService.tiposHoras(any(PtrPresenciaTiposHorasRequestDto.class))).thenReturn(response);
+    final CompletableFuture<PtrPresenciaTiposHorasResponseDto> cf = this.ptrPresenciaAsyncService
+        .tiposHoras(new PtrPresenciaTiposHorasRequestDto());
+    assertEquals(response, cf.get());
   }
 
 }

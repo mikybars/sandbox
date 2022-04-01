@@ -10,11 +10,14 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.springframework.scheduling.annotation.Async;
 
 @Async
@@ -230,7 +233,7 @@ public interface ComisAsyncService {
 
   /**
    * Obtiene las comisiones manuales.
-   * 
+   *
    * @param runTareaDto tarea.
    * @param tareaAmbito ambito.
    * @return Future con las comisiones manuales.
@@ -238,4 +241,31 @@ public interface ComisAsyncService {
   CompletableFuture<List<IdPersonaLocalComisionManualDto>> findComisionManual(
       @Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
+
+  /**
+   * Obtiene las personas con sus respectivas localizaciones.
+   *
+   * @param runTareaDto tarea.
+   * @param tareaAmbito ambito.
+   * @param maxIdPersona maximo id de persona a obtener para evitar empleados externos.
+   * @return Future con las personas.
+   */
+  CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonas(
+      @Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito,
+      @NotNull Long maxIdPersona);
+
+  /**
+   * Obtiene las personas con sus respectivas localizaciones.
+   *
+   * @param runTareaDto tarea.
+   * @param tareaAmbito ambito.
+   * @param maxIdPersona maximo id de persona a obtener para evitar empleados externos.
+   * @param clase clase a la que deben pertencer las personas.
+   * @return Future con las personas.
+   */
+  CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonasSil(
+      @Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito,
+      @NotNull Long maxIdPersona, @Valid ClaseResultItemDto clase);
 }

@@ -11,12 +11,15 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -189,5 +192,18 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
   public CompletableFuture<List<IdPersonaLocalComisionManualDto>> findComisionManual(
       @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito) {
     return CompletableFuture.completedFuture(this.comisService.findComisionManual(runTareaDto, tareaAmbito));
+  }
+
+  @Override
+  public CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonas(
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona) {
+    return CompletableFuture.completedFuture(this.comisService.findPersonas(runTareaDto, tareaAmbito, maxIdPersona));
+  }
+
+  @Override
+  public CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonasSil(
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona,
+      @Valid final ClaseResultItemDto clase) {
+    return CompletableFuture.completedFuture(this.comisService.findPersonasSil(runTareaDto, tareaAmbito, maxIdPersona, clase));
   }
 }
