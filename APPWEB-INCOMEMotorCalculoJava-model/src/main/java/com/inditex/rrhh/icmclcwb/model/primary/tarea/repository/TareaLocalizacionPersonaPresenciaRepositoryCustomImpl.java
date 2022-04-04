@@ -68,9 +68,6 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVenta']}")
   private String sqlIndicadorPersonaPorVenta;
 
-  @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVentaSimplificada']}")
-  private String sqlIndicadorPersonaPorVentaSimplificada;
-
   @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.presenciasIncluidoVenta']}")
   private String sqlPresenciasIncluidoVenta;
 
@@ -294,23 +291,6 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
 
     this.update(this.sqlIndicadorPersonaPorVenta, parameters);
-  }
-
-  @Override
-  public void indicadorPersonaPorVentaSimplificada(@NotNull final RunTareaDto runTareaDto) {
-    final MapSqlParameterSource parameters = new MapSqlParameterSource();
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO,
-        TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId());
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
-        TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA_SIMPLIFICADA.getId());
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA,
-        TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId());
-
-    this.update(this.sqlIndicadorPersonaPorVentaSimplificada, parameters);
   }
 
   @Override

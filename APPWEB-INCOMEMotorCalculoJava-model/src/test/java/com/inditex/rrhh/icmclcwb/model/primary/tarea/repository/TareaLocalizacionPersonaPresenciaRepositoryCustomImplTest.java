@@ -62,7 +62,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
+class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
   private final static String SQL_SAVE = "SAVE";
 
@@ -191,7 +191,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorPresenciaTest() {
+  void indicadorPresenciaTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -228,7 +228,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorPresenciaDesplazamientoTest() {
+  void indicadorPresenciaDesplazamientoTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -259,7 +259,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorPresenciaDesplazamientoBaseTest() {
+  void indicadorPresenciaDesplazamientoBaseTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -290,7 +290,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionTest() {
+  void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -324,7 +324,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void updateActivoVacioTest() {
+  void updateActivoVacioTest() {
 
     final LocalDate fechaInicioPeriodo = LocalDate.of(2020, 1, 1);
     final RunTareaDto runTarea = mock(RunTareaDto.class);
@@ -358,7 +358,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void updateActivoTest() {
+  void updateActivoTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -393,7 +393,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarTest() {
+  void compensarTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -435,7 +435,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarChallengeTest() {
+  void compensarChallengeTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -474,7 +474,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void presenciasIncluidoVentaTest() {
+  void presenciasIncluidoVentaTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -513,7 +513,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void presenciasHorasFijasTest() {
+  void presenciasHorasFijasTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -547,7 +547,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void presenciasHorasFijasDesplazamientoTest() {
+  void presenciasHorasFijasDesplazamientoTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -581,7 +581,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorPersonaPorVentaTest() {
+  void indicadorPersonaPorVentaTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -625,47 +625,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorPersonaPorVentaSimplificadaTest() {
-
-    final RunTareaDto runTarea = mock(RunTareaDto.class);
-    final TareaDto tarea = mock(TareaDto.class);
-    when(tarea.getId()).thenReturn(199L);
-    when(runTarea.getTarea()).thenReturn(tarea);
-
-    this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVentaSimplificada(runTarea);
-    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
-    assertEquals(SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA, this.sqlCaptor.getValue());
-    final MapSqlParameterSource params = this.paramsCaptor.getValue();
-    // Parámetros de la consulta: nuevoIdTipoDato, nuevoActivo, nuevoIdSeccion, idTarea, idTipoCalculo,
-    // activo, idTipoGrupoDatoVenta
-    assertEquals(7, params.getValues().size());
-    // nuevoIdTipoDato
-    assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-    assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA_SIMPLIFICADA.getId(),
-        params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-    // nuevoActivo
-    assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
-    // nuevoIdSeccion
-    assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_SECCION));
-    assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_NUEVO_ID_SECCION));
-    // idTarea
-    assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
-    assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
-    // idTipoCalculo
-    assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_CALCULO));
-    assertEquals(TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(), params.getValue(SQL_PARAM_ID_TIPO_CALCULO));
-    // activo
-    assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
-    // idTipoGrupoDatoVenta
-    assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
-    assertEquals(TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId(),
-        params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
-  }
-
-  @Test
-  public void saveTest() {
+  void saveTest() {
 
     final List<TareaLocalizacionPersonaPresencia> items = Arrays
         .asList(mock(TareaLocalizacionPersonaPresencia.class));
@@ -676,7 +636,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoDirectoVentaTest() {
+  void indicadorDesplazamientoDirectoVentaTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -702,7 +662,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoDirectoVentaSinPresenciasTest() {
+  void indicadorDesplazamientoDirectoVentaSinPresenciasTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -729,7 +689,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoBaseDirectoVentaTest() {
+  void indicadorDesplazamientoBaseDirectoVentaTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -756,7 +716,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoBaseDirectoVentaOtraTiendaTest() {
+  void indicadorDesplazamientoBaseDirectoVentaOtraTiendaTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -783,7 +743,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoBaseDirectoVentaCambioFuncionTest() {
+  void indicadorDesplazamientoBaseDirectoVentaCambioFuncionTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -810,7 +770,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoChallengeImporteTiendaTest() {
+  void indicadorDesplazamientoChallengeImporteTiendaTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
@@ -837,7 +797,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void updateActivoPersonasExternasQueryTest() {
+  void updateActivoPersonasExternasQueryTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(199L);
@@ -850,7 +810,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void updateActivoPersonasExternasNumParametrosTest() {
+  void updateActivoPersonasExternasNumParametrosTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(199L);
@@ -865,7 +825,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void updateActivoPersonasExternasParametroIdTareaTest() {
+  void updateActivoPersonasExternasParametroIdTareaTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
     final Long idTarea = 199L;
@@ -882,7 +842,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void updateActivoPersonasExternasParametroActivoTest() {
+  void updateActivoPersonasExternasParametroActivoTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
     final Long idTarea = 199L;
@@ -899,7 +859,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void updateActivoPersonasExternasParametroNuevoActivoTest() {
+  void updateActivoPersonasExternasParametroNuevoActivoTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
     final Long idTarea = 199L;
@@ -916,7 +876,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void updateActivoPersonasExternasParametroIdTipoGrupoDatoTest() {
+  void updateActivoPersonasExternasParametroIdTipoGrupoDatoTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
     final TareaDto tarea = mock(TareaDto.class);
     final Long idTarea = 199L;

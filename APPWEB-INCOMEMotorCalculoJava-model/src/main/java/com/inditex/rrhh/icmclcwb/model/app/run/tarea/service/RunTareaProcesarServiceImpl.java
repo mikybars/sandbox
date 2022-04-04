@@ -290,11 +290,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
               .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
       AsyncUtils.exceptionally(cfIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion, cf, cfWait);
 
-      // Indicadores de presencia de por venta simplificada y por venta
-      final CompletableFuture<Void> cfIndicadorPersonasPorVentaSimplificada = this.runTareaProcesarPresenciaAsyncService
-          .indicadorPersonaPorVentaSimplificada(runTarea);
-      AsyncUtils.exceptionally(cfIndicadorPersonasPorVentaSimplificada, cf, cfWait);
-
+      // Indicador de presencia de empleados por venta
       final CompletableFuture<Void> cfIndicadorPersonasPorVenta = this.runTareaProcesarPresenciaAsyncService
           .indicadorPersonaPorVenta(runTarea);
       AsyncUtils.exceptionally(cfIndicadorPersonasPorVenta, cf, cfWait);
@@ -332,11 +328,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/
-
-      // Calcular ventas localizacion realizadas por personas por venta simplificado
-      final CompletableFuture<Void> cfVentasPorVentaSimplificado = this.runTareaProcesarVentaAsyncService
-          .totalizarVentaPersonasPorVentaSimplificada(runTarea);
-      AsyncUtils.exceptionally(cfVentasPorVentaSimplificado, cf, cfWait);
 
       // Calcular ventas localizacion realizadas por personas por venta
       final CompletableFuture<Void> cfVentasPorVenta = this.runTareaProcesarVentaAsyncService

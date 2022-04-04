@@ -42,8 +42,6 @@ public interface RunTareaProcesarVentaService {
 
   void totalizarVentaSinDevolucionPersonasPorVenta(@Valid RunTareaDto tarea);
 
-  void totalizarVentaPersonasPorVentaSimplificada(@Valid RunTareaDto tarea);
-
   void totalizarVentaPersonaSeccion(@Valid RunTareaDto tarea);
 
   void totalizarVentaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);

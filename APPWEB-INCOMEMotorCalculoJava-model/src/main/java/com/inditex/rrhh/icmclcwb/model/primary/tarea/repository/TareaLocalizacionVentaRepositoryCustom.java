@@ -20,8 +20,6 @@ public interface TareaLocalizacionVentaRepositoryCustom {
 
   void totalizarDevolucionLocalizacionSeccion(TareaDto tarea);
 
-  void totalizarVentaPersonasPorVentaSimplificada(TareaDto tarea);
-
   void totalizarVentaSinDevolucionPersonasPorVenta(TareaDto tarea);
 
   void calcularImporteComisionVendedores(TareaDto tarea);

@@ -104,11 +104,6 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
   }
 
   @Override
-  public void indicadorPersonaPorVentaSimplificada(@Valid @NotNull final RunTareaDto runTareaDto) {
-    this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVentaSimplificada(runTareaDto);
-  }
-
-  @Override
   public void indicadorDesplazamientoDirectoVenta(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPersonaPresenciaRepositoryCustom
         .indicadorDesplazamientoDirectoVenta(runTareaDto);
