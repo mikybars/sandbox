@@ -172,9 +172,6 @@ class RunTareaProcesarServiceImplTest {
         .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
-        .indicadorPersonaPorVentaSimplificada(this.runTarea);
-
-    doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .indicadorPersonaPorVenta(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
@@ -197,9 +194,6 @@ class RunTareaProcesarServiceImplTest {
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .calcularPresenciasTotalesAgrupacion(this.runTarea);
-
-    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarVentaPersonasPorVentaSimplificada(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .totalizarVentaSinDevolucionPersonasPorVenta(this.runTarea);
