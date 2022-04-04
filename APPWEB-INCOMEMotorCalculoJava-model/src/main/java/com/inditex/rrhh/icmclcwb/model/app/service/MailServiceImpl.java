@@ -139,7 +139,7 @@ public class MailServiceImpl implements MailService {
               .builder()
               .idUsuario(trabajo.getNombreUsuario())
               .build());
-      if (usuario != null && !usuario.getItems().isEmpty()) {
+      if (usuario != null && !usuario.getItems().isEmpty() && !usuario.getItems().get(0).getMail().isEmpty()) {
         message.setCc(new StringBuilder(usuario.getItems().get(0).getMail()).toString());
       }
 
