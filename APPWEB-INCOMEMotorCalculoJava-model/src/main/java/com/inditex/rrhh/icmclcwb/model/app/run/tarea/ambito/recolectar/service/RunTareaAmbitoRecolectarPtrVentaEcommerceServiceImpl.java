@@ -389,7 +389,6 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
                   tareaAmbito.getCclIdOrigen(),
                   empresasAmbito,
                   Arrays.asList(TipoCalculoEnum.POR_VENTA.getId(),
-                      TipoCalculoEnum.POR_VENTA_SIMPLIFICADA.getId(),
                       TipoCalculoEnum.POR_VENTA_INDIVIDUAL.getId())),
           this.ventaEcommerceProperties
               .get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE)

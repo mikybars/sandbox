@@ -89,8 +89,6 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
   private final static String SQL_INDICADOR_PERSONA_POR_VENTA = "SQL INDICADOR PERSONA POR VENTA";
 
-  private final static String SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA = "SQL INDICADOR PERSONA POR VENTA SIMPLIFICADA";
-
   private final static String SQL_PRESENCIAS_INCLUIDO_VENTA = "PRESENCIAS INCLUIDO VENTA";
 
   private final static String SQL_INDICADOR_DESPLAZAMIENTO_DIRECTO_VENTA = "SQL INDICADOR DESPLAZAMIENTO DIRECTO VENTA";
@@ -160,9 +158,6 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
         SQL_PRESENCIAS_HORAS_FIJAS_DESPLAZAMIENTO, true);
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlIndicadorPersonaPorVenta",
         SQL_INDICADOR_PERSONA_POR_VENTA, true);
-    FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
-        "sqlIndicadorPersonaPorVentaSimplificada",
-        SQL_INDICADOR_PERSONA_POR_VENTA_SIMPLIFICADA, true);
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlPresenciasIncluidoVenta",
         SQL_PRESENCIAS_INCLUIDO_VENTA, true);
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
