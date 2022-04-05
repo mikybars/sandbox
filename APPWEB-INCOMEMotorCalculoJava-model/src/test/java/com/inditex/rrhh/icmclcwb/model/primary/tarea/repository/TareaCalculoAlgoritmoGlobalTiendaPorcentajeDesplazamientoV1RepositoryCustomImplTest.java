@@ -26,6 +26,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +54,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1RepositoryCustomImplTest {
+class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1RepositoryCustomImplTest {
 
   private final static String SQL_BASE = "SQL CALCULAR BASE";
 
@@ -83,7 +84,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
   }
 
   @Test
-  public void idsTest() {
+  void idsTest() {
 
     final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
     final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
@@ -102,7 +103,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
   }
 
   @Test
-  public void getMapValuesTest() {
+  void getMapValuesTest() {
 
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
@@ -147,7 +148,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
     assertEquals(Arrays.asList(1011), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
     // tipoDatoPersonaPresencia
     assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA));
-    assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(),
+    assertEquals(Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()),
         result.get(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA));
     // idAlgoritmo
     assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
@@ -186,7 +187,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
   }
 
   @Test
-  public void calcularTest() {
+  void calcularTest() {
 
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
@@ -242,7 +243,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
       assertEquals(Arrays.asList(1011), value.getValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
       // tipoDatoPersonaPresencia
       assertTrue(value.hasValue(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA));
-      assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(),
+      assertEquals(Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()),
           value.getValue(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA));
       // excluidoCalculo
       assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
@@ -291,7 +292,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
   }
 
   @Test
-  public void getSqlCalcularTest() {
+  void getSqlCalcularTest() {
 
     final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
     when(algoritmo.getId()).thenReturn(21);
