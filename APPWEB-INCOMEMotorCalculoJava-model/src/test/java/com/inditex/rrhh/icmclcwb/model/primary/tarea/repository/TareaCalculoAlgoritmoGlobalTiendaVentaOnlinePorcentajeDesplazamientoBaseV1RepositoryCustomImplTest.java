@@ -72,14 +72,14 @@ class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @InjectMocks
-  private TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustomImpl
-      tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom;
+  private TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustomImpl tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom;
 
   @BeforeEach
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom, "sqlCalcular",
         SQL_CALCULAR, true);
-    FieldUtils.writeField(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom, "sqlCalcularBase",
+    FieldUtils.writeField(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom,
+        "sqlCalcularBase",
         SQL_BASE, true);
   }
 
