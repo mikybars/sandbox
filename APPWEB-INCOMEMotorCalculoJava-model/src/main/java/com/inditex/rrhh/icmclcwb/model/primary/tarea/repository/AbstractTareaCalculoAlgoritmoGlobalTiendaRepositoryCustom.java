@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AbstractTareaCalculoAlgoritmoGlobalTiendaRepositoryCustom extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom {
 
   @Autowired
-  private TipoDatoService tipoDatoService;
+  protected TipoDatoService tipoDatoService;
 
   @Override
   protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea,
@@ -45,10 +45,6 @@ public abstract class AbstractTareaCalculoAlgoritmoGlobalTiendaRepositoryCustom 
             .collect(Collectors.toList()));
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
         Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()));
-    final List<IdTipoDatoDto> ids = this.tipoDatoService
-        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-    map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
-        ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     map.put(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     map.put(SqlPrimaryConstants.SQL_PARAM_CALCULA, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
