@@ -21,6 +21,12 @@ public class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamient
     extends AbstractTareaCalculoAlgoritmoGlobalTiendaRepositoryCustom
     implements TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom {
 
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
+  @Getter
+  private String sqlCalcularBase;
+
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1Repository.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
@@ -28,19 +34,8 @@ public class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamient
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoBaseV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
-  @Getter
-  private String sqlCalcularBase;
-
   @Autowired
   private TareaCalculoPersonaService tareaCalculoPersonaService;
-
-  @Override
-  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
-    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
-  }
 
   @Override
   protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo,
@@ -54,5 +49,10 @@ public class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamient
         TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION
             .getId());
     return map;
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
+    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
   }
 }

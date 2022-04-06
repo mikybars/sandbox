@@ -22,24 +22,19 @@ public class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryC
     extends AbstractTareaCalculoAlgoritmoGlobalTiendaRepositoryCustom
     implements TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryCustom {
 
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+  @Getter
+  private String sqlCalcularBase;
+
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-  @Getter
-  private String sqlCalcularBase;
-
   @Autowired
   private TareaCalculoPersonaService tareaCalculoPersonaService;
-
-  @Override
-  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
-    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
-  }
 
   @Override
   protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea,
@@ -50,5 +45,10 @@ public class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryC
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
         ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     return map;
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
+    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
   }
 }

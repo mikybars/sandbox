@@ -23,24 +23,19 @@ public class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamient
     extends AbstractTareaCalculoAlgoritmoGlobalTiendaRepositoryCustom
     implements TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom {
 
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+  @Getter
+  private String sqlCalcularBase;
+
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-  @Getter
-  private String sqlCalcularBase;
-
   @Autowired
   private TareaCalculoPersonaService tareaCalculoPersonaService;
-
-  @Override
-  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
-    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
-  }
 
   @Override
   protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea,
@@ -48,11 +43,16 @@ public class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamient
     final Map<String, Object> map = super.getMapValues(algoritmo, tarea, persona);
     final List<IdTipoDatoDto> ids = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_IPOD.getId());
-    map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
-        ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO,
         TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
+    map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
+        ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     return map;
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
+    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
   }
 
 }

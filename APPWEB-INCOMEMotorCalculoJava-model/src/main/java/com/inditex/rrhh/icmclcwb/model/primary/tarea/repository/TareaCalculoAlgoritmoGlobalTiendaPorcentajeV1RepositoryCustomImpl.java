@@ -37,11 +37,6 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl
   private TareaCalculoPersonaService tareaCalculoPersonaService;
 
   @Override
-  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
-    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
-  }
-
-  @Override
   protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea,
       final IdPersonaLocalDto persona) {
     final Map<String, Object> map = super.getMapValues(algoritmo, tarea, persona);
@@ -50,5 +45,10 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImpl
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
         ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     return map;
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
+    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
   }
 }

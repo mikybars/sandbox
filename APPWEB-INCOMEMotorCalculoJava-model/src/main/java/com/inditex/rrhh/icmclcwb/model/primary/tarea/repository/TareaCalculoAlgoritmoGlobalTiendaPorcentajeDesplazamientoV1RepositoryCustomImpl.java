@@ -23,16 +23,16 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
     extends AbstractTareaCalculoAlgoritmoGlobalTiendaRepositoryCustom
     implements TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1RepositoryCustom {
 
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+  @Getter
+  private String sqlCalcularBase;
+
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Repository.calcular']}"
       + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
-
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-  @Getter
-  private String sqlCalcularBase;
 
   @Autowired
   private TareaCalculoPersonaService tareaCalculoPersonaService;
