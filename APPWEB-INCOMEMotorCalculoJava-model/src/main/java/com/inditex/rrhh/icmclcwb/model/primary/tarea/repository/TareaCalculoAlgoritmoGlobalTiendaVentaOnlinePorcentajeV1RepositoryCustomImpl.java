@@ -8,12 +8,10 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -33,9 +31,6 @@ public class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryC
   @Getter
   private String sqlCalcular;
 
-  @Autowired
-  private TareaCalculoPersonaService tareaCalculoPersonaService;
-
   @Override
   protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea,
       final IdPersonaLocalDto persona) {
@@ -45,10 +40,5 @@ public class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryC
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
         ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     return map;
-  }
-
-  @Override
-  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
-    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
   }
 }
