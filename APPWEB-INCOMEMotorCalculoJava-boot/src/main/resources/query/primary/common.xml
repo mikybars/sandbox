@@ -9219,4 +9219,11 @@ INSERT INTO SESSION.PRESUPUESTO (
     ]]>
   </entry>
 
+  <entry key="TareaFaseAccionFallidasRepositoryCustom.save">
+    <![CDATA[
+    INSERT INTO TAREA_FASE_ACCION_FALLIDAS (ID_TAREA_FASE_ACCION, ID_TIPO_FALLIDAS, FALLIDAS)
+    VALUES(?,?,?)
+  ]]>
+  </entry>
+
 </properties>
