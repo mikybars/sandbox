@@ -19,7 +19,6 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class TareaFaseAccionFallidasRepositoryCustomImpl
-    extends JdbcBatchPrimaryRepositoryAbstract<TareaFaseAccionFallidas>
     implements TareaFaseAccionFallidasRepositoryCustom{
 
     @Autowired
