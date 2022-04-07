@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RepositoryCustomImpl
     extends AbstractTareaCalculoAlgoritmoGlobalTiendaRepositoryCustom
-    implements TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1RepositoryCustom {
+    implements TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom {
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1Repository.calcular']} "
