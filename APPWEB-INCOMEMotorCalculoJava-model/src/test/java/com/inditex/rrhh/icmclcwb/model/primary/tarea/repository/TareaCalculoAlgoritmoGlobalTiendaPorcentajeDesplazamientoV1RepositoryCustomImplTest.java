@@ -113,96 +113,106 @@ class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1RepositoryCusto
       @Random(type = IdTipoDatoDto.class, size = 3) final List<IdTipoDatoDto> tiposDatoVenta,
       @Random final IdPersonaLocalDto persona) {
 
-      // parametros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
-      // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
-      final Map<String, Object> expected = new HashMap<>();
-      expected.put(SQL_PARAM_ACTIVO, SQL_VALUE_BOOLEAN_TRUE);
-      expected.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION, tiposDatoVenta.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-      expected.put(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA, Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()));
-      expected.put(SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-      expected.put(SQL_PARAM_ID_TAREA, tarea.getId());
-      expected.put(SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
-      expected.put(SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
-      expected.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);
-      expected.put(SQL_PARAM_CALCULA, SQL_VALUE_BOOLEAN_TRUE);
-      expected.put(SQL_PARAM_EXCLUIDO_CALCULO, SQL_VALUE_BOOLEAN_FALSE);
-      expected.put(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO,
-          TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
-      expected.put(SQL_PARAM_IDS_TIPOS_COMISION, algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
-      expected.put(SQL_PARAM_IDS_TIPOS_CALCULO, algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).collect(Collectors.toList()));
-      expected.put(SQL_PARAM_ES_DESPLAZAMIENTO, SQL_VALUE_BOOLEAN_TRUE);
-      expected.put(SQL_PARAM_ES_DESPLAZAMIENTO_BASE, SQL_VALUE_BOOLEAN_FALSE);
-      expected.put(SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
-      expected.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA, tiposDatoPersonaPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+    // parametros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
+    // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SQL_PARAM_ACTIVO, SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
+        tiposDatoVenta.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+    expected.put(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
+        Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()));
+    expected.put(SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
+    expected.put(SQL_PARAM_ID_TAREA, tarea.getId());
+    expected.put(SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
+    expected.put(SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
+    expected.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SQL_PARAM_CALCULA, SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SQL_PARAM_EXCLUIDO_CALCULO, SQL_VALUE_BOOLEAN_FALSE);
+    expected.put(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO,
+        TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
+    expected.put(SQL_PARAM_IDS_TIPOS_COMISION,
+        algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
+    expected.put(SQL_PARAM_IDS_TIPOS_CALCULO, algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).collect(Collectors.toList()));
+    expected.put(SQL_PARAM_ES_DESPLAZAMIENTO, SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SQL_PARAM_ES_DESPLAZAMIENTO_BASE, SQL_VALUE_BOOLEAN_FALSE);
+    expected.put(SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
+    expected.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
+        tiposDatoPersonaPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
 
-      algoritmo.setDesplazamiento(true);
-      algoritmo.setDesplazamientoBase(false);
+    algoritmo.setDesplazamiento(true);
+    algoritmo.setDesplazamientoBase(false);
 
-      when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
-          .thenReturn(tiposDatoVenta);
-      when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-          .thenReturn(tiposDatoPersonaPresencia);
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
+        .thenReturn(tiposDatoVenta);
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
+        .thenReturn(tiposDatoPersonaPresencia);
 
-      final Map<String, Object> result = this.tareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1RepositoryCustom
+    final Map<String, Object> result = this.tareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1RepositoryCustom
         .getMapValues(algoritmo, tarea, persona);
 
-      verify(this.tipoDatoService, times(1)).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-      verify(this.tipoDatoService, times(1)).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+    verify(this.tipoDatoService, times(1)).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+    verify(this.tipoDatoService, times(1))
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
 
     assertEquals(expected, result);
 
   }
 
-    @Test
-    void calcularTest(@Random final AlgoritmoDTO algoritmo, @Random final TareaDto tarea,
-        @Random(type = IdTipoDatoDto.class, size = 2) final List<IdTipoDatoDto> tiposDatoPersonaPresencia,
-        @Random(type = IdTipoDatoDto.class, size = 3) final List<IdTipoDatoDto> tiposDatoVenta,
-        @Random(type = IdPersonaLocalDto.class, size = 2) final List<IdPersonaLocalDto> personas) {
+  @Test
+  void calcularTest(@Random final AlgoritmoDTO algoritmo, @Random final TareaDto tarea,
+      @Random(type = IdTipoDatoDto.class, size = 2) final List<IdTipoDatoDto> tiposDatoPersonaPresencia,
+      @Random(type = IdTipoDatoDto.class, size = 3) final List<IdTipoDatoDto> tiposDatoVenta,
+      @Random(type = IdPersonaLocalDto.class, size = 2) final List<IdPersonaLocalDto> personas) {
 
-        algoritmo.setDesplazamiento(true);
-        algoritmo.setDesplazamientoBase(false);
-        when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
-            .thenReturn(tiposDatoVenta);
-        when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(tiposDatoPersonaPresencia);
+    algoritmo.setDesplazamiento(true);
+    algoritmo.setDesplazamientoBase(false);
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
+        .thenReturn(tiposDatoVenta);
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
+        .thenReturn(tiposDatoPersonaPresencia);
 
-        // parametros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
-        // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
-        final List<Map<String, Object>> expected = new ArrayList<>();
-        for (final IdPersonaLocalDto persona : personas) {
-            final Map<String, Object> map = new HashMap<>();
-            map.put(SQL_PARAM_ACTIVO, SQL_VALUE_BOOLEAN_TRUE);
-            map.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION, tiposDatoVenta.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-            map.put(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA, Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()));
-            map.put(SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-            map.put(SQL_PARAM_ID_TAREA, tarea.getId());
-            map.put(SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
-            map.put(SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
-            map.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);
-            map.put(SQL_PARAM_CALCULA, SQL_VALUE_BOOLEAN_TRUE);
-            map.put(SQL_PARAM_EXCLUIDO_CALCULO, SQL_VALUE_BOOLEAN_FALSE);
-            map.put(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO,
-                TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
-            map.put(SQL_PARAM_IDS_TIPOS_COMISION, algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
-            map.put(SQL_PARAM_IDS_TIPOS_CALCULO, algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).collect(Collectors.toList()));
-            map.put(SQL_PARAM_ES_DESPLAZAMIENTO, SQL_VALUE_BOOLEAN_TRUE);
-            map.put(SQL_PARAM_ES_DESPLAZAMIENTO_BASE, SQL_VALUE_BOOLEAN_FALSE);
-            map.put(SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
-            map.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA, tiposDatoPersonaPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-            expected.add(map);
-        }
+    // parametros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
+    // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
+    final List<Map<String, Object>> expected = new ArrayList<>();
+    for (final IdPersonaLocalDto persona : personas) {
+      final Map<String, Object> map = new HashMap<>();
+      map.put(SQL_PARAM_ACTIVO, SQL_VALUE_BOOLEAN_TRUE);
+      map.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
+          tiposDatoVenta.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+      map.put(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
+          Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()));
+      map.put(SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
+      map.put(SQL_PARAM_ID_TAREA, tarea.getId());
+      map.put(SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
+      map.put(SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
+      map.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);
+      map.put(SQL_PARAM_CALCULA, SQL_VALUE_BOOLEAN_TRUE);
+      map.put(SQL_PARAM_EXCLUIDO_CALCULO, SQL_VALUE_BOOLEAN_FALSE);
+      map.put(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO,
+          TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
+      map.put(SQL_PARAM_IDS_TIPOS_COMISION, algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
+      map.put(SQL_PARAM_IDS_TIPOS_CALCULO, algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).collect(Collectors.toList()));
+      map.put(SQL_PARAM_ES_DESPLAZAMIENTO, SQL_VALUE_BOOLEAN_TRUE);
+      map.put(SQL_PARAM_ES_DESPLAZAMIENTO_BASE, SQL_VALUE_BOOLEAN_FALSE);
+      map.put(SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
+      map.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
+          tiposDatoPersonaPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+      expected.add(map);
+    }
 
     this.tareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1RepositoryCustom.calcular(algoritmo, tarea,
         personas);
 
-        verify(this.tipoDatoService, times(2))
-            .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-        verify(this.tipoDatoService, times(2)).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-        verify(this.namedParameterJdbcTemplate).batchUpdate(any(String.class), this.params.capture());
-        final List<Map<String, Object>> values = Arrays.stream(this.params.getValue()).map(MapSqlParameterSource::getValues).collect(Collectors.toList());
-        assertEquals(expected, values);
+    verify(this.tipoDatoService, times(2))
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+    verify(this.tipoDatoService, times(2))
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+    verify(this.namedParameterJdbcTemplate).batchUpdate(any(String.class), this.params.capture());
+    final List<Map<String, Object>> values =
+        Arrays.stream(this.params.getValue()).map(MapSqlParameterSource::getValues).collect(Collectors.toList());
+    assertEquals(expected, values);
 
-    }
+  }
 
   @Test
   void getSqlCalcularTest() {
