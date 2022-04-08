@@ -40,14 +40,14 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamie
     final Map<String, Object> map = super.getMapValues(algoritmo, tarea, persona);
     final List<IdTipoDatoDto> tiposDatoPresencia = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
-    map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
-        tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     final List<IdTipoDatoDto> tiposDatoVentaFisica = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-    map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
-        tiposDatoVentaFisica.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO,
         TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
+    map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
+        tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+    map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
+        tiposDatoVentaFisica.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     return map;
   }
 

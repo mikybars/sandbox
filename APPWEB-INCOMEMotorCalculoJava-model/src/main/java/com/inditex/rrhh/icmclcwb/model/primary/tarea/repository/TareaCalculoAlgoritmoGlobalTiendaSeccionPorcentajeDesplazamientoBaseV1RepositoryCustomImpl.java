@@ -21,6 +21,12 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBas
     extends AbstractTareaCalculoAlgoritmoGlobalTiendaRepositoryCustom
     implements TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1RepositoryCustom {
 
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
+  @Getter
+  private String sqlCalcularBase;
+
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']}"
       + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1Repository.calcular']}"
       + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
@@ -28,19 +34,9 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBas
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBaseV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
-  @Getter
-  private String sqlCalcularBase;
-
   @Override
   protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
     final Map<String, Object> map = super.getMapValues(algoritmo, tarea, persona);
-    final List<IdTipoDatoDto> tiposDatoPresencia = this.tipoDatoService
-        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
-    map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
-        tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     final List<IdTipoDatoDto> tiposDatoVentaFisica = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
@@ -48,6 +44,10 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoBas
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION,
         TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION
             .getId());
+    final List<IdTipoDatoDto> tiposDatoPresencia = this.tipoDatoService
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
+    map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
+        tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     return map;
   }
 
