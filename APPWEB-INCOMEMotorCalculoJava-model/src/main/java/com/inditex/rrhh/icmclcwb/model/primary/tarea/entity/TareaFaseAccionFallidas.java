@@ -1,8 +1,8 @@
-/*
- * Copyright (c) 2022.  Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
+
+/*
+ * Copyright (c) 2022. Inditex
+ */
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -26,15 +26,15 @@ import lombok.ToString;
 @ToString
 public class TareaFaseAccionFallidas {
 
-    @EmbeddedId
-    private TareaFaseAccionFallidasPk pk;
+  @EmbeddedId
+  private TareaFaseAccionFallidasPk pk;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "ID_TIPO_FALLIDAS", nullable = false)
-    private TipoFallidas tipoFallidas;
+  @NotNull
+  @ManyToOne
+  @JoinColumn(name = "ID_TIPO_FALLIDAS", nullable = false)
+  private TipoFallidas tipoFallidas;
 
-    @NotNull
-    @Column(name = "FALLIDAS", nullable = false)
-    private String fallidas;
+  @NotNull
+  @Column(name = "FALLIDAS", nullable = false)
+  private String fallidas;
 }

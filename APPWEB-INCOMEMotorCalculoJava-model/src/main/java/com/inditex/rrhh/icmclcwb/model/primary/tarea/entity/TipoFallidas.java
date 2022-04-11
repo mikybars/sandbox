@@ -1,8 +1,8 @@
-/*
- * Copyright (c) 2022.  Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
+
+/*
+ * Copyright (c) 2022. Inditex
+ */
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,12 +22,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TipoFallidas {
 
-    @Id
-    @Column(name = "ID_TIPO_FALLIDAS")
-    private Integer id;
+  @Id
+  @Column(name = "ID_TIPO_FALLIDAS")
+  private Integer id;
 
-    @NotNull
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
+  @NotNull
+  @Column(name = "DESCRIPCION")
+  private String descripcion;
 
 }

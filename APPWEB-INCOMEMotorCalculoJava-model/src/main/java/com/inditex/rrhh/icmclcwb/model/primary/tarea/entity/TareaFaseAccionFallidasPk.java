@@ -1,8 +1,8 @@
-/*
- * Copyright (c) 2022.  Inditex
- */
-
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
+
+/*
+ * Copyright (c) 2022. Inditex
+ */
 
 import java.io.Serializable;
 
@@ -15,8 +15,8 @@ import lombok.Data;
 @Data
 public class TareaFaseAccionFallidasPk implements Serializable {
 
-    @OneToOne
-    @JoinColumn(name = "ID_TAREA_FASE_ACCION", nullable = false)
-    private TareaFaseAccion tareaFaseAccion;
+  @OneToOne
+  @JoinColumn(name = "ID_TAREA_FASE_ACCION", nullable = false)
+  private TareaFaseAccion tareaFaseAccion;
 
 }
