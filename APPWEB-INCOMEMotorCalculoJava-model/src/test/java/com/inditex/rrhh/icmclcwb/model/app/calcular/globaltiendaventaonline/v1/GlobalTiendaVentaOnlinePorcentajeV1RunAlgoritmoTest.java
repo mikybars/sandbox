@@ -16,6 +16,7 @@ import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
@@ -112,6 +113,8 @@ class GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritm
         idTrabajo, idTarea, 3);
     verify(this.log, times(1)).error("Trabajo[{}]Tarea[{}] :: GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmo :: KO :: Personas: {}",
         idTrabajo, idTarea, 3, exception);
+    verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
+        EstadoTareaCalculoPersonaEnum.KO.getDto());
   }
 
 }
