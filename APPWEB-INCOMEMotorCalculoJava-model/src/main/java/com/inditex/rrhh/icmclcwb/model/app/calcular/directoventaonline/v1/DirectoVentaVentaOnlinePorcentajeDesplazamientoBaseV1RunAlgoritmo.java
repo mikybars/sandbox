@@ -1,6 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventaonline.v1;/*
- * Copyright (c) 2022.  Inditex
- */
+package com.inditex.rrhh.icmclcwb.model.app.calcular.directoventaonline.v1;
 
 import com.inditex.rrhh.icmclcwb.model.app.calcular.AbstractV1RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
@@ -13,17 +11,16 @@ import org.springframework.stereotype.Component;
 @Component("directoVentaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo")
 public class DirectoVentaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo extends AbstractV1RunAlgoritmo implements RunAlgoritmo {
 
-    @Autowired
-    private TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom
-        tareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom;
+  @Autowired
+  private TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom tareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom;
 
-    @Override
-    protected TareaCalculoAlgoritmoBaseRepositoryCustom getTareaCalculoAlgoritmoRespositoryCustom() {
-        return this.tareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom;
-    }
+  @Override
+  protected TareaCalculoAlgoritmoBaseRepositoryCustom getTareaCalculoAlgoritmoRespositoryCustom() {
+    return this.tareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom;
+  }
 
-    @Override
-    protected String getAlgoritmoName() {
-        return "DirectoVentaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo";
-    }
+  @Override
+  protected String getAlgoritmoName() {
+    return "DirectoVentaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo";
+  }
 }

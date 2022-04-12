@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
 @Component("directoVentaVentaOnlinePorcentajeDesplazamientoBaseV1")
 public class DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo extends AbstractV1RunAlgoritmo implements RunAlgoritmo {
 
-    @Autowired
-    private TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustom tareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustom;
+  @Autowired
+  private TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustom tareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustom;
 
-    @Override
-    protected TareaCalculoAlgoritmoBaseRepositoryCustom getTareaCalculoAlgoritmoRespositoryCustom() {
-        return this.tareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustom;
-    }
+  @Override
+  protected TareaCalculoAlgoritmoBaseRepositoryCustom getTareaCalculoAlgoritmoRespositoryCustom() {
+    return this.tareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustom;
+  }
 
-    @Override
-    protected String getAlgoritmoName() {
-        return "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo";
-    }
+  @Override
+  protected String getAlgoritmoName() {
+    return "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo";
+  }
 }
