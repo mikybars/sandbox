@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.model.app.calcular.globaltiendaventaonline.v1;
+package com.inditex.rrhh.icmclcwb.model.app.calcular.globaltiendaseccionventaonline.v1;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -22,7 +22,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaServic
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoTest;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-class GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritmoTest {
+class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritmoTest {
 
   private static final String SQL_CALCULAR = "SELECT * FROM WHATEVER";
 
@@ -46,19 +46,20 @@ class GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritm
   private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
   @Mock
-  private TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryCustom tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryCustom;
+  private TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom
+      tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom;
 
   @InjectMocks
-  private GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmo globalTiendaVentaOnlinePorcentajeV1RunAlgoritmo;
+  private GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo globalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo;
 
   @Test
   void getSqlCalcularTest(@Random final AlgoritmoDTO algoritmo) {
-    when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryCustom.getSqlCalcular(any(AlgoritmoDTO.class)))
+    when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom.getSqlCalcular(any(AlgoritmoDTO.class)))
         .thenReturn(SQL_CALCULAR);
 
-    final String result = this.globalTiendaVentaOnlinePorcentajeV1RunAlgoritmo.getSqlCalcular(algoritmo);
+    final String result = this.globalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo.getSqlCalcular(algoritmo);
 
-    verify(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryCustom, times(1)).getSqlCalcular(algoritmo);
+    verify(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom, times(1)).getSqlCalcular(algoritmo);
 
     assertEquals(SQL_CALCULAR, result);
   }
@@ -68,24 +69,24 @@ class GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritm
       @Random(size = 3, type = IdPersonaLocalDto.class) final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
-    when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryCustom.ids(any(AlgoritmoDTO.class), any(TareaDto.class)))
+    when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom.ids(any(AlgoritmoDTO.class), any(TareaDto.class)))
         .thenReturn(personas);
-    when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryCustom
+    when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom
         .calcular(any(AlgoritmoDTO.class), any(TareaDto.class), anyList())).thenReturn(
             CompletableFuture.completedFuture(AsyncConstants.NIL));
 
-    this.globalTiendaVentaOnlinePorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
+    this.globalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
     final Long idTrabajo = runTarea.getTrabajo().getId();
     final Long idTarea = runTarea.getTarea().getId();
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        "GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea);
+        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea);
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        "GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, personas);
+        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, personas);
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        "GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
-        "GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
   }
 
   @Test
@@ -93,24 +94,24 @@ class GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritm
       @Random(size = 3, type = IdPersonaLocalDto.class) final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
-    when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryCustom.ids(any(AlgoritmoDTO.class), any(TareaDto.class)))
+    when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom.ids(any(AlgoritmoDTO.class), any(TareaDto.class)))
         .thenReturn(personas);
     final RuntimeException exception = new RuntimeException("ERROR");
-    doThrow(exception).when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryCustom).calcular(any(AlgoritmoDTO.class),
+    doThrow(exception).when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom).calcular(any(AlgoritmoDTO.class),
         any(TareaDto.class), anyList());
 
-    this.globalTiendaVentaOnlinePorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
+    this.globalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
     final Long idTrabajo = runTarea.getTrabajo().getId();
     final Long idTarea = runTarea.getTarea().getId();
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        "GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea);
+        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea);
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        "GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, personas);
+        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, personas);
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        "GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
     verify(this.log, times(1)).error("Trabajo[{}]Tarea[{}] :: {} :: KO :: Personas: {}",
-        "GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3, exception);
+        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3, exception);
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
   }
