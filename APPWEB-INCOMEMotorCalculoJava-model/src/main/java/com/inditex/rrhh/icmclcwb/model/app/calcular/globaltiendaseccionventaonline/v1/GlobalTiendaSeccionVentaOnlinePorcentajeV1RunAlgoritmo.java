@@ -11,18 +11,17 @@ import org.springframework.stereotype.Component;
 @Component("globalTiendaSeccionVentaOnlinePorcentajeV1")
 public class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo extends AbstractV1RunAlgoritmo implements RunAlgoritmo {
 
-    @Autowired
-    private TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom
-        tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom;
+  @Autowired
+  private TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom;
 
-    @Override
-    protected TareaCalculoAlgoritmoBaseRepositoryCustom getTareaCalculoAlgoritmoRespositoryCustom() {
-        return this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom;
-    }
+  @Override
+  protected TareaCalculoAlgoritmoBaseRepositoryCustom getTareaCalculoAlgoritmoRespositoryCustom() {
+    return this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom;
+  }
 
-    @Override
-    protected String getAlgoritmoName() {
-        return "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo";
-    }
+  @Override
+  protected String getAlgoritmoName() {
+    return "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo";
+  }
 
 }

@@ -9,18 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("globalTiendaSeccionVentaOnlinePorcentajeDesplazamientoBaseV1")
-public class GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo extends AbstractV1RunAlgoritmo implements RunAlgoritmo {
+public class GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo extends AbstractV1RunAlgoritmo
+    implements RunAlgoritmo {
 
-    @Autowired
-    private TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom;
+  @Autowired
+  private TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom;
 
-    @Override
-    protected TareaCalculoAlgoritmoBaseRepositoryCustom getTareaCalculoAlgoritmoRespositoryCustom() {
-        return this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom;
-    }
+  @Override
+  protected TareaCalculoAlgoritmoBaseRepositoryCustom getTareaCalculoAlgoritmoRespositoryCustom() {
+    return this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom;
+  }
 
-    @Override
-    protected String getAlgoritmoName() {
-        return "GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo";
-    }
+  @Override
+  protected String getAlgoritmoName() {
+    return "GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo";
+  }
 }

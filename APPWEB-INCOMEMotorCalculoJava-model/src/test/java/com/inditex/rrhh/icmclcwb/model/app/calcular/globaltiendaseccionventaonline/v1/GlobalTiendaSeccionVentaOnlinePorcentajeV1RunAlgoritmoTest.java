@@ -46,8 +46,7 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
   private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
   @Mock
-  private TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom
-      tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom;
+  private TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom;
 
   @InjectMocks
   private GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo globalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo;
@@ -69,8 +68,9 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
       @Random(size = 3, type = IdPersonaLocalDto.class) final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
-    when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom.ids(any(AlgoritmoDTO.class), any(TareaDto.class)))
-        .thenReturn(personas);
+    when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
+        any(TareaDto.class)))
+            .thenReturn(personas);
     when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom
         .calcular(any(AlgoritmoDTO.class), any(TareaDto.class), anyList())).thenReturn(
             CompletableFuture.completedFuture(AsyncConstants.NIL));
@@ -94,10 +94,12 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
       @Random(size = 3, type = IdPersonaLocalDto.class) final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
-    when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom.ids(any(AlgoritmoDTO.class), any(TareaDto.class)))
-        .thenReturn(personas);
+    when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
+        any(TareaDto.class)))
+            .thenReturn(personas);
     final RuntimeException exception = new RuntimeException("ERROR");
-    doThrow(exception).when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom).calcular(any(AlgoritmoDTO.class),
+    doThrow(exception).when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom).calcular(
+        any(AlgoritmoDTO.class),
         any(TareaDto.class), anyList());
 
     this.globalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
