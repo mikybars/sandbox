@@ -3,8 +3,11 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.List;
 
@@ -26,7 +29,7 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class AbstractRunTareaPrevalidarTest {
+class AbstractRunTareaPrevalidarTest {
 
   @InjectMocks
   AbstractRunTareaPrevalidar abstractRunTareaPrevalidar = Mockito.mock(AbstractRunTareaPrevalidar.class, Mockito.CALLS_REAL_METHODS);
@@ -53,6 +56,8 @@ public class AbstractRunTareaPrevalidarTest {
     doNothing().when(this.tareaFaseAccionFallidasService).save(tareaFaseAccionFallidasDto);
 
     this.abstractRunTareaPrevalidar.insertarFallidas(fallidas);
+
+    verify(this.tareaFaseAccionFallidasService, times(1)).save(any(TareaFaseAccionFallidasDto.class));
   }
 
   @Test
@@ -68,6 +73,8 @@ public class AbstractRunTareaPrevalidarTest {
     doNothing().when(this.tareaFaseAccionFallidasService).save(tareaFaseAccionFallidasDto);
 
     this.abstractRunTareaPrevalidar.insertarFallidas(fallidas);
+
+    verify(this.tareaFaseAccionFallidasService, times(1)).save(any(TareaFaseAccionFallidasDto.class));
   }
 
 }
