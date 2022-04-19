@@ -1,9 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
 /*
- * Copyright (c) 2022.  Inditex
+ * Copyright (c) 2022. Inditex
  */
-
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 
@@ -29,46 +28,46 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class AbstractRunTareaPrevalidarTest {
 
-    @InjectMocks
-    AbstractRunTareaPrevalidar abstractRunTareaPrevalidar = Mockito.mock(AbstractRunTareaPrevalidar.class, Mockito.CALLS_REAL_METHODS);
+  @InjectMocks
+  AbstractRunTareaPrevalidar abstractRunTareaPrevalidar = Mockito.mock(AbstractRunTareaPrevalidar.class, Mockito.CALLS_REAL_METHODS);
 
-    @Mock
-    private TareaFaseAccionService tareaFaseAccionService;
+  @Mock
+  private TareaFaseAccionService tareaFaseAccionService;
 
-    @Mock
-    private AccionService accionService;
+  @Mock
+  private AccionService accionService;
 
-    @Mock
-    private TareaFaseAccionFallidasServiceImpl tareaFaseAccionFallidasService;
+  @Mock
+  private TareaFaseAccionFallidasServiceImpl tareaFaseAccionFallidasService;
 
-    @Test
-    void insertarFallidasIdAccion1Test (@Random(type = ValidacionDto.class, size = 1) List<ValidacionDto> fallidas,
-        @Random TareaFaseAccionDto tareaFaseAccion) {
+  @Test
+  void insertarFallidasIdAccion1Test(@Random(type = ValidacionDto.class, size = 1) List<ValidacionDto> fallidas,
+      @Random TareaFaseAccionDto tareaFaseAccion) {
 
-        doReturn(tareaFaseAccion).when(this.tareaFaseAccionService).findById(fallidas.get(0).getIdTareaFaseAccion());
-        doReturn(AccionDto.builder().id(1).build()).when(this.accionService).findAccionDtoById(tareaFaseAccion.getIdAccion());
+    doReturn(tareaFaseAccion).when(this.tareaFaseAccionService).findById(fallidas.get(0).getIdTareaFaseAccion());
+    doReturn(AccionDto.builder().id(1).build()).when(this.accionService).findAccionDtoById(tareaFaseAccion.getIdAccion());
 
-        TareaFaseAccionFallidasDto tareaFaseAccionFallidasDto = TareaFaseAccionFallidasDto.builder()
-            .idTareaFaseAccion(tareaFaseAccion.getId())
-            .build();
-        doNothing().when(this.tareaFaseAccionFallidasService).save(tareaFaseAccionFallidasDto);
+    TareaFaseAccionFallidasDto tareaFaseAccionFallidasDto = TareaFaseAccionFallidasDto.builder()
+        .idTareaFaseAccion(tareaFaseAccion.getId())
+        .build();
+    doNothing().when(this.tareaFaseAccionFallidasService).save(tareaFaseAccionFallidasDto);
 
-        this.abstractRunTareaPrevalidar.insertarFallidas(fallidas);
-    }
+    this.abstractRunTareaPrevalidar.insertarFallidas(fallidas);
+  }
 
-    @Test
-    void insertarFallidasIdAccion2Test (@Random(type = ValidacionDto.class, size = 1) List<ValidacionDto> fallidas,
-        @Random TareaFaseAccionDto tareaFaseAccion) {
+  @Test
+  void insertarFallidasIdAccion2Test(@Random(type = ValidacionDto.class, size = 1) List<ValidacionDto> fallidas,
+      @Random TareaFaseAccionDto tareaFaseAccion) {
 
-        doReturn(tareaFaseAccion).when(this.tareaFaseAccionService).findById(fallidas.get(0).getIdTareaFaseAccion());
-        doReturn(AccionDto.builder().id(2).build()).when(this.accionService).findAccionDtoById(tareaFaseAccion.getIdAccion());
+    doReturn(tareaFaseAccion).when(this.tareaFaseAccionService).findById(fallidas.get(0).getIdTareaFaseAccion());
+    doReturn(AccionDto.builder().id(2).build()).when(this.accionService).findAccionDtoById(tareaFaseAccion.getIdAccion());
 
-        TareaFaseAccionFallidasDto tareaFaseAccionFallidasDto = TareaFaseAccionFallidasDto.builder()
-            .idTareaFaseAccion(tareaFaseAccion.getId())
-            .build();
-        doNothing().when(this.tareaFaseAccionFallidasService).save(tareaFaseAccionFallidasDto);
+    TareaFaseAccionFallidasDto tareaFaseAccionFallidasDto = TareaFaseAccionFallidasDto.builder()
+        .idTareaFaseAccion(tareaFaseAccion.getId())
+        .build();
+    doNothing().when(this.tareaFaseAccionFallidasService).save(tareaFaseAccionFallidasDto);
 
-        this.abstractRunTareaPrevalidar.insertarFallidas(fallidas);
-    }
+    this.abstractRunTareaPrevalidar.insertarFallidas(fallidas);
+  }
 
 }
