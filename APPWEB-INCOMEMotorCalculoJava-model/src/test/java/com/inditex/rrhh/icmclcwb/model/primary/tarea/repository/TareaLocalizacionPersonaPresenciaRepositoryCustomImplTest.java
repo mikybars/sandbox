@@ -13,6 +13,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_VENTA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_MINUTOS;
@@ -26,6 +27,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VAL
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -33,7 +35,9 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
@@ -584,39 +588,25 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     when(runTarea.getTarea()).thenReturn(tarea);
 
     this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVenta(runTarea);
-    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
-    assertEquals(SQL_INDICADOR_PERSONA_POR_VENTA, this.sqlCaptor.getValue());
-    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INDICADOR_PERSONA_POR_VENTA), this.paramsCaptor.capture());
+    final Map<String, Object> params = this.paramsCaptor.getValue().getValues();
     // Parámetros de la consulta: nuevoIdTipoDato, nuevoActivo, nuevoIdSeccion, idTarea, idTipoCalculo,
-    // activo, idTipoGrupoDato, idTipoGrupoDatoVenta
-    assertEquals(8, params.getValues().size());
-    // nuevoIdTipoDato
-    assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-    assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId(),
-        params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
-    // nuevoActivo
-    assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
-    // nuevoIdSeccion
-    assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_SECCION));
-    assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_NUEVO_ID_SECCION));
-    // idTarea
-    assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
-    assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
-    // idTipoCalculo
-    assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_CALCULO));
-    assertEquals(TipoCalculoEnum.POR_VENTA.getId(), params.getValue(SQL_PARAM_ID_TIPO_CALCULO));
-    // activo
-    assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
-    // idTipoGrupoDato
-    assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
-    assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
-        params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
-    // idTipoGrupoDatoVenta
-    assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
-    assertEquals(TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId(),
-        params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
+    // activo, idTipoGrupoDato, idTipoGrupoDatoVenta, inactivo
+
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
+    expected.put(SQL_PARAM_ID_TAREA, runTarea.getTarea().getId());
+    expected.put(SQL_PARAM_NUEVO_ACTIVO, SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+    expected.put(SQL_PARAM_ID_TIPO_CALCULO, TipoCalculoEnum.POR_VENTA.getId());
+    expected.put(SQL_PARAM_ACTIVO, SQL_VALUE_BOOLEAN_TRUE);
+    // TODO [javierev] REVISAR SI ESTO SE VA A UTILIZAR REALMENTE (INDICADOR_POR_VENTA_CON_O_SIN_VENTA_INDIVIDUAL)
+    expected.put(SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+    expected.put(SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA, TipoGrupoDatoEnum.OPERACIONES_VENTA_INDIVIDUAL_LOCALIZACION_SECCION.getId());
+    expected.put(SQL_PARAM_INACTIVO, SQL_VALUE_BOOLEAN_FALSE);
+
+    assertEquals(expected, params);
+
   }
 
   @Test
