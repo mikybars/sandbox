@@ -39,6 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
@@ -65,7 +67,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
 
   private final static String SQL_SAVE = "SAVE";
@@ -580,12 +582,7 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  void indicadorPersonaPorVentaTest() {
-
-    final RunTareaDto runTarea = mock(RunTareaDto.class);
-    final TareaDto tarea = mock(TareaDto.class);
-    when(tarea.getId()).thenReturn(199L);
-    when(runTarea.getTarea()).thenReturn(tarea);
+  void indicadorPersonaPorVentaTest(@Random final RunTareaDto runTarea) {
 
     this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVenta(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INDICADOR_PERSONA_POR_VENTA), this.paramsCaptor.capture());
