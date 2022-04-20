@@ -22,12 +22,12 @@ public class TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamient
     implements TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom {
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaVentaOnlinePresenciaPorcentajeDesplazamientoV1Repository.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoV1Repository.calcular']} "
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaVentaOnlinePresenciaPorcentajeDesplazamientoV1Repository.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcularBase;
@@ -36,6 +36,7 @@ public class TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamient
   protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo,
       final TareaDto tarea, final IdPersonaLocalDto persona) {
     final Map<String, Object> map = super.getMapValues(algoritmo, tarea, persona);
+    map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA, TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO,
         TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
     final List<IdTipoDatoDto> ids = this.tipoDatoService
