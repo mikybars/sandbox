@@ -22,12 +22,12 @@ public class TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryC
     implements TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustom {
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']}"
-      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaVentaOnlinePresenciaPorcentajeV1Repository.calcular']} "
+      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1Repository.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaVentaOnlinePresenciaPorcentajeV1Repository.calcular']}"
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1Repository.calcular']}"
       + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcularBase;

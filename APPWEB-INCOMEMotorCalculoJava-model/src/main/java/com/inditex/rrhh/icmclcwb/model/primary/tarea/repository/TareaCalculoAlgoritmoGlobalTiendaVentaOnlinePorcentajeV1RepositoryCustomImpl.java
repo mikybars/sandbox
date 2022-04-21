@@ -30,7 +30,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryC
   private String sqlCalcularBase;
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalVentaOnlineTiendaPorcentajeV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1Repository.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;

@@ -9909,7 +9909,7 @@ WHERE 1 = 0
    ]]>
   </entry>
 
-  <entry key="TareaCalculoAlgoritmoDirectoVentaPorcentajeV1Repository.calcular">
+  <entry key="TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1Repository.calcular">
     <![CDATA[
  SELECT
         TAREA.FECHA_INICIO_PERIODO,
@@ -10007,7 +10007,7 @@ WHERE 1 = 0
     ]]>
   </entry>
 
-  <entry key="TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoBaseV1Repository.calcular">
+  <entry key="TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoBaseV1Repository.calcular">
     <![CDATA[
   SELECT
         TAREA.FECHA_INICIO_PERIODO,
@@ -10114,7 +10114,7 @@ WHERE 1 = 0
   ]]>
   </entry>
 
-  <entry key="TareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1Repository.calcular">
+  <entry key="TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoV1Repository.calcular">
     <![CDATA[
     SELECT
         TAREA.FECHA_INICIO_PERIODO,

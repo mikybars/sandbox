@@ -22,12 +22,12 @@ public class TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamient
     implements TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom {
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaVentaOnlinePresenciaPorcentajeDesplazamientoV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoV1Repository.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaVentaOnlinePresenciaPorcentajeDesplazamientoV1Repository.calcular']} "
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoV1Repository.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcularBase;

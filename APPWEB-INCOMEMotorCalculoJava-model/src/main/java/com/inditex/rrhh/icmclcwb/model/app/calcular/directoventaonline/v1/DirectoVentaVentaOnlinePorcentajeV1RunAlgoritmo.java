@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component("directoVentaVentaOnlinePorcentajeDesplazamientoBaseV1")
+@Component("directoVentaVentaOnlinePorcentajeV1")
 public class DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo extends AbstractV1RunAlgoritmo implements RunAlgoritmo {
 
   @Autowired
