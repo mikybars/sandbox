@@ -95,6 +95,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoPersonasExternas']}")
   private String sqlUpdateActivoPersonasExternas;
 
+  @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoBaseDirectoVentaSinDesplazamiento']}")
+  private String sqlIndicadorDesplazamientoBaseDirectoVentaSinDesplazamiento;
+
   @Autowired
   private TipoDatoService tipoDatoService;
 
@@ -375,6 +378,23 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
         TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
 
     this.update(this.sqlindicadorDesplazamientoBaseDirectoVentaOtraTienda, parameters);
+  }
+
+  @Override
+  public void indicadorDesplazamientoBaseDirectoVentaSinDesplazamiento(@NotNull final RunTareaDto runTareaDto) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO,
+        Arrays.asList(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId(),
+            TipoCalculoEnum.DIRECTO_SOBRE_VENTA_CON_REDUCCION_DE_JORNADA.getId()));
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+        TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+        TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+
+    this.update(this.sqlIndicadorDesplazamientoBaseDirectoVentaSinDesplazamiento, parameters);
   }
 
   @Override
