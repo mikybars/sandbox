@@ -107,6 +107,9 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   private final static String SQL_INDICADOR_DESPLAZAMIENTO_BASE_DIRECTO_VENTA_OTRA_TIENDA =
       "SQL INDICADOR DESPLAZAMIENTO BASE DIRECTO VENTA OTRA TIENDA";
 
+  private final static String SQL_INDICADOR_DESPLAZAMIENTO_BASE_DIRECTO_VENTA_SIN_DESPLAZAMIENTO =
+      "SQL INDICADOR DESPLAZAMIENTO BASE DIRECTO VENTA OTRA TIENDA SIN DESPLAZAMIENTO";
+
   private final static String SQL_INDICADOR_DESPLAZAMIENTO_DIRECTO_VENTA_CAMBIO_FUNCION =
       "SQL INDICADOR DESPLAZAMIENTO DIRECTO VENTA CAMBIO FUNCION";
 
@@ -187,6 +190,9 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
         "sqlUpdateActivoPersonasExternas",
         SQL_UPDATE_ACTIVO_PERSONAS_EXTERNAS, true);
+    FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
+        "sqlIndicadorDesplazamientoBaseDirectoVentaSinDesplazamiento",
+        SQL_INDICADOR_DESPLAZAMIENTO_BASE_DIRECTO_VENTA_SIN_DESPLAZAMIENTO, true);
 
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, "batchSize", 100, true);
   }
@@ -719,6 +725,36 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     // activo
     assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
+    // nuevoIdTipoDato
+    assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+
+  }
+
+  @Test
+  void indicadorDesplazamientoBaseDirectoVentaSinDesplazamientoTest() {
+
+    final RunTareaDto runTarea = mock(RunTareaDto.class);
+    final TareaDto tarea = mock(TareaDto.class);
+    when(tarea.getId()).thenReturn(199L);
+    when(runTarea.getTarea()).thenReturn(tarea);
+
+    this.tareaLocalizacionPersonaPresenciaRepositoryCustom
+        .indicadorDesplazamientoBaseDirectoVentaSinDesplazamiento(runTarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+    assertEquals(SQL_INDICADOR_DESPLAZAMIENTO_BASE_DIRECTO_VENTA_SIN_DESPLAZAMIENTO, this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: idTarea, activo, nuevoIdTipoDato, idseccion
+    assertEquals(6, params.getValues().size());
+    // idTarea
+    assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+    assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
+    // activo
+    assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
+    // inactivo
+    assertTrue(params.hasValue(SQL_PARAM_INACTIVO));
+    assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_INACTIVO));
     // nuevoIdTipoDato
     assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
 

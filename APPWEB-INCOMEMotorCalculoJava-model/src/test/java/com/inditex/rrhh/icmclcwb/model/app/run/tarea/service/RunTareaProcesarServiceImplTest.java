@@ -187,6 +187,9 @@ class RunTareaProcesarServiceImplTest {
         .indicadorDesplazamientoBaseDirectoVentaOtraTienda(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
+        .indicadorDesplazamientoBaseDirectoVentaSinDesplazamiento(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .indicadorDesplazamientoDirectoVentaCambioFuncion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
