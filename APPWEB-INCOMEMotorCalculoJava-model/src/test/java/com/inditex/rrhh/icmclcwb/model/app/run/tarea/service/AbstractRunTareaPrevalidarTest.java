@@ -9,17 +9,18 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionFallidasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionFallidasServiceImpl;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionDatoServiceImpl;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,40 +42,42 @@ class AbstractRunTareaPrevalidarTest {
   private AccionService accionService;
 
   @Mock
-  private TareaFaseAccionFallidasServiceImpl tareaFaseAccionFallidasService;
+  private TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
 
   @Test
-  void insertarFallidasIdAccion1Test(@Random(type = ValidacionDto.class, size = 1) List<ValidacionDto> fallidas,
+  void insertarDatoIdAccion1Test(@Random(type = ValidacionDto.class, size = 1) List<ValidacionDto> fallidas,
       @Random TareaFaseAccionDto tareaFaseAccion) {
 
     doReturn(tareaFaseAccion).when(this.tareaFaseAccionService).findById(fallidas.get(0).getIdTareaFaseAccion());
     doReturn(AccionDto.builder().id(1).build()).when(this.accionService).findAccionDtoById(tareaFaseAccion.getIdAccion());
 
-    TareaFaseAccionFallidasDto tareaFaseAccionFallidasDto = TareaFaseAccionFallidasDto.builder()
+    TareaFaseAccionDatoDto tareaFaseAccionDatoDto = TareaFaseAccionDatoDto.builder()
         .idTareaFaseAccion(tareaFaseAccion.getId())
         .build();
-    doNothing().when(this.tareaFaseAccionFallidasService).save(tareaFaseAccionFallidasDto);
+    List<TareaFaseAccionDatoDto> list = Arrays.asList(tareaFaseAccionDatoDto);
+    doNothing().when(this.tareaFaseAccionFallidasService).save(list);
 
-    this.abstractRunTareaPrevalidar.insertarFallidas(fallidas);
+    this.abstractRunTareaPrevalidar.insertarDato(fallidas);
 
-    verify(this.tareaFaseAccionFallidasService, times(1)).save(any(TareaFaseAccionFallidasDto.class));
+    verify(this.tareaFaseAccionFallidasService, times(1)).save(any(List.class));
   }
 
   @Test
-  void insertarFallidasIdAccion2Test(@Random(type = ValidacionDto.class, size = 1) List<ValidacionDto> fallidas,
+  void insertarDatoIdAccion2Test(@Random(type = ValidacionDto.class, size = 1) List<ValidacionDto> fallidas,
       @Random TareaFaseAccionDto tareaFaseAccion) {
 
     doReturn(tareaFaseAccion).when(this.tareaFaseAccionService).findById(fallidas.get(0).getIdTareaFaseAccion());
     doReturn(AccionDto.builder().id(2).build()).when(this.accionService).findAccionDtoById(tareaFaseAccion.getIdAccion());
 
-    TareaFaseAccionFallidasDto tareaFaseAccionFallidasDto = TareaFaseAccionFallidasDto.builder()
+    TareaFaseAccionDatoDto tareaFaseAccionDatoDto = TareaFaseAccionDatoDto.builder()
         .idTareaFaseAccion(tareaFaseAccion.getId())
         .build();
-    doNothing().when(this.tareaFaseAccionFallidasService).save(tareaFaseAccionFallidasDto);
+    List<TareaFaseAccionDatoDto> list = Arrays.asList(tareaFaseAccionDatoDto);
+    doNothing().when(this.tareaFaseAccionFallidasService).save(list);
 
-    this.abstractRunTareaPrevalidar.insertarFallidas(fallidas);
+    this.abstractRunTareaPrevalidar.insertarDato(fallidas);
 
-    verify(this.tareaFaseAccionFallidasService, times(1)).save(any(TareaFaseAccionFallidasDto.class));
+    verify(this.tareaFaseAccionFallidasService, times(1)).save(any(List.class));
   }
 
 }

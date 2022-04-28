@@ -3,7 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 /*
  * Copyright (c) 2022. Inditex
  */
-import javax.persistence.Column;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,17 +24,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class TareaFaseAccionFallidas {
+public class TareaFaseAccionDato {
 
   @EmbeddedId
-  private TareaFaseAccionFallidasPk pk;
+  private TareaFaseAccionDatoPk pk;
 
   @NotNull
   @ManyToOne
-  @JoinColumn(name = "ID_TIPO_FALLIDAS", nullable = false)
-  private TipoFallidas tipoFallidas;
+  @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
+  private TipoDato tipoDato;
 
-  @NotNull
-  @Column(name = "FALLIDAS", nullable = false)
-  private String fallidas;
 }

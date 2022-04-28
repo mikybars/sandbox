@@ -3,15 +3,17 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionFallidasDto;
+import java.util.List;
 
-public interface TareaFaseAccionFallidasService {
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDatoDto;
+
+public interface TareaFaseAccionDatoService {
 
   /**
    * Guarda en TAREA_FASE_ACCION_FALLIDAS.
    *
    * @param src TareaFaseAccionFallidasDto
    */
-  void save(TareaFaseAccionFallidasDto src);
+  void save(List<TareaFaseAccionDatoDto> src);
 
 }

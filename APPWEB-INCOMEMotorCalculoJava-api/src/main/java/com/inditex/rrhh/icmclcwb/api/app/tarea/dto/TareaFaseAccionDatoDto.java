@@ -18,18 +18,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TareaFaseAccionFallidasDto implements Serializable {
+public class TareaFaseAccionDatoDto implements Serializable {
 
   @ApiModelProperty(value = "Identificador de TareaFaseAccion", required = false, accessMode = AccessMode.READ_ONLY,
       hidden = true)
   private Long idTareaFaseAccion;
 
-  @ApiModelProperty(value = "Identificador de TipoFallidas", required = false, accessMode = AccessMode.READ_ONLY,
+  @ApiModelProperty(value = "Identificador de TipoDato", required = false, accessMode = AccessMode.READ_ONLY,
       hidden = true)
-  private Integer idTipoFallidas;
+  private Integer idTipoDato;
 
-  @ApiModelProperty(value = "Listado de afectados por el fallo", required = false, accessMode = AccessMode.READ_ONLY,
+  @ApiModelProperty(value = "Dato", required = false, accessMode = AccessMode.READ_ONLY,
       hidden = true)
-  private String fallidas;
+  private String dato;
 
 }

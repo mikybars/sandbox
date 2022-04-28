@@ -9219,10 +9219,10 @@ INSERT INTO SESSION.PRESUPUESTO (
     ]]>
   </entry>
 
-  <entry key="TareaFaseAccionFallidasRepositoryCustom.save">
+  <entry key="TareaFaseAccionDatoRepositoryCustom.save">
     <![CDATA[
-    INSERT INTO TAREA_FASE_ACCION_FALLIDA (ID_TAREA_FASE_ACCION, ID_TIPO_FALLIDA, FALLIDAS)
-    VALUES(:idTareaFaseAccion, :idTipoFallidas, :fallidas)
+    INSERT INTO TAREA_FASE_ACCION_DATO (ID_TAREA_FASE_ACCION, ID_TIPO_DATO, DATO)
+    VALUES(:idTareaFaseAccion, :idTipoDato, :dato)
   ]]>
   </entry>
 
