@@ -9725,4 +9725,22 @@ WHERE 1 = 0
     ]]>
   </entry>
 
+  <entry key="TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustom.calcular">
+    <![CDATA[
+
+    ]]>
+  </entry>
+
+  <entry key="TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoV1RepositoryCustom.calcular">
+    <![CDATA[
+
+    ]]>
+  </entry>
+
+  <entry key="TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoBaseV1RepositoryCustom.calcular">
+    <![CDATA[
+
+    ]]>
+  </entry>
+
 </properties>
