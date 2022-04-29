@@ -25,16 +25,18 @@ public class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcen
     extends AbstractTareaCalculoAlgoritmoGlobalTiendaRepositoryCustom
     implements TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1RepositoryCustom {
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}"
-      + "#{calculoPrimaryQuery['PersonasPorVentaNoVendedores.calcular.where']}")
+  @Value("#{calculoPrimaryQuery['"
+      + "TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1Repository.calcular']}"
+      + "# {calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}"
+      + "# {calculoPrimaryQuery['PersonasPorVentaNoVendedores.calcular.where']}")
   @Getter
   private String sqlCalcularBase;
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}"
-      + "#{calculoPrimaryQuery['PersonasPorVentaNoVendedores.calcular.where']}")
+      + "#{calculoPrimaryQuery['"
+      + "TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1Repository.calcular']}"
+      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}"
+      + " #{calculoPrimaryQuery['PersonasPorVentaNoVendedores.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
