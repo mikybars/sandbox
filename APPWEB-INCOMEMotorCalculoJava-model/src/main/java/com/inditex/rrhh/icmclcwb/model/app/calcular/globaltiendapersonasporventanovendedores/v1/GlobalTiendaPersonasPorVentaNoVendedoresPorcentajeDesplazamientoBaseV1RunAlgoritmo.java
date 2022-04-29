@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component("globalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1")
+@Component("globalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1")
 public class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1RunAlgoritmo extends AbstractV1RunAlgoritmo
     implements RunAlgoritmo {
 
