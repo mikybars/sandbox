@@ -185,7 +185,7 @@ amiga:
         comis70:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://ALSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
-          username: ncomis          
+          username: ncomis
         comis72:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://UASQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
@@ -193,7 +193,7 @@ amiga:
         comis73:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://BYSQL.SEDES.INDITEX.GRP:11433;databaseName=PersonalComision
-          username: ncomis          
+          username: ncomis
         comis75:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://RUSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
@@ -205,7 +205,7 @@ amiga:
         comis91:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://SISQL.SEDES.INDITEX.GRP:11433;databaseName=PersonalComision
-          username: ncomis          
+          username: ncomis
         comis92:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://HRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
@@ -217,7 +217,7 @@ amiga:
         comis95:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://XKSQL.SEDES.INDITEX.GRP:11433;databaseName=PersonalComision
-          username: ncomis          
+          username: ncomis
         comis96:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://MKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalMacedonia
