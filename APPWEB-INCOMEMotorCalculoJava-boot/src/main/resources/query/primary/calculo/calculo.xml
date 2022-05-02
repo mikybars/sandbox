@@ -9545,7 +9545,7 @@ WHERE 1 = 0
     ]]>
   </entry>
 
-  <entry key="TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1Repository.calcular">
+  <entry key="TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1Repository.calcular">
     <![CDATA[
   SELECT
         TAREA.FECHA_INICIO_PERIODO,
@@ -9664,7 +9664,7 @@ WHERE 1 = 0
 ]]>
   </entry>
 
-  <entry key="TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1Repository.calcular">
+  <entry key="TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1Repository.calcular">
     <![CDATA[
     SELECT
         TAREA.FECHA_INICIO_PERIODO,
