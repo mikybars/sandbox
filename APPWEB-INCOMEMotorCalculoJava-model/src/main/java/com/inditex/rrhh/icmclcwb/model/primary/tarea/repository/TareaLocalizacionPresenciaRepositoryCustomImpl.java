@@ -78,6 +78,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion']}")
   private String sqlTotalizarPresenciasSindicalesLocalizacion;
 
+  @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensarIncluidoChallengePorcentaje']}")
+  private String sqlCompensarIncluidoChallengePorcentaje;
+
   @Autowired
   private TipoDatoService tipoDatoService;
 
@@ -262,6 +265,27 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
         TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA_REPARTIDOPROVINCIA.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     this.update(this.sqlTotalizarPresenciasSindicalesLocalizacion, params);
+  }
+
+  @Override
+  public void compensarIncluidoChallengePorcentaje(@NotNull final RunTareaDto runTareaDto) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+        TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE,
+        SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+        TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOCHALLENGEPORCENTAJE.getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
+        TipoPoliticaEnum.EXCLUIDO_DENOMINADOR.getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_ORIGEN, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_HORAS_DESTINO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES,
+        TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION.getId());
+    this.update(this.sqlCompensarIncluidoChallengePorcentaje, parameters);
   }
 
 }
