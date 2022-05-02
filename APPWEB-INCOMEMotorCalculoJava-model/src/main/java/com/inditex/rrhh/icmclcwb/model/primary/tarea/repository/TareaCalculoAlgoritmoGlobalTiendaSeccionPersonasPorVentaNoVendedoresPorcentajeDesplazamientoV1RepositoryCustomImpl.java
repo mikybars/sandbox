@@ -25,13 +25,15 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedore
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['"
       + "TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}"
+      + "#{calculoPrimaryQuery['PersonasPorVentaNoVendedores.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
   @Value("#{calculoPrimaryQuery['"
       + "TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}"
+      + "#{calculoPrimaryQuery['PersonasPorVentaNoVendedores.calcular.where']}")
   @Getter
   private String sqlCalcularBase;
 

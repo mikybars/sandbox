@@ -18,35 +18,33 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcentajeV1RepositoryCustomImpl
-    extends AbstractTareaCalculoAlgoritmoGlobalTiendaRepositoryCustom
-    implements TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcentajeV1RepositoryCustom {
+public class TareaCalculoAlgoritmoDirectoVentaPersonasPorVentaNoVendedoresPorcentajeV1RepositoryCustomImpl
+    extends AbstractTareaCalculoAlgoritmoDirectoVentaRepositoryCustom
+    implements TareaCalculoAlgoritmoDirectoVentaPersonasPorVentaNoVendedoresPorcentajeV1RepositoryCustom {
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcentajeV1Repository.calcular']}"
-      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}"
-      + "#{calculoPrimaryQuery['PersonasPorVentaNoVendedores.calcular.where']}")
-  @Getter
-  private String sqlCalcular;
-
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcentajeV1Repository.calcular']} "
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoPersonasPorVentaNoVendedoresPorcentajeV1Repository.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}"
       + "#{calculoPrimaryQuery['PersonasPorVentaNoVendedores.calcular.where']}")
   @Getter
   private String sqlCalcularBase;
 
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}"
+      + "#{calculoPrimaryQuery['PersonasPorVentaNoVendedores.calcular.where']}")
+  @Getter
+  private String sqlCalcular;
+
   @Override
   protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea,
       final IdPersonaLocalDto persona) {
+    final Map<String, Object> map = super.getMapValues(algoritmo, tarea, persona);
     final List<IdTipoDatoDto> ids = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-    final Map<String, Object> map = super.getMapValues(algoritmo, tarea, persona);
-    map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA, TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
-    map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO,
-        TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
         ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-    map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, TipoCalculoEnum.GLOBAL_SECCION.getId());
+    map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA, TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
+    map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId());
     return map;
   }
 
