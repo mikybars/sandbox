@@ -8,12 +8,16 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_SECCION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_PRESENCIA_MANUAL;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_VENTA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_REPARTIDO_PROVINCIA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE;
@@ -22,11 +26,17 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VAL
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -49,8 +59,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
-public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
   private final static String SQL_SAVE = "SAVE";
 
@@ -69,6 +79,8 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   private final static String SQL_TOTALIZAR_COMMERCE_SECCION = "TOTALIZAR COMMERCE SECCION";
 
   private final static String SQL_TOTALIZAR_PRESENCIAS_SINDICALES_SECCION = "TOTALIZAR PRESENCIAS SINDICALES SECCION";
+
+  private final static String SQL_TOTALIZAR_PRESENCIAS_EMPLEADOS_POR_VENTA = "TOTALIZAR PRESENCIAS EMPLEADOS POR VENTA";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -107,10 +119,13 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
         "sqlTotalizarPresenciasSindicalesLocalizacion",
         SQL_TOTALIZAR_PRESENCIAS_SINDICALES_SECCION, true);
+    FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
+        "sqlTotalizarEmpleadosPorVenta",
+        SQL_TOTALIZAR_PRESENCIAS_EMPLEADOS_POR_VENTA, true);
   }
 
   @Test
-  public void compensarLocalizacionManualTest() {
+  void compensarLocalizacionManualTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(199L);
@@ -140,7 +155,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarQueryTest() {
+  void compensarQueryTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -154,7 +169,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarNumeroParametrosTest() {
+  void compensarNumeroParametrosTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -171,7 +186,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarParametroIdTareaTest() {
+  void compensarParametroIdTareaTest() {
 
     final TareaDto tarea = new TareaDto();
     final Long idTarea = 1313L;
@@ -188,7 +203,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarParametroNuevoIdTipoDatoTest() {
+  void compensarParametroNuevoIdTipoDatoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -205,7 +220,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarParametroIdSeccionTest() {
+  void compensarParametroIdSeccionTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -221,7 +236,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarParametroExcluidoDenominadorTest() {
+  void compensarParametroExcluidoDenominadorTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -237,7 +252,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarParametroRepartidoProvinciaTest() {
+  void compensarParametroRepartidoProvinciaTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -253,7 +268,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarParametroIdTipoPoliticaTest() {
+  void compensarParametroIdTipoPoliticaTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -269,7 +284,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarParametroActivoTest() {
+  void compensarParametroActivoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -285,7 +300,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarParametroIdTipoGrupoDatoTest() {
+  void compensarParametroIdTipoGrupoDatoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -302,7 +317,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarParametroHorasOrigenTest() {
+  void compensarParametroHorasOrigenTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -318,7 +333,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarParametroHorasDestinoTest() {
+  void compensarParametroHorasDestinoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -334,7 +349,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void compensarParametroIdTipoDatoPresenciasSindicalesTest() {
+  void compensarParametroIdTipoDatoPresenciasSindicalesTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -351,7 +366,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarQueryTest() {
+  void totalizarQueryTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -365,7 +380,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarNumeroParametrosTest() {
+  void totalizarNumeroParametrosTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -382,7 +397,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarParametroIdTareaTest() {
+  void totalizarParametroIdTareaTest() {
 
     final TareaDto tarea = new TareaDto();
     final Long idTarea = 1313L;
@@ -399,7 +414,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarParametroNuevoIdTipoDatoTest() {
+  void totalizarParametroNuevoIdTipoDatoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -416,7 +431,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarParametroExcluidoDenominadorTest() {
+  void totalizarParametroExcluidoDenominadorTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -432,7 +447,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarParametroRepartidoProvinciaTest() {
+  void totalizarParametroRepartidoProvinciaTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -448,7 +463,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarParametroIdTipoPoliticaTest() {
+  void totalizarParametroIdTipoPoliticaTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -464,7 +479,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarParametroIdTipoGrupoDatoTest() {
+  void totalizarParametroIdTipoGrupoDatoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -481,7 +496,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarParametroActivoTest() {
+  void totalizarParametroActivoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -497,7 +512,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarParametroHorasOrigenTest() {
+  void totalizarParametroHorasOrigenTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -513,7 +528,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarParametroHorasDestinoTest() {
+  void totalizarParametroHorasDestinoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -529,7 +544,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarParametroIdTipoDatoPresenciasSindicalesTest() {
+  void totalizarParametroIdTipoDatoPresenciasSindicalesTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -546,7 +561,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarParametroIdTipoDatoManualTest() {
+  void totalizarParametroIdTipoDatoManualTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -563,7 +578,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionQueryTest() {
+  void repartirPresenciasSindicalesLocalizacionQueryTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -578,7 +593,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionNumeroParametrosTest() {
+  void repartirPresenciasSindicalesLocalizacionNumeroParametrosTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -595,7 +610,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionParametroIdTareaTest() {
+  void repartirPresenciasSindicalesLocalizacionParametroIdTareaTest() {
 
     final Long idTarea = 8989L;
     final TareaDto tarea = new TareaDto();
@@ -612,7 +627,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionParametroAbiertoTest() {
+  void repartirPresenciasSindicalesLocalizacionParametroAbiertoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -628,7 +643,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionParametroIdTipoPresenciaTest() {
+  void repartirPresenciasSindicalesLocalizacionParametroIdTipoPresenciaTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -645,7 +660,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionParametroNuevoIdTipoDatoTest() {
+  void repartirPresenciasSindicalesLocalizacionParametroNuevoIdTipoDatoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -662,7 +677,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionParametroIdTipoDatoPresenciasSindicalesTest() {
+  void repartirPresenciasSindicalesLocalizacionParametroIdTipoDatoPresenciasSindicalesTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -679,7 +694,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionParametroActivoTest() {
+  void repartirPresenciasSindicalesLocalizacionParametroActivoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -695,7 +710,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionParametroIdSeccionTest() {
+  void repartirPresenciasSindicalesLocalizacionParametroIdSeccionTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -711,7 +726,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarEcommerceSeccionQueryTest() {
+  void totalizarEcommerceSeccionQueryTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -726,7 +741,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarEcommerceSeccionNumeroParametrosTest() {
+  void totalizarEcommerceSeccionNumeroParametrosTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -744,7 +759,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarEcommerceSeccionParametroIdTareaTest() {
+  void totalizarEcommerceSeccionParametroIdTareaTest() {
 
     final Long idTarea = 1432020L;
     final TareaDto tarea = new TareaDto();
@@ -762,7 +777,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarEcommerceSeccionParametroNuevoIdTipoDatoTest() {
+  void totalizarEcommerceSeccionParametroNuevoIdTipoDatoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -780,7 +795,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarEcommerceSeccionParametroIncluidoEcommerceTest() {
+  void totalizarEcommerceSeccionParametroIncluidoEcommerceTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -797,7 +812,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarEcommerceSeccionParametroIdTipoPoliticaTest() {
+  void totalizarEcommerceSeccionParametroIdTipoPoliticaTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -814,7 +829,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarEcommerceSeccionParametroIdTipoGrupoDatoTest() {
+  void totalizarEcommerceSeccionParametroIdTipoGrupoDatoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -832,7 +847,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarEcommerceSeccionParametroActivoTest() {
+  void totalizarEcommerceSeccionParametroActivoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -849,7 +864,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarEcommerceSeccionParametroHorasOrigenTest() {
+  void totalizarEcommerceSeccionParametroHorasOrigenTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -866,7 +881,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarEcommerceSeccionParametroHorasDestinoTest() {
+  void totalizarEcommerceSeccionParametroHorasDestinoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
@@ -883,7 +898,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarPresenciasSindicalesLocalizacionQueryTest() {
+  void totalizarPresenciasSindicalesLocalizacionQueryTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(123L);
@@ -898,7 +913,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarPresenciasSindicalesLocalizacionNumeroParametrosTest() {
+  void totalizarPresenciasSindicalesLocalizacionNumeroParametrosTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(123L);
@@ -915,7 +930,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarPresenciasSindicalesLocalizacionParametroIdTareaTest() {
+  void totalizarPresenciasSindicalesLocalizacionParametroIdTareaTest() {
 
     final Long idTarea = 9090L;
     final TareaDto tarea = new TareaDto();
@@ -932,7 +947,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarPresenciasSindicalesLocalizacionParametroIdSeccionTest() {
+  void totalizarPresenciasSindicalesLocalizacionParametroIdSeccionTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
@@ -948,7 +963,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarPresenciasSindicalesLocalizacionParametroNuevoIdTipoDatoTest() {
+  void totalizarPresenciasSindicalesLocalizacionParametroNuevoIdTipoDatoTest() {
 
     final Long idTarea = 9090L;
     final TareaDto tarea = new TareaDto();
@@ -966,7 +981,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarPresenciasSindicalesLocalizacionParametroRepartidoProvinciaTest() {
+  void totalizarPresenciasSindicalesLocalizacionParametroRepartidoProvinciaTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
@@ -982,7 +997,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarPresenciasSindicalesLocalizacionParametroIdTipoGrupoDatoTest() {
+  void totalizarPresenciasSindicalesLocalizacionParametroIdTipoGrupoDatoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(786L);
@@ -999,7 +1014,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void totalizarPresenciasSindicalesLocalizacionParametroActivoTest() {
+  void totalizarPresenciasSindicalesLocalizacionParametroActivoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(486L);
@@ -1015,7 +1030,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionSeccionQueryTest() {
+  void repartirPresenciasSindicalesLocalizacionSeccionQueryTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
@@ -1030,7 +1045,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionSeccionNumeroParametrosTest() {
+  void repartirPresenciasSindicalesLocalizacionSeccionNumeroParametrosTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
@@ -1048,7 +1063,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionSeccionParametroIdTareaTest() {
+  void repartirPresenciasSindicalesLocalizacionSeccionParametroIdTareaTest() {
 
     final Long idTarea = 231L;
     final TareaDto tarea = new TareaDto();
@@ -1067,7 +1082,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionSeccionParametroActivoTest() {
+  void repartirPresenciasSindicalesLocalizacionSeccionParametroActivoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
@@ -1085,7 +1100,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionSeccionParametroIdTipoPresenciaTest() {
+  void repartirPresenciasSindicalesLocalizacionSeccionParametroIdTipoPresenciaTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
@@ -1104,7 +1119,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionSeccionParametroIdTipoDatoPresenciaSindicalesTest() {
+  void repartirPresenciasSindicalesLocalizacionSeccionParametroIdTipoDatoPresenciaSindicalesTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
@@ -1123,7 +1138,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @Test
-  public void repartirPresenciasSindicalesLocalizacionSeccionParametroNuevoIdTipoDatoTest() {
+  void repartirPresenciasSindicalesLocalizacionSeccionParametroNuevoIdTipoDatoTest() {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
@@ -1138,6 +1153,30 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
     assertEquals(TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION_SECCION.getId(),
         params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+
+  }
+
+  @Test
+  void totalizarEmpleadosPorVentaTest(@Random final RunTareaDto tarea) {
+
+    this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEmpleadosPorVenta(tarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_TOTALIZAR_PRESENCIAS_EMPLEADOS_POR_VENTA), this.paramsCaptor.capture());
+
+    final Map<String, Object> params = this.paramsCaptor.getValue().getValues();
+
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA, TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
+    expected.put(SQL_PARAM_ID_TIPO_CALCULO, TipoCalculoEnum.POR_VENTA.getId());
+    expected.put(SQL_PARAM_INCLUIDO_VENTA, SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SQL_PARAM_ID_TAREA, tarea.getTarea().getId());
+    expected.put(SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+    expected.put(SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.PRESENCIA_LOCALIZACION_EMPLEADOS_POR_VENTA.getId());
+    expected.put(SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+    expected.put(SQL_PARAM_HORAS_DESTINO, SQL_VALUE_BOOLEAN_FALSE);
+    expected.put(SQL_PARAM_HORAS_ORIGEN, SQL_VALUE_BOOLEAN_TRUE);
+
+    assertEquals(expected, params);
 
   }
 

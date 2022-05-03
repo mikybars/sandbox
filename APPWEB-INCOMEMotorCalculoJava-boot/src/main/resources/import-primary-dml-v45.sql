@@ -1,3 +1,6 @@
+-- Renombrado de tipos de dato
+UPDATE tipo_dato SET NOMBRE='PRESENCIA_LOCALIZACION_EMPLEADOS_POR_VENTA', DESCRIPCION='Presencia [localizacion] [incluido venta empleados por venta]' WHERE ID_TIPO_DATO = 5011
+
 -- Eliminación de la relación entre algoritmo PorVentaSimplificado en todas sus variantes y tipo cálculo
 DELETE FROM ALGORITMO_TIPO_CALCULO WHERE ID_ALGORITMO IN (8001,8002,8003,8006,8007,8008,8011,8012,8013);
 

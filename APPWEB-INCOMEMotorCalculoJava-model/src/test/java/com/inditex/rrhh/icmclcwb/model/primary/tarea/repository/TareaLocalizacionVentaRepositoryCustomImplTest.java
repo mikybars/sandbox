@@ -387,7 +387,7 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
     // idTipoPresenciaLocalizacion
     assertTrue(
         params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIA_LOCALIZACION_PERSONAS_POR_VENTA));
-    assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_EMPLEADOS_POR_VENTA.getId(),
+    assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_EMPLEADOS_POR_VENTA.getId(),
         params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIA_LOCALIZACION_PERSONAS_POR_VENTA));
     // idTipoGrupo
     assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
