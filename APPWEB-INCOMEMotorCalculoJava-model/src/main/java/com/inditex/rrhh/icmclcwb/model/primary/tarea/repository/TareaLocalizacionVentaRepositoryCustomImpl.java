@@ -132,8 +132,9 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA.getId());
     // nuevos valores
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
-        TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId());
+        TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
 
     this.update(this.sqlTotalizarOperacionesLocalizacionSeccion, parameters);
 
@@ -150,8 +151,9 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
     // nuevos valores
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
-        TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId());
+        TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
 
     this.update(this.sqlTotalizarOperacionesLocalizacionSeccion, parameters);
 
@@ -172,6 +174,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
         TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_EMPLEADOS_POR_VENTA.getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
     this.update(this.sqlTotalizarVentaPersonasPorVenta, parameters);
 
   }
@@ -208,16 +211,16 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         TipoGrupoDatoEnum.VENTA_FISICA_IPOD_LOCALIZACION_SECCION.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION,
-        TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId());
+        TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION,
         TipoDatoEnum.IMPORTE_COMISION_DEVOLUCIONES_LOCALIZACION_POR_VENTA.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION,
-        TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId());
+        TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA,
         TipoDatoEnum.IMPORTE_COMISION_VENTA_LOCALIZACION_POR_VENTA.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-        Arrays.asList(TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId(),
-            TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId()));
+        Arrays.asList(TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId(),
+            TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId()));
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENDEDORES,
         TipoDatoEnum.IMPORTE_COMISION_VENDEDORES_POR_VENTA.getId());
 

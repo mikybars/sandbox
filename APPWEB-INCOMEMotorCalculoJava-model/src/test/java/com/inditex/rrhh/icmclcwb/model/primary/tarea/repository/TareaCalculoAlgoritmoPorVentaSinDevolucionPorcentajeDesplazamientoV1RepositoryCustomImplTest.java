@@ -113,7 +113,7 @@ class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1Reposi
   }
 
   @Test
-  public void getMapValuesTest(@Random AlgoritmoDTO algoritmo2) {
+  public void getMapValuesTest(@Random final AlgoritmoDTO algoritmo2) {
 
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
@@ -190,7 +190,7 @@ class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1Reposi
         result.get(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONA));
     // idTipoDatoVentaSinDevolucionLocalizacionSeccion
     assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
-    assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId(),
+    assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId(),
         result.get(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
     // idTipoDatoVentaLocalizacionPersonasPorVenta
     assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONAS_POR_VENTA));
@@ -339,7 +339,7 @@ class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1Reposi
           value.getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONA));
       // idTipoDatoVentaSinDevolucionLocalizacionSeccion
       assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
-      assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId(),
+      assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId(),
           value.getValue(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
       // idTipoDatoVentaLocalizacionPersonasPorVenta
       assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONAS_POR_VENTA));
