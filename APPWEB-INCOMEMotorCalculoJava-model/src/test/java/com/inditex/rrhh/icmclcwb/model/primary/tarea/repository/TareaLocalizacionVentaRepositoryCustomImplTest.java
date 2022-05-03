@@ -369,46 +369,23 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
 
     this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea);
 
-    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
-    assertEquals(SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES, this.sqlCaptor.getValue());
-    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES), this.paramsCaptor.capture());
+    final Map<String, Object> params = this.paramsCaptor.getValue().getValues();
 
-    // Parámetros de la consulta: idTarea, activo, idTipoDatoPresenciaLocalizacionPersonasPorVenta,
-    // idTipoGrupo,
-    // idTipoPresenciaLocalizacion, porcentajeComision,
-    // nuevoIdTipoDato, nuevoActivo
-    assertEquals(8, params.getValues().size());
-    // idTarea
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-    assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-    // activo
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-    assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-    // idTipoPresenciaLocalizacion
-    assertTrue(
-        params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIA_LOCALIZACION_PERSONAS_POR_VENTA));
-    assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_EMPLEADOS_POR_VENTA.getId(),
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIA_LOCALIZACION_PERSONAS_POR_VENTA));
-    // idTipoGrupo
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
-    assertEquals(TipoGrupoDatoEnum.VENTA_FISICA_IPOD_LOCALIZACION_SECCION.getId(),
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
-    // idTipoPresenciaLocalizacion
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
-    assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId(),
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION));
-    // porcentajeComision
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_COMISION));
-    assertEquals(AppConstants.PORCENTAJE_COMISION,
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_COMISION));
-    // nuevoIdTipoDato
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO));
-    assertEquals(TipoDatoEnum.IMPORTE_COMISION_VENDEDORES_POR_VENTA.getId(),
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO));
-    // nuevoActivo
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
-    assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIA_LOCALIZACION_PERSONAS_POR_VENTA,
+        TipoDatoEnum.PRESENCIA_LOCALIZACION_EMPLEADOS_POR_VENTA.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_FISICA_IPOD_LOCALIZACION_SECCION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESENCIA_LOCALIZACION,
+        TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_COMISION, AppConstants.PORCENTAJE_COMISION);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.IMPORTE_COMISION_VENDEDORES_POR_VENTA.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+    assertEquals(expected, params);
+
   }
 
   @Test
