@@ -17,28 +17,28 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
 class RunTareaProcesarVentaAsyncServiceImplTest {
 
-    @Mock
-    RunTareaProcesarVentaService tareaProcesarVentaService;
+  @Mock
+  RunTareaProcesarVentaService tareaProcesarVentaService;
 
-    @InjectMocks
-    RunTareaProcesarVentaAsyncServiceImpl runTareaProcesarVentaAsyncService;
+  @InjectMocks
+  RunTareaProcesarVentaAsyncServiceImpl runTareaProcesarVentaAsyncService;
 
-    @Test
-    void totalizarVentaSinDevolucionPersonaLocalizacionTest(@Random final RunTareaDto tarea) {
-        this.runTareaProcesarVentaAsyncService.totalizarVentaSinDevolucionPersonaLocalizacion(tarea);
-        verify(this.tareaProcesarVentaService, times(1)).totalizarVentaSinDevolucionPersonaLocalizacion(tarea);
-    }
+  @Test
+  void totalizarVentaSinDevolucionPersonaLocalizacionTest(@Random final RunTareaDto tarea) {
+    this.runTareaProcesarVentaAsyncService.totalizarVentaSinDevolucionPersonaLocalizacion(tarea);
+    verify(this.tareaProcesarVentaService, times(1)).totalizarVentaSinDevolucionPersonaLocalizacion(tarea);
+  }
 
-    @Test
-    void totalizarDevolucionPersonaLocalizacionTest(@Random final RunTareaDto tarea) {
-        this.runTareaProcesarVentaAsyncService.totalizarDevolucionPersonaLocalizacion(tarea);
-        verify(this.tareaProcesarVentaService, times(1)).totalizarDevolucionPersonaLocalizacion(tarea);
-    }
+  @Test
+  void totalizarDevolucionPersonaLocalizacionTest(@Random final RunTareaDto tarea) {
+    this.runTareaProcesarVentaAsyncService.totalizarDevolucionPersonaLocalizacion(tarea);
+    verify(this.tareaProcesarVentaService, times(1)).totalizarDevolucionPersonaLocalizacion(tarea);
+  }
 
-    @Test
-    void totalizarDevolucionesVendedor0Test(@Random final RunTareaDto tarea) {
-        this.runTareaProcesarVentaAsyncService.totalizarDevolucionesVendedor0(tarea);
-        verify(this.tareaProcesarVentaService, times(1)).totalizarDevolucionesVendedor0(tarea);
-    }
+  @Test
+  void totalizarDevolucionesVendedor0Test(@Random final RunTareaDto tarea) {
+    this.runTareaProcesarVentaAsyncService.totalizarDevolucionesVendedor0(tarea);
+    verify(this.tareaProcesarVentaService, times(1)).totalizarDevolucionesVendedor0(tarea);
+  }
 
 }
