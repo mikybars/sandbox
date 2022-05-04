@@ -137,50 +137,20 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
   }
 
   @Override
-  public CompletableFuture<Void> totalizarVentaSinDevolucionLocalizacionSeccion(final RunTareaDto tarea) {
+  public CompletableFuture<Void> totalizarVentaSinDevolucionLocalizacion(final RunTareaDto tarea) {
     this.tareaProcesarVentaService.totalizarVentasSinDevolucionLocalizacionSeccion(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
-  public CompletableFuture<Void> totalizarVentaPersonaSeccion(final RunTareaDto tarea) {
-    this.tareaProcesarVentaService.totalizarVentaPersonaSeccion(tarea);
-    return CompletableFuture.completedFuture(AsyncConstants.NIL);
-  }
-
-  @Override
-  public CompletableFuture<Void> totalizarVentaSinDevolucionPersonaSeccion(final RunTareaDto tarea) {
-    this.tareaProcesarVentaService.totalizarVentaSinDevolucionPersonaSeccion(tarea);
+  public CompletableFuture<Void> totalizarVentaSinDevolucionPersonaLocalizacion(final RunTareaDto tarea) {
+    this.tareaProcesarVentaService.totalizarVentaSinDevolucionPersonaLocalizacion(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> totalizarDevolucionPersonaSeccion(final RunTareaDto tarea) {
-    this.tareaProcesarVentaService.totalizarDevolucionPersonaSeccion(tarea);
-    return CompletableFuture.completedFuture(AsyncConstants.NIL);
-  }
-
-  @Override
-  public CompletableFuture<Void> totalizarVentaFisicaSinDevolucionPersonaSeccion(final RunTareaDto tarea) {
-    this.tareaProcesarVentaService.totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea);
-    return CompletableFuture.completedFuture(AsyncConstants.NIL);
-  }
-
-  @Override
-  public CompletableFuture<Void> totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(final RunTareaDto tarea) {
-    this.tareaProcesarVentaService.totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea);
-    return CompletableFuture.completedFuture(AsyncConstants.NIL);
-  }
-
-  @Override
-  public CompletableFuture<Void> totalizarDevolucionFisicaPersonaSeccion(final RunTareaDto tarea) {
-    this.tareaProcesarVentaService.totalizarDevolucionFisicaPersonaSeccion(tarea);
-    return CompletableFuture.completedFuture(AsyncConstants.NIL);
-  }
-
-  @Override
-  public CompletableFuture<Void> totalizarDevolucionOnlineIpodPersonaSeccion(final RunTareaDto tarea) {
-    this.tareaProcesarVentaService.totalizarDevolucionOnlineIpodPersonaSeccion(tarea);
+    this.tareaProcesarVentaService.totalizarDevolucionPersonaLocalizacion(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 

@@ -120,36 +120,16 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       AsyncUtils.exceptionally(cfTotalizarDevolucion, cf, cfWait);
 
       final CompletableFuture<Void> cfTotalizarVentaSinDevolucion = this.runTareaProcesarVentaAsyncService
-          .totalizarVentaSinDevolucionLocalizacionSeccion(runTarea);
+          .totalizarVentaSinDevolucionLocalizacion(runTarea);
       AsyncUtils.exceptionally(cfTotalizarVentaSinDevolucion, cf, cfWait);
 
-      final CompletableFuture<Void> cfTotalizarVentaPersonaSeccion = this.runTareaProcesarVentaAsyncService
-          .totalizarVentaPersonaSeccion(runTarea);
-      AsyncUtils.exceptionally(cfTotalizarVentaPersonaSeccion, cf, cfWait);
+      final CompletableFuture<Void> cfTotalizarVentaSinDevolucionPersonaLocalizacion = this.runTareaProcesarVentaAsyncService
+          .totalizarVentaSinDevolucionPersonaLocalizacion(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarVentaSinDevolucionPersonaLocalizacion, cf, cfWait);
 
-      final CompletableFuture<Void> cfTotalizarVentaSinDevolucionPersonaSeccion = this.runTareaProcesarVentaAsyncService
-          .totalizarVentaSinDevolucionPersonaSeccion(runTarea);
-      AsyncUtils.exceptionally(cfTotalizarVentaSinDevolucionPersonaSeccion, cf, cfWait);
-
-      final CompletableFuture<Void> cfTotalizarVentaFisicaSinDevolucionPersonaSeccion = this.runTareaProcesarVentaAsyncService
-          .totalizarVentaFisicaSinDevolucionPersonaSeccion(runTarea);
-      AsyncUtils.exceptionally(cfTotalizarVentaFisicaSinDevolucionPersonaSeccion, cf, cfWait);
-
-      final CompletableFuture<Void> cfTotalizarVentaOnlineIpodSinDevolucionPersonaSeccion = this.runTareaProcesarVentaAsyncService
-          .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(runTarea);
-      AsyncUtils.exceptionally(cfTotalizarVentaOnlineIpodSinDevolucionPersonaSeccion, cf, cfWait);
-
-      final CompletableFuture<Void> cfTotalizarDevolucionFisicaPersonaSeccion = this.runTareaProcesarVentaAsyncService
-          .totalizarDevolucionFisicaPersonaSeccion(runTarea);
-      AsyncUtils.exceptionally(cfTotalizarDevolucionFisicaPersonaSeccion, cf, cfWait);
-
-      final CompletableFuture<Void> cfTotalizarDevolucionOnlineIpodPersonaSeccion = this.runTareaProcesarVentaAsyncService
-          .totalizarDevolucionOnlineIpodPersonaSeccion(runTarea);
-      AsyncUtils.exceptionally(cfTotalizarDevolucionOnlineIpodPersonaSeccion, cf, cfWait);
-
-      final CompletableFuture<Void> cfTotalizarDevolucionPersona = this.runTareaProcesarVentaAsyncService
+      final CompletableFuture<Void> cfTotalizarDevolucionPersonaLocalizacion = this.runTareaProcesarVentaAsyncService
           .totalizarDevolucionPersonaSeccion(runTarea);
-      AsyncUtils.exceptionally(cfTotalizarDevolucionPersona, cf, cfWait);
+      AsyncUtils.exceptionally(cfTotalizarDevolucionPersonaLocalizacion, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);

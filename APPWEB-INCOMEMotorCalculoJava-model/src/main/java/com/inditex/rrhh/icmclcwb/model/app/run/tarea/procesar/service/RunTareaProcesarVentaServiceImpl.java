@@ -178,41 +178,13 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
   }
 
   @Override
-  public void totalizarVentaPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion(tarea.getTarea());
+  public void totalizarVentaSinDevolucionPersonaLocalizacion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaSinDevolucionPersonaLocalizacion(tarea.getTarea());
   }
 
   @Override
-  public void totalizarVentaSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaSinDevolucionPersonaSeccion(tarea.getTarea());
-  }
-
-  @Override
-  public void totalizarDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionPersonaSeccion(tarea.getTarea());
-  }
-
-  @Override
-  public void totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom
-        .totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea.getTarea());
-  }
-
-  @Override
-  public void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom
-        .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea.getTarea());
-  }
-
-  @Override
-  public void totalizarDevolucionFisicaPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionFisicaPersonaSeccion(tarea.getTarea());
-  }
-
-  @Override
-  public void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom
-        .totalizarDevolucionOnlineIpodPersonaSeccion(tarea.getTarea());
+  public void totalizarDevolucionPersonaLocalizacion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionPersonaLocalizacion(tarea.getTarea());
   }
 
   @Override
