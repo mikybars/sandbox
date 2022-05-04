@@ -94,7 +94,7 @@ class RunTareaProcesarServiceImplTest {
         .totalizarVentaSinDevolucionPersonaLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarDevolucionPersonaSeccion(this.runTarea);
+        .totalizarDevolucionPersonaLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .saveAbierto(this.runTarea);

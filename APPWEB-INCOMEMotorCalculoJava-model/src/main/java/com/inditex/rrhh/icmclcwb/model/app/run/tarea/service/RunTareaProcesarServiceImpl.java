@@ -128,7 +128,7 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       AsyncUtils.exceptionally(cfTotalizarVentaSinDevolucionPersonaLocalizacion, cf, cfWait);
 
       final CompletableFuture<Void> cfTotalizarDevolucionPersonaLocalizacion = this.runTareaProcesarVentaAsyncService
-          .totalizarDevolucionPersonaSeccion(runTarea);
+          .totalizarDevolucionPersonaLocalizacion(runTarea);
       AsyncUtils.exceptionally(cfTotalizarDevolucionPersonaLocalizacion, cf, cfWait);
 
       /*-------------------------------------------------------------*/
