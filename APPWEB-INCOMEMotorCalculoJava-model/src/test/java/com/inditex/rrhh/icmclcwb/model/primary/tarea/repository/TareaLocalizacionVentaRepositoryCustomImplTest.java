@@ -18,7 +18,6 @@ import java.util.Map;
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -59,7 +58,7 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
 
   private final static String SQL_CALCULAR_IMPORTE_COMISION_VENTA_DEVOLUCION = "SQL CALCULAR IMORTE COMISION VENTA O DEVOLUCION";
 
-  private final static String SQL_TOTALIZAR_VENTAS_VENDEDOR_0 = "SQL TOTALIZAR VENTAS VENDEDOR 0";
+  private final static String SQL_TOTALIZAR_DEVOLUCIONES_VENDEDOR_0 = "SQL TOTALIZAR DEVOLUCIONES VENDEDOR 0";
 
   private final static String SQL_REPARTO_DEVOLUCION_VENDEDOR_0 = "SQL REPARTO DEVOLUCION VENDEDOR 0";
 
@@ -97,14 +96,12 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
         "sqlTotalizarVentaPersonasPorVenta", SQL_TOTALIZAR_PERSONAS_POR_VENTA, true);
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
         "sqlCalcularImporteComisionVendedores", SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES, true);
-    FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlTotalizarVentasVendedor0",
-        SQL_TOTALIZAR_VENTAS_VENDEDOR_0, true);
+    FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlTotalizarDevolucionesVendedor0",
+        SQL_TOTALIZAR_DEVOLUCIONES_VENDEDOR_0, true);
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlRepartoDevolucionVendedor0",
         SQL_REPARTO_DEVOLUCION_VENDEDOR_0, true);
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlCalcularImporteComisionVentaODevolucion",
         SQL_CALCULAR_IMPORTE_COMISION_VENTA_DEVOLUCION, true);
-    FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlTotalizarVentasVendedor0",
-        SQL_TOTALIZAR_VENTAS_VENDEDOR_0, true);
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlRepartoDevolucionVendedor0",
         SQL_REPARTO_DEVOLUCION_VENDEDOR_0, true);
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlUpdateActivoManual",
@@ -409,49 +406,25 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
   }
 
   @Test
-  void totalizarVentasVendedor0Test() {
+  void totalizarDevolucionesVendedor0Test(@Random final TareaDto tarea) {
 
-    final TareaDto tarea = mock(TareaDto.class);
-    when(tarea.getId()).thenReturn(123L);
+    this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionesVendedor0(tarea);
 
-    this.tareaLocalizacionVentaRepositoryCustom.totalizarVentasVendedor0(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_TOTALIZAR_DEVOLUCIONES_VENDEDOR_0), this.paramsCaptor.capture());
+    final Map<String, Object> params = this.paramsCaptor.getValue().getValues();
 
-    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
-    assertEquals(SQL_TOTALIZAR_VENTAS_VENDEDOR_0, this.sqlCaptor.getValue());
-    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA,
+        TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0, PtrConstants.VENDEDOR_0);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_VENDEDOR_0_LOCALIZACION_SECCION.getId());
 
-    // Parémetros de la consulta: idTipoCalculo, idTipoDatoIndicadorPresencia, nuevoActivo, activo,
-    // idTarea,
-    // idTipoGrupoDatoDevolucion, idTipoGrupoDatoVenta, cclIdPersonVendedor0
-    assertEquals(8, params.getValues().size());
-    // idTipoDatoIndicadorPresencia
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
-    assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId(),
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
-    // idTipoCalculo
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO));
-    assertEquals(TipoCalculoEnum.POR_VENTA.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO));
-    // nuevoActivo
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
-    assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO));
-    // activo
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-    assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-    // idTarea
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-    assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-    // idTipoGrupoDatoDevolucion
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_DEVOLUCION));
-    assertEquals(TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId(),
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_DEVOLUCION));
-    // idTipoGrupoDatoVenta
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
-    assertEquals(TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA.getId(),
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA));
-    // cclIdPersonVendedor0
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
-    assertEquals(PtrConstants.VENDEDOR_0, params.getValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON_VENDEDOR_0));
+    assertEquals(expected, params);
   }
 
   @Test

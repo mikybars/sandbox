@@ -338,9 +338,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .totalizarVentaSinDevolucionPersonasPorVenta(runTarea);
       AsyncUtils.exceptionally(cfVentasPorVenta, cf, cfWait);
 
-      // Calcular ventas localizacion realizadas por vendedor 0 (personas no venta)
+      // Calcular devoluciones localizacion realizadas por vendedor 0 (personas no venta)
       final CompletableFuture<Void> cfVentasVendedor0 = this.runTareaProcesarVentaAsyncService
-          .totalizarVentasVendedor0(runTarea);
+          .totalizarDevolucionesVendedor0(runTarea);
       AsyncUtils.exceptionally(cfVentasVendedor0, cf, cfWait);
 
       // Reparto de ventas online entrega domicilio en tiendas de cadenas agrupadas -

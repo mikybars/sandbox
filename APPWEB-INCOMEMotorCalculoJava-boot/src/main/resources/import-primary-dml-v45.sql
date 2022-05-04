@@ -2,6 +2,7 @@
 UPDATE tipo_dato SET NOMBRE='PRESENCIA_LOCALIZACION_EMPLEADOS_POR_VENTA', DESCRIPCION='Presencia [localizacion] [incluido venta empleados por venta]' WHERE ID_TIPO_DATO = 5011;
 UPDATE tipo_dato SET NOMBRE='VENTA_SIN_DEVOLUCION_LOCALIZACION', DESCRIPCION='Venta fisica y iPod sin devolucion [localizacion]' WHERE ID_TIPO_DATO = 3034;
 UPDATE tipo_dato SET NOMBRE='DEVOLUCION_LOCALIZACION', DESCRIPCION='Devolucion fisica y iPod [localizacion]' WHERE ID_TIPO_DATO = 3029;
+UPDATE TIPO_DATO SET NOMBRE='DEVOLUCION_VENDEDOR_0_LOCALIZACION', DESCRIPCION='Devolucion fisica y iPod vendedor 0 [localizacion]' WHERE ID_TIPO_DATO = 3044;
 
 -- Eliminación de la relación entre algoritmo PorVentaSimplificado en todas sus variantes y tipo cálculo
 DELETE FROM ALGORITMO_TIPO_CALCULO WHERE ID_ALGORITMO IN (8001,8002,8003,8006,8007,8008,8011,8012,8013);

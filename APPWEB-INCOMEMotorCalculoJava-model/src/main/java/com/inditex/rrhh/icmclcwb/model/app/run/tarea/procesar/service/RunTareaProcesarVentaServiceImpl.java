@@ -231,8 +231,8 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
   }
 
   @Override
-  public void totalizarVentasVendedor0(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionVentaRepositoryCustom.totalizarVentasVendedor0(tarea.getTarea());
+  public void totalizarDevolucionesVendedor0(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionesVendedor0(tarea.getTarea());
   }
 
   @Override
