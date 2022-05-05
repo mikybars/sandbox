@@ -26,12 +26,6 @@ public class TareaFaseAccionDatoRepositoryCustomImpl
   @Override
   public void save(@NotNull List<TareaFaseAccionDato> src) {
 
-    // final MapSqlParameterSource parameters = new MapSqlParameterSource();
-    // parameters.addValue("idTareaFaseAccion", src.getPk().getTareaFaseAccion().getId());
-    // parameters.addValue("idTipoDato", src.getTipoDato().getId());
-    // parameters.addValue("dato", src.getPk().getDato());
-    // this.update(this.sqlSave, parameters);
-
     this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
 
   }

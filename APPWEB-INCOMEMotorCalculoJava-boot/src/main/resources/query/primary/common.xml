@@ -9222,7 +9222,7 @@ INSERT INTO SESSION.PRESUPUESTO (
   <entry key="TareaFaseAccionDatoRepositoryCustom.save">
     <![CDATA[
     INSERT INTO TAREA_FASE_ACCION_DATO (ID_TAREA_FASE_ACCION, ID_TIPO_DATO, DATO)
-    VALUES(:idTareaFaseAccion, :idTipoDato, :dato)
+    VALUES(:pk.tareaFaseAccion.id, :tipoDato.id, :pk.dato)
   ]]>
   </entry>
 

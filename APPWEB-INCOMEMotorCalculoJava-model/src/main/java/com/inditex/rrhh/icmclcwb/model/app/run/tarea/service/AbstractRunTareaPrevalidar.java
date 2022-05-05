@@ -221,10 +221,6 @@ public abstract class AbstractRunTareaPrevalidar {
 
       AccionDto accion = this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion());
 
-      TareaFaseAccionDatoDto tareaFaseAccionDatoDto = TareaFaseAccionDatoDto.builder()
-          .idTareaFaseAccion(tareaFaseAccion.getId())
-          .build();
-
       // ID_ACCION = 1 -> Motivos
       // ID_ACCION IN (2,5,6,7,8) -> Personas
       // ID_ACCION = 3 -> Fechas => No insertamos

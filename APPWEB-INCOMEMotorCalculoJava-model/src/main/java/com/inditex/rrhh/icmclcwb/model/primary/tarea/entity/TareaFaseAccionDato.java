@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "TAREA_FASE_ACCION_FALLIDAS")
+@Table(name = "TAREA_FASE_ACCION_DATO")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

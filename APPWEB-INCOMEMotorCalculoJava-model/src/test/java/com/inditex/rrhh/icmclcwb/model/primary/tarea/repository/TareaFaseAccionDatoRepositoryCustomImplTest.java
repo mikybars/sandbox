@@ -67,14 +67,9 @@ class TareaFaseAccionDatoRepositoryCustomImplTest {
     TFAF.setTipoDato(TD);
 
     this.tareaFaseAccionFallidasRepositoryCustom.save(Arrays.asList(TFAF));
-    // verify(this.namedParameterJdbcTemplate).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+
     verify(this.namedParameterJdbcTemplate).batchUpdate(this.sqlCaptor.capture(), any(SqlParameterSource[].class));
     assertEquals(SQL_INSERT_DATO, this.sqlCaptor.getValue());
-
-    // final MapSqlParameterSource params = this.paramsCaptor.getValue();
-    // assertEquals(1L, params.getValue("idTareaFaseAccion"));
-    // assertEquals(1, params.getValue("idTipoDato"));
-    // assertEquals("55", params.getValue("dato"));
   }
 
 }
