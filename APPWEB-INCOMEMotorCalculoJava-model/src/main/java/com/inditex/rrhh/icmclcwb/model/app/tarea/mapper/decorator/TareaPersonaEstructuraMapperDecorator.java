@@ -52,15 +52,6 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
   @Override
   public List<TareaPersonaEstructuraDto> estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(
       final List<EstructurasComResultItemDto> estructurasComResultItem, final TareaDto tarea) {
-    /*
-     * final List<EstructurasComResultItemDto> clones = new ArrayList<>(); estructurasComResultItem.stream().filter(x ->
-     * "32515".equals(x.getIdEmpleadoLocal()) || "30008".equals(x.getIdEmpleadoLocal())) .forEach(estructura -> { final
-     * ListaCondicionesBaseResultItemDto itemBase = estructura.getIcmListaCondicionesBase().get(0); final ListaCondicionesBaseResultItemDto
-     * itemBaseClon = itemBase.toBuilder().idTipoCalculo(TipoCalculoEnum.POR_VENTA.getId())
-     * .idTipoComision(TipoComisionEnum.INCENTIVO.getId()).build();
-     * clones.add(estructura.toBuilder().icmListaCondicionesBase(Collections.singletonList(itemBaseClon)).build());
-     * itemBase.setIdTipoCalculo(TipoCalculoEnum.GLOBAL_TIENDA_SOLO_ONLINE.getId()); }); estructurasComResultItem.addAll(clones);
-     */
     final List<TareaPersonaEstructuraDto> result = new ArrayList<>();
     estructurasComResultItem.forEach(itemPadre -> {
       /*-----------------*/
