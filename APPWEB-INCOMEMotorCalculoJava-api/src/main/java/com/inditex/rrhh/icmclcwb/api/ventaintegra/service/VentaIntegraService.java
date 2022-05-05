@@ -1,11 +1,11 @@
-package com.inditex.rrhh.icmclcwb.api.app.service;
+package com.inditex.rrhh.icmclcwb.api.ventaintegra.service;
 
 /*
  * Copyright (c) 2022. Inditex
  */
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.VentaIntegraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraRequestDto;
 
 public interface VentaIntegraService {
 

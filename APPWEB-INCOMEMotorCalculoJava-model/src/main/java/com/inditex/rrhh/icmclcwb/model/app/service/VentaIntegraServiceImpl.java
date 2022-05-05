@@ -9,22 +9,21 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.rrhh.icmclcwb.api.app.dto.VentaIntegraPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.VentaIntegraRequestDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.VentaIntegraResponseDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.VentaIntegraService;
+import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ventaintegra.exception.VentaIntegraIcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.ventaintegra.service.VentaIntegraService;
+import com.inditex.rrhh.icmclcwb.api.ventaintegra.util.VentaIntegraClientPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VentaIntegraServiceImpl implements VentaIntegraService {
-
-  public static final String VENTA_INTEGRA = "venta-integra";
 
   @Autowired
   @Qualifier("ventaIntegraClient")
@@ -37,13 +36,14 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
   @Override
   public List<Integer> getTiendasVentaNoIntegra(VentaIntegraRequestDto request) {
 
-    VentaIntegraResponseDto response = queryTiendasVentaNoIntegra(request);
+    VentaIntegraResponseDto response = this.queryTiendasVentaNoIntegra(request);
 
     return response.getData().stream().map(x -> x.getStoreTic()).collect(Collectors.toList());
   }
 
   @Retryable(maxAttemptsExpression = "${app.envars.venta-integra.config.max-attempts}")
   private VentaIntegraResponseDto queryTiendasVentaNoIntegra(VentaIntegraRequestDto request) {
+
     Map<String, String> pathParams = new HashMap<>();
     pathParams.put("countryTic", request.getIdOrigen().toString());
     pathParams.put("from", request.getFechaDesde());
@@ -51,28 +51,72 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
     pathParams.put("groupCompanyTic", request.getIdEmpresa().toString());
     pathParams.put("storeTics", request.getListaTiendas().stream().map(String::valueOf)
         .collect(Collectors.joining(",")));
+
     if (request.getFechaLimite() != null) {
       pathParams.put("before", request.getFechaLimite().toString());
     }
 
-    ResponseEntity<VentaIntegraResponseDto> resultado = null;
-    if (request.getFechaLimite() != null) {
-      resultado = this.ventaIntegraClient.getForEntity(
-          // this.ventaIntegraProperties.get(VENTA_INTEGRA).getEndpoint(),
-          "/service/storedata?from={from}&to={to}&countryTic={countryTic}&groupCompanyTic={groupCompanyTic}&storeTics={storeTics}&before={before}",
-          VentaIntegraResponseDto.class, pathParams);
-    } else {
-      resultado = this.ventaIntegraClient.getForEntity(
-          // this.ventaIntegraProperties.get(VENTA_INTEGRA).getEndpoint(),
-          "/service/storedata?from={from}&to={to}&countryTic={countryTic}&groupCompanyTic={groupCompanyTic}&storeTics={storeTics}",
-          VentaIntegraResponseDto.class, pathParams);
+    String url = new StringBuilder(this.ventaIntegraProperties.get(VentaIntegraClientPropertiesConstants.VENTA_INTEGRA).getEndpoint())
+        .append(this.getUrlParams(request)).toString();
+
+    try {
+      return RestUtils.checkResponse(
+          this.ventaIntegraClient.getForEntity(
+              url, VentaIntegraResponseDto.class, pathParams),
+          this.ventaIntegraClient,
+          url, pathParams);
+    } catch (Exception e) {
+      throw new VentaIntegraIcmclcwbException("Error en el cliente VentaIntegra [url: " + url + ", values: " + pathParams.values() + "]",
+          e);
     }
 
-    return RestUtils.checkResponse(
-        resultado,
-        this.ventaIntegraClient,
-        // this.ventaIntegraProperties.get(VENTA_INTEGRA).getEndpoint(),
-        "/service/storedata?from={from}",
-        request);
+  }
+
+  private String getUrlParams(VentaIntegraRequestDto request) {
+    StringBuilder urlParams = new StringBuilder();
+    urlParams.append(VentaIntegraClientPropertiesConstants.ID_ORIGEN)
+        .append(VentaIntegraClientPropertiesConstants.EQUALS)
+        .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
+        .append(VentaIntegraClientPropertiesConstants.ID_ORIGEN)
+        .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);
+
+    urlParams.append(VentaIntegraClientPropertiesConstants.AND);
+    urlParams.append(VentaIntegraClientPropertiesConstants.ID_EMPRESA)
+        .append(VentaIntegraClientPropertiesConstants.EQUALS)
+        .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
+        .append(VentaIntegraClientPropertiesConstants.ID_EMPRESA)
+        .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);
+
+    urlParams.append(VentaIntegraClientPropertiesConstants.AND);
+    urlParams.append(VentaIntegraClientPropertiesConstants.FECHA_DESDE)
+        .append(VentaIntegraClientPropertiesConstants.EQUALS)
+        .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
+        .append(VentaIntegraClientPropertiesConstants.FECHA_DESDE)
+        .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);
+
+    urlParams.append(VentaIntegraClientPropertiesConstants.AND);
+    urlParams.append(VentaIntegraClientPropertiesConstants.FECHA_HASTA)
+        .append(VentaIntegraClientPropertiesConstants.EQUALS)
+        .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
+        .append(VentaIntegraClientPropertiesConstants.FECHA_HASTA)
+        .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);
+
+    urlParams.append(VentaIntegraClientPropertiesConstants.AND);
+    urlParams.append(VentaIntegraClientPropertiesConstants.LISTA_TIENDAS)
+        .append(VentaIntegraClientPropertiesConstants.EQUALS)
+        .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
+        .append(VentaIntegraClientPropertiesConstants.LISTA_TIENDAS)
+        .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);
+
+    if (request.getFechaLimite() != null) {
+      urlParams.append(VentaIntegraClientPropertiesConstants.AND);
+      urlParams.append(VentaIntegraClientPropertiesConstants.FECHA_LIMITE)
+          .append(VentaIntegraClientPropertiesConstants.EQUALS)
+          .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
+          .append(VentaIntegraClientPropertiesConstants.FECHA_LIMITE)
+          .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);
+    }
+
+    return urlParams.toString();
   }
 }

@@ -111,6 +111,11 @@ amiga:
         #          username: srvcicmclcwbpreAX
         #          password: xynEJHKK4bu)
         #[PTR][PRE][INICIO]
+        venta-integra:
+          base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp/dqservice
+          auth-method: BASIC
+          username: oauthincomedes
+          password: thFHw*m7cDefUL
   service:
     jms:
       listener:
@@ -742,6 +747,13 @@ app:
         sincronizacion:
           activo: true
           max-empleados: 10
+    venta-integra:
+      config:
+        max-attempts: 2
+      service:
+        ventaIntegraService:
+          ventaIntegra:
+            endpoint: /service/storedata?
     ptr:
       config:
         max-attempts: 2
