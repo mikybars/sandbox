@@ -49,6 +49,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -155,8 +157,9 @@ class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustomImplTes
     expected.put(SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
     expected.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);
     expected.put(SQL_PARAM_CALCULA, SQL_VALUE_BOOLEAN_TRUE);
-    expected.put(SQL_PARAM_IDS_TIPOS_COMISION, Arrays.asList("001", "002", "003"));
-    expected.put(SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList("011", "012"));
+    expected.put(SQL_PARAM_IDS_TIPOS_COMISION,
+        algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
+    expected.put(SQL_PARAM_IDS_TIPOS_CALCULO, algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).collect(Collectors.toList()));
     expected.put(SQL_PARAM_ES_DESPLAZAMIENTO, SQL_VALUE_BOOLEAN_TRUE);
     expected.put(SQL_PARAM_ES_DESPLAZAMIENTO_BASE, SQL_VALUE_BOOLEAN_FALSE);
 
@@ -219,8 +222,9 @@ class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeV1RepositoryCustomImplTes
       map.put(SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
       map.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);
       map.put(SQL_PARAM_CALCULA, SQL_VALUE_BOOLEAN_TRUE);
-      map.put(SQL_PARAM_IDS_TIPOS_COMISION, Arrays.asList("001", "002", "003"));
-      map.put(SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList("011", "012"));
+      map.put(SQL_PARAM_IDS_TIPOS_COMISION,
+          algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
+      map.put(SQL_PARAM_IDS_TIPOS_CALCULO, algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).collect(Collectors.toList()));
       map.put(SQL_PARAM_ES_DESPLAZAMIENTO, SQL_VALUE_BOOLEAN_TRUE);
       map.put(SQL_PARAM_ES_DESPLAZAMIENTO_BASE, SQL_VALUE_BOOLEAN_FALSE);
       expected.add(map);
