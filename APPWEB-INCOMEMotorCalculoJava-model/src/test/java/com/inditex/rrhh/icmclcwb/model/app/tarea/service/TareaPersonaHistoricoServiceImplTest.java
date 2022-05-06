@@ -141,4 +141,15 @@ public class TareaPersonaHistoricoServiceImplTest {
 
   }
 
+  @Test
+  public void findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbitoTest() {
+    final String cclIdOrigen = "1";
+    final Long idTarea = 1L;
+
+    this.tareaPersonaHistoricoServiceImpl.findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(idTarea,
+        cclIdOrigen);
+    verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
+        .findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(any(Long.class), any(String.class));
+  }
+
 }

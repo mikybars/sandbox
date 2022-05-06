@@ -1,15 +1,20 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.inditex.aqsw.framework.test.randomizer.Random;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
@@ -48,9 +53,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.Siste
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioRequestDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetclasesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchdiasminimosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
@@ -65,6 +72,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasO
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmailOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
@@ -130,6 +138,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcals
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiposhoraBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalusuarioBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
@@ -147,7 +156,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class Meta4IcmWsCalcIncomeServiceImplTest {
 
   @Mock
@@ -1904,6 +1913,38 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     verify(this.icmWsCalcIncomeMapper, times(1)).asTiposHoraResponseDto(output);
     verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcaltiposhoraBlock(request);
 
+  }
+
+  @Test
+  public void mail() {
+
+    final IcmParamcalusuarioBlock entrada = new IcmParamcalusuarioBlock();
+    final GetmailOutput output = new GetmailOutput();
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalusuarioBlock(any(UsuarioRequestDto.class)))
+        .thenReturn(entrada);
+    when(this.meta4ClientPool.getmail(entrada)).thenReturn(output);
+    final UsuarioRequestDto request = UsuarioRequestDto.builder().build();
+    this.meta4IcmWsCalcIncomeServiceImpl.getMail(request);
+
+    verify(this.meta4ClientPool, times(1)).getmail(entrada);
+    verify(this.icmWsCalcIncomeMapper, times(1)).asUsuarioResponseDto(output);
+    verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcalusuarioBlock(request);
+
+  }
+
+  @Test
+  void clases(@Random final ClaseRequestDto request, @Random final IcmParamcalorigenBlock param, @Random final GetclasesOutput output,
+      @Random final ClaseResponseDto response) {
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(any(ClaseRequestDto.class))).thenReturn(param);
+    when(this.meta4ClientPool.getclases(any(IcmParamcalorigenBlock.class))).thenReturn(output);
+    when(this.icmWsCalcIncomeMapper.asClaseResponseDto(any(GetclasesOutput.class))).thenReturn(response);
+
+    final ClaseResponseDto result = this.meta4IcmWsCalcIncomeServiceImpl.getClases(request);
+
+    verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcalorigenBlock(request);
+    verify(this.icmWsCalcIncomeMapper, times(1)).asClaseResponseDto(output);
+    verify(this.meta4ClientPool, times(1)).getclases(param);
+    assertEquals(response, result);
   }
 
 }

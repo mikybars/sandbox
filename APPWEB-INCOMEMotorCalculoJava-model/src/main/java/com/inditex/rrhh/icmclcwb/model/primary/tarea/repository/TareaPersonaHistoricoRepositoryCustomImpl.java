@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.GenericAlgoritmoPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHIstoricoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -59,6 +60,9 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
   @Value("#{primaryQuery['TareaCalculoPersonaRepositoryCustom.findIdTipoCalculoAndIdTipoComisionByIdsTiposDato']}")
   private String sqlFindIdTipoCalculoAndIdTipoComisionByIdsTiposDato;
+
+  @Value("#{primaryQuery['TareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoAndLocalizacionByIdTareaAndIdOrigenInPcp']}")
+  private String sqlFindIdPersonaHistoricoLocalizacionByIdTareaAndIdOrigenInPeriodoCalculoPersona;
 
   @Override
   public List<TareaPersonaHistorico> save(final List<TareaPersonaHistorico> src) {
@@ -192,6 +196,25 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
             final GenericAlgoritmoPropertiesDto dto = new GenericAlgoritmoPropertiesDto();
             dto.setIdTipoCalculo(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_CALCULO));
             dto.setIdTipoComision(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_TIPO_COMISION));
+            return dto;
+          }
+        });
+  }
+
+  @Override
+  public List<IdPersonaHIstoricoLocalizacionDto> findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(
+      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+    return this.query(this.sqlFindIdPersonaHistoricoLocalizacionByIdTareaAndIdOrigenInPeriodoCalculoPersona, parameters,
+        new RowMapper<IdPersonaHIstoricoLocalizacionDto>() {
+          @Override
+          public IdPersonaHIstoricoLocalizacionDto mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+            final IdPersonaHIstoricoLocalizacionDto dto = new IdPersonaHIstoricoLocalizacionDto();
+            dto.setStdIdHr(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_META4));
+            dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
+
             return dto;
           }
         });

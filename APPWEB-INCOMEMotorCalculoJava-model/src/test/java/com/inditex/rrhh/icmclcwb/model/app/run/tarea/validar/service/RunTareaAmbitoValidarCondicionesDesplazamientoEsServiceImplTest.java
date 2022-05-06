@@ -14,8 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
@@ -35,16 +33,16 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImplTest {
 
   @Mock
-  private ComisAsyncService comisAsyncService;
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Mock
-  private TareaFaseAccionService tareaFaseAccionService;
+  private ComisAsyncService comisAsyncService;
 
   @Mock
   private AccionService accionService;
 
-  @Mock
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  @InjectMocks
+  private RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl runTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl;
 
   @Mock
   private ValidacionMapper validacionMapper;
@@ -52,8 +50,8 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImplTest {
   @Mock
   private PrevalidarPropertiesDto bajaProperties;
 
-  @InjectMocks
-  private RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl runTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl;
+  @Mock
+  private TareaFaseAccionService tareaFaseAccionService;
 
   @Test
   public void execute() {
@@ -61,22 +59,15 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImplTest {
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
     runTareaDto.setTarea(tareaDto);
-    final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
-    final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
-    final FaseDto faseDto = new FaseDto();
-    faseDto.setId(1);
-    final AccionDto accionDto = new AccionDto();
-    accionDto.setId(1);
 
-    final List<IdPersonaLocalCondicionesDto> lista = new ArrayList<>();
     final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cf = new CompletableFuture<>();
-    cf.complete(lista);
+    cf.complete(new ArrayList<>());
 
     when(this.comisAsyncService.findCondicionesDesplazamiento(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
         .thenReturn(cf);
 
-    this.runTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl.execute(runTareaDto, tareaAmbitoDto,
-        tareaFaseAccionDto);
+    this.runTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl.execute(runTareaDto, new TareaAmbitoDto(),
+        new TareaFaseAccionDto());
 
     verify(this.comisAsyncService, timeout(1000).times(1))
         .findCondicionesDesplazamiento(
@@ -87,6 +78,10 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImplTest {
         .insertTempComisDesplazamiento(ArgumentMatchers.any(List.class));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
         .validateTempComisDesplazamiento(ArgumentMatchers.any(TareaDto.class));
+    verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
+        .desactivaFechasSolapadas();
+    verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
+        .reactivaFechasSolapadas(ArgumentMatchers.any(TareaDto.class));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
         .deleteTempComisDesplazamiento();
     verify(this.validacionMapper, timeout(1000).times(1))

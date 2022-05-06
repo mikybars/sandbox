@@ -10,6 +10,8 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenc
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.service.PtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto.PtrPresenciaTiendasEmpleadoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto.PtrPresenciaTiposHorasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTotalizadoResponseDto;
 
@@ -52,4 +54,9 @@ public class PtrPresenciaAsyncServiceImpl implements PtrPresenciaAsyncService {
     return CompletableFuture.completedFuture(this.ptrPresenciaService.presenciasEmpleadosTienda(request));
   }
 
+  @Override
+  public CompletableFuture<PtrPresenciaTiposHorasResponseDto> tiposHoras(
+      final PtrPresenciaTiposHorasRequestDto request) {
+    return CompletableFuture.completedFuture(this.ptrPresenciaService.tiposHoras(request));
+  }
 }

@@ -18,7 +18,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl
+public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl extends AbstractRunTareaAmbitoValidarCondicionesDesplazamiento
     implements RunTareaAmbitoValidarCondicionesDesplazamientoEsService {
 
   @Autowired
@@ -38,9 +37,6 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
-
-  @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Autowired
   private ValidacionMapper validacionMapper;
@@ -64,19 +60,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl
 
       AsyncUtils.waitAllOfIsOk(cf, cf);
 
-      final List<IdPersonaLocalCondicionesDto> condicionesDesplazamiento = AsyncUtils
-          .get(cfCondicionesDesplazamiento);
-
-      this.primaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento();
-      this.primaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento(condicionesDesplazamiento);
-
-      this.primaryTemporaryTableRepositoryCustom.desactivaFechasSolapadas();
-      this.primaryTemporaryTableRepositoryCustom.reactivaFechasSolapadas(tareaDto);
-
-      desplazamientoValidationResult = this.primaryTemporaryTableRepositoryCustom
-          .validateTempComisDesplazamiento(runTareaDto.getTarea());
-
-      this.primaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento();
+      desplazamientoValidationResult = this.getIdPersonaLocalDtos(runTareaDto, tareaDto, cfCondicionesDesplazamiento);
 
     } catch (final Exception e) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,

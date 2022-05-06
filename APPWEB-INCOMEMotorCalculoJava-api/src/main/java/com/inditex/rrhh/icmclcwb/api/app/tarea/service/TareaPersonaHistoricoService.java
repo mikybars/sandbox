@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHIstoricoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -12,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import org.springframework.cache.annotation.Cacheable;
 
 public interface TareaPersonaHistoricoService {
 
@@ -39,4 +41,8 @@ public interface TareaPersonaHistoricoService {
       @NotNull final Long idTarea,
       @NotNull final String cclIdOrigen);
 
+  @Cacheable(value = "itx.icmlcwb.id_persona_historico_localizacion_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
+  List<IdPersonaHIstoricoLocalizacionDto> findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(
+      @NotNull Long idTarea,
+      @NotNull String cclIdOrigen);
 }

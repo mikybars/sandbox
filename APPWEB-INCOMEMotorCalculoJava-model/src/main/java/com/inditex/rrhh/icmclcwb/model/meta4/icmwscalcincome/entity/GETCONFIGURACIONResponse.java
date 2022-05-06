@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -25,9 +28,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para anonymous complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,8 +42,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -56,9 +59,9 @@ public class GETCONFIGURACIONResponse implements Serializable, Cloneable, CopyTo
 
   /**
    * Obtiene el valor de la propiedad getconfiguracionReturn.
-   * 
+   *
    * @return possible object is {@link GetconfiguracionOutput }
-   * 
+   *
    */
   public GetconfiguracionOutput getGETCONFIGURACIONReturn() {
     return getconfiguracionReturn;
@@ -66,9 +69,9 @@ public class GETCONFIGURACIONResponse implements Serializable, Cloneable, CopyTo
 
   /**
    * Define el valor de la propiedad getconfiguracionReturn.
-   * 
+   *
    * @param value allowed object is {@link GetconfiguracionOutput }
-   * 
+   *
    */
   public void setGETCONFIGURACIONReturn(GetconfiguracionOutput value) {
     this.getconfiguracionReturn = value;

@@ -5,6 +5,8 @@ package com.inditex.rrhh.icmclcwb.model.app.async.service;
  */
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -16,9 +18,11 @@ import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -78,6 +82,30 @@ class ComisAsyncServiceImplTest {
     when(this.comisService.findComisionManual(any(RunTareaDto.class), any(TareaAmbitoDto.class))).thenReturn(response);
     final CompletableFuture<List<IdPersonaLocalComisionManualDto>> cf =
         this.comisAsyncServiceImpl.findComisionManual(runTarea, ambito);
+    assertEquals(response, cf.get());
+  }
+
+  @Test
+  void findPersonasTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto ambito, @Random final Long maxIdPersona)
+      throws ExecutionException, InterruptedException {
+    final List<IdPersonaLocalLocalizacionDto> response = new ArrayList<>();
+    when(this.comisService.findPersonas(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class))).thenReturn(response);
+    final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf =
+        this.comisAsyncServiceImpl.findPersonas(runTarea, ambito, maxIdPersona);
+    verify(this.comisService, times(1)).findPersonas(runTarea, ambito, maxIdPersona);
+    assertEquals(response, cf.get());
+  }
+
+  @Test
+  void findPersonasSilTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto ambito, @Random final Long maxIdPersona,
+      @Random final ClaseResultItemDto clase)
+      throws ExecutionException, InterruptedException {
+    final List<IdPersonaLocalLocalizacionDto> response = new ArrayList<>();
+    when(this.comisService.findPersonasSil(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class),
+        any(ClaseResultItemDto.class))).thenReturn(response);
+    final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf =
+        this.comisAsyncServiceImpl.findPersonasSil(runTarea, ambito, maxIdPersona, clase);
+    verify(this.comisService, times(1)).findPersonasSil(runTarea, ambito, maxIdPersona, clase);
     assertEquals(response, cf.get());
   }
 

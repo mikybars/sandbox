@@ -1,6 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -25,9 +28,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
  * <p>Clase Java para anonymous complex type.
- * 
+ *
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -39,8 +42,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -56,9 +59,9 @@ public class GETCONFIGURACION implements Serializable, Cloneable, CopyTo2, Equal
 
   /**
    * Obtiene el valor de la propiedad icmparamcalconforigen.
-   * 
+   *
    * @return possible object is {@link IcmParamcalconforigenBlock }
-   * 
+   *
    */
   public IcmParamcalconforigenBlock getICMPARAMCALCONFORIGEN() {
     return icmparamcalconforigen;
@@ -66,9 +69,9 @@ public class GETCONFIGURACION implements Serializable, Cloneable, CopyTo2, Equal
 
   /**
    * Define el valor de la propiedad icmparamcalconforigen.
-   * 
+   *
    * @param value allowed object is {@link IcmParamcalconforigenBlock }
-   * 
+   *
    */
   public void setICMPARAMCALCONFORIGEN(IcmParamcalconforigenBlock value) {
     this.icmparamcalconforigen = value;
