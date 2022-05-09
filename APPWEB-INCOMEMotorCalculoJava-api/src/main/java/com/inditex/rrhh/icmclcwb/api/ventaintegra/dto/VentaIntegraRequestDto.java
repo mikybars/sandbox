@@ -9,9 +9,11 @@ import java.util.List;
 
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class VentaIntegraRequestDto implements Serializable {
 
   @ApiModelProperty(value = "Id del pais", required = true)
