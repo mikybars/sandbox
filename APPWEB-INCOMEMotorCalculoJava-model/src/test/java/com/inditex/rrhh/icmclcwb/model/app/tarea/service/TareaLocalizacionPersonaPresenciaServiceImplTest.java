@@ -237,6 +237,16 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
+  public void indicadorDesplazamientoBaseDirectoVentaSinDesplazamientoTest() {
+    final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+    this.tareaLocalizacionPersonaPresenciaServiceImpl
+        .indicadorDesplazamientoBaseDirectoVentaSinDesplazamiento(runTarea);
+    verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+        .indicadorDesplazamientoBaseDirectoVentaSinDesplazamiento(any(RunTareaDto.class));
+  }
+
+  @Test
   public void indicadorDesplazamientoDirectoVentaCambioFuncionTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
