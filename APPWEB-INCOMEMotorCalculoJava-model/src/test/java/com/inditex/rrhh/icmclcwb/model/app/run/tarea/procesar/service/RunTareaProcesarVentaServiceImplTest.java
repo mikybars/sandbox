@@ -1,11 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePorVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionVentaRepositoryCustom;
 
@@ -23,6 +27,9 @@ class RunTareaProcesarVentaServiceImplTest {
 
   @Mock
   private TareaLocalizacionPersonaVentaRepositoryCustom tareaLocalizacionPersonaVentaRepositoryCustom;
+
+  @Mock
+  private PrimaryTemporaryTablePorVentaRepositoryCustom primaryTemporaryTablePorVentaRepositoryCustom;
 
   @InjectMocks
   RunTareaProcesarVentaServiceImpl runTareaProcesarVentaService;
@@ -45,5 +52,30 @@ class RunTareaProcesarVentaServiceImplTest {
     this.runTareaProcesarVentaService.totalizarDevolucionesVendedor0(runTarea);
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).totalizarDevolucionesVendedor0(runTarea.getTarea());
   }
+
+  @Test
+    void calcularImporteComisionVendedoresTest(@Random final RunTareaDto tarea) {
+
+      this.runTareaProcesarVentaService.calcularImporteComisionVendedores(tarea);
+      verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).createTempVentaFisicaLocalizacionSeccion();
+      verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).createIndexTempVentaFisicaLocalizacionSeccion();
+      verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).insertTempVentaFisicaLocalizacionSeccion(tarea.getTarea());
+      verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).calcularImporteComisionVendedores(tarea.getTarea());
+      verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).deleteTempVentaFisicaLocalizacionSeccion();
+
+  }
+
+    @Test
+    void calcularImporteComisionVendedoresExceptionTest(@Random final RunTareaDto tarea) {
+
+        doThrow(new RuntimeException("ERROR")).when(this.primaryTemporaryTablePorVentaRepositoryCustom).createTempVentaFisicaLocalizacionSeccion();
+        assertThrows(RuntimeException.class, () -> this.runTareaProcesarVentaService.calcularImporteComisionVendedores(tarea));
+        verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).createTempVentaFisicaLocalizacionSeccion();
+        verify(this.primaryTemporaryTablePorVentaRepositoryCustom, never()).createIndexTempVentaFisicaLocalizacionSeccion();
+        verify(this.primaryTemporaryTablePorVentaRepositoryCustom, never()).insertTempVentaFisicaLocalizacionSeccion(tarea.getTarea());
+        verify(this.tareaLocalizacionVentaRepositoryCustom, never()).calcularImporteComisionVendedores(tarea.getTarea());
+        verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).deleteTempVentaFisicaLocalizacionSeccion();
+
+    }
 
 }

@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePorVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoVentaRepositoryCustom;
@@ -19,6 +20,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstr
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 @Service
@@ -48,6 +51,9 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
   @Autowired
   private TipoDatoService tipoDatoService;
+
+  @Autowired
+  private PrimaryTemporaryTablePorVentaRepositoryCustom primaryTemporaryTablePorVentaRepositoryCustom;
 
   @Override
   public void saveAbierto(@Valid final RunTareaDto runTarea) {
@@ -188,8 +194,16 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
   }
 
   @Override
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
   public void calcularImporteComisionVendedores(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea.getTarea());
+    try {
+      this.primaryTemporaryTablePorVentaRepositoryCustom.createTempVentaFisicaLocalizacionSeccion();
+      this.primaryTemporaryTablePorVentaRepositoryCustom.createIndexTempVentaFisicaLocalizacionSeccion();
+      this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacionSeccion(tarea.getTarea());
+      this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea.getTarea());
+    } finally {
+      this.primaryTemporaryTablePorVentaRepositoryCustom.deleteTempVentaFisicaLocalizacionSeccion();
+    }
   }
 
   @Override
