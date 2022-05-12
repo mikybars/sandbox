@@ -191,7 +191,7 @@ class TareaCalculoAjusteAntiguedadRepositoryCustomImplTest {
     this.tareaCalculoAjusteAntiguedadRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste(), new TareaDto());
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_AJUSTAR), this.paramsCaptor.capture());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
-    assertEquals(2, params.getValues().size());
+    assertEquals(5, params.getValues().size());
   }
 
   @Test
