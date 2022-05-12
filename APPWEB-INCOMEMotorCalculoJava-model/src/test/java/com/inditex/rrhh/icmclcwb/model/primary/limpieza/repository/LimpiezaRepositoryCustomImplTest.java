@@ -93,7 +93,6 @@ class LimpiezaRepositoryCustomImplTest {
 
   @Test
   void limpiezaTareaCalculoAjusteComisionTest() {
-
     final String idPersonaLocal = "92929";
     final String orPersonaLocal = "1";
 
