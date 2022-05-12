@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class PrimaryTemporaryTablePorVentaRepositoryCustomImpl implements Primar
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createIndexTempVentaFisicaLocalizacionSeccion']}")
   private String sqlCreateIndexTempVentaFisicaLocalizacionSeccion;
 
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempVentaFisicaLocalizacion']}")
+  private String sqlInsertTempVentaFisicaLocalizacion;
+
   @Override
   public void createTempVentaFisicaLocalizacionSeccion() {
     this.jdbcTemplate.update(this.sqlCreateTempVentaFisicaLocalizacionSeccion);
@@ -60,5 +64,15 @@ public class PrimaryTemporaryTablePorVentaRepositoryCustomImpl implements Primar
   @Override
   public void deleteTempVentaFisicaLocalizacionSeccion() {
     this.jdbcTemplate.update(this.sqlDeleteTempVentaFisicaLocalizacionSeccion);
+  }
+
+  @Override
+  public void insertTempVentaFisicaLocalizacion(final TareaDto tarea) {
+    final MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_FISICA_IPOD_LOCALIZACION_SECCION.getId());
+    this.namedParameterJdbcTemplate.update(this.sqlInsertTempVentaFisicaLocalizacion, params);
   }
 }

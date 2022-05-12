@@ -12,4 +12,6 @@ public interface PrimaryTemporaryTablePorVentaRepositoryCustom {
 
   void deleteTempVentaFisicaLocalizacionSeccion();
 
+  void insertTempVentaFisicaLocalizacion(TareaDto tarea);
+
 }

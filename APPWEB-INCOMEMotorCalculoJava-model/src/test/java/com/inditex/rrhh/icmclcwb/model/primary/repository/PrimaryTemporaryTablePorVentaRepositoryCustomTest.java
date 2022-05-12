@@ -11,6 +11,7 @@ import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -47,6 +48,9 @@ class PrimaryTemporaryTablePorVentaRepositoryCustomTest {
 
   private final static String SQL_DELETE_TEMP_VENTA_FISICA_LOCALIZACION_SECCION = "SQL DELETE TEMP VENTA FISICA LOCALIZACION SECCION";
 
+  // Venta física localización
+  private final static String SQL_INSERT_TEMP_VENTA_FISICA_LOCALIZACION = "SQL INSERT TEMP VENTA FISICA LOCALIZACION";
+
   @BeforeEach
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.primaryTemporaryTablePorVentaRepositoryCustom, "batchSize", 3, true);
@@ -60,6 +64,9 @@ class PrimaryTemporaryTablePorVentaRepositoryCustomTest {
         "sqlInsertTempVentaFisicaLocalizacionSeccion", SQL_INSERT_TEMP_VENTA_FISICA_LOCALIZACION_SECCION, true);
     FieldUtils.writeField(this.primaryTemporaryTablePorVentaRepositoryCustom,
         "sqlDeleteTempVentaFisicaLocalizacionSeccion", SQL_DELETE_TEMP_VENTA_FISICA_LOCALIZACION_SECCION, true);
+    // Venta física localización
+    FieldUtils.writeField(this.primaryTemporaryTablePorVentaRepositoryCustom,
+        "sqlInsertTempVentaFisicaLocalizacion", SQL_INSERT_TEMP_VENTA_FISICA_LOCALIZACION, true);
   }
 
   @Test
@@ -92,5 +99,20 @@ class PrimaryTemporaryTablePorVentaRepositoryCustomTest {
   void deleteTempVentaFisicaLocalizacionSeccionTest() {
     this.primaryTemporaryTablePorVentaRepositoryCustom.deleteTempVentaFisicaLocalizacionSeccion();
     verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_VENTA_FISICA_LOCALIZACION_SECCION);
+  }
+
+  @Test
+  void insertTempVentaFisicaLocalizacionTest(@Random final TareaDto tarea) {
+    this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacionSeccion(tarea);
+    final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
+    verify(this.namedParameterJdbcTemplate).update(eq(SQL_INSERT_TEMP_VENTA_FISICA_LOCALIZACION), paramsCaptor.capture());
+
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_FISICA_IPOD_LOCALIZACION_SECCION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+    assertEquals(expected, paramsCaptor.getValue().getValues());
   }
 }
