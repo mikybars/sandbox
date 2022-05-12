@@ -78,8 +78,8 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion']}")
   private String sqlTotalizarPresenciasSindicalesLocalizacion;
 
-  @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.compensarIncluidoChallengePorcentaje']}")
-  private String sqlCompensarIncluidoChallengePorcentaje;
+  @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizarIncluidoChallengePorcentaje']}")
+  private String sqlTotalizarIncluidoChallengePorcentaje;
 
   @Autowired
   private TipoDatoService tipoDatoService;
@@ -268,7 +268,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void compensarIncluidoChallengePorcentaje(@NotNull final RunTareaDto runTareaDto) {
+  public void totalizarIncluidoChallengePorcentaje(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
@@ -285,7 +285,22 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES,
         TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION.getId());
-    this.update(this.sqlCompensarIncluidoChallengePorcentaje, parameters);
+    this.update(this.sqlTotalizarIncluidoChallengePorcentaje, parameters);
+  }
+
+  @Override
+  public void compensarLocalizacionManualIncluidoChallengePorcentaje(@NotNull final RunTareaDto runTareaDto) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS, SqlPrimaryConstants.SQL_VALUE_MINUTOS_CERO);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+        TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOCHALLENGEPORCENTAJE.getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
+        Arrays.asList(TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId(),
+            TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOCHALLENGEPORCENTAJE.getId()));
+
+    this.update(this.sqlCompensarLocalizacionManual, parameters);
   }
 
 }
