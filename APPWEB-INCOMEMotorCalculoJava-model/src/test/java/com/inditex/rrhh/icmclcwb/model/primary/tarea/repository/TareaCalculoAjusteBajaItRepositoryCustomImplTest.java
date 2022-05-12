@@ -13,10 +13,8 @@ import java.util.Map;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,12 +41,6 @@ class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
 
   @Mock
   private TareaCalculoPersonaService tareaCalculoPerosnaService;
-
-  @Mock
-  private TareaAmbitoService tareaAmbitoService;
-
-  @Mock
-  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @InjectMocks
   private TareaCalculoAjusteBajaItRepositoryCustomImpl tareaCalculoAjusteBajaItRepositoryCustomImpl;
@@ -80,7 +72,7 @@ class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
 
     final Map<String, Object> result = this.tareaCalculoAjusteBajaItRepositoryCustomImpl.getMapValues(
         algoritmoAjuste, null, null);
-    assertEquals(5, result.size());
+    assertEquals(2, result.size());
   }
 
   @Test
@@ -90,7 +82,7 @@ class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
 
     final Map<String, Object> result = this.tareaCalculoAjusteBajaItRepositoryCustomImpl.getMapValues(
         algoritmoAjuste, tarea, null);
-    assertEquals(6, result.size());
+    assertEquals(3, result.size());
   }
 
   @Test
@@ -100,7 +92,7 @@ class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
 
     final Map<String, Object> result = this.tareaCalculoAjusteBajaItRepositoryCustomImpl.getMapValues(
         algoritmoAjuste, null, persona1);
-    assertEquals(7, result.size());
+    assertEquals(4, result.size());
   }
 
   @Test
@@ -111,7 +103,7 @@ class TareaCalculoAjusteBajaItRepositoryCustomImplTest {
 
     final Map<String, Object> result = this.tareaCalculoAjusteBajaItRepositoryCustomImpl.getMapValues(
         algoritmoAjuste, tarea, persona1);
-    assertEquals(8, result.size());
+    assertEquals(5, result.size());
   }
 
   @Test

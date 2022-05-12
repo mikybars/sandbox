@@ -49,8 +49,8 @@ public class CalculoAjusteBajaItServiceImpl extends AbstractCalculoAjusteBaseSer
   }
 
   @Override
-  protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
-    this.tareaCalculoAjusteBajaItRepositoryCustom.ajustar(algoritmoAjuste);
+  protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tareaDto) {
+    this.tareaCalculoAjusteBajaItRepositoryCustom.ajustar(algoritmoAjuste, tareaDto);
   }
 
   @Override
