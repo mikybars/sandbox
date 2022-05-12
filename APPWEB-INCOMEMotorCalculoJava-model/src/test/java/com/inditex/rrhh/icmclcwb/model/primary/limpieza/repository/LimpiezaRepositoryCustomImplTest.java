@@ -160,33 +160,33 @@ class LimpiezaRepositoryCustomImplTest {
     assertEquals(idTareaFaseAccion, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE_ACCION));
   }
 
-    @Test
-    void limpiezaTareaFaseAccionTest() {
-        final String idTareaFase = "181818";
-        final long idTarea = 191919L;
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(idTarea);
+  @Test
+  void limpiezaTareaFaseAccionTest() {
+    final String idTareaFase = "181818";
+    final long idTarea = 191919L;
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(idTarea);
 
-        when(this.namedParameterJdbcTemplate.query(eq(SQL_TAREA_FASE_ACCION),
-            any(MapSqlParameterSource.class), any(
-                RowMapper.class)))
-            .thenReturn(Arrays.asList(IdTareaFaseDto.builder()
-                .idTareaFase(idTareaFase)
-                .build()));
+    when(this.namedParameterJdbcTemplate.query(eq(SQL_TAREA_FASE_ACCION),
+        any(MapSqlParameterSource.class), any(
+            RowMapper.class)))
+                .thenReturn(Arrays.asList(IdTareaFaseDto.builder()
+                    .idTareaFase(idTareaFase)
+                    .build()));
 
-        this.limpiezaRepositoryCustom.limpiezaTareaFaseAccion(tarea);
+    this.limpiezaRepositoryCustom.limpiezaTareaFaseAccion(tarea);
 
-        verify(this.namedParameterJdbcTemplate, times(1)).batchUpdate(eq(SQL_LIMPIEZA_TAREA_FASE_ACCION),
-            this.paramsCaptor.capture());
+    verify(this.namedParameterJdbcTemplate, times(1)).batchUpdate(eq(SQL_LIMPIEZA_TAREA_FASE_ACCION),
+        this.paramsCaptor.capture());
 
-        final MapSqlParameterSource[] paramsArray = this.paramsCaptor.getValue();
-        assertEquals(1, paramsArray.length);
+    final MapSqlParameterSource[] paramsArray = this.paramsCaptor.getValue();
+    assertEquals(1, paramsArray.length);
 
-        final MapSqlParameterSource params = paramsArray[0];
-        // Parametros: idTareaFaseAccion
-        assertEquals(1, params.getValues().size());
-        assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE));
-        assertEquals(idTareaFase, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE));
-    }
+    final MapSqlParameterSource params = paramsArray[0];
+    // Parametros: idTareaFaseAccion
+    assertEquals(1, params.getValues().size());
+    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE));
+    assertEquals(idTareaFase, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE));
+  }
 
 }
