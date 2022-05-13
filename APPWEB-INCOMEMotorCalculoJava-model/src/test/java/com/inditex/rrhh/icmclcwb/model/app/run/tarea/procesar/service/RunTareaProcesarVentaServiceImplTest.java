@@ -82,7 +82,7 @@ class RunTareaProcesarVentaServiceImplTest {
   @Test
   void calcularImporteComisionVentaODevolucionTest(@Random final RunTareaDto tarea) {
 
-    this.runTareaProcesarVentaService.calcularImporteComisionVendedores(tarea);
+    this.runTareaProcesarVentaService.calcularImporteComisionVentaODevolucion(tarea);
     verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).createTempVentaFisicaLocalizacionSeccion();
     verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).createIndexTempVentaFisicaLocalizacionSeccion();
     verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).insertTempVentaFisicaLocalizacion(tarea.getTarea());
@@ -96,7 +96,7 @@ class RunTareaProcesarVentaServiceImplTest {
 
     doThrow(new RuntimeException("ERROR")).when(this.primaryTemporaryTablePorVentaRepositoryCustom)
         .createTempVentaFisicaLocalizacionSeccion();
-    assertThrows(RuntimeException.class, () -> this.runTareaProcesarVentaService.calcularImporteComisionVendedores(tarea));
+    assertThrows(RuntimeException.class, () -> this.runTareaProcesarVentaService.calcularImporteComisionVentaODevolucion(tarea));
     verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).createTempVentaFisicaLocalizacionSeccion();
     verify(this.primaryTemporaryTablePorVentaRepositoryCustom, never()).createIndexTempVentaFisicaLocalizacionSeccion();
     verify(this.primaryTemporaryTablePorVentaRepositoryCustom, never()).insertTempVentaFisicaLocalizacion(tarea.getTarea());
