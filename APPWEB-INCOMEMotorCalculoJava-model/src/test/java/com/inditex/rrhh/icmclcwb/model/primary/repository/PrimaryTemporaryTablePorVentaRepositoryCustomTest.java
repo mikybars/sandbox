@@ -103,7 +103,7 @@ class PrimaryTemporaryTablePorVentaRepositoryCustomTest {
 
   @Test
   void insertTempVentaFisicaLocalizacionTest(@Random final TareaDto tarea) {
-    this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacionSeccion(tarea);
+    this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacion(tarea);
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
     verify(this.namedParameterJdbcTemplate).update(eq(SQL_INSERT_TEMP_VENTA_FISICA_LOCALIZACION), paramsCaptor.capture());
 
