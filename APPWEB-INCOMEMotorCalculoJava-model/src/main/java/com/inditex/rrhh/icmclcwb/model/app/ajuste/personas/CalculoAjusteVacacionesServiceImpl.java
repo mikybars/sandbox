@@ -47,8 +47,8 @@ public class CalculoAjusteVacacionesServiceImpl extends AbstractCalculoAjusteBas
   }
 
   @Override
-  protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
-    this.tareaCalculoAjusteVacacionesRepositoryCustom.ajustar(algoritmoAjuste);
+  protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tareaDto) {
+    this.tareaCalculoAjusteVacacionesRepositoryCustom.ajustar(algoritmoAjuste, tareaDto);
   }
 
   @Override

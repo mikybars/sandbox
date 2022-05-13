@@ -52,6 +52,7 @@ public class TareaCalculoAjusteBajaItRepositoryCustomImpl
 
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE, algoritmoAjuste.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+
     return map;
   }
 
