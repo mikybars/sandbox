@@ -3,11 +3,11 @@ package com.inditex.rrhh.icmclcwb.model.primary.repository;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.SistemaDestinoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoAusenciaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
@@ -273,16 +273,12 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
   }
 
   @Override
-  public void insertTempFechasBajaIt(final TareaDto tarea, final String sistemaDestino) {
+  public void insertTempFechasBajaIt(final TareaDto tarea) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_ANOS, TipoUnidadTiempoEnum.ANOS.getId());
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_MESES, TipoUnidadTiempoEnum.MESES.getId());
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_SEMANAS, TipoUnidadTiempoEnum.SEMANAS.getId());
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS, TipoUnidadTiempoEnum.DIAS.getId());
-    map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_AUSENCIA, TipoAusenciaEnum.BAJA_IT.getId());
-    map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO, sistemaDestino);
-    map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO_SOLUCION_GLOBAL,
-        SistemaDestinoEnum.SOLUCION_GLOBAL.getIdMeta4());
 
     this.namedParameterJdbcTemplate.update(this.sqlInsertTempFechasBajaIt, map);
   }

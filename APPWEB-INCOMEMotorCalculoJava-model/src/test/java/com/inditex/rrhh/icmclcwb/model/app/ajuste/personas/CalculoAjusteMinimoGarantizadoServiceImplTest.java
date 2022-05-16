@@ -73,8 +73,8 @@ class CalculoAjusteMinimoGarantizadoServiceImplTest {
   @Test
   void ajustarTest() {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.calculoAjusteMinimoGarantizadoService.ajustar(algoritmoAjuste);
-    verify(this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom, times(1)).ajustar(algoritmoAjuste);
+    this.calculoAjusteMinimoGarantizadoService.ajustar(algoritmoAjuste, new TareaDto());
+    verify(this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom, times(1)).ajustar(algoritmoAjuste, new TareaDto());
   }
 
   @Test
