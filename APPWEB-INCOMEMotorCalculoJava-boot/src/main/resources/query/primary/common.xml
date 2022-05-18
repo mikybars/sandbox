@@ -2919,8 +2919,8 @@ AND ID_TIPO_DATO IN (
 
   <entry key="TareaTipoHoraRepositoryCustom.save">
     <![CDATA[
-      INSERT INTO TAREA_TIPO_HORA (ES_EXCLUIDO_CALCULO, ES_EXCLUIDO_DENOMINADOR, ES_INCLUIDO_VENTA, ES_INCLUIDO_CHALLENGE, ES_INCLUIDO_ECOMMERCE, COD_TIPO_HORA, ID_TAREA, ES_EXCLUIDO_DENOMINADOR_Y_REPARTIDO_PROVINCIA)
-      VALUES (:excluidoCalculo, :excluidoDenominador, :incluidoVenta, :incluidoChallenge, :incluidoEcommerce, :idTipoHora, :tarea.id, :excluidoDenominadorYRepartidoProvincia)
+      INSERT INTO TAREA_TIPO_HORA (ES_EXCLUIDO_CALCULO, ES_EXCLUIDO_DENOMINADOR, ES_INCLUIDO_VENTA, ES_INCLUIDO_CHALLENGE, ES_INCLUIDO_ECOMMERCE, COD_TIPO_HORA, ID_TAREA, ES_EXCLUIDO_DENOMINADOR_Y_REPARTIDO_PROVINCIA, ES_INCLUIDO_CHALLENGE_PORCENTAJE)
+      VALUES (:excluidoCalculo, :excluidoDenominador, :incluidoVenta, :incluidoChallenge, :incluidoEcommerce, :idTipoHora, :tarea.id, :excluidoDenominadorYRepartidoProvincia, :incluidoChallengePorcentaje)
     ]]>
   </entry>
 

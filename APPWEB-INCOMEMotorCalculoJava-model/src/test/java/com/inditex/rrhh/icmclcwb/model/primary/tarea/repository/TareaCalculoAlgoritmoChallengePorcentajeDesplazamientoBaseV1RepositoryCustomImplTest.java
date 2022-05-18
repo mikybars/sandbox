@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
+
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
