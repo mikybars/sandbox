@@ -60,18 +60,20 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
    *
    */
   public int getLogoutReturn() {
-    return logoutReturn;
+    return this.logoutReturn;
   }
 
   /**
    * Define el valor de la propiedad logoutReturn.
    *
    */
-  public void setLogoutReturn(int value) {
+  public void setLogoutReturn(final int value) {
     this.logoutReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+  @Override
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -80,9 +82,9 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
     }
     final LogoutResponse that = ((LogoutResponse) object);
     {
-      int lhsLogoutReturn;
+      final int lhsLogoutReturn;
       lhsLogoutReturn = this.getLogoutReturn();
-      int rhsLogoutReturn;
+      final int rhsLogoutReturn;
       rhsLogoutReturn = that.getLogoutReturn();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "logoutReturn", lhsLogoutReturn),
           LocatorUtils.property(thatLocator, "logoutReturn", rhsLogoutReturn), lhsLogoutReturn, rhsLogoutReturn, true, true)) {
@@ -92,38 +94,43 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
     return true;
   }
 
-  public boolean equals(Object object) {
+  @Override
+  public boolean equals(final Object object) {
     final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
+    return this.equals(null, null, object, strategy);
   }
 
+  @Override
   public String toString() {
     final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
     final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
+    this.append(null, buffer, strategy);
     return buffer.toString();
   }
 
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  @Override
+  public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
+    this.appendFields(locator, buffer, strategy);
     strategy.appendEnd(locator, this, buffer);
     return buffer;
   }
 
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  @Override
+  public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     {
-      int theLogoutReturn;
+      final int theLogoutReturn;
       theLogoutReturn = this.getLogoutReturn();
       strategy.appendField(locator, this, "logoutReturn", buffer, theLogoutReturn, true);
     }
     return buffer;
   }
 
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+  @Override
+  public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
     int currentHashCode = 1;
     {
-      int theLogoutReturn;
+      final int theLogoutReturn;
       theLogoutReturn = this.getLogoutReturn();
       currentHashCode =
           strategy.hashCode(LocatorUtils.property(locator, "logoutReturn", theLogoutReturn), currentHashCode, theLogoutReturn, true);
@@ -131,30 +138,34 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
     return currentHashCode;
   }
 
+  @Override
   public int hashCode() {
     final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
     return this.hashCode(null, strategy);
   }
 
+  @Override
   public Object clone() {
-    return copyTo(createNewInstance());
+    return this.copyTo(this.createNewInstance());
   }
 
-  public Object copyTo(Object target) {
+  @Override
+  public Object copyTo(final Object target) {
     final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
+    return this.copyTo(null, target, strategy);
   }
 
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+  @Override
+  public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
     if (draftCopy instanceof LogoutResponse) {
       final LogoutResponse copy = ((LogoutResponse) draftCopy);
       {
-        Boolean logoutReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
+        final Boolean logoutReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
         if (logoutReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-          int sourceLogoutReturn;
+          final int sourceLogoutReturn;
           sourceLogoutReturn = this.getLogoutReturn();
-          int copyLogoutReturn =
+          final int copyLogoutReturn =
               strategy.copy(LocatorUtils.property(locator, "logoutReturn", sourceLogoutReturn), sourceLogoutReturn, true);
           copy.setLogoutReturn(copyLogoutReturn);
         } else {
@@ -166,6 +177,7 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
     return draftCopy;
   }
 
+  @Override
   public Object createNewInstance() {
     return new LogoutResponse();
   }

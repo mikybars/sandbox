@@ -274,7 +274,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
         TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE,
-        SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+        SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
         TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOCHALLENGEPORCENTAJE.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,

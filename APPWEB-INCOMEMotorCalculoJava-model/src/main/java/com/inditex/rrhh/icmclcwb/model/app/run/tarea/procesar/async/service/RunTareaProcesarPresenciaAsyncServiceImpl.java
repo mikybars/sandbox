@@ -216,7 +216,7 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
 
   @Override
   public CompletableFuture<Void> compensarLocalizacionIncluidoChallengePorcentaje(final RunTareaDto runTarea) {
-    this.runTareaProcesarPresenciaService.compensarLocalizacion(runTarea);
+    this.runTareaProcesarPresenciaService.compensarLocalizacionManualIncluidoChallengePorcentaje(runTarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 

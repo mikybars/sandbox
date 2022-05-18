@@ -43,7 +43,7 @@ public class TareaTipoHora {
   @Column(name = "ES_EXCLUIDO_DENOMINADOR_Y_REPARTIDO_PROVINCIA", nullable = false)
   private Boolean excluidoDenominadorYRepartidoProvincia;
 
-  // @Column(name = "ES_INCLUIDO_CHALLENGE_PORCENTAJE", nullable = false)
+  @Column(name = "ES_INCLUIDO_CHALLENGE_PORCENTAJE", nullable = false)
   private Boolean incluidoChallengePorcentaje;
 
   @NotNull

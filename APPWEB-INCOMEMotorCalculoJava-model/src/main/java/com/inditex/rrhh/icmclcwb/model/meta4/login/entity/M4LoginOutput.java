@@ -62,7 +62,7 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
    *
    */
   public String getSessionID() {
-    return sessionID;
+    return this.sessionID;
   }
 
   /**
@@ -71,11 +71,13 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
    * @param value allowed object is {@link String }
    *
    */
-  public void setSessionID(String value) {
+  public void setSessionID(final String value) {
     this.sessionID = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+  @Override
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -84,9 +86,9 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
     }
     final M4LoginOutput that = ((M4LoginOutput) object);
     {
-      String lhsSessionID;
+      final String lhsSessionID;
       lhsSessionID = this.getSessionID();
-      String rhsSessionID;
+      final String rhsSessionID;
       rhsSessionID = that.getSessionID();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "sessionID", lhsSessionID),
           LocatorUtils.property(thatLocator, "sessionID", rhsSessionID), lhsSessionID, rhsSessionID, (this.sessionID != null),
@@ -97,38 +99,43 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
     return true;
   }
 
-  public boolean equals(Object object) {
+  @Override
+  public boolean equals(final Object object) {
     final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
+    return this.equals(null, null, object, strategy);
   }
 
+  @Override
   public String toString() {
     final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
     final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
+    this.append(null, buffer, strategy);
     return buffer.toString();
   }
 
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  @Override
+  public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
+    this.appendFields(locator, buffer, strategy);
     strategy.appendEnd(locator, this, buffer);
     return buffer;
   }
 
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  @Override
+  public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     {
-      String theSessionID;
+      final String theSessionID;
       theSessionID = this.getSessionID();
       strategy.appendField(locator, this, "sessionID", buffer, theSessionID, (this.sessionID != null));
     }
     return buffer;
   }
 
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+  @Override
+  public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
     int currentHashCode = 1;
     {
-      String theSessionID;
+      final String theSessionID;
       theSessionID = this.getSessionID();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "sessionID", theSessionID), currentHashCode, theSessionID,
           (this.sessionID != null));
@@ -136,31 +143,36 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
     return currentHashCode;
   }
 
+  @Override
   public int hashCode() {
     final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
     return this.hashCode(null, strategy);
   }
 
+  @Override
   public Object clone() {
-    return copyTo(createNewInstance());
+    return this.copyTo(this.createNewInstance());
   }
 
-  public Object copyTo(Object target) {
+  @Override
+  public Object copyTo(final Object target) {
     final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
+    return this.copyTo(null, target, strategy);
   }
 
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+  @Override
+  public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
     if (draftCopy instanceof M4LoginOutput) {
       final M4LoginOutput copy = ((M4LoginOutput) draftCopy);
       {
-        Boolean sessionIDShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.sessionID != null));
+        final Boolean sessionIDShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.sessionID != null));
         if (sessionIDShouldBeCopiedAndSet == Boolean.TRUE) {
-          String sourceSessionID;
+          final String sourceSessionID;
           sourceSessionID = this.getSessionID();
-          String copySessionID = ((String) strategy.copy(LocatorUtils.property(locator, "sessionID", sourceSessionID), sourceSessionID,
-              (this.sessionID != null)));
+          final String copySessionID =
+              ((String) strategy.copy(LocatorUtils.property(locator, "sessionID", sourceSessionID), sourceSessionID,
+                  (this.sessionID != null)));
           copy.setSessionID(copySessionID);
         } else {
           if (sessionIDShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -172,6 +184,7 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
     return draftCopy;
   }
 
+  @Override
   public Object createNewInstance() {
     return new M4LoginOutput();
   }
