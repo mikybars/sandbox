@@ -1,9 +1,6 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
-/*
- * Copyright (c) 2022. Inditex
- */
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;

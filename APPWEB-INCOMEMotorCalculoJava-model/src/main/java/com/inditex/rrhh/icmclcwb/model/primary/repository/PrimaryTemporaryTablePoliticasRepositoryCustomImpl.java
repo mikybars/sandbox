@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.repository;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

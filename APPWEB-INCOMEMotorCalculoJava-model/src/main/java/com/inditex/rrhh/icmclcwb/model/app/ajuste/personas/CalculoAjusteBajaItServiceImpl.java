@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import java.util.Collections;
 import java.util.List;
 
