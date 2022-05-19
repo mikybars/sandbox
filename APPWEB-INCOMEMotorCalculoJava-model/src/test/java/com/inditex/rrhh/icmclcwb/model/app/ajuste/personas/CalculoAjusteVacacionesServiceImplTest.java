@@ -65,8 +65,8 @@ class CalculoAjusteVacacionesServiceImplTest {
   @Test
   void ajustarTest() {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.calculoAjusteVacacionesService.ajustar(algoritmoAjuste);
-    verify(this.tareaCalculoAjusteVacacionesRepositoryCustom, times(1)).ajustar(algoritmoAjuste);
+    this.calculoAjusteVacacionesService.ajustar(algoritmoAjuste, new TareaDto());
+    verify(this.tareaCalculoAjusteVacacionesRepositoryCustom, times(1)).ajustar(algoritmoAjuste, new TareaDto());
   }
 
   @Test
@@ -81,7 +81,7 @@ class CalculoAjusteVacacionesServiceImplTest {
   @Test
   void ajustarExceptionTest() throws Exception {
     doThrow(new RuntimeException("Error")).when(this.tareaCalculoAjusteVacacionesRepositoryCustom)
-        .ajustar(any(AlgoritmoAjusteDto.class));
+        .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class));
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     final TareaDto tarea = this.createTarea();
     final List<IdPersonaLocalDto> personas = this.createPersonas();

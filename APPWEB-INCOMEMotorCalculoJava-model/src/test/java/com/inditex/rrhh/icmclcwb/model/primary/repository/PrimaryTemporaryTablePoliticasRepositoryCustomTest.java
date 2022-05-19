@@ -15,13 +15,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/*
- * Copyright (c) 2021. Inditex
- */
 import java.util.Arrays;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.SistemaDestinoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoAusenciaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoUnidadTiempoEnum;
@@ -405,15 +401,15 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
   @Test
   void insertTempFechasBajaItNumArgumentosTest() {
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea(), SISTEMA_DESTINO);
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea());
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_BAJA_IT),
         this.paramsCaptor.capture());
-    assertEquals(7, this.paramsCaptor.getValue().getValues().size());
+    assertEquals(4, this.paramsCaptor.getValue().getValues().size());
   }
 
   @Test
   void insertTempFechasBajaItUnidadTiempoAnosTest() {
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea(), SISTEMA_DESTINO);
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea());
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_BAJA_IT),
         this.paramsCaptor.capture());
 
@@ -426,7 +422,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
   @Test
   void insertTempFechasBajaItUnidadTiempoMesesTest() {
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea(), SISTEMA_DESTINO);
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea());
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_BAJA_IT),
         this.paramsCaptor.capture());
 
@@ -439,7 +435,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
   @Test
   void insertTempFechasBajaItUnidadTiempoSemanasTest() {
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea(), SISTEMA_DESTINO);
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea());
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_BAJA_IT),
         this.paramsCaptor.capture());
 
@@ -452,7 +448,7 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
   @Test
   void insertTempFechasBajaItUnidadTiempoDiasTest() {
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea(), SISTEMA_DESTINO);
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea());
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_BAJA_IT),
         this.paramsCaptor.capture());
 
@@ -460,45 +456,6 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
     assertEquals(TipoUnidadTiempoEnum.DIAS.getId(),
         params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_UNIDAD_TIEMPO_DIAS));
-
-  }
-
-  @Test
-  void insertTempFechasBajaItIdTipoAusenciaTest() {
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea(), SISTEMA_DESTINO);
-    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_BAJA_IT),
-        this.paramsCaptor.capture());
-
-    final MapSqlParameterSource params = this.paramsCaptor.getValue();
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_AUSENCIA));
-    assertEquals(TipoAusenciaEnum.BAJA_IT.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_AUSENCIA));
-
-  }
-
-  @Test
-  void insertTempFechasBajaItIdSistemaDestinoSolucionGlobalTest() {
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea(), SISTEMA_DESTINO);
-    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_BAJA_IT),
-        this.paramsCaptor.capture());
-
-    final MapSqlParameterSource params = this.paramsCaptor.getValue();
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO_SOLUCION_GLOBAL));
-    assertEquals(SistemaDestinoEnum.SOLUCION_GLOBAL.getIdMeta4(),
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO_SOLUCION_GLOBAL));
-
-  }
-
-  @Test
-  void insertTempFechasBajaItIdSistemaDestinoTest() {
-
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(this.createTarea(), SISTEMA_DESTINO);
-    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_FECHAS_BAJA_IT),
-        this.paramsCaptor.capture());
-
-    final MapSqlParameterSource params = this.paramsCaptor.getValue();
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO));
-    assertEquals(SISTEMA_DESTINO,
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_SISTEMA_DESTINO));
 
   }
 

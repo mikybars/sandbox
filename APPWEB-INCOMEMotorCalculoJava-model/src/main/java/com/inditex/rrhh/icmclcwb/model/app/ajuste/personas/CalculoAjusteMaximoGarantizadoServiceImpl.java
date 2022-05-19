@@ -47,8 +47,8 @@ public class CalculoAjusteMaximoGarantizadoServiceImpl extends AbstractCalculoAj
   }
 
   @Override
-  protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
-    this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.ajustar(algoritmoAjuste);
+  protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tareaDto) {
+    this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom.ajustar(algoritmoAjuste, tareaDto);
   }
 
   @Override
