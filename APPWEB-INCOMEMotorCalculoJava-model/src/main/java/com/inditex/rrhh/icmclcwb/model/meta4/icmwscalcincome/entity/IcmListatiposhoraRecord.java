@@ -1,9 +1,6 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
-/*
- * Copyright (c) 2022. Inditex
- */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,6 +42,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="esincluidochallenge" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="esincluidoecommerce" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="esexcluidodenominador" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="esincluidochallengeporc" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="esexcluidodenominadorrepprov" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -66,6 +64,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "esincluidochallenge",
     "esincluidoecommerce",
     "esexcluidodenominador",
+    "esincluidochallengeporc",
     "esexcluidodenominadorrepprov"
 })
 public class IcmListatiposhoraRecord implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
@@ -100,6 +99,9 @@ public class IcmListatiposhoraRecord implements Serializable, Cloneable, CopyTo2
 
   @XmlElement(required = true, nillable = true)
   protected String esexcluidodenominador;
+
+  @XmlElement(required = true, nillable = true)
+  protected String esincluidochallengeporc;
 
   @XmlElement(required = true, nillable = true)
   protected String esexcluidodenominadorrepprov;
@@ -301,6 +303,26 @@ public class IcmListatiposhoraRecord implements Serializable, Cloneable, CopyTo2
   }
 
   /**
+   * Obtiene el valor de la propiedad esincluidochallengeporc.
+   *
+   * @return possible object is {@link String }
+   *
+   */
+  public String getEsincluidochallengeporc() {
+    return esincluidochallengeporc;
+  }
+
+  /**
+   * Define el valor de la propiedad esincluidochallengeporc.
+   *
+   * @param value allowed object is {@link String }
+   *
+   */
+  public void setEsincluidochallengeporc(String value) {
+    this.esincluidochallengeporc = value;
+  }
+
+  /**
    * Obtiene el valor de la propiedad esexcluidodenominadorrepprov.
    *
    * @return possible object is {@link String }
@@ -439,6 +461,17 @@ public class IcmListatiposhoraRecord implements Serializable, Cloneable, CopyTo2
       }
     }
     {
+      String lhsEsincluidochallengeporc;
+      lhsEsincluidochallengeporc = this.getEsincluidochallengeporc();
+      String rhsEsincluidochallengeporc;
+      rhsEsincluidochallengeporc = that.getEsincluidochallengeporc();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "esincluidochallengeporc", lhsEsincluidochallengeporc),
+          LocatorUtils.property(thatLocator, "esincluidochallengeporc", rhsEsincluidochallengeporc), lhsEsincluidochallengeporc,
+          rhsEsincluidochallengeporc, (this.esincluidochallengeporc != null), (that.esincluidochallengeporc != null))) {
+        return false;
+      }
+    }
+    {
       String lhsEsexcluidodenominadorrepprov;
       lhsEsexcluidodenominadorrepprov = this.getEsexcluidodenominadorrepprov();
       String rhsEsexcluidodenominadorrepprov;
@@ -525,6 +558,12 @@ public class IcmListatiposhoraRecord implements Serializable, Cloneable, CopyTo2
       strategy.appendField(locator, this, "esexcluidodenominador", buffer, theEsexcluidodenominador, (this.esexcluidodenominador != null));
     }
     {
+      String theEsincluidochallengeporc;
+      theEsincluidochallengeporc = this.getEsincluidochallengeporc();
+      strategy.appendField(locator, this, "esincluidochallengeporc", buffer, theEsincluidochallengeporc,
+          (this.esincluidochallengeporc != null));
+    }
+    {
       String theEsexcluidodenominadorrepprov;
       theEsexcluidodenominadorrepprov = this.getEsexcluidodenominadorrepprov();
       strategy.appendField(locator, this, "esexcluidodenominadorrepprov", buffer, theEsexcluidodenominadorrepprov,
@@ -594,6 +633,12 @@ public class IcmListatiposhoraRecord implements Serializable, Cloneable, CopyTo2
       theEsexcluidodenominador = this.getEsexcluidodenominador();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "esexcluidodenominador", theEsexcluidodenominador),
           currentHashCode, theEsexcluidodenominador, (this.esexcluidodenominador != null));
+    }
+    {
+      String theEsincluidochallengeporc;
+      theEsincluidochallengeporc = this.getEsincluidochallengeporc();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "esincluidochallengeporc", theEsincluidochallengeporc),
+          currentHashCode, theEsincluidochallengeporc, (this.esincluidochallengeporc != null));
     }
     {
       String theEsexcluidodenominadorrepprov;
@@ -765,6 +810,22 @@ public class IcmListatiposhoraRecord implements Serializable, Cloneable, CopyTo2
         } else {
           if (esexcluidodenominadorShouldBeCopiedAndSet == Boolean.FALSE) {
             copy.esexcluidodenominador = null;
+          }
+        }
+      }
+      {
+        Boolean esincluidochallengeporcShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.esincluidochallengeporc != null));
+        if (esincluidochallengeporcShouldBeCopiedAndSet == Boolean.TRUE) {
+          String sourceEsincluidochallengeporc;
+          sourceEsincluidochallengeporc = this.getEsincluidochallengeporc();
+          String copyEsincluidochallengeporc =
+              ((String) strategy.copy(LocatorUtils.property(locator, "esincluidochallengeporc", sourceEsincluidochallengeporc),
+                  sourceEsincluidochallengeporc, (this.esincluidochallengeporc != null)));
+          copy.setEsincluidochallengeporc(copyEsincluidochallengeporc);
+        } else {
+          if (esincluidochallengeporcShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.esincluidochallengeporc = null;
           }
         }
       }
