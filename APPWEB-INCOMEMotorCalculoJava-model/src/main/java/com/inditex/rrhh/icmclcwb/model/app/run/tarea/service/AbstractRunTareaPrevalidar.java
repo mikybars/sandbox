@@ -184,7 +184,6 @@ public abstract class AbstractRunTareaPrevalidar {
               EstadoTareaFaseEnum.PENDIENTE.getDto(),
               EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
       this.tareaFaseService.updateActivo(runTareaDto);
-      this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
 
       this.sincronizacion(tareaDto, fallidas);
 
@@ -203,6 +202,8 @@ public abstract class AbstractRunTareaPrevalidar {
         } else {
           this.senderTarea.sendWithPriority(runTareaDto.getTarea(), TareaPriorityEnum.REENCOLADA);
         }
+        this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
+
         throw new ValidationReintentoException("Error validando");
       }
       this.insertarDato(fallidas);
@@ -210,30 +211,32 @@ public abstract class AbstractRunTareaPrevalidar {
       if (fallidas.stream().anyMatch(e -> e.getIdMotivosDesplazamiento() != null && e.getIdMotivosDesplazamiento().size() > 0)) {
         this.mailService.sendMailMotivos(runTareaDto, fallidas);
       }
+      this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
+
       throw new ValidationNoReintentoException("Error validando");
     }
   }
 
-  void insertarDato(List<ValidacionDto> fallidas) {
-    for (ValidacionDto fallida : fallidas) {
-      TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
+  void insertarDato(final List<ValidacionDto> fallidas) {
+    for (final ValidacionDto fallida : fallidas) {
+      final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
           .findById(fallida.getIdTareaFaseAccion());
 
-      AccionDto accion = this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion());
+      final AccionDto accion = this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion());
 
       // ID_ACCION = 1 -> Motivos
       // ID_ACCION IN (2,5,6,7,8) -> Personas
       // ID_ACCION = 3 -> Fechas => No insertamos
       // ID_ACCION = 4 -> Presencias => TODO: Pensar que informacion insertar
       if (accion.getId() == 1) {
-        List<TareaFaseAccionDatoDto> tareaFaseAccionDatoList = new ArrayList<>();
+        final List<TareaFaseAccionDatoDto> tareaFaseAccionDatoList = new ArrayList<>();
         fallida.getIdMotivosDesplazamiento().forEach((motivo) -> {
           tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
               .idTipoDato(TipoDatoEnum.MOTIVOS_DESPLAZAMIENTO.getId()).dato(motivo.toString()).build());
         });
         this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
       } else if (Stream.of(2, 5, 6, 7, 8).collect(Collectors.toList()).contains(accion.getId())) {
-        List<TareaFaseAccionDatoDto> tareaFaseAccionDatoList = new ArrayList<>();
+        final List<TareaFaseAccionDatoDto> tareaFaseAccionDatoList = new ArrayList<>();
         fallida.getIdPersonaLocal().forEach((persona) -> {
           tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
               .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona).build());
