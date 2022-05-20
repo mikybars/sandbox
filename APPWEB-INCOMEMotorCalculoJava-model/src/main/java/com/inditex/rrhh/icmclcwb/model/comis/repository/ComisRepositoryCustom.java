@@ -197,7 +197,7 @@ public interface ComisRepositoryCustom {
 
   /**
    * Obtiene las personas con sus respectivas localizaciones en orígenes SIL.
-   * 
+   *
    * @param tarea tarea
    * @param maxIdPersona máximo id de persona aobtener para evitar empleados externos.
    * @param clase clase a tener en cuenta.
@@ -207,11 +207,14 @@ public interface ComisRepositoryCustom {
 
   /**
    * Obtiene las personas con sus respectivas localizaciones en orígenes SIL.
-   * 
+   *
    * @param tarea tarea
    * @param maxIdPersona máximo id de persona aobtener para evitar empleados externos.
    * @param clase clase a tener en cuenta con su estado SIL correspondiente.
    * @return Lista de personas.
    */
   List<IdPersonaLocalLocalizacionDto> findPersonasSilConEstado(TareaDto tarea, Long maxIdPersona, ClaseResultItemDto clase);
+
+  List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoChallengeIncluidoPorcentaje(TareaDto tarea,
+      PeriodoDto periodoAmpliado);
 }

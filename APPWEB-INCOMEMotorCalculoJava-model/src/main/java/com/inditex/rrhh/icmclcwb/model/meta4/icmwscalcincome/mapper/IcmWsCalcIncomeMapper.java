@@ -1649,6 +1649,8 @@ public interface IcmWsCalcIncomeMapper {
       expression = "java(Meta4Constants.TRUE.equals(src.getEsexcluidodenominador()))")
   @Mapping(target = "excluidoDenominadorRepartoProvincia",
       expression = "java(Meta4Constants.TRUE.equals(src.getEsexcluidodenominadorrepprov()))")
+  @Mapping(target = "incluidoChallengePorcentaje",
+      expression = "java(Meta4Constants.TRUE.equals(src.getEsincluidochallengeporc()))")
   TiposHoraResultItemDto asTiposHoraResultItemDto(IcmListatiposhoraRecord src);
 
   @Mapping(target = "icmParamcalusuarioRecordSet", ignore = true)

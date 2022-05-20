@@ -142,6 +142,9 @@ class RunTareaProcesarServiceImplTest {
         .totalizarLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
+        .totalizarLocalizacionIncluidoChallengePorcentaje(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .compensarLocalizacionPersonaPresencia(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
@@ -158,6 +161,9 @@ class RunTareaProcesarServiceImplTest {
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .compensarLocalizacionManual(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
+        .compensarLocalizacionIncluidoChallengePorcentaje(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .indicadorPresencia(this.runTarea);
