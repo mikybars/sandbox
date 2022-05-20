@@ -1,9 +1,6 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
-/*
- * Copyright (c) 2022. Inditex
- */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -414,7 +411,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
    * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmWsToolsRecordSet property.
    *
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmWsToolsRecordSet().add(newItem);
    * </pre>

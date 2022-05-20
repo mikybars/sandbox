@@ -1,9 +1,6 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
-/*
- * Copyright (c) 2022. Inditex
- */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +87,7 @@ public class IcmParamcaltiposhoraBlock implements Serializable, Cloneable, CopyT
    * property.
    *
    * <p> For example, to add a new item, do as follows:
-   *
+   * 
    * <pre>
    * getIcmParamcaltiposhoraRecordSet().add(newItem);
    * </pre>
