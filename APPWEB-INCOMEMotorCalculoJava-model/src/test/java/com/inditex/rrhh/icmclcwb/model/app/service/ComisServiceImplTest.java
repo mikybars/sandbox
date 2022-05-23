@@ -152,7 +152,7 @@ class ComisServiceImplTest {
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
     this.comisServiceImpl.findCondicionesDesplazamientoEs(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
-        .findCondicionesDesplazamientoEs(any(TareaDto.class));
+        .findCondicionesDesplazamientoEs(any(TareaDto.class), any(PeriodoDto.class));
   }
 
   @Test

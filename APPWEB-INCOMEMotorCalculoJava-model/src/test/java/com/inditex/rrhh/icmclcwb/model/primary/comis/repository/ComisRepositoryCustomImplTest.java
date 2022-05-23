@@ -368,7 +368,9 @@ class ComisRepositoryCustomImplTest {
     tarea.setIdOrganization("1");
     tarea.setFechaInicioPeriodo(LocalDate.now());
     tarea.setFechaFinPeriodo(LocalDate.now());
-    this.comisRepositoryCustom.findCondicionesDesplazamientoEs(tarea);
+    final PeriodoDto periodo = new PeriodoDto();
+    periodo.setFechaInicioPeriodo(LocalDate.now());
+    this.comisRepositoryCustom.findCondicionesDesplazamientoEs(tarea, periodo);
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
         ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
     assertEquals(SQL_FIND_CONDICIONES_DESPLAZAMIENTO_ES,

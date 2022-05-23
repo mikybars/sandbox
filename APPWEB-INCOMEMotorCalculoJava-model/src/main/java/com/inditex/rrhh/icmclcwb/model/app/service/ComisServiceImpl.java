@@ -158,7 +158,10 @@ public class ComisServiceImpl implements ComisService {
     try {
       this.setContext(runTareaDto, tareaAmbito);
       desplazamiento = this.comisRepositoryCustom
-          .findCondicionesDesplazamientoEs(runTareaDto.getTarea());
+          .findCondicionesDesplazamientoEs(runTareaDto.getTarea(),
+              this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                  runTareaDto.getTarea().getId(),
+                  TipoDatoEnum.PERIODO_AMPLIADO.getId()));
     } finally {
       ClientDatabaseContextHolder.clear();
     }

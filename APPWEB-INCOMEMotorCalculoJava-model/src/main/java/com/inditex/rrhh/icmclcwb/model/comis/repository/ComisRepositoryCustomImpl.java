@@ -250,12 +250,14 @@ public class ComisRepositoryCustomImpl
   }
 
   @Override
-  public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(final TareaDto tarea) {
+  public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(final TareaDto tarea, final PeriodoDto periodoAmpliado) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
     map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
         TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
     map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
         TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO,
+        TimeUtils.toDate(periodoAmpliado.getFechaInicioPeriodo()));
 
     return this.query(this.sqlFindCondicionesDesplazamientoEs, map,
         (rs, rowNum) -> IdPersonaLocalCondicionesDto

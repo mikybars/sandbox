@@ -136,7 +136,7 @@ public interface ComisRepositoryCustom {
    * @param tarea Some javadoc.
    * @return Some javadoc.
    */
-  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(TareaDto tarea);
+  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(TareaDto tarea, PeriodoDto periodoAmpliado);
 
   /**
    * Some javadoc.
