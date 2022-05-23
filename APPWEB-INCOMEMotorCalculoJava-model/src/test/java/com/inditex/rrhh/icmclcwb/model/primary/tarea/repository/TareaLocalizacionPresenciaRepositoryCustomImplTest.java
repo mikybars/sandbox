@@ -72,6 +72,8 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
   private final static String SQL_COMPENSAR_INCLUIDO_CHALLENGE_PORCENTAJE = "COMPENSAR INCLUIDO CHALLENGE PORCENTAJE";
 
+  private final static String SQL_TOTALIZAR_INCLUIDO_CHALLENGE_PORCENTAJE = "TOTALIZAR INCLUIDO CHALLENGE PORCENTAJE";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -109,8 +111,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
         "sqlTotalizarPresenciasSindicalesLocalizacion",
         SQL_TOTALIZAR_PRESENCIAS_SINDICALES_SECCION, true);
-    FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom, "sqlCompensarIncluidoChallengePorcentaje",
-        SQL_COMPENSAR_INCLUIDO_CHALLENGE_PORCENTAJE, true);
+    FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
+        "sqlTotalizarIncluidoChallengePorcentaje",
+        SQL_TOTALIZAR_INCLUIDO_CHALLENGE_PORCENTAJE, true);
 
   }
 
@@ -1155,7 +1158,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarIncluidoChallengePorcentaje(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
-    assertEquals(SQL_COMPENSAR_INCLUIDO_CHALLENGE_PORCENTAJE, this.sqlCaptor.getValue());
+    assertEquals(SQL_TOTALIZAR_INCLUIDO_CHALLENGE_PORCENTAJE, this.sqlCaptor.getValue());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
     // Parámetros de la consulta: idTarea, nuevoIdSeccion, nuevoIdTipoDato,
     // excluidoDenominador, idTipoPolitica, tiposDato, activo
