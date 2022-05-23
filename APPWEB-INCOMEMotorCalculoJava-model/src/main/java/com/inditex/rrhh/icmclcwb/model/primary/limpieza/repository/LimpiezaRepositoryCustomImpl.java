@@ -394,6 +394,17 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaAgrupacionConfiguracionChallengeTipoVenta,
         idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
 
+  }
+
+  @Override
+  public void limpiezaTareaProfunda(
+      @NotNull @Valid final TareaDto tarea,
+      @NotNull @Valid final TareaAmbitoDto ambito) {
+
+    this.limpieza(tarea, ambito);
+
+    final List<MapSqlParameterSource> idTareaBatchArgs = this.getParametersTarea(tarea);
+
     // Limpieza tabla TAREA_FASE_ACCION_DATO
     this.limpiezaTareaFaseAccionDato(tarea);
     // Limpieza tabla TAREA_FASE_ACCION
@@ -401,7 +412,6 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     // Limpieza tabla TAREA_FASE
     this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaFase,
         idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
-
   }
 
   protected void limpiezaTareaCalculoAjusteComision(@NotNull @Valid final TareaDto tarea) {
