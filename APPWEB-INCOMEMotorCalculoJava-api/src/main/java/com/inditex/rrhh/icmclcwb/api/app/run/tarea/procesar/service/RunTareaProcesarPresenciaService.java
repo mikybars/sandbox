@@ -66,4 +66,7 @@ public interface RunTareaProcesarPresenciaService {
 
   void indicadorDesplazamientoChallengeImporteTienda(@Valid RunTareaDto runTarea);
 
+  void totalizarLocalizacionIncluidoChallengePorcentaje(@Valid RunTareaDto runTarea);
+
+  void compensarLocalizacionManualIncluidoChallengePorcentaje(@Valid RunTareaDto runTarea);
 }

@@ -40,4 +40,6 @@ public class TiposHoraResultItemDto implements Serializable {
 
   private Boolean excluidoDenominadorRepartoProvincia;
 
+  private Boolean incluidoChallengePorcentaje;
+
 }

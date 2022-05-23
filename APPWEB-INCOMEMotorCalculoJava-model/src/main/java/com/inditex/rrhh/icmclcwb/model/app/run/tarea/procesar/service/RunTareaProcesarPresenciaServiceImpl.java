@@ -179,4 +179,14 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     this.tareaLocalizacionPresenciaService.totalizarPresenciasSindicalesLocalizacion(runTareaDto);
   }
 
+  @Override
+  public void totalizarLocalizacionIncluidoChallengePorcentaje(@Valid final RunTareaDto runTarea) {
+    this.tareaLocalizacionPresenciaService.totalizarIncluidoChallengePorcentaje(runTarea);
+  }
+
+  @Override
+  public void compensarLocalizacionManualIncluidoChallengePorcentaje(@Valid final RunTareaDto runTarea) {
+    this.tareaLocalizacionPresenciaService.compensarLocalizacionManualIncluidoChallengePorcentaje(runTarea);
+  }
+
 }

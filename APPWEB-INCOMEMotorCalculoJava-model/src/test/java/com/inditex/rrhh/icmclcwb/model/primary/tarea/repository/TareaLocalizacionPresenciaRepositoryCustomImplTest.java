@@ -82,6 +82,10 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
   private final static String SQL_TOTALIZAR_PRESENCIAS_EMPLEADOS_POR_VENTA = "TOTALIZAR PRESENCIAS EMPLEADOS POR VENTA";
 
+  private final static String SQL_COMPENSAR_INCLUIDO_CHALLENGE_PORCENTAJE = "COMPENSAR INCLUIDO CHALLENGE PORCENTAJE";
+
+  private final static String SQL_TOTALIZAR_INCLUIDO_CHALLENGE_PORCENTAJE = "TOTALIZAR INCLUIDO CHALLENGE PORCENTAJE";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -122,6 +126,10 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
         "sqlTotalizarEmpleadosPorVenta",
         SQL_TOTALIZAR_PRESENCIAS_EMPLEADOS_POR_VENTA, true);
+    FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
+        "sqlTotalizarIncluidoChallengePorcentaje",
+        SQL_TOTALIZAR_INCLUIDO_CHALLENGE_PORCENTAJE, true);
+
   }
 
   @Test
@@ -1177,6 +1185,63 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     expected.put(SQL_PARAM_HORAS_ORIGEN, SQL_VALUE_BOOLEAN_TRUE);
 
     assertEquals(expected, params);
+
+  }
+
+  @Test
+  public void totalizarIncluidoChallengePorcentajeTest() {
+
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(199L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+
+    this.tareaLocalizacionPresenciaRepositoryCustom.totalizarIncluidoChallengePorcentaje(runTarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+    assertEquals(SQL_TOTALIZAR_INCLUIDO_CHALLENGE_PORCENTAJE, this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: idTarea, nuevoIdSeccion, nuevoIdTipoDato,
+    // excluidoDenominador, idTipoPolitica, tiposDato, activo
+    assertEquals(10, params.getValues().size());
+    // idTarea
+    assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+    assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
+    // nuevoIdSeccion
+    assertTrue(params.hasValue(SQL_PARAM_ID_SECCION));
+    assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_ID_SECCION));
+    // nuevoIdTipoDato
+    assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+    assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOCHALLENGEPORCENTAJE.getId(),
+        params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+
+  }
+
+  @Test
+  public void compensarLocalizacionManualIncluidoChallengePorcentajeTest() {
+
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(199L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+
+    this.tareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManualIncluidoChallengePorcentaje(runTarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+    assertEquals(SQL_COMPENSAR_LOCALIZACION_MANUAL, this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: idTarea, nuevoIdSeccion, nuevoIdTipoDato,
+    // excluidoDenominador, idTipoPolitica, tiposDato, activo
+    assertEquals(5, params.getValues().size());
+    // idTarea
+    assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+    assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
+    // nuevoIdSeccion
+    assertTrue(params.hasValue(SQL_PARAM_ID_SECCION));
+    assertEquals(AppConstants.SECCION_4, params.getValue(SQL_PARAM_ID_SECCION));
+    // nuevoIdTipoDato
+    assertTrue(params.hasValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+    assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOCHALLENGEPORCENTAJE.getId(),
+        params.getValue(SQL_PARAM_NUEVO_ID_TIPO_DATO));
+    // tiposDato
+    assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
+    assertEquals(Arrays.asList(5018, 5025), params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
 
   }
 

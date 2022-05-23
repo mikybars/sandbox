@@ -268,4 +268,8 @@ public interface ComisAsyncService {
       @Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito,
       @NotNull Long maxIdPersona, @Valid ClaseResultItemDto clase);
+
+  CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesHistoricoChallengeIncluidoPorcentaje(
+      @Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
 }

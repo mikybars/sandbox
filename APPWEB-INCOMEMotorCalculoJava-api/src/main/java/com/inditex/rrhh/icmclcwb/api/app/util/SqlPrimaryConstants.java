@@ -222,6 +222,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_EXCLUIDO_CALCULO = "excluidoCalculo";
 
+  public static final String SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE = "incluidoChallengePorcentaje";
+
   public static final String SQL_PARAM_ABIERTO = "abierto";
 
   public static final String SQL_PARAM_CERRADO = "cerrado";
