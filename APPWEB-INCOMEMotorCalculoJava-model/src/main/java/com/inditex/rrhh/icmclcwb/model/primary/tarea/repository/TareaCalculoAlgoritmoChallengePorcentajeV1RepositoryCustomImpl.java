@@ -33,12 +33,12 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImpl
     implements TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustom {
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustom.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1Repository.calcular']} "
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustom.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcularBase;

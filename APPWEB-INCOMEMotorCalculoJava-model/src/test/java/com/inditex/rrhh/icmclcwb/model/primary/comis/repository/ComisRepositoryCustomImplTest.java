@@ -100,6 +100,9 @@ class ComisRepositoryCustomImplTest {
 
   private final static String SQL_FIND_PERSONAS_SIL_CON_ESTADO = "SQL FIND PERSONAS CON ESTADO";
 
+  private final static String SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE_INCLUIDO_PORCENTAJE =
+      "SQL FIND CONDICIONES HISTORICO CHALLENGE INCLUIDO PORCENTAJE";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -211,9 +214,8 @@ class ComisRepositoryCustomImplTest {
         true);
     FieldUtils.writeField(this.comisRepositoryCustom,
         "sqlFindCondicionesHIstoricoChallengeIncluidoPorcentaje",
-        SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE,
+        SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE_INCLUIDO_PORCENTAJE,
         true);
-
   }
 
   @Test
@@ -866,7 +868,7 @@ class ComisRepositoryCustomImplTest {
     this.comisRepositoryCustom.findCondicionesHistoricoChallengeIncluidoPorcentaje(tarea, periodo);
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
         ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
-    assertEquals(SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE,
+    assertEquals(SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE_INCLUIDO_PORCENTAJE,
         this.sqlCaptor.getValue());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
     // Parámetros de la consulta: fecha desde, fecha hasta
