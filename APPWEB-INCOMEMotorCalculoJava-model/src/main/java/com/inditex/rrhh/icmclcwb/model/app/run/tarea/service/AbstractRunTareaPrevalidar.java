@@ -185,6 +185,7 @@ public abstract class AbstractRunTareaPrevalidar {
               EstadoTareaFaseEnum.NO_EJECUTADA.getDto());
       this.tareaFaseService.updateActivo(runTareaDto);
 
+      this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
       this.sincronizacion(tareaDto, fallidas);
 
       final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService
@@ -202,7 +203,6 @@ public abstract class AbstractRunTareaPrevalidar {
         } else {
           this.senderTarea.sendWithPriority(runTareaDto.getTarea(), TareaPriorityEnum.REENCOLADA);
         }
-        this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
 
         throw new ValidationReintentoException("Error validando");
       }
