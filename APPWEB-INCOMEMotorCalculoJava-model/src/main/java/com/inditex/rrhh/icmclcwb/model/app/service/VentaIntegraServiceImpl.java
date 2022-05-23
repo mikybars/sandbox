@@ -34,17 +34,21 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
   private Map<String, VentaIntegraPropertiesDto> ventaIntegraProperties;
 
   @Override
-  public List<Integer> getTiendasVentaNoIntegra(VentaIntegraRequestDto request) {
-
-    VentaIntegraResponseDto response = this.queryTiendasVentaNoIntegra(request);
+  public List<Integer> getTiendasVentaNoIntegra(final VentaIntegraRequestDto request) {
+    final VentaIntegraResponseDto response;
+    try {
+      response = this.queryTiendasVentaNoIntegra(request);
+    } catch (final VentaIntegraIcmclcwbException e) {
+      throw e;
+    }
 
     return response.getData().stream().map(x -> x.getStoreTic()).collect(Collectors.toList());
   }
 
   @Retryable(maxAttemptsExpression = "${app.envars.venta-integra.config.max-attempts}")
-  private VentaIntegraResponseDto queryTiendasVentaNoIntegra(VentaIntegraRequestDto request) {
+  private VentaIntegraResponseDto queryTiendasVentaNoIntegra(final VentaIntegraRequestDto request) {
 
-    Map<String, String> pathParams = new HashMap<>();
+    final Map<String, String> pathParams = new HashMap<>();
     pathParams.put("countryTic", request.getIdOrigen().toString());
     pathParams.put("from", request.getFechaDesde());
     pathParams.put("to", request.getFechaHasta());
@@ -56,7 +60,7 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
       pathParams.put("before", request.getFechaLimite().toString());
     }
 
-    String url = new StringBuilder(this.ventaIntegraProperties.get(VentaIntegraClientPropertiesConstants.VENTA_INTEGRA).getEndpoint())
+    final String url = new StringBuilder(this.ventaIntegraProperties.get(VentaIntegraClientPropertiesConstants.VENTA_INTEGRA).getEndpoint())
         .append(this.getUrlParams(request)).toString();
 
     try {
@@ -65,15 +69,15 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
               url, VentaIntegraResponseDto.class, pathParams),
           this.ventaIntegraClient,
           url, pathParams);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new VentaIntegraIcmclcwbException("Error en el cliente VentaIntegra [url: " + url + ", values: " + pathParams.values() + "]",
           e);
     }
 
   }
 
-  private String getUrlParams(VentaIntegraRequestDto request) {
-    StringBuilder urlParams = new StringBuilder();
+  private String getUrlParams(final VentaIntegraRequestDto request) {
+    final StringBuilder urlParams = new StringBuilder();
     urlParams.append(VentaIntegraClientPropertiesConstants.ID_ORIGEN)
         .append(VentaIntegraClientPropertiesConstants.EQUALS)
         .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)

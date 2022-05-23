@@ -112,7 +112,7 @@ amiga:
         #          password: xynEJHKK4bu)
         #[PTR][PRE][INICIO]
         venta-integra:
-          base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp/dqservice
+          base-url:  https://apigw-sscc-des.axdesocp1.central.inditex.grp/dqservice-srv/v1/
           auth-method: BASIC
           username: oauthincomedes
           password: thFHw*m7cDefUL
@@ -753,7 +753,7 @@ app:
       service:
         ventaIntegraService:
           ventaIntegra:
-            endpoint: /service/storedata?
+            endpoint: /storedata?
     ptr:
       config:
         max-attempts: 2
