@@ -592,6 +592,7 @@ WITH T AS (SELECT
             CCL_ID_SECCION_DESTINO,
             ID_TIPO_CALCULO,
             ID_TIPO_OPCION_CALCULO,
+            0 AS ES_INCLUIR_TOTAL_CONDICIONES,
             PORCENTAJE,
             BANDA,
             IMPORTE,
@@ -2285,6 +2286,7 @@ WITH T AS (SELECT
             CCL_ID_SECCION_DESTINO,
             ID_TIPO_CALCULO,
             ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
             PORCENTAJE,
             BANDA,
             IMPORTE,
@@ -2324,6 +2326,10 @@ WITH T AS (SELECT
                           TPC.SECCION AS CCL_ID_SECCION,
                           PCT.TIPOCALCULO AS ID_TIPO_CALCULO,
                           PCT.TIPOOPCIONCALCULO AS ID_TIPO_OPCION_CALCULO,
+                          CASE
+                          		WHEN PCT.INCLUIRTOTALCONDICIONES = 1 THEN PCT.INCLUIRTOTALCONDICIONES
+                          		ELSE 0
+                          END AS ES_INCLUIR_TOTAL_CONDICIONES,
                           CASE
                                 WHEN PCT.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
                                 WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PCT.SECCIONESCOMISION LIKE '%S%' THEN TPC.PORCENTAJE
@@ -2379,6 +2385,7 @@ WITH T AS (SELECT
                             TPC.SECCION,
                             PCT.TIPOCALCULO,
                             PCT.TIPOOPCIONCALCULO,
+                            PCT.INCLUIRTOTALCONDICIONES,
                             TPC.PORCENTAJE,
                             PCT.SECCIONESCOMISION,
                             PCT.MOTIVO,
@@ -2395,6 +2402,7 @@ WITH T AS (SELECT
             CCL_ID_SECCION_DESTINO,
             ID_TIPO_CALCULO,
             ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
             PORCENTAJE,
             BANDA,
             IMPORTE,
@@ -2411,6 +2419,7 @@ WITH T AS (SELECT
             CCL_ID_SECCION_DESTINO,
             ID_TIPO_CALCULO,
             ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
             PORCENTAJE,
             BANDA,
             IMPORTE,
@@ -2451,6 +2460,10 @@ WITH T AS (SELECT
                           CASE WHEN PR.TIPOCALCULO <> 0 THEN PR.TIPOCALCULO
                                ELSE PCT.TIPOCALCULO END AS ID_TIPO_CALCULO,
                           PCT.TIPOOPCIONCALCULO AS ID_TIPO_OPCION_CALCULO,
+                          CASE
+                          		WHEN PCT.INCLUIRTOTALCONDICIONES = 1 THEN PCT.INCLUIRTOTALCONDICIONES
+                          		ELSE 0
+                          END AS ES_INCLUIR_TOTAL_CONDICIONES,
                           CASE
                                 WHEN PCT.TIPOCALCULO <> 2 THEN TPC.PORCENTAJE
                                 WHEN PCT.TIPOCALCULO = 2 AND TPC.SECCION = 1 AND PCT.SECCIONESCOMISION LIKE '%S%' THEN TPC.PORCENTAJE
@@ -2514,6 +2527,7 @@ WITH T AS (SELECT
                             PR.TIPOCALCULO,
                             PCT.TIPOCALCULO,
                             PCT.TIPOOPCIONCALCULO,
+                            PCT.INCLUIRTOTALCONDICIONES,
                             TPC.PORCENTAJE,
                             PCT.SECCIONESCOMISION,
                             PCT.MOTIVO,
@@ -2530,6 +2544,7 @@ WITH T AS (SELECT
             CCL_ID_SECCION_DESTINO,
             ID_TIPO_CALCULO,
             ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
             PORCENTAJE,
             BANDA,
             IMPORTE,
@@ -2544,6 +2559,7 @@ WITH T AS (SELECT
             CCL_ID_SECCION_DESTINO,
             ID_TIPO_CALCULO,
             ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
             PORCENTAJE,
             BANDA,
             IMPORTE,
@@ -2583,6 +2599,10 @@ WITH T AS (SELECT
                           TPP.IDCRITERIOSPRESUPUESTOS AS CCL_ID_SECCION,
                           PCT.TIPOCALCULO AS ID_TIPO_CALCULO,
                           PCT.TIPOOPCIONCALCULO AS ID_TIPO_OPCION_CALCULO,
+                          CASE
+                          		WHEN PCT.INCLUIRTOTALCONDICIONES = 1 THEN PCT.INCLUIRTOTALCONDICIONES
+                          		ELSE 0
+                          END AS ES_INCLUIR_TOTAL_CONDICIONES,
                           NULL AS PORCENTAJE,
                           TPP.BANDA AS BANDA,
                           TPP.IMPORTE,
@@ -2641,6 +2661,7 @@ WITH T AS (SELECT
                             TPP.IDCRITERIOSPRESUPUESTOS,
                             PCT.TIPOCALCULO,
                             PCT.TIPOOPCIONCALCULO,
+                            PCT.INCLUIRTOTALCONDICIONES,
                             TPP.BANDA,
                             TPP.IMPORTE,
                             PCT.SECCIONESCOMISION,
@@ -2659,6 +2680,7 @@ WITH T AS (SELECT
             CCL_ID_SECCION_DESTINO,
             ID_TIPO_CALCULO,
             ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
             PORCENTAJE,
             BANDA,
             IMPORTE,
@@ -2674,6 +2696,7 @@ WITH T AS (SELECT
             CCL_ID_SECCION_DESTINO,
             ID_TIPO_CALCULO,
             ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
             PORCENTAJE,
             BANDA,
             IMPORTE,
@@ -2714,6 +2737,10 @@ WITH T AS (SELECT
                           CASE WHEN PR.TIPOCALCULO <> 0 THEN PR.TIPOCALCULO
                                ELSE PCT.TIPOCALCULO END AS ID_TIPO_CALCULO,
                           PCT.TIPOOPCIONCALCULO AS ID_TIPO_OPCION_CALCULO,
+                          CASE
+                          		WHEN PCT.INCLUIRTOTALCONDICIONES = 1 THEN PCT.INCLUIRTOTALCONDICIONES
+                          		ELSE 0
+                          END AS ES_INCLUIR_TOTAL_CONDICIONES,
                           NULL AS PORCENTAJE,
                           TPP.BANDA AS BANDA,
                           TPP.IMPORTE AS IMPORTE,
@@ -2781,6 +2808,7 @@ WITH T AS (SELECT
                             PR.TIPOCALCULO,
                             PCT.TIPOCALCULO,
                             PCT.TIPOOPCIONCALCULO,
+                            PCT.INCLUIRTOTALCONDICIONES,
                             TPP.BANDA,
                             TPP.IMPORTE,
                             PCT.SECCIONESCOMISION,
@@ -2798,6 +2826,7 @@ WITH T AS (SELECT
             CCL_ID_SECCION_DESTINO,
             ID_TIPO_CALCULO,
             ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
             PORCENTAJE,
             BANDA,
             IMPORTE,
@@ -2815,6 +2844,7 @@ WITH T AS (SELECT
         CCL_ID_SECCION_DESTINO,
         ID_TIPO_CALCULO,
         ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
         PORCENTAJE,
         BANDA,
         IMPORTE
@@ -2828,6 +2858,7 @@ WITH T AS (SELECT
         CCL_ID_SECCION_DESTINO,
         ID_TIPO_CALCULO,
         ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
         PORCENTAJE,
         BANDA,
         IMPORTE,
@@ -2842,6 +2873,7 @@ UNION
         CCL_ID_SECCION_DESTINO,
         ID_TIPO_CALCULO,
         ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
         PORCENTAJE,
         BANDA,
         IMPORTE
@@ -2855,6 +2887,7 @@ UNION
         CCL_ID_SECCION_DESTINO,
         ID_TIPO_CALCULO,
         ID_TIPO_OPCION_CALCULO,
+            ES_INCLUIR_TOTAL_CONDICIONES,
         PORCENTAJE,
         BANDA,
         IMPORTE,
@@ -2869,6 +2902,7 @@ UNION
         CCL_ID_SECCION_DESTINO,
         ID_TIPO_CALCULO,
         ID_TIPO_OPCION_CALCULO,
+        ES_INCLUIR_TOTAL_CONDICIONES,
         PORCENTAJE,
         BANDA,
         IMPORTE
@@ -2882,6 +2916,7 @@ UNION
         CCL_ID_SECCION_DESTINO,
         ID_TIPO_CALCULO,
         ID_TIPO_OPCION_CALCULO,
+        ES_INCLUIR_TOTAL_CONDICIONES,
         PORCENTAJE,
         BANDA,
         IMPORTE,
@@ -2896,6 +2931,7 @@ UNION
         CCL_ID_SECCION_DESTINO,
         ID_TIPO_CALCULO,
         ID_TIPO_OPCION_CALCULO,
+        ES_INCLUIR_TOTAL_CONDICIONES,
         PORCENTAJE,
         BANDA,
         IMPORTE
@@ -2909,6 +2945,7 @@ UNION
         CCL_ID_SECCION_DESTINO,
         ID_TIPO_CALCULO,
         ID_TIPO_OPCION_CALCULO,
+        ES_INCLUIR_TOTAL_CONDICIONES,
         PORCENTAJE,
         BANDA,
         IMPORTE,
@@ -3654,6 +3691,7 @@ WITH FECHAS_ESTRUCTURA AS (
             CCL_ID_SECCION_DESTINO,
             ID_TIPO_CALCULO,
             ID_TIPO_OPCION_CALCULO,
+            0 AS ES_INCLUIR_TOTAL_CONDICIONES,
             PORCENTAJE,
             BANDA,
             IMPORTE,
