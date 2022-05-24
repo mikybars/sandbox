@@ -149,7 +149,8 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
     assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
     assertEquals(Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
         TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
-        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()),
+        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId(),
+        TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId()),
         map.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
 
   }
