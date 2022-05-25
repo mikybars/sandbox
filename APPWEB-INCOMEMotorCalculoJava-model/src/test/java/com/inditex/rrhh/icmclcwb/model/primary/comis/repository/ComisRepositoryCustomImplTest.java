@@ -378,12 +378,14 @@ class ComisRepositoryCustomImplTest {
     assertEquals(SQL_FIND_CONDICIONES_DESPLAZAMIENTO_ES,
         this.sqlCaptor.getValue());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
-    // Parámetros de la consulta: fecha desde, fecha hasta
-    assertEquals(2, params.getValues().size());
+    // Parámetros de la consulta: fecha desde, fecha hasta, fecha desde ampliado
+    assertEquals(3, params.getValues().size());
     // fecha desde
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
     // fecha hasta
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    // fecha desde ampliado
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
   }
 
   @Test
