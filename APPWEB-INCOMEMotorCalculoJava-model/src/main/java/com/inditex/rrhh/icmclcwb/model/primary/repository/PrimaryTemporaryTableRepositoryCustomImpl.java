@@ -800,7 +800,8 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
     final MapSqlParameterSource map = new MapSqlParameterSource();
     map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION,
         Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()));
+            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
+            TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId()));
 
     this.namedParameterJdbcTemplate.update(this.sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura, map);
   }

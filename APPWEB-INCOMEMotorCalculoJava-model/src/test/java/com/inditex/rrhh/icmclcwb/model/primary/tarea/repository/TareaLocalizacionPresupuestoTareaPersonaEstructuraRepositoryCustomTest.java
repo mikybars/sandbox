@@ -46,26 +46,24 @@ public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomT
 
   @BeforeEach
   public void setup() throws IllegalAccessException {
-    FieldUtils.writeField(tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom,
+    FieldUtils.writeField(this.tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom,
         "sqlRelacionarEstructuraSinDesplazamiento", SQL_RELACIONAR_ESTRUCTURA_SIN_DESPLAZAMIENTO, true);
-    FieldUtils.writeField(tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom,
-        "sqlRelacionarEstructuraDesplazamiento", SQL_RELACIONAR_ESTRUCTURA_DESPLAZAMIENTO, true);
   }
 
   @Test
   public void relacionarSinDesplazamientoTest() {
 
-    TareaDto tarea = mock(TareaDto.class);
+    final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(89348L);
 
-    tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom.relacionarEstructuraSinDesplazamiento(tarea);
-    verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-    assertEquals(SQL_RELACIONAR_ESTRUCTURA_SIN_DESPLAZAMIENTO, sqlCaptor.getValue());
+    this.tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom.relacionarEstructuraSinDesplazamiento(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+    assertEquals(SQL_RELACIONAR_ESTRUCTURA_SIN_DESPLAZAMIENTO, this.sqlCaptor.getValue());
 
     // Parámetros de la consulta: idTarea, incluidoChallenge, tiposCalculo,
     // tiposCalculoChallengeLocalizacion,
     // tiposCalculoChallengePrecioHora, activo
-    MapSqlParameterSource params = paramsCaptor.getValue();
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
     assertEquals(5, params.getValues().size());
     // idTarea
     assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
@@ -78,50 +76,14 @@ public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomT
     assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
     assertEquals(Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
         TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
-        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()),
+        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId(),
+        TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId()),
         params.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
     // tiposCalculoChallengeLocalizacion
     assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION));
     assertEquals(
         Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()),
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION));
-    // activo
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-    assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
-  }
-
-  @Test
-  public void relacionarDesplazamientoTest() {
-
-    TareaDto tarea = mock(TareaDto.class);
-    when(tarea.getId()).thenReturn(89348L);
-
-    tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom.relacionarEstructuraDesplazamiento(tarea);
-    verify(namedParameterJdbcTemplate, times(1)).update(sqlCaptor.capture(), paramsCaptor.capture());
-    assertEquals(SQL_RELACIONAR_ESTRUCTURA_DESPLAZAMIENTO, sqlCaptor.getValue());
-
-    // Parámetros de la consulta: idTarea, incluidoChallenge, tiposCalculo, activo
-    MapSqlParameterSource params = paramsCaptor.getValue();
-    assertEquals(5, params.getValues().size());
-    // idTarea
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-    assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
-    // incluidoChallenge
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE));
-    assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE));
-    // tiposCalculo
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
-    assertEquals(Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-        TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
-        TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId()),
-        params.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
-    // tiposCalculoChallengeLocalizacion
-    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION));
-    assertEquals(
-        Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()),
+            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId()),
         params.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION));
     // activo
     assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));

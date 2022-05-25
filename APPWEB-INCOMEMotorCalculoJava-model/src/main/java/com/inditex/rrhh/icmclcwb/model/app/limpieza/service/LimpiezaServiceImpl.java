@@ -28,7 +28,7 @@ public class LimpiezaServiceImpl implements LimpiezaService {
     final TareaDto tarea = limpieza.getTarea();
     try {
       this.limpiezaRepositoryCustom.inicioLimpieza(limpieza.getId());
-      tarea.getAmbito().forEach(item -> this.limpiezaRepositoryCustom.limpieza(tarea, item));
+      tarea.getAmbito().forEach(item -> this.limpiezaRepositoryCustom.limpiezaTareaProfunda(tarea, item));
       this.limpiezaRepositoryCustom.updateEstado(limpieza.getId(), EstadoLimpiezaEnum.OK.getDto());
     } catch (final Exception e) {
       this.limpiezaRepositoryCustom.updateEstado(limpieza.getId(), EstadoLimpiezaEnum.KO.getDto());
