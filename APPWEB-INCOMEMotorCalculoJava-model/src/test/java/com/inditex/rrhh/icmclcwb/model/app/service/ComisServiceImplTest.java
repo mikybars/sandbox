@@ -150,9 +150,9 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-      when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
-          ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
-          .thenReturn(new PeriodoDto());
+    when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+        ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
+            .thenReturn(new PeriodoDto());
 
     this.comisServiceImpl.findCondicionesDesplazamientoEs(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
