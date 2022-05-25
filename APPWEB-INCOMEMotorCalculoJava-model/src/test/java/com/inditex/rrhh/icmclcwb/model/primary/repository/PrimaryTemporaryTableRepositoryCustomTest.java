@@ -46,6 +46,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
@@ -252,6 +253,10 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
   private final static String SQL_VALIDATE_TEMP_COMIS_PERSONAS = "SQL VALIDATE TEMP COMIS PERSONAS";
 
+  // estructura presupuesto
+  private final static String SQL_INSERT_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA =
+      "SQL INSERT TAREA LOCALIZACION PRESUPUESTO TAREA PERSONA ESTRUCTURA";
+
   @BeforeEach
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom, "batchSize", 3, true);
@@ -452,6 +457,12 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
         "sqlValidateTempComisPersonas", SQL_VALIDATE_TEMP_COMIS_PERSONAS,
         true);
+
+    // relacion estructura presupuesto
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura", SQL_INSERT_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA,
+        true);
+
   }
 
   // Inicio tests baja it
@@ -1383,5 +1394,12 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   // Fin tests personas
+
+  @Test
+  void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@Random final TareaDto tareaDto) {
+    this.primaryTemporaryTableRepositoryCustom.insertTareaLocalizacionPresupuestoTareaPersonaEstructura(tareaDto);
+    verify(this.namedParameterJdbcTemplate).update(eq(SQL_INSERT_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA),
+        any(SqlParameterSource.class));
+  }
 
 }
