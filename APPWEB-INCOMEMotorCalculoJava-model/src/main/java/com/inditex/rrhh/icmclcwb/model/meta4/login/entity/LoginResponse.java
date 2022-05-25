@@ -169,9 +169,8 @@ public class LoginResponse implements Serializable, Cloneable, CopyTo2, Equals2,
         if (loginReturnShouldBeCopiedAndSet == Boolean.TRUE) {
           final M4LoginOutput sourceLoginReturn;
           sourceLoginReturn = this.getLoginReturn();
-          final M4LoginOutput copyLoginReturn =
-              ((M4LoginOutput) strategy.copy(LocatorUtils.property(locator, "loginReturn", sourceLoginReturn),
-                  sourceLoginReturn, (this.loginReturn != null)));
+          final M4LoginOutput copyLoginReturn = ((M4LoginOutput) strategy
+              .copy(LocatorUtils.property(locator, "loginReturn", sourceLoginReturn), sourceLoginReturn, (this.loginReturn != null)));
           copy.setLoginReturn(copyLoginReturn);
         } else {
           if (loginReturnShouldBeCopiedAndSet == Boolean.FALSE) {
