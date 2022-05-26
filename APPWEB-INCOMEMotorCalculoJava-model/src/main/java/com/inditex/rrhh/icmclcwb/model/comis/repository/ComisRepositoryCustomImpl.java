@@ -504,6 +504,7 @@ public class ComisRepositoryCustomImpl
             .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
             .cclIdSeccionDestino(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION_DESTINO))
             .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
+            .esIncluirTotalCondiciones(Boolean.FALSE)
             .build());
   }
 
