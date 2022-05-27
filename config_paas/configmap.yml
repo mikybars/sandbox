@@ -336,12 +336,11 @@ app:
             getVersion:
               endpoint: /presenciasService/getVersion
     venta-integra:
-      config:
-        max-attempts: 2
       service:
         ventaIntegraService:
-          ventaIntegra:
-            endpoint: /storedata?
+          endpoint: /storedata?
+      config:
+        max-attempts: 2
     meta4:
       config:
         max-attempts: 20

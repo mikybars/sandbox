@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentaNoIntegraService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
@@ -24,7 +25,11 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaLocalizacionHistor
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+@Service
+@Validated
 public class RunTareaAmbitoValidarVentaNoIntegraServiceImpl implements RunTareaAmbitoValidarVentaNoIntegraService {
 
   @Autowired
@@ -52,8 +57,14 @@ public class RunTareaAmbitoValidarVentaNoIntegraServiceImpl implements RunTareaA
       final List<IdLocalizacionDto> tiendas = this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito
           .findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(runTareaDto.getTarea().getId(), tareaAmbito.getCclIdOrigen());
 
+      if (tiendas.isEmpty()) {
+        throw new IcmclcwbException("El numero de tiendas afectadas es 0 para la tarea "
+            + runTareaDto.getTarea().getId()
+            + " y el origen " + tareaAmbito.getCclIdOrigen());
+      }
+
       final List<Integer> tiendasRequest = new ArrayList<>();
-      tiendas.forEach(x -> tiendasRequest.add(Integer.valueOf(x.getId())));
+      tiendas.forEach(x -> tiendasRequest.add(Integer.valueOf(x.getId().substring(1))));
 
       final List<Integer> tiendasNoIntegras = this.ventaIntegraService.getTiendasVentaNoIntegra(
           VentaIntegraRequestDto.builder()

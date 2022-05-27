@@ -31,7 +31,7 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
 
   @Autowired
   @Qualifier("ventaIntegraProperties")
-  private Map<String, VentaIntegraPropertiesDto> ventaIntegraProperties;
+  private VentaIntegraPropertiesDto ventaIntegraProperties;
 
   @Override
   public List<Integer> getTiendasVentaNoIntegra(final VentaIntegraRequestDto request) {
@@ -60,7 +60,7 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
       pathParams.put("before", request.getFechaLimite().toString());
     }
 
-    final String url = new StringBuilder(this.ventaIntegraProperties.get(VentaIntegraClientPropertiesConstants.VENTA_INTEGRA).getEndpoint())
+    final String url = new StringBuilder(this.ventaIntegraProperties.getEndpoint())
         .append(this.getUrlParams(request)).toString();
 
     try {

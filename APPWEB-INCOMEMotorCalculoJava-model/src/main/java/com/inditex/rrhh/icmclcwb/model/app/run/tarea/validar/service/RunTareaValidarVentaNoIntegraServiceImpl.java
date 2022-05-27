@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-@Component("ventaIntegraV1")
+@Component("ventaNoIntegraV1")
 @Validated
 public class RunTareaValidarVentaNoIntegraServiceImpl implements RunPrevalidar {
 

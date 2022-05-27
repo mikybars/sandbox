@@ -3,9 +3,6 @@ package com.inditex.rrhh.icmclcwb.config.ventaintegra;
 /*
  * Copyright (c) 2022. Inditex
  */
-import java.util.HashMap;
-import java.util.Map;
-
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraPropertiesDto;
 
 import lombok.Data;
@@ -18,11 +15,11 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "app.envars.venta-integra.service")
 public class VentaIntegraClientPropertiesConfig {
 
-  private Map<String, VentaIntegraPropertiesDto> ventaIntegraService = new HashMap<>();
+  private VentaIntegraPropertiesDto ventaIntegraService;
 
   @Bean(name = "ventaIntegraProperties")
-  public Map<String, VentaIntegraPropertiesDto> ventaIntegraProperties() {
-    return ventaIntegraService;
+  public VentaIntegraPropertiesDto ventaIntegraProperties() {
+    return this.ventaIntegraService;
   }
 
 }
