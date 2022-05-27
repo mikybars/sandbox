@@ -145,6 +145,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
     itemBase.setIcmListaValoresBase(Collections.singletonList(valorBase));
     itemPadre.setIcmListaCondicionesBase(Collections.singletonList(itemBase));
     itemPadre.setIcmListaCondicionesDestino(new ArrayList<>());
+
     final List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapperDecorator
         .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(Collections.singletonList(itemPadre), tarea);
     verify(this.delegate, times(1))
