@@ -297,7 +297,6 @@ class TareaPersonaEstructuraMapperDecoratorTest {
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.ORIGEN.getId());
     when(this.tipoOpcionCalculoService.findByIdMeta4(any(String.class))).thenReturn(opcionCalculo);
-    final Integer idSeccion = 1;
 
     when(this.delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
         any(EstructurasComResultItemDto.class),
@@ -311,7 +310,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
     itemDestino.setHorasOrigen(Meta4Constants.FALSE);
     itemDestino.setHorasDestino(Meta4Constants.TRUE);
     itemDestino.setTotalCondiciones(Meta4Constants.TRUE);
-    valorDestino.setIdSeccion(idSeccion.toString());
+    valorDestino.setIdSeccion(AppConstants.SECCION_4.toString());
 
     List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapperDecorator
         .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(Collections.singletonList(itemPadre), tarea);
@@ -319,10 +318,18 @@ class TareaPersonaEstructuraMapperDecoratorTest {
     verify(this.delegate, times(1))
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
             itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
-            TipoOpcionCalculoEnum.ORIGEN.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+            TipoOpcionCalculoEnum.ORIGEN.getId(), AppConstants.SECCION_1, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 2, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.ORIGEN.getId(), AppConstants.SECCION_2, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 3, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.ORIGEN.getId(), AppConstants.SECCION_3, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
     assertNotNull(result);
-    // estructura base y 1 estructuras desplazamiento
-    assertEquals(2, result.size());
+    // estructura base y 3 estructuras desplazamiento
+    assertEquals(4, result.size());
 
     itemDestino.setHorasOrigen(Meta4Constants.TRUE);
     itemDestino.setHorasDestino(Meta4Constants.FALSE);
@@ -333,10 +340,18 @@ class TareaPersonaEstructuraMapperDecoratorTest {
     verify(this.delegate, times(1))
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
             itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
-            TipoOpcionCalculoEnum.ORIGEN.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+            TipoOpcionCalculoEnum.ORIGEN.getId(), AppConstants.SECCION_1, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 2, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.ORIGEN.getId(), AppConstants.SECCION_2, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 3, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.ORIGEN.getId(), AppConstants.SECCION_3, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
     assertNotNull(result);
-    // estructura base y 1 estructuras desplazamiento
-    assertEquals(2, result.size());
+    // estructura base y 3 estructuras desplazamiento
+    assertEquals(4, result.size());
 
   }
 
@@ -408,6 +423,244 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.ORIGEN.getId());
+
+    when(this.tipoOpcionCalculoService.findByIdMeta4(any(String.class))).thenReturn(opcionCalculo);
+    when(this.delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
+        any(EstructurasComResultItemDto.class),
+        any(ListaCondicionesBaseResultItemDto.class), any(TareaDto.class))).thenReturn(new TareaPersonaEstructuraDto());
+
+    final List<String> tiposCalculo =
+        Arrays.asList(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId());
+    for (final String tipoCalculo : tiposCalculo) {
+      itemBase.setIdTipoCalculo(tipoCalculo);
+      itemBase.setIcmListaValoresBase(new ArrayList<>());
+      itemPadre.setIcmListaCondicionesBase(Collections.singletonList(itemBase));
+      itemPadre.setIcmListaCondicionesDestino(Collections.singletonList(itemDestino));
+      itemDestino.setIdTipoOpCalculo(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId());
+      itemDestino.setIcmListaValoresDestino(Collections.singletonList(valorDestino));
+      itemDestino.setHorasOrigen(Meta4Constants.FALSE);
+      itemDestino.setHorasDestino(Meta4Constants.TRUE);
+      itemDestino.setTotalCondiciones(Meta4Constants.TRUE);
+      valorDestino.setIdSeccion(AppConstants.SECCION_4.toString());
+
+      List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapperDecorator
+          .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(Collections.singletonList(itemPadre), tarea);
+
+      assertNotNull(result);
+      // estructura base y 3 estructuras desplazamiento (una por seccion)
+      assertEquals(2, result.size());
+
+      itemDestino.setHorasOrigen(Meta4Constants.TRUE);
+      itemDestino.setHorasDestino(Meta4Constants.FALSE);
+      itemDestino.setTotalCondiciones(Meta4Constants.FALSE);
+      result = this.tareaPersonaEstructuraMapperDecorator
+          .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(Collections.singletonList(itemPadre), tarea);
+
+      assertNotNull(result);
+      // estructura base y 3 estructuras desplazamiento (una por seccion)
+      assertEquals(2, result.size());
+
+    }
+
+    // Se llama dos veces a cada metodo, una para el challenge importe y otra para el challenge precio / hora
+    verify(this.delegate, times(2))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.ORIGEN.getId(), AppConstants.SECCION_4, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(2))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.ORIGEN.getId(), AppConstants.SECCION_4, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
+
+  }
+
+  @Test
+  void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSeccion4ChallengeMejorOpcionTest(
+      @Random final EstructurasComResultItemDto itemPadre,
+      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
+      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+
+    final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
+    opcionCalculo.setId(TipoOpcionCalculoEnum.MEJOR_OPCION.getId());
+
+    when(this.tipoOpcionCalculoService.findByIdMeta4(any(String.class))).thenReturn(opcionCalculo);
+    when(this.delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
+        any(EstructurasComResultItemDto.class),
+        any(ListaCondicionesBaseResultItemDto.class), any(TareaDto.class))).thenReturn(new TareaPersonaEstructuraDto());
+
+    final List<String> tiposCalculo =
+        Arrays.asList(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId());
+    for (final String tipoCalculo : tiposCalculo) {
+      itemBase.setIdTipoCalculo(tipoCalculo);
+      itemBase.setIcmListaValoresBase(new ArrayList<>());
+      itemPadre.setIcmListaCondicionesBase(Collections.singletonList(itemBase));
+      itemPadre.setIcmListaCondicionesDestino(Collections.singletonList(itemDestino));
+      itemDestino.setIdTipoOpCalculo(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId());
+      itemDestino.setIcmListaValoresDestino(Collections.singletonList(valorDestino));
+      itemDestino.setHorasOrigen(Meta4Constants.FALSE);
+      itemDestino.setHorasDestino(Meta4Constants.TRUE);
+      itemDestino.setTotalCondiciones(Meta4Constants.TRUE);
+      valorDestino.setIdSeccion(AppConstants.SECCION_4.toString());
+
+      List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapperDecorator
+          .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(Collections.singletonList(itemPadre), tarea);
+
+      assertNotNull(result);
+      // estructura base y 2 estructuras desplazamiento
+      assertEquals(3, result.size());
+
+      itemDestino.setHorasOrigen(Meta4Constants.TRUE);
+      itemDestino.setHorasDestino(Meta4Constants.FALSE);
+      itemDestino.setTotalCondiciones(Meta4Constants.FALSE);
+      result = this.tareaPersonaEstructuraMapperDecorator
+          .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(Collections.singletonList(itemPadre), tarea);
+
+      assertNotNull(result);
+      // estructura base y 2 estructuras desplazamiento
+      assertEquals(3, result.size());
+
+    }
+
+    // Se llama dos veces a cada metodo, una para el challenge importe y otra para el challenge precio / hora
+    verify(this.delegate, times(2))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_4, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(2))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 2, TipoOpcionCalculoEnum.DESTINO.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_4, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
+    verify(this.delegate, times(2))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_4, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
+    verify(this.delegate, times(2))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 2, TipoOpcionCalculoEnum.DESTINO.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_4, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
+
+  }
+
+  @Test
+  void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4NoChallengeTest(
+      @Random final EstructurasComResultItemDto itemPadre,
+      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
+      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+
+    final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
+    opcionCalculo.setId(TipoOpcionCalculoEnum.ORIGEN.getId());
+    when(this.tipoOpcionCalculoService.findByIdMeta4(any(String.class))).thenReturn(opcionCalculo);
+    final Integer idSeccion = 1;
+
+    when(this.delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
+        any(EstructurasComResultItemDto.class),
+        any(ListaCondicionesBaseResultItemDto.class), any(TareaDto.class))).thenReturn(new TareaPersonaEstructuraDto());
+    itemBase.setIdTipoCalculo(TipoCalculoEnum.GLOBAL_SECCION.getId());
+    itemBase.setIcmListaValoresBase(new ArrayList<>());
+    itemPadre.setIcmListaCondicionesBase(Collections.singletonList(itemBase));
+    itemPadre.setIcmListaCondicionesDestino(Collections.singletonList(itemDestino));
+    itemDestino.setIdTipoOpCalculo(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId());
+    itemDestino.setIcmListaValoresDestino(Collections.singletonList(valorDestino));
+    itemDestino.setHorasOrigen(Meta4Constants.FALSE);
+    itemDestino.setHorasDestino(Meta4Constants.TRUE);
+    itemDestino.setTotalCondiciones(Meta4Constants.TRUE);
+    valorDestino.setIdSeccion(idSeccion.toString());
+
+    List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapperDecorator
+        .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(Collections.singletonList(itemPadre), tarea);
+
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.ORIGEN.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    assertNotNull(result);
+    // estructura base y 1 estructuras desplazamiento
+    assertEquals(2, result.size());
+
+    itemDestino.setHorasOrigen(Meta4Constants.TRUE);
+    itemDestino.setHorasDestino(Meta4Constants.FALSE);
+    itemDestino.setTotalCondiciones(Meta4Constants.FALSE);
+    result = this.tareaPersonaEstructuraMapperDecorator
+        .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(Collections.singletonList(itemPadre), tarea);
+
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.ORIGEN.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    assertNotNull(result);
+    // estructura base y 1 estructuras desplazamiento
+    assertEquals(2, result.size());
+
+  }
+
+  @Test
+  void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4NoChallengeMejorOpcionTest(
+      @Random final EstructurasComResultItemDto itemPadre,
+      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
+      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+
+    final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
+    opcionCalculo.setId(TipoOpcionCalculoEnum.MEJOR_OPCION.getId());
+    when(this.tipoOpcionCalculoService.findByIdMeta4(any(String.class))).thenReturn(opcionCalculo);
+    final Integer idSeccion = 1;
+
+    when(this.delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
+        any(EstructurasComResultItemDto.class),
+        any(ListaCondicionesBaseResultItemDto.class), any(TareaDto.class))).thenReturn(new TareaPersonaEstructuraDto());
+    itemBase.setIdTipoCalculo(TipoCalculoEnum.GLOBAL_SECCION.getId());
+    itemBase.setIcmListaValoresBase(new ArrayList<>());
+    itemPadre.setIcmListaCondicionesBase(Collections.singletonList(itemBase));
+    itemPadre.setIcmListaCondicionesDestino(Collections.singletonList(itemDestino));
+    itemDestino.setIdTipoOpCalculo(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId());
+    itemDestino.setIcmListaValoresDestino(Collections.singletonList(valorDestino));
+    itemDestino.setHorasOrigen(Meta4Constants.FALSE);
+    itemDestino.setHorasDestino(Meta4Constants.TRUE);
+    itemDestino.setTotalCondiciones(Meta4Constants.TRUE);
+    valorDestino.setIdSeccion(idSeccion.toString());
+
+    List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapperDecorator
+        .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(Collections.singletonList(itemPadre), tarea);
+
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 2, TipoOpcionCalculoEnum.DESTINO.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    assertNotNull(result);
+    // estructura base y 2 estructuras desplazamiento
+    assertEquals(3, result.size());
+
+    itemDestino.setHorasOrigen(Meta4Constants.TRUE);
+    itemDestino.setHorasDestino(Meta4Constants.FALSE);
+    itemDestino.setTotalCondiciones(Meta4Constants.FALSE);
+    result = this.tareaPersonaEstructuraMapperDecorator
+        .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(Collections.singletonList(itemPadre), tarea);
+
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 2, TipoOpcionCalculoEnum.DESTINO.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    assertNotNull(result);
+    // estructura base y 2 estructuras desplazamiento
+    assertEquals(3, result.size());
+
+  }
+
+  @Test
+  void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4ChallengeTest(
+      @Random final EstructurasComResultItemDto itemPadre,
+      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
+      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+
+    final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
+    opcionCalculo.setId(TipoOpcionCalculoEnum.ORIGEN.getId());
     final Integer idSeccion = 1;
 
     when(this.tipoOpcionCalculoService.findByIdMeta4(any(String.class))).thenReturn(opcionCalculo);
@@ -460,7 +713,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @Test
-  void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSeccion4ChallengeMejorOpcionTest(
+  void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4ChallengeMejorOpcionTest(
       @Random final EstructurasComResultItemDto itemPadre,
       @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
       @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
