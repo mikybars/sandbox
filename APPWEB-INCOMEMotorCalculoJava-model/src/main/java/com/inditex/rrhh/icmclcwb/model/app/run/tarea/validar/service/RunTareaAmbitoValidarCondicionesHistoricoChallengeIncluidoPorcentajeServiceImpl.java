@@ -79,7 +79,7 @@ public class RunTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentaj
           .mergeDateRangesTempComisHistorico(tareaDto);
 
       historicoValidationResult = this.primaryTemporaryTableRepositoryCustom
-          .validateTempComisHistorico(runTareaDto.getTarea());
+          .validateTempComisChallengePorcentaje(runTareaDto.getTarea());
 
       this.primaryTemporaryTableRepositoryCustom.deleteTempComisHistorico();
 

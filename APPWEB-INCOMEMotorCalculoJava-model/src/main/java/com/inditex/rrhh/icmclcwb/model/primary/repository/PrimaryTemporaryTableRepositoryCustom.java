@@ -43,6 +43,8 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    */
   void mergeDateRangesTempComisHistorico(final TareaDto tarea);
 
+  List<IdPersonaLocalDto> validateTempComisChallengePorcentaje(TareaDto tarea);
+
   /**
    * Some javadoc.
    *
