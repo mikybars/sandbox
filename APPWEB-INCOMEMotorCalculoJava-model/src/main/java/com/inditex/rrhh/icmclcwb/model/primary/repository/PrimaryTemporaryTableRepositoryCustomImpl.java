@@ -341,6 +341,9 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisChallengePorcentaje']}")
   private String sqlValidateTempComisChallengePorcentaje;
 
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisDesplazamientoChallengePorcentaje']}")
+  private String sqlValidateTempComisDesplazamientoChallengePorcentaje;
+
   @Override
   public int deleteTempMotivoDesplazamientoComis() {
     return this.jdbcTemplate.update(this.sqlDeleteTempMotivoDesplazamientoComis);
@@ -1184,6 +1187,20 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
           idPersonaLocalDto
               .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
           return idPersonaLocalDto;
+        });
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> validateTempComisDesplazamientoChallengePorcentaje(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+    return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisDesplazamientoChallengePorcentaje, map,
+        (rs, rowNum) -> {
+          final IdPersonaLocalDto idPersonaLocalCondicionesDto = new IdPersonaLocalDto();
+          idPersonaLocalCondicionesDto
+              .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
+          return idPersonaLocalCondicionesDto;
         });
   }
 }

@@ -104,6 +104,9 @@ public class ComisRepositoryCustomImpl
   @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findCondicionesHIstoricoChallengeIncluidoPorcentaje']}")
   private String sqlFindCondicionesHIstoricoChallengeIncluidoPorcentaje;
 
+  @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findCondicionesDesplazamientoChallengeIncluidoPorcentaje']}")
+  private String sqlFindCondicionesDesplazamientoChallengeIncluidoPorcentaje;
+
   @Autowired
   @Qualifier("fechasProperties")
   private PrevalidarPropertiesDto fechasProperties;
@@ -608,6 +611,34 @@ public class ComisRepositoryCustomImpl
             .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
             .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
             .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
+            .build());
+  }
+
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoChallengeIncluidoPorcentaje(final TareaDto tarea,
+      final PeriodoDto periodoAmpliado) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
+        TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
+        TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO,
+        TimeUtils.toDate(periodoAmpliado.getFechaInicioPeriodo()));
+
+    return this.query(this.sqlFindCondicionesDesplazamientoChallengeIncluidoPorcentaje, map,
+        (rs, rowNum) -> IdPersonaLocalCondicionesDto
+            .builder()
+            .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
+            .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
+            .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
+            .cclIdCodOrigenDestino(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN_DESTINO))
+            .idTipoCalculo(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO))
+            .idTipoOpcionCalculo(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_OPCION_CALCULO))
+            .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
+            .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
+            .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
+            .cclIdSeccionDestino(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION_DESTINO))
+            .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
             .build());
   }
 }
