@@ -29,7 +29,6 @@ import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraStatisticsResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.exception.VentaIntegraIcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.ventaintegra.util.VentaIntegraClientPropertiesConstants;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,7 +45,7 @@ class VentaIntegraServiceImplTest {
   private RestClient ventaIntegraClient;
 
   @Mock
-  private Map<String, VentaIntegraPropertiesDto> ventaIntegraProperties;
+  private VentaIntegraPropertiesDto ventaIntegraProperties;
 
   @InjectMocks
   VentaIntegraServiceImpl ventaIntegraService;
@@ -67,25 +66,25 @@ class VentaIntegraServiceImplTest {
   @Test
   void getTiendasVentaNoIntegraTest() {
 
-    VentaIntegraRequestDto ventaIntegraRequestDto = VentaIntegraRequestDto.builder().idOrigen(60).idEmpresa(179)
+    final VentaIntegraRequestDto ventaIntegraRequestDto = VentaIntegraRequestDto.builder().idOrigen(60).idEmpresa(179)
         .fechaDesde("2022-03-23").fechaHasta("2022-04-23").listaTiendas(Arrays.asList(1, 2, 3, 4))
         .fechaLimite(LocalDateTime.now()).build();
 
-    List<VentaIntegraDataResponseDto> listData = Arrays.asList(VentaIntegraDataResponseDto.builder().storeTic(1).build(),
+    final List<VentaIntegraDataResponseDto> listData = Arrays.asList(VentaIntegraDataResponseDto.builder().storeTic(1).build(),
         VentaIntegraDataResponseDto.builder().storeTic(2).build());
 
-    VentaIntegraResponseDto ventaIntegraResponseDto = VentaIntegraResponseDto.builder()
+    final VentaIntegraResponseDto ventaIntegraResponseDto = VentaIntegraResponseDto.builder()
         .metadata(this.ventaIntegraMetadaResponseDto).statistics(this.ventaIntegraStatisticsResponseDto)
         .data(listData).build();
 
     final ResponseEntity<VentaIntegraResponseDto> responseMock = this.mockResponse(ventaIntegraResponseDto);
 
-    doReturn(new VentaIntegraPropertiesDto("/service/storedata?")).when(this.ventaIntegraProperties)
-        .get(VentaIntegraClientPropertiesConstants.VENTA_INTEGRA);
+    doReturn("/service/storedata?").when(this.ventaIntegraProperties)
+        .getEndpoint();
     doReturn(responseMock).when(this.ventaIntegraClient).getForEntity(any(String.class),
         eq(VentaIntegraResponseDto.class), any(Map.class));
 
-    List<Integer> tiendasNoIntegras = this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto);
+    final List<Integer> tiendasNoIntegras = this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto);
 
     assertEquals(tiendasNoIntegras, Arrays.asList(1, 2));
     verify(this.ventaIntegraClient, times(1)).getForEntity(any(String.class),
@@ -94,15 +93,15 @@ class VentaIntegraServiceImplTest {
 
   @Test
   void getTiendasVentaNoIntegraExceptionTest() {
-    VentaIntegraRequestDto ventaIntegraRequestDto = VentaIntegraRequestDto.builder().idOrigen(60).idEmpresa(179)
+    final VentaIntegraRequestDto ventaIntegraRequestDto = VentaIntegraRequestDto.builder().idOrigen(60).idEmpresa(179)
         .fechaDesde("2022-03-23").fechaHasta("2022-04-23").listaTiendas(Arrays.asList(1, 2, 3, 4))
         .fechaLimite(LocalDateTime.now()).build();
 
-    List<VentaIntegraDataResponseDto> listData = Arrays.asList(VentaIntegraDataResponseDto.builder().storeTic(1).build(),
+    final List<VentaIntegraDataResponseDto> listData = Arrays.asList(VentaIntegraDataResponseDto.builder().storeTic(1).build(),
         VentaIntegraDataResponseDto.builder().storeTic(2).build());
 
-    doReturn(new VentaIntegraPropertiesDto("/service/storedata?")).when(this.ventaIntegraProperties)
-        .get(VentaIntegraClientPropertiesConstants.VENTA_INTEGRA);
+    doReturn("/service/storedata?").when(this.ventaIntegraProperties)
+        .getEndpoint();
     doThrow(new VentaIntegraIcmclcwbException("")).when(this.ventaIntegraClient).getForEntity(any(String.class),
         eq(VentaIntegraResponseDto.class), any(Map.class));
 
