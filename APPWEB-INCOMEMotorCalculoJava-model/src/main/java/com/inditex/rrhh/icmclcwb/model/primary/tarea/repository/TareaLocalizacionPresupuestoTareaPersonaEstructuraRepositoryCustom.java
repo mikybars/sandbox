@@ -6,6 +6,4 @@ public interface TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCus
 
   void relacionarEstructuraSinDesplazamiento(TareaDto tarea);
 
-  void relacionarEstructuraDesplazamiento(TareaDto tarea);
-
 }

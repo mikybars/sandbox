@@ -66,7 +66,7 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
    *
    */
   public String getAiSCertificate() {
-    return aiSCertificate;
+    return this.aiSCertificate;
   }
 
   /**
@@ -75,7 +75,7 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
    * @param value allowed object is {@link String }
    *
    */
-  public void setAiSCertificate(String value) {
+  public void setAiSCertificate(final String value) {
     this.aiSCertificate = value;
   }
 
@@ -86,7 +86,7 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
    *
    */
   public String getAiSSessionContex() {
-    return aiSSessionContex;
+    return this.aiSSessionContex;
   }
 
   /**
@@ -95,11 +95,13 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
    * @param value allowed object is {@link String }
    *
    */
-  public void setAiSSessionContex(String value) {
+  public void setAiSSessionContex(final String value) {
     this.aiSSessionContex = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+  @Override
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -108,9 +110,9 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
     }
     final LoginWithCertificate that = ((LoginWithCertificate) object);
     {
-      String lhsAiSCertificate;
+      final String lhsAiSCertificate;
       lhsAiSCertificate = this.getAiSCertificate();
-      String rhsAiSCertificate;
+      final String rhsAiSCertificate;
       rhsAiSCertificate = that.getAiSCertificate();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSCertificate", lhsAiSCertificate),
           LocatorUtils.property(thatLocator, "aiSCertificate", rhsAiSCertificate), lhsAiSCertificate, rhsAiSCertificate,
@@ -119,9 +121,9 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
       }
     }
     {
-      String lhsAiSSessionContex;
+      final String lhsAiSSessionContex;
       lhsAiSSessionContex = this.getAiSSessionContex();
-      String rhsAiSSessionContex;
+      final String rhsAiSSessionContex;
       rhsAiSSessionContex = that.getAiSSessionContex();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "aiSSessionContex", lhsAiSSessionContex),
           LocatorUtils.property(thatLocator, "aiSSessionContex", rhsAiSSessionContex), lhsAiSSessionContex, rhsAiSSessionContex,
@@ -132,49 +134,54 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
     return true;
   }
 
-  public boolean equals(Object object) {
+  @Override
+  public boolean equals(final Object object) {
     final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
+    return this.equals(null, null, object, strategy);
   }
 
+  @Override
   public String toString() {
     final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
     final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
+    this.append(null, buffer, strategy);
     return buffer.toString();
   }
 
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  @Override
+  public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
+    this.appendFields(locator, buffer, strategy);
     strategy.appendEnd(locator, this, buffer);
     return buffer;
   }
 
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  @Override
+  public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     {
-      String theAiSCertificate;
+      final String theAiSCertificate;
       theAiSCertificate = this.getAiSCertificate();
       strategy.appendField(locator, this, "aiSCertificate", buffer, theAiSCertificate, (this.aiSCertificate != null));
     }
     {
-      String theAiSSessionContex;
+      final String theAiSSessionContex;
       theAiSSessionContex = this.getAiSSessionContex();
       strategy.appendField(locator, this, "aiSSessionContex", buffer, theAiSSessionContex, (this.aiSSessionContex != null));
     }
     return buffer;
   }
 
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+  @Override
+  public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
     int currentHashCode = 1;
     {
-      String theAiSCertificate;
+      final String theAiSCertificate;
       theAiSCertificate = this.getAiSCertificate();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSCertificate", theAiSCertificate), currentHashCode,
           theAiSCertificate, (this.aiSCertificate != null));
     }
     {
-      String theAiSSessionContex;
+      final String theAiSSessionContex;
       theAiSSessionContex = this.getAiSSessionContex();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "aiSSessionContex", theAiSSessionContex), currentHashCode,
           theAiSSessionContex, (this.aiSSessionContex != null));
@@ -182,30 +189,34 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
     return currentHashCode;
   }
 
+  @Override
   public int hashCode() {
     final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
     return this.hashCode(null, strategy);
   }
 
+  @Override
   public Object clone() {
-    return copyTo(createNewInstance());
+    return this.copyTo(this.createNewInstance());
   }
 
-  public Object copyTo(Object target) {
+  @Override
+  public Object copyTo(final Object target) {
     final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
+    return this.copyTo(null, target, strategy);
   }
 
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+  @Override
+  public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
     if (draftCopy instanceof LoginWithCertificate) {
       final LoginWithCertificate copy = ((LoginWithCertificate) draftCopy);
       {
-        Boolean aiSCertificateShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSCertificate != null));
+        final Boolean aiSCertificateShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSCertificate != null));
         if (aiSCertificateShouldBeCopiedAndSet == Boolean.TRUE) {
-          String sourceAiSCertificate;
+          final String sourceAiSCertificate;
           sourceAiSCertificate = this.getAiSCertificate();
-          String copyAiSCertificate = ((String) strategy.copy(LocatorUtils.property(locator, "aiSCertificate", sourceAiSCertificate),
+          final String copyAiSCertificate = ((String) strategy.copy(LocatorUtils.property(locator, "aiSCertificate", sourceAiSCertificate),
               sourceAiSCertificate, (this.aiSCertificate != null)));
           copy.setAiSCertificate(copyAiSCertificate);
         } else {
@@ -215,12 +226,13 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
         }
       }
       {
-        Boolean aiSSessionContexShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSSessionContex != null));
+        final Boolean aiSSessionContexShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.aiSSessionContex != null));
         if (aiSSessionContexShouldBeCopiedAndSet == Boolean.TRUE) {
-          String sourceAiSSessionContex;
+          final String sourceAiSSessionContex;
           sourceAiSSessionContex = this.getAiSSessionContex();
-          String copyAiSSessionContex = ((String) strategy.copy(LocatorUtils.property(locator, "aiSSessionContex", sourceAiSSessionContex),
-              sourceAiSSessionContex, (this.aiSSessionContex != null)));
+          final String copyAiSSessionContex =
+              ((String) strategy.copy(LocatorUtils.property(locator, "aiSSessionContex", sourceAiSSessionContex),
+                  sourceAiSSessionContex, (this.aiSSessionContex != null)));
           copy.setAiSSessionContex(copyAiSSessionContex);
         } else {
           if (aiSSessionContexShouldBeCopiedAndSet == Boolean.FALSE) {
@@ -232,6 +244,7 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
     return draftCopy;
   }
 
+  @Override
   public Object createNewInstance() {
     return new LoginWithCertificate();
   }

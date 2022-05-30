@@ -109,4 +109,16 @@ class ComisAsyncServiceImplTest {
     assertEquals(response, cf.get());
   }
 
+  @Test
+  void findCondicionesHistoricoChallengeIncluidoPorcentajeTest() throws ExecutionException, InterruptedException {
+
+    final List<IdPersonaLocalCondicionesDto> response = new ArrayList<>();
+    when(this.comisService.findCondicionesHistoricoChallengeIncluidoPorcentaje(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
+        .thenReturn(response);
+    final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cf = this.comisAsyncServiceImpl
+        .findCondicionesHistoricoChallengeIncluidoPorcentaje(new RunTareaDto(), new TareaAmbitoDto());
+    assertEquals(response, cf.get());
+
+  }
+
 }

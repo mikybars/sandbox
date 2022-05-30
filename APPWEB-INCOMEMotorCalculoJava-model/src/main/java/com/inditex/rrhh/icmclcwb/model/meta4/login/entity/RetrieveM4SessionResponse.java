@@ -57,18 +57,20 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
    *
    */
   public int getRetrieveM4SessionReturn() {
-    return retrieveM4SessionReturn;
+    return this.retrieveM4SessionReturn;
   }
 
   /**
    * Define el valor de la propiedad retrieveM4SessionReturn.
    *
    */
-  public void setRetrieveM4SessionReturn(int value) {
+  public void setRetrieveM4SessionReturn(final int value) {
     this.retrieveM4SessionReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+  @Override
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -77,9 +79,9 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
     }
     final RetrieveM4SessionResponse that = ((RetrieveM4SessionResponse) object);
     {
-      int lhsRetrieveM4SessionReturn;
+      final int lhsRetrieveM4SessionReturn;
       lhsRetrieveM4SessionReturn = this.getRetrieveM4SessionReturn();
-      int rhsRetrieveM4SessionReturn;
+      final int rhsRetrieveM4SessionReturn;
       rhsRetrieveM4SessionReturn = that.getRetrieveM4SessionReturn();
       if (!strategy.equals(LocatorUtils.property(thisLocator, "retrieveM4SessionReturn", lhsRetrieveM4SessionReturn),
           LocatorUtils.property(thatLocator, "retrieveM4SessionReturn", rhsRetrieveM4SessionReturn), lhsRetrieveM4SessionReturn,
@@ -90,38 +92,43 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
     return true;
   }
 
-  public boolean equals(Object object) {
+  @Override
+  public boolean equals(final Object object) {
     final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
+    return this.equals(null, null, object, strategy);
   }
 
+  @Override
   public String toString() {
     final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
     final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
+    this.append(null, buffer, strategy);
     return buffer.toString();
   }
 
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  @Override
+  public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
+    this.appendFields(locator, buffer, strategy);
     strategy.appendEnd(locator, this, buffer);
     return buffer;
   }
 
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  @Override
+  public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     {
-      int theRetrieveM4SessionReturn;
+      final int theRetrieveM4SessionReturn;
       theRetrieveM4SessionReturn = this.getRetrieveM4SessionReturn();
       strategy.appendField(locator, this, "retrieveM4SessionReturn", buffer, theRetrieveM4SessionReturn, true);
     }
     return buffer;
   }
 
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+  @Override
+  public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
     int currentHashCode = 1;
     {
-      int theRetrieveM4SessionReturn;
+      final int theRetrieveM4SessionReturn;
       theRetrieveM4SessionReturn = this.getRetrieveM4SessionReturn();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "retrieveM4SessionReturn", theRetrieveM4SessionReturn),
           currentHashCode, theRetrieveM4SessionReturn, true);
@@ -129,30 +136,34 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
     return currentHashCode;
   }
 
+  @Override
   public int hashCode() {
     final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
     return this.hashCode(null, strategy);
   }
 
+  @Override
   public Object clone() {
-    return copyTo(createNewInstance());
+    return this.copyTo(this.createNewInstance());
   }
 
-  public Object copyTo(Object target) {
+  @Override
+  public Object copyTo(final Object target) {
     final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
+    return this.copyTo(null, target, strategy);
   }
 
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+  @Override
+  public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
     if (draftCopy instanceof RetrieveM4SessionResponse) {
       final RetrieveM4SessionResponse copy = ((RetrieveM4SessionResponse) draftCopy);
       {
-        Boolean retrieveM4SessionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
+        final Boolean retrieveM4SessionReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
         if (retrieveM4SessionReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-          int sourceRetrieveM4SessionReturn;
+          final int sourceRetrieveM4SessionReturn;
           sourceRetrieveM4SessionReturn = this.getRetrieveM4SessionReturn();
-          int copyRetrieveM4SessionReturn =
+          final int copyRetrieveM4SessionReturn =
               strategy.copy(LocatorUtils.property(locator, "retrieveM4SessionReturn", sourceRetrieveM4SessionReturn),
                   sourceRetrieveM4SessionReturn, true);
           copy.setRetrieveM4SessionReturn(copyRetrieveM4SessionReturn);
@@ -165,6 +176,7 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
     return draftCopy;
   }
 
+  @Override
   public Object createNewInstance() {
     return new RetrieveM4SessionResponse();
   }

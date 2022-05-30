@@ -8,16 +8,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaFaseDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
@@ -30,6 +33,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -57,6 +61,7 @@ class LimpiezaRepositoryCustomImplTest {
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+  @Spy
   @InjectMocks
   private LimpiezaRepositoryCustomImpl limpiezaRepositoryCustom;
 
@@ -183,10 +188,46 @@ class LimpiezaRepositoryCustomImplTest {
     assertEquals(1, paramsArray.length);
 
     final MapSqlParameterSource params = paramsArray[0];
-    // Parametros: idTareaFaseAccion
+    // Parametros: idTareaFase
     assertEquals(1, params.getValues().size());
     assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE));
     assertEquals(idTareaFase, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE));
+  }
+
+  @Test
+  void limpiezaTareaProfundaTest() {
+    final long idTarea = 191919L;
+    final long idAmbito = 181818L;
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(idTarea);
+    tarea.setFechaInicioPeriodo(LocalDate.now());
+    final TareaAmbitoDto ambito = new TareaAmbitoDto();
+    ambito.setId(idAmbito);
+    ambito.setIdTarea(idTarea);
+    ambito.setCclIdOrigen("60");
+
+    doNothing().when(this.limpiezaRepositoryCustom).limpieza(tarea, ambito);
+
+    this.limpiezaRepositoryCustom.limpiezaTareaProfunda(tarea, ambito);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).batchUpdate(eq(SQL_LIMPIEZA_TAREA_FASE),
+        this.paramsCaptor.capture());
+
+    final MapSqlParameterSource[] paramsArray = this.paramsCaptor.getValue();
+    assertEquals(1, paramsArray.length);
+
+    final MapSqlParameterSource params = paramsArray[0];
+    // Parametros: idTarea & fechaInicioPeriodo
+    assertEquals(2, params.getValues().size());
+    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    assertEquals(idTarea, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
+    assertEquals(Date.from(TimeUtils.toInstant(tarea.getFechaInicioPeriodo())),
+        params.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
+
+    verify(this.limpiezaRepositoryCustom, times(1)).limpieza(tarea, ambito);
+    verify(this.limpiezaRepositoryCustom, times(1)).limpiezaTareaFaseAccionDato(tarea);
+    verify(this.limpiezaRepositoryCustom, times(1)).limpiezaTareaFaseAccion(tarea);
   }
 
 }

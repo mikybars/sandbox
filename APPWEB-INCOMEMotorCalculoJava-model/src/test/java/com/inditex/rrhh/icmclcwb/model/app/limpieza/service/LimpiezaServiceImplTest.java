@@ -51,9 +51,9 @@ class LimpiezaServiceImplTest {
     this.limpiezaService.runTarea(limpieza);
 
     verify(this.limpiezaRepositoryCustom, times(1)).inicioLimpieza(idLimpieza);
-    verify(this.limpiezaRepositoryCustom, times(2)).limpieza(any(TareaDto.class), any(TareaAmbitoDto.class));
-    verify(this.limpiezaRepositoryCustom, times(1)).limpieza(tarea, ambito1);
-    verify(this.limpiezaRepositoryCustom, times(1)).limpieza(tarea, ambito2);
+    verify(this.limpiezaRepositoryCustom, times(2)).limpiezaTareaProfunda(any(TareaDto.class), any(TareaAmbitoDto.class));
+    verify(this.limpiezaRepositoryCustom, times(1)).limpiezaTareaProfunda(tarea, ambito1);
+    verify(this.limpiezaRepositoryCustom, times(1)).limpiezaTareaProfunda(tarea, ambito2);
     verify(this.limpiezaRepositoryCustom, times(1)).updateEstado(idLimpieza, EstadoLimpiezaEnum.OK.getDto());
     verify(this.limpiezaRepositoryCustom, times(1)).updateFechaFinalizacion(idLimpieza);
   }
@@ -66,7 +66,7 @@ class LimpiezaServiceImplTest {
     final RunLimpiezaDto limpieza = RunLimpiezaDto.builder().id(idLimpieza).tarea(tarea).build();
 
     doThrow(new RuntimeException("e")).when(this.limpiezaRepositoryCustom)
-        .limpieza(any(TareaDto.class), any(TareaAmbitoDto.class));
+        .limpiezaTareaProfunda(any(TareaDto.class), any(TareaAmbitoDto.class));
 
     assertThrows(RuntimeException.class, () -> this.limpiezaService.runTarea(limpieza));
 

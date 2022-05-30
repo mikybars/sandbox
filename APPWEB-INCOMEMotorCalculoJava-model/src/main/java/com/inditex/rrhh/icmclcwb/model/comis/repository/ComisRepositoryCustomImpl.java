@@ -101,6 +101,9 @@ public class ComisRepositoryCustomImpl
   @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findPersonasSilSinEstado']}")
   private String sqlFindPersonasSilSinEstado;
 
+  @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findCondicionesHIstoricoChallengeIncluidoPorcentaje']}")
+  private String sqlFindCondicionesHIstoricoChallengeIncluidoPorcentaje;
+
   @Autowired
   @Qualifier("fechasProperties")
   private PrevalidarPropertiesDto fechasProperties;
@@ -581,5 +584,32 @@ public class ComisRepositoryCustomImpl
         .cclIdCodOrigen(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN))
         .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
         .build());
+  }
+
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoChallengeIncluidoPorcentaje(final TareaDto tarea,
+      final PeriodoDto periodoAmpliado) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
+        TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
+        TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO,
+        TimeUtils.toDate(periodoAmpliado.getFechaInicioPeriodo()));
+
+    return this.query(this.sqlFindCondicionesHIstoricoChallengeIncluidoPorcentaje, map,
+        (rs, rowNum) -> IdPersonaLocalCondicionesDto
+            .builder()
+            .idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON))
+            .fechaDesde(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE).toLocalDate())
+            .fechaHasta(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA).toLocalDate())
+            .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
+            .idTipoCalculo(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO))
+            .porcentaje(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE))
+            .banda(rs.getString(SqlComisConstants.SQL_RESULT_BANDA))
+            .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
+            .puesto(rs.getString(SqlComisConstants.SQL_RESULT_PUESTO))
+            .secciones(rs.getString(SqlComisConstants.SQL_RESULT_SECCIONES))
+            .build());
   }
 }

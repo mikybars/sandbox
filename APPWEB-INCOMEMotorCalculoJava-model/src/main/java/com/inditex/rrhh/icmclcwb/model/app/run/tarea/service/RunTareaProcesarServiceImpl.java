@@ -232,6 +232,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .totalizarLocalizacion(runTarea);
       AsyncUtils.exceptionally(cfTotalizarPresenciaLocalizacion, cf, cfWait);
 
+      // Totalizamos las presencias de la tienda por seccion para incluido challenge porcentaje
+      final CompletableFuture<Void> cfTotalizarPresenciaLocalizacionIncluidoChallengePorcentaje = this.runTareaProcesarPresenciaAsyncService
+          .totalizarLocalizacionIncluidoChallengePorcentaje(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarPresenciaLocalizacionIncluidoChallengePorcentaje, cf, cfWait);
+
       // Compensar presencia total localizacion persona con las manuales
       final CompletableFuture<Void> cfCompensarPresenciaPersonaLocalizacion = this.runTareaProcesarPresenciaAsyncService
           .compensarLocalizacionPersonaPresencia(runTarea);
@@ -264,6 +269,12 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       final CompletableFuture<Void> cfCompensarPresenciaLocalizacionManual = this.runTareaProcesarPresenciaAsyncService
           .compensarLocalizacionManual(runTarea);
       AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionManual, cf, cfWait);
+
+      // Compenar presencia total localizacion incluido challenge porcentaje con las manuales de tienda
+      final CompletableFuture<Void> cfCompensarPresenciaLocalizacionManualIncluidoChallengePorcentaje =
+          this.runTareaProcesarPresenciaAsyncService
+              .compensarLocalizacionIncluidoChallengePorcentaje(runTarea);
+      AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionManualIncluidoChallengePorcentaje, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);

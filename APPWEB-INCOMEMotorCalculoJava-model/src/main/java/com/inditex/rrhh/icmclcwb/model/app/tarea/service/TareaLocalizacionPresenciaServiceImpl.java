@@ -87,4 +87,14 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
   }
 
+  @Override
+  public void totalizarIncluidoChallengePorcentaje(@Valid @NotNull final RunTareaDto runTareaDto) {
+    this.tareaLocalizacionPresenciaRepositoryCustom.totalizarIncluidoChallengePorcentaje(runTareaDto);
+  }
+
+  @Override
+  public void compensarLocalizacionManualIncluidoChallengePorcentaje(@Valid @NotNull final RunTareaDto runTareaDto) {
+    this.tareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManualIncluidoChallengePorcentaje(runTareaDto);
+  }
+
 }
