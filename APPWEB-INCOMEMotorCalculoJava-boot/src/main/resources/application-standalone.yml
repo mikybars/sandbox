@@ -748,11 +748,11 @@ app:
           activo: true
           max-empleados: 10
     venta-integra:
+      config:
+        max-attempts: 2
       service:
         ventaIntegraService:
           endpoint: /storedata?
-      config:
-        max-attempts: 2
     ptr:
       config:
         max-attempts: 2
