@@ -97,8 +97,10 @@ class TareaLocalizacionAbiertaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionAbiertaRepositoryCustom, "sqlSaveCerrado", SQL_SAVE_CERRADO, true);
     FieldUtils.writeField(this.tareaLocalizacionAbiertaRepositoryCustom, "sqlCompensar", SQL_COMPENSARL, true);
     FieldUtils.writeField(this.tareaLocalizacionAbiertaRepositoryCustom, "sqlTrasladar", SQL_TRASLADAR, true);
-    FieldUtils.writeField(this.tareaLocalizacionAbiertaRepositoryCustom, "sqlCompensarOnlineSeccionCerrada", SQL_COMPENSAR_ONLINE_SECCION_CERRADA, true);
-    FieldUtils.writeField(this.tareaLocalizacionAbiertaRepositoryCustom, "sqlUpdateActivoTrasladadasSeccion", SQL_UPDATE_ACTIVO_TRASLADADAS_SECCION, true);
+    FieldUtils.writeField(this.tareaLocalizacionAbiertaRepositoryCustom, "sqlCompensarOnlineSeccionCerrada",
+        SQL_COMPENSAR_ONLINE_SECCION_CERRADA, true);
+    FieldUtils.writeField(this.tareaLocalizacionAbiertaRepositoryCustom, "sqlUpdateActivoTrasladadasSeccion",
+        SQL_UPDATE_ACTIVO_TRASLADADAS_SECCION, true);
   }
 
   @Test
@@ -321,99 +323,107 @@ class TareaLocalizacionAbiertaRepositoryCustomImplTest {
       @Random(size = 2, type = IdTipoDatoDto.class) final List<IdTipoDatoDto> tiposDatoEntregaTienda,
       @Random(size = 2, type = IdTipoDatoDto.class) final List<IdTipoDatoDto> tiposDatoEntregaDomicilio) {
 
-      when(this.recolectarProperties.getDaysNumber()).thenReturn(3);
-      when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId())).thenReturn(tiposDatoIpod);
-      when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId())).thenReturn(tiposDatoSint);
-      when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId())).thenReturn(tiposDatoEntregaTienda);
-      when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId())).thenReturn(tiposDatoEntregaDomicilio);
+    when(this.recolectarProperties.getDaysNumber()).thenReturn(3);
+    when(this.tipoDatoService
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId()))
+            .thenReturn(tiposDatoIpod);
+    when(this.tipoDatoService
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId()))
+            .thenReturn(tiposDatoSint);
+    when(this.tipoDatoService
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId()))
+            .thenReturn(tiposDatoEntregaTienda);
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(
+        TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId()))
+            .thenReturn(tiposDatoEntregaDomicilio);
 
-      this.tareaLocalizacionAbiertaRepositoryCustom.compensarOnlineSeccionCerrada(tarea, trabajo);
-      verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_COMPENSAR_ONLINE_SECCION_CERRADA), this.params.capture());
+    this.tareaLocalizacionAbiertaRepositoryCustom.compensarOnlineSeccionCerrada(tarea, trabajo);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_COMPENSAR_ONLINE_SECCION_CERRADA), this.params.capture());
 
-      final Map<String, Object> p = this.params.getValue().getValues();
+    final Map<String, Object> p = this.params.getValue().getValues();
 
-      final Map<String, Object> expected = new HashMap<>();
-      expected.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.toDate(trabajo.getFechaInicioPeriodo().toLocalDateTime()));
-      expected.put(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, RunUtils.addDays(trabajo.getFechaFinPeriodo().toLocalDateTime(),
-          this.recolectarProperties.getDaysNumber(),
-          "yyyy-MM-dd"));
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-      expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-          Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-              TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
-              TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
-              TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
-              TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-              TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-              TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-              TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA.getId()));
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_SECCION,
-          Arrays.asList(AppConstants.SECCION_1, AppConstants.SECCION_2, AppConstants.SECCION_3));
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-      expected.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION,
-          TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION,
-          TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION,
-          tiposDatoIpod.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_SECCION,
-          tiposDatoSint.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION,
-          tiposDatoEntregaTienda.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION,
-          tiposDatoEntregaDomicilio.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_TRASLADADA,
-          TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_SECCION.getId());
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION_TRASLADADA,
-          TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_TRASLADADA,
-          TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_SECCION.getId());
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_SECCION_TRASLADADA,
-          TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_TRASLADADA,
-          TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_SECCION.getId());
-      expected.put(
-          SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION_TRASLADADA,
-          TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
-      expected.put(
-          SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_TRASLADADA,
-          TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_SECCION.getId());
-      expected.put(
-          SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION_TRASLADADA,
-          TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.toDate(trabajo.getFechaInicioPeriodo().toLocalDateTime()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, RunUtils.addDays(trabajo.getFechaFinPeriodo().toLocalDateTime(),
+        this.recolectarProperties.getDaysNumber(),
+        "yyyy-MM-dd"));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
+        Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
+            TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
+            TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA.getId()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_SECCION,
+        Arrays.asList(AppConstants.SECCION_1, AppConstants.SECCION_2, AppConstants.SECCION_3));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION,
+        TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION,
+        TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION,
+        tiposDatoIpod.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_SECCION,
+        tiposDatoSint.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION,
+        tiposDatoEntregaTienda.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION,
+        tiposDatoEntregaDomicilio.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_TRASLADADA,
+        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_SECCION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION_TRASLADADA,
+        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_TRASLADADA,
+        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_TRASLADADA_SECCION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_SECCION_TRASLADADA,
+        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_TRASLADADA,
+        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_TRASLADADA_SECCION.getId());
+    expected.put(
+        SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION_TRASLADADA,
+        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
+    expected.put(
+        SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_TRASLADADA,
+        TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_TRASLADADA_SECCION.getId());
+    expected.put(
+        SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION_TRASLADADA,
+        TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_SECCION.getId());
 
-      assertEquals(expected, p);
+    assertEquals(expected, p);
 
   }
 
   @Test
   void updateActivoTrasladadasSeccionTest(@Random final TareaDto tarea, @Random final TrabajoDTO trabajo) {
-      this.tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion(tarea, trabajo);
-      verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_UPDATE_ACTIVO_TRASLADADAS_SECCION), this.params.capture());
+    this.tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion(tarea, trabajo);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_UPDATE_ACTIVO_TRASLADADAS_SECCION), this.params.capture());
 
-      final Map<String, Object> p = this.params.getValue().getValues();
+    final Map<String, Object> p = this.params.getValue().getValues();
 
-      final Map<String, Object> expected = new HashMap<>();
-      expected.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.toDate(trabajo.getFechaInicioPeriodo().toLocalDateTime()));
-      expected.put(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, RunUtils.addDays(trabajo.getFechaFinPeriodo().toLocalDateTime(),
-          this.recolectarProperties.getDaysNumber(),
-          "yyyy-MM-dd"));
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-      expected.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-      expected.put(SqlPrimaryConstants.SQL_PARAM_ID_SECCION,
-          Arrays.asList(AppConstants.SECCION_1, AppConstants.SECCION_2, AppConstants.SECCION_3));
-      expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-          Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
-              TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
-              TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
-              TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
-              TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-              TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-              TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
-              TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA.getId()));
-      assertEquals(expected, p);
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO, TimeUtils.toDate(trabajo.getFechaInicioPeriodo().toLocalDateTime()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_FECHA_FIN, RunUtils.addDays(trabajo.getFechaFinPeriodo().toLocalDateTime(),
+        this.recolectarProperties.getDaysNumber(),
+        "yyyy-MM-dd"));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_SECCION,
+        Arrays.asList(AppConstants.SECCION_1, AppConstants.SECCION_2, AppConstants.SECCION_3));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
+        Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
+            TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
+            TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA.getId()));
+    assertEquals(expected, p);
   }
 
 }
