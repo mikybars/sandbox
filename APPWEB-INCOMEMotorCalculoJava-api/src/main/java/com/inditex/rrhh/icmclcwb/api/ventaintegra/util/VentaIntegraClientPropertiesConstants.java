@@ -8,6 +8,8 @@ public class VentaIntegraClientPropertiesConstants {
 
   public static final String VENTA_INTEGRA = "ventaIntegra";
 
+  public static final String INTERROGACION = "?";
+
   public static final String AND = "&";
 
   public static final String EQUALS = "=";

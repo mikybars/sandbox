@@ -78,6 +78,8 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
 
   private String getUrlParams(final VentaIntegraRequestDto request) {
     final StringBuilder urlParams = new StringBuilder();
+    urlParams.append(VentaIntegraClientPropertiesConstants.INTERROGACION);
+
     urlParams.append(VentaIntegraClientPropertiesConstants.ID_ORIGEN)
         .append(VentaIntegraClientPropertiesConstants.EQUALS)
         .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)

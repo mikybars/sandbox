@@ -337,7 +337,7 @@ app:
     venta-integra:
       service:
         ventaIntegraService:
-          endpoint: /storedata?
+          endpoint: /v1/storedata
       config:
         max-attempts: 2
     meta4:
