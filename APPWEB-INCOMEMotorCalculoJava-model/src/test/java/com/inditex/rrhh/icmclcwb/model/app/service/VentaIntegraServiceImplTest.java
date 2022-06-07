@@ -92,6 +92,33 @@ class VentaIntegraServiceImplTest {
   }
 
   @Test
+  void getTiendasVentaNoIntegraWithoutBeforeParamTest() {
+
+    final VentaIntegraRequestDto ventaIntegraRequestDto = VentaIntegraRequestDto.builder().idOrigen(60).idEmpresa(179)
+        .fechaDesde("2022-03-23").fechaHasta("2022-04-23").listaTiendas(Arrays.asList(1, 2, 3, 4)).build();
+
+    final List<VentaIntegraDataResponseDto> listData = Arrays.asList(VentaIntegraDataResponseDto.builder().storeTic(1).build(),
+        VentaIntegraDataResponseDto.builder().storeTic(2).build());
+
+    final VentaIntegraResponseDto ventaIntegraResponseDto = VentaIntegraResponseDto.builder()
+        .metadata(this.ventaIntegraMetadaResponseDto).statistics(this.ventaIntegraStatisticsResponseDto)
+        .data(listData).build();
+
+    final ResponseEntity<VentaIntegraResponseDto> responseMock = this.mockResponse(ventaIntegraResponseDto);
+
+    doReturn("/service/storedata?").when(this.ventaIntegraProperties)
+        .getEndpoint();
+    doReturn(responseMock).when(this.ventaIntegraClient).getForEntity(any(String.class),
+        eq(VentaIntegraResponseDto.class), any(Map.class));
+
+    final List<Integer> tiendasNoIntegras = this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto);
+
+    assertEquals(Arrays.asList(1, 2), tiendasNoIntegras);
+    verify(this.ventaIntegraClient, times(1)).getForEntity(any(String.class),
+        eq(VentaIntegraResponseDto.class), any(Map.class));
+  }
+
+  @Test
   void getTiendasVentaNoIntegraExceptionTest() {
     final VentaIntegraRequestDto ventaIntegraRequestDto = VentaIntegraRequestDto.builder().idOrigen(60).idEmpresa(179)
         .fechaDesde("2022-03-23").fechaHasta("2022-04-23").listaTiendas(Arrays.asList(1, 2, 3, 4))
