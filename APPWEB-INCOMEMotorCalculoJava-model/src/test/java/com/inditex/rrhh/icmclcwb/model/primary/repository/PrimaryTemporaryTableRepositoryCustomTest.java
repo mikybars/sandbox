@@ -257,6 +257,12 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   private final static String SQL_INSERT_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA =
       "SQL INSERT TAREA LOCALIZACION PRESUPUESTO TAREA PERSONA ESTRUCTURA";
 
+  // challenge porcentaje
+  private final static String SQL_VALIDATE_TEMP_COMIS_CHALLENGE_PORCENTAJE = "SQL VALDIATE TEMP COMIS CHALLENGE PORCENTAJE";
+
+  private final static String SQL_VALIDATE_TEMP_COMIS_DESPLAZAMIENTO_CHALLENGE_PORCENTAJE =
+      "SQL VALDIATE TEMP COMIS DESPLAZAMIENTO CHALLENGE PORCENTAJE";
+
   @BeforeEach
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom, "batchSize", 3, true);
@@ -461,6 +467,14 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     // relacion estructura presupuesto
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
         "sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura", SQL_INSERT_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA,
+        true);
+
+    // challenge porcentaje
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlValidateTempComisChallengePorcentaje", SQL_VALIDATE_TEMP_COMIS_CHALLENGE_PORCENTAJE,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlValidateTempComisDesplazamientoChallengePorcentaje", SQL_VALIDATE_TEMP_COMIS_DESPLAZAMIENTO_CHALLENGE_PORCENTAJE,
         true);
 
   }
@@ -1400,6 +1414,44 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     this.primaryTemporaryTableRepositoryCustom.insertTareaLocalizacionPresupuestoTareaPersonaEstructura(tareaDto);
     verify(this.namedParameterJdbcTemplate).update(eq(SQL_INSERT_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA),
         any(SqlParameterSource.class));
+  }
+
+  @Test
+  void validateTempComisChallengePorcentajeTest() {
+
+    final TareaDto tarea = mock(TareaDto.class);
+    final long idTarea = 1234L;
+    when(tarea.getId()).thenReturn(idTarea);
+
+    this.primaryTemporaryTableRepositoryCustom.validateTempComisChallengePorcentaje(tarea);
+    verify(this.namedParameterJdbcTemplate).query(eq(SQL_VALIDATE_TEMP_COMIS_CHALLENGE_PORCENTAJE),
+        this.paramsCaptor.capture(),
+        any(RowMapper.class));
+
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    assertEquals(1, params.getValues().size());
+    assertTrue(params.hasValue(ID_TAREA_PARAM));
+    assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
+
+  }
+
+  @Test
+  void validateTempComisChallengeDesplazamientoPorcentajeTest() {
+
+    final TareaDto tarea = mock(TareaDto.class);
+    final long idTarea = 1234L;
+    when(tarea.getId()).thenReturn(idTarea);
+
+    this.primaryTemporaryTableRepositoryCustom.validateTempComisDesplazamientoChallengePorcentaje(tarea);
+    verify(this.namedParameterJdbcTemplate).query(eq(SQL_VALIDATE_TEMP_COMIS_DESPLAZAMIENTO_CHALLENGE_PORCENTAJE),
+        this.paramsCaptor.capture(),
+        any(RowMapper.class));
+
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    assertEquals(1, params.getValues().size());
+    assertTrue(params.hasValue(ID_TAREA_PARAM));
+    assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
+
   }
 
 }
