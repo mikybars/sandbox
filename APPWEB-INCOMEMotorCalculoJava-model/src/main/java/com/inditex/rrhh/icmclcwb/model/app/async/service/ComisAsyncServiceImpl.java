@@ -214,4 +214,12 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
     return CompletableFuture
         .completedFuture(this.comisService.findCondicionesHistoricoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbito));
   }
+
+  @Override
+  public CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesDesplazamientoChallengeIncluidoPorcentaje(
+      @Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    return CompletableFuture
+        .completedFuture(this.comisService.findCondicionesDesplazamientoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbito));
+  }
 }
