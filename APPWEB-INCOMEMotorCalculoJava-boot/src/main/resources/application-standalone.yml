@@ -112,10 +112,15 @@ amiga:
         #          password: xynEJHKK4bu)
         #[PTR][PRE][INICIO]
         venta-integra:
-          base-url:  https://apigw-sscc-des.axdesocp1.central.inditex.grp/dqservice-srv/
-          auth-method: BASIC
-          username: oauthincomedes
-          password: thFHw*m7cDefUL
+          base-url: https://des-openshift.axdesocp1.central.inditex.grp/dqservice
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
+          ping-query:
+            enabled: false
+  #          base-url:  https://apigw-sscc-des.axdesocp1.central.inditex.grp/dqservice-srv/
+  #          auth-method: BASIC
+  #          username: oauthincomedes
+  #          password: thFHw*m7cDefUL
   service:
     jms:
       listener:
@@ -271,7 +276,7 @@ amiga:
             #            databaseName: INDITEX
             #            currentSchema: GESTION_COMISION
             #            user: uincome
-            #            password:
+          #            password:
           #[BBDD][ITX][XA][PRE][GESTION_COMISION][FIN]
         #            clientProgramName: ${metadata.jirakey}-${metadata.slot}
         #            driverType: 4

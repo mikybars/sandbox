@@ -43,7 +43,11 @@ amiga:
             enabled: true
             timeout: 2s
         venta-integra:
-          auth-method: BASIC
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
+          ping-query:
+            enabled: true
+            timeout: 2s
   service:
     jms:
       listener:
