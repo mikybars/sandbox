@@ -111,7 +111,8 @@ public class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
         "sqlTotalizarPresenciasSindicalesLocalizacion",
         SQL_TOTALIZAR_PRESENCIAS_SINDICALES_SECCION, true);
-    FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom, "sqlTotalizarIncluidoChallengePorcentaje",
+    FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
+        "sqlTotalizarIncluidoChallengePorcentaje",
         SQL_TOTALIZAR_INCLUIDO_CHALLENGE_PORCENTAJE, true);
 
   }

@@ -12,6 +12,8 @@ public interface LimpiezaRepositoryCustom {
 
   void limpieza(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito);
 
+  void limpiezaTareaProfunda(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito);
+
   void updateEstado(@NotNull @Positive final Long idTareaLimpieza,
       @NotNull @Valid final EstadoLimpiezaDto estado);
 
