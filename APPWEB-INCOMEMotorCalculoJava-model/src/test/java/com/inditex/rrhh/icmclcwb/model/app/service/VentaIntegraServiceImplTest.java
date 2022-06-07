@@ -86,7 +86,7 @@ class VentaIntegraServiceImplTest {
 
     final List<Integer> tiendasNoIntegras = this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto);
 
-    assertEquals(tiendasNoIntegras, Arrays.asList(1, 2));
+    assertEquals(Arrays.asList(1, 2), tiendasNoIntegras);
     verify(this.ventaIntegraClient, times(1)).getForEntity(any(String.class),
         eq(VentaIntegraResponseDto.class), any(Map.class));
   }

@@ -12,7 +12,7 @@ public class VentaIntegraClientPropertiesConstants {
 
   public static final String AND = "&";
 
-  public static final String EQUALS = "=";
+  public static final String EQUALS_TO = "=";
 
   public static final String ABRIR_LLAVE = "{";
 

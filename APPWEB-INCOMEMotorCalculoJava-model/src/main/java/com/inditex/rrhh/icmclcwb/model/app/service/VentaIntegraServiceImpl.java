@@ -81,35 +81,35 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
     urlParams.append(VentaIntegraClientPropertiesConstants.INTERROGACION);
 
     urlParams.append(VentaIntegraClientPropertiesConstants.ID_ORIGEN)
-        .append(VentaIntegraClientPropertiesConstants.EQUALS)
+        .append(VentaIntegraClientPropertiesConstants.EQUALS_TO)
         .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
         .append(VentaIntegraClientPropertiesConstants.ID_ORIGEN)
         .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);
 
     urlParams.append(VentaIntegraClientPropertiesConstants.AND);
     urlParams.append(VentaIntegraClientPropertiesConstants.ID_EMPRESA)
-        .append(VentaIntegraClientPropertiesConstants.EQUALS)
+        .append(VentaIntegraClientPropertiesConstants.EQUALS_TO)
         .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
         .append(VentaIntegraClientPropertiesConstants.ID_EMPRESA)
         .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);
 
     urlParams.append(VentaIntegraClientPropertiesConstants.AND);
     urlParams.append(VentaIntegraClientPropertiesConstants.FECHA_DESDE)
-        .append(VentaIntegraClientPropertiesConstants.EQUALS)
+        .append(VentaIntegraClientPropertiesConstants.EQUALS_TO)
         .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
         .append(VentaIntegraClientPropertiesConstants.FECHA_DESDE)
         .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);
 
     urlParams.append(VentaIntegraClientPropertiesConstants.AND);
     urlParams.append(VentaIntegraClientPropertiesConstants.FECHA_HASTA)
-        .append(VentaIntegraClientPropertiesConstants.EQUALS)
+        .append(VentaIntegraClientPropertiesConstants.EQUALS_TO)
         .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
         .append(VentaIntegraClientPropertiesConstants.FECHA_HASTA)
         .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);
 
     urlParams.append(VentaIntegraClientPropertiesConstants.AND);
     urlParams.append(VentaIntegraClientPropertiesConstants.LISTA_TIENDAS)
-        .append(VentaIntegraClientPropertiesConstants.EQUALS)
+        .append(VentaIntegraClientPropertiesConstants.EQUALS_TO)
         .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
         .append(VentaIntegraClientPropertiesConstants.LISTA_TIENDAS)
         .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);
@@ -117,7 +117,7 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
     if (request.getFechaLimite() != null) {
       urlParams.append(VentaIntegraClientPropertiesConstants.AND);
       urlParams.append(VentaIntegraClientPropertiesConstants.FECHA_LIMITE)
-          .append(VentaIntegraClientPropertiesConstants.EQUALS)
+          .append(VentaIntegraClientPropertiesConstants.EQUALS_TO)
           .append(VentaIntegraClientPropertiesConstants.ABRIR_LLAVE)
           .append(VentaIntegraClientPropertiesConstants.FECHA_LIMITE)
           .append(VentaIntegraClientPropertiesConstants.CERRAR_LLAVE);

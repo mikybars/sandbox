@@ -28,7 +28,7 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class RunTareaValidarVentaNoIntegraServiceImplTest {
+class RunTareaValidarVentaNoIntegraServiceImplTest {
 
   @Mock
   private TareaFaseAccionService tareaFaseAccionService;
