@@ -2,7 +2,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -358,5 +360,22 @@ class ComisServiceImplTest {
     clase.setIdsEstadoSil(Collections.singletonList("ea"));
     this.comisServiceImpl.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
     verify(this.comisRepositoryCustom, times(1)).findPersonasSilConEstado(runTarea.getTarea(), maxIdPersona, clase);
+  }
+
+  @Test
+  void findCondicionesHistoricoChallengeIncluidoPorcentaje() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(ID_TAREA);
+    runTareaDto.setTarea(tarea);
+    final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+    tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+    when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+        ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
+            .thenReturn(new PeriodoDto());
+
+    this.comisServiceImpl.findCondicionesHistoricoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbitoDto);
+    verify(this.comisRepositoryCustom, times(1))
+        .findCondicionesHistoricoChallengeIncluidoPorcentaje(any(TareaDto.class), any(PeriodoDto.class));
   }
 }

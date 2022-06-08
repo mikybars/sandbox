@@ -38,6 +38,7 @@ public abstract class TareaTipoHoraMapper {
   @Mapping(source = "src.incluidoCommerce", target = "incluidoEcommerce")
   @Mapping(source = "tarea.id", target = "tarea.id")
   @Mapping(source = "src.excluidoDenominadorRepartoProvincia", target = "excluidoDenominadorYRepartidoProvincia")
+  @Mapping(source = "src.incluidoChallengePorcentaje", target = "incluidoChallengePorcentaje")
   @Mapping(target = "id", ignore = true)
   public abstract TareaTipoHora tipoHoraResultItemDtoToTareaTipoHora(final TiposHoraResultItemDto src,
       final TareaDto tarea);

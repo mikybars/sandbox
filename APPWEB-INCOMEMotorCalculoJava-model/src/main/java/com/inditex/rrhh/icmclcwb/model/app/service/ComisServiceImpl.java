@@ -395,6 +395,24 @@ public class ComisServiceImpl implements ComisService {
     return personas;
   }
 
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoChallengeIncluidoPorcentaje(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> historico = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      historico = this.comisRepositoryCustom
+          .findCondicionesHistoricoChallengeIncluidoPorcentaje(runTareaDto.getTarea(),
+              this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                  runTareaDto.getTarea().getId(),
+                  TipoDatoEnum.PERIODO_AMPLIADO.getId()));
+    } finally {
+      ClientDatabaseContextHolder.clear();
+    }
+
+    return historico;
+  }
+
   private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {
     if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
       ClientDatabaseContextHolder

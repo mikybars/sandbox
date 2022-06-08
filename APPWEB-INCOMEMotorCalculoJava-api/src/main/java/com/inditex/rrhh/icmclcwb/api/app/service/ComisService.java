@@ -253,4 +253,6 @@ public interface ComisService {
   List<IdPersonaLocalLocalizacionDto> findPersonasSil(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito, @NotNull Long maxIdPersona, @Valid ClaseResultItemDto clase);
 
+  List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoChallengeIncluidoPorcentaje(@Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
 }

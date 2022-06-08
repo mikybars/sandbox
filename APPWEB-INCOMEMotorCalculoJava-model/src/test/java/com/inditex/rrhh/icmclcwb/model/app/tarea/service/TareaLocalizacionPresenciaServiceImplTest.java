@@ -95,4 +95,21 @@ public class TareaLocalizacionPresenciaServiceImplTest {
         .repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
   }
 
+  @Test
+  public void totalizarIncluidoChallengePorcentajeTest() {
+    final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+    this.tareaLocalizacionPresenciaServiceImpl.totalizarIncluidoChallengePorcentaje(runTarea);
+    verify(this.tareaLocalizacionPresenciaRepositoryCustom, times(1)).totalizarIncluidoChallengePorcentaje(any(RunTareaDto.class));
+  }
+
+  @Test
+  public void compensarLocalizacionManualIncluidoChallengePorcentaje() {
+    final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+    this.tareaLocalizacionPresenciaServiceImpl.compensarLocalizacionManualIncluidoChallengePorcentaje(runTarea);
+    verify(this.tareaLocalizacionPresenciaRepositoryCustom, times(1))
+        .compensarLocalizacionManualIncluidoChallengePorcentaje(any(RunTareaDto.class));
+  }
+
 }
