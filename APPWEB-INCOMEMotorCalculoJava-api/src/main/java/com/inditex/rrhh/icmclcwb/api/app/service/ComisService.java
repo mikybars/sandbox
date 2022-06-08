@@ -255,4 +255,7 @@ public interface ComisService {
 
   List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoChallengeIncluidoPorcentaje(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
+
+  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoChallengeIncluidoPorcentaje(@Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
 }

@@ -34,7 +34,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class RunTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentajeServiceImplTest {
+public class RunTareaAmbitoValidarCondicionesDesplazamientoChallengeIncluidoPorcentajeServiceImplTest {
 
   @Mock
   private ComisAsyncService comisAsyncService;
@@ -55,7 +55,7 @@ public class RunTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentaj
   private PrevalidarPropertiesDto bajaProperties;
 
   @InjectMocks
-  private RunTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentajeServiceImpl runTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentajeServiceImpl;
+  private RunTareaAmbitoValidarCondicionesDesplazamientoChallengeIncluidoPorcentajeServiceImpl runTareaAmbitoValidarCondicionesDesplazamientoChallengeIncluidoPorcentajeServiceImpl;
 
   @Test
   public void execute() {
@@ -74,23 +74,23 @@ public class RunTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentaj
     final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cf = new CompletableFuture<>();
     cf.complete(lista);
 
-    when(this.comisAsyncService.findCondicionesHistoricoChallengeIncluidoPorcentaje(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
+    when(this.comisAsyncService.findCondicionesDesplazamientoChallengeIncluidoPorcentaje(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
         .thenReturn(cf);
 
-    this.runTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentajeServiceImpl.execute(runTareaDto, tareaAmbitoDto,
+    this.runTareaAmbitoValidarCondicionesDesplazamientoChallengeIncluidoPorcentajeServiceImpl.execute(runTareaDto, tareaAmbitoDto,
         tareaFaseAccionDto);
 
     verify(this.comisAsyncService, timeout(1000).times(1))
-        .findCondicionesHistoricoChallengeIncluidoPorcentaje(
+        .findCondicionesDesplazamientoChallengeIncluidoPorcentaje(
             ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-        .createTempComisHistorico();
+        .createTempComisDesplazamiento();
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-        .insertTempComisHistorico(ArgumentMatchers.any(List.class));
+        .insertTempComisDesplazamiento(ArgumentMatchers.any(List.class));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-        .validateTempComisChallengePorcentaje(ArgumentMatchers.any(TareaDto.class));
+        .validateTempComisDesplazamientoChallengePorcentaje(ArgumentMatchers.any(TareaDto.class));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-        .deleteTempComisHistorico();
+        .deleteTempComisDesplazamiento();
     verify(this.validacionMapper, timeout(1000).times(1))
         .idPersonaLocalDtoTovalidacionDto(ArgumentMatchers.any(TareaAmbitoDto.class),
             ArgumentMatchers.any(TareaFaseAccionDto.class), ArgumentMatchers.any(List.class),

@@ -13,7 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentajeService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCondicionesDesplazamientoChallengeIncluidoPorcentajeService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -33,55 +33,53 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class RunTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentajeServiceImpl implements
-    RunTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentajeService {
-
-  @Autowired
-  @Qualifier("historicoProperties")
-  private PrevalidarPropertiesDto historicoProperties;
-
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
-
-  @Autowired
-  private ValidacionMapper validacionMapper;
+public class RunTareaAmbitoValidarCondicionesDesplazamientoChallengeIncluidoPorcentajeServiceImpl implements
+    RunTareaAmbitoValidarCondicionesDesplazamientoChallengeIncluidoPorcentajeService {
 
   @Autowired
   private ComisAsyncService comisAsyncService;
 
   @Autowired
+  private TareaFaseAccionService tareaFaseAccionService;
+
+  @Autowired
   private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+
+  @Autowired
+  private ValidacionMapper validacionMapper;
+
+  @Autowired
+  @Qualifier("desplazamientoProperties")
+  private PrevalidarPropertiesDto desplazamientoProperties;
 
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   public ValidacionDto execute(@Valid final RunTareaDto runTareaDto,
       @Valid final TareaAmbitoDto tareaAmbito,
       @Valid final TareaFaseAccionDto tareaFaseAccion) {
-    final List<CompletableFuture<?>> cf = new ArrayList<>();
-    final List<IdPersonaLocalDto> historicoValidationResult;
     final TareaDto tareaDto = runTareaDto.getTarea();
-
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
+    final List<IdPersonaLocalDto> desplazamientoValidationResult;
     try {
-      final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesHistorico = this.comisAsyncService
-          .findCondicionesHistoricoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbito);
-      AsyncUtils.exceptionally(cfCondicionesHistorico, cf);
+      final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesDesplazamiento = this.comisAsyncService
+          .findCondicionesDesplazamientoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbito);
+      AsyncUtils.exceptionally(cfCondicionesDesplazamiento, cf);
 
       AsyncUtils.waitAllOfIsOk(cf, cf);
 
-      final List<IdPersonaLocalCondicionesDto> condicionesHistorico = AsyncUtils.get(cfCondicionesHistorico);
+      final List<IdPersonaLocalCondicionesDto> condicionesDesplazamiento = AsyncUtils
+          .get(cfCondicionesDesplazamiento);
 
-      this.primaryTemporaryTableRepositoryCustom.createTempComisHistorico();
-      this.primaryTemporaryTableRepositoryCustom.insertTempComisHistorico(condicionesHistorico);
+      this.primaryTemporaryTableRepositoryCustom.createTempComisDesplazamiento();
+      this.primaryTemporaryTableRepositoryCustom.insertTempComisDesplazamiento(condicionesDesplazamiento);
 
-      this.primaryTemporaryTableRepositoryCustom
-          .mergeDateRangesSeccionNotEqualsTempComisHistorico(tareaDto);
-      this.primaryTemporaryTableRepositoryCustom
-          .mergeDateRangesTempComisHistorico(tareaDto);
+      this.primaryTemporaryTableRepositoryCustom.desactivaFechasSolapadas();
+      this.primaryTemporaryTableRepositoryCustom.reactivaFechasSolapadas(tareaDto);
 
-      historicoValidationResult = this.primaryTemporaryTableRepositoryCustom
-          .validateTempComisChallengePorcentaje(runTareaDto.getTarea());
+      desplazamientoValidationResult = this.primaryTemporaryTableRepositoryCustom
+          .validateTempComisDesplazamientoChallengePorcentaje(runTareaDto.getTarea());
 
-      this.primaryTemporaryTableRepositoryCustom.deleteTempComisHistorico();
+      this.primaryTemporaryTableRepositoryCustom.deleteTempComisDesplazamiento();
 
     } catch (final Exception e) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
@@ -91,7 +89,7 @@ public class RunTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentaj
     }
 
     return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion,
-        historicoValidationResult, this.historicoProperties, tareaDto);
-  }
+        desplazamientoValidationResult, this.desplazamientoProperties, tareaDto);
 
+  }
 }

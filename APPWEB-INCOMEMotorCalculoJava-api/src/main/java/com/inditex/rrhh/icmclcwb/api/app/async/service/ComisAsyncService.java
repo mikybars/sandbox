@@ -272,4 +272,8 @@ public interface ComisAsyncService {
   CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesHistoricoChallengeIncluidoPorcentaje(
       @Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
+
+  CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesDesplazamientoChallengeIncluidoPorcentaje(
+      @Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
 }
