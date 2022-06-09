@@ -231,8 +231,8 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
           final String sourceAiSSessionContex;
           sourceAiSSessionContex = this.getAiSSessionContex();
           final String copyAiSSessionContex =
-              ((String) strategy.copy(LocatorUtils.property(locator, "aiSSessionContex", sourceAiSSessionContex),
-                  sourceAiSSessionContex, (this.aiSSessionContex != null)));
+              ((String) strategy.copy(LocatorUtils.property(locator, "aiSSessionContex", sourceAiSSessionContex), sourceAiSSessionContex,
+                  (this.aiSSessionContex != null)));
           copy.setAiSSessionContex(copyAiSSessionContex);
         } else {
           if (aiSSessionContexShouldBeCopiedAndSet == Boolean.FALSE) {
