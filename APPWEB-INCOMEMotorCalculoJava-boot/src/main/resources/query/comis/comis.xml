@@ -2188,39 +2188,56 @@ UNION
 
   <entry key="ComisRepositoryCustom.findExternosByClase">
     <![CDATA[
-      SELECT
-        Persona as CCL_ID_PERSON,
-        case
-          when COALESCE(FechaUltimaAlta, FechaAlta) < :fechaDesde THEN :fechaDesde
-          else COALESCE(FechaUltimaAlta, FechaAlta)
-        end as FECHA_DESDE,
-        case
-          when FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja > :fechaHasta THEN :fechaHasta
-          else FechaUltimaBaja
-        end as FECHA_HASTA
-      FROM PersonasGrupo pg
-      WHERE Clase = :clase
-      AND COALESCE(FechaUltimaAlta, FechaAlta) <= :fechaHasta
-      AND (FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja >= :fechaDesde)
+       select pg.CCL_ID_PERSON, pg.FECHA_DESDE, pg.FECHA_HASTA
+       FROM PersonasHistorico ph
+       inner join (
+               SELECT
+                  pg.Persona as CCL_ID_PERSON,
+                  case
+                    when COALESCE(pg.FechaUltimaAlta, pg.FechaAlta) < :fechaDesde THEN :fechaDesde
+                    else COALESCE(pg.FechaUltimaAlta, pg.FechaAlta)
+                  end as FECHA_DESDE,
+                  case
+                    when pg.FechaUltimaBaja is null or pg.FechaUltimaBaja < pg.FechaUltimaAlta or pg.FechaUltimaBaja > :fechaHasta THEN :fechaHasta
+                    else pg.FechaUltimaBaja
+                  end as FECHA_HASTA
+                FROM PersonasGrupo pg
+
+                WHERE pg.Clase = :clase
+                AND COALESCE(pg.FechaUltimaAlta, pg.FechaAlta) <= :fechaHasta
+                AND (pg.FechaUltimaBaja is null or pg.FechaUltimaBaja < pg.FechaUltimaAlta or pg.FechaUltimaBaja >= :fechaDesde)
+       ) as pg
+       on ph.persona = pg.CCL_ID_PERSON
+       and ph.fechadesde < pg.FECHA_HASTA
+       and (ph.fechahasta > pg.FECHA_DESDE or ph.fechahasta is null)
+       and ph.excluidodenominador = 1
     ]]>
   </entry>
 
   <entry key="ComisRepositoryCustom.findExternosByMinIdPersona">
     <![CDATA[
-      SELECT
-        Persona as CCL_ID_PERSON,
-        case
-          when COALESCE(FechaUltimaAlta, FechaAlta) < :fechaDesde THEN :fechaDesde
-          else COALESCE(FechaUltimaAlta, FechaAlta)
-        end as FECHA_DESDE,
-        case
-          when FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja > :fechaHasta THEN :fechaHasta
-          else FechaUltimaBaja
-        end as FECHA_HASTA
-      FROM PersonasGrupo pg
-      WHERE Persona > :minPersona
-      AND COALESCE(FechaUltimaAlta, FechaAlta) <= :fechaHasta
-      AND (FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja >= :fechaDesde)
+       select pg.CCL_ID_PERSON, pg.FECHA_DESDE, pg.FECHA_HASTA
+       FROM PersonasHistorico ph
+       inner join (
+                SELECT
+                  Persona as CCL_ID_PERSON,
+                  case
+                    when COALESCE(FechaUltimaAlta, FechaAlta) < :fechaDesde THEN :fechaDesde
+                    else COALESCE(FechaUltimaAlta, FechaAlta)
+                  end as FECHA_DESDE,
+                  case
+                    when FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja > :fechaHasta THEN :fechaHasta
+                    else FechaUltimaBaja
+                  end as FECHA_HASTA
+                FROM PersonasGrupo pg
+                WHERE Persona > :minPersona
+                AND COALESCE(FechaUltimaAlta, FechaAlta) <= :fechaHasta
+                AND (FechaUltimaBaja is null or FechaUltimaBaja < FechaUltimaAlta or FechaUltimaBaja >= :fechaDesde)
+       ) as pg
+       on ph.persona = pg.CCL_ID_PERSON
+       and ph.fechadesde < pg.FECHA_HASTA
+       and (ph.fechahasta > pg.FECHA_DESDE or ph.fechahasta is null)
+       and ph.excluidodenominador = 1
     ]]>
   </entry>
 
