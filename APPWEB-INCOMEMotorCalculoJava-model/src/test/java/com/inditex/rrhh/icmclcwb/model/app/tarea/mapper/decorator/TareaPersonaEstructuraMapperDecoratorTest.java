@@ -437,7 +437,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
       itemBase.setIcmListaValoresBase(new ArrayList<>());
       itemPadre.setIcmListaCondicionesBase(Collections.singletonList(itemBase));
       itemPadre.setIcmListaCondicionesDestino(Collections.singletonList(itemDestino));
-      itemDestino.setIdTipoOpCalculo(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId());
+      itemDestino.setIdTipoCalculo(tipoCalculo);
       itemDestino.setIcmListaValoresDestino(Collections.singletonList(valorDestino));
       itemDestino.setHorasOrigen(Meta4Constants.FALSE);
       itemDestino.setHorasDestino(Meta4Constants.TRUE);
@@ -496,7 +496,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
       itemBase.setIcmListaValoresBase(new ArrayList<>());
       itemPadre.setIcmListaCondicionesBase(Collections.singletonList(itemBase));
       itemPadre.setIcmListaCondicionesDestino(Collections.singletonList(itemDestino));
-      itemDestino.setIdTipoOpCalculo(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId());
+      itemDestino.setIdTipoCalculo(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId());
       itemDestino.setIcmListaValoresDestino(Collections.singletonList(valorDestino));
       itemDestino.setHorasOrigen(Meta4Constants.FALSE);
       itemDestino.setHorasDestino(Meta4Constants.TRUE);
