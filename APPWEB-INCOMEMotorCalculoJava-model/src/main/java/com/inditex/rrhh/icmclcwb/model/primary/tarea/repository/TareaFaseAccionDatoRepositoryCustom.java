@@ -12,7 +12,7 @@ public interface TareaFaseAccionDatoRepositoryCustom {
   /**
    * Guarda en TAREA_FASE_ACCION_DATO.
    *
-   * @param src TareaFaseAccionDato
+   * @param src List of TareaFaseAccionDato
    */
   void save(List<TareaFaseAccionDato> src);
 }
