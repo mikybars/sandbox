@@ -382,4 +382,21 @@ class ComisServiceImplTest {
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesHistoricoChallengeIncluidoPorcentaje(any(TareaDto.class), any(PeriodoDto.class));
   }
+
+  @Test
+  void findCondicionesDesplazamientoChallengeIncluidoPorcentaje() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(ID_TAREA);
+    runTareaDto.setTarea(tarea);
+    final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+    tareaAmbitoDto.setCclIdOrigen(ORIGEN);
+    when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+        ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
+            .thenReturn(new PeriodoDto());
+
+    this.comisServiceImpl.findCondicionesDesplazamientoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbitoDto);
+    verify(this.comisRepositoryCustom, times(1))
+        .findCondicionesDesplazamientoChallengeIncluidoPorcentaje(any(TareaDto.class), any(PeriodoDto.class));
+  }
 }

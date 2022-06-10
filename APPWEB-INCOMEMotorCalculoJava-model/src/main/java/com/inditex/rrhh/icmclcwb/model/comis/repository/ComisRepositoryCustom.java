@@ -217,4 +217,7 @@ public interface ComisRepositoryCustom {
 
   List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoChallengeIncluidoPorcentaje(TareaDto tarea,
       PeriodoDto periodoAmpliado);
+
+  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoChallengeIncluidoPorcentaje(TareaDto tarea,
+      PeriodoDto periodoAmpliado);
 }
