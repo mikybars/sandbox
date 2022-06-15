@@ -365,7 +365,6 @@ class TareaPersonaEstructuraMapperDecoratorTest {
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.MEJOR_OPCION.getId());
     when(this.tipoOpcionCalculoService.findByIdMeta4(any(String.class))).thenReturn(opcionCalculo);
-    final Integer idSeccion = 1;
 
     when(this.delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
         any(EstructurasComResultItemDto.class),
@@ -374,12 +373,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
     itemBase.setIcmListaValoresBase(new ArrayList<>());
     itemPadre.setIcmListaCondicionesBase(Collections.singletonList(itemBase));
     itemPadre.setIcmListaCondicionesDestino(Collections.singletonList(itemDestino));
-    itemDestino.setIdTipoOpCalculo(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId());
+    itemDestino.setIdTipoCalculo(TipoCalculoEnum.DIRECTO_SOBRE_VENTA.getId());
     itemDestino.setIcmListaValoresDestino(Collections.singletonList(valorDestino));
     itemDestino.setHorasOrigen(Meta4Constants.FALSE);
     itemDestino.setHorasDestino(Meta4Constants.TRUE);
     itemDestino.setTotalCondiciones(Meta4Constants.TRUE);
-    valorDestino.setIdSeccion(idSeccion.toString());
+    valorDestino.setIdSeccion(AppConstants.SECCION_4.toString());
 
     List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapperDecorator
         .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(Collections.singletonList(itemPadre), tarea);
@@ -387,14 +386,30 @@ class TareaPersonaEstructuraMapperDecoratorTest {
     verify(this.delegate, times(1))
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
             itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
-            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_1, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
     verify(this.delegate, times(1))
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
             itemPadre, itemBase, itemDestino, valorDestino, tarea, 2, TipoOpcionCalculoEnum.DESTINO.getId(),
-            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_1, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 3, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_2, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 4, TipoOpcionCalculoEnum.DESTINO.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_2, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 5, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_3, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 6, TipoOpcionCalculoEnum.DESTINO.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_3, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
     assertNotNull(result);
-    // estructura base y 2 estructuras desplazamiento
-    assertEquals(3, result.size());
+    // estructura base y 6 estructuras desplazamiento (2 mejor opcion * 3 secciones)
+    assertEquals(7, result.size());
 
     itemDestino.setHorasOrigen(Meta4Constants.TRUE);
     itemDestino.setHorasDestino(Meta4Constants.FALSE);
@@ -405,14 +420,30 @@ class TareaPersonaEstructuraMapperDecoratorTest {
     verify(this.delegate, times(1))
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
             itemPadre, itemBase, itemDestino, valorDestino, tarea, 1, TipoOpcionCalculoEnum.ORIGEN.getId(),
-            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_1, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
     verify(this.delegate, times(1))
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
             itemPadre, itemBase, itemDestino, valorDestino, tarea, 2, TipoOpcionCalculoEnum.DESTINO.getId(),
-            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_1, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 3, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_2, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 4, TipoOpcionCalculoEnum.DESTINO.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_2, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 5, TipoOpcionCalculoEnum.ORIGEN.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_3, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+    verify(this.delegate, times(1))
+        .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
+            itemPadre, itemBase, itemDestino, valorDestino, tarea, 6, TipoOpcionCalculoEnum.DESTINO.getId(),
+            TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), AppConstants.SECCION_3, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
     assertNotNull(result);
-    // estructura base y 2 estructuras desplazamiento
-    assertEquals(3, result.size());
+    // estructura base y 6 estructuras desplazamiento (2 mejor opcion * 3 secciones)
+    assertEquals(7, result.size());
 
   }
 
