@@ -39,6 +39,8 @@ public class IdPersonaLocalCondicionesDto implements Serializable {
 
   private String idTipoOpcionCalculo;
 
+  private Boolean esIncluirTotalCondiciones;
+
   private String porcentaje;
 
   private String banda;
