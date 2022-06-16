@@ -56,6 +56,8 @@ public class ListaCondicionesDestinoResultItemDto implements Serializable {
 
   private String festivo;
 
+  private String totalCondiciones;
+
   private List<ListaValoresDestinoResultItemDto> icmListaValoresDestino;
 
 }

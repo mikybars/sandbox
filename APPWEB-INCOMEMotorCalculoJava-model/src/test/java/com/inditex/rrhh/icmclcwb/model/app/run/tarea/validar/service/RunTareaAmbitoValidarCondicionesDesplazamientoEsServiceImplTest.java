@@ -30,7 +30,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImplTest {
+class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImplTest {
 
   @Mock
   private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
@@ -54,7 +54,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImplTest {
   private TareaFaseAccionService tareaFaseAccionService;
 
   @Test
-  public void execute() {
+  void execute() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
@@ -63,14 +63,14 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImplTest {
     final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cf = new CompletableFuture<>();
     cf.complete(new ArrayList<>());
 
-    when(this.comisAsyncService.findCondicionesDesplazamiento(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
+    when(this.comisAsyncService.findCondicionesDesplazamientoEs(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
         .thenReturn(cf);
 
     this.runTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl.execute(runTareaDto, new TareaAmbitoDto(),
         new TareaFaseAccionDto());
 
     verify(this.comisAsyncService, timeout(1000).times(1))
-        .findCondicionesDesplazamiento(
+        .findCondicionesDesplazamientoEs(
             ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
         .createTempComisDesplazamiento();
