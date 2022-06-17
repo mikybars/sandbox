@@ -10,6 +10,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.Collections;
@@ -102,6 +103,9 @@ class ComisRepositoryCustomImplTest {
 
   private final static String SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE_INCLUIDO_PORCENTAJE =
       "SQL FIND CONDICIONES HISTORICO CHALLENGE INCLUIDO PORCENTAJE";
+
+  private final static String SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE_INCLUIDO_PORCENTAJE =
+      "SQL FIND CONDICIONES DESPLAZAMIENTO CHALLENGE INCLUIDO PORCENTAJE";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -216,6 +220,11 @@ class ComisRepositoryCustomImplTest {
         "sqlFindCondicionesHIstoricoChallengeIncluidoPorcentaje",
         SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE_INCLUIDO_PORCENTAJE,
         true);
+    FieldUtils.writeField(this.comisRepositoryCustom,
+        "sqlFindCondicionesDesplazamientoChallengeIncluidoPorcentaje",
+        SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE_INCLUIDO_PORCENTAJE,
+        true);
+
   }
 
   @Test
@@ -341,47 +350,100 @@ class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  void findCondicionesDesplazamiento() {
-    final TareaDto tarea = new TareaDto();
-    tarea.setIdOrganization("1");
-    tarea.setFechaInicioPeriodo(LocalDate.now());
-    tarea.setFechaFinPeriodo(LocalDate.now());
-    final PeriodoDto periodo = new PeriodoDto();
-    periodo.setFechaInicioPeriodo(LocalDate.now());
-    this.comisRepositoryCustom.findCondicionesDesplazamiento(tarea, periodo);
-    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+  void findCondicionesDesplazamientoTest(@Random final TareaDto tarea, @Random final PeriodoDto periodo,
+      @Random final IdPersonaLocalCondicionesDto condiciones) {
+
+    // Propiedades de la clase resultado que no se usan en la consulta
+    condiciones.setCclIdCodOrigen(null);
+    condiciones.setEsIncluirTotalCondiciones(Boolean.FALSE);
+    condiciones.setPuesto(null);
+    condiciones.setSecciones(null);
+
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any())).thenAnswer((invocation) -> {
+
+          final RowMapper<IdPersonaLocalCondicionesDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(condiciones.getIdPersonaLocal());
+          when(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE)).thenReturn(Date.valueOf(condiciones.getFechaDesde()));
+          when(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA)).thenReturn(Date.valueOf(condiciones.getFechaHasta()));
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN_DESTINO)).thenReturn(condiciones.getCclIdCodOrigenDestino());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO)).thenReturn(condiciones.getIdTipoCalculo());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_OPCION_CALCULO)).thenReturn(condiciones.getIdTipoOpcionCalculo());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE)).thenReturn(condiciones.getPorcentaje());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_BANDA)).thenReturn(condiciones.getBanda());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)).thenReturn(condiciones.getImporte());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION_DESTINO)).thenReturn(condiciones.getCclIdSeccionDestino());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION)).thenReturn(condiciones.getCclIdSeccion());
+
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
+
+        });
+
+    final List<IdPersonaLocalCondicionesDto> result =
+        this.comisRepositoryCustom.findCondicionesDesplazamiento(tarea, periodo);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_CONDICIONES_DESPLAZAMIENTO), this.paramsCaptor.capture(),
         ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
-    assertEquals(SQL_FIND_CONDICIONES_DESPLAZAMIENTO,
-        this.sqlCaptor.getValue());
-    final MapSqlParameterSource params = this.paramsCaptor.getValue();
-    // Parámetros de la consulta: fecha desde, fecha hasta
-    assertEquals(3, params.getValues().size());
-    // fecha desde
-    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
-    // fecha hasta
-    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
-    // fecha desde ampliado
-    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
+    final Map<String, Object> params = this.paramsCaptor.getValue().getValues();
+
+    // Parámetros de la consulta: fecha desde, fecha hasta, fecha desde ampliado
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expected.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    expected.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO, TimeUtils.toDate(periodo.getFechaInicioPeriodo()));
+
+    assertEquals(expected, params);
+    assertEquals(condiciones, result.get(0));
+
   }
 
   @Test
-  void findCondicionesDesplazamientoEs() {
-    final TareaDto tarea = new TareaDto();
-    tarea.setIdOrganization("1");
-    tarea.setFechaInicioPeriodo(LocalDate.now());
-    tarea.setFechaFinPeriodo(LocalDate.now());
-    this.comisRepositoryCustom.findCondicionesDesplazamientoEs(tarea);
-    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+  void findCondicionesDesplazamientoEsTest(@Random final TareaDto tarea, @Random final PeriodoDto periodo,
+      @Random final IdPersonaLocalCondicionesDto condiciones) {
+
+    // Propiedades de la clase resultado que no se usan en la consulta
+    condiciones.setCclIdCodOrigen(null);
+    condiciones.setPuesto(null);
+    condiciones.setSecciones(null);
+
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any())).thenAnswer((invocation) -> {
+
+          final RowMapper<IdPersonaLocalCondicionesDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(condiciones.getIdPersonaLocal());
+          when(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE)).thenReturn(Date.valueOf(condiciones.getFechaDesde()));
+          when(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA)).thenReturn(Date.valueOf(condiciones.getFechaHasta()));
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN_DESTINO)).thenReturn(condiciones.getCclIdCodOrigenDestino());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO)).thenReturn(condiciones.getIdTipoCalculo());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_OPCION_CALCULO)).thenReturn(condiciones.getIdTipoOpcionCalculo());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE)).thenReturn(condiciones.getPorcentaje());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_BANDA)).thenReturn(condiciones.getBanda());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)).thenReturn(condiciones.getImporte());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION_DESTINO)).thenReturn(condiciones.getCclIdSeccionDestino());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION)).thenReturn(condiciones.getCclIdSeccion());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_ES_INCLUIR_TOTAL_COMISION))
+              .thenReturn(condiciones.getEsIncluirTotalCondiciones() ? "1" : "0");
+
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
+
+        });
+
+    final List<IdPersonaLocalCondicionesDto> result =
+        this.comisRepositoryCustom.findCondicionesDesplazamientoEs(tarea, periodo);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_CONDICIONES_DESPLAZAMIENTO_ES), this.paramsCaptor.capture(),
         ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
-    assertEquals(SQL_FIND_CONDICIONES_DESPLAZAMIENTO_ES,
-        this.sqlCaptor.getValue());
-    final MapSqlParameterSource params = this.paramsCaptor.getValue();
-    // Parámetros de la consulta: fecha desde, fecha hasta
-    assertEquals(2, params.getValues().size());
-    // fecha desde
-    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
-    // fecha hasta
-    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    final Map<String, Object> params = this.paramsCaptor.getValue().getValues();
+
+    // Parámetros de la consulta: fecha desde, fecha hasta, fecha desde ampliado
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expected.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    expected.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO, TimeUtils.toDate(periodo.getFechaInicioPeriodo()));
+
+    assertEquals(expected, params);
+    assertEquals(condiciones, result.get(0));
+
   }
 
   @Test
@@ -696,27 +758,51 @@ class ComisRepositoryCustomImplTest {
   }
 
   @Test
-  void findCondicionesDesplazamientoSinChallenge() {
-    final TareaDto tarea = new TareaDto();
-    tarea.setIdOrganization("1");
-    tarea.setFechaInicioPeriodo(LocalDate.now());
-    tarea.setFechaFinPeriodo(LocalDate.now());
-    final PeriodoDto periodo = new PeriodoDto();
-    periodo.setFechaInicioPeriodo(LocalDate.now());
-    this.comisRepositoryCustom.findCondicionesDesplazamientoSinChallenge(tarea, periodo);
-    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+  void findCondicionesDesplazamientoSinChallengeTest(@Random final TareaDto tarea, @Random final PeriodoDto periodo,
+      @Random final IdPersonaLocalCondicionesDto condiciones) {
+
+    // Propiedades de la clase resultado que no se usan en la consulta
+    condiciones.setCclIdCodOrigen(null);
+    condiciones.setEsIncluirTotalCondiciones(Boolean.FALSE);
+    condiciones.setPuesto(null);
+    condiciones.setSecciones(null);
+
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any())).thenAnswer((invocation) -> {
+
+          final RowMapper<IdPersonaLocalCondicionesDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(condiciones.getIdPersonaLocal());
+          when(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_DESDE)).thenReturn(Date.valueOf(condiciones.getFechaDesde()));
+          when(rs.getDate(SqlComisConstants.SQL_RESULT_FECHA_HASTA)).thenReturn(Date.valueOf(condiciones.getFechaHasta()));
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN_DESTINO)).thenReturn(condiciones.getCclIdCodOrigenDestino());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_CALCULO)).thenReturn(condiciones.getIdTipoCalculo());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_OPCION_CALCULO)).thenReturn(condiciones.getIdTipoOpcionCalculo());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_PORCENTAJE)).thenReturn(condiciones.getPorcentaje());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_BANDA)).thenReturn(condiciones.getBanda());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)).thenReturn(condiciones.getImporte());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION_DESTINO)).thenReturn(condiciones.getCclIdSeccionDestino());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION)).thenReturn(condiciones.getCclIdSeccion());
+
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
+
+        });
+
+    final List<IdPersonaLocalCondicionesDto> result =
+        this.comisRepositoryCustom.findCondicionesDesplazamientoSinChallenge(tarea, periodo);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE), this.paramsCaptor.capture(),
         ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
-    assertEquals(SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE,
-        this.sqlCaptor.getValue());
-    final MapSqlParameterSource params = this.paramsCaptor.getValue();
-    // Parámetros de la consulta: fecha desde, fecha hasta
-    assertEquals(3, params.getValues().size());
-    // fecha desde
-    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
-    // fecha hasta
-    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
-    // fecha desde ampliado
-    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
+    final Map<String, Object> params = this.paramsCaptor.getValue().getValues();
+
+    // Parámetros de la consulta: fecha desde, fecha hasta, fecha desde ampliado
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expected.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    expected.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO, TimeUtils.toDate(periodo.getFechaInicioPeriodo()));
+
+    assertEquals(expected, params);
+    assertEquals(condiciones, result.get(0));
+
   }
 
   @Test
@@ -869,6 +955,30 @@ class ComisRepositoryCustomImplTest {
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
         ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
     assertEquals(SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE_INCLUIDO_PORCENTAJE,
+        this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: fecha desde, fecha hasta
+    assertEquals(3, params.getValues().size());
+    // fecha desde
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE));
+    // fecha hasta
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
+    // fecha desde ampliado
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
+  }
+
+  @Test
+  void findCondicionesDesplazamientoChallengeIncluidoPorcentaje() {
+    final TareaDto tarea = new TareaDto();
+    tarea.setIdOrganization("1");
+    tarea.setFechaInicioPeriodo(LocalDate.now());
+    tarea.setFechaFinPeriodo(LocalDate.now());
+    final PeriodoDto periodo = new PeriodoDto();
+    periodo.setFechaInicioPeriodo(LocalDate.now());
+    this.comisRepositoryCustom.findCondicionesDesplazamientoChallengeIncluidoPorcentaje(tarea, periodo);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
+    assertEquals(SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE_INCLUIDO_PORCENTAJE,
         this.sqlCaptor.getValue());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
     // Parámetros de la consulta: fecha desde, fecha hasta

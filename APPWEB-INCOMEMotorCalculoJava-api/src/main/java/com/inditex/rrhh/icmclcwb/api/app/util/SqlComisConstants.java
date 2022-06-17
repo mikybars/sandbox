@@ -79,6 +79,10 @@ public class SqlComisConstants {
 
   public static final String SQL_RESULT_ID_GRUPO_MANUAL = "ID_GRUPO_MANUAL";
 
+  public static final String SQL_RESULT_ES_INCLUIR_TOTAL_COMISION = "ES_INCLUIR_TOTAL_CONDICIONES";
+
+  public static final String SQL_VALUE_BOOLEAN_TRUE = "1";
+
   private SqlComisConstants() {
   }
 

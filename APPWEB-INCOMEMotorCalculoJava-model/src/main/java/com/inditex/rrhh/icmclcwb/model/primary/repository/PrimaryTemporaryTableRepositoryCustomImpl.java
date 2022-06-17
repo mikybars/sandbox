@@ -338,6 +338,12 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisPersonas']}")
   private String sqlValidateTempComisPersonas;
 
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisChallengePorcentaje']}")
+  private String sqlValidateTempComisChallengePorcentaje;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.validateTempComisDesplazamientoChallengePorcentaje']}")
+  private String sqlValidateTempComisDesplazamientoChallengePorcentaje;
+
   @Override
   public int deleteTempMotivoDesplazamientoComis() {
     return this.jdbcTemplate.update(this.sqlDeleteTempMotivoDesplazamientoComis);
@@ -509,6 +515,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
               ps.setString(9, el.getImporte());
               ps.setString(10, el.getCclIdSeccion());
               ps.setString(11, el.getCclIdSeccionDestino());
+              ps.setInt(12, el.getEsIncluirTotalCondiciones() ? 1 : 0);
             }
 
             @Override
@@ -1168,5 +1175,33 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
 
     return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisPersonas, map,
         (rs, i) -> IdPersonaLocalDto.builder().idPersonaLocal(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).build());
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> validateTempComisChallengePorcentaje(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+    return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisChallengePorcentaje, map,
+        (rs, rowNum) -> {
+          final IdPersonaLocalDto idPersonaLocalDto = new IdPersonaLocalDto();
+          idPersonaLocalDto
+              .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
+          return idPersonaLocalDto;
+        });
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> validateTempComisDesplazamientoChallengePorcentaje(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+    return this.namedParameterJdbcTemplate.query(this.sqlValidateTempComisDesplazamientoChallengePorcentaje, map,
+        (rs, rowNum) -> {
+          final IdPersonaLocalDto idPersonaLocalCondicionesDto = new IdPersonaLocalDto();
+          idPersonaLocalCondicionesDto
+              .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
+          return idPersonaLocalCondicionesDto;
+        });
   }
 }

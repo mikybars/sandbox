@@ -43,6 +43,8 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    */
   void mergeDateRangesTempComisHistorico(final TareaDto tarea);
 
+  List<IdPersonaLocalDto> validateTempComisChallengePorcentaje(TareaDto tarea);
+
   /**
    * Some javadoc.
    *
@@ -681,4 +683,5 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    */
   List<IdPersonaLocalDto> validateTempComisPersonas(TareaDto tarea);
 
+  List<IdPersonaLocalDto> validateTempComisDesplazamientoChallengePorcentaje(TareaDto tarea);
 }

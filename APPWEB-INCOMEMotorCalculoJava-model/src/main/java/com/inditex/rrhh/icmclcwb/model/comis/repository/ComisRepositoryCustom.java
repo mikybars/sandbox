@@ -136,7 +136,7 @@ public interface ComisRepositoryCustom {
    * @param tarea Some javadoc.
    * @return Some javadoc.
    */
-  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(TareaDto tarea);
+  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(TareaDto tarea, PeriodoDto periodoAmpliado);
 
   /**
    * Some javadoc.
@@ -216,5 +216,8 @@ public interface ComisRepositoryCustom {
   List<IdPersonaLocalLocalizacionDto> findPersonasSilConEstado(TareaDto tarea, Long maxIdPersona, ClaseResultItemDto clase);
 
   List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoChallengeIncluidoPorcentaje(TareaDto tarea,
+      PeriodoDto periodoAmpliado);
+
+  List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoChallengeIncluidoPorcentaje(TareaDto tarea,
       PeriodoDto periodoAmpliado);
 }

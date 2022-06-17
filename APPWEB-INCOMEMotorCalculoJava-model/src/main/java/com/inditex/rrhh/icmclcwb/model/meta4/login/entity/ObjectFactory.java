@@ -28,27 +28,19 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link LoginWithCertificate }
+   * Create an instance of {@link Logout }
    *
    */
-  public LoginWithCertificate createLoginWithCertificate() {
-    return new LoginWithCertificate();
+  public Logout createLogout() {
+    return new Logout();
   }
 
   /**
-   * Create an instance of {@link LoginWithCertificateResponse }
+   * Create an instance of {@link LogoutResponse }
    *
    */
-  public LoginWithCertificateResponse createLoginWithCertificateResponse() {
-    return new LoginWithCertificateResponse();
-  }
-
-  /**
-   * Create an instance of {@link M4LoginOutput }
-   *
-   */
-  public M4LoginOutput createM4LoginOutput() {
-    return new M4LoginOutput();
+  public LogoutResponse createLogoutResponse() {
+    return new LogoutResponse();
   }
 
   /**
@@ -57,22 +49,6 @@ public class ObjectFactory {
    */
   public M4SoapException createM4SoapException() {
     return new M4SoapException();
-  }
-
-  /**
-   * Create an instance of {@link LoginWithRole }
-   *
-   */
-  public LoginWithRole createLoginWithRole() {
-    return new LoginWithRole();
-  }
-
-  /**
-   * Create an instance of {@link LoginWithRoleResponse }
-   *
-   */
-  public LoginWithRoleResponse createLoginWithRoleResponse() {
-    return new LoginWithRoleResponse();
   }
 
   /**
@@ -92,19 +68,43 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link Logout }
+   * Create an instance of {@link M4LoginOutput }
    *
    */
-  public Logout createLogout() {
-    return new Logout();
+  public M4LoginOutput createM4LoginOutput() {
+    return new M4LoginOutput();
   }
 
   /**
-   * Create an instance of {@link LogoutResponse }
+   * Create an instance of {@link LoginWithRole }
    *
    */
-  public LogoutResponse createLogoutResponse() {
-    return new LogoutResponse();
+  public LoginWithRole createLoginWithRole() {
+    return new LoginWithRole();
+  }
+
+  /**
+   * Create an instance of {@link LoginWithRoleResponse }
+   *
+   */
+  public LoginWithRoleResponse createLoginWithRoleResponse() {
+    return new LoginWithRoleResponse();
+  }
+
+  /**
+   * Create an instance of {@link LoginWithCertificate }
+   *
+   */
+  public LoginWithCertificate createLoginWithCertificate() {
+    return new LoginWithCertificate();
+  }
+
+  /**
+   * Create an instance of {@link LoginWithCertificateResponse }
+   *
+   */
+  public LoginWithCertificateResponse createLoginWithCertificateResponse() {
+    return new LoginWithCertificateResponse();
   }
 
   /**

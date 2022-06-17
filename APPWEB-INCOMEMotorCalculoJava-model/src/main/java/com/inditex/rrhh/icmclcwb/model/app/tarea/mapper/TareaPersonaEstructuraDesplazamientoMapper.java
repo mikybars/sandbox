@@ -17,6 +17,7 @@ public abstract class TareaPersonaEstructuraDesplazamientoMapper {
   @Mapping(target = "idTipoOpcionCalculoEfectiva", source = "tipoOpcionCalculoEfectiva.id")
   @Mapping(target = "idTipoOpcionCalculoEstructura", source = "tipoOpcionCalculoEstructura.id")
   @Mapping(target = "fechaInicioPeriodo", source = "pk.fechaInicioPeriodo")
+  @Mapping(target = "totalCondiciones", source = "esIncluirTotalCondiciones")
   public abstract TareaPersonaEstructuraDesplazamientoDto tareaPersonaEstructuraDesplazamientoToTareaPersonaEstructuraDesplazamientoDto(
       TareaPersonaEstructuraDesplazamiento src);
 

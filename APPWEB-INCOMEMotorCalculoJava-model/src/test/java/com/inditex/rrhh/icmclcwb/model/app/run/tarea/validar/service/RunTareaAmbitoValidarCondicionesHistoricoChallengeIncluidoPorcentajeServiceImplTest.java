@@ -88,7 +88,7 @@ public class RunTareaAmbitoValidarCondicionesHistoricoChallengeIncluidoPorcentaj
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
         .insertTempComisHistorico(ArgumentMatchers.any(List.class));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-        .validateTempComisHistorico(ArgumentMatchers.any(TareaDto.class));
+        .validateTempComisChallengePorcentaje(ArgumentMatchers.any(TareaDto.class));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
         .deleteTempComisHistorico();
     verify(this.validacionMapper, timeout(1000).times(1))

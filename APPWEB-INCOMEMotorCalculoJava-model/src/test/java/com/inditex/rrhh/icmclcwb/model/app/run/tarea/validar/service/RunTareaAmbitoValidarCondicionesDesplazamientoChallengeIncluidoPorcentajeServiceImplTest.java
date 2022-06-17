@@ -1,6 +1,8 @@
-
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -14,6 +16,8 @@ import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
@@ -30,19 +34,19 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImplTest {
-
-  @Mock
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+public class RunTareaAmbitoValidarCondicionesDesplazamientoChallengeIncluidoPorcentajeServiceImplTest {
 
   @Mock
   private ComisAsyncService comisAsyncService;
 
   @Mock
+  private TareaFaseAccionService tareaFaseAccionService;
+
+  @Mock
   private AccionService accionService;
 
-  @InjectMocks
-  private RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl runTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl;
+  @Mock
+  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Mock
   private ValidacionMapper validacionMapper;
@@ -50,38 +54,41 @@ class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImplTest {
   @Mock
   private PrevalidarPropertiesDto bajaProperties;
 
-  @Mock
-  private TareaFaseAccionService tareaFaseAccionService;
+  @InjectMocks
+  private RunTareaAmbitoValidarCondicionesDesplazamientoChallengeIncluidoPorcentajeServiceImpl runTareaAmbitoValidarCondicionesDesplazamientoChallengeIncluidoPorcentajeServiceImpl;
 
   @Test
-  void execute() {
+  public void execute() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
     runTareaDto.setTarea(tareaDto);
+    final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+    final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
+    final FaseDto faseDto = new FaseDto();
+    faseDto.setId(1);
+    final AccionDto accionDto = new AccionDto();
+    accionDto.setId(1);
 
+    final List<IdPersonaLocalCondicionesDto> lista = new ArrayList<>();
     final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cf = new CompletableFuture<>();
-    cf.complete(new ArrayList<>());
+    cf.complete(lista);
 
-    when(this.comisAsyncService.findCondicionesDesplazamientoEs(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
+    when(this.comisAsyncService.findCondicionesDesplazamientoChallengeIncluidoPorcentaje(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
         .thenReturn(cf);
 
-    this.runTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl.execute(runTareaDto, new TareaAmbitoDto(),
-        new TareaFaseAccionDto());
+    this.runTareaAmbitoValidarCondicionesDesplazamientoChallengeIncluidoPorcentajeServiceImpl.execute(runTareaDto, tareaAmbitoDto,
+        tareaFaseAccionDto);
 
     verify(this.comisAsyncService, timeout(1000).times(1))
-        .findCondicionesDesplazamientoEs(
+        .findCondicionesDesplazamientoChallengeIncluidoPorcentaje(
             ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
         .createTempComisDesplazamiento();
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
         .insertTempComisDesplazamiento(ArgumentMatchers.any(List.class));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-        .validateTempComisDesplazamiento(ArgumentMatchers.any(TareaDto.class));
-    verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-        .desactivaFechasSolapadas();
-    verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
-        .reactivaFechasSolapadas(ArgumentMatchers.any(TareaDto.class));
+        .validateTempComisDesplazamientoChallengePorcentaje(ArgumentMatchers.any(TareaDto.class));
     verify(this.primaryTemporaryTableRepositoryCustom, timeout(1000).times(1))
         .deleteTempComisDesplazamiento();
     verify(this.validacionMapper, timeout(1000).times(1))
@@ -89,5 +96,4 @@ class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImplTest {
             ArgumentMatchers.any(TareaFaseAccionDto.class), ArgumentMatchers.any(List.class),
             ArgumentMatchers.any(PrevalidarPropertiesDto.class), ArgumentMatchers.any(TareaDto.class));
   }
-
 }

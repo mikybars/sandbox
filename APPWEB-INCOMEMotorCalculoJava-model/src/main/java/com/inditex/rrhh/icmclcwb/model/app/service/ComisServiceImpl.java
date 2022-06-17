@@ -158,7 +158,10 @@ public class ComisServiceImpl implements ComisService {
     try {
       this.setContext(runTareaDto, tareaAmbito);
       desplazamiento = this.comisRepositoryCustom
-          .findCondicionesDesplazamientoEs(runTareaDto.getTarea());
+          .findCondicionesDesplazamientoEs(runTareaDto.getTarea(),
+              this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                  runTareaDto.getTarea().getId(),
+                  TipoDatoEnum.PERIODO_AMPLIADO.getId()));
     } finally {
       ClientDatabaseContextHolder.clear();
     }
@@ -403,6 +406,24 @@ public class ComisServiceImpl implements ComisService {
       this.setContext(runTareaDto, tareaAmbito);
       historico = this.comisRepositoryCustom
           .findCondicionesHistoricoChallengeIncluidoPorcentaje(runTareaDto.getTarea(),
+              this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                  runTareaDto.getTarea().getId(),
+                  TipoDatoEnum.PERIODO_AMPLIADO.getId()));
+    } finally {
+      ClientDatabaseContextHolder.clear();
+    }
+
+    return historico;
+  }
+
+  @Override
+  public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoChallengeIncluidoPorcentaje(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalCondicionesDto> historico = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      historico = this.comisRepositoryCustom
+          .findCondicionesDesplazamientoChallengeIncluidoPorcentaje(runTareaDto.getTarea(),
               this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
                   runTareaDto.getTarea().getId(),
                   TipoDatoEnum.PERIODO_AMPLIADO.getId()));
