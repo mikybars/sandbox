@@ -355,11 +355,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .repartoDevolucionVendedor0(runTarea);
       AsyncUtils.exceptionally(cfRepartoVendedor0, cf, cfWait);
 
-      // Calcular importe comision vendedores por venta
-      final CompletableFuture<Void> cfCalcularImporteComisionVendedores = this.runTareaProcesarVentaAsyncService
-          .calcularImporteComisionVendedores(runTarea);
-      AsyncUtils.exceptionally(cfCalcularImporteComisionVendedores, cf, cfWait);
-
       // Reparto de ventas online entrega domicilio por sección
       final CompletableFuture<Void> cfRepartoVentaOnlineEntregaDomicilioSeccion = this.runTareaProcesarVentaAsyncService
           .repartoVentaEntregaDomicilioSeccion(runTarea);
@@ -406,6 +401,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       final CompletableFuture<Void> cfUpdateActivoTrasladadasTotalizado = this.runTareaProcesarVentaAsyncService
           .updateActivoTrasladadasTotalizado(runTarea);
       AsyncUtils.exceptionally(cfUpdateActivoTrasladadasTotalizado, cf, cfWait);
+
+      /*-------------------------------------------------------------*/
+      AsyncUtils.waitAllOfIsOk(cf, cfWait);
+      /*-------------------------------------------------------------*/
+
+      // Calcular importe comision vendedores por venta
+      final CompletableFuture<Void> cfCalcularImporteComisionVendedores = this.runTareaProcesarVentaAsyncService
+          .calcularImporteComisionVendedores(runTarea);
+      AsyncUtils.exceptionally(cfCalcularImporteComisionVendedores, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
