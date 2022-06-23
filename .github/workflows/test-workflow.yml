@@ -5,14 +5,14 @@ on: [pull_request]
 
 jobs:
   label:
-    name: Verify ITs
-    if: ${{ github.event.name == 'labeled' && github.event.label.name == 'my-label' }}
+    name: Remove label
     runs-on: ubuntu-latest
     steps:
       - name: Find last IT run
         uses: actions/github-script@v5
         with:
           script: |
+            console.log(context);
             github.rest.issues.removeLabel({
                         issue_number: context.payload.issue.number,
                         owner: context.payload.repository.owner.login,
@@ -21,12 +21,11 @@ jobs:
                       });
 
   label2:
-    name: Verify ITs
-    if: github.event.name == 'synchronize'
+    name: Fail check
     runs-on: ubuntu-latest
     steps:
       - name: Find last IT run
         uses: actions/github-script@v5
         with:
           script: |
-            core.setFailed("Noooo")
+            console.log(context);
