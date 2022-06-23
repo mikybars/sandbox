@@ -8,6 +8,7 @@ on:
 jobs:
   label:
     name: Remove label
+    if: ${{ github.event.action == 'labeled' && github.event.label.name == 'my-label' }}
     runs-on: ubuntu-latest
     steps:
       - name: Find last IT run
