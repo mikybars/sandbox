@@ -125,15 +125,9 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION,
-        TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION,
         TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
 
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION,
-        TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION,
-        TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
     final List<Integer> tiposDatoVentaIpod = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId()).stream()
         .map(IdTipoDatoDto::getId).collect(
