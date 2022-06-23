@@ -1,7 +1,9 @@
 ---
 name: Edited PR (feature)
 
-on: [pull_request]
+on:
+  pull_request:
+    types [labeled,synchronize]
 
 jobs:
   label:
