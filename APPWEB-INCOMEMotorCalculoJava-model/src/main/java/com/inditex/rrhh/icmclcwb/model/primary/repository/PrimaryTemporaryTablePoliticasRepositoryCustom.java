@@ -19,6 +19,10 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
 
   void insertTempPersonas(final TareaDto tarea, List<IdPersonaLocalDto> personas, TipoPoliticaEnum tipoPolitica);
 
+  void insertTempPersonasBajaIt(TareaDto tarea,
+      List<IdPersonaLocalDto> personas,
+      TipoPoliticaEnum tipoPolitica);
+
   int createIndexTempPersonas();
 
   int createTempCalculoConAjuste();
@@ -26,6 +30,8 @@ public interface PrimaryTemporaryTablePoliticasRepositoryCustom {
   int deleteTempCalculoConAjuste();
 
   void insertTempCalculoConAjuste(List<TipoPoliticaEnum> politicas);
+
+  void insertTempCalculoConAjusteBajaIt(List<TipoPoliticaEnum> politicas);
 
   int createIndexTempCalculoConAjuste();
 
