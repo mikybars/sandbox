@@ -6,7 +6,7 @@ on: [pull_request]
 jobs:
   label:
     name: Verify ITs
-    if: github.event.name == 'labeled' && github.event.label.name == "my-label"
+    if: ${{ github.event.name == 'labeled' && github.event.label.name == "my-label" }}
     runs-on: ubuntu-latest
     steps:
       - name: Find last IT run
