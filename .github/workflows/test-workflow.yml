@@ -4,22 +4,20 @@ name: test-workflow
 on:
   issue_comment:
     types: [created, edited]
-  pull_request
 
 jobs:
   integration:
     name: Verify ITs
-    runs-on: [self-hosted, testing]
+    runs-on: ubuntu-latest
     steps:
       - name: Find last IT run
         id: find-last-it-run
-        uses: actions/github-script@v6
+        uses: actions/github-script@v5
         with:
           script: |
-            console.log(context);
             const { data: comments } = await github.rest.issues.listComments({
                         issue_number: context.payload.pull_request.number,
-                        owner: context.payload.enterprise.slug,
+                        owner: context.payload.repository.owner.login,
                         repo: context.payload.repository.name
                       })
 
@@ -31,7 +29,7 @@ jobs:
 
             if (it_run_dates.length > 0) {
               const last_it_run = it_run_dates[0];
-              core.setOutput("date", last_it_run.toISOString());
+              core.setOutput("date", last_it_run);
               console.log(`Last IT run: ${last_it_run}`);
             } else {
               core.setFailed("There aren't any execution of integration tests in this PR");
@@ -44,8 +42,8 @@ jobs:
         with:
           script: |
             const { data: commits } = await github.rest.pulls.listCommits({
-                        pull_number: context.payload.pull_request.number,
-                        owner: context.payload.enterprise.slug,
+                        issue_number: context.payload.pull_request.number,
+                        owner: context.payload.repository.owner.login,
                         repo: context.payload.repository.name
                       })
             const commits_by_date = commits
