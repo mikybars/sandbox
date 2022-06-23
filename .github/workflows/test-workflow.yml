@@ -1,9 +1,7 @@
 ---
 name: Edited PR (feature)
 
-on:
-  pull_request:
-    types: [opened,labeled,synchronize]
+on: [pull_request]
 
 jobs:
   label:
