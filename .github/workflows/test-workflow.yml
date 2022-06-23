@@ -3,7 +3,7 @@ name: Edited PR (feature)
 
 on:
   pull_request:
-    types: [synchronize,labeled]
+    types: [opened,labeled,synchronize]
 
 jobs:
   label:
