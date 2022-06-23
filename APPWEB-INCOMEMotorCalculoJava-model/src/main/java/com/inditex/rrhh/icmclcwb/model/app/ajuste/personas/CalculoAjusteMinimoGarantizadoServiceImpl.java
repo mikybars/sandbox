@@ -47,8 +47,8 @@ public class CalculoAjusteMinimoGarantizadoServiceImpl extends AbstractCalculoAj
   }
 
   @Override
-  protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste) {
-    this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ajustar(algoritmoAjuste);
+  protected void ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tareaDto) {
+    this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ajustar(algoritmoAjuste, tareaDto);
   }
 
   @Override

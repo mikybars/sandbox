@@ -12,6 +12,7 @@ import static org.mockito.Mockito.verify;
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +26,7 @@ class AbstractTareaCalculoAjusteBaseRepositoryCustomTest {
 
   @Spy
   @InjectMocks
-  private AbstractTareaCalculoAjusteBaseRepositoryCustom abstractTareaCalculoAjusteBaseRepositoryCustom = getClassMock();
+  private AbstractTareaCalculoAjusteBaseRepositoryCustom abstractTareaCalculoAjusteBaseRepositoryCustom = this.getClassMock();
 
   private AbstractTareaCalculoAjusteBaseRepositoryCustom getClassMock() {
     return Mockito.mock(AbstractTareaCalculoAjusteBaseRepositoryCustom.class, Mockito.CALLS_REAL_METHODS);
@@ -36,9 +37,9 @@ class AbstractTareaCalculoAjusteBaseRepositoryCustomTest {
 
     doReturn(null).when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustar();
 
-    this.abstractTareaCalculoAjusteBaseRepositoryCustom.ajustar(algoritmoAjuste);
+    this.abstractTareaCalculoAjusteBaseRepositoryCustom.ajustar(algoritmoAjuste, new TareaDto());
 
-    verify(this.abstractTareaCalculoAjusteBaseRepositoryCustom, times(1)).ajustar(algoritmoAjuste);
+    verify(this.abstractTareaCalculoAjusteBaseRepositoryCustom, times(1)).ajustar(algoritmoAjuste, new TareaDto());
 
   }
 

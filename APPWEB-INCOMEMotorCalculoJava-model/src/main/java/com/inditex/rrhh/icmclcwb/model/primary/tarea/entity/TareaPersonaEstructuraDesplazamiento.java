@@ -117,4 +117,8 @@ public class TareaPersonaEstructuraDesplazamiento {
   @Column(name = "ICM_ID_ESTRUCTURA_AMBITO", nullable = false, length = 48)
   private String icmIdEstructuraAmbito;
 
+  @NotBlank
+  @Column(name = "ES_INCLUIR_TOTAL_CONDICIONES")
+  private Boolean esIncluirTotalCondiciones;
+
 }

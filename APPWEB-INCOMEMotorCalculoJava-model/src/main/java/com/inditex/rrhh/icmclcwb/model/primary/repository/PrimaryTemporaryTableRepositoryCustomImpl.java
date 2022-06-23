@@ -515,6 +515,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
               ps.setString(9, el.getImporte());
               ps.setString(10, el.getCclIdSeccion());
               ps.setString(11, el.getCclIdSeccionDestino());
+              ps.setInt(12, el.getEsIncluirTotalCondiciones() ? 1 : 0);
             }
 
             @Override

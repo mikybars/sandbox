@@ -69,9 +69,6 @@ class CalculoAjusteBajaItServiceImplTest {
     final TareaDto tarea = this.createTarea();
     this.calculoAjusteBajaItService.precondiciones(tarea, personas);
 
-    verify(this.tareaAmbitoService, times(1)).findByTarea(tarea);
-    verify(this.meta4IcmWsCalcIncomeService, times(1))
-        .getSistemaDestino(SistemaDestinoRequestDto.builder().cclIdOrigen(CCL_ID_COD_ORIGEN).build());
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempPersonas();
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempPersonas();
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempFechasBajaIt();
@@ -82,8 +79,7 @@ class CalculoAjusteBajaItServiceImplTest {
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempCalculoConAjuste();
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempPersonas(tarea, personas,
         TipoPoliticaEnum.BAJA_IT);
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasBajaIt(tarea,
-        SISTEMA_DESITNO);
+    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasBajaIt(tarea);
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasAcumuladasBajaIt();
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
         .insertTempCalculoConAjuste(Collections.singletonList(TipoPoliticaEnum.ANTIGUEDAD));
@@ -92,8 +88,8 @@ class CalculoAjusteBajaItServiceImplTest {
   @Test
   void ajustarTest() {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.calculoAjusteBajaItService.ajustar(algoritmoAjuste);
-    verify(this.tareaCalculoAjusteBajaItRepositoryCustom, times(1)).ajustar(algoritmoAjuste);
+    this.calculoAjusteBajaItService.ajustar(algoritmoAjuste, new TareaDto());
+    verify(this.tareaCalculoAjusteBajaItRepositoryCustom, times(1)).ajustar(algoritmoAjuste, new TareaDto());
   }
 
   @Test
@@ -108,7 +104,7 @@ class CalculoAjusteBajaItServiceImplTest {
   @Test
   void ajustarExceptionTest() throws Exception {
     doThrow(new RuntimeException("Error")).when(this.tareaCalculoAjusteBajaItRepositoryCustom)
-        .ajustar(any(AlgoritmoAjusteDto.class));
+        .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class));
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     final TareaDto tarea = this.createTarea();
     final List<IdPersonaLocalDto> personas = this.createPersonas();

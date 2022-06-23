@@ -2,7 +2,10 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
@@ -62,6 +65,9 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
   @Qualifier(value = "recolectarProperties")
   private RecolectarPropertiesDto recolectarProperties;
 
+  @Autowired
+  private TipoDatoService tipoDatoService;
+
   @Override
   public void saveAbierto(@NotNull final TareaDto tareaDto, final TrabajoDTO trabajoDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -109,37 +115,43 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
             TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
             TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
-            TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()));
+            TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
+            TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA.getId()));
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION,
         Arrays.asList(AppConstants.SECCION_1, AppConstants.SECCION_2, AppConstants.SECCION_3));
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
 
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION,
-        TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION,
         TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
 
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION,
-        TipoDatoEnum.VENTA_FISICA_LOCALIZACION.getId());
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION,
-        TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION,
-        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId());
+    final List<Integer> tiposDatoVentaIpod = this.tipoDatoService
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId()).stream()
+        .map(IdTipoDatoDto::getId).collect(
+            Collectors.toList());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_SECCION,
-        TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId());
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION,
-        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId());
+        tiposDatoVentaIpod);
+    final List<Integer> tiposDatoVentaSint = this.tipoDatoService
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId()).stream()
+        .map(IdTipoDatoDto::getId).collect(
+            Collectors.toList());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_SINT_LOCALIZACION_SECCION,
-        TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId());
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION,
-        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId());
+        tiposDatoVentaSint);
+    final List<Integer> tiposDatoVentaEntregaTienda = this.tipoDatoService.findTipoDatoByTipoGrupoDato(
+        TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId()).stream()
+        .map(IdTipoDatoDto::getId).collect(
+            Collectors.toList());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_TIENDA_LOCALIZACION_SECCION,
-        TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId());
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION,
-        TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION.getId());
+        tiposDatoVentaEntregaTienda);
+    final List<Integer> tiposDatoVentaEntregaDomicilio = this.tipoDatoService.findTipoDatoByTipoGrupoDato(
+        TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_COMPENSAR_SECCION_CERRADA.getId()).stream()
+        .map(IdTipoDatoDto::getId).collect(
+            Collectors.toList());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION,
-        TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId());
+        tiposDatoVentaEntregaDomicilio);
     // valores a establecer
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_IPOD_LOCALIZACION_TRASLADADA,
         TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_TRASLADADA_SECCION.getId());
@@ -277,7 +289,11 @@ public class TareaLocalizacionAbiertaRepositoryCustomImpl implements TareaLocali
         Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
             TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
             TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION.getId(),
-            TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId()));
+            TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION.getId(),
+            TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION_SECCION_TRASLADADA_DIA.getId(),
+            TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_LOCALIZACION_SECCION_TRASLADADA_DIA.getId()));
     this.namedParameterJdbcTemplate.update(this.sqlUpdateActivoTrasladadasSeccion, parameters);
   }
 

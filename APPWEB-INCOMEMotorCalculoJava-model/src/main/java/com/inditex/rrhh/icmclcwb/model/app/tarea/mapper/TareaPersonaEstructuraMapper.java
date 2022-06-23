@@ -256,6 +256,7 @@ public abstract class TareaPersonaEstructuraMapper {
       source = "listaCondicionesDestinoResultItem.idTipoReqComision")
   @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision",
       source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
+  @Mapping(target = "estructuraDesplazamiento.totalCondiciones", source = "totalCondiciones")
   @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "horasOrigen")
   @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "horasDestino")
   @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito",
@@ -267,7 +268,7 @@ public abstract class TareaPersonaEstructuraMapper {
       final ListaCondicionesDestinoResultItemDto listaCondicionesDestinoResultItem, final TareaDto tarea,
       final Integer ordinalEstructura,
       final Integer idTipoOpcionCalculoEfectiva, final Integer idTipoOpcionCalculoEstructura,
-      final Boolean horasOrigen, final Boolean horasDestino);
+      final Boolean horasOrigen, final Boolean horasDestino, final Boolean totalCondiciones);
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "idTarea", source = "tarea.id")
@@ -353,6 +354,7 @@ public abstract class TareaPersonaEstructuraMapper {
       source = "listaCondicionesDestinoResultItem.idTipoReqComision")
   @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision",
       source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
+  @Mapping(target = "estructuraDesplazamiento.totalCondiciones", source = "totalCondiciones")
   @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "horasOrigen")
   @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "horasDestino")
   @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito",
@@ -365,6 +367,6 @@ public abstract class TareaPersonaEstructuraMapper {
       final ListaValoresDestinoResultItemDto listaValoresDestinoResultItem,
       final TareaDto tarea, final Integer ordinalEstructura, final Integer idTipoOpcionCalculoEfectiva,
       final Integer idTipoOpcionCalculoEstructura, final Integer idSeccion, final Boolean horasOrigen,
-      final Boolean horasDestino);
+      final Boolean horasDestino, final Boolean totalCondiciones);
 
 }

@@ -1,9 +1,6 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
-/*
- * Copyright (c) 2022. Inditex
- */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -234,8 +231,8 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
           final String sourceAiSSessionContex;
           sourceAiSSessionContex = this.getAiSSessionContex();
           final String copyAiSSessionContex =
-              ((String) strategy.copy(LocatorUtils.property(locator, "aiSSessionContex", sourceAiSSessionContex),
-                  sourceAiSSessionContex, (this.aiSSessionContex != null)));
+              ((String) strategy.copy(LocatorUtils.property(locator, "aiSSessionContex", sourceAiSSessionContex), sourceAiSSessionContex,
+                  (this.aiSSessionContex != null)));
           copy.setAiSSessionContex(copyAiSSessionContex);
         } else {
           if (aiSSessionContexShouldBeCopiedAndSet == Boolean.FALSE) {

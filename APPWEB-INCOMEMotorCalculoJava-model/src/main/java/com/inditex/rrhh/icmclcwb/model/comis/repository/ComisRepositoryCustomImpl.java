@@ -247,16 +247,20 @@ public class ComisRepositoryCustomImpl
             .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
             .cclIdSeccionDestino(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION_DESTINO))
             .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
+            .esIncluirTotalCondiciones(
+                SqlComisConstants.SQL_VALUE_BOOLEAN_TRUE.equals(rs.getString(SqlComisConstants.SQL_RESULT_ES_INCLUIR_TOTAL_COMISION)))
             .build());
   }
 
   @Override
-  public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(final TareaDto tarea) {
+  public List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoEs(final TareaDto tarea, final PeriodoDto periodoAmpliado) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
     map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE,
         TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
     map.addValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA,
         TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO,
+        TimeUtils.toDate(periodoAmpliado.getFechaInicioPeriodo()));
 
     return this.query(this.sqlFindCondicionesDesplazamientoEs, map,
         (rs, rowNum) -> IdPersonaLocalCondicionesDto
@@ -272,6 +276,8 @@ public class ComisRepositoryCustomImpl
             .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
             .cclIdSeccionDestino(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION_DESTINO))
             .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
+            .esIncluirTotalCondiciones(
+                SqlComisConstants.SQL_VALUE_BOOLEAN_TRUE.equals(rs.getString(SqlComisConstants.SQL_RESULT_ES_INCLUIR_TOTAL_COMISION)))
             .build());
   }
 
@@ -501,6 +507,7 @@ public class ComisRepositoryCustomImpl
             .importe(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE))
             .cclIdSeccionDestino(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION_DESTINO))
             .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
+            .esIncluirTotalCondiciones(Boolean.FALSE)
             .build());
   }
 

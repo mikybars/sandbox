@@ -73,8 +73,8 @@ class CalculoAjusteMaximoGarantizadoServiceImplTest {
   @Test
   void ajustarTest() {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
-    this.calculoAjusteMaximoGarantizadoService.ajustar(algoritmoAjuste);
-    verify(this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom, times(1)).ajustar(algoritmoAjuste);
+    this.calculoAjusteMaximoGarantizadoService.ajustar(algoritmoAjuste, new TareaDto());
+    verify(this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom, times(1)).ajustar(algoritmoAjuste, new TareaDto());
   }
 
   @Test
@@ -91,7 +91,7 @@ class CalculoAjusteMaximoGarantizadoServiceImplTest {
   @Test
   void ajustarExceptionTest() throws Exception {
     doThrow(new RuntimeException("Error")).when(this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom)
-        .ajustar(any(AlgoritmoAjusteDto.class));
+        .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class));
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     final TareaDto tarea = this.createTarea();
     final List<IdPersonaLocalDto> personas = this.createPersonas();

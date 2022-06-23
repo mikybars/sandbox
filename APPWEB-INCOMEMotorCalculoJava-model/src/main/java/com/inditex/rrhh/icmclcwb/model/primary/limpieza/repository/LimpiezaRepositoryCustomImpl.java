@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -86,6 +88,15 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
   @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.personas.tareaCalculoAjusteComision']}")
   private String sqlPersonasTareaCalculoAjusteComision;
+
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.tareaFase']}")
+  private String sqlTareaFase;
+
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.tareaFaseAccion']}")
+  private String sqlTareaFaseAccion;
+
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.tareaFaseAccionDato']}")
+  private String sqlTareaFaseAccionDato;
 
   // Consultas de limpieza
   @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaCalculo']}")
@@ -201,6 +212,15 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
   @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaCalculoAjusteComision']}")
   private String sqlLimpiezaTareaCalculoAjusteComision;
+
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaFase']}")
+  private String sqlLimpiezaTareaFase;
+
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaFaseAccion']}")
+  private String sqlLimpiezaTareaFaseAccion;
+
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaFaseAccionDato']}")
+  private String sqlLimpiezaTareaFaseAccionDato;
 
   @Value("${app.envars.limpieza.batch-size.default:1}")
   private int batchSize;
@@ -376,6 +396,24 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
   }
 
+  @Override
+  public void limpiezaTareaProfunda(
+      @NotNull @Valid final TareaDto tarea,
+      @NotNull @Valid final TareaAmbitoDto ambito) {
+
+    this.limpieza(tarea, ambito);
+
+    final List<MapSqlParameterSource> idTareaBatchArgs = this.getParametersTarea(tarea);
+
+    // Limpieza tabla TAREA_FASE_ACCION_DATO
+    this.limpiezaTareaFaseAccionDato(tarea);
+    // Limpieza tabla TAREA_FASE_ACCION
+    this.limpiezaTareaFaseAccion(tarea);
+    // Limpieza tabla TAREA_FASE
+    this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaFase,
+        idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
+  }
+
   protected void limpiezaTareaCalculoAjusteComision(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersPersonaTareaCalculoAjusteComision = this
         .getParametersPersonaLocalStdOrPeriod(tarea,
@@ -383,6 +421,28 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     for (final List<MapSqlParameterSource> iter : StreamUtils.partition(parametersPersonaTareaCalculoAjusteComision,
         this.batchSize)) {
       this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaCalculoAjusteComision,
+          iter.toArray(new MapSqlParameterSource[0]));
+    }
+  }
+
+  protected void limpiezaTareaFaseAccionDato(@NotNull @Valid final TareaDto tarea) {
+    final List<MapSqlParameterSource> parametersTareaFaseAccionDato = this
+        .getParametersTareaFaseAccionDato(tarea,
+            this.sqlTareaFaseAccionDato);
+    for (final List<MapSqlParameterSource> iter : StreamUtils.partition(parametersTareaFaseAccionDato,
+        this.batchSize)) {
+      this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaFaseAccionDato,
+          iter.toArray(new MapSqlParameterSource[0]));
+    }
+  }
+
+  protected void limpiezaTareaFaseAccion(@NotNull @Valid final TareaDto tarea) {
+    final List<MapSqlParameterSource> parametersTareaFaseAccion = this
+        .getParametersTareaFaseAccion(tarea,
+            this.sqlTareaFaseAccion);
+    for (final List<MapSqlParameterSource> iter : StreamUtils.partition(parametersTareaFaseAccion,
+        this.batchSize)) {
+      this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaFaseAccion,
           iter.toArray(new MapSqlParameterSource[0]));
     }
   }
@@ -604,6 +664,33 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     return batchArgs;
   }
 
+  private List<MapSqlParameterSource> getParametersTareaFaseAccionDato(final TareaDto tarea, final String sql) {
+    final List<MapSqlParameterSource> batchArgs = new ArrayList<>();
+    final List<IdTareaFaseAccionDto> tareaFaseAccionDtos = this.findIdsTareaFaseAccion(tarea, sql);
+    tareaFaseAccionDtos.forEach(tareaFaseAccionDto -> {
+      final Map<String, Object> map = new HashMap<>();
+      map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE_ACCION, tareaFaseAccionDto.getIdTareaFaseAccion());
+      final MapSqlParameterSource arg = new MapSqlParameterSource();
+      map.forEach(arg::addValue);
+      batchArgs.add(arg);
+    });
+    return batchArgs;
+  }
+
+  private List<MapSqlParameterSource> getParametersTareaFaseAccion(final TareaDto tarea, final String sql) {
+    final List<org.springframework.jdbc.core.namedparam.MapSqlParameterSource> batchArgs = new ArrayList<>();
+    final List<IdTareaFaseDto> tareaFaseDtos = this.findIdsTareaFase(tarea, sql);
+    tareaFaseDtos.forEach(tareaFaseDto -> {
+      final Map<String, Object> map = new HashMap<>();
+      map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE, tareaFaseDto.getIdTareaFase());
+      final org.springframework.jdbc.core.namedparam.MapSqlParameterSource arg =
+          new org.springframework.jdbc.core.namedparam.MapSqlParameterSource();
+      map.forEach(arg::addValue);
+      batchArgs.add(arg);
+    });
+    return batchArgs;
+  }
+
   private List<IdPersonaLocalDto> findIdPersonaByIdTarea(final TareaDto tarea, final String sql) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
@@ -624,6 +711,22 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         .builder()
         .idPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL))
         .stdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA))
+        .build());
+  }
+
+  private List<IdTareaFaseAccionDto> findIdsTareaFaseAccion(final TareaDto tarea, final String sql) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    return this.namedParameterJdbcTemplate.query(sql, parameters,
+        (rs, rowNum) -> IdTareaFaseAccionDto.builder().idTareaFaseAccion(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_TAREA_FASE_ACCION))
+            .build());
+  }
+
+  private List<IdTareaFaseDto> findIdsTareaFase(final TareaDto tarea, final String sql) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    return this.namedParameterJdbcTemplate.query(sql, parameters, (rs, rowNum) -> IdTareaFaseDto.builder()
+        .idTareaFase(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_TAREA_FASE))
         .build());
   }
 

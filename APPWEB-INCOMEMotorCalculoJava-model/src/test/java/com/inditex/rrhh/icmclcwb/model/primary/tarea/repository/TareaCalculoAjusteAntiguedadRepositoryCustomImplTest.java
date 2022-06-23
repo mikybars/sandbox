@@ -16,8 +16,10 @@ import java.util.Map;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,6 +53,12 @@ class TareaCalculoAjusteAntiguedadRepositoryCustomImplTest {
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+  @Mock
+  private TareaAmbitoService tareaAmbitoService;
+
+  @Mock
+  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @Captor
   private ArgumentCaptor<MapSqlParameterSource> paramsCaptor;
@@ -180,15 +188,15 @@ class TareaCalculoAjusteAntiguedadRepositoryCustomImplTest {
 
   @Test
   void ajustarNumParamsTest() {
-    this.tareaCalculoAjusteAntiguedadRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste());
+    this.tareaCalculoAjusteAntiguedadRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste(), new TareaDto());
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_AJUSTAR), this.paramsCaptor.capture());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
-    assertEquals(2, params.getValues().size());
+    assertEquals(5, params.getValues().size());
   }
 
   @Test
   void ajustarIdAlgoritmoAjusteParamsTest() {
-    this.tareaCalculoAjusteAntiguedadRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste());
+    this.tareaCalculoAjusteAntiguedadRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste(), new TareaDto());
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_AJUSTAR), this.paramsCaptor.capture());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
     assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO_AJUSTE));
@@ -197,7 +205,7 @@ class TareaCalculoAjusteAntiguedadRepositoryCustomImplTest {
 
   @Test
   void ajustarInactivoParamsTest() {
-    this.tareaCalculoAjusteAntiguedadRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste());
+    this.tareaCalculoAjusteAntiguedadRepositoryCustomImpl.ajustar(this.createAlgoritmoAjuste(), new TareaDto());
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_AJUSTAR), this.paramsCaptor.capture());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
     assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));

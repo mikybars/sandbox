@@ -18,14 +18,14 @@ public abstract class AbstractCalculoAjusteBaseService {
 
   protected abstract void postcondiciones();
 
-  protected abstract void ajustar(AlgoritmoAjusteDto algoritmoAjuste);
+  protected abstract void ajustar(AlgoritmoAjusteDto algoritmoAjuste, TareaDto tarea);
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   public void ajustar(final AlgoritmoAjusteDto algoritmoAjuste, final TareaDto tarea,
       final List<IdPersonaLocalDto> personas) {
     try {
       this.precondiciones(tarea, personas);
-      this.ajustar(algoritmoAjuste);
+      this.ajustar(algoritmoAjuste, tarea);
     } finally {
       this.postcondiciones();
     }

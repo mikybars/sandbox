@@ -1,9 +1,6 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
-/*
- * Copyright (c) 2022. Inditex
- */
 import javax.xml.ws.WebFault;
 
 /**
@@ -13,6 +10,8 @@ import javax.xml.ws.WebFault;
 @WebFault(name = "fault", targetNamespace = "http://schemas.meta4.com/")
 public class M4SoapException_Exception
     extends Exception {
+
+  private static final long serialVersionUID = -781586420857169571L;
 
   /**
    * Java type that goes as soapenv:Fault detail element.
@@ -43,7 +42,7 @@ public class M4SoapException_Exception
 
   /**
    *
-   * @return returns fault bean: com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.M4SoapException
+   * @return returns fault bean: com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException
    */
   public M4SoapException getFaultInfo() {
     return this.faultInfo;

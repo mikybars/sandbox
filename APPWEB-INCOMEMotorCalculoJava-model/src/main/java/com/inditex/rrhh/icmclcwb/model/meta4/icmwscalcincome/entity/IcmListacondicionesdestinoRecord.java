@@ -1,9 +1,6 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
-/*
- * Copyright (c) 2022. Inditex
- */
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -53,6 +50,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="idtipocomision" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idpuestodestino" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idsecciondestino" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="totalcondiciones" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idtiporeqcomision" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idestructuraambito" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="idestructuradestino" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
@@ -88,6 +86,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "idtipocomision",
     "idpuestodestino",
     "idsecciondestino",
+    "totalcondiciones",
     "idtiporeqcomision",
     "idestructuraambito",
     "idestructuradestino",
@@ -152,6 +151,9 @@ public class IcmListacondicionesdestinoRecord implements Serializable, Cloneable
 
   @XmlElement(required = true, nillable = true)
   protected String idsecciondestino;
+
+  @XmlElement(required = true, nillable = true)
+  protected String totalcondiciones;
 
   @XmlElement(required = true, nillable = true)
   protected String idtiporeqcomision;
@@ -531,6 +533,26 @@ public class IcmListacondicionesdestinoRecord implements Serializable, Cloneable
   }
 
   /**
+   * Obtiene el valor de la propiedad totalcondiciones.
+   *
+   * @return possible object is {@link String }
+   *
+   */
+  public String getTotalcondiciones() {
+    return totalcondiciones;
+  }
+
+  /**
+   * Define el valor de la propiedad totalcondiciones.
+   *
+   * @param value allowed object is {@link String }
+   *
+   */
+  public void setTotalcondiciones(String value) {
+    this.totalcondiciones = value;
+  }
+
+  /**
    * Obtiene el valor de la propiedad idtiporeqcomision.
    *
    * @return possible object is {@link String }
@@ -870,6 +892,17 @@ public class IcmListacondicionesdestinoRecord implements Serializable, Cloneable
       }
     }
     {
+      String lhsTotalcondiciones;
+      lhsTotalcondiciones = this.getTotalcondiciones();
+      String rhsTotalcondiciones;
+      rhsTotalcondiciones = that.getTotalcondiciones();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "totalcondiciones", lhsTotalcondiciones),
+          LocatorUtils.property(thatLocator, "totalcondiciones", rhsTotalcondiciones), lhsTotalcondiciones, rhsTotalcondiciones,
+          (this.totalcondiciones != null), (that.totalcondiciones != null))) {
+        return false;
+      }
+    }
+    {
       String lhsIdtiporeqcomision;
       lhsIdtiporeqcomision = this.getIdtiporeqcomision();
       String rhsIdtiporeqcomision;
@@ -1061,6 +1094,11 @@ public class IcmListacondicionesdestinoRecord implements Serializable, Cloneable
       strategy.appendField(locator, this, "idsecciondestino", buffer, theIdsecciondestino, (this.idsecciondestino != null));
     }
     {
+      String theTotalcondiciones;
+      theTotalcondiciones = this.getTotalcondiciones();
+      strategy.appendField(locator, this, "totalcondiciones", buffer, theTotalcondiciones, (this.totalcondiciones != null));
+    }
+    {
       String theIdtiporeqcomision;
       theIdtiporeqcomision = this.getIdtiporeqcomision();
       strategy.appendField(locator, this, "idtiporeqcomision", buffer, theIdtiporeqcomision, (this.idtiporeqcomision != null));
@@ -1203,6 +1241,12 @@ public class IcmListacondicionesdestinoRecord implements Serializable, Cloneable
       theIdsecciondestino = this.getIdsecciondestino();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "idsecciondestino", theIdsecciondestino), currentHashCode,
           theIdsecciondestino, (this.idsecciondestino != null));
+    }
+    {
+      String theTotalcondiciones;
+      theTotalcondiciones = this.getTotalcondiciones();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "totalcondiciones", theTotalcondiciones), currentHashCode,
+          theTotalcondiciones, (this.totalcondiciones != null));
     }
     {
       String theIdtiporeqcomision;
@@ -1511,6 +1555,20 @@ public class IcmListacondicionesdestinoRecord implements Serializable, Cloneable
         } else {
           if (idsecciondestinoShouldBeCopiedAndSet == Boolean.FALSE) {
             copy.idsecciondestino = null;
+          }
+        }
+      }
+      {
+        Boolean totalcondicionesShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.totalcondiciones != null));
+        if (totalcondicionesShouldBeCopiedAndSet == Boolean.TRUE) {
+          String sourceTotalcondiciones;
+          sourceTotalcondiciones = this.getTotalcondiciones();
+          String copyTotalcondiciones = ((String) strategy.copy(LocatorUtils.property(locator, "totalcondiciones", sourceTotalcondiciones),
+              sourceTotalcondiciones, (this.totalcondiciones != null)));
+          copy.setTotalcondiciones(copyTotalcondiciones);
+        } else {
+          if (totalcondicionesShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.totalcondiciones = null;
           }
         }
       }
