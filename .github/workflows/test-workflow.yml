@@ -1,9 +1,7 @@
 ---
-name: Edited PR (feature)
+name: Test workflow #1
 
-on:
-  pull_request:
-    types: [labeled,synchronize]
+on: [pull_request]
 
 jobs:
   label:
