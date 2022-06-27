@@ -23,7 +23,7 @@ jobs:
               .filter((c) => c.body === "/test-qa --kind integration")
               .map((c) => c.updated_at)
               .map((d) => new Date(d))
-              .sort((d1, d2) => d1.getTime() - d2.getTime());
+              .sort((d1, d2) => d2.getTime() - d1.getTime());
 
             if (it_run_dates.length > 0) {
               const last_it_run = it_run_dates[0];
