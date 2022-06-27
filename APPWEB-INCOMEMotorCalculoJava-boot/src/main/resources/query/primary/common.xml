@@ -2969,7 +2969,7 @@ VALUES(:fechaFin, :fechaInicio, :cclIdSeccionEfectiva, :cclIdSeccionEstructura, 
   <entry key="TareaPersonaEstructuraDesplazamientoRepositoryCustom.save">
     <![CDATA[
 INSERT INTO TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO (ID_TAREA, ICM_ID_ESTR_COMISION, ORDINAL_ESTRUCTURA, FECHA_INICIO, FECHA_FIN, ID_TIPO_OPCION_CALCULO_ESTRUCTURA, ID_TIPO_OPCION_CALCULO_EFECTIVA, CCL_ID_PUESTO_DESTINO, CCL_ID_SECCION_DESTINO, CCL_ID_COD_ORIGEN_DESTINO, STD_ID_WORK_LOCAT_DESTINO, ES_HORAS_ORIGEN, ES_HORAS_DESTINO, ICM_ID_TP_REQ_COMISION, ES_ACTIVO, CCL_ID_ORIGEN, CCL_ID_PERSON, ICM_ID_ESTR_COMISION_PADRE, ICM_ID_ESTR_COMISION_BASE, STD_ID_HR, STD_OR_HR_PERIOD, ICM_ID_ESTRUCTURA_AMBITO, FECHA_INICIO_PERIODO, ES_INCLUIR_TOTAL_CONDICIONES)
-VALUES(:tarea.id, :icmIdEstrComision, :ordinalEstructura, :fechaInicio, :fechaFin, :tipoOpcionCalculoEstructura.id, :tipoOpcionCalculoEfectiva.id, :cclIdPuestoDestino, :cclIdSeccionDestino, :cclIdCodOrigenDestino, :stdIdWorkLocatDestino, :horasOrigen, :horasDestino, :icmIdTpReqCom, :activo, :cclIdOrigen, :cclIdPerson, :icmIdEstrComisionPadre, :icmIdEstrComisionBase, :stdIdHr, :stdOrHrPeriod, :icmIdEstructuraAmbito, :pk.fechaInicioPeriodo, 0)
+VALUES(:tarea.id, :icmIdEstrComision, :ordinalEstructura, :fechaInicio, :fechaFin, :tipoOpcionCalculoEstructura.id, :tipoOpcionCalculoEfectiva.id, :cclIdPuestoDestino, :cclIdSeccionDestino, :cclIdCodOrigenDestino, :stdIdWorkLocatDestino, :horasOrigen, :horasDestino, :icmIdTpReqCom, :activo, :cclIdOrigen, :cclIdPerson, :icmIdEstrComisionPadre, :icmIdEstrComisionBase, :stdIdHr, :stdOrHrPeriod, :icmIdEstructuraAmbito, :pk.fechaInicioPeriodo, :esIncluirTotalCondiciones)
     ]]>
   </entry>
 
@@ -3118,6 +3118,7 @@ HAVING COUNT(*) > 1
         ON TTVS.FECHA_INICIO_PERIODO = TTPS.FECHA_INICIO_PERIODO
         AND TTVS.ID_TAREA = TTPS.ID_TAREA
         AND TTVS.CCL_ID_COD_ORIGEN = TTPS.CCL_ID_COD_ORIGEN
+        AND TTVS.CCL_ID_SECCION = TTPS.CCL_ID_SECCION
         AND TTVS.FECHA = TTPS.FECHA
         INNER JOIN TAREA_TIPO_HORA TTH
         ON TTH.ID_TAREA = TTPS.ID_TAREA
@@ -7666,7 +7667,7 @@ FROM (
         DESPLAZAMIENTO.STD_ID_HR,
         DESPLAZAMIENTO.STD_OR_HR_PERIOD,
         DESPLAZAMIENTO.FECHA_INICIO_PERIODO,
-        0 AS ES_INCLUIR_TOTAL_CONDICIONES
+        DESPLAZAMIENTO.ES_INCLUIR_TOTAL_CONDICIONES
       FROM SESSION.GTT_ESTRUCTURAS_BASE_SIN_BANDA_DESPLAZAMIENTO BANDAS
       INNER JOIN TAREA_PERSONA_ESTRUCTURA ESTRUCTURA_BASE
       ON BANDAS.FECHA_INICIO_PERIODO = ESTRUCTURA_BASE.FECHA_INICIO_PERIODO

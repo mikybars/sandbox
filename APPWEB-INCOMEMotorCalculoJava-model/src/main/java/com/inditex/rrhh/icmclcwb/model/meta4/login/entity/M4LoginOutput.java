@@ -167,9 +167,8 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
         if (sessionIDShouldBeCopiedAndSet == Boolean.TRUE) {
           final String sourceSessionID;
           sourceSessionID = this.getSessionID();
-          final String copySessionID =
-              ((String) strategy.copy(LocatorUtils.property(locator, "sessionID", sourceSessionID), sourceSessionID,
-                  (this.sessionID != null)));
+          final String copySessionID = ((String) strategy.copy(LocatorUtils.property(locator, "sessionID", sourceSessionID),
+              sourceSessionID, (this.sessionID != null)));
           copy.setSessionID(copySessionID);
         } else {
           if (sessionIDShouldBeCopiedAndSet == Boolean.FALSE) {

@@ -55,7 +55,7 @@ public class RunTareaAmbitoValidarCondicionesDesplazamientoEsServiceImpl extends
     final List<IdPersonaLocalDto> desplazamientoValidationResult;
     try {
       final CompletableFuture<List<IdPersonaLocalCondicionesDto>> cfCondicionesDesplazamiento = this.comisAsyncService
-          .findCondicionesDesplazamiento(runTareaDto, tareaAmbito);
+          .findCondicionesDesplazamientoEs(runTareaDto, tareaAmbito);
       AsyncUtils.exceptionally(cfCondicionesDesplazamiento, cf);
 
       AsyncUtils.waitAllOfIsOk(cf, cf);
