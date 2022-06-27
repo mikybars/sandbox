@@ -1,32 +1,55 @@
 ---
-name: Test workflow no.1
+name: Test workflow no. 2
 
 on: [pull_request]
 
 jobs:
-  label:
-    name: Remove label
-    if: ${{ github.event.action == 'labeled' && github.event.label.name == 'my-label' }}
-    runs-on: ubuntu-latest
+  check-it:
+    name: Verify ITs
+    runs-on: [ubuntu-latest]
     steps:
       - name: Find last IT run
-        uses: actions/github-script@v5
+        id: find-last-it-run
+        uses: actions/github-script@v6
         with:
           script: |
-            console.log(context);
-            github.rest.issues.removeLabel({
+            const { data: comments } = await github.rest.issues.listComments({
                         issue_number: context.payload.pull_request.number,
-                        owner: context.payload.repository.owner.login,
-                        repo: context.payload.repository.name,
-                        name: "my-label"
-                      });
+                        owner: context.payload.enterprise.slug,
+                        repo: context.payload.repository.name
+                      })
 
-  label2:
-    name: Fail check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Find last IT run
-        uses: actions/github-script@v5
+            const it_run_dates = comments
+              .filter((c) => c.body === "/test-qa --kind integration")
+              .map((c) => c.updated_at)
+              .map((d) => new Date(d))
+              .sort((d1, d2) => d1.getTime() - d2.getTime());
+
+            if (it_run_dates.length > 0) {
+              const last_it_run = it_run_dates[0];
+              core.setOutput("date", last_it_run.toISOString());
+              console.log(`Last IT run: ${last_it_run}`);
+            } else {
+              core.setFailed("There aren't any execution of integration tests in this PR");
+            }
+
+      - name: Find commits after last IT run
+        uses: actions/github-script@v6
+        env:
+          LAST_IT_RUN: ${{ steps.find-last-it-run.outputs.date }}
         with:
           script: |
-            core.setFailed("No integration tests");
+            const { data: commits } = await github.rest.pulls.listCommits({
+                        pull_number: context.payload.pull_request.number,
+                        owner: context.payload.enterprise.slug,
+                        repo: context.payload.repository.name
+                      })
+            const commits_by_date = commits
+              .map((c) => c.commit.committer.date)
+              .map((d) => new Date(d))
+              .sort((d1, d2) => d2.getTime() - d1.getTime());  // reverse order !!
+            const last_commit_date = commits_by_date[0];
+            console.log(`Last commit date: ${last_commit_date}`);
+            if (last_commit_date > new Date(process.env.LAST_IT_RUN)) {
+              core.setFailed("Some commits have been pushed without running ITs");
+            }
