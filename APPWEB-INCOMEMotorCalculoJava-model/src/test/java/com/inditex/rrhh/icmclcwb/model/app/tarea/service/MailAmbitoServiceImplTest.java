@@ -1,7 +1,6 @@
-package com.inditex.rrhh.icmclcwb.model.app.tarea.service;/*
- * Copyright (c) 2022.  Inditex
+/*
+ * Copyright (c) 2022. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
@@ -24,29 +23,29 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
 class MailAmbitoServiceImplTest {
 
-    @Mock
-    private MailAmbitoRepositoryCustomImpl mailAmbitoRepositoryCustom;
+  @Mock
+  private MailAmbitoRepositoryCustomImpl mailAmbitoRepositoryCustom;
 
-    @InjectMocks
-    private MailAmbitoServiceImpl mailAmbitoService;
+  @InjectMocks
+  private MailAmbitoServiceImpl mailAmbitoService;
 
-    @Test
-    public void getMailByOrigenEmpresaTest (@Random(size = 4, type= MailAmbitoDto.class) final List<MailAmbitoDto> mailAmbitos) {
+  @Test
+  public void getMailByOrigenEmpresaTest(@Random(size = 4, type = MailAmbitoDto.class) final List<MailAmbitoDto> mailAmbitos) {
 
-        final String cclIdOrigen = "60";
-        final String stdIdLegEnt = "179";
+    final String cclIdOrigen = "60";
+    final String stdIdLegEnt = "179";
 
-        doReturn(mailAmbitos).when(this.mailAmbitoRepositoryCustom)
-            .findMailByCclIdOrigenAndStdIdLegEnt(cclIdOrigen, stdIdLegEnt);
+    doReturn(mailAmbitos).when(this.mailAmbitoRepositoryCustom)
+        .findMailByCclIdOrigenAndStdIdLegEnt(cclIdOrigen, stdIdLegEnt);
 
-        final List<String> expectedResult = mailAmbitos.stream().map(x -> x.getMail()).collect(Collectors.toList());
+    final List<String> expectedResult = mailAmbitos.stream().map(x -> x.getMail()).collect(Collectors.toList());
 
-        final List<String> result = this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(cclIdOrigen, stdIdLegEnt);
+    final List<String> result = this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(cclIdOrigen, stdIdLegEnt);
 
-        verify(this.mailAmbitoRepositoryCustom, times(1))
-            .findMailByCclIdOrigenAndStdIdLegEnt(cclIdOrigen, stdIdLegEnt);
-        assertEquals(expectedResult, result);
+    verify(this.mailAmbitoRepositoryCustom, times(1))
+        .findMailByCclIdOrigenAndStdIdLegEnt(cclIdOrigen, stdIdLegEnt);
+    assertEquals(expectedResult, result);
 
-    }
+  }
 
 }

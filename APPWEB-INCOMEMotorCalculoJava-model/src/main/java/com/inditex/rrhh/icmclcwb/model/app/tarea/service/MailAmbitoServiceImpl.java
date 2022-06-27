@@ -12,7 +12,9 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.MailAmbitoReposi
 
 import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MailAmbitoServiceImpl implements MailAmbitoService {
 
   @Autowired
