@@ -41,7 +41,7 @@ jobs:
           script: |
             const { data: commits } = await github.rest.pulls.listCommits({
                         pull_number: context.payload.pull_request.number,
-                        owner: context.payload.enterprise.slug,
+                        owner: "almibarss",
                         repo: context.payload.repository.name
                       })
             const commits_by_date = commits
