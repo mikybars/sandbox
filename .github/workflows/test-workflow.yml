@@ -1,5 +1,5 @@
 ---
-name: Test workflow #1
+name: Test workflow no.1
 
 on: [pull_request]
 
