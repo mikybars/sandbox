@@ -15,7 +15,7 @@ jobs:
           script: |
             const { data: comments } = await github.rest.issues.listComments({
                         issue_number: context.payload.pull_request.number,
-                        owner: context.payload.enterprise.slug,
+                        owner: "almibarss",
                         repo: context.payload.repository.name
                       })
 
