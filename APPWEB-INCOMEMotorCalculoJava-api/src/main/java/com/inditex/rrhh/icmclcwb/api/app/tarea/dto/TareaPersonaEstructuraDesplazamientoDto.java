@@ -113,4 +113,8 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
   @ApiModelProperty(value = "Fecha inicio periodo", required = true)
   private LocalDate fechaInicioPeriodo;
 
+  @NotNull
+  @ApiModelProperty(value = "Flag incluir total condiciones", required = true)
+  private Boolean totalCondiciones;
+
 }

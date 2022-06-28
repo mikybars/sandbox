@@ -39,12 +39,12 @@ public class CalculoAjusteBajaItServiceImpl extends AbstractCalculoAjusteBaseSer
     this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempFechasAcumuladasBajaIt();
     this.primaryTemporaryTablePoliticasRepositoryCustom.createTempCalculoConAjuste();
     this.primaryTemporaryTablePoliticasRepositoryCustom.createIndexTempCalculoConAjuste();
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonas(tarea, personas,
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonasBajaIt(tarea, personas,
         TipoPoliticaEnum.BAJA_IT);
     this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasBajaIt(tarea);
     this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempFechasAcumuladasBajaIt();
     this.primaryTemporaryTablePoliticasRepositoryCustom
-        .insertTempCalculoConAjuste(Collections.singletonList(TipoPoliticaEnum.ANTIGUEDAD));
+        .insertTempCalculoConAjusteBajaIt(Collections.singletonList(TipoPoliticaEnum.ANTIGUEDAD));
   }
 
   @Override

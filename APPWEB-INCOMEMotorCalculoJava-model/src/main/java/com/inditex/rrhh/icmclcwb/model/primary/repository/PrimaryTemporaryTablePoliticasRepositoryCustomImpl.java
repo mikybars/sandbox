@@ -45,6 +45,9 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
   @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonas']}")
   private String sqlInsertTempPersonas;
 
+  @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonasBajaIt']}")
+  private String sqlInsertTempPersonasBajaIt;
+
   @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempPersonas']}")
   private String sqlIndexTempPersonas;
 
@@ -56,6 +59,9 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
 
   @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjuste']}")
   private String sqlInsertTempCalculoConAjuste;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteBajaIt']}")
+  private String sqlInsertTempCalculoConAjusteBajaIt;
 
   @Value("#{primaryQuery['PrimaryTemporaryTablePoliticasRepositoryCustom.indexTempCalculoConAjuste']}")
   private String sqlIndexTempCalculoConAjuste;
@@ -228,6 +234,23 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
   }
 
   @Override
+  public void insertTempPersonasBajaIt(final TareaDto tarea,
+      final List<IdPersonaLocalDto> personas,
+      final TipoPoliticaEnum tipoPolitica) {
+    final List<MapSqlParameterSource> batchArgs = new ArrayList<>();
+    personas.forEach(persona -> {
+      final MapSqlParameterSource arg = new MapSqlParameterSource();
+      arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+      arg.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
+      arg.addValue(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
+      arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA, tipoPolitica.getId());
+      batchArgs.add(arg);
+    });
+    this.namedParameterJdbcTemplate.batchUpdate(this.sqlInsertTempPersonasBajaIt,
+        batchArgs.toArray(new MapSqlParameterSource[0]));
+  }
+
+  @Override
   public int createIndexTempPersonas() {
     return this.jdbcTemplate.update(this.sqlIndexTempPersonas);
   }
@@ -259,6 +282,15 @@ public class PrimaryTemporaryTablePoliticasRepositoryCustomImpl
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
         politicas.stream().map(TipoPoliticaEnum::getIdMeta4).collect(Collectors.toList()));
     this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoConAjuste, params);
+  }
+
+  @Override
+  public void insertTempCalculoConAjusteBajaIt(final List<TipoPoliticaEnum> politicas) {
+    final MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA_AJUSTE,
+        politicas.stream().map(TipoPoliticaEnum::getIdMeta4).collect(Collectors.toList()));
+    this.namedParameterJdbcTemplate.update(this.sqlInsertTempCalculoConAjusteBajaIt, params);
   }
 
   @Override
